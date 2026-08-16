@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>NUR 258 Mega Quiz</title>
+<style>
+:root{--ink:#f2ecff;--soft:#d6c9f2;--muted:#a99cc9;--line:rgba(255,255,255,.20);
+ --gold:#ffd75e;--sky:#8fd0ff;--green:#5eeaa8;--red:#ff8fa3;--accent:#7ee8ff;
+ --card:rgba(14,10,30,.82)}
+*{box-sizing:border-box}
+body{margin:0;font:17px/1.6 'Segoe UI',system-ui,sans-serif;color:var(--ink);
+ background:linear-gradient(165deg,#0d0a1c 0%,#160f33 55%,#0b1424 100%);
+ min-height:100vh}
+.topbar{position:sticky;top:0;z-index:60;padding:9px 14px;
+ background:rgba(10,6,22,.94);border-bottom:1px solid var(--line);
+ backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+header{padding:20px 20px 18px;background:linear-gradient(135deg,rgba(18,184,134,.72),rgba(0,194,199,.62));
+ border-bottom:1px solid var(--line)}
+header .code{font-weight:900;font-size:.95rem;letter-spacing:.09em;text-transform:uppercase;
+ color:var(--accent)}
+header h1{margin:4px 0 5px;font-size:1.55rem;line-height:1.25}
+header p{margin:0;color:var(--soft);font-size:1rem}
+main{max-width:760px;margin:0 auto;padding:16px 15px 120px}
+
+.filters{background:var(--card);border:1px solid var(--line);border-radius:16px;
+ padding:14px 15px;margin:0 0 14px}
+.frow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 10px}
+.frow:last-of-type{margin-bottom:0}
+.flabel{font-size:.9rem;font-weight:900;text-transform:uppercase;letter-spacing:.06em;
+ color:var(--muted);flex:0 0 100%;margin:0 0 2px}
+.flabel em{font-style:normal;font-weight:700;text-transform:none;letter-spacing:0;
+ color:#8f83b5;margin-left:7px;font-size:.86rem}
+.fbtn.dim{opacity:.34;cursor:not-allowed;text-decoration:line-through}
+.fbtn.dim:hover{background:rgba(255,255,255,.09)}
+.poolnote{margin:12px 0 0;font-size:.95rem;color:var(--soft)}
+.poolnote b{color:var(--accent);font-size:1.05rem}
+.fbtn{background:rgba(255,255,255,.09);color:var(--ink);border:1px solid var(--line);
+ border-radius:22px;padding:9px 15px;font:700 .97rem inherit;cursor:pointer}
+.fbtn:hover{background:rgba(143,208,255,.22)}
+.fbtn.active{background:var(--accent);color:#1a1030;font-weight:900;border-color:var(--accent)}
+.fbtn b{font-weight:900;color:var(--gold)}
+.fbtn.active b{color:#1a1030}
+#customCount{width:170px;font:700 .97rem inherit;padding:9px 13px;border-radius:22px;
+ border:1px solid var(--line);background:rgba(255,255,255,.09);color:var(--ink)}
+#customCount::placeholder{color:var(--muted)}
+#customCount:focus{outline:2px solid var(--accent);outline-offset:1px}
+.frow.cnt .fbtn.active{background:var(--gold);color:#2a1f00}
+.startbar{display:flex;gap:10px;align-items:center;margin-top:12px;flex-wrap:wrap}
+.startbtn{flex:1 1 190px;background:linear-gradient(135deg,#7c2aa8,#0e7490);color:#fff;
+ border:0;border-radius:13px;padding:14px;font:900 1.05rem inherit;cursor:pointer}
+.startbtn:hover{filter:brightness(1.12)}
+
+.scorebar{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;
+ font-size:.98rem;color:var(--soft);margin:6px 2px 12px;font-weight:700}
+.scorebar b{color:var(--ink)}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;
+ padding:18px 19px;min-height:220px}
+.qtags{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 10px}
+.tag{font-size:.88rem;font-weight:800;padding:4px 11px;border-radius:20px;
+ background:rgba(255,255,255,.12);color:var(--soft)}
+.tag.type{background:rgba(196,181,253,.28);color:#e2d6ff}
+.tag.wk{background:rgba(94,234,168,.22);color:#a8f5cf}
+.qtext{font-size:1.1rem;font-weight:700;line-height:1.55;margin:4px 0 14px;
+ overflow-wrap:anywhere}
+.opt{display:flex;gap:11px;align-items:flex-start;width:100%;text-align:left;
+ background:rgba(255,255,255,.06);color:var(--ink);border:1px solid var(--line);
+ border-radius:13px;padding:13px 15px;margin:0 0 9px;font:600 1rem inherit;cursor:pointer;
+ line-height:1.5}
+.opt:hover{background:rgba(143,208,255,.16)}
+.opt .box{flex:0 0 auto;width:22px;height:22px;border-radius:6px;
+ border:2px solid rgba(255,255,255,.5);display:flex;align-items:center;
+ justify-content:center;font-weight:900;font-size:.9rem;margin-top:1px}
+.opt.rad .box{border-radius:50%}
+.opt .otxt{flex:1 1 auto;min-width:0;overflow-wrap:anywhere}
+.opt.sel{border-color:var(--sky);background:rgba(143,208,255,.22)}
+.opt.sel .box{background:var(--sky);color:#08131f}
+.opt.correct{border-color:var(--green);background:rgba(94,234,168,.22)}
+.opt.correct .box{background:var(--green);color:#04231a}
+.opt.wrong{border-color:var(--red);background:rgba(255,143,163,.22)}
+.opt.wrong .box{background:var(--red);color:#2a0410}
+.opt.locked{cursor:default}
+.check{margin-top:6px;background:var(--accent);color:#1a1030;border:0;border-radius:12px;
+ padding:12px 20px;font:900 1rem inherit;cursor:pointer}
+.check:hover{filter:brightness(1.1)}
+.verdict{margin-left:12px;font-weight:900;font-size:1rem}
+.verdict.ok{color:#8ff0c8} .verdict.no{color:#ffb3c0}
+.rat{margin-top:14px;padding:13px 15px;border-left:5px solid var(--gold);
+ background:rgba(255,215,94,.13);border-radius:11px;font-size:1rem;line-height:1.6;
+ color:#f6eeff;display:none}
+.rat.show{display:block}
+.rat b{color:#ffe9a8}
+
+.nav{display:flex;justify-content:space-between;gap:10px;margin:14px 0 0;flex-wrap:wrap}
+.nav button{flex:1 1 130px;background:rgba(255,255,255,.13);color:var(--ink);
+ border:1px solid var(--line);border-radius:13px;padding:13px;font:800 1rem inherit;
+ cursor:pointer}
+.nav button:hover{background:rgba(255,255,255,.26)}
+.nav button:disabled{opacity:.4;cursor:default}
+.done{text-align:center;padding:22px 10px}
+.done h2{margin:0 0 8px;font-size:1.4rem;color:var(--accent)}
+.done p{margin:0 0 6px;font-size:1.05rem}
+
+/* ---- floating navigation, matched to the NUR 198 cluster -------------
+   Small pills in a horizontal row at the TOP right, not a stack of full-width
+   buttons at the bottom. She asked for these to look like 198's, and the reason
+   198's work is that they shed their labels as soon as the viewport narrows - at
+   300% zoom the CSS width reads narrow, so what she sees is a row of icons the
+   size of a fingertip rather than a wall of text sitting on the content. */
+#navBtns{position:fixed;top:10px;right:12px;z-index:2147483000;display:flex;gap:7px;
+ align-items:center;touch-action:none;cursor:grab}
+#navBtns.dragging{opacity:.92;cursor:grabbing}
+#navBtns:focus-visible{outline:3px solid var(--accent,#ffd76a);outline-offset:3px}
+#navBtns a,#navBtns button{display:inline-flex;align-items:center;gap:6px;
+ font:800 .95rem 'Segoe UI',system-ui,sans-serif;padding:9px 14px;border-radius:22px;
+ text-decoration:none;cursor:pointer;border:1px solid rgba(255,255,255,.24);
+ box-shadow:0 4px 14px rgba(0,0,0,.5);color:#fff;white-space:nowrap;line-height:1.3;
+ backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+ background:linear-gradient(135deg,#5a2d82,#8e2d6b)}
+#navBtns a:hover,#navBtns button:hover{filter:brightness(1.16)}
+#navBtns .nbQuiz{background:linear-gradient(135deg,#1d4ed8,#2f6bff)}
+#navBtns .nbCast{background:linear-gradient(135deg,#7c2aa8,#b5179e)}
+#navBtns .nbHub{background:linear-gradient(135deg,#0f7d6b,#12b886)}
+@media(max-width:1024px){
+  #navBtns{top:6px;right:6px;gap:5px}
+  #navBtns .nbLabel{display:none}
+  #navBtns a,#navBtns button{padding:9px 12px;font-size:1.15rem;line-height:1}
+}
+@media print{#navBtns{display:none}}
+
+/* ---- NGN item types --------------------------------------------------- */
+.qstem{background:rgba(255,255,255,.07);border-left:5px solid var(--accent);
+ border-radius:0 12px 12px 0;padding:12px 14px;margin:0 0 13px;font-size:1rem;
+ line-height:1.6}
+.qstem h4{margin:0 0 6px;font-size:.94rem;font-weight:900;letter-spacing:.05em;
+ text-transform:uppercase;color:var(--accent)}
+.qstem table{width:100%;border-collapse:collapse;margin:8px 0 0;font-size:.95rem}
+.qstem td,.qstem th{border:1px solid rgba(255,255,255,.22);padding:7px 9px;
+ text-align:left;vertical-align:top}
+.qstem th{background:rgba(255,255,255,.10);font-weight:900}
+.tag.step{background:rgba(143,208,255,.26);color:#d6ecff}
+
+/* bow-tie */
+.bowtie{display:grid;gap:12px;grid-template-columns:1fr;margin:0 0 10px}
+@media(min-width:720px){ .bowtie{grid-template-columns:1fr 1fr 1fr;align-items:start} }
+.btcol h5{margin:0 0 8px;font-size:.95rem;font-weight:900;color:var(--accent);
+ text-align:center}
+.btcol.mid h5{color:var(--gold)}
+.btslot{min-height:52px;border:2px dashed rgba(255,255,255,.32);border-radius:12px;
+ padding:9px 11px;margin:0 0 8px;font-size:.96rem;line-height:1.45;
+ display:flex;align-items:center;justify-content:center;text-align:center;
+ background:rgba(0,0,0,.24)}
+.btslot.filled{border-style:solid;border-color:var(--accent);background:rgba(0,0,0,.42)}
+.btslot.right{border-color:var(--green);background:rgba(94,234,168,.22)}
+.btslot.wrong{border-color:var(--red);background:rgba(255,143,163,.22)}
+.btbank{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+.btopt{background:rgba(255,255,255,.10);border:1px solid var(--line);color:var(--ink);
+ border-radius:12px;padding:10px 13px;font:700 .96rem inherit;cursor:pointer;
+ max-width:100%;text-align:left;line-height:1.4}
+.btopt:hover{background:rgba(143,208,255,.20)}
+.btopt.used{opacity:.35;cursor:default}
+.btbank .bl{flex:0 0 100%;font-weight:900;font-size:.9rem;color:var(--muted);
+ text-transform:uppercase;letter-spacing:.05em;margin:4px 0 0}
+
+/* drop-down cloze */
+.cloze{font-size:1.04rem;line-height:2.1}
+.cloze select{font:800 1rem inherit;padding:7px 10px;border-radius:10px;
+ border:2px solid rgba(255,255,255,.4);background:rgba(0,0,0,.55);color:#fff;
+ margin:0 3px;max-width:100%}
+.cloze select.right{border-color:var(--green);background:rgba(94,234,168,.26)}
+.cloze select.wrong{border-color:var(--red);background:rgba(255,143,163,.26)}
+
+/* matching */
+.match{display:grid;gap:10px;margin:0 0 10px}
+.mrow{display:grid;gap:9px;grid-template-columns:1fr;align-items:center}
+@media(min-width:560px){ .mrow{grid-template-columns:1fr auto} }
+.mleftbox{background:rgba(255,255,255,.08);border:1px solid var(--line);
+ border-radius:12px;padding:11px 13px;font-size:.98rem;line-height:1.45}
+.mrow select{font:800 1rem inherit;padding:10px 12px;border-radius:11px;
+ border:2px solid rgba(255,255,255,.4);background:rgba(0,0,0,.55);color:#fff;
+ min-width:170px;max-width:100%}
+.mrow select.right{border-color:var(--green);background:rgba(94,234,168,.26)}
+.mrow select.wrong{border-color:var(--red);background:rgba(255,143,163,.26)}
+
+/* highlight */
+.hlnote{background:rgba(0,0,0,.34);border:1px solid var(--line);border-radius:13px;
+ padding:13px 15px;margin:0 0 11px;font-size:1rem;line-height:1.85}
+.hltok{cursor:pointer;border-radius:7px;padding:2px 5px;
+ border-bottom:2px dotted rgba(255,255,255,.45)}
+.hltok:hover{background:rgba(143,208,255,.24)}
+.hltok.sel{background:rgba(143,208,255,.34);border-bottom-color:var(--sky)}
+.hltok.right{background:rgba(94,234,168,.34);border-bottom:2px solid var(--green)}
+.hltok.wrong{background:rgba(255,143,163,.34);border-bottom:2px solid var(--red)}
+.hltok.missed{outline:2px dashed var(--green);outline-offset:1px}
+.hlhint{margin:0 0 10px;font-size:.94rem;color:var(--soft);font-style:italic}
+
+/* ---- collapsible side menu ------------------------------------------ */
+#menuBtn{background:rgba(255,255,255,.15);border:1px solid var(--line);color:#fff;
+ border-radius:13px;padding:10px 14px;font:900 .95rem inherit;cursor:pointer;
+ white-space:nowrap;line-height:1}
+#menuBtn:hover{background:rgba(255,255,255,.32)}
+#navBg{position:fixed;inset:0;background:rgba(0,0,0,.62);z-index:99998;opacity:0;
+ pointer-events:none;transition:opacity .2s ease}
+body.nav-open #navBg{opacity:1;pointer-events:auto}
+body.nav-open #navBtns{display:none}
+body.nav-open #skimBtn{display:none}
+#side{position:fixed;top:0;left:0;width:min(88vw,320px);height:100dvh;max-height:100dvh;
+ overflow-y:auto;z-index:99999;transform:translateX(-102%);transition:transform .22s ease;
+ background:rgba(10,6,20,.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+ border-right:1px solid var(--line);box-shadow:6px 0 30px rgba(0,0,0,.65);
+ padding:16px 14px 34px}
+body.nav-open #side{transform:translateX(0)}
+#side .sbrand{font-weight:900;font-size:1.15rem;margin:2px 0 4px;display:block;
+ color:var(--accent)}
+#side .ssub{display:block;font-size:.92rem;color:#d8caf5;margin:0 0 14px}
+#side .shead{font-size:.86rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;
+ color:var(--accent);margin:18px 0 8px}
+#side a.nav,#side button.nav{display:block;width:100%;text-align:left;
+ background:rgba(255,255,255,.09);border:1px solid var(--line);
+ border-left:4px solid rgba(255,255,255,.45);border-radius:12px;padding:12px 14px;
+ margin:0 0 8px;color:#fff;text-decoration:none;font:800 1rem inherit;cursor:pointer}
+#side a.nav:hover,#side button.nav:hover{background:rgba(255,255,255,.22)}
+#side a.nav.on{background:rgba(255,255,255,.26);border-left-color:var(--accent)}
+#side .nsub{display:block;font-weight:600;font-size:.88rem;opacity:.9;margin-top:3px;
+ line-height:1.45}
+#side .sclose{display:block;width:100%;margin:4px 0 10px;background:rgba(255,255,255,.14);
+ border:1px solid var(--line);color:#fff;border-radius:12px;padding:11px;
+ font:900 1rem inherit;cursor:pointer}
+#side .sclose:hover{background:rgba(255,255,255,.3)}
+@media print{#side,#navBg,#menuBtn{display:none !important}}
+</style>
+<link rel="stylesheet" href="absn-adhd-enhanced.css">
+<script defer src="absn-adhd-enhanced.js"></script>
+</head><body>
+
+<div class="topbar">
+  <button type="button" id="menuBtn" aria-expanded="false" aria-controls="side">&#9776; Menu</button>
+</div>
+
+<header>
+  <div class="code">&#129658; NUR 258</div>
+  <h1>&#129504; Mega Quiz</h1>
+  <p>117 questions, one at a time. Answer, check, read the why. Filter by exam or week.</p>
+</header>
+
+<main>
+  <div class="filters">
+    <div class="frow"><span class="flabel">Exam <em>pick as many as you like</em></span><button type="button" class="fbtn active" aria-pressed="true" data-k="exam" data-v="all">All</button><button type="button" class="fbtn" aria-pressed="false" data-k="exam" data-v="Exam 1">Exam 1</button><button type="button" class="fbtn" aria-pressed="false" data-k="exam" data-v="Exam 2">Exam 2</button><button type="button" class="fbtn" aria-pressed="false" data-k="exam" data-v="Exam 3">Exam 3</button><button type="button" class="fbtn" aria-pressed="false" data-k="exam" data-v="Exam 4">Exam 4</button><button type="button" class="fbtn" aria-pressed="false" data-k="exam" data-v="Exam 5">Exam 5</button><button type="button" class="fbtn" aria-pressed="false" data-k="exam" data-v="Final">Final</button></div>
+    <div class="frow"><span class="flabel">Topic <em>pick as many as you like</em></span><button type="button" class="fbtn active" aria-pressed="true" data-k="topic" data-v="all">All</button><button type="button" class="fbtn" aria-pressed="false" data-k="topic" data-v="Sensory Disorders - Eye &amp; Ear" data-full="Week 1 - Sensory Disorders - Eye &amp; Ear" title="Week 1 - Sensory Disorders - Eye &amp; Ear">👁️ <b>W1</b> &middot; Sensory Disorders - Eye & Ear</button><button type="button" class="fbtn" aria-pressed="false" data-k="topic" data-v="Infectious Diseases &amp; HIV" data-full="Week 2 - Infectious Diseases &amp; HIV" title="Week 2 - Infectious Diseases &amp; HIV">🦠 <b>W2</b> &middot; Infectious Diseases & HIV</button><button type="button" class="fbtn" aria-pressed="false" data-k="topic" data-v="Allergic, Inflammatory…" data-full="Week 3 - Allergic, Inflammatory &amp; Immunologic Disorders" title="Week 3 - Allergic, Inflammatory &amp; Immunologic Disorders">🦠 <b>W3</b> &middot; Allergic, Inflammatory…</button><button type="button" class="fbtn" aria-pressed="false" data-k="topic" data-v="Burns" data-full="Week 4 - Burns" title="Week 4 - Burns">🔥 <b>W4</b> &middot; Burns</button><button type="button" class="fbtn" aria-pressed="false" data-k="topic" data-v="Endocrine Disorders" data-full="Week 5 - Endocrine Disorders" title="Week 5 - Endocrine Disorders">⚗️ <b>W5</b> &middot; Endocrine Disorders</button><button type="button" class="fbtn" aria-pressed="false" data-k="topic" data-v="Diabetes" data-full="Week 6 - Diabetes" title="Week 6 - Diabetes">🍬 <b>W6</b> &middot; Diabetes</button><button type="button" class="fbtn" aria-pressed="false" data-k="topic" data-v="Neurologic Dysfunction…" data-full="Week 7 - Neurologic Dysfunction &amp; Cerebrovascular Disorders" title="Week 7 - Neurologic Dysfunction &amp; Cerebrovascular Disorders">🧠 <b>W7</b> &middot; Neurologic Dysfunction…</button><button type="button" class="fbtn" aria-pressed="false" data-k="topic" data-v="Traumatic, Infectious,…" data-full="Week 8 - Traumatic, Infectious, Oncologic &amp; Degenerative Neuro" title="Week 8 - Traumatic, Infectious, Oncologic &amp; Degenerative Neuro">🧠 <b>W8</b> &middot; Traumatic, Infectious,…</button><button type="button" class="fbtn" aria-pressed="false" data-k="topic" data-v="Hematologic Disorders" data-full="Week 9 - Hematologic Disorders" title="Week 9 - Hematologic Disorders">🩸 <b>W9</b> &middot; Hematologic Disorders</button><button type="button" class="fbtn" aria-pressed="false" data-k="topic" data-v="Oncologic Disorders…" data-full="Week 10 - Oncologic Disorders &amp; End-of-Life Care" title="Week 10 - Oncologic Disorders &amp; End-of-Life Care">🎗️ <b>W10</b> &middot; Oncologic Disorders…</button><button type="button" class="fbtn" aria-pressed="false" data-k="topic" data-v="Reproductive Disorders" data-full="Week 11 - Reproductive Disorders" title="Week 11 - Reproductive Disorders">🌸 <b>W11</b> &middot; Reproductive Disorders</button><button type="button" class="fbtn" aria-pressed="false" data-k="topic" data-v="Disaster, Mass Casualty…" data-full="Week 12 - Disaster, Mass Casualty &amp; Emergency Nursing" title="Week 12 - Disaster, Mass Casualty &amp; Emergency Nursing">🚨 <b>W12</b> &middot; Disaster, Mass Casualty…</button><button type="button" class="fbtn" aria-pressed="false" data-k="topic" data-v="Shock &amp; MODS" data-full="Week 13 - Shock &amp; MODS" title="Week 13 - Shock &amp; MODS">🚨 <b>W13</b> &middot; Shock & MODS</button><button type="button" class="fbtn" aria-pressed="false" data-k="topic" data-v="Final Exam Review" data-full="Week 14 - Final Exam Review" title="Week 14 - Final Exam Review">🎯 <b>W14</b> &middot; Final Exam Review</button></div>
+    <div class="frow"><span class="flabel">Focus</span><button type="button" class="fbtn active" aria-pressed="true" data-k="focus" data-v="all">All</button><button type="button" class="fbtn" aria-pressed="false" data-k="focus" data-v="pharm">&#128138; Pharmacology (48)</button></div>
+    <div class="frow"><span class="flabel">Style <em>pick as many as you like</em></span><button type="button" class="fbtn active" aria-pressed="true" data-k="style" data-v="all">All</button><button type="button" class="fbtn" aria-pressed="false" data-k="style" data-v="single">&#9679; One answer (70)</button><button type="button" class="fbtn" aria-pressed="false" data-k="style" data-v="sata">&#9745;&#65039; Select all that apply (20)</button><button type="button" class="fbtn" aria-pressed="false" data-k="style" data-v="dropdown">&#9662; Drop-down cloze (9)</button><button type="button" class="fbtn" aria-pressed="false" data-k="style" data-v="matching">&#128279; Matching (5)</button><button type="button" class="fbtn" aria-pressed="false" data-k="style" data-v="highlight">&#128396;&#65039; Highlight the cues (6)</button><button type="button" class="fbtn" aria-pressed="false" data-k="style" data-v="bowtie">&#129466; Bow-tie (7)</button></div>
+    <div class="frow"><span class="flabel">Thinking step <em>what the question makes you do</em></span><button type="button" class="fbtn active" aria-pressed="true" data-k="step" data-v="all">All</button><button type="button" class="fbtn" aria-pressed="false" data-k="step" data-v="recognize" data-full="NCSBN clinical judgment: Recognise cues" title="NCSBN clinical judgment: Recognise cues">&#128064; Recognise cues (5)</button><button type="button" class="fbtn" aria-pressed="false" data-k="step" data-v="analyze" data-full="NCSBN clinical judgment: Analyse cues" title="NCSBN clinical judgment: Analyse cues">&#129504; Analyse cues (10)</button><button type="button" class="fbtn" aria-pressed="false" data-k="step" data-v="prioritize" data-full="NCSBN clinical judgment: Prioritise hypotheses" title="NCSBN clinical judgment: Prioritise hypotheses">&#127919; Prioritise hypotheses (6)</button><button type="button" class="fbtn" aria-pressed="false" data-k="step" data-v="solutions" data-full="NCSBN clinical judgment: Generate solutions" title="NCSBN clinical judgment: Generate solutions">&#128161; Generate solutions (4)</button><button type="button" class="fbtn" aria-pressed="false" data-k="step" data-v="action" data-full="NCSBN clinical judgment: Take action" title="NCSBN clinical judgment: Take action">&#129658; Take action (4)</button><button type="button" class="fbtn" aria-pressed="false" data-k="step" data-v="evaluate" data-full="NCSBN clinical judgment: Evaluate outcomes" title="NCSBN clinical judgment: Evaluate outcomes">&#128200; Evaluate outcomes (4)</button></div>
+    <div class="frow cnt"><span class="flabel">How many questions</span><button type="button" class="fbtn active" aria-pressed="true" data-k="count" data-v="all">All</button><button type="button" class="fbtn" aria-pressed="false" data-k="count" data-v="10">10</button><button type="button" class="fbtn" aria-pressed="false" data-k="count" data-v="20">20</button><button type="button" class="fbtn" aria-pressed="false" data-k="count" data-v="30">30</button><button type="button" class="fbtn" aria-pressed="false" data-k="count" data-v="50">50</button>
+      <input type="number" id="customCount" min="1" max="117" placeholder="or type a number"
+        aria-label="Choose your own number of questions">
+    </div>
+    <p class="poolnote">Matching your filters: <b id="poolcount">117</b> questions.
+       Greyed-out buttons have nothing left in them.</p>
+    <div class="startbar">
+      <button type="button" class="startbtn" id="shuffle">&#127922; Shuffle &amp; start</button>
+      <button type="button" class="startbtn" id="restart"
+        style="background:linear-gradient(135deg,#334155,#1e293b)">&#8635; In order</button>
+    </div>
+  </div>
+
+  <div class="scorebar" id="scorebar"></div>
+  <div class="card" id="card"></div>
+  <div class="nav">
+    <button type="button" id="prev">&larr; Previous</button>
+    <button type="button" id="next">Next &rarr;</button>
+  </div>
+</main>
+
+<div id="navBtns"><button type="button" class="nbBack" title="Back to NUR 258" onclick="hop('nur258.html',true)">&larr;<span class="nbLabel">Back to NUR 258</span></button><button type="button" class="nbHub" title="ABSN Study Hub" onclick="hop('index.html',true)">&#127968;<span class="nbLabel">ABSN Study Hub</span></button></div>
+<div id="navBg"></div>
+<nav id="side" aria-label="Site menu" aria-hidden="true">
+  <span class="sbrand">NUR 258 Mega Quiz</span>
+  <span class="ssub">One question at a time</span>
+  <button type="button" class="sclose">&#10005; Close this menu</button>
+  <div class="shead">On this page</div>
+  <div id="sideJumps"></div>
+  <div class="shead">Courses</div>
+  <a class="nav" href="nur234.html">&#129328; NUR 234<span class="nsub">Maternal &amp; newborn</span></a>
+  <a class="nav" href="nur235.html">&#129681; NUR 235<span class="nsub">Nursing care of the child</span></a>
+  <a class="nav" href="nur258.html">&#129658; NUR 258<span class="nsub">Adult health II</span></a>
+  <div class="shead">Quizzes</div>
+  <a class="nav" href="nur234-quiz.html">&#129504; NUR 234 Mega Quiz<span class="nsub">115 questions</span></a>
+  <a class="nav" href="nur235-quiz.html">&#129504; NUR 235 Mega Quiz<span class="nsub">117 questions</span></a>
+  <a class="nav on" href="nur258-quiz.html">&#129504; NUR 258 Mega Quiz<span class="nsub">117 questions</span></a>
+  <a class="nav" href="pharmacology-new.html">&#128138; Pharmacology<span class="nsub">Every drug question from all three courses</span></a>
+  <div class="shead">Listen</div>
+  <a class="nav" href="nur234-podcasts.html">&#127911; NUR 234 Podcasts<span class="nsub">5 episodes</span></a>
+  <a class="nav" href="nur235-podcasts.html">&#127911; NUR 235 Podcasts<span class="nsub">1 full episode + shorts</span></a>
+  <a class="nav" href="nur258-podcasts.html">&#127911; NUR 258 Podcasts<span class="nsub">6 exam episodes + 15 lectures</span></a>
+  <div class="shead">Reference</div>
+  <a class="nav" href="../drug-guide/index.html" target="_blank" rel="noopener">&#128138; Drug Guide<span class="nsub">A card per drug &middot; 981 drugs</span></a>
+  <a class="nav" href="index.html">&#127968; ABSN Study Hub<span class="nsub">Everything, all courses</span></a>
+</nav>
+<script type="application/json" id="qbank">{"1": [{"q": "Four clients arrive in the eye clinic. Which does the nurse see first?", "type": "single", "opts": ["A client with gradual painless loss of side vision over 2 years", "A client with sudden severe eye pain, halos, vomiting, a fixed dilated pupil and a hazy cornea", "A client with a clouded lens and worsening night glare", "A client with wavy lines on an Amsler grid at home"], "ans": [1], "why": "Acute closed-angle glaucoma presents as fixed dilated pupil, hazy cornea and pain with vomiting, and it is a <b>surgical emergency<\/b> - pressure must come down or vision is lost. The gradual painless peripheral loss is chronic open-angle glaucoma: serious, but managed with lifelong drops, not tonight.", "topic": "Sensory Disorders - Eye & Ear", "icon": "👁️", "topicFull": "Sensory Disorders - Eye & Ear"}, {"q": "A client with labyrinthitis has vomited 4 times in 3 hours and is dizzy. Which assessment is the priority?", "type": "single", "opts": ["Fluid and electrolyte status", "Effectiveness of the vestibular suppressant", "Tympanic membrane appearance", "Ability to ambulate to the bathroom"], "ans": [0], "why": "Once vomiting is repetitive the problem stops being vestibular and becomes volume: <b>fluid and electrolyte assessment is the priority<\/b>. Reaching for meclizine treats the dizziness the client came in with, not the dehydration she has developed since.", "topic": "Sensory Disorders - Eye & Ear", "icon": "👁️", "topicFull": "Sensory Disorders - Eye & Ear", "pharm": 1}, {"q": "A client is prescribed two different ophthalmic drops in the same eye. Which instruction is correct?", "type": "single", "opts": ["Instill both drops back to back, then blink several times", "Wait 5 to 10 minutes between the two drops and press the inner canthus for 2 minutes", "Wait 30 seconds between drops and wipe the eye from outer to inner canthus", "Wait 30 minutes between drops and keep the eye closed for 10 minutes"], "ans": [1], "why": "Different drops need <b>5 to 10 minutes<\/b> apart so the first is not washed out, and occluding the inner canthus for <b>2 minutes<\/b> blocks systemic absorption through the nasolacrimal duct. Back-to-back instillation simply flushes the first drug away.", "topic": "Sensory Disorders - Eye & Ear", "icon": "👁️", "topicFull": "Sensory Disorders - Eye & Ear"}, {"q": "Which findings are risk factors for glaucoma? Select all that apply.", "type": "sata", "opts": ["Long-term corticosteroid use", "Wearing corrective lenses", "Thin central cornea", "Daily vitamin A supplement", "High myopia"], "ans": [0, 2, 4], "why": "The risk list is family history, age over 60, diabetes, hypertension, <b>corticosteroid use, thin central cornea and high myopia<\/b>. Corrective lenses, vitamin A and sunglasses were named explicitly as non-risks - refraction and nutrition do not raise intraocular pressure.", "topic": "Sensory Disorders - Eye & Ear", "icon": "👁️", "topicFull": "Sensory Disorders - Eye & Ear"}, {"q": "A client is receiving IV gentamicin along with scheduled furosemide. What is the nurse's priority action?", "type": "single", "opts": ["Increase oral fluid intake to protect the kidneys", "Monitor for early hearing loss and report it so the dose can be adjusted", "Teach the client to avoid loud environments during therapy", "Request that the furosemide be given at bedtime"], "ans": [1], "why": "Aminoglycoside plus loop diuretic is the ototoxic pairing to memorize, and the priority is to <b>detect early hearing loss and report it so the dose can change<\/b>. Pushing fluids and avoiding noise sound protective but do nothing about drug-induced cochlear damage.", "topic": "Sensory Disorders - Eye & Ear", "icon": "👁️", "topicFull": "Sensory Disorders - Eye & Ear", "pharm": 1}, {"q": "A client reports a painless curtain moving across her visual field that started this morning. A new nurse offers her a routine appointment next week. How should the nurse respond?", "type": "single", "opts": ["Agree, since painless vision changes are not urgent", "Arrange immediate evaluation; retinal detachment is an emergency despite being painless", "Instruct her to patch the eye and rest at home for 24 hours", "Tell her this is expected with cataract formation"], "ans": [1], "why": "A painless curtain across the vision is <b>retinal detachment - an emergency<\/b>, and it is the one eye condition that may require face-down (prone) positioning for about 2 weeks post-op. The trap is equating absence of pain with absence of urgency.", "topic": "Sensory Disorders - Eye & Ear", "icon": "👁️", "topicFull": "Sensory Disorders - Eye & Ear"}, {"type": "highlight", "week": "1", "step": "recognize", "topic": "Sensory Disorders - Eye & Ear", "stemTitle": "Nurses' note 1900", "stem": "Highlight the findings that indicate the client is experiencing acute angle-closure glaucoma.", "tokens": [{"text": "A 68-year-old client reports ", "pick": false}, {"text": "sudden severe right eye pain radiating to the forehead", "pick": true}, {"text": ", with nausea and vomiting. ", "pick": false}, {"text": "Temperature 37.1° C (98.8° F)", "pick": true}, {"text": ", heart rate 88/min, blood pressure 138/82 mm Hg", "pick": true}, {"text": ". The client notes ", "pick": false}, {"text": "colored halos around lights", "pick": true}, {"text": ". The right pupil is ", "pick": false}, {"text": "fixed and nonreactive to light", "pick": true}, {"text": ". Tonometry shows intraocular pressure of ", "pick": false}, {"text": "34 mm Hg", "pick": true}, {"text": ". The client is ", "pick": false}, {"text": "alert and oriented x4", "pick": true}, {"text": ", and the left eye exam is unremarkable.", "pick": false}], "answer": [1, 6, 8, 10], "why": "The combination of sudden unilateral eye pain, halos around lights, a fixed and nonreactive pupil, and an intraocular pressure of 34 mm Hg (an acute spike well above the 11-21 mm Hg expected range) is diagnostic of acute angle-closure glaucoma, an ophthalmic emergency that needs immediate pressure-lowering treatment. Nausea and vomiting commonly accompany the attack but are nonspecific systemic symptoms, not confirmatory eye findings. Stable vital signs and normal orientation are reassuring and do not point to the emergency; they show the crisis is confined to the eye rather than causing systemic instability. Recognizing the ocular-specific findings tells the nurse to treat this as an urgent same-day ophthalmology problem rather than routine eye care.", "src": "ATI Adult Med-Surg ch 13 (Disorders of the Eye)", "icon": "👁️", "topicFull": "Sensory Disorders - Eye & Ear"}, {"type": "matching", "week": "1", "step": "analyze", "topic": "Sensory Disorders - Eye & Ear", "stem": "A nurse is reviewing assessment findings for four clients with sensory disorders. Match each finding to the condition it best represents.", "pairs": [{"left": "Painless, gradual clouding of the lens with a reduced red reflex and worsening night vision", "answer": 4}, {"left": "Vertigo, tinnitus, and nystagmus with nausea and vomiting", "answer": 2}, {"left": "Bulging, red tympanic membrane with an absent light reflex and fever", "answer": 3}, {"left": "Gradual peripheral vision loss with an intraocular pressure of 22 to 32 mm Hg", "answer": 1}], "right": ["Age-related macular degeneration", "Open-angle glaucoma", "Ménière's disease/labyrinthitis", "Otitis media", "Cataracts"], "why": "Cataracts cause a painless, gradual clouding of the lens with an absent red reflex and reduced night vision. Inner ear disorders such as Ménière's disease or labyrinthitis cause vertigo, tinnitus, nystagmus, and vomiting from vestibular dysfunction. Otitis media shows a bulging tympanic membrane with a diffuse or absent light reflex and fever. Open-angle glaucoma is typically asymptomatic early, then causes gradual peripheral vision loss with intraocular pressure of 22 to 32 mm Hg. AMD is not used because it causes distorted objects and central, not peripheral, vision loss, which does not match any vignette here.", "src": "ATI Adult Med-Surg ch 13 (Disorders of the Eye) and ch 14 (Middle and Inner Ear Disorders)", "icon": "👁️", "topicFull": "Sensory Disorders - Eye & Ear"}, {"type": "sata", "week": "1", "step": "action", "topic": "Sensory Disorders - Eye & Ear", "q": "A client with Meniere's disease is having an acute attack of vertigo with nausea and nystagmus. Which actions should the nurse take right now? (Select all that apply.)", "opts": ["Dim the lights and lower the noise level in the room.", "Raise the side rails and keep the client in bed until the attack passes.", "Walk the client to the bathroom now so the client does not become incontinent.", "Give the prescribed meclizine and antiemetic.", "Offer strong coffee to help the client stay alert.", "Coach the client to turn the head slowly and avoid sudden position changes."], "ans": [0, 1, 3, 5], "why": "During an attack the nurse controls the environment and prevents falls, so dim quiet surroundings, raised rails, bed rest, and slow head movement are the immediate actions. Meclizine settles the vestibular symptoms and an antiemetic treats the vomiting. Walking a client who has active vertigo and nystagmus is how falls happen, so elimination needs are met at the bedside. Caffeine is a trigger that worsens inner-ear symptoms rather than helping.", "src": "ATI ch 14 Middle and Inner Ear Disorders", "icon": "👁️", "topicFull": "Sensory Disorders - Eye & Ear", "pharm": 1}], "2": [{"q": "A nurse sustains a needlestick from a client who is HIV positive. What does the nurse do first?", "type": "single", "opts": ["Report the exposure to the charge nurse", "Wash the site with soap and water", "Draw a baseline HIV antibody test", "Begin post-exposure prophylaxis"], "ans": [1], "why": "The sequence taught is <b>wash with soap and water first<\/b>, then report, start PEP and draw baseline labs. Rushing to PEP feels more urgent, but the first act reduces the inoculum still on the skin.", "topic": "Infectious Diseases & HIV", "icon": "🦠", "topicFull": "Infectious Diseases & HIV"}, {"q": "Which action most effectively prevents both CLABSI and CAUTI?", "type": "single", "opts": ["Use full sterile technique at insertion", "Do not place the device unless it is truly necessary", "Change the dressing every 7 days", "Prefer the femoral site for central access"], "ans": [1], "why": "The single most effective action is <b>not placing the device at all unless it is necessary<\/b>; sterile insertion is the runner-up. Femoral lines infect far more than subclavian, so that option is wrong twice over.", "topic": "Infectious Diseases & HIV", "icon": "🦠", "topicFull": "Infectious Diseases & HIV"}, {"q": "A client is to receive acetaminophen 650 mg from a 160 mg/5 mL suspension, measured at home in teaspoons. How many teaspoons should the nurse teach?", "type": "single", "opts": ["2 teaspoons", "4 teaspoons", "10 teaspoons", "20 teaspoons"], "ans": [1], "why": "650 divided by 160, times 5 mL, equals 20.3 mL; at <b>5 mL per teaspoon that is about 4 teaspoons<\/b>. The classic miss is stopping at 20 and calling it 20 teaspoons - the units, not the math, are the trap.", "topic": "Infectious Diseases & HIV", "icon": "🦠", "topicFull": "Infectious Diseases & HIV", "pharm": 1}, {"q": "Which measures belong in neutropenic precautions? Select all that apply.", "type": "sata", "opts": ["Private room with positive-pressure airflow", "N95 respirator for everyone entering", "Remove fresh flowers and potted plants from the room", "Dedicated equipment kept in the room", "Keep the door open so staff can observe the client"], "ans": [0, 2, 3], "why": "Neutropenic (reverse) isolation means a <b>positive-pressure private room, no fresh flowers or plants, dedicated equipment<\/b>, limited visitors and daily cleaning. N95 and negative pressure belong to airborne precautions, which protect everyone else from the client - the opposite direction of risk.", "topic": "Infectious Diseases & HIV", "icon": "🦠", "topicFull": "Infectious Diseases & HIV"}, {"q": "A client is admitted with varicella. Which precautions does the nurse initiate?", "type": "single", "opts": ["Contact precautions with a private room", "Airborne precautions: negative-pressure room, door closed, N95", "Droplet precautions with a surgical mask within 3 feet", "Standard precautions only until lesions crust"], "ans": [1], "why": "Varicella is one of the four airborne conditions along with TB, measles and disseminated herpes zoster, so it needs a <b>negative-pressure room, closed door and N95<\/b>. The skin lesions tempt students toward contact precautions, but the virus produces respiratory symptoms and spreads through the air.", "topic": "Infectious Diseases & HIV", "icon": "🦠", "topicFull": "Infectious Diseases & HIV"}, {"q": "A nurse is exposed to HIV and asks about prophylaxis timing. Which response is correct?", "type": "single", "opts": ["Start within 72 hours at the latest and continue for 28 days", "Start within 7 days and continue for 14 days", "Start only if the baseline test is positive, then continue for 6 weeks", "Start immediately and continue until the viral load is undetectable"], "ans": [0], "why": "PEP is started as soon as possible, ideally within hours, and <b>never beyond 72 hours<\/b>, then continued a full <b>28 days<\/b>. Waiting for a baseline result wastes the window - the baseline draw documents pre-exposure status, it does not gate treatment.", "topic": "Infectious Diseases & HIV", "icon": "🦠", "topicFull": "Infectious Diseases & HIV"}, {"type": "sata", "week": "2", "step": "solutions", "topic": "Infectious Diseases & HIV", "q": "A nurse is teaching a client who has HIV about ways to reduce the risk of opportunistic infection. Which statements by the client indicate a correct understanding of the teaching? (Select all that apply.)", "opts": ["“I will wash my hands frequently throughout the day.”", "“I will avoid changing my cat's litter box.”", "“I will stop my antiretroviral therapy once my viral load is undetectable.”", "“I will keep my influenza and pneumococcal vaccinations up to date.”", "“I will eat soft-cooked eggs and rare beef for extra protein.”", "“I will avoid crowds and people who are currently sick.”"], "ans": [0, 1, 3, 5], "why": "Frequent hand hygiene, avoiding litter box duty (toxoplasmosis exposure), staying current on immunizations, and avoiding crowds and sick contacts all lower infection risk for a client with HIV. Antiretroviral therapy must be continued exactly as prescribed and never stopped, even when the viral load becomes undetectable, because stopping allows the virus to rebound and increases drug-resistance risk. Undercooked eggs and rare meat carry a foodborne-illness risk that an immunocompromised client should avoid, not seek out.", "src": "ATI Adult Med-Surg ch 86 (HIV/AIDS)", "icon": "🦠", "topicFull": "Infectious Diseases & HIV"}, {"type": "dropdown", "week": "2", "step": "analyze", "topic": "Infectious Diseases & HIV", "stemTitle": "Laboratory results", "stem": "<p>A client who has HIV and reports consistent antiretroviral adherence returns for follow-up labs.<\/p><table><tr><th>Test<\/th><th>Result<\/th><\/tr><tr><td>CD4 count<\/td><td>180 cells/mm3 (down from prior visit)<\/td><\/tr><tr><td>CD4:CD8 ratio<\/td><td>0.6<\/td><\/tr><tr><td>HIV viral load<\/td><td>Rising over the past 3 months<\/td><\/tr><\/table>", "text": "These findings indicate {1}, so the nurse's priority action is to {2}.", "gaps": [{"options": ["effective viral suppression from antiretroviral therapy", "progression of HIV disease with likely antiretroviral resistance", "a normal, expected acute HIV seroconversion response"], "answer": 1}, {"options": ["notify the provider so drug-resistance testing can be arranged", "instruct the client to stop the current antiretroviral regimen", "tell the client no action is needed since CD4 counts naturally fluctuate"], "answer": 0}], "why": "A CD4:CD8 ratio under 1 signals severe disease, and a falling CD4 count with a rising viral load despite reported adherence suggests the current regimen is failing, most likely from drug resistance. The provider needs to be notified so resistance testing can guide a regimen change; the client should never simply stop antiretroviral therapy, since that removes viral suppression entirely and worsens outcomes. Dismissing the trend as normal fluctuation is incorrect because a ratio of 0.6 with a rising viral load on therapy is a concerning, not benign, pattern.", "src": "ATI Adult Med-Surg ch 86 (HIV/AIDS)", "icon": "🦠", "topicFull": "Infectious Diseases & HIV"}], "3": [{"q": "Ten minutes into an IV infusion a client reports itching and dizziness. BP is 86/52, HR 118, RR 24. What does the nurse do first?", "type": "single", "opts": ["Stop the infusion", "Obtain a set of vital signs and recheck in 5 minutes", "Administer the prescribed antihistamine", "Place the client in Trendelenburg"], "ans": [0], "why": "This is type I (IgE-mediated) hypersensitivity, and the first action is to <b>stop the offending infusion<\/b> before any drug is given. Reaching for diphenhydramine while the antigen keeps running lets the reaction progress to anaphylaxis.", "topic": "Allergic, Inflammatory…", "icon": "🦠", "topicFull": "Allergic, Inflammatory & Immunologic Disorders", "pharm": 1}, {"q": "A client's chart lists a penicillin allergy. What does the nurse do first before the prescribed antibiotic is given?", "type": "single", "opts": ["Hold the dose and document the allergy", "Ask the client to describe exactly what happened when she took penicillin", "Notify the provider that the client is allergic", "Give the dose slowly with epinephrine at the bedside"], "ans": [1], "why": "First <b>clarify what actually happened<\/b> - many reported allergies are GI upset, not immune reactions. If the answer is rash, itching or swelling, then notify the provider before giving the drug.", "topic": "Allergic, Inflammatory…", "icon": "🦠", "topicFull": "Allergic, Inflammatory & Immunologic Disorders", "pharm": 1}, {"q": "A client is admitted with an acute gout flare of the great toe. Which new prescription should the nurse question?", "type": "single", "opts": ["Naproxen", "Colchicine", "Allopurinol", "Prednisone"], "ans": [2], "why": "<b>Allopurinol is long-term prevention and can worsen an acute flare<\/b>, so starting it now should be questioned. Colchicine and NSAIDs plus corticosteroids treat the attack - reversing prevention and acute treatment is the classic miss.", "topic": "Allergic, Inflammatory…", "icon": "🦠", "topicFull": "Allergic, Inflammatory & Immunologic Disorders", "pharm": 1}, {"q": "Which findings support a type I hypersensitivity reaction? Select all that apply.", "type": "sata", "opts": ["Blood pressure 86/52", "Temperature 37.3 C", "Heart rate 118", "Generalized itching", "Oxygen saturation 96 percent on room air"], "ans": [0, 2, 3], "why": "The cues scored as relevant were <b>hypotension, tachycardia, itching, dizziness, diarrhea and RR 24<\/b>, and about 90 percent of anaphylaxis includes urticaria or rash. Temp 37.3 and SpO2 96 percent are inside normal limits and were scored as not indicative - normal values are distractors.", "topic": "Allergic, Inflammatory…", "icon": "🦠", "topicFull": "Allergic, Inflammatory & Immunologic Disorders"}, {"q": "A client is to receive diphenhydramine 25 mg from a 12.5 mg/5 mL elixir at home. How much should the nurse teach her to take?", "type": "single", "opts": ["1 teaspoon", "2 teaspoons", "4 teaspoons", "10 teaspoons"], "ans": [1], "why": "25 mg divided by 12.5 mg, times 5 mL, is 10 mL, and at 5 mL per teaspoon that is <b>2 teaspoons<\/b>. Answering 10 means the student stopped at millilitres and never converted.", "topic": "Allergic, Inflammatory…", "icon": "🦠", "topicFull": "Allergic, Inflammatory & Immunologic Disorders", "pharm": 1}, {"q": "A client has widespread pain, fatigue and poor sleep. ESR, CRP and ANA are all normal. Which condition does this pattern support?", "type": "single", "opts": ["Rheumatoid arthritis", "Systemic lupus erythematosus", "Fibromyalgia", "Serum sickness"], "ans": [2], "why": "<b>Fibromyalgia is not inflammatory, so ESR, CRP and ANA are normal<\/b> - that is the fastest way to separate it from RA and lupus, which show abnormal labs. Management is low-impact exercise, sleep hygiene and duloxetine, pregabalin or milnacipran, not opioids.", "topic": "Allergic, Inflammatory…", "icon": "🦠", "topicFull": "Allergic, Inflammatory & Immunologic Disorders", "pharm": 1}, {"type": "bowtie", "week": "3", "step": "prioritize", "topic": "Allergic, Inflammatory…", "stemTitle": "Nurses' notes 1000", "stem": "<p>A 32-year-old client reports fatigue and joint pain for several weeks. Assessment reveals a <b>butterfly-shaped rash<\/b> across the nose and cheeks, periorbital and lower-extremity edema, and an elevated blood pressure. Urinalysis shows protein and RBCs in the urine.<\/p>", "cond": ["Systemic lupus erythematosus", "Rheumatoid arthritis", "Gout", "Fibromyalgia"], "actions": ["Monitor blood pressure, urine output, and daily weight for signs of kidney involvement", "Administer prescribed corticosteroids and monitor for infection", "Encourage a high-sodium diet to replace fluid losses", "Apply ice packs to the affected great toe for pain relief", "Encourage increased sun exposure to help improve mood"], "params": ["Blood pressure", "BUN and creatinine", "Serum uric acid", "Rheumatoid factor", "C3 and C4 complement levels"], "answer": {"cond": [0], "action": [0, 1], "param": [0, 1]}, "why": "A malar (butterfly) rash together with edema, hypertension, proteinuria, and hematuria points to systemic lupus erythematosus with renal (nephritis) involvement, not gout's monoarticular great-toe attacks, RA's symmetric hand/wrist swelling, or fibromyalgia's diffuse pain without organ involvement. Monitoring for worsening renal status and giving corticosteroids to control the inflammatory flare are the priority actions; a high-sodium diet would worsen the existing edema, and sun exposure is avoided because UV light triggers lupus flares. Blood pressure and BUN/creatinine are the most direct parameters for tracking evolving lupus nephritis, while uric acid, rheumatoid factor, and complement levels are more useful for gout, RA, or general lupus activity monitoring rather than this client's acute renal picture.", "src": "ATI Adult Med-Surg ch 87 (Lupus Erythematosus, Gout, and Fibromyalgia)", "icon": "🦠", "topicFull": "Allergic, Inflammatory & Immunologic Disorders"}, {"type": "matching", "week": "3", "step": "analyze", "topic": "Allergic, Inflammatory…", "stem": "Match each distinguishing feature to the condition it best represents.", "pairs": [{"left": "Severe pain, redness, and swelling of the great toe joint lasting 1 to 2 weeks", "answer": 1}, {"left": "Widespread pain and fatigue with a normal joint exam and no swelling", "answer": 2}, {"left": "Symmetric joint swelling with ulnar deviation and morning stiffness", "answer": 3}, {"left": "Positive ANA titer with low complement C3 and C4 levels", "answer": 0}], "right": ["Systemic lupus erythematosus", "Gout", "Fibromyalgia", "Rheumatoid arthritis", "Osteoarthritis"], "why": "Gout causes acute, intensely painful monoarticular attacks classically in the great toe. Fibromyalgia produces widespread pain and fatigue without joint swelling or deformity on exam. Rheumatoid arthritis causes symmetric joint involvement with deformities like ulnar deviation and prolonged morning stiffness. Lupus is confirmed by a positive ANA along with depleted C3 and C4 complement from immune complex activity. Osteoarthritis is not used because none of these vignettes describe the asymmetric, activity-related joint pain typical of degenerative joint disease.", "src": "ATI Adult Med-Surg ch 87 (Lupus Erythematosus, Gout, and Fibromyalgia) and ch 88 (Rheumatoid Arthritis)", "icon": "🦠", "topicFull": "Allergic, Inflammatory & Immunologic Disorders"}, {"type": "dropdown", "week": "3", "step": "solutions", "topic": "Allergic, Inflammatory…", "stemTitle": "Nurses' notes 1400", "stem": "<p>A 46-year-old client with rheumatoid arthritis reports <b>stiff, swollen hands and wrists that take about an hour to loosen up every morning<\/b>. The client has stopped using the hands during flares, hoping to protect them. Ibuprofen was started 2 weeks ago and the client reports stomach burning after each dose.<\/p>", "text": "The plan of care should include {1}, and to protect the stomach the nurse should teach the client to {2}.", "gaps": [{"options": ["warm morning baths plus daily range-of-motion and paced activity", "complete joint rest with no movement until every flare ends", "long-term daily corticosteroids to keep inflammation suppressed"], "answer": 0}, {"options": ["swallow each dose with a meal, milk, or a prescribed antacid", "take each dose on an empty stomach with a full glass of water", "crush the enteric-coated tablets and mix them into applesauce"], "answer": 0}], "why": "Heat loosens stiff joints, and continued movement preserves range of motion, so morning warmth plus paced activity is the plan that treats this client's problem. Total rest feels protective but leads to contracture and lost function. Corticosteroids are not a long-term rheumatoid arthritis plan because of osteoporosis, high glucose, infection, and cataract risk. Taking the NSAID with food, milk, or an antacid buffers the stomach; an empty stomach makes the burning worse, and crushing an enteric-coated tablet destroys the coating that was protecting the lining.", "src": "ATI ch 88 Rheumatoid Arthritis", "icon": "🦠", "topicFull": "Allergic, Inflammatory & Immunologic Disorders"}], "4": [{"q": "A client with burns to the face and anterior neck is hoarse and has singed nasal hair and carbonaceous sputum. What is the priority action?", "type": "single", "opts": ["Calculate the TBSA using the rule of nines", "Obtain intubation equipment now", "Start lactated Ringer's by the Parkland formula", "Apply silver sulfadiazine to the facial burns"], "ans": [1], "why": "Inhalation cues mean the <b>airway will swell shut within 1 to 2 hours<\/b>, so intubation equipment comes before TBSA estimation or fluids. Face, neck or chest burns make airway the priority; only waist-down burns put fluids first.", "topic": "Burns", "icon": "🔥", "topicFull": "Burns", "pharm": 1}, {"q": "A client with 30 percent TBSA burns arrives in the ED. Which action does the nurse take first?", "type": "single", "opts": ["Administer IV morphine for severe pain", "Insert two large-bore 18-gauge IV catheters", "Remove all clothing and jewelry", "Apply sterile dressings to the wounds"], "ans": [1], "why": "<b>Two large-bore (18 g) IVs come first<\/b> - without access there is no resuscitation and no analgesia. Pain is loud and tempting, but the line precedes the drug.", "topic": "Burns", "icon": "🔥", "topicFull": "Burns", "pharm": 1}, {"q": "A 75 kg client has 54 percent TBSA partial- and full-thickness burns. Using the Parkland formula, what is the infusion rate for the first 8 hours?", "type": "single", "opts": ["506 mL/hr", "675 mL/hr", "1,013 mL/hr", "2,025 mL/hr"], "ans": [2], "why": "4 mL x 75 kg x 54 = 16,200 mL over 24 hours; half (8,100 mL) runs in the first 8 hours = <b>about 1,013 mL/hr<\/b> of lactated Ringer's. Halving 16,200 over 24 hours instead gives 675 - the error is forgetting the front-loaded first 8 hours, timed from injury, not arrival.", "topic": "Burns", "icon": "🔥", "topicFull": "Burns", "pharm": 1}, {"q": "Which systemic effects does the nurse expect in the emergent phase of a major burn? Select all that apply.", "type": "sata", "opts": ["Hyperkalemia", "Metabolic alkalosis", "Paralytic ileus", "Hypoglycemia", "Hypothermia"], "ans": [0, 2, 4], "why": "Cell death and massive fluid shifts produce <b>hyperkalemia, hyponatremia, paralytic ileus, decreased cardiac output, hypothermia and Curling's ulcer<\/b>. Increased cardiac output, metabolic alkalosis and hypoglycemia were all scored wrong.", "topic": "Burns", "icon": "🔥", "topicFull": "Burns"}, {"q": "A client has superficial (first-degree) burns over both shoulders plus deep partial-thickness burns of the anterior trunk. Which areas are included in the Parkland calculation?", "type": "single", "opts": ["Both areas, since all burned skin loses fluid", "Only the anterior trunk", "Only the shoulders", "Neither, until TBSA exceeds 20 percent"], "ans": [1], "why": "<b>First-degree burns are never counted in TBSA or in Parkland<\/b> - only second- and third-degree burns are. Counting the red, dry, blister-free areas inflates the volume and over-resuscitates the client.", "topic": "Burns", "icon": "🔥", "topicFull": "Burns"}, {"q": "A client has a white, leathery, painless burn on the thigh surrounded by moist, blistered skin that she rates 9/10. How does the nurse interpret this?", "type": "single", "opts": ["The painless area is the least serious and needs no urgent care", "The painless area is full-thickness and the pain comes from surrounding partial-thickness burn", "The client is exaggerating the pain because the burn is insensate", "The painless area indicates a superficial burn that is already healing"], "ans": [1], "why": "<b>Full-thickness burns are painless because the nerve endings are destroyed<\/b>, while the partial-thickness skin around them hurts intensely. No pain does not mean not serious - that inversion is exactly what the item is testing.", "topic": "Burns", "icon": "🔥", "topicFull": "Burns"}], "5": [{"q": "A client in adrenal crisis has BP 78/44, confusion, potassium 6.1, severe abdominal pain, vomiting and diarrhea. Which action does the nurse take first?", "type": "single", "opts": ["Give oral hydrocortisone with a sip of water", "Infuse a 0.9 percent sodium chloride bolus", "Administer oral potassium binder", "Obtain a dexamethasone suppression test"], "ans": [1], "why": "Crisis management starts with <b>fluids (and dextrose) before the definitive steroid<\/b>, and the instructors specifically wanted a 0.9 percent NS bolus. Every oral option is wrong here because she is vomiting and has diarrhea.", "topic": "Endocrine Disorders", "icon": "⚗️", "topicFull": "Endocrine Disorders", "pharm": 1}, {"q": "Four hours after a thyroidectomy, which finding does the nurse address first?", "type": "single", "opts": ["A hoarse, weakening voice", "Positive Chvostek sign", "Sore throat when swallowing", "Serosanguineous drainage on the dressing"], "ans": [0], "why": "<b>Voice changes signal recurrent laryngeal nerve involvement and airway risk<\/b>, so they rank first; hypocalcemia (Chvostek, Trousseau, carpopedal spasm) comes next, then neck swelling. Chvostek looks more dramatic on paper but the airway outranks it.", "topic": "Endocrine Disorders", "icon": "⚗️", "topicFull": "Endocrine Disorders"}, {"q": "A client has 6 L of pale urine in 24 hours, urine specific gravity 1.002, serum sodium 152 and BP 88/54. Which condition does the nurse suspect?", "type": "single", "opts": ["Diabetes insipidus", "SIADH", "Cushing's syndrome", "Thyroid storm"], "ans": [0], "why": "Dilute high-volume urine with <b>low specific gravity and high serum sodium<\/b> is DI - dry inside, too little ADH. SIADH is the mirror: scant concentrated urine, high specific gravity, overload and low sodium.", "topic": "Endocrine Disorders", "icon": "⚗️", "topicFull": "Endocrine Disorders"}, {"q": "A client with SIADH has a serum sodium of 120. Which interventions does the nurse include? Select all that apply.", "type": "sata", "opts": ["Fluid restriction", "Encourage 3 L of oral fluids daily", "Seizure precautions", "Neurologic checks", "Daily potassium supplementation"], "ans": [0, 2, 3], "why": "SIADH is treated with <b>fluid restriction plus diuretics and sodium<\/b>, and a sodium of 120 makes this a neuro problem - <b>seizure precautions and neuro checks<\/b> are required. Pushing fluids dilutes the sodium further; potassium is not the disordered electrolyte here.", "topic": "Endocrine Disorders", "icon": "⚗️", "topicFull": "Endocrine Disorders"}, {"q": "Which laboratory pattern fits Addison's disease?", "type": "single", "opts": ["High sodium, high potassium, high glucose", "Low sodium, high potassium, low glucose", "Low sodium, low potassium, high glucose", "High sodium, low potassium, low glucose"], "ans": [1], "why": "Addison's is low cortisol and aldosterone: <b>low BP, low glucose, low sodium - but high potassium<\/b>. Cushing's is the mirror image on nearly every parameter except potassium, which inverts, and that single flip is usually the whole question.", "topic": "Endocrine Disorders", "icon": "⚗️", "topicFull": "Endocrine Disorders"}, {"q": "A client taking levothyroxine has temp 104.9 F, HR 125, RR 42, restlessness and heat intolerance. Which intervention does the nurse anticipate?", "type": "single", "opts": ["Administer methimazole to block hormone synthesis", "Give a beta blocker, begin cooling, hold the next dose and notify the provider", "Increase the levothyroxine dose to stabilize the thyroid axis", "Start IV hydrocortisone and warming measures"], "ans": [1], "why": "This is iatrogenic hyperthyroidism from excess levothyroxine, so treatment is <b>beta blocker, cooling, low-stimulation room, hold the dose and notify<\/b>. Antithyroid drugs are useless because the excess T4 is already circulating, not being manufactured.", "topic": "Endocrine Disorders", "icon": "⚗️", "topicFull": "Endocrine Disorders", "pharm": 1}, {"type": "dropdown", "week": "5", "step": "analyze", "topic": "Endocrine Disorders", "stemTitle": "Vital signs and history", "stem": "<p>A client who abruptly stopped long-term prednisone 2 days ago is brought to the emergency department. Blood pressure is <b>88/54 mm Hg<\/b>, heart rate is <b>118/min<\/b>. Labs show an elevated potassium level, a low sodium level, and a low glucose level. The client's skin appears hyperpigmented.<\/p>", "text": "These findings are most consistent with {1}. The priority nursing action is to {2}.", "gaps": [{"options": ["Cushing syndrome from long-term corticosteroid use", "acute adrenal insufficiency (Addisonian crisis)", "hyperthyroid storm"], "answer": 1}, {"options": ["administer IV 0.9% sodium chloride and IV hydrocortisone as prescribed", "restrict oral fluids and administer a loop diuretic", "give an oral beta-blocker and reassess in 4 hours"], "answer": 0}], "why": "Abrupt corticosteroid withdrawal removes the body's exogenous cortisol source and can precipitate an Addisonian crisis, which presents with hypotension, tachycardia, hyperkalemia, hyponatremia, and hypoglycemia, exactly as described. The priority is rapid IV isotonic fluid resuscitation plus IV hydrocortisone to restore volume and replace cortisol; fluid restriction and a diuretic would worsen the existing hypovolemia and hypotension. Cushing syndrome would produce the opposite picture (hypertension, hyperglycemia, hypokalemia), so it does not fit this presentation.", "src": "ATI Adult Med-Surg ch 81 (Addison Disease and Acute Adrenal Insufficiency)", "icon": "⚗️", "topicFull": "Endocrine Disorders", "pharm": 1}, {"type": "highlight", "week": "5", "step": "recognize", "topic": "Endocrine Disorders", "stemTitle": "Nurses' note 0300", "stem": "Highlight the findings that indicate this client may be developing myxedema coma.", "tokens": [{"text": "A 74-year-old client with a history of hypothyroidism is found by family to be increasingly ", "pick": false}, {"text": "difficult to arouse", "pick": true}, {"text": ". Vital signs are ", "pick": false}, {"text": "temperature 35.1° C (95.2° F), heart rate 48/min, and blood pressure 82/50 mm Hg", "pick": true}, {"text": ". ", "pick": false}, {"text": "Respirations are 8/min and shallow", "pick": true}, {"text": ". The client reports ", "pick": false}, {"text": "abdominal pain", "pick": true}, {"text": " when aroused. ", "pick": false}, {"text": "Bowel sounds are present in all four quadrants", "pick": true}, {"text": ", and ", "pick": false}, {"text": "capillary refill is less than 3 seconds", "pick": true}, {"text": ".", "pick": false}], "answer": [1, 3, 5, 7], "why": "Myxedema coma presents with a decreasing level of consciousness, low cardiac output (hypothermia, bradycardia, and hypotension), hypoventilation, and abdominal pain, all of which are present in this client. Normal bowel sounds and a normal capillary refill are reassuring findings that do not indicate the emergency and should not distract the nurse from the classic myxedema coma pattern. Because this client's severe bradycardia and hypotension can progress to cardiovascular collapse, recognizing the full symptom cluster quickly is essential for prompt airway and hemodynamic support.", "src": "ATI Adult Med-Surg ch 79 (Hypothyroidism)", "icon": "⚗️", "topicFull": "Endocrine Disorders"}, {"type": "highlight", "week": "5", "step": "evaluate", "topic": "Endocrine Disorders", "stemTitle": "Nurses' note 1900", "stem": "A client admitted with diabetes insipidus received intranasal desmopressin at 1100. Highlight the findings that indicate the client is now developing water intoxication from the therapy.", "tokens": [{"text": "At 1100 the client received intranasal desmopressin for diabetes insipidus. Since then, ", "pick": false}, {"text": "urine output has dropped from 340 mL/hr to 65 mL/hr", "pick": true}, {"text": " and ", "pick": false}, {"text": "urine specific gravity has risen from 1.002 to 1.014", "pick": true}, {"text": ". The client ", "pick": false}, {"text": "no longer reports constant thirst", "pick": true}, {"text": " and ", "pick": false}, {"text": "oral mucous membranes are moist", "pick": true}, {"text": ". Vital signs: ", "pick": false}, {"text": "blood pressure 116/70 mm Hg", "pick": true}, {"text": ", ", "pick": false}, {"text": "heart rate 82/min", "pick": true}, {"text": ". This evening the client ", "pick": false}, {"text": "reports a worsening headache", "pick": true}, {"text": " and is ", "pick": false}, {"text": "confused about the day and place", "pick": true}, {"text": ". Weight is ", "pick": false}, {"text": "up 2.4 kg (5.3 lb) since this morning", "pick": true}, {"text": ", and the ", "pick": false}, {"text": "serum sodium is 126 mEq/L", "pick": true}, {"text": ".", "pick": false}], "answer": [13, 15, 17, 19], "why": "Headache, new confusion, a sudden weight gain, and a sodium of 126 mEq/L mean the client is holding on to too much water and diluting the blood, which is the danger of desmopressin. That combination is water intoxication and the provider needs to know now. The falling urine output, rising specific gravity, gone thirst, moist mucous membranes, and steady vital signs are the therapy working as intended, so they are reassuring rather than warning signs. The trap is reading a big drop in urine output as bad news when the real evidence is the sodium and the neurologic change.", "src": "ATI ch 77 Pituitary Disorders", "icon": "⚗️", "topicFull": "Endocrine Disorders", "pharm": 1}], "6": [{"q": "A client arrives with glucose 640, dry mucous membranes and confusion. Which assessment does the nurse perform first?", "type": "single", "opts": ["Level of consciousness", "Hydration and circulatory status", "Repeat fingerstick glucose", "Urine ketones"], "ans": [1], "why": "In severe hyperglycemia the first assessment is <b>dehydration and circulation<\/b> - it sits in the ABCs, ahead of a fingerstick and ahead of LOC, because glucose is not A-B-C-D. Both crises start with IV fluids, then a regular insulin drip.", "topic": "Diabetes", "icon": "🍬", "topicFull": "Diabetes", "pharm": 1}, {"q": "Which client does the nurse assess first?", "type": "single", "opts": ["A client with glucose 386 and 2+ urine ketones ordered for an insulin drip", "A client with glucose 58 who is shaky, sweaty and confused", "A client with an A1C of 9.1 percent asking about diet", "A client with glucose 240 who missed a morning snack"], "ans": [1], "why": "<b>Hypoglycemia outranks a very high glucose in acuity<\/b> because she can lose consciousness within minutes. Awake at 58, she needs 15 g of fast carbohydrate (4 to 6 oz of juice) and a recheck in 15 minutes.", "topic": "Diabetes", "icon": "🍬", "topicFull": "Diabetes", "pharm": 1}, {"q": "An insulin drip is ordered at 0.1 units/kg/hr for a client weighing 165 lb. The bag is 100 units in 100 mL. What rate does the nurse set?", "type": "single", "opts": ["4 mL/hr", "8 mL/hr", "15 mL/hr", "17 mL/hr"], "ans": [1], "why": "165 divided by 2.2 = 75 kg; 75 x 0.1 = 7.5 units/hr, and at 1 unit/mL that is 7.5, rounded to <b>8 mL/hr<\/b>. Answering 17 means the pounds were never converted - 2.2 always goes with the pounds.", "topic": "Diabetes", "icon": "🍬", "topicFull": "Diabetes", "pharm": 1}, {"q": "A client is on a DKA insulin drip. Which actions does the nurse include? Select all that apply.", "type": "sata", "opts": ["Check glucose hourly", "Switch to a dextrose-containing fluid when glucose reaches 250", "Give sodium bicarbonate once glucose falls below 300", "Replace potassium as it normalizes and begins to fall", "Change to subcutaneous insulin as soon as ketones clear"], "ans": [0, 1, 3], "why": "The drip set is <b>hourly glucose, D5-containing fluid at 250 to avoid cerebral edema, and potassium replacement<\/b> because insulin drives K into cells. Bicarbonate is only for pH below 7.0, and subcutaneous insulin is never used during a crisis.", "topic": "Diabetes", "icon": "🍬", "topicFull": "Diabetes", "pharm": 1}, {"q": "A client takes NPH insulin at 0700. When should the nurse teach her that a snack is most important?", "type": "single", "opts": ["Around 0715, when the insulin peaks", "Around 0900, 2 hours after the dose", "Around 1500, about 8 hours after the dose", "At bedtime only"], "ans": [2], "why": "NPH is the only intermediate insulin: onset 1 to 2 hours, <b>peak 6 to 8 hours<\/b>, so a snack belongs around the 8-hour mark. The 15-minute answer belongs to lispro and aspart, which are given immediately before a meal, never 30 minutes ahead.", "topic": "Diabetes", "icon": "🍬", "topicFull": "Diabetes", "pharm": 1}, {"q": "A client with type 1 diabetes has influenza and is eating almost nothing. Which instruction is correct?", "type": "single", "opts": ["Hold the insulin until she is eating normally again", "Take half the usual insulin dose while appetite is poor", "Keep taking insulin, check glucose every 2 to 4 hours and check ketones", "Stop insulin but check glucose every 2 hours"], "ans": [2], "why": "The sick-day rule is <b>keep taking insulin even when not eating<\/b>, monitor glucose every 2 to 4 hours, check ketones, hydrate, and call for glucose over 250 that is not falling or illness beyond 2 days. Illness raises glucose through stress hormones, so skipping or halving the dose drives her toward DKA.", "topic": "Diabetes", "icon": "🍬", "topicFull": "Diabetes", "pharm": 1}, {"type": "bowtie", "week": "6", "step": "prioritize", "topic": "Diabetes", "stemTitle": "Laboratory results", "stem": "<p>An older adult with type 2 diabetes and several days of poor oral intake is admitted confused and profoundly dehydrated.<\/p><table><tr><th>Test<\/th><th>Result<\/th><\/tr><tr><td>Blood glucose<\/td><td>648 mg/dL<\/td><\/tr><tr><td>Arterial pH<\/td><td>7.36<\/td><\/tr><tr><td>Bicarbonate<\/td><td>19 mEq/L<\/td><\/tr><tr><td>Serum osmolarity<\/td><td>328 mOsm/L<\/td><\/tr><tr><td>Blood and urine ketones<\/td><td>Negative<\/td><\/tr><\/table>", "cond": ["Diabetic ketoacidosis (DKA)", "Hyperosmolar hyperglycemic state (HHS)", "Somogyi effect", "Dawn phenomenon"], "actions": ["Begin rapid IV 0.9% sodium chloride infusion", "Start an IV regular insulin infusion per protocol", "Give IV sodium bicarbonate to correct severe acidosis", "Switch immediately to subcutaneous insulin instead of IV therapy", "Restrict all oral and IV fluids until osmolarity improves"], "params": ["Serum potassium level", "Level of consciousness and neurologic status", "Urine ketone level", "Arterial blood gas pH", "Serum uric acid"], "answer": {"cond": [1], "action": [0, 1], "param": [0, 1]}, "why": "A glucose over 600 mg/dL, an osmolarity above 320 mOsm/L, no significant acidosis (pH over 7.3, bicarbonate over 15 mEq/L), and negative ketones together define HHS rather than DKA, which would show ketosis and a pH under 7.3. Somogyi effect and dawn phenomenon are patterns of overnight glucose swings, not an acute crisis like this. Large-volume isotonic fluids and an IV insulin infusion are the priority treatments; bicarbonate is reserved for severe acidosis that is not present here, and switching to subcutaneous insulin or restricting fluids would leave this profoundly dehydrated client under-treated. Potassium shifts rapidly once fluids and insulin start, and neurologic status reflects the client's dangerously high osmolarity, making these the priority parameters over ketones, ABG pH, or uric acid.", "src": "ATI Adult Med-Surg ch 83 (Complications of Diabetes Mellitus - DKA and HHS)", "icon": "🍬", "topicFull": "Diabetes", "pharm": 1}, {"type": "sata", "week": "6", "step": "recognize", "topic": "Diabetes", "q": "A nurse is caring for a client who has type 1 diabetes and is admitted with diabetic ketoacidosis. Which findings should the nurse expect? (Select all that apply.)", "opts": ["Fruity breath odor", "Kussmaul respirations", "Blood glucose less than 70 mg/dL", "Abdominal pain and vomiting", "Serum bicarbonate above 24 mEq/L", "Polyuria and polydipsia"], "ans": [0, 1, 3, 5], "why": "DKA classically produces a fruity breath odor from ketone buildup, Kussmaul respirations that blow off excess CO2 and acid, GI symptoms from ketosis and acidosis, and polyuria/polydipsia from osmotic diuresis. DKA causes hyperglycemia, not hypoglycemia, so a glucose under 70 mg/dL would not be expected. DKA causes metabolic acidosis with a low, not elevated, bicarbonate level, so a bicarbonate above 24 mEq/L is inconsistent with the diagnosis.", "src": "ATI Adult Med-Surg ch 83 (Complications of Diabetes Mellitus - DKA and HHS)", "icon": "🍬", "topicFull": "Diabetes"}], "7": [{"q": "A client with a head injury has BP 82/50, HR 130, and a newly dilated sluggish left pupil. Which does the nurse address first?", "type": "single", "opts": ["The dilated sluggish pupil, because it suggests herniation", "The hypotension and tachycardia", "Obtain a repeat GCS before intervening", "Elevate the head of the bed and recheck in 15 minutes"], "ans": [1], "why": "<b>ABC before D, every time<\/b> - hypotension with tachycardia outranks the new pupil change, because perfusion failure kills the whole brain, not just one hemisphere. The pupil is the more alarming-looking finding, which is exactly why it is the distractor.", "topic": "Neurologic Dysfunction…", "icon": "🧠", "topicFull": "Neurologic Dysfunction & Cerebrovascular Disorders"}, {"q": "A client with elevated ICP begins decorticate posturing. Mannitol is ordered. What does the nurse do first?", "type": "single", "opts": ["Elevate the head of the bed to 30 degrees", "Retrieve and prepare the mannitol", "Place the client in Trendelenburg", "Suction the airway to stimulate a response"], "ans": [0], "why": "<b>Raising the HOB to 30 degrees takes seconds and improves venous drainage<\/b>, while mannitol has to be fetched and prepared. Trendelenburg is never used with raised ICP, and suctioning transiently raises it further.", "topic": "Neurologic Dysfunction…", "icon": "🧠", "topicFull": "Neurologic Dysfunction & Cerebrovascular Disorders", "pharm": 1}, {"q": "A client has an ICP of 22 mmHg and a MAP of 70 mmHg. What is the cerebral perfusion pressure, and how does the nurse interpret it?", "type": "single", "opts": ["92 mmHg, adequate", "48 mmHg, below goal", "48 mmHg, adequate", "22 mmHg, below goal"], "ans": [1], "why": "CPP = MAP - ICP = 70 - 22 = <b>48 mmHg, which is below the goal of greater than 50<\/b>. Normal ICP is 10 to 15, so this client's rising pressure is already starving the brain of perfusion.", "topic": "Neurologic Dysfunction…", "icon": "🧠", "topicFull": "Neurologic Dysfunction & Cerebrovascular Disorders"}, {"q": "Which findings would exclude a client from receiving t-PA for an ischemic stroke? Select all that apply.", "type": "sata", "opts": ["Current anticoagulant therapy", "Blood pressure 196/104", "Age 78", "Abdominal surgery 10 days ago", "Symptom onset 2 hours ago"], "ans": [0, 1, 3], "why": "Contraindications include <b>anticoagulant use, SBP over 180, recent bleed or surgery<\/b>, age under 18 and abnormal glucose. Age 78 is not a barrier, and 2 hours sits inside the 3 to 4.5 hour window - both are there to be mistaken for exclusions.", "topic": "Neurologic Dysfunction…", "icon": "🧠", "topicFull": "Neurologic Dysfunction & Cerebrovascular Disorders"}, {"q": "Which assessment finding is the earliest indicator of rising intracranial pressure?", "type": "single", "opts": ["A subtle change in level of consciousness", "Widening pulse pressure with bradycardia", "Cheyne-Stokes respirations", "Fixed dilated pupils"], "ans": [0], "why": "<b>A change in LOC is the earliest sign<\/b>; Cushing's triad - rising systolic with widened pulse pressure, bradycardia and irregular respirations - is a <b>late herniation sign<\/b>. If the triad is present, you are already late.", "topic": "Neurologic Dysfunction…", "icon": "🧠", "topicFull": "Neurologic Dysfunction & Cerebrovascular Disorders"}, {"q": "A client with suspected stroke has a patent airway and adequate breathing. What does the nurse do next?", "type": "single", "opts": ["Administer chewable aspirin", "Perform a rapid focused neurologic assessment", "Start a heparin drip", "Give a bolus of isotonic fluid"], "ans": [1], "why": "After A and B are confirmed the next step is a <b>rapid neuro assessment of about 20 seconds<\/b> to establish deficits and time of onset. Aspirin cannot be given before the non-contrast CT distinguishes ischemic from hemorrhagic stroke.", "topic": "Neurologic Dysfunction…", "icon": "🧠", "topicFull": "Neurologic Dysfunction & Cerebrovascular Disorders", "pharm": 1}, {"type": "bowtie", "week": "7", "step": "prioritize", "topic": "Neurologic Dysfunction…", "stemTitle": "Emergency department triage note", "stem": "<p>A client arrives with right facial droop, slurred speech, and right arm drift that began about 40 minutes ago. Blood pressure is 168/94 mm Hg, blood glucose is 118 mg/dL, and the client is alert. NIHSS score is 12.<\/p>", "cond": ["Acute ischemic stroke", "Transient ischemic attack (TIA)", "Todd's paralysis after a seizure", "Hypoglycemic episode"], "actions": ["Obtain a stat noncontrast CT scan of the head", "Prepare for possible IV alteplase if within the treatment window", "Give aspirin immediately, before any imaging is completed", "Aggressively lower blood pressure to below 120/80 mm Hg right away", "Encourage the client to drink water before speech-language pathology evaluates swallowing"], "params": ["Blood pressure", "Oxygen saturation", "Serum potassium", "Serum uric acid level", "Urine ketones"], "answer": {"cond": [0], "action": [0, 1], "param": [0, 1]}, "why": "Because the deficits are ongoing at 40 minutes with a high NIHSS score of 12 (severe stroke), the client must be treated as an acute ischemic stroke rather than waiting to see if symptoms resolve into a TIA; a normal glucose of 118 mg/dL rules out a hypoglycemic cause, and there is no seizure history to suggest Todd's paralysis. A stat noncontrast CT and preparing for possible alteplase are the priority actions, since imaging must rule out hemorrhage before any thrombolytic or antiplatelet is given; giving aspirin before imaging or aggressively lowering blood pressure could worsen an undiagnosed hemorrhagic bleed or drop cerebral perfusion. Blood pressure (reporting over 185/110 mm Hg) and oxygen saturation (keeping above 94%) are the priority parameters, not potassium, uric acid, or ketones, which are unrelated to acute stroke monitoring.", "src": "ATI Adult Med-Surg ch 16 (Stroke)", "icon": "🧠", "topicFull": "Neurologic Dysfunction & Cerebrovascular Disorders", "pharm": 1}, {"type": "dropdown", "week": "7", "step": "analyze", "topic": "Neurologic Dysfunction…", "stemTitle": "Nurses' note 0700", "stem": "<p>A client with a recent episode of otitis media develops a temperature of 39.4° C (102.9° F), a severe constant headache, photophobia, and nuchal rigidity. Both Kernig's and Brudzinski's signs are positive.<\/p>", "text": "These findings are most consistent with {1}. The nurse's priority intervention is to {2}.", "gaps": [{"options": ["viral meningitis", "bacterial meningitis", "a tension headache", "an absence seizure"], "answer": 1}, {"options": ["initiate droplet precautions and notify the provider immediately", "allow the client to rest without isolation since the symptoms are mild", "give an anticonvulsant and wait for lab results before any isolation"], "answer": 0}], "why": "Bacterial meningitis often follows an infection such as otitis media, and this client's fever, severe headache, nuchal rigidity, and positive Kernig's and Brudzinski's signs are classic bacterial meningitis findings. The client must be placed on droplet precautions immediately once meningitis is suspected, with the provider notified so a lumbar puncture and antibiotics can be started promptly. Viral meningitis tends to be milder and self-limiting; a tension headache would not cause nuchal rigidity or positive meningeal signs; and nothing in the vignette (no altered consciousness or motor activity) suggests a seizure.", "src": "ATI Adult Med-Surg ch 6 (Meningitis)", "icon": "🧠", "topicFull": "Neurologic Dysfunction & Cerebrovascular Disorders"}, {"type": "sata", "week": "7", "step": "solutions", "topic": "Neurologic Dysfunction…", "q": "A nurse is planning care for a client newly diagnosed with generalized tonic-clonic epilepsy. Which interventions should the nurse include in the plan of care? (Select all that apply.)", "opts": ["Keep oxygen and suction equipment set up at the bedside.", "Pad the side rails and keep the bed in its lowest position.", "Store a padded tongue blade at the bedside to insert if a seizure starts.", "Teach the client to take the antiseizure medication at the same clock time each day.", "Teach the client to avoid swimming alone, ladders, and contact sports.", "Plan to hold the client's arms and legs still if jerking movements begin."], "ans": [0, 1, 3, 4], "why": "A seizure plan protects the airway and prevents injury, so oxygen, suction, padded rails, and a low bed belong in it. Steady daily dosing keeps drug levels therapeutic, and activity limits protect the client if a seizure hits without warning. Nothing is ever placed in the mouth during a seizure, because it can break teeth or block the airway. Restraining a moving limb does not stop the seizure and can tear muscle or fracture bone.", "src": "ATI ch 7 Seizures and Epilepsy", "icon": "🧠", "topicFull": "Neurologic Dysfunction & Cerebrovascular Disorders"}, {"type": "dropdown", "week": "7", "step": "action", "topic": "Neurologic Dysfunction…", "stemTitle": "Nurses' notes 1500", "stem": "<p>A client is 3 hr out from a lumbar puncture. The client reports a <b>throbbing headache that gets worse on sitting up and eases when lying flat<\/b>. The puncture site is dry and intact with no drainage. Neurologic checks are unchanged, temperature 37.0 C (98.6 F), and the client has taken only a few sips of water since the test.<\/p>", "text": "The nurse should first {1}, and if the headache continues the nurse should anticipate {2}.", "gaps": [{"options": ["keep the client lying flat and push oral fluids", "raise the head of the bed to 45 degrees and get the client walking", "hold all oral fluids and set up for a repeat puncture"], "answer": 0}, {"options": ["an epidural blood patch to seal the leak", "an emergency CT scan for brain herniation", "a lumbar drain to pull off more cerebrospinal fluid"], "answer": 0}], "why": "A headache that is worse upright and better flat after a lumbar puncture is caused by cerebrospinal fluid leaking from the needle site. Staying flat and drinking fluids lowers the pressure difference and supports fluid replacement, so that is the first action. Sitting up or walking makes the leak headache worse, and withholding fluids works against replacing what was lost. If it does not resolve, an epidural blood patch seals the leak; there is no sign of herniation here, and draining more fluid would deepen the problem.", "src": "ATI ch 4 Neurologic Diagnostic Procedures", "icon": "🧠", "topicFull": "Neurologic Dysfunction & Cerebrovascular Disorders"}], "8": [{"q": "A client with a T4 spinal cord injury has BP 208/112, HR 48, a pounding headache and flushing above the injury. What does the nurse do first?", "type": "single", "opts": ["Administer the prescribed antihypertensive", "Sit the client upright", "Check for a fecal impaction", "Lay the client flat and elevate the legs"], "ans": [1], "why": "In autonomic dysreflexia the first action is to <b>sit her up<\/b>, which uses gravity to drop the blood pressure immediately, then find and remove the trigger - check the bladder before the bowel. Antihypertensives are an adjunct, not the first move, and lying flat worsens the hypertension.", "topic": "Traumatic, Infectious,…", "icon": "🧠", "topicFull": "Traumatic, Infectious, Oncologic & Degenerative Neuro"}, {"q": "On the first day after spinal surgery, which finding does the nurse report immediately?", "type": "single", "opts": ["Blood pressure drifting from 122/78 to 110/70", "Pain rated 4 then 5 then 4", "Progressive left leg weakness now unable to lift the leg", "Requesting a second pillow"], "ans": [2], "why": "<b>Progressive motor loss distal to the surgical site is the concerning trend<\/b> and suggests cord compromise. Small BP drift and pain oscillating between 4 and 5 are noise - trend items reward spotting the finding that moves in one direction.", "topic": "Traumatic, Infectious,…", "icon": "🧠", "topicFull": "Traumatic, Infectious, Oncologic & Degenerative Neuro"}, {"q": "A client with myasthenia gravis takes pyridostigmine. Which instruction is correct?", "type": "single", "opts": ["Take it with food to reduce nausea", "Take it 30 to 60 minutes before meals", "Take it only on days when weakness is noticeable", "Take it at bedtime to prevent morning weakness"], "ans": [1], "why": "Pyridostigmine is timed <b>30 to 60 minutes before meals<\/b> so its 3 to 4 hour peak covers chewing and swallowing. It is never stopped because she feels better - feeling better is the drug working.", "topic": "Traumatic, Infectious,…", "icon": "🧠", "topicFull": "Traumatic, Infectious, Oncologic & Degenerative Neuro", "pharm": 1}, {"q": "A client is admitted with suspected bacterial meningitis. Which nursing actions are appropriate? Select all that apply.", "type": "sata", "opts": ["Initiate droplet precautions", "Place the client in a negative-pressure room with N95 use", "Elevate the head of the bed 30 degrees", "Assess for a petechial rash on the trunk and extremities", "Keep the room brightly lit for frequent neuro checks"], "ans": [0, 2, 3], "why": "Bacterial (meningococcal) meningitis needs <b>droplet precautions, HOB at 30 degrees, and monitoring for a petechial rash with a falling LOC<\/b>. Negative pressure and N95 belong to airborne conditions, and photophobia makes a bright room actively unkind.", "topic": "Traumatic, Infectious,…", "icon": "🧠", "topicFull": "Traumatic, Infectious, Oncologic & Degenerative Neuro"}, {"q": "A client has sudden one-sided facial droop. Which finding points to Bell's palsy rather than a stroke?", "type": "single", "opts": ["The forehead is involved and she cannot raise that eyebrow", "The forehead is spared and the eyebrow raises normally", "She has slurred speech with the droop", "The droop is accompanied by arm weakness"], "ans": [0], "why": "<b>Bell's palsy takes the whole side of the face including the forehead; a stroke spares the forehead.<\/b> Protect the affected eye with lubricant and a night patch - about 95 percent recover over months.", "topic": "Traumatic, Infectious,…", "icon": "🧠", "topicFull": "Traumatic, Infectious, Oncologic & Degenerative Neuro"}, {"q": "A client is placed in a halo device. Which nursing action is the priority?", "type": "single", "opts": ["Perform neurovascular checks of all extremities", "Loosen the vest bars slightly for comfort", "Use the vest bars to reposition the client in bed", "Clean the pin sites with an alcohol-based solution"], "ans": [0], "why": "The priority is <b>neurovascular checks of all extremities<\/b> - the device exists to protect the cord, and circulation and function tell you it is doing so. Never lift or turn a client by the vest bars, never remove the device, and keep a wrench taped to the vest for emergency CPR access.", "topic": "Traumatic, Infectious,…", "icon": "🧠", "topicFull": "Traumatic, Infectious, Oncologic & Degenerative Neuro"}, {"type": "matching", "week": "8", "step": "analyze", "topic": "Traumatic, Infectious,…", "stem": "Match each finding to the condition it best represents.", "pairs": [{"left": "Pill-rolling tremor, masklike facial expression, and shuffling gait", "answer": 0}, {"left": "Acute, fluctuating confusion that developed over hours after starting a new opioid", "answer": 1}, {"left": "Severe hypertension, widening pulse pressure, and bradycardia", "answer": 2}, {"left": "Sudden severe headache and profuse sweating above the level of injury, triggered by a distended bladder", "answer": 3}], "right": ["Parkinson's disease", "Delirium", "Head injury with rising intracranial pressure", "Autonomic dysreflexia (spinal cord injury)", "Multiple sclerosis"], "why": "The pill-rolling tremor, masklike face, and shuffling gait are classic Parkinson's disease findings. An acute, fluctuating change in mental status tied to a new medication describes delirium, which is reversible, unlike a slowly progressive dementia. Severe hypertension with widening pulse pressure and bradycardia is Cushing's triad, a late sign of rising intracranial pressure after head injury. Autonomic dysreflexia in spinal cord injury is most often triggered by a distended bladder and causes a pounding headache with sweating above the injury level. Multiple sclerosis is not used because none of the vignettes describe its demyelinating pattern of optic or sensory symptoms.", "src": "ATI Adult Med-Surg ch 8 (Parkinson's Disease), ch 9 (Delirium and Dementia), ch 15 (Head Injury), and ch 17 (Spinal Cord Injury)", "icon": "🧠", "topicFull": "Traumatic, Infectious, Oncologic & Degenerative Neuro"}, {"type": "highlight", "week": "8", "step": "recognize", "topic": "Traumatic, Infectious,…", "stemTitle": "Nurses' note 1400", "stem": "Highlight the current findings that indicate rising intracranial pressure and require immediate provider notification.", "tokens": [{"text": "A client is being monitored after a closed head injury sustained in a fall 6 hours ago. The client's spouse reports ", "pick": false}, {"text": "the client was talking normally immediately after the fall", "pick": true}, {"text": ". The client is now ", "pick": false}, {"text": "more difficult to arouse than on the previous assessment", "pick": true}, {"text": ". Vital signs show ", "pick": false}, {"text": "blood pressure 172/56 mm Hg, heart rate 52/min, and irregular respirations with periods of apnea", "pick": true}, {"text": ". The right pupil is 6 mm and ", "pick": false}, {"text": "sluggish to react", "pick": true}, {"text": "; the left pupil is 3 mm and brisk. The client ", "pick": false}, {"text": "extends both arms and rotates them inward when a painful stimulus is applied", "pick": true}, {"text": ". ", "pick": false}, {"text": "Capillary refill is less than 3 seconds", "pick": true}, {"text": ".", "pick": false}], "answer": [3, 5, 7, 9], "why": "A declining level of consciousness, Cushing's triad (widening pulse pressure with hypertension, bradycardia, and irregular respirations), a sluggish and less reactive pupil, and decerebrate posturing (arm extension with inward rotation) are late, ominous signs of rising intracranial pressure requiring immediate provider notification. A report that the client was talking normally right after the fall describes an earlier lucid interval, not a current finding, and a normal capillary refill is reassuring rather than concerning. Because Cushing's triad signals impending herniation, recognizing this pattern quickly is a priority for preventing permanent brain injury.", "src": "ATI Adult Med-Surg ch 15 (Head Injury)", "icon": "🧠", "topicFull": "Traumatic, Infectious, Oncologic & Degenerative Neuro"}, {"type": "bowtie", "week": "8", "step": "action", "topic": "Traumatic, Infectious,…", "stemTitle": "Nurses' notes 1030", "stem": "<p>A client with a T3 spinal cord injury 6 weeks ago calls out with a sudden <b>pounding headache and blood pressure of 208/112 mm Hg<\/b>; the client's usual pressure is 98/60 mm Hg. The face and neck are flushed and sweaty, the nose is congested, and the skin below the injury is cool with goose bumps. Heart rate is 48/min. The indwelling catheter bag has 30 mL of urine from the last 6 hr.<\/p>", "cond": ["Autonomic dysreflexia", "Neurogenic shock", "Spinal shock", "Orthostatic hypotension"], "actions": ["Sit the client fully upright and lower the legs", "Check the catheter tubing for kinks and relieve the bladder distention", "Lay the client flat and elevate both legs on pillows", "Apply an abdominal binder and thigh-high compression stockings", "Give IV atropine for the slow heart rate"], "params": ["Blood pressure", "Bladder volume by bedside scan", "Serum potassium", "Deep tendon reflex grade", "Hemoglobin and hematocrit"], "answer": {"cond": [0], "action": [0, 1], "param": [0, 1]}, "why": "A pounding headache with severe hypertension, flushing and sweating above the lesion, and a slow heart rate in a client injured above T6 is autonomic dysreflexia, and the nearly empty drainage bag points to a blocked catheter as the trigger. Sitting the client up drops the pressure by gravity, and clearing the obstruction removes the stimulus driving the episode. Lying flat or adding a binder and stockings raises pressure further, which treats neurogenic or spinal shock, not this; the bradycardia is a reflex to the high pressure and stops when the trigger is gone, so atropine is not the fix. Blood pressure and bladder volume are the two numbers that show whether the emergency is resolving.", "src": "ATI ch 17 Spinal Cord Injury", "icon": "🧠", "topicFull": "Traumatic, Infectious, Oncologic & Degenerative Neuro", "pharm": 1}, {"type": "dropdown", "week": "8", "step": "evaluate", "topic": "Traumatic, Infectious,…", "stemTitle": "Nurses' notes 0900", "stem": "<p>A client with Parkinson's disease started carbidopa-levodopa with entacapone 3 weeks ago. <b>Before therapy the client needed help to eat because of tremor and froze repeatedly while walking the hall.<\/b> Today the client feeds self, walks the hall with one pause, and has dark brown urine. About an hour after each dose the client has new writhing, twisting movements of both arms.<\/p>", "text": "The finding that shows the medication is working is {1}, and the finding the nurse should report to the provider is {2}.", "gaps": [{"options": ["self-feeding with far fewer freezing episodes while walking", "the dark brown color of the urine", "the masklike facial expression at rest"], "answer": 0}, {"options": ["the writhing arm movements that follow each dose", "the dark brown color of the urine", "the slow, monotone quality of the speech"], "answer": 0}], "why": "Evaluating this therapy means comparing function before and after: eating without help and walking with almost no freezing shows the dopamine replacement is doing its job. The writhing, twisting movements after each dose are dyskinesia, a dose-related effect of levodopa that entacapone can intensify, so the provider needs to know and adjust the dose or timing. Dark urine from entacapone looks alarming but is harmless and expected. A masklike face and monotone speech are baseline Parkinson's findings, not proof of drug failure or drug harm.", "src": "ATI ch 8 Parkinson's Disease", "icon": "🧠", "topicFull": "Traumatic, Infectious, Oncologic & Degenerative Neuro", "pharm": 1}], "9": [{"q": "Fifteen minutes into a transfusion a client has chills, fever and flank pain. What does the nurse do first?", "type": "single", "opts": ["Notify the provider", "Stop the transfusion", "Slow the rate and reassess in 15 minutes", "Administer the prescribed antipyretic"], "ans": [1], "why": "For any suspected reaction the sequence is <b>stop the transfusion, keep the line open with 0.9 percent NS on new tubing, stay with the client, then notify<\/b>. Slowing the rate keeps incompatible blood going in, and notifying first delays the one action that stops the exposure.", "topic": "Hematologic Disorders", "icon": "🩸", "topicFull": "Hematologic Disorders"}, {"q": "A client with immune thrombocytopenia has four findings. Which one does the nurse act on first?", "type": "single", "opts": ["Scattered petechiae over both shins", "A nosebleed that lasted 10 minutes and stopped", "Severe headache with vomiting", "Bruising on the forearms"], "ans": [2], "why": "<b>Severe headache with vomiting in a thrombocytopenic client means intracranial hemorrhage until proven otherwise.<\/b> Petechiae and a nosebleed that has already stopped are expected findings that can wait.", "topic": "Hematologic Disorders", "icon": "🩸", "topicFull": "Hematologic Disorders"}, {"q": "Which statement about administering packed red blood cells is correct?", "type": "single", "opts": ["Prime with lactated Ringer's and complete within 6 hours", "Prime with 0.9 percent sodium chloride, stay with the client the first 15 minutes, and infuse within 4 hours", "Prime with D5W and check vital signs every hour", "Stay with the client the first 5 minutes and infuse within 2 hours"], "ans": [1], "why": "Only <b>0.9 percent NS<\/b> is compatible - dextrose hemolyzes cells and LR clots them - and the nurse stays for the <b>first 15 minutes<\/b> with the unit completed within <b>4 hours<\/b>. Two-nurse verification precedes all of it.", "topic": "Hematologic Disorders", "icon": "🩸", "topicFull": "Hematologic Disorders"}, {"q": "On day 7 of heparin therapy a client's platelets drop from 220,000 to 90,000 in 48 hours. Which actions does the nurse take? Select all that apply.", "type": "sata", "opts": ["Stop the heparin", "Administer vitamin K", "Obtain daily platelet counts", "Start warfarin immediately", "Assess for signs of thrombosis"], "ans": [0, 2, 4], "why": "This is HIT: <b>stop the heparin, follow daily platelet counts, notify, and assess for clot<\/b>, because HIT clots as well as bleeds. Vitamin K is warfarin's antidote, and starting warfarin now is contraindicated - the falling platelet count makes bleeding look like the only risk, which is the trap.", "topic": "Hematologic Disorders", "icon": "🩸", "topicFull": "Hematologic Disorders", "pharm": 1}, {"q": "A client develops respiratory distress during a transfusion. Which finding distinguishes TACO from TRALI?", "type": "single", "opts": ["Fever and chills", "Crackles, jugular venous distention and hypertension", "Urticaria and itching", "Hemoglobinuria and flank pain"], "ans": [1], "why": "<b>TACO shows fluid-overload signs - crackles, JVD, hypertension - while TRALI produces respiratory distress without them.<\/b> The discriminator is overload, not the presence of dyspnea, which both share.", "topic": "Hematologic Disorders", "icon": "🩸", "topicFull": "Hematologic Disorders"}, {"q": "A client with hemophilia has a swollen, painful knee after a fall. Which intervention does the nurse include?", "type": "single", "opts": ["Apply heat and begin gentle range of motion", "Elevate the joint, apply ice and give factor replacement", "Give aspirin for pain and encourage ambulation", "Wrap the joint and perform passive range of motion hourly"], "ans": [1], "why": "Hemarthrosis is managed with <b>elevation, ice, factor replacement and no range of motion<\/b>; aspirin and NSAIDs are never given. Heat and movement both increase bleeding into the joint - and joint bleeds are about 75 percent of all bleeds in hemophilia.", "topic": "Hematologic Disorders", "icon": "🩸", "topicFull": "Hematologic Disorders", "pharm": 1}, {"type": "bowtie", "week": "9", "step": "prioritize", "topic": "Hematologic Disorders", "stemTitle": "Nurses' notes", "stem": "<p>A client with septic shock for 2 days develops oozing from IV sites and gums, petechiae across the chest, and dark, cyanotic fingertips. Labs show platelets 68,000/mm3, fibrinogen 140 mg/dL, a prolonged PT, and an elevated D-dimer.<\/p>", "cond": ["Disseminated intravascular coagulation (DIC)", "Immune thrombocytopenic purpura (ITP)", "Heparin-induced thrombocytopenia (HIT)", "Thrombotic thrombocytopenic purpura (TTP)"], "actions": ["Treat the underlying sepsis with prescribed antibiotics and supportive care", "Administer clotting factor and platelet transfusions as prescribed", "Give NSAIDs for pain and fever control", "Encourage vigorous coughing and Valsalva maneuvers to mobilize secretions", "Hold all IV fluid replacement until the bleeding fully stops"], "params": ["Fibrinogen level", "Platelet count", "Serum uric acid", "Rheumatoid factor", "Hemoglobin A1c"], "answer": {"cond": [0], "action": [0, 1], "param": [0, 1]}, "why": "DIC uniquely produces simultaneous bleeding (oozing IV sites, petechiae) and clotting (cyanotic nail beds from microemboli), triggered here by sepsis, along with low platelets, low fibrinogen, a prolonged PT, and an elevated D-dimer, a pattern not seen together in ITP, HIT, or TTP alone. The priority actions are treating the underlying sepsis and replacing consumed clotting factors and platelets; NSAIDs and Valsalva maneuvers both raise bleeding and hemorrhage risk and should be avoided, and withholding fluids would worsen perfusion. Trending fibrinogen and platelet counts is the most direct way to monitor the worsening or improving consumptive coagulopathy, unlike uric acid, rheumatoid factor, or A1c, which are unrelated to DIC.", "src": "ATI Adult Med-Surg ch 43 (Coagulation Disorders)", "icon": "🩸", "topicFull": "Hematologic Disorders"}, {"type": "dropdown", "week": "9", "step": "analyze", "topic": "Hematologic Disorders", "stemTitle": "Nurses' note", "stem": "<p>Ten minutes after a packed red blood cell transfusion is started, a client develops flank pain, fever, chills, hypotension, and dark urine.<\/p>", "text": "This presentation is most consistent with {1}. The nurse's priority action is to {2}.", "gaps": [{"options": ["a febrile nonhemolytic reaction", "an acute hemolytic transfusion reaction", "circulatory overload", "an allergic reaction"], "answer": 1}, {"options": ["stop the transfusion immediately, hang new saline tubing, and send the blood bag for testing", "slow the infusion rate and give an antipyretic", "give diphenhydramine and continue the infusion at a slower rate"], "answer": 0}], "why": "Flank pain, fever, chills, hypotension, and dark urine (hemoglobinuria) occurring soon after a transfusion starts are classic for an acute hemolytic transfusion reaction from a blood type mismatch, which most often occurs within the first 15 to 30 minutes. A febrile reaction typically causes fever alone without flank pain or dark urine, circulatory overload presents with respiratory distress rather than hemolysis signs, and an allergic reaction causes itching or hives, not flank pain and dark urine. The transfusion must be stopped immediately and the blood bag sent for testing; continuing or merely slowing the infusion risks worsening hemolysis and kidney injury.", "src": "ATI Adult Med-Surg ch 41 (Blood and Blood Product Transfusions)", "icon": "🩸", "topicFull": "Hematologic Disorders"}, {"type": "matching", "week": "9", "step": "solutions", "topic": "Hematologic Disorders", "stem": "A nurse is planning care for four clients who have different types of anemia. Match each client to the treatment plan that best addresses the cause of that client's anemia.", "pairs": [{"left": "Client whose stomach no longer makes intrinsic factor", "answer": 0}, {"left": "Client with mild iron-deficiency anemia who tolerates oral pills", "answer": 1}, {"left": "Client with anemia who now has crackles, ankle edema, and dyspnea", "answer": 3}, {"left": "Client with low folate from months of poor food intake", "answer": 4}], "right": ["Lifelong vitamin B12 replacement, usually a monthly injection", "Oral ferrous sulfate between meals, paired with a vitamin C source", "Iron dextran given deep IM by the Z-track method", "Oxygen, daily weights, cardiac rhythm monitoring, and prescribed diuretics", "Folic acid supplement plus spinach, lentils, and fortified grains"], "why": "Without intrinsic factor the client cannot absorb oral B12, so replacement is parenteral and lifelong, while simple iron deficiency responds to oral iron taken between meals with vitamin C. Folate deficiency from poor intake is corrected with a supplement plus folate-rich food, and anemia that has progressed to heart failure needs oxygen, daily weights, rhythm monitoring, and diuretics first. Iron dextran is the distractor: parenteral iron by Z-track is held for severe anemia, not for a client who tolerates pills.", "src": "ATI ch 42 Anemias", "icon": "🩸", "topicFull": "Hematologic Disorders"}], "10": [{"q": "Which client on the oncology unit does the nurse see first?", "type": "single", "opts": ["A client with ANC 800 and a temperature of 100.8 F", "A client vomiting 3 hours after cisplatin", "A client with new petechiae on both forearms", "A client requesting the next dose of pain medication"], "ans": [0], "why": "<b>Neutropenic fever is the one situation where antibiotics are given without a proven infection<\/b> - cultures plus IV antibiotics, likely admission. ANC under 1,500 is neutropenic and under 500 is severe; with no neutrophils, a low-grade fever may be the only sign of overwhelming sepsis.", "topic": "Oncologic Disorders…", "icon": "🎗️", "topicFull": "Oncologic Disorders & End-of-Life Care", "pharm": 1}, {"q": "A vesicant chemotherapy agent is infusing peripherally when the site becomes swollen and the client reports burning. What does the nurse do first?", "type": "single", "opts": ["Flush the line with saline to check patency", "Stop the infusion", "Remove the catheter and apply pressure", "Apply a warm compress to disperse the drug"], "ans": [1], "why": "<b>Stop the infusion first<\/b>, then notify the provider, give the antidote subcutaneously around the site and attempt to aspirate - do not remove the catheter and <b>do not flush<\/b>. Ice is correct because it localizes the drug; heat spreads it.", "topic": "Oncologic Disorders…", "icon": "🎗️", "topicFull": "Oncologic Disorders & End-of-Life Care", "pharm": 1}, {"q": "A client has a brachytherapy implant in place. Which action protects staff correctly?", "type": "single", "opts": ["Remain at least 6 feet away except when providing care, limit time in the room, and rotate caregivers", "Assign the same nurse each shift to maintain continuity", "Wear a shared dosimeter kept at the nurses' station", "Send soiled linens to the laundry immediately after each care episode"], "ans": [0], "why": "Brachytherapy safety is <b>distance of at least 6 feet, a 30-minute maximum exposure, rotating caregivers<\/b>, a personal dosimeter, a lead apron, and no pregnant staff assigned. Linens and dressings stay in the room, and continuity of assignment - normally a virtue - is exactly backwards here.", "topic": "Oncologic Disorders…", "icon": "🎗️", "topicFull": "Oncologic Disorders & End-of-Life Care"}, {"q": "Which teaching points does the nurse give a neutropenic client? Select all that apply.", "type": "sata", "opts": ["Sushi from a reputable restaurant is acceptable", "Discard drinks left sitting out longer than 1 hour", "Avoid gardening and changing the cat litter", "Report any temperature over 100 F", "Fresh raw fruit is encouraged for vitamin intake"], "ans": [1, 2, 3], "why": "Neutropenic teaching means <b>no raw food regardless of the restaurant, discard drinks left out over 1 hour, avoid gardening and cat litter, and report a temp over 100 F<\/b>. Quality of the kitchen does not change the microbial load on raw fish.", "topic": "Oncologic Disorders…", "icon": "🎗️", "topicFull": "Oncologic Disorders & End-of-Life Care"}, {"q": "A client receiving curative chemotherapy asks about palliative care. Which response is accurate?", "type": "single", "opts": ["Palliative care can begin now, alongside your treatment", "Palliative care starts only when treatment stops working", "Palliative care requires a prognosis of 6 months or less", "Palliative care and hospice are the same program"], "ans": [0], "why": "<b>Palliative care runs alongside curative treatment at any stage; hospice requires a terminal prognosis of about 6 months or less and a shift away from curative treatment.<\/b> Conflating the two is asked constantly.", "topic": "Oncologic Disorders…", "icon": "🎗️", "topicFull": "Oncologic Disorders & End-of-Life Care"}, {"q": "Two days after starting chemotherapy for a bulky lymphoma, which lab pattern indicates tumor lysis syndrome?", "type": "single", "opts": ["Low potassium, low phosphorus, high calcium, low uric acid", "High potassium, high phosphorus, low calcium, high uric acid", "High potassium, low phosphorus, high calcium, normal uric acid", "Normal potassium, high phosphorus, high calcium, high uric acid"], "ans": [1], "why": "Lysed cells dump <b>potassium, phosphorus and uric acid up, with calcium down<\/b> as phosphate binds it, risking arrhythmias and AKI. Prevention and treatment are aggressive IV fluids plus allopurinol or rasburicase - methotrexate is chemotherapy, not a treatment.", "topic": "Oncologic Disorders…", "icon": "🎗️", "topicFull": "Oncologic Disorders & End-of-Life Care", "pharm": 1}, {"type": "matching", "week": "10", "step": "analyze", "topic": "Oncologic Disorders…", "stem": "Match each presentation to the oncologic emergency it best represents.", "pairs": [{"left": "Facial and periorbital edema, dyspnea, and epistaxis; sit the client upright in semi-Fowler's position", "answer": 0}, {"left": "Hyperkalemia, hyperphosphatemia, and hyperuricemia after starting chemotherapy; give large-volume IV fluids and allopurinol", "answer": 1}, {"left": "New worsening back pain with leg weakness and new bowel or bladder retention; needs an urgent MRI and steroids", "answer": 2}, {"left": "Anorexia, a shortened QT interval, and kidney stones; give 0.9% saline and furosemide", "answer": 3}], "right": ["Superior vena cava syndrome", "Tumor lysis syndrome", "Spinal cord compression", "Hypercalcemia of malignancy", "Neutropenic sepsis"], "why": "Superior vena cava syndrome from a mediastinal tumor causes facial and periorbital edema, dyspnea, and epistaxis, and is managed by sitting the client upright and giving urgent radiation. Tumor lysis syndrome follows rapid cell death after chemotherapy and causes hyperkalemia, hyperphosphatemia, and hyperuricemia, treated with large-volume fluids and allopurinol. Spinal cord compression causes worsening back pain, leg weakness, and new bowel or bladder dysfunction, requiring urgent imaging and steroids. Hypercalcemia of malignancy causes anorexia, a shortened QT interval, and kidney stones, treated with saline and a loop diuretic. Neutropenic sepsis is not used because none of these vignettes describe fever with a low neutrophil count.", "src": "ATI Adult Med-Surg ch 89 (General Principles of Cancer)", "icon": "🎗️", "topicFull": "Oncologic Disorders & End-of-Life Care", "pharm": 1}, {"type": "sata", "week": "10", "step": "action", "topic": "Oncologic Disorders…", "q": "A nurse is caring for a client who has an absolute neutrophil count of 400/mm3 following chemotherapy. Which actions should the nurse take? (Select all that apply.)", "opts": ["Place the client in a private room", "Have the client wear a mask when leaving the room for transport", "Assign the client a roommate who is also immunosuppressed", "Perform hand hygiene before and after every client contact", "Take a rectal temperature to obtain the most accurate reading", "Report a temperature above 37.8° C (100° F) to the provider immediately"], "ans": [0, 1, 3, 5], "why": "Neutropenic precautions include a private room, a mask for transport, strict hand hygiene, and avoiding unnecessary invasive procedures, with any fever above 37.8° C (100° F) reported to the provider immediately. Assigning a roommate who is also immunosuppressed increases cross-infection risk rather than reducing it, and a rectal temperature is an invasive procedure that risks mucosal trauma and introducing infection in a neutropenic client, so it should be avoided.", "src": "ATI Adult Med-Surg ch 91 (Cancer Treatment Options)", "icon": "🎗️", "topicFull": "Oncologic Disorders & End-of-Life Care"}, {"type": "highlight", "week": "10", "step": "evaluate", "topic": "Oncologic Disorders…", "stemTitle": "Nurses' note 2200", "stem": "A client with metastatic bone cancer started scheduled morphine every 4 hr plus a stimulant laxative 2 days ago. Highlight the findings that show the client is being harmed by the opioid regimen and needs the nurse to intervene.", "tokens": [{"text": "The client has now had scheduled morphine and a stimulant laxative for 2 days. The client ", "pick": false}, {"text": "rates the bone pain 3 out of 10, down from 8 out of 10", "pick": true}, {"text": " and ", "pick": false}, {"text": "waits for the scheduled dose instead of asking early", "pick": true}, {"text": ". On rounds the client is ", "pick": false}, {"text": "difficult to arouse and responds only to a firm shake", "pick": true}, {"text": ". ", "pick": false}, {"text": "Respiratory rate is 8/min", "pick": true}, {"text": " and ", "pick": false}, {"text": "oxygen saturation is 86% on room air", "pick": true}, {"text": ". ", "pick": false}, {"text": "Blood pressure 114/68 mm Hg", "pick": true}, {"text": ", ", "pick": false}, {"text": "heart rate 74/min", "pick": true}, {"text": ", ", "pick": false}, {"text": "temperature 37.0 C (98.6 F)", "pick": true}, {"text": ". The client ", "pick": false}, {"text": "has had no stool in 4 days and the abdomen is firm and distended", "pick": true}, {"text": ". ", "pick": false}, {"text": "Skin is warm and dry", "pick": true}, {"text": ".", "pick": false}], "answer": [5, 7, 9, 17], "why": "A respiratory rate of 8/min with a saturation of 86% and a client who barely rouses is opioid-induced respiratory depression, so the nurse stops the next dose, stimulates the client, gives oxygen, and has naloxone ready. Four days without stool and a firm distended abdomen means the laxative is losing to the opioid and the bowel regimen has to be stepped up. Better pain scores and waiting for scheduled doses are signs the plan is working, not signs of harm, and normal blood pressure, heart rate, temperature, and skin do not point to a problem. The tempting error is highlighting the improved pain rating, since the question asks about harm, not benefit.", "src": "ATI ch 93 Pain Management for Clients Who Have Cancer", "icon": "🎗️", "topicFull": "Oncologic Disorders & End-of-Life Care", "pharm": 1}], "11": [{"q": "A client with continuous bladder irrigation after a TURP has bright red urine with clots. What does the nurse do first?", "type": "single", "opts": ["Decrease the irrigation rate to reduce bladder pressure", "Increase the irrigation rate", "Stop the irrigation and notify the provider", "Deflate the catheter balloon to relieve spasms"], "ans": [1], "why": "Bright red urine with clots means <b>increase the irrigation rate<\/b>, aiming for a rose colour - CBI does for the prostatic bed what fundal massage does after birth. Slowing or stopping it lets the catheter clot off, and then you are manually irrigating.", "topic": "Reproductive Disorders", "icon": "🌸", "topicFull": "Reproductive Disorders"}, {"q": "Six hours after prostate surgery a client has not voided since catheter removal and reports lower abdominal pressure. What does the nurse do first?", "type": "single", "opts": ["Encourage 2 L of fluid over the next 2 hours", "Perform a bladder scan", "Insert a straight catheter", "Run warm water and assist him to stand"], "ans": [1], "why": "<b>Bladder scan first<\/b> - it is noninvasive and tells you whether there is urine to drain. Under 50 to 100 mL residual is normal, 100 to 300 is retention and over 300 is significant; pushing fluids before you know only adds volume to a bladder that cannot empty.", "topic": "Reproductive Disorders", "icon": "🌸", "topicFull": "Reproductive Disorders"}, {"q": "A 34-year-old client asks when to perform breast self-examination. Which instruction is correct?", "type": "single", "opts": ["On the first day of menses each month", "5 to 7 days after menses begins, monthly", "On the same calendar date each month regardless of cycle", "Only at the annual clinical breast exam"], "ans": [1], "why": "BSE is done monthly <b>5 to 7 days after menses starts<\/b>, when hormonal swelling has settled, and is easiest with soapy skin in the shower using the fingertips. Clinical exams run every 3 years from 20 to 39, then yearly at 40 with annual screening mammography.", "topic": "Reproductive Disorders", "icon": "🌸", "topicFull": "Reproductive Disorders"}, {"q": "On postoperative day 3 after an abdominal hysterectomy the client's temperature has gone 98.6, 99.5, then 101.2 F, the incision is now red and foul-smelling, and pads are saturating every 2 hours. Which actions does the nurse take? Select all that apply.", "type": "sata", "opts": ["Obtain vital signs and strict intake and output", "Apply warm compresses to the incision", "Administer the prescribed IV antibiotic", "Notify the provider", "Start oral iron supplementation"], "ans": [0, 2, 3], "why": "A rising temperature, a deteriorating incision and accelerating bleeding call for <b>vitals and I&O, IV antibiotics and provider notification<\/b>. Ambulation and warm compresses are wrong here, and active significant bleeding needs transfusion, not oral iron, which takes weeks.", "topic": "Reproductive Disorders", "icon": "🌸", "topicFull": "Reproductive Disorders"}, {"q": "A nurse is calculating intake and output for a client with continuous bladder irrigation. Which is correct?", "type": "single", "opts": ["Count the irrigant as intake and all drainage as output", "Subtract the irrigant volume so it is not counted in intake or output", "Count only half the irrigant as intake", "Count the irrigant as output only"], "ans": [1], "why": "<b>The irrigant is not counted in I&O<\/b> - it goes in and comes right back out, so including it invents both intake and urine that never existed. Subtract the irrigation volume from total drainage to get true urine output.", "topic": "Reproductive Disorders", "icon": "🌸", "topicFull": "Reproductive Disorders"}, {"q": "A client taking sildenafil for erectile dysfunction should avoid which medication?", "type": "single", "opts": ["Acetaminophen", "Amoxicillin", "Nitroglycerin", "Ibuprofen"], "ans": [2], "why": "PDE5 inhibitors - recognize the <b>-afil<\/b> ending - are contraindicated with <b>nitrates<\/b> such as nitroglycerin and amyl nitrate, and cause additive hypotension with doxazosin. Acetaminophen and amoxicillin were specifically named as safe.", "topic": "Reproductive Disorders", "icon": "🌸", "topicFull": "Reproductive Disorders", "pharm": 1}, {"type": "dropdown", "week": "11", "step": "analyze", "topic": "Reproductive Disorders", "stemTitle": "Nurses' note", "stem": "<p>A 24-year-old sexually active client reports pelvic pain and has a temperature of 38.6° C (101.5° F), cervical motion tenderness, and mucopurulent cervical discharge. ESR and CRP are elevated, and chlamydia testing is positive.<\/p>", "text": "These findings are most consistent with {1}. Appropriate treatment includes {2}.", "gaps": [{"options": ["bacterial vaginosis", "pelvic inflammatory disease", "an uncomplicated urinary tract infection"], "answer": 1}, {"options": ["IV antibiotics that cover gonorrhea, chlamydia, and anaerobes (for example, ceftriaxone plus doxycycline and metronidazole)", "a single dose of oral fluconazole", "reassurance only, since chlamydia often resolves on its own"], "answer": 0}], "why": "Pelvic pain and tenderness with fever, elevated ESR and CRP, and a positive chlamydia test are classic pelvic inflammatory disease findings, and PID often requires IV combination antibiotic therapy. Bacterial vaginosis would show a thin, fishy-odor discharge without fever or cervical motion tenderness, fluconazole treats candidiasis rather than PID, and untreated chlamydia risks progressing to PID, ectopic pregnancy, and infertility, so it must never be left untreated.", "src": "ATI Adult Med-Surg ch 64 (Infections, Diagnostic, and Therapeutic Procedures for Reproductive Disorders)", "icon": "🌸", "topicFull": "Reproductive Disorders", "pharm": 1}, {"type": "dropdown", "week": "11", "step": "analyze", "topic": "Reproductive Disorders", "stemTitle": "Clinic visit note", "stem": "<p>A 51-year-old client reports irregular menses over the past year along with hot flashes and diaphoresis that disrupt sleep, plus vaginal dryness with painful intercourse. Labs show an elevated FSH level.<\/p>", "text": "These findings indicate {1}. An appropriate nursing recommendation is {2}.", "gaps": [{"options": ["perimenopause/menopause", "abnormal uterine bleeding from fibroids", "premenstrual dysphoric disorder"], "answer": 0}, {"options": ["a water-soluble lubricant for painful intercourse and weight-bearing exercise to protect bone density", "strict fluid restriction with daily weights", "high-dose estrogen-only hormone therapy regardless of whether the uterus is intact"], "answer": 0}], "why": "Menopause labs show falling estrogen and progesterone with a rising FSH, and this client's vasomotor findings (hot flashes, diaphoresis disrupting sleep) and genitourinary findings (vaginal dryness, painful intercourse) are classic for perimenopause/menopause. A water-soluble lubricant for dyspareunia and weight-bearing exercise to protect bone and muscle are appropriate recommendations. AUB from fibroids centers on irregular heavy bleeding rather than vasomotor symptoms with a rising FSH, and PMDD symptoms cluster before menses and ease after onset rather than persisting for a full year. Estrogen-only therapy is only safe without a uterus; giving it regardless of uterine status risks endometrial cancer if the uterus is intact.", "src": "ATI Adult Med-Surg ch 65 (Reproductive Physiologic Processes)", "icon": "🌸", "topicFull": "Reproductive Disorders", "pharm": 1}], "12": [{"q": "At a mass casualty scene, which client does the nurse tag red and treat first?", "type": "single", "opts": ["An unresponsive client with agonal respirations and massive head trauma", "A client with chest burns, hoarseness and stridor", "A client with an open femur fracture and stable vital signs", "A client walking around with a superficial forearm burn"], "ans": [1], "why": "<b>Chest burns with hoarseness and stridor are red<\/b>: life-threatening but survivable with quick intervention. Massive head trauma with agonal respirations is black-tagged, the open femur fracture is yellow, and the ambulatory burn is green.", "topic": "Disaster, Mass Casualty…", "icon": "🚨", "topicFull": "Disaster, Mass Casualty & Emergency Nursing"}, {"q": "A client rescued from a house fire has headache and dizziness, and SpO2 reads 98 percent on room air. What does the nurse do?", "type": "single", "opts": ["Document the normal saturation and continue monitoring", "Apply 100 percent oxygen by non-rebreather and obtain a carboxyhemoglobin level", "Apply 2 L by nasal cannula and recheck in an hour", "Prepare for immediate intubation"], "ans": [1], "why": "In carbon monoxide poisoning the <b>pulse oximeter is worthless<\/b> - the probe cannot distinguish oxyhemoglobin from carboxyhemoglobin, so it reads 98 percent on a poisoned client. Treatment is <b>100 percent oxygen by non-rebreather<\/b> plus a blood carboxyhemoglobin level; symptoms are mostly neurologic.", "topic": "Disaster, Mass Casualty…", "icon": "🚨", "topicFull": "Disaster, Mass Casualty & Emergency Nursing"}, {"q": "A client swallowed a non-corrosive medication 45 minutes ago and is alert with a protected airway. Which intervention does the nurse anticipate?", "type": "single", "opts": ["Activated charcoal", "Induced vomiting", "Immediate endoscopy", "Supportive care only"], "ans": [0], "why": "<b>Activated charcoal works for medications within about 1 to 2 hours<\/b>, since the stomach empties in roughly 2 hours, and requires a protected airway. Corrosives get endoscopy with no charcoal and no lavage, and we never induce vomiting.", "topic": "Disaster, Mass Casualty…", "icon": "🚨", "topicFull": "Disaster, Mass Casualty & Emergency Nursing"}, {"q": "Using field triage criteria, which findings assign a red tag? Select all that apply.", "type": "sata", "opts": ["Respiratory rate of 34", "Capillary refill of 4 seconds", "Respiratory rate of 22", "Unable to follow simple commands", "Ambulatory with a deep laceration to the forearm"], "ans": [0, 1, 3], "why": "The field cutoffs are <b>RR under 10 or over 30, capillary refill over 2 seconds or pulse over 120, and inability to follow commands<\/b> - blood pressures are not taken, there is no time. RR 22 sits inside the acceptable 10 to 29 range, and a walking client with a laceration is green or yellow.", "topic": "Disaster, Mass Casualty…", "icon": "🚨", "topicFull": "Disaster, Mass Casualty & Emergency Nursing"}, {"q": "Three clients are admitted after a suspected anthrax exposure. Which precautions does the nurse implement?", "type": "single", "opts": ["Airborne precautions with negative pressure", "Droplet precautions with a private room", "Standard precautions; anthrax is not spread person to person", "Contact precautions with dedicated equipment"], "ans": [2], "why": "<b>Anthrax is bacterial and is not transmitted person to person, so no isolation is required<\/b>; treatment is ciprofloxacin or penicillin. Smallpox (airborne) and plague (droplet) are transmissible - grouping all bioterrorism agents together is the trap.", "topic": "Disaster, Mass Casualty…", "icon": "🚨", "topicFull": "Disaster, Mass Casualty & Emergency Nursing", "pharm": 1}, {"q": "A client is brought in after a rattlesnake bite to the right forearm. Which action is correct?", "type": "single", "opts": ["Apply a tourniquet above the bite", "Immobilize the limb at or below heart level and remove jewelry", "Apply ice to slow venom absorption", "Elevate the arm above the heart on pillows"], "ans": [1], "why": "Keep her still with the <b>limb at or below heart level, remove jewelry before swelling<\/b>, and assess edema every 15 to 30 minutes; antivenom is given within 4 to 12 hours. Ice, tourniquets, cutting and elevation are all contraindicated.", "topic": "Disaster, Mass Casualty…", "icon": "🚨", "topicFull": "Disaster, Mass Casualty & Emergency Nursing"}, {"type": "bowtie", "week": "12", "step": "prioritize", "topic": "Disaster, Mass Casualty…", "stemTitle": "Emergency department note", "stem": "<p>A client is found outdoors on a hot day, confused, with hot, dry skin. Temperature is 40.6° C (105° F), heart rate 128/min, and blood pressure 88/54 mm Hg.<\/p>", "cond": ["Heatstroke", "Hypothermia", "Opioid poisoning", "Anaphylactic shock"], "actions": ["Move the client to a cool environment and begin active cooling measures", "Start IV fluids as prescribed and monitor electrolytes", "Rewarm the client slowly with warm blankets", "Administer naloxone empirically", "Apply firm pressure and a tourniquet to the extremities"], "params": ["Core body temperature", "Serum sodium and potassium", "Urine ketones", "Prothrombin time", "Serum uric acid"], "answer": {"cond": [0], "action": [0, 1], "param": [0, 1]}, "why": "A temperature above 40° C (104° F) with altered mental status is diagnostic of heatstroke, not hypothermia, opioid poisoning (which presents with pinpoint pupils and respiratory depression, absent here), or anaphylaxis. Active cooling and IV fluid/electrolyte support are priorities; rewarming would worsen the hyperthermia, naloxone does not apply without opioid signs, and a tourniquet is irrelevant without bleeding. Core temperature and sodium/potassium are the parameters most directly affected by heatstroke, unlike urine ketones, PT, or uric acid.", "src": "ATI Adult Med-Surg ch 3 (Emergency Nursing Principles and Management)", "icon": "🚨", "topicFull": "Disaster, Mass Casualty & Emergency Nursing", "pharm": 1}, {"type": "sata", "week": "12", "step": "recognize", "topic": "Disaster, Mass Casualty…", "q": "A nurse in the emergency department is assessing a client. Which findings should prompt the nurse to further screen for possible human trafficking? (Select all that apply.)", "opts": ["Multiple bruises and burns in various stages of healing", "The client appears frightened and avoids eye contact while a companion answers all the questions", "Unexplained abdominal pain and a frightened demeanor", "The client arrives with a well-documented, consistent medical history", "Blunt abdominal trauma and periorbital bruising", "The client requests a routine follow-up appointment in 2 weeks"], "ans": [0, 1, 2, 4], "why": "Trafficking red flags include bruises, burns, or fractures in various stages of healing, a frightened or agitated demeanor with unexplained abdominal pain or headache, blunt abdominal trauma with black eyes, and a controlling companion who answers all questions for the client. A well-documented, consistent history and a routine follow-up request are unremarkable, reassuring findings that do not raise trafficking concern.", "src": "ATI Adult Med-Surg ch 3 (Emergency Nursing Principles and Management)", "icon": "🚨", "topicFull": "Disaster, Mass Casualty & Emergency Nursing"}], "13": [{"q": "A client meets sepsis criteria in the ED. Which action does the nurse perform first?", "type": "single", "opts": ["Administer the broad-spectrum antibiotic", "Obtain two sets of blood cultures", "Start a norepinephrine infusion", "Infuse a 30 mL/kg fluid bolus"], "ans": [1], "why": "Order matters within the first hour: labs including lactate, then <b>blood cultures before antibiotics<\/b>, then antibiotics, then fluids, with vasopressors only if fluids fail. Giving the antibiotic first feels lifesaving but sterilizes the cultures and blinds the whole admission.", "topic": "Shock & MODS", "icon": "🚨", "topicFull": "Shock & MODS", "pharm": 1}, {"q": "A client in cardiogenic shock has troponin I 2.9, BNP 157, crackles, SpO2 88 percent on 4 L and urine output 15 mL/hr. Which intervention improves cardiac output?", "type": "single", "opts": ["A 2 L isotonic fluid bolus", "An inotropic infusion", "Sublingual nitroglycerin", "A unit of packed red blood cells"], "ans": [1], "why": "Cardiogenic shock is pump failure, so the answer is <b>inotropes<\/b>, not volume - large boluses flood lungs that are already crackling. Nitroglycerin while hypotensive turns an 80 into a 60.", "topic": "Shock & MODS", "icon": "🚨", "topicFull": "Shock & MODS", "pharm": 1}, {"q": "Which set of values indicates septic shock rather than SIRS alone?", "type": "single", "opts": ["BP 110/68, WBC 18,000, lactate 1.8", "BP 78/46, HR 132, lactate 4.2, requiring vasopressors", "Temp 38.5 C, HR 96, RR 22, WBC 13,000", "BP 96/60, HR 104, lactate 1.2"], "ans": [1], "why": "Septic shock requires <b>SBP under 90 and lactate over 2 - with 4 as the key marker - plus a vasopressor requirement<\/b>. SIRS needs only 2 of 4 criteria and meeting them is not automatically sepsis, which is why the normal-lactate options are distractors.", "topic": "Shock & MODS", "icon": "🚨", "topicFull": "Shock & MODS"}, {"q": "A client with a C5 spinal cord injury has BP 74/42 and HR 48. Which findings support neurogenic shock? Select all that apply.", "type": "sata", "opts": ["Bradycardia with hypotension", "Cool clammy skin with capillary refill over 4 seconds", "Warm skin with capillary refill under 2 seconds", "Compensatory tachycardia", "Loss of sympathetic tone below the level of injury"], "ans": [0, 2, 4], "why": "Neurogenic shock is the one shock <b>without tachycardia<\/b> - the vagus is intact and the sympathetic chain is lost, giving <b>hypotension with bradycardia, warm skin and brisk capillary refill<\/b>. Treatment is norepinephrine; high-dose corticosteroids are never used in spinal cord injury.", "topic": "Shock & MODS", "icon": "🚨", "topicFull": "Shock & MODS", "pharm": 1}, {"q": "A client has BP 78/50, jugular venous distention, muffled heart sounds and a history of chest trauma. What does the nurse anticipate?", "type": "single", "opts": ["Inotropic support for cardiogenic shock", "Pericardiocentesis", "Rapid isotonic fluid boluses for hypovolemia", "Needle decompression at the second intercostal space"], "ans": [1], "why": "Beck's triad - <b>muffled heart sounds, JVD and hypotension<\/b> - is obstructive shock from tamponade, and the definitive answer is <b>pericardiocentesis<\/b> at the 5th intercostal space, after which BP can jump from 78/50 to 140/80 in minutes. It involves the heart, so it is repeatedly mistaken for cardiogenic shock.", "topic": "Shock & MODS", "icon": "🚨", "topicFull": "Shock & MODS"}, {"q": "A deteriorating client in shock has PaO2 58, PaCO2 80 and pH 7.31. Which action does the nurse anticipate?", "type": "single", "opts": ["Increase the nasal cannula to 15 L/min", "Prepare for intubation and mechanical ventilation", "Give sodium bicarbonate", "Begin incentive spirometry every hour"], "ans": [1], "why": "Hypoxemia with a PaCO2 of 80 and falling pH means ventilatory failure, so the answer is <b>intubate<\/b> - preoxygenate at 100 percent, sedate before paralyzing, and continue sedation after. Cranking a nasal cannula to 15 L/min is not an answer; it cannot fix a ventilation problem.", "topic": "Shock & MODS", "icon": "🚨", "topicFull": "Shock & MODS", "pharm": 1}, {"type": "bowtie", "week": "13", "step": "prioritize", "topic": "Shock & MODS", "stemTitle": "Nurses' notes 1400", "stem": "<p>Two days after a myocardial infarction, a client has blood pressure 82/50 mm Hg, heart rate 118/min, and cool, clammy skin. Bilateral crackles are heard at the lung bases, urine output has been 20 mL/hr for the past 2 hr, and BNP is elevated.<\/p>", "cond": ["Cardiogenic shock", "Hypovolemic shock", "Septic shock", "Anaphylactic shock"], "actions": ["Administer prescribed inotropic medications such as dobutamine", "Titrate vasoactive drips using hemodynamic parameters such as cardiac output and CVP", "Position the client supine with legs elevated and give large-volume IV fluid boluses", "Give broad-spectrum IV antibiotics within 1 hour", "Administer epinephrine IM immediately"], "params": ["Urine output", "Lung sounds for crackles or pulmonary edema", "Blood and urine cultures", "Serum uric acid", "Skin for hives or angioedema"], "answer": {"cond": [0], "action": [0, 1], "param": [0, 1]}, "why": "Hypotension, tachycardia, cool clammy skin, pulmonary crackles, oliguria, and an elevated BNP two days after an MI reflect pump failure, or cardiogenic shock, not volume loss, infection, or an allergic trigger. Inotropes and hemodynamic-guided vasoactive titration support the failing heart; large-volume fluid boluses would worsen pulmonary edema in a client who already has crackles, and antibiotics or epinephrine target unrelated shock types. Urine output and lung sounds are the priority parameters for tracking perfusion and worsening heart failure, rather than cultures, uric acid, or skin findings that apply to septic or anaphylactic shock.", "src": "ATI Adult Med-Surg ch 38 (Shock)", "icon": "🚨", "topicFull": "Shock & MODS", "pharm": 1}, {"type": "highlight", "week": "13", "step": "evaluate", "topic": "Shock & MODS", "stemTitle": "Nurses' notes, trend over 1 hour", "stem": "Highlight the current findings that show the client's septic shock is progressing and require immediate provider notification.", "tokens": [{"text": "A client with septic shock is being monitored. One hour ago, the client's blood pressure was 96/60 mm Hg and the client was ", "pick": false}, {"text": "anxious but oriented", "pick": true}, {"text": ". The client now has ", "pick": false}, {"text": "a blood pressure of 76/42 mm Hg, a heart rate of 138/min and thready, and respirations of 32/min and labored", "pick": true}, {"text": ". The client is ", "pick": false}, {"text": "confused and difficult to arouse", "pick": true}, {"text": ". Urine output over the past hour is ", "pick": false}, {"text": "15 mL", "pick": true}, {"text": ". Skin is ", "pick": false}, {"text": "mottled and cool to the touch", "pick": true}, {"text": ". ", "pick": false}, {"text": "Bowel sounds are present in all four quadrants", "pick": true}, {"text": ".", "pick": false}], "answer": [3, 5, 7, 9], "why": "Worsening hypotension, tachycardia, and tachypnea, new confusion, an hourly urine output far below the expected minimum, and mottled, cool skin all signal progression from the compensatory to the progressive stage of shock, where perfusion can no longer be maintained and the provider must be notified immediately. The client's status of “anxious but oriented” with a higher blood pressure describes the earlier compensatory stage from an hour ago, not the current status, and normal bowel sounds are a reassuring, unrelated finding.", "src": "ATI Adult Med-Surg ch 38 (Shock)", "icon": "🚨", "topicFull": "Shock & MODS"}], "14": [{"q": "A nurse receives report on four clients. Which does she assess first?", "type": "single", "opts": ["A burn client with facial burns who is now hoarse", "A client with a hemoglobin of 7.4 scheduled for transfusion", "A client with a fasting glucose of 168", "A client with a new prescription for allopurinol"], "ans": [0], "why": "The cross-cutting rule is <b>ABCs first<\/b>, then urgent over non-urgent, then assess before intervene, then Maslow, then least restrictive. A hoarse voice after facial burns is an airway about to close; the anemia, hyperglycemia and new prescription are all real but none is an airway.", "topic": "Final Exam Review", "icon": "🎯", "topicFull": "Final Exam Review", "pharm": 1}, {"q": "A client is short of breath and also asks for help to the bathroom and reports 6/10 incisional pain. Which priority rule directs the nurse's first action?", "type": "single", "opts": ["Maslow, so the physiologic elimination need comes first", "ABCs, so breathing is addressed first", "Least restrictive, so the client's request is honored first", "Assess before intervene, so pain is rated first"], "ans": [1], "why": "<b>ABCs sit above Maslow, above assess-before-intervene and above least restrictive<\/b> in the hierarchy - breathing is addressed before elimination or pain. The other rules are real, but they only decide the question once airway, breathing and circulation are secure.", "topic": "Final Exam Review", "icon": "🎯", "topicFull": "Final Exam Review"}, {"q": "A drip is ordered at 5 mcg/kg/min for a client weighing 154 lb. The bag contains 400 mg in 250 mL. What rate does the nurse program?", "type": "single", "opts": ["8.2 mL/hr", "13.1 mL/hr", "21 mL/hr", "26.3 mL/hr"], "ans": [1], "why": "154 divided by 2.2 = 70 kg; 70 x 5 = 350 mcg/min = 21,000 mcg/hr = 21 mg/hr; the bag is 1.6 mg/mL, so 21 divided by 1.6 = <b>13.1 mL/hr<\/b>. Answering 21 means stopping at mg/hr and never converting to volume - round only at the very end.", "topic": "Final Exam Review", "icon": "🎯", "topicFull": "Final Exam Review", "pharm": 1}, {"q": "Which are steps of the Clinical Judgment Measurement Model? Select all that apply.", "type": "sata", "opts": ["Recognize cues", "Chart by exception", "Analyze cues", "Prioritize hypotheses", "Delegate to unlicensed personnel"], "ans": [0, 2, 3], "why": "The six steps are <b>recognize cues, analyze cues, prioritize hypotheses, generate solutions, take action and evaluate outcomes<\/b>, and they head every module review list. Charting and delegation are nursing activities, not steps of the model.", "topic": "Final Exam Review", "icon": "🎯", "topicFull": "Final Exam Review"}, {"q": "A client's labs return: sodium 138, potassium 5.9, WBC 8,200, hemoglobin 13.4. Which value does the nurse report?", "type": "single", "opts": ["Sodium 138", "Potassium 5.9", "WBC 8,200", "Hemoglobin 13.4"], "ans": [1], "why": "Only the <b>potassium is outside the reference range<\/b>, and hyperkalemia risks arrhythmia. Values inside normal limits are almost always distractors in select-all and highlight items - the skill being tested is knowing the ranges cold.", "topic": "Final Exam Review", "icon": "🎯", "topicFull": "Final Exam Review"}, {"q": "With one week left before the cumulative final, which review target gives the highest yield per hour?", "type": "single", "opts": ["Module 13 Shock and MODS", "Module 1 Sensory Disorders", "Module 6 Diabetes", "Module 10 Oncologic Disorders"], "ans": [0], "why": "The final is cumulative, and <b>Module 13 is the only content that has not already appeared on an exam<\/b>, making it the highest-value target per hour. Note also that the ATI CMS Medical-Surgical Proctored Assessment is scheduled on a separate date from the final - check the calendar, they are days apart.", "topic": "Final Exam Review", "icon": "🎯", "topicFull": "Final Exam Review"}]}</script>
+<script type="application/json" id="exammap">{"1": "Exam 1", "2": "Exam 1", "3": "Exam 1", "4": "Exam 2", "5": "Exam 2", "6": "Exam 2", "7": "Exam 3", "8": "Exam 3", "9": "Exam 4", "10": "Exam 4", "11": "Exam 5", "12": "Exam 5", "13": "Final", "14": "Final"}</script>
+<script>
+/* ---- renderers for the NGN item types --------------------------------
+   Each returns nothing; it fills the card and wires its own Check button. They share
+   one contract with the quiz engine: call finish(right) once she checks, and never
+   change anything after that. */
+window.NGN = (function(){
+
+  function esc(s){ return String(s); }
+
+  function stem(q){
+    if(!q.stem) return '';
+    return '<div class="qstem">' + (q.stemTitle?('<h4>'+q.stemTitle+'</h4>'):'') +
+           q.stem + '</div>';
+  }
+
+  /* ---- bow-tie ------------------------------------------------------- */
+  function bowtie(card, q, locked, finish){
+    var slots = {action:[null,null], param:[null,null], cond:[null]};
+    if(locked) slots = locked.slots;
+    card.innerHTML = stem(q) +
+      '<p class="hlhint">Tap an option to place it. Tap a filled box to clear it.</p>' +
+      '<div class="bowtie">' +
+        '<div class="btcol"><h5>&#129658; Actions to take</h5>' +
+          '<div class="btslot" data-g="action" data-i="0"></div>' +
+          '<div class="btslot" data-g="action" data-i="1"></div></div>' +
+        '<div class="btcol mid"><h5>&#129517; Condition</h5>' +
+          '<div class="btslot" data-g="cond" data-i="0"></div></div>' +
+        '<div class="btcol"><h5>&#128200; Parameters to monitor</h5>' +
+          '<div class="btslot" data-g="param" data-i="0"></div>' +
+          '<div class="btslot" data-g="param" data-i="1"></div></div>' +
+      '</div>' +
+      '<div class="btbank">' +
+        '<span class="bl">Conditions</span>' +
+        q.cond.map(function(t,i){return '<button type="button" class="btopt" data-g="cond" data-v="'+i+'">'+esc(t)+'</button>';}).join('') +
+        '<span class="bl">Actions</span>' +
+        q.actions.map(function(t,i){return '<button type="button" class="btopt" data-g="action" data-v="'+i+'">'+esc(t)+'</button>';}).join('') +
+        '<span class="bl">Parameters</span>' +
+        q.params.map(function(t,i){return '<button type="button" class="btopt" data-g="param" data-v="'+i+'">'+esc(t)+'</button>';}).join('') +
+      '</div>' +
+      '<div><button type="button" class="check" id="chk">Check</button>' +
+      '<span class="verdict" id="vd"></span></div>' +
+      '<div class="rat" id="rat"><b>Why:</b> '+(q.why||'')+'</div>';
+
+    var TEXT = {cond:q.cond, action:q.actions, param:q.params};
+    function paint(){
+      [].forEach.call(card.querySelectorAll('.btslot'),function(s){
+        var g=s.dataset.g, i=+s.dataset.i, v=slots[g][i];
+        s.textContent = v===null||v===undefined ? '' : TEXT[g][v];
+        s.classList.toggle('filled', v!==null&&v!==undefined);
+      });
+      var used={};
+      Object.keys(slots).forEach(function(g){
+        slots[g].forEach(function(v){ if(v!==null&&v!==undefined) used[g+':'+v]=1; });
+      });
+      [].forEach.call(card.querySelectorAll('.btopt'),function(b){
+        b.classList.toggle('used', !!used[b.dataset.g+':'+b.dataset.v]);
+      });
+    }
+    paint();
+
+    if(!locked){
+      [].forEach.call(card.querySelectorAll('.btopt'),function(b){
+        b.addEventListener('click',function(){
+          var g=b.dataset.g, v=+b.dataset.v;
+          if(slots[g].indexOf(v)>-1) return;
+          var free=slots[g].indexOf(null);
+          if(free<0){ free=slots[g].length-1; }
+          slots[g][free]=v; paint();
+        });
+      });
+      [].forEach.call(card.querySelectorAll('.btslot'),function(s){
+        s.addEventListener('click',function(){
+          slots[s.dataset.g][+s.dataset.i]=null; paint();
+        });
+      });
+    }
+
+    function grade(){
+      var ok=true;
+      [].forEach.call(card.querySelectorAll('.btslot'),function(s){
+        var g=s.dataset.g, i=+s.dataset.i, v=slots[g][i];
+        var correct = (q.answer[g]||[]).indexOf(v)>-1;
+        s.classList.add(correct?'right':'wrong');
+        if(!correct) ok=false;
+      });
+      // every required slot must be filled
+      Object.keys(slots).forEach(function(g){
+        if(slots[g].indexOf(null)>-1) ok=false;
+      });
+      return ok;
+    }
+    return {grade:grade, state:function(){return {slots:slots};}};
+  }
+
+  /* ---- drop-down cloze ------------------------------------------------ */
+  function dropdown(card, q, locked, finish){
+    var html = q.text;
+    q.gaps.forEach(function(g,i){
+      var sel='<select data-i="'+i+'"><option value="">&mdash; choose &mdash;</option>'+
+        g.options.map(function(o,j){return '<option value="'+j+'">'+esc(o)+'</option>';}).join('')+
+        '</select>';
+      html = html.replace('{'+(i+1)+'}', sel);
+    });
+    card.innerHTML = stem(q) + '<p class="cloze">'+html+'</p>' +
+      '<div><button type="button" class="check" id="chk">Check</button>' +
+      '<span class="verdict" id="vd"></span></div>' +
+      '<div class="rat" id="rat"><b>Why:</b> '+(q.why||'')+'</div>';
+    var sels=[].slice.call(card.querySelectorAll('.cloze select'));
+    if(locked) sels.forEach(function(s,i){ s.value=locked.picked[i]; s.disabled=true; });
+    function grade(){
+      var ok=true;
+      sels.forEach(function(s,i){
+        var right = s.value!=='' && +s.value===q.gaps[i].answer;
+        s.classList.add(right?'right':'wrong'); s.disabled=true;
+        if(!right) ok=false;
+      });
+      return ok;
+    }
+    return {grade:grade, state:function(){return {picked:sels.map(function(s){return s.value;})};}};
+  }
+
+  /* ---- matching -------------------------------------------------------- */
+  function matching(card, q, locked, finish){
+    var rows = q.pairs.map(function(p,i){
+      return '<div class="mrow"><div class="mleftbox">'+esc(p.left)+'</div>'+
+        '<select data-i="'+i+'"><option value="">&mdash; choose &mdash;</option>'+
+        q.right.map(function(r,j){return '<option value="'+j+'">'+esc(r)+'</option>';}).join('')+
+        '</select></div>';
+    }).join('');
+    card.innerHTML = stem(q) + '<div class="match">'+rows+'</div>' +
+      '<div><button type="button" class="check" id="chk">Check</button>' +
+      '<span class="verdict" id="vd"></span></div>' +
+      '<div class="rat" id="rat"><b>Why:</b> '+(q.why||'')+'</div>';
+    var sels=[].slice.call(card.querySelectorAll('.match select'));
+    if(locked) sels.forEach(function(s,i){ s.value=locked.picked[i]; s.disabled=true; });
+    function grade(){
+      var ok=true;
+      sels.forEach(function(s,i){
+        var right = s.value!=='' && +s.value===q.pairs[i].answer;
+        s.classList.add(right?'right':'wrong'); s.disabled=true;
+        if(!right) ok=false;
+      });
+      return ok;
+    }
+    return {grade:grade, state:function(){return {picked:sels.map(function(s){return s.value;})};}};
+  }
+
+  /* ---- highlight the cues --------------------------------------------- */
+  function highlight(card, q, locked, finish){
+    var toks = q.tokens.map(function(t,i){
+      return t.pick ? '<span class="hltok" data-i="'+i+'">'+esc(t.text)+'</span>'
+                    : esc(t.text);
+    }).join('');
+    card.innerHTML = stem(q) +
+      '<p class="hlhint">Tap every finding that needs follow-up. Tap again to unselect.</p>' +
+      '<div class="hlnote">'+toks+'</div>' +
+      '<div><button type="button" class="check" id="chk">Check</button>' +
+      '<span class="verdict" id="vd"></span></div>' +
+      '<div class="rat" id="rat"><b>Why:</b> '+(q.why||'')+'</div>';
+    var picked = locked ? locked.picked.slice() : [];
+    var toksEl=[].slice.call(card.querySelectorAll('.hltok'));
+    function paint(){ toksEl.forEach(function(e){
+      e.classList.toggle('sel', picked.indexOf(+e.dataset.i)>-1); }); }
+    paint();
+    if(!locked){
+      toksEl.forEach(function(e){
+        e.addEventListener('click',function(){
+          var i=+e.dataset.i, at=picked.indexOf(i);
+          if(at>-1) picked.splice(at,1); else picked.push(i);
+          paint();
+        });
+      });
+    }
+    function grade(){
+      var ans=q.answer||[], ok=true;
+      toksEl.forEach(function(e){
+        var i=+e.dataset.i, isAns=ans.indexOf(i)>-1, got=picked.indexOf(i)>-1;
+        e.classList.remove('sel');
+        if(isAns && got) e.classList.add('right');
+        else if(got) { e.classList.add('wrong'); ok=false; }
+        else if(isAns) { e.classList.add('missed'); ok=false; }
+      });
+      if(!picked.length) ok=false;
+      return ok;
+    }
+    return {grade:grade, state:function(){return {picked:picked};}};
+  }
+
+  var R = {bowtie:bowtie, dropdown:dropdown, matching:matching, highlight:highlight};
+
+  return {
+    handles: function(t){ return !!R[t]; },
+    render: function(card, q, locked){ return R[q.type](card, q, locked); },
+    label: {"single": "One answer", "sata": "Select all that apply", "bowtie": "Bow-tie", "dropdown": "Drop-down cloze", "matching": "Matching", "highlight": "Highlight the cues"},
+    steps: {"recognize": "&#128064; Recognise cues", "analyze": "&#129504; Analyse cues", "prioritize": "&#127919; Prioritise hypotheses", "solutions": "&#128161; Generate solutions", "action": "&#129658; Take action", "evaluate": "&#128200; Evaluate outcomes"}
+  };
+})();
+
+(function(){
+  var BANK={}, EXAMOF={};
+  try{ BANK=JSON.parse(document.getElementById('qbank').textContent)||{}; }catch(e){}
+  try{ EXAMOF=JSON.parse(document.getElementById('exammap').textContent)||{}; }catch(e){}
+
+  var flat=[];
+  Object.keys(BANK).forEach(function(wk){
+    (BANK[wk]||[]).forEach(function(q,i){ flat.push({q:q, wk:wk, exam:EXAMOF[wk]||'', id:wk+'-'+i}); });
+  });
+
+  /* Every filter except the count is a SET, because she asked to be able to pick more
+     than one button where it makes sense. An empty set means "no restriction", which
+     is also what the All chip means - so All is just "clear this set". */
+  var pick={exam:[], topic:[], focus:[], style:[], step:[], wk:[]}, count='all';
+  var list=[], idx=0, state={}, pool=0;
+
+  function passes(o, skip){
+    function has(k, v){ return skip===k || !pick[k].length || pick[k].indexOf(v)>-1; }
+    if(!has('exam', o.exam)) return false;
+    if(!has('topic', o.q.topic||'')) return false;
+    if(!has('wk', o.wk)) return false;
+    if(!has('style', o.q.type||'single')) return false;
+    if(!has('step', o.q.step||'')) return false;
+    if(skip!=='focus' && pick.focus.length){
+      var ok=pick.focus.some(function(f){ return f==='pharm' ? !!o.q.pharm : true; });
+      if(!ok) return false;
+    }
+    return true;
+  }
+
+  /* How many she wants. A typed number wins over the chips, because typing it is the
+     more deliberate act - and it is clamped to what the filters actually left, so
+     asking for 50 out of a 6-question week gives 6 rather than an empty set. */
+  function wanted(available){
+    var box=document.getElementById('customCount');
+    var typed = box && box.value.trim() ? parseInt(box.value, 10) : NaN;
+    var n = !isNaN(typed) && typed > 0 ? typed
+          : (count === 'all' ? available : parseInt(count, 10));
+    if (isNaN(n) || n < 1) n = available;
+    return Math.min(n, available);
+  }
+
+  function build(shuffle){
+    list=flat.filter(function(o){ return passes(o); });
+    if(shuffle){
+      for(var i=list.length-1;i>0;i--){
+        var j=Math.floor(Math.random()*(i+1)), t=list[i]; list[i]=list[j]; list[j]=t;
+      }
+    }
+    /* Cut to length AFTER shuffling, so "20 questions, shuffled" is 20 drawn from the
+       whole filtered set rather than the first 20 reordered. */
+    pool=list.length;
+    list=list.slice(0, wanted(pool));
+    idx=0; state={}; refreshAvail(); draw();
+  }
+
+  /* Grey out - and genuinely disable - any button that would leave her with nothing,
+     and put the count in its tooltip. Each button is measured with its OWN group's
+     selection ignored, which is what makes a multi-select row behave: picking one
+     topic must not black out every other topic. */
+  function refreshAvail(){
+    document.getElementById('poolcount').textContent=pool;
+    [].forEach.call(document.querySelectorAll('.fbtn'),function(b){
+      var k=b.dataset.k, v=b.dataset.v;
+      if(!k || v==='all' || k==='count'){ b.classList.remove('dim'); b.disabled=false; return; }
+      var n=flat.filter(function(o){
+        if(!passes(o, k)) return false;
+        if(k==='exam')  return o.exam===v;
+        if(k==='topic') return (o.q.topic||'')===v;
+        if(k==='wk')    return o.wk===v;
+        if(k==='style') return (o.q.type||'single')===v;
+        if(k==='step')  return (o.q.step||'')===v;
+        if(k==='focus') return v==='pharm' ? !!o.q.pharm : true;
+        return true;
+      }).length;
+      b.classList.toggle('dim', n===0);
+      b.disabled = n===0;
+      var base=b.dataset.full||'';
+      b.title = (base ? base+' \u2014 ' : '') +
+                (n===0 ? 'nothing left with your other filters'
+                       : n + ' question' + (n===1?'':'s'));
+    });
+  }
+
+  function draw_score(){
+    var s=score(), bar=document.getElementById('scorebar');
+    bar.innerHTML='<span>Question <b>'+(idx+1)+'</b> of <b>'+list.length+'</b></span>'+
+                  '<span>Correct so far: <b>'+s.ok+'</b> / '+s.done+'</span>';
+  }
+
+  function score(){
+    var done=0, ok=0;
+    Object.keys(state).forEach(function(k){ done++; if(state[k].right) ok++; });
+    return {done:done, ok:ok};
+  }
+
+  function draw(){
+    var card=document.getElementById('card'), bar=document.getElementById('scorebar');
+    if(!list.length){
+      card.innerHTML='<div class="done"><h2>Nothing matches</h2>'+
+        '<p>Widen the filters and try again.</p></div>';
+      document.getElementById('prev').disabled=true;
+      document.getElementById('next').disabled=true;
+      bar.innerHTML=''; return;
+    }
+    if(idx>=list.length){
+      var s=score();
+      card.innerHTML='<div class="done"><h2>&#127881; End of the set</h2>'+
+        '<p>You answered <b>'+s.ok+'</b> of <b>'+s.done+'</b> correctly.</p>'+
+        '<p style="color:var(--soft);font-size:.98rem">Shuffle and go again &mdash; the '+
+        'order is what you memorise otherwise.</p></div>';
+      document.getElementById('prev').disabled=false;
+      document.getElementById('next').disabled=true;
+      bar.innerHTML='<span>Finished</span><span><b>'+s.ok+'</b> / '+s.done+'</span>';
+      return;
+    }
+    var o=list[idx], q=o.q, multi=q.type==='sata', st=state[o.id];
+
+    /* The NGN item types build their own card and grade themselves. They share the
+       same contract as the built-in ones: draw, then report a single right/wrong when
+       she checks, then never change again. */
+    if(window.NGN && NGN.handles(q.type)){
+      var s2=score();
+      bar.innerHTML='<span>Question <b>'+(idx+1)+'</b> of <b>'+list.length+'</b>'+
+        (pool>list.length?' <span style="color:var(--muted)">(of '+pool+' available)</span>':'')+
+        '</span><span>Correct so far: <b>'+s2.ok+'</b> / '+s2.done+'</span>';
+      var inst=NGN.render(card, q, st ? st.ngn : null);
+      var tagrow=document.createElement('div');
+      tagrow.className='qtags';
+      tagrow.innerHTML='<span class="tag wk">Week '+o.wk+'</span>'+
+        (o.exam?'<span class="tag">'+o.exam+'</span>':'')+
+        '<span class="tag type">'+(NGN.label[q.type]||q.type)+'</span>'+
+        (q.step?'<span class="tag step">'+(NGN.steps[q.step]||q.step)+'</span>':'');
+      card.insertBefore(tagrow, card.firstChild);
+      if(st){
+        var vd=document.getElementById('vd');
+        if(vd){ vd.textContent = st.right?'Correct':'Not quite';
+                vd.className='verdict '+(st.right?'ok':'no'); }
+        var r=document.getElementById('rat'); if(r) r.classList.add('show');
+        var cb=document.getElementById('chk'); if(cb) cb.style.display='none';
+        inst.grade();
+      } else {
+        var chk2=document.getElementById('chk');
+        if(chk2){
+          chk2.addEventListener('click',function(){
+            var right=inst.grade();
+            state[o.id]={right:right, ngn:inst.state()};
+            var vd=document.getElementById('vd');
+            vd.textContent = right?'Correct':'Not quite';
+            vd.className='verdict '+(right?'ok':'no');
+            document.getElementById('rat').classList.add('show');
+            chk2.style.display='none';
+            draw_score();
+          });
+        }
+      }
+      document.getElementById('prev').disabled = idx===0;
+      document.getElementById('next').disabled = false;
+      return;
+    }
+    var opts=(q.opts||[]).map(function(txt,i){
+      var cls='opt'+(multi?'':' rad');
+      if(st){
+        var isAns=(q.ans||[]).indexOf(i)>-1, got=st.picked.indexOf(i)>-1;
+        cls+=' locked'+(isAns?' correct':(got?' wrong':''));
+      }
+      return '<button type="button" class="'+cls+'" data-i="'+i+'">'+
+             '<span class="box"></span><span class="otxt">'+txt+'</span></button>';
+    }).join('');
+    var s=score();
+    bar.innerHTML='<span>Question <b>'+(idx+1)+'</b> of <b>'+list.length+'</b>'+
+                  (pool>list.length?' <span style="color:var(--muted)">(of '+pool+' available)</span>':'')+
+                  '</span><span>Correct so far: <b>'+s.ok+'</b> / '+s.done+'</span>';
+    card.innerHTML=
+      '<div class="qtags"><span class="tag wk">Week '+o.wk+'</span>'+
+      (o.exam?'<span class="tag">'+o.exam+'</span>':'')+
+      '<span class="tag type">'+(multi?'Select all that apply':'One answer')+'</span>'+
+      (q.step&&window.NGN?'<span class="tag step">'+(NGN.steps[q.step]||q.step)+'</span>':'')+
+      '</div>'+
+      '<p class="qtext">'+q.q+'</p>'+opts+
+      '<div><button type="button" class="check" id="chk">Check</button>'+
+      '<span class="verdict" id="vd"></span></div>'+
+      '<div class="rat" id="rat"><b>Why:</b> '+(q.why||'')+'</div>';
+
+    if(st){ show(st.right); }
+
+    var picked = st ? st.picked.slice() : [];
+    [].forEach.call(card.querySelectorAll('.opt'),function(b){
+      if(st) return;
+      b.addEventListener('click',function(){
+        var i=+b.dataset.i;
+        if(multi){
+          var at=picked.indexOf(i);
+          if(at>-1){ picked.splice(at,1); b.classList.remove('sel'); }
+          else { picked.push(i); b.classList.add('sel'); }
+        } else {
+          picked=[i];
+          [].forEach.call(card.querySelectorAll('.opt'),function(x){ x.classList.remove('sel'); });
+          b.classList.add('sel');
+        }
+      });
+    });
+
+    function show(right){
+      [].forEach.call(card.querySelectorAll('.opt'),function(b){
+        var i=+b.dataset.i, isAns=(q.ans||[]).indexOf(i)>-1,
+            got=(state[o.id]?state[o.id].picked:picked).indexOf(i)>-1;
+        b.classList.add('locked'); b.classList.remove('sel');
+        if(isAns) b.classList.add('correct'); else if(got) b.classList.add('wrong');
+      });
+      var vd=document.getElementById('vd');
+      vd.textContent = right ? 'Correct' : 'Not quite';
+      vd.className = 'verdict '+(right?'ok':'no');
+      document.getElementById('rat').classList.add('show');
+      var c=document.getElementById('chk'); if(c) c.style.display='none';
+    }
+
+    var chk=document.getElementById('chk');
+    if(chk && !st){
+      chk.addEventListener('click',function(){
+        if(!picked.length) return;
+        var ans=q.ans||[];
+        var right = ans.length===picked.length &&
+                    ans.every(function(a){ return picked.indexOf(a)>-1; });
+        state[o.id]={picked:picked.slice(), right:right};
+        show(right);
+      });
+    }
+    document.getElementById('prev').disabled = idx===0;
+    document.getElementById('next').disabled = false;
+  }
+
+  document.getElementById('prev').addEventListener('click',function(){
+    if(idx>0){ idx--; draw(); window.scrollTo(0,0); } });
+  document.getElementById('next').addEventListener('click',function(){
+    if(idx<list.length){ idx++; draw(); window.scrollTo(0,0); } });
+  document.getElementById('shuffle').addEventListener('click',function(){ build(true); });
+  document.getElementById('restart').addEventListener('click',function(){ build(false); });
+
+  var box=document.getElementById('customCount');
+  if(box){
+    box.addEventListener('input',function(){
+      [].forEach.call(document.querySelectorAll('.fbtn[data-k="count"]'),function(x){
+        x.classList.remove('active'); });
+      build(false);
+    });
+  }
+
+  [].forEach.call(document.querySelectorAll('.fbtn'),function(b){
+    b.addEventListener('click',function(){
+      if(b.disabled) return;
+      var k=b.dataset.k, v=b.dataset.v;
+
+      if(k==='count'){
+        count=v;
+        if(box) box.value='';
+        [].forEach.call(document.querySelectorAll('.fbtn[data-k="count"]'),function(x){
+          x.classList.toggle('active', x===b); });
+        build(false); return;
+      }
+
+      /* All clears the group; any other chip toggles in and out of the set. Toggling
+         the last one back off returns the group to All, so she can never strand
+         herself on an empty filter. */
+      if(v==='all'){ pick[k]=[]; }
+      else {
+        var at=pick[k].indexOf(v);
+        if(at>-1) pick[k].splice(at,1); else pick[k].push(v);
+      }
+      syncGroup(k);
+      build(false);
+    });
+  });
+
+  function syncGroup(k){
+    [].forEach.call(document.querySelectorAll('.fbtn[data-k="'+k+'"]'),function(x){
+      var v=x.dataset.v;
+      x.classList.toggle('active', v==='all' ? pick[k].length===0 : pick[k].indexOf(v)>-1);
+      x.setAttribute('aria-pressed', x.classList.contains('active') ? 'true' : 'false');
+    });
+  }
+
+  build(false);
+})();
+
+/* Hop to another page and close this one behind us. window.close() is only
+   permitted on a script-opened window, so if the browser refuses we simply
+   navigate instead - she still gets where she asked to go, just in one tab. */
+function hop(url, closeThis){
+  if(!closeThis){ window.open(url,'_blank','noopener'); return; }
+  var w=window.open(url,'_blank');
+  setTimeout(function(){
+    try{ window.close(); }catch(e){}
+    if(!window.closed){ location.href=url; if(w){ try{ w.close(); }catch(e){} } }
+  }, 120);
+}
+
+/* ---- the floating cluster moves, like the one on the older guides ----
+   Same rules as the skim button, deliberately: travel under 6px is a click, 6px or
+   more is a drag and the click is swallowed. Position is clamped to the viewport and
+   remembered per site, so it survives a reload and cannot end up off-screen when she
+   rotates the phone or changes zoom. Arrow keys nudge it once it has focus, because
+   dragging is not the only way she should be able to move something. */
+(function(){
+  var nb=document.getElementById('navBtns'); if(!nb) return;
+  var KEY='navBtnsPos';
+  function clamp(x,y){
+    var r=nb.getBoundingClientRect(), m=6;
+    return [Math.max(m,Math.min(x,window.innerWidth-r.width-m)),
+            Math.max(m,Math.min(y,window.innerHeight-r.height-m))];
+  }
+  function place(x,y,save){
+    var p=clamp(x,y);
+    nb.style.left=p[0]+'px'; nb.style.top=p[1]+'px';
+    nb.style.right='auto'; nb.style.bottom='auto';
+    if(save){ try{ localStorage.setItem(KEY,JSON.stringify(p)); }catch(e){} }
+  }
+  try{
+    var saved=JSON.parse(localStorage.getItem(KEY)||'null');
+    if(saved && saved.length===2) place(saved[0],saved[1],false);
+  }catch(e){}
+
+  /* Movement is tracked on the WINDOW, not on the cluster. Two earlier versions got
+     this wrong in opposite directions: capturing the pointer on pointerdown made the
+     cluster swallow the click so no button ever fired, and listening on the cluster
+     alone meant the drag died the moment the cursor left it. Window listeners give a
+     drag that follows the finger anywhere while leaving an ordinary tap untouched. */
+  var down=null, moved=false;
+  nb.addEventListener('pointerdown',function(e){
+    if(e.button && e.button!==0) return;
+    var r=nb.getBoundingClientRect();
+    down={x:e.clientX,y:e.clientY,dx:e.clientX-r.left,dy:e.clientY-r.top};
+    moved=false;
+  });
+  window.addEventListener('pointermove',function(e){
+    if(!down) return;
+    if(!moved && Math.abs(e.clientX-down.x)+Math.abs(e.clientY-down.y) < 6) return;
+    moved=true; nb.classList.add('dragging');
+    place(e.clientX-down.dx, e.clientY-down.dy, false);
+    e.preventDefault();
+  });
+  function end(){
+    if(!down) return;
+    var r=nb.getBoundingClientRect();
+    if(moved) place(r.left,r.top,true);
+    down=null; nb.classList.remove('dragging');
+    /* The click that a real drag generates arrives immediately after pointerup and is
+       swallowed below. If none arrives - a touch drag, or the pointer left the button -
+       the flag has to clear itself, or the NEXT genuine tap gets eaten instead. */
+    setTimeout(function(){ moved=false; }, 60);
+  }
+  window.addEventListener('pointerup',end);
+  window.addEventListener('pointercancel',end);
+  /* a drag must not also fire the button it started on */
+  nb.addEventListener('click',function(e){
+    if(moved){ e.stopPropagation(); e.preventDefault(); moved=false; }
+  },true);
+
+  nb.tabIndex=0;
+  nb.title='Drag to move these buttons · double-click to reset';
+  nb.addEventListener('dblclick',function(e){
+    e.preventDefault();
+    nb.style.left=''; nb.style.top=''; nb.style.right=''; nb.style.bottom='';
+    try{ localStorage.removeItem(KEY); }catch(err){}
+  });
+  nb.addEventListener('keydown',function(e){
+    var step=e.shiftKey?48:12, r=nb.getBoundingClientRect(), l=r.left, t=r.top, hit=true;
+    if(e.key==='ArrowLeft') l-=step; else if(e.key==='ArrowRight') l+=step;
+    else if(e.key==='ArrowUp') t-=step; else if(e.key==='ArrowDown') t+=step;
+    else hit=false;
+    if(hit){ e.preventDefault(); place(l,t,true); }
+  });
+  /* a resize or a zoom change must not strand it off-screen */
+  window.addEventListener('resize',function(){
+    var r=nb.getBoundingClientRect();
+    if(nb.style.left) place(r.left,r.top,false);
+  });
+})();
+
+/* ---- side menu ------------------------------------------------------- */
+(function(){
+  var b=document.getElementById('menuBtn'), s=document.getElementById('side'),
+      bg=document.getElementById('navBg');
+  if(!b||!s||!bg) return;
+
+  /* The exam bands on THIS page become jump links, built at load so the menu can
+     never list a band the page does not have. */
+  var jumps=s.querySelector('#sideJumps');
+  if(jumps){
+    var bands=[].slice.call(document.querySelectorAll('.exsec'));
+    bands.forEach(function(sec,i){
+      var head=sec.querySelector('.exhead');
+      if(!head) return;
+      if(!sec.id) sec.id='exam-'+(i+1);
+      var name=(head.querySelector('.en')||{}).textContent||('Exam '+(i+1));
+      var sub=(head.querySelector('.et')||{}).textContent||'';
+      var mods=sec.querySelectorAll('details.mod').length;
+      var a=document.createElement('a');
+      a.className='nav'; a.href='#'+sec.id;
+      a.innerHTML=name+'<span class="nsub">'+sub+
+                  (mods?(' &middot; '+mods+' module'+(mods===1?'':'s')):'')+'</span>';
+      jumps.appendChild(a);
+    });
+    if(!bands.length) jumps.previousElementSibling.style.display='none';
+  }
+
+  function set(o){
+    document.body.classList.toggle('nav-open',o);
+    b.innerHTML = o ? '&#10005; Close' : '&#9776; Menu';
+    b.setAttribute('aria-expanded', o?'true':'false');
+    s.setAttribute('aria-hidden', o?'false':'true');
+    if(o){ var f=s.querySelector('.sclose'); if(f) f.focus(); }
+  }
+  b.addEventListener('click',function(e){
+    e.stopPropagation();
+    set(!document.body.classList.contains('nav-open'));
+  });
+  bg.addEventListener('click',function(){ set(false); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') set(false); });
+  s.addEventListener('click',function(e){
+    if(e.target.closest('.sclose')){ set(false); return; }
+    if(e.target.closest('a')) setTimeout(function(){ set(false); },140);
+  });
+  set(false);
+})();
+</script>
+</body></html>

@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>NUR 235 Mega Quiz</title>
+<style>
+:root{--ink:#f2ecff;--soft:#d6c9f2;--muted:#a99cc9;--line:rgba(255,255,255,.20);
+ --gold:#ffd75e;--sky:#8fd0ff;--green:#5eeaa8;--red:#ff8fa3;--accent:#ffc233;
+ --card:rgba(14,10,30,.82)}
+*{box-sizing:border-box}
+body{margin:0;font:17px/1.6 'Segoe UI',system-ui,sans-serif;color:var(--ink);
+ background:linear-gradient(165deg,#0d0a1c 0%,#160f33 55%,#0b1424 100%);
+ min-height:100vh}
+.topbar{position:sticky;top:0;z-index:60;padding:9px 14px;
+ background:rgba(10,6,22,.94);border-bottom:1px solid var(--line);
+ backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+header{padding:20px 20px 18px;background:linear-gradient(135deg,rgba(192,34,85,.72),rgba(157,92,255,.62));
+ border-bottom:1px solid var(--line)}
+header .code{font-weight:900;font-size:.95rem;letter-spacing:.09em;text-transform:uppercase;
+ color:var(--accent)}
+header h1{margin:4px 0 5px;font-size:1.55rem;line-height:1.25}
+header p{margin:0;color:var(--soft);font-size:1rem}
+main{max-width:760px;margin:0 auto;padding:16px 15px 120px}
+
+.filters{background:var(--card);border:1px solid var(--line);border-radius:16px;
+ padding:14px 15px;margin:0 0 14px}
+.frow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 10px}
+.frow:last-of-type{margin-bottom:0}
+.flabel{font-size:.9rem;font-weight:900;text-transform:uppercase;letter-spacing:.06em;
+ color:var(--muted);flex:0 0 100%;margin:0 0 2px}
+.flabel em{font-style:normal;font-weight:700;text-transform:none;letter-spacing:0;
+ color:#8f83b5;margin-left:7px;font-size:.86rem}
+.fbtn.dim{opacity:.34;cursor:not-allowed;text-decoration:line-through}
+.fbtn.dim:hover{background:rgba(255,255,255,.09)}
+.poolnote{margin:12px 0 0;font-size:.95rem;color:var(--soft)}
+.poolnote b{color:var(--accent);font-size:1.05rem}
+.fbtn{background:rgba(255,255,255,.09);color:var(--ink);border:1px solid var(--line);
+ border-radius:22px;padding:9px 15px;font:700 .97rem inherit;cursor:pointer}
+.fbtn:hover{background:rgba(143,208,255,.22)}
+.fbtn.active{background:var(--accent);color:#1a1030;font-weight:900;border-color:var(--accent)}
+.fbtn b{font-weight:900;color:var(--gold)}
+.fbtn.active b{color:#1a1030}
+#customCount{width:170px;font:700 .97rem inherit;padding:9px 13px;border-radius:22px;
+ border:1px solid var(--line);background:rgba(255,255,255,.09);color:var(--ink)}
+#customCount::placeholder{color:var(--muted)}
+#customCount:focus{outline:2px solid var(--accent);outline-offset:1px}
+.frow.cnt .fbtn.active{background:var(--gold);color:#2a1f00}
+.startbar{display:flex;gap:10px;align-items:center;margin-top:12px;flex-wrap:wrap}
+.startbtn{flex:1 1 190px;background:linear-gradient(135deg,#7c2aa8,#0e7490);color:#fff;
+ border:0;border-radius:13px;padding:14px;font:900 1.05rem inherit;cursor:pointer}
+.startbtn:hover{filter:brightness(1.12)}
+
+.scorebar{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;
+ font-size:.98rem;color:var(--soft);margin:6px 2px 12px;font-weight:700}
+.scorebar b{color:var(--ink)}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;
+ padding:18px 19px;min-height:220px}
+.qtags{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 10px}
+.tag{font-size:.88rem;font-weight:800;padding:4px 11px;border-radius:20px;
+ background:rgba(255,255,255,.12);color:var(--soft)}
+.tag.type{background:rgba(196,181,253,.28);color:#e2d6ff}
+.tag.wk{background:rgba(94,234,168,.22);color:#a8f5cf}
+.qtext{font-size:1.1rem;font-weight:700;line-height:1.55;margin:4px 0 14px;
+ overflow-wrap:anywhere}
+.opt{display:flex;gap:11px;align-items:flex-start;width:100%;text-align:left;
+ background:rgba(255,255,255,.06);color:var(--ink);border:1px solid var(--line);
+ border-radius:13px;padding:13px 15px;margin:0 0 9px;font:600 1rem inherit;cursor:pointer;
+ line-height:1.5}
+.opt:hover{background:rgba(143,208,255,.16)}
+.opt .box{flex:0 0 auto;width:22px;height:22px;border-radius:6px;
+ border:2px solid rgba(255,255,255,.5);display:flex;align-items:center;
+ justify-content:center;font-weight:900;font-size:.9rem;margin-top:1px}
+.opt.rad .box{border-radius:50%}
+.opt .otxt{flex:1 1 auto;min-width:0;overflow-wrap:anywhere}
+.opt.sel{border-color:var(--sky);background:rgba(143,208,255,.22)}
+.opt.sel .box{background:var(--sky);color:#08131f}
+.opt.correct{border-color:var(--green);background:rgba(94,234,168,.22)}
+.opt.correct .box{background:var(--green);color:#04231a}
+.opt.wrong{border-color:var(--red);background:rgba(255,143,163,.22)}
+.opt.wrong .box{background:var(--red);color:#2a0410}
+.opt.locked{cursor:default}
+.check{margin-top:6px;background:var(--accent);color:#1a1030;border:0;border-radius:12px;
+ padding:12px 20px;font:900 1rem inherit;cursor:pointer}
+.check:hover{filter:brightness(1.1)}
+.verdict{margin-left:12px;font-weight:900;font-size:1rem}
+.verdict.ok{color:#8ff0c8} .verdict.no{color:#ffb3c0}
+.rat{margin-top:14px;padding:13px 15px;border-left:5px solid var(--gold);
+ background:rgba(255,215,94,.13);border-radius:11px;font-size:1rem;line-height:1.6;
+ color:#f6eeff;display:none}
+.rat.show{display:block}
+.rat b{color:#ffe9a8}
+
+.nav{display:flex;justify-content:space-between;gap:10px;margin:14px 0 0;flex-wrap:wrap}
+.nav button{flex:1 1 130px;background:rgba(255,255,255,.13);color:var(--ink);
+ border:1px solid var(--line);border-radius:13px;padding:13px;font:800 1rem inherit;
+ cursor:pointer}
+.nav button:hover{background:rgba(255,255,255,.26)}
+.nav button:disabled{opacity:.4;cursor:default}
+.done{text-align:center;padding:22px 10px}
+.done h2{margin:0 0 8px;font-size:1.4rem;color:var(--accent)}
+.done p{margin:0 0 6px;font-size:1.05rem}
+
+/* ---- floating navigation, matched to the NUR 198 cluster -------------
+   Small pills in a horizontal row at the TOP right, not a stack of full-width
+   buttons at the bottom. She asked for these to look like 198's, and the reason
+   198's work is that they shed their labels as soon as the viewport narrows - at
+   300% zoom the CSS width reads narrow, so what she sees is a row of icons the
+   size of a fingertip rather than a wall of text sitting on the content. */
+#navBtns{position:fixed;top:10px;right:12px;z-index:2147483000;display:flex;gap:7px;
+ align-items:center;touch-action:none;cursor:grab}
+#navBtns.dragging{opacity:.92;cursor:grabbing}
+#navBtns:focus-visible{outline:3px solid var(--accent,#ffd76a);outline-offset:3px}
+#navBtns a,#navBtns button{display:inline-flex;align-items:center;gap:6px;
+ font:800 .95rem 'Segoe UI',system-ui,sans-serif;padding:9px 14px;border-radius:22px;
+ text-decoration:none;cursor:pointer;border:1px solid rgba(255,255,255,.24);
+ box-shadow:0 4px 14px rgba(0,0,0,.5);color:#fff;white-space:nowrap;line-height:1.3;
+ backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+ background:linear-gradient(135deg,#5a2d82,#8e2d6b)}
+#navBtns a:hover,#navBtns button:hover{filter:brightness(1.16)}
+#navBtns .nbQuiz{background:linear-gradient(135deg,#1d4ed8,#2f6bff)}
+#navBtns .nbCast{background:linear-gradient(135deg,#7c2aa8,#b5179e)}
+#navBtns .nbHub{background:linear-gradient(135deg,#0f7d6b,#12b886)}
+@media(max-width:1024px){
+  #navBtns{top:6px;right:6px;gap:5px}
+  #navBtns .nbLabel{display:none}
+  #navBtns a,#navBtns button{padding:9px 12px;font-size:1.15rem;line-height:1}
+}
+@media print{#navBtns{display:none}}
+
+/* ---- NGN item types --------------------------------------------------- */
+.qstem{background:rgba(255,255,255,.07);border-left:5px solid var(--accent);
+ border-radius:0 12px 12px 0;padding:12px 14px;margin:0 0 13px;font-size:1rem;
+ line-height:1.6}
+.qstem h4{margin:0 0 6px;font-size:.94rem;font-weight:900;letter-spacing:.05em;
+ text-transform:uppercase;color:var(--accent)}
+.qstem table{width:100%;border-collapse:collapse;margin:8px 0 0;font-size:.95rem}
+.qstem td,.qstem th{border:1px solid rgba(255,255,255,.22);padding:7px 9px;
+ text-align:left;vertical-align:top}
+.qstem th{background:rgba(255,255,255,.10);font-weight:900}
+.tag.step{background:rgba(143,208,255,.26);color:#d6ecff}
+
+/* bow-tie */
+.bowtie{display:grid;gap:12px;grid-template-columns:1fr;margin:0 0 10px}
+@media(min-width:720px){ .bowtie{grid-template-columns:1fr 1fr 1fr;align-items:start} }
+.btcol h5{margin:0 0 8px;font-size:.95rem;font-weight:900;color:var(--accent);
+ text-align:center}
+.btcol.mid h5{color:var(--gold)}
+.btslot{min-height:52px;border:2px dashed rgba(255,255,255,.32);border-radius:12px;
+ padding:9px 11px;margin:0 0 8px;font-size:.96rem;line-height:1.45;
+ display:flex;align-items:center;justify-content:center;text-align:center;
+ background:rgba(0,0,0,.24)}
+.btslot.filled{border-style:solid;border-color:var(--accent);background:rgba(0,0,0,.42)}
+.btslot.right{border-color:var(--green);background:rgba(94,234,168,.22)}
+.btslot.wrong{border-color:var(--red);background:rgba(255,143,163,.22)}
+.btbank{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+.btopt{background:rgba(255,255,255,.10);border:1px solid var(--line);color:var(--ink);
+ border-radius:12px;padding:10px 13px;font:700 .96rem inherit;cursor:pointer;
+ max-width:100%;text-align:left;line-height:1.4}
+.btopt:hover{background:rgba(143,208,255,.20)}
+.btopt.used{opacity:.35;cursor:default}
+.btbank .bl{flex:0 0 100%;font-weight:900;font-size:.9rem;color:var(--muted);
+ text-transform:uppercase;letter-spacing:.05em;margin:4px 0 0}
+
+/* drop-down cloze */
+.cloze{font-size:1.04rem;line-height:2.1}
+.cloze select{font:800 1rem inherit;padding:7px 10px;border-radius:10px;
+ border:2px solid rgba(255,255,255,.4);background:rgba(0,0,0,.55);color:#fff;
+ margin:0 3px;max-width:100%}
+.cloze select.right{border-color:var(--green);background:rgba(94,234,168,.26)}
+.cloze select.wrong{border-color:var(--red);background:rgba(255,143,163,.26)}
+
+/* matching */
+.match{display:grid;gap:10px;margin:0 0 10px}
+.mrow{display:grid;gap:9px;grid-template-columns:1fr;align-items:center}
+@media(min-width:560px){ .mrow{grid-template-columns:1fr auto} }
+.mleftbox{background:rgba(255,255,255,.08);border:1px solid var(--line);
+ border-radius:12px;padding:11px 13px;font-size:.98rem;line-height:1.45}
+.mrow select{font:800 1rem inherit;padding:10px 12px;border-radius:11px;
+ border:2px solid rgba(255,255,255,.4);background:rgba(0,0,0,.55);color:#fff;
+ min-width:170px;max-width:100%}
+.mrow select.right{border-color:var(--green);background:rgba(94,234,168,.26)}
+.mrow select.wrong{border-color:var(--red);background:rgba(255,143,163,.26)}
+
+/* highlight */
+.hlnote{background:rgba(0,0,0,.34);border:1px solid var(--line);border-radius:13px;
+ padding:13px 15px;margin:0 0 11px;font-size:1rem;line-height:1.85}
+.hltok{cursor:pointer;border-radius:7px;padding:2px 5px;
+ border-bottom:2px dotted rgba(255,255,255,.45)}
+.hltok:hover{background:rgba(143,208,255,.24)}
+.hltok.sel{background:rgba(143,208,255,.34);border-bottom-color:var(--sky)}
+.hltok.right{background:rgba(94,234,168,.34);border-bottom:2px solid var(--green)}
+.hltok.wrong{background:rgba(255,143,163,.34);border-bottom:2px solid var(--red)}
+.hltok.missed{outline:2px dashed var(--green);outline-offset:1px}
+.hlhint{margin:0 0 10px;font-size:.94rem;color:var(--soft);font-style:italic}
+
+/* ---- collapsible side menu ------------------------------------------ */
+#menuBtn{background:rgba(255,255,255,.15);border:1px solid var(--line);color:#fff;
+ border-radius:13px;padding:10px 14px;font:900 .95rem inherit;cursor:pointer;
+ white-space:nowrap;line-height:1}
+#menuBtn:hover{background:rgba(255,255,255,.32)}
+#navBg{position:fixed;inset:0;background:rgba(0,0,0,.62);z-index:99998;opacity:0;
+ pointer-events:none;transition:opacity .2s ease}
+body.nav-open #navBg{opacity:1;pointer-events:auto}
+body.nav-open #navBtns{display:none}
+body.nav-open #skimBtn{display:none}
+#side{position:fixed;top:0;left:0;width:min(88vw,320px);height:100dvh;max-height:100dvh;
+ overflow-y:auto;z-index:99999;transform:translateX(-102%);transition:transform .22s ease;
+ background:rgba(10,6,20,.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+ border-right:1px solid var(--line);box-shadow:6px 0 30px rgba(0,0,0,.65);
+ padding:16px 14px 34px}
+body.nav-open #side{transform:translateX(0)}
+#side .sbrand{font-weight:900;font-size:1.15rem;margin:2px 0 4px;display:block;
+ color:var(--accent)}
+#side .ssub{display:block;font-size:.92rem;color:#d8caf5;margin:0 0 14px}
+#side .shead{font-size:.86rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;
+ color:var(--accent);margin:18px 0 8px}
+#side a.nav,#side button.nav{display:block;width:100%;text-align:left;
+ background:rgba(255,255,255,.09);border:1px solid var(--line);
+ border-left:4px solid rgba(255,255,255,.45);border-radius:12px;padding:12px 14px;
+ margin:0 0 8px;color:#fff;text-decoration:none;font:800 1rem inherit;cursor:pointer}
+#side a.nav:hover,#side button.nav:hover{background:rgba(255,255,255,.22)}
+#side a.nav.on{background:rgba(255,255,255,.26);border-left-color:var(--accent)}
+#side .nsub{display:block;font-weight:600;font-size:.88rem;opacity:.9;margin-top:3px;
+ line-height:1.45}
+#side .sclose{display:block;width:100%;margin:4px 0 10px;background:rgba(255,255,255,.14);
+ border:1px solid var(--line);color:#fff;border-radius:12px;padding:11px;
+ font:900 1rem inherit;cursor:pointer}
+#side .sclose:hover{background:rgba(255,255,255,.3)}
+@media print{#side,#navBg,#menuBtn{display:none !important}}
+</style>
+<link rel="stylesheet" href="absn-adhd-enhanced.css">
+<script defer src="absn-adhd-enhanced.js"></script>
+</head><body>
+
+<div class="topbar">
+  <button type="button" id="menuBtn" aria-expanded="false" aria-controls="side">&#9776; Menu</button>
+</div>
+
+<header>
+  <div class="code">&#129681; NUR 235</div>
+  <h1>&#129504; Mega Quiz</h1>
+  <p>117 questions, one at a time. Answer, check, read the why. Filter by exam or week.</p>
+</header>
+
+<main>
+  <div class="filters">
+    <div class="frow"><span class="flabel">Exam <em>pick as many as you like</em></span><button type="button" class="fbtn active" aria-pressed="true" data-k="exam" data-v="all">All</button><button type="button" class="fbtn" aria-pressed="false" data-k="exam" data-v="Exam 1">Exam 1</button><button type="button" class="fbtn" aria-pressed="false" data-k="exam" data-v="Exam 2">Exam 2</button><button type="button" class="fbtn" aria-pressed="false" data-k="exam" data-v="Exam 3">Exam 3</button><button type="button" class="fbtn" aria-pressed="false" data-k="exam" data-v="Exam 4">Exam 4</button><button type="button" class="fbtn" aria-pressed="false" data-k="exam" data-v="Final">Final</button></div>
+    <div class="frow"><span class="flabel">Topic <em>pick as many as you like</em></span><button type="button" class="fbtn active" aria-pressed="true" data-k="topic" data-v="all">All</button><button type="button" class="fbtn" aria-pressed="false" data-k="topic" data-v="Intro to Pediatric Nursing" data-full="Week 1 - Intro to Pediatric Nursing" title="Week 1 - Intro to Pediatric Nursing">📘 <b>W1</b> &middot; Intro to Pediatric Nursing</button><button type="button" class="fbtn" aria-pressed="false" data-k="topic" data-v="The Infant (0-1 year)" data-full="Week 2 - The Infant (0&amp;ndash;1 year)" title="Week 2 - The Infant (0&amp;ndash;1 year)">📘 <b>W2</b> &middot; The Infant (0-1 year)</button><button type="button" class="fbtn" aria-pressed="false" data-k="topic" data-v="Toddler &amp; Preschooler" data-full="Week 3 - Toddler &amp; Preschooler" title="Week 3 - Toddler &amp; Preschooler">📘 <b>W3</b> &middot; Toddler & Preschooler</button><button type="button" class="fbtn" aria-pressed="false" data-k="topic" data-v="School-Age &amp; Adolescent" data-full="Week 4 - School-Age &amp; Adolescent" title="Week 4 - School-Age &amp; Adolescent">📘 <b>W4</b> &middot; School-Age & Adolescent</button><button type="button" class="fbtn" aria-pressed="false" data-k="topic" data-v="Hematology &amp; Childhood…" data-full="Week 5 - Hematology &amp; Childhood Neoplasms" title="Week 5 - Hematology &amp; Childhood Neoplasms">🩸 <b>W5</b> &middot; Hematology & Childhood…</button><button type="button" class="fbtn" aria-pressed="false" data-k="topic" data-v="Immune, Infectious Disease,…" data-full="Week 6 - Immune, Infectious Disease, Skin &amp; Burns" title="Week 6 - Immune, Infectious Disease, Skin &amp; Burns">🦠 <b>W6</b> &middot; Immune, Infectious Disease,…</button><button type="button" class="fbtn" aria-pressed="false" data-k="topic" data-v="Neurologic &amp; Neuromuscular" data-full="Week 7 - Neurologic &amp; Neuromuscular" title="Week 7 - Neurologic &amp; Neuromuscular">🧠 <b>W7</b> &middot; Neurologic & Neuromuscular</button><button type="button" class="fbtn" aria-pressed="false" data-k="topic" data-v="Respiratory" data-full="Week 8 - Respiratory" title="Week 8 - Respiratory">🫁 <b>W8</b> &middot; Respiratory</button><button type="button" class="fbtn" aria-pressed="false" data-k="topic" data-v="Cardiac" data-full="Week 9 - Cardiac" title="Week 9 - Cardiac">🫀 <b>W9</b> &middot; Cardiac</button><button type="button" class="fbtn" aria-pressed="false" data-k="topic" data-v="Musculoskeletal" data-full="Week 10 - Musculoskeletal" title="Week 10 - Musculoskeletal">🦴 <b>W10</b> &middot; Musculoskeletal</button><button type="button" class="fbtn" aria-pressed="false" data-k="topic" data-v="Endocrine &amp; Metabolic" data-full="Week 11 - Endocrine &amp; Metabolic" title="Week 11 - Endocrine &amp; Metabolic">⚗️ <b>W11</b> &middot; Endocrine & Metabolic</button><button type="button" class="fbtn" aria-pressed="false" data-k="topic" data-v="Gastrointestinal" data-full="Week 12 - Gastrointestinal" title="Week 12 - Gastrointestinal">🫃 <b>W12</b> &middot; Gastrointestinal</button><button type="button" class="fbtn" aria-pressed="false" data-k="topic" data-v="Renal &amp; Genitourinary" data-full="Week 13 - Renal &amp; Genitourinary" title="Week 13 - Renal &amp; Genitourinary">🫘 <b>W13</b> &middot; Renal & Genitourinary</button><button type="button" class="fbtn" aria-pressed="false" data-k="topic" data-v="Comprehensive Final Review" data-full="Week 14 - Comprehensive Final Review" title="Week 14 - Comprehensive Final Review">🎯 <b>W14</b> &middot; Comprehensive Final Review</button></div>
+    <div class="frow"><span class="flabel">Focus</span><button type="button" class="fbtn active" aria-pressed="true" data-k="focus" data-v="all">All</button><button type="button" class="fbtn" aria-pressed="false" data-k="focus" data-v="pharm">&#128138; Pharmacology (26)</button></div>
+    <div class="frow"><span class="flabel">Style <em>pick as many as you like</em></span><button type="button" class="fbtn active" aria-pressed="true" data-k="style" data-v="all">All</button><button type="button" class="fbtn" aria-pressed="false" data-k="style" data-v="single">&#9679; One answer (70)</button><button type="button" class="fbtn" aria-pressed="false" data-k="style" data-v="sata">&#9745;&#65039; Select all that apply (20)</button><button type="button" class="fbtn" aria-pressed="false" data-k="style" data-v="dropdown">&#9662; Drop-down cloze (8)</button><button type="button" class="fbtn" aria-pressed="false" data-k="style" data-v="matching">&#128279; Matching (5)</button><button type="button" class="fbtn" aria-pressed="false" data-k="style" data-v="highlight">&#128396;&#65039; Highlight the cues (6)</button><button type="button" class="fbtn" aria-pressed="false" data-k="style" data-v="bowtie">&#129466; Bow-tie (8)</button></div>
+    <div class="frow"><span class="flabel">Thinking step <em>what the question makes you do</em></span><button type="button" class="fbtn active" aria-pressed="true" data-k="step" data-v="all">All</button><button type="button" class="fbtn" aria-pressed="false" data-k="step" data-v="recognize" data-full="NCSBN clinical judgment: Recognise cues" title="NCSBN clinical judgment: Recognise cues">&#128064; Recognise cues (5)</button><button type="button" class="fbtn" aria-pressed="false" data-k="step" data-v="analyze" data-full="NCSBN clinical judgment: Analyse cues" title="NCSBN clinical judgment: Analyse cues">&#129504; Analyse cues (10)</button><button type="button" class="fbtn" aria-pressed="false" data-k="step" data-v="prioritize" data-full="NCSBN clinical judgment: Prioritise hypotheses" title="NCSBN clinical judgment: Prioritise hypotheses">&#127919; Prioritise hypotheses (6)</button><button type="button" class="fbtn" aria-pressed="false" data-k="step" data-v="solutions" data-full="NCSBN clinical judgment: Generate solutions" title="NCSBN clinical judgment: Generate solutions">&#128161; Generate solutions (4)</button><button type="button" class="fbtn" aria-pressed="false" data-k="step" data-v="action" data-full="NCSBN clinical judgment: Take action" title="NCSBN clinical judgment: Take action">&#129658; Take action (4)</button><button type="button" class="fbtn" aria-pressed="false" data-k="step" data-v="evaluate" data-full="NCSBN clinical judgment: Evaluate outcomes" title="NCSBN clinical judgment: Evaluate outcomes">&#128200; Evaluate outcomes (4)</button></div>
+    <div class="frow cnt"><span class="flabel">How many questions</span><button type="button" class="fbtn active" aria-pressed="true" data-k="count" data-v="all">All</button><button type="button" class="fbtn" aria-pressed="false" data-k="count" data-v="10">10</button><button type="button" class="fbtn" aria-pressed="false" data-k="count" data-v="20">20</button><button type="button" class="fbtn" aria-pressed="false" data-k="count" data-v="30">30</button><button type="button" class="fbtn" aria-pressed="false" data-k="count" data-v="50">50</button>
+      <input type="number" id="customCount" min="1" max="117" placeholder="or type a number"
+        aria-label="Choose your own number of questions">
+    </div>
+    <p class="poolnote">Matching your filters: <b id="poolcount">117</b> questions.
+       Greyed-out buttons have nothing left in them.</p>
+    <div class="startbar">
+      <button type="button" class="startbtn" id="shuffle">&#127922; Shuffle &amp; start</button>
+      <button type="button" class="startbtn" id="restart"
+        style="background:linear-gradient(135deg,#334155,#1e293b)">&#8635; In order</button>
+    </div>
+  </div>
+
+  <div class="scorebar" id="scorebar"></div>
+  <div class="card" id="card"></div>
+  <div class="nav">
+    <button type="button" id="prev">&larr; Previous</button>
+    <button type="button" id="next">Next &rarr;</button>
+  </div>
+</main>
+
+<div id="navBtns"><button type="button" class="nbBack" title="Back to NUR 235" onclick="hop('nur235.html',true)">&larr;<span class="nbLabel">Back to NUR 235</span></button><button type="button" class="nbHub" title="ABSN Study Hub" onclick="hop('index.html',true)">&#127968;<span class="nbLabel">ABSN Study Hub</span></button></div>
+<div id="navBg"></div>
+<nav id="side" aria-label="Site menu" aria-hidden="true">
+  <span class="sbrand">NUR 235 Mega Quiz</span>
+  <span class="ssub">One question at a time</span>
+  <button type="button" class="sclose">&#10005; Close this menu</button>
+  <div class="shead">On this page</div>
+  <div id="sideJumps"></div>
+  <div class="shead">Courses</div>
+  <a class="nav" href="nur234.html">&#129328; NUR 234<span class="nsub">Maternal &amp; newborn</span></a>
+  <a class="nav" href="nur235.html">&#129681; NUR 235<span class="nsub">Nursing care of the child</span></a>
+  <a class="nav" href="nur258.html">&#129658; NUR 258<span class="nsub">Adult health II</span></a>
+  <div class="shead">Quizzes</div>
+  <a class="nav" href="nur234-quiz.html">&#129504; NUR 234 Mega Quiz<span class="nsub">115 questions</span></a>
+  <a class="nav on" href="nur235-quiz.html">&#129504; NUR 235 Mega Quiz<span class="nsub">117 questions</span></a>
+  <a class="nav" href="nur258-quiz.html">&#129504; NUR 258 Mega Quiz<span class="nsub">117 questions</span></a>
+  <a class="nav" href="pharmacology-new.html">&#128138; Pharmacology<span class="nsub">Every drug question from all three courses</span></a>
+  <div class="shead">Listen</div>
+  <a class="nav" href="nur234-podcasts.html">&#127911; NUR 234 Podcasts<span class="nsub">5 episodes</span></a>
+  <a class="nav" href="nur235-podcasts.html">&#127911; NUR 235 Podcasts<span class="nsub">1 full episode + shorts</span></a>
+  <a class="nav" href="nur258-podcasts.html">&#127911; NUR 258 Podcasts<span class="nsub">6 exam episodes + 15 lectures</span></a>
+  <div class="shead">Reference</div>
+  <a class="nav" href="../drug-guide/index.html" target="_blank" rel="noopener">&#128138; Drug Guide<span class="nsub">A card per drug &middot; 981 drugs</span></a>
+  <a class="nav" href="index.html">&#127968; ABSN Study Hub<span class="nsub">Everything, all courses</span></a>
+</nav>
+<script type="application/json" id="qbank">{"1": [{"q": "A nurse is preparing to instill antibiotic otic drops in an 18-month-old. The bottle has just come out of the refrigerator. Which action should the nurse take first?", "type": "single", "opts": ["Warm the bottle to room temperature by rolling it between the hands", "Pull the pinna up and back and instill the drops", "Massage the tragus to move the drops inward", "Position the child supine with the head flat"], "ans": [0], "why": "Cold drops in the canal cause pain and vertigo, so warming comes before positioning or instilling. Pulling the pinna <b>up and back<\/b> is also wrong for this child: the direction is down and back under age 3 and only flips up and back at 3 years.", "topic": "Intro to Pediatric Nursing", "icon": "📘", "topicFull": "Intro to Pediatric Nursing"}, {"q": "A nurse brings a surgical consent form to the parent of a 4-year-old scheduled for a myringotomy. The parent says, \"I still do not really know what they are going to do to her ears.\" Which action should the nurse take first?", "type": "single", "opts": ["Explain the myringotomy procedure to the parent in simple terms", "Notify the provider that the parent needs the procedure explained before signing", "Witness the signature and document the parent's question", "Ask the child life specialist to prepare the child for surgery"], "ans": [1], "why": "The provider obtains consent; the nurse witnesses the signature and verifies understanding by teach-back. Those are <b>different verbs on purpose<\/b> — explaining the procedure herself is the nurse stepping into the provider's role.", "topic": "Intro to Pediatric Nursing", "icon": "📘", "topicFull": "Intro to Pediatric Nursing"}, {"q": "A nurse is choosing a pain scale for a 4-year-old who is alert, talking about his cartoon, and can point to pictures. Which tool is most appropriate?", "type": "single", "opts": ["FLACC behavioral scale", "Wong-Baker FACES scale", "0-to-10 numeric rating scale", "Whichever scale the parent prefers"], "ans": [1], "why": "Wong-Baker FACES is for age 3 and up; FLACC covers 0-3 years when the child cannot self-report, and the numeric scale starts around 5 if the child is cognitively able. The choice is driven by <b>whether the child can self-report<\/b>, not by how much pain the nurse thinks is present.", "topic": "Intro to Pediatric Nursing", "icon": "📘", "topicFull": "Intro to Pediatric Nursing"}, {"q": "A 5-year-old is recovering in the procedure area after conscious sedation for a bone marrow aspiration. Which actions should the nurse include? Select all that apply.", "type": "sata", "opts": ["Position the child side-lying", "Keep the child NPO until the gag reflex has returned", "Place the child prone so secretions drain freely", "Assist the child to the bathroom as soon as he is arousable", "Maintain continuous respiratory rate, heart rate and SpO2 monitoring"], "ans": [0, 1, 4], "why": "Lateral/side-lying is the airway-protective recovery position, NPO holds until the gag reflex returns, and continuous cardiorespiratory monitoring stays on. <b>Prone is rejected for obstruction risk<\/b>, and no ambulation is allowed until protective reflexes and full alertness return.", "topic": "Intro to Pediatric Nursing", "icon": "📘", "topicFull": "Intro to Pediatric Nursing"}, {"q": "A child weighs 16 kg. Using the Holliday-Segar method, how many milliliters of maintenance fluid should this child receive in 24 hours?", "type": "single", "opts": ["1,250 mL", "1,300 mL", "1,600 mL", "1,800 mL"], "ans": [1], "why": "100 mL/kg for the first 10 kg = 1,000 mL, then 50 mL/kg for kg 11-20 = 6 x 50 = 300 mL, totalling <b>1,300 mL/day<\/b>. 1,600 comes from misapplying the over-20-kg step, and 1,800 comes from using 100 mL/kg throughout.", "topic": "Intro to Pediatric Nursing", "icon": "📘", "topicFull": "Intro to Pediatric Nursing"}, {"q": "A nurse has inserted a nasogastric feeding tube in a 2-year-old. Which finding confirms correct placement before the feeding is started?", "type": "single", "opts": ["Auscultation of an air bolus over the epigastrium", "Aspiration of gastric contents with an acidic pH", "Radiographic confirmation of tube position", "The external tube length matches the measured mark"], "ans": [2], "why": "<b>X-ray is the gold standard for confirming any feeding tube placement.<\/b> The air-bolus whoosh is unreliable, and pH and external length are supporting checks between feedings, not initial confirmation.", "topic": "Intro to Pediatric Nursing", "icon": "📘", "topicFull": "Intro to Pediatric Nursing"}, {"type": "bowtie", "week": "1", "step": "prioritize", "topic": "Intro to Pediatric Nursing", "stemTitle": "Playroom, 1015", "stem": "<p>A 10-month-old hospitalized for observation is in the playroom eating a teething biscuit when the caregiver calls out. The infant is clutching at his throat, has a weak, ineffective cough, makes no sound, and his lips are turning dusky.<\/p><table><tr><td><b>HR<\/b><\/td><td>150/min<\/td><\/tr><tr><td><b>SpO2<\/b><\/td><td>88%<\/td><\/tr><\/table>", "cond": ["Foreign body airway obstruction", "Anaphylactic reaction", "Breath-holding spell", "Acute epiglottitis"], "actions": ["Deliver 5 back blows followed by 5 chest thrusts", "Perform a blind finger sweep of the mouth to grasp the object", "Give abdominal thrusts as used for an older child", "Once breathing resumes, place the infant side-lying with knees bent", "Administer intramuscular epinephrine", "Begin rescue breathing before attempting to clear the airway"], "params": ["Respiratory rate and effort", "Oxygen saturation", "Core body temperature", "Urine output", "Serum lead level", "Blood glucose"], "answer": {"cond": [0], "action": [0, 3], "param": [0, 1]}, "why": "A weak, ineffective cough with no sound and clutching at the throat is the universal choking sign of a complete foreign body airway obstruction, not anaphylaxis, a breath-holding spell, or epiglottitis, none of which present this way. Back blows combined with chest thrusts is the correct maneuver for an infant (abdominal thrusts are reserved for children and adolescents), and a blind finger sweep is never performed because it can push the object deeper. Once breathing resumes the infant is placed side-lying with the knees bent for stability while the nurse trends respiratory effort and oxygen saturation to confirm the airway stays clear; temperature, urine output, lead level, and glucose have no bearing on this acute airway event.", "src": "ATI Nursing Care of Children ch 43 (Pediatric Emergencies)", "icon": "📘", "topicFull": "Intro to Pediatric Nursing"}, {"type": "dropdown", "week": "1", "step": "analyze", "topic": "Intro to Pediatric Nursing", "stemTitle": "Post-op assessment, 1930", "stem": "<p>A 20-month-old is 1 day post-appendectomy. She winces and pulls away when her abdomen is touched, will not walk, and cries when repositioned but cannot describe her pain in words.<\/p>", "text": "Because the child is younger than 3 years and cannot reliably self-report, the nurse should assess her pain using the {1}. Because she is recovering from surgery with expected ongoing pain, the nurse should plan to give her ordered analgesic {2}.", "gaps": [{"options": ["FACES pain rating scale", "FLACC behavioral scale", "Numeric 0-10 self-report scale"], "answer": 1}, {"options": ["only when she cries or appears uncomfortable", "on a round-the-clock schedule rather than as-needed", "in the smallest possible dose to avoid any sedation"], "answer": 1}], "why": "The FLACC scale is validated from 2 months to 7 years and scores observed behavior (face, legs, activity, cry, consolability), so it does not require the child to describe her pain, unlike the FACES or numeric scales which depend on reliable self-report starting around age 3. Predictable postoperative pain is managed with analgesics scheduled around the clock rather than given only in response to crying, because waiting for visible distress lets pain build and become harder to control, undertreating the child.", "src": "ATI Nursing Care of Children ch 9 (Pain Management)", "icon": "📘", "topicFull": "Intro to Pediatric Nursing"}, {"type": "sata", "week": "1", "step": "action", "topic": "Intro to Pediatric Nursing", "q": "A 4-year-old boy is admitted for IV antibiotics, and his peripheral IV will be started in 30 minutes. Which of the following actions should the nurse take now? (Select all that apply.)", "opts": ["Explain what will happen in short, concrete words just before the start", "Let him handle safe equipment and practice the steps on a doll", "Ask his caregiver to stay with him during the IV start", "Start the IV in his own hospital bed so he does not have to move", "Promise him that the IV start will not hurt at all", "Tell him the IV is what happens to children who refuse their medicine"], "ans": [0, 1, 2], "why": "Preschoolers think in magical, literal terms and fear bodily harm, so preparation is simple, concrete, and given close to the event rather than hours ahead. Handling the equipment and rehearsing on a doll turns a frightening procedure into something he has some control over, and the caregiver's presence lowers his stress more than any distraction the nurse can offer. Painful procedures are done in a treatment room so the bed stays a safe place. Never promise no pain, because a child this age takes the words literally and will not trust the nurse afterward, and never frame a procedure as a punishment for behavior.", "src": "ATI ch 10 Hospitalization, Illness, and Play", "icon": "📘", "topicFull": "Intro to Pediatric Nursing"}], "2": [{"q": "A 6-hour-old newborn has a respiratory rate of 68 with mild nasal flaring. The infant has just finished crying vigorously and is otherwise pink with a heart rate of 148. Which action should the nurse take first?", "type": "single", "opts": ["Notify the provider of the respiratory rate", "Apply blow-by oxygen", "Swaddle and calm the newborn, then recount respirations for a full minute", "Prepare for endotracheal intubation"], "ans": [2], "why": "Newborn RR is 30-60, so 68 is abnormal, but it may be transient from crying. When two answers are defensible, choose the <b>least invasive first<\/b> — calm and reassess before escalating to the provider or starting oxygen.", "topic": "The Infant (0-1 year)", "icon": "📘", "topicFull": "The Infant (0&ndash;1 year)"}, {"q": "A nurse observes a parent settle a 2-month-old for a nap prone on a soft quilt with crib bumpers in place. Which action should the nurse take first?", "type": "single", "opts": ["Document the observation in the record", "Reposition the infant supine on a bare, firm mattress", "Ask the parent why she prefers the prone position", "Plan to teach safe sleep at the discharge visit"], "ans": [1], "why": "Safe sleep is supine in a bare, firm crib with no co-sleeping, and an unsafe sleep surface is an active airway risk — remove it now, then teach. <b>Teaching later does not protect the infant currently in the crib.<\/b>", "topic": "The Infant (0-1 year)", "icon": "📘", "topicFull": "The Infant (0&ndash;1 year)"}, {"q": "A nurse assesses a 2-week-old at a well-child visit. Which findings require follow-up? Select all that apply.", "type": "sata", "opts": ["Bluish discoloration around the mouth while the infant cries hard", "Blue discoloration of the lips and tongue while the infant rests quietly", "A soft, rounded, protuberant abdomen", "A firm, distended abdomen with absent bowel sounds", "Scattered petechiae across the trunk and extremities"], "ans": [1, 3, 4], "why": "Circumoral cyanosis can be benign, but <b>central cyanosis of the lips and tongue is always abnormal<\/b>. A protuberant abdomen is normal while a firm distended one is not, and petechiae limited to the face right after delivery are expected while generalized petechiae are not.", "topic": "The Infant (0-1 year)", "icon": "📘", "topicFull": "The Infant (0&ndash;1 year)"}, {"q": "A nurse completes a 9-month well-child visit. Which finding should the nurse follow up on?", "type": "single", "opts": ["The infant does not yet walk independently", "The infant cannot pull himself to a standing position", "The infant lifts a blanket to find a toy hidden underneath", "The infant cries when an unfamiliar nurse reaches for him"], "ans": [1], "why": "Pulling to stand is expected <b>by 9 months<\/b>, so its absence needs evaluation. Independent walking is not expected until 12-15 months, searching for a hidden object matches object permanence at 9-10 months, and stranger anxiety at 6-8 months is normal.", "topic": "The Infant (0-1 year)", "icon": "📘", "topicFull": "The Infant (0&ndash;1 year)"}, {"q": "A nurse is teaching the mother of an exclusively breastfed 5-month-old. Which statement indicates a need for further teaching?", "type": "single", "opts": ["\"Breast milk gives her everything she needs, so she does not need any supplement.\"", "\"Breast milk and formula both provide about 20 calories per ounce.\"", "\"I will start iron-fortified cereal around 6 months, once she has good head control.\"", "\"I will introduce only one new food every 3 to 5 days.\""], "ans": [0], "why": "Breast milk requires <b>vitamin D supplementation<\/b>, and its iron stores run out by 4-6 months, so the no-supplement statement is the wrong one. The other three statements are all accurate as written.", "topic": "The Infant (0-1 year)", "icon": "📘", "topicFull": "The Infant (0&ndash;1 year)"}, {"q": "A 7-month-old plays contentedly on her mother's lap but bursts into tears and turns her face away each time the unfamiliar nurse leans toward her. She settles immediately when the mother takes her back. Which phenomenon does this behavior demonstrate?", "type": "single", "opts": ["Separation anxiety", "Stranger anxiety", "Failure to establish trust", "Delayed social development"], "ans": [1], "why": "The distress is triggered by the <b>unfamiliar person<\/b>, not by the mother leaving, which makes it stranger anxiety (6-8 months). Separation anxiety (4-8 months) is protest when the caregiver leaves; the two overlap in age, so the behavior described is what decides the answer.", "topic": "The Infant (0-1 year)", "icon": "📘", "topicFull": "The Infant (0&ndash;1 year)"}, {"type": "highlight", "week": "2", "step": "recognize", "topic": "The Infant (0-1 year)", "stemTitle": "NICU nurses' note, 2 hr of life", "stem": "<p>Preterm male infant born at 32 weeks gestation, now 2 hours old.<\/p>", "tokens": [{"text": "Respiratory rate 68/min ", "pick": true}, {"text": "with ", "pick": false}, {"text": "expiratory grunting ", "pick": true}, {"text": "and ", "pick": false}, {"text": "nasal flaring. ", "pick": true}, {"text": "Mild acrocyanosis of the hands and feet, ", "pick": true}, {"text": "with ", "pick": false}, {"text": "pink, warm central skin. ", "pick": true}, {"text": "Anterior fontanel soft and flat. ", "pick": true}, {"text": "Subcostal and intercostal retractions noted. ", "pick": true}], "answer": [0, 2, 4, 9], "why": "A respiratory rate above 60/min, expiratory grunting, nasal flaring, and retractions are classic early findings of respiratory distress syndrome in a preterm newborn, reflecting increased work of breathing against surfactant-deficient, poorly compliant lungs. Acrocyanosis of the hands and feet is a normal newborn finding from immature peripheral circulation, and a soft, flat fontanel with pink, warm central skin are also expected findings, not signs of respiratory compromise, so none of these three should be selected.", "src": "ATI Nursing Care of Children ch 42 (Complications of Infants)", "icon": "📘", "topicFull": "The Infant (0&ndash;1 year)"}, {"type": "bowtie", "week": "2", "step": "prioritize", "topic": "The Infant (0-1 year)", "stemTitle": "NICU, day 10 of life", "stem": "<p>A former 29-week preemie, now day 10 of life and tolerating gavage feeds, develops a new finding.<\/p><table><tr><td><b>Abdomen<\/b><\/td><td>distended, bowel sounds diminished<\/td><\/tr><tr><td><b>Stool<\/b><\/td><td>bloody<\/td><\/tr><tr><td><b>Temp<\/b><\/td><td>unstable, new apnea episodes<\/td><\/tr><\/table>", "cond": ["Necrotizing enterocolitis", "Gastroesophageal reflux", "Cow's milk protein allergy", "Newborn sepsis alone"], "actions": ["Stop all enteral feedings and keep the infant NPO", "Insert an NG tube for gastric decompression", "Advance to a hydrolyzed formula at a slower rate", "Give an oral rehydration solution between gavage feeds", "Place the infant in a car seat for all feedings to reduce reflux", "Continue non-nutritive sucking with a pacifier during gavage feeds"], "params": ["Abdominal girth", "Bowel sounds and stool for blood", "Anterior fontanel tension", "Serum phenylalanine level", "Red reflex", "Deep tendon reflexes"], "answer": {"cond": [0], "action": [0, 1], "param": [0, 1]}, "why": "Abdominal distention with diminished bowel sounds, bloody stools, new apnea, and temperature instability in a former preterm infant are the classic presentation of necrotizing enterocolitis from ischemic injury to fragile gut mucosa; sepsis alone, GERD, and cow's milk protein allergy do not typically produce bloody stools with a distended, quiet abdomen. Treatment rests the bowel by holding all enteral feeds and decompressing the stomach with an NG tube rather than continuing or advancing feeds. Trending abdominal girth and monitoring bowel sounds and stool for blood catch worsening distention or perforation early, while fontanel tension, phenylalanine level, red reflex, and deep tendon reflexes are unrelated to bowel ischemia.", "src": "ATI Nursing Care of Children ch 42 (Complications of Infants)", "icon": "📘", "topicFull": "The Infant (0&ndash;1 year)"}], "3": [{"q": "A parent calls to report that her 2-year-old swallowed a mouthful of drain cleaner about 10 minutes ago. The child is crying, alert, and drooling. Which instruction should the nurse give first?", "type": "single", "opts": ["Give syrup of ipecac to induce vomiting", "Give a glass of milk to neutralize the chemical", "Do not induce vomiting; call poison control and bring the child in now", "Give activated charcoal from the home first aid kit"], "ans": [2], "why": "<b>Never induce vomiting after a corrosive ingestion<\/b> — the caustic re-injures the esophagus on the way back up. Neutralizing agents and charcoal are not the home management for corrosives either.", "topic": "Toddler & Preschooler", "icon": "📘", "topicFull": "Toddler & Preschooler"}, {"q": "A 4-year-old scheduled for a tonsillectomy tells the nurse, \"I have to get an operation because I was bad.\" Which nursing response is the priority?", "type": "single", "opts": ["\"That is silly, nobody gets surgery for being bad.\"", "\"Would you like to play with this puppet while we wait?\"", "\"Surgery is never a punishment. You did nothing wrong, and the operation will help your sore throats.\"", "\"Your mom and dad can explain it to you later.\""], "ans": [2], "why": "Preschoolers use magical thinking and interpret illness or a procedure as <b>punishment<\/b>, so the intervention is direct reassurance, not just distraction. Offering the puppet is tempting because play is appropriate for this age, but it leaves the guilt uncorrected.", "topic": "Toddler & Preschooler", "icon": "📘", "topicFull": "Toddler & Preschooler"}, {"q": "A nurse is teaching the parents of a healthy 2-year-old. Which instructions should the nurse include? Select all that apply.", "type": "sata", "opts": ["Cut hot dogs lengthwise into long thin strips rather than round slices", "Limit whole cow's milk to about 16 to 24 ounces per day", "Offer about 12 ounces of juice daily to boost vitamin C", "Use a 2-minute time-out when discipline is needed", "Expect his appetite to increase steadily now that he is walking"], "ans": [0, 1, 3], "why": "Round hot dog slices are the classic choking shape, milk is capped at 16-24 oz/day because calcium blocks iron absorption, and time-out is <b>1 minute per year of age<\/b>. Juice is capped near 4 oz/day at this age, and <b>physiologic anorexia<\/b> means the toddler appetite drops rather than climbs.", "topic": "Toddler & Preschooler", "icon": "📘", "topicFull": "Toddler & Preschooler"}, {"q": "A 2-year-old's blood lead level returns at 12 mcg/dL. Which nursing action does the nurse anticipate?", "type": "single", "opts": ["No action; this level is within normal limits", "Recheck the level in one year at the next well visit", "Prepare for chelation therapy and environmental follow-up", "Begin an oral iron supplement as the only treatment"], "ans": [2], "why": "Any level <b>above 5 mcg/dL is abnormal<\/b>, and treatment is chelation. Routine lead screening happens at 18 and 24 months, so a result this high is a finding to act on, not one to defer for a year.", "topic": "Toddler & Preschooler", "icon": "📘", "topicFull": "Toddler & Preschooler", "pharm": 1}, {"q": "At a 30-month well-child visit, a parent reports her son uses about 15 recognizable words and has never put two words together. Which response is most appropriate?", "type": "single", "opts": ["\"That is within the expected range; many children talk later.\"", "\"This is normal dysfluency and should not be corrected.\"", "\"He should have about 50 words and be using two- to three-word phrases by now, so I will arrange a developmental evaluation.\"", "\"Read to him daily and we will recheck at age 4.\""], "ans": [2], "why": "Expect roughly <b>50 words by 30 months<\/b> and two- to three-word phrases by age 2, so this is a real delay that needs referral. Normal dysfluency is stuttering-type hesitancy in a preschooler with adequate vocabulary, which is not what is described.", "topic": "Toddler & Preschooler", "icon": "📘", "topicFull": "Toddler & Preschooler"}, {"q": "In the playroom, two 2-year-olds sit beside each other, each pushing a separate truck and neither sharing or coordinating with the other. A parent asks whether her child is antisocial. Which response is correct?", "type": "single", "opts": ["\"This is parallel play and it is exactly what we expect at 2.\"", "\"This is associative play, which is typical for toddlers.\"", "\"This suggests he may need a social skills evaluation.\"", "\"Encourage him to share the truck so he learns cooperation now.\""], "ans": [0], "why": "Toddlers play <b>parallel<\/b> — alongside but not with each other; associative play belongs to the preschooler. Pushing a 2-year-old to share also collides with autonomy versus shame and doubt, the stage this child is working through.", "topic": "Toddler & Preschooler", "icon": "📘", "topicFull": "Toddler & Preschooler"}, {"type": "matching", "week": "3", "step": "analyze", "topic": "Toddler & Preschooler", "stem": "<p>The nurse is charting developmental observations made during a toddler clinic visit.<\/p>", "pairs": [{"left": "A 2-year-old plays next to another child at the sandbox, each with her own bucket, without playing together.", "answer": 0}, {"left": "A 2-year-old insists on putting on her own shoes, even though they end up on the wrong feet, and refuses help.", "answer": 1}, {"left": "A toddler screams and clings to his mother's leg when a new nurse enters the room, though he was calm with his usual nurse.", "answer": 5}, {"left": "A toddler sobs and reaches for her father when he steps out to speak with the provider, even for a minute.", "answer": 2}, {"left": "A toddler holds an empty cup to a doll's mouth and says 'baby drink,' then pretends to burp the doll.", "answer": 3}], "right": ["Parallel play", "Autonomy vs. shame and doubt", "Separation anxiety", "Symbolic play", "Temper tantrum from thwarted independence", "Stranger fear", "Object permanence"], "why": "Toddlers play parallel rather than interactively, side by side without engaging each other, and imitate caregiving through symbolic pretend play once preoperational thinking emerges. Stranger fear (wariness of an unfamiliar person) is distinct from separation anxiety (distress at a trusted caregiver leaving), though both are normal from about 6 months to 3 years. Insisting on self-dressing reflects the developmental task of autonomy vs. shame and doubt rather than simple stubbornness; temper tantrums and object permanence are real toddler concepts but do not match any scenario here as precisely as the paired answers.", "src": "ATI Nursing Care of Children ch 4 (Health Promotion of Toddlers)", "icon": "📘", "topicFull": "Toddler & Preschooler"}, {"type": "dropdown", "week": "3", "step": "analyze", "topic": "Toddler & Preschooler", "stemTitle": "4-year well visit", "stem": "<p>A 4-year-old tells the nurse that his stuffed rabbit gets sad when left alone and needs a blanket at night. His mother reports that when he accidentally broke a toy last week, he cried and said he was 'a bad boy.'<\/p>", "text": "The nurse recognizes the child's belief that his stuffed rabbit has feelings as {1}, a normal preoperational thinking pattern for his age, and his intense guilt over breaking the toy as an expected feature of Erikson's {2} stage.", "gaps": [{"options": ["object permanence", "animism", "conservation"], "answer": 1}, {"options": ["trust vs. mistrust", "initiative vs. guilt", "industry vs. inferiority"], "answer": 1}], "why": "Animism is the preoperational belief that inanimate objects have life and feelings, a developmentally normal pattern at this age and not a sign of a thought disorder; object permanence is an infant task and conservation does not emerge until concrete operational thinking in the school-age years. Erikson's initiative vs. guilt describes the preschooler whose ambitions and exploration outrun ability, so a failure like breaking a toy easily triggers guilt, while trust vs. mistrust belongs to infancy and industry vs. inferiority belongs to the school-age stage.", "src": "ATI Nursing Care of Children ch 5 (Health Promotion of Preschoolers)", "icon": "📘", "topicFull": "Toddler & Preschooler"}], "4": [{"q": "A nurse is counseling a 16-year-old who has just been licensed to drive. Which instruction is the priority?", "type": "single", "opts": ["Keep an emergency kit with flares and a blanket in the trunk", "Verify that his insurance card is in the glove compartment", "Never drive after using alcohol or drugs, and never ride with a driver who has", "Install a GPS app so his parents can locate the car"], "ans": [2], "why": "Unintentional injury — motor vehicle crashes above all — is the <b>leading cause of adolescent death<\/b>, with alcohol and drugs a major contributor. Emergency kits, insurance and GPS are reasonable, but none of them prevents the crash.", "topic": "School-Age & Adolescent", "icon": "📘", "topicFull": "School-Age & Adolescent"}, {"q": "A nurse is preparing a 9-year-old for his first dressing change after an appendectomy. Which action should the nurse take first?", "type": "single", "opts": ["Show him the supplies, explain each step concretely, and let him choose which hand holds the tape", "Describe in abstract terms how his immune system will theoretically rebuild the tissue", "Complete the dressing change quickly with no explanation to limit anxiety", "Ask his parents to step out so he has privacy with peers his own age"], "ans": [0], "why": "School-age children are <b>concrete operational<\/b> and want facts plus a measure of control, so a step-by-step explanation with a real choice fits. Abstract hypothetical reasoning belongs to formal operational adolescents, and privacy from parents plus peer contact is the adolescent priority, not the school-age one.", "topic": "School-Age & Adolescent", "icon": "📘", "topicFull": "School-Age & Adolescent"}, {"q": "A nurse is planning health promotion for a 13-year-old at a routine visit. Which interventions are appropriate? Select all that apply.", "type": "sata", "opts": ["Screen for depression and suicide risk", "Begin colorectal cancer screening", "Discuss substance use and peer pressure", "Order a DEXA scan for osteoporosis prevention", "Administer Tdap and the first HPV dose"], "ans": [0, 2, 4], "why": "Adolescent health promotion centers on <b>peer relationships, substance use prevention, and mental health screening<\/b>, and the 11-12 year vaccines are Tdap, HPV (2 doses 6-12 months apart) and meningococcal. Colorectal screening and osteoporosis workups are classic <b>wrong-age distractors<\/b> planted in adolescent stems.", "topic": "School-Age & Adolescent", "icon": "📘", "topicFull": "School-Age & Adolescent"}, {"q": "An 8-year-old is 4 feet 2 inches tall and weighs 62 pounds. Her parent says she has outgrown her booster seat and now uses the regular seat belt. Which response is correct?", "type": "single", "opts": ["\"That is fine now that she is over 60 pounds.\"", "\"She should stay in a booster seat until she reaches about 4 feet 9 inches tall.\"", "\"She can ride in the front seat as long as the belt fits.\"", "\"Booster seats are only recommended until age 6.\""], "ans": [1], "why": "The threshold is height, not age or weight: booster seat use continues until roughly <b>4 feet 9 inches<\/b>, when the lap and shoulder belt fit the skeleton properly. At 4 feet 2 inches she is well short of it.", "topic": "School-Age & Adolescent", "icon": "📘", "topicFull": "School-Age & Adolescent"}, {"q": "A 12-year-old girl began breast development about 2 years ago and reports her first menstrual period this month. Which statement to her mother is accurate?", "type": "single", "opts": ["\"Her growth spurt will begin now that she has started her periods.\"", "\"She has reached her adult height already.\"", "\"Menarche is usually the first sign of puberty in girls.\"", "\"She will grow for roughly another 2 to 2.5 years and then stop.\""], "ans": [3], "why": "Menarche arrives <b>late<\/b> in the female sequence — about 2 years after breast budding — and linear growth continues roughly 2 to 2.5 years afterward before the plates close. Breast budding, not menarche, is the first sign, and the growth spurt precedes menarche rather than following it.", "topic": "School-Age & Adolescent", "icon": "📘", "topicFull": "School-Age & Adolescent"}, {"q": "A nurse is teaching the parent of a 10-year-old newly prescribed a twice-daily stimulant for ADHD. Which statement indicates a need for further teaching?", "type": "single", "opts": ["\"I will give the first dose with breakfast.\"", "\"I will give the second dose right after dinner at 7 PM.\"", "\"I will watch his weight because it can suppress his appetite.\"", "\"I will report a racing heartbeat or a big change in his mood.\""], "ans": [1], "why": "A twice-daily stimulant needs the second dose <b>before 6 PM<\/b>, or insomnia follows; a 7 PM dose is the error. Giving with food, tracking appetite and weight, and reporting tachycardia, hypertension or mood change are all correct.", "topic": "School-Age & Adolescent", "icon": "📘", "topicFull": "School-Age & Adolescent"}, {"type": "sata", "week": "4", "step": "action", "topic": "School-Age & Adolescent", "q": "A 15-year-old comes in for a routine well visit. Which of the following should the nurse plan to include as part of routine adolescent health promotion? (Select all that apply.)", "opts": ["Measure blood pressure and screen for scoliosis", "Obtain hemoglobin/hematocrit and a lipid panel", "Ask nonjudgmentally about sexual activity and offer STI screening if indicated", "Reinforce a goal of 8-10 hours of sleep nightly", "Give vaccine catch-up doses only if the patient specifically requests them", "Address mood and psychosocial changes only if the caregiver raises a concern"], "ans": [0, 1, 2, 3], "why": "Annual adolescent well visits include screening for scoliosis, blood pressure, BMI, hemoglobin/hematocrit, and universal lipid screening, along with sleep guidance since puberty commonly shortens and delays sleep. The nurse should proactively and nonjudgmentally ask about sexual activity to offer appropriate STI screening rather than waiting to be asked. Catch-up immunizations from age 11-12 years onward are a standard part of adolescent preventive care rather than an opt-in service, and mood or peer difficulties should be actively screened for rather than left for the caregiver to raise, since teens often will not volunteer this information themselves.", "src": "ATI Nursing Care of Children ch 7 (Health Promotion of Adolescents)", "icon": "📘", "topicFull": "School-Age & Adolescent"}, {"type": "bowtie", "week": "4", "step": "prioritize", "topic": "School-Age & Adolescent", "stemTitle": "Clinic visit", "stem": "<p>A 16-year-old is brought to the clinic by her mother, who reports the teen has withdrawn from friends over the past month, her grades have dropped, and she recently gave away her favorite guitar. When asked how she is doing, the teen says, \"Nothing really matters anymore.\"<\/p>", "cond": ["Major depressive disorder with suicide risk", "Normal adolescent mood fluctuation", "Attention-deficit/hyperactivity disorder", "Substance intoxication"], "actions": ["Directly ask the teen whether she is thinking about suicide and whether she has a plan", "Avoid asking about suicide directly to prevent giving her the idea", "Ask about access to lethal means such as firearms or stockpiled medication", "Reassure her that everyone feels this way sometimes and it will pass", "Wait until the follow-up visit in 2 weeks to assess further since findings must persist 2 weeks to diagnose depression", "Document the finding and continue with the rest of the physical exam"], "params": ["Presence and lethality of a suicide plan", "Recent giving away of prized possessions", "Growth percentile trend", "Immunization record", "Blood pressure", "Recent hemoglobin level"], "answer": {"cond": [0], "action": [0, 2], "param": [0, 1]}, "why": "Withdrawal from friends, falling grades, statements that nothing matters, and giving away a prized possession are warning signs of depression and suicide risk; normal mood fluctuation does not include giving away possessions or this degree of anhedonia, and nothing here supports ADHD or intoxication. Asking directly about suicidal thinking and a specific plan does not increase risk and is required to assess lethality and access to means, so avoiding the topic or delaying assessment two weeks (a timeframe that applies to diagnosing major depressive disorder, not to a safety assessment) leaves an at-risk teen unassessed. The plan/lethality and the giving-away-possessions cue are the two most safety-critical findings to track going forward; growth percentile, immunizations, blood pressure, and hemoglobin do not inform suicide risk.", "src": "ATI Nursing Care of Children ch 44 (Psychosocial Issues of Infants, Children, and Adolescents)", "icon": "📘", "topicFull": "School-Age & Adolescent"}], "5": [{"q": "A nurse receives report on four children. Which child should the nurse assess first?", "type": "single", "opts": ["An 8-year-old with sickle cell disease who has sudden chest pain, fever and dyspnea", "A 3-year-old with iron deficiency anemia who is pale and tired", "A 6-year-old with hemophilia who has mild knee swelling after bumping a table", "A 15-year-old with mononucleosis who reports a sore throat"], "ans": [0], "why": "Chest pain with fever and dyspnea in sickle cell disease is <b>acute chest syndrome<\/b>, a life-threatening emergency. The other three are expected findings for their diagnoses — pallor in iron deficiency, a minor bleed in hemophilia, and pharyngitis in mono.", "topic": "Hematology & Childhood…", "icon": "🩸", "topicFull": "Hematology & Childhood Neoplasms"}, {"q": "Fifteen minutes into a packed red blood cell transfusion, a 6-year-old develops a temperature of 38.6 C, chills, and low back pain. Which action should the nurse take first?", "type": "single", "opts": ["Slow the transfusion rate and continue observing", "Stop the transfusion", "Administer the prescribed acetaminophen", "Notify the provider and await instructions"], "ans": [1], "why": "Fever, chills, back pain, rash, dyspnea or tachycardia means <b>stop the transfusion immediately<\/b> — then keep the line open with normal saline and notify the provider. Slowing the rate keeps incompatible blood infusing, and the first 15 minutes carries the highest reaction risk precisely because of this.", "topic": "Hematology & Childhood…", "icon": "🩸", "topicFull": "Hematology & Childhood Neoplasms", "pharm": 1}, {"q": "A 3-year-old is admitted with a newly discovered painless abdominal mass, hematuria and hypertension. Which nursing actions are appropriate? Select all that apply.", "type": "sata", "opts": ["Post a sign at the bedside reading \"Do not palpate abdomen\"", "Palpate the abdomen once each shift to track the size of the mass", "Monitor blood pressure closely", "Obtain a urine specimen to assess for hematuria", "Apply a warm pack over the flank for comfort"], "ans": [0, 2, 3], "why": "The findings describe a <b>Wilms tumor<\/b>: never palpate the abdomen, because palpation can rupture the capsule and seed tumor cells, and post a sign so no one else does either. Blood pressure monitoring and urine assessment are core, while a warm pack over the tumor site is not indicated.", "topic": "Hematology & Childhood…", "icon": "🩸", "topicFull": "Hematology & Childhood Neoplasms"}, {"q": "Parents of a newborn just diagnosed with sickle cell disease ask when they should expect symptoms to appear. Which response is correct?", "type": "single", "opts": ["\"Symptoms are usually present at birth.\"", "\"Around 6 months, as fetal hemoglobin fades.\"", "\"Not until about 2 years of age.\"", "\"Usually not until puberty.\""], "ans": [1], "why": "Fetal hemoglobin protects the newborn, so symptoms emerge around <b>6 months<\/b> as HbF fades and HbS predominates. Hemoglobin electrophoresis is the definitive test whenever the family asks about confirming the diagnosis.", "topic": "Hematology & Childhood…", "icon": "🩸", "topicFull": "Hematology & Childhood Neoplasms"}, {"q": "A 9-year-old is admitted in vaso-occlusive crisis with severe left knee pain. Which action by a newly hired nurse requires intervention by the charge nurse?", "type": "single", "opts": ["Applying a cold pack to the painful knee", "Offering oral fluids every hour", "Applying a warm compress to the painful joint", "Administering the prescribed acetaminophen"], "ans": [0], "why": "<b>Cold causes vasoconstriction and worsens sickling<\/b>; warm compresses are the correct comfort measure. Fluids are never restricted in crisis, and acetaminophen is appropriate while NSAIDs are avoided.", "topic": "Hematology & Childhood…", "icon": "🩸", "topicFull": "Hematology & Childhood Neoplasms", "pharm": 1}, {"q": "The parent of a 5-year-old with hemophilia A asks about treating fevers at home. Which statement indicates a need for further teaching?", "type": "single", "opts": ["\"I will give children's aspirin when he has a fever.\"", "\"Acetaminophen is the safer choice for fever and pain.\"", "\"He uses a soft-bristled toothbrush.\"", "\"His clotting problem comes from missing factor VIII.\""], "ans": [0], "why": "Aspirin inhibits platelets and is <b>contraindicated in hemophilia<\/b>, and it is avoided generally in children because of Reye syndrome. Watch for the reversal later in the course: <b>Kawasaki disease is the one exception<\/b> where high-dose aspirin is the treatment, and both often appear on the same exam.", "topic": "Hematology & Childhood…", "icon": "🩸", "topicFull": "Hematology & Childhood Neoplasms", "pharm": 1}, {"type": "bowtie", "week": "5", "step": "prioritize", "topic": "Hematology & Childhood…", "stemTitle": "Oncology unit, day 10 post-induction", "stem": "<p>A 6-year-old with newly diagnosed acute lymphoblastic leukemia is 10 days post-induction chemotherapy. The caregiver reports the child felt warm at home. In the unit the child is tired but alert, with no cough, no dysuria, and no other localizing symptoms.<\/p><table><tr><td><b>Temp<\/b><\/td><td>38.6 C (101.5 F)<\/td><\/tr><\/table>", "cond": ["Neutropenic fever/possible infection", "Tumor lysis syndrome", "Disease relapse", "Adverse effect of corticosteroid therapy"], "actions": ["Notify the oncology team immediately about the fever", "Obtain blood, urine, and other ordered cultures before the first antibiotic dose", "Wait to see if the fever resolves on its own before notifying anyone", "Take a rectal temperature to confirm the oral reading", "Restrict all family visits until the fever resolves", "Give a scheduled MMR booster now for exposure protection"], "params": ["Absolute neutrophil count", "Temperature trend", "Serum uric acid", "Growth hormone level", "Urine specific gravity", "Head circumference"], "answer": {"cond": [0], "action": [0, 1], "param": [0, 1]}, "why": "A fever in a child who is myelosuppressed after induction chemotherapy is a medical emergency because a low neutrophil count leaves the child unable to mount a normal infective response, so prompt cultures and notification take priority over waiting for more symptoms to appear. Tumor lysis syndrome presents with metabolic derangements rather than an isolated fever, relapse is not diagnosed from a single fever, and moon face from steroids is unrelated to fever. Rectal temperatures are avoided in a myelosuppressed, bleeding-risk child, and live vaccines such as MMR are withheld until the immune system recovers, so both are incorrect actions; trending the absolute neutrophil count and temperature are the priority parameters to guide antibiotic therapy and recovery.", "src": "ATI Nursing Care of Children ch 39 (Blood Neoplasms)", "icon": "🩸", "topicFull": "Hematology & Childhood Neoplasms"}, {"type": "highlight", "week": "5", "step": "recognize", "topic": "Hematology & Childhood…", "stemTitle": "Nurses' note, 1300", "stem": "<p>An 8-year-old with known sickle cell anemia is admitted for pain.<\/p>", "tokens": [{"text": "Reports severe pain rated 8/10 in both knees, the lower back, and the abdomen. ", "pick": true}, {"text": "Hands and feet are swollen and warm to touch. ", "pick": true}, {"text": "Voided 30 mL of tea-colored urine in the last 2 hr. ", "pick": true}, {"text": "States his vision 'looks blurry' in the left eye. ", "pick": true}, {"text": "Oral temperature 37.0 C, heart rate 88/min. ", "pick": true}, {"text": "Capillary refill 2 seconds in all extremities. ", "pick": true}, {"text": "Ate all of breakfast and lunch without difficulty. ", "pick": true}, {"text": "Resting quietly with eyes closed between assessments. ", "pick": true}], "answer": [0, 1, 2, 3], "why": "Severe pain in the joints, back, and abdomen; swollen, warm extremities; hematuria (tea-colored urine); and new visual disturbance are documented findings of a sickle cell vaso-occlusive crisis from microvascular obstruction and tissue ischemia. Normal temperature and heart rate, brisk capillary refill, a good appetite, and resting comfortably are reassuring findings that do not indicate an evolving crisis and should not be selected.", "src": "ATI Nursing Care of Children ch 21 (Hematologic Disorders)", "icon": "🩸", "topicFull": "Hematology & Childhood Neoplasms"}], "6": [{"q": "A 7-year-old at a school event develops hives, lip swelling and audible stridor minutes after eating a cookie containing peanuts. Which action should the school nurse take first?", "type": "single", "opts": ["Administer oral diphenhydramine", "Administer intramuscular epinephrine", "Apply high-flow oxygen by mask", "Call the parents for permission to treat"], "ans": [1], "why": "<b>IM epinephrine is the first action in anaphylaxis<\/b> — it is the only agent that reverses airway edema and vasodilation. Antihistamines are adjuncts, oxygen supports but does not treat the cause, and calling for permission delays a life-saving drug.", "topic": "Immune, Infectious Disease,…", "icon": "🦠", "topicFull": "Immune, Infectious Disease, Skin & Burns", "pharm": 1}, {"q": "A 5-year-old arrives in the emergency department with a high fever, cough, coryza, conjunctivitis and a rash, and rubeola is suspected. Which action should the nurse take first?", "type": "single", "opts": ["Place the child in an airborne infection isolation room and add contact precautions", "Place the child on droplet precautions with a surgical mask", "Obtain a monospot before initiating isolation", "Begin intravenous antibiotics"], "ans": [0], "why": "Rubeola requires <b>airborne plus contact precautions<\/b>, and isolation is placed before diagnostics. Droplet is the wrong tier here, and antibiotics treat only a secondary bacterial infection, never the measles virus itself.", "topic": "Immune, Infectious Disease,…", "icon": "🦠", "topicFull": "Immune, Infectious Disease, Skin & Burns"}, {"q": "A 6-year-old is diagnosed with pinworms. Which instructions should the nurse give the family? Select all that apply.", "type": "sata", "opts": ["Treat every household member, even those without symptoms", "Repeat the dose in about 2 weeks", "A single dose for the affected child alone will clear the infection", "Wash bedding and pyjamas in hot water daily", "Begin an oral antibiotic along with the antiparasitic"], "ans": [0, 1, 3], "why": "Pinworms move through a household silently, so <b>everyone is treated regardless of symptoms<\/b>, and the dose is repeated in about 2 weeks to kill worms that hatched after the first dose. Hot-washing linens plus short fingernails and handwashing breaks the reinfection cycle; antibiotics do nothing to a parasite.", "topic": "Immune, Infectious Disease,…", "icon": "🦠", "topicFull": "Immune, Infectious Disease, Skin & Burns"}, {"q": "A 14-month-old born to a mother with HIV is being evaluated. Which test should the nurse expect to be used to determine the child's HIV status?", "type": "single", "opts": ["ELISA with confirmatory Western blot", "HIV PCR or viral culture", "CD4 count alone", "Repeat testing deferred until age 5"], "ans": [1], "why": "Maternal antibodies persist in the infant, so antibody-based ELISA and Western blot are not reliable until <b>after 18 months<\/b>; PCR or viral culture detects the virus itself and is used before that. CD4 count tracks disease progression once infection is established, it does not diagnose it.", "topic": "Immune, Infectious Disease,…", "icon": "🦠", "topicFull": "Immune, Infectious Disease, Skin & Burns"}, {"q": "A 4-year-old has an intensely itchy vesicular rash that began on the trunk. The parent asks when he can return to preschool. Which response is correct?", "type": "single", "opts": ["\"Four days after the rash first appeared.\"", "\"As soon as the rash appears, he is no longer contagious.\"", "\"When every lesion has crusted over.\"", "\"Twenty-four hours after his fever breaks.\""], "ans": [2], "why": "An itchy vesicular rash starting on the trunk is <b>varicella<\/b>, and contagion ends only when every lesion has crusted. The 4-day rule belongs to rubeola and the rash-means-no-longer-contagious rule belongs to fifth disease — and neither rubeola nor rubella itches.", "topic": "Immune, Infectious Disease,…", "icon": "🦠", "topicFull": "Immune, Infectious Disease, Skin & Burns"}, {"q": "A 3-year-old is brought in after spilling hot coffee on her chest and arm. Which action taken by the parent before arrival requires correction?", "type": "single", "opts": ["Placing a cool, tepid wet cloth over the area", "Covering the burn with a clean dry sheet for transport", "Packing the area in ice from the freezer", "Giving the child weight-appropriate acetaminophen"], "ans": [2], "why": "Burns get <b>tepid soaks, never ice<\/b> — ice causes vasoconstriction and deepens the injury. This matters more in children, whose thinner skin sustains a deeper burn from the same exposure; blisters are also left intact rather than drained.", "topic": "Immune, Infectious Disease,…", "icon": "🦠", "topicFull": "Immune, Infectious Disease, Skin & Burns", "pharm": 1}, {"type": "matching", "week": "6", "step": "analyze", "topic": "Immune, Infectious Disease,…", "stem": "<p>The nurse is matching each child's presentation to the most likely communicable disease.<\/p>", "pairs": [{"left": "Tiny white spots inside the cheeks appear 2 days before a red rash that starts on the face and spreads downward, with the fever spiking as the rash appears.", "answer": 0}, {"left": "Painful, swollen glands in front of and below the ear, worse with chewing.", "answer": 1}, {"left": "A red 'slapped cheek' facial rash, followed by a symmetric lacy pink rash on the arms and legs.", "answer": 2}, {"left": "A week or two of cold-like symptoms is followed by sudden violent coughing fits that end in a high-pitched inspiratory sound.", "answer": 3}, {"left": "Sore throat, fever, swollen lymph nodes, and profound fatigue in a teenager, with splenomegaly noted on exam.", "answer": 4}], "right": ["Rubeola (measles)", "Mumps", "Fifth disease (erythema infectiosum)", "Pertussis (whooping cough)", "Infectious mononucleosis", "Rubella (German measles)", "Varicella (chickenpox)"], "why": "Koplik spots followed by a rash that starts on the face and moves downward with a fever spike are specific to measles (rubeola), distinguishing it from rubella, which causes a milder rash without Koplik spots. Painful parotid swelling worsened by chewing is the hallmark of mumps, and a slapped-cheek facial rash followed by a lacy extremity rash is classic for fifth disease. The catarrhal-to-paroxysmal cough pattern ending in a whooping sound is specific to pertussis, and sore throat with fatigue, lymphadenopathy, and splenomegaly in an adolescent points to infectious mononucleosis rather than a routine viral pharyngitis; rubella and varicella do not match any description here.", "src": "ATI Nursing Care of Children ch 35 (Communicable Diseases)", "icon": "🦠", "topicFull": "Immune, Infectious Disease, Skin & Burns"}, {"type": "sata", "week": "6", "step": "action", "topic": "Immune, Infectious Disease,…", "q": "A 3-year-old pulled a pot of boiling water off the stove and sustained partial-thickness burns to the anterior chest and both hands. Which actions should the nurse take in the emergent phase? (Select all that apply.)", "opts": ["Apply ice packs directly to the burned skin to relieve pain", "Remove clothing and jewelry from the burned areas", "Establish large-bore IV access for fluid resuscitation", "Insert an indwelling urinary catheter to monitor hourly urine output", "Apply a topical antimicrobial ointment to the unwashed wound immediately", "Loosely cover the injury with a clean, dry cloth before transport"], "ans": [1, 2, 3, 5], "why": "Ice is avoided on burns because it can cause vasoconstriction and hypothermia; tepid water or a clean dry covering is used instead. Removing clothing and jewelry stops ongoing heat transfer to the skin, and loosely covering the wound shields it from contamination during transport. A burn of this extent needs large-bore IV access for fluid resuscitation and an indwelling catheter to trend hourly urine output as a marker of adequate perfusion, while topical antimicrobials are applied only after the wound is cleansed and debrided, not directly onto an unwashed burn.", "src": "ATI Nursing Care of Children ch 41 (Burns)", "icon": "🦠", "topicFull": "Immune, Infectious Disease, Skin & Burns"}, {"type": "bowtie", "week": "6", "step": "evaluate", "topic": "Immune, Infectious Disease,…", "stemTitle": "Walk-in clinic 1100", "stem": "<p>A 2-year-old boy was diagnosed with acute otitis media 4 days ago and has taken every dose of oral amoxicillin. He returns with worsening ear pain and purulent drainage in the right canal. <b>The bone behind his right ear is red, swollen, and tender, and the pinna is pushed outward.<\/b> Temperature 39.4 C (102.9 F) axillary, heart rate 138/min.<\/p>", "cond": ["Mastoiditis from an infection that has not responded to therapy", "The expected response to 4 days of amoxicillin", "Otitis media with effusion", "Otitis externa from water in the ear canal"], "actions": ["Notify the provider that the infection has worsened on the current antibiotic", "Give scheduled acetaminophen or ibuprofen for pain and fever", "Stop the amoxicillin now that it has clearly failed", "Instill benzocaine drops into the draining ear canal", "Reassure the family that another 2 to 3 days of watchful waiting is reasonable"], "params": ["Temperature trend", "Redness, swelling, and tenderness over the mastoid", "Audiology results from the recheck scheduled in 3 months", "Blood glucose", "Growth percentile on the CDC chart"], "answer": {"cond": [0], "action": [0, 1], "param": [0, 1]}, "why": "By day 4 of an effective antibiotic the fever and pain should be settling. Instead the fever is higher, the pain is worse, and the postauricular area is red, swollen, and tender with the pinna displaced, which is mastoiditis, a complication of otitis media that has spread. The nurse reports the treatment failure and keeps the child comfortable with acetaminophen or ibuprofen, since analgesia is the priority comfort measure in otitis media. The nurse does not stop a prescribed antibiotic on her own, benzocaine drops are not instilled into a draining canal where the membrane may be perforated, and watchful waiting applies only to uncomplicated cases, not to this one. Temperature and the mastoid exam are the two things that show whether the new plan is working; a hearing recheck matters later, not today.", "src": "ATI ch 36 Acute Otitis Media", "icon": "🦠", "topicFull": "Immune, Infectious Disease, Skin & Burns", "pharm": 1}], "7": [{"q": "A 5-year-old is being observed after a fall from a playground structure. Which finding should the nurse report as the priority?", "type": "single", "opts": ["The child reports a headache", "The child, previously alert and chatty, is now confused and difficult to arouse", "The child vomited once shortly after the fall", "The heart rate has drifted from 96 to 88"], "ans": [1], "why": "A <b>change in level of consciousness is the earliest sign of neurologic deterioration<\/b> and outranks the others. Cushing's triad — rising BP, falling HR, falling RR — is a late finding, so waiting for the heart rate to drop meaningfully means waiting too long.", "topic": "Neurologic & Neuromuscular", "icon": "🧠", "topicFull": "Neurologic & Neuromuscular"}, {"q": "A newborn is admitted with a myelomeningocele. Which action should the nurse take first?", "type": "single", "opts": ["Place the newborn prone and cover the sac with a sterile, moist, non-adherent dressing", "Place the newborn supine in an open warmer", "Begin passive range of motion to the lower extremities", "Initiate the first oral feeding"], "ans": [0], "why": "The sac must not dry out or rupture, so it is covered with a sterile moist non-adherent dressing with the infant <b>prone or side-lying<\/b>; supine puts pressure directly on the sac. Range of motion and feeding are deferred, and the environment is kept latex-free.", "topic": "Neurologic & Neuromuscular", "icon": "🧠", "topicFull": "Neurologic & Neuromuscular"}, {"q": "A child is admitted with increased intracranial pressure. Which nursing actions should be included in the plan of care? Select all that apply.", "type": "sata", "opts": ["Keep the head of the bed elevated with the head in midline alignment", "Suction the airway every 2 hours to keep it clear", "Dim the lights and cluster care to limit stimulation", "Administer the prescribed stool softener", "Encourage hourly coughing and deep breathing"], "ans": [0, 2, 3], "why": "HOB up with the head midline promotes venous drainage, a low-stimulus environment limits pressure spikes, and stool softeners prevent Valsalva straining. <b>Suctioning, coughing and Valsalva all raise ICP<\/b> and are specifically avoided.", "topic": "Neurologic & Neuromuscular", "icon": "🧠", "topicFull": "Neurologic & Neuromuscular"}, {"q": "A 6-year-old has a generalized tonic-clonic seizure that has now continued for 6 minutes. Which action should the nurse take?", "type": "single", "opts": ["Continue to time the seizure and keep the child safe", "Insert an oral airway to protect the tongue", "Administer the prescribed rescue anticonvulsant", "Restrain the extremities to prevent injury"], "ans": [2], "why": "Rescue medication is given once a seizure passes <b>5 minutes<\/b>, the threshold for status epilepticus. Nothing goes in the mouth and limbs are never restrained; the child stays side-lying and protected from injury while the airway and oxygenation are supported.", "topic": "Neurologic & Neuromuscular", "icon": "🧠", "topicFull": "Neurologic & Neuromuscular"}, {"q": "A lumbar puncture is performed on a 4-year-old with suspected meningitis. Which cerebrospinal fluid profile supports a bacterial cause?", "type": "single", "opts": ["Clear fluid, normal white cell count, normal protein, normal glucose", "Cloudy fluid, high white cell count, high protein, low glucose", "Clear fluid, high white cell count, normal protein, high glucose", "Cloudy fluid, low white cell count, low protein, high glucose"], "ans": [1], "why": "Bacterial CSF is cloudy with a high WBC, high protein and <b>low glucose<\/b>, because bacteria consume it; viral CSF is clear with normal glucose and protein. Students routinely pick the high white cell count alone and miss the glucose, which is the actual tell.", "topic": "Neurologic & Neuromuscular", "icon": "🧠", "topicFull": "Neurologic & Neuromuscular"}, {"q": "A 7-year-old with spastic cerebral palsy takes baclofen. The parent reports the child is so drowsy during the day that he cannot participate in physical therapy. Which action should the nurse take?", "type": "single", "opts": ["Tell the parent to stop the baclofen until therapy is finished", "Notify the provider so the dose can be reviewed", "Instruct the parent to move all doses to bedtime", "Explain that drowsiness is expected and requires no action"], "ans": [1], "why": "Sedation that blocks therapy is a real problem, but nurses do not stop or re-time the drug — the provider reviews the dose. <b>Abrupt discontinuation causes rebound spasticity and withdrawal<\/b>, so stopping it is the dangerous option.", "topic": "Neurologic & Neuromuscular", "icon": "🧠", "topicFull": "Neurologic & Neuromuscular", "pharm": 1}, {"type": "bowtie", "week": "7", "step": "prioritize", "topic": "Neurologic & Neuromuscular", "stemTitle": "ED, 1 hour after arrival", "stem": "<p>A 5-year-old fell from playground equipment and hit his head. On arrival his exam was normal. Over the past hour he has become increasingly drowsy, vomited once, and now has a sluggish left pupil.<\/p>", "cond": ["Increasing intracranial pressure (epidural hematoma pattern)", "Simple concussion with expected recovery", "Post-traumatic seizure disorder", "Anxiety reaction to the fall"], "actions": ["Notify the provider immediately and prepare for emergent neuroimaging", "Reassess level of consciousness and pupil response frequently using the Glasgow Coma Scale", "Allow the child to sleep undisturbed through the night to recover", "Position the child supine and flat to improve cerebral blood flow", "Encourage the child to resume normal school and screen time right away", "Give acetaminophen only and avoid further assessment until the next scheduled vital signs"], "params": ["Level of consciousness", "Pupil size and reactivity", "Serum phenylalanine", "Bowel sounds", "Deep tendon reflexes of the lower extremities", "Red reflex"], "answer": {"cond": [0], "action": [0, 1], "param": [0, 1]}, "why": "A child with a head injury who was initially normal but becomes increasingly drowsy, vomits, and develops a sluggish pupil is showing a classic epidural hematoma pattern, a lucid interval followed by rapid deterioration from arterial bleeding and rising intracranial pressure, which is a neurosurgical emergency and not an expected concussion course, seizure disorder, or anxiety reaction. The nurse must notify the provider immediately for emergent imaging and trend level of consciousness and pupil response frequently, because a falling score or a new pupil change signals brain compression that can progress to herniation within minutes to hours. Letting the child sleep undisturbed, keeping him flat, or resuming normal activity right away would delay detection of deterioration; bowel sounds, deep tendon reflexes, red reflex, and phenylalanine are not relevant to this acute neurologic emergency.", "src": "ATI Nursing Care of Children ch 14 (Head Injury)", "icon": "🧠", "topicFull": "Neurologic & Neuromuscular"}, {"type": "dropdown", "week": "7", "step": "analyze", "topic": "Neurologic & Neuromuscular", "stemTitle": "ED, toddler", "stem": "<p>An 18-month-old is brought to the ED with fever of 39.4 C (103 F), irritability, poor feeding, a high-pitched cry, and a bulging anterior fontanel.<\/p>", "text": "Based on these findings the nurse suspects {1}, and the priority nursing action is to prepare the child for {2}.", "gaps": [{"options": ["a viral upper respiratory infection", "bacterial meningitis", "teething"], "answer": 1}, {"options": ["a lumbar puncture to confirm the diagnosis", "discharge home with acetaminophen", "an outpatient hearing screening"], "answer": 0}], "why": "Fever, irritability, poor feeding, a high-pitched cry, and a bulging anterior fontanel in a toddler under 2 years are concerning for bacterial meningitis; Kernig and Brudzinski signs are unreliable at this age so their absence would not rule it out, and this presentation is far more severe than teething or a routine respiratory infection. Lumbar puncture is the definitive diagnostic test and must happen promptly so IV antibiotics can start without delay, since outcome depends on how quickly treatment begins. Sending the child home or scheduling an outpatient hearing test would delay identification and treatment of a life-threatening infection; hearing screening is appropriate only as follow-up after the acute illness resolves.", "src": "ATI Nursing Care of Children ch 12 (Acute Neurologic Disorders)", "icon": "🧠", "topicFull": "Neurologic & Neuromuscular"}, {"type": "dropdown", "week": "7", "step": "evaluate", "topic": "Neurologic & Neuromuscular", "stemTitle": "Emergency department 2145", "stem": "<p>A 5-year-old boy had a generalized tonic-clonic seizure that lasted 12 minutes. <b>He was given IV lorazepam and the jerking stopped about 2 minutes later.<\/b> Ten minutes after the dose he is hard to rouse, his breathing is noisy and snoring at 22/min, SpO2 is 93% on room air, and his heart rate is 108/min.<\/p>", "text": "The finding that best shows the lorazepam worked is {1}. Before anything else, the nurse should now {2}.", "gaps": [{"options": ["the rhythmic jerking stopped within 2 minutes of the dose", "he is difficult to rouse and confused", "his heart rate has settled at 108/min"], "answer": 0}, {"options": ["insert an oral airway to hold his tongue forward", "turn him side-lying and reassess his airway and breathing", "hold further doses until an EEG has been obtained"], "answer": 1}], "why": "Effectiveness of a benzodiazepine is judged by whether the seizure stopped, and it did, within 2 minutes. Being hard to rouse and confused is the expected postictal state, which can last from 30 minutes to several hours, so it does not mean the drug failed. A heart rate of 108/min is within range for a 5-year-old and says nothing about seizure control. Snoring respirations with a saturation of 93% mean the tongue and secretions are partly blocking the airway, and side-lying positioning opens it and lowers aspiration risk. Forcing in an oral airway is not done, and waiting on an EEG delays care the child needs right now.", "src": "ATI ch 13 Seizures", "icon": "🧠", "topicFull": "Neurologic & Neuromuscular"}], "8": [{"q": "A 3-year-old arrives with a temperature of 39.5 C, drooling, a muffled voice, and is sitting forward on his hands refusing to lie back. He has no cough. Which action should the nurse take first?", "type": "single", "opts": ["Inspect the throat with a tongue blade for exudate", "Obtain a throat culture", "Keep the child upright with the parent and ensure emergency airway equipment is at the bedside", "Position the child supine for a chest x-ray"], "ans": [2], "why": "High fever, drooling, muffled voice, tripod posture and <b>no cough<\/b> is epiglottitis — never use a tongue blade or inspect the throat, because it can trigger complete airway obstruction. Croup is the look-alike, but croup brings a barking cough with a low-grade fever.", "topic": "Respiratory", "icon": "🫁", "topicFull": "Respiratory"}, {"q": "A 9-year-old in the emergency department has audible expiratory wheezing, accessory muscle use and an SpO2 of 91% during an acute asthma exacerbation. Which action should the nurse take first?", "type": "single", "opts": ["Administer nebulized albuterol", "Apply oxygen at 4 L/min by nasal cannula", "Administer the fluticasone-salmeterol inhaler", "Obtain a peak expiratory flow reading"], "ans": [0], "why": "In acute asthma, <b>albuterol comes before oxygen and before everything else<\/b> — opening the airway is what fixes the hypoxia. Fluticasone-salmeterol is daily maintenance and is never a rescue medication, and a peak flow reading delays treatment.", "topic": "Respiratory", "icon": "🫁", "topicFull": "Respiratory", "pharm": 1}, {"q": "A nurse is teaching the parents of a 7-year-old with cystic fibrosis. Which instructions should be included? Select all that apply.", "type": "sata", "opts": ["Give pancreatic enzymes with every meal and snack", "Give the bronchodilator about 30 minutes before chest physiotherapy", "Schedule chest physiotherapy immediately after meals", "Restrict salt intake, especially during hot weather", "Provide a high-calorie, high-protein diet"], "ans": [0, 1, 4], "why": "Enzymes go with all food, the <b>bronchodilator comes before chest physiotherapy<\/b> to open airways first, and the diet is high-calorie and high-protein with fat-soluble vitamins A, D, E and K. CPT right after meals provokes vomiting, and these children need <b>extra<\/b> salt and fluid, not less.", "topic": "Respiratory", "icon": "🫁", "topicFull": "Respiratory"}, {"q": "A 10-year-old with asthma has a personal best peak expiratory flow of 300 L/min. This morning her best of three blows is 180 L/min. Which action should the nurse instruct?", "type": "single", "opts": ["No change; she is in the green zone", "Use the rescue inhaler and follow the yellow zone action plan", "Go to the emergency department immediately for the red zone", "Repeat the readings and average all three"], "ans": [1], "why": "180 of 300 is 60% of personal best, which lands in the <b>yellow zone (50-79%)<\/b> — add the rescue medication. Green is 80-100% and red is under 50%, and the value used is the <b>best<\/b> of three blows, never the average.", "topic": "Respiratory", "icon": "🫁", "topicFull": "Respiratory"}, {"q": "An 8-month-old is admitted with RSV bronchiolitis. Which prescription should the nurse question?", "type": "single", "opts": ["Contact and droplet precautions", "Nasal suctioning before feedings", "Intravenous ampicillin", "Oral fluids offered around the clock"], "ans": [2], "why": "RSV is viral, so <b>antibiotics are always the wrong answer<\/b> unless a secondary bacterial infection is documented. Suctioning is the priority intervention, RSV needs contact and droplet precautions (a surgical mask within about 6 feet, not an N95), and fluids are pushed around the clock rather than only during waking hours.", "topic": "Respiratory", "icon": "🫁", "topicFull": "Respiratory", "pharm": 1}, {"q": "A 5-year-old is 4 hours post tonsillectomy. Which finding most concerns the nurse?", "type": "single", "opts": ["Repeated swallowing while awake", "Complaints of throat pain rated 5 of 10", "A small amount of dark old blood in one emesis", "A temperature of 37.8 C"], "ans": [0], "why": "<b>Frequent swallowing is the classic sign of post-tonsillectomy hemorrhage<\/b> — blood trickling down the back of the throat before anyone sees it. Pain, a low-grade temperature and old dark blood are expected in the first hours; bright red bleeding and repeated swallowing are not.", "topic": "Respiratory", "icon": "🫁", "topicFull": "Respiratory"}, {"type": "bowtie", "week": "8", "step": "prioritize", "topic": "Respiratory", "stemTitle": "ED, acute exacerbation", "stem": "<p>A 9-year-old with known asthma arrives with a severe exacerbation. He can only speak in short, broken phrases and sits in a tripod position with retractions. His SpO2 is falling, and the wheezing that was loud on arrival has become inaudible.<\/p>", "cond": ["Impending respiratory failure (status asthmaticus)", "Improving asthma exacerbation", "Anxiety attack", "Foreign body aspiration"], "actions": ["Prepare for continuous nebulized short-acting beta agonist therapy and notify the provider immediately", "Reassure the child that the quiet lungs mean the attack is resolving", "Establish IV access and prepare for possible intubation", "Administer a long-acting beta agonist alone for quick relief", "Delay supplemental oxygen until arterial blood gas results return", "Encourage slow, deep breathing while lying flat to conserve energy"], "params": ["Breath sounds/air movement", "Oxygen saturation", "Serum sweat chloride", "Stool pattern", "Blood glucose", "Head circumference"], "answer": {"cond": [0], "action": [0, 2], "param": [0, 1]}, "why": "Short, broken speech, tripod positioning, retractions, a falling SpO2, and a change from loud wheezing to a silent chest signal impending respiratory failure, because an inaudible chest in this context means airflow has dropped too low to generate sound, not that the attack is resolving. This is a true respiratory emergency rather than a resolving exacerbation, anxiety, or aspiration, none of which would include progressive hypoxia with a silent chest. The nurse should prepare for continuous bronchodilator therapy and provider notification and establish IV access in case intubation is needed, rather than reassuring the family, using a long-acting agent that has no role in acute attacks, or delaying oxygen; air movement and oxygen saturation are the parameters that most directly show whether the obstruction is worsening or responding.", "src": "ATI Nursing Care of Children ch 18 (Asthma)", "icon": "🫁", "topicFull": "Respiratory"}, {"type": "dropdown", "week": "8", "step": "analyze", "topic": "Respiratory", "stemTitle": "Newborn clinic follow-up", "stem": "<p>A 2-week-old with a positive newborn screen for cystic fibrosis is being evaluated. Parents are learning about home care as oral feeds resume after meconium ileus resolved.<\/p>", "text": "The nurse explains that a sweat chloride value of {1} confirms the diagnosis, and instructs the parents to give the prescribed pancreatic enzyme supplement {2}.", "gaps": [{"options": ["29 mmol/L or less", "30-59 mmol/L", "60 mmol/L or higher"], "answer": 2}, {"options": ["once daily at bedtime, regardless of feeding times", "within 30 minutes of every meal and snack", "only when stools appear greasy or foul-smelling"], "answer": 1}], "why": "A sweat chloride result of 60 mmol/L or above is the diagnostic cutoff for cystic fibrosis, whereas 29 mmol/L or less falls in the normal range and 30-59 mmol/L sits in a borderline zone that calls for repeat or additional testing, so neither of those lower ranges can be used to confirm the diagnosis. Pancreatic enzymes must be given within 30 minutes of every meal and snack so the enzymes are present in the gut when food arrives; giving them once daily or only after stools already look abnormal would leave most feedings without enzyme coverage and allow malabsorption and growth failure to continue.", "src": "ATI Nursing Care of Children ch 19 (Cystic Fibrosis)", "icon": "🫁", "topicFull": "Respiratory"}, {"type": "highlight", "week": "8", "step": "evaluate", "topic": "Respiratory", "stemTitle": "Nurses' note 1300", "stem": "<p>A 2-year-old was admitted with laryngotracheobronchitis and received nebulized racemic epinephrine plus one dose of oral dexamethasone 1 hr ago. <b>Highlight the findings that show he is getting worse despite this treatment.<\/b><\/p>", "tokens": [{"text": "Reassessed at 1300. ", "pick": false}, {"text": "Respiratory rate 52/min ", "pick": true}, {"text": "with ", "pick": false}, {"text": "substernal and intercostal retractions deeper than on admission. ", "pick": true}, {"text": "Inspiratory stridor now heard at rest. ", "pick": true}, {"text": "Heart rate 126/min. ", "pick": true}, {"text": "SpO2 88% on room air. ", "pick": true}, {"text": "Temperature 37.3 C (99.1 F) axillary. ", "pick": true}, {"text": "Barking cough continues. ", "pick": true}, {"text": "Skin warm and dry with capillary refill of 2 seconds. ", "pick": true}, {"text": "Sipping apple juice and swallowing without drooling.", "pick": true}], "answer": [1, 3, 4, 6], "why": "Racemic epinephrine should shrink airway edema within about 30 minutes, so an hour later the stridor should be quieter and the work of breathing easier. Instead the stridor is now present at rest, the retractions are deeper, the rate of 52/min is far above the 25 to 30/min expected at age 2, and the saturation of 88% means he is hypoxemic and needs oxygen and the provider notified. A heart rate of 126/min is normal for a toddler, the temperature is normal, and capillary refill under 2 seconds is reassuring. The barking cough is the hallmark of croup and can persist for days even when the child is improving, so it does not by itself signal deterioration; swallowing juice without drooling actually argues against epiglottitis.", "src": "ATI ch 17 Acute and Infectious Respiratory Illnesses", "icon": "🫁", "topicFull": "Respiratory", "pharm": 1}], "9": [{"q": "A 10-month-old with tetralogy of Fallot becomes acutely cyanotic, irritable and inconsolable after a diaper change. Which action should the nurse take first?", "type": "single", "opts": ["Place the infant in a knee-to-chest position", "Administer 100% oxygen by face mask", "Establish intravenous access", "Lay the infant flat and stimulate him"], "ans": [0], "why": "During a tet spell, <b>knee-to-chest raises systemic vascular resistance<\/b>, which reduces the right-to-left shunt and sends more blood to the lungs. Oxygen follows but does not fix the shunt, and laying the infant flat removes the benefit entirely.", "topic": "Cardiac", "icon": "🫀", "topicFull": "Cardiac"}, {"q": "A newborn with transposition of the great arteries is becoming increasingly cyanotic as the ductus arteriosus begins to close. Which prescription should the nurse prepare first?", "type": "single", "opts": ["Indomethacin", "A prostaglandin E1 infusion through a reliable intravenous line", "Furosemide", "High-flow oxygen titrated to keep the saturation above 95%"], "ans": [1], "why": "All cyanotic lesions are ductal-dependent, and <b>prostaglandin E1 keeps the duct OPEN<\/b> until surgery; watch for apnea and hypotension. <b>Indomethacin does the opposite and CLOSES a PDA<\/b> — this reversal is the highest-yield trap in the course. More oxygen is also not the answer, since some cyanotic infants are deliberately kept at saturations of 75-85%.", "topic": "Cardiac", "icon": "🫀", "topicFull": "Cardiac", "pharm": 1}, {"q": "A nurse is preparing to give digoxin to a 6-month-old with heart failure. Which actions are correct? Select all that apply.", "type": "sata", "opts": ["Count the apical pulse for a full minute before the dose", "Mix the dose into a bottle of formula to reduce stomach upset", "Withhold the dose and notify the provider if the apical rate is below the ordered parameter", "Repeat the dose if the infant vomits within 15 minutes of taking it", "Report vomiting, poor feeding and bradycardia as possible toxicity"], "ans": [0, 2, 4], "why": "Digoxin is given on an empty stomach after a <b>full-minute apical pulse<\/b>, and it is held for bradycardia below the parameter. <b>A dose is never repeated after vomiting<\/b> — the amount absorbed is unknown, and repeating it risks toxicity, which shows as nausea, vomiting and bradycardia.", "topic": "Cardiac", "icon": "🫀", "topicFull": "Cardiac", "pharm": 1}, {"q": "A 3-year-old has had a fever for 6 days that does not respond to antipyretics, along with bilateral conjunctivitis, a strawberry tongue, and peeling skin on the fingertips. Which treatment should the nurse anticipate?", "type": "single", "opts": ["Acetaminophen alone until the fever resolves", "Intravenous antibiotics for streptococcal infection", "Intravenous immunoglobulin plus high-dose aspirin", "Supportive care with aspirin withheld because of Reye syndrome risk"], "ans": [2], "why": "Fever <b>more than 5 days<\/b> unresponsive to antipyretics with conjunctivitis, strawberry tongue and peeling extremities is Kawasaki disease, treated with IVIG and high-dose aspirin to prevent coronary aneurysm. <b>Kawasaki is the one exception<\/b> to withholding aspirin in children — and live vaccines are deferred for 11 months after IVIG.", "topic": "Cardiac", "icon": "🫀", "topicFull": "Cardiac", "pharm": 1}, {"q": "A nurse obtains four-point blood pressures on a 6-year-old: right arm 118/76, left arm 116/74, right leg 82/50, left leg 80/48. Brachial pulses are bounding and femoral pulses are weak. Which defect do these findings suggest?", "type": "single", "opts": ["Atrial septal defect", "Patent ductus arteriosus", "Coarctation of the aorta", "Tetralogy of Fallot"], "ans": [2], "why": "An upper-to-lower <b>BP differential<\/b> with bounding arm pulses and weak femoral pulses is coarctation. PDA gives a continuous machinery murmur with bounding pulses and a widened pulse pressure but no arm-leg gradient, and ASD produces a soft systolic murmur without pulse changes.", "topic": "Cardiac", "icon": "🫀", "topicFull": "Cardiac"}, {"q": "A 5-year-old is 4 hours post cardiac catheterization. Which action by a nursing assistant requires the nurse to intervene?", "type": "single", "opts": ["Applying a warm compress to the insertion site for comfort", "Keeping the affected leg straight", "Checking pedal pulses in both feet", "Offering the child extra fluids to drink"], "ans": [0], "why": "<b>Heat vasodilates<\/b> and can restart bleeding at a fresh arterial puncture, so no warm compress goes on the site. The leg stays straight for 4-8 hours, pulses, color and temperature are compared bilaterally, and fluids are pushed to clear the contrast.", "topic": "Cardiac", "icon": "🫀", "topicFull": "Cardiac"}, {"type": "matching", "week": "9", "step": "analyze", "topic": "Cardiac", "stem": "<p>The nurse is matching each infant's exam findings to the most likely congenital heart defect.<\/p>", "pairs": [{"left": "Weak or absent femoral pulses with a lower blood pressure in the legs than in the arms.", "answer": 0}, {"left": "A machinery-like continuous murmur with bounding peripheral pulses and a wide pulse pressure.", "answer": 1}, {"left": "Cyanosis at birth that worsens over the first year, with sudden episodes of deep cyanosis and rapid breathing during crying or feeding.", "answer": 2}, {"left": "A systolic murmur with a fixed, widely split second heart sound, and the infant is otherwise asymptomatic.", "answer": 3}, {"left": "Severe cyanosis at birth that does not improve with oxygen, because the aorta arises from the right ventricle instead of the left.", "answer": 4}], "right": ["Coarctation of the aorta", "Patent ductus arteriosus", "Tetralogy of Fallot", "Atrial septal defect", "Transposition of the great arteries", "Ventricular septal defect", "Tricuspid atresia"], "why": "Coarctation of the aorta narrows the aorta so pressure and pulses fall distal to the narrowing, producing the classic arm-leg blood pressure gradient and weak femoral pulses. A patent ductus arteriosus keeps a fetal vessel open between the aorta and pulmonary artery, producing a continuous machinery murmur with bounding pulses from the wide pulse pressure. Tetralogy of Fallot shunts deoxygenated blood into the systemic circulation, causing progressive cyanosis and hypercyanotic 'Tet' spells, while an ASD's fixed split S2 with few symptoms reflects a low-pressure shunt between the atria. Transposition of the great arteries runs systemic and pulmonary circulations in parallel rather than in series, causing severe cyanosis unresponsive to oxygen; VSD and tricuspid atresia present differently and do not match any description here.", "src": "ATI Nursing Care of Children ch 20 (Cardiovascular Disorders)", "icon": "🫀", "topicFull": "Cardiac"}, {"type": "bowtie", "week": "9", "step": "solutions", "topic": "Cardiac", "stemTitle": "Cardiology clinic note 1030", "stem": "<p>A 4-month-old girl with a large ventricular septal defect and a harsh, loud murmur heard along the left side of the sternum is seen for follow-up. Her mother says she <b>sweats and gets breathless after about 2 oz of formula and needs 40 minutes to finish a bottle<\/b>. She has gained only 110 g (about 4 oz) in the past month. Respiratory rate 68/min, heart rate 172/min, liver edge felt 3 cm below the right costal margin.<\/p>", "cond": ["Heart failure from a left-to-right shunt", "Hypercyanotic (Tet) spell", "Coarctation of the aorta", "Infective endocarditis"], "actions": ["Offer smaller volumes every 2 to 3 hr and end each feeding at about 30 minutes", "Increase the calorie density of the feedings as prescribed", "Place the infant knee-to-chest each time she becomes fussy", "Hold the prescribed furosemide until her weight gain improves", "Keep her NPO and give maintenance IV fluids instead of oral feeds"], "params": ["Daily weight taken on the same scale", "Respiratory rate and work of breathing during feedings", "Blood pressure difference between the arms and the legs", "Weekly head circumference", "Serum ammonia level"], "answer": {"cond": [0], "action": [0, 1], "param": [0, 1]}, "why": "A VSD shunts blood left to right, floods the lungs, and produces exactly this picture: tachypnea, tachycardia, sweating with feeds, an enlarged liver, and poor weight gain. The plan targets the two problems at once. Feedings are kept short and frequent because feeding is hard work for a failing heart, and the calories are concentrated so she grows on less volume. Knee-to-chest treats a Tet spell in a cyanotic defect, not this one; holding the diuretic would worsen congestion; arm-to-leg blood pressure gaps point to coarctation, which is not her defect. Daily weight and work of breathing during feeds are the two measures that show whether the plan is working.", "src": "ATI ch 20 Cardiovascular Disorders", "icon": "🫀", "topicFull": "Cardiac"}], "10": [{"q": "A 9-year-old had a long arm cast applied 6 hours ago. He now rates his pain 9 of 10, unrelieved by two doses of opioid, and his fingers are pale and tingling. Which action should the nurse take first?", "type": "single", "opts": ["Administer an additional dose of analgesic", "Elevate the arm and reassess in one hour", "Perform a neurovascular check and notify the provider immediately", "Apply ice over the cast at the elbow"], "ans": [2], "why": "<b>Pain that analgesia does not touch is compartment syndrome<\/b>, not an inadequate dose, and pallor with paresthesia adds two more of the 6 Ps. This is time-critical, so waiting an hour or giving more medication both delay the only thing that saves the limb.", "topic": "Musculoskeletal", "icon": "🦴", "topicFull": "Musculoskeletal"}, {"q": "A hip spica cast has just been applied to a 2-year-old. Which nursing action is the priority during the first hour?", "type": "single", "opts": ["Teach the parents about cast care at home", "Perform neurovascular checks every 15 minutes", "Direct a heat lamp at the cast to speed drying", "Turn the child using the fingertips on the cast edges"], "ans": [1], "why": "The neurovascular check is the priority after any cast, splint or traction — <b>every 15 minutes for the first hour<\/b>, then hourly. A wet cast is handled with the <b>palms only<\/b> to avoid indentations that create pressure points, and heat lamps are not used to dry it.", "topic": "Musculoskeletal", "icon": "🦴", "topicFull": "Musculoskeletal"}, {"q": "A nurse is teaching the parents of a 10-year-old with Duchenne muscular dystrophy about protecting respiratory function. Which instructions should be included? Select all that apply.", "type": "sata", "opts": ["Use a cough-assist device as prescribed", "Use nighttime BiPAP as prescribed", "Position the child prone for sleep to expand the chest", "Restrict fluids to reduce secretions", "Report respiratory infections promptly"], "ans": [0, 1, 4], "why": "Cough assist, nighttime BiPAP and prompt reporting of infections are the respiratory protections; positioning is upright or semi-Fowler, and <b>prone is avoided<\/b>. Fluids are kept adequate to <b>thin<\/b> secretions — restricting them thickens mucus and makes an already weak cough less effective.", "topic": "Musculoskeletal", "icon": "🦴", "topicFull": "Musculoskeletal"}, {"q": "An 11-year-old is found to have a 32-degree scoliosis curve. Which management should the nurse anticipate?", "type": "single", "opts": ["Observation with repeat imaging only", "A Boston brace worn about 23 hours a day", "Posterior spinal fusion", "Halo traction"], "ans": [1], "why": "Curves under 20 degrees are monitored, <b>20 to 40 degrees get a brace worn about 23 hours a day<\/b>, 40 to 80 degrees go to spinal fusion, and over 80 degrees needs halo traction. The trap: the brace <b>slows progression, it does not correct the curve<\/b>.", "topic": "Musculoskeletal", "icon": "🦴", "topicFull": "Musculoskeletal"}, {"q": "A 12-year-old boy who is obese has a 3-week history of a limp and right knee pain. He denies any knee injury, and examination of the knee is unremarkable. Which condition should the nurse suspect?", "type": "single", "opts": ["Slipped capital femoral epiphysis", "Legg-Calve-Perthes disease", "Osteomyelitis of the knee", "Growing pains"], "ans": [0], "why": "SCFE classically appears in the <b>obese preadolescent male and presents as knee pain<\/b> even though the pathology is at the hip. Perthes is avascular necrosis of the femoral head and is the tempting alternative, but it typically presents as a <b>painless<\/b> limp in a younger child.", "topic": "Musculoskeletal", "icon": "🦴", "topicFull": "Musculoskeletal"}, {"q": "An 8-week-old has a positive Ortolani sign and is fitted with a Pavlik harness. Which statement by the parent indicates correct understanding?", "type": "single", "opts": ["\"I will loosen the straps as she grows so it does not get tight.\"", "\"She will wear it for about 3 to 4 months, and only her provider adjusts the straps.\"", "\"I will take it off for naps so she is comfortable.\"", "\"Once she is walking we will use an x-ray to check the hips.\""], "ans": [1], "why": "The Pavlik harness is used <b>under 6 months<\/b> and worn about <b>3 to 4 months<\/b>, and only the provider adjusts the straps — the same rule that applies to traction weights and braces. A positive Ortolani means hip instability needing further evaluation, and ultrasound is the imaging under 6 months, x-ray after.", "topic": "Musculoskeletal", "icon": "🦴", "topicFull": "Musculoskeletal"}, {"type": "dropdown", "week": "10", "step": "analyze", "topic": "Musculoskeletal", "stemTitle": "Post-cast application, 6 hr", "stem": "<p>A 10-year-old received a new long-arm cast for a forearm fracture 6 hours ago. He reports severe pain unrelieved by his prescribed opioid, and the pain worsens when the nurse passively extends his fingers. His fingers are pale and cool with delayed capillary refill.<\/p>", "text": "These findings suggest {1}, a complication caused by {2}.", "gaps": [{"options": ["normal postoperative cast pain", "compartment syndrome", "an allergic reaction to the cast padding"], "answer": 1}, {"options": ["pressure within the cast compressing nerves, vessels, and muscle", "an infection developing under the cast", "a delayed reaction to the pain medication"], "answer": 0}], "why": "Pain unrelieved by analgesics and worsened by passive movement, along with pallor and cool skin, are early findings of compartment syndrome, a limb-threatening complication in which pressure inside a closed space such as a cast compresses nerves, vessels, and muscle and can cause permanent damage if not relieved quickly. Ordinary post-fracture pain responds to prescribed analgesics and does not specifically worsen with passive stretch. An allergic reaction to padding would cause itching or a rash rather than pain and pallor, and infection under a cast this soon after placement typically presents with warmth and fever rather than pallor and delayed capillary refill.", "src": "ATI Nursing Care of Children ch 27 (Fractures)", "icon": "🦴", "topicFull": "Musculoskeletal"}, {"type": "matching", "week": "10", "step": "solutions", "topic": "Musculoskeletal", "stem": "Four children are seen in the pediatric orthopedic clinic. Match each child with the management plan that fits the diagnosis.", "pairs": [{"left": "A 6-week-old girl with a positive Ortolani sign, limited abduction of the left hip, and uneven thigh folds.", "answer": 0}, {"left": "A 3-week-old boy whose right foot turns inward and downward, with a small empty heel pad and a deep midfoot crease.", "answer": 2}, {"left": "A 13-year-old girl with uneven shoulders and scapulae, a 28-degree curve, and 2 years of growth remaining.", "answer": 4}, {"left": "A 5-year-old boy with blue sclerae, small discolored teeth, and a third fracture after a minor fall.", "answer": 1}], "right": ["Pavlik harness 23 hr a day, with only the provider adjusting the straps", "IV bisphosphonate infusions, gentle handling, and manual blood pressures", "Weekly manipulation and a fresh long-leg cast until the foot corrects", "Limited weight bearing and an abduction brace while the femoral head heals", "A thoracolumbosacral brace worn to slow further progression of the curve"], "why": "Each plan is chosen by diagnosis and age. Ortolani plus limited abduction under 6 months is developmental dysplasia of the hip, managed with a Pavlik harness worn nearly all day; families never adjust the straps themselves. Clubfoot is corrected by serial casting started in the first weeks, with the cast changed weekly after manipulation. A moderate curve in a girl who is still growing is braced to slow progression, not simply watched. Blue sclerae with repeated low-force fractures is osteogenesis imperfecta, which needs bisphosphonates and protective handling, including manual blood pressures. The unused option describes Legg-Calve-Perthes care, which none of these children has.", "src": "ATI ch 28 Musculoskeletal Congenital Disorders", "icon": "🦴", "topicFull": "Musculoskeletal"}], "11": [{"q": "A 14-year-old arrives with a glucose of 480 mg/dL, Kussmaul respirations, fruity breath, dry mucous membranes and lethargy. Which intervention should the nurse initiate first?", "type": "single", "opts": ["An isotonic intravenous fluid bolus", "A continuous intravenous regular insulin infusion", "Oral fluids at the bedside", "Intravenous potassium replacement"], "ans": [0], "why": "In pediatric DKA, <b>isotonic IV fluid resuscitation comes first<\/b>, with the insulin infusion typically started 1 to 2 hours later, specifically to reduce cerebral edema risk. Oral fluids are unsafe with dehydration and altered consciousness, and <b>urine output must be verified before any IV potassium<\/b>.", "topic": "Endocrine & Metabolic", "icon": "⚗️", "topicFull": "Endocrine & Metabolic", "pharm": 1}, {"q": "A parent calls to report that her 13-year-old, who started propylthiouracil 3 weeks ago for Graves disease, now has a temperature of 38.6 C and a sore throat. Which action should the nurse take first?", "type": "single", "opts": ["Reassure the parent that this is a common viral illness", "Instruct her to hold the medication and bring the child for urgent evaluation", "Recommend acetaminophen and a recheck in 3 days", "Advise doubling the next dose to control the thyroid symptoms"], "ans": [1], "why": "Fever and sore throat on an antithyroid drug means <b>agranulocytosis until proven otherwise<\/b> — stop the drug and get urgent evaluation with a CBC. Note that <b>methimazole is preferred first-line in children<\/b> because of PTU hepatotoxicity, but the agranulocytosis warning applies to both.", "topic": "Endocrine & Metabolic", "icon": "⚗️", "topicFull": "Endocrine & Metabolic", "pharm": 1}, {"q": "A 9-year-old with type 1 diabetes is pale, clammy and shaky. A fingerstick reads 54 mg/dL. She is alert and able to swallow. Which actions should the nurse take? Select all that apply.", "type": "sata", "opts": ["Give 10 to 15 grams of a simple carbohydrate", "Recheck the glucose in 15 minutes", "Administer subcutaneous glucagon immediately", "Follow with a complex carbohydrate once the glucose normalizes", "Give the scheduled lispro dose now"], "ans": [0, 1, 3], "why": "Hypoglycemia is <b>cold and clammy<\/b>: 10-15 g of simple carbohydrate, recheck in 15 minutes, then a complex carb to hold the level. Glucagon is reserved for the child who is <b>unconscious or unable to swallow<\/b>, and giving rapid-acting insulin here would deepen the hypoglycemia.", "topic": "Endocrine & Metabolic", "icon": "⚗️", "topicFull": "Endocrine & Metabolic", "pharm": 1}, {"q": "A 6-year-old with fatigue, constipation, weight gain and cold intolerance has a TSH of 9.2 mIU/L and a free T4 of 0.5 ng/dL. How should the nurse interpret these results?", "type": "single", "opts": ["Primary hypothyroidism", "Hyperthyroidism", "Normal thyroid function", "Graves disease"], "ans": [0], "why": "Primary hypothyroidism is <b>high TSH with low free T4<\/b>, and both values here are outside reference (TSH roughly 0.4-4.0 mIU/L, free T4 0.8-2.0 ng/dL). The symptoms match: hypothyroid means everything slows, while hyperthyroid is the mirror — heat intolerance, tachycardia, insomnia and diarrhea with a <b>low<\/b> TSH.", "topic": "Endocrine & Metabolic", "icon": "⚗️", "topicFull": "Endocrine & Metabolic"}, {"q": "A nurse is caring for a child receiving intravenous insulin. Which statement about insulin administration is accurate?", "type": "single", "opts": ["Lispro may be given as a continuous intravenous infusion", "Regular insulin is the only insulin that can be given intravenously", "NPH is drawn into the syringe before regular when the two are mixed", "Glargine may be mixed in the same syringe as regular insulin"], "ans": [1], "why": "<b>Regular is the only IV-compatible insulin.<\/b> When mixing subcutaneous doses the rule is <b>clear before cloudy<\/b> — regular before NPH — and long-acting glargine is never mixed with anything.", "topic": "Endocrine & Metabolic", "icon": "⚗️", "topicFull": "Endocrine & Metabolic", "pharm": 1}, {"q": "A 10-year-old with type 1 diabetes has a glucose of 70 mg/dL and is about to start a 45-minute soccer game. Which action is most appropriate?", "type": "single", "opts": ["Administer a dose of rapid-acting insulin", "Offer a complex carbohydrate snack such as crackers with peanut butter", "Offer a protein-only snack such as a slice of turkey", "Have her sit out until her glucose is above 120"], "ans": [1], "why": "70 mg/dL is the conventional <b>lower threshold<\/b>, not a comfortable middle, and prolonged activity will drive it down further — a <b>complex<\/b> carbohydrate releases glucose steadily across the game. Insulin would deepen the drop, protein alone digests too slowly, and keeping her out of play is unnecessary.", "topic": "Endocrine & Metabolic", "icon": "⚗️", "topicFull": "Endocrine & Metabolic", "pharm": 1}, {"type": "highlight", "week": "11", "step": "recognize", "topic": "Endocrine & Metabolic", "stemTitle": "ED, 1000", "stem": "<p>A 13-year-old with type 1 diabetes is brought to the ED by his parents after 2 days of feeling unwell.<\/p>", "tokens": [{"text": "Reports feeling very thirsty and urinating frequently for the past 2 days. ", "pick": true}, {"text": "Skin flushed, warm, and dry with poor turgor. ", "pick": true}, {"text": "Breath has a fruity odor. ", "pick": true}, {"text": "Vomited twice this morning with reported abdominal pain. ", "pick": true}, {"text": "Temperature 37.1 C, oral. ", "pick": true}, {"text": "Capillary refill 2 seconds. ", "pick": true}, {"text": "Alert and answering questions appropriately. ", "pick": true}], "answer": [0, 1, 2, 3], "why": "Polyuria and polydipsia, warm dry flushed skin with poor turgor, fruity breath odor, and vomiting with abdominal pain are documented findings of diabetic ketoacidosis from hyperglycemia, dehydration, and ketoacidosis. A near-normal temperature, brisk capillary refill, and an alert adolescent who answers questions appropriately are reassuring findings on their own and do not indicate DKA, so they should not be selected even though they appear in the same note.", "src": "ATI Nursing Care of Children ch 32 (Diabetes Mellitus)", "icon": "⚗️", "topicFull": "Endocrine & Metabolic"}, {"type": "sata", "week": "11", "step": "solutions", "topic": "Endocrine & Metabolic", "q": "A 7-year-old boy has growth hormone deficiency confirmed by stimulation testing and is starting somatropin. Which of the following should the nurse include in the plan of care? (Select all that apply.)", "opts": ["Teach subcutaneous injection at bedtime with rotation of sites", "Measure and plot height and weight at every clinic visit", "Explain that injections continue until the growth plates close", "Ask about teasing and body image, and offer a counseling referral", "Give each dose intramuscularly into the vastus lateralis", "Plan to stop therapy as soon as he reaches the 50th percentile for height"], "ans": [0, 1, 2, 3], "why": "Somatropin is a subcutaneous injection given into the abdomen, thigh, buttock, or upper arm, and sites are rotated to protect the tissue; it is never given IM. Serial height and weight plotted on the growth chart are how response is judged, so measurements at every visit are part of the plan. Therapy runs until the epiphyses close, not until an arbitrary percentile is reached. Short stature carries real social and body image strain, so the nurse asks about it directly and offers counseling instead of waiting for the family to bring it up.", "src": "ATI ch 33 Growth Hormone Deficiency", "icon": "⚗️", "topicFull": "Endocrine & Metabolic", "pharm": 1}], "12": [{"q": "A 10-month-old has episodes of sudden inconsolable crying during which he draws his knees to his chest, and he appears completely normal between episodes. His diaper contains stool mixed with blood and mucus. Which action is the priority?", "type": "single", "opts": ["Reassure the parents that this is colic", "Notify the provider immediately; the findings suggest intussusception", "Begin an oral rehydration solution and reassess in 2 hours", "Apply a warm pack to the abdomen for comfort"], "ans": [1], "why": "Episodic severe pain with knees drawn up, currant jelly stool and a sausage-shaped mass is intussusception, which needs air or barium enema reduction. <b>The pain-free intervals make the child look completely well — that is the trap<\/b>, and it is why this gets mistaken for colic.", "topic": "Gastrointestinal", "icon": "🫃", "topicFull": "Gastrointestinal"}, {"q": "An 8-year-old has been treated for 12 hours for right lower quadrant pain with rebound tenderness. He suddenly reports that the pain is gone, but his abdomen is now rigid and his temperature is 38.9 C. Which action should the nurse take first?", "type": "single", "opts": ["Document the improvement and offer clear liquids", "Keep the child NPO and notify the provider immediately", "Apply a heating pad to the abdomen for comfort", "Encourage ambulation to relieve gas pain"], "ans": [1], "why": "<b>Sudden relief of appendicitis pain can mean rupture, not improvement<\/b> — rigidity and rising fever confirm peritonitis. Heat is never applied to a suspected appendicitis because it raises the rupture risk in the first place.", "topic": "Gastrointestinal", "icon": "🫃", "topicFull": "Gastrointestinal"}, {"q": "A nurse is assessing a 2-year-old with 3 days of vomiting and diarrhea. Which findings indicate severe dehydration? Select all that apply.", "type": "sata", "opts": ["Capillary refill greater than 4 seconds", "No tears when crying", "Capillary refill of 2 seconds", "Urine output of 0.2 mL/kg/hr", "Low urine specific gravity"], "ans": [0, 1, 3], "why": "Severe dehydration is over 10% loss: capillary refill beyond 4 seconds, no tears, a sunken fontanel and oliguria — and normal pediatric urine output is about <b>1 mL/kg/hr<\/b>, so 0.2 is markedly low. A 2-second refill is mild at most, and dehydration raises specific gravity because the urine is <b>concentrated<\/b>.", "topic": "Gastrointestinal", "icon": "🫃", "topicFull": "Gastrointestinal"}, {"q": "A 14 kg child with severe dehydration is prescribed an isotonic fluid bolus at 20 mL/kg. How many milliliters should the nurse administer?", "type": "single", "opts": ["140 mL", "280 mL", "700 mL", "1,400 mL"], "ans": [1], "why": "14 kg x 20 mL/kg = <b>280 mL<\/b>. The 10 mL/kg version (140 mL) is reserved for a child with a cardiac history, and oral rehydration at 40-50 mL/kg over 4 hours is first line for mild to moderate dehydration, not severe.", "topic": "Gastrointestinal", "icon": "🫃", "topicFull": "Gastrointestinal", "pharm": 1}, {"q": "A 5-week-old has forceful vomiting that shoots across the crib immediately after every feeding, is ravenously hungry afterward, and has an olive-shaped mass in the right upper quadrant. Which acid-base imbalance should the nurse anticipate?", "type": "single", "opts": ["Metabolic acidosis", "Metabolic alkalosis", "Respiratory acidosis", "No acid-base imbalance"], "ans": [1], "why": "This is pyloric stenosis, which presents at <b>4 to 6 weeks<\/b> with projectile non-bilious vomiting, and losing gastric hydrochloric acid produces <b>metabolic alkalosis<\/b>. Reverse it for the other classic: diarrhea loses sodium and bicarbonate and produces metabolic acidosis.", "topic": "Gastrointestinal", "icon": "🫃", "topicFull": "Gastrointestinal"}, {"q": "A newborn has passed no meconium in the first 48 hours and now has green emesis with abdominal distention. Which condition should the nurse suspect?", "type": "single", "opts": ["Pyloric stenosis", "Gastroesophageal reflux", "Hirschsprung disease", "Celiac disease"], "ans": [2], "why": "No meconium in the first 24 to 48 hours plus bilious emesis and distention is Hirschsprung disease, confirmed by rectal biopsy showing <b>absent ganglion cells<\/b>. <b>Bilious (green) vomit means a LOWER obstruction<\/b>; pyloric stenosis is the planted distractor and its vomiting is non-bilious because the block sits at the pylorus.", "topic": "Gastrointestinal", "icon": "🫃", "topicFull": "Gastrointestinal"}, {"type": "sata", "week": "12", "step": "recognize", "topic": "Gastrointestinal", "q": "A mother brings her 8-month-old to the ED for sudden episodes of severe crying. Which findings should the nurse recognize as consistent with intussusception? (Select all that apply.)", "opts": ["Sudden episodes of severe abdominal pain with the legs drawn up to the chest, alternating with periods of calm", "Stools that appear red and jelly-like, mixed with mucus", "A sausage-shaped mass palpated in the abdomen", "Explosive, ribbon-like stools present since birth", "Projectile, nonbilious vomiting after every feeding", "Fever with a tender, distended abdomen"], "ans": [0, 1, 2, 5], "why": "Episodic severe pain with the knees drawn to the chest, red currant jelly stools with mucus, a palpable sausage-shaped abdominal mass, and fever with abdominal tenderness and distention are the documented findings of intussusception from telescoping bowel and ischemia. Ribbon-like stools present since birth describe Hirschsprung disease from absent ganglion cells, and projectile nonbilious vomiting after every feeding is the hallmark of hypertrophic pyloric stenosis, not intussusception, so neither belongs in this select-all list.", "src": "ATI Nursing Care of Children ch 23 (Gastrointestinal Structural and Inflammatory Disorders)", "icon": "🫃", "topicFull": "Gastrointestinal"}, {"type": "dropdown", "week": "12", "step": "analyze", "topic": "Gastrointestinal", "stemTitle": "Pediatric urgent care", "stem": "<p>A 14-month-old with 2 days of vomiting and diarrhea has an estimated 7% weight loss, dry mucous membranes, decreased tears, and capillary refill of 3 seconds.<\/p>", "text": "This presentation is classified as {1} dehydration, and the nurse should anticipate starting {2}.", "gaps": [{"options": ["mild", "moderate", "severe"], "answer": 1}, {"options": ["oral rehydration solution as first-line therapy", "an immediate IV fluid bolus as the only acceptable treatment", "nothing by mouth until stool cultures result"], "answer": 0}], "why": "A weight loss of 5-10% in an infant with dry mucous membranes, decreased tears, and a capillary refill of 2-4 seconds matches moderate dehydration; mild dehydration in infants is closer to 5% with normal mucous membranes and a refill under 2 seconds, while severe dehydration includes a refill over 4 seconds with sunken eyes and lethargy. Oral rehydration solution is tried first for mild and moderate dehydration because it is effective and less invasive than IV therapy, which is reserved for severe dehydration or when oral rehydration fails; withholding all oral intake pending cultures would worsen the child's fluid deficit unnecessarily.", "src": "ATI Nursing Care of Children ch 22 (Acute Infectious Gastrointestinal Disorders)", "icon": "🫃", "topicFull": "Gastrointestinal"}], "13": [{"q": "A 4-year-old is admitted with pallor, bruising and decreased urine output one week after a bloody diarrheal illness caused by E. coli. Which prescription should the nurse question first?", "type": "single", "opts": ["Intravenous antibiotics", "Daily weights", "Serial platelet counts", "Packed red blood cell transfusion"], "ans": [0], "why": "This is hemolytic uremic syndrome, and <b>antibiotics are contraindicated because they increase Shiga toxin release<\/b>. The other three fit the HUS triad of anemia, acute kidney injury and thrombocytopenia. Contrast this with acute glomerulonephritis, where antibiotics do help — <b>antibiotics help AGN and harm HUS<\/b>.", "topic": "Renal & Genitourinary", "icon": "🫘", "topicFull": "Renal & Genitourinary"}, {"q": "A 7-year-old with acute kidney injury has a serum potassium of 6.8 mEq/L. Which action should the nurse take first?", "type": "single", "opts": ["Obtain a daily weight", "Place the child on a cardiac monitor and notify the provider", "Offer a low-potassium snack", "Encourage additional oral fluids"], "ans": [1], "why": "In renal failure, <b>hyperkalemia is the emergency because it drives lethal arrhythmias<\/b> — cardiac monitoring and provider notification come first. Diet modification (low potassium, low sodium, low protein, high carbohydrate) and daily weights matter, but they do not address a potassium of 6.8 right now.", "topic": "Renal & Genitourinary", "icon": "🫘", "topicFull": "Renal & Genitourinary"}, {"q": "A newborn is admitted with bladder exstrophy. Which nursing actions are appropriate? Select all that apply.", "type": "sata", "opts": ["Position the newborn supine", "Position the newborn prone to protect the bladder", "Cover the exposed bladder with a sterile transparent non-adherent dressing", "Apply dry gauze directly against the bladder mucosa", "Monitor and record urine output"], "ans": [0, 2, 4], "why": "Bladder exstrophy is positioned <b>supine, never prone<\/b>, with the bladder covered by a transparent non-adherent dressing; dry gauze sticks to the mucosa and injures it on removal. This is the deliberate <b>mirror image of myelomeningocele<\/b>, which is prone — the paired distractor shows up on exams constantly.", "topic": "Renal & Genitourinary", "icon": "🫘", "topicFull": "Renal & Genitourinary"}, {"q": "A 12 kg toddler is 6 hours post surgical repair for vesicoureteral reflux. The goal urine output is greater than 1.5 mL/kg/hr. Which hourly output meets the goal?", "type": "single", "opts": ["6 mL/hr", "12 mL/hr", "18 mL/hr", "20 mL/hr"], "ans": [3], "why": "1.5 mL/kg/hr x 12 kg = 18 mL/hr, and the goal is <b>greater than<\/b> that, so only 20 mL/hr qualifies — 18 exactly meets but does not exceed the threshold. The high target flushes the repair; pink-tinged urine is expected afterward, but clots are not.", "topic": "Renal & Genitourinary", "icon": "🫘", "topicFull": "Renal & Genitourinary"}, {"q": "A 6-year-old presents with tea-colored urine, a blood pressure of 148/96, and mild periorbital edema. He had a sore throat about 2 weeks ago. Which condition do these findings indicate?", "type": "single", "opts": ["Nephrotic syndrome", "Acute glomerulonephritis", "Hemolytic uremic syndrome", "Urinary tract infection"], "ans": [1], "why": "Post-strep AGN is abrupt with <b>profuse hematuria, marked hypertension and mild edema<\/b>, and an ASO titer confirms it. Nephrotic syndrome is the flagship comparison and runs the opposite way — insidious onset, frothy urine with massive proteinuria, extreme generalized edema and hyperlipidemia, with hematuria rare. Both are oliguric with high specific gravity, so those findings <b>do not distinguish them<\/b>.", "topic": "Renal & Genitourinary", "icon": "🫘", "topicFull": "Renal & Genitourinary"}, {"q": "The parents of a newborn with hypospadias ask whether he can be circumcised before discharge. Which response is correct?", "type": "single", "opts": ["\"Circumcision is delayed because the foreskin tissue is used for the surgical repair.\"", "\"Circumcision is done now to reduce the risk of urinary infection.\"", "\"Circumcision is never done in boys with this condition.\"", "\"Circumcision is delayed only until the swelling goes down.\""], "ans": [0], "why": "In hypospadias the urethral meatus opens on the <b>ventral surface<\/b>, and the foreskin is needed as graft tissue, so circumcision is deferred until after the repair. Post-operatively the catheter typically stays 5 to 10 days, with oxybutynin for bladder spasms.", "topic": "Renal & Genitourinary", "icon": "🫘", "topicFull": "Renal & Genitourinary", "pharm": 1}, {"type": "matching", "week": "13", "step": "analyze", "topic": "Renal & Genitourinary", "stem": "<p>The nurse is matching each child's presentation to the most likely diagnosis.<\/p>", "pairs": [{"left": "Tea-colored, smoky urine with facial edema that is worst in the morning, in a 7-year-old about 2 weeks after a sore throat.", "answer": 0}, {"left": "Frothy, dark urine with marked edema of the face, abdomen, and genitals that worsens through the day, and hypoalbuminemia on labs.", "answer": 1}, {"left": "Fever, foul-smelling urine, dysuria, and suprapubic pain in a 4-year-old girl, with pyuria on urinalysis.", "answer": 2}, {"left": "A previously toilet-trained 6-year-old boy begins wetting the bed nightly again after his parents' divorce.", "answer": 3}, {"left": "A 9-month-old boy's scrotum appears empty on exam; neither testis can be palpated in the scrotal sac.", "answer": 4}], "right": ["Acute post-streptococcal glomerulonephritis", "Nephrotic syndrome", "Urinary tract infection", "Secondary enuresis", "Cryptorchidism", "Primary enuresis", "Hydrocele"], "why": "Tea-colored urine with morning-predominant facial edema after a recent strep infection is classic for acute post-streptococcal glomerulonephritis, while frothy urine with more severe generalized edema and hypoalbuminemia points to nephrotic syndrome instead. Fever, dysuria, and suprapubic pain with pyuria describe a urinary tract infection, and new nighttime wetting after previously being dry, triggered by a stressful family event, defines secondary rather than primary enuresis (which describes a child who has never achieved an extended dry period). An empty scrotum with nonpalpable testes describes cryptorchidism, not a hydrocele, which instead causes painless scrotal swelling from fluid.", "src": "ATI Nursing Care of Children ch 24 (Enuresis and Urinary Tract Infections), ch 25 (Structural Disorders of the Genitourinary Tract), ch 26 (Kidney Disorders)", "icon": "🫘", "topicFull": "Renal & Genitourinary"}, {"type": "dropdown", "week": "13", "step": "solutions", "topic": "Renal & Genitourinary", "stemTitle": "Pediatric unit 0930", "stem": "<p>A 4-year-old boy is admitted with minimal change nephrotic syndrome. His <b>eyes are puffiest when he first wakes up<\/b> and he has gained 2 kg (4.4 lb) in 8 days. His urine is dark and frothy with 4+ protein, and his serum albumin is 1.9 g/dL. High-dose oral prednisone has been prescribed.<\/p>", "text": "To manage the fluid problem, the nurse should plan to {1}. Because he is now on high-dose corticosteroids, the nurse should also {2}.", "gaps": [{"options": ["add extra salt and fluids to replace what is lost in the urine", "restrict sodium as ordered and weigh him daily on the same scale", "restrict protein and potassium tightly even though his BUN is normal"], "answer": 1}, {"options": ["expect his appetite to drop and add calorie supplements", "keep him away from crowds and from anyone who is sick", "stop the prednisone once his urine is free of protein"], "answer": 1}], "why": "Albumin is leaking out, so fluid follows it into the tissues. Sodium is restricted and daily weight on the same scale is the most sensitive measure of whether the edema is moving; adding salt and fluid would make it worse, and tight protein or potassium limits belong to kidney failure with azotemia, not to this child. Corticosteroids suppress immunity, so avoiding crowds and sick contacts is standard teaching. Steroids increase appetite rather than decrease it, and the drug is tapered on a prescribed schedule, never stopped the moment the urine clears.", "src": "ATI ch 26 Kidney Disorders", "icon": "🫘", "topicFull": "Renal & Genitourinary"}], "14": [{"q": "A nurse receives report on four children. Which child should the nurse assess first?", "type": "single", "opts": ["A 3-year-old with croup who has a barking cough and is resting calmly on a parent's lap", "A 6-year-old with asthma who has audible wheezing and accessory muscle use at rest", "A 10-year-old who is 1 day post appendectomy and rates incisional pain 5 of 10", "A 4-month-old whose anterior fontanel bulges while she is crying hard"], "ans": [1], "why": "Airway and breathing outrank everything, and <b>accessory muscle use at rest is active respiratory distress<\/b>. The croup child is calm, post-op pain of 5 is expected, and a fontanel that bulges only with crying is normal — <b>bulging at rest<\/b> is what suggests raised ICP.", "topic": "Comprehensive Final Review", "icon": "🎯", "topicFull": "Comprehensive Final Review"}, {"q": "A nurse reviews four new prescriptions. Which prescription requires clarification before it is carried out?", "type": "single", "opts": ["High-dose aspirin for a 6-year-old with Kawasaki disease", "Intravenous antibiotics for a 4-year-old with hemolytic uremic syndrome", "Nebulized albuterol before oxygen for a child in status asthmaticus", "Prone positioning for a newborn with an unrepaired myelomeningocele"], "ans": [1], "why": "<b>Antibiotics are contraindicated in HUS<\/b> because they increase Shiga toxin release. The other three are correct as written and are the ones students most often flag by mistake: aspirin is given in Kawasaki, albuterol precedes oxygen in acute asthma, and myelomeningocele is positioned prone.", "topic": "Comprehensive Final Review", "icon": "🎯", "topicFull": "Comprehensive Final Review", "pharm": 1}, {"q": "A nurse is reviewing pediatric safety rules before the final exam. Which actions are correct? Select all that apply.", "type": "sata", "opts": ["Palpate a Wilms tumor once each shift to track its size", "Position a newborn with bladder exstrophy supine", "Give indomethacin to keep the ductus arteriosus open in a cyanotic newborn", "Withhold aspirin from a child with Kawasaki disease", "Administer albuterol before oxygen in an acute asthma attack"], "ans": [1, 4], "why": "Exstrophy is supine and albuterol precedes oxygen. The three wrong options are the course's signature reversals: <b>never palpate a Wilms tumor<\/b>, <b>prostaglandin E1 opens the duct while indomethacin closes it<\/b>, and <b>aspirin is given in Kawasaki<\/b>, the one pediatric exception.", "topic": "Comprehensive Final Review", "icon": "🎯", "topicFull": "Comprehensive Final Review", "pharm": 1}, {"q": "A child weighs 25 kg. Using the Holliday-Segar method, what is the 24-hour maintenance fluid volume?", "type": "single", "opts": ["1,250 mL", "1,500 mL", "1,600 mL", "2,500 mL"], "ans": [2], "why": "1,000 mL for the first 10 kg, 500 mL for kg 11-20, then 20 mL/kg for the remaining 5 kg = 100 mL, totalling <b>1,600 mL/day<\/b> (about 67 mL/hr on a pump). 1,500 forgets the last step and 2,500 wrongly applies 100 mL/kg to the whole weight.", "topic": "Comprehensive Final Review", "icon": "🎯", "topicFull": "Comprehensive Final Review"}, {"q": "A nurse assesses a 3-month-old with a large ventricular septal defect. Which finding most suggests early heart failure?", "type": "single", "opts": ["Diaphoresis and fatigue during feedings", "Strong bounding peripheral pulses", "A resting heart rate of 88", "A sudden 2-pound weight loss overnight"], "ans": [0], "why": "<b>Sweating with feeding is the classic early sign<\/b> in infant heart failure, along with tachycardia at rest, poor weight gain, feeding intolerance and hepatomegaly. Expect <b>weak<\/b> peripheral pulses and tachycardia rather than bradycardia; infants fail to gain weight rather than dropping it suddenly.", "topic": "Comprehensive Final Review", "icon": "🎯", "topicFull": "Comprehensive Final Review"}, {"q": "A nurse reviews the record of a 5-year-old who is 8 hours post open reduction of a femur fracture. Which finding requires follow-up?", "type": "single", "opts": ["Heart rate 96", "Respiratory rate 22", "Temperature 37.2 C", "Refuses to move the toes on the casted leg and reports escalating pain despite medication"], "ans": [3], "why": "School-age norms are HR 60-110 and RR 20-25, so the first three are normal values — <b>do not flag normal vital signs as findings requiring follow-up just because they are numbers on the screen<\/b>. Escalating pain unrelieved by medication with reluctance to move the digits is compartment syndrome until proven otherwise.", "topic": "Comprehensive Final Review", "icon": "🎯", "topicFull": "Comprehensive Final Review"}, {"type": "highlight", "week": "14", "step": "recognize", "topic": "Comprehensive Final Review", "stemTitle": "Well-child visit, 20 months", "stem": "<p>Well-child visit for a 20-month-old.<\/p>", "tokens": [{"text": "Head circumference tracking along the growth curve at the 50th percentile. ", "pick": true}, {"text": "Red reflex absent in the right eye, with a white pupillary reflex seen instead. ", "pick": true}, {"text": "Femoral pulses palpably weaker than the radial pulses bilaterally. ", "pick": true}, {"text": "Anterior fontanel closed, soft and flat before closure. ", "pick": true}, {"text": "A murmur is heard at the left sternal border that does not change with position and was not documented at the last visit. ", "pick": true}, {"text": "Capillary refill under 2 seconds throughout. ", "pick": true}, {"text": "Bowlegged stance with toes pointing forward when standing. ", "pick": true}, {"text": "Deep tendon reflexes 2+ and symmetric bilaterally. ", "pick": true}], "answer": [1, 2, 4], "why": "A white pupillary reflex instead of the expected red reflex (leukocoria) is never a normal finding and requires urgent ophthalmology referral to rule out retinoblastoma. Femoral pulses weaker than the radial pulses suggest coarctation of the aorta, since all peripheral pulses should normally be comparably strong, and a new murmur that persists and does not change with position needs cardiology follow-up, unlike an innocent transient murmur from ductus closure heard in early infancy. Growth tracking along the curve, a closed and flat anterior fontanel at this age, brisk capillary refill, physiologic bowlegged stance in a toddler, and normal symmetric reflexes are all expected findings that do not need referral.", "src": "ATI Nursing Care of Children ch 2 (Physical Assessment Findings), ch 20 (Cardiovascular Disorders)", "icon": "🎯", "topicFull": "Comprehensive Final Review"}, {"type": "sata", "week": "14", "step": "action", "topic": "Comprehensive Final Review", "q": "A nurse is preparing to give an IM injection to a hospitalized 14-month-old and an oral medication to a young infant. Which actions are appropriate? (Select all that apply.)", "opts": ["Use the vastus lateralis muscle for the IM injection", "Verify the child's identity using two identifiers from the ID band, confirmed by the caregiver", "Mix the prescribed oral antibiotic into a full bottle of infant formula so the infant will not taste it", "Apply lidocaine-prilocaine cream to the injection site 30-60 minutes beforehand", "Offer the toddler a real choice of which leg will receive the injection", "Give a high-risk medication after checking the dose alone rather than with a second nurse"], "ans": [0, 1, 3, 4], "why": "The vastus lateralis is the preferred IM site in infants and small children because of its larger, better-developed muscle mass, and verifying identity with two identifiers plus caregiver confirmation is standard for infants and nonverbal children who cannot state their own name and birth date. Applying topical anesthetic 30-60 minutes before an injection and offering the toddler a real choice such as which leg receives it support atraumatic, developmentally appropriate care. Medication should never be mixed into a full bottle of formula because the infant may not finish it and receive an incomplete dose, and high-risk medications require two-nurse verification rather than a single nurse checking alone.", "src": "ATI Nursing Care of Children ch 8 (Safe Administration of Medication)", "icon": "🎯", "topicFull": "Comprehensive Final Review", "pharm": 1}, {"type": "highlight", "week": "14", "step": "evaluate", "topic": "Comprehensive Final Review", "stemTitle": "PICU note 1500", "stem": "<p>An 11-year-old girl was admitted in diabetic ketoacidosis with a blood glucose of 486 mg/dL, venous pH 7.18, bicarbonate 10 mEq/L, and large urine ketones. She has had 6 hr of IV isotonic fluid and a continuous regular insulin infusion. <b>Highlight the findings that show the ketoacidosis is resolving.<\/b><\/p>", "tokens": [{"text": "Reassessed at 1500. ", "pick": false}, {"text": "Blood glucose 232 mg/dL, down from 486 mg/dL. ", "pick": true}, {"text": "Venous pH 7.34, up from 7.18, ", "pick": true}, {"text": "with ", "pick": false}, {"text": "bicarbonate 18 mEq/L. ", "pick": true}, {"text": "Urine ketones small, previously large. ", "pick": true}, {"text": "Breathing even and unlabored at 20/min with no fruity odor. ", "pick": true}, {"text": "Temperature 36.8 C (98.2 F). ", "pick": true}, {"text": "Blood pressure 108/66 mm Hg. ", "pick": true}, {"text": "Reports mild soreness at the fingerstick sites. ", "pick": true}, {"text": "Peripheral IV site without redness or swelling.", "pick": true}], "answer": [1, 2, 4, 5, 6], "why": "DKA is diagnosed by hyperglycemia, ketones, and acidosis, so resolution is judged on those same three things, not on the glucose alone. The pH has climbed above 7.30 and the bicarbonate above 15 mEq/L, the ketones are clearing, the deep rapid Kussmaul breathing and fruity odor are gone, and the glucose is down. Temperature, blood pressure, sore fingertips, and a clean IV site are normal findings that say nothing about the acidosis. One caution: at a glucose near 250 mg/dL dextrose is usually added to the IV fluid so the insulin infusion can keep running until the ketones fully clear, and potassium is watched closely as insulin drives it back into the cells.", "src": "ATI ch 32 Diabetes Mellitus", "icon": "🎯", "topicFull": "Comprehensive Final Review", "pharm": 1}]}</script>
+<script type="application/json" id="exammap">{"1": "Exam 1", "2": "Exam 1", "3": "Exam 1", "4": "Exam 1", "5": "Exam 2", "6": "Exam 2", "7": "Exam 2", "8": "Exam 3", "9": "Exam 3", "10": "Exam 4", "11": "Exam 4", "12": "Exam 4", "13": "Final", "14": "Final"}</script>
+<script>
+/* ---- renderers for the NGN item types --------------------------------
+   Each returns nothing; it fills the card and wires its own Check button. They share
+   one contract with the quiz engine: call finish(right) once she checks, and never
+   change anything after that. */
+window.NGN = (function(){
+
+  function esc(s){ return String(s); }
+
+  function stem(q){
+    if(!q.stem) return '';
+    return '<div class="qstem">' + (q.stemTitle?('<h4>'+q.stemTitle+'</h4>'):'') +
+           q.stem + '</div>';
+  }
+
+  /* ---- bow-tie ------------------------------------------------------- */
+  function bowtie(card, q, locked, finish){
+    var slots = {action:[null,null], param:[null,null], cond:[null]};
+    if(locked) slots = locked.slots;
+    card.innerHTML = stem(q) +
+      '<p class="hlhint">Tap an option to place it. Tap a filled box to clear it.</p>' +
+      '<div class="bowtie">' +
+        '<div class="btcol"><h5>&#129658; Actions to take</h5>' +
+          '<div class="btslot" data-g="action" data-i="0"></div>' +
+          '<div class="btslot" data-g="action" data-i="1"></div></div>' +
+        '<div class="btcol mid"><h5>&#129517; Condition</h5>' +
+          '<div class="btslot" data-g="cond" data-i="0"></div></div>' +
+        '<div class="btcol"><h5>&#128200; Parameters to monitor</h5>' +
+          '<div class="btslot" data-g="param" data-i="0"></div>' +
+          '<div class="btslot" data-g="param" data-i="1"></div></div>' +
+      '</div>' +
+      '<div class="btbank">' +
+        '<span class="bl">Conditions</span>' +
+        q.cond.map(function(t,i){return '<button type="button" class="btopt" data-g="cond" data-v="'+i+'">'+esc(t)+'</button>';}).join('') +
+        '<span class="bl">Actions</span>' +
+        q.actions.map(function(t,i){return '<button type="button" class="btopt" data-g="action" data-v="'+i+'">'+esc(t)+'</button>';}).join('') +
+        '<span class="bl">Parameters</span>' +
+        q.params.map(function(t,i){return '<button type="button" class="btopt" data-g="param" data-v="'+i+'">'+esc(t)+'</button>';}).join('') +
+      '</div>' +
+      '<div><button type="button" class="check" id="chk">Check</button>' +
+      '<span class="verdict" id="vd"></span></div>' +
+      '<div class="rat" id="rat"><b>Why:</b> '+(q.why||'')+'</div>';
+
+    var TEXT = {cond:q.cond, action:q.actions, param:q.params};
+    function paint(){
+      [].forEach.call(card.querySelectorAll('.btslot'),function(s){
+        var g=s.dataset.g, i=+s.dataset.i, v=slots[g][i];
+        s.textContent = v===null||v===undefined ? '' : TEXT[g][v];
+        s.classList.toggle('filled', v!==null&&v!==undefined);
+      });
+      var used={};
+      Object.keys(slots).forEach(function(g){
+        slots[g].forEach(function(v){ if(v!==null&&v!==undefined) used[g+':'+v]=1; });
+      });
+      [].forEach.call(card.querySelectorAll('.btopt'),function(b){
+        b.classList.toggle('used', !!used[b.dataset.g+':'+b.dataset.v]);
+      });
+    }
+    paint();
+
+    if(!locked){
+      [].forEach.call(card.querySelectorAll('.btopt'),function(b){
+        b.addEventListener('click',function(){
+          var g=b.dataset.g, v=+b.dataset.v;
+          if(slots[g].indexOf(v)>-1) return;
+          var free=slots[g].indexOf(null);
+          if(free<0){ free=slots[g].length-1; }
+          slots[g][free]=v; paint();
+        });
+      });
+      [].forEach.call(card.querySelectorAll('.btslot'),function(s){
+        s.addEventListener('click',function(){
+          slots[s.dataset.g][+s.dataset.i]=null; paint();
+        });
+      });
+    }
+
+    function grade(){
+      var ok=true;
+      [].forEach.call(card.querySelectorAll('.btslot'),function(s){
+        var g=s.dataset.g, i=+s.dataset.i, v=slots[g][i];
+        var correct = (q.answer[g]||[]).indexOf(v)>-1;
+        s.classList.add(correct?'right':'wrong');
+        if(!correct) ok=false;
+      });
+      // every required slot must be filled
+      Object.keys(slots).forEach(function(g){
+        if(slots[g].indexOf(null)>-1) ok=false;
+      });
+      return ok;
+    }
+    return {grade:grade, state:function(){return {slots:slots};}};
+  }
+
+  /* ---- drop-down cloze ------------------------------------------------ */
+  function dropdown(card, q, locked, finish){
+    var html = q.text;
+    q.gaps.forEach(function(g,i){
+      var sel='<select data-i="'+i+'"><option value="">&mdash; choose &mdash;</option>'+
+        g.options.map(function(o,j){return '<option value="'+j+'">'+esc(o)+'</option>';}).join('')+
+        '</select>';
+      html = html.replace('{'+(i+1)+'}', sel);
+    });
+    card.innerHTML = stem(q) + '<p class="cloze">'+html+'</p>' +
+      '<div><button type="button" class="check" id="chk">Check</button>' +
+      '<span class="verdict" id="vd"></span></div>' +
+      '<div class="rat" id="rat"><b>Why:</b> '+(q.why||'')+'</div>';
+    var sels=[].slice.call(card.querySelectorAll('.cloze select'));
+    if(locked) sels.forEach(function(s,i){ s.value=locked.picked[i]; s.disabled=true; });
+    function grade(){
+      var ok=true;
+      sels.forEach(function(s,i){
+        var right = s.value!=='' && +s.value===q.gaps[i].answer;
+        s.classList.add(right?'right':'wrong'); s.disabled=true;
+        if(!right) ok=false;
+      });
+      return ok;
+    }
+    return {grade:grade, state:function(){return {picked:sels.map(function(s){return s.value;})};}};
+  }
+
+  /* ---- matching -------------------------------------------------------- */
+  function matching(card, q, locked, finish){
+    var rows = q.pairs.map(function(p,i){
+      return '<div class="mrow"><div class="mleftbox">'+esc(p.left)+'</div>'+
+        '<select data-i="'+i+'"><option value="">&mdash; choose &mdash;</option>'+
+        q.right.map(function(r,j){return '<option value="'+j+'">'+esc(r)+'</option>';}).join('')+
+        '</select></div>';
+    }).join('');
+    card.innerHTML = stem(q) + '<div class="match">'+rows+'</div>' +
+      '<div><button type="button" class="check" id="chk">Check</button>' +
+      '<span class="verdict" id="vd"></span></div>' +
+      '<div class="rat" id="rat"><b>Why:</b> '+(q.why||'')+'</div>';
+    var sels=[].slice.call(card.querySelectorAll('.match select'));
+    if(locked) sels.forEach(function(s,i){ s.value=locked.picked[i]; s.disabled=true; });
+    function grade(){
+      var ok=true;
+      sels.forEach(function(s,i){
+        var right = s.value!=='' && +s.value===q.pairs[i].answer;
+        s.classList.add(right?'right':'wrong'); s.disabled=true;
+        if(!right) ok=false;
+      });
+      return ok;
+    }
+    return {grade:grade, state:function(){return {picked:sels.map(function(s){return s.value;})};}};
+  }
+
+  /* ---- highlight the cues --------------------------------------------- */
+  function highlight(card, q, locked, finish){
+    var toks = q.tokens.map(function(t,i){
+      return t.pick ? '<span class="hltok" data-i="'+i+'">'+esc(t.text)+'</span>'
+                    : esc(t.text);
+    }).join('');
+    card.innerHTML = stem(q) +
+      '<p class="hlhint">Tap every finding that needs follow-up. Tap again to unselect.</p>' +
+      '<div class="hlnote">'+toks+'</div>' +
+      '<div><button type="button" class="check" id="chk">Check</button>' +
+      '<span class="verdict" id="vd"></span></div>' +
+      '<div class="rat" id="rat"><b>Why:</b> '+(q.why||'')+'</div>';
+    var picked = locked ? locked.picked.slice() : [];
+    var toksEl=[].slice.call(card.querySelectorAll('.hltok'));
+    function paint(){ toksEl.forEach(function(e){
+      e.classList.toggle('sel', picked.indexOf(+e.dataset.i)>-1); }); }
+    paint();
+    if(!locked){
+      toksEl.forEach(function(e){
+        e.addEventListener('click',function(){
+          var i=+e.dataset.i, at=picked.indexOf(i);
+          if(at>-1) picked.splice(at,1); else picked.push(i);
+          paint();
+        });
+      });
+    }
+    function grade(){
+      var ans=q.answer||[], ok=true;
+      toksEl.forEach(function(e){
+        var i=+e.dataset.i, isAns=ans.indexOf(i)>-1, got=picked.indexOf(i)>-1;
+        e.classList.remove('sel');
+        if(isAns && got) e.classList.add('right');
+        else if(got) { e.classList.add('wrong'); ok=false; }
+        else if(isAns) { e.classList.add('missed'); ok=false; }
+      });
+      if(!picked.length) ok=false;
+      return ok;
+    }
+    return {grade:grade, state:function(){return {picked:picked};}};
+  }
+
+  var R = {bowtie:bowtie, dropdown:dropdown, matching:matching, highlight:highlight};
+
+  return {
+    handles: function(t){ return !!R[t]; },
+    render: function(card, q, locked){ return R[q.type](card, q, locked); },
+    label: {"single": "One answer", "sata": "Select all that apply", "bowtie": "Bow-tie", "dropdown": "Drop-down cloze", "matching": "Matching", "highlight": "Highlight the cues"},
+    steps: {"recognize": "&#128064; Recognise cues", "analyze": "&#129504; Analyse cues", "prioritize": "&#127919; Prioritise hypotheses", "solutions": "&#128161; Generate solutions", "action": "&#129658; Take action", "evaluate": "&#128200; Evaluate outcomes"}
+  };
+})();
+
+(function(){
+  var BANK={}, EXAMOF={};
+  try{ BANK=JSON.parse(document.getElementById('qbank').textContent)||{}; }catch(e){}
+  try{ EXAMOF=JSON.parse(document.getElementById('exammap').textContent)||{}; }catch(e){}
+
+  var flat=[];
+  Object.keys(BANK).forEach(function(wk){
+    (BANK[wk]||[]).forEach(function(q,i){ flat.push({q:q, wk:wk, exam:EXAMOF[wk]||'', id:wk+'-'+i}); });
+  });
+
+  /* Every filter except the count is a SET, because she asked to be able to pick more
+     than one button where it makes sense. An empty set means "no restriction", which
+     is also what the All chip means - so All is just "clear this set". */
+  var pick={exam:[], topic:[], focus:[], style:[], step:[], wk:[]}, count='all';
+  var list=[], idx=0, state={}, pool=0;
+
+  function passes(o, skip){
+    function has(k, v){ return skip===k || !pick[k].length || pick[k].indexOf(v)>-1; }
+    if(!has('exam', o.exam)) return false;
+    if(!has('topic', o.q.topic||'')) return false;
+    if(!has('wk', o.wk)) return false;
+    if(!has('style', o.q.type||'single')) return false;
+    if(!has('step', o.q.step||'')) return false;
+    if(skip!=='focus' && pick.focus.length){
+      var ok=pick.focus.some(function(f){ return f==='pharm' ? !!o.q.pharm : true; });
+      if(!ok) return false;
+    }
+    return true;
+  }
+
+  /* How many she wants. A typed number wins over the chips, because typing it is the
+     more deliberate act - and it is clamped to what the filters actually left, so
+     asking for 50 out of a 6-question week gives 6 rather than an empty set. */
+  function wanted(available){
+    var box=document.getElementById('customCount');
+    var typed = box && box.value.trim() ? parseInt(box.value, 10) : NaN;
+    var n = !isNaN(typed) && typed > 0 ? typed
+          : (count === 'all' ? available : parseInt(count, 10));
+    if (isNaN(n) || n < 1) n = available;
+    return Math.min(n, available);
+  }
+
+  function build(shuffle){
+    list=flat.filter(function(o){ return passes(o); });
+    if(shuffle){
+      for(var i=list.length-1;i>0;i--){
+        var j=Math.floor(Math.random()*(i+1)), t=list[i]; list[i]=list[j]; list[j]=t;
+      }
+    }
+    /* Cut to length AFTER shuffling, so "20 questions, shuffled" is 20 drawn from the
+       whole filtered set rather than the first 20 reordered. */
+    pool=list.length;
+    list=list.slice(0, wanted(pool));
+    idx=0; state={}; refreshAvail(); draw();
+  }
+
+  /* Grey out - and genuinely disable - any button that would leave her with nothing,
+     and put the count in its tooltip. Each button is measured with its OWN group's
+     selection ignored, which is what makes a multi-select row behave: picking one
+     topic must not black out every other topic. */
+  function refreshAvail(){
+    document.getElementById('poolcount').textContent=pool;
+    [].forEach.call(document.querySelectorAll('.fbtn'),function(b){
+      var k=b.dataset.k, v=b.dataset.v;
+      if(!k || v==='all' || k==='count'){ b.classList.remove('dim'); b.disabled=false; return; }
+      var n=flat.filter(function(o){
+        if(!passes(o, k)) return false;
+        if(k==='exam')  return o.exam===v;
+        if(k==='topic') return (o.q.topic||'')===v;
+        if(k==='wk')    return o.wk===v;
+        if(k==='style') return (o.q.type||'single')===v;
+        if(k==='step')  return (o.q.step||'')===v;
+        if(k==='focus') return v==='pharm' ? !!o.q.pharm : true;
+        return true;
+      }).length;
+      b.classList.toggle('dim', n===0);
+      b.disabled = n===0;
+      var base=b.dataset.full||'';
+      b.title = (base ? base+' \u2014 ' : '') +
+                (n===0 ? 'nothing left with your other filters'
+                       : n + ' question' + (n===1?'':'s'));
+    });
+  }
+
+  function draw_score(){
+    var s=score(), bar=document.getElementById('scorebar');
+    bar.innerHTML='<span>Question <b>'+(idx+1)+'</b> of <b>'+list.length+'</b></span>'+
+                  '<span>Correct so far: <b>'+s.ok+'</b> / '+s.done+'</span>';
+  }
+
+  function score(){
+    var done=0, ok=0;
+    Object.keys(state).forEach(function(k){ done++; if(state[k].right) ok++; });
+    return {done:done, ok:ok};
+  }
+
+  function draw(){
+    var card=document.getElementById('card'), bar=document.getElementById('scorebar');
+    if(!list.length){
+      card.innerHTML='<div class="done"><h2>Nothing matches</h2>'+
+        '<p>Widen the filters and try again.</p></div>';
+      document.getElementById('prev').disabled=true;
+      document.getElementById('next').disabled=true;
+      bar.innerHTML=''; return;
+    }
+    if(idx>=list.length){
+      var s=score();
+      card.innerHTML='<div class="done"><h2>&#127881; End of the set</h2>'+
+        '<p>You answered <b>'+s.ok+'</b> of <b>'+s.done+'</b> correctly.</p>'+
+        '<p style="color:var(--soft);font-size:.98rem">Shuffle and go again &mdash; the '+
+        'order is what you memorise otherwise.</p></div>';
+      document.getElementById('prev').disabled=false;
+      document.getElementById('next').disabled=true;
+      bar.innerHTML='<span>Finished</span><span><b>'+s.ok+'</b> / '+s.done+'</span>';
+      return;
+    }
+    var o=list[idx], q=o.q, multi=q.type==='sata', st=state[o.id];
+
+    /* The NGN item types build their own card and grade themselves. They share the
+       same contract as the built-in ones: draw, then report a single right/wrong when
+       she checks, then never change again. */
+    if(window.NGN && NGN.handles(q.type)){
+      var s2=score();
+      bar.innerHTML='<span>Question <b>'+(idx+1)+'</b> of <b>'+list.length+'</b>'+
+        (pool>list.length?' <span style="color:var(--muted)">(of '+pool+' available)</span>':'')+
+        '</span><span>Correct so far: <b>'+s2.ok+'</b> / '+s2.done+'</span>';
+      var inst=NGN.render(card, q, st ? st.ngn : null);
+      var tagrow=document.createElement('div');
+      tagrow.className='qtags';
+      tagrow.innerHTML='<span class="tag wk">Week '+o.wk+'</span>'+
+        (o.exam?'<span class="tag">'+o.exam+'</span>':'')+
+        '<span class="tag type">'+(NGN.label[q.type]||q.type)+'</span>'+
+        (q.step?'<span class="tag step">'+(NGN.steps[q.step]||q.step)+'</span>':'');
+      card.insertBefore(tagrow, card.firstChild);
+      if(st){
+        var vd=document.getElementById('vd');
+        if(vd){ vd.textContent = st.right?'Correct':'Not quite';
+                vd.className='verdict '+(st.right?'ok':'no'); }
+        var r=document.getElementById('rat'); if(r) r.classList.add('show');
+        var cb=document.getElementById('chk'); if(cb) cb.style.display='none';
+        inst.grade();
+      } else {
+        var chk2=document.getElementById('chk');
+        if(chk2){
+          chk2.addEventListener('click',function(){
+            var right=inst.grade();
+            state[o.id]={right:right, ngn:inst.state()};
+            var vd=document.getElementById('vd');
+            vd.textContent = right?'Correct':'Not quite';
+            vd.className='verdict '+(right?'ok':'no');
+            document.getElementById('rat').classList.add('show');
+            chk2.style.display='none';
+            draw_score();
+          });
+        }
+      }
+      document.getElementById('prev').disabled = idx===0;
+      document.getElementById('next').disabled = false;
+      return;
+    }
+    var opts=(q.opts||[]).map(function(txt,i){
+      var cls='opt'+(multi?'':' rad');
+      if(st){
+        var isAns=(q.ans||[]).indexOf(i)>-1, got=st.picked.indexOf(i)>-1;
+        cls+=' locked'+(isAns?' correct':(got?' wrong':''));
+      }
+      return '<button type="button" class="'+cls+'" data-i="'+i+'">'+
+             '<span class="box"></span><span class="otxt">'+txt+'</span></button>';
+    }).join('');
+    var s=score();
+    bar.innerHTML='<span>Question <b>'+(idx+1)+'</b> of <b>'+list.length+'</b>'+
+                  (pool>list.length?' <span style="color:var(--muted)">(of '+pool+' available)</span>':'')+
+                  '</span><span>Correct so far: <b>'+s.ok+'</b> / '+s.done+'</span>';
+    card.innerHTML=
+      '<div class="qtags"><span class="tag wk">Week '+o.wk+'</span>'+
+      (o.exam?'<span class="tag">'+o.exam+'</span>':'')+
+      '<span class="tag type">'+(multi?'Select all that apply':'One answer')+'</span>'+
+      (q.step&&window.NGN?'<span class="tag step">'+(NGN.steps[q.step]||q.step)+'</span>':'')+
+      '</div>'+
+      '<p class="qtext">'+q.q+'</p>'+opts+
+      '<div><button type="button" class="check" id="chk">Check</button>'+
+      '<span class="verdict" id="vd"></span></div>'+
+      '<div class="rat" id="rat"><b>Why:</b> '+(q.why||'')+'</div>';
+
+    if(st){ show(st.right); }
+
+    var picked = st ? st.picked.slice() : [];
+    [].forEach.call(card.querySelectorAll('.opt'),function(b){
+      if(st) return;
+      b.addEventListener('click',function(){
+        var i=+b.dataset.i;
+        if(multi){
+          var at=picked.indexOf(i);
+          if(at>-1){ picked.splice(at,1); b.classList.remove('sel'); }
+          else { picked.push(i); b.classList.add('sel'); }
+        } else {
+          picked=[i];
+          [].forEach.call(card.querySelectorAll('.opt'),function(x){ x.classList.remove('sel'); });
+          b.classList.add('sel');
+        }
+      });
+    });
+
+    function show(right){
+      [].forEach.call(card.querySelectorAll('.opt'),function(b){
+        var i=+b.dataset.i, isAns=(q.ans||[]).indexOf(i)>-1,
+            got=(state[o.id]?state[o.id].picked:picked).indexOf(i)>-1;
+        b.classList.add('locked'); b.classList.remove('sel');
+        if(isAns) b.classList.add('correct'); else if(got) b.classList.add('wrong');
+      });
+      var vd=document.getElementById('vd');
+      vd.textContent = right ? 'Correct' : 'Not quite';
+      vd.className = 'verdict '+(right?'ok':'no');
+      document.getElementById('rat').classList.add('show');
+      var c=document.getElementById('chk'); if(c) c.style.display='none';
+    }
+
+    var chk=document.getElementById('chk');
+    if(chk && !st){
+      chk.addEventListener('click',function(){
+        if(!picked.length) return;
+        var ans=q.ans||[];
+        var right = ans.length===picked.length &&
+                    ans.every(function(a){ return picked.indexOf(a)>-1; });
+        state[o.id]={picked:picked.slice(), right:right};
+        show(right);
+      });
+    }
+    document.getElementById('prev').disabled = idx===0;
+    document.getElementById('next').disabled = false;
+  }
+
+  document.getElementById('prev').addEventListener('click',function(){
+    if(idx>0){ idx--; draw(); window.scrollTo(0,0); } });
+  document.getElementById('next').addEventListener('click',function(){
+    if(idx<list.length){ idx++; draw(); window.scrollTo(0,0); } });
+  document.getElementById('shuffle').addEventListener('click',function(){ build(true); });
+  document.getElementById('restart').addEventListener('click',function(){ build(false); });
+
+  var box=document.getElementById('customCount');
+  if(box){
+    box.addEventListener('input',function(){
+      [].forEach.call(document.querySelectorAll('.fbtn[data-k="count"]'),function(x){
+        x.classList.remove('active'); });
+      build(false);
+    });
+  }
+
+  [].forEach.call(document.querySelectorAll('.fbtn'),function(b){
+    b.addEventListener('click',function(){
+      if(b.disabled) return;
+      var k=b.dataset.k, v=b.dataset.v;
+
+      if(k==='count'){
+        count=v;
+        if(box) box.value='';
+        [].forEach.call(document.querySelectorAll('.fbtn[data-k="count"]'),function(x){
+          x.classList.toggle('active', x===b); });
+        build(false); return;
+      }
+
+      /* All clears the group; any other chip toggles in and out of the set. Toggling
+         the last one back off returns the group to All, so she can never strand
+         herself on an empty filter. */
+      if(v==='all'){ pick[k]=[]; }
+      else {
+        var at=pick[k].indexOf(v);
+        if(at>-1) pick[k].splice(at,1); else pick[k].push(v);
+      }
+      syncGroup(k);
+      build(false);
+    });
+  });
+
+  function syncGroup(k){
+    [].forEach.call(document.querySelectorAll('.fbtn[data-k="'+k+'"]'),function(x){
+      var v=x.dataset.v;
+      x.classList.toggle('active', v==='all' ? pick[k].length===0 : pick[k].indexOf(v)>-1);
+      x.setAttribute('aria-pressed', x.classList.contains('active') ? 'true' : 'false');
+    });
+  }
+
+  build(false);
+})();
+
+/* Hop to another page and close this one behind us. window.close() is only
+   permitted on a script-opened window, so if the browser refuses we simply
+   navigate instead - she still gets where she asked to go, just in one tab. */
+function hop(url, closeThis){
+  if(!closeThis){ window.open(url,'_blank','noopener'); return; }
+  var w=window.open(url,'_blank');
+  setTimeout(function(){
+    try{ window.close(); }catch(e){}
+    if(!window.closed){ location.href=url; if(w){ try{ w.close(); }catch(e){} } }
+  }, 120);
+}
+
+/* ---- the floating cluster moves, like the one on the older guides ----
+   Same rules as the skim button, deliberately: travel under 6px is a click, 6px or
+   more is a drag and the click is swallowed. Position is clamped to the viewport and
+   remembered per site, so it survives a reload and cannot end up off-screen when she
+   rotates the phone or changes zoom. Arrow keys nudge it once it has focus, because
+   dragging is not the only way she should be able to move something. */
+(function(){
+  var nb=document.getElementById('navBtns'); if(!nb) return;
+  var KEY='navBtnsPos';
+  function clamp(x,y){
+    var r=nb.getBoundingClientRect(), m=6;
+    return [Math.max(m,Math.min(x,window.innerWidth-r.width-m)),
+            Math.max(m,Math.min(y,window.innerHeight-r.height-m))];
+  }
+  function place(x,y,save){
+    var p=clamp(x,y);
+    nb.style.left=p[0]+'px'; nb.style.top=p[1]+'px';
+    nb.style.right='auto'; nb.style.bottom='auto';
+    if(save){ try{ localStorage.setItem(KEY,JSON.stringify(p)); }catch(e){} }
+  }
+  try{
+    var saved=JSON.parse(localStorage.getItem(KEY)||'null');
+    if(saved && saved.length===2) place(saved[0],saved[1],false);
+  }catch(e){}
+
+  /* Movement is tracked on the WINDOW, not on the cluster. Two earlier versions got
+     this wrong in opposite directions: capturing the pointer on pointerdown made the
+     cluster swallow the click so no button ever fired, and listening on the cluster
+     alone meant the drag died the moment the cursor left it. Window listeners give a
+     drag that follows the finger anywhere while leaving an ordinary tap untouched. */
+  var down=null, moved=false;
+  nb.addEventListener('pointerdown',function(e){
+    if(e.button && e.button!==0) return;
+    var r=nb.getBoundingClientRect();
+    down={x:e.clientX,y:e.clientY,dx:e.clientX-r.left,dy:e.clientY-r.top};
+    moved=false;
+  });
+  window.addEventListener('pointermove',function(e){
+    if(!down) return;
+    if(!moved && Math.abs(e.clientX-down.x)+Math.abs(e.clientY-down.y) < 6) return;
+    moved=true; nb.classList.add('dragging');
+    place(e.clientX-down.dx, e.clientY-down.dy, false);
+    e.preventDefault();
+  });
+  function end(){
+    if(!down) return;
+    var r=nb.getBoundingClientRect();
+    if(moved) place(r.left,r.top,true);
+    down=null; nb.classList.remove('dragging');
+    /* The click that a real drag generates arrives immediately after pointerup and is
+       swallowed below. If none arrives - a touch drag, or the pointer left the button -
+       the flag has to clear itself, or the NEXT genuine tap gets eaten instead. */
+    setTimeout(function(){ moved=false; }, 60);
+  }
+  window.addEventListener('pointerup',end);
+  window.addEventListener('pointercancel',end);
+  /* a drag must not also fire the button it started on */
+  nb.addEventListener('click',function(e){
+    if(moved){ e.stopPropagation(); e.preventDefault(); moved=false; }
+  },true);
+
+  nb.tabIndex=0;
+  nb.title='Drag to move these buttons · double-click to reset';
+  nb.addEventListener('dblclick',function(e){
+    e.preventDefault();
+    nb.style.left=''; nb.style.top=''; nb.style.right=''; nb.style.bottom='';
+    try{ localStorage.removeItem(KEY); }catch(err){}
+  });
+  nb.addEventListener('keydown',function(e){
+    var step=e.shiftKey?48:12, r=nb.getBoundingClientRect(), l=r.left, t=r.top, hit=true;
+    if(e.key==='ArrowLeft') l-=step; else if(e.key==='ArrowRight') l+=step;
+    else if(e.key==='ArrowUp') t-=step; else if(e.key==='ArrowDown') t+=step;
+    else hit=false;
+    if(hit){ e.preventDefault(); place(l,t,true); }
+  });
+  /* a resize or a zoom change must not strand it off-screen */
+  window.addEventListener('resize',function(){
+    var r=nb.getBoundingClientRect();
+    if(nb.style.left) place(r.left,r.top,false);
+  });
+})();
+
+/* ---- side menu ------------------------------------------------------- */
+(function(){
+  var b=document.getElementById('menuBtn'), s=document.getElementById('side'),
+      bg=document.getElementById('navBg');
+  if(!b||!s||!bg) return;
+
+  /* The exam bands on THIS page become jump links, built at load so the menu can
+     never list a band the page does not have. */
+  var jumps=s.querySelector('#sideJumps');
+  if(jumps){
+    var bands=[].slice.call(document.querySelectorAll('.exsec'));
+    bands.forEach(function(sec,i){
+      var head=sec.querySelector('.exhead');
+      if(!head) return;
+      if(!sec.id) sec.id='exam-'+(i+1);
+      var name=(head.querySelector('.en')||{}).textContent||('Exam '+(i+1));
+      var sub=(head.querySelector('.et')||{}).textContent||'';
+      var mods=sec.querySelectorAll('details.mod').length;
+      var a=document.createElement('a');
+      a.className='nav'; a.href='#'+sec.id;
+      a.innerHTML=name+'<span class="nsub">'+sub+
+                  (mods?(' &middot; '+mods+' module'+(mods===1?'':'s')):'')+'</span>';
+      jumps.appendChild(a);
+    });
+    if(!bands.length) jumps.previousElementSibling.style.display='none';
+  }
+
+  function set(o){
+    document.body.classList.toggle('nav-open',o);
+    b.innerHTML = o ? '&#10005; Close' : '&#9776; Menu';
+    b.setAttribute('aria-expanded', o?'true':'false');
+    s.setAttribute('aria-hidden', o?'false':'true');
+    if(o){ var f=s.querySelector('.sclose'); if(f) f.focus(); }
+  }
+  b.addEventListener('click',function(e){
+    e.stopPropagation();
+    set(!document.body.classList.contains('nav-open'));
+  });
+  bg.addEventListener('click',function(){ set(false); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') set(false); });
+  s.addEventListener('click',function(e){
+    if(e.target.closest('.sclose')){ set(false); return; }
+    if(e.target.closest('a')) setTimeout(function(){ set(false); },140);
+  });
+  set(false);
+})();
+</script>
+</body></html>
