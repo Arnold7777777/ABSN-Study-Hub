@@ -75,6 +75,32 @@ summary .n{margin-left:auto;font-size:13.5px;font-weight:800;padding:3px 10px;
 html{min-height:100%}
 body{background-image:url("bg-supermega.jpg");background-size:cover;background-position:center;background-attachment:fixed;background-color:#140b24}
 </style>
+
+<style id="igFallback">
+.card img{display:block}
+.card img.noimg{display:none}
+.card .pending{display:none;background:rgba(255,194,51,.60);color:#231a02;
+ border-radius:12px;padding:9px 11px;margin:8px 0;font-weight:700;font-size:13.5px;
+ line-height:1.45}
+.card img.noimg ~ .pending{display:block}
+</style>
+<script>
+/* The previews are still being uploaded a batch at a time. Until one lands, hide the
+   broken-image box and say so - a card with a title, its group colour and a working
+   Drive link is still useful, a grey broken icon is not. */
+document.addEventListener('DOMContentLoaded', function(){
+  document.querySelectorAll('.card img').forEach(function(img){
+    var note = document.createElement('div');
+    note.className = 'pending';
+    note.innerHTML = '\u26A1 Preview still uploading \u2014 use ' +
+                     '<b>Full size on Drive</b> below.';
+    img.insertAdjacentElement('afterend', note);
+    function fail(){ img.classList.add('noimg'); }
+    if (img.complete && img.naturalWidth === 0) fail();
+    img.addEventListener('error', fail);
+  });
+});
+</script>
 </head><body>
 <a href="index.html" style="display:inline-block;background:rgba(157,92,255,.60);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);color:#fff;text-decoration:none;font-weight:800;font-size:1rem;padding:11px 18px;border-radius:22px;border:1px solid rgba(255,255,255,.30);margin:0 0 14px">&#127968; ABSN Study Hub</a>
 
