@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>NUR 234 Mega Quiz</title>
+<style>
+:root{--ink:#f2ecff;--soft:#d6c9f2;--muted:#a99cc9;--line:rgba(255,255,255,.20);
+ --gold:#ffd75e;--sky:#8fd0ff;--green:#5eeaa8;--red:#ff8fa3;--accent:#ffd76a;
+ --card:rgba(14,10,30,.82)}
+*{box-sizing:border-box}
+body{margin:0;font:17px/1.6 'Segoe UI',system-ui,sans-serif;color:var(--ink);
+ background:linear-gradient(165deg,#0d0a1c 0%,#160f33 55%,#0b1424 100%);
+ min-height:100vh}
+.topbar{position:sticky;top:0;z-index:60;padding:9px 14px;
+ background:rgba(10,6,22,.94);border-bottom:1px solid var(--line);
+ backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+header{padding:20px 20px 18px;background:linear-gradient(135deg,rgba(47,107,255,.72),rgba(0,194,199,.62));
+ border-bottom:1px solid var(--line)}
+header .code{font-weight:900;font-size:.95rem;letter-spacing:.09em;text-transform:uppercase;
+ color:var(--accent)}
+header h1{margin:4px 0 5px;font-size:1.55rem;line-height:1.25}
+header p{margin:0;color:var(--soft);font-size:1rem}
+main{max-width:760px;margin:0 auto;padding:16px 15px 120px}
+
+.filters{background:var(--card);border:1px solid var(--line);border-radius:16px;
+ padding:14px 15px;margin:0 0 14px}
+.frow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 10px}
+.frow:last-of-type{margin-bottom:0}
+.flabel{font-size:.9rem;font-weight:900;text-transform:uppercase;letter-spacing:.06em;
+ color:var(--muted);flex:0 0 100%;margin:0 0 2px}
+.flabel em{font-style:normal;font-weight:700;text-transform:none;letter-spacing:0;
+ color:#8f83b5;margin-left:7px;font-size:.86rem}
+.fbtn.dim{opacity:.34;cursor:not-allowed;text-decoration:line-through}
+.fbtn.dim:hover{background:rgba(255,255,255,.09)}
+.poolnote{margin:12px 0 0;font-size:.95rem;color:var(--soft)}
+.poolnote b{color:var(--accent);font-size:1.05rem}
+.fbtn{background:rgba(255,255,255,.09);color:var(--ink);border:1px solid var(--line);
+ border-radius:22px;padding:9px 15px;font:700 .97rem inherit;cursor:pointer}
+.fbtn:hover{background:rgba(143,208,255,.22)}
+.fbtn.active{background:var(--accent);color:#1a1030;font-weight:900;border-color:var(--accent)}
+.fbtn b{font-weight:900;color:var(--gold)}
+.fbtn.active b{color:#1a1030}
+#customCount{width:170px;font:700 .97rem inherit;padding:9px 13px;border-radius:22px;
+ border:1px solid var(--line);background:rgba(255,255,255,.09);color:var(--ink)}
+#customCount::placeholder{color:var(--muted)}
+#customCount:focus{outline:2px solid var(--accent);outline-offset:1px}
+.frow.cnt .fbtn.active{background:var(--gold);color:#2a1f00}
+.startbar{display:flex;gap:10px;align-items:center;margin-top:12px;flex-wrap:wrap}
+.startbtn{flex:1 1 190px;background:linear-gradient(135deg,#7c2aa8,#0e7490);color:#fff;
+ border:0;border-radius:13px;padding:14px;font:900 1.05rem inherit;cursor:pointer}
+.startbtn:hover{filter:brightness(1.12)}
+
+.scorebar{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;
+ font-size:.98rem;color:var(--soft);margin:6px 2px 12px;font-weight:700}
+.scorebar b{color:var(--ink)}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;
+ padding:18px 19px;min-height:220px}
+.qtags{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 10px}
+.tag{font-size:.88rem;font-weight:800;padding:4px 11px;border-radius:20px;
+ background:rgba(255,255,255,.12);color:var(--soft)}
+.tag.type{background:rgba(196,181,253,.28);color:#e2d6ff}
+.tag.wk{background:rgba(94,234,168,.22);color:#a8f5cf}
+.qtext{font-size:1.1rem;font-weight:700;line-height:1.55;margin:4px 0 14px;
+ overflow-wrap:anywhere}
+.opt{display:flex;gap:11px;align-items:flex-start;width:100%;text-align:left;
+ background:rgba(255,255,255,.06);color:var(--ink);border:1px solid var(--line);
+ border-radius:13px;padding:13px 15px;margin:0 0 9px;font:600 1rem inherit;cursor:pointer;
+ line-height:1.5}
+.opt:hover{background:rgba(143,208,255,.16)}
+.opt .box{flex:0 0 auto;width:22px;height:22px;border-radius:6px;
+ border:2px solid rgba(255,255,255,.5);display:flex;align-items:center;
+ justify-content:center;font-weight:900;font-size:.9rem;margin-top:1px}
+.opt.rad .box{border-radius:50%}
+.opt .otxt{flex:1 1 auto;min-width:0;overflow-wrap:anywhere}
+.opt.sel{border-color:var(--sky);background:rgba(143,208,255,.22)}
+.opt.sel .box{background:var(--sky);color:#08131f}
+.opt.correct{border-color:var(--green);background:rgba(94,234,168,.22)}
+.opt.correct .box{background:var(--green);color:#04231a}
+.opt.wrong{border-color:var(--red);background:rgba(255,143,163,.22)}
+.opt.wrong .box{background:var(--red);color:#2a0410}
+.opt.locked{cursor:default}
+.check{margin-top:6px;background:var(--accent);color:#1a1030;border:0;border-radius:12px;
+ padding:12px 20px;font:900 1rem inherit;cursor:pointer}
+.check:hover{filter:brightness(1.1)}
+.verdict{margin-left:12px;font-weight:900;font-size:1rem}
+.verdict.ok{color:#8ff0c8} .verdict.no{color:#ffb3c0}
+.rat{margin-top:14px;padding:13px 15px;border-left:5px solid var(--gold);
+ background:rgba(255,215,94,.13);border-radius:11px;font-size:1rem;line-height:1.6;
+ color:#f6eeff;display:none}
+.rat.show{display:block}
+.rat b{color:#ffe9a8}
+
+.nav{display:flex;justify-content:space-between;gap:10px;margin:14px 0 0;flex-wrap:wrap}
+.nav button{flex:1 1 130px;background:rgba(255,255,255,.13);color:var(--ink);
+ border:1px solid var(--line);border-radius:13px;padding:13px;font:800 1rem inherit;
+ cursor:pointer}
+.nav button:hover{background:rgba(255,255,255,.26)}
+.nav button:disabled{opacity:.4;cursor:default}
+.done{text-align:center;padding:22px 10px}
+.done h2{margin:0 0 8px;font-size:1.4rem;color:var(--accent)}
+.done p{margin:0 0 6px;font-size:1.05rem}
+
+/* ---- floating navigation, matched to the NUR 198 cluster -------------
+   Small pills in a horizontal row at the TOP right, not a stack of full-width
+   buttons at the bottom. She asked for these to look like 198's, and the reason
+   198's work is that they shed their labels as soon as the viewport narrows - at
+   300% zoom the CSS width reads narrow, so what she sees is a row of icons the
+   size of a fingertip rather than a wall of text sitting on the content. */
+#navBtns{position:fixed;top:10px;right:12px;z-index:2147483000;display:flex;gap:7px;
+ align-items:center;touch-action:none;cursor:grab}
+#navBtns.dragging{opacity:.92;cursor:grabbing}
+#navBtns:focus-visible{outline:3px solid var(--accent,#ffd76a);outline-offset:3px}
+#navBtns a,#navBtns button{display:inline-flex;align-items:center;gap:6px;
+ font:800 .95rem 'Segoe UI',system-ui,sans-serif;padding:9px 14px;border-radius:22px;
+ text-decoration:none;cursor:pointer;border:1px solid rgba(255,255,255,.24);
+ box-shadow:0 4px 14px rgba(0,0,0,.5);color:#fff;white-space:nowrap;line-height:1.3;
+ backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+ background:linear-gradient(135deg,#5a2d82,#8e2d6b)}
+#navBtns a:hover,#navBtns button:hover{filter:brightness(1.16)}
+#navBtns .nbQuiz{background:linear-gradient(135deg,#1d4ed8,#2f6bff)}
+#navBtns .nbCast{background:linear-gradient(135deg,#7c2aa8,#b5179e)}
+#navBtns .nbHub{background:linear-gradient(135deg,#0f7d6b,#12b886)}
+@media(max-width:1024px){
+  #navBtns{top:6px;right:6px;gap:5px}
+  #navBtns .nbLabel{display:none}
+  #navBtns a,#navBtns button{padding:9px 12px;font-size:1.15rem;line-height:1}
+}
+@media print{#navBtns{display:none}}
+
+/* ---- NGN item types --------------------------------------------------- */
+.qstem{background:rgba(255,255,255,.07);border-left:5px solid var(--accent);
+ border-radius:0 12px 12px 0;padding:12px 14px;margin:0 0 13px;font-size:1rem;
+ line-height:1.6}
+.qstem h4{margin:0 0 6px;font-size:.94rem;font-weight:900;letter-spacing:.05em;
+ text-transform:uppercase;color:var(--accent)}
+.qstem table{width:100%;border-collapse:collapse;margin:8px 0 0;font-size:.95rem}
+.qstem td,.qstem th{border:1px solid rgba(255,255,255,.22);padding:7px 9px;
+ text-align:left;vertical-align:top}
+.qstem th{background:rgba(255,255,255,.10);font-weight:900}
+.tag.step{background:rgba(143,208,255,.26);color:#d6ecff}
+
+/* bow-tie */
+.bowtie{display:grid;gap:12px;grid-template-columns:1fr;margin:0 0 10px}
+@media(min-width:720px){ .bowtie{grid-template-columns:1fr 1fr 1fr;align-items:start} }
+.btcol h5{margin:0 0 8px;font-size:.95rem;font-weight:900;color:var(--accent);
+ text-align:center}
+.btcol.mid h5{color:var(--gold)}
+.btslot{min-height:52px;border:2px dashed rgba(255,255,255,.32);border-radius:12px;
+ padding:9px 11px;margin:0 0 8px;font-size:.96rem;line-height:1.45;
+ display:flex;align-items:center;justify-content:center;text-align:center;
+ background:rgba(0,0,0,.24)}
+.btslot.filled{border-style:solid;border-color:var(--accent);background:rgba(0,0,0,.42)}
+.btslot.right{border-color:var(--green);background:rgba(94,234,168,.22)}
+.btslot.wrong{border-color:var(--red);background:rgba(255,143,163,.22)}
+.btbank{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+.btopt{background:rgba(255,255,255,.10);border:1px solid var(--line);color:var(--ink);
+ border-radius:12px;padding:10px 13px;font:700 .96rem inherit;cursor:pointer;
+ max-width:100%;text-align:left;line-height:1.4}
+.btopt:hover{background:rgba(143,208,255,.20)}
+.btopt.used{opacity:.35;cursor:default}
+.btbank .bl{flex:0 0 100%;font-weight:900;font-size:.9rem;color:var(--muted);
+ text-transform:uppercase;letter-spacing:.05em;margin:4px 0 0}
+
+/* drop-down cloze */
+.cloze{font-size:1.04rem;line-height:2.1}
+.cloze select{font:800 1rem inherit;padding:7px 10px;border-radius:10px;
+ border:2px solid rgba(255,255,255,.4);background:rgba(0,0,0,.55);color:#fff;
+ margin:0 3px;max-width:100%}
+.cloze select.right{border-color:var(--green);background:rgba(94,234,168,.26)}
+.cloze select.wrong{border-color:var(--red);background:rgba(255,143,163,.26)}
+
+/* matching */
+.match{display:grid;gap:10px;margin:0 0 10px}
+.mrow{display:grid;gap:9px;grid-template-columns:1fr;align-items:center}
+@media(min-width:560px){ .mrow{grid-template-columns:1fr auto} }
+.mleftbox{background:rgba(255,255,255,.08);border:1px solid var(--line);
+ border-radius:12px;padding:11px 13px;font-size:.98rem;line-height:1.45}
+.mrow select{font:800 1rem inherit;padding:10px 12px;border-radius:11px;
+ border:2px solid rgba(255,255,255,.4);background:rgba(0,0,0,.55);color:#fff;
+ min-width:170px;max-width:100%}
+.mrow select.right{border-color:var(--green);background:rgba(94,234,168,.26)}
+.mrow select.wrong{border-color:var(--red);background:rgba(255,143,163,.26)}
+
+/* highlight */
+.hlnote{background:rgba(0,0,0,.34);border:1px solid var(--line);border-radius:13px;
+ padding:13px 15px;margin:0 0 11px;font-size:1rem;line-height:1.85}
+.hltok{cursor:pointer;border-radius:7px;padding:2px 5px;
+ border-bottom:2px dotted rgba(255,255,255,.45)}
+.hltok:hover{background:rgba(143,208,255,.24)}
+.hltok.sel{background:rgba(143,208,255,.34);border-bottom-color:var(--sky)}
+.hltok.right{background:rgba(94,234,168,.34);border-bottom:2px solid var(--green)}
+.hltok.wrong{background:rgba(255,143,163,.34);border-bottom:2px solid var(--red)}
+.hltok.missed{outline:2px dashed var(--green);outline-offset:1px}
+.hlhint{margin:0 0 10px;font-size:.94rem;color:var(--soft);font-style:italic}
+
+/* ---- collapsible side menu ------------------------------------------ */
+#menuBtn{background:rgba(255,255,255,.15);border:1px solid var(--line);color:#fff;
+ border-radius:13px;padding:10px 14px;font:900 .95rem inherit;cursor:pointer;
+ white-space:nowrap;line-height:1}
+#menuBtn:hover{background:rgba(255,255,255,.32)}
+#navBg{position:fixed;inset:0;background:rgba(0,0,0,.62);z-index:99998;opacity:0;
+ pointer-events:none;transition:opacity .2s ease}
+body.nav-open #navBg{opacity:1;pointer-events:auto}
+body.nav-open #navBtns{display:none}
+body.nav-open #skimBtn{display:none}
+#side{position:fixed;top:0;left:0;width:min(88vw,320px);height:100dvh;max-height:100dvh;
+ overflow-y:auto;z-index:99999;transform:translateX(-102%);transition:transform .22s ease;
+ background:rgba(10,6,20,.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+ border-right:1px solid var(--line);box-shadow:6px 0 30px rgba(0,0,0,.65);
+ padding:16px 14px 34px}
+body.nav-open #side{transform:translateX(0)}
+#side .sbrand{font-weight:900;font-size:1.15rem;margin:2px 0 4px;display:block;
+ color:var(--accent)}
+#side .ssub{display:block;font-size:.92rem;color:#d8caf5;margin:0 0 14px}
+#side .shead{font-size:.86rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;
+ color:var(--accent);margin:18px 0 8px}
+#side a.nav,#side button.nav{display:block;width:100%;text-align:left;
+ background:rgba(255,255,255,.09);border:1px solid var(--line);
+ border-left:4px solid rgba(255,255,255,.45);border-radius:12px;padding:12px 14px;
+ margin:0 0 8px;color:#fff;text-decoration:none;font:800 1rem inherit;cursor:pointer}
+#side a.nav:hover,#side button.nav:hover{background:rgba(255,255,255,.22)}
+#side a.nav.on{background:rgba(255,255,255,.26);border-left-color:var(--accent)}
+#side .nsub{display:block;font-weight:600;font-size:.88rem;opacity:.9;margin-top:3px;
+ line-height:1.45}
+#side .sclose{display:block;width:100%;margin:4px 0 10px;background:rgba(255,255,255,.14);
+ border:1px solid var(--line);color:#fff;border-radius:12px;padding:11px;
+ font:900 1rem inherit;cursor:pointer}
+#side .sclose:hover{background:rgba(255,255,255,.3)}
+@media print{#side,#navBg,#menuBtn{display:none !important}}
+</style>
+<link rel="stylesheet" href="absn-adhd-enhanced.css">
+<script defer src="absn-adhd-enhanced.js"></script>
+</head><body>
+
+<div class="topbar">
+  <button type="button" id="menuBtn" aria-expanded="false" aria-controls="side">&#9776; Menu</button>
+</div>
+
+<header>
+  <div class="code">&#129328; NUR 234</div>
+  <h1>&#129504; Mega Quiz</h1>
+  <p>115 questions, one at a time. Answer, check, read the why. Filter by exam or week.</p>
+</header>
+
+<main>
+  <div class="filters">
+    <div class="frow"><span class="flabel">Exam <em>pick as many as you like</em></span><button type="button" class="fbtn active" aria-pressed="true" data-k="exam" data-v="all">All</button><button type="button" class="fbtn" aria-pressed="false" data-k="exam" data-v="Exam 1">Exam 1</button><button type="button" class="fbtn" aria-pressed="false" data-k="exam" data-v="Exam 2">Exam 2</button><button type="button" class="fbtn" aria-pressed="false" data-k="exam" data-v="Exam 3">Exam 3</button><button type="button" class="fbtn" aria-pressed="false" data-k="exam" data-v="Exam 4">Exam 4</button><button type="button" class="fbtn" aria-pressed="false" data-k="exam" data-v="Final">Final</button></div>
+    <div class="frow"><span class="flabel">Topic <em>pick as many as you like</em></span><button type="button" class="fbtn active" aria-pressed="true" data-k="topic" data-v="all">All</button><button type="button" class="fbtn" aria-pressed="false" data-k="topic" data-v="Reproductive Life Planning…" data-full="Week 1 - Reproductive Life Planning &amp; Contraception" title="Week 1 - Reproductive Life Planning &amp; Contraception">🌸 <b>W1</b> &middot; Reproductive Life Planning…</button><button type="button" class="fbtn" aria-pressed="false" data-k="topic" data-v="Conception, Fetal Development…" data-full="Week 2 - Conception, Fetal Development &amp; Placental Function" title="Week 2 - Conception, Fetal Development &amp; Placental Function">🌸 <b>W2</b> &middot; Conception, Fetal Development…</button><button type="button" class="fbtn" aria-pressed="false" data-k="topic" data-v="Physiologic &amp; Psychological…" data-full="Week 3 - Physiologic &amp; Psychological Changes of Pregnancy" title="Week 3 - Physiologic &amp; Psychological Changes of Pregnancy">🤰 <b>W3</b> &middot; Physiologic & Psychological…</button><button type="button" class="fbtn" aria-pressed="false" data-k="topic" data-v="Prenatal Assessment…" data-full="Week 4 - Prenatal Assessment &amp; Antepartum Fetal Surveillance" title="Week 4 - Prenatal Assessment &amp; Antepartum Fetal Surveillance">🤰 <b>W4</b> &middot; Prenatal Assessment…</button><button type="button" class="fbtn" aria-pressed="false" data-k="topic" data-v="Nutrition &amp; Health Promotion…" data-full="Week 5 - Nutrition &amp; Health Promotion in Pregnancy" title="Week 5 - Nutrition &amp; Health Promotion in Pregnancy">🤰 <b>W5</b> &middot; Nutrition & Health Promotion…</button><button type="button" class="fbtn" aria-pressed="false" data-k="topic" data-v="Labor &amp; Birth" data-full="Week 6 - Labor &amp; Birth" title="Week 6 - Labor &amp; Birth">👶 <b>W6</b> &middot; Labor & Birth</button><button type="button" class="fbtn" aria-pressed="false" data-k="topic" data-v="Fetal Monitoring, Comfort…" data-full="Week 7 - Fetal Monitoring, Comfort &amp; Analgesia in Labor" title="Week 7 - Fetal Monitoring, Comfort &amp; Analgesia in Labor">👶 <b>W7</b> &middot; Fetal Monitoring, Comfort…</button><button type="button" class="fbtn" aria-pressed="false" data-k="topic" data-v="Early Pregnancy Bleeding…" data-full="Week 8 - Early Pregnancy Bleeding &amp; Ectopic Pregnancy" title="Week 8 - Early Pregnancy Bleeding &amp; Ectopic Pregnancy">🤰 <b>W8</b> &middot; Early Pregnancy Bleeding…</button><button type="button" class="fbtn" aria-pressed="false" data-k="topic" data-v="Hypertensive Disorders…" data-full="Week 9 - Hypertensive Disorders &amp; Magnesium Sulfate" title="Week 9 - Hypertensive Disorders &amp; Magnesium Sulfate">🫀 <b>W9</b> &middot; Hypertensive Disorders…</button><button type="button" class="fbtn" aria-pressed="false" data-k="topic" data-v="Dysfunctional Labor, Uterine…" data-full="Week 10 - Dysfunctional Labor, Uterine Rupture &amp; Obstetric Drug Math" title="Week 10 - Dysfunctional Labor, Uterine Rupture &amp; Obstetric Drug Math">👶 <b>W10</b> &middot; Dysfunctional Labor, Uterine…</button><button type="button" class="fbtn" aria-pressed="false" data-k="topic" data-v="Postpartum Assessment…" data-full="Week 11 - Postpartum Assessment &amp; Hemorrhage" title="Week 11 - Postpartum Assessment &amp; Hemorrhage">🍼 <b>W11</b> &middot; Postpartum Assessment…</button><button type="button" class="fbtn" aria-pressed="false" data-k="topic" data-v="The Normal Newborn…" data-full="Week 12 - The Normal Newborn &amp; Thermoregulation" title="Week 12 - The Normal Newborn &amp; Thermoregulation">🍼 <b>W12</b> &middot; The Normal Newborn…</button><button type="button" class="fbtn" aria-pressed="false" data-k="topic" data-v="Newborn Feeding" data-full="Week 13 - Newborn Feeding" title="Week 13 - Newborn Feeding">🍼 <b>W13</b> &middot; Newborn Feeding</button><button type="button" class="fbtn" aria-pressed="false" data-k="topic" data-v="The High-Risk Newborn…" data-full="Week 14 - The High-Risk Newborn &amp; Course Review" title="Week 14 - The High-Risk Newborn &amp; Course Review">🍼 <b>W14</b> &middot; The High-Risk Newborn…</button></div>
+    <div class="frow"><span class="flabel">Focus</span><button type="button" class="fbtn active" aria-pressed="true" data-k="focus" data-v="all">All</button><button type="button" class="fbtn" aria-pressed="false" data-k="focus" data-v="pharm">&#128138; Pharmacology (35)</button></div>
+    <div class="frow"><span class="flabel">Style <em>pick as many as you like</em></span><button type="button" class="fbtn active" aria-pressed="true" data-k="style" data-v="all">All</button><button type="button" class="fbtn" aria-pressed="false" data-k="style" data-v="single">&#9679; One answer (70)</button><button type="button" class="fbtn" aria-pressed="false" data-k="style" data-v="sata">&#9745;&#65039; Select all that apply (20)</button><button type="button" class="fbtn" aria-pressed="false" data-k="style" data-v="dropdown">&#9662; Drop-down cloze (8)</button><button type="button" class="fbtn" aria-pressed="false" data-k="style" data-v="matching">&#128279; Matching (5)</button><button type="button" class="fbtn" aria-pressed="false" data-k="style" data-v="highlight">&#128396;&#65039; Highlight the cues (5)</button><button type="button" class="fbtn" aria-pressed="false" data-k="style" data-v="bowtie">&#129466; Bow-tie (7)</button></div>
+    <div class="frow"><span class="flabel">Thinking step <em>what the question makes you do</em></span><button type="button" class="fbtn active" aria-pressed="true" data-k="step" data-v="all">All</button><button type="button" class="fbtn" aria-pressed="false" data-k="step" data-v="recognize" data-full="NCSBN clinical judgment: Recognise cues" title="NCSBN clinical judgment: Recognise cues">&#128064; Recognise cues (7)</button><button type="button" class="fbtn" aria-pressed="false" data-k="step" data-v="analyze" data-full="NCSBN clinical judgment: Analyse cues" title="NCSBN clinical judgment: Analyse cues">&#129504; Analyse cues (6)</button><button type="button" class="fbtn" aria-pressed="false" data-k="step" data-v="prioritize" data-full="NCSBN clinical judgment: Prioritise hypotheses" title="NCSBN clinical judgment: Prioritise hypotheses">&#127919; Prioritise hypotheses (6)</button><button type="button" class="fbtn" aria-pressed="false" data-k="step" data-v="solutions" data-full="NCSBN clinical judgment: Generate solutions" title="NCSBN clinical judgment: Generate solutions">&#128161; Generate solutions (4)</button><button type="button" class="fbtn" aria-pressed="false" data-k="step" data-v="action" data-full="NCSBN clinical judgment: Take action" title="NCSBN clinical judgment: Take action">&#129658; Take action (4)</button><button type="button" class="fbtn" aria-pressed="false" data-k="step" data-v="evaluate" data-full="NCSBN clinical judgment: Evaluate outcomes" title="NCSBN clinical judgment: Evaluate outcomes">&#128200; Evaluate outcomes (4)</button></div>
+    <div class="frow cnt"><span class="flabel">How many questions</span><button type="button" class="fbtn active" aria-pressed="true" data-k="count" data-v="all">All</button><button type="button" class="fbtn" aria-pressed="false" data-k="count" data-v="10">10</button><button type="button" class="fbtn" aria-pressed="false" data-k="count" data-v="20">20</button><button type="button" class="fbtn" aria-pressed="false" data-k="count" data-v="30">30</button><button type="button" class="fbtn" aria-pressed="false" data-k="count" data-v="50">50</button>
+      <input type="number" id="customCount" min="1" max="115" placeholder="or type a number"
+        aria-label="Choose your own number of questions">
+    </div>
+    <p class="poolnote">Matching your filters: <b id="poolcount">115</b> questions.
+       Greyed-out buttons have nothing left in them.</p>
+    <div class="startbar">
+      <button type="button" class="startbtn" id="shuffle">&#127922; Shuffle &amp; start</button>
+      <button type="button" class="startbtn" id="restart"
+        style="background:linear-gradient(135deg,#334155,#1e293b)">&#8635; In order</button>
+    </div>
+  </div>
+
+  <div class="scorebar" id="scorebar"></div>
+  <div class="card" id="card"></div>
+  <div class="nav">
+    <button type="button" id="prev">&larr; Previous</button>
+    <button type="button" id="next">Next &rarr;</button>
+  </div>
+</main>
+
+<div id="navBtns"><button type="button" class="nbBack" title="Back to NUR 234" onclick="hop('nur234.html',true)">&larr;<span class="nbLabel">Back to NUR 234</span></button><button type="button" class="nbHub" title="ABSN Study Hub" onclick="hop('index.html',true)">&#127968;<span class="nbLabel">ABSN Study Hub</span></button></div>
+<div id="navBg"></div>
+<nav id="side" aria-label="Site menu" aria-hidden="true">
+  <span class="sbrand">NUR 234 Mega Quiz</span>
+  <span class="ssub">One question at a time</span>
+  <button type="button" class="sclose">&#10005; Close this menu</button>
+  <div class="shead">On this page</div>
+  <div id="sideJumps"></div>
+  <div class="shead">Courses</div>
+  <a class="nav" href="nur234.html">&#129328; NUR 234<span class="nsub">Maternal &amp; newborn</span></a>
+  <a class="nav" href="nur235.html">&#129681; NUR 235<span class="nsub">Nursing care of the child</span></a>
+  <a class="nav" href="nur258.html">&#129658; NUR 258<span class="nsub">Adult health II</span></a>
+  <div class="shead">Quizzes</div>
+  <a class="nav on" href="nur234-quiz.html">&#129504; NUR 234 Mega Quiz<span class="nsub">115 questions</span></a>
+  <a class="nav" href="nur235-quiz.html">&#129504; NUR 235 Mega Quiz<span class="nsub">117 questions</span></a>
+  <a class="nav" href="nur258-quiz.html">&#129504; NUR 258 Mega Quiz<span class="nsub">117 questions</span></a>
+  <a class="nav" href="pharmacology-new.html">&#128138; Pharmacology<span class="nsub">Every drug question from all three courses</span></a>
+  <div class="shead">Listen</div>
+  <a class="nav" href="nur234-podcasts.html">&#127911; NUR 234 Podcasts<span class="nsub">5 episodes</span></a>
+  <a class="nav" href="nur235-podcasts.html">&#127911; NUR 235 Podcasts<span class="nsub">1 full episode + shorts</span></a>
+  <a class="nav" href="nur258-podcasts.html">&#127911; NUR 258 Podcasts<span class="nsub">6 exam episodes + 15 lectures</span></a>
+  <div class="shead">Reference</div>
+  <a class="nav" href="../drug-guide/index.html" target="_blank" rel="noopener">&#128138; Drug Guide<span class="nsub">A card per drug &middot; 981 drugs</span></a>
+  <a class="nav" href="index.html">&#127968; ABSN Study Hub<span class="nsub">Everything, all courses</span></a>
+</nav>
+<script type="application/json" id="qbank">{"1": [{"q": "A client who uses a diaphragm calls reporting a temperature of 102.4 F, vomiting, dizziness, and a diffuse sunburn-like rash. She states the diaphragm has been in place since last night. Which instruction does the nurse give first?", "type": "single", "opts": ["Take the leftover antibiotic in her medicine cabinet", "Remove the diaphragm now, then come in to be seen", "Drink extra fluids and recheck her temperature in 2 hours", "Schedule a refitting appointment for later this week"], "ans": [1], "why": "Suspected toxic shock with a barrier device means <b>remove the device first<\/b>, then treat. Antibiotics are needed but come after the source is out, and no self-medicating with leftover drugs.", "topic": "Reproductive Life Planning…", "icon": "🌸", "topicFull": "Reproductive Life Planning & Contraception"}, {"q": "A nurse reviews warning signs with a client starting combined oral contraceptives. Which findings should the client report immediately? Select all that apply.", "type": "sata", "opts": ["Severe pain in one calf", "Mild breast tenderness in the first cycle", "Sudden severe headache", "Chest pain with shortness of breath", "A 2 lb weight gain over one month"], "ans": [0, 2, 3], "why": "ACHES = <b>A<\/b>bdominal pain, <b>C<\/b>hest pain or dyspnea, <b>H<\/b>eadache (severe), <b>E<\/b>ye or vision change, <b>S<\/b>evere leg pain. Mild breast tenderness and small weight changes are expected adaptation, not thromboembolic warning signs.", "topic": "Reproductive Life Planning…", "icon": "🌸", "topicFull": "Reproductive Life Planning & Contraception"}, {"q": "A client returns for her depot medroxyprogesterone acetate injection. Which statement indicates a need for further teaching?", "type": "single", "opts": ["I need my next shot in about 11 to 13 weeks", "I will rub the site afterward so it absorbs better", "It may take up to 18 months to get pregnant after I stop", "I should keep up my calcium and weight-bearing exercise"], "ans": [1], "why": "Massaging the site <b>speeds absorption and shortens the coverage period<\/b>, so the client must not rub it. The 11 to 13 week interval and the delayed return of fertility up to 18 months are both correct.", "topic": "Reproductive Life Planning…", "icon": "🌸", "topicFull": "Reproductive Life Planning & Contraception", "pharm": 1}, {"q": "A client who is exclusively breastfeeding her 3-week-old asks about contraception. Which method does the nurse identify as most appropriate?", "type": "single", "opts": ["Combined oral contraceptive pill", "Contraceptive vaginal ring", "Progestin-only pill", "Combined transdermal patch"], "ans": [2], "why": "Breastfeeding calls for the <b>progestin-only pill<\/b>, the lactation-safe oral option that can start immediately after birth. The vaginal ring is the trap: it is not estrogen-free, it delivers estrogen plus progestin just like the pill and patch.", "topic": "Reproductive Life Planning…", "icon": "🌸", "topicFull": "Reproductive Life Planning & Contraception", "pharm": 1}, {"q": "Four clients ask about an intrauterine device. Which client has a true contraindication to IUD placement?", "type": "single", "opts": ["A client who smokes one pack of cigarettes daily", "A client with fibroids distorting the uterine cavity", "A client with chronic hypertension controlled on labetalol", "A client with a history of deep vein thrombosis"], "ans": [1], "why": "A <b>structural uterine anomaly<\/b>, such as a congenital malformation or fibroids distorting the cavity, risks malposition, expulsion and perforation. Smoking, hypertension and VTE history restrict <b>estrogen<\/b> methods; those two lists are different and must not be swapped.", "topic": "Reproductive Life Planning…", "icon": "🌸", "topicFull": "Reproductive Life Planning & Contraception", "pharm": 1}, {"q": "A nurse triages four phone messages. Which client does the nurse call back first?", "type": "single", "opts": ["A client with an IUD in place who reports a positive home pregnancy test", "A client who forgot one combined pill and took two the next morning", "A client whose vaginal ring was out for 2 hours during a shower", "A client reporting spotting in the third month of a progestin-only pill"], "ans": [0], "why": "Pregnancy with an IUD in place is <b>high risk for ectopic<\/b> and must be reported immediately. The ring may be out up to 3 hours without loss of protection, missed-pill catch-up dosing is standard, and breakthrough spotting on a progestin-only pill is expected.", "topic": "Reproductive Life Planning…", "icon": "🌸", "topicFull": "Reproductive Life Planning & Contraception"}, {"type": "dropdown", "week": "1", "step": "analyze", "topic": "Reproductive Life Planning…", "stemTitle": "Contraceptive counseling", "stem": "<p>A 38-year-old client who smokes half a pack of cigarettes per day asks the nurse about starting a hormonal contraceptive method.<\/p>", "text": "This client should avoid {1} because of her age and smoking history, and if she instead chooses the progestin-only pill, she will need a backup method any time a dose is taken more than {2} late.", "gaps": [{"options": ["combined oral contraceptives", "the copper IUD", "external condoms"], "answer": 0}, {"options": ["1 hour", "3 hours", "12 hours"], "answer": 1}], "why": "Combined oral contraceptives contain estrogen, which raises clot and stroke risk in smokers older than 35, so this client should avoid them. The progestin-only pill relies on thickened cervical mucus that wears off quickly, so a backup method is needed whenever a dose is more than 3 hours late. The copper IUD and condoms are not linked to the age-plus-smoking contraindication that applies to estrogen-containing methods. A 1-hour or 12-hour window would either be overly strict or would miss the point at which mucus effectiveness has already declined.", "src": "ATI Maternal-Newborn ch 1", "icon": "🌸", "topicFull": "Reproductive Life Planning & Contraception"}, {"type": "sata", "week": "1", "step": "solutions", "topic": "Reproductive Life Planning…", "q": "A nurse is teaching a client about barrier contraceptive methods. Which instructions should the nurse include?", "opts": ["Remove the diaphragm within 24 hours of insertion.", "Leave the contraceptive sponge in place no longer than 30 hours total.", "Replace the cervical cap every 5 years.", "Use spermicide no more than twice a day to lower the risk of mucosal irritation.", "Have the diaphragm refitted after a weight change of about 10 lb (4.5 kg).", "The cervical cap may stay in place for up to 7 days."], "ans": [0, 1, 3, 4], "why": "A diaphragm may go in as much as 6 hours ahead of intercourse, and has to come out by the 24-hour mark, and the contraceptive sponge should not stay in longer than 30 hours total because toxic shock syndrome risk rises after 24 hours. Spermicide used more than twice daily raises the risk of mucosal lesions, and a 4.5 kg weight change means the diaphragm needs refitting for a proper seal. The cervical cap is replaced every 2 years, not 5, and its maximum wear time is 48 hours, not 7 days, so those two statements are incorrect teaching.", "src": "ATI Maternal-Newborn ch 1", "icon": "🌸", "topicFull": "Reproductive Life Planning & Contraception"}], "2": [{"q": "A client at 6 weeks of gestation is upset that the nurse could not find the fetal heartbeat with a Doppler. Which response is accurate?", "type": "single", "opts": ["Heart tones are usually audible by Doppler at 10 to 12 weeks", "Heart tones should have been audible by 4 weeks, so an ultrasound is needed today", "Heart tones are not audible by any method until quickening at 16 weeks", "Heart tones are audible only after the lungs mature at 34 weeks"], "ans": [0], "why": "Doppler detects fetal heart tones at <b>10 to 12 weeks<\/b>, so absence at 6 weeks is expected. Four weeks is a standing distractor, and the other options confuse the quickening and lung maturity numbers with the Doppler number.", "topic": "Conception, Fetal Development…", "icon": "🌸", "topicFull": "Conception, Fetal Development & Placental Function"}, {"q": "A nursing student asks which substances the placenta itself produces. Which hormones does the nurse identify? Select all that apply.", "type": "sata", "opts": ["Human chorionic gonadotropin", "Human placental lactogen", "Surfactant", "Progesterone", "Follicle-stimulating hormone"], "ans": [0, 1, 3], "why": "The placenta transports oxygen and nutrients and secretes <b>hCG, hPL, estrogen and progesterone<\/b>. Surfactant is made by fetal lung cells and FSH comes from the anterior pituitary, not the placenta.", "topic": "Conception, Fetal Development…", "icon": "🌸", "topicFull": "Conception, Fetal Development & Placental Function", "pharm": 1}, {"q": "A client at 5 weeks of gestation asks whether her medications could harm the baby. Which statement reflects the period of greatest risk for major structural defects?", "type": "single", "opts": ["The last 4 weeks before birth, when the fetus gains the most weight", "Approximately weeks 3 through 8, during organogenesis", "The second trimester, once quickening begins", "Only after 34 weeks, when the lungs finish maturing"], "ans": [1], "why": "The embryonic period of roughly <b>weeks 3 to 8 is organogenesis<\/b> and the peak window of teratogen vulnerability; the fetal period begins at week 9. Later exposures may affect growth and function but rarely cause major structural malformations.", "topic": "Conception, Fetal Development…", "icon": "🌸", "topicFull": "Conception, Fetal Development & Placental Function"}, {"q": "A nurse reviews four clients. Which client does the nurse report to the provider first?", "type": "single", "opts": ["A client at 9 weeks whose serum hCG has fallen by half over 48 hours", "A client at 18 weeks reporting light fluttering low in the abdomen", "A client at 10 weeks reporting nausea on waking", "A client at 8 weeks reporting urinary frequency"], "ans": [0], "why": "hCG normally <b>peaks at 8 to 10 weeks<\/b>, so a falling level at 9 weeks suggests pregnancy loss and needs immediate evaluation. Quickening at 18 weeks, nausea and urinary frequency are all expected findings.", "topic": "Conception, Fetal Development…", "icon": "🌸", "topicFull": "Conception, Fetal Development & Placental Function"}, {"q": "A nurse teaches about early pregnancy events. Which statement is correct?", "type": "single", "opts": ["Fertilization occurs in the uterine fundus and implantation follows within 24 hours", "Fertilization occurs in the ampulla of the fallopian tube and implantation occurs 6 to 10 days later", "Fertilization occurs in the ovary and implantation occurs at 3 weeks", "Fertilization occurs in the cervix and implantation occurs at 14 days"], "ans": [1], "why": "Fertilization takes place in the <b>outer third, or ampulla<\/b>, of the tube; the zygote travels 3 to 5 days and implants <b>6 to 10 days<\/b> after fertilization. Implantation within 12 to 24 hours would signal an ectopic or otherwise abnormal implantation.", "topic": "Conception, Fetal Development…", "icon": "🌸", "topicFull": "Conception, Fetal Development & Placental Function"}, {"q": "A couple has been unable to conceive after 14 months. Both partners are 32 years old and healthy. Which diagnostic study does the nurse anticipate first?", "type": "single", "opts": ["Hysterosalpingography", "Diagnostic laparoscopy", "Semen analysis", "Endometrial biopsy"], "ans": [2], "why": "The workup starts with <b>semen analysis<\/b> because it is the cheapest and least invasive test. Hysterosalpingography follows and requires screening for iodinated contrast allergy first; laparoscopy is invasive and far later in the sequence.", "topic": "Conception, Fetal Development…", "icon": "🌸", "topicFull": "Conception, Fetal Development & Placental Function"}, {"type": "matching", "week": "2", "step": "recognize", "topic": "Conception, Fetal Development…", "stem": "<p>Match each finding to the category of pregnancy sign it represents.<\/p>", "pairs": [{"left": "Chadwick sign (bluish-purple discoloration of the cervix and vagina)", "answer": 1}, {"left": "Fetal heart tones auscultated by Doppler", "answer": 2}, {"left": "Amenorrhea with breast tenderness", "answer": 0}, {"left": "Fetal movement palpated by an experienced examiner", "answer": 2}, {"left": "Braxton Hicks contractions", "answer": 1}], "right": ["Presumptive sign", "Probable sign", "Positive sign", "Postpartum finding", "Diagnostic sign of true labor", "A finding unrelated to pregnancy"], "why": "Chadwick sign and Braxton Hicks contractions are probable signs caused by physical changes to the uterus and cervix, but they can also be explained by other conditions such as pelvic congestion or tumors, so they do not confirm pregnancy alone. Fetal heart tones and fetal movement palpated by an experienced examiner are positive signs because nothing else can explain them. Amenorrhea and breast tenderness are presumptive signs, the least reliable category, since fatigue, stress, or other conditions can cause them too.", "src": "ATI Maternal-Newborn ch 3", "icon": "🌸", "topicFull": "Conception, Fetal Development & Placental Function"}], "3": [{"q": "A nurse assesses a client who believes she is pregnant. Which findings are positive signs of pregnancy? Select all that apply.", "type": "sata", "opts": ["Fetal heart tones heard by the examiner", "Amenorrhea for 10 weeks", "Fetal outline visualized on ultrasound", "A bluish discoloration of the cervix", "Fetal movement palpated by the nurse"], "ans": [0, 2, 4], "why": "Only <b>three findings prove a fetus exists<\/b>: audible fetal heart tones, visualization on ultrasound, and fetal movement felt by an examiner. Amenorrhea is presumptive and Chadwick sign is probable, because neither is produced only by pregnancy.", "topic": "Physiologic & Psychological…", "icon": "🤰", "topicFull": "Physiologic & Psychological Changes of Pregnancy"}, {"q": "A client at 34 weeks of gestation becomes pale, diaphoretic and lightheaded while lying flat for an examination. Her BP is 86/52. Which action does the nurse take first?", "type": "single", "opts": ["Turn her onto her left side", "Administer oxygen by face mask", "Obtain a 12-lead electrocardiogram", "Increase the IV infusion rate"], "ans": [0], "why": "This is supine hypotensive syndrome from the uterus compressing the vena cava, and <b>turning her to the left lateral position<\/b> restores venous return immediately. Oxygen and fluids may follow, but repositioning fixes the cause and costs nothing.", "topic": "Physiologic & Psychological…", "icon": "🤰", "topicFull": "Physiologic & Psychological Changes of Pregnancy"}, {"q": "A client gives birth at 38 weeks and 2 days of gestation. Using ACOG definitions, how does the nurse document this birth?", "type": "single", "opts": ["Preterm", "Early term", "Full term", "Late term"], "ans": [1], "why": "ACOG defines <b>early term as 37 0/7 through 38 6/7<\/b> weeks, full term as 39 0/7 through 40 6/7, late term as 41 0/7 through 41 6/7, and post-term at 42 0/7 or beyond. Calling 38 2/7 full term is the common error.", "topic": "Physiologic & Psychological…", "icon": "🤰", "topicFull": "Physiologic & Psychological Changes of Pregnancy"}, {"q": "A provider documents softening of the lower uterine segment in a client at 9 weeks of gestation. How does the nurse classify this finding?", "type": "single", "opts": ["A presumptive sign, because the client reports it", "A probable sign, because the examiner observes it", "A positive sign, because it confirms a fetus", "A danger sign requiring immediate ultrasound"], "ans": [1], "why": "Hegar sign is <b>probable<\/b>: the examiner observes it, but a non-pregnant condition could also produce it. Presumptive signs are subjective and reported by the client, and only fetal heart tones, ultrasound, or palpated fetal movement are positive.", "topic": "Physiologic & Psychological…", "icon": "🤰", "topicFull": "Physiologic & Psychological Changes of Pregnancy"}, {"q": "A client is pregnant now. She previously delivered twins at 38 weeks who are both alive and well, and had a miscarriage at 11 weeks. How does the nurse record her parity?", "type": "single", "opts": ["Para 1", "Para 2", "Para 3", "Para 0"], "ans": [0], "why": "Parity counts <b>pregnancies carried to 20 weeks or beyond, not babies<\/b>, so a twin birth at term is para 1. The miscarriage at 11 weeks did not reach 20 weeks and does not add to parity, though a stillbirth would count.", "topic": "Physiologic & Psychological…", "icon": "🤰", "topicFull": "Physiologic & Psychological Changes of Pregnancy"}, {"q": "A nurse reviews vital signs on four clients in the prenatal clinic. Which finding requires follow-up first?", "type": "single", "opts": ["A client at 36 weeks with a BP of 86/50", "A client at 20 weeks whose BP has fallen from her first-trimester baseline", "A client at 32 weeks whose pulse is 12 beats/min above her baseline", "A client at 28 weeks with a hemoglobin of 11.2 g/dL"], "ans": [0], "why": "Blood pressure normally trends <b>down in the first two trimesters and back to baseline at term<\/b>, so hypotension at 36 weeks is unexpected. A pulse rise of 10 to 15/min by about 32 weeks and mild dilutional hemoglobin changes are expected.", "topic": "Physiologic & Psychological…", "icon": "🤰", "topicFull": "Physiologic & Psychological Changes of Pregnancy"}, {"type": "bowtie", "week": "3", "step": "prioritize", "topic": "Physiologic & Psychological…", "stemTitle": "Prenatal visit, 34 weeks gestation", "stem": "<p>The client is lying supine on the exam table for a nonstress test when she suddenly reports dizziness and nausea. <b>BP drops from 118/72 to 88/54 mm Hg<\/b>, pulse is 110/min, and her skin is pale and diaphoretic. Fetal heart rate is 150/min with moderate variability.<\/p>", "cond": ["Aortocaval compression (supine hypotension syndrome)", "Anaphylactic reaction", "Preeclampsia with severe features", "Amniotic fluid embolism"], "actions": ["Reposition the client to the left lateral side", "Administer intramuscular epinephrine", "Recheck blood pressure after repositioning", "Prepare for emergent cesarean birth", "Continue the nonstress test with the client supine", "Elevate the head of the bed to high Fowler's while remaining supine"], "params": ["Blood pressure", "Fetal heart rate", "Urine protein", "Deep tendon reflexes", "Skin color and diaphoresis", "Serum creatinine"], "answer": {"cond": [0], "action": [0, 2], "param": [0, 1]}, "why": "After about 20 weeks gestation, lying supine lets the gravid uterus compress the inferior vena cava and aorta, dropping venous return and blood pressure; repositioning to the left lateral side relieves the compression and is the priority action. Anaphylaxis and amniotic fluid embolism cause different findings (hives or sudden dyspnea and coagulopathy), and preeclampsia causes hypertension, not a sudden hypotensive drop, so these are not the best explanation here. After repositioning, the nurse rechecks blood pressure and fetal heart rate to confirm the compression has resolved for both mother and fetus; continuing the test supine or elevating the head while still supine would not relieve the compression.", "src": "StatPearls, \"Aortocaval Compression Syndrome,\" https://www.ncbi.nlm.nih.gov/books/NBK430759/", "icon": "🤰", "topicFull": "Physiologic & Psychological Changes of Pregnancy"}, {"type": "dropdown", "week": "3", "step": "analyze", "topic": "Physiologic & Psychological…", "stemTitle": "Prenatal labs, 30 weeks gestation", "stem": "<p>CBC results: <b>Hgb 10.8 g/dL, Hct 32%<\/b>. The client reports mild fatigue but no other symptoms.<\/p>", "text": "This drop in hemoglobin and hematocrit most likely reflects {1}, and the nurse should also recognize that pregnancy's hypercoagulable state raises this client's venous thromboembolism risk by up to {2} compared to the nonpregnant state.", "gaps": [{"options": ["physiologic (dilutional) anemia of pregnancy", "acute blood loss anemia", "hemolytic anemia"], "answer": 0}, {"options": ["twofold", "threefold", "fivefold"], "answer": 2}], "why": "Red blood cell mass rises roughly 30% during pregnancy, but plasma volume expands even more, producing an expected physiologic dilutional anemia rather than a pathologic process like acute blood loss or hemolysis. Rising levels of clotting factors during pregnancy create a hypercoagulable state that can raise venous thromboembolism risk as much as fivefold above the nonpregnant baseline. A twofold or threefold estimate understates the risk increase described in the source.", "src": "StatPearls, \"Physiology, Maternal Changes,\" https://www.ncbi.nlm.nih.gov/books/NBK539766/", "icon": "🤰", "topicFull": "Physiologic & Psychological Changes of Pregnancy"}], "4": [{"q": "A client is pregnant. She has one child born at 39 weeks, one child born at 34 weeks, and a pregnancy loss at 10 weeks. Both children are living. What is her GTPAL?", "type": "single", "opts": ["4-1-1-1-2", "3-1-1-1-2", "4-2-0-1-2", "4-1-1-0-3"], "ans": [0], "why": "Gravida counts <b>all pregnancies including the current one<\/b>, giving 4. Term (37 weeks or more) is 1, preterm (20 to under 37 weeks) is 1, abortions (under 20 weeks) is 1, and living children is 2.", "topic": "Prenatal Assessment…", "icon": "🤰", "topicFull": "Prenatal Assessment & Antepartum Fetal Surveillance"}, {"q": "A nurse reviews four messages from prenatal clients. Which client does the nurse assess first?", "type": "single", "opts": ["A client at 34 weeks reporting a severe headache with spots in her vision", "A client at 9 weeks reporting nausea most mornings", "A client at 30 weeks reporting ankle swelling by the end of the day", "A client at 36 weeks reporting low back ache after a long walk"], "ans": [0], "why": "A third-trimester headache with visual disturbance points to <b>preeclampsia<\/b> and requires immediate BP, proteinuria assessment and provider notification. First-trimester nausea, dependent ankle edema and activity-related back pain are all expected discomforts.", "topic": "Prenatal Assessment…", "icon": "🤰", "topicFull": "Prenatal Assessment & Antepartum Fetal Surveillance"}, {"q": "A nurse performs a nonstress test on a client at 34 weeks. Which tracing does the nurse document as reactive?", "type": "single", "opts": ["Two accelerations of 15 bpm lasting 15 seconds each within 20 minutes", "One acceleration of 20 bpm lasting 30 seconds within 20 minutes", "Two accelerations of 10 bpm lasting 10 seconds each within 20 minutes", "Three decelerations to 100 bpm with contractions within 20 minutes"], "ans": [0], "why": "A reactive NST at 32 weeks or later requires <b>at least 2 accelerations of 15 bpm or more lasting 15 seconds or more within 20 minutes<\/b>. One acceleration does not meet criteria, 10 by 10 falls short, and decelerations are not accelerations.", "topic": "Prenatal Assessment…", "icon": "🤰", "topicFull": "Prenatal Assessment & Antepartum Fetal Surveillance"}, {"q": "A nurse teaches a client at 26 weeks which symptoms to report immediately. Which findings does the nurse include? Select all that apply.", "type": "sata", "opts": ["Sudden swelling of the face and fingers", "Mild ankle edema that resolves overnight", "Epigastric pain", "Decreased fetal movement", "Occasional painless irregular tightening that stops with rest"], "ans": [0, 2, 3], "why": "Sudden facial or finger swelling, epigastric pain and decreased fetal movement are <b>reportable danger signs<\/b> suggesting preeclampsia or fetal compromise. Dependent ankle edema and Braxton Hicks contractions that resolve with rest are expected.", "topic": "Prenatal Assessment…", "icon": "🤰", "topicFull": "Prenatal Assessment & Antepartum Fetal Surveillance"}, {"q": "A contraction stress test is performed and the report reads negative. How does the nurse interpret this result?", "type": "single", "opts": ["Late decelerations occurred with most contractions, so birth is needed", "No late decelerations occurred, which is a reassuring result", "The fetus did not move, so the test must be repeated", "Contractions could not be produced, so the test failed"], "ans": [1], "why": "The CST <b>reads backward from every other test: negative is the good result<\/b>, meaning no late decelerations. A positive CST shows late decelerations with 50% or more of contractions and indicates uteroplacental insufficiency.", "topic": "Prenatal Assessment…", "icon": "🤰", "topicFull": "Prenatal Assessment & Antepartum Fetal Surveillance"}, {"q": "A nonstress test at 34 weeks shows no accelerations after 20 minutes. Baseline is 140 with moderate variability, and the fetus appears to be in a sleep cycle. Which action does the nurse take first?", "type": "single", "opts": ["Document the test as nonreactive and discontinue monitoring", "Continue the test and apply vibroacoustic stimulation", "Begin an oxytocin infusion to produce contractions", "Prepare the client for an immediate cesarean birth"], "ans": [1], "why": "With moderate variability and a sleeping fetus, <b>extend the test and use vibroacoustic stimulation, a snack, fluids or repositioning<\/b> to wake the fetus. A test is not called nonreactive until there are no accelerations in 40 minutes, and vibroacoustic stimulation wakes a fetus rather than starting contractions.", "topic": "Prenatal Assessment…", "icon": "🤰", "topicFull": "Prenatal Assessment & Antepartum Fetal Surveillance", "pharm": 1}, {"type": "matching", "week": "4", "step": "analyze", "topic": "Prenatal Assessment…", "stem": "<p>Match each prenatal test or intervention to the gestational age window when it is performed.<\/p>", "pairs": [{"left": "Indirect Coombs' test repeated for an Rh-negative, unsensitized client", "answer": 2}, {"left": "Group B strep vaginal/rectal culture", "answer": 3}, {"left": "One-hour glucose tolerance screen", "answer": 2}, {"left": "Maternal serum alpha-fetoprotein (MSAFP)", "answer": 1}, {"left": "Chorionic villus sampling", "answer": 0}], "right": ["10-13 weeks gestation", "15-22 weeks gestation", "24-28 weeks gestation", "36 0/7 to 37 6/7 weeks gestation", "At the first prenatal visit only", "After 40 weeks gestation"], "why": "Each test has a distinct evidence-based window: the indirect Coombs' test and the universal glucose screen both occur at 24-28 weeks; the GBS culture is done later, at 36 0/7 to 37 6/7 weeks, close to expected delivery; MSAFP is drawn earlier, at 15-22 weeks, to screen for neural tube defects or Down syndrome; and CVS is performed earliest, at 10-13 weeks, as an early alternative to amniocentesis. Choosing 'first visit only' or 'after 40 weeks' would miss the actual screening windows the book specifies for these tests.", "src": "ATI Maternal-Newborn ch 4", "icon": "🤰", "topicFull": "Prenatal Assessment & Antepartum Fetal Surveillance"}, {"type": "sata", "week": "4", "step": "solutions", "topic": "Prenatal Assessment…", "q": "A nurse is teaching a client in the third trimester about findings that should be reported to the provider immediately. Which findings should the nurse include?", "opts": ["Severe or worsening headache with blurred vision", "Occasional round ligament pain when changing position", "A gush of clear fluid from the vagina", "Swelling of the face and hands", "Braxton Hicks contractions that ease with walking", "Epigastric or right upper quadrant pain"], "ans": [0, 2, 3, 5], "why": "Severe headache with visual changes, facial/hand edema, and epigastric or right upper quadrant pain are warning signs of worsening preeclampsia, and a gush of fluid before term suggests rupture of membranes, so each of these should prompt immediate provider notification. Round ligament pain and Braxton Hicks contractions that ease with walking or rest are expected, benign third-trimester findings that do not require urgent reporting.", "src": "ATI Maternal-Newborn ch 4", "icon": "🤰", "topicFull": "Prenatal Assessment & Antepartum Fetal Surveillance"}, {"type": "dropdown", "week": "4", "step": "evaluate", "topic": "Prenatal Assessment…", "stemTitle": "Birth summary", "stem": "<p>A client whose vaginal and rectal culture at 36 weeks was <b>positive for group B streptococcus<\/b> was admitted at 2200 with ruptured membranes. Her first IV dose of penicillin G was hung at 0500, and she gave birth at 0645.<\/p>", "text": "This client's prophylaxis counts as inadequate because the antibiotic ran for less than {1} before the birth, so the newborn is watched closely for early-onset infection through the first {2} of life.", "gaps": [{"options": ["2 hr", "4 hr", "12 hr"], "answer": 1}, {"options": ["24 hr", "1 week", "6 weeks"], "answer": 0}], "why": "Penicillin is dosed every 4 hr in labor, and ACOG and the CDC count the prophylaxis as adequate only when it has been infusing at least 4 hr before birth; this client got about 1 hr 45 min. Membranes open 18 hr or longer is a second risk factor stacked on top. Early-onset disease shows up fast, usually inside the first day, so that is the window for close newborn observation. The 4-to-6-week mark belongs to late-onset disease, which is not what intrapartum antibiotics prevent.", "src": "ATI Maternal-Newborn ch 8 Infections", "icon": "🤰", "topicFull": "Prenatal Assessment & Antepartum Fetal Surveillance", "pharm": 1}], "5": [{"q": "A client planning pregnancy asks about folic acid. Which teaching is correct?", "type": "single", "opts": ["Take 400 mcg daily now, and 600 mcg daily once pregnant", "Start 600 mcg daily at the first prenatal visit", "Take 27 mg daily starting in the second trimester", "Folic acid is needed only if a previous child had a defect"], "ans": [0], "why": "Folic acid is <b>400 mcg daily preconception and 600 mcg daily during pregnancy<\/b>, because the neural tube closes before most people know they are pregnant. Starting at the first prenatal visit is already too late, and 27 mg is the iron dose.", "topic": "Nutrition & Health Promotion…", "icon": "🤰", "topicFull": "Nutrition & Health Promotion in Pregnancy", "pharm": 1}, {"q": "A client at 22 weeks tells the nurse she has been eating spoonfuls of laundry starch daily for the past month. Which action does the nurse take first?", "type": "single", "opts": ["Obtain a hemoglobin and hematocrit", "Reassure her that cravings are normal in pregnancy", "Tell her to stop and recheck at her delivery admission", "Refer her to a mental health counselor"], "ans": [0], "why": "Pica means <b>assess for iron-deficiency anemia<\/b>, so screening labs come first. Normalizing it or deferring evaluation until delivery misses a treatable cause, and referral without data is premature.", "topic": "Nutrition & Health Promotion…", "icon": "🤰", "topicFull": "Nutrition & Health Promotion in Pregnancy"}, {"q": "A nurse teaches food safety to a client at 12 weeks. Which foods does the nurse tell her to avoid? Select all that apply.", "type": "sata", "opts": ["Unpasteurized soft cheese", "Pasteurized yogurt", "Swordfish", "Cold deli turkey straight from the package", "Thoroughly cooked chicken"], "ans": [0, 2, 3], "why": "Unpasteurized soft cheeses and cold deli meats carry <b>listeria<\/b>, and predatory fish such as swordfish carry <b>mercury<\/b>. Pasteurized dairy and fully cooked poultry are safe and are valuable protein sources.", "topic": "Nutrition & Health Promotion…", "icon": "🤰", "topicFull": "Nutrition & Health Promotion in Pregnancy"}, {"q": "A client is prescribed 27 mg of iron daily. Which statement indicates she understands how to take it?", "type": "single", "opts": ["I will take it with a glass of milk before bed", "I will take it with orange juice between meals", "I will take it with my calcium supplement", "I will take it with a large meal to avoid nausea"], "ans": [1], "why": "<b>Vitamin C enhances iron absorption<\/b> and taking it between meals maximizes uptake, so orange juice is correct. Milk and calcium <b>inhibit<\/b> absorption, making iron with milk a wrong answer every time.", "topic": "Nutrition & Health Promotion…", "icon": "🤰", "topicFull": "Nutrition & Health Promotion in Pregnancy", "pharm": 1}, {"q": "A client with a normal pre-pregnancy BMI asks how many extra calories she needs in her first trimester. Which response is correct?", "type": "single", "opts": ["No increase is needed in the first trimester", "An extra 340 calories daily starting now", "An extra 500 calories daily starting now", "An extra 800 calories daily starting now"], "ans": [0], "why": "There is <b>no caloric increase in the first trimester<\/b>; needs rise about 340 calories/day in the second and 450 calories/day in the third. Lactation adds roughly 340 to 400 calories/day.", "topic": "Nutrition & Health Promotion…", "icon": "🤰", "topicFull": "Nutrition & Health Promotion in Pregnancy"}, {"q": "A client at 10 weeks is admitted with hyperemesis gravidarum after 3 days of persistent vomiting. Which diagnostic test does the nurse anticipate first?", "type": "single", "opts": ["Urinalysis for ketones", "Serum amylase and lipase", "Upper endoscopy", "Abdominal computed tomography"], "ans": [0], "why": "<b>Urinalysis for ketones<\/b> is the key initial test, showing whether she is breaking down fat from inadequate intake; expect an elevated hematocrit from hemoconcentration as well. First-line treatment is pyridoxine alone or with doxylamine rather than an antiemetic.", "topic": "Nutrition & Health Promotion…", "icon": "🤰", "topicFull": "Nutrition & Health Promotion in Pregnancy"}, {"type": "dropdown", "week": "5", "step": "solutions", "topic": "Nutrition & Health Promotion…", "stemTitle": "Nutrition counseling, second trimester", "stem": "<p>The client has a prepregnancy BMI of 22 and a singleton pregnancy. She asks about calorie needs and food safety.<\/p>", "text": "The nurse should advise the client to add about {1} calories per day during the second trimester, and to limit albacore tuna to no more than {2} per week to reduce mercury exposure.", "gaps": [{"options": ["150", "340", "600"], "answer": 1}, {"options": ["3 oz", "6 oz", "12 oz"], "answer": 1}], "why": "For a client with a normal BMI (18.5-24.9), the recommendation is roughly 340 additional calories per day in the second trimester and 450 in the third, and albacore tuna intake is capped at 6 oz per week because of its mercury content, while swordfish and shark are avoided entirely. 150 calories understates the second-trimester need and 600 overstates it; 3 oz is overly restrictive and 12 oz exceeds the recommended weekly cap for albacore tuna.", "src": "ATI Maternal-Newborn ch 5", "icon": "🤰", "topicFull": "Nutrition & Health Promotion in Pregnancy"}, {"type": "highlight", "week": "5", "step": "recognize", "topic": "Nutrition & Health Promotion…", "stemTitle": "Prenatal intake history", "stem": "<p>Nurse's note from an intake interview at a first prenatal visit. Select the findings that represent nutrition-related risk factors.<\/p>", "tokens": [{"text": "The client is 16 years old ", "pick": true}, {"text": "and ", "pick": false}, {"text": "is pregnant for the first time. ", "pick": true}, {"text": "She follows a strict vegetarian diet ", "pick": true}, {"text": "and ", "pick": false}, {"text": "works part-time at a grocery store. ", "pick": true}, {"text": "She reports craving and eating ice chips and laundry starch several times a day. ", "pick": true}, {"text": "Her prepregnancy weight was within the expected range for her height. ", "pick": true}, {"text": "She admits to skipping some prenatal vitamin doses because they upset her stomach. ", "pick": true}, {"text": "She lives with her parents nearby. ", "pick": true}], "answer": [0, 3, 6, 8], "why": "Adolescence, a strict vegetarian diet (which can run low in protein, iron, calcium, and vitamin B12), pica (craving nonfood items like ice or laundry starch), and inconsistent prenatal vitamin use are all nutrition-related risk factors described in the book. Being pregnant for the first time, working part-time, having an expected prepregnancy weight, and living with supportive family nearby are neutral or reassuring details that do not represent nutrition risk on their own.", "src": "ATI Maternal-Newborn ch 5", "icon": "🤰", "topicFull": "Nutrition & Health Promotion in Pregnancy"}, {"type": "sata", "week": "5", "step": "solutions", "topic": "Nutrition & Health Promotion…", "q": "A client at 28 weeks of gestation was just diagnosed with gestational diabetes. Which components should the nurse include in the plan of care?", "opts": ["Arrange dietitian teaching for a carbohydrate-controlled meal plan.", "Teach the client how to check her own blood glucose at home.", "Have the client count fetal movements every day.", "Add an ACE inhibitor to protect her kidneys during pregnancy.", "Tell her to stop exercising until after the birth.", "Plan to switch her to an oral antidiabetic if insulin is ever needed."], "ans": [0, 1, 2], "why": "Gestational diabetes is managed first with diet and activity, so dietitian-guided carbohydrate control plus home glucose checks are the backbone of the plan. Daily kick counts are added because high maternal glucose stresses the fetus and drives excess growth. ACE inhibitors are off limits in pregnancy at any point. Exercise is encouraged, not stopped, and if diet alone fails the next step is insulin; oral agents are mostly contraindicated, with glyburide the one narrow exception.", "src": "ATI Maternal-Newborn ch 9 Medical Conditions", "icon": "🤰", "topicFull": "Nutrition & Health Promotion in Pregnancy", "pharm": 1}], "6": [{"q": "A client at 39 weeks reports a gush of clear fluid. The fetal head is at a minus 2 station. Which action does the nurse take first?", "type": "single", "opts": ["Assess the fetal heart rate", "Note the color and odor of the fluid", "Test the fluid with nitrazine paper", "Take the client's temperature"], "ans": [0], "why": "The first action after any rupture of membranes is to <b>check the fetal heart rate<\/b>, because you are ruling out cord prolapse, and an unengaged head raises that risk. Color, odor, nitrazine testing and temperature all matter, but they come second.", "topic": "Labor & Birth", "icon": "👶", "topicFull": "Labor & Birth"}, {"q": "A client is 9 cm dilated with strong contractions every 2 minutes. She is irritable, trembling, and says she feels an urge to push. Which action does the nurse take first?", "type": "single", "opts": ["Coach her to pant or blow through the contractions", "Encourage her to push with each contraction", "Request an epidural for the pain", "Position her supine with her knees drawn back to push"], "ans": [0], "why": "At 9 cm she is in transition, and pushing on an incompletely dilated cervix causes <b>cervical trauma and edema<\/b>, so panting or blowing prevents it. Analgesia this late risks rapid progression and neonatal depression, and transition is exactly where students wrongly choose to encourage pushing.", "topic": "Labor & Birth", "icon": "👶", "topicFull": "Labor & Birth"}, {"q": "A client is 6 cm dilated, 100% effaced, at 0 station. How does the nurse document her labor status?", "type": "single", "opts": ["Latent phase of the first stage", "Active phase of the first stage", "Transition phase of the first stage", "Second stage of labor"], "ans": [1], "why": "<b>Active phase begins at about 6 cm<\/b> under current criteria, with latent up to roughly 5 cm and transition at 8 to 10 cm. Second stage does not begin until full dilation at 10 cm, regardless of station.", "topic": "Labor & Birth", "icon": "👶", "topicFull": "Labor & Birth"}, {"q": "A nurse observes for placental separation after the birth of a newborn. Which findings indicate the placenta is separating? Select all that apply.", "type": "sata", "opts": ["A sudden gush of dark blood", "The umbilical cord lengthening at the introitus", "The fundus becoming firm and globular", "A drop in maternal blood pressure of 30 mmHg", "The client reporting an urge to bear down before the newborn is born"], "ans": [0, 1, 2], "why": "The classic separation signs are a <b>sudden gush of dark blood, cord lengthening, and a firm globular fundus<\/b>. A significant BP drop suggests hemorrhage rather than normal separation, and an urge to bear down before birth relates to fetal descent.", "topic": "Labor & Birth", "icon": "👶", "topicFull": "Labor & Birth"}, {"q": "A client at 38 weeks calls to ask whether she is in true labor. Which report best supports true labor?", "type": "single", "opts": ["Contractions felt only in the abdomen that ease after a warm shower", "Contractions that start in the back and wrap forward and intensify with walking", "Irregular tightening that stops after drinking two glasses of water", "Discomfort that resolves completely when she lies down and rests"], "ans": [1], "why": "True labor contractions <b>start in the back, radiate forward, intensify with walking, and change the cervix<\/b>. False labor stays abdominal and quits with rest, hydration or repositioning, which describes the other three options.", "topic": "Labor & Birth", "icon": "👶", "topicFull": "Labor & Birth"}, {"q": "A nurse reviews contraction patterns on four laboring clients. Which pattern requires intervention?", "type": "single", "opts": ["Contractions every 3 minutes lasting 60 seconds", "Six contractions in 10 minutes", "Contractions every 4 minutes lasting 50 seconds", "Contractions every 3 minutes with 90 seconds of relaxation between"], "ans": [1], "why": "More than <b>5 contractions in 10 minutes<\/b> is a red-flag pattern, as are contractions lasting over 90 seconds or fewer than 30 seconds of relaxation, because all three cut placental perfusion. The other patterns leave adequate resting time for uterine blood flow.", "topic": "Labor & Birth", "icon": "👶", "topicFull": "Labor & Birth"}, {"type": "matching", "week": "6", "step": "recognize", "topic": "Labor & Birth", "stem": "<p>Match each description to the cardinal movement of labor it represents.<\/p>", "pairs": [{"left": "The fetal head enters the pelvic inlet", "answer": 0}, {"left": "The head rotates to align the sagittal suture with the maternal pelvis", "answer": 3}, {"left": "The chin lifts away from the chest as the head passes under the symphysis", "answer": 4}, {"left": "The head realigns with the shoulders after the head is born", "answer": 5}, {"left": "The anterior shoulder delivers, followed by the rest of the body", "answer": 6}], "right": ["Engagement", "Descent", "Flexion", "Internal rotation", "Extension", "External rotation", "Expulsion"], "why": "These descriptions match five of the seven cardinal movements: engagement (head enters the inlet), internal rotation (aligns the sagittal suture with the pelvis), extension (chin lifts as the head passes under the symphysis), external rotation (shoulders realign after the head is born), and expulsion (the body delivers). Descent and flexion are also cardinal movements but do not match any of the descriptions given, so they remain distractors.", "src": "ATI Maternal-Newborn ch 11", "icon": "👶", "topicFull": "Labor & Birth"}, {"type": "bowtie", "week": "6", "step": "prioritize", "topic": "Labor & Birth", "stemTitle": "Triage, 38 weeks gestation", "stem": "<p>The client reports contractions every 8-10 minutes for 3 hours that have not gotten stronger, and they ease after walking around the unit. Cervical exam is unchanged at <b>1 cm/50% effaced<\/b> on two checks 1 hour apart. FHR is 140/min with moderate variability.<\/p>", "cond": ["False labor (Braxton Hicks contractions)", "True labor", "Preterm labor", "Chorioamnionitis"], "actions": ["Discharge home with instructions to return if contractions intensify", "Admit for continuous tocolytic therapy", "Encourage ambulation and hydration", "Reassess the cervix if the contraction pattern changes", "Begin oxytocin augmentation", "Obtain an immediate fetal fibronectin swab"], "params": ["Cervical dilation and effacement", "Contraction frequency and intensity", "Maternal temperature", "Serum glucose", "Fetal heart rate pattern", "Deep tendon reflexes"], "answer": {"cond": [0], "action": [0, 3], "param": [0, 1]}, "why": "Unchanged cervical dilation and effacement despite hours of contractions, along with contractions that ease with ambulation, are hallmarks of false labor; true labor produces progressive cervical change that does not resolve with activity. Discharge teaching with instructions to return if the pattern changes is appropriate here, while tocolytics and oxytocin are not needed since there is no evidence of preterm or dysfunctional labor. Ongoing monitoring should focus on cervical dilation/effacement and the contraction pattern, since those two findings are what distinguish true from false labor; temperature and reflexes are not relevant to this presentation.", "src": "ATI Maternal-Newborn ch 11", "icon": "👶", "topicFull": "Labor & Birth", "pharm": 1}, {"type": "dropdown", "week": "6", "step": "action", "topic": "Labor & Birth", "stemTitle": "Labor unit 1415", "stem": "<p>A client at 39 weeks of gestation is receiving oxytocin for induction. In the last 10 minutes the monitor records <b>7 contractions, several lasting 95 seconds<\/b>, and the uterus stays firm between them. The fetal heart rate shows late decelerations with minimal variability.<\/p>", "text": "The nurse should first {1}, and if the fetal heart rate pattern still does not improve, anticipate a prescription for {2}.", "gaps": [{"options": ["stop the oxytocin infusion", "raise the oxytocin rate to move labor along", "lay the client flat on her back"], "answer": 0}, {"options": ["terbutaline 0.25 mg subcutaneously", "another cervical ripening insert", "a bolus dose of oxytocin"], "answer": 0}], "why": "More than 5 contractions in 10 minutes, contractions past 90 seconds, and a uterus that never relaxes is tachysystole, and the uterus cannot refill with blood between contractions, which is why late decelerations appear. Shutting off the oxytocin removes the cause and is the first move. Raising the rate or adding a bolus makes it worse, and a supine position squeezes the vena cava and drops perfusion further. When the fetal heart rate stays worrisome after the infusion is off, terbutaline relaxes the uterus.", "src": "ATI Maternal-Newborn ch 15 Therapeutic Procedures for Labor and Birth", "icon": "👶", "topicFull": "Labor & Birth", "pharm": 1}], "7": [{"q": "A laboring client on oxytocin has repetitive decelerations that begin after each contraction peaks and return to baseline after the contraction ends. Which action does the nurse take first?", "type": "single", "opts": ["Position the client on her left side", "Increase the oxytocin to strengthen contractions", "Document the finding and continue monitoring", "Perform a cervical examination to check dilation"], "ans": [0], "why": "Decelerations that begin after the peak and recover after the contraction are <b>late decelerations from uteroplacental insufficiency<\/b>, and side-lying comes first, followed by stopping the oxytocin, oxygen, IV bolus and notification. Increasing oxytocin worsens it and documentation alone is never sufficient.", "topic": "Fetal Monitoring, Comfort…", "icon": "👶", "topicFull": "Fetal Monitoring, Comfort & Analgesia in Labor", "pharm": 1}, {"q": "A client at 7 cm has decelerations that mirror each contraction, beginning as it begins and returning to baseline as it ends. Baseline is 140 with moderate variability. Which action is appropriate?", "type": "single", "opts": ["Apply oxygen by nonrebreather at 10 L/min", "Confirm the finding with a cervical examination and continue routine care", "Prepare the client for an immediate cesarean birth", "Turn the client and start an IV fluid bolus"], "ans": [1], "why": "Mirror-image decelerations are <b>early decelerations from head compression, which are benign<\/b> in labor and need only confirmation of descent by cervical exam. Oxygen, repositioning, fluid boluses and surgical preparation belong to <b>late<\/b> decelerations; treating an early deceleration as an emergency is the classic error.", "topic": "Fetal Monitoring, Comfort…", "icon": "👶", "topicFull": "Fetal Monitoring, Comfort & Analgesia in Labor"}, {"q": "A nurse reviews four fetal monitor strips. Which finding is most concerning?", "type": "single", "opts": ["Baseline 155 bpm with variability of 10 bpm", "Baseline 118 bpm with absent variability", "Baseline 165 bpm for 4 minutes with moderate variability", "Baseline 125 bpm with variability of 20 bpm"], "ans": [1], "why": "<b>Absent variability is the finding that should scare you<\/b>, even with a normal baseline, because it reflects loss of central nervous system control. Moderate variability of 6 to 25 bpm is reassuring, and tachycardia or bradycardia must persist 10 minutes or more to count as a baseline change.", "topic": "Fetal Monitoring, Comfort…", "icon": "👶", "topicFull": "Fetal Monitoring, Comfort & Analgesia in Labor"}, {"q": "Thirty minutes after an epidural is placed, a client's BP is 88/50 and the fetal heart rate falls to 100 bpm. Which action does the nurse take first?", "type": "single", "opts": ["Reposition her laterally and increase the IV fluids", "Document the readings and recheck in 15 minutes", "Assist her out of bed to walk and improve circulation", "Encourage her to bear down to speed the birth"], "ans": [0], "why": "Maternal hypotension after an epidural causes the fetal bradycardia, so <b>lateral repositioning plus an IV bolus<\/b> comes first, with oxygen, notification and ephedrine ready. Ambulation is unsafe with motor block, and watchful waiting misses a correctable cause.", "topic": "Fetal Monitoring, Comfort…", "icon": "👶", "topicFull": "Fetal Monitoring, Comfort & Analgesia in Labor"}, {"q": "A client has repeated variable decelerations. Which actions does the nurse take? Select all that apply.", "type": "sata", "opts": ["Reposition the client side to side or to knee-chest", "Increase the oxytocin infusion rate", "Stop the oxytocin infusion", "Perform a vaginal examination to rule out cord prolapse", "Apply fundal pressure during contractions"], "ans": [0, 2, 3], "why": "Variable decelerations mean <b>cord compression<\/b>, so reposition, stop the oxytocin and examine to rule out prolapse, then anticipate amnioinfusion. Increasing oxytocin worsens compression, and fundal pressure is never an intervention for decelerations.", "topic": "Fetal Monitoring, Comfort…", "icon": "👶", "topicFull": "Fetal Monitoring, Comfort & Analgesia in Labor", "pharm": 1}, {"q": "A client using patterned breathing in active labor reports tingling fingers and lightheadedness. Which action does the nurse take?", "type": "single", "opts": ["Apply oxygen by nonrebreather mask", "Have her breathe into her cupped hands", "Increase the rate of her breathing pattern", "Place her flat on her back and elevate her legs"], "ans": [1], "why": "These are hyperventilation symptoms from blowing off carbon dioxide, so <b>rebreathing into cupped hands or a paper bag<\/b> restores it. Oxygen is the trap since she is not hypoxic, faster breathing worsens it, and supine positioning risks vena cava compression.", "topic": "Fetal Monitoring, Comfort…", "icon": "👶", "topicFull": "Fetal Monitoring, Comfort & Analgesia in Labor"}, {"type": "highlight", "week": "7", "step": "recognize", "topic": "Fetal Monitoring, Comfort…", "stemTitle": "Labor & delivery, active labor", "stem": "<p>Nurse's note describing the fetal monitor tracing during a contraction. Select the findings that describe a late deceleration pattern.<\/p>", "tokens": [{"text": "A contraction begins at 1402 and peaks at 1403. ", "pick": true}, {"text": "The fetal heart rate begins to fall at 1403, after the contraction has already started, ", "pick": true}, {"text": "reaching a low point of 100/min just after the contraction peaks. ", "pick": true}, {"text": "Baseline fetal heart rate before the contraction was 145/min with moderate variability. ", "pick": true}, {"text": "The fetal heart rate returns to baseline only after the contraction has ended. ", "pick": true}, {"text": "Maternal blood pressure is 128/78 mm Hg. ", "pick": true}, {"text": "This pattern recurs with each subsequent contraction. ", "pick": true}], "answer": [1, 2, 4, 6], "why": "A late deceleration begins after the contraction starts, reaches its lowest point after the contraction peaks, and returns to baseline only after the contraction has ended, reflecting uteroplacental insufficiency; recurrence with every contraction raises concern for ongoing fetal compromise. The exact timing of the contraction itself, the baseline rate/variability, and the maternal blood pressure are documented details but do not themselves define the deceleration pattern. Recognizing this timing distinguishes late decelerations, which require intervention such as repositioning and stopping oxytocin, from early decelerations, which mirror the contraction and need no intervention.", "src": "ATI Maternal-Newborn ch 13", "icon": "👶", "topicFull": "Fetal Monitoring, Comfort & Analgesia in Labor", "pharm": 1}, {"type": "bowtie", "week": "7", "step": "prioritize", "topic": "Fetal Monitoring, Comfort…", "stemTitle": "20 minutes after epidural placement", "stem": "<p>The client received a bupivacaine/fentanyl epidural at L4-L5. <b>BP is now 82/48 mm Hg<\/b> (baseline 122/76), FHR is 100/min with minimal variability, the client reports lightheadedness, and her skin is pale.<\/p>", "cond": ["Epidural-induced maternal hypotension", "Anaphylactic reaction to local anesthetic", "High (total) spinal block with respiratory arrest", "Amniotic fluid embolism"], "actions": ["Position the client in the left lateral position", "Increase the IV fluid infusion rate", "Place the client supine with legs elevated on pillows", "Discontinue the epidural infusion immediately", "Prepare for emergent cesarean birth without further assessment", "Administer acetaminophen for headache"], "params": ["Blood pressure", "Fetal heart rate", "Level of sensory block height", "Urine ketones", "Deep tendon reflexes", "Maternal temperature"], "answer": {"cond": [0], "action": [0, 1], "param": [0, 1]}, "why": "Epidural local anesthetic causes sympathetic blockade and vasodilation, which can drop maternal blood pressure and, in turn, reduce placental perfusion and cause fetal bradycardia, exactly the pattern seen here; left lateral positioning to relieve vena cava compression and a faster IV fluid rate are the priority first-line actions. Supine positioning with legs elevated would worsen aortocaval compression, and discontinuing the epidural or moving straight to cesarean skips the standard first steps for treating epidural hypotension. After intervening, the nurse rechecks blood pressure and fetal heart rate to confirm both mother and fetus have recovered; sensory block level and deep tendon reflexes are not the priority here.", "src": "ATI Maternal-Newborn ch 12", "icon": "👶", "topicFull": "Fetal Monitoring, Comfort & Analgesia in Labor"}], "8": [{"q": "A client at 32 weeks arrives with dark red vaginal bleeding, constant abdominal pain, and a uterus that is rigid and board-like on palpation. Which complication does the nurse suspect?", "type": "single", "opts": ["Placenta previa", "Placental abruption", "Threatened miscarriage", "Cervical insufficiency"], "ans": [1], "why": "<b>Abruption is painful, with dark red bleeding and a rigid board-like uterus<\/b>; previa is <b>painless<\/b> bright red bleeding with a soft uterus. That single word, pain, decides the question, and abruption is also the most common obstetric cause of DIC.", "topic": "Early Pregnancy Bleeding…", "icon": "🤰", "topicFull": "Early Pregnancy Bleeding & Ectopic Pregnancy"}, {"q": "A nurse reviews four clients in the early pregnancy clinic. Which client does the nurse assess first?", "type": "single", "opts": ["A client at 10 weeks with vaginal bleeding and cramping", "A client at 10 weeks reporting nausea in the mornings", "A client at 10 weeks reporting urinary frequency", "A client at 10 weeks who has not yet felt fetal movement"], "ans": [0], "why": "<b>First-trimester bleeding with cramping<\/b> is the priority finding, suggesting threatened miscarriage or ectopic pregnancy, and calls for ultrasound and hCG. Nausea, urinary frequency and absent fetal movement at 10 weeks are all expected.", "topic": "Early Pregnancy Bleeding…", "icon": "🤰", "topicFull": "Early Pregnancy Bleeding & Ectopic Pregnancy"}, {"q": "A client is discharged after methotrexate treatment for an unruptured ectopic pregnancy. Which statement indicates a need for further teaching?", "type": "single", "opts": ["I will keep taking my prenatal vitamin with folic acid", "I will return for repeat hCG levels until they are undetectable", "I will use reliable contraception for at least 3 months", "I will avoid intercourse until this has fully resolved"], "ans": [0], "why": "<b>Folic acid rescues the very cells methotrexate is killing<\/b>, so folic-acid-containing supplements are withheld here, even though folic acid is pushed everywhere else in maternity nursing. Serial hCG, 3 months of contraception and pelvic rest are all correct.", "topic": "Early Pregnancy Bleeding…", "icon": "🤰", "topicFull": "Early Pregnancy Bleeding & Ectopic Pregnancy", "pharm": 1}, {"q": "A nurse assesses a client with a suspected ectopic pregnancy. Which findings support this diagnosis? Select all that apply.", "type": "sata", "opts": ["Sharp stabbing pain in one lower quadrant", "Painless bright red heavy bleeding", "Referred shoulder pain", "Scant vaginal spotting with a positive pregnancy test", "Uterus larger than expected for dates"], "ans": [0, 2, 3], "why": "Ectopic pregnancy presents with <b>unilateral sharp pain, adnexal tenderness, scant spotting with a positive test, and referred shoulder pain<\/b> when blood irritates the diaphragm. Painless bright red heavy bleeding suggests previa, and a uterus larger than dates suggests a molar pregnancy.", "topic": "Early Pregnancy Bleeding…", "icon": "🤰", "topicFull": "Early Pregnancy Bleeding & Ectopic Pregnancy"}, {"q": "A client who is Rh-negative and unsensitized is at 28 weeks of gestation. Which statement about Rho(D) immune globulin is correct?", "type": "single", "opts": ["It is given at 28 weeks and again within 72 hours of birth if the newborn is Rh-positive", "It is given only once, after the birth", "It is given at 28 weeks only if the newborn is known to be Rh-negative", "It is given monthly from 20 weeks until birth"], "ans": [0], "why": "The standard schedule is <b>26 to 28 weeks and again within 72 hours of birth of an Rh-positive newborn<\/b>. It is also indicated after amniocentesis, after external version, and after any loss, ectopic or molar evacuation.", "topic": "Early Pregnancy Bleeding…", "icon": "🤰", "topicFull": "Early Pregnancy Bleeding & Ectopic Pregnancy", "pharm": 1}, {"q": "A client arrives in the emergency department with a suspected unruptured ectopic pregnancy. She is alert with stable vital signs. Which action does the nurse take first?", "type": "single", "opts": ["Establish large-bore intravenous access", "Place her in Trendelenburg position", "Prepare her immediately for laparoscopic surgery", "Administer a folic acid supplement"], "ans": [0], "why": "<b>Large-bore IV access<\/b> comes first so fluids and blood can be given instantly if she ruptures, along with continuous vital signs and methotrexate as prescribed. Trendelenburg is not indicated, surgery is not automatic for an unruptured ectopic, and folic acid is contraindicated with methotrexate.", "topic": "Early Pregnancy Bleeding…", "icon": "🤰", "topicFull": "Early Pregnancy Bleeding & Ectopic Pregnancy", "pharm": 1}, {"type": "sata", "week": "8", "step": "recognize", "topic": "Early Pregnancy Bleeding…", "q": "A nurse is caring for a client at 7 weeks gestation who reports sudden severe unilateral lower abdominal pain. The nurse suspects a ruptured ectopic pregnancy. Which findings support this suspicion?", "opts": ["Bright red vaginal bleeding with sudden shoulder pain", "Signs of hypovolemic shock such as tachycardia and hypotension", "Painless bright red bleeding in the third trimester", "Scant dark vaginal spotting with sudden unilateral pelvic pain", "A rigid, board-like, tender uterus", "A soft, nontender uterus with breech presentation on ultrasound"], "ans": [0, 1, 3], "why": "Ruptured ectopic pregnancy classically causes bright red bleeding with referred shoulder pain from diaphragmatic irritation by intraperitoneal blood, along with signs of hypovolemic shock from internal hemorrhage; before rupture, bleeding is typically scant and dark with sudden unilateral pain. Painless bright red third-trimester bleeding with a soft, nontender uterus and malpresentation instead describes placenta previa, and a rigid, board-like, tender uterus describes abruptio placentae, both different conditions from ectopic pregnancy.", "src": "ATI Maternal-Newborn ch 7", "icon": "🤰", "topicFull": "Early Pregnancy Bleeding & Ectopic Pregnancy"}, {"type": "dropdown", "week": "8", "step": "analyze", "topic": "Early Pregnancy Bleeding…", "stemTitle": "First-trimester visit, 14 weeks", "stem": "<p>The client reports severe nausea and vomiting and dark, prune-juice-colored discharge. Fundal height measures larger than expected for dates. Ultrasound shows a dense cluster of vesicles with no fetus or fetal heartbeat.<\/p>", "text": "These findings are most consistent with {1}, and after evacuation the nurse should teach the client that reliable contraception is required because {2}.", "gaps": [{"options": ["gestational trophoblastic disease (molar pregnancy)", "placenta previa", "ectopic pregnancy"], "answer": 0}, {"options": ["hCG must be monitored to detect choriocarcinoma", "the client cannot become pregnant again for 5 years", "the next pregnancy will always be molar"], "answer": 0}], "why": "Hyperemesis, a uterus large for dates, prune-juice-colored bleeding, and an ultrasound showing a vesicular mass with no viable fetus are classic for gestational trophoblastic disease, not placenta previa or ectopic pregnancy, neither of which shows a vesicular mass. Because hCG must be trended weekly and then monthly for up to a year to rule out choriocarcinoma, and pregnancy would also raise hCG and confound that follow-up, reliable contraception is required during that period; there is no fixed 5-year pregnancy ban, and a future pregnancy is not destined to be molar again.", "src": "ATI Maternal-Newborn ch 7", "icon": "🤰", "topicFull": "Early Pregnancy Bleeding & Ectopic Pregnancy"}], "9": [{"q": "A client receiving IV magnesium sulfate for severe preeclampsia has absent patellar reflexes. Respirations are 14/min and urine output is 40 mL/hr. Which action does the nurse take first?", "type": "single", "opts": ["Stop the magnesium sulfate infusion", "Administer calcium gluconate", "Recheck the reflexes in 30 minutes", "Obtain a serum magnesium level"], "ans": [0], "why": "<b>Reflexes disappear first in magnesium toxicity<\/b>, before respiratory depression and falling urine output, so absent reflexes mean stop the infusion before checking anything else. Calcium gluconate is the antidote and a level is useful, but neither comes before halting the drug still going in.", "topic": "Hypertensive Disorders…", "icon": "🫀", "topicFull": "Hypertensive Disorders & Magnesium Sulfate", "pharm": 1}, {"q": "A client at 33 weeks has a BP of 162/112 and reports right upper quadrant pain. Which laboratory result best supports a diagnosis of HELLP syndrome?", "type": "single", "opts": ["Platelet count of 95,000/mm3", "Creatinine of 0.6 mg/dL", "Hemoglobin of 13.8 g/dL", "Uric acid of 3.1 mg/dL"], "ans": [0], "why": "HELLP is a <b>laboratory diagnosis<\/b>: hemolysis, elevated liver enzymes, and <b>platelets under 100,000<\/b>, so 95,000 qualifies. Creatinine is abnormal only above 1.1, making 0.6 normal, and hemoglobin falls in HELLP rather than rising as it does with the hemoconcentration of preeclampsia.", "topic": "Hypertensive Disorders…", "icon": "🫀", "topicFull": "Hypertensive Disorders & Magnesium Sulfate"}, {"q": "A client has been receiving magnesium sulfate for 4 hours. Which findings are expected drug effects rather than signs of toxicity? Select all that apply.", "type": "sata", "opts": ["Flushing and a feeling of warmth", "Respirations of 10/min", "Drowsiness and generalized weakness", "Absent deep tendon reflexes", "Decreased fetal heart rate variability"], "ans": [0, 2, 4], "why": "Flushing, sweating, warmth, weakness, drowsiness and <b>reduced FHR variability are expected<\/b>. Respirations under 12/min and absent reflexes are <b>toxicity<\/b> and require stopping the infusion.", "topic": "Hypertensive Disorders…", "icon": "🫀", "topicFull": "Hypertensive Disorders & Magnesium Sulfate", "pharm": 1}, {"q": "A nurse reviews four clients with hypertensive disorders. Which finding does the nurse report to the provider first?", "type": "single", "opts": ["New epigastric pain in a client at 34 weeks with a BP of 158/104", "A 2 lb weight gain over one week in a client at 30 weeks", "Trace pedal edema in a client at 36 weeks", "A BP of 138/86 in a client at 32 weeks with no proteinuria"], "ans": [0], "why": "<b>Epigastric pain reflects hepatic capsule distension<\/b> and, with severe-range blood pressure, signals impending eclampsia or HELLP. A 2 lb weekly gain at 30 weeks is within normal, trace edema is common, and 138/86 does not meet the 140/90 threshold.", "topic": "Hypertensive Disorders…", "icon": "🫀", "topicFull": "Hypertensive Disorders & Magnesium Sulfate"}, {"q": "A client with severe preeclampsia is started on magnesium sulfate and asks why she is receiving it. Which response is correct?", "type": "single", "opts": ["It prevents seizures; it is not given to lower your blood pressure", "It is the fastest way to bring your blood pressure down", "It treats the protein in your urine", "It replaces the magnesium lost through your kidneys"], "ans": [0], "why": "Magnesium sulfate is an <b>anticonvulsant, not an antihypertensive<\/b>; labetalol, hydralazine and nifedipine lower blood pressure, while ACE inhibitors and ARBs are contraindicated. It also serves as a tocolytic and as fetal neuroprotection before 32 weeks.", "topic": "Hypertensive Disorders…", "icon": "🫀", "topicFull": "Hypertensive Disorders & Magnesium Sulfate", "pharm": 1}, {"q": "A client at 29 weeks in preterm labor is prescribed betamethasone. Which administration plan does the nurse expect?", "type": "single", "opts": ["12 mg IM, repeated once in 24 hours", "12 mg IV, repeated every 6 hours for 4 doses", "6 mg orally daily until birth", "12 mg IM as a single one-time dose"], "ans": [0], "why": "Betamethasone is <b>12 mg IM in two doses 24 hours apart<\/b>, given between 24 and 34 weeks to accelerate fetal surfactant production, and it needs a full 24 hours to work. Watch for maternal hyperglycemia and pulmonary edema.", "topic": "Hypertensive Disorders…", "icon": "🫀", "topicFull": "Hypertensive Disorders & Magnesium Sulfate", "pharm": 1}, {"type": "bowtie", "week": "9", "step": "prioritize", "topic": "Hypertensive Disorders…", "stemTitle": "Nurses' notes, 34 weeks gestation", "stem": "<table><tr><th>Time<\/th><th>BP<\/th><\/tr><tr><td>0800<\/td><td>168/112 mm Hg<\/td><\/tr><tr><td>0830<\/td><td>166/114 mm Hg<\/td><\/tr><\/table><p>The client reports a persistent headache and right upper quadrant pain. <b>Deep tendon reflexes are 3+<\/b>, and urine protein is 3+ on dipstick.<\/p>", "cond": ["Preeclampsia with severe features", "Gestational hypertension", "Chronic hypertension", "HELLP syndrome"], "actions": ["Place the client on seizure precautions in a quiet, dimly lit room", "Prepare to administer magnesium sulfate", "Encourage ambulation in the hallway", "Administer methylergonovine for the headache", "Obtain baseline liver enzymes and platelet count", "Increase the IV fluid rate aggressively to improve renal perfusion"], "params": ["Blood pressure", "Deep tendon reflexes and clonus", "Serum glucose", "Urine output", "Fasting lipid panel", "Fetal kick counts"], "answer": {"cond": [0], "action": [0, 1], "param": [0, 1]}, "why": "A blood pressure of 168/112 and 166/114 mm Hg on two readings, both at or above the 160/110 mm Hg severe-range threshold, combined with a severe headache, right upper quadrant pain, hyperreflexia, and heavy proteinuria meets criteria for preeclampsia with severe features rather than gestational hypertension (no severe findings) or chronic hypertension (predates 20 weeks); HELLP is a lab diagnosis, not confirmed by these findings alone. A quiet, dark environment reduces seizure-triggering stimuli, and magnesium sulfate is the drug of choice to prevent eclamptic seizures, while methylergonovine is contraindicated with hypertension and ambulation or aggressive fluids raise seizure and pulmonary edema risk. Ongoing blood pressure and deep tendon reflex/clonus checks track whether the client is progressing toward eclampsia, which is the priority over glucose or lipid monitoring in this acute presentation.", "src": "ATI Maternal-Newborn ch 9", "icon": "🫀", "topicFull": "Hypertensive Disorders & Magnesium Sulfate", "pharm": 1}, {"type": "highlight", "week": "9", "step": "recognize", "topic": "Hypertensive Disorders…", "stemTitle": "Hourly assessment, 2 hours into a magnesium sulfate infusion", "stem": "<p>Select the findings that indicate magnesium toxicity.<\/p>", "tokens": [{"text": "The client reports feeling warm and flushed, ", "pick": true}, {"text": "with mild generalized muscle weakness. ", "pick": true}, {"text": "Deep tendon reflexes are absent bilaterally. ", "pick": true}, {"text": "Respiratory rate is 10/min and shallow. ", "pick": true}, {"text": "Indwelling catheter output totals 20 mL over the past hour. ", "pick": true}, {"text": "Blood pressure is 128/80 mm Hg. ", "pick": true}, {"text": "The client is oriented to person, place, and time. ", "pick": true}, {"text": "Fetal heart rate is 145/min with moderate variability. ", "pick": true}], "answer": [2, 3, 4], "why": "Absent patellar reflexes, a respiratory rate under 12/min, and urine output under 30 mL/hr are the classic magnesium toxicity findings and should prompt the nurse to stop the infusion and have calcium gluconate ready as the antidote. Flushing and mild muscle weakness are expected early side effects of magnesium sulfate, not toxicity, and a normal blood pressure, intact orientation, and a reassuring fetal heart rate are not signs of toxicity.", "src": "ATI Maternal-Newborn ch 9", "icon": "🫀", "topicFull": "Hypertensive Disorders & Magnesium Sulfate", "pharm": 1}], "10": [{"q": "A provider prescribes oxytocin at 3 milliunits/min for labor augmentation. The pharmacy supplies 20 units of oxytocin in 1,000 mL of lactated Ringer's. How many mL/hr does the nurse set on the pump?", "type": "single", "opts": ["3 mL/hr", "9 mL/hr", "15 mL/hr", "30 mL/hr"], "ans": [1], "why": "20 units = 20,000 milliunits in 1,000 mL, so the bag is <b>20 milliunits/mL<\/b>. Then 3 milliunits/min divided by 20 milliunits/mL = 0.15 mL/min, and <b>0.15 x 60 = 9 mL/hr<\/b>. Skipping that final x60 leaves 0.15 and is the single most commonly missed step.", "topic": "Dysfunctional Labor, Uterine…", "icon": "👶", "topicFull": "Dysfunctional Labor, Uterine Rupture & Obstetric Drug Math", "pharm": 1}, {"q": "A client with severe preeclampsia is prescribed a magnesium sulfate loading dose of 6 g in 150 mL of D5W to infuse over 20 minutes. How many mL/hr does the nurse program?", "type": "single", "opts": ["150 mL/hr", "300 mL/hr", "450 mL/hr", "600 mL/hr"], "ans": [2], "why": "Rate equals volume divided by time <b>in hours<\/b>: 20 minutes = 20/60 = <b>0.333 hr<\/b>, so 150 divided by 0.333 = <b>450 mL/hr<\/b>. The same x60 conversion done as 150 x (60/20) gives 450; leaving time in minutes yields 7.5 and is the classic error.", "topic": "Dysfunctional Labor, Uterine…", "icon": "👶", "topicFull": "Dysfunctional Labor, Uterine Rupture & Obstetric Drug Math", "pharm": 1}, {"q": "A client with a previous low transverse cesarean is in active labor when she reports sudden sharp abdominal pain. Her contractions stop, and the fetal heart rate drops to 90 bpm. Which action does the nurse take first?", "type": "single", "opts": ["Notify the provider immediately and prepare for surgery", "Reassure her that a pause between contractions is normal", "Encourage ambulation to restart the contraction pattern", "Increase the oxytocin infusion to reestablish labor"], "ans": [0], "why": "Sharp pain with <b>contractions ceasing and fetal bradycardia in a client with a uterine scar is rupture until proven otherwise<\/b>, a surgical emergency. Contractions stopping is not relief, and increasing oxytocin or ambulating wastes the minutes the fetus does not have.", "topic": "Dysfunctional Labor, Uterine…", "icon": "👶", "topicFull": "Dysfunctional Labor, Uterine Rupture & Obstetric Drug Math", "pharm": 1}, {"q": "A client receiving oxytocin has 7 contractions in 10 minutes with a uterine resting tone of 20 mmHg. The fetal heart rate baseline is 145 with moderate variability. Which action does the nurse take first?", "type": "single", "opts": ["Stop or decrease the oxytocin infusion", "Reposition her to her left side", "Apply oxygen by nonrebreather mask", "Administer terbutaline 0.25 mg subcutaneously"], "ans": [0], "why": "With uterine hyperstimulation the nurse <b>stops or decreases the oxytocin first<\/b> because it is the cause, then repositions, gives oxygen and fluids, and notifies. Terbutaline may be needed for tachysystole, but you never leave the causative drug running while treating its effect.", "topic": "Dysfunctional Labor, Uterine…", "icon": "👶", "topicFull": "Dysfunctional Labor, Uterine Rupture & Obstetric Drug Math", "pharm": 1}, {"q": "A nurse monitors a client receiving oxytocin. Which findings require the nurse to stop the infusion? Select all that apply.", "type": "sata", "opts": ["Six contractions in 10 minutes", "A contraction lasting 100 seconds", "Uterine resting tone of 20 mmHg", "Fetal heart rate baseline of 140 with moderate variability", "Contractions every 3 minutes lasting 60 seconds"], "ans": [0, 1, 2], "why": "Stop oxytocin for <b>more than 5 contractions in 10 minutes, any contraction over 90 seconds, contractions within 1 minute of each other, or resting tone above 15 mmHg<\/b>. A reassuring baseline and contractions every 3 minutes lasting 60 seconds are within target parameters.", "topic": "Dysfunctional Labor, Uterine…", "icon": "👶", "topicFull": "Dysfunctional Labor, Uterine Rupture & Obstetric Drug Math", "pharm": 1}, {"q": "A nurse performing a vaginal examination after rupture of membranes feels a pulsating cord in the vagina. Which action does the nurse take?", "type": "single", "opts": ["Gently replace the cord into the uterus", "Keep the gloved hand in place holding the presenting part off the cord", "Remove the hand and leave to call the provider", "Place the client flat and prepare for a vaginal birth"], "ans": [1], "why": "The nurse <b>keeps the gloved hand in place lifting the presenting part off the cord and does not leave the client<\/b>, calling for help while positioning her knee-chest or in Trendelenburg. Never push the cord back in, and cover a visible cord with warm sterile saline gauze.", "topic": "Dysfunctional Labor, Uterine…", "icon": "👶", "topicFull": "Dysfunctional Labor, Uterine Rupture & Obstetric Drug Math"}, {"type": "matching", "week": "10", "step": "recognize", "topic": "Dysfunctional Labor, Uterine…", "stem": "<p>Match each finding to the labor complication it represents.<\/p>", "pairs": [{"left": "Cord visible at the vaginal opening with a prolonged FHR deceleration", "answer": 0}, {"left": "Sudden tearing sensation with loss of fetal station and cessation of contractions", "answer": 1}, {"left": "Contractions occurring with no relaxation between them (tetanic pattern)", "answer": 2}, {"left": "Stalled cervical dilation despite adequate contractions", "answer": 3}, {"left": "More than 5 contractions in 10 minutes", "answer": 4}], "right": ["Cord prolapse", "Uterine rupture", "Precipitous labor / uterine tetany", "Dystocia", "Uterine tachysystole", "Placenta previa", "Chorioamnionitis"], "why": "Each finding maps to a distinct labor complication: a visible or palpable cord with a prolonged deceleration signals cord prolapse; a tearing sensation with lost fetal station and contractions that stop signals uterine rupture; contractions with no relaxation between them describe precipitous labor with uterine tetany; stalled dilation despite adequate contractions describes dystocia; and more than 5 contractions in 10 minutes defines uterine tachysystole. Placenta previa and chorioamnionitis are plausible obstetric complications but do not match any of the specific findings described here.", "src": "ATI Maternal-Newborn ch 16", "icon": "👶", "topicFull": "Dysfunctional Labor, Uterine Rupture & Obstetric Drug Math"}, {"type": "sata", "week": "10", "step": "action", "topic": "Dysfunctional Labor, Uterine…", "q": "A nurse discovers a loop of umbilical cord protruding from a laboring client's vagina. Which actions should the nurse take immediately?", "opts": ["Call for help and stay with the client", "Use a gloved hand to lift the presenting fetal part off the cord", "Attempt to gently push the visible cord back into the vagina", "Position the client in a knee-chest or Trendelenburg position", "Apply oxygen and prepare for emergent birth", "Apply firm fundal pressure to speed descent"], "ans": [0, 1, 3, 4], "why": "Cord prolapse is an obstetric emergency: the nurse calls for help while staying with the client, uses gloved fingers to lift the presenting part off the cord to relieve compression, positions the client knee-chest or Trendelenburg with a hip roll, and gives oxygen while preparing for emergent birth. The cord should never be pushed back into the vagina, since this can worsen compression and raise infection risk, and fundal pressure could force the presenting part further onto the cord instead of relieving it.", "src": "ATI Maternal-Newborn ch 16", "icon": "👶", "topicFull": "Dysfunctional Labor, Uterine Rupture & Obstetric Drug Math"}, {"type": "bowtie", "week": "10", "step": "action", "topic": "Dysfunctional Labor, Uterine…", "stemTitle": "Labor triage 2130", "stem": "<p>A client at 30 weeks of gestation reports a dull backache and pelvic heaviness since morning. The monitor shows <b>contractions every 5 minutes<\/b>, and her cervix is 2 cm dilated and 60% effaced, changed from closed at her visit 3 days ago. Temperature is 37.1&deg; C (98.8&deg; F), there is no bleeding, and the fetal heart rate baseline is 140/min with moderate variability.<\/p>", "cond": ["Preterm labor", "Braxton Hicks contractions", "Placental abruption", "Chorioamnionitis"], "actions": ["Give betamethasone IM as prescribed", "Turn the client to her left side and push fluids", "Have the client walk the halls to speed labor along", "Repeat the cervical exam every hour to track change", "Set up for an immediate cesarean birth"], "params": ["Contraction frequency and duration", "Fetal heart rate baseline", "Maternal rubella titer", "Weekly fundal height", "Newborn bilirubin level"], "answer": {"cond": [0], "action": [0, 1], "param": [0, 1]}, "why": "Regular contractions with a cervix that has actually changed before 37 weeks is preterm labor; Braxton Hicks does not change the cervix, abruption brings pain and bleeding, and infection would show fever and fetal tachycardia. Betamethasone is given between 24 and 34 weeks to mature fetal lungs and needs about a day to work, and left side-lying with good hydration improves uterine blood flow and calms contractions, since dehydration itself triggers them. Walking stimulates labor, hourly exams add infection risk when vaginal exams should be limited, and a reassuring fetal heart rate means no cesarean is needed. Contraction pattern shows whether the contractions are settling, and the fetal heart rate baseline shows how the fetus is tolerating it.", "src": "ATI Maternal-Newborn ch 10 Early Onset of Labor", "icon": "👶", "topicFull": "Dysfunctional Labor, Uterine Rupture & Obstetric Drug Math", "pharm": 1}], "11": [{"q": "Two hours after birth a client's fundus is boggy, 2 cm above the umbilicus, and deviated to the right. Her perineal pad is saturated in 10 minutes. Which action does the nurse take first?", "type": "single", "opts": ["Assist her to empty her bladder", "Administer methylergonovine intramuscularly", "Begin bimanual uterine compression", "Increase the IV oxytocin rate"], "ans": [0], "why": "<b>Boggy plus deviated means a full bladder<\/b> displacing the uterus and preventing it from contracting, so having her void fixes the cause by the least invasive route. Methylergonovine is added only if bleeding continues after the bladder is empty, and bimanual compression is a provider-level last resort.", "topic": "Postpartum Assessment…", "icon": "🍼", "topicFull": "Postpartum Assessment & Hemorrhage", "pharm": 1}, {"q": "A client 3 hours postpartum has a firm midline fundus at the umbilicus, yet a steady trickle of bright red blood without clots continues. Which action does the nurse take?", "type": "single", "opts": ["Massage the fundus vigorously", "Inspect the perineum, vagina and cervix for a laceration", "Encourage her to void and reassess", "Document the finding as normal lochia rubra"], "ans": [1], "why": "A <b>firm fundus with continued bleeding means the uterus is not the source<\/b>, so look for a laceration or hematoma, classically a bright red continuous trickle without clots. Massage will not help a uterus that is already contracted, and this is not normal lochia.", "topic": "Postpartum Assessment…", "icon": "🍼", "topicFull": "Postpartum Assessment & Hemorrhage"}, {"q": "Thirty minutes after a vaginal birth, a client reports severe, unrelenting rectal and perineal pressure and pain. Which action does the nurse take first?", "type": "single", "opts": ["Administer the prescribed oral analgesic", "Inspect the perineum for a hematoma", "Apply a warm sitz bath", "Reposition her and dim the lights"], "ans": [1], "why": "Severe perineal pain shortly after birth means <b>assess for a hematoma before medicating or applying anything<\/b>, because assessment precedes intervention and circulation precedes comfort. Analgesia would mask an expanding concealed blood loss.", "topic": "Postpartum Assessment…", "icon": "🍼", "topicFull": "Postpartum Assessment & Hemorrhage"}, {"q": "A nurse assesses a client 18 hours postpartum. Which findings are expected? Select all that apply.", "type": "sata", "opts": ["WBC count of 22,000/mm3", "Heart rate of 56 beats/min", "Profuse diaphoresis overnight", "Temperature of 38.8 C", "One perineal pad saturated in 15 minutes"], "ans": [0, 1, 2], "why": "Postpartum leukocytosis of 20,000 to 25,000, bradycardia as low as 50/min, and diuresis with diaphoresis are all <b>expected<\/b>. A temperature of 38.8 C exceeds the 38 C allowance for the first 24 hours, and one pad saturated in 15 minutes is excessive bleeding.", "topic": "Postpartum Assessment…", "icon": "🍼", "topicFull": "Postpartum Assessment & Hemorrhage"}, {"q": "A client is 48 hours postpartum. Where does the nurse expect to find the fundus?", "type": "single", "opts": ["At the level of the umbilicus, midline", "About 2 cm below the umbilicus, midline", "About 2 cm above the umbilicus, midline", "Halfway between the umbilicus and the symphysis"], "ans": [1], "why": "The fundus rises to the umbilicus at about 1 hour, then descends roughly <b>1 cm per day<\/b>, so at 48 hours it should be about 2 cm below the umbilicus and midline. It reaches halfway to the symphysis by about day 6 and is no longer palpable after about 2 weeks.", "topic": "Postpartum Assessment…", "icon": "🍼", "topicFull": "Postpartum Assessment & Hemorrhage"}, {"q": "A breastfeeding client at 3 weeks postpartum has a hard, tender, reddened area in one breast with fever and chills. Which instruction does the nurse give?", "type": "single", "opts": ["Stop breastfeeding on that side until the infection clears", "Continue to breastfeed or pump the affected breast and take the antibiotic", "Bind both breasts tightly and apply ice continuously", "Switch entirely to formula for the next 10 days"], "ans": [1], "why": "With mastitis, <b>emptying the breast is the treatment<\/b>, so she keeps feeding or pumping on the affected side while taking antibiotics. Stopping causes stasis and worsens the infection or leads to abscess; binding and weaning are the standing wrong answers.", "topic": "Postpartum Assessment…", "icon": "🍼", "topicFull": "Postpartum Assessment & Hemorrhage"}, {"type": "bowtie", "week": "11", "step": "prioritize", "topic": "Postpartum Assessment…", "stemTitle": "2 hours after vaginal birth", "stem": "<p>The client has soaked a full pad in 10 minutes. The fundus is <b>soft, boggy, and 2 cm above the umbilicus, displaced to the right<\/b>. Lochia is bright red with small clots.<\/p>", "cond": ["Uterine atony", "Cervical or vaginal laceration", "Retained placental fragments with subinvolution", "Uterine inversion"], "actions": ["Massage the fundus until firm", "Assist the client to void or catheterize for a distended bladder", "Notify the provider immediately of a firm, well-contracted uterus", "Prepare the client for surgical repositioning of the uterus", "Administer oxytocin as prescribed", "Apply ice to the fundus without further assessment"], "params": ["Fundal firmness and location", "Amount and color of lochia", "Vital signs for shock", "Deep tendon reflexes", "Urine ketones", "Serum calcium"], "answer": {"cond": [0], "action": [0, 1], "param": [0, 1]}, "why": "A soft, boggy, laterally displaced fundus with heavy bright red bleeding is the classic presentation of uterine atony, often caused by a distended bladder pushing the uterus off the midline; fundal massage and relieving bladder distention are the priority first actions rather than assuming laceration, retained tissue, or inversion, each of which presents differently. After intervening, the nurse reassesses fundal firmness/location and the amount and color of lochia to confirm the bleeding is resolving; vital signs matter for later shock assessment but do not most directly confirm that atony has resolved.", "src": "ATI Maternal-Newborn ch 20", "icon": "🍼", "topicFull": "Postpartum Assessment & Hemorrhage"}, {"type": "dropdown", "week": "11", "step": "analyze", "topic": "Postpartum Assessment…", "stemTitle": "Postpartum day 3, cesarean birth", "stem": "<p>The client's temperature is <b>38.9°C (102°F)<\/b>, with uterine tenderness and dark, profuse, foul-smelling lochia.<\/p>", "text": "These findings are most consistent with {1}, and the nurse should anticipate that the provider will first order {2}.", "gaps": [{"options": ["endometritis", "mastitis", "a urinary tract infection"], "answer": 0}, {"options": ["blood, intracervical, or intrauterine cultures before starting IV antibiotics", "an immediate hysterectomy", "a breast pump and lactation consult"], "answer": 0}], "why": "Fever, uterine tenderness, and foul-smelling, profuse lochia are hallmark findings of endometritis, a postpartum uterine infection, not mastitis (a breast finding) or a UTI (urinary symptoms without uterine tenderness). Cultures are obtained before starting broad-spectrum IV antibiotics so the causative organism can be identified and treatment targeted; hysterectomy is not an appropriate first step, and a lactation consult does not address the infection itself.", "src": "ATI Maternal-Newborn ch 21", "icon": "🍼", "topicFull": "Postpartum Assessment & Hemorrhage"}, {"type": "sata", "week": "11", "step": "evaluate", "topic": "Postpartum Assessment…", "q": "Four weeks ago a client was started on an antidepressant and referred for counseling for postpartum depression. At the 6-week visit, which findings indicate the treatment plan is working?", "opts": ["She naps while the newborn sleeps and says she wakes up rested.", "She holds and feeds the newborn and describes her as fun to be around.", "She kept both follow-up visits and started going to a parent support group.", "She stopped the medication as soon as she started feeling better.", "She says the newborn would be better off being raised by someone else.", "She has lost 14 lb since the last visit and skips most meals."], "ans": [0, 1, 2], "why": "Sleeping when the newborn sleeps, warm talk about the baby, and follow-through on visits and support groups are the outcomes this plan is aiming for. Stopping the drug early is a common relapse trap; antidepressants are continued as prescribed even after the mood lifts. Saying the newborn belongs with someone else is rejection of the infant, and rapid weight loss with skipped meals is another red flag, so both mean the client is getting worse and needs the provider now. Ask her directly about thoughts of harming herself or the baby.", "src": "ATI Maternal-Newborn ch 22 Postpartum Mental Health Disorders", "icon": "🍼", "topicFull": "Postpartum Assessment & Hemorrhage"}], "12": [{"q": "A newborn has a scalp swelling that crosses the suture lines and was present at birth. How does the nurse document this finding?", "type": "single", "opts": ["Cephalohematoma, which raises the risk of jaundice", "Caput succedaneum, which resolves in a few days", "Molding, which requires no documentation", "A subgaleal hemorrhage requiring immediate surgery"], "ans": [1], "why": "<b>Caput succedaneum crosses suture lines<\/b> and resolves within days; a cephalohematoma is bounded by sutures, does <b>not<\/b> cross them, and carries a higher jaundice risk as the blood breaks down. Whether it crosses the suture line is the entire discrimination.", "topic": "The Normal Newborn…", "icon": "🍼", "topicFull": "The Normal Newborn & Thermoregulation"}, {"q": "A newborn is placed directly on a cold metal scale to be weighed. Which mechanism of heat loss does this represent, and what prevents it?", "type": "single", "opts": ["Conduction; pre-warm and pad the scale", "Radiation; place a cap on the newborn's head", "Evaporation; place a cap on the newborn's head", "Convection; close the door to the room"], "ans": [0], "why": "Direct contact with a cold surface is <b>conduction<\/b>, prevented by pre-warming surfaces and using skin-to-skin. The cap is the trap: it addresses <b>radiation and evaporation<\/b>, and a hat will not stop heat draining into a cold scale.", "topic": "The Normal Newborn…", "icon": "🍼", "topicFull": "The Normal Newborn & Thermoregulation"}, {"q": "A term newborn has just been delivered vaginally and is crying vigorously. Which action does the nurse take first?", "type": "single", "opts": ["Administer vitamin K in the vastus lateralis", "Dry the newborn thoroughly and remove the wet linens", "Apply erythromycin ointment to both eyes", "Obtain a rectal temperature"], "ans": [1], "why": "<b>Drying immediately<\/b> prevents evaporative heat loss, the largest immediate threat to a wet newborn, and cold stress drives oxygen demand, acidosis and hypoglycemia. Vitamin K and eye prophylaxis follow, and rectal temperatures are avoided in newborns.", "topic": "The Normal Newborn…", "icon": "🍼", "topicFull": "The Normal Newborn & Thermoregulation", "pharm": 1}, {"q": "A nurse examines a 12-hour-old newborn. Which findings are expected variations requiring no intervention? Select all that apply.", "type": "sata", "opts": ["Acrocyanosis of the hands and feet", "Tiny white papules across the nose", "Jaundice of the face and sclerae", "Small white cysts on the hard palate", "A bulging anterior fontanel at rest"], "ans": [0, 1, 3], "why": "Acrocyanosis, milia and Epstein pearls are <b>normal newborn findings<\/b>. Jaundice appearing <b>before 24 hours is pathologic<\/b>, and a bulging fontanel at rest suggests increased intracranial pressure; both require reporting.", "topic": "The Normal Newborn…", "icon": "🍼", "topicFull": "The Normal Newborn & Thermoregulation"}, {"q": "A nurse assesses four newborns. Which finding requires immediate follow-up?", "type": "single", "opts": ["Respiratory rate of 54/min", "A pause in breathing lasting 25 seconds", "Apical pulse of 148 beats/min", "Axillary temperature of 37.0 C"], "ans": [1], "why": "Apnea lasting <b>more than 20 seconds is pathologic<\/b> and requires evaluation. Respirations of 30 to 60, an apical pulse of 110 to 160, and an axillary temperature of 36.5 to 37.5 C are all within normal newborn ranges.", "topic": "The Normal Newborn…", "icon": "🍼", "topicFull": "The Normal Newborn & Thermoregulation"}, {"q": "A newborn 1 hour old has an axillary temperature of 36.1 C, mottled skin, and mild jitteriness. Which action does the nurse take first?", "type": "single", "opts": ["Begin skin-to-skin contact under a pre-warmed radiant warmer", "Give the first formula feeding of 30 mL", "Bathe the newborn to remove the remaining vernix", "Recheck the temperature in 1 hour"], "ans": [0], "why": "Rewarming comes first because cold stress triggers <b>increased oxygen demand, hypoxia, metabolic acidosis and hypoglycemia<\/b>, which explains the jitteriness. Rewarm gradually over 2 to 4 hours, check the glucose, and delay the first bath rather than adding evaporative loss.", "topic": "The Normal Newborn…", "icon": "🍼", "topicFull": "The Normal Newborn & Thermoregulation", "pharm": 1}, {"type": "dropdown", "week": "12", "step": "analyze", "topic": "The Normal Newborn…", "stemTitle": "Newborn assessment, 2 hours old", "stem": "<p>Axillary temperature is <b>36.2°C (97.2°F)<\/b>, blood glucose is 52 mg/dL, and the newborn has not yet voided. Vitamin K and erythromycin ointment have been given.<\/p>", "text": "An axillary temperature of 36.2°C indicates {1}, so the nurse's priority action is to {2}.", "gaps": [{"options": ["mild hypothermia", "an expected finding requiring no action", "hyperthermia"], "answer": 0}, {"options": ["initiate skin-to-skin contact with the parent or use a radiant warmer", "give a dose of acetaminophen", "repeat the vitamin K injection"], "answer": 0}], "why": "An axillary temperature below 36.5°C falls under the expected newborn range of 36.5-37.5°C and meets the definition of hypothermia, so skin-to-skin contact with the parent, or a radiant warmer if needed, is the priority warming intervention, since cold stress can lead to hypoglycemia and other complications. Acetaminophen does not address hypothermia, and there is no indication to repeat the vitamin K dose since it was already given.", "src": "ATI Maternal-Newborn ch 23-24", "icon": "🍼", "topicFull": "The Normal Newborn & Thermoregulation", "pharm": 1}, {"type": "matching", "week": "12", "step": "action", "topic": "The Normal Newborn…", "stem": "<p>Match each newborn procedure with the action that carries it out correctly.<\/p>", "pairs": [{"left": "Vitamin K injection", "answer": 0}, {"left": "Eye prophylaxis", "answer": 1}, {"left": "Heel stick for the newborn screen", "answer": 2}, {"left": "Plastibell circumcision site care", "answer": 3}], "right": ["Give 0.5 to 1 mg IM in the vastus lateralis, in the opposite thigh from the hepatitis B shot", "Lay a 1 to 2 cm ribbon of ointment inside each lower lid within the first day of life", "Warm the heel, keep the lancet no deeper than 2.4 mm, then press dry gauze on the site", "Wash with warm water at every diaper change and let the ring fall off in 5 to 7 days", "Scrub the site with an alcohol wipe at each diaper change", "Wrap the area snugly in gauze so steady pressure stays on the glans"], "why": "Vitamin K goes into the thigh muscle and is kept away from the hepatitis B site so a reaction can be traced to the right drug. The erythromycin ribbon in the lower lids prevents the eye infection a newborn can pick up during birth from gonorrhea or chlamydia. Warming the heel improves blood flow, and the shallow lancet depth protects the bone underneath; alcohol is not used to stop the bleeding. Alcohol wipes irritate a fresh circumcision, and a snug wrap can cut off blood flow to the glans, so both are wrong actions.", "src": "ATI Maternal-Newborn ch 24 Nursing Care of Newborns", "icon": "🍼", "topicFull": "The Normal Newborn & Thermoregulation", "pharm": 1}], "13": [{"q": "A client 4 days postpartum says she is switching to formula because she is not making enough milk. Her newborn has 7 wet diapers a day and is nearly back to birth weight. Which action does the nurse take first?", "type": "single", "opts": ["Assess a full feeding, including latch and technique", "Provide formula samples and feeding instructions", "Recommend she pump and bottle-feed exclusively", "Tell her to supplement with water between feeds"], "ans": [0], "why": "When a client believes her supply is low, <b>assess the latch and a full feeding first<\/b>, because poor transfer is a latch problem until proven otherwise. Her diaper count and weight are actually reassuring, and supplemental water is never appropriate for a newborn.", "topic": "Newborn Feeding", "icon": "🍼", "topicFull": "Newborn Feeding"}, {"q": "A client 3 days postpartum has firm, painfully full breasts. She has been feeding her newborn about every 5 hours to let her breasts fill up. Which instruction does the nurse give?", "type": "single", "opts": ["Feed the newborn every 2 to 3 hours, at least 8 to 12 times a day", "Continue spacing feedings so the breasts can refill", "Pump and discard milk for 24 hours to reduce the swelling", "Bind the breasts and stop feeding until the fullness resolves"], "ans": [0], "why": "Engorgement results from <b>infrequent emptying<\/b>, so more frequent feeding is the treatment, not less. Spacing feedings, discarding milk and binding all worsen stasis; cold packs between feeds are comfort measures only, not the priority intervention.", "topic": "Newborn Feeding", "icon": "🍼", "topicFull": "Newborn Feeding"}, {"q": "A newborn weighs 4 kg and requires 100 kcal/kg/day. Formula provides 20 kcal/oz and the newborn feeds 8 times daily. How many ounces does the newborn need per feeding?", "type": "single", "opts": ["1.5 oz", "2 oz", "2.5 oz", "3 oz"], "ans": [2], "why": "4 kg x 100 kcal/kg/day = <b>400 kcal/day<\/b>; 400 divided by 20 kcal/oz = <b>20 oz/day<\/b>; 20 oz divided by 8 feedings = <b>2.5 oz per feeding<\/b>. Stopping at the daily total instead of dividing by the number of feedings is the usual mistake.", "topic": "Newborn Feeding", "icon": "🍼", "topicFull": "Newborn Feeding"}, {"q": "A nurse evaluates whether a 5-day-old breastfed newborn is feeding adequately. Which findings indicate adequate intake? Select all that apply.", "type": "sata", "opts": ["Six to eight wet diapers per day", "Sleeping 7 hours straight between feedings", "At least three loose yellow seedy stools per day", "Content and settled between feedings", "A 12% weight loss from birth weight"], "ans": [0, 2, 3], "why": "Adequate intake shows as <b>6 to 8 wet diapers, at least 3 stools daily in the first month, and contentment between feeds<\/b>, with birth weight regained by 10 to 14 days. Long sleep stretches at this age mean missed feedings, and expected weight loss is only 5 to 10%.", "topic": "Newborn Feeding", "icon": "🍼", "topicFull": "Newborn Feeding"}, {"q": "A nurse teaches formula preparation to a new parent. Which statement indicates correct understanding?", "type": "single", "opts": ["I can microwave the bottle for 20 seconds to warm it", "I will refrigerate whatever he does not finish and use it at the next feeding", "I will warm the bottle in water and test it on my inner wrist", "I can prop the bottle on a blanket if I need both hands"], "ans": [2], "why": "Bottles are <b>warmed in water and tested on the inner wrist or arm<\/b>. Microwaving causes uneven heating and burns, formula left in the bottle is discarded because of bacterial growth, and propping a bottle risks aspiration.", "topic": "Newborn Feeding", "icon": "🍼", "topicFull": "Newborn Feeding"}, {"q": "A client 36 hours postpartum has swollen, tender breasts, and her newborn is showing hunger cues. Which action does the nurse take first?", "type": "single", "opts": ["Apply warmth to the breasts and assist her to feed the newborn now", "Apply ice packs and delay the feeding until the swelling decreases", "Give a bottle of formula to rest the breasts", "Fit her with a tight binding bra"], "ans": [0], "why": "<b>Warmth before a feeding triggers letdown<\/b>, and feeding on the newborn's cues is what actually relieves engorgement; cold is used <b>between<\/b> feeds for comfort. That order reverses only when lactation is being suppressed, where it is cold only with no stimulation.", "topic": "Newborn Feeding", "icon": "🍼", "topicFull": "Newborn Feeding"}, {"type": "highlight", "week": "13", "step": "evaluate", "topic": "Newborn Feeding", "stemTitle": "Home visit, day 5", "stem": "<p>Nurse's note during a home visit with a breastfeeding newborn. Select the findings that indicate adequate breastfeeding intake.<\/p>", "tokens": [{"text": "The newborn breastfeeds about 9 times in 24 hours ", "pick": true}, {"text": "and ", "pick": false}, {"text": "the parent reports the newborn seems calm and satisfied between feeds. ", "pick": true}, {"text": "The newborn had 7 wet diapers and 3 loose yellow stools in the past 24 hours. ", "pick": true}, {"text": "The newborn was born at 39 weeks gestation by vaginal birth. ", "pick": true}, {"text": "Birth weight was 3,400 g, and current weight shows an appropriate gain trend on the growth chart. ", "pick": true}, {"text": "The parent's due date was calculated using Naegele's rule. ", "pick": true}, {"text": "The newborn is exclusively breastfed with no formula supplementation. ", "pick": true}], "answer": [0, 2, 3, 5], "why": "Feeding 8 to 12 times in 24 hours, appearing calm and satisfied between feeds, having at least 6 to 8 wet diapers with loose yellow stools, and showing an appropriate weight-gain trend are the specific markers of adequate breastfeeding intake. Gestational age at birth, how the due date was calculated, and exclusive breastfeeding status are relevant background details, but they do not by themselves confirm the newborn is getting enough milk.", "src": "ATI Maternal-Newborn ch 25", "icon": "🍼", "topicFull": "Newborn Feeding"}], "14": [{"q": "A newborn develops visible jaundice of the face and sclerae at 16 hours of age. How does the nurse interpret this finding?", "type": "single", "opts": ["Physiologic jaundice, which is expected in most newborns", "Pathologic jaundice, which requires prompt evaluation", "Normal, since jaundice always appears in the first day", "Bronze baby syndrome from phototherapy"], "ans": [1], "why": "Jaundice is a <b>timing question<\/b>: before 24 hours it is <b>pathologic<\/b>, usually blood group incompatibility or infection, while after 24 hours it is physiologic. ABO incompatibility means a type O parent with a type A or B newborn, confirmed by a positive direct Coombs.", "topic": "The High-Risk Newborn…", "icon": "🍼", "topicFull": "The High-Risk Newborn & Course Review"}, {"q": "A newborn at 2 hours of age has a respiratory rate of 78/min with nasal flaring, expiratory grunting and intercostal retractions. Which action does the nurse take first?", "type": "single", "opts": ["Notify the provider and prepare for respiratory support and surfactant", "Offer the first oral feeding to calm the newborn", "Reassure the parents that grunting is normal transition", "Recheck the respiratory rate in 1 hour"], "ans": [0], "why": "Tachypnea over 60 with <b>flaring, grunting and retractions is respiratory distress syndrome<\/b> from surfactant deficiency and needs immediate support. Feeding a newborn in distress risks aspiration, and waiting allows progression to flaccidity, apnea and unresponsiveness.", "topic": "The High-Risk Newborn…", "icon": "🍼", "topicFull": "The High-Risk Newborn & Course Review"}, {"q": "During the birth of a macrosomic newborn, the head delivers but the anterior shoulder does not. Which nursing action is appropriate?", "type": "single", "opts": ["Apply firm fundal pressure", "Assist into McRoberts position and apply suprapubic pressure", "Place the client flat with legs extended", "Pull downward on the fetal head"], "ans": [1], "why": "Shoulder dystocia is managed with the <b>McRoberts maneuver and suprapubic pressure<\/b>. <b>Fundal pressure is never used<\/b>, since it drives the shoulder harder against the symphysis and worsens the impaction; traction on the head risks brachial plexus injury.", "topic": "The High-Risk Newborn…", "icon": "🍼", "topicFull": "The High-Risk Newborn & Course Review"}, {"q": "A newborn is being treated for neonatal abstinence syndrome. Which interventions does the nurse include in the plan of care? Select all that apply.", "type": "sata", "opts": ["Cluster care and keep the lights dim", "Swaddle the newborn snugly", "Place the crib in a brightly lit area for close observation", "Offer small, frequent, high-calorie feedings", "Provide vigorous stimulation to maintain alertness"], "ans": [0, 1, 3], "why": "NAS care is the <b>opposite of stimulation<\/b>: cluster care, dim lights, low noise, swaddling, non-nutritive sucking, and small frequent high-calorie feedings with the head elevated. Bright light and vigorous stimulation worsen the hyperirritability and tremors.", "topic": "The High-Risk Newborn…", "icon": "🍼", "topicFull": "The High-Risk Newborn & Course Review"}, {"q": "A newborn is receiving phototherapy for hyperbilirubinemia. Which nursing action is correct?", "type": "single", "opts": ["Turn the lights off before drawing the bilirubin level", "Dress the newborn to prevent chilling under the lights", "Limit feedings so the newborn rests undisturbed", "Report the bronze skin discoloration as an adverse reaction"], "ans": [0], "why": "The <b>lights are turned off before drawing a bilirubin<\/b>, because they degrade bilirubin in the sample and give a falsely low result. The newborn stays undressed with eyes masked, is fed 8 to 12 times daily to move bilirubin out in the stool, and bronze discoloration with a maculopapular rash is expected.", "topic": "The High-Risk Newborn…", "icon": "🍼", "topicFull": "The High-Risk Newborn & Course Review"}, {"q": "A client with gestational diabetes managed on insulin gives birth vaginally. Which nursing action is the priority in the first 24 hours postpartum?", "type": "single", "opts": ["Monitor for hypoglycemia and anticipate a sharply reduced insulin requirement", "Continue her third-trimester insulin dose unchanged", "Increase her insulin dose to cover postpartum stress", "Withhold all oral intake until glucose normalizes"], "ans": [0], "why": "With the placenta gone, hPL falls and <b>insulin requirements drop off a cliff<\/b> immediately after birth. Yesterday's correct dose causes hypoglycemia today, so the antepartum dose is neither continued nor increased.", "topic": "The High-Risk Newborn…", "icon": "🍼", "topicFull": "The High-Risk Newborn & Course Review", "pharm": 1}, {"type": "bowtie", "week": "14", "step": "prioritize", "topic": "The High-Risk Newborn…", "stemTitle": "NICU, 4 hours old, born at 32 weeks gestation", "stem": "<p>Respiratory rate is <b>68/min<\/b> with grunting, nasal flaring, and intercostal retractions, plus mild cyanosis. Axillary temperature is 36.9°C, and blood glucose is 58 mg/dL.<\/p>", "cond": ["Respiratory distress syndrome (RDS)", "Neonatal sepsis", "Cold stress", "Tracheoesophageal fistula"], "actions": ["Obtain an arterial blood gas and prepare for chest x-ray", "Prepare to administer surfactant replacement therapy", "Begin oral feeding to help stabilize blood glucose", "Discontinue oxygen therapy once cyanosis briefly resolves", "Place the newborn under a radiant warmer for routine care only", "Withhold all respiratory support pending provider orders"], "params": ["Oxygen saturation", "Respiratory rate and effort", "Serum bilirubin", "Head circumference", "Stool color and consistency", "Weight trend over days"], "answer": {"cond": [0], "action": [0, 1], "param": [0, 1]}, "why": "A preterm newborn at 32 weeks with a respiratory rate over 60/min, grunting, nasal flaring, and retractions has the classic presentation of RDS from insufficient surfactant, not sepsis (which would show temperature instability and poor feeding), cold stress (temperature is within the expected range here), or a tracheoesophageal fistula (which causes choking and excess secretions with feeding rather than this picture). Obtaining an ABG and chest x-ray confirms the diagnosis and severity, and surfactant replacement is the definitive treatment, while oral feeding is unsafe with this degree of distress and withholding respiratory support would allow deterioration. Oxygen saturation and respiratory rate/effort are the two parameters that most directly track whether the newborn is responding to treatment.", "src": "ATI Maternal-Newborn ch 27", "icon": "🍼", "topicFull": "The High-Risk Newborn & Course Review"}, {"type": "highlight", "week": "14", "step": "evaluate", "topic": "The High-Risk Newborn…", "stemTitle": "Nurses' note 1600", "stem": "Phototherapy was started 8 hr ago for hyperbilirubinemia. Highlight the findings that show the newborn is <b>not<\/b> responding to the therapy as expected.", "tokens": [{"text": "Newborn is 60 hr old and has been under the phototherapy lights since 0800. ", "pick": false}, {"text": "Total serum bilirubin has climbed from 14.2 to 16.4 mg/dL since the lights were started. ", "pick": true}, {"text": "Jaundice now reaches the knees. ", "pick": true}, {"text": "Eye shields are in place and were lifted at 1200 to check the eyes. ", "pick": true}, {"text": "Newborn has taken only 2 feedings in the past 8 hr and falls asleep at the breast. ", "pick": true}, {"text": "Three loose green stools since morning. ", "pick": true}, {"text": "The cry is high pitched and the newborn is hard to rouse for care. ", "pick": true}, {"text": "Axillary temperature 37.0° C (98.6° F). ", "pick": true}, {"text": "Weight is down 5% from birth weight. ", "pick": true}, {"text": "Voided 4 times since the lights were started.", "pick": true}], "answer": [1, 2, 4, 6], "why": "Phototherapy should start pulling the bilirubin down within about 4 to 6 hr, so a level still climbing at 8 hr with jaundice spreading further down the body means it is not working. A sleepy newborn who will not wake to feed makes it worse, because bilirubin leaves the body in stool and needs 8 to 12 feedings a day to clear. A high-pitched cry with lethargy is the warning sign that bilirubin is affecting the brain. Loose green stools, shielded eyes, a normal temperature, a 5% weight loss, and steady voiding are all expected during treatment.", "src": "ATI Maternal-Newborn ch 27 Complications of the Newborn", "icon": "🍼", "topicFull": "The High-Risk Newborn & Course Review"}]}</script>
+<script type="application/json" id="exammap">{"1": "Final", "2": "Final", "3": "Final", "4": "Final", "5": "Final", "6": "Final", "7": "Final", "8": "Final", "9": "Final", "10": "Final", "11": "Final", "12": "Final", "13": "Final", "14": "Final"}</script>
+<script>
+/* ---- renderers for the NGN item types --------------------------------
+   Each returns nothing; it fills the card and wires its own Check button. They share
+   one contract with the quiz engine: call finish(right) once she checks, and never
+   change anything after that. */
+window.NGN = (function(){
+
+  function esc(s){ return String(s); }
+
+  function stem(q){
+    if(!q.stem) return '';
+    return '<div class="qstem">' + (q.stemTitle?('<h4>'+q.stemTitle+'</h4>'):'') +
+           q.stem + '</div>';
+  }
+
+  /* ---- bow-tie ------------------------------------------------------- */
+  function bowtie(card, q, locked, finish){
+    var slots = {action:[null,null], param:[null,null], cond:[null]};
+    if(locked) slots = locked.slots;
+    card.innerHTML = stem(q) +
+      '<p class="hlhint">Tap an option to place it. Tap a filled box to clear it.</p>' +
+      '<div class="bowtie">' +
+        '<div class="btcol"><h5>&#129658; Actions to take</h5>' +
+          '<div class="btslot" data-g="action" data-i="0"></div>' +
+          '<div class="btslot" data-g="action" data-i="1"></div></div>' +
+        '<div class="btcol mid"><h5>&#129517; Condition</h5>' +
+          '<div class="btslot" data-g="cond" data-i="0"></div></div>' +
+        '<div class="btcol"><h5>&#128200; Parameters to monitor</h5>' +
+          '<div class="btslot" data-g="param" data-i="0"></div>' +
+          '<div class="btslot" data-g="param" data-i="1"></div></div>' +
+      '</div>' +
+      '<div class="btbank">' +
+        '<span class="bl">Conditions</span>' +
+        q.cond.map(function(t,i){return '<button type="button" class="btopt" data-g="cond" data-v="'+i+'">'+esc(t)+'</button>';}).join('') +
+        '<span class="bl">Actions</span>' +
+        q.actions.map(function(t,i){return '<button type="button" class="btopt" data-g="action" data-v="'+i+'">'+esc(t)+'</button>';}).join('') +
+        '<span class="bl">Parameters</span>' +
+        q.params.map(function(t,i){return '<button type="button" class="btopt" data-g="param" data-v="'+i+'">'+esc(t)+'</button>';}).join('') +
+      '</div>' +
+      '<div><button type="button" class="check" id="chk">Check</button>' +
+      '<span class="verdict" id="vd"></span></div>' +
+      '<div class="rat" id="rat"><b>Why:</b> '+(q.why||'')+'</div>';
+
+    var TEXT = {cond:q.cond, action:q.actions, param:q.params};
+    function paint(){
+      [].forEach.call(card.querySelectorAll('.btslot'),function(s){
+        var g=s.dataset.g, i=+s.dataset.i, v=slots[g][i];
+        s.textContent = v===null||v===undefined ? '' : TEXT[g][v];
+        s.classList.toggle('filled', v!==null&&v!==undefined);
+      });
+      var used={};
+      Object.keys(slots).forEach(function(g){
+        slots[g].forEach(function(v){ if(v!==null&&v!==undefined) used[g+':'+v]=1; });
+      });
+      [].forEach.call(card.querySelectorAll('.btopt'),function(b){
+        b.classList.toggle('used', !!used[b.dataset.g+':'+b.dataset.v]);
+      });
+    }
+    paint();
+
+    if(!locked){
+      [].forEach.call(card.querySelectorAll('.btopt'),function(b){
+        b.addEventListener('click',function(){
+          var g=b.dataset.g, v=+b.dataset.v;
+          if(slots[g].indexOf(v)>-1) return;
+          var free=slots[g].indexOf(null);
+          if(free<0){ free=slots[g].length-1; }
+          slots[g][free]=v; paint();
+        });
+      });
+      [].forEach.call(card.querySelectorAll('.btslot'),function(s){
+        s.addEventListener('click',function(){
+          slots[s.dataset.g][+s.dataset.i]=null; paint();
+        });
+      });
+    }
+
+    function grade(){
+      var ok=true;
+      [].forEach.call(card.querySelectorAll('.btslot'),function(s){
+        var g=s.dataset.g, i=+s.dataset.i, v=slots[g][i];
+        var correct = (q.answer[g]||[]).indexOf(v)>-1;
+        s.classList.add(correct?'right':'wrong');
+        if(!correct) ok=false;
+      });
+      // every required slot must be filled
+      Object.keys(slots).forEach(function(g){
+        if(slots[g].indexOf(null)>-1) ok=false;
+      });
+      return ok;
+    }
+    return {grade:grade, state:function(){return {slots:slots};}};
+  }
+
+  /* ---- drop-down cloze ------------------------------------------------ */
+  function dropdown(card, q, locked, finish){
+    var html = q.text;
+    q.gaps.forEach(function(g,i){
+      var sel='<select data-i="'+i+'"><option value="">&mdash; choose &mdash;</option>'+
+        g.options.map(function(o,j){return '<option value="'+j+'">'+esc(o)+'</option>';}).join('')+
+        '</select>';
+      html = html.replace('{'+(i+1)+'}', sel);
+    });
+    card.innerHTML = stem(q) + '<p class="cloze">'+html+'</p>' +
+      '<div><button type="button" class="check" id="chk">Check</button>' +
+      '<span class="verdict" id="vd"></span></div>' +
+      '<div class="rat" id="rat"><b>Why:</b> '+(q.why||'')+'</div>';
+    var sels=[].slice.call(card.querySelectorAll('.cloze select'));
+    if(locked) sels.forEach(function(s,i){ s.value=locked.picked[i]; s.disabled=true; });
+    function grade(){
+      var ok=true;
+      sels.forEach(function(s,i){
+        var right = s.value!=='' && +s.value===q.gaps[i].answer;
+        s.classList.add(right?'right':'wrong'); s.disabled=true;
+        if(!right) ok=false;
+      });
+      return ok;
+    }
+    return {grade:grade, state:function(){return {picked:sels.map(function(s){return s.value;})};}};
+  }
+
+  /* ---- matching -------------------------------------------------------- */
+  function matching(card, q, locked, finish){
+    var rows = q.pairs.map(function(p,i){
+      return '<div class="mrow"><div class="mleftbox">'+esc(p.left)+'</div>'+
+        '<select data-i="'+i+'"><option value="">&mdash; choose &mdash;</option>'+
+        q.right.map(function(r,j){return '<option value="'+j+'">'+esc(r)+'</option>';}).join('')+
+        '</select></div>';
+    }).join('');
+    card.innerHTML = stem(q) + '<div class="match">'+rows+'</div>' +
+      '<div><button type="button" class="check" id="chk">Check</button>' +
+      '<span class="verdict" id="vd"></span></div>' +
+      '<div class="rat" id="rat"><b>Why:</b> '+(q.why||'')+'</div>';
+    var sels=[].slice.call(card.querySelectorAll('.match select'));
+    if(locked) sels.forEach(function(s,i){ s.value=locked.picked[i]; s.disabled=true; });
+    function grade(){
+      var ok=true;
+      sels.forEach(function(s,i){
+        var right = s.value!=='' && +s.value===q.pairs[i].answer;
+        s.classList.add(right?'right':'wrong'); s.disabled=true;
+        if(!right) ok=false;
+      });
+      return ok;
+    }
+    return {grade:grade, state:function(){return {picked:sels.map(function(s){return s.value;})};}};
+  }
+
+  /* ---- highlight the cues --------------------------------------------- */
+  function highlight(card, q, locked, finish){
+    var toks = q.tokens.map(function(t,i){
+      return t.pick ? '<span class="hltok" data-i="'+i+'">'+esc(t.text)+'</span>'
+                    : esc(t.text);
+    }).join('');
+    card.innerHTML = stem(q) +
+      '<p class="hlhint">Tap every finding that needs follow-up. Tap again to unselect.</p>' +
+      '<div class="hlnote">'+toks+'</div>' +
+      '<div><button type="button" class="check" id="chk">Check</button>' +
+      '<span class="verdict" id="vd"></span></div>' +
+      '<div class="rat" id="rat"><b>Why:</b> '+(q.why||'')+'</div>';
+    var picked = locked ? locked.picked.slice() : [];
+    var toksEl=[].slice.call(card.querySelectorAll('.hltok'));
+    function paint(){ toksEl.forEach(function(e){
+      e.classList.toggle('sel', picked.indexOf(+e.dataset.i)>-1); }); }
+    paint();
+    if(!locked){
+      toksEl.forEach(function(e){
+        e.addEventListener('click',function(){
+          var i=+e.dataset.i, at=picked.indexOf(i);
+          if(at>-1) picked.splice(at,1); else picked.push(i);
+          paint();
+        });
+      });
+    }
+    function grade(){
+      var ans=q.answer||[], ok=true;
+      toksEl.forEach(function(e){
+        var i=+e.dataset.i, isAns=ans.indexOf(i)>-1, got=picked.indexOf(i)>-1;
+        e.classList.remove('sel');
+        if(isAns && got) e.classList.add('right');
+        else if(got) { e.classList.add('wrong'); ok=false; }
+        else if(isAns) { e.classList.add('missed'); ok=false; }
+      });
+      if(!picked.length) ok=false;
+      return ok;
+    }
+    return {grade:grade, state:function(){return {picked:picked};}};
+  }
+
+  var R = {bowtie:bowtie, dropdown:dropdown, matching:matching, highlight:highlight};
+
+  return {
+    handles: function(t){ return !!R[t]; },
+    render: function(card, q, locked){ return R[q.type](card, q, locked); },
+    label: {"single": "One answer", "sata": "Select all that apply", "bowtie": "Bow-tie", "dropdown": "Drop-down cloze", "matching": "Matching", "highlight": "Highlight the cues"},
+    steps: {"recognize": "&#128064; Recognise cues", "analyze": "&#129504; Analyse cues", "prioritize": "&#127919; Prioritise hypotheses", "solutions": "&#128161; Generate solutions", "action": "&#129658; Take action", "evaluate": "&#128200; Evaluate outcomes"}
+  };
+})();
+
+(function(){
+  var BANK={}, EXAMOF={};
+  try{ BANK=JSON.parse(document.getElementById('qbank').textContent)||{}; }catch(e){}
+  try{ EXAMOF=JSON.parse(document.getElementById('exammap').textContent)||{}; }catch(e){}
+
+  var flat=[];
+  Object.keys(BANK).forEach(function(wk){
+    (BANK[wk]||[]).forEach(function(q,i){ flat.push({q:q, wk:wk, exam:EXAMOF[wk]||'', id:wk+'-'+i}); });
+  });
+
+  /* Every filter except the count is a SET, because she asked to be able to pick more
+     than one button where it makes sense. An empty set means "no restriction", which
+     is also what the All chip means - so All is just "clear this set". */
+  var pick={exam:[], topic:[], focus:[], style:[], step:[], wk:[]}, count='all';
+  var list=[], idx=0, state={}, pool=0;
+
+  function passes(o, skip){
+    function has(k, v){ return skip===k || !pick[k].length || pick[k].indexOf(v)>-1; }
+    if(!has('exam', o.exam)) return false;
+    if(!has('topic', o.q.topic||'')) return false;
+    if(!has('wk', o.wk)) return false;
+    if(!has('style', o.q.type||'single')) return false;
+    if(!has('step', o.q.step||'')) return false;
+    if(skip!=='focus' && pick.focus.length){
+      var ok=pick.focus.some(function(f){ return f==='pharm' ? !!o.q.pharm : true; });
+      if(!ok) return false;
+    }
+    return true;
+  }
+
+  /* How many she wants. A typed number wins over the chips, because typing it is the
+     more deliberate act - and it is clamped to what the filters actually left, so
+     asking for 50 out of a 6-question week gives 6 rather than an empty set. */
+  function wanted(available){
+    var box=document.getElementById('customCount');
+    var typed = box && box.value.trim() ? parseInt(box.value, 10) : NaN;
+    var n = !isNaN(typed) && typed > 0 ? typed
+          : (count === 'all' ? available : parseInt(count, 10));
+    if (isNaN(n) || n < 1) n = available;
+    return Math.min(n, available);
+  }
+
+  function build(shuffle){
+    list=flat.filter(function(o){ return passes(o); });
+    if(shuffle){
+      for(var i=list.length-1;i>0;i--){
+        var j=Math.floor(Math.random()*(i+1)), t=list[i]; list[i]=list[j]; list[j]=t;
+      }
+    }
+    /* Cut to length AFTER shuffling, so "20 questions, shuffled" is 20 drawn from the
+       whole filtered set rather than the first 20 reordered. */
+    pool=list.length;
+    list=list.slice(0, wanted(pool));
+    idx=0; state={}; refreshAvail(); draw();
+  }
+
+  /* Grey out - and genuinely disable - any button that would leave her with nothing,
+     and put the count in its tooltip. Each button is measured with its OWN group's
+     selection ignored, which is what makes a multi-select row behave: picking one
+     topic must not black out every other topic. */
+  function refreshAvail(){
+    document.getElementById('poolcount').textContent=pool;
+    [].forEach.call(document.querySelectorAll('.fbtn'),function(b){
+      var k=b.dataset.k, v=b.dataset.v;
+      if(!k || v==='all' || k==='count'){ b.classList.remove('dim'); b.disabled=false; return; }
+      var n=flat.filter(function(o){
+        if(!passes(o, k)) return false;
+        if(k==='exam')  return o.exam===v;
+        if(k==='topic') return (o.q.topic||'')===v;
+        if(k==='wk')    return o.wk===v;
+        if(k==='style') return (o.q.type||'single')===v;
+        if(k==='step')  return (o.q.step||'')===v;
+        if(k==='focus') return v==='pharm' ? !!o.q.pharm : true;
+        return true;
+      }).length;
+      b.classList.toggle('dim', n===0);
+      b.disabled = n===0;
+      var base=b.dataset.full||'';
+      b.title = (base ? base+' \u2014 ' : '') +
+                (n===0 ? 'nothing left with your other filters'
+                       : n + ' question' + (n===1?'':'s'));
+    });
+  }
+
+  function draw_score(){
+    var s=score(), bar=document.getElementById('scorebar');
+    bar.innerHTML='<span>Question <b>'+(idx+1)+'</b> of <b>'+list.length+'</b></span>'+
+                  '<span>Correct so far: <b>'+s.ok+'</b> / '+s.done+'</span>';
+  }
+
+  function score(){
+    var done=0, ok=0;
+    Object.keys(state).forEach(function(k){ done++; if(state[k].right) ok++; });
+    return {done:done, ok:ok};
+  }
+
+  function draw(){
+    var card=document.getElementById('card'), bar=document.getElementById('scorebar');
+    if(!list.length){
+      card.innerHTML='<div class="done"><h2>Nothing matches</h2>'+
+        '<p>Widen the filters and try again.</p></div>';
+      document.getElementById('prev').disabled=true;
+      document.getElementById('next').disabled=true;
+      bar.innerHTML=''; return;
+    }
+    if(idx>=list.length){
+      var s=score();
+      card.innerHTML='<div class="done"><h2>&#127881; End of the set</h2>'+
+        '<p>You answered <b>'+s.ok+'</b> of <b>'+s.done+'</b> correctly.</p>'+
+        '<p style="color:var(--soft);font-size:.98rem">Shuffle and go again &mdash; the '+
+        'order is what you memorise otherwise.</p></div>';
+      document.getElementById('prev').disabled=false;
+      document.getElementById('next').disabled=true;
+      bar.innerHTML='<span>Finished</span><span><b>'+s.ok+'</b> / '+s.done+'</span>';
+      return;
+    }
+    var o=list[idx], q=o.q, multi=q.type==='sata', st=state[o.id];
+
+    /* The NGN item types build their own card and grade themselves. They share the
+       same contract as the built-in ones: draw, then report a single right/wrong when
+       she checks, then never change again. */
+    if(window.NGN && NGN.handles(q.type)){
+      var s2=score();
+      bar.innerHTML='<span>Question <b>'+(idx+1)+'</b> of <b>'+list.length+'</b>'+
+        (pool>list.length?' <span style="color:var(--muted)">(of '+pool+' available)</span>':'')+
+        '</span><span>Correct so far: <b>'+s2.ok+'</b> / '+s2.done+'</span>';
+      var inst=NGN.render(card, q, st ? st.ngn : null);
+      var tagrow=document.createElement('div');
+      tagrow.className='qtags';
+      tagrow.innerHTML='<span class="tag wk">Week '+o.wk+'</span>'+
+        (o.exam?'<span class="tag">'+o.exam+'</span>':'')+
+        '<span class="tag type">'+(NGN.label[q.type]||q.type)+'</span>'+
+        (q.step?'<span class="tag step">'+(NGN.steps[q.step]||q.step)+'</span>':'');
+      card.insertBefore(tagrow, card.firstChild);
+      if(st){
+        var vd=document.getElementById('vd');
+        if(vd){ vd.textContent = st.right?'Correct':'Not quite';
+                vd.className='verdict '+(st.right?'ok':'no'); }
+        var r=document.getElementById('rat'); if(r) r.classList.add('show');
+        var cb=document.getElementById('chk'); if(cb) cb.style.display='none';
+        inst.grade();
+      } else {
+        var chk2=document.getElementById('chk');
+        if(chk2){
+          chk2.addEventListener('click',function(){
+            var right=inst.grade();
+            state[o.id]={right:right, ngn:inst.state()};
+            var vd=document.getElementById('vd');
+            vd.textContent = right?'Correct':'Not quite';
+            vd.className='verdict '+(right?'ok':'no');
+            document.getElementById('rat').classList.add('show');
+            chk2.style.display='none';
+            draw_score();
+          });
+        }
+      }
+      document.getElementById('prev').disabled = idx===0;
+      document.getElementById('next').disabled = false;
+      return;
+    }
+    var opts=(q.opts||[]).map(function(txt,i){
+      var cls='opt'+(multi?'':' rad');
+      if(st){
+        var isAns=(q.ans||[]).indexOf(i)>-1, got=st.picked.indexOf(i)>-1;
+        cls+=' locked'+(isAns?' correct':(got?' wrong':''));
+      }
+      return '<button type="button" class="'+cls+'" data-i="'+i+'">'+
+             '<span class="box"></span><span class="otxt">'+txt+'</span></button>';
+    }).join('');
+    var s=score();
+    bar.innerHTML='<span>Question <b>'+(idx+1)+'</b> of <b>'+list.length+'</b>'+
+                  (pool>list.length?' <span style="color:var(--muted)">(of '+pool+' available)</span>':'')+
+                  '</span><span>Correct so far: <b>'+s.ok+'</b> / '+s.done+'</span>';
+    card.innerHTML=
+      '<div class="qtags"><span class="tag wk">Week '+o.wk+'</span>'+
+      (o.exam?'<span class="tag">'+o.exam+'</span>':'')+
+      '<span class="tag type">'+(multi?'Select all that apply':'One answer')+'</span>'+
+      (q.step&&window.NGN?'<span class="tag step">'+(NGN.steps[q.step]||q.step)+'</span>':'')+
+      '</div>'+
+      '<p class="qtext">'+q.q+'</p>'+opts+
+      '<div><button type="button" class="check" id="chk">Check</button>'+
+      '<span class="verdict" id="vd"></span></div>'+
+      '<div class="rat" id="rat"><b>Why:</b> '+(q.why||'')+'</div>';
+
+    if(st){ show(st.right); }
+
+    var picked = st ? st.picked.slice() : [];
+    [].forEach.call(card.querySelectorAll('.opt'),function(b){
+      if(st) return;
+      b.addEventListener('click',function(){
+        var i=+b.dataset.i;
+        if(multi){
+          var at=picked.indexOf(i);
+          if(at>-1){ picked.splice(at,1); b.classList.remove('sel'); }
+          else { picked.push(i); b.classList.add('sel'); }
+        } else {
+          picked=[i];
+          [].forEach.call(card.querySelectorAll('.opt'),function(x){ x.classList.remove('sel'); });
+          b.classList.add('sel');
+        }
+      });
+    });
+
+    function show(right){
+      [].forEach.call(card.querySelectorAll('.opt'),function(b){
+        var i=+b.dataset.i, isAns=(q.ans||[]).indexOf(i)>-1,
+            got=(state[o.id]?state[o.id].picked:picked).indexOf(i)>-1;
+        b.classList.add('locked'); b.classList.remove('sel');
+        if(isAns) b.classList.add('correct'); else if(got) b.classList.add('wrong');
+      });
+      var vd=document.getElementById('vd');
+      vd.textContent = right ? 'Correct' : 'Not quite';
+      vd.className = 'verdict '+(right?'ok':'no');
+      document.getElementById('rat').classList.add('show');
+      var c=document.getElementById('chk'); if(c) c.style.display='none';
+    }
+
+    var chk=document.getElementById('chk');
+    if(chk && !st){
+      chk.addEventListener('click',function(){
+        if(!picked.length) return;
+        var ans=q.ans||[];
+        var right = ans.length===picked.length &&
+                    ans.every(function(a){ return picked.indexOf(a)>-1; });
+        state[o.id]={picked:picked.slice(), right:right};
+        show(right);
+      });
+    }
+    document.getElementById('prev').disabled = idx===0;
+    document.getElementById('next').disabled = false;
+  }
+
+  document.getElementById('prev').addEventListener('click',function(){
+    if(idx>0){ idx--; draw(); window.scrollTo(0,0); } });
+  document.getElementById('next').addEventListener('click',function(){
+    if(idx<list.length){ idx++; draw(); window.scrollTo(0,0); } });
+  document.getElementById('shuffle').addEventListener('click',function(){ build(true); });
+  document.getElementById('restart').addEventListener('click',function(){ build(false); });
+
+  var box=document.getElementById('customCount');
+  if(box){
+    box.addEventListener('input',function(){
+      [].forEach.call(document.querySelectorAll('.fbtn[data-k="count"]'),function(x){
+        x.classList.remove('active'); });
+      build(false);
+    });
+  }
+
+  [].forEach.call(document.querySelectorAll('.fbtn'),function(b){
+    b.addEventListener('click',function(){
+      if(b.disabled) return;
+      var k=b.dataset.k, v=b.dataset.v;
+
+      if(k==='count'){
+        count=v;
+        if(box) box.value='';
+        [].forEach.call(document.querySelectorAll('.fbtn[data-k="count"]'),function(x){
+          x.classList.toggle('active', x===b); });
+        build(false); return;
+      }
+
+      /* All clears the group; any other chip toggles in and out of the set. Toggling
+         the last one back off returns the group to All, so she can never strand
+         herself on an empty filter. */
+      if(v==='all'){ pick[k]=[]; }
+      else {
+        var at=pick[k].indexOf(v);
+        if(at>-1) pick[k].splice(at,1); else pick[k].push(v);
+      }
+      syncGroup(k);
+      build(false);
+    });
+  });
+
+  function syncGroup(k){
+    [].forEach.call(document.querySelectorAll('.fbtn[data-k="'+k+'"]'),function(x){
+      var v=x.dataset.v;
+      x.classList.toggle('active', v==='all' ? pick[k].length===0 : pick[k].indexOf(v)>-1);
+      x.setAttribute('aria-pressed', x.classList.contains('active') ? 'true' : 'false');
+    });
+  }
+
+  build(false);
+})();
+
+/* Hop to another page and close this one behind us. window.close() is only
+   permitted on a script-opened window, so if the browser refuses we simply
+   navigate instead - she still gets where she asked to go, just in one tab. */
+function hop(url, closeThis){
+  if(!closeThis){ window.open(url,'_blank','noopener'); return; }
+  var w=window.open(url,'_blank');
+  setTimeout(function(){
+    try{ window.close(); }catch(e){}
+    if(!window.closed){ location.href=url; if(w){ try{ w.close(); }catch(e){} } }
+  }, 120);
+}
+
+/* ---- the floating cluster moves, like the one on the older guides ----
+   Same rules as the skim button, deliberately: travel under 6px is a click, 6px or
+   more is a drag and the click is swallowed. Position is clamped to the viewport and
+   remembered per site, so it survives a reload and cannot end up off-screen when she
+   rotates the phone or changes zoom. Arrow keys nudge it once it has focus, because
+   dragging is not the only way she should be able to move something. */
+(function(){
+  var nb=document.getElementById('navBtns'); if(!nb) return;
+  var KEY='navBtnsPos';
+  function clamp(x,y){
+    var r=nb.getBoundingClientRect(), m=6;
+    return [Math.max(m,Math.min(x,window.innerWidth-r.width-m)),
+            Math.max(m,Math.min(y,window.innerHeight-r.height-m))];
+  }
+  function place(x,y,save){
+    var p=clamp(x,y);
+    nb.style.left=p[0]+'px'; nb.style.top=p[1]+'px';
+    nb.style.right='auto'; nb.style.bottom='auto';
+    if(save){ try{ localStorage.setItem(KEY,JSON.stringify(p)); }catch(e){} }
+  }
+  try{
+    var saved=JSON.parse(localStorage.getItem(KEY)||'null');
+    if(saved && saved.length===2) place(saved[0],saved[1],false);
+  }catch(e){}
+
+  /* Movement is tracked on the WINDOW, not on the cluster. Two earlier versions got
+     this wrong in opposite directions: capturing the pointer on pointerdown made the
+     cluster swallow the click so no button ever fired, and listening on the cluster
+     alone meant the drag died the moment the cursor left it. Window listeners give a
+     drag that follows the finger anywhere while leaving an ordinary tap untouched. */
+  var down=null, moved=false;
+  nb.addEventListener('pointerdown',function(e){
+    if(e.button && e.button!==0) return;
+    var r=nb.getBoundingClientRect();
+    down={x:e.clientX,y:e.clientY,dx:e.clientX-r.left,dy:e.clientY-r.top};
+    moved=false;
+  });
+  window.addEventListener('pointermove',function(e){
+    if(!down) return;
+    if(!moved && Math.abs(e.clientX-down.x)+Math.abs(e.clientY-down.y) < 6) return;
+    moved=true; nb.classList.add('dragging');
+    place(e.clientX-down.dx, e.clientY-down.dy, false);
+    e.preventDefault();
+  });
+  function end(){
+    if(!down) return;
+    var r=nb.getBoundingClientRect();
+    if(moved) place(r.left,r.top,true);
+    down=null; nb.classList.remove('dragging');
+    /* The click that a real drag generates arrives immediately after pointerup and is
+       swallowed below. If none arrives - a touch drag, or the pointer left the button -
+       the flag has to clear itself, or the NEXT genuine tap gets eaten instead. */
+    setTimeout(function(){ moved=false; }, 60);
+  }
+  window.addEventListener('pointerup',end);
+  window.addEventListener('pointercancel',end);
+  /* a drag must not also fire the button it started on */
+  nb.addEventListener('click',function(e){
+    if(moved){ e.stopPropagation(); e.preventDefault(); moved=false; }
+  },true);
+
+  nb.tabIndex=0;
+  nb.title='Drag to move these buttons · double-click to reset';
+  nb.addEventListener('dblclick',function(e){
+    e.preventDefault();
+    nb.style.left=''; nb.style.top=''; nb.style.right=''; nb.style.bottom='';
+    try{ localStorage.removeItem(KEY); }catch(err){}
+  });
+  nb.addEventListener('keydown',function(e){
+    var step=e.shiftKey?48:12, r=nb.getBoundingClientRect(), l=r.left, t=r.top, hit=true;
+    if(e.key==='ArrowLeft') l-=step; else if(e.key==='ArrowRight') l+=step;
+    else if(e.key==='ArrowUp') t-=step; else if(e.key==='ArrowDown') t+=step;
+    else hit=false;
+    if(hit){ e.preventDefault(); place(l,t,true); }
+  });
+  /* a resize or a zoom change must not strand it off-screen */
+  window.addEventListener('resize',function(){
+    var r=nb.getBoundingClientRect();
+    if(nb.style.left) place(r.left,r.top,false);
+  });
+})();
+
+/* ---- side menu ------------------------------------------------------- */
+(function(){
+  var b=document.getElementById('menuBtn'), s=document.getElementById('side'),
+      bg=document.getElementById('navBg');
+  if(!b||!s||!bg) return;
+
+  /* The exam bands on THIS page become jump links, built at load so the menu can
+     never list a band the page does not have. */
+  var jumps=s.querySelector('#sideJumps');
+  if(jumps){
+    var bands=[].slice.call(document.querySelectorAll('.exsec'));
+    bands.forEach(function(sec,i){
+      var head=sec.querySelector('.exhead');
+      if(!head) return;
+      if(!sec.id) sec.id='exam-'+(i+1);
+      var name=(head.querySelector('.en')||{}).textContent||('Exam '+(i+1));
+      var sub=(head.querySelector('.et')||{}).textContent||'';
+      var mods=sec.querySelectorAll('details.mod').length;
+      var a=document.createElement('a');
+      a.className='nav'; a.href='#'+sec.id;
+      a.innerHTML=name+'<span class="nsub">'+sub+
+                  (mods?(' &middot; '+mods+' module'+(mods===1?'':'s')):'')+'</span>';
+      jumps.appendChild(a);
+    });
+    if(!bands.length) jumps.previousElementSibling.style.display='none';
+  }
+
+  function set(o){
+    document.body.classList.toggle('nav-open',o);
+    b.innerHTML = o ? '&#10005; Close' : '&#9776; Menu';
+    b.setAttribute('aria-expanded', o?'true':'false');
+    s.setAttribute('aria-hidden', o?'false':'true');
+    if(o){ var f=s.querySelector('.sclose'); if(f) f.focus(); }
+  }
+  b.addEventListener('click',function(e){
+    e.stopPropagation();
+    set(!document.body.classList.contains('nav-open'));
+  });
+  bg.addEventListener('click',function(){ set(false); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') set(false); });
+  s.addEventListener('click',function(e){
+    if(e.target.closest('.sclose')){ set(false); return; }
+    if(e.target.closest('a')) setTimeout(function(){ set(false); },140);
+  });
+  set(false);
+})();
+</script>
+</body></html>
