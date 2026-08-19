@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cardiomyopathy · NG-197 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#cause">🧨 Cause</a>
+  <a class="c2" href="#clues">🔎 Clues</a>
+  <a class="c3" href="#care">🩺 Care</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Cardio · Pathophysiology Course</div>
+  <h1>Cardiomyopathy <span class="drop">🫀</span></h1>
+  <p class="sub">Three different diseases of the heart muscle itself — dilated, hypertrophic, restrictive</p>
+  <div class="chips">
+    <span class="chip id">NG-197</span>
+    <span class="chip cat">CARDIO</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede">Cardiomyopathy is disease of the <b>heart muscle</b> itself, and it comes in three shapes: <b>Dilated</b> (a stretched, floppy muscle), <b>Hypertrophic</b> (a huge, thickened muscle that can block outflow), and <b>Restrictive</b> (a rock-hard, stiff muscle that can't relax). <mark>All three end the same way — LESS cardiac output, LESS oxygen-rich blood out to the body.</mark></p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">🎈 Dilated</span>Distended, stretched chambers — weak floppy pump, S3, cardiomegaly.</div>
+  <div class="rc rubybg"><span class="big">🏆 Hypertrophic</span>Huge trophy-like muscle can block the aorta — sudden death in young athletes.</div>
+  <div class="rc tealbg"><span class="big">🧱 Restrictive</span>Rock-hard muscle can't refill — emboli are common.</div>
+  <div class="rc topazbg"><span class="big">🚫 NO DDD in HCM</span>No Dilators, Digoxin, Diuretics — they worsen the outflow block.</div>
+</div>
+
+<!-- ============ CAUSE ============ -->
+<section id="cause">
+  <div class="sec-h"><span class="icon">🧨</span><h2>CAUSE</h2><span class="step">STEP 1 · THREE SHAPES, ONE PROBLEM</span></div>
+  <p class="sec-sub">Same end result — less cardiac output — but the muscle gets there three completely different ways. The shape tells you everything else.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🫀 Heart-shape comparison: how each chamber geometry differs from normal</h3>
+      <p><span class="tip">EXAM TIP</span> <mark>All three cardiomyopathies drop cardiac output</mark> — but they get a very different-shaped heart to do it.</p>
+      <svg viewBox="0 0 900 400" role="img" aria-label="Four panel heart shape comparison: normal heart with balanced chamber walls, dilated cardiomyopathy with a stretched thin walled enlarged chamber, hypertrophic cardiomyopathy with a thick bulging septum narrowing the outflow tract, and restrictive cardiomyopathy with thick stiff walls and a small stiff chamber">
+        <rect x="6" y="8" width="216" height="384" rx="16" fill="rgba(18,184,134,.14)" stroke="#12b886" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="20" y="32" font-size="15.5" font-weight="900" fill="#7df0c6">✅ NORMAL</text>
+        <ellipse cx="114" cy="200" rx="70" ry="88" fill="rgba(0,194,199,.30)" stroke="#eafff7" stroke-width="3"/>
+        <ellipse cx="114" cy="200" rx="46" ry="64" fill="#c02255"/>
+        <text x="114" y="204" font-size="11" font-weight="900" fill="#fff" text-anchor="middle">EF 55–70%</text>
+        <text x="20" y="312" font-size="12" font-weight="800" fill="#d8fff0">Balanced wall</text>
+        <text x="20" y="330" font-size="12" font-weight="800" fill="#d8fff0">thickness, normal</text>
+        <text x="20" y="348" font-size="12" font-weight="800" fill="#d8fff0">chamber size</text>
+
+        <rect x="230" y="8" width="216" height="384" rx="16" fill="rgba(47,107,255,.16)" stroke="#2f6bff" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="244" y="32" font-size="15.5" font-weight="900" fill="#bcd0ff">🎈 DILATED</text>
+        <ellipse cx="338" cy="205" rx="92" ry="102" fill="rgba(47,107,255,.30)" stroke="#bcd0ff" stroke-width="2"/>
+        <ellipse cx="338" cy="205" rx="80" ry="90" fill="#8a1740" fill-opacity=".85"/>
+        <text x="338" y="209" font-size="10.5" font-weight="900" fill="#fff" text-anchor="middle">EF ≤40%</text>
+        <text x="244" y="322" font-size="12" font-weight="800" fill="#dbe6ff">Stretched THIN walls,</text>
+        <text x="244" y="340" font-size="12" font-weight="800" fill="#dbe6ff">big floppy chamber,</text>
+        <text x="244" y="358" font-size="12" font-weight="800" fill="#dbe6ff">weak squeeze — S3, cardiomegaly</text>
+
+        <rect x="454" y="8" width="216" height="384" rx="16" fill="rgba(255,194,51,.16)" stroke="#ffc233" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="468" y="32" font-size="15.5" font-weight="900" fill="#ffe49a">🏆 HYPERTROPHIC</text>
+        <ellipse cx="562" cy="200" rx="66" ry="86" fill="rgba(255,194,51,.28)" stroke="#ffe49a" stroke-width="2"/>
+        <path d="M562 118 C 588 130 598 170 594 200 C 590 232 578 260 562 280 C 566 240 558 190 552 160 C 548 138 552 122 562 118 Z" fill="#ffc233"/>
+        <ellipse cx="540" cy="210" rx="18" ry="52" fill="#c02255"/>
+        <text x="468" y="322" font-size="12" font-weight="800" fill="#fff3d6">Thick bulging septum</text>
+        <text x="468" y="340" font-size="12" font-weight="800" fill="#fff3d6">narrows outflow — can</text>
+        <text x="468" y="358" font-size="12" font-weight="800" fill="#fff3d6">block the aorta, deadly</text>
+
+        <rect x="678" y="8" width="216" height="384" rx="16" fill="rgba(255,59,107,.16)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="692" y="32" font-size="15.5" font-weight="900" fill="#ff9db4">🧱 RESTRICTIVE</text>
+        <ellipse cx="786" cy="200" rx="66" ry="84" fill="rgba(255,59,107,.28)" stroke="#ff9db4" stroke-width="4"/>
+        <ellipse cx="786" cy="200" rx="26" ry="42" fill="#c02255"/>
+        <text x="786" y="204" font-size="9.5" font-weight="900" fill="#fff" text-anchor="middle">tiny fill</text>
+        <text x="692" y="322" font-size="12" font-weight="800" fill="#ffd9e2">Thick STIFF walls,</text>
+        <text x="692" y="340" font-size="12" font-weight="800" fill="#ffd9e2">small stiff chamber —</text>
+        <text x="692" y="358" font-size="12" font-weight="800" fill="#ffd9e2">can't relax/fill, emboli common</text>
+      </svg>
+      <div class="mn">🧠 <b>"Distended, Trophy, Rock-hard."</b> <b>D</b>ilated = <b>D</b>istended thin balloon. <b>H</b>ypertrophic = <b>H</b>uge trophy-like muscle in the septum. <b>R</b>estrictive = <b>R</b>ock-hard, can't RE-fill. Say the shape, get the disease.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🎈 Dilated cardiomyopathy — "distended heart muscle"</h3>
+      <p>Fibrosis (stiff, hard scarring) of the myocardium &amp; endocardium <i>plus</i> dilated chambers — a stretched, floppy muscle that struggles to squeeze oxygen-rich blood out.</p>
+      <p><b>Common causes:</b> ischemic heart disease, viral myocarditis, chronic alcohol use, peripartum, idiopathic.</p>
+      <div class="mn">🧠 A worn-out rubber band stretched too many times — it still moves, but the snap (squeeze) is gone.</div>
+    </div>
+
+    <div class="card topaz">
+      <h3>🏆 Hypertrophic cardiomyopathy — "huge trophy-like muscle"</h3>
+      <p>The muscle — especially the <b>septum</b> — grows huge and thick, which can <b>obstruct the aortic valve/outflow tract</b>, blocking oxygenated blood from reaching the body.</p>
+      <table>
+        <tr><th class="up">Obstructive</th><th class="lo">Non-obstructive</th></tr>
+        <tr><td>Blocks the aortic valve outflow</td><td>Does not block outflow</td></tr>
+      </table>
+      <div class="mn">🧠 Mostly <b>genetic (autosomal dominant)</b> — the #1 reason to screen family members of a young sudden cardiac death victim.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🧱 Restrictive cardiomyopathy — "rock-hard muscle"</h3>
+      <p>The heart muscle becomes stiff and can't <b>RE</b>-fill during diastole — <b>REstrictive</b>. <b>Emboli (blood clots) are common</b> because blood stagnates in a chamber that won't relax and empty well.</p>
+      <p><b>Common causes:</b> amyloidosis, sarcoidosis, hemochromatosis, endomyocardial fibrosis.</p>
+      <div class="mn">🧠 A rock doesn't stretch to catch water — a stiff ventricle doesn't stretch to catch returning blood.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLUES ============ -->
+<section id="clues">
+  <div class="sec-h"><span class="icon">🔎</span><h2>CLUES</h2><span class="step">STEP 2 · SPOT IT</span></div>
+  <p class="sec-sub">A murmur that breaks the normal rules, a lab that grades how bad the failure is, and the sign that makes hypertrophic the deadliest of the three.</p>
+
+  <div class="grid">
+    <div class="card garnet span2">
+      <h3>🚨 Hypertrophic cardiomyopathy — <mark>sudden cardiac death in young athletes</mark></h3>
+      <p>Typically <b>asymptomatic</b> — no s/s — <b>until heavy exercise</b>, when the thickened septum obstructs outflow during high demand and the client can <b>die suddenly</b>. This is why HCM is the classic cause of sudden collapse in young, seemingly healthy athletes.</p>
+      <div class="mn">🧠 <b>"Fine until the finish line."</b> A perfectly healthy-looking teen athlete who collapses during a game is the textbook HCM story — screen family history before it happens, not after.</div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>🔊 The murmur that breaks the rules — <mark>louder with Valsalva/standing</mark></h3>
+      <p>Most murmurs get <b>quieter</b> when preload drops (Valsalva strain, standing) because there's less blood to make noise. HCM is the opposite: less blood in the ventricle lets the thick septum obstruct the outflow tract <b>more</b>, so the murmur gets <b>LOUDER</b>. Squatting or lying down (more preload) makes it <b>softer</b>.</p>
+      <svg viewBox="0 0 900 240" role="img" aria-label="Comparison of murmur loudness with Valsalva maneuver or standing: most murmurs get softer with reduced preload, but hypertrophic cardiomyopathy murmur gets louder because the outflow obstruction worsens with less ventricular volume">
+        <rect x="8" y="8" width="428" height="224" rx="16" fill="rgba(18,184,134,.14)" stroke="#12b886" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="26" y="34" font-size="16.5" font-weight="900" fill="#7df0c6">✅ MOST MURMURS</text>
+        <text x="26" y="54" font-size="12.5" font-style="italic" fill="#d8fff0">softer with Valsalva / standing</text>
+        <path d="M30 170 C 60 120 90 120 120 170 C 150 210 180 210 210 170" fill="none" stroke="#eafff7" stroke-width="5"/>
+        <path d="M230 190 C 250 175 270 175 290 190 C 310 200 330 200 350 190" fill="none" stroke="#eafff7" stroke-width="4"/>
+        <text x="26" y="205" font-size="13" font-weight="800" fill="#7df0c6">less blood back → quieter</text>
+
+        <rect x="464" y="8" width="428" height="224" rx="16" fill="rgba(255,59,107,.16)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="482" y="34" font-size="16.5" font-weight="900" fill="#ff9db4">🚨 HCM MURMUR</text>
+        <text x="482" y="54" font-size="12.5" font-style="italic" fill="#ffd9e2">LOUDER with Valsalva / standing</text>
+        <path d="M486 195 C 510 185 530 185 550 195 C 570 200 590 200 610 195" fill="none" stroke="#eafff7" stroke-width="4"/>
+        <path d="M630 170 C 660 110 690 110 720 170 C 750 220 780 220 810 170" fill="none" stroke="#eafff7" stroke-width="6"/>
+        <text x="482" y="205" font-size="13" font-weight="800" fill="#ffd9e2">less volume → worse obstruction → LOUDER</text>
+      </svg>
+      <div class="mn">🧠 <b>"HCM plays by opposite rules."</b> If a murmur gets LOUDER with Valsalva or standing, and softer with squatting/lying flat — that's hypertrophic cardiomyopathy, not a normal flow murmur.</div>
+    </div>
+
+    <div class="card tealc">
+      <h3>🧪 BNP — grades how bad the failure is</h3>
+      <p><b>B-type (brain) natriuretic peptide</b> is released when ventricles stretch/strain — the higher it climbs, the worse the heart failure.</p>
+      <svg viewBox="0 0 860 170" role="img" aria-label="BNP lab value bar scale from low normal to severely elevated: 100 or less is normal, 101 to 299 is mild elevation, 300 or more is mild heart failure, 600 or more is moderate heart failure, 900 or more is severe heart failure">
+        <rect x="10" y="60" width="840" height="40" rx="10" fill="none"/>
+        <rect x="10" y="60" width="150" height="40" fill="#12b886"/>
+        <rect x="160" y="60" width="150" height="40" fill="#00c2c7"/>
+        <rect x="310" y="60" width="150" height="40" fill="#ffc233"/>
+        <rect x="460" y="60" width="190" height="40" fill="#ff8a3d"/>
+        <rect x="650" y="60" width="200" height="40" fill="#ff3b6b"/>
+        <text x="30" y="42" font-size="13" font-weight="900" fill="#7df0c6">≤100 normal</text>
+        <text x="175" y="42" font-size="13" font-weight="900" fill="#9ff2ee">101–299 mild ↑</text>
+        <text x="325" y="42" font-size="13" font-weight="900" fill="#ffe49a">300+ mild HF</text>
+        <text x="478" y="42" font-size="13" font-weight="900" fill="#ffd0ad">600+ moderate HF</text>
+        <text x="665" y="42" font-size="13" font-weight="900" fill="#ff9db4">900+ severe HF</text>
+        <text x="30" y="126" font-size="12" fill="#eafff7">0</text>
+        <text x="300" y="126" font-size="12" fill="#eafff7">300</text>
+        <text x="620" y="126" font-size="12" fill="#eafff7">600</text>
+        <text x="800" y="126" font-size="12" fill="#eafff7">900+</text>
+        <text x="30" y="150" font-size="13" font-weight="800" fill="#d8fff0">BNP rises as ventricles stretch &amp; strain harder</text>
+      </svg>
+      <div class="mn">🧠 <b>Bigger number = bigger stretch.</b> BNP is the heart shouting how hard it's straining to keep up.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>📉 General signs across all three</h3>
+      <ul class="tick">
+        <li>😮‍💨 Low oxygen, fatigue, dizziness, syncope</li>
+        <li>😵 Restlessness, agitation, altered LOC (poor perfusion)</li>
+        <li>🫁 Left-sided failure → lung fluid (crackles)</li>
+        <li>💧 Right-sided failure → edema, ascites, JVD</li>
+        <li>🔊 New murmur (often <span class="mono">S3</span>), cardiomegaly</li>
+      </ul>
+      <div class="mn">🧠 Same heart-failure playbook you already know — cardiomyopathy is just the muscle problem causing it.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🧪 Diagnostics that separate the three</h3>
+      <ul class="tick">
+        <li>📷 Chest X-ray &amp; MRI — chamber size &amp; wall thickness</li>
+        <li>🫀 Echocardiogram — measures <b>ejection fraction (EF)</b>: <span class="mono">55–70%</span> normal, <span class="mono">≤40%</span> = heart failure range</li>
+        <li>🩻 Angiography — highlights coronary arteries, rules out ischemic heart disease as the cause</li>
+      </ul>
+      <div class="mn">🧠 <b>EF tells you the pump strength; angiography tells you why.</b> Rule out a blocked artery before calling it a primary cardiomyopathy.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CARE ============ -->
+<section id="care">
+  <div class="sec-h"><span class="icon">🩺</span><h2>CARE</h2><span class="step">STEP 3 · PROTECT THE PUMP</span></div>
+  <p class="sec-sub">Pharmacology flips for hypertrophic — know the "NO DDD" rule cold, and check three numbers before every digoxin dose.</p>
+
+  <div class="grid">
+    <div class="card emerald span2">
+      <h3>💊 Hypertrophic cardiomyopathy pharmacology</h3>
+      <table>
+        <tr><th style="width:50%" class="up">✅ Give — reduce contractility, slow HR, let it fill</th><th style="width:50%" class="lo">❌ NO DDD — worsens the obstruction</th></tr>
+        <tr><td><b>B</b>eta blockers</td><td><b>D</b>ilators</td></tr>
+        <tr><td><b>C</b>alcium channel blockers</td><td><b>D</b>igoxin</td></tr>
+        <tr><td></td><td><b>D</b>iuretics</td></tr>
+      </table>
+      <div class="mn">🧠 <b>"BC, no DDD."</b> Beta blockers &amp; Calcium channel blockers slow the heart and give it more time to fill around the obstruction. Dilators, Digoxin, and Diuretics all shrink ventricular volume or boost contractility — both make the outflow obstruction <span class="never">worse</span>.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🚨 Digoxin — hold if any of these three</h3>
+      <svg viewBox="0 0 900 190" role="img" aria-label="Three lab value bar scales showing digoxin hold parameters: apical pulse below 60 beats per minute, potassium below 3.5, and digoxin level above 2.0 are all reasons to hold the dose">
+        <rect x="8" y="8" width="276" height="174" rx="14" fill="rgba(255,59,107,.14)" stroke="#ff3b6b" stroke-width="2"/>
+        <text x="24" y="32" font-size="14" font-weight="900" fill="#ff9db4">💓 Apical pulse</text>
+        <rect x="24" y="90" width="240" height="24" rx="8" fill="rgba(13,8,26,.5)"/>
+        <rect x="24" y="90" width="90" height="24" rx="8" fill="#ff3b6b"/>
+        <rect x="114" y="90" width="150" height="24" rx="0" fill="#12b886"/>
+        <line x1="114" y1="82" x2="114" y2="122" stroke="#ffe49a" stroke-width="2"/>
+        <text x="90" y="78" font-size="11.5" font-weight="900" fill="#ffe49a">60</text>
+        <text x="24" y="150" font-size="13" font-weight="800" fill="#ffd9e2">HOLD if &lt; 60 bpm</text>
+
+        <rect x="312" y="8" width="276" height="174" rx="14" fill="rgba(255,194,51,.16)" stroke="#ffc233" stroke-width="2"/>
+        <text x="328" y="32" font-size="14" font-weight="900" fill="#ffe49a">🧪 Potassium K+</text>
+        <rect x="328" y="90" width="240" height="24" rx="8" fill="rgba(13,8,26,.5)"/>
+        <rect x="328" y="90" width="80" height="24" rx="8" fill="#ff3b6b"/>
+        <rect x="408" y="90" width="160" height="24" rx="0" fill="#12b886"/>
+        <line x1="408" y1="82" x2="408" y2="122" stroke="#ffe49a" stroke-width="2"/>
+        <text x="384" y="78" font-size="11.5" font-weight="900" fill="#ffe49a">3.5</text>
+        <text x="328" y="150" font-size="13" font-weight="800" fill="#fff3d6">HOLD/notify if &lt; 3.5</text>
+
+        <rect x="616" y="8" width="276" height="174" rx="14" fill="rgba(0,194,199,.16)" stroke="#00c2c7" stroke-width="2"/>
+        <text x="632" y="32" font-size="14" font-weight="900" fill="#9ff2ee">🧪 Digoxin level</text>
+        <rect x="632" y="90" width="240" height="24" rx="8" fill="rgba(13,8,26,.5)"/>
+        <rect x="632" y="90" width="176" height="24" rx="8" fill="#12b886"/>
+        <rect x="808" y="90" width="64" height="24" rx="0" fill="#ff3b6b"/>
+        <line x1="808" y1="82" x2="808" y2="122" stroke="#ffe49a" stroke-width="2"/>
+        <text x="788" y="78" font-size="11.5" font-weight="900" fill="#ffe49a">2.0</text>
+        <text x="632" y="150" font-size="13" font-weight="800" fill="#d8fff0">HOLD if &gt; 2.0 (toxic)</text>
+      </svg>
+      <div class="ladder">
+        <div class="rung"><div class="n">1</div><div class="t">💓 <b>Apical pulse</b> below <span class="mono">60</span> bpm</div></div>
+        <div class="rung"><div class="n">2</div><div class="t">🧪 <b>Potassium (K+)</b> below <span class="mono">3.5</span> — raises risk of dig toxicity</div></div>
+        <div class="rung"><div class="n">3</div><div class="t">🧪 <b>Digoxin level</b> over <span class="mono">2.0</span> — toxic</div></div>
+      </div>
+      <p style="margin-top:10px"><b>Toxicity signs:</b> vision changes (halos, yellow-green tint), nausea/vomiting, fatigue, dizziness.</p>
+      <div class="mn">🧠 <b>"Pulse, Potassium, Peak level"</b> — the 3 P's to check before you push dig. Any one abnormal = hold and notify.</div>
+    </div>
+
+    <div class="card topaz">
+      <h3>✅ Nursing interventions</h3>
+      <ul class="tick">
+        <li><span class="never">NO strenuous activity</span> — especially HCM, can worsen aortic outflow blockage</li>
+        <li>⚖️ Daily weights, strict I&amp;O for fluid status</li>
+        <li>🧂 Sodium/fluid restriction as ordered for HF symptoms</li>
+        <li>🚨 Teach family of HCM clients: screening &amp; sudden death risk with exertion</li>
+      </ul>
+      <div class="mn">🧠 <b>"Rest the trophy."</b> A hypertrophied heart already fights its own outflow tract — heavy exertion is the thing most likely to push it over the edge.</div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>📋 Quick compare — all three types</h3>
+      <table>
+        <tr><th style="width:22%">Type</th><th>Muscle</th><th>Chamber</th><th>Classic risk</th></tr>
+        <tr><td><b>Dilated</b></td><td>Stretched, floppy</td><td>Enlarged, thin-walled</td><td>Progressive heart failure, S3</td></tr>
+        <tr><td><b>Hypertrophic</b></td><td>Thick septum</td><td>Small, obstructed outflow</td><td><mark>Sudden death in young athletes</mark>, louder murmur w/ Valsalva</td></tr>
+        <tr><td><b>Restrictive</b></td><td>Rock-hard, stiff</td><td>Normal/small, can't fill</td><td>Emboli, diastolic failure</td></tr>
+      </table>
+      <div class="mn">🧠 One table, three whole diseases — if you can fill in every cell from memory, you know NG-197 cold.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">🎈 Dilated</span>Distended, floppy, weak squeeze — S3, cardiomegaly</div>
+    <div class="rc rubybg"><span class="big">🏆 Hypertrophic</span>Sudden death in young athletes; murmur LOUDER with Valsalva/standing</div>
+    <div class="rc tealbg"><span class="big">🧱 Restrictive</span>Rock-hard, can't refill, emboli common</div>
+    <div class="rc topazbg"><span class="big">🚫 NO DDD in HCM</span>No Dilators, Digoxin, Diuretics — check pulse/K+/level before any dose</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 4 rapid-fire questions</summary>
+      <div class="qa">Q1: Which cardiomyopathy is the classic cause of sudden cardiac death in young athletes, and why? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Hypertrophic cardiomyopathy — the thickened septum can obstruct the aortic outflow tract, especially during heavy exertion, causing sudden collapse in someone who was often asymptomatic.</div></div>
+      <div class="qa">Q2: What happens to the HCM murmur with Valsalva or standing, and why is that the opposite of most murmurs? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">It gets LOUDER. Less ventricular volume lets the thick septum obstruct the outflow tract more. Most other murmurs get softer with less blood volume.</div></div>
+      <div class="qa">Q3: What three numbers must be checked before giving digoxin? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Apical pulse (hold if <60), potassium (hold/notify if <3.5, raises toxicity risk), and digoxin level (hold if >2.0, toxic).</div></div>
+      <div class="qa">Q4: What does "NO DDD" mean for hypertrophic cardiomyopathy? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Avoid Dilators, Digoxin, and Diuretics — they reduce ventricular volume or increase contractility, both of which worsen the outflow obstruction.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">CAUSE</span>→
+    <span style="background:rgba(47,107,255,.7)">CLUES</span>→
+    <span style="background:rgba(18,184,134,.7)">CARE</span>
+  </div>
+  <div>NG-197 · Source wording retained · ADHD-friendly visual edition v2</div>
+</footer>
+
+</div>
+</body></html>

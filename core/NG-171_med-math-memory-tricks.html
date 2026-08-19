@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Med Math Memory Tricks · NG-171 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#formulas .sec-h h2{color:#d9c2ff} #formulas .step{background:var(--amethyst)}
+#work .sec-h h2{color:#bcd0ff} #work .step{background:var(--sapphire)}
+#convert  .sec-h h2{color:#a5f3d4} #convert .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+/* ---- page-specific additions (append-only) ---- */
+.worksheet{background:rgba(13,8,26,.55);border:1px solid var(--line);border-radius:14px;
+  padding:14px 16px;margin-top:10px;font-size:.98rem}
+.worksheet .row{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;margin:0 0 6px}
+.worksheet .row:last-child{margin-bottom:0}
+.worksheet .lbl{font-weight:700;color:#e9dcff;min-width:118px}
+.worksheet .eq{color:var(--topaz);font-weight:900}
+.worksheet .ans{margin-top:8px;padding-top:8px;border-top:1px dashed rgba(255,255,255,.35);
+  font-size:1.05rem;font-weight:900;color:var(--topaz)}
+.ex-tag{display:inline-block;font-size:.7rem;font-weight:900;letter-spacing:.06em;
+  background:rgba(255,255,255,.2);border:1px solid var(--line);color:#fff;
+  padding:2px 8px;border-radius:7px;margin-bottom:8px}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#formulas">🧮 Formulas</a>
+  <a class="c2" href="#work">✍️ Work it out</a>
+  <a class="c3" href="#convert">🔁 Convert &amp; traps</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Nursing Core · Fundamentals of Nursing</div>
+  <h1>Med Math <span class="drop">🧮</span></h1>
+  <p class="sub">Memory Tricks for Dosage Calculation</p>
+  <div class="chips">
+    <span class="chip id">NG-171</span>
+    <span class="chip cat">Nursing Core</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede"><b>Three formulas run almost every med-math question you'll ever see</b>: <b>D/H×Q</b> for tablets &amp; liquids, <b>mL/hr</b> for pumps, and <b>gtt/min</b> for gravity tubing. <i>Learn the formula, learn where the numbers plug in, and always convert your units first.</i></p>
+</header>
+
+<!-- All numbers below are worked EXAMPLE PROBLEMS for practicing the math only — not real drug orders or clinical dosing recommendations. -->
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">🎯 D/H × Q</span>Desired ÷ Have × Quantity = amount to give.</div>
+  <div class="rc rubybg"><span class="big">💧 gtt/min</span><span class="mono">(mL × drop factor) ÷ min</span> — gravity/manual tubing.</div>
+  <div class="rc tealbg"><span class="big">🖥️ mL/hr</span><span class="mono">mL ÷ hr</span> — what you program into a pump.</div>
+  <div class="rc topazbg"><span class="big">🔁 Convert FIRST</span>Same units before you plug into any formula, or the whole answer is wrong.</div>
+</div>
+
+<!-- ============ FORMULAS ============ -->
+<section id="formulas">
+  <div class="sec-h"><span class="icon">🧮</span><h2>FORMULAS</h2><span class="step">STEP 1 · KNOW THE THREE</span></div>
+  <p class="sec-sub">Almost every dosage-calc question on the NCLEX is one of these three formulas wearing a different costume.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>💊 The master formula: <mark>D/H × Q</mark> — "Desired over Have, times Quantity"</h3>
+      <p><span class="tip">USE FOR</span> tablets, capsules, and oral/IM liquids — anything where the drug comes in a fixed strength and you need to figure out how many units to give.</p>
+      <svg viewBox="0 0 440 300" role="img" aria-label="Diagram of the D over H times Q formula: Desired dose ordered by the provider, divided by Have which is the dose on hand from the label, times Quantity which is the form that dose comes in, equals the amount to give">
+        <defs>
+          <linearGradient id="boxD" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c9a6ff"/><stop offset="1" stop-color="#9d5cff"/></linearGradient>
+          <linearGradient id="boxH" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fb3ff"/><stop offset="1" stop-color="#2f6bff"/></linearGradient>
+          <linearGradient id="boxQ" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe08a"/><stop offset="1" stop-color="#ffc233"/></linearGradient>
+          <linearGradient id="boxG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7df0c6"/><stop offset="1" stop-color="#12b886"/></linearGradient>
+        </defs>
+        <rect x="6" y="6" width="428" height="288" rx="18" fill="rgba(157,92,255,.14)" stroke="#9d5cff" stroke-width="2" stroke-dasharray="7 6"/>
+
+        <!-- D box -->
+        <rect x="24" y="30" width="110" height="82" rx="12" fill="url(#boxD)"/>
+        <text x="79" y="60" font-size="26" font-weight="900" fill="#2a0a4d" text-anchor="middle">D</text>
+        <text x="79" y="80" font-size="11.5" font-weight="800" fill="#2a0a4d" text-anchor="middle">Desired</text>
+        <text x="79" y="96" font-size="10.5" fill="#2a0a4d" text-anchor="middle">(dose ordered)</text>
+
+        <text x="150" y="82" font-size="30" font-weight="900" fill="#e9dcff">÷</text>
+
+        <!-- H box -->
+        <rect x="176" y="30" width="110" height="82" rx="12" fill="url(#boxH)"/>
+        <text x="231" y="60" font-size="26" font-weight="900" fill="#04123d" text-anchor="middle">H</text>
+        <text x="231" y="80" font-size="11.5" font-weight="800" fill="#04123d" text-anchor="middle">Have</text>
+        <text x="231" y="96" font-size="10.5" fill="#04123d" text-anchor="middle">(dose on label)</text>
+
+        <text x="302" y="82" font-size="30" font-weight="900" fill="#e9dcff">×</text>
+
+        <!-- Q box -->
+        <rect x="328" y="30" width="88" height="82" rx="12" fill="url(#boxQ)"/>
+        <text x="372" y="60" font-size="26" font-weight="900" fill="#2a1f00" text-anchor="middle">Q</text>
+        <text x="372" y="80" font-size="11.5" font-weight="800" fill="#2a1f00" text-anchor="middle">Quantity</text>
+        <text x="372" y="96" font-size="10.5" fill="#2a1f00" text-anchor="middle">(form it's in)</text>
+
+        <text x="220" y="150" font-size="26" font-weight="900" fill="#a5f3d4" text-anchor="middle">▼</text>
+
+        <!-- Give box -->
+        <rect x="120" y="168" width="200" height="70" rx="14" fill="url(#boxG)"/>
+        <text x="220" y="200" font-size="19" font-weight="900" fill="#03291c" text-anchor="middle">GIVE</text>
+        <text x="220" y="222" font-size="12" font-weight="700" fill="#03291c" text-anchor="middle">amount to administer</text>
+
+        <text x="24" y="272" font-size="13.5" font-style="italic" fill="#e9dcff">"Desired over Have, times the shape it comes in."</text>
+      </svg>
+      <div class="mn">🧠 <b>"What you WANT, over what you'VE GOT, times what it comes IN."</b> D = the order, H = the label/vial, Q = tablet or mL that dose is packaged as. Multiply last, always.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🖥️ mL/hr — the pump formula</h3>
+      <div class="worksheet">
+        <div class="row"><span class="lbl">Formula</span><span class="eq mono">mL/hr = Volume (mL) ÷ Time (hr)</span></div>
+      </div>
+      <p style="margin-top:10px"><span class="tip">USE FOR</span> anything running on an <b>electronic infusion pump</b> — you program the rate directly in mL per hour.</p>
+      <div class="mn">🧠 <b>"Pump = per hour."</b> If it has a screen and buttons, it wants <span class="mono">mL/hr</span>.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>💧 gtt/min — the gravity formula</h3>
+      <div class="worksheet">
+        <div class="row"><span class="lbl">Formula</span><span class="eq mono">gtt/min = (mL/hr × drop factor) ÷ 60</span></div>
+      </div>
+      <p style="margin-top:10px"><span class="tip">USE FOR</span> <b>manual/gravity tubing</b> with no pump — you count drops falling in the drip chamber per minute.</p>
+      <div class="mn">🧠 <b>"No pump = count the drops."</b> Drop factor (gtt/mL) is printed right on the IV tubing package.</div>
+    </div>
+
+    <div class="card citrinec span2">
+      <h3>⚖️ Weight-based dosing — same D/H×Q, plus one extra step</h3>
+      <p>Many pediatric doses, and adult doses ordered as "per kilogram," use <span class="mono">mg/kg</span> or <span class="mono">mcg/kg/min</span>. You must find the <b>total dose</b> before you can use D/H×Q.</p>
+      <div class="worksheet">
+        <div class="row"><span class="lbl">Step 1</span><span class="eq mono">Weight (kg) × ordered dose (mg/kg) = total dose</span></div>
+        <div class="row"><span class="lbl">Step 2</span>If divided doses: <span class="eq mono">total dose ÷ number of doses/day = dose per administration</span></div>
+        <div class="row"><span class="lbl">Step 3</span>Now plug that number into <span class="eq mono">D/H × Q</span> like any other order.</div>
+      </div>
+      <div class="mn">🧠 <b>"Weight first, formula second."</b> A weight-based order is never the final number to give — it's the <i>D</i> you still have to run through D/H×Q.</div>
+    </div>
+
+    <div class="card deep span2">
+      <h3>📐 Body Surface Area (BSA) — the formula behind chemo &amp; some pediatric dosing</h3>
+      <p>Some high-alert doses (chemotherapy, certain pediatric meds) are ordered per <span class="mono">m²</span> of body surface area instead of per kilogram, because BSA correlates better with organ function and drug clearance.</p>
+      <div class="worksheet">
+        <div class="row"><span class="lbl">Mosteller formula</span><span class="eq mono">BSA (m²) = √[ height (cm) × weight (kg) ÷ 3600 ]</span></div>
+        <div class="row"><span class="lbl">Then</span><span class="eq mono">Total dose = BSA (m²) × ordered dose (mg/m²)</span></div>
+      </div>
+      <div class="mn">🧠 <b>BSA math is high-stakes — verify with a second RN.</b> These are exactly the calculations where facilities require an independent double-check before the drug leaves the Pyxis.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WORK IT OUT ============ -->
+<section id="work">
+  <div class="sec-h"><span class="icon">✍️</span><h2>WORK IT OUT</h2><span class="step">STEP 2 · PLUG IN NUMBERS</span></div>
+  <p class="sec-sub">The same five formulas, now with numbers plugged in step by step. <b>All example numbers below are made up for practicing the math only</b> — not real drug orders.</p>
+
+  <div class="grid">
+    <div class="card emerald">
+      <h3>💊 Worked example — tablets</h3>
+      <span class="ex-tag">EXAMPLE PROBLEM · not a real order</span>
+      <div class="worksheet">
+        <div class="row"><span class="lbl">Ordered (D)</span><span class="mono">500 mg</span></div>
+        <div class="row"><span class="lbl">Have (H)</span><span class="mono">250 mg per tablet</span></div>
+        <div class="row"><span class="lbl">Quantity (Q)</span><span class="mono">1 tablet</span></div>
+        <div class="row"><span class="lbl">Plug in</span><span class="eq mono">500 ÷ 250 × 1</span></div>
+        <div class="ans">= 2 tablets</div>
+      </div>
+      <div class="mn">🧠 If <i>D</i> and <i>H</i> are already the same unit, the math is just a simple ratio.</div>
+    </div>
+
+    <div class="card emerald">
+      <h3>🧴 Worked example — oral liquid</h3>
+      <span class="ex-tag">EXAMPLE PROBLEM · not a real order</span>
+      <div class="worksheet">
+        <div class="row"><span class="lbl">Ordered (D)</span><span class="mono">750 mg</span></div>
+        <div class="row"><span class="lbl">Have (H)</span><span class="mono">250 mg per 5 mL</span></div>
+        <div class="row"><span class="lbl">Quantity (Q)</span><span class="mono">5 mL</span></div>
+        <div class="row"><span class="lbl">Plug in</span><span class="eq mono">750 ÷ 250 × 5</span></div>
+        <div class="ans">= 15 mL</div>
+      </div>
+      <div class="mn">🧠 <b>Q is whatever volume H is measured in</b> — here H is "per 5 mL," so Q = 5 mL, not 1.</div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>⚖️ Worked example — weight-based, divided doses</h3>
+      <span class="ex-tag">EXAMPLE PROBLEM · not a real order</span>
+      <svg viewBox="0 0 440 230" role="img" aria-label="Weight based dosing diagram: patient weighing one hundred fifty four pounds converts to seventy kilograms, times five milligrams per kilogram per day equals three hundred fifty milligrams per day, divided by two doses equals one hundred seventy five milligrams per dose">
+        <rect x="6" y="6" width="428" height="218" rx="16" fill="rgba(47,107,255,.14)" stroke="#2f6bff" stroke-width="2" stroke-dasharray="7 6"/>
+        <circle cx="58" cy="60" r="30" fill="#8fb3ff"/>
+        <text x="58" y="66" font-size="24" text-anchor="middle">🧍</text>
+        <text x="58" y="104" font-size="12" font-weight="800" fill="#bcd0ff" text-anchor="middle">154 lb</text>
+        <text x="100" y="60" font-size="20" font-weight="900" fill="#e9dcff">→</text>
+        <rect x="118" y="38" width="90" height="46" rx="10" fill="#2f6bff"/>
+        <text x="163" y="58" font-size="12.5" font-weight="900" fill="#fff" text-anchor="middle">÷ 2.2</text>
+        <text x="163" y="76" font-size="12.5" font-weight="900" fill="#fff" text-anchor="middle">= 70 kg</text>
+        <text x="222" y="60" font-size="20" font-weight="900" fill="#e9dcff">→</text>
+        <rect x="240" y="38" width="98" height="46" rx="10" fill="#9d5cff"/>
+        <text x="289" y="58" font-size="12" font-weight="900" fill="#fff" text-anchor="middle">× 5 mg/kg/day</text>
+        <text x="289" y="76" font-size="12.5" font-weight="900" fill="#fff" text-anchor="middle">= 350 mg/day</text>
+        <text x="220" y="130" font-size="22" font-weight="900" fill="#a5f3d4" text-anchor="middle">▼ ÷ 2 doses/day</text>
+        <rect x="120" y="150" width="200" height="56" rx="14" fill="#12b886"/>
+        <text x="220" y="178" font-size="18" font-weight="900" fill="#03291c" text-anchor="middle">175 mg / dose</text>
+        <text x="220" y="196" font-size="11.5" font-weight="700" fill="#03291c" text-anchor="middle">given every 12 hours</text>
+      </svg>
+      <div class="worksheet">
+        <div class="row"><span class="lbl">Step 1</span><span class="eq mono">154 lb ÷ 2.2 = 70 kg</span></div>
+        <div class="row"><span class="lbl">Step 2</span><span class="eq mono">70 kg × 5 mg/kg/day = 350 mg/day</span></div>
+        <div class="row"><span class="lbl">Step 3</span><span class="eq mono">350 mg ÷ 2 doses = 175 mg/dose q12h</span></div>
+      </div>
+      <div class="mn">🧠 <b>Weight goes to kg before anything else touches it.</b> Skipping the lb→kg conversion is the single most common weight-based math error.</div>
+    </div>
+
+    <div class="card ruby span2">
+      <h3>🖥️💧 Worked example — pump (mL/hr) vs. gravity tubing (gtt/min)</h3>
+      <span class="ex-tag">EXAMPLE PROBLEM · not a real order</span>
+      <div class="duo">
+        <svg viewBox="0 0 440 260" role="img" aria-label="Infusion pump diagram: one thousand milliliters ordered over eight hours, pump screen calculates and displays one hundred twenty five milliliters per hour">
+          <rect x="6" y="6" width="428" height="248" rx="16" fill="rgba(255,59,107,.14)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="24" y="34" font-size="16" font-weight="900" fill="#ff9db4">🖥️ PUMP — mL/hr</text>
+          <rect x="120" y="52" width="200" height="130" rx="14" fill="#3a2050" stroke="#ff9db4" stroke-width="2"/>
+          <rect x="136" y="66" width="168" height="60" rx="8" fill="#1a0e2e"/>
+          <text x="220" y="90" font-size="13" font-weight="800" fill="#7df0c6" text-anchor="middle">RATE</text>
+          <text x="220" y="114" font-size="22" font-weight="900" fill="#7df0c6" text-anchor="middle">125 mL/hr</text>
+          <circle cx="160" cy="150" r="10" fill="#ff9db4"/>
+          <circle cx="220" cy="150" r="10" fill="#ff9db4"/>
+          <circle cx="280" cy="150" r="10" fill="#ff9db4"/>
+          <rect x="150" y="166" width="140" height="10" rx="5" fill="#ff9db4"/>
+          <text x="24" y="212" font-size="13" font-weight="800" fill="#ffd9e2">Ordered: 1000 mL / 8 hr</text>
+          <text x="24" y="232" font-size="13" font-weight="900" fill="#ffd9e2">1000 ÷ 8 = 125 mL/hr</text>
+        </svg>
+        <svg viewBox="0 0 440 260" role="img" aria-label="Gravity IV tubing diagram: IV bag with drip chamber, drop factor fifteen drops per milliliter, calculating thirty one drops per minute counted by the second hand of a clock">
+          <rect x="6" y="6" width="428" height="248" rx="16" fill="rgba(255,59,107,.14)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="24" y="34" font-size="16" font-weight="900" fill="#ff9db4">💧 GRAVITY — gtt/min</text>
+          <rect x="170" y="46" width="70" height="90" rx="10" fill="#ffd9e2" stroke="#ff9db4" stroke-width="2"/>
+          <text x="205" y="96" font-size="10.5" font-weight="900" fill="#7a1030" text-anchor="middle">IV BAG</text>
+          <rect x="196" y="136" width="18" height="34" fill="#ffd9e2" stroke="#ff9db4" stroke-width="2"/>
+          <circle cx="205" cy="176" r="6" fill="#ffc233"/>
+          <text x="230" y="180" font-size="11" font-weight="800" fill="#ffd9e2">drop factor</text>
+          <text x="230" y="196" font-size="13" font-weight="900" fill="#ffd9e2">15 gtt/mL</text>
+          <line x1="205" y1="182" x2="205" y2="220" stroke="#ffd9e2" stroke-width="4"/>
+          <circle cx="140" cy="210" r="34" fill="none" stroke="#7df0c6" stroke-width="3"/>
+          <line x1="140" y1="210" x2="140" y2="190" stroke="#7df0c6" stroke-width="3" stroke-linecap="round"/>
+          <line x1="140" y1="210" x2="155" y2="216" stroke="#7df0c6" stroke-width="3" stroke-linecap="round"/>
+          <text x="140" y="252" font-size="10.5" font-weight="800" fill="#7df0c6" text-anchor="middle">count for 1 min</text>
+          <text x="255" y="230" font-size="13" font-weight="900" fill="#7df0c6">= 31 gtt/min</text>
+        </svg>
+      </div>
+      <div class="worksheet">
+        <div class="row"><span class="lbl">Ordered</span><span class="mono">1000 mL over 8 hr, drop factor 15 gtt/mL</span></div>
+        <div class="row"><span class="lbl">Pump</span><span class="eq mono">1000 ÷ 8 = 125 mL/hr</span></div>
+        <div class="row"><span class="lbl">Gravity Step 1</span><span class="eq mono">1000 ÷ 8 = 125 mL/hr</span></div>
+        <div class="row"><span class="lbl">Gravity Step 2</span><span class="eq mono">(125 × 15) ÷ 60 = 31.25</span></div>
+        <div class="ans">Pump: 125 mL/hr &nbsp;·&nbsp; Gravity: round to 31 gtt/min</div>
+      </div>
+      <div class="mn">🧠 <b>Same order, two different final answers</b> depending on the equipment. Round gtt/min to a whole drop — you cannot count a quarter of a drop falling in the chamber.</div>
+    </div>
+
+    <div class="card deep span2">
+      <h3>⚡ Shortcut: skip step 2 for common drop factors</h3>
+      <p>Because <span class="mono">60 minutes</span> is always the denominator, common drop factors simplify to one quick division of mL/hr:</p>
+      <table>
+        <tr><th style="width:34%">Drop factor</th><th class="up">Tubing type</th><th class="lo">Shortcut from mL/hr</th></tr>
+        <tr><td><span class="mono">10 gtt/mL</span></td><td>Macrodrip</td><td><span class="mono">gtt/min = mL/hr ÷ 6</span></td></tr>
+        <tr><td><span class="mono">15 gtt/mL</span></td><td>Macrodrip</td><td><span class="mono">gtt/min = mL/hr ÷ 4</span></td></tr>
+        <tr><td><span class="mono">20 gtt/mL</span></td><td>Macrodrip</td><td><span class="mono">gtt/min = mL/hr ÷ 3</span></td></tr>
+        <tr><td><span class="mono">60 gtt/mL</span></td><td>Microdrip</td><td><span class="mono">gtt/min = mL/hr</span> (1:1)</td></tr>
+      </table>
+      <div class="mn">🧠 <b>Microdrip = 60, and 60 makes gtt/min and mL/hr the SAME NUMBER.</b> Microdrip tubing (60 gtt/mL) is used for peds, critical care, and any fluid needing very precise, small-volume control — the exact drop factor is always printed on the tubing package, never assumed.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONVERT & TRAPS ============ -->
+<section id="convert">
+  <div class="sec-h"><span class="icon">🔁</span><h2>CONVERT &amp; AVOID TRAPS</h2><span class="step">STEP 3 · SAME UNITS FIRST</span></div>
+  <p class="sec-sub">Every formula above only works if D and H are already in the same unit — convert before you calculate, not after.</p>
+
+  <div class="grid">
+    <div class="card topaz span2">
+      <h3>🪜 The metric staircase — mcg ⇄ mg ⇄ g, and mL ⇄ L</h3>
+      <svg viewBox="-10 -10 492 240" role="img" aria-label="Metric conversion staircase: kilogram, gram, milligram, microgram, each step multiplying by 1000 going down to smaller units and dividing by 1000 going up to larger units">
+        <rect x="-6" y="-6" width="484" height="232" rx="16" fill="rgba(13,8,26,.35)" stroke="#231a02" stroke-width="1.5" stroke-dasharray="6 5"/>
+        <!-- 4 steps -->
+        <rect x="24" y="34" width="90" height="40" rx="9" fill="#9d5cff"/>
+        <text x="69" y="59" font-size="14.5" font-weight="900" fill="#fff" text-anchor="middle">kg / L</text>
+        <rect x="128" y="64" width="90" height="40" rx="9" fill="#2f6bff"/>
+        <text x="173" y="89" font-size="14.5" font-weight="900" fill="#fff" text-anchor="middle">g</text>
+        <rect x="232" y="94" width="90" height="40" rx="9" fill="#12b886"/>
+        <text x="277" y="119" font-size="14.5" font-weight="900" fill="#03291c" text-anchor="middle">mg / mL</text>
+        <rect x="336" y="124" width="90" height="40" rx="9" fill="#ff3b6b"/>
+        <text x="381" y="149" font-size="14.5" font-weight="900" fill="#fff" text-anchor="middle">mcg</text>
+
+        <text x="122" y="55" font-size="13" font-weight="900" fill="#2a1f00">×1000 ▶</text>
+        <text x="226" y="85" font-size="13" font-weight="900" fill="#2a1f00">×1000 ▶</text>
+        <text x="330" y="115" font-size="13" font-weight="900" fill="#2a1f00">×1000 ▶</text>
+        <text x="122" y="180" font-size="13" font-weight="900" fill="#2a1f00">◀ ÷1000</text>
+        <text x="226" y="180" font-size="13" font-weight="900" fill="#2a1f00">◀ ÷1000</text>
+        <text x="330" y="180" font-size="13" font-weight="900" fill="#2a1f00">◀ ÷1000</text>
+        <text x="24" y="200" font-size="12.5" font-style="italic" fill="#3d1a00">Bigger unit → smaller unit = move the decimal 3 places RIGHT (×1000)</text>
+      </svg>
+      <p><b>Same rule for volume:</b> <span class="mono">1 L = 1000 mL</span>. And for weight: <span class="mono">1 kg = 2.2 lb</span> — lb → kg, <b>divide</b> by 2.2; kg → lb, <b>multiply</b> by 2.2.</p>
+      <div class="mn">🧠 <b>"Small word, small step; big jump, big multiply."</b> Kilo → milli → micro is always ×1000 each step down. Confusing mcg and mg is a <mark>1000-fold overdose</mark> — always double-check the abbreviation before you calculate.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>⚠️ NCLEX trap: mcg vs. mg</h3>
+      <p>A misread or miswritten unit — <span class="mono">mcg</span> mistaken for <span class="mono">mg</span> — is a <b>1000× dosing error</b>. High-alert IV drips are especially at risk because they're often dosed in <span class="mono">mcg/kg/min</span>.</p>
+      <div class="mn">🧠 <b>"Micro is minuscule."</b> mcg is always the smallest, most cautious unit in the room — if a number in mcg looks small, that's normal, not a mistake.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>⚠️ NCLEX trap: forgetting lb → kg</h3>
+      <p>Calculating a weight-based dose using pounds instead of kilograms gives an answer that's roughly <span class="mono">2.2× too high</span>. <span class="never">Always convert weight to kg before multiplying by mg/kg.</span></p>
+      <div class="mn">🧠 <b>Weight-based order? Kilos or it doesn't count.</b> If the chart shows lb, convert first — every single time.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>⚠️ NCLEX trap: pump formula vs. gravity formula</h3>
+      <p>Using <span class="mono">gtt/min</span> math when the fluid is actually running through an electronic pump (or vice versa) gives a nonsense rate. <b>Pump screens want mL/hr; gravity tubing needs a drop count.</b></p>
+      <div class="mn">🧠 <b>"Buttons = mL/hr. No buttons = count drops."</b> Look at the equipment before you pick the formula.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>⚠️ NCLEX trap: wrong drop factor</h3>
+      <p>Using <span class="mono">15 gtt/mL</span> math on <span class="mono">60 gtt/mL</span> microdrip tubing (or the reverse) throws the whole answer off. <b>The drop factor is printed on the tubing package</b> — never assume it.</p>
+      <div class="mn">🧠 <b>Read the box before you do the math.</b> Different tubing, different formula — every time.</div>
+    </div>
+
+    <div class="card ruby span2">
+      <h3>🚨 High-alert meds: math isn't the only safety check</h3>
+      <p>Insulin, heparin, IV opioids, chemotherapy, and other high-alert drugs typically require an <b>independent double-check by a second RN</b> before administration — regardless of how confident you are in your own calculation. <span class="never">Correct math does not replace a required double-check.</span></p>
+      <div class="mn">🧠 <b>"High alert, second set of eyes."</b> Facility policy, not your certainty, decides when a double-check is required — always verify the policy for the specific drug.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">🎯 D/H × Q</span>Desired ÷ Have × Quantity = amount to give</div>
+    <div class="rc rubybg"><span class="big">💧 gtt/min</span>(mL/hr × drop factor) ÷ 60</div>
+    <div class="rc tealbg"><span class="big">🖥️ mL/hr</span>Volume (mL) ÷ Time (hr)</div>
+    <div class="rc topazbg"><span class="big">🔁 Convert first</span>kg/g/mg/mcg ×1000 down, ÷1000 up · lb÷2.2=kg</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 4 rapid-fire questions</summary>
+      <div class="qa">Q1: What's the master oral/IM dosage formula? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">D/H × Q — Desired dose ÷ Have (dose on hand) × Quantity (the form that dose comes in).</div></div>
+      <div class="qa">Q2: An electronic pump is infusing fluid — which formula do you use, mL/hr or gtt/min? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">mL/hr = Volume (mL) ÷ Time (hr). gtt/min is only for gravity/manual tubing with no pump.</div></div>
+      <div class="qa">Q3: Before calculating a weight-based dose given in pounds, what must you do first? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Convert pounds to kilograms (lb ÷ 2.2 = kg) before multiplying by the mg/kg order — skipping this gives an answer about 2.2× too high.</div></div>
+      <div class="qa">Q4: Why is mixing up mcg and mg such a dangerous error? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">mcg and mg differ by a factor of 1000 — confusing them causes a 1000-fold dosing error, one of the most serious medication error categories.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">FORMULAS</span>→
+    <span style="background:rgba(47,107,255,.7)">WORK IT OUT</span>→
+    <span style="background:rgba(18,184,134,.7)">CONVERT</span>
+  </div>
+  <div>NG-171 · Example numbers are for math practice only, not real clinical doses · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>

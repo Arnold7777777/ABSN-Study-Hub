@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hypovolemic Shock · NG-184 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+
+/* ---------- appended for this page ---------- */
+nav a.c5{background:rgba(0,194,199,.72);color:#00252b}
+#stages .sec-h h2{color:#ffd9b8} #stages .step{background:var(--citrine);color:#2b1200}
+.hdr-sm th{font-size:.78rem}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#cause">🧨 Cause</a>
+  <a class="c2" href="#clues">🔎 Clues</a>
+  <a class="c5" href="#stages">🪜 4 Stages</a>
+  <a class="c3" href="#care">🩺 Care</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Cardio · Pathophysiology Course</div>
+  <h1>Hypovolemic Shock <span class="drop">🩸</span></h1>
+  <p class="sub">The TANK is empty — hemorrhagic &amp; non-hemorrhagic</p>
+  <div class="chips">
+    <span class="chip id">NG-184</span>
+    <span class="chip cat">Cardio · Shock</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede"><b>Volume is gone.</b> Blood loss from trauma, a gunshot wound, surgery — or fluid loss from <b>burns</b>, vomiting, diarrhea, or DKA. Less volume in → less preload → <b>less cardiac output</b> → tissue starves. The fix is not a drug. <b>The fix is volume, and stopping the leak.</b></p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">🪣 Empty tank</span>Preload ↓↓ · CO ↓ · SVR ↑ · skin <b>COLD, clammy, pale</b>.</div>
+  <div class="rc rubybg"><span class="big">💓 Fast &amp; narrow</span>Tachycardia + <b>narrowing pulse pressure</b> is the earliest measurable change.</div>
+  <div class="rc topazbg"><span class="big">🩸 Hgb can look NORMAL</span>In acute hemorrhage you lose <i>whole blood</i>. H&amp;H falls <b>later</b>, after fluids dilute it.</div>
+  <div class="rc tealbg"><span class="big">🚰 Stop the leak, fill the tank</span>Two large-bore IVs <span class="mono">≥18 g</span> · warmed isotonic fluid · then blood.</div>
+</div>
+
+<!-- ============ CAUSE ============ -->
+<section id="cause">
+  <div class="sec-h"><span class="icon">🧨</span><h2>CAUSE</h2><span class="step">STEP 1 · WHERE IT WENT</span></div>
+  <p class="sec-sub">Volume either left the body, or left the bloodstream and stayed inside the body. Both empty the tank.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🪣 The tank, and the two ways it empties</h3>
+      <svg viewBox="-10 -10 577 490" role="img" aria-label="Two panels: absolute volume loss where blood leaves the body through hemorrhage, burns, vomiting and diarrhea; and relative volume loss where fluid shifts out of the vessels into the tissues and third spaces">
+        <defs>
+          <linearGradient id="bl1" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ff3b6b"/><stop offset="1" stop-color="#c02255"/>
+          </linearGradient>
+          <marker id="aHv" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/>
+          </marker>
+        </defs>
+
+        <rect x="8" y="8" width="504" height="216" rx="16" fill="rgba(255,59,107,.16)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="28" y="42" font-size="20" font-weight="900" fill="#ff9db4">🩸 ABSOLUTE LOSS — it left the body</text>
+        <rect x="28" y="58" width="118" height="140" rx="12" fill="rgba(13,8,26,.55)" stroke="#ffd9e2" stroke-width="2.5"/>
+        <rect x="33" y="152" width="108" height="42" rx="7" fill="url(#bl1)"/>
+        <line x1="28" y1="86" x2="146" y2="86" stroke="#7df0c6" stroke-width="2.5" stroke-dasharray="6 5"/>
+        <text x="152" y="82" font-size="12.5" font-weight="800" fill="#7df0c6">normal ≈ 5 L adult</text>
+        <path d="M146 176 L206 200" stroke="#ff3b6b" stroke-width="6" stroke-linecap="round" marker-end="url(#aHv)"/>
+        <text x="168" y="112" font-size="14.5" font-weight="800" fill="#ffd9e2">• Trauma · gunshot wound</text>
+        <text x="168" y="134" font-size="14.5" font-weight="800" fill="#ffd9e2">• Surgery · GI bleed · ruptured AAA</text>
+        <text x="168" y="156" font-size="14.5" font-weight="800" fill="#ffd9e2">• Postpartum hemorrhage</text>
+        <text x="168" y="178" font-size="14.5" font-weight="800" fill="#ffd9e2">• Vomiting · diarrhea · diuresis</text>
+        <text x="222" y="208" font-size="13.5" font-style="italic" fill="#ffc233">volume is on the floor</text>
+
+        <rect x="8" y="240" width="504" height="222" rx="16" fill="rgba(47,107,255,.18)" stroke="#2f6bff" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="28" y="274" font-size="20" font-weight="900" fill="#bcd0ff">💧 RELATIVE LOSS — it left the VESSEL</text>
+        <text x="28" y="296" font-size="13.5" font-style="italic" fill="#dfe8ff">still inside the body, but useless — “third spacing”</text>
+        <rect x="28" y="312" width="200" height="70" rx="30" fill="rgba(255,255,255,.10)" stroke="#bcd0ff" stroke-width="2"/>
+        <rect x="34" y="336" width="188" height="22" rx="11" fill="url(#bl1)"/>
+        <text x="34" y="330" font-size="12.5" font-weight="900" fill="#bcd0ff">blood vessel</text>
+        <path d="M78 358 L64 400" stroke="#ffc233" stroke-width="4.5" marker-end="url(#aHv)"/>
+        <path d="M130 358 L130 400" stroke="#ffc233" stroke-width="4.5" marker-end="url(#aHv)"/>
+        <path d="M182 358 L196 400" stroke="#ffc233" stroke-width="4.5" marker-end="url(#aHv)"/>
+        <ellipse cx="128" cy="424" rx="104" ry="22" fill="rgba(255,194,51,.35)" stroke="#ffc233" stroke-width="2"/>
+        <text x="52" y="430" font-size="13.5" font-weight="900" fill="#ffc233">interstitial / third space</text>
+        <text x="246" y="330" font-size="14.5" font-weight="800" fill="#dfe8ff">• BURNS — plasma pours into tissue</text>
+        <text x="246" y="352" font-size="14.5" font-weight="800" fill="#dfe8ff">• Pancreatitis · peritonitis</text>
+        <text x="246" y="374" font-size="14.5" font-weight="800" fill="#dfe8ff">• Ascites · bowel obstruction</text>
+        <text x="246" y="396" font-size="14.5" font-weight="800" fill="#dfe8ff">• Low albumin (nothing holds fluid in)</text>
+        <text x="246" y="424" font-size="13.5" font-style="italic" fill="#ffc233">edema outside + empty inside</text>
+      </svg>
+      <p style="margin-top:10px"><mark>A swollen, edematous patient can still be in hypovolemic shock.</mark> The edema <i>is</i> the missing volume — it's just in the wrong compartment.</p>
+      <div class="mn">🧠 <b>“Out of the body, or out of the vessel.”</b> Bleeding puts the volume on the floor. Burns and third spacing put it in the tissue. Either way the pump has nothing to pump.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🩸 Hemorrhagic — the classic cause</h3>
+      <ul class="tick">
+        <li>🚗 <b>Trauma</b> — MVC, crush, long-bone or pelvic fracture</li>
+        <li>🔫 <b>Gunshot / stab wound</b></li>
+        <li>🔪 <b>Surgery</b> — intra-op and post-op bleeding</li>
+        <li>🫃 <b>GI bleed</b> — varices, ulcer <i>(watch for melena, hematemesis)</i></li>
+        <li>💥 <b>Ruptured AAA</b> or ruptured ectopic pregnancy</li>
+        <li>🤱 <b>Postpartum hemorrhage</b> — boggy uterus</li>
+      </ul>
+      <p><b>Hidden bleeds you can't see:</b> chest, abdomen, retroperitoneum, pelvis, thigh. A femur fracture can hide over a liter.</p>
+      <div class="mn">🧠 <b>“Blood on the floor + four more.”</b> The four hidden places blood goes: <b>chest, abdomen, pelvis/retroperitoneum, long-bone thigh</b>. Don't rule out hemorrhage just because the dressing is dry.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🔥 Burns — the biggest non-bleeding cause</h3>
+      <p>Burned capillaries leak plasma into tissue for the first <span class="mono">24–48 hours</span>. The patient swells while the circulation empties.</p>
+      <p><b>Parkland (consensus) formula:</b> <span class="mono">4 mL × kg × %TBSA</span> of <b>lactated Ringer's</b> in the first 24 hours — <b>half in the first 8 hours from the TIME OF THE BURN</b>, the rest over the next 16.</p>
+      <p><b>Titrate to urine output</b>, the real endpoint: <span class="mono">≈ 0.5 mL/kg/hr</span> in adults (higher in children and electrical burns).</p>
+      <div class="mn">🧠 <b>“4 · kg · TBSA — half in 8.”</b> The clock starts when the <i>burn</i> happened, not when the patient arrived. If they got there 2 hours late, that first half must go in over the remaining 6.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLUES ============ -->
+<section id="clues">
+  <div class="sec-h"><span class="icon">🔎</span><h2>CLUES</h2><span class="step">STEP 2 · SPOT IT EARLY</span></div>
+  <p class="sec-sub">Cold, fast, dry, and not making urine — with a blood pressure that lies to you until it's late.</p>
+
+  <div class="grid">
+    <div class="card topaz span2">
+      <h3>⭐ How much blood is gone? The 4 classes of hemorrhage</h3>
+      <table class="hdr-sm">
+        <tr><th style="width:17%">Class</th><th class="up">Loss</th><th class="up">HR</th><th class="lo">BP</th><th class="lo">Urine</th><th class="lo">Mental status</th></tr>
+        <tr><td><b>I</b></td><td><span class="mono">&lt;15%</span> <i>(&lt;750 mL)</i></td><td><span class="mono">&lt;100</span></td><td><b>Normal</b></td><td><span class="mono">&gt;30 mL/hr</span></td><td>Slightly anxious</td></tr>
+        <tr><td><b>II</b></td><td><span class="mono">15–30%</span> <i>(750–1500 mL)</i></td><td><span class="mono">100–120</span></td><td><b>Normal — but pulse pressure NARROWS</b></td><td><span class="mono">20–30 mL/hr</span></td><td>Mildly anxious</td></tr>
+        <tr><td><b>III</b></td><td><span class="mono">30–40%</span> <i>(1500–2000 mL)</i></td><td><span class="mono">120–140</span></td><td><b>FALLS</b></td><td><span class="mono">5–15 mL/hr</span></td><td>Confused</td></tr>
+        <tr><td><b>IV</b></td><td><span class="mono">&gt;40%</span> <i>(&gt;2000 mL)</i></td><td><span class="mono">&gt;140</span></td><td><b>Profoundly low</b></td><td>Negligible</td><td>Lethargic → unresponsive</td></tr>
+      </table>
+      <p style="margin-top:8px">Adult circulating volume is roughly <span class="mono">5 L</span> (<span class="mono">≈70 mL/kg</span>). <mark>The blood pressure does not fall until Class III — about 1.5 litres gone.</mark></p>
+      <div class="mn">🧠 <b>“Tennis, football, both.”</b> Class II ≈ 15–30 %, Class III ≈ 30–40 %, Class IV &gt; 40 %. Anchor on the one that matters: <b>a normal BP still allows a 1500 mL loss</b>.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🚨 Signs &amp; symptoms — cold shock</h3>
+      <ul class="tick">
+        <li>💓 <b>Tachycardia</b> — first, and often the only early change</li>
+        <li>🤏 <b>Narrowing pulse pressure</b> <i>(diastolic rises as vessels clamp)</i></li>
+        <li>🥶 <b>Cold, clammy, pale/mottled skin</b>; cap refill <span class="mono">&gt;3 sec</span></li>
+        <li>🫱 <b>Weak, thready peripheral pulses</b></li>
+        <li>🫁 <b>Tachypnea</b>, then air hunger</li>
+        <li>😰 <b>Restless, anxious</b> → confused → lethargic</li>
+        <li>👅 <b>Thirst</b>, dry mucous membranes, poor skin turgor</li>
+        <li>🚽 <b>Urine <span class="mono">&lt;30 mL/hr</span></b>, dark and concentrated</li>
+        <li>🫗 <b>Flat neck veins</b>, low <b>CVP</b></li>
+        <li>🧍 <b>Orthostatic hypotension</b> — SBP drop <span class="mono">≥20 mmHg</span> or DBP drop <span class="mono">≥10 mmHg</span> on standing</li>
+      </ul>
+      <svg viewBox="0 0 520 250" role="img" aria-label="Two necks compared: flat jugular veins with low central venous pressure in hypovolemic shock versus distended jugular veins with high central venous pressure in cardiogenic shock">
+        <rect x="8" y="8" width="248" height="234" rx="14" fill="rgba(47,107,255,.2)" stroke="#2f6bff" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="24" y="38" font-size="18" font-weight="900" fill="#bcd0ff">🫗 FLAT neck veins</text>
+        <text x="24" y="58" font-size="13" font-style="italic" fill="#dfe8ff">HYPOVOLEMIC — empty tank</text>
+        <path d="M96 76 C 70 76 62 108 66 140 C 70 176 92 196 96 216" fill="none" stroke="#ffd0bd" stroke-width="34" stroke-linecap="round"/>
+        <path d="M84 92 C 80 122 82 158 88 196" fill="none" stroke="#7a90b8" stroke-width="4"/>
+        <text x="128" y="118" font-size="14" font-weight="900" fill="#dfe8ff">Vein collapsed</text>
+        <text x="128" y="140" font-size="14" font-weight="900" fill="#dfe8ff">CVP LOW</text>
+        <text x="128" y="162" font-size="14" font-weight="900" fill="#dfe8ff">(&lt; 2 mmHg)</text>
+        <text x="24" y="236" font-size="14" font-weight="900" fill="#ffc233">Answer: give VOLUME</text>
+
+        <rect x="264" y="8" width="248" height="234" rx="14" fill="rgba(255,59,107,.2)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="280" y="38" font-size="18" font-weight="900" fill="#ff9db4">🎈 DISTENDED (JVD)</text>
+        <text x="280" y="58" font-size="13" font-style="italic" fill="#ffd9e2">CARDIOGENIC — backed-up pump</text>
+        <path d="M352 76 C 326 76 318 108 322 140 C 326 176 348 196 352 216" fill="none" stroke="#ffd0bd" stroke-width="34" stroke-linecap="round"/>
+        <path d="M340 90 C 334 122 336 160 342 198" fill="none" stroke="#2f6bff" stroke-width="13" stroke-linecap="round"/>
+        <text x="384" y="118" font-size="14" font-weight="900" fill="#ffd9e2">Vein bulging</text>
+        <text x="384" y="140" font-size="14" font-weight="900" fill="#ffd9e2">CVP HIGH</text>
+        <text x="384" y="162" font-size="14" font-weight="900" fill="#ffd9e2">+ crackles, S3</text>
+        <text x="280" y="236" font-size="14" font-weight="900" fill="#ffc233">Answer: help the PUMP</text>
+      </svg>
+      <div class="mn">🧠 <b>“FLAT and FAST.”</b> Flat neck veins, flat CVP, flat urine bag — with a fast, thready pulse. That combination is <i>only</i> hypovolemia. (Cardiogenic shock gives you the opposite neck: <b>distended</b>.)</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🧪 Labs — and the trap inside them</h3>
+      <ul class="tick">
+        <li>🩸 <b>Hgb &amp; Hct</b> — <span class="never">may be NORMAL in the first hours of acute hemorrhage</span></li>
+        <li>🧪 <b>Lactate</b> <span class="mono">&gt;2 mmol/L</span> = tissue starving; <span class="mono">&gt;4</span> = severe</li>
+        <li>🫧 <b>ABG</b> — metabolic acidosis, base deficit</li>
+        <li>🫘 <b>BUN:creatinine <span class="mono">&gt;20:1</span></b> = prerenal (dehydration) pattern</li>
+        <li>💧 <b>Urine specific gravity <span class="mono">&gt;1.030</span></b> <i>(normal <span class="mono">1.005–1.030</span>)</i>, urine sodium low</li>
+        <li>🧂 <b>Serum osmolality &amp; sodium ↑</b> in pure water/fluid loss</li>
+      </ul>
+      <svg viewBox="0 0 520 220" role="img" aria-label="Graph showing hemoglobin appearing falsely normal in the first hour of hemorrhage and only dropping after crystalloid resuscitation dilutes the blood">
+        <rect x="46" y="16" width="458" height="140" rx="10" fill="rgba(13,8,26,.55)" stroke="rgba(255,255,255,.4)" stroke-width="1.5"/>
+        <line x1="46" y1="60" x2="504" y2="60" stroke="#7df0c6" stroke-width="2" stroke-dasharray="6 5"/>
+        <text x="52" y="52" font-size="12.5" font-weight="900" fill="#7df0c6">normal Hgb</text>
+        <path d="M52 60 L160 60 L250 66 L350 108 L496 132" fill="none" stroke="#ff3b6b" stroke-width="4.5" stroke-linecap="round"/>
+        <line x1="160" y1="16" x2="160" y2="156" stroke="#ffc233" stroke-width="2" stroke-dasharray="5 5"/>
+        <text x="166" y="34" font-size="13" font-weight="900" fill="#ffc233">bleeding starts</text>
+        <line x1="300" y1="16" x2="300" y2="156" stroke="#ffc233" stroke-width="2" stroke-dasharray="5 5"/>
+        <text x="306" y="34" font-size="13" font-weight="900" fill="#ffc233">IV fluids given</text>
+        <text x="6" y="96" font-size="14" font-weight="900" fill="#ff9db4">Hgb</text>
+        <text x="52" y="180" font-size="14" font-weight="800" fill="#efe6ff">Whole blood lost = cells AND plasma together,</text>
+        <text x="52" y="202" font-size="14" font-weight="800" fill="#efe6ff">so the RATIO looks normal until fluid dilutes it.</text>
+      </svg>
+      <div class="mn">🧠 <b>“You can bleed to death with a normal H&amp;H.”</b> Treat the patient's vital signs and skin, not the hemoglobin. The number catches up hours later.</div>
+    </div>
+
+    <div class="card tealc span2">
+      <h3>📊 Where hypovolemic sits among the shocks</h3>
+      <table class="hdr-sm">
+        <tr><th style="width:25%">Type</th><th class="up">Preload<br>(CVP/PAWP)</th><th class="up">CO</th><th class="lo">SVR</th><th class="lo">Skin</th></tr>
+        <tr><td><b>Hypovolemic</b> ⬅️</td><td><b>↓↓</b></td><td><b>↓</b></td><td><b>↑</b></td><td>Cold, clammy, pale</td></tr>
+        <tr><td><b>Cardiogenic</b></td><td><b>↑↑</b></td><td><b>↓↓</b></td><td><b>↑</b></td><td>Cold, clammy, mottled</td></tr>
+        <tr><td><b>Septic — warm / early</b></td><td><b>↓</b></td><td><b>↑</b></td><td><b>↓↓</b></td><td>WARM, flushed, dry</td></tr>
+        <tr><td><b>Septic — cold / late</b></td><td><b>↓</b></td><td><b>↓</b></td><td><b>↑</b></td><td>Cold, clammy, mottled</td></tr>
+        <tr><td><b>Neurogenic</b></td><td><b>↓</b></td><td><b>↓</b></td><td><b>↓↓</b></td><td>WARM, dry, pink + <b>BRADYcardia</b></td></tr>
+        <tr><td><b>Anaphylactic</b></td><td><b>↓</b></td><td><b>↓</b></td><td><b>↓↓</b></td><td>WARM, flushed + hives / swelling</td></tr>
+      </table>
+      <div class="mn">🧠 <b>Hypovolemic and cardiogenic look identical at the skin</b> — both cold, clammy, thready. The <b>neck veins</b> separate them: <i>flat</i> = empty tank, <i>distended</i> = broken pump.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4 STAGES ============ -->
+<section id="stages">
+  <div class="sec-h"><span class="icon">🪜</span><h2>THE 4 STAGES</h2><span class="step">STEP 3 · STAGE IT</span></div>
+  <p class="sec-sub">Same four stages as every shock — here they are with the bleeding patient's own findings written in.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🪜 The 4 stages of shock — identical on every shock page</h3>
+      <table>
+        <tr><th style="width:22%">Stage</th><th class="up">What's happening</th><th class="lo">What you see</th></tr>
+        <tr><td><b>I · INITIAL</b></td><td>Cardiac output falls just enough that cells switch to <b>anaerobic metabolism</b> → <b>lactic acid</b> builds, blood glucose rises.</td><td><mark>Nothing.</mark> Signs &amp; symptoms are <b>ABSENT</b> in this stage — only a rising <span class="mono">lactate</span> gives it away.</td></tr>
+        <tr><td><b>II · COMPENSATORY</b></td><td>The <b>sympathetic nervous system</b> and <b>renin–angiotensin–aldosterone</b> rescue the pressure: catecholamines, vasoconstriction, ADH and aldosterone hold on to salt and water.</td><td><b>Tachycardia · tachypnea · restless &amp; anxious · cold clammy skin · narrowing pulse pressure · urine <span class="mono">&lt; 30 mL/hr</span></b>. <b>BP is still near normal.</b></td></tr>
+        <tr><td><b>III · PROGRESSIVE</b></td><td>Compensation <b>fails</b>. Capillaries leak, acidosis deepens, organs begin to die.</td><td><b>BP drops (MAP <span class="mono">&lt; 65</span>) · confusion → lethargy · cold mottled skin · weak thready pulse · crackles · oliguria → anuria · rising BUN/creatinine</b>.</td></tr>
+        <tr><td><b>IV · REFRACTORY</b><br><i>(also called irreversible)</i></td><td><b>MODS</b> — multiple organ dysfunction syndrome. The body no longer responds to fluids or vasopressors.</td><td><b>Unresponsive · profound hypotension · anuria · DIC · death is imminent.</b></td></tr>
+      </table>
+      <div class="mn">🧠 <b>“I Can't Perfuse Right”</b> — <b>I</b>nitial · <b>C</b>ompensatory · <b>P</b>rogressive · <b>R</b>efractory. The stage you must catch is <b>COMPENSATORY</b>: the cuff still looks fine, so your clues are <i>heart rate, respiratory rate, mental status and urine output</i>.</div>
+    </div>
+
+    <div class="card garnet span2">
+      <h3>📈 Stage progression — <u>hypovolemic</u> findings on each stage</h3>
+      <svg viewBox="0 0 560 620" role="img" aria-label="Four descending stages of hypovolemic shock with blood loss volumes, heart rate, blood pressure, urine output and mental status at each stage">
+        <defs>
+          <linearGradient id="railH" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#00c2c7"/><stop offset="0.34" stop-color="#ffc233"/>
+            <stop offset="0.68" stop-color="#ff8a3d"/><stop offset="1" stop-color="#c02255"/>
+          </linearGradient>
+        </defs>
+        <text x="14" y="24" font-size="17" font-weight="900" fill="#ffd9b8">VOLUME LOST ↑ · PERFUSION ↓</text>
+        <rect x="8" y="36" width="14" height="576" rx="7" fill="url(#railH)"/>
+
+        <rect x="32" y="36" width="520" height="130" rx="14" fill="rgba(0,194,199,.20)" stroke="#00c2c7" stroke-width="2"/>
+        <circle cx="70" cy="72" r="21" fill="#00c2c7"/><text x="60" y="79" font-size="17" font-weight="900" fill="#00252b">I</text>
+        <text x="102" y="68" font-size="19" font-weight="900" fill="#9ff2ee">INITIAL · loss &lt; 15% (&lt; 750 mL)</text>
+        <text x="102" y="90" font-size="13.5" font-style="italic" fill="#d8fff0">the leak has started, the body hasn't reacted</text>
+        <text x="102" y="114" font-size="14.5" font-weight="800" fill="#eafff7">• Vital signs NORMAL · HR &lt; 100 · urine &gt; 30 mL/hr</text>
+        <text x="102" y="134" font-size="14.5" font-weight="800" fill="#eafff7">• Lactate begins to rise · slight anxiety only</text>
+        <text x="102" y="154" font-size="14.5" font-weight="900" fill="#ffc233">• You will not see this stage at the bedside</text>
+
+        <rect x="32" y="178" width="520" height="146" rx="14" fill="rgba(255,194,51,.22)" stroke="#ffc233" stroke-width="2"/>
+        <circle cx="70" cy="214" r="21" fill="#ffc233"/><text x="56" y="221" font-size="17" font-weight="900" fill="#231a02">II</text>
+        <text x="102" y="210" font-size="19" font-weight="900" fill="#ffe49a">COMPENSATORY · 15–30% (750–1500 mL)</text>
+        <text x="102" y="232" font-size="13.5" font-style="italic" fill="#fff3d1">SNS clamps the vessels, RAAS saves the salt</text>
+        <text x="102" y="256" font-size="14.5" font-weight="800" fill="#fff8e6">• HR 100–120 · RR 20–30 · anxious, thirsty</text>
+        <text x="102" y="276" font-size="14.5" font-weight="800" fill="#fff8e6">• Cold, clammy, pale · flat neck veins · low CVP</text>
+        <text x="102" y="296" font-size="14.5" font-weight="800" fill="#fff8e6">• Urine 20–30 mL/hr, dark &amp; concentrated</text>
+        <text x="102" y="318" font-size="14.5" font-weight="900" fill="#ff8a3d">• BP NORMAL — pulse pressure NARROWS. Act here.</text>
+
+        <rect x="32" y="336" width="520" height="148" rx="14" fill="rgba(255,138,61,.24)" stroke="#ff8a3d" stroke-width="2"/>
+        <circle cx="70" cy="372" r="21" fill="#ff8a3d"/><text x="53" y="379" font-size="17" font-weight="900" fill="#2b1200">III</text>
+        <text x="102" y="368" font-size="19" font-weight="900" fill="#ffd9b8">PROGRESSIVE · 30–40% (1500–2000 mL)</text>
+        <text x="102" y="390" font-size="13.5" font-style="italic" fill="#ffe9d6">the clamp gives out</text>
+        <text x="102" y="414" font-size="14.5" font-weight="800" fill="#ffe9d6">• HR 120–140 · SBP FALLS · MAP &lt; 65</text>
+        <text x="102" y="434" font-size="14.5" font-weight="800" fill="#ffe9d6">• Confusion · cold mottled skin · thready pulse</text>
+        <text x="102" y="454" font-size="14.5" font-weight="800" fill="#ffe9d6">• Urine 5–15 mL/hr · lactate &gt; 4 · acidosis</text>
+        <text x="102" y="476" font-size="14.5" font-weight="800" fill="#ffe9d6">• Lethal triad begins: cold + acidotic + won't clot</text>
+
+        <rect x="32" y="496" width="520" height="116" rx="14" fill="rgba(192,34,85,.30)" stroke="#c02255" stroke-width="2"/>
+        <circle cx="70" cy="530" r="21" fill="#c02255"/><text x="52" y="537" font-size="16" font-weight="900" fill="#fff">IV</text>
+        <text x="102" y="526" font-size="19" font-weight="900" fill="#ff9db4">REFRACTORY · &gt; 40% (&gt; 2000 mL)</text>
+        <text x="102" y="548" font-size="13.5" font-style="italic" fill="#ffd9e2">= irreversible · MODS</text>
+        <text x="102" y="572" font-size="14.5" font-weight="800" fill="#ffd9e2">• HR &gt; 140 then collapses · BP unobtainable</text>
+        <text x="102" y="592" font-size="14.5" font-weight="800" fill="#ffd9e2">• Anuria · DIC · unresponsive · death imminent</text>
+      </svg>
+      <div class="mn">🧠 <b>“15 · 30 · 40.”</b> Under 15 % nothing shows. At 30 % the heart is racing but the cuff still lies. Past 30 % the pressure finally drops — and you are already behind.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CARE ============ -->
+<section id="care">
+  <div class="sec-h"><span class="icon">🩺</span><h2>CARE</h2><span class="step">STEP 4 · PLUG IT &amp; FILL IT</span></div>
+  <p class="sec-sub">Two jobs, in this order: stop the loss, then replace the loss. Everything else is support.</p>
+
+  <div class="grid">
+    <div class="card emerald span2">
+      <h3>✅ Priority order</h3>
+      <div class="ladder">
+        <div class="rung"><div class="n">1</div><div class="t"><b>Stop the loss</b> — direct pressure, tourniquet, uterine massage, endoscopy, OR. <i>You cannot out-transfuse an open artery.</i></div></div>
+        <div class="arrowdown">▼</div>
+        <div class="rung"><div class="n">2</div><div class="t"><b>Oxygen</b> — high-flow; the remaining red cells must carry more</div></div>
+        <div class="arrowdown">▼</div>
+        <div class="rung"><div class="n">3</div><div class="t"><b>Two large-bore IVs</b> <span class="mono">≥18 gauge</span> (or an intraosseous line) — <b>short and fat beats long and thin</b></div></div>
+        <div class="arrowdown">▼</div>
+        <div class="rung"><div class="n">4</div><div class="t"><b>Warmed isotonic crystalloid</b> — <b>0.9% NS or lactated Ringer's</b></div></div>
+        <div class="arrowdown">▼</div>
+        <div class="rung"><div class="n">5</div><div class="t"><b>Blood products</b> for hemorrhage — PRBCs; massive transfusion protocol gives <b>PRBC : FFP : platelets ≈ 1:1:1</b></div></div>
+        <div class="arrowdown">▼</div>
+        <div class="rung"><div class="n">6</div><div class="t"><b>Position &amp; warm</b> — supine, legs elevated ~20–30°, blankets and fluid warmer</div></div>
+      </div>
+      <svg viewBox="-10 -10 614 250" role="img" aria-label="Diagram comparing a short wide 18 gauge catheter that delivers fast flow with a long narrow 22 gauge catheter that delivers slow flow, showing why large bore access matters in hemorrhage">
+        <text x="14" y="26" font-size="17" font-weight="900" fill="#a5f3d4">WHY LARGE-BORE MATTERS</text>
+        <rect x="14" y="44" width="184" height="26" rx="13" fill="#12b886" stroke="#eafff7" stroke-width="2"/>
+        <text x="210" y="56" font-size="15" font-weight="900" fill="#eafff7">16–18 gauge, SHORT</text>
+        <text x="210" y="76" font-size="13.5" font-style="italic" fill="#d8fff0">wide + short = fast flow ✅</text>
+        <path d="M20 57 L192 57" stroke="#03291c" stroke-width="10" stroke-linecap="round" opacity=".35"/>
+        <rect x="14" y="104" width="184" height="10" rx="5" fill="#ff3b6b" stroke="#ffd9e2" stroke-width="1.5"/>
+        <text x="210" y="112" font-size="15" font-weight="900" fill="#ffd9e2">22–24 gauge, LONG</text>
+        <text x="210" y="132" font-size="13.5" font-style="italic" fill="#ffd9e2">narrow + long = slow flow ❌</text>
+        <text x="14" y="166" font-size="14.5" font-weight="800" fill="#eafff7">Flow rises steeply as the catheter gets wider</text>
+        <text x="14" y="188" font-size="14.5" font-weight="800" fill="#eafff7">and falls as it gets longer — so in hemorrhage,</text>
+        <text x="14" y="210" font-size="14.5" font-weight="900" fill="#ffc233">two SHORT, WIDE peripheral lines beat one long central line for speed.</text>
+      </svg>
+      <p style="margin-top:10px"><mark>Vasopressors are NOT the treatment for hypovolemic shock.</mark> Squeezing an empty tank raises the monitor number and starves the tissue further. Use them only as a short bridge while volume is running.</p>
+      <div class="mn">🧠 <b>“Plug it, fill it, warm it.”</b> Three verbs in order. The exam almost always wants <i>control the bleeding</i> or <i>start the fluids</i> before any drug.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>💧 Which fluid — and why not the others</h3>
+      <table>
+        <tr><th class="up" style="width:45%">Use</th><th class="lo">Why</th></tr>
+        <tr><td><b>0.9% Normal Saline</b> ✅</td><td>Isotonic — stays in the vessel. Large volumes can cause <b>hyperchloremic metabolic acidosis</b>.</td></tr>
+        <tr><td><b>Lactated Ringer's</b> ✅</td><td>Isotonic, more physiologic. Contains <b>potassium</b> and lactate — caution in <b>renal failure</b> and <b>liver failure</b>.</td></tr>
+        <tr><td><b>PRBCs / whole blood</b> ✅</td><td>The only fluid that also carries <b>oxygen</b>. Required for real hemorrhage.</td></tr>
+        <tr><td><b>D5W, 0.45% NS</b> ❌</td><td><span class="never">Hypotonic — leaves the vessel and swells cells.</span> Never a resuscitation fluid.</td></tr>
+      </table>
+      <div class="mn">🧠 <b>“Isotonic stays.”</b> If the tank is empty you need fluid that <i>stays in the pipes</i>. Anything hypotonic wanders off into the cells and makes things worse.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🚨 Transfusion &amp; the lethal triad</h3>
+      <ul class="tick">
+        <li>🌡️ <b>Warm every fluid and blood unit</b> — cold blood causes hypothermia and arrhythmia</li>
+        <li>🧊 <b>The lethal triad:</b> <b>hypothermia + acidosis + coagulopathy</b> — each one worsens the other two</li>
+        <li>🧪 <b>Massive transfusion watch:</b> low <b>calcium</b> (citrate binds it), <b>high potassium</b>, low platelets, dilutional coagulopathy</li>
+        <li>💉 <b>Tranexamic acid (TXA)</b> in trauma is given <b>within 3 hours of injury</b></li>
+        <li>👀 <b>Stay with the patient for the first 15 minutes</b> of a blood transfusion — reactions happen early</li>
+      </ul>
+      <div class="mn">🧠 <b>“Cold, sour, leaky.”</b> Hypothermia (cold) + acidosis (sour) + coagulopathy (leaky) = the triad that kills trauma patients even after the bleeding stops.</div>
+    </div>
+
+    <div class="card topaz span2">
+      <h3>📈 How you know it's working</h3>
+      <div class="no-grid">
+        <div class="no-t"><span class="e">🚽</span>Urine ≥ 30 mL/hr<i>the best bedside endpoint</i></div>
+        <div class="no-t"><span class="e">🎯</span>MAP ≥ 65<i>perfusion restored</i></div>
+        <div class="no-t"><span class="e">💓</span>HR falling<i>less SNS drive needed</i></div>
+        <div class="no-t"><span class="e">🫱</span>Warm, dry skin<i>cap refill &lt; 3 sec</i></div>
+        <div class="no-t"><span class="e">🧠</span>Alert &amp; oriented<i>brain is perfused</i></div>
+        <div class="no-t"><span class="e">🧪</span>Lactate clearing<i>recheck it</i></div>
+      </div>
+      <p style="margin-top:11px"><b>Over-resuscitation is real:</b> new crackles, JVD, rising CVP, dropping SpO₂ and frothy sputum mean you've pushed past the target into <b>fluid volume overload</b>. Slow the rate and tell the provider.</p>
+      <div class="mn">🧠 <b>The urine bag is the cheapest hemodynamic monitor in the room.</b> Kidneys are the first organ sacrificed and the first to recover — watch that bag hourly.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>❌ Never</h3>
+      <ul class="tick">
+        <li><span class="never">Never give hypotonic fluid to resuscitate</span></li>
+        <li><span class="never">Never lead with a vasopressor before volume</span></li>
+        <li><span class="never">Never use full Trendelenburg</span> — legs up ~20–30° only</li>
+        <li><span class="never">Never wait on a hemoglobin</span> to decide someone is bleeding</li>
+        <li><span class="never">Never infuse cold blood fast</span> without a warmer</li>
+      </ul>
+      <div class="mn">🧠 Each “never” here is a classic distractor. If an option <i>delays</i> volume or <i>delays</i> stopping the bleed, it's wrong.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">🪣 Empty tank</span>Preload ↓↓ · CO ↓ · SVR ↑ · cold, clammy, pale · <b>flat neck veins</b></div>
+    <div class="rc rubybg"><span class="big">🤏 Narrow pulse pressure</span>The earliest BP change — long before the systolic drops</div>
+    <div class="rc topazbg"><span class="big">🩸 30% before BP falls</span>Class III (1500 mL) is when the systolic finally moves</div>
+    <div class="rc tealbg"><span class="big">🪜 I · C · P · R</span>Initial → Compensatory → Progressive → Refractory</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 6 rapid-fire questions</summary>
+      <div class="qa">Q1: Trauma patient, BP 116/92, HR 118, RR 26, cool clammy skin, urine 20 mL/hr. What stage and what class? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Compensatory (stage II), roughly Class II hemorrhage (15–30 %, 750–1500 mL). Note the narrowed pulse pressure — the diastolic climbed because the vessels are clamped down. Act now; do not wait for the systolic to fall.</div></div>
+      <div class="qa">Q2: Why can the hemoglobin be normal in an actively hemorrhaging patient? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Whole blood loss removes red cells and plasma in the same proportion, so the concentration (the ratio) is unchanged. Hgb/Hct fall later, once crystalloid or the body's own fluid shift dilutes what's left.</div></div>
+      <div class="qa">Q3: Flat neck veins vs distended neck veins — which shock is which? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Flat = hypovolemic (empty tank, low preload/CVP). Distended = cardiogenic or obstructive (blood backing up behind a failing or blocked pump).</div></div>
+      <div class="qa">Q4: What size IV, how many, and what fluid? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Two IVs, 18-gauge or larger (short and wide-bore), warmed isotonic crystalloid — 0.9 % NS or lactated Ringer's — then blood products for hemorrhage.</div></div>
+      <div class="qa">Q5: Burn patient — what formula and what's the timing catch? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Parkland/consensus: 4 mL × kg × %TBSA of lactated Ringer's over 24 hours, with half given in the first 8 hours measured from the TIME OF THE BURN — not from arrival. Titrate to urine output (about 0.5 mL/kg/hr in adults).</div></div>
+      <div class="qa">Q6: Why not just start norepinephrine? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Because the problem is missing volume, not missing vessel tone. Vasoconstricting an empty circulation raises the displayed BP while worsening tissue perfusion and risking limb and gut ischemia. Fill the tank; pressors are only a short bridge.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">CAUSE</span>→
+    <span style="background:rgba(47,107,255,.7)">CLUES</span>→
+    <span style="background:rgba(255,138,61,.7)">STAGES</span>→
+    <span style="background:rgba(18,184,134,.7)">CARE</span>
+  </div>
+  <div>NG-184 · Source wording retained · ADHD-friendly visual edition v2</div>
+</footer>
+
+</div>
+</body></html>

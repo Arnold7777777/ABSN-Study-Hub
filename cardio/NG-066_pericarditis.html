@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pericarditis · NG-066 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+
+/* ===== appended for the pericardial pair — components the shell lacks ===== */
+.setbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:0 0 4px;
+  padding:9px 12px;border-radius:14px;background:rgba(13,8,26,.62);border:1px solid var(--line);
+  font-size:.86rem;font-weight:800}
+.setbar .lbl{font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:#e9dcff}
+.setbar a,.setbar span.pg{padding:4px 11px;border-radius:999px;border:1px solid var(--line);
+  text-decoration:none;color:#fff;font-weight:900;background:rgba(255,255,255,.12);line-height:1.3}
+.setbar span.pg.on{background:var(--topaz);color:#231a02}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#cause">🧨 Cause</a>
+  <a class="c2" href="#clues">🔎 Clues</a>
+  <a class="c3" href="#care">🩺 Care</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Cardio · Pathophysiology Course</div>
+  <div class="setbar">
+    <span class="lbl">Pericardial pair</span>
+    <span class="pg on">1 · Pericarditis</span>
+    <a href="NG-178_cardiac-tamponade.html">2 · Cardiac Tamponade →</a>
+  </div>
+  <h1>Pericarditis <span class="drop">🔥</span></h1>
+  <p class="sub">Inflammation of the pericardium — the sac around the heart</p>
+  <div class="chips">
+    <span class="chip id">NG-066</span>
+    <span class="chip cat">CARDIO</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede"><b>Inflammation OUTside the heart muscle</b> — the two-layer sac (pericardium) that wraps the heart gets irritated, roughens, and rubs. <mark>Less cardiac output = less oxygen OUT</mark> to the body. Left untreated, fluid can build in that sac and squeeze the heart — that next stage is <b><a style="color:#ffd9b8" href="NG-178_cardiac-tamponade.html">Cardiac Tamponade, NG-178</a></b>.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">🧨 Inflammation OUTside the heart</span>The sac around the heart is irritated, not the muscle itself — but output still drops.</div>
+  <div class="rc rubybg"><span class="big">🛏️ Worse flat, better leaning forward</span>Pain fires up supine, eases sitting up &amp; leaning forward — the opposite of MI pain.</div>
+  <div class="rc tealbg"><span class="big">👂 Friction rub = grating sound</span>Best heard with the diaphragm, left sternal border, client leaning forward.</div>
+  <div class="rc topazbg"><span class="big">🚨 Watch for tamponade</span>Fluid can build in the sac → Beck's triad → <b>NG-178</b>. Report new muffled heart sounds.</div>
+</div>
+
+<!-- ============ CAUSE ============ -->
+<section id="cause">
+  <div class="sec-h"><span class="icon">🧨</span><h2>CAUSE</h2><span class="step">STEP 1 · THE IRRITATED SAC</span></div>
+  <p class="sec-sub">One structure explains the whole disease — the pericardium is a two-layer bag with a thin film of fluid between the layers so the heart can slide and beat without friction.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🫀 Normal → inflamed → fluid-filled: the same sac, three stages</h3>
+      <p><span class="tip">EXAM TIP</span> <mark>Pericarditis, effusion, and tamponade are one continuum</mark> — the same pericardial sac getting worse. Know where a client sits on this line and you know what to do next.</p>
+      <svg viewBox="0 0 900 400" role="img" aria-label="Three panel cross-section comparing a normal pericardium with a thin lubricating fluid layer, an inflamed pericarditis pericardium with rough rubbing layers, and a fluid-filled pericardium in cardiac tamponade compressing the heart">
+        <defs>
+          <linearGradient id="myoNorm" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff8a3d"/><stop offset="1" stop-color="#c02255"/></linearGradient>
+          <linearGradient id="myoInfl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff6b81"/><stop offset="1" stop-color="#c02255"/></linearGradient>
+          <linearGradient id="myoTamp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff8a3d"/><stop offset="1" stop-color="#8a1740"/></linearGradient>
+        </defs>
+
+        <rect x="8" y="8" width="284" height="384" rx="16" fill="rgba(18,184,134,.14)" stroke="#12b886" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="26" y="36" font-size="19" font-weight="900" fill="#7df0c6">✅ NORMAL</text>
+        <text x="26" y="56" font-size="12.5" font-style="italic" fill="#d8fff0">2 smooth layers, thin fluid film</text>
+        <circle cx="150" cy="180" r="70" fill="rgba(0,194,199,.28)" stroke="#eafff7" stroke-width="2"/>
+        <circle cx="150" cy="180" r="60" fill="url(#myoNorm)" stroke="#eafff7" stroke-width="2.5"/>
+        <text x="150" y="176" font-size="12.5" font-weight="900" fill="#2b1200" text-anchor="middle">heart</text>
+        <text x="150" y="191" font-size="12.5" font-weight="900" fill="#2b1200" text-anchor="middle">muscle</text>
+        <text x="22" y="272" font-size="12.5" font-weight="800" fill="#eafff7">⚪ Parietal pericardium — outer fibrous sac</text>
+        <text x="22" y="292" font-size="12.5" font-weight="800" fill="#9ff2ee">🔵 Pericardial space — 15–50 mL fluid, lubricates</text>
+        <text x="22" y="312" font-size="12.5" font-weight="800" fill="#eafff7">⚪ Visceral pericardium (epicardium)</text>
+        <text x="22" y="332" font-size="12.5" font-weight="800" fill="#ffd0bd">🟠 Myocardium — the heart muscle itself</text>
+        <text x="22" y="362" font-size="13.5" font-weight="900" fill="#7df0c6">🙂 Beats freely, no friction</text>
+
+        <rect x="308" y="8" width="284" height="384" rx="16" fill="rgba(255,138,61,.16)" stroke="#ff8a3d" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="326" y="36" font-size="19" font-weight="900" fill="#ffc9a0">🔥 INFLAMED</text>
+        <text x="326" y="56" font-size="12.5" font-style="italic" fill="#ffe3cf">pericarditis — layers roughen &amp; rub</text>
+        <path d="M450,110 C 495,115 520,150 522,180 C 524,212 498,246 450,250 C 402,246 378,212 378,180 C 378,150 405,115 450,110 Z" fill="none" stroke="#ffc233" stroke-width="2.5" stroke-dasharray="4 3"/>
+        <circle cx="450" cy="180" r="60" fill="url(#myoInfl)" stroke="#ffe3cf" stroke-width="2.5"/>
+        <text x="450" y="176" font-size="12.5" font-weight="900" fill="#2b1200" text-anchor="middle">heart</text>
+        <text x="450" y="191" font-size="12.5" font-weight="900" fill="#2b1200" text-anchor="middle">muscle</text>
+        <text x="404" y="120" font-size="15" fill="#ffc233">⚡</text><text x="500" y="130" font-size="15" fill="#ffc233">⚡</text>
+        <text x="392" y="240" font-size="15" fill="#ffc233">⚡</text><text x="506" y="238" font-size="15" fill="#ffc233">⚡</text>
+        <text x="322" y="272" font-size="12.5" font-weight="800" fill="#ffe3cf">😖 Rough layers rub = friction rub (grating)</text>
+        <text x="322" y="292" font-size="12.5" font-weight="800" fill="#ffe3cf">📍 Pain worse SUPINE, better sitting forward</text>
+        <text x="322" y="312" font-size="12.5" font-weight="800" fill="#ffe3cf">🧫 WBC &gt;10,000 · CRP ↑ · ESR ↑</text>
+        <text x="322" y="332" font-size="12.5" font-weight="800" fill="#ffe3cf">💊 NSAIDs / steroids calm it down</text>
+        <text x="322" y="362" font-size="13.5" font-weight="900" fill="#ffc233">⚠️ If fluid builds up, next →</text>
+
+        <rect x="608" y="8" width="284" height="384" rx="16" fill="rgba(255,59,107,.16)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="626" y="36" font-size="19" font-weight="900" fill="#ff9db4">🚨 FLUID-FILLED</text>
+        <text x="626" y="56" font-size="12.5" font-style="italic" fill="#ffd9e2">tamponade — fluid crushes the heart</text>
+        <circle cx="750" cy="180" r="92" fill="rgba(192,34,85,.55)" stroke="#ff9db4" stroke-width="2.5"/>
+        <ellipse cx="750" cy="182" rx="42" ry="48" fill="url(#myoTamp)" stroke="#ffd9e2" stroke-width="2.5"/>
+        <text x="750" y="178" font-size="11.5" font-weight="900" fill="#fff" text-anchor="middle">squeezed</text>
+        <text x="750" y="192" font-size="11.5" font-weight="900" fill="#fff" text-anchor="middle">heart</text>
+        <text x="622" y="272" font-size="12.5" font-weight="800" fill="#ffd9e2">🩸 Blood/fluid fills the pericardial sac</text>
+        <text x="622" y="292" font-size="12.5" font-weight="800" fill="#ffd9e2">💔 Chambers can't fill → can't pump</text>
+        <text x="622" y="312" font-size="12.5" font-weight="800" fill="#ffd9e2">📉 BP crashes = Beck's triad (NG-178)</text>
+        <text x="622" y="332" font-size="12.5" font-weight="800" fill="#ffd9e2">🚑 Emergency — pericardiocentesis</text>
+        <text x="622" y="362" font-size="13.5" font-weight="900" fill="#ff9db4">🚨 Can kill the client</text>
+      </svg>
+      <div class="mn">🧠 <b>"A wet balloon inside a paper bag."</b> The heart is the balloon, the pericardium is the bag. A little lubricant is fine — irritate the bag (pericarditis) and it rubs; fill the bag with water (effusion) and it strangles the balloon (tamponade). Same bag, three chapters of the same story.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>⚠️ Causes — what irritates the sac</h3>
+      <ul class="tick">
+        <li>🦠 <b>Infection</b> — viral is the most common cause</li>
+        <li>❤️‍🔥 <b>Post-MI</b> — acute MI, or weeks later as <b>Dressler syndrome</b> (autoimmune reaction after cardiac injury)</li>
+        <li>🧬 <b>Autoimmune disorders</b> — <b>lupus</b>, <b>scleroderma</b>, <b>rheumatoid arthritis (RA)</b></li>
+        <li>🧪 <b>Uremia</b> — high <span class="mono">BUN</span> from renal failure</li>
+        <li>🔪 Cardiac surgery, chest trauma, radiation, malignancy</li>
+      </ul>
+      <div class="mn">🧠 <b>"I AM U"</b> — <b>I</b>nfection · <b>A</b>utoimmune (lupus/scleroderma/RA) · <b>M</b>I (post-MI or Dressler) · <b>U</b>remia. Whatever irritates the sac gets remembered as "I am you" — the pericardium reacting to insult.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🔤 Say the word — it tells you the disease</h3>
+      <ul class="tick">
+        <li><b>Peri</b> = around 🔄</li>
+        <li><b>Card</b> = heart ❤️</li>
+        <li><b>-itis</b> = inflammation 🔥</li>
+      </ul>
+      <p style="margin-top:8px"><b>Peri · card · itis</b> = <i>inflammation of the sac AROUND the heart</i> — not the heart muscle (that's myocarditis) and not the inner lining/valves (that's endocarditis, <b>NG-229</b>).</p>
+      <div class="mn">🧠 <b>Peri = "perimeter."</b> The perimeter fence around the property (the heart) is what's on fire — the house itself is still standing.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLUES ============ -->
+<section id="clues">
+  <div class="sec-h"><span class="icon">🔎</span><h2>CLUES</h2><span class="step">STEP 2 · SPOT IT</span></div>
+  <p class="sec-sub">A grating sound plus a pain pattern that flips with position — and an ECG that looks nothing like a heart attack's.</p>
+
+  <div class="grid">
+    <div class="card sapphire span2">
+      <h3>👂 Pericardial friction rub — <mark>grating, scratchy, "leather on leather"</mark></h3>
+      <p>Caused by the two roughened, inflamed pericardial layers rubbing against each other with every heartbeat. <b>Best heard with the diaphragm of the stethoscope, at the left sternal border, with the client leaning forward and holding their breath.</b></p>
+      <div class="duo">
+        <svg viewBox="-10 -10 466 260" role="img" aria-label="Client sitting up and leaning forward, the position that brings the inflamed pericardial layers into best contact for the stethoscope to hear the friction rub">
+          <rect x="-6" y="-6" width="458" height="252" rx="16" fill="rgba(0,194,199,.18)" stroke="#00c2c7" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="24" y="38" font-size="18" font-weight="900" fill="#9ff2ee">🪑 LEAN FORWARD TO LISTEN</text>
+          <ellipse cx="130" cy="90" rx="26" ry="28" fill="#ffd0bd"/>
+          <path d="M104 130 C 90 150 88 190 96 216 L 210 216 C 214 176 204 140 176 122 Z" fill="#9d5cff"/>
+          <path d="M104 130 C 74 148 64 176 70 206" fill="none" stroke="#ffd0bd" stroke-width="14" stroke-linecap="round"/>
+          <circle cx="266" cy="150" r="20" fill="#eafff7" stroke="#00252b" stroke-width="2"/>
+          <line x1="246" y1="150" x2="212" y2="146" stroke="#eafff7" stroke-width="5" stroke-linecap="round"/>
+          <path d="M266 170 C 266 196 300 200 300 174" fill="none" stroke="#eafff7" stroke-width="5"/>
+          <circle cx="300" cy="150" r="10" fill="#eafff7"/>
+          <text x="330" y="120" font-size="15" font-weight="900" fill="#9ff2ee">Diaphragm at</text>
+          <text x="330" y="140" font-size="15" font-weight="900" fill="#9ff2ee">left sternal</text>
+          <text x="330" y="160" font-size="15" font-weight="900" fill="#9ff2ee">border</text>
+          <text x="24" y="196" font-size="14" font-style="italic" fill="#00252b" fill-opacity="0">.</text>
+        </svg>
+        <svg viewBox="0 0 440 240" role="img" aria-label="Sound wave labeled grating and scratchy, describing the three component leather on leather friction rub sound heard on auscultation">
+          <rect x="6" y="6" width="428" height="228" rx="16" fill="rgba(255,59,107,.16)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="24" y="38" font-size="18" font-weight="900" fill="#ff9db4">🔊 THE SOUND</text>
+          <path d="M24 130 L54 100 L74 155 L94 90 L114 150 L134 105 L154 150 L184 100 L214 150 L244 95 L274 150 L304 105 L334 150 L364 100 L394 130" fill="none" stroke="#ffc233" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="24" y="184" font-size="16.5" font-weight="900" fill="#ff9db4">"Grating, scratchy,</text>
+          <text x="24" y="206" font-size="16.5" font-weight="900" fill="#ff9db4">leather-on-leather"</text>
+        </svg>
+      </div>
+      <div class="mn">🧠 <b>"Squeaky new leather boots."</b> The rub sounds like two pieces of dry leather grinding together — that's exactly what two inflamed pericardial layers with no smooth fluid between them are doing.</div>
+    </div>
+
+    <div class="card ruby span2">
+      <h3>📍 Pain pattern — <mark>worse SUPINE, better sitting up &amp; leaning forward</mark></h3>
+      <p>This is the single biggest way pericarditis pain differs from cardiac/MI pain. Lying flat lets the inflamed layers press together over a larger area; leaning forward pulls the heart away from the anterior pericardium and eases the rub. Pain is often <b>sharp, stabbing, pleuritic</b> — it also worsens with deep inspiration, coughing, and swallowing.</p>
+      <table>
+        <tr><th style="width:34%">Feature</th><th class="up">🔥 Pericarditis pain</th><th class="lo">❤️ Cardiac / MI pain</th></tr>
+        <tr><td><b>Quality</b></td><td>Sharp, stabbing, pleuritic</td><td>Crushing, pressure, squeezing</td></tr>
+        <tr><td><b>Position</b></td><td><mark>Worse supine, better sitting forward</mark></td><td><span class="never">No position makes it better</span></td></tr>
+        <tr><td><b>Breathing/cough</b></td><td>Worse with deep breath, cough, swallow</td><td>Unaffected by breathing</td></tr>
+        <tr><td><b>Radiation</b></td><td>Neck, shoulder, trapezius ridge</td><td>Arm, jaw, back</td></tr>
+        <tr><td><b>Associated signs</b></td><td>Friction rub, low-grade fever</td><td>Diaphoresis, nausea, dyspnea, ⬆️ troponin</td></tr>
+      </table>
+      <div class="mn">🧠 <b>"Sit up to shut it up."</b> If leaning forward makes chest pain BETTER, think pericarditis. If NOTHING makes it better, think MI — call it a cardiac emergency until proven otherwise.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>📈 ECG: diffuse, not localized</h3>
+      <p>Pericarditis causes <b>diffuse, concave-up ST elevation</b> across most leads, plus <b>PR segment depression</b> — because the inflammation coats the whole outer heart, not one blocked artery.</p>
+      <svg viewBox="0 0 420 190" role="img" aria-label="ECG comparison: pericarditis shows diffuse concave up ST elevation with PR depression across many leads, while MI shows localized convex ST elevation in specific leads only">
+        <rect x="6" y="6" width="200" height="178" rx="14" fill="rgba(18,184,134,.16)" stroke="#12b886" stroke-width="2"/>
+        <text x="18" y="28" font-size="13" font-weight="900" fill="#7df0c6">Pericarditis</text>
+        <path d="M18 130 L40 130 L48 90 Q64 68 80 90 L96 130 L118 130 L126 150 L140 130 L200 130" fill="none" stroke="#eafff7" stroke-width="3"/>
+        <text x="18" y="168" font-size="11" fill="#d8fff0">diffuse ST↑ (concave) + PR↓</text>
+        <rect x="216" y="6" width="200" height="178" rx="14" fill="rgba(255,59,107,.16)" stroke="#ff3b6b" stroke-width="2"/>
+        <text x="228" y="28" font-size="13" font-weight="900" fill="#ff9db4">MI (localized)</text>
+        <path d="M228 130 L250 130 L256 60 L262 130 L284 130 L292 150 L306 130 L410 130" fill="none" stroke="#eafff7" stroke-width="3"/>
+        <text x="228" y="168" font-size="11" fill="#ffd9e2">1–2 leads, convex/tombstone</text>
+      </svg>
+      <div class="mn">🧠 <b>"Blanket vs. bullet."</b> Pericarditis throws a blanket of ST elevation over the whole ECG; an MI fires one bullet into one territory of leads.</div>
+    </div>
+
+    <div class="card tealc">
+      <h3>🧪 Labs that confirm inflammation</h3>
+      <ul class="tick">
+        <li>🧫 <b>WBC</b> elevated — over <span class="mono">10,000</span></li>
+        <li>📈 <b>C-reactive protein (CRP)</b> — elevated</li>
+        <li>📈 <b>ESR</b> (erythrocyte sedimentation rate) — elevated</li>
+        <li>❤️ <b>Troponin</b> — may be mildly elevated if the myocardium is also irritated (myopericarditis); markedly elevated troponin points more toward MI</li>
+      </ul>
+      <div class="mn">🧠 <b>Inflammatory labs, not cardiac-damage labs.</b> WBC/CRP/ESR say "something is inflamed" — they don't localize to a blocked artery the way a big troponin spike does.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CARE ============ -->
+<section id="care">
+  <div class="sec-h"><span class="icon">🩺</span><h2>CARE</h2><span class="step">STEP 3 · CALM THE SAC</span></div>
+  <p class="sec-sub">Treat the inflammation, watch for fluid, drain if it builds — and never miss the jump to tamponade.</p>
+
+  <div class="grid">
+    <div class="card emerald span2">
+      <h3>💊 Pharmacology: quiet the inflammation</h3>
+      <table>
+        <tr><th style="width:34%">Class</th><th class="up">Drug from the source</th><th class="lo">Why</th></tr>
+        <tr><td><b>NSAIDs</b> 💊</td><td><b>Indomethacin</b></td><td>First-line — reduces inflammation &amp; pain</td></tr>
+        <tr><td><b>Corticosteroids</b> 💉</td><td><b>Prednisone</b></td><td>Used when NSAIDs fail or cause is autoimmune</td></tr>
+      </table>
+      <div class="mn">🧠 <b>"NSAID first, steroid second."</b> Start with indomethacin; save prednisone for when NSAIDs aren't enough — steroids can make some causes (like post-MI pericarditis) worse if used too early.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🚨 Pericardiocentesis — the needle in the heart sac</h3>
+      <p>A needle drains fluid or blood that has collected in the pericardial sac. <b>Not routine for simple pericarditis</b> — reserved for a large effusion or tamponade.</p>
+      <ul class="tick">
+        <li>🖥️ Continuous cardiac monitoring during &amp; after</li>
+        <li>💉 Catheter often left attached to a drainage system</li>
+        <li>📋 Assess drainage type &amp; speed — sudden drop in drainage with rising pressure = re-accumulation</li>
+      </ul>
+      <div class="mn">🧠 See the full drainage picture on <b>NG-178 Cardiac Tamponade</b> — this is where pericarditis becomes an emergency.</div>
+    </div>
+
+    <div class="card topaz">
+      <h3>✅ Comfort &amp; positioning teaching</h3>
+      <div class="ladder">
+        <div class="rung"><div class="n">1</div><div class="t">🪑 <b>Sit up, lean forward</b> — the tripod position eases pain &amp; the rub</div></div>
+        <div class="rung"><div class="n">2</div><div class="t">🛏️ <b>Avoid lying flat</b> when pain is active</div></div>
+        <div class="rung"><div class="n">3</div><div class="t">🧊 Rest, treat fever, monitor pain trend</div></div>
+      </div>
+      <div class="mn">🧠 <b>"Lean in to ease it."</b> Every teaching point here is just: don't lie flat, do lean forward.</div>
+    </div>
+
+    <div class="card garnet span2">
+      <h3>🚨 PRIORITY — watch for cardiac tamponade</h3>
+      <p>As pericarditis worsens, fluid can accumulate in the pericardial sac (pericardial effusion) and eventually compress the heart. <mark>New muffled/distant heart sounds, JVD, or a falling BP = report immediately.</mark></p>
+      <div class="flow">
+        <div class="fstep">🔥 Pericarditis — inflamed layers</div>
+        <div class="farrow">▼</div>
+        <div class="fstep">💧 Pericardial effusion — fluid accumulates</div>
+        <div class="farrow">▼</div>
+        <div class="fstep hot">🚨 <b>Cardiac tamponade — Beck's triad, pulsus paradoxus → NG-178</b></div>
+      </div>
+      <div class="mn">🧠 <b>"Rub goes quiet = get worried."</b> If a friction rub you've been hearing suddenly disappears, don't assume it's better — it may mean fluid has built up enough to separate the layers again. Reassess immediately.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">🧨 Pericardium irritated</span>= less output, still a real drop in oxygen delivery</div>
+    <div class="rc rubybg"><span class="big">🛏️ Flat = fire, forward = fine</span>Opposite of MI, which no position relieves</div>
+    <div class="rc tealbg"><span class="big">👂 Grating friction rub</span>diaphragm, left sternal border, leaning forward</div>
+    <div class="rc topazbg"><span class="big">🚨 Fluid builds → tamponade</span>Beck's triad next — see NG-178</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 4 rapid-fire questions</summary>
+      <div class="qa">Q1: When is pericarditis pain worst, and when is it best? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Worst lying flat (supine); best sitting up and leaning forward. Also worse with deep breathing, coughing, and swallowing.</div></div>
+      <div class="qa">Q2: How does that pain pattern help you rule OUT an MI? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">MI pain is not positional — no position change relieves crushing/pressure cardiac pain. If leaning forward helps, think pericarditis, not MI.</div></div>
+      <div class="qa">Q3: What does a pericardial friction rub sound like, and how do you best hear it? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Grating, scratchy, "leather-on-leather." Best heard with the diaphragm at the left sternal border with the client leaning forward.</div></div>
+      <div class="qa">Q4: What complication must you watch for as pericarditis worsens? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Cardiac tamponade — fluid fills the pericardial sac and compresses the heart (Beck's triad: JVD, muffled heart sounds, hypotension). See NG-178.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">CAUSE</span>→
+    <span style="background:rgba(47,107,255,.7)">CLUES</span>→
+    <span style="background:rgba(18,184,134,.7)">CARE</span>
+  </div>
+  <div>NG-066 · Source wording retained · ADHD-friendly visual edition · pairs with <a style="color:#ffd9b8" href="NG-178_cardiac-tamponade.html">NG-178 Cardiac Tamponade</a></div>
+</footer>
+
+</div>
+</body></html>

@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Asepsis & Handwashing · NG-214 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+/* ---- extra rules appended for this trio (asepsis series) ---- */
+#define .sec-h h2{color:#d9c2ff} #define .step{background:var(--amethyst)}
+#technique .sec-h h2{color:#bcd0ff} #technique .step{background:var(--sapphire)}
+#when .sec-h h2{color:#a5f3d4} #when .step{background:var(--emerald);color:#03291c}
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin:10px 0 0;font-size:.85rem;font-weight:800}
+.legend .sw{display:inline-block;width:14px;height:14px;border-radius:4px;margin-right:6px;vertical-align:-2px}
+.zone-clean{background:var(--emerald)}
+.zone-dirty{background:var(--ruby)}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#define">🧼 Asepsis</a>
+  <a class="c2" href="#technique">🖐️ Technique</a>
+  <a class="c3" href="#when">⏰ When</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Nursing Core · Fundamentals of Nursing Course</div>
+  <h1>Asepsis &amp; Handwashing <span class="drop">🧼</span></h1>
+  <p class="sub">Medical vs. Surgical Asepsis · Handwashing Technique · Hand Hygiene Moments</p>
+  <div class="chips">
+    <span class="chip id">NG-214</span>
+    <span class="chip cat">Nursing Core</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede"><b>Asepsis is the absence of disease-causing organisms.</b> <mark>Handwashing is the single best way to prevent the spread of germs</mark> — full stop. Everything else in infection control (gloves, gowns, sterile fields) is layered on top of this one habit. Two flavors exist: <b>medical asepsis</b> "clean technique" <i>reduces</i> organisms; <b>surgical asepsis</b> "sterile technique" <i>eliminates</i> them.</p>
+  <div class="legend">
+    <span><span class="sw zone-clean"></span>Clean / low-organism zone</span>
+    <span><span class="sw zone-dirty"></span>Contaminated / high-organism zone</span>
+  </div>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">🧼 Reduce vs. Eliminate</span>Medical asepsis reduces organisms; surgical asepsis eliminates them entirely.</div>
+  <div class="rc rubybg"><span class="big">⏱️ 15 sec – 2 min</span>Soap + water + friction, every time hands are visibly soiled.</div>
+  <div class="rc tealbg"><span class="big">🙅 Never on the floor</span>The floor is always contaminated — nothing sterile or clean ever touches it.</div>
+  <div class="rc topazbg"><span class="big">➡️ Clean to dirty, never back</span>Move from clean areas/tasks to dirty ones — never reverse the direction.</div>
+</div>
+
+<!-- ============ DEFINE ============ -->
+<section id="define">
+  <div class="sec-h"><span class="icon">🧼</span><h2>ASEPSIS</h2><span class="step">STEP 1 · TWO LEVELS OF "CLEAN"</span></div>
+  <p class="sec-sub">Same goal — keep organisms away from the patient — but two very different bars for how clean is clean enough.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🧼 Medical (clean) vs. 🧫 Surgical (sterile) asepsis</h3>
+      <svg viewBox="0 0 900 220" role="img" aria-label="Comparison diagram of medical asepsis which reduces the number of organisms using gloves and hand washing for tasks like giving medications feeding and vital signs, versus surgical asepsis which eliminates organisms entirely using a full sterile field for procedures like catheter changes and chest tubes">
+        <rect x="6" y="6" width="428" height="208" rx="16" fill="rgba(18,184,134,.22)" stroke="#12b886" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="24" y="38" font-size="18" font-weight="900" fill="#7df0c6">🧼 MEDICAL ASEPSIS</text>
+        <text x="24" y="60" font-size="13.5" font-style="italic" fill="#d8fff0">"clean technique" — REDUCES organisms</text>
+        <text x="24" y="92" font-size="13.5" fill="#eafff7">• Gloves + hand hygiene</text>
+        <text x="24" y="114" font-size="13.5" fill="#eafff7">• Giving meds, feeding, vitals</text>
+        <text x="24" y="136" font-size="13.5" fill="#eafff7">• Most wound dressings</text>
+        <text x="24" y="158" font-size="13.5" fill="#eafff7">• Everyday standard precautions</text>
+        <rect x="24" y="172" width="180" height="30" rx="8" fill="#12b886"/>
+        <text x="34" y="192" font-size="12.5" font-weight="900" fill="#03291c">GOAL: fewer germs</text>
+
+        <rect x="466" y="6" width="428" height="208" rx="16" fill="rgba(255,59,107,.2)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="484" y="38" font-size="18" font-weight="900" fill="#ff9db4">🧫 SURGICAL ASEPSIS</text>
+        <text x="484" y="60" font-size="13.5" font-style="italic" fill="#ffd9e2">"sterile technique" — ELIMINATES organisms</text>
+        <text x="484" y="92" font-size="13.5" fill="#ffe8ee">• Full sterile field &amp; sterile gloves</text>
+        <text x="484" y="114" font-size="13.5" fill="#ffe8ee">• Surgical procedures</text>
+        <text x="484" y="136" font-size="13.5" fill="#ffe8ee">• Catheter/chest tube changes, cervical checks</text>
+        <text x="484" y="158" font-size="13.5" fill="#ffe8ee">• Anywhere that wouldn't normally meet bacteria</text>
+        <rect x="484" y="172" width="180" height="30" rx="8" fill="#ff3b6b"/>
+        <text x="494" y="192" font-size="12.5" font-weight="900" fill="#2b0010">GOAL: zero germs</text>
+      </svg>
+      <table>
+        <tr><th class="up" style="width:50%">🧼 Medical / clean</th><th class="lo" style="width:50%">🧫 Surgical / sterile</th></tr>
+        <tr><td>Reduces number of organisms</td><td>Eliminates organisms</td></tr>
+        <tr><td>Gloves + hand hygiene as your PPE</td><td>Sterile field, sterile gloves, sterile drape</td></tr>
+        <tr><td>Meds, feeding, vitals, most dressings</td><td>Surgery, catheters, chest tubes, cervical checks</td></tr>
+      </table>
+      <div class="mn">🧠 <b>"Medical trims the lawn, surgical salts the earth."</b> Clean technique cuts the germ count down; sterile technique aims for none at all.</div>
+    </div>
+
+    <div class="card garnet span2">
+      <h3>🏠 Environmental habits that support asepsis</h3>
+      <ul class="tick">
+        <li>😷 <b>Cover coughs into your shoulder or elbow</b>, not your hands — otherwise wash immediately after</li>
+        <li>💅 <span class="never">No acrylic or gel nails</span> — bacteria hide underneath where handwashing can't reach</li>
+        <li>💍 Keep <b>jewelry minimal</b> — any surface that can harbor bacteria will grow it</li>
+        <li>🚫 <span class="never">Never place anything on the floor</span> — the floor is always contaminated</li>
+        <li>🛏️ <span class="never">Never shake linens</span> when changing a bed — this launches organisms into the air</li>
+        <li>➡️ Move from <b>clean areas to dirty areas</b>, never the reverse</li>
+        <li>💦 <b>Avoid splashing</b> when emptying body fluids — pour close to the waterline</li>
+      </ul>
+      <svg viewBox="0 0 900 180" role="img" aria-label="Diagram showing the clean to dirty rule: movement always flows from a clean zone toward a dirty or contaminated zone, never backward from dirty to clean">
+        <rect x="6" y="6" width="888" height="168" rx="16" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+        <rect x="60" y="55" width="330" height="70" rx="14" fill="#12b886" opacity=".85"/>
+        <text x="90" y="98" font-size="17" font-weight="900" fill="#03291c">✅ CLEAN zone / task</text>
+        <path d="M400 90 L500 90" stroke="#ffc233" stroke-width="8" stroke-linecap="round" marker-end="url(#cdArr)"/>
+        <defs><marker id="cdArr" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/></marker></defs>
+        <rect x="510" y="55" width="330" height="70" rx="14" fill="#ff3b6b" opacity=".85"/>
+        <text x="545" y="98" font-size="17" font-weight="900" fill="#2b0010">🚫 DIRTY zone / task</text>
+        <text x="330" y="150" font-size="13.5" font-style="italic" fill="#ffd9e2">movement only flows this direction — never dirty back to clean</text>
+      </svg>
+      <div class="mn">🧠 <b>"No nails, no jewelry, no floor, no shake, no splash, no backward."</b> Six small habits that are all really the same rule: don't give organisms a free ride to the patient.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TECHNIQUE ============ -->
+<section id="technique">
+  <div class="sec-h"><span class="icon">🖐️</span><h2>HANDWASHING TECHNIQUE</h2><span class="step">STEP 2 · SOAP + WATER + FRICTION</span></div>
+  <p class="sec-sub">The single most effective infection-control action a nurse performs, done correctly, every time.</p>
+
+  <div class="grid">
+    <div class="card sapphire span2">
+      <h3>⏱️ Duration: 15 seconds to 2 minutes</h3>
+      <svg viewBox="0 0 900 190" role="img" aria-label="Timeline of proper hand washing duration ranging from fifteen seconds as an absolute minimum up to two minutes for heavily soiled or high risk hand hygiene">
+        <rect x="6" y="6" width="888" height="178" rx="16" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+        <line x1="60" y1="110" x2="840" y2="110" stroke="#bcd0ff" stroke-width="6" stroke-linecap="round"/>
+        <circle cx="120" cy="110" r="14" fill="#ffc233"/>
+        <text x="70" y="80" font-size="15" font-weight="900" fill="#ffc233">0:15</text>
+        <text x="55" y="150" font-size="12.5" fill="#dbe6ff">absolute minimum</text>
+        <circle cx="480" cy="110" r="14" fill="#2f6bff"/>
+        <text x="440" y="80" font-size="15" font-weight="900" fill="#bcd0ff">~0:20–0:30</text>
+        <text x="420" y="150" font-size="12.5" fill="#dbe6ff">typical routine wash</text>
+        <circle cx="820" cy="110" r="14" fill="#ff3b6b"/>
+        <text x="770" y="80" font-size="15" font-weight="900" fill="#ff9db4">2:00</text>
+        <text x="735" y="150" font-size="12.5" fill="#ffd9e2">heavily soiled / high-risk</text>
+      </svg>
+      <p><mark>Good hand hygiene requires soap, water, and friction</mark> — the physical rubbing is what actually lifts organisms off the skin, not just the soap itself.</p>
+      <div class="mn">🧠 <b>"0:15 to 2:00 — sing it twice."</b> The classic teaching trick: humming "Happy Birthday" twice through covers about 20 seconds, comfortably inside the required range.</div>
+    </div>
+
+    <div class="card emerald">
+      <h3>✅ When soap &amp; water is required</h3>
+      <ul class="tick">
+        <li>Hands are <b>visibly soiled</b></li>
+        <li>After caring for a patient with <b>C. diff</b>, norovirus, or rotavirus</li>
+        <li>Before eating, after using the restroom</li>
+      </ul>
+      <div class="mn">🧠 <b>"Soap beats spores."</b> Alcohol sanitizer cannot destroy C. diff spores — only mechanical washing with soap, water, and friction removes them.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🧴 When alcohol-based hand sanitizer is okay</h3>
+      <p>Use <b>alcohol-based hand sanitizer</b> only when hands are <b>not visibly soiled</b>, and only as an occasional substitute <b>between</b> actual soap-and-water washes — not as a full replacement for it.</p>
+      <div class="mn">🧠 <b>"Sanitizer is a bridge, not a destination."</b> It fills the gaps between real washes; it never fully replaces them.</div>
+    </div>
+
+    <div class="card ruby span2">
+      <h3>🚫 Habits that undermine handwashing</h3>
+      <div class="no-grid">
+        <div class="no-t hot"><span class="e">💅</span>Acrylic / gel nails<i>bacteria hide beneath</i></div>
+        <div class="no-t hot"><span class="e">💍</span>Excess jewelry<i>rings, bracelets</i></div>
+        <div class="no-t hot"><span class="e">🧴</span>Sanitizer only<i>when hands are soiled</i></div>
+        <div class="no-t hot"><span class="e">🛏️</span>Shaking linens<i>launches organisms airborne</i></div>
+        <div class="no-t"><span class="e">🪑</span>Items on the floor<i>always contaminated</i></div>
+      </div>
+      <div class="mn">🧠 Every item on this list creates a hiding spot or a launch pad for organisms — undoing the work good handwashing just did.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHEN ============ -->
+<section id="when">
+  <div class="sec-h"><span class="icon">⏰</span><h2>WHEN TO WASH</h2><span class="step">STEP 3 · THE KEY MOMENTS</span></div>
+  <p class="sec-sub">Hand hygiene isn't random — it's tied to specific moments around every patient contact.</p>
+
+  <div class="grid">
+    <div class="card sapphire span2">
+      <h3>⏰ Core hand hygiene indications</h3>
+      <svg viewBox="0 0 900 230" role="img" aria-label="Five moments for hand hygiene arranged around a patient: before touching the patient, before a clean or aseptic task, after a body fluid exposure risk, after touching the patient, and after touching the patient's surroundings">
+        <rect x="6" y="6" width="888" height="218" rx="18" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+        <circle cx="450" cy="115" r="46" fill="#e8637f" stroke="#ffd0bd" stroke-width="2"/>
+        <text x="418" y="120" font-size="13" font-weight="900" fill="#fff">PATIENT</text>
+        <!-- 5 moments around patient -->
+        <g font-size="12" font-weight="800" fill="#eafff7">
+          <circle cx="180" cy="60" r="8" fill="#12b886"/>
+          <text x="60" y="45" fill="#7df0c6">1. Before touching patient</text>
+          <line x1="188" y1="65" x2="410" y2="100" stroke="#12b886" stroke-width="2" stroke-dasharray="3 3"/>
+
+          <circle cx="180" cy="170" r="8" fill="#2f6bff"/>
+          <text x="40" y="195" fill="#bcd0ff">2. Before clean/aseptic task</text>
+          <line x1="188" y1="165" x2="410" y2="130" stroke="#2f6bff" stroke-width="2" stroke-dasharray="3 3"/>
+
+          <circle cx="450" cy="205" r="8" fill="#ff3b6b"/>
+          <text x="360" y="225" fill="#ff9db4">3. After body fluid exposure risk</text>
+          <line x1="450" y1="197" x2="450" y2="161" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="3 3"/>
+
+          <circle cx="720" cy="60" r="8" fill="#ffc233"/>
+          <text x="700" y="45" fill="#ffe49a">4. After touching patient</text>
+          <line x1="712" y1="65" x2="490" y2="100" stroke="#ffc233" stroke-width="2" stroke-dasharray="3 3"/>
+
+          <circle cx="720" cy="170" r="8" fill="#9d5cff"/>
+          <text x="670" y="195" fill="#d9c2ff">5. After touching surroundings</text>
+          <line x1="712" y1="165" x2="490" y2="130" stroke="#9d5cff" stroke-width="2" stroke-dasharray="3 3"/>
+        </g>
+      </svg>
+      <p><mark>Wash before seeing a client, after seeing a client, before putting on gloves, and when changing gloves</mark> — those four moments form the backbone of every patient encounter. The <b>WHO "5 Moments for Hand Hygiene"</b> is the standard framework taught worldwide: <b>1)</b> before touching a patient, <b>2)</b> before a clean/aseptic task, <b>3)</b> after body fluid exposure risk, <b>4)</b> after touching a patient, <b>5)</b> after touching a patient's surroundings.</p>
+      <div class="mn">🧠 <b>"Before you, before clean, after risk, after you, after their space."</b> Four of the five moments bracket direct patient contact; the fifth reminds you the bed rail and IV pump count too — even without touching skin.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🧤 Wash even when gloved</h3>
+      <p>Gloves are <span class="never">not a substitute</span> for hand hygiene. Wash <b>before</b> putting gloves on and <b>after</b> taking them off — and every time you <b>change gloves</b> between tasks or patients.</p>
+      <div class="mn">🧠 <b>"Gloves protect the glove, not skip the wash."</b> A puncture, a tiny tear, or contamination on removal all still reach bare skin without hand hygiene bookending the glove.</div>
+    </div>
+
+    <div class="card topaz">
+      <h3>🚨 NCLEX trap: "just changed gloves" ≠ clean hands</h3>
+      <p><mark>Changing gloves without hand hygiene in between</mark> is a classic exam distractor — the correct sequence is always <b>remove gloves → wash/sanitize hands → don new gloves</b>, never glove-to-glove.</p>
+      <div class="mn">🧠 If an answer choice skips the hand hygiene step between glove changes, it's wrong — no exceptions.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">🧼 Medical = reduce</span>Surgical = eliminate — different goal, different bar</div>
+    <div class="rc rubybg"><span class="big">⏱️ 15 sec – 2 min</span>soap + water + friction is what actually removes organisms</div>
+    <div class="rc tealbg"><span class="big">🧴 Sanitizer only if hands aren't soiled</span>never for C. diff, norovirus, rotavirus</div>
+    <div class="rc topazbg"><span class="big">⏰ WHO's 5 Moments</span>before patient · before clean task · after fluid risk · after patient · after surroundings</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 4 rapid-fire questions</summary>
+      <div class="qa">Q1: What's the difference between medical and surgical asepsis? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Medical (clean) asepsis reduces the number of organisms; surgical (sterile) asepsis aims to eliminate them entirely.</div></div>
+      <div class="qa">Q2: How long should a proper handwash last? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">At least 15 seconds, up to 2 minutes for heavily soiled or high-risk hands — soap, water, and friction together are what remove organisms.</div></div>
+      <div class="qa">Q3: A nurse's hands aren't visibly soiled between two clean tasks on the same patient. Is alcohol-based sanitizer acceptable? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Yes — sanitizer is fine when hands aren't visibly soiled, used as an occasional substitute between actual soap-and-water washes, but never for C. diff, norovirus, or rotavirus.</div></div>
+      <div class="qa">Q4: Name the WHO's 5 Moments for Hand Hygiene. <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Before touching a patient, before a clean/aseptic task, after a body fluid exposure risk, after touching a patient, and after touching a patient's surroundings.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">ASEPSIS</span>→
+    <span style="background:rgba(47,107,255,.7)">TECHNIQUE</span>→
+    <span style="background:rgba(18,184,134,.7)">WHEN</span>
+  </div>
+  <div>NG-214 · Nursing Core · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>

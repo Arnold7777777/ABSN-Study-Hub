@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cardiac Tamponade · NG-178 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+
+/* ===== appended for the pericardial pair — components the shell lacks ===== */
+.setbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:0 0 4px;
+  padding:9px 12px;border-radius:14px;background:rgba(13,8,26,.62);border:1px solid var(--line);
+  font-size:.86rem;font-weight:800}
+.setbar .lbl{font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:#e9dcff}
+.setbar a,.setbar span.pg{padding:4px 11px;border-radius:999px;border:1px solid var(--line);
+  text-decoration:none;color:#fff;font-weight:900;background:rgba(255,255,255,.12);line-height:1.3}
+.setbar span.pg.on{background:var(--topaz);color:#231a02}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#cause">🧨 Cause</a>
+  <a class="c2" href="#clues">🔎 Clues</a>
+  <a class="c3" href="#care">🩺 Care</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Cardio · Pathophysiology Course</div>
+  <div class="setbar">
+    <span class="lbl">Pericardial pair</span>
+    <a href="NG-066_pericarditis.html">← 1 · Pericarditis</a>
+    <span class="pg on">2 · Cardiac Tamponade</span>
+  </div>
+  <h1>Cardiac Tamponade <span class="drop">🚨</span></h1>
+  <p class="sub">Fluid crushes the heart — a true medical emergency</p>
+  <div class="chips">
+    <span class="chip id">NG-178</span>
+    <span class="chip cat">CARDIO</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede">Fluid or blood fills the pericardial sac and <b>compresses the heart so it can't fill or pump</b>. Blood pressure crashes fast — this <mark>can kill the client</mark>. Most often the end stage of untreated <b><a style="color:#ffd9b8" href="NG-066_pericarditis.html">Pericarditis, NG-066</a></b>, or from acute trauma.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">💧 Fluid crushes the heart</span>Compression on the heart = a critical client — think "C-C" for Cardiac tamponade / Compression / Critical.</div>
+  <div class="rc rubybg"><span class="big">🎯 Beck's triad</span>JVD + muffled heart sounds + hypotension = the classic three.</div>
+  <div class="rc tealbg"><span class="big">🌬️ Pulsus paradoxus</span>Systolic BP drops <span class="mono">&gt;10 mmHg</span> on inspiration.</div>
+  <div class="rc topazbg"><span class="big">🚑 Pericardiocentesis</span>Needle drains the sac — monitor, catheter, assess drainage.</div>
+</div>
+
+<!-- ============ CAUSE ============ -->
+<section id="cause">
+  <div class="sec-h"><span class="icon">🧨</span><h2>CAUSE</h2><span class="step">STEP 1 · THE SQUEEZE</span></div>
+  <p class="sec-sub">Same sac as pericarditis — now it's full, and the heart is the one paying the price.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🫀 Normal → inflamed → fluid-filled: the same sac, three stages</h3>
+      <p><span class="tip">EXAM TIP</span> Tamponade is what happens when the pericardial sac fills with fluid or blood faster than it can stretch — the rigid outer layer has little give, so pressure inside rises and <mark>squeezes the heart chambers shut</mark>.</p>
+      <svg viewBox="0 0 900 400" role="img" aria-label="Three panel cross-section comparing a normal pericardium with a thin lubricating fluid layer, an inflamed pericarditis pericardium with rough rubbing layers, and a fluid-filled pericardium in cardiac tamponade compressing the heart">
+        <defs>
+          <linearGradient id="myoNorm" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff8a3d"/><stop offset="1" stop-color="#c02255"/></linearGradient>
+          <linearGradient id="myoInfl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff6b81"/><stop offset="1" stop-color="#c02255"/></linearGradient>
+          <linearGradient id="myoTamp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff8a3d"/><stop offset="1" stop-color="#8a1740"/></linearGradient>
+        </defs>
+
+        <rect x="8" y="8" width="284" height="384" rx="16" fill="rgba(18,184,134,.14)" stroke="#12b886" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="26" y="36" font-size="19" font-weight="900" fill="#7df0c6">✅ NORMAL</text>
+        <text x="26" y="56" font-size="12.5" font-style="italic" fill="#d8fff0">2 smooth layers, thin fluid film</text>
+        <circle cx="150" cy="180" r="70" fill="rgba(0,194,199,.28)" stroke="#eafff7" stroke-width="2"/>
+        <circle cx="150" cy="180" r="60" fill="url(#myoNorm)" stroke="#eafff7" stroke-width="2.5"/>
+        <text x="150" y="176" font-size="12.5" font-weight="900" fill="#2b1200" text-anchor="middle">heart</text>
+        <text x="150" y="191" font-size="12.5" font-weight="900" fill="#2b1200" text-anchor="middle">muscle</text>
+        <text x="22" y="272" font-size="12.5" font-weight="800" fill="#eafff7">⚪ Parietal pericardium — outer fibrous sac</text>
+        <text x="22" y="292" font-size="12.5" font-weight="800" fill="#9ff2ee">🔵 Pericardial space — 15–50 mL fluid, lubricates</text>
+        <text x="22" y="312" font-size="12.5" font-weight="800" fill="#eafff7">⚪ Visceral pericardium (epicardium)</text>
+        <text x="22" y="332" font-size="12.5" font-weight="800" fill="#ffd0bd">🟠 Myocardium — the heart muscle itself</text>
+        <text x="22" y="362" font-size="13.5" font-weight="900" fill="#7df0c6">🙂 Beats freely, no friction</text>
+
+        <rect x="308" y="8" width="284" height="384" rx="16" fill="rgba(255,138,61,.16)" stroke="#ff8a3d" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="326" y="36" font-size="19" font-weight="900" fill="#ffc9a0">🔥 INFLAMED</text>
+        <text x="326" y="56" font-size="12.5" font-style="italic" fill="#ffe3cf">pericarditis — layers roughen &amp; rub</text>
+        <path d="M450,110 C 495,115 520,150 522,180 C 524,212 498,246 450,250 C 402,246 378,212 378,180 C 378,150 405,115 450,110 Z" fill="none" stroke="#ffc233" stroke-width="2.5" stroke-dasharray="4 3"/>
+        <circle cx="450" cy="180" r="60" fill="url(#myoInfl)" stroke="#ffe3cf" stroke-width="2.5"/>
+        <text x="450" y="176" font-size="12.5" font-weight="900" fill="#2b1200" text-anchor="middle">heart</text>
+        <text x="450" y="191" font-size="12.5" font-weight="900" fill="#2b1200" text-anchor="middle">muscle</text>
+        <text x="404" y="120" font-size="15" fill="#ffc233">⚡</text><text x="500" y="130" font-size="15" fill="#ffc233">⚡</text>
+        <text x="392" y="240" font-size="15" fill="#ffc233">⚡</text><text x="506" y="238" font-size="15" fill="#ffc233">⚡</text>
+        <text x="322" y="272" font-size="12.5" font-weight="800" fill="#ffe3cf">😖 Rough layers rub = friction rub (grating)</text>
+        <text x="322" y="292" font-size="12.5" font-weight="800" fill="#ffe3cf">📍 Pain worse SUPINE, better sitting forward</text>
+        <text x="322" y="312" font-size="12.5" font-weight="800" fill="#ffe3cf">🧫 WBC &gt;10,000 · CRP ↑ · ESR ↑</text>
+        <text x="322" y="332" font-size="12.5" font-weight="800" fill="#ffe3cf">💊 NSAIDs / steroids calm it down</text>
+        <text x="322" y="362" font-size="13.5" font-weight="900" fill="#ffc233">⚠️ If fluid builds up, next →</text>
+
+        <rect x="608" y="8" width="284" height="384" rx="16" fill="rgba(255,59,107,.16)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="626" y="36" font-size="19" font-weight="900" fill="#ff9db4">🚨 FLUID-FILLED</text>
+        <text x="626" y="56" font-size="12.5" font-style="italic" fill="#ffd9e2">tamponade — fluid crushes the heart</text>
+        <circle cx="750" cy="180" r="92" fill="rgba(192,34,85,.55)" stroke="#ff9db4" stroke-width="2.5"/>
+        <ellipse cx="750" cy="182" rx="42" ry="48" fill="url(#myoTamp)" stroke="#ffd9e2" stroke-width="2.5"/>
+        <text x="750" y="178" font-size="11.5" font-weight="900" fill="#fff" text-anchor="middle">squeezed</text>
+        <text x="750" y="192" font-size="11.5" font-weight="900" fill="#fff" text-anchor="middle">heart</text>
+        <text x="622" y="272" font-size="12.5" font-weight="800" fill="#ffd9e2">🩸 Blood/fluid fills the pericardial sac</text>
+        <text x="622" y="292" font-size="12.5" font-weight="800" fill="#ffd9e2">💔 Chambers can't fill → can't pump</text>
+        <text x="622" y="312" font-size="12.5" font-weight="800" fill="#ffd9e2">📉 BP crashes = Beck's triad (below)</text>
+        <text x="622" y="332" font-size="12.5" font-weight="800" fill="#ffd9e2">🚑 Emergency — pericardiocentesis</text>
+        <text x="622" y="362" font-size="13.5" font-weight="900" fill="#ff9db4">🚨 Can kill the client</text>
+      </svg>
+      <div class="mn">🧠 <b>"C-C-C" for tamponade:</b> <b>C</b>ardiac tamponade = <b>C</b>ompression on the heart = <b>C</b>ritical client! Three C's, one emergency.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>⚠️ Causes — acute vs chronic</h3>
+      <table>
+        <tr><th class="up">⚡ Acute</th><th class="lo">🐢 Chronic</th></tr>
+        <tr><td><b>Trauma</b> — stabbing, gunshot, MVA</td><td><b>Pericarditis</b> that progresses to effusion (NG-066)</td></tr>
+        <tr><td>MI with free wall rupture</td><td>Malignancy, uremia, radiation</td></tr>
+        <tr><td>Aortic dissection</td><td>Autoimmune disease (lupus)</td></tr>
+        <tr><td>Post cardiac surgery/procedure</td><td>Chronic renal failure</td></tr>
+      </table>
+      <div class="mn">🧠 <b>"Sudden vs. slow fill."</b> Acute causes fill the sac fast — a small volume can already be deadly because the pericardium has no time to stretch. Chronic causes fill slowly, so the sac stretches and can hold much more before symptoms appear.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🧬 Why it's so dangerous</h3>
+      <p>The pericardium is fibrous and doesn't stretch quickly. As fluid rises, pressure inside the sac rises too — first the right atrium and ventricle collapse (low pressure chambers), then <b>venous return falls</b>, <b>stroke volume falls</b>, and <b>cardiac output falls</b>.</p>
+      <div class="mn">🧠 <b>"Least resistance wins."</b> The right side of the heart is the weakest, lowest-pressure chamber — it's the first to collapse under rising pericardial pressure.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLUES ============ -->
+<section id="clues">
+  <div class="sec-h"><span class="icon">🔎</span><h2>CLUES</h2><span class="step">STEP 2 · SPOT IT</span></div>
+  <p class="sec-sub">One triad, one pulse sign, one ugly ECG — memorize all three and you'll catch this before the crash.</p>
+
+  <div class="grid">
+    <div class="card ruby span2">
+      <h3>🎯 Beck's triad — <mark>JVD + muffled heart sounds + hypotension</mark></h3>
+      <svg viewBox="0 0 900 300" role="img" aria-label="Labeled illustration of Becks triad: jugular venous distension in the neck, muffled or distant heart sounds shown as faded sound rings over the heart, and an arrow showing blood pressure dropping">
+        <rect x="8" y="8" width="884" height="284" rx="18" fill="rgba(255,59,107,.14)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="7 6"/>
+        <ellipse cx="150" cy="150" rx="60" ry="72" fill="#ffd0bd"/>
+        <path d="M120 90 C 105 60 115 30 150 22 C 185 30 195 60 180 90 Z" fill="#ffd0bd"/>
+        <path d="M112 150 C 100 90 108 40 130 20" fill="none" stroke="#9ff2ee" stroke-width="14" stroke-linecap="round"/>
+        <path d="M112 150 C 100 90 108 40 130 20" fill="none" stroke="#00c2c7" stroke-width="7" stroke-linecap="round"/>
+        <circle cx="130" cy="20" r="9" fill="#00c2c7"/>
+        <text x="34" y="205" font-size="15" font-weight="900" fill="#9ff2ee">B · Big jugular</text>
+        <text x="34" y="223" font-size="15" font-weight="900" fill="#9ff2ee">veins — JVD</text>
+
+        <ellipse cx="450" cy="160" rx="70" ry="55" fill="url(#tampHeart)" stroke="#ffe3cf" stroke-width="2.5"/>
+        <defs><linearGradient id="tampHeart" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff8a3d"/><stop offset="1" stop-color="#8a1740"/></linearGradient></defs>
+        <circle cx="450" cy="160" r="90" fill="none" stroke="#ffe3cf" stroke-width="2" stroke-dasharray="2 8" opacity=".5"/>
+        <circle cx="450" cy="160" r="112" fill="none" stroke="#ffe3cf" stroke-width="2" stroke-dasharray="2 8" opacity=".25"/>
+        <text x="450" y="260" font-size="15" font-weight="900" fill="#ffd9e2" text-anchor="middle">E · muffled /</text>
+        <text x="450" y="278" font-size="15" font-weight="900" fill="#ffd9e2" text-anchor="middle">distant heart sounds</text>
+
+        <rect x="700" y="90" width="46" height="150" rx="10" fill="rgba(13,8,26,.55)" stroke="#ffc233" stroke-width="2"/>
+        <rect x="706" y="160" width="34" height="74" rx="6" fill="#ff3b6b"/>
+        <path d="M723 90 L723 130" stroke="#ffc233" stroke-width="4" marker-end="url(#dropArrow)"/>
+        <defs><marker id="dropArrow" viewBox="0 0 12 12" refX="6" refY="10" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1 L11 1 L6 11 z" fill="#ffc233"/></marker></defs>
+        <text x="640" y="70" font-size="15" font-weight="900" fill="#ff9db4">C · Extreme low BP</text>
+        <text x="660" y="264" font-size="14" font-weight="800" fill="#ffc233">(hypotension)</text>
+      </svg>
+      <p style="margin-top:10px"><b>B</b>ig jugular veins (<b>JVD</b>) · <b>E</b>xtreme low BP (hypotension) · <b>C</b>an't hear heart sounds (muffled) — all three together = <b>Beck's triad</b>.</p>
+      <div class="mn">🧠 <b>"BEC" spells it.</b> <b>B</b>ig neck veins · <b>E</b>xtreme hypotension · <b>C</b>an't hear the heart. Three letters, three findings, one emergency.</div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>🌬️ Pulsus paradoxus — <mark>systolic BP drop &gt; 10 mmHg on inspiration</mark></h3>
+      <p>Normally, systolic BP dips only slightly with inspiration. In tamponade, the rigid fluid-filled sac makes the ventricles compete for the same tiny space — inspiration pulls extra blood into the right heart, pushing the septum into the left ventricle and dropping left-sided stroke volume &amp; systolic BP by more than <span class="mono">10 mmHg</span> (example: <span class="mono">120/80 → 110/80</span>).</p>
+      <svg viewBox="0 0 900 260" role="img" aria-label="Waveform diagram showing pulsus paradoxus: arterial pressure waveform with tall even peaks during normal breathing versus a waveform that dips noticeably lower during inspiration in cardiac tamponade">
+        <rect x="8" y="8" width="428" height="244" rx="16" fill="rgba(18,184,134,.14)" stroke="#12b886" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="26" y="36" font-size="17" font-weight="900" fill="#7df0c6">✅ NORMAL</text>
+        <text x="26" y="55" font-size="12.5" font-style="italic" fill="#d8fff0">peaks stay even breath to breath</text>
+        <path d="M30 190 L60 190 L70 90 L80 190 L110 190 L120 92 L130 190 L160 190 L170 88 L180 190 L210 190 L220 90 L230 190 L260 190 L270 92 L280 190 L310 190 L320 90 L330 190 L360 190 L370 88 L380 190 L410 190" fill="none" stroke="#eafff7" stroke-width="3"/>
+        <line x1="30" y1="90" x2="410" y2="90" stroke="#7df0c6" stroke-width="1.5" stroke-dasharray="4 4"/>
+        <text x="26" y="225" font-size="13" font-weight="800" fill="#7df0c6">inspiration ⇄ expiration — no real change</text>
+
+        <rect x="464" y="8" width="428" height="244" rx="16" fill="rgba(255,59,107,.16)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="482" y="36" font-size="17" font-weight="900" fill="#ff9db4">🚨 PULSUS PARADOXUS</text>
+        <text x="482" y="55" font-size="12.5" font-style="italic" fill="#ffd9e2">peaks fall during inspiration</text>
+        <path d="M486 190 L516 190 L526 92 L536 190 L566 190 L578 150 L588 210 L598 150 L628 190 L638 90 L648 190 L678 190 L690 150 L700 210 L710 150 L740 190 L750 90 L760 190 L790 190 L800 150 L810 210 L820 150 L850 190" fill="none" stroke="#eafff7" stroke-width="3"/>
+        <line x1="486" y1="90" x2="866" y2="90" stroke="#ff9db4" stroke-width="1.5" stroke-dasharray="4 4"/>
+        <text x="580" y="225" font-size="12" font-weight="900" fill="#ff9db4">↓ INSPIRATION</text>
+        <text x="700" y="225" font-size="12" font-weight="900" fill="#9ff2ee">↑ expiration</text>
+        <text x="482" y="245" font-size="12.5" font-weight="800" fill="#ffd9e2">systolic BP falls &gt;10 mmHg breathing in</text>
+      </svg>
+      <div class="mn">🧠 <b>"Paradox = backwards."</b> You'd expect breathing to barely touch BP — in tamponade, a deep breath in visibly drops the pulse. Measure it with a manual BP cuff: note the pressure where Korotkoff sounds are heard only on expiration, then the lower pressure where they're heard throughout the whole cycle — the gap between the two is the paradox.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>📈 ECG: low voltage &amp; electrical alternans</h3>
+      <p>Fluid around the heart dampens the electrical signal reaching the skin — QRS complexes look <b>short (low voltage)</b> and can <b>alternate in height beat-to-beat</b> (electrical alternans) as the heart swings inside the fluid-filled sac.</p>
+      <div class="mn">🧠 <b>"Muffled on paper too."</b> If the sac muffles the heart SOUNDS, it also muffles the heart's ELECTRICAL signal — low voltage QRS is the ECG's version of Beck's triad.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CARE ============ -->
+<section id="care">
+  <div class="sec-h"><span class="icon">🩺</span><h2>CARE</h2><span class="step">STEP 3 · RELIEVE THE PRESSURE</span></div>
+  <p class="sec-sub">This is an emergency — the fluid has to come out, and the client needs continuous monitoring while it does.</p>
+
+  <div class="grid">
+    <div class="card ruby span2">
+      <h3>🚑 Pericardiocentesis — the definitive fix</h3>
+      <p>A needle/catheter is advanced into the pericardial sac to drain the compressing fluid or blood, immediately relieving pressure on the heart.</p>
+      <svg viewBox="0 0 900 260" role="img" aria-label="Pericardiocentesis diagram: a needle and catheter advanced through the chest wall into the fluid filled pericardial sac around the compressed heart, with the catheter attached to a drainage bag while the client remains on continuous cardiac monitoring">
+        <rect x="8" y="8" width="884" height="244" rx="18" fill="rgba(255,59,107,.14)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="7 6"/>
+        <circle cx="230" cy="150" r="95" fill="rgba(192,34,85,.55)" stroke="#ff9db4" stroke-width="2.5"/>
+        <ellipse cx="230" cy="152" rx="44" ry="50" fill="#8a1740" stroke="#ffd9e2" stroke-width="2"/>
+        <text x="230" y="150" font-size="11.5" font-weight="900" fill="#fff" text-anchor="middle">squeezed</text>
+        <text x="230" y="165" font-size="11.5" font-weight="900" fill="#fff" text-anchor="middle">heart</text>
+        <line x1="60" y1="60" x2="212" y2="128" stroke="#eafff7" stroke-width="5" stroke-linecap="round"/>
+        <path d="M52 52 l14 14 l-6 6 l-14 -14 z" fill="#eafff7"/>
+        <text x="30" y="42" font-size="14" font-weight="900" fill="#ffd9e2">🪡 needle/catheter</text>
+        <text x="30" y="60" font-size="14" font-weight="900" fill="#ffd9e2">into pericardial sac</text>
+        <rect x="560" y="70" width="26" height="130" rx="8" fill="#eafff7" stroke="#c02255" stroke-width="2"/>
+        <path d="M212 128 L560 130" fill="none" stroke="#ffc233" stroke-width="5" stroke-dasharray="3 3"/>
+        <path d="M586 150 C 650 150 650 190 700 190" fill="none" stroke="#ffc233" stroke-width="5"/>
+        <path d="M700 160 C 760 160 760 200 800 200" fill="none" stroke="#ffc233" stroke-width="4" opacity=".7"/>
+        <rect x="800" y="160" width="70" height="90" rx="10" fill="rgba(13,8,26,.6)" stroke="#eafff7" stroke-width="2"/>
+        <rect x="808" y="200" width="54" height="42" rx="6" fill="#ff8a3d"/>
+        <text x="806" y="150" font-size="12.5" font-weight="900" fill="#ffe49a">drainage</text>
+        <text x="806" y="166" font-size="12.5" font-weight="900" fill="#ffe49a">bag/system</text>
+        <rect x="580" y="16" width="150" height="40" rx="10" fill="rgba(13,8,26,.55)" stroke="#9ff2ee" stroke-width="2"/>
+        <path d="M590 40 L605 40 L612 24 L620 50 L628 32 L636 40 L718 40" fill="none" stroke="#9ff2ee" stroke-width="2.5"/>
+        <text x="586" y="70" font-size="12.5" font-weight="900" fill="#9ff2ee">continuous cardiac monitor</text>
+      </svg>
+      <div class="ladder">
+        <div class="rung"><div class="n">1</div><div class="t">🖥️ <b>Cardiac monitor</b> — continuous ECG throughout</div></div>
+        <div class="rung"><div class="n">2</div><div class="t">💉 <b>Catheter attached</b> to a drainage system</div></div>
+        <div class="rung"><div class="n">3</div><div class="t">📋 <b>Assess drainage</b> — type &amp; speed of fluid removed</div></div>
+      </div>
+      <div class="mn">🧠 <b>"Drain it, watch it, trend it."</b> After the needle comes out, keep watching — if drainage suddenly slows while pressure symptoms return, the sac may be re-accumulating.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🚨 Priority nursing actions</h3>
+      <ul class="tick">
+        <li>📞 <b>Notify the provider immediately</b> — this is an emergency</li>
+        <li>🩺 Continuous VS &amp; cardiac monitoring, frequent BP</li>
+        <li>💧 IV access, prepare for fluids to temporarily support preload</li>
+        <li>🛏️ Position of comfort, often upright/leaning forward</li>
+        <li>😮‍💨 Reassess for <b>worsening</b> JVD, muffled sounds, falling BP</li>
+      </ul>
+      <div class="mn">🧠 <b>Beck's triad worsening = call now.</b> Don't wait for all three to be dramatic — any one trending the wrong way is your cue to escalate.</div>
+    </div>
+
+    <div class="card topaz">
+      <h3>⚠️ Don't confuse with...</h3>
+      <table>
+        <tr><th style="width:50%">Tamponade</th><th style="width:50%">Tension pneumothorax</th></tr>
+        <tr><td>Muffled heart sounds</td><td>Absent breath sounds one side</td></tr>
+        <tr><td>JVD + hypotension</td><td>JVD + hypotension (both!)</td></tr>
+        <tr><td>Trachea midline</td><td>Tracheal deviation away from affected side</td></tr>
+      </table>
+      <div class="mn">🧠 <b>"Trachea tells them apart."</b> Both cause JVD and a crashing BP — a deviated trachea points to pneumothorax, a midline trachea with muffled heart sounds points to tamponade.</div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>🔁 Where this started</h3>
+      <p>Most chronic tamponade traces back to untreated <b>pericarditis → pericardial effusion → tamponade</b>. Review the full continuum, the friction rub, and the positional pain pattern that gives the earliest warning on <b><a style="color:#fff" href="NG-066_pericarditis.html">NG-066 Pericarditis</a></b>.</p>
+      <div class="mn">🧠 Catch it as a rub on NG-066, and you never have to treat it as tamponade on this page.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">💧 Fluid crushes the heart</span>Compression = critical client, can kill fast</div>
+    <div class="rc rubybg"><span class="big">🎯 Beck's triad</span>JVD + muffled heart sounds + hypotension</div>
+    <div class="rc tealbg"><span class="big">🌬️ Pulsus paradoxus</span>Systolic BP falls &gt;10 mmHg on inspiration</div>
+    <div class="rc topazbg"><span class="big">🚑 Pericardiocentesis</span>Monitor, catheter, assess drainage</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 4 rapid-fire questions</summary>
+      <div class="qa">Q1: What three findings make up Beck's triad? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">JVD (big jugular veins), muffled/distant heart sounds, and hypotension (extreme low BP).</div></div>
+      <div class="qa">Q2: What is pulsus paradoxus and how much of a drop counts? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">A systolic BP drop of more than 10 mmHg during inspiration (e.g., 120/80 falling to 110/80).</div></div>
+      <div class="qa">Q3: What procedure relieves cardiac tamponade, and what three things does the nurse do around it? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Pericardiocentesis — continuous cardiac monitor, catheter attached to a drainage system, and assess the type & speed of drainage.</div></div>
+      <div class="qa">Q4: What earlier, treatable condition most often leads to tamponade if ignored? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Pericarditis (NG-066) — inflammation progresses to a pericardial effusion, which can compress the heart into tamponade.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">CAUSE</span>→
+    <span style="background:rgba(47,107,255,.7)">CLUES</span>→
+    <span style="background:rgba(18,184,134,.7)">CARE</span>
+  </div>
+  <div>NG-178 · Source wording retained · ADHD-friendly visual edition · pairs with <a style="color:#ffd9b8" href="NG-066_pericarditis.html">NG-066 Pericarditis</a></div>
+</footer>
+
+</div>
+</body></html>

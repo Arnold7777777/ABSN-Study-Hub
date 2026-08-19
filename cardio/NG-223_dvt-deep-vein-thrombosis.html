@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DVT — Deep Vein Thrombosis · NG-223 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+
+/* ===== appended for the VESSEL set — components the shell lacks ===== */
+.setbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:0 0 4px;
+  padding:9px 12px;border-radius:14px;background:rgba(13,8,26,.62);border:1px solid var(--line);
+  font-size:.86rem;font-weight:800}
+.setbar .lbl{font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:#e9dcff}
+.setbar a,.setbar span.pg{padding:4px 11px;border-radius:999px;border:1px solid var(--line);
+  text-decoration:none;color:#fff;font-weight:900;background:rgba(255,255,255,.12);line-height:1.3}
+.setbar span.pg.on{background:var(--topaz);color:#231a02}
+.av{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(min(100%,255px),1fr));margin:10px 0 0}
+.av .side{border-radius:14px;padding:12px 14px;border:1px solid var(--line);font-size:.92rem;line-height:1.45}
+.av .side h4{margin:0 0 6px;font-size:1.02rem;font-weight:900;letter-spacing:.03em}
+.av .art{background:rgba(255,59,107,.55)}
+.av .ven{background:rgba(47,107,255,.58)}
+.av .side .pos{display:block;margin-top:8px;padding:7px 10px;border-radius:10px;font-weight:900;
+  background:rgba(13,8,26,.55);border:1px dashed rgba(255,255,255,.5)}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#cause">🌀 Why clots form</a>
+  <a class="c2" href="#clues">🔎 Spot it</a>
+  <a class="c3" href="#care">🩺 Treat &amp; prevent</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Cardio · Pathophysiology Course</div>
+  <h1>DVT <span class="drop">🩸</span></h1>
+  <p class="sub">Deep Vein Thrombosis — a <b>CLOT in a deep vein</b> · plus Raynaud's &amp; Buerger's</p>
+  <div class="chips">
+    <span class="chip id">NG-223</span>
+    <span class="chip cat">CARDIO</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede"><b>A clot in a deep vein is not dangerous where it sits — it is dangerous where it GOES.</b> Blood from a leg vein travels to the right heart and straight into the lungs. That is why the calf you find swollen today is a <b>pulmonary embolism</b> tomorrow, and why <span class="never">you never massage or vigorously palpate a calf you suspect of clotting</span>.</p>
+  <div class="setbar" style="margin-top:12px">
+    <span class="lbl">Related</span>
+    <a href="NG-045_pvd-patho-signs.html">PVD 1 · Patho &amp; Signs</a>
+    <a href="NG-127_pvd-causes-complications.html">PVD 2 · Causes &amp; Complications</a>
+    <a href="NG-161_pvd-treatments.html">PVD 3 · Treatments</a>
+  </div>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc rubybg"><span class="big">🐄 COWS</span><b>C</b>alf pain &amp; cramping · <b>O</b>ne-sided swelling · <b>W</b>arm &amp; red · <b>S</b>OB + chest pain = <b>PE!</b></div>
+  <div class="rc topazbg"><span class="big">🌀 Virchow's triad</span><b>Stasis · Vessel injury · Hypercoagulability.</b> Every risk factor is one of these three.</div>
+  <div class="rc citrine"><span class="big">🚫 NEVER massage</span>No rubbing, no vigorous palpation, no Homans' maneuver — you can launch the clot into the lungs.</div>
+  <div class="rc tealbg"><span class="big">🧪 WEPT</span><b>W</b>arfarin → <b>PT</b>/INR → vitamin K · <b>H</b>eparin → a<b>PTT</b> → protamine sulfate.</div>
+</div>
+
+<!-- ============ WHY CLOTS FORM ============ -->
+<section id="cause">
+  <div class="sec-h"><span class="icon">🌀</span><h2>WHY CLOTS FORM</h2><span class="step">STEP 1 · VIRCHOW'S TRIAD</span></div>
+  <p class="sec-sub">Three conditions make blood clot where it shouldn't. Every risk factor you'll ever be asked about slots into one of them.</p>
+
+  <div class="grid">
+
+    <div class="card deep span2">
+      <h3>🌀 <mark>VIRCHOW'S TRIAD</mark> — the three-legged stool every DVT stands on</h3>
+      <svg viewBox="0 0 900 560" role="img" aria-label="Labeled triangle diagram of Virchow's triad: venous stasis, endothelial or vessel wall injury, and hypercoagulability, each with its own risk factor examples, meeting in the center at clot formation">
+        <defs>
+          <marker id="vtArr" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/>
+          </marker>
+        </defs>
+        <rect x="6" y="6" width="888" height="548" rx="18" fill="rgba(13,8,26,.45)" stroke="rgba(255,255,255,.35)" stroke-width="2"/>
+        <text x="28" y="44" font-size="20" font-weight="900" fill="#ffc233">Three sides. Any two together, and a clot is very likely.</text>
+
+        <!-- triangle -->
+        <path d="M450 96 L806 456 L94 456 Z" fill="rgba(255,194,51,.13)" stroke="#ffc233" stroke-width="4" stroke-linejoin="round"/>
+
+        <!-- center -->
+        <circle cx="450" cy="352" r="66" fill="#7a0c25" stroke="#ffc233" stroke-width="4"/>
+        <text x="406" y="344" font-size="19" font-weight="900" fill="#ffc233">CLOT</text>
+        <text x="392" y="370" font-size="14" font-weight="800" fill="#ffd9e2">thrombus</text>
+        <text x="398" y="392" font-size="14" font-weight="800" fill="#ffd9e2">forms 🩸</text>
+
+        <!-- vertex 1: stasis (top) -->
+        <circle cx="450" cy="96" r="30" fill="#2f6bff" stroke="#fff" stroke-width="3"/>
+        <text x="437" y="105" font-size="24" font-weight="900" fill="#fff">1</text>
+        <rect x="238" y="118" width="424" height="112" rx="14" fill="rgba(47,107,255,.4)" stroke="#2f6bff" stroke-width="2"/>
+        <text x="258" y="148" font-size="19" font-weight="900" fill="#bcd0ff">🧍 VENOUS STASIS — blood sits still</text>
+        <text x="258" y="174" font-size="14.5" fill="#e3ecff">Immobility · bed rest · long flights or car rides · surgery</text>
+        <text x="258" y="196" font-size="14.5" fill="#e3ecff">Casts, splints, paralysis · heart failure · obesity · pregnancy</text>
+        <text x="258" y="218" font-size="14.5" font-style="italic" fill="#ffc233">The calf muscle pump stops → the blood pools → it clots.</text>
+
+        <!-- vertex 2: injury (bottom left) -->
+        <circle cx="94" cy="456" r="30" fill="#ff3b6b" stroke="#fff" stroke-width="3"/>
+        <text x="82" y="465" font-size="24" font-weight="900" fill="#fff">2</text>
+        <rect x="24" y="496" width="410" height="46" rx="12" fill="rgba(255,59,107,.42)" stroke="#ff3b6b" stroke-width="2"/>
+        <text x="40" y="524" font-size="18" font-weight="900" fill="#ff9db4">🩹 VESSEL WALL INJURY</text>
+        <text x="24" y="352" font-size="15.5" font-weight="900" fill="#ff9db4">Surgery (especially</text>
+        <text x="24" y="374" font-size="15.5" font-weight="900" fill="#ff9db4">hip &amp; knee) · trauma</text>
+        <text x="24" y="396" font-size="15.5" font-weight="900" fill="#ff9db4">Fractures · IV catheters</text>
+        <text x="24" y="418" font-size="15.5" font-weight="900" fill="#ff9db4">Central lines · smoking</text>
+        <text x="24" y="440" font-size="14" font-style="italic" fill="#ffd9e2">a torn lining = a place to stick</text>
+
+        <!-- vertex 3: hypercoagulability (bottom right) -->
+        <circle cx="806" cy="456" r="30" fill="#12b886" stroke="#fff" stroke-width="3"/>
+        <text x="794" y="465" font-size="24" font-weight="900" fill="#03291c">3</text>
+        <rect x="466" y="496" width="410" height="46" rx="12" fill="rgba(18,184,134,.45)" stroke="#12b886" stroke-width="2"/>
+        <text x="482" y="524" font-size="18" font-weight="900" fill="#a5f3d4">🧬 HYPERCOAGULABILITY</text>
+        <text x="616" y="352" font-size="15.5" font-weight="900" fill="#a5f3d4">Cancer · dehydration</text>
+        <text x="616" y="374" font-size="15.5" font-weight="900" fill="#a5f3d4">Pregnancy · postpartum</text>
+        <text x="616" y="396" font-size="15.5" font-weight="900" fill="#a5f3d4">Estrogen / oral contraceptives</text>
+        <text x="616" y="418" font-size="15.5" font-weight="900" fill="#a5f3d4">Smoking · inherited clotting</text>
+        <text x="616" y="440" font-size="15.5" font-weight="900" fill="#a5f3d4">disorders · sepsis</text>
+
+        <path d="M450 158 L450 282" fill="none" stroke="#ffc233" stroke-width="4" stroke-dasharray="10 8" marker-end="url(#vtArr)"/>
+        <path d="M170 452 L378 380" fill="none" stroke="#ffc233" stroke-width="4" stroke-dasharray="10 8" marker-end="url(#vtArr)"/>
+        <path d="M730 452 L522 380" fill="none" stroke="#ffc233" stroke-width="4" stroke-dasharray="10 8" marker-end="url(#vtArr)"/>
+      </svg>
+      <div class="mn">🧠 <b>“SHIP” — Stasis · Hypercoagulability · Injury to the Pipe.</b> Picture the classic exam client: a <b>ship</b> passenger on a long flight (stasis), dehydrated with a cocktail (hypercoagulable), just out of knee surgery (vessel injury). All three legs of the triad in one sentence — that client clots.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>⚠️ Risk factors, sorted by which leg of the triad</h3>
+      <table>
+        <tr><th class="up" style="width:34%">Triad leg</th><th class="lo">Who's at risk</th></tr>
+        <tr><td><b>🧍 STASIS</b></td><td>Post-op &amp; immobile clients · bed rest · casts and splints · paralysis/stroke · long car rides and flights · prolonged sitting · heart failure · obesity · pregnancy (the uterus compresses pelvic veins)</td></tr>
+        <tr><td><b>🩹 INJURY</b></td><td>Orthopedic surgery — especially <b>hip and knee replacement</b> · major trauma and fractures · central lines and IV catheters · smoking</td></tr>
+        <tr><td><b>🧬 HYPERCOAG</b></td><td><b>Cancer</b> (and chemotherapy) · dehydration · <b>pregnancy and postpartum</b> · <b>estrogen therapy / oral contraceptives</b>, especially in a smoker over 35 · inherited thrombophilias · sepsis · previous DVT</td></tr>
+      </table>
+      <p style="margin-top:9px"><b>The highest-yield combination on the exam:</b> a post-operative orthopedic client who has been in bed and is not yet ambulating. That is all three legs at once.</p>
+      <div class="mn">🧠 <b>“The three biggest words: surgery, cancer, estrogen.”</b> If any of those three appear in a stem with a swollen calf, think DVT before you think anything else.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🫙 Deep vs superficial — why only one of them scares you</h3>
+      <ul class="tick">
+        <li><b>Superficial thrombophlebitis</b> — clot in a surface vein. You can <b>see and feel a red, tender, cord-like vein</b> just under the skin. Uncomfortable, usually treated with warm compresses, elevation and anti-inflammatories.</li>
+        <li><b>DVT — deep vein thrombosis</b> — clot in a <b>deep</b> vein (calf, popliteal, femoral, iliac). You cannot see it. It sits in a high-volume vein with a straight path to the lungs.</li>
+        <li><b>That path is the whole point:</b> leg vein → inferior vena cava → right atrium → right ventricle → pulmonary artery → <b>PE</b>.</li>
+      </ul>
+      <div class="mn">🧠 <b>“Superficial you can SEE, deep you must SUSPECT.”</b> The clot you can see is rarely the one that kills. The dangerous one is invisible — which is why risk factors and prevention carry so much weight.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SPOT IT ============ -->
+<section id="clues">
+  <div class="sec-h"><span class="icon">🔎</span><h2>SIGNS &amp; ESCALATION</h2><span class="step">STEP 2 · SPOT IT</span></div>
+  <p class="sec-sub">Four letters for the leg. One line for the lungs. And one thing your hands must never do.</p>
+
+  <div class="grid">
+
+    <div class="card ruby span2">
+      <h3>🐄 <mark>COWS</mark> — the DVT sign set, and the S that changes everything</h3>
+      <div class="ladder">
+        <div class="rung"><div class="n" style="background:var(--topaz);color:#231a02">C</div><div class="t"><b>CALF PAIN &amp; CRAMPING</b> — aching, tightness or a “charley horse” that doesn't ease. Often <b>worse with walking or dorsiflexion</b>, and tender along the vein.</div></div>
+        <div class="rung"><div class="n" style="background:var(--citrine);color:#2b1200">O</div><div class="t"><b>ONE-SIDED SWELLING (unilateral)</b> — this is the money sign. <b>Measure calf circumference at the same marked point on both legs</b> and compare. Two swollen legs points at the heart; one swollen leg points at a vein.</div></div>
+        <div class="rung"><div class="n" style="background:var(--ruby)">W</div><div class="t"><b>WARM &amp; RED</b> — blood pooling behind the clot makes the skin <b>warm, red/erythematous and shiny-tight</b>. May come with a low-grade fever.</div></div>
+        <div class="rung"><div class="n" style="background:var(--garnet)">S</div><div class="t"><b>SOB &amp; CHEST PAIN = PE!</b> — the clot has moved. <b>Call the provider / rapid response.</b> This is no longer a leg problem.</div></div>
+      </div>
+      <svg viewBox="0 0 900 300" role="img" aria-label="Comparison of a normal leg and a leg with deep vein thrombosis showing unilateral swelling, warmth and redness, a clot in the deep vein, and a tape measure marking where calf circumference is compared between the two legs">
+        <rect x="6" y="6" width="888" height="288" rx="18" fill="rgba(13,8,26,.45)" stroke="rgba(255,255,255,.35)" stroke-width="2"/>
+        <text x="28" y="42" font-size="18" font-weight="900" fill="#ffd0bd">Compare the two legs — that is the assessment</text>
+
+        <!-- normal leg -->
+        <path d="M70 66 C64 122 76 162 84 202 L82 250 L142 250 L140 202 C150 162 162 122 156 66 Z" fill="rgba(255,255,255,.16)" stroke="#fff" stroke-width="2"/>
+        <rect x="104" y="86" width="18" height="152" rx="9" fill="#2f6bff"/>
+        <text x="60" y="278" font-size="15" font-weight="900" fill="#a5f3d4">✅ UNAFFECTED LEG</text>
+        <line x1="66" y1="176" x2="162" y2="176" stroke="#a5f3d4" stroke-width="3" stroke-dasharray="6 5"/>
+        <text x="176" y="170" font-size="13.5" font-weight="900" fill="#a5f3d4">measure HERE</text>
+        <text x="176" y="188" font-size="13" font-style="italic" fill="#d8fff0">same marked point, both legs</text>
+
+        <!-- DVT leg (swollen) -->
+        <path d="M400 66 C392 124 410 166 420 208 L418 250 L500 250 L498 208 C510 166 526 124 518 66 Z" fill="rgba(255,59,107,.4)" stroke="#fff" stroke-width="2"/>
+        <rect x="446" y="86" width="24" height="152" rx="12" fill="#2f6bff"/>
+        <ellipse cx="458" cy="168" rx="17" ry="30" fill="#2b0a12" stroke="#ffc233" stroke-width="3"/>
+        <line x1="392" y1="176" x2="528" y2="176" stroke="#ffc233" stroke-width="3" stroke-dasharray="6 5"/>
+        <text x="382" y="278" font-size="15" font-weight="900" fill="#ff9db4">🚨 AFFECTED LEG</text>
+        <text x="546" y="118" font-size="15" font-weight="900" fill="#ffc233">🩸 CLOT in the deep vein</text>
+        <text x="546" y="146" font-size="15" font-weight="900" fill="#fff">O · ONE-SIDED swelling</text>
+        <text x="546" y="166" font-size="13" font-style="italic" fill="#ffe3ea">bigger circumference than the other side</text>
+        <text x="546" y="194" font-size="15" font-weight="900" fill="#fff">W · WARM &amp; RED</text>
+        <text x="546" y="214" font-size="13" font-style="italic" fill="#ffe3ea">tight, shiny skin · maybe low-grade fever</text>
+        <text x="546" y="242" font-size="15" font-weight="900" fill="#fff">C · CALF PAIN &amp; cramping</text>
+        <text x="546" y="262" font-size="13" font-style="italic" fill="#ffe3ea">tender along the vein · worse walking</text>
+      </svg>
+      <p style="margin-top:11px"><b>Also assess:</b> pain on dorsiflexion, a palpable cord, and skin that looks tight and shiny. <b>Do not chart a DVT “ruled out” on findings alone</b> — many DVTs are silent until the PE.</p>
+      <div class="mn">🧠 <b>“COWS come home to the LUNGS.”</b> <b>C</b>alf pain · <b>O</b>ne-sided swelling · <b>W</b>arm &amp; red · <b>S</b>OB. The first three are the leg; the <b>S</b> is the emergency. If you can only remember one letter, remember that <b>S stands for STOP EVERYTHING</b>.</div>
+    </div>
+
+    <div class="card garnet span2">
+      <h3>🚫 <span class="never">NEVER massage or vigorously palpate a calf you suspect has a clot</span></h3>
+      <svg viewBox="-10 -10 955 400" role="img" aria-label="Diagram showing why you must not massage a calf with a suspected deep vein thrombosis: rubbing the calf dislodges the clot which travels up the vein through the heart and lodges in the lung as a pulmonary embolism">
+        <defs>
+          <marker id="mgArr" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#ff3b6b"/>
+          </marker>
+        </defs>
+        <rect x="-6" y="-6" width="947" height="392" rx="18" fill="rgba(192,34,85,.22)" stroke="#ff3b6b" stroke-width="2.5"/>
+        <text x="28" y="44" font-size="19" font-weight="900" fill="#ffd0bd">Rub the calf → launch the clot → PE</text>
+
+        <!-- calf with clot + hand -->
+        <path d="M60 84 C52 140 66 190 76 238 L74 300 L142 300 L140 238 C150 190 164 140 156 84 Z" fill="rgba(255,255,255,.14)" stroke="#fff" stroke-width="2"/>
+        <rect x="96" y="110" width="26" height="180" rx="13" fill="#2f6bff"/>
+        <ellipse cx="109" cy="196" rx="15" ry="26" fill="#2b0a12" stroke="#ffc233" stroke-width="3"/>
+        <text x="46" y="330" font-size="15" font-weight="900" fill="#ffc233">CLOT in the deep vein</text>
+        <path d="M176 168 q-24 12 -34 26 q-12 16 4 22 q22 6 42 -14" fill="#ffd0bd" stroke="#fff" stroke-width="2"/>
+        <text x="180" y="132" font-size="15" font-weight="900" fill="#ff9db4">🚫 hands off</text>
+
+        <path d="M240 196 L330 196" stroke="#ff3b6b" stroke-width="6" marker-end="url(#mgArr)"/>
+        <text x="238" y="176" font-size="14.5" font-weight="900" fill="#ff9db4">breaks free</text>
+
+        <!-- heart and lungs -->
+        <path d="M470 200 C470 172 512 166 526 190 C540 166 582 172 582 200 C582 240 526 274 526 274 C526 274 470 240 470 200 Z" fill="#c02255" stroke="#ffd0bd" stroke-width="2.5"/>
+        <text x="474" y="300" font-size="15" font-weight="900" fill="#ffd0bd">RIGHT HEART</text>
+        <path d="M600 196 L672 196" stroke="#ff3b6b" stroke-width="6" marker-end="url(#mgArr)"/>
+
+        <path d="M700 110 C664 140 664 220 692 262 C712 288 744 282 744 250 L744 118 C744 100 716 98 700 110 Z" fill="rgba(157,92,255,.45)" stroke="#e9dcff" stroke-width="2.5"/>
+        <path d="M866 110 C830 98 802 100 802 118 L802 250 C802 282 834 288 854 262 C882 220 882 140 866 110 Z" fill="rgba(157,92,255,.45)" stroke="#e9dcff" stroke-width="2.5"/>
+        <ellipse cx="722" cy="180" rx="16" ry="22" fill="#2b0a12" stroke="#ffc233" stroke-width="3"/>
+        <text x="694" y="316" font-size="16" font-weight="900" fill="#ffc233">🫁 PULMONARY EMBOLISM</text>
+        <text x="716" y="340" font-size="14" font-style="italic" fill="#ffd9e2">the clot wedges here</text>
+
+        <rect x="240" y="36" width="640" height="0" fill="none"/>
+        <rect x="240" y="228" width="200" height="112" rx="12" fill="rgba(13,8,26,.7)" stroke="#ffc233" stroke-width="2"/>
+        <text x="256" y="256" font-size="14.5" font-weight="900" fill="#ffc233">SO YOU NEVER:</text>
+        <text x="256" y="280" font-size="13.5" fill="#ffe3ea">❌ massage or rub the calf</text>
+        <text x="256" y="300" font-size="13.5" fill="#ffe3ea">❌ palpate deeply / vigorously</text>
+        <text x="256" y="320" font-size="13.5" fill="#ffe3ea">❌ perform a Homans' maneuver</text>
+      </svg>
+      <ul class="tick" style="margin-top:11px">
+        <li><b>Why:</b> the thrombus is only loosely attached. Pressure, kneading or forceful dorsiflexion can <b>dislodge it into the circulation</b>, and a venous clot goes <b>straight to the lungs</b>.</li>
+        <li><b>Homans' sign</b> (calf pain on forced dorsiflexion) is <b>no longer used</b> — it is unreliable, it misses most DVTs, and the maneuver itself risks dislodging the clot. <b>Inspect and measure instead.</b></li>
+        <li><b>Do NOT apply SCDs to a leg with a known acute DVT</b> unless the provider specifically orders it. SCDs are a <b>prevention</b> device.</li>
+        <li>Gentle inspection, gentle circumference measurement, and reporting are the assessment. <b>Diagnosis comes from venous duplex ultrasound.</b></li>
+      </ul>
+      <div class="mn">🧠 <b>“Look, measure, report — don't squeeze.”</b> Your hands can turn a leg problem into a lung emergency. Say it while you're washing your hands before you walk in.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🔬 Confirming it — what actually diagnoses a DVT</h3>
+      <ul class="tick">
+        <li><b>Venous duplex ultrasound</b> — the <b>first-line, non-invasive test</b>. Shows the clot and whether the vein compresses.</li>
+        <li><b>D-dimer</b> — a fibrin breakdown product. <b>A normal D-dimer helps rule OUT a clot; an elevated one does not rule it IN</b> (it rises with surgery, trauma, infection, pregnancy, cancer).</li>
+        <li><b>Wells score</b> — a clinical probability tool that decides whether the client goes straight to ultrasound.</li>
+        <li><b>For suspected PE: CT pulmonary angiography</b> is the standard confirming study. ABG may show hypoxemia with a low CO₂ from blowing off carbon dioxide.</li>
+      </ul>
+      <div class="mn">🧠 <b>“D-dimer is a smoke detector.”</b> No smoke = probably no fire (good rule-out). Smoke = <i>something</i> is burning, but it might just be the toast. You still need the picture.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🚨 PE — what it looks like when the clot arrives</h3>
+      <ul class="tick">
+        <li>😮‍💨 <b>SUDDEN shortness of breath</b> — the hallmark. Abrupt, not gradual.</li>
+        <li>💥 <b>Sharp, pleuritic chest pain</b> — worse on deep breath.</li>
+        <li>💓 <b>Tachycardia and tachypnea</b>; low SpO₂ despite effort.</li>
+        <li>😰 <b>Anxiety, restlessness, a sense of impending doom</b> — take this seriously, it is a real early sign of hypoxia.</li>
+        <li>🩸 <b>Cough, sometimes with blood-streaked sputum (hemoptysis)</b>.</li>
+        <li>📉 <b>Hypotension, cyanosis, syncope</b> = massive PE, obstructive shock.</li>
+      </ul>
+      <div class="mn">🧠 <b>“Sudden + Short of breath + Sharp chest pain + Scared = PE.”</b> Four S's. In a post-op client with a swollen calf, those four S's are a PE until proven otherwise.</div>
+    </div>
+
+    <div class="card garnet span2">
+      <h3>🚨 PE ESCALATION — priority actions in order</h3>
+      <div class="ladder">
+        <div class="rung"><div class="n" style="background:var(--ruby)">1</div><div class="t"><b>STAY with the client and sit them UP</b> — high Fowler's. It maximizes lung expansion immediately and costs nothing.</div></div>
+        <div class="arrowdown">▼</div>
+        <div class="rung"><div class="n" style="background:var(--citrine);color:#2b1200">2</div><div class="t"><b>Apply OXYGEN</b> and put on continuous pulse oximetry. Hypoxia is what's killing them right now.</div></div>
+        <div class="arrowdown">▼</div>
+        <div class="rung"><div class="n" style="background:var(--topaz);color:#231a02">3</div><div class="t"><b>CALL — provider / rapid response.</b> Use the call light or a colleague so you never leave the client alone.</div></div>
+        <div class="arrowdown">▼</div>
+        <div class="rung"><div class="n" style="background:var(--sapphire)">4</div><div class="t"><b>Vital signs, cardiac monitor, IV access.</b> Establish or confirm a patent IV — the treatment is going to be intravenous.</div></div>
+        <div class="arrowdown">▼</div>
+        <div class="rung"><div class="n" style="background:var(--emerald);color:#03291c">5</div><div class="t"><b>Anticipate:</b> IV heparin, <b>CT pulmonary angiography</b>, ABG, D-dimer, ECG, and — for a massive PE — <b>thrombolytics</b> or embolectomy.</div></div>
+      </div>
+      <p style="margin-top:11px"><b>Order matters on the exam:</b> when the client is in front of you, do the things that fix oxygenation <b>first</b> (position + O₂), then get help, then gather data. Don't leave the room to page someone.</p>
+      <div class="mn">🧠 <b>“Sit 'em up, O₂ on, call it in.”</b> Three beats, in that order, every time. Everything else — labs, scans, drugs — happens after the client can breathe.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TREAT & PREVENT ============ -->
+<section id="care">
+  <div class="sec-h"><span class="icon">🩺</span><h2>TREAT &amp; PREVENT</h2><span class="step">STEP 3 · STOP THE NEXT ONE</span></div>
+  <p class="sec-sub">Anticoagulants don't dissolve the clot — they stop it from growing while the body breaks it down. Prevention is where nursing wins.</p>
+
+  <div class="grid">
+
+    <div class="card topaz span2">
+      <h3>💊 <mark>Anticoagulant comparison — which lab watches which drug</mark></h3>
+      <svg viewBox="0 0 900 330" role="img" aria-label="Chart matching each anticoagulant to its monitoring lab and its reversal agent: heparin with aPTT and protamine sulfate, warfarin with PT and INR and vitamin K, and direct oral anticoagulants with no routine monitoring and drug specific reversal agents">
+        <rect x="6" y="6" width="888" height="318" rx="18" fill="rgba(13,8,26,.6)" stroke="rgba(255,255,255,.35)" stroke-width="2"/>
+        <text x="28" y="44" font-size="19" font-weight="900" fill="#ffc233">DRUG → LAB → ANTIDOTE</text>
+
+        <!-- heparin row -->
+        <rect x="26" y="66" width="250" height="70" rx="12" fill="rgba(255,59,107,.55)" stroke="#fff" stroke-width="2"/>
+        <text x="44" y="96" font-size="17" font-weight="900" fill="#fff">💉 HEPARIN (IV/SC)</text>
+        <text x="44" y="120" font-size="13.5" fill="#ffe3ea">works immediately</text>
+        <text x="290" y="108" font-size="22" font-weight="900" fill="#ffc233">→</text>
+        <rect x="322" y="66" width="250" height="70" rx="12" fill="rgba(0,194,199,.6)" stroke="#fff" stroke-width="2"/>
+        <text x="340" y="96" font-size="17" font-weight="900" fill="#00252b">🧪 aPTT</text>
+        <text x="340" y="120" font-size="13.5" font-weight="800" fill="#00252b">therapeutic ≈ 1.5–2.5 × control</text>
+        <text x="588" y="108" font-size="22" font-weight="900" fill="#ffc233">→</text>
+        <rect x="620" y="66" width="252" height="70" rx="12" fill="rgba(18,184,134,.6)" stroke="#fff" stroke-width="2"/>
+        <text x="638" y="96" font-size="17" font-weight="900" fill="#fff">🛡️ PROTAMINE SULFATE</text>
+        <text x="638" y="120" font-size="13.5" fill="#d8fff0">binds and inactivates heparin</text>
+
+        <!-- warfarin row -->
+        <rect x="26" y="150" width="250" height="70" rx="12" fill="rgba(157,92,255,.6)" stroke="#fff" stroke-width="2"/>
+        <text x="44" y="180" font-size="17" font-weight="900" fill="#fff">💊 WARFARIN (PO)</text>
+        <text x="44" y="204" font-size="13.5" fill="#e9dcff">takes days to work</text>
+        <text x="290" y="192" font-size="22" font-weight="900" fill="#ffc233">→</text>
+        <rect x="322" y="150" width="250" height="70" rx="12" fill="rgba(0,194,199,.6)" stroke="#fff" stroke-width="2"/>
+        <text x="340" y="180" font-size="17" font-weight="900" fill="#00252b">🧪 PT / INR</text>
+        <text x="340" y="204" font-size="13.5" font-weight="800" fill="#00252b">therapeutic INR 2.0–3.0 for VTE</text>
+        <text x="588" y="192" font-size="22" font-weight="900" fill="#ffc233">→</text>
+        <rect x="620" y="150" width="252" height="70" rx="12" fill="rgba(18,184,134,.6)" stroke="#fff" stroke-width="2"/>
+        <text x="638" y="180" font-size="17" font-weight="900" fill="#fff">🛡️ VITAMIN K</text>
+        <text x="638" y="204" font-size="13.5" fill="#d8fff0">phytonadione</text>
+
+        <!-- DOAC row -->
+        <rect x="26" y="234" width="250" height="76" rx="12" fill="rgba(255,138,61,.6)" stroke="#fff" stroke-width="2"/>
+        <text x="44" y="264" font-size="17" font-weight="900" fill="#2b1200">💊 DOACs (PO)</text>
+        <text x="44" y="286" font-size="13" font-weight="800" fill="#2b1200">apixaban · rivaroxaban ·</text>
+        <text x="44" y="304" font-size="13" font-weight="800" fill="#2b1200">edoxaban · dabigatran</text>
+        <text x="290" y="276" font-size="22" font-weight="900" fill="#ffc233">→</text>
+        <rect x="322" y="234" width="250" height="76" rx="12" fill="rgba(0,194,199,.6)" stroke="#fff" stroke-width="2"/>
+        <text x="340" y="264" font-size="17" font-weight="900" fill="#00252b">🧪 NO routine lab</text>
+        <text x="340" y="286" font-size="13" font-weight="800" fill="#00252b">no INR, no aPTT titration —</text>
+        <text x="340" y="304" font-size="13" font-weight="800" fill="#00252b">but renal function is followed</text>
+        <text x="588" y="276" font-size="22" font-weight="900" fill="#ffc233">→</text>
+        <rect x="620" y="234" width="252" height="76" rx="12" fill="rgba(18,184,134,.6)" stroke="#fff" stroke-width="2"/>
+        <text x="638" y="264" font-size="16" font-weight="900" fill="#fff">🛡️ drug-specific</text>
+        <text x="638" y="286" font-size="13" fill="#d8fff0">idarucizumab → dabigatran</text>
+        <text x="638" y="304" font-size="13" fill="#d8fff0">andexanet alfa → Xa inhibitors</text>
+      </svg>
+      <table style="margin-top:12px">
+        <tr><th style="width:16%">Drug</th><th class="up">Route &amp; speed</th><th class="lo">Monitoring</th><th>Nursing key points</th></tr>
+        <tr>
+          <td><b>Heparin</b><br><i>unfractionated</i></td>
+          <td>IV drip or SC. <b>Immediate</b> onset — this is the one you start in an emergency.</td>
+          <td><b>aPTT</b> (some facilities use anti-Xa). Therapeutic ≈ <span class="mono">1.5–2.5×</span> the control value. <b>Also follow PLATELETS.</b></td>
+          <td>Antidote <b>protamine sulfate</b>. Watch for <b>HIT</b> — heparin-induced thrombocytopenia: platelets fall (classically <span class="mono">&gt;50%</span> drop) and the client paradoxically <b>clots</b>. Stop the heparin and notify. Never rub SC injection sites.</td>
+        </tr>
+        <tr>
+          <td><b>LMWH</b><br><i>enoxaparin, dalteparin</i></td>
+          <td>SC, weight-based, more predictable than heparin.</td>
+          <td><b>No routine aPTT.</b> Anti-Xa level only in select cases (renal impairment, pregnancy, extremes of weight). Follow platelets and renal function.</td>
+          <td>Give in the <b>abdomen</b>, about 2 inches from the umbilicus. <span class="never">Do not expel the air bubble, do not aspirate, do not massage the site.</span> Protamine reverses it only partially.</td>
+        </tr>
+        <tr>
+          <td><b>Warfarin</b></td>
+          <td>PO. <b>Slow</b> — takes several days for full effect, so it is <b>overlapped (“bridged”) with heparin</b> at the start.</td>
+          <td><b>PT / INR.</b> Normal INR ≈ <span class="mono">0.8–1.2</span>; therapeutic for VTE/AF is <span class="mono">2.0–3.0</span>. <b>Above range = bleeding risk; below = clot risk.</b></td>
+          <td>Antidote <b>vitamin K (phytonadione)</b>; major bleeding also gets FFP or prothrombin complex concentrate. Teach <b>consistent</b> vitamin-K intake (green leafy vegetables) — consistency, not avoidance. Many drug/herbal interactions. <b>Contraindicated in pregnancy.</b></td>
+        </tr>
+        <tr>
+          <td><b>DOACs</b><br><i>apixaban, rivaroxaban, edoxaban (factor Xa) · dabigatran (direct thrombin)</i></td>
+          <td>PO, fixed dosing, rapid onset.</td>
+          <td><b>No routine coagulation monitoring — no INR.</b> Renal function is checked because clearance depends on it.</td>
+          <td>Reversal: <b>idarucizumab</b> for <b>dabigatran</b>; <b>andexanet alfa</b> for the <b>factor Xa</b> inhibitors. Keep dabigatran in its original bottle and do not crush or open the capsules. Missing doses matters — the protection wears off fast.</td>
+        </tr>
+        <tr>
+          <td><b>Thrombolytics</b><br><i>alteplase</i></td>
+          <td>IV, reserved for <b>massive PE</b> or a limb-threatening clot.</td>
+          <td>Continuous monitoring for bleeding of any kind.</td>
+          <td>Actually <b>dissolves</b> existing clot — and carries the highest bleeding risk of anything on this page. Contraindicated with active bleeding, recent surgery or trauma, and a history of hemorrhagic stroke.</td>
+        </tr>
+      </table>
+      <div class="mn">🧠 <b>“WEPT — Warfarin uses PT, Heparin uses PTT.”</b> Then the antidotes rhyme with their drugs: <b>Prot</b>amine <b>prot</b>ects from he<b>p</b>arin, and vitamin <b>K</b> fixes <b>K</b>oumadin. If you can say <i>WEPT</i> and those two antidotes, you own the most tested lab-drug pairing in nursing school.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🩸 Bleeding precautions — the same teaching for every anticoagulant</h3>
+      <ul class="tick">
+        <li>🪥 <b>Soft toothbrush, electric razor</b>, no flossing with force.</li>
+        <li>🚽 <b>Report black tarry stools, pink/red urine, coffee-ground emesis, bleeding gums, nosebleeds, unusual bruising</b>, or a headache/confusion after a fall.</li>
+        <li>💊 <b>No NSAIDs or aspirin</b> unless the provider ordered them; check every OTC and herbal product.</li>
+        <li>🪪 <b>Wear medical-alert identification</b> and tell every dentist and surgeon.</li>
+        <li>🩹 <b>Hold pressure longer</b> after venipunctures and injections; avoid IM injections when possible.</li>
+        <li>🤕 <b>Fall precautions</b> — a head strike on an anticoagulant is an emergency even if the client looks fine.</li>
+      </ul>
+      <div class="mn">🧠 <b>“Soft brush, electric razor, no NSAIDs, tell the dentist.”</b> Four sentences that answer almost every anticoagulant teaching question.</div>
+    </div>
+
+    <div class="card emerald">
+      <h3>✅ PREVENTION — the part nursing owns</h3>
+      <svg viewBox="-10 -10 473 320" role="img" aria-label="Prevention diagram showing a sequential compression device sleeve squeezing the calf, ankle pumping exercises, and a walking figure representing early ambulation as the best prevention for deep vein thrombosis">
+        <rect x="-6" y="-6" width="465" height="312" rx="16" fill="rgba(18,184,134,.22)" stroke="#12b886" stroke-width="2"/>
+        <text x="20" y="34" font-size="16" font-weight="900" fill="#a5f3d4">Keep the blood MOVING</text>
+
+        <!-- SCD -->
+        <path d="M46 60 C40 108 52 140 60 176 L58 216 L110 216 L108 176 C118 140 128 108 122 60 Z" fill="rgba(255,255,255,.15)" stroke="#fff" stroke-width="2"/>
+        <rect x="42" y="96" width="86" height="30" rx="8" fill="#00c2c7" stroke="#eafff7" stroke-width="2"/>
+        <rect x="44" y="136" width="82" height="30" rx="8" fill="#00c2c7" stroke="#eafff7" stroke-width="2"/>
+        <path d="M138 111 l16 0 M138 151 l16 0" stroke="#a5f3d4" stroke-width="4" stroke-linecap="round"/>
+        <text x="24" y="242" font-size="14" font-weight="900" fill="#eafff7">SCDs</text>
+        <text x="16" y="260" font-size="12" font-style="italic" fill="#d8fff0">squeeze the calf</text>
+        <text x="20" y="277" font-size="12" font-style="italic" fill="#d8fff0">rhythmically</text>
+
+        <!-- ankle pumps -->
+        <path d="M196 96 L216 96 L222 176 L200 178 Z" fill="rgba(255,255,255,.2)" stroke="#fff" stroke-width="2"/>
+        <path d="M200 178 L246 160" stroke="#fff" stroke-width="12" stroke-linecap="round"/>
+        <path d="M200 178 L238 200" stroke="#a5f3d4" stroke-width="6" stroke-linecap="round" stroke-dasharray="6 6"/>
+        <path d="M244 130 a44 44 0 0 1 0 60" fill="none" stroke="#ffc233" stroke-width="4"/>
+        <text x="184" y="242" font-size="14" font-weight="900" fill="#eafff7">ANKLE PUMPS</text>
+        <text x="184" y="260" font-size="12" font-style="italic" fill="#d8fff0">flex &amp; point, hourly</text>
+        <text x="184" y="277" font-size="12" font-style="italic" fill="#d8fff0">while awake</text>
+
+        <!-- walking -->
+        <circle cx="352" cy="72" r="16" fill="#a5f3d4"/>
+        <path d="M352 88 L352 140" stroke="#a5f3d4" stroke-width="9" stroke-linecap="round"/>
+        <path d="M352 140 L330 190 M352 140 L378 186" stroke="#a5f3d4" stroke-width="9" stroke-linecap="round"/>
+        <path d="M352 104 L322 122 M352 104 L384 118" stroke="#a5f3d4" stroke-width="8" stroke-linecap="round"/>
+        <rect x="300" y="200" width="118" height="30" rx="9" fill="rgba(255,194,51,.92)"/>
+        <text x="310" y="221" font-size="14" font-weight="900" fill="#231a02">BEST OF ALL</text>
+        <text x="296" y="256" font-size="14" font-weight="900" fill="#eafff7">EARLY AMBULATION</text>
+        <text x="304" y="276" font-size="12" font-style="italic" fill="#d8fff0">the calf pump is free</text>
+      </svg>
+      <ul class="tick" style="margin-top:10px">
+        <li>🚶 <b>Early ambulation</b> after surgery — the single most effective prevention.</li>
+        <li>🦵 <b>SCDs / intermittent pneumatic compression</b> and <b>graduated compression (TED) stockings</b> for immobile clients. Check skin under them; make sure they aren't rolled or bunched.</li>
+        <li>💉 <b>Prophylactic anticoagulation</b> — low-dose SC heparin or LMWH for at-risk hospitalized and post-op clients.</li>
+        <li>💧 <b>Hydration</b> — dehydrated blood is thick blood.</li>
+        <li>🦶 <b>Ankle pumps, calf exercises and position changes</b> for anyone on bed rest.</li>
+        <li>❌ <b>No pillows under the knees, no leg crossing, no prolonged sitting</b> — all of them kink the popliteal vein.</li>
+      </ul>
+      <div class="mn">🧠 <b>“Move it, squeeze it, thin it, water it.”</b> Ambulate · SCDs · prophylactic anticoagulant · hydrate. Four verbs = the whole prevention bundle.</div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>🎵 CHANT — living after the clot</h3>
+      <div class="no-grid">
+        <div class="no-t"><span class="e">🦶</span>C — Calf exercise<i>&amp; isometrics</i></div>
+        <div class="no-t"><span class="e">💧</span>H — Hydration<i>thin the blood</i></div>
+        <div class="no-t"><span class="e">🚶</span>A — Ambulation<i>keep moving</i></div>
+        <div class="no-t hot"><span class="e">🪑</span>N — No long sitting<i>car · airplane · bed rest</i></div>
+        <div class="no-t"><span class="e">🧦</span>T — TED &amp; SCDs<i>after the clot is resolved</i></div>
+      </div>
+      <p style="margin-top:12px"><b>Two nuances the exam cares about:</b></p>
+      <ul class="tick">
+        <li><b>Elevate the affected leg</b> to promote venous return and reduce swelling — the same rule as every venous problem. <span class="tip">SEE NG-161</span></li>
+        <li><b>About activity during the acute clot:</b> older teaching was strict <b>bed rest</b> to keep the clot from moving. <b>Current practice for most stable clients is early ambulation once therapeutic anticoagulation has been started</b>, because it does not raise PE risk and it reduces pain and swelling. Practice and orders vary — <b>follow the provider's order for your client</b>, and never ambulate a client with a new DVT who has not yet been anticoagulated without checking.</li>
+        <li><b>TEDs and SCDs go on the leg for PREVENTION</b>, and on an affected leg only once the clot is resolved or specifically ordered.</li>
+      </ul>
+      <div class="mn">🧠 <b>“CHANT it while you walk the halls.”</b> <b>C</b>alf exercise · <b>H</b>ydration · <b>A</b>mbulation · <b>N</b>o long sitting · <b>T</b>ED &amp; SCDs. Five words, one rhythm — and every one of them is the opposite of stasis.</div>
+    </div>
+
+    <div class="card deep">
+      <h3>🕸️ When drugs aren't enough: the IVC filter</h3>
+      <p><b>What it is:</b> a small mesh basket placed in the <b>inferior vena cava</b> to catch clots traveling from the legs before they reach the lungs.</p>
+      <p><b>Who gets one:</b> clients who <b>cannot take anticoagulants</b> (active bleeding, recent neurosurgery) or who keep throwing clots <i>despite</i> therapeutic anticoagulation.</p>
+      <p><b>What it does NOT do:</b> it does not dissolve clots and it does not prevent new ones from forming — it is a net, not a treatment.</p>
+      <div class="mn">🧠 <b>“A pool skimmer, not a filter for the water.”</b> It catches what floats by; it doesn't clean the pool. Anticoagulation is still the treatment whenever it's safe.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🎨 Also on this card: Raynaud's vs Buerger's</h3>
+      <table>
+        <tr><th class="up" style="width:50%">🤍 RAYNAUD'S · “R = Ring finger”</th><th class="lo" style="width:50%">🖤 BUERGER'S · “B = Black fingers &amp; toes”</th></tr>
+        <tr>
+          <td><b>Spasm</b> of small arteries in the <b>fingers</b> (and toes), triggered by <b>COLD and STRESS</b>.</td>
+          <td><b>Buerger's disease</b> (thromboangiitis obliterans) — inflammation and clotting of small and medium arteries and veins in the <b>hands and feet</b>.</td>
+        </tr>
+        <tr>
+          <td><b>Classic color sequence:</b> <b>WHITE</b> (spasm, no blood) → <b>BLUE</b> (deoxygenated) → <b>RED</b> (blood rushes back). Numbness, tingling, throbbing.</td>
+          <td><b>Tissue actually dies:</b> intense pain, claudication of the arch of the foot, cold sensitivity, ulcers, and <b>black gangrenous fingers &amp; toes</b>.</td>
+        </tr>
+        <tr>
+          <td><b>Care:</b> keep warm — gloves, warm environment, warm water; avoid cold, caffeine, nicotine; manage stress. Calcium channel blockers are commonly used vasodilators.</td>
+          <td><b>Care:</b> <span class="never">absolute, complete tobacco cessation — this is the treatment</span>. Nothing else works if the client keeps smoking. Protect and inspect the extremities; amputation if gangrene.</td>
+        </tr>
+        <tr>
+          <td>Episodic and reversible.</td>
+          <td>Progressive and destructive. <b>Strongly associated with tobacco use in younger adults.</b></td>
+        </tr>
+      </table>
+      <div class="mn">🧠 <b>“R for Ring finger goes Red-White-Blue like a flag. B for Buerger's goes Black — and B stands for Butts (cigarettes).”</b> One changes color and comes back. The other turns black and doesn't.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc rubybg"><span class="big">🐄 COWS</span><b>C</b>alf pain · <b>O</b>ne-sided swelling · <b>W</b>arm &amp; red · <b>S</b>OB + chest pain = <b>PE, call now</b>.</div>
+    <div class="rc topazbg"><span class="big">🌀 Triad</span><b>Stasis · vessel Injury · Hypercoagulability.</b> Post-op ortho client in bed = all three.</div>
+    <div class="rc citrine"><span class="big">🚫 Hands off</span>No massage, no vigorous palpation, no Homans'. <b>Look, measure, report.</b></div>
+    <div class="rc tealbg"><span class="big">🧪 WEPT</span><b>W</b>arfarin → PT/<b>INR 2.0–3.0</b> → vitamin K · <b>H</b>eparin → a<b>PTT 1.5–2.5×</b> → protamine · <b>DOAC</b> → no routine lab.</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 8 rapid-fire questions</summary>
+      <div class="qa">Q1: Name Virchow's triad. <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Venous stasis, endothelial/vessel wall injury, and hypercoagulability.</div></div>
+      <div class="qa">Q2: A post-op client has a warm, red, swollen LEFT calf that is 3 cm larger than the right. What must you NOT do? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Do not massage or vigorously palpate the calf, and do not perform a Homans' maneuver — you could dislodge the clot and cause a PE. Notify the provider; anticipate a venous duplex ultrasound.</div></div>
+      <div class="qa">Q3: Which lab monitors heparin, and what is its antidote? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">aPTT (therapeutic roughly 1.5–2.5 times the control value); antidote is protamine sulfate. Also monitor platelets for heparin-induced thrombocytopenia (HIT).</div></div>
+      <div class="qa">Q4: Which lab monitors warfarin, what is the therapeutic range for VTE, and what is the antidote? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">PT/INR; therapeutic INR 2.0–3.0 for VTE; antidote is vitamin K (phytonadione). Major bleeding may also need FFP or prothrombin complex concentrate.</div></div>
+      <div class="qa">Q5: A client on a DOAC asks when their INR will be checked. Response? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">DOACs (apixaban, rivaroxaban, edoxaban, dabigatran) do not require routine INR or aPTT monitoring — that's a major advantage. Renal function is still monitored. Reversal is idarucizumab for dabigatran and andexanet alfa for the factor Xa inhibitors.</div></div>
+      <div class="qa">Q6: Your client with a known DVT suddenly becomes short of breath with sharp chest pain and says something is very wrong. First actions? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Stay with the client and sit them up (high Fowler's), apply oxygen, then call the provider/rapid response without leaving the room. Then vitals, continuous pulse ox, cardiac monitor, IV access. Anticipate IV heparin and CT pulmonary angiography; thrombolytics for massive PE.</div></div>
+      <div class="qa">Q7: List four DVT prevention measures. <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Early ambulation (best), SCDs/intermittent pneumatic compression and graduated compression stockings, prophylactic anticoagulation, hydration — plus ankle pumps, position changes, no pillows under the knees and no leg crossing.</div></div>
+      <div class="qa">Q8: A young adult smoker has painful, cold hands and blackened fingertips. Which disease, and what is the treatment? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Buerger's disease (thromboangiitis obliterans). Complete tobacco cessation IS the treatment — no other therapy works while the client keeps smoking. Contrast with Raynaud's, which is episodic white-to-blue-to-red color change triggered by cold and stress.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">WHY CLOTS FORM</span>→
+    <span style="background:rgba(47,107,255,.7)">SPOT IT</span>→
+    <span style="background:rgba(18,184,134,.7)">TREAT &amp; PREVENT</span>
+  </div>
+  <div>NG-223 · Source wording retained · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>

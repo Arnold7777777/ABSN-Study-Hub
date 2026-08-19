@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PVD — Treatments · NG-161 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+
+/* ===== appended for the VESSEL set — components the shell lacks ===== */
+.setbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:0 0 4px;
+  padding:9px 12px;border-radius:14px;background:rgba(13,8,26,.62);border:1px solid var(--line);
+  font-size:.86rem;font-weight:800}
+.setbar .lbl{font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:#e9dcff}
+.setbar a,.setbar span.pg{padding:4px 11px;border-radius:999px;border:1px solid var(--line);
+  text-decoration:none;color:#fff;font-weight:900;background:rgba(255,255,255,.12);line-height:1.3}
+.setbar span.pg.on{background:var(--topaz);color:#231a02}
+.av{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(min(100%,255px),1fr));margin:10px 0 0}
+.av .side{border-radius:14px;padding:12px 14px;border:1px solid var(--line);font-size:.92rem;line-height:1.45}
+.av .side h4{margin:0 0 6px;font-size:1.02rem;font-weight:900;letter-spacing:.03em}
+.av .art{background:rgba(255,59,107,.55)}
+.av .ven{background:rgba(47,107,255,.58)}
+.av .side .pos{display:block;margin-top:8px;padding:7px 10px;border-radius:10px;font-weight:900;
+  background:rgba(13,8,26,.55);border:1px dashed rgba(255,255,255,.5)}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#cause">🔬 Diagnose</a>
+  <a class="c2" href="#clues">💊 Treat</a>
+  <a class="c3" href="#care">🎓 Teach</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Cardio · Pathophysiology &amp; Pharmacology</div>
+  <div class="setbar">
+    <span class="lbl">PVD set</span>
+    <a href="NG-045_pvd-patho-signs.html">← 1 · Patho &amp; Signs</a>
+    <a href="NG-127_pvd-causes-complications.html">← 2 · Causes &amp; Complications</a>
+    <span class="pg on">3 · Treatments</span>
+  </div>
+  <h1>PVD — Treatments <span class="drop">💊</span></h1>
+  <p class="sub">Peripheral Vascular Disease III · what you actually <i>do</i> about it</p>
+  <div class="chips">
+    <span class="chip id">NG-161</span>
+    <span class="chip cat">CARDIO · PHARM</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede"><b>Every treatment on this page is chosen by answering one question first: arterial or venous?</b> Arterial legs get <b>antiplatelets, statins, walking programs and DANGLING</b>. Venous legs get <b>compression, less standing and ELEVATION</b>. Give the venous treatment to an arterial leg and you can cost the client the limb.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc tealbg"><span class="big">📏 ABI ≤ 0.90 = PAD</span>Ankle-brachial index. Normal <span class="mono">1.00–1.40</span>. Lower = worse.</div>
+  <div class="rc topazbg"><span class="big">💊 “AC” = anti-clogging</span><b>A</b>SA + <b>C</b>lopidogrel keep platelets from clumping · a <b>statin</b> keeps the pipe clean.</div>
+  <div class="rc citrine"><span class="big">🅲 Avoid the C's</span><b>C</b>ross legs · <b>C</b>onstrictive clothing · <b>C</b>igarettes · <b>C</b>affeine · <b>C</b>old — plus <b>T</b>oenails by the provider only.</div>
+  <div class="rc rubybg"><span class="big">↕️ Position, again</span><b>VEINS = ELEVATE</b> (Vacuum) · <b>ARTERIES = HANG</b> (Away). Never mix them up.</div>
+</div>
+
+<!-- ============ DIAGNOSE ============ -->
+<section id="cause">
+  <div class="sec-h"><span class="icon">🔬</span><h2>DIAGNOSTICS</h2><span class="step">STEP 1 · PROVE WHICH ONE</span></div>
+  <p class="sec-sub">Before you treat, confirm the side. One cheap bedside number does most of the work.</p>
+
+  <div class="grid">
+
+    <div class="card tealc span2">
+      <h3>📏 ABI — the <mark>ankle-brachial index</mark>, the single test for PAD</h3>
+      <svg viewBox="0 0 900 430" role="img" aria-label="Diagram of how the ankle brachial index is measured with blood pressure cuffs on the arm and the ankle plus a Doppler, the formula, and a colored scale of ABI values from severe arterial disease to non compressible calcified vessels">
+        <defs>
+          <marker id="abiArr" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#00252b"/>
+          </marker>
+        </defs>
+        <rect x="6" y="6" width="888" height="418" rx="18" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.35)" stroke-width="2"/>
+        <text x="26" y="42" font-size="19" font-weight="900" fill="#9ff2ee">How it's measured — a Doppler + two cuffs</text>
+
+        <!-- arm -->
+        <rect x="40" y="76" width="150" height="42" rx="18" fill="rgba(255,255,255,.15)" stroke="#fff" stroke-width="2"/>
+        <rect x="66" y="70" width="56" height="54" rx="9" fill="#00c2c7" stroke="#eafff7" stroke-width="2"/>
+        <text x="42" y="150" font-size="15" font-weight="900" fill="#9ff2ee">BRACHIAL (arm)</text>
+        <text x="42" y="170" font-size="13" font-style="italic" fill="#d8fff0">systolic pressure, both arms</text>
+
+        <!-- ankle -->
+        <rect x="40" y="212" width="150" height="42" rx="18" fill="rgba(255,255,255,.15)" stroke="#fff" stroke-width="2"/>
+        <rect x="66" y="206" width="56" height="54" rx="9" fill="#00c2c7" stroke="#eafff7" stroke-width="2"/>
+        <circle cx="176" cy="233" r="13" fill="#ffc233" stroke="#fff" stroke-width="2"/>
+        <text x="42" y="286" font-size="15" font-weight="900" fill="#9ff2ee">ANKLE (DP &amp; PT)</text>
+        <text x="42" y="306" font-size="13" font-style="italic" fill="#d8fff0">Doppler 🔊 over dorsalis pedis</text>
+        <text x="42" y="324" font-size="13" font-style="italic" fill="#d8fff0">and posterior tibial, both legs</text>
+
+        <!-- formula -->
+        <rect x="230" y="76" width="360" height="120" rx="14" fill="rgba(255,194,51,.92)"/>
+        <text x="250" y="110" font-size="17" font-weight="900" fill="#231a02">ABI =</text>
+        <text x="316" y="104" font-size="16" font-weight="900" fill="#231a02">highest ANKLE systolic</text>
+        <line x1="312" y1="114" x2="566" y2="114" stroke="#231a02" stroke-width="3"/>
+        <text x="316" y="140" font-size="16" font-weight="900" fill="#231a02">highest ARM systolic</text>
+        <text x="250" y="172" font-size="14" font-weight="800" fill="#2b1200">Calculated for each leg separately.</text>
+
+        <text x="250" y="228" font-size="15" font-weight="900" fill="#fff">Example: ankle <tspan font-family="monospace">80</tspan> ÷ arm <tspan font-family="monospace">120</tspan> = ABI <tspan font-family="monospace">0.67</tspan></text>
+        <text x="250" y="252" font-size="14" font-style="italic" fill="#ffd9b8">→ moderate PAD. That's your claudication client.</text>
+        <text x="250" y="288" font-size="14.5" font-weight="900" fill="#a5f3d4">✅ Cheap, non-invasive, repeatable at the bedside.</text>
+        <text x="250" y="312" font-size="14" fill="#e9dcff">Rest the client supine ~5 min first; use the same cuff placement each time.</text>
+
+        <!-- scale -->
+        <text x="26" y="366" font-size="16" font-weight="900" fill="#ffc233">Interpretation scale</text>
+        <rect x="26" y="378" width="130" height="34" rx="8" fill="#7a0c25"/>
+        <rect x="156" y="378" width="220" height="34" fill="#ff3b6b"/>
+        <rect x="376" y="378" width="130" height="34" fill="#ffc233"/>
+        <rect x="506" y="378" width="240" height="34" fill="#12b886"/>
+        <rect x="746" y="378" width="128" height="34" rx="8" fill="#9d5cff"/>
+        <text x="36" y="400" font-size="12.5" font-weight="900" fill="#fff">≤0.40 SEVERE</text>
+        <text x="166" y="400" font-size="12.5" font-weight="900" fill="#fff">0.41–0.90 = PAD (claudication)</text>
+        <text x="386" y="400" font-size="12.5" font-weight="900" fill="#231a02">0.91–0.99 borderline</text>
+        <text x="516" y="400" font-size="12.5" font-weight="900" fill="#03291c">1.00–1.40 NORMAL</text>
+        <text x="756" y="400" font-size="12.5" font-weight="900" fill="#fff">&gt;1.40 rigid vessel</text>
+      </svg>
+      <ul class="tick" style="margin-top:10px">
+        <li><b><span class="mono">≤0.90</span> confirms PAD.</b> <span class="mono">≤0.40</span> = severe — expect rest pain, ulcers, tissue loss.</li>
+        <li><b><span class="mono">&gt;1.40</span> is NOT “extra healthy.”</b> It means the vessel is <b>calcified and won't compress</b> — common in long-standing diabetes and renal disease. The result is <b>unreliable</b>; the provider orders a toe-brachial index or imaging instead.</li>
+      </ul>
+      <div class="mn">🧠 <b>“One is fine, under nine is a sign, over one-four is a lie.”</b> ABI <span class="mono">1.0</span> = healthy · <span class="mono">&lt;0.90</span> = PAD · <span class="mono">&gt;1.40</span> = falsely high from stiff, calcified vessels.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🔊 Doppler &amp; duplex ultrasound — listen to the flow</h3>
+      <ul class="tick">
+        <li><b>Handheld Doppler</b> — when you cannot palpate a pulse, you listen for it. <b>Chart “Doppler-only,” never “absent,” until you've tried the Doppler.</b></li>
+        <li><b>Duplex ultrasound</b> — ultrasound + color flow. Shows <i>where</i> the narrowing is, how fast blood moves through it, and on the venous side shows <b>valve reflux</b> and <b>clot</b>.</li>
+        <li><b>Venous duplex is the go-to test for suspected DVT.</b> <span class="tip">SEE NG-223</span></li>
+      </ul>
+      <div class="mn">🧠 <b>“Duplex = double duty.”</b> One probe answers <i>both</i> questions: is the artery narrowed, and is the vein clotted or leaking backward?</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🩻 The rest of the workup</h3>
+      <ul class="tick">
+        <li><b>Segmental limb pressures</b> — cuffs up the leg localize the level of the block (thigh, calf, ankle).</li>
+        <li><b>Exercise / treadmill ABI</b> — a resting ABI can look normal; walking unmasks the drop.</li>
+        <li><b>CT angiography / MR angiography</b> — maps the vessels before a procedure.</li>
+        <li><b>Contrast angiography</b> — the invasive gold-standard map. <b>Nursing:</b> assess allergy (iodine/shellfish history) and <b>kidney function (BUN/creatinine)</b> before, hydrate after, monitor the puncture site, and <b>check distal pulses frequently</b> afterward.</li>
+      </ul>
+      <div class="mn">🧠 <b>Any test with the word “angio” = dye.</b> Dye means <b>kidneys and allergies</b> before, and <b>pulses + puncture site</b> after. That pairing is worth easy points.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TREAT ============ -->
+<section id="clues">
+  <div class="sec-h"><span class="icon">💊</span><h2>PHARMACOLOGY &amp; PROCEDURES</h2><span class="step">STEP 2 · OPEN THE PIPE</span></div>
+  <p class="sec-sub">Two drug jobs on the arterial side: stop platelets from clumping, and stop plaque from building. Then the mechanical fixes.</p>
+
+  <div class="grid">
+
+    <div class="card topaz span2">
+      <h3>💊 <mark>“AC” = Anti-Clogging of Arteries</mark> — A for ASA, C for Clopidogrel</h3>
+      <table>
+        <tr><th style="width:22%">Drug group</th><th class="up">What it does</th><th class="lo">Nursing watch-outs</th></tr>
+        <tr>
+          <td>🅰️ <b>ANTIPLATELET</b><br><i>(anti-clumping)</i><br><b>A</b>SA · aspirin<br><b>C</b>lopidogrel</td>
+          <td>Keeps platelets from <b>clumping</b> together on rough plaque. This is <b>not</b> a blood thinner in the anticoagulant sense — it stops the <i>first</i> step of clot formation.</td>
+          <td><b>⚠️ BLEEDING.</b> Teach: soft toothbrush, electric razor, no NSAID stacking, report black tarry stools, bleeding gums, unusual bruising, blood in urine. Take aspirin <b>with food</b> for GI upset; report ringing in the ears (tinnitus). Held before some procedures — <b>on provider order only</b>.</td>
+        </tr>
+        <tr>
+          <td>🧈 <b>CHOLESTEROL LOWERING</b><br><b>Statins</b> — <span class="mono">-statin</span><br>lovastatin, atorvastatin, simvastatin, rosuvastatin</td>
+          <td>Blocks the liver enzyme that makes cholesterol → LDL falls, plaque stabilizes. <i>“Stay clean.”</i></td>
+          <td><b>⚠️ LIVER TOXIC</b> — monitor LFTs, report dark urine, jaundice, RUQ pain, appetite loss.<br><b>⚠️ NO GRAPEFRUIT</b> juice — it raises drug levels and toxicity risk.<br><b>⚠️ MUSCLE:</b> report <b>unexplained muscle pain, tenderness or weakness</b> with <b>dark cola-colored urine</b> → possible rhabdomyolysis; the provider checks <b>CK</b>.<br><b>❌ Contraindicated in pregnancy.</b></td>
+        </tr>
+      </table>
+      <div class="mn">🧠 <b>“A·C keeps arteries clear — but the STATIN has 3 G's: Grapefruit ❌, Guts (liver) 🧫, and Groaning muscles 💪.”</b> If a statin client says “my legs ache and my urine looks like cola,” that is <b>not</b> claudication — that's rhabdomyolysis. Report it.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>💊 The other lipid drugs you'll see beside a statin</h3>
+      <ul class="tick">
+        <li><b>Ezetimibe</b> — blocks cholesterol <i>absorption</i> in the small intestine. Often added when a statin alone isn't enough.</li>
+        <li><b>Fibrates</b> (gemfibrozil, fenofibrate) — mainly lower <b>triglycerides</b>. Combined with a statin they raise muscle-injury risk.</li>
+        <li><b>Niacin</b> — raises HDL; causes <b>flushing</b>. Flushing is uncomfortable, not dangerous.</li>
+        <li><b>Bile acid sequestrants</b> (cholestyramine, colesevelam) — bind bile in the gut. Cause <b>constipation</b>, and can block absorption of other drugs, so they are <b>separated in time</b> from other medications.</li>
+      </ul>
+      <div class="mn">🧠 <b>“Statin stops making it · Ezetimibe stops absorbing it · Sequestrant sticks to it · Fibrate fights fat (triglycerides) · Niacin flushes.”</b> Five drugs, five verbs.</div>
+    </div>
+
+    <div class="card emerald">
+      <h3>💊 Drugs aimed at the symptom, not the plaque</h3>
+      <ul class="tick">
+        <li><b>Cilostazol</b> — improves walking distance in <b>intermittent claudication</b> (vasodilation + antiplatelet effect). <b>❌ Contraindicated in heart failure.</b> Takes weeks to show benefit — teach the client not to quit early.</li>
+        <li><b>Pentoxifylline</b> — makes red cells more flexible so blood flows through narrow vessels more easily.</li>
+        <li><b>Antihypertensives / glucose control</b> — treat the risk factors that keep the plaque growing.</li>
+      </ul>
+      <p><b>Venous side:</b> there is no “statin for veins.” If a clot forms, the drugs are <b>anticoagulants</b> — heparin, warfarin, DOACs. <span class="tip">SEE NG-223</span></p>
+      <div class="mn">🧠 <b>“Cilostazol = Can't-in-CHF.”</b> Both start with C. If the stem says heart failure, that drug is the wrong answer.</div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>🛠️ INTERVENTIONS — mechanical ways to reopen or reroute</h3>
+      <svg viewBox="-10 -10 1782 320" role="img" aria-label="Three step diagram of percutaneous transluminal angioplasty: a balloon catheter is threaded to the plaque, inflated to flatten the plaque, and a stent is left behind to hold the artery open">
+        <defs>
+          <marker id="stArr" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/>
+          </marker>
+        </defs>
+        <rect x="-6" y="-6" width="1774" height="312" rx="18" fill="rgba(47,107,255,.2)" stroke="#2f6bff" stroke-width="2"/>
+        <text x="26" y="42" font-size="18" font-weight="900" fill="#bcd0ff">Angioplasty + stent — open it from the inside</text>
+
+        <!-- step 1 -->
+        <rect x="26" y="66" width="262" height="96" rx="16" fill="#8d2340" stroke="#ffd0bd" stroke-width="2.5"/>
+        <rect x="38" y="90" width="238" height="48" rx="16" fill="#ff3b6b"/>
+        <path d="M150 90 h96 a10 10 0 0 1 0 22 c-30 8 -66 -4 -96 4 z" fill="#ffc233"/>
+        <path d="M38 116 h96" stroke="#e9dcff" stroke-width="6" stroke-linecap="round" marker-end="url(#stArr)"/>
+        <text x="26" y="186" font-size="15" font-weight="900" fill="#ffc233">1 · Thread the catheter</text>
+        <text x="26" y="206" font-size="13" fill="#e3ecff">Usually via the femoral artery,</text>
+        <text x="26" y="224" font-size="13" fill="#e3ecff">guided to the plaque.</text>
+
+        <!-- step 2 -->
+        <rect x="316" y="66" width="262" height="96" rx="16" fill="#8d2340" stroke="#ffd0bd" stroke-width="2.5"/>
+        <rect x="328" y="90" width="238" height="48" rx="16" fill="#ff3b6b"/>
+        <path d="M440 90 h96 a10 10 0 0 1 0 12 c-30 4 -66 -2 -96 2 z" fill="#ffc233"/>
+        <path d="M440 138 h96 a10 10 0 0 0 0 -12 c-30 -4 -66 2 -96 -2 z" fill="#ffc233"/>
+        <ellipse cx="486" cy="114" rx="52" ry="18" fill="rgba(255,255,255,.85)" stroke="#00c2c7" stroke-width="3"/>
+        <text x="316" y="186" font-size="15" font-weight="900" fill="#ffc233">2 · Inflate the balloon</text>
+        <text x="316" y="206" font-size="13" fill="#e3ecff">The plaque is squashed flat</text>
+        <text x="316" y="224" font-size="13" fill="#e3ecff">against the vessel wall.</text>
+
+        <!-- step 3 -->
+        <rect x="606" y="66" width="268" height="96" rx="16" fill="#8d2340" stroke="#ffd0bd" stroke-width="2.5"/>
+        <rect x="618" y="90" width="244" height="48" rx="16" fill="#ff3b6b"/>
+        <g stroke="#e9dcff" stroke-width="4">
+          <path d="M700 92 v44"/><path d="M720 92 v44"/><path d="M740 92 v44"/><path d="M760 92 v44"/><path d="M780 92 v44"/>
+          <path d="M696 94 h88"/><path d="M696 134 h88"/>
+        </g>
+        <text x="606" y="186" font-size="15" font-weight="900" fill="#ffc233">3 · Leave the stent</text>
+        <text x="606" y="206" font-size="13" fill="#e3ecff">A mesh scaffold holds the</text>
+        <text x="606" y="224" font-size="13" fill="#e3ecff">lumen open. Antiplatelets after.</text>
+
+        <rect x="26" y="242" width="848" height="42" rx="12" fill="rgba(255,194,51,.9)"/>
+        <text x="46" y="270" font-size="15.5" font-weight="900" fill="#231a02">🩺 AFTER any revascularization: check pulses distal to the site FREQUENTLY, mark the spot, and report a limb that turns cold, pale or pulseless IMMEDIATELY — the graft or stent may have clotted.</text>
+      </svg>
+      <table style="margin-top:12px">
+        <tr><th class="up" style="width:50%">🩸 ARTERIAL procedures</th><th class="lo" style="width:50%">🫙 VENOUS procedures</th></tr>
+        <tr>
+          <td><b>Angioplasty ± stent</b> — balloon opens, mesh holds.<br><b>Atherectomy</b> — shaves the plaque out.<br><b>Bypass graft</b> (e.g. femoral-popliteal) — reroutes blood around the block.<br><b>Endarterectomy</b> — surgeon strips plaque out of the vessel, classically the <b>carotid</b>.<br><b>Amputation</b> — last resort for gangrene.</td>
+          <td><b>Sclerotherapy</b> — injected agent scars a varicose vein closed.<br><b>Endovenous ablation</b> — laser/radiofrequency seals the vein.<br><b>Vein ligation &amp; stripping</b> — the vein is tied off and removed.<br><b>Debridement + moist wound care</b> for stasis ulcers.<br><b>Compression therapy</b> — the backbone of every venous plan.</td>
+        </tr>
+        <tr>
+          <td><b>Post-op priority:</b> <span class="never">pulse, color, temperature, movement &amp; sensation distal to the graft</span>. Avoid knee flexion, crossing legs, prolonged sitting, and pressure on the graft.</td>
+          <td><b>Post-op priority:</b> <span class="never">elevate the legs, apply compression as ordered, and get them AMBULATING early</span> — walking is the venous pump.</td>
+        </tr>
+      </table>
+      <div class="mn">🧠 <b>“Arterial post-op = FEEL the foot. Venous post-op = LIFT the leg and WALK.”</b> Same surgery day, opposite nursing focus.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TEACH ============ -->
+<section id="care">
+  <div class="sec-h"><span class="icon">🎓</span><h2>POSITIONING &amp; TEACHING</h2><span class="step">STEP 3 · THE PART THEY TEST</span></div>
+  <p class="sec-sub">If you only memorize one thing from all three pages, memorize the direction of the legs.</p>
+
+  <div class="grid">
+
+    <div class="card deep span2">
+      <h3>⭐ <mark>VEINS = ELEVATE (Vacuum) · ARTERIES = HANG (Away)</mark></h3>
+      <svg viewBox="-10 -10 987 440" role="img" aria-label="Side by side positioning diagram: a client with arterial disease sitting with the legs hanging down off the bed, and a client with venous disease lying with the legs elevated on pillows above heart level, with the reason for each">
+        <defs>
+          <marker id="posDn" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#231a02"/>
+          </marker>
+          <marker id="posUp" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#03291c"/>
+          </marker>
+        </defs>
+
+        <!-- ARTERIAL panel -->
+        <rect x="8" y="8" width="436" height="404" rx="18" fill="rgba(255,59,107,.18)" stroke="#ff3b6b" stroke-width="2.5"/>
+        <text x="28" y="46" font-size="22" font-weight="900" fill="#ff9db4">🩸 ARTERIAL / PAD</text>
+        <text x="28" y="72" font-size="15" font-style="italic" fill="#ffd9e2">blood needs help getting DOWN into the foot</text>
+
+        <!-- bed + dangling legs -->
+        <rect x="40" y="150" width="230" height="16" rx="8" fill="#efe6ff"/>
+        <rect x="46" y="166" width="14" height="46" rx="5" fill="#efe6ff"/>
+        <rect x="252" y="166" width="14" height="46" rx="5" fill="#efe6ff"/>
+        <path d="M120 150 L120 100 L180 100 L180 150 Z" fill="rgba(255,255,255,.25)"/>
+        <circle cx="150" cy="84" r="20" fill="#ffd0bd"/>
+        <path d="M180 130 L246 130 L250 150 L184 152 Z" fill="#ffd0bd"/>
+        <path d="M246 150 L268 150 L282 240 L258 246 Z" fill="#ffd0bd"/>
+        <ellipse cx="276" cy="252" rx="26" ry="12" fill="#ffd0bd"/>
+        <path d="M310 160 L310 250" stroke="#ffc233" stroke-width="8" stroke-linecap="round" marker-end="url(#posDn)"/>
+        <text x="326" y="200" font-size="16" font-weight="900" fill="#ffc233">GRAVITY</text>
+        <text x="326" y="222" font-size="16" font-weight="900" fill="#ffc233">HELPS PUSH</text>
+        <text x="326" y="244" font-size="16" font-weight="900" fill="#ffc233">BLOOD IN</text>
+
+        <rect x="28" y="278" width="396" height="120" rx="14" fill="rgba(255,194,51,.92)"/>
+        <text x="48" y="308" font-size="19" font-weight="900" fill="#231a02">⬇️ DANGLE / HANG the legs</text>
+        <text x="48" y="332" font-size="14.5" font-weight="800" fill="#2b1200">Sit with feet on the floor · legs off the bed edge</text>
+        <text x="48" y="354" font-size="14.5" font-weight="800" fill="#2b1200">Keep the leg WARM (socks, blanket) — never a heating pad</text>
+        <text x="48" y="378" font-size="14.5" font-weight="900" fill="#7a0c25">❌ NO elevation · ❌ NO compression stockings</text>
+
+        <!-- VENOUS panel -->
+        <rect x="456" y="8" width="436" height="404" rx="18" fill="rgba(47,107,255,.2)" stroke="#2f6bff" stroke-width="2.5"/>
+        <text x="476" y="46" font-size="22" font-weight="900" fill="#bcd0ff">🫙 VENOUS / CVI</text>
+        <text x="476" y="72" font-size="15" font-style="italic" fill="#e3ecff">blood needs help getting OUT and back up</text>
+
+        <!-- bed + elevated legs -->
+        <rect x="488" y="200" width="300" height="16" rx="8" fill="#efe6ff"/>
+        <rect x="494" y="216" width="14" height="40" rx="5" fill="#efe6ff"/>
+        <rect x="770" y="216" width="14" height="40" rx="5" fill="#efe6ff"/>
+        <circle cx="512" cy="182" r="19" fill="#ffd0bd"/>
+        <path d="M530 176 L640 178 L640 200 L530 198 Z" fill="#ffd0bd"/>
+        <path d="M640 178 L716 140 L730 158 L648 200 Z" fill="#ffd0bd"/>
+        <ellipse cx="734" cy="140" rx="24" ry="12" fill="#ffd0bd"/>
+        <path d="M660 200 q40 -16 78 -30 l6 24 q-40 12 -78 26 z" fill="#00c2c7" opacity=".8"/>
+        <text x="640" y="238" font-size="13" font-weight="900" fill="#9ff2ee">pillows under the calves</text>
+        <path d="M816 250 L816 150" stroke="#a5f3d4" stroke-width="8" stroke-linecap="round" marker-end="url(#posUp)"/>
+        <text x="480" y="120" font-size="16" font-weight="900" fill="#a5f3d4">ABOVE the level</text>
+        <text x="480" y="142" font-size="16" font-weight="900" fill="#a5f3d4">of the HEART 🫀</text>
+
+        <rect x="474" y="278" width="400" height="120" rx="14" fill="rgba(18,184,134,.92)"/>
+        <text x="494" y="308" font-size="19" font-weight="900" fill="#03291c">⬆️ ELEVATE the legs</text>
+        <text x="494" y="332" font-size="14.5" font-weight="800" fill="#032b1e">Above heart level · pillows under the calves, not the knee</text>
+        <text x="494" y="354" font-size="14.5" font-weight="800" fill="#032b1e">Compression stockings ✅ · LIMIT prolonged STANDING</text>
+        <text x="494" y="378" font-size="14.5" font-weight="900" fill="#0a3d2c">❌ don't dangle · ❌ don't cross the legs</text>
+      </svg>
+      <p style="margin-top:10px"><b>Straight from the source:</b> <i>“PVD with varicose veins — wear compression socks &amp; limit standing to aid with blood return to the heart.”</i> Compression + elevation + movement are the entire venous plan.</p>
+      <div class="mn">🧠 <b>“Veins Vacuum UP ⬆️ · Arteries carry blood AWAY, so let them HANG ⬇️.”</b> <b>V</b> for <b>V</b>acuum and the <b>V</b> shape points <i>up</i>. <b>A</b> for <b>A</b>way and the leg goes <i>down</i>. Say it before you answer any position question.</div>
+    </div>
+
+    <div class="card garnet span2">
+      <h3>🅲 AVOID the C's — everything that CONSTRICTS or CHILLS the vessel</h3>
+      <div class="no-grid">
+        <div class="no-t hot"><span class="e">🦵</span>C — Cross legs<i>kinks the flow</i></div>
+        <div class="no-t hot"><span class="e">👖</span>C — Constrictive clothing<i>tight socks, garters, belts</i></div>
+        <div class="no-t hot"><span class="e">🚬</span>C — Cigarettes<i>scars + vasoconstricts</i></div>
+        <div class="no-t hot"><span class="e">☕</span>C — Caffeine<i>vasoconstricts</i></div>
+        <div class="no-t hot"><span class="e">🥶</span>C — Cold temperatures<i>vasoconstricts</i></div>
+        <div class="no-t"><span class="e">💅</span>T — Toenails<i>trimmed ONLY by the provider / podiatrist</i></div>
+      </div>
+      <p style="margin-top:12px"><b>Every C does the same thing: it makes an already-narrow vessel narrower.</b> The T is different — it prevents a wound that a poorly perfused foot cannot heal.</p>
+      <ul class="tick">
+        <li>🚭 <b>Smoking cessation is the single most important teaching point</b> in arterial disease. Nothing else on the list comes close.</li>
+        <li>🧦 Keep the feet <b>warm with socks and blankets</b> — warmth by clothing, <span class="never">never by heating pad, hot water bottle, or hot soaks</span>. Neuropathy means they can't feel a burn.</li>
+        <li>👟 Well-fitting closed shoes, <span class="never">never barefoot</span>, and inspect inside the shoe before putting it on.</li>
+      </ul>
+      <div class="mn">🧠 <b>“5 C's and a T.”</b> <b>C</b>ross · <b>C</b>onstrict · <b>C</b>igarettes · <b>C</b>affeine · <b>C</b>old — then <b>T</b>oenails by the doctor. Chant it as a rhythm: <i>“cross, constrict, cigarettes, caffeine, cold — toenails told.”</i></div>
+    </div>
+
+    <div class="card emerald">
+      <h3>🚶 The walking program — pain is the dose, not the danger</h3>
+      <svg viewBox="-10 -10 463 270" role="img" aria-label="Cycle diagram of a claudication walking program: walk until moderate pain, stop and rest until the pain goes, then walk again, repeated in sessions several times a week to build collateral circulation">
+        <rect x="-6" y="-6" width="455" height="262" rx="16" fill="rgba(18,184,134,.22)" stroke="#12b886" stroke-width="2"/>
+        <text x="20" y="34" font-size="16" font-weight="900" fill="#a5f3d4">Walk → pain → rest → repeat</text>
+        <circle cx="220" cy="140" r="76" fill="none" stroke="#a5f3d4" stroke-width="4" stroke-dasharray="10 8"/>
+        <rect x="146" y="52" width="150" height="42" rx="11" fill="rgba(13,8,26,.7)" stroke="#a5f3d4"/>
+        <text x="162" y="79" font-size="14" font-weight="900" fill="#eafff7">🚶 WALK</text>
+        <rect x="300" y="118" width="126" height="44" rx="11" fill="rgba(255,194,51,.9)"/>
+        <text x="312" y="138" font-size="13.5" font-weight="900" fill="#231a02">😖 to MODERATE</text>
+        <text x="312" y="155" font-size="13.5" font-weight="900" fill="#231a02">claudication pain</text>
+        <rect x="146" y="188" width="150" height="42" rx="11" fill="rgba(13,8,26,.7)" stroke="#a5f3d4"/>
+        <text x="160" y="215" font-size="14" font-weight="900" fill="#eafff7">🪑 REST until it eases</text>
+        <rect x="16" y="118" width="122" height="44" rx="11" fill="rgba(13,8,26,.7)" stroke="#a5f3d4"/>
+        <text x="30" y="138" font-size="13.5" font-weight="900" fill="#eafff7">🔁 GO AGAIN</text>
+        <text x="30" y="155" font-size="13.5" font-weight="900" fill="#eafff7">same session</text>
+        <text x="176" y="146" font-size="15" font-weight="900" fill="#ffc233">builds</text>
+        <text x="160" y="166" font-size="15" font-weight="900" fill="#ffc233">COLLATERALS</text>
+      </svg>
+      <p style="margin-top:9px">A supervised walking program is <b>first-line therapy</b> for stable claudication. Walking repeatedly to the point of moderate pain stimulates <b>collateral vessels</b> — the body's own bypass. Done regularly over weeks, pain-free walking distance increases.</p>
+      <p><b>Stop and report instead of pushing through</b> if pain becomes <b>rest pain</b>, or the foot turns cold, numb or pale — that's ischemia, not exercise.</p>
+      <div class="mn">🧠 <b>“Walk to the pain, not through the pain.”</b> Claudication pain during a program is expected and therapeutic. <b>Rest pain is never therapeutic</b> — it gets reported.</div>
+    </div>
+
+    <div class="card tealc">
+      <h3>🧦 Compression stockings — right leg, right way, right time</h3>
+      <svg viewBox="-10 -10 510 270" role="img" aria-label="Compression stocking teaching: a green check for venous insufficiency and a red cross for arterial disease, plus how to apply them in the morning before the leg swells">
+        <rect x="-6" y="-6" width="502" height="262" rx="16" fill="rgba(13,8,26,.55)" stroke="rgba(255,255,255,.35)" stroke-width="2"/>
+        <path d="M64 40 L110 40 L118 150 L112 190 L64 190 L58 150 Z" fill="#12b886" stroke="#eafff7" stroke-width="2.5"/>
+        <path d="M64 190 L112 190 L114 212 C114 222 104 226 90 226 L54 226 C46 226 44 218 50 212 Z" fill="#12b886" stroke="#eafff7" stroke-width="2.5"/>
+        <text x="46" y="248" font-size="0" fill="#fff"> </text>
+        <circle cx="140" cy="52" r="20" fill="#12b886" stroke="#fff" stroke-width="2.5"/>
+        <path d="M130 52 l7 8 l14 -16" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+        <text x="168" y="46" font-size="15.5" font-weight="900" fill="#a5f3d4">✅ VENOUS (CVI)</text>
+        <text x="168" y="66" font-size="13" fill="#d8fff0">squeezes pooled blood back UP</text>
+
+        <path d="M250 40 L296 40 L304 150 L298 190 L250 190 L244 150 Z" fill="#ff3b6b" stroke="#ffe3ea" stroke-width="2.5"/>
+        <path d="M250 190 L298 190 L300 212 C300 222 290 226 276 226 L240 226 C232 226 230 218 236 212 Z" fill="#ff3b6b" stroke="#ffe3ea" stroke-width="2.5"/>
+        <circle cx="326" cy="52" r="20" fill="#c02255" stroke="#fff" stroke-width="2.5"/>
+        <path d="M318 44 l16 16 M334 44 l-16 16" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+        <text x="354" y="46" font-size="15.5" font-weight="900" fill="#ff9db4">❌ ARTERIAL</text>
+        <text x="354" y="66" font-size="13" fill="#ffd9e2">squeezing a starving</text>
+        <text x="354" y="84" font-size="13" fill="#ffd9e2">limb makes it worse</text>
+
+        <rect x="168" y="104" width="256" height="120" rx="12" fill="rgba(255,194,51,.9)"/>
+        <text x="182" y="130" font-size="14" font-weight="900" fill="#231a02">🌅 Apply in the MORNING,</text>
+        <text x="182" y="150" font-size="14" font-weight="900" fill="#231a02">    before getting out of bed</text>
+        <text x="182" y="172" font-size="13" font-weight="800" fill="#2b1200">— before the leg has time to swell.</text>
+        <text x="182" y="196" font-size="13" font-weight="800" fill="#2b1200">Smooth, no rolling or bunching.</text>
+        <text x="182" y="216" font-size="13" font-weight="800" fill="#2b1200">Remove at night · inspect the skin.</text>
+      </svg>
+      <ul class="tick" style="margin-top:10px">
+        <li><b>Confirm arterial supply first</b> — compression on an arterial leg can cause tissue death. <b>ABI is what tells you it's safe.</b></li>
+        <li><b>Correctly sized and measured</b> — a stocking that rolls down becomes a tourniquet.</li>
+        <li><b>Inspect skin and pulses</b> each time they come off.</li>
+      </ul>
+      <div class="mn">🧠 <b>“Stockings before standing.”</b> Put them on <i>before</i> the legs fill up — once the leg is swollen, the stocking is both harder to apply and less effective.</div>
+    </div>
+
+    <div class="card citrinec span2">
+      <h3>👣 Foot care teaching — the checklist that saves the limb</h3>
+      <ul class="tick">
+        <li>🔍 <b>Inspect both feet daily</b>, including <b>between the toes</b> and the soles (a mirror helps). Report any new redness, blister, crack or sore <b>the same day</b>.</li>
+        <li>🧼 <b>Wash with mild soap and lukewarm water</b> — <b>test the water with a thermometer or the elbow</b>, never with the foot. Pat dry, especially between the toes.</li>
+        <li>🧴 <b>Lotion on the tops and bottoms — not between the toes</b> (moisture there breeds fungus and breakdown).</li>
+        <li>💅 <b>Toenails trimmed straight across by the provider or podiatrist.</b> <span class="never">Never let the client cut their own corns or calluses, and never use over-the-counter corn removers.</span></li>
+        <li>👟 <b>Well-fitting, closed-toe shoes with clean seamless socks.</b> <span class="never">Never barefoot, never brand-new shoes for a long day.</span></li>
+        <li>🚭 <b>Stop smoking</b> — repeat it every visit. It is the intervention with the biggest effect.</li>
+      </ul>
+      <div class="mn">🧠 <b>“Look, wash, dry, grease, but not between; nails by the pro; shoes always on.”</b> Six habits. A client who does all six rarely reaches the amputation ladder on page 2.</div>
+    </div>
+
+    <div class="card deep span2">
+      <h3>📚 The PVD set, in one line each</h3>
+      <div class="setbar">
+        <span class="lbl">PVD set</span>
+        <a href="NG-045_pvd-patho-signs.html">← 1 · Patho &amp; Signs</a>
+        <a href="NG-127_pvd-causes-complications.html">← 2 · Causes &amp; Complications</a>
+        <span class="pg on">3 · Treatments</span>
+        <a href="NG-223_dvt-deep-vein-thrombosis.html">＋ DVT →</a>
+      </div>
+      <ul class="tick" style="margin-top:12px">
+        <li><b>Page 1 — Patho &amp; Signs:</b> arteries can't get blood IN (cool, pale, pulseless, toe ulcers, claudication) · veins can't get blood OUT (warm, brown, swollen, medial ankle ulcers, aching).</li>
+        <li><b>Page 2 — Causes &amp; Complications:</b> risk factors scar the lining → plaque → rupture → limb ischemia, MI, stroke · venous pooling → stasis ulcer, DVT, PE.</li>
+        <li><b>Page 3 — Treatments (here):</b> ABI proves which side · antiplatelet + statin + walking + revascularization for arterial · compression + elevation + less standing for venous.</li>
+      </ul>
+      <div class="mn">🧠 <b>Three pages, one sentence:</b> <i>find out which pipe is broken, then push blood the direction that pipe can't.</i></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc tealbg"><span class="big">📏 ABI</span>Ankle ÷ arm systolic. <b><span class="mono">1.00–1.40</span> normal · <span class="mono">≤0.90</span> = PAD · <span class="mono">≤0.40</span> severe · <span class="mono">&gt;1.40</span> calcified &amp; unreliable</b>.</div>
+    <div class="rc topazbg"><span class="big">💊 A · C · statin</span><b>A</b>SA + <b>C</b>lopidogrel = anti-clumping (bleeding risk) · statin = <b>liver toxic, NO grapefruit, muscle pain + dark urine → report</b>.</div>
+    <div class="rc citrine"><span class="big">🅲 5 C's + T</span><b>C</b>ross · <b>C</b>onstrict · <b>C</b>igarettes · <b>C</b>affeine · <b>C</b>old · <b>T</b>oenails by the provider only.</div>
+    <div class="rc rubybg"><span class="big">↕️ Direction</span><b>VEINS = ELEVATE ⬆️ (Vacuum) · ARTERIES = HANG ⬇️ (Away).</b> Compression = venous only.</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 7 rapid-fire questions</summary>
+      <div class="qa">Q1: The ankle systolic is 90 and the highest arm systolic is 120. What is the ABI and what does it mean? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">90 ÷ 120 = 0.75 → PAD in the mild-to-moderate range (0.41–0.90). Expect intermittent claudication.</div></div>
+      <div class="qa">Q2: A client with long-standing diabetes has an ABI of 1.6. Is their circulation excellent? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">No. Above 1.40 means the vessels are calcified and won't compress, so the reading is falsely high and unreliable. Expect the provider to order a toe-brachial index or imaging.</div></div>
+      <div class="qa">Q3: A client on lovastatin reports aching thighs and dark, cola-colored urine. What do you do? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Hold the next dose and report immediately — this suggests rhabdomyolysis/myopathy. Anticipate a CK level. Also reinforce: no grapefruit juice, and report jaundice or RUQ pain (hepatotoxicity).</div></div>
+      <div class="qa">Q4: A client with an ABI of 0.5 asks to wear their spouse's compression stockings for the swelling. Response? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">No. Compression is contraindicated in arterial insufficiency — squeezing an already-starved limb worsens ischemia. Compression is a VENOUS therapy, and only after adequate arterial supply is confirmed.</div></div>
+      <div class="qa">Q5: Which client dangles the legs and which elevates them? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">ARTERIAL/PAD dangles — hang the legs down so gravity pushes blood into the foot. VENOUS/CVI elevates above heart level so gravity drains the pooled blood back to the heart.</div></div>
+      <div class="qa">Q6: Name the C's to avoid and the T. <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Cross legs, Constrictive clothing, Cigarettes, Caffeine, Cold temperatures — and Toenails trimmed only by the provider/podiatrist.</div></div>
+      <div class="qa">Q7: The client says walking makes their calf cramp, so they've stopped walking. Correct? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">No. A walking program is first-line therapy: walk to the point of moderate claudication pain, rest until it eases, then walk again. Repeated over weeks it builds collateral circulation and increases pain-free distance. Rest pain, or a foot that turns cold/pale/numb, is different — that gets reported.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">DIAGNOSE</span>→
+    <span style="background:rgba(47,107,255,.7)">TREAT</span>→
+    <span style="background:rgba(18,184,134,.7)">TEACH</span>
+  </div>
+  <div>NG-161 · PVD set page 3 of 3 · Source wording retained · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>

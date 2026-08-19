@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Heart Defects — ASD, VSD, PDA, AVSD · NG-151 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+
+/* ---- appended for the congenital heart defect series (group D) ---- */
+nav a.c5{background:rgba(0,194,199,.72);color:#00252b}
+#base .sec-h h2{color:#9ff2ee} #base .step{background:var(--teal);color:#00252b}
+#care2 .sec-h h2{color:#ffd9b8} #care2 .step{background:var(--citrine);color:#2b1200}
+.legendrow{display:flex;gap:9px;flex-wrap:wrap;margin:11px 0 0;font-size:.84rem;font-weight:800}
+.legendrow span{padding:5px 11px;border-radius:9px;background:rgba(13,8,26,.55);
+  border:1px solid var(--line);display:flex;align-items:center;gap:7px}
+.sw{display:inline-block;width:15px;height:15px;border-radius:4px;border:1px solid rgba(255,255,255,.6)}
+.klass{display:grid;gap:8px;margin:10px 0 0}
+.kl{display:flex;gap:12px;align-items:flex-start;border-radius:13px;padding:10px 13px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.kl b.tagn{flex:0 0 96px;font-size:.86rem;letter-spacing:.06em;text-transform:uppercase;padding-top:2px}
+.kl .acy{color:#ffe49a}.kl .cya{color:#c9a8ff}.kl .obs{color:#ffc0a0}.kl .mix{color:#9ff2ee}
+nav a.c6{background:rgba(255,138,61,.75);color:#2b1200}
+.setbar{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin:4px 0 16px;font-size:.82rem}
+.setbar .setlabel{font-weight:900;letter-spacing:.08em;color:#ffe49a;margin-right:2px}
+.setbar a{font-weight:800;padding:4px 11px;border-radius:999px;border:1px solid var(--line);
+  background:rgba(13,8,26,.5);color:#dbe8ff;text-decoration:none}
+.setbar a.cur{background:var(--topaz);color:#231a02;border-color:transparent;cursor:default}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c5" href="#base">🫀 Base heart</a>
+  <a class="c1" href="#cause">🕳️ The 4 holes</a>
+  <a class="c2" href="#clues">🔎 Clues</a>
+  <a class="c3" href="#care">🩺 Care</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Cardio · Congenital Heart Defects IV · NUR 235 Peds</div>
+  <div class="setbar"><span class="setlabel">🫀 HEART DEFECTS SET</span>
+  <a class="cur" href="NG-151_heart-defects-asd-vsd-pda-avsd.html">NG-151 ASD·VSD·PDA·AVSD</a>
+  <a href="NG-118_heart-defects-tetralogy-of-fallot.html">NG-118 Tetralogy of Fallot</a>
+  <a href="NG-183_heart-defects-stenosis-coa.html">NG-183 Stenosis &amp; Coarctation</a>
+  <a href="NG-201_heart-defects-surgery-chest-tubes.html">NG-201 Surgery &amp; Chest Tubes</a></div>
+  <h1>ASD · VSD · PDA · AVSD <span class="drop">🕳️</span></h1>
+  <p class="sub">The four LEFT-to-RIGHT shunts — the ACYANOTIC group</p>
+  <div class="chips">
+    <span class="chip id">NG-151</span>
+    <span class="chip cat">CARDIO · PEDS</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede">Four holes in four places, <b>one story</b>: the strong left side pushes blood
+  <b>back into the right side</b> → <b>too much blood to the lungs</b> → a <b>murmur</b>, a baby who
+  <b>sweats while feeding</b>, <b>can't gain weight</b>, and slides into <b>heart failure &amp; pulmonary
+  hypertension</b>. The baby stays <i>pink</i> — that is why this group is called <b>ACYANOTIC</b>.</p>
+</header>
+
+<div class="recall">
+  <div class="rc citrine"><span class="big">➡️ LEFT → RIGHT</span>Strong left side pushes into the weak right side. Blood goes <b>back to the lungs</b>, not out to the body.</div>
+  <div class="rc tealbg"><span class="big">💗 Pink, not blue</span><b>ACYANOTIC.</b> No cyanosis early — the blood still reaches the lungs. Blue = a different group.</div>
+  <div class="rc rubybg"><span class="big">💦 Sweats while feeding</span>Diaphoresis with feeds + <b>poor weight gain</b> + murmur = the classic peds shunt baby.</div>
+  <div class="rc topazbg"><span class="big">🚨 Ends in HF + pulm HTN</span>Increased risk of <b>heart failure</b> and <b>pulmonary hypertension</b> if it is not fixed.</div>
+</div>
+
+<section id="base">
+  <div class="sec-h"><span class="icon">🫀</span><h2>THE BASE HEART</h2><span class="step">STEP 0 · LEARN THIS ONCE</span></div>
+  <p class="sec-sub">Every page in this set draws on this exact same picture. Learn the normal first — a defect is only a change to one line of it.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🫀 The normal heart — the drawing all four pages share</h3>
+<svg viewBox="0 0 780 580" role="img" aria-label="Labeled cross-section of a normal heart. Superior and inferior vena cava carry oxygen-poor blue blood into the right atrium, through the tricuspid valve into the right ventricle, through the pulmonic valve into the pulmonary artery to the lungs. Pulmonary veins return oxygen-rich red blood to the left atrium, through the mitral valve to the left ventricle, through the aortic valve into the aorta, up to the head and arms and down to the body. Numbered badges one through eight follow the path of the blood."><defs><marker id="mbB1" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="30" markerHeight="30" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#9cc2ff"/></marker><marker id="mrB1" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="30" markerHeight="30" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffb3c6"/></marker><marker id="myB1" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="24" markerHeight="24" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/></marker><marker id="mvB1" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="24" markerHeight="24" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#c9a8ff"/></marker><marker id="msB1" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffb3c6"/></marker><marker id="nbB1" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="17" markerHeight="17" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#dbe8ff"/></marker><marker id="nrB1" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="17" markerHeight="17" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffdbe4"/></marker><linearGradient id="grB1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a83ff"/><stop offset="1" stop-color="#2a52bd"/></linearGradient><linearGradient id="glB1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff5c86"/><stop offset="1" stop-color="#b81f4f"/></linearGradient></defs><rect x="8" y="8" width="764" height="564" rx="20" fill="rgba(13,8,26,.55)" stroke="rgba(255,255,255,.28)" stroke-width="2"/><text x="28" y="46" font-size="20" font-weight="900" fill="#ffe49a">NORMAL HEART — the base drawing</text><text x="28" y="70" font-size="14" font-style="italic" fill="#efe6ff">follow the numbers 1 → 8 · this same picture is under every defect</text><path d="M682 236 L500 236" fill="none" stroke="url(#glB1)" stroke-width="26" stroke-linecap="round" marker-end="url(#mrB1)"/><text x="520" y="208" font-size="15" font-weight="900" fill="#ffb3c6">PULMONARY VEINS</text><text x="520" y="266" font-size="13.5" font-style="italic" fill="#ffd9e2">from the lungs · O₂-rich</text><rect x="190" y="170" width="130" height="112" rx="18" fill="url(#grB1)" stroke="#cfe0ff" stroke-width="2.5"/><rect x="180" y="306" width="140" height="164" rx="20" fill="url(#grB1)" stroke="#cfe0ff" stroke-width="2.5"/><rect x="360" y="170" width="130" height="112" rx="18" fill="url(#glB1)" stroke="#ffd0dc" stroke-width="2.5"/><rect x="360" y="306" width="150" height="164" rx="20" fill="url(#glB1)" stroke="#ffd0dc" stroke-width="2.5"/><rect x="320" y="166" width="40" height="120" rx="10" fill="#e9dcff" stroke="#fff" stroke-width="2"/><rect x="320" y="302" width="40" height="172" rx="10" fill="#e9dcff" stroke="#fff" stroke-width="2"/><path d="M238 288 L270 306 M302 288 L272 306" stroke="#ffe49a" stroke-width="6" stroke-linecap="round" fill="none"/><path d="M398 288 L430 306 M462 288 L432 306" stroke="#ffe49a" stroke-width="6" stroke-linecap="round" fill="none"/><path d="M232 314 L250 300 L268 314" fill="none" stroke="#ffe49a" stroke-width="5.5" stroke-linecap="round"/><path d="M452 314 L470 300 L488 314" fill="none" stroke="#ffe49a" stroke-width="5.5" stroke-linecap="round"/><text x="192" y="332" font-size="13" font-weight="800" fill="#ffe49a">tricuspid valve</text><text x="364" y="332" font-size="13" font-weight="800" fill="#ffe49a">mitral valve</text><text x="192" y="352" font-size="13" font-weight="800" fill="#ffe49a">pulmonic valve</text><text x="364" y="352" font-size="13" font-weight="800" fill="#ffe49a">aortic valve</text><path d="M104 106 L104 196 L192 196" fill="none" stroke="url(#grB1)" stroke-width="32" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#mbB1)"/><text x="104" y="92" text-anchor="middle" font-size="16" font-weight="900" fill="#9cc2ff">SVC</text><path d="M148 528 L148 262 L192 262" fill="none" stroke="url(#grB1)" stroke-width="32" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#mbB1)"/><text x="148" y="554" text-anchor="middle" font-size="16" font-weight="900" fill="#9cc2ff">IVC</text><path d="M250 308 L250 124 L196 124" fill="none" stroke="#140b24" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" opacity=".92"/><path d="M250 308 L250 124 L196 124" fill="none" stroke="url(#grB1)" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#mbB1)"/><text x="206" y="108" font-size="15" font-weight="900" fill="#9cc2ff">◀ PULMONARY ARTERY</text><path d="M470 308 L470 152 Q470 108 514 108 L676 108 Q722 108 722 158 L722 524" fill="none" stroke="#140b24" stroke-width="44" stroke-linecap="round" opacity=".92"/><path d="M470 308 L470 152 Q470 108 514 108 L676 108 Q722 108 722 158 L722 524" fill="none" stroke="url(#glB1)" stroke-width="34" stroke-linecap="round" marker-end="url(#mrB1)"/><path d="M546 110 L546 58" fill="none" stroke="url(#glB1)" stroke-width="15" stroke-linecap="round" marker-end="url(#msB1)"/><path d="M596 110 L596 58" fill="none" stroke="url(#glB1)" stroke-width="15" stroke-linecap="round" marker-end="url(#msB1)"/><path d="M646 110 L646 58" fill="none" stroke="url(#glB1)" stroke-width="15" stroke-linecap="round" marker-end="url(#msB1)"/><text x="522" y="42" font-size="14" font-weight="900" fill="#ffb3c6">▲ to the HEAD &amp; ARMS</text><text x="700" y="336" text-anchor="end" font-size="17" font-weight="900" fill="#ffb3c6">AORTA</text><text x="700" y="358" text-anchor="end" font-size="13.5" font-style="italic" fill="#ffd9e2">to the body ▼</text><text x="298" y="248" text-anchor="middle" font-size="32" font-weight="900" fill="#eaf1ff">RA</text><text x="404" y="248" text-anchor="middle" font-size="32" font-weight="900" fill="#ffe9ef">LA</text><text x="256" y="398" text-anchor="middle" font-size="32" font-weight="900" fill="#eaf1ff">RV</text><text x="428" y="398" text-anchor="middle" font-size="32" font-weight="900" fill="#ffe9ef">LV</text><circle cx="218" cy="258" r="17" fill="#ffc233" stroke="#231a02" stroke-width="1.5"/><text x="218" y="265" text-anchor="middle" font-size="20" font-weight="900" fill="#231a02">1</text><circle cx="206" cy="442" r="17" fill="#ffc233" stroke="#231a02" stroke-width="1.5"/><text x="206" y="449" text-anchor="middle" font-size="20" font-weight="900" fill="#231a02">2</text><circle cx="250" cy="178" r="17" fill="#ffc233" stroke="#231a02" stroke-width="1.5"/><text x="250" y="185" text-anchor="middle" font-size="20" font-weight="900" fill="#231a02">3</text><circle cx="160" cy="124" r="17" fill="#ffc233" stroke="#231a02" stroke-width="1.5"/><text x="160" y="131" text-anchor="middle" font-size="20" font-weight="900" fill="#231a02">4</text><circle cx="600" cy="236" r="17" fill="#ffc233" stroke="#231a02" stroke-width="1.5"/><text x="600" y="243" text-anchor="middle" font-size="20" font-weight="900" fill="#231a02">5</text><circle cx="386" cy="258" r="17" fill="#ffc233" stroke="#231a02" stroke-width="1.5"/><text x="386" y="265" text-anchor="middle" font-size="20" font-weight="900" fill="#231a02">6</text><circle cx="382" cy="442" r="17" fill="#ffc233" stroke="#231a02" stroke-width="1.5"/><text x="382" y="449" text-anchor="middle" font-size="20" font-weight="900" fill="#231a02">7</text><circle cx="722" cy="400" r="17" fill="#ffc233" stroke="#231a02" stroke-width="1.5"/><text x="722" y="407" text-anchor="middle" font-size="20" font-weight="900" fill="#231a02">8</text><text x="160" y="160" text-anchor="middle" font-size="15" font-weight="900" fill="#9cc2ff">LUNGS</text><text x="340" y="496" text-anchor="middle" font-size="14.5" font-weight="800" fill="#e9dcff">SEPTUM = the wall between the right &amp; left heart</text><text x="196" y="528" font-size="14" font-weight="800" fill="#ffe49a">Anatomic view — the patient’s RIGHT heart is on YOUR LEFT.</text><text x="196" y="552" font-size="13.5" font-style="italic" fill="#cfe0ff">Blue = O₂-poor (right heart) · Red = O₂-rich (left heart)</text></svg><div class="legendrow">
+        <span><i class="sw" style="background:#4a83ff"></i>right heart · O₂-poor</span>
+        <span><i class="sw" style="background:#ff5c86"></i>left heart · O₂-rich</span>
+        <span><i class="sw" style="background:#ffc233"></i>L → R shunt</span>
+        <span><i class="sw" style="background:#9d5cff"></i>R → L shunt</span>
+        <span><i class="sw" style="background:#ff8a3d"></i>obstruction (bow-tie)</span>
+      </div>
+      <div class="mn">🧠 <b>“Blue in on the left of the page, red out on the right.”</b> Right heart (blue) is drawn on <i>your</i> left,
+      left heart (red) on <i>your</i> right — because it is an anatomic view, facing the patient.</div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>🔁 BASE NORMAL CIRCULATION — identical on every page in this set</h3>
+<p><b>Say this out loud before every defect:</b></p>
+      <div class="flow">
+        <div class="fstep">Body ➡ <b>SVC + IVC</b> ➡ <b>RIGHT ATRIUM</b></div>
+        <div class="farrow">▼</div>
+        <div class="fstep">tricuspid valve ➡ <b>RIGHT VENTRICLE</b></div>
+        <div class="farrow">▼</div>
+        <div class="fstep">pulmonic valve ➡ <b>PULMONARY ARTERY</b> ➡ <b>LUNGS</b> (pick up O₂)</div>
+        <div class="farrow">▼</div>
+        <div class="fstep">pulmonary veins ➡ <b>LEFT ATRIUM</b></div>
+        <div class="farrow">▼</div>
+        <div class="fstep">mitral valve ➡ <b>LEFT VENTRICLE</b></div>
+        <div class="farrow">▼</div>
+        <div class="fstep hot">aortic valve ➡ <b>AORTA</b> ➡ body</div>
+      </div>
+      <p style="margin-top:10px"><mark>The LEFT side is a high-pressure pump; the RIGHT side is a low-pressure pump.</mark>
+      That one fact predicts every shunt on every page: <b>if there is a hole, blood takes the easy road and goes
+      LEFT → RIGHT</b> — back into the lungs — until something blocks the right side or raises right-sided pressure.
+      Only then does it reverse and go <b>RIGHT → LEFT</b>, which is when the baby turns blue.</p>
+      <div class="mn">🧠 <b>“Lefty is stronger, so lefty pushes.”</b> Left → Right = <b>pink</b> (blood still gets to the lungs).
+      Right → Left = <b>blue</b> (blood skips the lungs). Blue blood in a pink baby's body = cyanosis.</div>
+    </div>
+
+    <div class="card topaz span2">
+      <h3>⭐ THE classification you are tested on — put every defect in one of these boxes</h3>
+<table>
+        <tr><th style="width:20%">Group</th><th class="up">Shunt direction</th><th class="lo">Pulmonary blood flow</th>
+            <th>Blue?</th><th>Defects</th></tr>
+        <tr><td><b>💛 ACYANOTIC</b></td><td><b>LEFT → RIGHT</b></td>
+            <td><b>↑ INCREASED</b> — too much blood to the lungs</td>
+            <td>No (pink at first)</td>
+            <td><b>ASD · VSD · PDA · AVSD</b></td></tr>
+        <tr><td><b>🧡 OBSTRUCTIVE</b></td><td>none — the road is <b>narrowed</b></td>
+            <td>normal or <b>↓</b>, depending on where the narrowing is</td>
+            <td>Usually no</td>
+            <td><b>Pulmonic stenosis · Aortic stenosis · Coarctation of the aorta</b></td></tr>
+        <tr><td><b>💜 CYANOTIC</b></td><td><b>RIGHT → LEFT</b></td>
+            <td><b>↓ DECREASED</b> — blood skips the lungs</td>
+            <td><b>YES</b></td>
+            <td><b>Tetralogy of Fallot · Tricuspid atresia</b></td></tr>
+        <tr><td><b>🩵 MIXED</b></td><td>both ways — red and blue blood mix</td>
+            <td>varies</td><td>Yes</td>
+            <td>Transposition of the great arteries · Truncus arteriosus · TAPVR · hypoplastic left heart</td></tr>
+      </table>
+      <div class="mn">🧠 <b>“Pink holes, blue Ts, orange gates.”</b>
+      <b>Holes</b> (ASD/VSD/PDA/AVSD) leave the baby <b>pink</b> · the big <b>T</b>s
+      (<b>T</b>etralogy, <b>T</b>ricuspid atresia, <b>T</b>ransposition) turn the baby <b>blue</b> ·
+      the <b>gates</b> (stenosis, coarctation) are <b>orange bow-ties</b> — nothing is leaking, something is
+      <i>blocked</i>.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🧭 How to read every diagram in this series</h3>
+      <ul class="tick">
+        <li><b>Blue chambers</b> = right heart, O₂-poor blood.</li>
+        <li><b>Red chambers</b> = left heart, O₂-rich blood.</li>
+        <li><b>Topaz arrow</b> = a <b>LEFT → RIGHT</b> shunt (acyanotic).</li>
+        <li><b>Amethyst arrow</b> = a <b>RIGHT → LEFT</b> shunt (cyanotic).</li>
+        <li><b>Citrine bow-tie</b> ▶◀ = an <b>obstruction</b>, a narrowed road.</li>
+      </ul>
+<div class="mn">🧠 <b>Read the drawing right.</b> It is an <i>anatomic</i> view, so the patient's
+      <b>RIGHT heart is on YOUR LEFT</b>. That is why a &ldquo;<b>left-to-right</b>&rdquo; shunt arrow
+      <b>points ← to your left</b> on every diagram in this series. Same picture, four pages.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>⭐ Why &ldquo;acyanotic&rdquo; babies still get sick</h3>
+      <p><b>Answer first:</b> the problem is not oxygen — it is <b>VOLUME</b>.</p>
+      <p>Extra blood is dumped back into the lungs with every beat. The lungs get wet, the heart works harder,
+      and every calorie the baby eats gets burned just breathing.</p>
+      <p>So the signs are <b>work-of-breathing</b> and <b>growth</b> signs, not blue signs:
+      tachypnea, sweating with feeds, feeds &gt; <span class="mono">30 min</span>, poor weight gain,
+      frequent respiratory infections.</p>
+      <div class="mn">🧠 <b>“Pink but pooped.”</b> The colour is fine; the <i>work</i> is not.</div>
+    </div>
+  </div>
+</section>
+
+<section id="cause">
+  <div class="sec-h"><span class="icon">🕳️</span><h2>THE FOUR HOLES</h2><span class="step">STEP 1 · SAME PICTURE, FOUR EDITS</span></div>
+  <p class="sec-sub">Same base heart, four times. Only one thing changes each time — where the hole is.</p>
+
+  <div class="grid">
+    <div class="card span2">
+      <h3>1️⃣ ASD — <b>A</b>trial <b>S</b>eptal <b>D</b>efect · hole between the <b>ATRIA</b> · <mark>ACYANOTIC, left→right</mark></h3>
+<svg viewBox="0 0 780 580" role="img" aria-label="The base heart drawing with a hole added in the atrial septum between the left and right atrium, and a topaz arrow showing blood shunting from the left atrium into the right atrium, a left to right shunt."><defs><marker id="mbB2" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="30" markerHeight="30" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#9cc2ff"/></marker><marker id="mrB2" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="30" markerHeight="30" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffb3c6"/></marker><marker id="myB2" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="24" markerHeight="24" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/></marker><marker id="mvB2" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="24" markerHeight="24" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#c9a8ff"/></marker><marker id="msB2" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffb3c6"/></marker><marker id="nbB2" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="17" markerHeight="17" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#dbe8ff"/></marker><marker id="nrB2" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="17" markerHeight="17" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffdbe4"/></marker><linearGradient id="grB2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a83ff"/><stop offset="1" stop-color="#2a52bd"/></linearGradient><linearGradient id="glB2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff5c86"/><stop offset="1" stop-color="#b81f4f"/></linearGradient></defs><rect x="8" y="8" width="764" height="564" rx="20" fill="rgba(13,8,26,.55)" stroke="rgba(255,255,255,.28)" stroke-width="2"/><text x="28" y="46" font-size="20" font-weight="900" fill="#ffe49a">ASD — hole in the ATRIAL septum</text><text x="28" y="70" font-size="14" font-style="italic" fill="#efe6ff">oxygen-rich blood leaks LA → RA and goes back to the lungs</text><path d="M682 236 L500 236" fill="none" stroke="url(#glB2)" stroke-width="26" stroke-linecap="round" marker-end="url(#mrB2)"/><text x="520" y="208" font-size="15" font-weight="900" fill="#ffb3c6">PULMONARY VEINS</text><text x="520" y="266" font-size="13.5" font-style="italic" fill="#ffd9e2">from the lungs · O₂-rich</text><rect x="190" y="170" width="130" height="112" rx="18" fill="url(#grB2)" stroke="#cfe0ff" stroke-width="2.5"/><rect x="180" y="306" width="140" height="164" rx="20" fill="url(#grB2)" stroke="#cfe0ff" stroke-width="2.5"/><rect x="360" y="170" width="130" height="112" rx="18" fill="url(#glB2)" stroke="#ffd0dc" stroke-width="2.5"/><rect x="360" y="306" width="150" height="164" rx="20" fill="url(#glB2)" stroke="#ffd0dc" stroke-width="2.5"/><rect x="320" y="166" width="40" height="120" rx="10" fill="#e9dcff" stroke="#fff" stroke-width="2"/><rect x="320" y="302" width="40" height="172" rx="10" fill="#e9dcff" stroke="#fff" stroke-width="2"/><path d="M238 288 L270 306 M302 288 L272 306" stroke="#ffe49a" stroke-width="6" stroke-linecap="round" fill="none"/><path d="M398 288 L430 306 M462 288 L432 306" stroke="#ffe49a" stroke-width="6" stroke-linecap="round" fill="none"/><path d="M232 314 L250 300 L268 314" fill="none" stroke="#ffe49a" stroke-width="5.5" stroke-linecap="round"/><path d="M452 314 L470 300 L488 314" fill="none" stroke="#ffe49a" stroke-width="5.5" stroke-linecap="round"/><path d="M104 106 L104 196 L192 196" fill="none" stroke="url(#grB2)" stroke-width="32" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#mbB2)"/><text x="104" y="92" text-anchor="middle" font-size="16" font-weight="900" fill="#9cc2ff">SVC</text><path d="M148 528 L148 262 L192 262" fill="none" stroke="url(#grB2)" stroke-width="32" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#mbB2)"/><text x="148" y="554" text-anchor="middle" font-size="16" font-weight="900" fill="#9cc2ff">IVC</text><path d="M250 308 L250 124 L196 124" fill="none" stroke="#140b24" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" opacity=".92"/><path d="M250 308 L250 124 L196 124" fill="none" stroke="url(#grB2)" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#mbB2)"/><text x="206" y="108" font-size="15" font-weight="900" fill="#9cc2ff">◀ PULMONARY ARTERY</text><path d="M470 308 L470 152 Q470 108 514 108 L676 108 Q722 108 722 158 L722 524" fill="none" stroke="#140b24" stroke-width="44" stroke-linecap="round" opacity=".92"/><path d="M470 308 L470 152 Q470 108 514 108 L676 108 Q722 108 722 158 L722 524" fill="none" stroke="url(#glB2)" stroke-width="34" stroke-linecap="round" marker-end="url(#mrB2)"/><path d="M546 110 L546 58" fill="none" stroke="url(#glB2)" stroke-width="15" stroke-linecap="round" marker-end="url(#msB2)"/><path d="M596 110 L596 58" fill="none" stroke="url(#glB2)" stroke-width="15" stroke-linecap="round" marker-end="url(#msB2)"/><path d="M646 110 L646 58" fill="none" stroke="url(#glB2)" stroke-width="15" stroke-linecap="round" marker-end="url(#msB2)"/><text x="522" y="42" font-size="14" font-weight="900" fill="#ffb3c6">▲ to the HEAD &amp; ARMS</text><text x="700" y="336" text-anchor="end" font-size="17" font-weight="900" fill="#ffb3c6">AORTA</text><text x="700" y="358" text-anchor="end" font-size="13.5" font-style="italic" fill="#ffd9e2">to the body ▼</text><text x="298" y="248" text-anchor="middle" font-size="32" font-weight="900" fill="#eaf1ff">RA</text><text x="404" y="248" text-anchor="middle" font-size="32" font-weight="900" fill="#ffe9ef">LA</text><text x="256" y="398" text-anchor="middle" font-size="32" font-weight="900" fill="#eaf1ff">RV</text><text x="428" y="398" text-anchor="middle" font-size="32" font-weight="900" fill="#ffe9ef">LV</text><rect x="316" y="190" width="48" height="68" rx="14" fill="#140b24" stroke="#ffc233" stroke-width="4" stroke-dasharray="9 6"/><path d="M392 212 L300 212" fill="none" stroke="#ffc233" stroke-width="9" stroke-linecap="round" marker-end="url(#myB2)"/><path d="M506 163 L366 206" stroke="#ffc233" stroke-width="2.5" stroke-dasharray="6 5" fill="none"/><rect x="506" y="146" width="176" height="34" rx="9" fill="#ffc233" stroke="#fff" stroke-width="1.5"/><text x="594" y="168" text-anchor="middle" font-size="16" font-weight="900" fill="#231a02">ASD · L → R</text><rect x="24" y="486" width="19" height="19" rx="5" fill="#ffc233"/><text x="50" y="502" font-size="13.5" font-weight="800" fill="#ffe49a">topaz arrow = LEFT → RIGHT shunt</text><rect x="24" y="514" width="19" height="19" rx="5" fill="#9d5cff"/><text x="50" y="530" font-size="13.5" font-weight="800" fill="#d9c2ff">amethyst arrow = RIGHT → LEFT shunt</text><rect x="404" y="486" width="19" height="19" rx="5" fill="#ff8a3d"/><text x="430" y="502" font-size="13.5" font-weight="800" fill="#ffc0a0">citrine bow-tie = OBSTRUCTION</text><text x="404" y="530" font-size="13.5" font-style="italic" fill="#cfe0ff">Anatomic view: RIGHT heart on YOUR LEFT</text></svg>
+      <div class="duo" style="margin-top:12px">
+        <div>
+          <p><b>What it is:</b> a hole between the <b>atria</b> — the upper chambers.</p>
+          <p><b>Classic sign:</b> a <b>systolic ejection murmur</b> high at the <b>left upper sternal border</b> with a
+          <b>fixed, widely split S2</b> — the split does <i>not</i> change with breathing. That fixed split is the ASD giveaway.</p>
+          <p><b>Course:</b> many small ASDs <b>close on their own</b>. Larger ones are closed with a
+          <b>catheter-delivered occluder device</b> or <b>surgical repair</b>.</p>
+        </div>
+        <div>
+          <p><span class="tip">NCLEX TIP</span> A <b>murmur alone in an ASD child is expected</b> — it is the sound of the
+          shunt. It is <b>not</b> the thing you report first. <b>Report the failure signs</b> instead: weight gain, puffy eyes,
+          fewer wet diapers, sweating with feeds.</p>
+          <p><b>Late risk:</b> right atrial &amp; right ventricular enlargement, atrial dysrhythmias, and
+          <b>pulmonary hypertension</b> in adulthood.</p>
+        </div>
+      </div>
+      <div class="mn">🧠 <b>ASD = “<u>A</u>ttic hole.”</b> The <b>A</b>tria are the <b>A</b>ttic — the top floor.
+      The attic leak is quiet and slow, so it is often found <i>late</i>, on a routine murmur check.</div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>2️⃣ VSD — <b>V</b>entricular <b>S</b>eptal <b>D</b>efect · hole between the <b>VENTRICLES</b> · <mark>the most common defect</mark></h3>
+<svg viewBox="0 0 780 580" role="img" aria-label="The base heart drawing with a hole added in the ventricular septum between the left and right ventricle, and a topaz arrow showing blood shunting from the left ventricle into the right ventricle, a left to right shunt."><defs><marker id="mbB3" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="30" markerHeight="30" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#9cc2ff"/></marker><marker id="mrB3" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="30" markerHeight="30" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffb3c6"/></marker><marker id="myB3" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="24" markerHeight="24" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/></marker><marker id="mvB3" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="24" markerHeight="24" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#c9a8ff"/></marker><marker id="msB3" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffb3c6"/></marker><marker id="nbB3" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="17" markerHeight="17" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#dbe8ff"/></marker><marker id="nrB3" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="17" markerHeight="17" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffdbe4"/></marker><linearGradient id="grB3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a83ff"/><stop offset="1" stop-color="#2a52bd"/></linearGradient><linearGradient id="glB3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff5c86"/><stop offset="1" stop-color="#b81f4f"/></linearGradient></defs><rect x="8" y="8" width="764" height="564" rx="20" fill="rgba(13,8,26,.55)" stroke="rgba(255,255,255,.28)" stroke-width="2"/><text x="28" y="46" font-size="20" font-weight="900" fill="#ffe49a">VSD — hole in the VENTRICULAR septum</text><text x="28" y="70" font-size="14" font-style="italic" fill="#efe6ff">the powerful LV squirts blood into the RV → loud, harsh murmur</text><path d="M682 236 L500 236" fill="none" stroke="url(#glB3)" stroke-width="26" stroke-linecap="round" marker-end="url(#mrB3)"/><text x="520" y="208" font-size="15" font-weight="900" fill="#ffb3c6">PULMONARY VEINS</text><text x="520" y="266" font-size="13.5" font-style="italic" fill="#ffd9e2">from the lungs · O₂-rich</text><rect x="190" y="170" width="130" height="112" rx="18" fill="url(#grB3)" stroke="#cfe0ff" stroke-width="2.5"/><rect x="180" y="306" width="140" height="164" rx="20" fill="url(#grB3)" stroke="#cfe0ff" stroke-width="2.5"/><rect x="360" y="170" width="130" height="112" rx="18" fill="url(#glB3)" stroke="#ffd0dc" stroke-width="2.5"/><rect x="360" y="306" width="150" height="164" rx="20" fill="url(#glB3)" stroke="#ffd0dc" stroke-width="2.5"/><rect x="320" y="166" width="40" height="120" rx="10" fill="#e9dcff" stroke="#fff" stroke-width="2"/><rect x="320" y="302" width="40" height="172" rx="10" fill="#e9dcff" stroke="#fff" stroke-width="2"/><path d="M238 288 L270 306 M302 288 L272 306" stroke="#ffe49a" stroke-width="6" stroke-linecap="round" fill="none"/><path d="M398 288 L430 306 M462 288 L432 306" stroke="#ffe49a" stroke-width="6" stroke-linecap="round" fill="none"/><path d="M232 314 L250 300 L268 314" fill="none" stroke="#ffe49a" stroke-width="5.5" stroke-linecap="round"/><path d="M452 314 L470 300 L488 314" fill="none" stroke="#ffe49a" stroke-width="5.5" stroke-linecap="round"/><path d="M104 106 L104 196 L192 196" fill="none" stroke="url(#grB3)" stroke-width="32" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#mbB3)"/><text x="104" y="92" text-anchor="middle" font-size="16" font-weight="900" fill="#9cc2ff">SVC</text><path d="M148 528 L148 262 L192 262" fill="none" stroke="url(#grB3)" stroke-width="32" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#mbB3)"/><text x="148" y="554" text-anchor="middle" font-size="16" font-weight="900" fill="#9cc2ff">IVC</text><path d="M250 308 L250 124 L196 124" fill="none" stroke="#140b24" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" opacity=".92"/><path d="M250 308 L250 124 L196 124" fill="none" stroke="url(#grB3)" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#mbB3)"/><text x="206" y="108" font-size="15" font-weight="900" fill="#9cc2ff">◀ PULMONARY ARTERY</text><path d="M470 308 L470 152 Q470 108 514 108 L676 108 Q722 108 722 158 L722 524" fill="none" stroke="#140b24" stroke-width="44" stroke-linecap="round" opacity=".92"/><path d="M470 308 L470 152 Q470 108 514 108 L676 108 Q722 108 722 158 L722 524" fill="none" stroke="url(#glB3)" stroke-width="34" stroke-linecap="round" marker-end="url(#mrB3)"/><path d="M546 110 L546 58" fill="none" stroke="url(#glB3)" stroke-width="15" stroke-linecap="round" marker-end="url(#msB3)"/><path d="M596 110 L596 58" fill="none" stroke="url(#glB3)" stroke-width="15" stroke-linecap="round" marker-end="url(#msB3)"/><path d="M646 110 L646 58" fill="none" stroke="url(#glB3)" stroke-width="15" stroke-linecap="round" marker-end="url(#msB3)"/><text x="522" y="42" font-size="14" font-weight="900" fill="#ffb3c6">▲ to the HEAD &amp; ARMS</text><text x="700" y="336" text-anchor="end" font-size="17" font-weight="900" fill="#ffb3c6">AORTA</text><text x="700" y="358" text-anchor="end" font-size="13.5" font-style="italic" fill="#ffd9e2">to the body ▼</text><text x="298" y="248" text-anchor="middle" font-size="32" font-weight="900" fill="#eaf1ff">RA</text><text x="404" y="248" text-anchor="middle" font-size="32" font-weight="900" fill="#ffe9ef">LA</text><text x="256" y="398" text-anchor="middle" font-size="32" font-weight="900" fill="#eaf1ff">RV</text><text x="428" y="398" text-anchor="middle" font-size="32" font-weight="900" fill="#ffe9ef">LV</text><rect x="316" y="336" width="48" height="66" rx="14" fill="#140b24" stroke="#ffc233" stroke-width="4" stroke-dasharray="9 6"/><path d="M398 352 L300 352" fill="none" stroke="#ffc233" stroke-width="9" stroke-linecap="round" marker-end="url(#myB3)"/><path d="M520 390 L366 372" stroke="#ffc233" stroke-width="2.5" stroke-dasharray="6 5" fill="none"/><rect x="520" y="374" width="176" height="34" rx="9" fill="#ffc233" stroke="#fff" stroke-width="1.5"/><text x="608" y="396" text-anchor="middle" font-size="16" font-weight="900" fill="#231a02">VSD · L → R</text><rect x="24" y="486" width="19" height="19" rx="5" fill="#ffc233"/><text x="50" y="502" font-size="13.5" font-weight="800" fill="#ffe49a">topaz arrow = LEFT → RIGHT shunt</text><rect x="24" y="514" width="19" height="19" rx="5" fill="#9d5cff"/><text x="50" y="530" font-size="13.5" font-weight="800" fill="#d9c2ff">amethyst arrow = RIGHT → LEFT shunt</text><rect x="404" y="486" width="19" height="19" rx="5" fill="#ff8a3d"/><text x="430" y="502" font-size="13.5" font-weight="800" fill="#ffc0a0">citrine bow-tie = OBSTRUCTION</text><text x="404" y="530" font-size="13.5" font-style="italic" fill="#cfe0ff">Anatomic view: RIGHT heart on YOUR LEFT</text></svg>
+      <div class="duo" style="margin-top:12px">
+        <div>
+          <p><b>What it is:</b> a hole between the <b>ventricles</b> — a <b>septal opening</b> in the lower chambers.</p>
+          <p><b>Classic sign:</b> a <b>loud, harsh, holosystolic (whole-systole) murmur</b> at the
+          <b>LEFT STERNAL BORDER</b> — classically the <i>lower</i> left sternal border. Often a palpable <b>thrill</b>.</p>
+          <p><b>Feeding clue from the source:</b> <b>grunting during feeding</b> — the baby is working to breathe while eating.</p>
+        </div>
+        <div>
+          <p><span class="tip">NCLEX TRAP</span> <b>Loud does not mean big.</b> A <i>small</i> VSD makes the
+          <b>loudest</b> murmur, because a tiny hole makes more turbulence. A huge VSD can be almost silent.
+          <span class="never">Never rank a defect by how loud the murmur is.</span></p>
+          <p><b>Course:</b> many small VSDs <b>close naturally</b> in the first years. Large ones need
+          <b>surgical repair</b> (patch closure), usually within the first year, before pulmonary vascular disease sets in.</p>
+        </div>
+      </div>
+      <div class="mn">🧠 <b>VSD = “<u>V</u>ery loud, <u>V</u>ery common, <u>V</u>entricles.”</b>
+      The <b>V</b> in VSD is also the <b>V</b> in the “PROV” of Tetralogy — remember it, you will meet it again on the TOF page.</div>
+    </div>
+
+    <div class="card citrinec span2">
+      <h3>3️⃣ PDA — <b>P</b>atent <b>D</b>uctus <b>A</b>rteriosus · the fetal duct that never closed</h3>
+<svg viewBox="0 0 780 580" role="img" aria-label="The base heart drawing with an open ductus arteriosus added as a topaz tube connecting the aorta to the pulmonary artery, with an arrow showing blood flowing from the aorta into the pulmonary artery, a left to right shunt."><defs><marker id="mbB4" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="30" markerHeight="30" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#9cc2ff"/></marker><marker id="mrB4" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="30" markerHeight="30" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffb3c6"/></marker><marker id="myB4" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="24" markerHeight="24" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/></marker><marker id="mvB4" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="24" markerHeight="24" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#c9a8ff"/></marker><marker id="msB4" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffb3c6"/></marker><marker id="nbB4" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="17" markerHeight="17" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#dbe8ff"/></marker><marker id="nrB4" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="17" markerHeight="17" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffdbe4"/></marker><linearGradient id="grB4" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a83ff"/><stop offset="1" stop-color="#2a52bd"/></linearGradient><linearGradient id="glB4" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff5c86"/><stop offset="1" stop-color="#b81f4f"/></linearGradient></defs><rect x="8" y="8" width="764" height="564" rx="20" fill="rgba(13,8,26,.55)" stroke="rgba(255,255,255,.28)" stroke-width="2"/><text x="28" y="46" font-size="20" font-weight="900" fill="#ffe49a">PDA — the fetal duct stayed open</text><text x="28" y="70" font-size="14" font-style="italic" fill="#efe6ff">aortic pressure is higher, so blood pours back into the pulmonary artery</text><path d="M682 236 L500 236" fill="none" stroke="url(#glB4)" stroke-width="26" stroke-linecap="round" marker-end="url(#mrB4)"/><text x="520" y="208" font-size="15" font-weight="900" fill="#ffb3c6">PULMONARY VEINS</text><text x="520" y="266" font-size="13.5" font-style="italic" fill="#ffd9e2">from the lungs · O₂-rich</text><rect x="190" y="170" width="130" height="112" rx="18" fill="url(#grB4)" stroke="#cfe0ff" stroke-width="2.5"/><rect x="180" y="306" width="140" height="164" rx="20" fill="url(#grB4)" stroke="#cfe0ff" stroke-width="2.5"/><rect x="360" y="170" width="130" height="112" rx="18" fill="url(#glB4)" stroke="#ffd0dc" stroke-width="2.5"/><rect x="360" y="306" width="150" height="164" rx="20" fill="url(#glB4)" stroke="#ffd0dc" stroke-width="2.5"/><rect x="320" y="166" width="40" height="120" rx="10" fill="#e9dcff" stroke="#fff" stroke-width="2"/><rect x="320" y="302" width="40" height="172" rx="10" fill="#e9dcff" stroke="#fff" stroke-width="2"/><path d="M238 288 L270 306 M302 288 L272 306" stroke="#ffe49a" stroke-width="6" stroke-linecap="round" fill="none"/><path d="M398 288 L430 306 M462 288 L432 306" stroke="#ffe49a" stroke-width="6" stroke-linecap="round" fill="none"/><path d="M232 314 L250 300 L268 314" fill="none" stroke="#ffe49a" stroke-width="5.5" stroke-linecap="round"/><path d="M452 314 L470 300 L488 314" fill="none" stroke="#ffe49a" stroke-width="5.5" stroke-linecap="round"/><path d="M104 106 L104 196 L192 196" fill="none" stroke="url(#grB4)" stroke-width="32" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#mbB4)"/><text x="104" y="92" text-anchor="middle" font-size="16" font-weight="900" fill="#9cc2ff">SVC</text><path d="M148 528 L148 262 L192 262" fill="none" stroke="url(#grB4)" stroke-width="32" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#mbB4)"/><text x="148" y="554" text-anchor="middle" font-size="16" font-weight="900" fill="#9cc2ff">IVC</text><path d="M250 308 L250 124 L196 124" fill="none" stroke="#140b24" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" opacity=".92"/><path d="M250 308 L250 124 L196 124" fill="none" stroke="url(#grB4)" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#mbB4)"/><text x="206" y="108" font-size="15" font-weight="900" fill="#9cc2ff">◀ PULMONARY ARTERY</text><path d="M470 308 L470 152 Q470 108 514 108 L676 108 Q722 108 722 158 L722 524" fill="none" stroke="#140b24" stroke-width="44" stroke-linecap="round" opacity=".92"/><path d="M470 308 L470 152 Q470 108 514 108 L676 108 Q722 108 722 158 L722 524" fill="none" stroke="url(#glB4)" stroke-width="34" stroke-linecap="round" marker-end="url(#mrB4)"/><path d="M546 110 L546 58" fill="none" stroke="url(#glB4)" stroke-width="15" stroke-linecap="round" marker-end="url(#msB4)"/><path d="M596 110 L596 58" fill="none" stroke="url(#glB4)" stroke-width="15" stroke-linecap="round" marker-end="url(#msB4)"/><path d="M646 110 L646 58" fill="none" stroke="url(#glB4)" stroke-width="15" stroke-linecap="round" marker-end="url(#msB4)"/><text x="522" y="42" font-size="14" font-weight="900" fill="#ffb3c6">▲ to the HEAD &amp; ARMS</text><text x="700" y="336" text-anchor="end" font-size="17" font-weight="900" fill="#ffb3c6">AORTA</text><text x="700" y="358" text-anchor="end" font-size="13.5" font-style="italic" fill="#ffd9e2">to the body ▼</text><text x="298" y="248" text-anchor="middle" font-size="32" font-weight="900" fill="#eaf1ff">RA</text><text x="404" y="248" text-anchor="middle" font-size="32" font-weight="900" fill="#ffe9ef">LA</text><text x="256" y="398" text-anchor="middle" font-size="32" font-weight="900" fill="#eaf1ff">RV</text><text x="428" y="398" text-anchor="middle" font-size="32" font-weight="900" fill="#ffe9ef">LV</text><path d="M456 140 L272 140" fill="none" stroke="#ffc233" stroke-width="22" stroke-linecap="round" marker-end="url(#myB4)"/><text x="300" y="176" font-size="15" font-weight="900" fill="#ffc233">the duct that never closed</text><path d="M506 163 L462 144" stroke="#ffc233" stroke-width="2.5" stroke-dasharray="6 5" fill="none"/><rect x="506" y="146" width="176" height="34" rx="9" fill="#ffc233" stroke="#fff" stroke-width="1.5"/><text x="594" y="168" text-anchor="middle" font-size="16" font-weight="900" fill="#231a02">PDA · L → R</text><rect x="24" y="486" width="19" height="19" rx="5" fill="#ffc233"/><text x="50" y="502" font-size="13.5" font-weight="800" fill="#ffe49a">topaz arrow = LEFT → RIGHT shunt</text><rect x="24" y="514" width="19" height="19" rx="5" fill="#9d5cff"/><text x="50" y="530" font-size="13.5" font-weight="800" fill="#d9c2ff">amethyst arrow = RIGHT → LEFT shunt</text><rect x="404" y="486" width="19" height="19" rx="5" fill="#ff8a3d"/><text x="430" y="502" font-size="13.5" font-weight="800" fill="#ffc0a0">citrine bow-tie = OBSTRUCTION</text><text x="404" y="530" font-size="13.5" font-style="italic" fill="#cfe0ff">Anatomic view: RIGHT heart on YOUR LEFT</text></svg>
+      <div class="duo" style="margin-top:12px">
+        <div>
+          <p><b>What it is:</b> an <b>opening that connects the AORTA to the PULMONARY ARTERY</b>.
+          In the fetus this duct is <i>supposed</i> to be open — it lets blood skip the airless lungs.
+          It should close in the first days of life. <b>Patent</b> = still open.</p>
+          <p><b>Classic sign:</b> a <mark>loud, continuous, MACHINE-LIKE murmur</mark> — heard in systole
+          <i>and</i> diastole, best at the left upper chest / under the left collarbone.</p>
+        </div>
+        <div>
+          <p><b>Also:</b> <b>bounding pulses</b> and a <b>wide pulse pressure</b> — the aorta is bleeding
+          pressure off into the pulmonary artery all through diastole, so the diastolic BP falls.</p>
+          <p><b>Highest risk:</b> <b>premature infants</b>.</p>
+          <p><b>Treatment:</b> <b>indomethacin</b> or <b>ibuprofen</b> (NSAIDs — they block prostaglandin, which is what
+          holds the duct open) · <b>surgical ligation</b> or catheter coil/device closure if medication fails.</p>
+        </div>
+      </div>
+      <div class="mn">🧠 <b>“LOUD MACHINE-LIKE DUCK.”</b> <b>DUCK</b> = <b>DUCT</b>us. Picture a washing machine
+      with a rubber duck rattling inside — it never stops churning, systole <i>and</i> diastole. That is a PDA.</div>
+    </div>
+
+    <div class="card garnet span2">
+      <h3>4️⃣ AVSD — <b>A</b>trio<b>v</b>entricular <b>S</b>eptal <b>D</b>efect · <b>both</b> holes + one common valve</h3>
+<svg viewBox="0 0 780 580" role="img" aria-label="The base heart drawing with a large opening running through both the atrial and ventricular septum and a single common atrioventricular valve, with topaz arrows showing left to right shunting at both the atrial and the ventricular level."><defs><marker id="mbB5" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="30" markerHeight="30" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#9cc2ff"/></marker><marker id="mrB5" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="30" markerHeight="30" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffb3c6"/></marker><marker id="myB5" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="24" markerHeight="24" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/></marker><marker id="mvB5" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="24" markerHeight="24" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#c9a8ff"/></marker><marker id="msB5" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffb3c6"/></marker><marker id="nbB5" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="17" markerHeight="17" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#dbe8ff"/></marker><marker id="nrB5" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="17" markerHeight="17" markerUnits="userSpaceOnUse" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffdbe4"/></marker><linearGradient id="grB5" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a83ff"/><stop offset="1" stop-color="#2a52bd"/></linearGradient><linearGradient id="glB5" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff5c86"/><stop offset="1" stop-color="#b81f4f"/></linearGradient></defs><rect x="8" y="8" width="764" height="564" rx="20" fill="rgba(13,8,26,.55)" stroke="rgba(255,255,255,.28)" stroke-width="2"/><text x="28" y="46" font-size="20" font-weight="900" fill="#ffe49a">AVSD — the centre is wide open</text><text x="28" y="70" font-size="14" font-style="italic" fill="#efe6ff">ASD + VSD together, with one common AV valve instead of a tricuspid and a mitral</text><path d="M682 236 L500 236" fill="none" stroke="url(#glB5)" stroke-width="26" stroke-linecap="round" marker-end="url(#mrB5)"/><text x="520" y="208" font-size="15" font-weight="900" fill="#ffb3c6">PULMONARY VEINS</text><text x="520" y="266" font-size="13.5" font-style="italic" fill="#ffd9e2">from the lungs · O₂-rich</text><rect x="190" y="170" width="130" height="112" rx="18" fill="url(#grB5)" stroke="#cfe0ff" stroke-width="2.5"/><rect x="180" y="306" width="140" height="164" rx="20" fill="url(#grB5)" stroke="#cfe0ff" stroke-width="2.5"/><rect x="360" y="170" width="130" height="112" rx="18" fill="url(#glB5)" stroke="#ffd0dc" stroke-width="2.5"/><rect x="360" y="306" width="150" height="164" rx="20" fill="url(#glB5)" stroke="#ffd0dc" stroke-width="2.5"/><rect x="320" y="166" width="40" height="120" rx="10" fill="#e9dcff" stroke="#fff" stroke-width="2"/><rect x="320" y="302" width="40" height="172" rx="10" fill="#e9dcff" stroke="#fff" stroke-width="2"/><path d="M238 288 L270 306 M302 288 L272 306" stroke="#ffe49a" stroke-width="6" stroke-linecap="round" fill="none"/><path d="M398 288 L430 306 M462 288 L432 306" stroke="#ffe49a" stroke-width="6" stroke-linecap="round" fill="none"/><path d="M232 314 L250 300 L268 314" fill="none" stroke="#ffe49a" stroke-width="5.5" stroke-linecap="round"/><path d="M452 314 L470 300 L488 314" fill="none" stroke="#ffe49a" stroke-width="5.5" stroke-linecap="round"/><path d="M104 106 L104 196 L192 196" fill="none" stroke="url(#grB5)" stroke-width="32" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#mbB5)"/><text x="104" y="92" text-anchor="middle" font-size="16" font-weight="900" fill="#9cc2ff">SVC</text><path d="M148 528 L148 262 L192 262" fill="none" stroke="url(#grB5)" stroke-width="32" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#mbB5)"/><text x="148" y="554" text-anchor="middle" font-size="16" font-weight="900" fill="#9cc2ff">IVC</text><path d="M250 308 L250 124 L196 124" fill="none" stroke="#140b24" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" opacity=".92"/><path d="M250 308 L250 124 L196 124" fill="none" stroke="url(#grB5)" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#mbB5)"/><text x="206" y="108" font-size="15" font-weight="900" fill="#9cc2ff">◀ PULMONARY ARTERY</text><path d="M470 308 L470 152 Q470 108 514 108 L676 108 Q722 108 722 158 L722 524" fill="none" stroke="#140b24" stroke-width="44" stroke-linecap="round" opacity=".92"/><path d="M470 308 L470 152 Q470 108 514 108 L676 108 Q722 108 722 158 L722 524" fill="none" stroke="url(#glB5)" stroke-width="34" stroke-linecap="round" marker-end="url(#mrB5)"/><path d="M546 110 L546 58" fill="none" stroke="url(#glB5)" stroke-width="15" stroke-linecap="round" marker-end="url(#msB5)"/><path d="M596 110 L596 58" fill="none" stroke="url(#glB5)" stroke-width="15" stroke-linecap="round" marker-end="url(#msB5)"/><path d="M646 110 L646 58" fill="none" stroke="url(#glB5)" stroke-width="15" stroke-linecap="round" marker-end="url(#msB5)"/><text x="522" y="42" font-size="14" font-weight="900" fill="#ffb3c6">▲ to the HEAD &amp; ARMS</text><text x="700" y="336" text-anchor="end" font-size="17" font-weight="900" fill="#ffb3c6">AORTA</text><text x="700" y="358" text-anchor="end" font-size="13.5" font-style="italic" fill="#ffd9e2">to the body ▼</text><text x="298" y="248" text-anchor="middle" font-size="32" font-weight="900" fill="#eaf1ff">RA</text><text x="404" y="248" text-anchor="middle" font-size="32" font-weight="900" fill="#ffe9ef">LA</text><text x="256" y="398" text-anchor="middle" font-size="32" font-weight="900" fill="#eaf1ff">RV</text><text x="428" y="398" text-anchor="middle" font-size="32" font-weight="900" fill="#ffe9ef">LV</text><rect x="316" y="194" width="48" height="252" rx="16" fill="#140b24" stroke="#ffc233" stroke-width="4" stroke-dasharray="9 6"/><path d="M392 212 L300 212" fill="none" stroke="#ffc233" stroke-width="9" stroke-linecap="round" marker-end="url(#myB5)"/><path d="M398 432 L300 432" fill="none" stroke="#ffc233" stroke-width="9" stroke-linecap="round" marker-end="url(#myB5)"/><path d="M286 290 L340 312 L394 290" fill="none" stroke="#ffc233" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><text x="340" y="342" text-anchor="middle" font-size="14" font-weight="900" fill="#ffe49a">ONE common AV valve</text><path d="M506 163 L366 208" stroke="#ffc233" stroke-width="2.5" stroke-dasharray="6 5" fill="none"/><rect x="506" y="146" width="176" height="34" rx="9" fill="#ffc233" stroke="#fff" stroke-width="1.5"/><text x="594" y="168" text-anchor="middle" font-size="16" font-weight="900" fill="#231a02">AVSD · L → R</text><rect x="24" y="486" width="19" height="19" rx="5" fill="#ffc233"/><text x="50" y="502" font-size="13.5" font-weight="800" fill="#ffe49a">topaz arrow = LEFT → RIGHT shunt</text><rect x="24" y="514" width="19" height="19" rx="5" fill="#9d5cff"/><text x="50" y="530" font-size="13.5" font-weight="800" fill="#d9c2ff">amethyst arrow = RIGHT → LEFT shunt</text><rect x="404" y="486" width="19" height="19" rx="5" fill="#ff8a3d"/><text x="430" y="502" font-size="13.5" font-weight="800" fill="#ffc0a0">citrine bow-tie = OBSTRUCTION</text><text x="404" y="530" font-size="13.5" font-style="italic" fill="#cfe0ff">Anatomic view: RIGHT heart on YOUR LEFT</text></svg>
+      <div class="duo" style="margin-top:12px">
+        <div>
+          <p><b>What it is:</b> <b>BOTH ASD &amp; VSD</b> — <b>2 holes: the Atria &amp; the Ventricles</b> — plus the
+          tricuspid and mitral valves failing to separate, leaving <b>one common AV valve</b>. The middle of the heart
+          simply did not form.</p>
+          <p><b>Strong association:</b> <b>Down syndrome (trisomy 21)</b>. If the stem says
+          <i>“infant with Down syndrome, murmur, poor feeding, sweating”</i> — think AVSD.</p>
+        </div>
+        <div>
+          <p><b>Why it is the sickest of the four:</b> two shunts + a leaky common valve = the biggest volume load.
+          These infants go into <b>heart failure early</b>, often by <span class="mono">6–8 weeks</span> of life, and need
+          <b>surgical repair in infancy</b>.</p>
+          <p><span class="tip">SOURCE FIX</span> The original sheet printed “<i>types (right-to-left blood flow)</i>” next to
+          AVSD. That label belongs to the <b>cyanotic</b> group. <b>AVSD is ACYANOTIC — it shunts LEFT → RIGHT.</b>
+          It can turn blue only <i>later</i>, if untreated pulmonary hypertension reverses the shunt (Eisenmenger).</p>
+        </div>
+      </div>
+      <div class="mn">🧠 <b>AVSD = “<u>A</u>ll <u>V</u>alves &amp; <u>S</u>epta <u>D</u>own.”</b> All of it is missing —
+      and <b>Down</b> is the syndrome to remember.</div>
+    </div>
+
+    <div class="card topaz span2">
+      <h3>⭐ Tell the four apart by SOUND — the murmur map</h3>
+<svg viewBox="0 0 780 380" role="img" aria-label="Chest wall auscultation map showing where each defect murmur is heard: pulmonic area at the second left intercostal space for atrial septal defect, left infraclavicular area for patent ductus arteriosus, lower left sternal border for ventricular septal defect, and the apex at the fifth intercostal space midclavicular line">
+<rect x="8" y="8" width="764" height="364" rx="20" fill="rgba(13,8,26,.55)" stroke="rgba(255,255,255,.28)" stroke-width="2"/>
+<text x="28" y="46" font-size="23" font-weight="900" fill="#ffe49a">WHERE YOU HEAR IT</text>
+<text x="28" y="70" font-size="15" font-style="italic" fill="#efe6ff">front of the chest · patient facing you · their right is your left</text>
+<g transform="translate(-72,0)"><!-- chest outline -->
+<path d="M250 96 C190 100 168 140 172 190 C176 250 196 300 250 336 L410 336 C464 300 484 250 488 190 C492 140 470 100 410 96 Z" fill="rgba(255,255,255,.10)" stroke="#cfe0ff" stroke-width="2.5"/>
+<!-- sternum -->
+<rect x="322" y="108" width="18" height="196" rx="8" fill="rgba(233,220,255,.85)"/>
+<text x="331" y="322" text-anchor="middle" font-size="13" font-weight="800" fill="#e9dcff">sternum</text>
+<!-- ribs -->
+<g stroke="#cfe0ff" stroke-width="2" opacity=".55" fill="none">
+<path d="M322 126 C284 122 246 130 216 148"/><path d="M340 126 C378 122 416 130 446 148"/>
+<path d="M322 156 C284 152 244 160 212 180"/><path d="M340 156 C378 152 418 160 450 180"/>
+<path d="M322 186 C284 182 242 192 210 212"/><path d="M340 186 C378 182 420 192 452 212"/>
+<path d="M322 216 C284 212 244 224 214 244"/><path d="M340 216 C378 212 418 224 448 244"/>
+</g>
+<!-- points -->
+<circle cx="368" cy="140" r="15" fill="#ffc233" stroke="#231a02" stroke-width="1.5"/>
+<text x="368" y="147" text-anchor="middle" font-size="16" font-weight="900" fill="#231a02">A</text>
+<circle cx="404" cy="120" r="15" fill="#ff8a3d" stroke="#231a02" stroke-width="1.5"/>
+<text x="404" y="127" text-anchor="middle" font-size="16" font-weight="900" fill="#231a02">P</text>
+<circle cx="352" cy="262" r="15" fill="#2f6bff" stroke="#fff" stroke-width="1.5"/>
+<text x="352" y="269" text-anchor="middle" font-size="16" font-weight="900" fill="#fff">V</text>
+<circle cx="424" cy="286" r="15" fill="#12b886" stroke="#03291c" stroke-width="1.5"/>
+<text x="424" y="293" text-anchor="middle" font-size="16" font-weight="900" fill="#03291c">M</text>
+</g><!-- key -->
+<rect x="430" y="96" width="326" height="76" rx="12" fill="rgba(255,194,51,.9)"/>
+<text x="444" y="120" font-size="15" font-weight="900" fill="#231a02">A · ASD — 2nd L intercostal space</text>
+<text x="444" y="142" font-size="14" font-weight="800" fill="#231a02">systolic ejection murmur +</text>
+<text x="444" y="163" font-size="14" font-weight="900" fill="#231a02">FIXED SPLIT S2 ← the giveaway</text>
+<rect x="430" y="182" width="326" height="58" rx="12" fill="rgba(255,138,61,.9)"/>
+<text x="444" y="206" font-size="15" font-weight="900" fill="#2b1200">P · PDA — under the L collarbone</text>
+<text x="444" y="228" font-size="14" font-weight="900" fill="#2b1200">CONTINUOUS machine-like murmur</text>
+<rect x="430" y="250" width="326" height="58" rx="12" fill="rgba(47,107,255,.9)"/>
+<text x="444" y="274" font-size="15" font-weight="900" fill="#fff">V · VSD — LOWER L sternal border</text>
+<text x="444" y="296" font-size="14" font-weight="900" fill="#fff">loud harsh HOLOsystolic + thrill</text>
+<rect x="430" y="318" width="326" height="42" rx="12" fill="rgba(18,184,134,.9)"/>
+<text x="444" y="345" font-size="14.5" font-weight="900" fill="#03291c">M · apex 5th ICS — AVSD valve leak</text>
+<text x="28" y="360" font-size="13.5" font-style="italic" fill="#cfe0ff">Louder ≠ worse. A tiny hole is the loudest.</text>
+</svg>
+      <div class="mn">🧠 <b>“<u>A</u>ll <u>P</u>eds <u>V</u>alves <u>M</u>urmur”</b> — top to bottom on the chest:
+      <b>A</b>SD high · <b>P</b>DA under the collarbone · <b>V</b>SD low sternal border · <b>M</b>itral/apex last.</div>
+    </div>
+  </div>
+</section>
+
+<section id="clues">
+  <div class="sec-h"><span class="icon">🔎</span><h2>CLUES</h2><span class="step">STEP 2 · THE 4 NCLEX SIGNS</span></div>
+  <p class="sec-sub">The source gives four. Learn them in this order — they are how a shunt baby actually shows up.</p>
+
+  <div class="grid">
+    <div class="card span2">
+      <h3>⭐ The 4 signs of a left-to-right shunt — <mark>1 sweat · 2 murmur · 3 no weight · 4 heart failure</mark></h3>
+      <div class="ladder">
+        <div class="rung"><div class="n">1</div><div class="t">💦 <b>Diaphoresis DURING FEEDINGS</b> — the baby sweats, most on the forehead and scalp. Feeding is a marathon for a failing heart.</div></div>
+        <div class="rung"><div class="n">2</div><div class="t">🎵 <b>Heart murmur</b> — the sound of blood crossing the hole.</div></div>
+        <div class="rung"><div class="n">3</div><div class="t">⚖️ <b>Poor weight gain</b> — calories in, calories burned breathing. Growth stalls on the chart.</div></div>
+        <div class="rung"><div class="n">4</div><div class="t">🚨 <b>Increased risk: HEART FAILURE &amp; PULMONARY HYPERTENSION</b> — the endpoint if nobody fixes the hole.</div></div>
+      </div>
+      <div class="mn">🧠 <b>“SMall Weight, big Heart” — S·M·W·H:</b> <b>S</b>weating with feeds · <b>M</b>urmur ·
+      <b>W</b>eight won't climb · <b>H</b>eart failure. Four letters, four NCLEX tips.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>💦 What “sweating with feeds” actually looks like</h3>
+<svg viewBox="0 0 440 320" role="img" aria-label="An infant feeding from a bottle with sweat beads on the forehead, fast breathing marks, and a clock showing a feed lasting more than thirty minutes">
+<rect x="6" y="6" width="428" height="308" rx="16" fill="rgba(255,59,107,.16)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="7 6"/>
+<text x="22" y="40" font-size="19" font-weight="900" fill="#ff9db4">FEEDING = A WORKOUT</text>
+<!-- baby head -->
+<circle cx="150" cy="150" r="62" fill="#ffd0bd" stroke="#fff" stroke-width="2"/>
+<circle cx="132" cy="140" r="6" fill="#3a1f14"/><circle cx="170" cy="140" r="6" fill="#3a1f14"/>
+<path d="M130 176 Q150 190 172 176" fill="none" stroke="#3a1f14" stroke-width="4" stroke-linecap="round"/>
+<!-- sweat beads -->
+<g fill="#9cc2ff" stroke="#fff" stroke-width="1.5">
+<path d="M112 100 q9 14 0 20 q-9 -6 0 -20"/><path d="M146 88 q9 14 0 20 q-9 -6 0 -20"/>
+<path d="M182 100 q9 14 0 20 q-9 -6 0 -20"/></g>
+<text x="96" y="80" font-size="15" font-weight="900" fill="#9cc2ff">💧 diaphoresis</text>
+<!-- bottle -->
+<rect x="216" y="140" width="46" height="76" rx="12" fill="#eafff7" stroke="#fff" stroke-width="2"/>
+<rect x="220" y="176" width="38" height="36" rx="8" fill="#ffe49a"/>
+<path d="M212 158 L200 168 L212 178 Z" fill="#eafff7"/>
+<!-- fast breathing -->
+<path d="M232 258 l16 -22 l10 22 l16 -30 l10 30 l16 -22 l10 22" fill="none" stroke="#ffc233" stroke-width="4" stroke-linecap="round"/>
+<text x="232" y="292" font-size="15" font-weight="900" fill="#ffc233">tachypnea while eating</text>
+<!-- clock -->
+<circle cx="360" cy="92" r="38" fill="rgba(13,8,26,.6)" stroke="#ffc233" stroke-width="3"/>
+<line x1="360" y1="92" x2="360" y2="68" stroke="#ffc233" stroke-width="4" stroke-linecap="round"/>
+<line x1="360" y1="92" x2="382" y2="102" stroke="#ffc233" stroke-width="4" stroke-linecap="round"/>
+<text x="360" y="152" text-anchor="middle" font-size="15" font-weight="900" fill="#ffc233">feed &gt; 30 min</text>
+<text x="22" y="298" font-size="14.5" font-weight="900" fill="#ff9db4">Grunting during feeding</text>
+</svg>
+      <p style="margin-top:10px"><b>Why:</b> feeding is the hardest physical work an infant does. A heart already
+      pumping extra volume cannot keep up, so the baby <b>sweats, grunts, breathes fast, and quits early</b>.</p>
+      <div class="mn">🧠 <b>“A sweaty feed is a failing heart.”</b> Healthy babies don't sweat through a bottle.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>⚖️ Poor weight gain — the growth chart tells on the heart</h3>
+<svg viewBox="0 0 440 320" role="img" aria-label="Growth chart with a normal weight curve climbing steeply and a shunt baby curve that flattens out at three point two kilograms">
+<rect x="6" y="6" width="428" height="308" rx="16" fill="rgba(47,107,255,.16)" stroke="#2f6bff" stroke-width="2" stroke-dasharray="7 6"/>
+<text x="22" y="38" font-size="18" font-weight="900" fill="#bcd0ff">WEIGHT vs TIME</text>
+<line x1="72" y1="60" x2="72" y2="256" stroke="#cfe0ff" stroke-width="3"/>
+<line x1="72" y1="256" x2="410" y2="256" stroke="#cfe0ff" stroke-width="3"/>
+<text x="34" y="70" font-size="13" font-weight="800" fill="#cfe0ff">kg</text>
+<text x="344" y="282" font-size="13" font-weight="800" fill="#cfe0ff">months</text>
+<path d="M72 240 C 150 200 240 130 400 74" fill="none" stroke="#12b886" stroke-width="7" stroke-linecap="round"/>
+<text x="238" y="120" font-size="15" font-weight="900" fill="#7df0c6">✅ expected</text>
+<path d="M72 240 C 130 232 190 226 400 222" fill="none" stroke="#ff3b6b" stroke-width="7" stroke-linecap="round" stroke-dasharray="14 8"/>
+<text x="224" y="212" font-size="15" font-weight="900" fill="#ff9db4">🚩 shunt baby — flat</text>
+<circle cx="400" cy="222" r="8" fill="#ff3b6b"/>
+<rect x="96" y="86" width="118" height="34" rx="9" fill="#ffc233"/>
+<text x="155" y="111" text-anchor="middle" font-size="17" font-weight="900" fill="#231a02">3.2 kg</text>
+<text x="22" y="298" font-size="14" font-style="italic" fill="#cfe0ff">Failure to thrive is a cardiac sign, not just a feeding sign.</text>
+</svg>
+      <p style="margin-top:10px"><b>Answer first:</b> weigh the infant <b>daily, same scale, same time, same amount of
+      clothing</b>. A weight that will not climb — or a sudden <i>jump</i> — is the most sensitive peds cardiac number you have.</p>
+      <p><b>Two different meanings:</b> a <b>flat</b> weight = not enough calories / too much work.
+      A <b>sudden gain</b> = <b>fluid</b>, i.e. heart failure.</p>
+      <div class="mn">🧠 <b>“Slow gain = starving heart · Fast gain = drowning heart.”</b></div>
+    </div>
+
+    <div class="card garnet span2">
+      <h3>🚨 The 5 heart-failure signs to REPORT — <mark>HF = Heavy Fluid</mark></h3>
+      <div class="no-grid">
+        <div class="no-t hot"><span class="e">⚖️</span>Weight GAIN<i>water gain</i></div>
+        <div class="no-t hot"><span class="e">👀</span>Puffy eyes<i>periorbital edema</i></div>
+        <div class="no-t hot"><span class="e">🥶</span>Pale, cool<i>extremities</i></div>
+        <div class="no-t hot"><span class="e">🧷</span>Fewer wet<i>diapers</i></div>
+        <div class="no-t hot"><span class="e">🍼</span>Decreased<i>feeding</i></div>
+      </div>
+      <p style="margin-top:11px"><b>Earliest signs of heart failure in an infant are </b><b>TACHYCARDIA</b> and
+      <b>TACHYPNEA</b> at rest — before the puffiness, before the weight.</p>
+      <p><b>Why puffy eyes and not ankles?</b> Infants lie flat. Fluid pools where gravity puts it, and in a
+      baby that is the <b>face and eyes</b>, not the legs. <span class="never">Never wait for ankle edema in an infant.</span></p>
+      <div class="mn">🧠 <b>“HF = HEAVY FLUID.”</b> Heavy on the scale · heavy eyes · heavy breathing ·
+      light diaper. Five signs, one word.</div>
+    </div>
+
+    <div class="card ruby span2">
+      <h3>📈 The ending nobody wants: too much lung blood → pulmonary HTN → the shunt REVERSES</h3>
+<svg viewBox="0 0 780 300" role="img" aria-label="Three stage progression: increased pulmonary blood flow, then pulmonary hypertension with thickened lung vessels, then Eisenmenger syndrome where the shunt reverses to right to left and the child becomes cyanotic">
+<rect x="8" y="8" width="764" height="284" rx="18" fill="rgba(13,8,26,.55)" stroke="rgba(255,255,255,.28)" stroke-width="2"/>
+<text x="28" y="42" font-size="20" font-weight="900" fill="#ffe49a">WHY A “PINK” DEFECT CAN END UP BLUE</text>
+<!-- stage 1 -->
+<rect x="26" y="62" width="222" height="200" rx="14" fill="rgba(255,194,51,.28)" stroke="#ffc233" stroke-width="2"/>
+<text x="137" y="90" text-anchor="middle" font-size="16" font-weight="900" fill="#ffe49a">1 · TOO MUCH FLOW</text>
+<path d="M86 116 q-24 34 -6 66 q22 26 44 6 l0 -72 z" fill="#9cc2ff" stroke="#fff" stroke-width="2"/>
+<path d="M188 116 q24 34 6 66 q-22 26 -44 6 l0 -72 z" fill="#9cc2ff" stroke="#fff" stroke-width="2"/>
+<path d="M137 108 L137 200" stroke="#fff" stroke-width="5"/>
+<text x="137" y="232" text-anchor="middle" font-size="14.5" font-weight="800" fill="#ffe49a">L→R shunt floods</text>
+<text x="137" y="252" text-anchor="middle" font-size="14.5" font-weight="800" fill="#ffe49a">the lungs · still PINK</text>
+<text x="262" y="170" font-size="26" font-weight="900" fill="#ffb3c6">➡</text>
+<!-- stage 2 -->
+<rect x="292" y="62" width="222" height="200" rx="14" fill="rgba(255,138,61,.28)" stroke="#ff8a3d" stroke-width="2"/>
+<text x="403" y="90" text-anchor="middle" font-size="16" font-weight="900" fill="#ffc0a0">2 · PULMONARY HTN</text>
+<circle cx="403" cy="158" r="52" fill="none" stroke="#ff8a3d" stroke-width="22"/>
+<circle cx="403" cy="158" r="26" fill="rgba(13,8,26,.7)"/>
+<text x="403" y="164" text-anchor="middle" font-size="15" font-weight="900" fill="#ffc0a0">narrow</text>
+<text x="403" y="232" text-anchor="middle" font-size="14.5" font-weight="800" fill="#ffc0a0">lung vessels thicken &amp;</text>
+<text x="403" y="252" text-anchor="middle" font-size="14.5" font-weight="800" fill="#ffc0a0">stiffen · pressure climbs</text>
+<text x="528" y="170" font-size="26" font-weight="900" fill="#ffb3c6">➡</text>
+<!-- stage 3 -->
+<rect x="558" y="62" width="196" height="200" rx="14" fill="rgba(157,92,255,.32)" stroke="#9d5cff" stroke-width="2"/>
+<text x="656" y="90" text-anchor="middle" font-size="16" font-weight="900" fill="#d9c2ff">3 · EISENMENGER</text>
+<circle cx="656" cy="156" r="42" fill="#6d3fb8" stroke="#d9c2ff" stroke-width="3"/>
+<path d="M636 146 q20 -14 40 0" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+<path d="M638 176 q18 12 36 0" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+<text x="656" y="228" text-anchor="middle" font-size="14.5" font-weight="900" fill="#d9c2ff">R pressure &gt; L pressure</text>
+<text x="656" y="250" text-anchor="middle" font-size="14.5" font-weight="900" fill="#d9c2ff">shunt FLIPS R→L · BLUE</text>
+</svg>
+      <p style="margin-top:10px"><b>Answer first:</b> once the shunt reverses, it is <b>irreversible</b> and the child is
+      no longer a surgical candidate for a simple repair. <span class="never">This is exactly why holes get closed
+      early instead of “watched forever.”</span></p>
+      <div class="mn">🧠 <b>“Ice-man-er” — Eisenmenger.</b> The lungs turn to stone, the pressure flips, and the
+      pink baby goes <b>blue</b>. It is the one way an <i>acyanotic</i> defect becomes <i>cyanotic</i>.</div>
+    </div>
+  </div>
+</section>
+
+<section id="care">
+  <div class="sec-h"><span class="icon">🩺</span><h2>CARE</h2><span class="step">STEP 3 · CLOSE IT, FEED IT, PROTECT IT</span></div>
+  <p class="sec-sub">Three jobs: close the hole, get calories in, and keep the heart from failing while you wait.</p>
+
+  <div class="grid">
+    <div class="card emerald span2">
+      <h3>🩹 Treatment by defect — straight from the source, expanded</h3>
+      <table>
+        <tr><th style="width:16%">Defect</th><th class="up">Hallmark</th><th class="lo">Treatment</th><th>Group</th></tr>
+        <tr><td><b>ASD</b></td><td>Systolic murmur + <b>fixed split S2</b></td>
+            <td><b>Closes naturally</b> (many small ones) · <b>device closure in the cath lab</b> · <b>surgical repair</b></td>
+            <td>Acyanotic · L→R</td></tr>
+        <tr><td><b>VSD</b></td><td><b>Systolic murmur at the left sternal border</b>, loud &amp; harsh; grunting with feeds</td>
+            <td><b>Closes naturally</b> (small) · <b>surgical patch repair</b> (large)</td>
+            <td>Acyanotic · L→R</td></tr>
+        <tr><td><b>PDA</b></td><td><b>Loud MACHINE-LIKE continuous murmur</b>, bounding pulses, wide pulse pressure</td>
+            <td><b>Indomethacin</b> or ibuprofen (NSAID) · <b>surgical ligation</b> / coil closure</td>
+            <td>Acyanotic · L→R</td></tr>
+        <tr><td><b>AVSD</b></td><td>Early heart failure; strongly linked to <b>Down syndrome</b></td>
+            <td><b>Surgical repair in infancy</b>; HF medications to bridge to surgery</td>
+            <td>Acyanotic · L→R</td></tr>
+      </table>
+      <div class="mn">🧠 <b>“Two close themselves, two get closed.”</b> Small <b>ASD</b> and small <b>VSD</b> often
+      close on their own · <b>PDA</b> gets a <i>drug</i> · <b>AVSD</b> gets a <i>surgeon</i>.</div>
+    </div>
+
+    <div class="card topaz span2">
+      <h3>💊 The one drug pair you must not swap — <mark>close the duct vs KEEP the duct open</mark></h3>
+      <table>
+        <tr><th class="up" style="width:50%">🔒 CLOSE the duct</th><th class="lo" style="width:50%">🔓 KEEP the duct OPEN</th></tr>
+        <tr><td><b>Indomethacin</b> · <b>ibuprofen</b> — NSAIDs</td>
+            <td><b>Prostaglandin E1 (alprostadil)</b> — a continuous IV infusion</td></tr>
+        <tr><td><b>How:</b> NSAIDs <b>block prostaglandin</b>, and prostaglandin is what holds the duct open.
+            Take the prostaglandin away → the duct closes.</td>
+            <td><b>How:</b> gives back the prostaglandin, so the duct stays patent.</td></tr>
+        <tr><td><b>When:</b> a <b>PDA</b> that is dumping too much blood into the lungs — usually a premature infant.</td>
+            <td><b>When:</b> a <b>duct-dependent</b> defect, where the duct is the <i>only</i> path keeping the baby alive
+            (critical coarctation, severe pulmonic stenosis, transposition, hypoplastic left heart).</td></tr>
+        <tr><td><b>Watch:</b> renal function &amp; urine output, bleeding/platelet effects, GI (NEC risk) —
+            all standard NSAID concerns.</td>
+            <td><b>Watch:</b> <b>APNEA</b> (be ready to intubate), hypotension, fever, flushing. Never stop the drip abruptly.</td></tr>
+      </table>
+      <div class="mn">🧠 <b>“<u>IN</u>domethacin = <u>IN</u> it goes, duct is <u>IN</u>-visible.
+      <u>PRO</u>staglandin = <u>PRO</u>-open.”</b> One shuts the door, one props it open.
+      <span class="never">Giving the wrong one to a duct-dependent newborn is fatal.</span></div>
+    </div>
+
+    <div class="card emerald">
+      <h3>✅ Feeding the shunt baby — calories are the treatment</h3>
+      <ul class="tick">
+        <li>🍼 <b>Small, frequent feedings</b> — big feeds exhaust them.</li>
+        <li>⏱️ <b>Cap the feed at about <span class="mono">30 minutes</span></b>. Longer than that costs more calories
+        than it delivers — gavage/NG feed the rest rather than letting the baby work.</li>
+        <li>🥛 <b>Higher-calorie formula / fortified breast milk</b> as ordered — more calories in less volume.</li>
+        <li>😴 <b>Cluster care and let them sleep</b> — rest is a cardiac intervention.</li>
+        <li>⚖️ <b>Daily weight</b>, same scale, same time.</li>
+        <li>🧷 <b>Count wet diapers</b> — falling output is an early failure sign.</li>
+      </ul>
+      <div class="mn">🧠 <b>“Small, frequent, fortified, finished in 30.”</b> Four F's, one goal — grow the baby big
+      enough to survive the repair.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>💊 Holding the line until surgery: HF medications</h3>
+      <ul class="tick">
+        <li>💧 <b>Diuretic — furosemide</b>: pulls the extra lung water off. Watch <b>potassium</b>, daily weights,
+        strict I&amp;O.</li>
+        <li>💪 <b>Digoxin</b>: makes each beat stronger and slower.</li>
+        <li>🩸 <b>ACE inhibitor (e.g. captopril, enalapril)</b>: lowers afterload so the left ventricle has less
+        resistance to push against — that shrinks the left-to-right shunt.</li>
+      </ul>
+      <p><b>Digoxin in peds — the parts that get tested:</b></p>
+      <ul class="tick">
+        <li>❤️ <b>Count the APICAL pulse for a full minute before every dose.</b></li>
+        <li>🛑 <b>Hold and call:</b> commonly taught parameters are apical rate <span class="mono">&lt; 90–110</span>
+        in an <b>infant</b> and <span class="mono">&lt; 70</span> in an <b>older child</b> — <i>follow the facility's
+        and the prescriber's stated parameter.</i></li>
+        <li>🤮 <b>Early toxicity in a child = vomiting, anorexia, bradycardia</b> (not the colour vision of adults).</li>
+        <li>🧪 <b>Low potassium makes digoxin toxic</b> — and the child is also on a diuretic. Watch that K⁺.</li>
+        <li>❌ <span class="never">Do NOT repeat a dose the child vomited, and do not mix digoxin into a bottle
+        of formula</span> — if the baby doesn't finish it, you don't know the dose given.</li>
+      </ul>
+      <div class="mn">🧠 <b>“Dig makes it STRONG and SLOW.”</b> If it is already slow — <b>hold it</b>.</div>
+    </div>
+
+    <div class="card citrinec span2">
+      <h3>👨‍👩‍👧 Parent teaching &amp; long-term protection</h3>
+      <div class="duo">
+        <div>
+          <ul class="tick">
+            <li>🦷 <b>Infective endocarditis prophylaxis</b> — antibiotics (<b>amoxicillin</b> is first-line) before
+            dental and certain procedures for children with <b>prosthetic material or valves</b>, <b>unrepaired
+            cyanotic defects</b>, or a repair with prosthetic material within the <b>first 6 months</b>.
+            <b>Good daily oral care matters more than the pill.</b></li>
+            <li>💉 <b>Keep immunizations current</b>, including <b>influenza</b>; <b>RSV prophylaxis
+            (palivizumab)</b> is given to infants with hemodynamically significant heart disease.</li>
+            <li>🤧 <b>Avoid crowds &amp; sick contacts</b> — a shunt baby tolerates RSV very badly.</li>
+          </ul>
+        </div>
+        <div>
+          <ul class="tick">
+            <li>🌡️ <b>Call for:</b> fever, fast or hard breathing, sweating with feeds, fewer wet diapers,
+            puffiness, sudden weight gain, poor feeding, colour change.</li>
+            <li>🚭 <b>No second-hand smoke.</b></li>
+            <li>😌 <b>Let them self-limit activity</b> — children with shunts stop when they need to.</li>
+            <li>📈 <b>Keep every cardiology follow-up</b>, even when the child looks well. The damage that matters
+            (pulmonary hypertension) is silent until it is permanent.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="mn">🧠 <b>“Teeth, shots, crowds, calls.”</b> Four teaching points that keep a repaired heart alive
+      between clinic visits.</div>
+    </div>
+  </div>
+</section>
+
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">➡️ L → R = pink</span>ASD · VSD · PDA · AVSD are all <b>ACYANOTIC</b> with <b>↑ pulmonary blood flow</b>.</div>
+    <div class="rc rubybg"><span class="big">🦆 Machine-like = PDA</span>Continuous “washing machine” murmur + bounding pulses. Duct = DUCK.</div>
+    <div class="rc tealbg"><span class="big">🔊 Loud harsh LSB = VSD</span>Fixed split S2 high on the left = ASD. Down syndrome + early HF = AVSD.</div>
+    <div class="rc topazbg"><span class="big">💦 Sweat · murmur · no weight · HF</span>The 4 NCLEX signs of a left-to-right shunt.</div>
+  </div>
+
+  <div class="card deep">
+    <h3>⭐ One last time — the classification you will be asked</h3>
+<table>
+        <tr><th style="width:20%">Group</th><th class="up">Shunt direction</th><th class="lo">Pulmonary blood flow</th>
+            <th>Blue?</th><th>Defects</th></tr>
+        <tr><td><b>💛 ACYANOTIC</b></td><td><b>LEFT → RIGHT</b></td>
+            <td><b>↑ INCREASED</b> — too much blood to the lungs</td>
+            <td>No (pink at first)</td>
+            <td><b>ASD · VSD · PDA · AVSD</b></td></tr>
+        <tr><td><b>🧡 OBSTRUCTIVE</b></td><td>none — the road is <b>narrowed</b></td>
+            <td>normal or <b>↓</b>, depending on where the narrowing is</td>
+            <td>Usually no</td>
+            <td><b>Pulmonic stenosis · Aortic stenosis · Coarctation of the aorta</b></td></tr>
+        <tr><td><b>💜 CYANOTIC</b></td><td><b>RIGHT → LEFT</b></td>
+            <td><b>↓ DECREASED</b> — blood skips the lungs</td>
+            <td><b>YES</b></td>
+            <td><b>Tetralogy of Fallot · Tricuspid atresia</b></td></tr>
+        <tr><td><b>🩵 MIXED</b></td><td>both ways — red and blue blood mix</td>
+            <td>varies</td><td>Yes</td>
+            <td>Transposition of the great arteries · Truncus arteriosus · TAPVR · hypoplastic left heart</td></tr>
+      </table>
+      <div class="mn">🧠 <b>“Pink holes, blue Ts, orange gates.”</b>
+      <b>Holes</b> (ASD/VSD/PDA/AVSD) leave the baby <b>pink</b> · the big <b>T</b>s
+      (<b>T</b>etralogy, <b>T</b>ricuspid atresia, <b>T</b>ransposition) turn the baby <b>blue</b> ·
+      the <b>gates</b> (stenosis, coarctation) are <b>orange bow-ties</b> — nothing is leaking, something is
+      <i>blocked</i>.</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 6 rapid-fire questions</summary>
+      <div class="qa">Q1: Which way does blood shunt in ASD, VSD, PDA and AVSD, and why? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">LEFT → RIGHT. The left side is the high-pressure pump, so blood takes the easy road back into the low-pressure right side and returns to the lungs. Result: increased pulmonary blood flow, acyanotic.</div></div>
+      <div class="qa">Q2: A newborn has a loud, continuous machine-like murmur and bounding pulses. Which defect, and which drug closes it? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">PDA — patent ductus arteriosus, the opening connecting the aorta to the pulmonary artery. Indomethacin (or ibuprofen), an NSAID, closes it; surgical ligation or coil closure if that fails.</div></div>
+      <div class="qa">Q3: The parents of a child with an ASD ask about the murmur. What do you tell them, and what would you report instead? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">The murmur itself is expected — it is the sound of the shunt. Report the heart-failure signs: weight gain, puffy eyes, pale cool extremities, fewer wet diapers, decreased feeding — plus tachycardia and tachypnea at rest.</div></div>
+      <div class="qa">Q4: An infant with Down syndrome has a murmur, sweats with feeds and is failing to gain weight. Most likely defect? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">AVSD — atrioventricular septal defect: both an ASD and a VSD plus one common AV valve. Acyanotic, left-to-right, and the group that goes into heart failure earliest. Repair is surgical, in infancy.</div></div>
+      <div class="qa">Q5: How can an “acyanotic” defect end up making a child blue? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Years of extra pulmonary blood flow cause pulmonary hypertension. When right-sided pressure exceeds left-sided pressure the shunt reverses to RIGHT → LEFT — Eisenmenger syndrome. The child becomes cyanotic, and it is irreversible.</div></div>
+      <div class="qa">Q6: You are about to give digoxin to a 4-month-old. Apical rate is 88 and regular. Now what? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Hold the dose and notify the provider. Commonly taught hold parameters are an apical rate below 90–110 in an infant and below 70 in an older child — always count apically for one full minute, and follow the parameter the prescriber wrote.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc"><span style="background:rgba(0,194,199,.7)">BASE</span>→<span style="background:rgba(157,92,255,.7)">DEFECT</span>→<span style="background:rgba(47,107,255,.7)">CLUES</span>→<span style="background:rgba(18,184,134,.7)">CARE</span></div>
+  <div>NG-151 · Congenital heart defects · NUR 235 peds · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>

@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tort Law · NG-172 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+/* ---- appended rules for this page (5-anchor nav, extra section colors, series/xref) ---- */
+nav a.c5{background:rgba(0,194,199,.68);color:#00252b}
+#basics .sec-h h2{color:#d9c2ff} #basics .step{background:var(--amethyst)}
+#neg .sec-h h2{color:#bcd0ff} #neg .step{background:var(--sapphire)}
+#intentional .sec-h h2{color:#9ff2ee} #intentional .step{background:var(--teal);color:#00252b}
+#apply .sec-h h2{color:#a5f3d4} #apply .step{background:var(--emerald);color:#03291c}
+.serieslinks{display:flex;gap:6px;flex-wrap:wrap}
+.serieslinks a{font-size:.78rem;font-weight:800;color:#fff;text-decoration:none;padding:4px 9px;border-radius:8px;background:rgba(255,255,255,.14);border:1px solid var(--line)}
+.serieslinks a.here{background:var(--topaz);color:#231a02;border-color:transparent}
+.xref{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 16px;padding:12px 16px;
+  border-radius:14px;background:rgba(255,59,107,.22);border:1px solid var(--line)}
+.xref a{color:var(--topaz);font-weight:900;text-decoration:underline}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#basics">🧾 Basics</a>
+  <a class="c2" href="#neg">⚖️ Negligence</a>
+  <a class="c5" href="#intentional">🚨 Intentional</a>
+  <a class="c3" href="#apply">🎯 NCLEX</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Nursing Core · Legal &amp; Ethics Series</div>
+  <h1>Tort Law <span class="drop">⚖️</span></h1>
+  <p class="sub">Negligence, malpractice, and the intentional torts that show up on every NCLEX legal question</p>
+  <div class="chips">
+    <span class="chip id">NG-172</span>
+    <span class="chip cat">NURSING CORE</span>
+    <span class="chip course" style="background:rgba(0,194,199,.6)">Series: Legal &amp; Ethics 2 of 5</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede">A <b>tort</b> is a wrongful act or violation of someone's rights that creates legal liability. Nursing torts split into two families: <b>unintentional</b> (negligence, malpractice — you didn't mean to cause harm, but you did) and <b>intentional</b> (assault, battery, false imprisonment, defamation — willful acts that violate a client's rights). <mark>The burden of proof always sits with the accuser</mark>, not the nurse being accused.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">🧾 Burden of proof</span>Sits with the accuser — not the nurse.</div>
+  <div class="rc rubybg"><span class="big">🪜 4 elements of negligence</span>Duty → Breach → Causation → Damages — all 4 required.</div>
+  <div class="rc tealbg"><span class="big">🆚 A before B</span>Assault (threat) always comes before Battery (actual harmful contact).</div>
+  <div class="rc topazbg"><span class="big">🔒 No consent = Battery</span>Any procedure or treatment given without consent is battery.</div>
+</div>
+
+<!-- ============ BASICS ============ -->
+<section id="basics">
+  <div class="sec-h"><span class="icon">🧾</span><h2>THE BASICS</h2><span class="step">STEP 1 · DEFINE THE TERM</span></div>
+  <p class="sec-sub">One umbrella word — tort — covers everything from an honest mistake to a deliberate violation.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>⚖️ Tort = a wrongful act that creates legal liability</h3>
+      <svg viewBox="0 0 900 260" role="img" aria-label="Scale of justice diagram showing burden of proof resting with the accuser, and torts splitting into unintentional and intentional branches">
+        <rect x="10" y="10" width="880" height="240" rx="16" fill="rgba(13,8,26,.4)" stroke="rgba(255,255,255,.25)" stroke-width="2"/>
+        <text x="450" y="42" font-size="18" font-weight="900" fill="#ffe49a" text-anchor="middle">⚖️ TORT LAW</text>
+
+        <!-- scale -->
+        <line x1="450" y1="60" x2="450" y2="110" stroke="#e9dcff" stroke-width="5"/>
+        <line x1="350" y1="80" x2="550" y2="80" stroke="#e9dcff" stroke-width="5"/>
+        <line x1="350" y1="80" x2="350" y2="110" stroke="#e9dcff" stroke-width="3"/>
+        <line x1="550" y1="80" x2="550" y2="110" stroke="#e9dcff" stroke-width="3"/>
+        <path d="M320 110 h60 l-30 34 z" fill="#ff3b6b"/>
+        <path d="M520 110 h60 l-30 34 z" fill="#12b886"/>
+        <text x="350" y="160" font-size="13.5" font-weight="900" fill="#ff9db4" text-anchor="middle">ACCUSER</text>
+        <text x="350" y="178" font-size="12" font-style="italic" fill="#ffd9e2" text-anchor="middle">carries burden of proof</text>
+        <text x="550" y="160" font-size="13.5" font-weight="900" fill="#7df0c6" text-anchor="middle">ACCUSED</text>
+        <text x="550" y="178" font-size="12" font-style="italic" fill="#d8fff0" text-anchor="middle">presumed not liable</text>
+
+        <rect x="120" y="200" width="290" height="40" rx="10" fill="rgba(47,107,255,.5)"/>
+        <text x="265" y="225" font-size="14" font-weight="900" fill="#fff" text-anchor="middle">UNINTENTIONAL — negligence, malpractice</text>
+        <rect x="490" y="200" width="290" height="40" rx="10" fill="rgba(255,59,107,.5)"/>
+        <text x="635" y="225" font-size="14" font-weight="900" fill="#fff" text-anchor="middle">INTENTIONAL — assault, battery, defamation</text>
+      </svg>
+      <div class="mn">🧠 <b>"Innocent until proven, and it's not your job to prove it."</b> Whoever brings the claim (the accuser) has to prove the nurse was liable — the nurse doesn't have to prove innocence.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🏛️ Civil vs. Criminal</h3>
+      <table>
+        <tr><th class="up">Civil</th><th class="lo">Criminal</th></tr>
+        <tr><td>Crime <b>against an individual</b></td><td>Crime <b>against the state</b></td></tr>
+        <tr><td>Most nursing torts land here</td><td><b>More serious</b> — can involve licensure loss, jail</td></tr>
+      </table>
+      <div class="mn">🧠 Most malpractice suits are <b>civil</b> — but abuse, patient abandonment with harm, or falsifying records can escalate to <b>criminal</b>.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>📏 The "reasonable, prudent nurse" test</h3>
+      <p>Used to determine the <b>standard of care</b> in every negligence/malpractice case: <i>"What would a reasonable, prudent nurse — with similar training and experience, in a similar setting — have done in this same situation?"</i></p>
+      <div class="mn">🧠 It's not "what would a perfect nurse do" — it's what a <b>reasonably careful peer</b> would do. This test comes back on the Informed Consent page too.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NEGLIGENCE / MALPRACTICE ============ -->
+<section id="neg">
+  <div class="sec-h"><span class="icon">⚖️</span><h2>NEGLIGENCE &amp; MALPRACTICE</h2><span class="step">STEP 2 · UNINTENTIONAL TORTS</span></div>
+  <p class="sec-sub">Same family, different license — malpractice is negligence committed by a licensed professional.</p>
+
+  <div class="grid">
+    <div class="card sapphire span2">
+      <h3>🪜 The 4 elements of negligence — ALL FOUR must be present</h3>
+      <svg viewBox="0 0 900 220" role="img" aria-label="Four-step chain diagram of the elements of negligence: duty, breach, causation, and damages">
+        <defs><marker id="arNeg" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#bcd0ff"/></marker></defs>
+        <rect x="10" y="10" width="880" height="200" rx="16" fill="rgba(13,8,26,.4)" stroke="rgba(255,255,255,.25)" stroke-width="2"/>
+        <g font-weight="900" text-anchor="middle">
+          <rect x="35" y="50" width="185" height="130" rx="12" fill="#9d5cff"/>
+          <text x="127" y="95" font-size="30" fill="#fff">1️⃣</text>
+          <text x="127" y="130" font-size="16" fill="#fff">DUTY</text>
+          <text x="127" y="152" font-size="11" font-weight="700" fill="#f0e6ff">nurse-client</text>
+          <text x="127" y="167" font-size="11" font-weight="700" fill="#f0e6ff">relationship existed</text>
+
+          <path d="M225 115 L262 115" stroke="#bcd0ff" stroke-width="5" marker-end="url(#arNeg)"/>
+
+          <rect x="270" y="50" width="185" height="130" rx="12" fill="#2f6bff"/>
+          <text x="362" y="95" font-size="30" fill="#fff">2️⃣</text>
+          <text x="362" y="130" font-size="16" fill="#fff">BREACH</text>
+          <text x="362" y="152" font-size="11" font-weight="700" fill="#e6efff">standard of care</text>
+          <text x="362" y="167" font-size="11" font-weight="700" fill="#e6efff">was violated</text>
+
+          <path d="M460 115 L497 115" stroke="#bcd0ff" stroke-width="5" marker-end="url(#arNeg)"/>
+
+          <rect x="505" y="50" width="185" height="130" rx="12" fill="#00c2c7"/>
+          <text x="597" y="95" font-size="30" fill="#00252b">3️⃣</text>
+          <text x="597" y="130" font-size="16" fill="#00252b">CAUSATION</text>
+          <text x="597" y="152" font-size="11" font-weight="700" fill="#00373d">breach directly</text>
+          <text x="597" y="167" font-size="11" font-weight="700" fill="#00373d">caused the harm</text>
+
+          <path d="M695 115 L732 115" stroke="#bcd0ff" stroke-width="5" marker-end="url(#arNeg)"/>
+
+          <rect x="740" y="50" width="145" height="130" rx="12" fill="#ff3b6b"/>
+          <text x="812" y="95" font-size="30" fill="#fff">4️⃣</text>
+          <text x="812" y="130" font-size="16" fill="#fff">DAMAGES</text>
+          <text x="812" y="152" font-size="11" font-weight="700" fill="#ffe3ea">actual harm</text>
+          <text x="812" y="167" font-size="11" font-weight="700" fill="#ffe3ea">resulted</text>
+        </g>
+      </svg>
+      <p style="margin-top:10px"><b>Example:</b> A nurse doesn't wash hands before inserting a Foley catheter (<b>breach</b> — a duty existed) and the client develops a catheter-associated UTI (<b>causation + damages</b>). All four elements present = negligence.</p>
+      <div class="mn">🧠 <b>"DBCD — Don't Break the Client's Duty."</b> Duty → Breach → Causation → Damages. Miss any one link and there's no negligence claim, no matter how careless the nurse was.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>⚠️ Negligence — the definition</h3>
+      <p>The <b>failure to provide adequate care</b> that another reasonable, prudent nurse would provide in a similar situation.</p>
+      <p><b>Example:</b> A nurse identifies an absent peripheral pulse in a client's casted extremity in the early morning — but doesn't report it to the HCP until the early afternoon. The delay is the breach.</p>
+      <div class="mn">🧠 <b>Withholding informed consent can itself be negligence</b> — if a provider doesn't obtain proper consent, that provider can be found negligent.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🩺 Malpractice — negligence with a license attached</h3>
+      <p><b>Illegal, improper, or negligent actions by a licensed professional</b> — practice that falls below the accepted standard of care.</p>
+      <p><b>Example:</b> An RN fails to check the dosage printed on a medication vial, and the client is harmed as a result.</p>
+      <div class="mn">🧠 <b>Malpractice = negligence + a license.</b> Every malpractice case is negligence, but not every negligence case is malpractice — malpractice specifically requires the person to be a licensed professional acting within their scope.</div>
+    </div>
+
+    <div class="card citrinec span2">
+      <h3>🚪 Abandonment — a special unintentional tort</h3>
+      <p><b>Desertion of a client</b> by anyone who has already assumed responsibility for their care — for example, leaving an assignment or ending a nurse-client relationship without properly transferring care or giving adequate notice.</p>
+      <div class="mn">🧠 Once a nurse accepts an assignment (duty exists), walking away without a proper hand-off is abandonment — even if the intent was reasonable (e.g., leaving because the assignment felt unsafe). Always notify the charge nurse/supervisor first.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INTENTIONAL TORTS ============ -->
+<section id="intentional">
+  <div class="sec-h"><span class="icon">🚨</span><h2>INTENTIONAL TORTS</h2><span class="step">STEP 3 · WILLFUL ACTS</span></div>
+  <p class="sec-sub">These are deliberate — no accident excuse. Assault and battery are the two NCLEX loves most.</p>
+
+  <div class="grid">
+    <div class="card ruby span2">
+      <h3>🆚 Assault (the threat) vs. Battery (the act) — <mark>A comes before B</mark></h3>
+      <div class="duo">
+        <svg viewBox="0 0 420 240" role="img" aria-label="Assault panel: a nurse making a verbal threat toward a client, no physical contact occurs">
+          <rect x="6" y="6" width="408" height="228" rx="16" fill="rgba(255,194,51,.18)" stroke="#ffc233" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="24" y="42" font-size="20" font-weight="900" fill="#ffe49a">🗯️ ASSAULT</text>
+          <text x="24" y="64" font-size="13" font-style="italic" fill="#fff4d6">the THREAT of harm — no touch needed</text>
+          <circle cx="120" cy="150" r="34" fill="#ffd0bd"/>
+          <circle cx="300" cy="150" r="34" fill="#ffd0bd"/>
+          <path d="M154 150 L266 150" stroke="#ffc233" stroke-width="4" stroke-dasharray="8 6"/>
+          <text x="210" y="140" font-size="22" text-anchor="middle">⚡</text>
+          <text x="24" y="205" font-size="13.5" font-weight="800" fill="#ffe49a">"I will restrain you to the bed</text>
+          <text x="24" y="223" font-size="13.5" font-weight="800" fill="#ffe49a">if you keep getting up!"</text>
+        </svg>
+        <svg viewBox="0 0 420 240" role="img" aria-label="Battery panel: a nurse making unconsented physical contact with a client">
+          <rect x="6" y="6" width="408" height="228" rx="16" fill="rgba(255,59,107,.2)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="24" y="42" font-size="20" font-weight="900" fill="#ff9db4">👊 BATTERY</text>
+          <text x="24" y="64" font-size="13" font-style="italic" fill="#ffd9e2">the ACT — unconsented harmful contact</text>
+          <circle cx="120" cy="150" r="34" fill="#ffd0bd"/>
+          <circle cx="220" cy="150" r="34" fill="#ffd0bd"/>
+          <path d="M148 150 L192 150" stroke="#ff3b6b" stroke-width="8" stroke-linecap="round"/>
+          <text x="24" y="205" font-size="13.5" font-weight="800" fill="#ff9db4">Performing a procedure — or giving</text>
+          <text x="24" y="223" font-size="13.5" font-weight="800" fill="#ff9db4">a medication — WITHOUT consent</text>
+        </svg>
+      </div>
+      <div class="mn">🧠 <b>"A &amp; B, in order — Assault before Battery."</b> The threat (A) doesn't require contact; the act (B) does. Both can happen in one scenario: threatening an NG tube (assault) then inserting it anyway over refusal (battery).</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🔒 False imprisonment</h3>
+      <p>Using <b>physical restraints, seclusion, or a chemical restraint</b> to keep someone against their will — without a valid order/indication.</p>
+      <p><b>Example:</b> Using restraints on a <b>competent</b> client just to prevent them from leaving the facility. Chemically restraining a competent client able to make their own decisions is <i>both</i> false imprisonment <i>and</i> assault/battery.</p>
+      <div class="mn">🧠 A restraint used for the wrong reason (convenience, punishment, "they might leave AMA") is false imprisonment — see page 5 for the correct AMA process.</div>
+    </div>
+
+    <div class="card tealc">
+      <h3>📚 Defamation of character — Libel vs. Slander</h3>
+      <p>Making false, rude, or insulting remarks that harm a client's (or coworker's) reputation.</p>
+      <table>
+        <tr><th class="up">Libel</th><th class="lo">Slander</th></tr>
+        <tr><td><b>Written</b></td><td><b>Spoken</b></td></tr>
+      </table>
+      <div class="mn">🧠 <b>"LIBEL lives in the LIBRARY"</b> — both start with L, and a library holds <i>written</i> words. Example: break-room gossip about a coworker's alleged affair with a client = slander (spoken).</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🕵️ Invasion of privacy</h3>
+      <p>Violating a client's <b>confidentiality rights</b> — including HIPAA violations.</p>
+      <p><b>Example:</b> Discussing a client's diagnosis where others can overhear, or accessing a chart with no professional reason to.</p>
+      <div class="mn">🧠 Confidentiality violations sit at the intersection of tort law and HIPAA — same act, two different legal exposures.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ APPLY / NCLEX ============ -->
+<section id="apply">
+  <div class="sec-h"><span class="icon">🎯</span><h2>NCLEX TRAPS</h2><span class="step">STEP 4 · DON'T GET FOOLED</span></div>
+  <p class="sec-sub">The exam loves to mix these terms up on purpose — here's how to keep them straight.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🔀 Side-by-side: the pairs students swap by mistake</h3>
+      <table>
+        <tr><th style="width:26%">Term</th><th>Definition</th><th style="width:30%">Key distinguisher</th></tr>
+        <tr><td><b>Negligence</b></td><td>Failure to provide the care a reasonable, prudent peer would</td><td>Anyone with a duty of care</td></tr>
+        <tr><td><b>Malpractice</b></td><td>Negligence committed by a <b>licensed professional</b>, below standard of care</td><td>Requires a license</td></tr>
+        <tr><td><b>Assault</b></td><td>Threat of harm</td><td>No contact required</td></tr>
+        <tr><td><b>Battery</b></td><td>Unconsented harmful/offensive contact</td><td>Contact <b>did</b> occur</td></tr>
+        <tr><td><b>False imprisonment</b></td><td>Restricting freedom without valid cause</td><td>Restraints/seclusion misused</td></tr>
+        <tr><td><b>Libel</b></td><td>Defamation</td><td><b>Written</b></td></tr>
+        <tr><td><b>Slander</b></td><td>Defamation</td><td><b>Spoken</b></td></tr>
+      </table>
+    </div>
+
+    <div class="card ruby">
+      <h3>🚨 Highest-yield fact: <mark>treatment without consent = battery</mark></h3>
+      <p>This single fact links Tort Law directly to the next page in this series. Any invasive procedure, medication, or treatment given without valid consent — even if medically appropriate — is legally battery.</p>
+      <div class="mn">🧠 See <a href="NG-192_informed-consent-1.html" style="color:#231a02;font-weight:900">NG-192 · Informed Consent</a> for exactly how consent is obtained, witnessed, and withdrawn.</div>
+    </div>
+
+    <div class="card topaz">
+      <h3>⭐ Highest-yield fact: burden of proof</h3>
+      <p>In any tort claim, the <b>accuser</b> must prove all required elements. A nurse is not required to prove they did nothing wrong — the plaintiff must prove the nurse did.</p>
+      <div class="mn">🧠 This is why thorough, honest documentation matters so much — it's the nurse's best defense if an accusation is ever made.</div>
+    </div>
+
+    <div class="card deep span2">
+      <div class="xref">🔗 <b>Series link:</b> These terms are built on the six ethical principles from <a href="NG-133_ethical-key-terms.html">NG-133 · Ethical Key Terms</a> (battery = a violation of autonomy; false imprisonment = a violation of autonomy done under a false banner of beneficence). Restraint misuse also connects to the right-to-leave discussion on <a href="NG-220_ama-mandatory-reporting.html">NG-220 · AMA &amp; Mandatory Reporting</a>.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">🧾 Burden of proof</span>On the accuser, not the nurse</div>
+    <div class="rc rubybg"><span class="big">🪜 4 elements</span>Duty → Breach → Causation → Damages</div>
+    <div class="rc tealbg"><span class="big">🆚 Assault → Battery</span>Threat, then act — in that order</div>
+    <div class="rc topazbg"><span class="big">🔒 No consent</span>= Battery, every time</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 4 rapid-fire questions</summary>
+      <div class="qa">Q1: A nurse skips hand hygiene before a Foley insertion and the client develops a UTI. Which 2 elements of negligence does this satisfy at minimum? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Breach (skipped standard technique) and causation/damages (the UTI resulted) — plus duty, since a nurse-client relationship existed. All four elements are present.</div></div>
+      <div class="qa">Q2: A nurse says "I'll restrain you if you get up again" but never actually restrains the client. What tort is this? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Assault — the threat of harm, without any actual contact.</div></div>
+      <div class="qa">Q3: A competent client is placed in restraints solely to stop them from leaving the unit. What tort(s)? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">False imprisonment (and potentially battery/assault depending on how it was carried out).</div></div>
+      <div class="qa">Q4: What's the difference between negligence and malpractice? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Malpractice is negligence committed specifically by a licensed professional acting below the standard of care — negligence is the broader, general term.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">BASICS</span>→
+    <span style="background:rgba(47,107,255,.7)">NEGLIGENCE</span>→
+    <span style="background:rgba(0,194,199,.7)">INTENTIONAL</span>→
+    <span style="background:rgba(18,184,134,.7)">NCLEX</span>
+  </div>
+  <div class="serieslinks">
+    Legal &amp; Ethics series:
+    <a href="NG-133_ethical-key-terms.html">1 · NG-133 Ethical Key Terms</a>
+    <a class="here" href="NG-172_tort-law.html">2 · NG-172 Tort Law</a>
+    <a href="NG-192_informed-consent-1.html">3 · NG-192 Informed Consent</a>
+    <a href="NG-212_advanced-directives.html">4 · NG-212 Advance Directives</a>
+    <a href="NG-220_ama-mandatory-reporting.html">5 · NG-220 AMA &amp; Mandatory Reporting</a>
+  </div>
+  <div>NG-172 · Source wording retained · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>

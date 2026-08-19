@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PPE & Infection Control · NG-073 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+/* ---- extra rules appended for this trio (asepsis series) ---- */
+#standard .sec-h h2{color:#d9c2ff} #standard .step{background:var(--amethyst)}
+#transmission .sec-h h2{color:#bcd0ff} #transmission .step{background:var(--sapphire)}
+#ppe .sec-h h2{color:#a5f3d4} #ppe .step{background:var(--emerald);color:#03291c}
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin:10px 0 0;font-size:.85rem;font-weight:800}
+.legend .sw{display:inline-block;width:14px;height:14px;border-radius:4px;margin-right:6px;vertical-align:-2px}
+.zone-clean{background:var(--emerald)}
+.zone-dirty{background:var(--ruby)}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#standard">🧤 Standard</a>
+  <a class="c2" href="#transmission">🚧 Transmission</a>
+  <a class="c3" href="#ppe">🥽 Don/Doff</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Nursing Core · Fundamentals of Nursing Course</div>
+  <h1>PPE &amp; Infection Control <span class="drop">🛡️</span></h1>
+  <p class="sub">Standard Precautions · Transmission-Based Precautions · Donning &amp; Doffing</p>
+  <div class="chips">
+    <span class="chip id">NG-073</span>
+    <span class="chip cat">Nursing Core</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede">Every barrier you put on — gloves, gown, mask, goggles — exists to stop germs moving between a <b>contaminated</b> surface and a <b>clean</b> one. <b>Standard precautions</b> apply to <i>every patient, every time</i>; <b>transmission-based precautions</b> stack an extra barrier on top when you know (or suspect) <b>contact, droplet, or airborne</b> spread. The <mark>doffing order</mark> — not donning — is the single highest-yield NCLEX point in this whole topic.</p>
+  <div class="legend">
+    <span><span class="sw zone-clean"></span>Clean / protected</span>
+    <span><span class="sw zone-dirty"></span>Contaminated / dirty</span>
+  </div>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">🧤 Standard = ALWAYS</span>Blood, body fluids, secretions, excretions, mucous membranes, non-intact skin — on every single patient.</div>
+  <div class="rc rubybg"><span class="big">🥽 Gloves come off FIRST</span>Doffing order is reversed and gloves — the dirtiest item — are always removed first.</div>
+  <div class="rc tealbg"><span class="big">😷 N95 = Airborne</span>Measles, TB, Varicella (chickenpox/shingles) need an N95 &amp; negative-pressure room.</div>
+  <div class="rc topazbg"><span class="big">🧼 Hand hygiene = LAST</span>The final step of doffing, every single time, no exceptions.</div>
+</div>
+
+<!-- ============ STANDARD ============ -->
+<section id="standard">
+  <div class="sec-h"><span class="icon">🧤</span><h2>STANDARD PRECAUTIONS</h2><span class="step">STEP 1 · THE FLOOR EVERYONE STANDS ON</span></div>
+  <p class="sec-sub">The baseline layer of protection used on <b>every patient, every encounter</b> — regardless of diagnosis or infection status.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🦠 Why this whole topic exists: nosocomial infection</h3>
+      <p>Sterile &amp; aseptic technique exist to <mark>drastically reduce (and ideally eliminate) the chance of bacteria entering a wound, catheter site, or sterile body cavity</mark> — cutting the risk of a <b>nosocomial infection</b>, also called a <b>healthcare-associated infection (HAI)</b>: <i>"nosocomial" literally means "hospital-acquired."</i></p>
+      <svg viewBox="0 0 900 220" role="img" aria-label="Diagram showing that standard precautions are the base layer applied to every patient, with an added transmission-based layer stacked on top only when needed">
+        <rect x="6" y="6" width="888" height="208" rx="18" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+        <text x="30" y="40" font-size="19" font-weight="900" fill="#e9dcff">Two layers of protection</text>
+        <!-- base layer -->
+        <rect x="40" y="70" width="820" height="60" rx="14" fill="#12b886" opacity=".85"/>
+        <text x="60" y="106" font-size="18" font-weight="900" fill="#03291c">🧤 STANDARD PRECAUTIONS — every patient, every time</text>
+        <!-- top layer, partial -->
+        <rect x="220" y="140" width="460" height="56" rx="14" fill="#ff3b6b" opacity=".9"/>
+        <text x="240" y="174" font-size="16" font-weight="900" fill="#2b0010">🚧 + TRANSMISSION-BASED — added only for known/suspected spread</text>
+        <path d="M450 66 L450 40" stroke="#ffc233" stroke-width="3" stroke-dasharray="5 5"/>
+        <text x="360" y="30" font-size="14" font-style="italic" fill="#ffd9e2">stacks on top, never replaces the base</text>
+      </svg>
+      <div class="mn">🧠 <b>"Standard is the floor, transmission is the extra wall."</b> You never drop standard precautions to add contact/droplet/airborne — you always add the new layer <i>on top of</i> gloves + hand hygiene + everything standard already requires.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🧤 Gloves — when</h3>
+      <ul class="tick">
+        <li>Touching <b>blood</b>, body fluids, secretions, excretions</li>
+        <li>Touching <b>contaminated items</b> or surfaces</li>
+        <li>Touching <b>mucous membranes</b></li>
+        <li>Touching <b>non-intact skin</b></li>
+      </ul>
+      <div class="mn">🧠 <b>"If it's wet and it's not yours, glove up."</b> Any body substance that isn't sweat = standard-precaution glove indication.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🥼 Gowns — when</h3>
+      <p>Use during <b>procedures &amp; patient-care activities</b> when contact of your <b>clothing or exposed skin</b> with blood, body fluids, secretions, or excretions is <i>anticipated</i> — think splash, spray, or heavy contact, not just a quick vitals check.</p>
+      <div class="mn">🧠 Gown = protects <b>your clothes</b>; gloves = protect <b>your hands</b>. Different barrier, different job.</div>
+    </div>
+
+    <div class="card garnet span2">
+      <h3>😷 Surgical mask — when</h3>
+      <p>Wear a <b>surgical mask within 3 feet</b> <span class="mono">(&lt;3 ft)</span> of a patient when respiratory secretions or splash to the face are anticipated — this is a <b>standard-precaution</b> mask, distinct from the <b>N95 respirator</b> reserved for <i>airborne</i> precautions (Step 2).</p>
+      <div class="mn">🧠 <b>"3 feet, surgical. Airborne, N95."</b> Distance-based splash protection is a different tool from a fit-tested airborne respirator — don't mix them up on the exam.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRANSMISSION ============ -->
+<section id="transmission">
+  <div class="sec-h"><span class="icon">🚧</span><h2>TRANSMISSION-BASED PRECAUTIONS</h2><span class="step">STEP 2 · ADD THE RIGHT WALL</span></div>
+  <p class="sec-sub">Three categories, three barriers, three sets of diseases — <mark>contact, droplet, and airborne</mark> each protect against a different way germs travel.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🚧 Contact vs. Droplet vs. Airborne — side by side</h3>
+      <table>
+        <tr><th style="width:16%">Type</th><th class="up" style="width:28%">Extra barrier</th><th style="width:28%">How it spreads</th><th class="lo">Example diseases</th></tr>
+        <tr><td><b>🤲 Contact</b></td><td>Gown + gloves for touching patient/environment</td><td>Direct or indirect touch — skin, equipment, surfaces</td><td>MRSA, VRE, C. diff, wounds, scabies</td></tr>
+        <tr><td><b>💧 Droplet</b></td><td>Surgical mask, &lt;<span class="mono">3 ft</span> or entering room</td><td>Large respiratory droplets — cough, sneeze, talking</td><td>Flu, strep, pertussis, mumps, rubella</td></tr>
+        <tr><td><b>🌬️ Airborne</b></td><td>N95 respirator + negative-pressure room</td><td>Tiny particles that float &amp; travel on air currents</td><td>Measles, TB, Varicella (chickenpox/shingles)</td></tr>
+      </table>
+      <div class="mn">🧠 <b>Barrier scales with particle size.</b> Big &amp; heavy droplets fall within 3 feet → mask. Tiny airborne particles float across a whole room → N95 + negative pressure. Contact isn't about the air at all — it's about what your hands and gown touch.</div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>💧 Droplet precautions — mnemonic <b>"SPIDERMAN"</b></h3>
+      <svg viewBox="0 0 900 200" role="img" aria-label="Diagram of droplet precautions showing a patient coughing with droplets falling within a three foot radius, requiring a surgical mask">
+        <rect x="6" y="6" width="888" height="188" rx="18" fill="rgba(47,107,255,.18)" stroke="#2f6bff" stroke-width="2" stroke-dasharray="7 6"/>
+        <circle cx="180" cy="100" r="34" fill="#ffd0bd"/>
+        <rect x="150" y="130" width="60" height="50" rx="10" fill="#bcd0ff"/>
+        <path d="M195 85 q20 -6 34 4" stroke="#2b1200" stroke-width="3" fill="none"/>
+        <text x="150" y="60" font-size="14" font-style="italic" fill="#bcd0ff">cough / sneeze / talk</text>
+        <circle cx="250" cy="80" r="6" fill="#ffc233"/>
+        <circle cx="270" cy="95" r="5" fill="#ffc233"/>
+        <circle cx="255" cy="110" r="4.5" fill="#ffc233"/>
+        <circle cx="285" cy="70" r="4" fill="#ffc233"/>
+        <line x1="240" y1="100" x2="360" y2="100" stroke="#bcd0ff" stroke-width="2" stroke-dasharray="4 4"/>
+        <text x="240" y="130" font-size="15" font-weight="900" fill="#bcd0ff">falls within 3 ft</text>
+        <text x="240" y="150" font-size="14" font-style="italic" fill="#dbe6ff">→ surgical mask 😷</text>
+        <rect x="620" y="30" width="250" height="140" rx="14" fill="rgba(13,8,26,.55)"/>
+        <text x="640" y="56" font-size="15" font-weight="900" fill="#a5c8ff">S P I D E R M A N</text>
+        <text x="640" y="78" font-size="12.5" fill="#dbe6ff">S · Scarlet fever, Strep</text>
+        <text x="640" y="94" font-size="12.5" fill="#dbe6ff">P · Pertussis, Parvovirus</text>
+        <text x="640" y="110" font-size="12.5" fill="#dbe6ff">I · Influenza</text>
+        <text x="640" y="126" font-size="12.5" fill="#dbe6ff">D · Diphtheria</text>
+        <text x="640" y="142" font-size="12.5" fill="#dbe6ff">E · Epiglottitis</text>
+        <text x="640" y="158" font-size="12.5" fill="#dbe6ff">R·M·AN · Rubella, Mumps/</text>
+        <text x="640" y="172" font-size="11.5" fill="#dbe6ff">Meningitis/Mycoplasma, Adenovirus</text>
+      </svg>
+      <ul class="tick">
+        <li><b>S</b>carlet fever, Strep pharyngitis</li>
+        <li><b>P</b>ertussis (whooping cough), Parvovirus B19 (5th disease)</li>
+        <li><b>I</b>nfluenza <i>(also contact)</i></li>
+        <li><b>D</b>iphtheria (pharyngeal)</li>
+        <li><b>E</b>piglottitis <i>(H. influenzae type b)</i></li>
+        <li><b>R</b>ubella (German measles)</li>
+        <li><b>M</b>umps, Meningitis (meningococcal), Mycoplasma pneumonia</li>
+        <li><b>A</b>de<b>N</b>ovirus <i>(also contact)</i></li>
+      </ul>
+      <div class="mn">🧠 <b>"SPIDERMAN swings 3 feet, then stops."</b> Droplets are heavy — they can't hang in the air like Spider-Man's web across a whole room. Mask up within 3 feet, no negative pressure room needed.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🌬️ Airborne precautions — mnemonic <b>"MTV"</b></h3>
+      <svg viewBox="0 0 420 210" role="img" aria-label="Negative pressure isolation room with the door closed, arrows showing air pulled into the room, a nurse wearing an N95 respirator">
+        <rect x="6" y="6" width="408" height="198" rx="16" fill="rgba(192,34,85,.2)" stroke="#c02255" stroke-width="2" stroke-dasharray="7 6"/>
+        <rect x="30" y="34" width="200" height="140" rx="10" fill="rgba(13,8,26,.55)" stroke="#ff9db4" stroke-width="2"/>
+        <text x="40" y="26" font-size="13" font-weight="900" fill="#ff9db4">negative-pressure room</text>
+        <path d="M240 60 L262 60" stroke="#ffc233" stroke-width="4" marker-end="url(#airArr)"/>
+        <path d="M240 100 L262 100" stroke="#ffc233" stroke-width="4" marker-end="url(#airArr)"/>
+        <path d="M240 140 L262 140" stroke="#ffc233" stroke-width="4" marker-end="url(#airArr)"/>
+        <defs><marker id="airArr" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#ffc233"/></marker></defs>
+        <text x="238" y="190" font-size="11.5" font-style="italic" fill="#ffd9e2">air pulled IN, not out</text>
+        <circle cx="120" cy="90" r="22" fill="#ffd0bd"/>
+        <rect x="98" y="112" width="44" height="46" rx="8" fill="#9d5cff"/>
+        <ellipse cx="120" cy="96" rx="16" ry="10" fill="#fff"/>
+        <text x="86" y="180" font-size="12" font-weight="900" fill="#e9dcff">N95 respirator 😷</text>
+        <text x="290" y="60" font-size="14" font-weight="900" fill="#ff9db4">M</text><text x="305" y="60" font-size="12.5" fill="#ffd9e2">Measles</text>
+        <text x="290" y="82" font-size="14" font-weight="900" fill="#ff9db4">T</text><text x="305" y="82" font-size="12.5" fill="#ffd9e2">TB</text>
+        <text x="290" y="104" font-size="14" font-weight="900" fill="#ff9db4">V</text><text x="305" y="104" font-size="12.5" fill="#ffd9e2">Varicella</text>
+      </svg>
+      <ul class="tick">
+        <li><b>M</b>easles</li>
+        <li><b>T</b>uberculosis (TB)</li>
+        <li><b>V</b>aricella — chickenpox <i>and</i> disseminated herpes zoster/shingles <i>(airborne + contact)</i></li>
+      </ul>
+      <div class="mn">🧠 <b>MTV plays on air.</b> All three float on air currents across a whole room — door stays closed, negative-pressure room, fit-tested <span class="mono">N95</span>.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🤲 Contact precautions — mnemonic <b>"MRS WEE"</b></h3>
+      <ul class="tick">
+        <li><b>M</b>ultidrug-resistant organisms — MRSA, VRE</li>
+        <li><b>R</b>espiratory infections — RSV, parainfluenza</li>
+        <li><b>S</b>kin infections — impetigo, lice, scabies, herpes simplex</li>
+        <li><b>W</b>ounds with excessive drainage / staph</li>
+        <li><b>E</b>nteric — <b>C. diff</b>, norovirus, rotavirus <i>(soap &amp; water only — sanitizer does <span class="never">NOT</span> kill C. diff spores)</i></li>
+        <li><b>E</b>ye infections — conjunctivitis</li>
+      </ul>
+      <div class="mn">🧠 <b>"MRS WEE has an accident"</b> — she picked up a resistant bug, has a runny nose, a rash, a weepy wound, and can't make it to the bathroom. Everything on this list is something your <i>hands or gown</i> can carry to the next patient.</div>
+    </div>
+
+    <div class="card topaz span2">
+      <h3>🧻 Special case: C. diff needs soap &amp; water, not sanitizer</h3>
+      <p><span class="tip">EXAM TRAP</span> <mark>Alcohol-based hand sanitizer does not kill Clostridioides difficile spores.</mark> For diarrheal illnesses of unknown origin or confirmed <b>C. diff</b>, <b>norovirus</b>, or <b>rotavirus</b> — wash with <b>soap and water</b> every time. Also remember <b>Hepatitis A</b> is spread through stool, so diapered or incontinent patients need the same enteric-contact awareness.</p>
+      <div class="mn">🧠 <b>"Spores laugh at sanitizer."</b> Friction + running water physically washes spores away; alcohol gel just isn't strong enough to destroy them.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PPE / DON-DOFF ============ -->
+<section id="ppe">
+  <div class="sec-h"><span class="icon">🥽</span><h2>DONNING &amp; DOFFING</h2><span class="step">STEP 3 · THE ORDER THAT'S TESTED</span></div>
+  <p class="sec-sub">Putting PPE ON is forgiving. Taking it OFF is not — <mark>the doffing order is the single highest-yield fact in this topic.</mark></p>
+
+  <div class="grid">
+    <div class="card sapphire span2">
+      <h3>🥼 Donning (putting ON) — outside-in</h3>
+      <div class="ladder">
+        <div class="rung"><div class="n">1</div><div class="t">🥼 <b>Gown</b> — tie in back</div></div>
+        <div class="rung"><div class="n">2</div><div class="t">😷 <b>Mask or respirator</b> — mold to nose, check seal</div></div>
+        <div class="rung"><div class="n">3</div><div class="t">🥽 <b>Goggles or face shield</b></div></div>
+        <div class="rung"><div class="n">4</div><div class="t">🧤 <b>Gloves</b> — pull cuffs over gown sleeves</div></div>
+      </div>
+      <div class="mn">🧠 <b>"Gown-Mask-Goggles-Gloves = GMGG, biggest to hands."</b> You build the barrier from your core outward — gloves go on last so the cuff seals over the gown sleeve.</div>
+    </div>
+
+    <div class="card ruby span2">
+      <h3>🥽 Doffing (taking OFF) — most contaminated FIRST, hand hygiene LAST</h3>
+      <svg viewBox="0 0 900 210" role="img" aria-label="Doffing sequence diagram: gloves removed first as most contaminated, then goggles or face shield, then gown, then mask or respirator last, followed by hand hygiene as the final step">
+        <rect x="6" y="6" width="888" height="198" rx="18" fill="rgba(255,59,107,.15)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="7 6"/>
+        <g font-size="13" font-weight="900" fill="#fff">
+          <rect x="30" y="60" width="150" height="90" rx="12" fill="#ff3b6b"/>
+          <text x="45" y="95" font-size="30">🧤</text>
+          <text x="45" y="118" font-size="13">1. Gloves</text>
+          <text x="45" y="136" font-size="11" font-weight="600">most contaminated</text>
+
+          <path d="M182 100 L212 100" stroke="#ffc233" stroke-width="4" marker-end="url(#dArr)"/>
+          <rect x="216" y="60" width="150" height="90" rx="12" fill="#e0507a"/>
+          <text x="231" y="95" font-size="30">🥽</text>
+          <text x="231" y="118" font-size="13">2. Goggles /</text>
+          <text x="231" y="134" font-size="13">face shield</text>
+
+          <path d="M368 100 L398 100" stroke="#ffc233" stroke-width="4" marker-end="url(#dArr)"/>
+          <rect x="402" y="60" width="150" height="90" rx="12" fill="#c02255"/>
+          <text x="417" y="95" font-size="30">🥼</text>
+          <text x="417" y="118" font-size="13">3. Gown</text>
+
+          <path d="M554 100 L584 100" stroke="#ffc233" stroke-width="4" marker-end="url(#dArr)"/>
+          <rect x="588" y="60" width="150" height="90" rx="12" fill="#8f1a41"/>
+          <text x="603" y="95" font-size="30">😷</text>
+          <text x="603" y="118" font-size="13">4. Mask /</text>
+          <text x="603" y="134" font-size="13">respirator</text>
+
+          <path d="M740 100 L768 100" stroke="#ffc233" stroke-width="4" marker-end="url(#dArr)"/>
+          <rect x="772" y="60" width="106" height="90" rx="12" fill="#12b886"/>
+          <text x="787" y="95" font-size="26">🧼</text>
+          <text x="787" y="118" font-size="12">5. Hand</text>
+          <text x="787" y="132" font-size="12">hygiene</text>
+        </g>
+        <defs><marker id="dArr" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#ffc233"/></marker></defs>
+        <text x="30" y="188" font-size="14" font-style="italic" fill="#ffd9e2">last step is ALWAYS hand hygiene — even though gloves already came off</text>
+      </svg>
+      <ul class="tick">
+        <li>🧤 <b>Gloves first</b> — they touched the patient directly and are the most contaminated item on your body</li>
+        <li>🥽 <b>Goggles / face shield next</b> — grab by the strap/ear pieces only, never the front</li>
+        <li>🥼 <b>Gown next</b> — unfasten at the neck, pull down and away rolling it inside-out, contaminated side stays inward</li>
+        <li>😷 <b>Mask / respirator last of the PPE</b> — touch only the ties/loops, never the front panel</li>
+        <li>🧼 <b>Hand hygiene</b> — the true final step of every doffing sequence</li>
+      </ul>
+      <div class="mn">🧠 <b>"Doffing runs backward from donning — remove the dirtiest thing first."</b> Donning went Gown→Mask→Goggles→Gloves (core to hands). Doffing reverses it AND leads with the item touching the most contamination: Gloves→Goggles→Gown→Mask, hands washed last.</div>
+    </div>
+
+    <div class="card topaz">
+      <h3>🚨 NCLEX trap: why gloves come off first</h3>
+      <p><mark>Gloves are the single most contaminated surface on your body</mark> after patient contact — leaving them on while you touch your goggles, gown ties, or mask would transfer pathogens straight to those "cleaner" surfaces. Removing them first protects everything you touch next.</p>
+      <div class="mn">🧠 If an NCLEX question asks <i>"what do you remove first?"</i> and gloves are an option — <b>gloves win, every time.</b></div>
+    </div>
+
+    <div class="card emerald">
+      <h3>✅ Do — safe doffing habits</h3>
+      <ul class="tick">
+        <li>Peel gloves off touching only the <b>outside-to-outside</b>, then tuck the second glove inside the first</li>
+        <li>Discard PPE in the designated receptacle <b>before</b> leaving the room</li>
+        <li>Perform hand hygiene <b>immediately</b> after the last item comes off</li>
+      </ul>
+      <div class="mn">🧠 <b>"Glove in a glove."</b> The classic peel-and-tuck keeps the contaminated outer surface balled up inside, away from your bare skin.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">🧤 Standard precautions</span>= every patient, every time — gloves, gown, mask as indicated</div>
+    <div class="rc rubybg"><span class="big">🚧 Contact / Droplet / Airborne</span>= gown+gloves / mask &lt;3ft / N95 + negative pressure</div>
+    <div class="rc tealbg"><span class="big">🧠 SPIDERMAN · MTV · MRS WEE</span>= droplet · airborne · contact disease mnemonics</div>
+    <div class="rc topazbg"><span class="big">🥽 Doffing: gloves first, wash last</span>= the #1 tested fact in this topic</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 4 rapid-fire questions</summary>
+      <div class="qa">Q1: What is the very first item removed when doffing PPE? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Gloves — they're the most contaminated item and removing them first prevents transferring pathogens to your goggles, gown, or mask.</div></div>
+      <div class="qa">Q2: A patient has active TB. What PPE and room setup are required? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Airborne precautions — a fit-tested N95 respirator and a negative-pressure isolation room with the door closed (MTV: Measles, TB, Varicella).</div></div>
+      <div class="qa">Q3: A patient has C. diff diarrhea. Is alcohol-based hand sanitizer enough? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">No — sanitizer does not kill C. diff spores. Use soap and water with friction, and apply contact precautions (gown + gloves).</div></div>
+      <div class="qa">Q4: What is the last step of every doffing sequence, without exception? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Hand hygiene — performed immediately after the final PPE item (mask/respirator) is removed.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">STANDARD</span>→
+    <span style="background:rgba(47,107,255,.7)">TRANSMISSION</span>→
+    <span style="background:rgba(18,184,134,.7)">DON/DOFF</span>
+  </div>
+  <div>NG-073 · Nursing Core · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>

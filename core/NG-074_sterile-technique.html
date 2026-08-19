@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sterile Technique · NG-074 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+/* ---- extra rules appended for this trio (asepsis series) ---- */
+#before .sec-h h2{color:#d9c2ff} #before .step{background:var(--amethyst)}
+#during .sec-h h2{color:#bcd0ff} #during .step{background:var(--sapphire)}
+#after .sec-h h2{color:#a5f3d4} #after .step{background:var(--emerald);color:#03291c}
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin:10px 0 0;font-size:.85rem;font-weight:800}
+.legend .sw{display:inline-block;width:14px;height:14px;border-radius:4px;margin-right:6px;vertical-align:-2px}
+.zone-clean{background:var(--emerald)}
+.zone-dirty{background:var(--ruby)}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#before">🧾 Before</a>
+  <a class="c2" href="#during">🧤 During</a>
+  <a class="c3" href="#after">📋 After</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Nursing Core · Fundamentals of Nursing Course</div>
+  <h1>Sterile Technique <span class="drop">🧫</span></h1>
+  <p class="sub">Surgical Asepsis · Sterile Field Setup · Sterile Gloving</p>
+  <div class="chips">
+    <span class="chip id">NG-074</span>
+    <span class="chip cat">Nursing Core</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede">Sterile technique is performed to <mark>drastically reduce — and ideally eliminate — the chance of bacteria entering a wound, catheter site, or sterile body cavity</mark>, cutting the risk of a <b>nosocomial (hospital-acquired) infection</b>. Four rules protect the entire field: the <b>1-inch border is contaminated</b>, anything <b>below waist level is contaminated</b>, <b>reaching over</b> the field contaminates it, and <b>wet = contaminated.</b></p>
+  <div class="legend">
+    <span><span class="sw zone-clean"></span>Sterile / clean</span>
+    <span><span class="sw zone-dirty"></span>Contaminated</span>
+  </div>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">📏 1-inch border = dirty</span>Everything inside a sterile field is sterile except the outer 1-inch edge.</div>
+  <div class="rc rubybg"><span class="big">⬇️ Below the waist = dirty</span>Anything under waist level or out of your direct sightline is contaminated.</div>
+  <div class="rc tealbg"><span class="big">💧 Wet = contaminated</span>Moisture wicks bacteria through a barrier — strike-through means contamination.</div>
+  <div class="rc topazbg"><span class="big">🙅 Never reach over the field</span>Reaching across a sterile field contaminates it — go around instead.</div>
+</div>
+
+<!-- ============ BEFORE ============ -->
+<section id="before">
+  <div class="sec-h"><span class="icon">🧾</span><h2>BEFORE</h2><span class="step">STEP 1 · PURPOSE, SUPPLIES, ASSESS</span></div>
+  <p class="sec-sub">Know why you're doing this, gather everything within reach, and screen the patient before you ever open a kit.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🎯 Purpose &amp; when sterile technique is used</h3>
+      <p>Surgical procedures, catheter insertion/changes, chest tube care, cervical checks, and any time you're working on a body part that <b>wouldn't normally contact bacteria</b> — a sterile body cavity, a fresh wound bed, the bloodstream. <b>Surgical asepsis</b> ("sterile technique") aims to <mark>eliminate</mark> organisms entirely — a much higher bar than the "reduce" goal of medical/clean asepsis (see the Asepsis &amp; Handwashing page).</p>
+      <div class="mn">🧠 <b>"If it doesn't normally meet germs, it gets sterile technique."</b> Skin meets germs all day — a fine needle aspirate into a joint space does not.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🧰 Supplies</h3>
+      <ul class="tick">
+        <li>Sterile kit (pre-packaged, unexpired)</li>
+        <li>Running water and soap</li>
+        <li>Sterile gloves — sometimes packaged inside the kit</li>
+        <li>A clean, dry surface for setup</li>
+        <li>Clean paper towels</li>
+      </ul>
+      <div class="mn">🧠 Check the <b>expiration date</b> before you even open the outer wrapper — an expired kit is treated as non-sterile.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>⚠️ Assessment before you start</h3>
+      <ul class="tick">
+        <li>Confirm the <b>need</b> for the procedure</li>
+        <li>Assess the site for <b>existing infection</b></li>
+        <li>Screen for <b>latex, iodine, or adhesive allergies</b></li>
+        <li>Assess pain level — give analgesia <span class="mono">30–45 min</span> before the procedure for comfort</li>
+      </ul>
+      <div class="mn">🧠 <b>"LIA before you begin"</b> — <b>L</b>atex, <b>I</b>odine, <b>A</b>dhesive. Ask about all three before you open a single package.</div>
+    </div>
+
+    <div class="card citrinec span2">
+      <h3>🩺 Nursing diagnoses &amp; risks to anticipate</h3>
+      <ul class="tick">
+        <li>Risk for <b>infection</b></li>
+        <li>Risk for <b>impaired tissue integrity</b></li>
+        <li>Risk for <b>pain</b></li>
+        <li>Risk for <b>hypersensitivity reaction</b> — think latex/iodine/adhesive</li>
+      </ul>
+      <div class="mn">🧠 Same four risks apply to nearly every sterile procedure — infection, tissue damage, pain, and allergy — build your care plan around these before you even touch the kit.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DURING ============ -->
+<section id="during">
+  <div class="sec-h"><span class="icon">🧤</span><h2>DURING</h2><span class="step">STEP 2 · FIELD SETUP &amp; STERILE GLOVING</span></div>
+  <p class="sec-sub">Four rules govern the entire field. Break one, and the whole field — or your glove — is contaminated.</p>
+
+  <div class="grid">
+    <div class="card ruby span2">
+      <h3>📏 The four rules of a sterile field</h3>
+      <svg viewBox="-10 -10 999 280" role="img" aria-label="Diagram of a sterile field showing the one inch contaminated border around the edge, the sterile interior, a hand reaching over the field marked contaminated, and a wet spot marked contaminated by strike-through">
+        <rect x="-6" y="-6" width="991" height="272" rx="18" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+        <!-- field -->
+        <rect x="260" y="40" width="380" height="180" rx="4" fill="#ff3b6b" opacity=".55"/>
+        <rect x="272" y="52" width="356" height="156" rx="4" fill="#12b886" opacity=".85"/>
+        <text x="290" y="130" font-size="17" font-weight="900" fill="#03291c">STERILE</text>
+        <text x="290" y="152" font-size="13" fill="#03291c">interior of the field</text>
+        <text x="265" y="30" font-size="13" font-weight="900" fill="#ff9db4">1-inch border = contaminated</text>
+        <!-- reach over -->
+        <path d="M700 60 q60 -20 90 30" stroke="#ffc233" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <circle cx="800" cy="100" r="16" fill="#ffd0bd"/>
+        <text x="700" y="200" font-size="13" font-weight="900" fill="#ffc233">🙅 reaching over = contaminates field</text>
+        <!-- wet spot -->
+        <ellipse cx="360" cy="150" rx="26" ry="16" fill="#2f6bff" opacity=".55"/>
+        <line x1="336" y1="132" x2="384" y2="168" stroke="#ff3b6b" stroke-width="3"/>
+        <line x1="384" y1="132" x2="336" y2="168" stroke="#ff3b6b" stroke-width="3"/>
+        <text x="30" y="235" font-size="13" font-weight="900" fill="#9ff2ee">💧 wet = contaminated (strike-through)</text>
+        <!-- below waist marker -->
+        <text x="30" y="40" font-size="13" font-weight="900" fill="#ffb3c6">⬇️ below waist level / out of sight = contaminated</text>
+      </svg>
+      <ul class="tick">
+        <li>📏 The outer <b>1-inch border</b> of any sterile drape or package is <b>always contaminated</b> — nothing sterile may cross it</li>
+        <li>⬇️ Anything held <b>below waist level</b>, or out of your direct line of sight, is contaminated</li>
+        <li>🙅 <span class="never">Never reach over</span> a sterile field — go around it instead</li>
+        <li>💧 <b>Wet = contaminated</b> — moisture wicks bacteria through a barrier by capillary action ("strike-through")</li>
+      </ul>
+      <div class="mn">🧠 <b>"Border, Below, oveR, dRip"</b> — the four rules all start with the idea of a boundary: the 1-inch edge, the waistline, reaching, and moisture all create an invisible line bacteria can cross.</div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>🧾 Setting up the sterile field — step by step</h3>
+      <div class="ladder">
+        <div class="rung"><div class="n">1</div><div class="t">🧼 Check the <b>expiration date</b> on the package and perform <b>hand hygiene</b></div></div>
+        <div class="rung"><div class="n">2</div><div class="t">📦 Open the kit using the special flap so the <b>first flap opens away from you</b></div></div>
+        <div class="rung"><div class="n">3</div><div class="t">🤏 Pinch the remaining flaps on their <b>outside corners only</b> and pull them back gently</div></div>
+        <div class="rung"><div class="n">4</div><div class="t">🚫 <span class="never">Do not touch the inside</span> — everything inside is sterile <i>except the 1-inch border</i></div></div>
+        <div class="rung"><div class="n">5</div><div class="t">🗑️ Throw the outer wrapper away</div></div>
+        <div class="rung"><div class="n">6</div><div class="t">🧤 Get sterile gloves ready on a clean, dry surface next to the field</div></div>
+      </div>
+      <svg viewBox="0 0 900 220" role="img" aria-label="Diagram of opening a sterile kit: the first flap folds open away from the nurse, the remaining flaps are pinched at the outside corners and pulled back, keeping the inner sterile field and the one inch border intact">
+        <rect x="6" y="6" width="888" height="208" rx="18" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+        <text x="30" y="34" font-size="15" font-weight="900" fill="#bcd0ff">Opening the kit — flap sequence</text>
+        <!-- nurse position -->
+        <circle cx="120" cy="160" r="20" fill="#ffd0bd"/>
+        <rect x="98" y="180" width="44" height="30" rx="8" fill="#2f6bff"/>
+        <text x="70" y="204" font-size="11" font-weight="800" fill="#bcd0ff">you</text>
+        <!-- kit -->
+        <rect x="330" y="70" width="260" height="130" rx="6" fill="#12b886" opacity=".85"/>
+        <rect x="342" y="82" width="236" height="106" rx="4" fill="rgba(13,8,26,.4)"/>
+        <text x="360" y="140" font-size="14" font-weight="900" fill="#eafff7">sterile interior</text>
+        <!-- first flap, away from nurse -->
+        <path d="M330 70 L280 20 L590 20 L590 70 Z" fill="#12b886" opacity=".5" stroke="#eafff7" stroke-width="1.5"/>
+        <path d="M330 70 L280 20" stroke="#ffc233" stroke-width="3" marker-end="url(#flapArr)"/>
+        <text x="300" y="18" font-size="12.5" font-weight="900" fill="#ffc233">1. first flap opens AWAY from you</text>
+        <defs><marker id="flapArr" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#ffc233"/></marker></defs>
+        <!-- side flaps pinched at corners -->
+        <circle cx="330" cy="135" r="7" fill="#ffc233"/>
+        <text x="620" y="110" font-size="12.5" font-weight="900" fill="#a5f3d4">2. pinch side flaps</text>
+        <text x="620" y="128" font-size="12.5" font-weight="900" fill="#a5f3d4">at outside corners only</text>
+        <text x="620" y="150" font-size="12" font-style="italic" fill="#d8fff0">never touch the inside</text>
+        <rect x="618" y="165" width="220" height="30" rx="8" fill="#ff3b6b" opacity=".8"/>
+        <text x="634" y="185" font-size="12.5" font-weight="900" fill="#fff">🚫 1-inch border stays "dirty"</text>
+      </svg>
+      <div class="mn">🧠 <b>"Flap away, pinch the corners, hands stay out."</b> The whole setup is really one rule repeated: your bare, ungloved hands never cross into the sterile interior.</div>
+    </div>
+
+    <div class="card garnet span2">
+      <h3>🧤 Donning sterile gloves — closed-glove logic</h3>
+      <div class="ladder">
+        <div class="rung"><div class="n">1</div><div class="t">🧼 Wash hands the same thorough way as before; dry with a <b>clean paper towel</b></div></div>
+        <div class="rung"><div class="n">2</div><div class="t">📦 Open the glove wrapper so the gloves lie in front of you — <span class="never">do not touch them yet</span></div></div>
+        <div class="rung"><div class="n">3</div><div class="t">✋ With your dominant hand, grab the other glove by the <b>folded wrist cuff only</b></div></div>
+        <div class="rung"><div class="n">4</div><div class="t">🧤 Slide that glove on, leaving the cuff folded — don't let the outside touch your skin</div></div>
+        <div class="rung"><div class="n">5</div><div class="t">🤲 Slide the fingers of your gloved hand under the cuff of the second glove to lift it — glove that hand keeping fingers flat, thumb away from skin</div></div>
+        <div class="rung"><div class="n">6</div><div class="t">🔄 Reach under both cuffs and unroll them up toward your elbows</div></div>
+      </div>
+      <svg viewBox="0 0 900 220" role="img" aria-label="Diagram of sterile glove donning showing the bare hand only touching the folded cuff of each glove, and the gloved hand only touching the outside surface of the other glove, keeping sterile surfaces separate from bare skin">
+        <rect x="6" y="6" width="888" height="208" rx="18" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+        <text x="30" y="32" font-size="15" font-weight="900" fill="#ff9db4">Closed-glove logic: what may touch what</text>
+        <!-- glove 1 -->
+        <path d="M180 60 q-20 40 0 100 q10 30 40 30 q30 0 40 -30 q20 -60 0 -100 Z" fill="#eafff7" opacity=".9"/>
+        <rect x="150" y="150" width="120" height="34" rx="8" fill="#ffc233"/>
+        <text x="158" y="172" font-size="12" font-weight="900" fill="#2a1f00">folded cuff</text>
+        <text x="120" y="205" font-size="12.5" font-weight="900" fill="#ffc233">✅ bare hand may grab HERE only</text>
+        <!-- glove 2 -->
+        <path d="M560 60 q-20 40 0 100 q10 30 40 30 q30 0 40 -30 q20 -60 0 -100 Z" fill="#12b886" opacity=".85"/>
+        <text x="520" y="45" font-size="12.5" font-weight="900" fill="#7df0c6">✅ gloved hand may touch outer surface</text>
+        <text x="540" y="205" font-size="12" font-style="italic" fill="#d8fff0">fingers flat, thumb away from skin</text>
+        <!-- forbidden -->
+        <line x1="360" y1="90" x2="440" y2="90" stroke="#ff3b6b" stroke-width="4"/>
+        <text x="330" y="115" font-size="12.5" font-weight="900" fill="#ff9db4">🚫 skin never touches</text>
+        <text x="340" y="132" font-size="12.5" font-weight="900" fill="#ff9db4">sterile outer surface</text>
+      </svg>
+      <div class="mn">🧠 <b>"Skin never touches sterile, sterile never touches skin."</b> Bare hand only ever touches the folded cuff (contaminated zone by design); gloved hand only ever touches the outside of the other glove (sterile zone).</div>
+    </div>
+
+    <div class="card topaz">
+      <h3>🚨 Break in technique — what to do</h3>
+      <p><mark>If a gloved hand touches anything outside the sterile field</mark> — a rail, your own skin, an unsterile surface — <b>remove the gloves, wash hands again, and redo the entire gloving sequence with a brand-new pair.</b> Once gloved, touch <b>only</b> your sterile supplies.</p>
+      <div class="mn">🧠 <b>There is no "just this once."</b> Any break in sterile technique means starting the gloving sequence completely over — there's no partial fix.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AFTER ============ -->
+<section id="after">
+  <div class="sec-h"><span class="icon">📋</span><h2>AFTER</h2><span class="step">STEP 3 · DOCUMENT &amp; TEACH</span></div>
+  <p class="sec-sub">The procedure isn't done when the field comes down — document it and prep the patient to protect the site themselves.</p>
+
+  <div class="grid">
+    <div class="card emerald">
+      <h3>📋 Documentation</h3>
+      <ul class="tick">
+        <li><b>Date and time</b> of the procedure</li>
+        <li><b>Type</b> of procedure performed</li>
+        <li><b>Fluid/exudate</b> from the site — color, amount, odor</li>
+        <li>Follow <b>hospital policy</b> for dating, timing &amp; initialing dressings, specimens, or catheter sites</li>
+        <li>Document the client's <b>tolerance</b> of the procedure</li>
+      </ul>
+      <div class="mn">🧠 <b>"CTFO"</b> — <b>C</b>olor, amount (<b>T</b>otal), odor, <b>F</b>luid type — describe drainage the same four ways every time.</div>
+    </div>
+
+    <div class="card tealc">
+      <h3>🗣️ Patient education</h3>
+      <ul class="tick">
+        <li>Practice good <b>personal hygiene</b></li>
+        <li>Ask for <b>analgesia before pain becomes unbearable</b> — don't wait it out</li>
+        <li>Know the <b>signs &amp; symptoms of infection</b> and when to notify the HCP</li>
+      </ul>
+      <div class="mn">🧠 Teach the same infection red flags every time: increasing redness, warmth, swelling, pain, purulent drainage, or fever — call the HCP if any appear.</div>
+    </div>
+
+    <div class="card ruby span2">
+      <h3>🚨 Signs of infection to report</h3>
+      <div class="no-grid">
+        <div class="no-t hot"><span class="e">🌡️</span>Fever<i>&gt;100.3°F</i></div>
+        <div class="no-t hot"><span class="e">🔴</span>Increasing redness<i>around the site</i></div>
+        <div class="no-t hot"><span class="e">🥵</span>Warmth<i>&amp; swelling</i></div>
+        <div class="no-t hot"><span class="e">🤕</span>Increasing pain<i>not resolving</i></div>
+        <div class="no-t hot"><span class="e">🧪</span>Purulent drainage<i>foul odor</i></div>
+      </div>
+      <svg viewBox="0 0 900 170" role="img" aria-label="Timeline showing a clean healing wound versus a wound with worsening redness swelling and fever over time, prompting notification of the healthcare provider">
+        <rect x="6" y="6" width="888" height="158" rx="18" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+        <line x1="40" y1="60" x2="860" y2="60" stroke="#a5f3d4" stroke-width="4" stroke-linecap="round"/>
+        <circle cx="120" cy="60" r="10" fill="#12b886"/><text x="90" y="90" font-size="12.5" font-weight="900" fill="#7df0c6">Day 1: clean, dry, intact</text>
+        <circle cx="380" cy="60" r="10" fill="#12b886"/><text x="335" y="90" font-size="12.5" font-weight="900" fill="#7df0c6">Day 2-3: mild redness, expected</text>
+        <circle cx="650" cy="60" r="10" fill="#ff3b6b"/><text x="580" y="90" font-size="12.5" font-weight="900" fill="#ff9db4">Day 4+: spreading redness, warmth, fever</text>
+        <rect x="700" y="105" width="150" height="40" rx="10" fill="#ffc233"/>
+        <text x="715" y="130" font-size="13" font-weight="900" fill="#2a1f00">🚨 Call HCP</text>
+      </svg>
+      <div class="mn">🧠 Any <b>one</b> of these after a sterile procedure is enough to notify the HCP — don't wait for all of them to appear together.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">📏 1-inch border</span>= always contaminated, even on a sterile drape</div>
+    <div class="rc rubybg"><span class="big">⬇️ Below waist / out of sight</span>= contaminated</div>
+    <div class="rc tealbg"><span class="big">💧 Wet = contaminated</span>strike-through wicks bacteria through the barrier</div>
+    <div class="rc topazbg"><span class="big">🔄 Any break = start over</span>new gloves, rewash, redo the whole sequence</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 4 rapid-fire questions</summary>
+      <div class="qa">Q1: How much of a sterile drape's border is considered contaminated? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">The outer 1 inch — everything inside that border is sterile, the border itself is not.</div></div>
+      <div class="qa">Q2: A nurse's sterile glove brushes the bed rail. What now? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Remove the gloves, wash hands again, and redo the entire sterile gloving sequence with a new pair — there's no partial fix for a break in technique.</div></div>
+      <div class="qa">Q3: Why is a wet sterile drape considered contaminated? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Moisture allows bacteria to wick through the barrier by capillary action ("strike-through") even if nothing visibly touched it.</div></div>
+      <div class="qa">Q4: When should analgesia be given before a sterile procedure, and why teach patients to ask early? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">30–45 minutes before the procedure for comfort; patients are taught to ask before pain becomes unbearable rather than waiting it out.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">BEFORE</span>→
+    <span style="background:rgba(47,107,255,.7)">DURING</span>→
+    <span style="background:rgba(18,184,134,.7)">AFTER</span>
+  </div>
+  <div>NG-074 · Nursing Core · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>

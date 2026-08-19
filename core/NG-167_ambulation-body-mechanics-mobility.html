@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ambulation (Body Mechanics & Mobility) · NG-167 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+/* ---------- appended: xref box ---------- */
+.xref{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(47,107,255,.35);
+  border:1px solid var(--line);font-size:.88rem}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#cause">🦴 Mechanics</a>
+  <a class="c2" href="#clues">🚶 Assessment &amp; Devices</a>
+  <a class="c3" href="#care">🩺 Safety &amp; Falls</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Nursing Core · Fundamentals of Nursing</div>
+  <h1>Ambulation <span class="drop">🚶</span></h1>
+  <p class="sub">Body Mechanics, Mobility &amp; Fall Prevention</p>
+  <div class="chips">
+    <span class="chip id">NG-167</span>
+    <span class="chip cat">Nursing Core</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede"><b>Coordinated effort to maintain balance, posture, and body alignment</b> while lifting, moving, and ambulating clients — protecting <i>both</i> the patient and the nurse's own spine.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">🦴 Wide base, bent knees</span>Feet apart, knees flexed, load close to the body — never the back.</div>
+  <div class="rc rubybg"><span class="big">🎗️ Gait belt = default</span>Use it for any client with fall risk or weakness before ambulating.</div>
+  <div class="rc tealbg"><span class="big">🦯 Cane on the STRONG side</span>Advance cane + weak leg together, then the strong leg.</div>
+  <div class="rc topazbg"><span class="big">🚨 #1 hospital injury</span>Falls — assess fall risk before every transfer/ambulation.</div>
+</div>
+
+<!-- ============ MECHANICS ============ -->
+<section id="cause">
+  <div class="sec-h"><span class="icon">🦴</span><h2>BODY MECHANICS</h2><span class="step">STEP 1 · PROTECT THE SPINE</span></div>
+  <p class="sec-sub">Purpose: the safe, coordinated practice of maintaining balance, posture, and alignment while lifting, moving, and ambulating clients.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🏋️ The five rules of safe lifting</h3>
+      <div class="duo">
+        <svg viewBox="0 0 300 200" role="img" aria-label="Correct body mechanics: nurse with wide base of support, knees bent, back straight, load held close to the body">
+          <rect x="6" y="6" width="288" height="188" rx="16" fill="rgba(18,184,134,.16)" stroke="#12b886" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="20" y="32" font-size="16" font-weight="900" fill="#7df0c6">✅ CORRECT</text>
+          <ellipse cx="150" cy="60" rx="16" ry="15" fill="#ffd0bd"/>
+          <rect x="132" y="76" width="36" height="52" rx="10" fill="#7de3c1"/>
+          <path d="M120 168 L140 128" stroke="#7de3c1" stroke-width="12" stroke-linecap="round"/>
+          <path d="M180 168 L160 128" stroke="#7de3c1" stroke-width="12" stroke-linecap="round"/>
+          <path d="M112 178 L134 130" stroke="#ffd0bd" stroke-width="10" stroke-linecap="round"/>
+          <path d="M188 178 L166 130" stroke="#ffd0bd" stroke-width="10" stroke-linecap="round"/>
+          <rect x="128" y="132" width="44" height="30" rx="8" fill="#ffc233"/>
+          <text x="20" y="178" font-size="13" font-style="italic" fill="#d8fff0">wide base · bent knees · load close</text>
+        </svg>
+        <svg viewBox="0 0 300 200" role="img" aria-label="Incorrect body mechanics: nurse bending at the waist with straight legs and the load held far from the body, straining the lower back">
+          <rect x="6" y="6" width="288" height="188" rx="16" fill="rgba(255,59,107,.16)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="20" y="32" font-size="16" font-weight="900" fill="#ff9db4">❌ WRONG</text>
+          <ellipse cx="110" cy="70" rx="15" ry="14" fill="#ffd0bd"/>
+          <path d="M110 84 Q160 110 190 160" stroke="#ff9db4" stroke-width="14" fill="none" stroke-linecap="round"/>
+          <line x1="110" y1="150" x2="105" y2="185" stroke="#ff9db4" stroke-width="10" stroke-linecap="round"/>
+          <line x1="118" y1="150" x2="126" y2="185" stroke="#ff9db4" stroke-width="10" stroke-linecap="round"/>
+          <rect x="200" y="150" width="40" height="28" rx="8" fill="#ffc233"/>
+          <path d="M150 110 L200 155" stroke="#ff3b6b" stroke-width="3" stroke-dasharray="4 4"/>
+          <text x="140" y="70" font-size="20" font-weight="900" fill="#ff3b6b">⚠️</text>
+          <text x="20" y="178" font-size="13" font-style="italic" fill="#ffd9e2">straight legs · bent waist · load far away</text>
+        </svg>
+      </div>
+      <ul class="tick" style="margin-top:10px">
+        <li>🦶 <b>Wide base of support</b> — feet shoulder-width apart.</li>
+        <li>🦵 <b>Bend at the knees</b>, not the waist — squat, don't stoop.</li>
+        <li>🎒 <b>Keep the load close</b> to the body's center of gravity.</li>
+        <li>💪 <b>Use arms/legs to lift</b> — <span class="never">never twist or lift with the back</span>.</li>
+        <li>🫃 <b>Tighten abdominal &amp; gluteal muscles</b> before the move to brace the core.</li>
+      </ul>
+      <div class="mn">🧠 <b>"Squat, don't stoop."</b> If your back is rounding forward, you're doing it wrong — drop your hips, not your spine.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🧍‍♀️ Positioning for the lift</h3>
+      <ul class="tick">
+        <li>Arrange for <b>help before</b> moving a client — never solo a heavy or unpredictable transfer.</li>
+        <li>Encourage the client to <b>assist</b> when able.</li>
+        <li>Avoid twisting — keep back, neck, pelvis, and feet aligned and facing the same direction.</li>
+        <li>Position yourself <b>close</b> to the client or object.</li>
+      </ul>
+      <div class="mn">🧠 <b>Close and squared-up.</b> The nearer you are, and the more your whole body faces the load, the less shear on your spine.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>⚠️ Variables that lead to injury</h3>
+      <ul class="tick">
+        <li>Uncoordinated lifts — no count-of-three teamwork</li>
+        <li>Manual lifting without equipment</li>
+        <li>Lifting while tired</li>
+        <li>Repetitive lifting, transferring, repositioning</li>
+        <li>Prolonged standing</li>
+      </ul>
+      <div class="mn">🧠 <b>The team lift.</b> The person bearing the brunt of the load calls the count of three — everyone moves together, not one person straining alone.</div>
+    </div>
+
+    <div class="card citrinec span2">
+      <h3>🔁 Moving a client in bed — slide, don't drag</h3>
+      <p><mark>Slide the client toward you using a pull/draw sheet</mark> instead of dragging skin across linen — dragging causes <b>shear</b> and <b>friction</b> injury to fragile skin.</p>
+      <div class="mn">🧠 <b>Sheet, not skin.</b> The pull sheet takes the friction so the patient's skin doesn't have to.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ASSESSMENT & DEVICES ============ -->
+<section id="clues">
+  <div class="sec-h"><span class="icon">🚶</span><h2>ASSESSMENT &amp; DEVICES</h2><span class="step">STEP 2 · GAIT, ROM &amp; TOOLS</span></div>
+  <p class="sec-sub">Know what normal gait and range of motion look like — then match the right assistive device to the client.</p>
+
+  <div class="grid">
+    <div class="card sapphire span2">
+      <h3>🩺 Mobility assessment — what to ask &amp; observe</h3>
+      <ul class="tick">
+        <li><b>Daily activity &amp; endurance:</b> "What does your day look like? What makes you tired?"</li>
+        <li><b>Exercise goals</b> and mobility problems: pain, SOB, or discomfort with movement?</li>
+        <li><b>Physical/mental alterations</b> and external factors affecting ambulation.</li>
+        <li><b>Range of motion (ROM):</b> the full movement potential of a joint — flexion &amp; extension.</li>
+      </ul>
+      <table style="margin-top:8px">
+        <tr><th class="up" style="width:50%">Active ROM</th><th class="lo" style="width:50%">Passive ROM</th></tr>
+        <tr><td>Patient moves the limb themselves, no assistance</td><td>Therapist/equipment moves the joint — no effort from the patient</td></tr>
+      </table>
+      <div class="mn">🧠 <b>Active = "I move it," Passive = "you move it."</b></div>
+    </div>
+
+    <div class="card deep">
+      <h3>👣 Normal vs. abnormal gait findings</h3>
+      <table>
+        <tr><th class="up">Normal</th><th class="lo">Abnormal</th></tr>
+        <tr><td>Head erect, spine straight, arms swing in alternation with legs; one leg in stance while the other swings</td><td>Ataxia, Parkinsonian gait, scissor gait, steppage gait, spastic hemiparesis</td></tr>
+        <tr><td>Straight line ear–shoulder–hip in alignment</td><td>Abnormal spinal curvature (scoliosis), can't maintain alignment independently</td></tr>
+        <tr><td>Full ROM, no joint deformity</td><td>Limited ROM, swelling, heat, tenderness, crepitation, deformity</td></tr>
+        <tr><td>Voluntary, controlled, coordinated movement</td><td>Tremors, tics, chorea, dystonia, fasciculations</td></tr>
+      </table>
+      <div class="mn">🧠 <b>Watch the whole walk.</b> Gait, alignment, joint structure, and involuntary movements are 4 separate things to screen — don't just watch the feet.</div>
+    </div>
+
+    <div class="card emerald">
+      <h3>⭐ Factors that affect mobility</h3>
+      <ul class="tick">
+        <li>Age &amp; developmental level</li>
+        <li>Attitudes &amp; family values</li>
+        <li>Neuromuscular / joint disorders</li>
+        <li>Trauma to the musculoskeletal system</li>
+        <li>Mental health &amp; medications (sedation, weakness)</li>
+        <li>Lifestyle, stress, environment</li>
+      </ul>
+      <div class="mn">🧠 Mobility isn't just "can they walk" — it's biology, environment, and psychology all together.</div>
+    </div>
+
+    <div class="card topaz span2">
+      <h3>🦯 Assistive devices — match the tool to the deficit</h3>
+      <div class="duo">
+        <svg viewBox="-10 -10 351 210" role="img" aria-label="Cane use: held in the hand opposite the weak leg, advanced together with the weak leg, then the strong leg follows">
+          <rect x="-6" y="-6" width="343" height="202" rx="16" fill="rgba(13,8,26,.35)" stroke="#231a02" stroke-width="1.5" stroke-dasharray="6 5"/>
+          <ellipse cx="120" cy="46" rx="15" ry="14" fill="#ffd0bd"/>
+          <rect x="104" y="60" width="34" height="56" rx="10" fill="#8a2be2" opacity=".7"/>
+          <line x1="112" y1="116" x2="100" y2="164" stroke="#ffd0bd" stroke-width="9" stroke-linecap="round"/>
+          <line x1="128" y1="116" x2="140" y2="164" stroke="#ff8a3d" stroke-width="9" stroke-linecap="round"/>
+          <line x1="150" y1="90" x2="164" y2="168" stroke="#231a02" stroke-width="6" stroke-linecap="round"/>
+          <circle cx="150" cy="90" r="7" fill="#231a02"/>
+          <text x="180" y="50" font-size="14" font-weight="900" fill="#231a02">🦯 Cane</text>
+          <text x="180" y="68" font-size="12" fill="#231a02">held on STRONG side</text>
+          <text x="180" y="86" font-size="12" fill="#231a02">move cane + weak leg</text>
+          <text x="180" y="102" font-size="12" fill="#231a02">together, then strong leg</text>
+        </svg>
+        <svg viewBox="0 0 300 190" role="img" aria-label="Walker use: nurse stands beside and slightly behind the patient, walker advanced first, then the weak leg, then the strong leg">
+          <rect x="6" y="6" width="288" height="178" rx="16" fill="rgba(13,8,26,.35)" stroke="#231a02" stroke-width="1.5" stroke-dasharray="6 5"/>
+          <ellipse cx="150" cy="46" rx="15" ry="14" fill="#ffd0bd"/>
+          <rect x="134" y="60" width="34" height="56" rx="10" fill="#8a2be2" opacity=".7"/>
+          <line x1="140" y1="116" x2="130" y2="164" stroke="#ffd0bd" stroke-width="9" stroke-linecap="round"/>
+          <line x1="158" y1="116" x2="168" y2="164" stroke="#ffd0bd" stroke-width="9" stroke-linecap="round"/>
+          <path d="M100 168 L100 110 L200 110 L200 168" fill="none" stroke="#231a02" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="100" cy="172" r="6" fill="#231a02"/><circle cx="200" cy="172" r="6" fill="#231a02"/>
+          <text x="20" y="30" font-size="14" font-weight="900" fill="#231a02">🚶 Walker</text>
+          <text x="20" y="150" font-size="12" fill="#231a02">walker first → weak leg</text>
+          <text x="20" y="166" font-size="12" fill="#231a02">→ strong leg. All 4 legs down</text>
+          <text x="20" y="182" font-size="12" fill="#231a02">before stepping — never carry it</text>
+        </svg>
+      </div>
+      <table style="margin-top:10px">
+        <tr><th class="up" style="width:22%">Device</th><th>Best for / key point</th></tr>
+        <tr><td><b>Cane</b> 🦯</td><td>Mild weakness/balance issues on one side. Held on the <b>strong</b> side; advance with the weak leg.</td></tr>
+        <tr><td><b>Walker</b> 🚶</td><td>Greater instability; needs more support &amp; upper-body strength. All 4 legs contact the floor before stepping — <span class="never">never "walk" it by only advancing 2 legs at a time unless it's a rolling walker with wheels</span>.</td></tr>
+        <tr><td><b>Crutches</b> 🩼</td><td>Non-weight-bearing or partial weight-bearing on one leg. Weight goes through the <b>hands/palms</b>, never the axillae — axillary pressure risks <b>nerve damage (crutch palsy)</b>.</td></tr>
+        <tr><td><b>Gait belt</b> 🎗️</td><td>Not a walking aid by itself — a safety handle the nurse holds during transfer/ambulation for any at-risk client.</td></tr>
+      </table>
+      <div class="mn">🧠 <b>"Strong holds the cane, weak leans on the walker."</b> Cane = strong side; walker/crutches = distribute weight away from the weak/injured limb.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SAFETY & FALLS ============ -->
+<section id="care">
+  <div class="sec-h"><span class="icon">🩺</span><h2>SAFETY &amp; FALLS</h2><span class="step">STEP 3 · PREVENT THE #1 INJURY</span></div>
+  <p class="sec-sub">Falls are the leading cause of hospital-acquired injury — assess risk before every transfer.</p>
+
+  <div class="grid">
+    <div class="card ruby span2">
+      <h3>🚨 Fall risk assessment — before you move anyone</h3>
+      <ul class="tick">
+        <li>History of falls, gait/balance problems, or use of an assistive device</li>
+        <li>Medications: sedatives, opioids, antihypertensives, diuretics (orthostatic hypotension risk)</li>
+        <li>Cognitive status: confusion, dementia, impulsivity</li>
+        <li>Sensory deficits: vision, hearing, peripheral neuropathy</li>
+        <li>Environment: clutter, poor lighting, wet floors, improper footwear, tubing/lines underfoot</li>
+      </ul>
+      <div class="mn">🧠 <b>Assess before you ambulate, not after they fall.</b> Most inpatient fall-risk tools (e.g., Morse Fall Scale) score history, mental status, gait, and IV/meds — the same categories above.</div>
+    </div>
+
+    <div class="card emerald">
+      <h3>✅ Priority fall-prevention actions</h3>
+      <ul class="tick">
+        <li>Gait belt on any client identified as fall risk</li>
+        <li>Bed in <b>lowest position</b>, brakes locked, call light within reach</li>
+        <li>Non-skid footwear before every ambulation</li>
+        <li>Clear the path — cords, tubing, clutter out of the way</li>
+        <li>Orthostatic check: sit → dangle → stand, pausing at each step</li>
+      </ul>
+      <div class="mn">🧠 <b>"Sit, dangle, stand" — never rush a first mobilization.</b> Orthostatic hypotension causes a huge share of first-time-up-out-of-bed falls.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>⚠️ Signs of activity intolerance — stop and reassess</h3>
+      <p>Significantly increased pulse, respirations, or BP; SOB/dyspnea; weakness; pallor; confusion; vertigo; pain.</p>
+      <div class="mn">🧠 If any of these appear during ambulation, <b>stop, sit the patient down, and reassess vitals</b> before continuing.</div>
+    </div>
+
+    <div class="card citrinec span2">
+      <h3>🔗 Cross-reference: Positioning (NG-072)</h3>
+      <p>Ambulation starts with safe <b>bed mobility</b>. Before a client stands, they need to be positioned and moved correctly in bed — logrolling, using a pull sheet, and choosing the right position to sit up from.</p>
+      <div class="xref">➡️ See <b>NG-072 — Positioning</b> for the named bed positions (Fowler's, lateral, Sims', etc.) that set up a safe transfer to standing.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">🦴 Bend knees, not waist</span>Wide base, load close, use legs to lift</div>
+    <div class="rc rubybg"><span class="big">🦯 Cane = strong side</span>Advance cane + weak leg together</div>
+    <div class="rc tealbg"><span class="big">🩼 Crutches = weight on hands</span>Never the armpits — nerve damage risk</div>
+    <div class="rc topazbg"><span class="big">🚨 Sit, dangle, stand</span>Check orthostatics before first ambulation</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 4 rapid-fire questions</summary>
+      <div class="qa">Q1: What are the core body mechanics rules for lifting a client? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Wide base of support, bend at the knees not the waist, keep the load close to the body, use arms/legs not the back, and tighten the abdomen/glutes before moving.</div></div>
+      <div class="qa">Q2: Where should crutch weight be borne, and why? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">On the hands/palms — weight on the axillae can cause nerve compression ("crutch palsy").</div></div>
+      <div class="qa">Q3: Which side does a cane go on, and how does the patient step? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">The strong side. The cane and the weak leg advance together, then the strong leg follows.</div></div>
+      <div class="qa">Q4: A patient stands up too fast and reports dizziness — what should the nurse have done first? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Progressed slowly: sit on the edge of the bed, dangle the legs, then stand — checking for orthostatic hypotension at each step before ambulating.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">MECHANICS</span>→
+    <span style="background:rgba(47,107,255,.7)">DEVICES</span>→
+    <span style="background:rgba(18,184,134,.7)">SAFETY</span>
+  </div>
+  <div>NG-167 · Nursing Core · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>

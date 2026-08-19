@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Anti-diarrheal · NG-142 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#cause">⚙️ Action</a>
+  <a class="c2" href="#clues">🚨 Never Do</a>
+  <a class="c3" href="#care">🎓 Teach</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / GI Pharmacology · Motility Drugs</div>
+  <h1>Anti-diarrheal <span class="drop">🚫💧</span></h1>
+  <p class="sub">Loperamide · Diphenoxylate/Atropine · Difenoxin/Atropine · Bismuth Subsalicylate</p>
+  <div class="chips">
+    <span class="chip id">NG-142</span>
+    <span class="chip cat">GI · Pharmacology</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede">These drugs <b>slow the gut down</b> — the mirror opposite of laxatives. <mark>The single highest-yield rule in this whole page</mark>: never give an antidiarrheal when diarrhea is <b>infectious or bloody</b> — slowing transit traps the pathogen or toxin inside and can trigger a life-threatening complication.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">🐌 Slows motility</span>Mirror opposite of laxatives — same organ, opposite direction.</div>
+  <div class="rc rubybg"><span class="big">🚨 NEVER for infectious/bloody diarrhea</span><i>E. coli</i>, <i>Salmonella</i>, <i>Shigella</i>, pseudomembranous colitis.</div>
+  <div class="rc tealbg"><span class="big">⏱️ &gt; 2 days on OTC?</span>Stop and seek care from the provider.</div>
+  <div class="rc topazbg"><span class="big">👶 Never &lt; 2 years old</span>Antidiarrheals are contraindicated in young children.</div>
+</div>
+
+<!-- ============ ACTION ============ -->
+<section id="cause">
+  <div class="sec-h"><span class="icon">⚙️</span><h2>WHAT IT DOES</h2><span class="step">STEP 1 · SLOW THE GUT</span></div>
+  <p class="sec-sub">Two families, one goal — slow peristalsis so more water and electrolytes get reabsorbed before the stool leaves.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>⚙️ Mechanism: opioid-related motility brakes</h3>
+      <p><b>Difenoxin (Motofen)</b> and <b>diphenoxylate (Lomotil)</b> are chemically related to opioid drugs — they <mark>decrease intestinal peristalsis</mark> by acting on opioid receptors, and each is paired with a small dose of atropine to discourage abuse. <b>Loperamide (Imodium)</b> also acts on <b>opioid receptors in the gut wall</b> to slow motility, but it does not meaningfully cross into the CNS — so it carries far less sedation and abuse potential than diphenoxylate or difenoxin.</p>
+      <div class="duo">
+        <svg viewBox="-10 -10 474 280" role="img" aria-label="Panel A: fast peristalsis in diarrhea, contents moving quickly through the bowel with little water reabsorption">
+          <rect x="-6" y="-6" width="466" height="272" rx="18" fill="rgba(255,59,107,.15)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="24" y="40" font-size="20" font-weight="900" fill="#ff9db4">💦 FAST TRANSIT</text>
+          <text x="24" y="62" font-size="14" font-style="italic" fill="#ffd9e2">little time for water reabsorption</text>
+          <path d="M30 150 C 90 120 150 180 210 150 C 270 120 330 180 400 150" fill="none" stroke="#ffd0bd" stroke-width="26" stroke-linecap="round"/>
+          <path d="M60 150 l16 -10 l0 20 z" fill="#ff3b6b"/>
+          <path d="M160 150 l16 -10 l0 20 z" fill="#ff3b6b"/>
+          <path d="M260 150 l16 -10 l0 20 z" fill="#ff3b6b"/>
+          <path d="M360 150 l16 -10 l0 20 z" fill="#ff3b6b"/>
+          <text x="24" y="216" font-size="15" font-weight="900" fill="#ff9db4">Watery stool, fast frequent loose BMs</text>
+        </svg>
+        <svg viewBox="-10 -10 467 280" role="img" aria-label="Panel B: antidiarrheal slows peristalsis, giving the bowel time to reabsorb water and electrolytes, producing a firmer stool">
+          <rect x="-6" y="-6" width="459" height="272" rx="18" fill="rgba(18,184,134,.16)" stroke="#12b886" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="24" y="40" font-size="20" font-weight="900" fill="#7df0c6">🐌 SLOWED TRANSIT</text>
+          <text x="24" y="62" font-size="14" font-style="italic" fill="#d8fff0">opioid receptor slows the muscle wall</text>
+          <path d="M30 150 C 60 140 90 160 120 150 C 150 140 180 160 210 150 C 240 140 270 160 300 150 C 330 140 360 160 400 150" fill="none" stroke="#eafff7" stroke-width="26" stroke-linecap="round"/>
+          <path d="M90 150 l10 -6 l0 12 z" fill="#12b886"/>
+          <path d="M230 150 l10 -6 l0 12 z" fill="#12b886"/>
+          <path d="M360 150 l10 -6 l0 12 z" fill="#12b886"/>
+          <text x="24" y="216" font-size="15" font-weight="900" fill="#7df0c6">More time = more water reabsorbed = firmer stool</text>
+        </svg>
+      </div>
+      <div class="mn">🧠 <b>"Lopera-MIND stays local."</b> Loperamide acts on opioid receptors right in the bowel wall — think of it as an opioid that "stayed home" instead of traveling to the brain.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>💊 Drug Card</h3>
+      <table>
+        <tr><th style="width:30%">Generic (Trade)</th><th>Use / Dose</th></tr>
+        <tr><td><b>Loperamide</b><br><i>(Imodium)</i></td><td>Acute diarrhea, chronic diarrhea with IBS · <span class="mono">4 mg</span> initial, then <span class="mono">2 mg</span> after each loose stool — max <span class="mono">16 mg/day</span></td></tr>
+        <tr><td><b>Diphenoxylate/atropine</b><br><i>(Lomotil, Lonox)</i></td><td>Acute diarrhea · <span class="mono">5 mg</span> PO QID</td></tr>
+        <tr><td><b>Difenoxin/atropine</b><br><i>(Motofen)</i></td><td>Acute diarrhea · <span class="mono">2 tabs</span> initial, then <span class="mono">1 tab</span> per loose stool — max <span class="mono">8 tabs/day</span></td></tr>
+        <tr><td><b>Bismuth subsalicylate</b><br><i>(Pepto-Bismol, Bismatrol)</i></td><td>N/V, diarrhea, cramps, <i>H. pylori</i> adjunct · <span class="mono">2 tabs</span> or <span class="mono">30 mL</span> PO q30min–1h, up to 8 doses/24h</td></tr>
+        <tr><td><b>Tincture of opium</b><br><i>(Paregoric)</i></td><td>Severe diarrhea · <span class="mono">0.6 mL</span> PO QID</td></tr>
+      </table>
+      <div class="mn">🧠 <b>"LDBP-O"</b> — Loperamide, Diphenoxylate, Bismuth, Paregoric, plus Difenoxin (Motofen) — five brakes for one gut.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>✅ Indications — why it's ordered</h3>
+      <ul class="tick">
+        <li><b>Loperamide</b> — acute diarrhea AND chronic diarrhea associated with IBS</li>
+        <li><b>Difenoxin &amp; diphenoxylate</b> — acute diarrhea</li>
+        <li><b>Bismuth</b> — also nausea, vomiting, cramps, and adjunct in <i>H. pylori</i> duodenal ulcer therapy</li>
+      </ul>
+      <div class="mn">🧠 <b>Only loperamide is labeled for chronic use</b> — it's the one your provider reaches for when a patient has IBS-related diarrhea long-term.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NEVER DO ============ -->
+<section id="clues">
+  <div class="sec-h"><span class="icon">🚨</span><h2>NEVER DO</h2><span class="step">STEP 2 · KNOW THE RISKS</span></div>
+  <p class="sec-sub">Slowing the gut is helpful when diarrhea is just diarrhea — and dangerous when the diarrhea is trying to flush something out.</p>
+
+  <div class="grid">
+    <div class="card ruby span2">
+      <h3>🚨 NEVER give for infectious or bloody diarrhea</h3>
+      <p>Antidiarrheals are <span class="never">contraindicated when diarrhea is associated with organisms that can harm the intestinal mucosa</span> — <i>E. coli</i>, <i>Salmonella</i>, and <i>Shigella</i> spp. — as well as with <b>pseudomembranous colitis</b>, <b>abdominal pain of unknown origin</b>, and <b>obstructive jaundice</b>. Also contraindicated in <b>children younger than 2 years old</b>.</p>
+      <svg viewBox="-10 -10 467 280" role="img" aria-label="Diagram showing why slowing motility during infectious diarrhea is dangerous: the pathogen and its toxin stay trapped in the bowel longer instead of being flushed out, raising the risk of toxic megacolon">
+        <rect x="-6" y="-6" width="459" height="272" rx="18" fill="rgba(13,8,26,.5)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="24" y="40" font-size="19" font-weight="900" fill="#ff9db4">🦠 Infectious diarrhea + antidiarrheal</text>
+        <path d="M60 150 C 110 130 160 170 210 150 C 260 130 310 170 360 150" fill="none" stroke="#eafff7" stroke-width="30" stroke-linecap="round"/>
+        <circle cx="130" cy="150" r="10" fill="#ffc233"/>
+        <circle cx="230" cy="150" r="10" fill="#ffc233"/>
+        <circle cx="300" cy="150" r="10" fill="#ffc233"/>
+        <text x="24" y="90" font-size="13.5" fill="#ffd9e2">Pathogen / toxin trapped — can't be flushed out</text>
+        <path d="M370 150 a10 10 0 1 1 0.01 0" fill="none" stroke="#ff3b6b" stroke-width="4" stroke-dasharray="3 4"/>
+        <text x="24" y="200" font-size="15" font-weight="900" fill="#ff9db4">↑ Risk: toxic megacolon, sepsis, prolonged illness</text>
+        <text x="24" y="228" font-size="13" font-style="italic" fill="#ffd9e2">Let it flush — don't dam it up.</text>
+      </svg>
+      <div class="mn">🧠 <b>"STOP."</b> <b>S</b>almonella/Shigella/<i>E. coli</i> · <b>T</b>oxin needs to leave · <b>O</b>bstructive jaundice or unknown-origin pain · <b>P</b>seudomembranous colitis — any one of these means STOP, don't give the antidiarrheal.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>⚠️ Adverse reactions</h3>
+      <ul class="tick">
+        <li>Anorexia, nausea, vomiting, and <b>constipation</b> (rebound)</li>
+        <li>Abdominal discomfort, pain, and distention</li>
+        <li>Dizziness, drowsiness, headache</li>
+        <li>Sedation and euphoria — opioid-related, watch for misuse potential with diphenoxylate/difenoxin</li>
+      </ul>
+      <div class="mn">🧠 Sedation + euphoria is the tell that these are opioid-related drugs, even though they're sold over the counter.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🔀 Interactions</h3>
+      <table>
+        <tr><th class="up" style="width:46%">With…</th><th class="lo">Effect</th></tr>
+        <tr><td>Antihistamines, opioids, sedatives, hypnotics</td><td>↑ CNS depression</td></tr>
+        <tr><td>Antihistamines, antidepressants</td><td>↑ cholinergic-blocking effects (atropine component)</td></tr>
+        <tr><td>MAOIs</td><td>↑ risk of hypertensive crisis</td></tr>
+      </table>
+      <div class="mn">🧠 Two drug families stacked = two sets of side effects: opioid sedation AND anticholinergic drying.</div>
+    </div>
+
+    <div class="card topaz">
+      <h3>⚠️ Caution</h3>
+      <ul class="tick">
+        <li>Severe hepatic impairment</li>
+        <li>Most agents are Pregnancy Category C</li>
+        <li>Loperamide is Category B but <b>not recommended</b> in pregnancy/lactation</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TEACH ============ -->
+<section id="care">
+  <div class="sec-h"><span class="icon">🎓</span><h2>TEACH</h2><span class="step">STEP 3 · MONITOR &amp; REHYDRATE</span></div>
+  <p class="sec-sub">The drug slows the gut — the nurse's job is to watch fluid balance and know when to escalate.</p>
+
+  <div class="grid">
+    <div class="card emerald span2">
+      <h3>✅ Nursing management ladder</h3>
+      <div class="ladder">
+        <div class="rung"><div class="n">1</div><div class="t">📋 <b>Review the chart</b> — confirm the reason the drug was ordered</div></div>
+        <div class="rung"><div class="n">2</div><div class="t">🗣️ <b>Ask about type &amp; intensity of symptoms</b> — establish a baseline to judge effectiveness</div></div>
+        <div class="rung"><div class="n">3</div><div class="t">🩺 <b>Monitor vital signs</b> and assess for relief of symptoms</div></div>
+        <div class="rung"><div class="n">4</div><div class="t">🚨 <b>Report</b> abdominal distention, fever, or abdominal pain</div></div>
+        <div class="rung"><div class="n">5</div><div class="t">💧 <b>If chronic diarrhea:</b> encourage fluids — weak tea, water, bouillon, or electrolyte drinks (Pedialyte, Gatorade)</div></div>
+        <div class="rung"><div class="n">6</div><div class="t">📊 <b>Monitor I&amp;O</b></div></div>
+      </div>
+      <svg viewBox="0 0 440 170" role="img" aria-label="Fluid balance icon showing input glass of electrolyte drink balanced against output, monitored with intake and output charting">
+        <rect x="6" y="6" width="428" height="158" rx="16" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+        <path d="M60 40 L120 40 L110 130 L70 130 Z" fill="rgba(0,194,199,.35)" stroke="#00c2c7" stroke-width="2"/>
+        <text x="42" y="150" font-size="13" font-weight="900" fill="#9ff2ee">INTAKE</text>
+        <text x="150" y="90" font-size="30" font-weight="900" fill="#a5f3d4">⇄</text>
+        <path d="M320 60 L380 60 L372 130 L328 130 Z" fill="rgba(18,184,134,.35)" stroke="#12b886" stroke-width="2"/>
+        <text x="316" y="150" font-size="13" font-weight="900" fill="#a5f3d4">OUTPUT</text>
+        <text x="200" y="30" font-size="14" font-weight="800" fill="#efe6ff">Chart I&amp;O every shift</text>
+      </svg>
+      <div class="mn">🧠 <b>"Chart it before you medicate it."</b> Baseline symptoms + I&amp;O let you actually prove the drug worked.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🧪 When to stop and call the provider</h3>
+      <p>If diarrhea persists for <span class="mono">more than 2 days</span> while using an OTC antidiarrheal, the patient should <b>discontinue use</b> and seek treatment from the primary health care provider.</p>
+      <div class="mn">🧠 <b>"2 days, then it's not self-care anymore."</b></div>
+    </div>
+
+    <div class="card deep">
+      <h3>📋 Quick teaching checklist</h3>
+      <div class="no-grid">
+        <div class="no-t"><span class="e">📋</span>Baseline<i>symptoms first</i></div>
+        <div class="no-t"><span class="e">💧</span>Fluids<i>weak tea, electrolytes</i></div>
+        <div class="no-t hot"><span class="e">🚨</span>Report<i>fever, distention, pain</i></div>
+        <div class="no-t hot"><span class="e">⛔</span>Never<i>if bloody/infectious</i></div>
+        <div class="no-t"><span class="e">⏱️</span>&gt;2 days<i>stop, call provider</i></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">🐌 Slows peristalsis</span>opposite mechanism from laxatives</div>
+    <div class="rc rubybg"><span class="big">🚨 Never for infectious/bloody</span><i>E. coli</i>, Salmonella, Shigella, C. diff colitis</div>
+    <div class="rc tealbg"><span class="big">💧 Chart I&amp;O</span>watch fluid &amp; electrolyte balance</div>
+    <div class="rc topazbg"><span class="big">⏱️ &gt;2 days</span>stop OTC use, call the provider</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 4 rapid-fire questions</summary>
+      <div class="qa">Q1: Name one key clue that loperamide is different from diphenoxylate/difenoxin. <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Loperamide acts on opioid receptors locally in the bowel wall with minimal CNS penetration, so it carries far less sedation/abuse potential than diphenoxylate or difenoxin.</div></div>
+      <div class="qa">Q2: Name one priority — when should you withhold an antidiarrheal? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">When diarrhea is caused by organisms that harm the mucosa (E. coli, Salmonella, Shigella), pseudomembranous colitis, abdominal pain of unknown origin, or obstructive jaundice — and never in children under 2.</div></div>
+      <div class="qa">Q3: Name one teaching point about OTC use. <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">If diarrhea persists more than 2 days on an OTC antidiarrheal, stop and see the provider.</div></div>
+      <div class="qa">Q4: What should the nurse monitor throughout therapy? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Vital signs, relief of symptoms, and fluid balance (I&amp;O) — and report fever, abdominal distention, or abdominal pain.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">ACTION</span>→
+    <span style="background:rgba(47,107,255,.7)">NEVER DO</span>→
+    <span style="background:rgba(18,184,134,.7)">TEACH</span>
+  </div>
+  <div>NG-142 · Source: Robo Nurse Study Lab, expanded · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>

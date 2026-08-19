@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vasopressors · NG-053 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+
+/* ---------- appended for this page ---------- */
+nav a.c5{background:rgba(0,194,199,.72);color:#00252b}
+#does  .sec-h h2{color:#d9c2ff} #does .step{background:var(--amethyst)}
+#which .sec-h h2{color:#bcd0ff} #which .step{background:var(--sapphire)}
+#stages .sec-h h2{color:#ffd9b8} #stages .step{background:var(--citrine);color:#2b1200}
+#watch .sec-h h2{color:#a5f3d4} #watch .step{background:var(--emerald);color:#03291c}
+.hdr-sm th{font-size:.78rem}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#does">⚡ What it does</a>
+  <a class="c2" href="#which">🎯 Which shock</a>
+  <a class="c5" href="#stages">🪜 4 Stages</a>
+  <a class="c3" href="#watch">👀 Watch for</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Cardio · Cardiac Pharmacology</div>
+  <h1>Vasopressors <span class="drop">💉</span></h1>
+  <p class="sub">Alpha &amp; beta receptors — the drugs that squeeze</p>
+  <div class="chips">
+    <span class="chip id">NG-053</span>
+    <span class="chip cat">Cardio · Pharmacology</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede"><b>Vaso-PRESS-ors PRESS on the blood vessels</b>, increasing blood pressure in order to squeeze oxygen-rich blood back to the <b>CORE</b> of the body and perfuse the vital organs — <i>sort of like squeezing a toothpaste bottle.</i> They do it by activating <b>alpha &amp; beta receptors</b> inside the heart and blood vessels. <b>Indications: raise the BP · shock · cardiac arrest (ACLS).</b></p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">🐍 Alpha 1 = ANACONDA</span>Constricts vessels → SVR ↑ → BP ↑. Blood is squeezed back to the core.</div>
+  <div class="rc rubybg"><span class="big">1️⃣ Beta 1 = 1 HEART</span>Chronotropic (rate ↑) + inotropic (force ↑) → cardiac output ↑.</div>
+  <div class="rc tealbg"><span class="big">2️⃣ Beta 2 = 2 LUNGS</span>Dilates bronchi &amp; vessels — big balloon. (Albuterol lives here.)</div>
+  <div class="rc topazbg"><span class="big">💧 Fluids BEFORE pressors</span>Then <b>norepinephrine</b> first-line in septic shock. Extravasation antidote = <b>phentolamine</b>.</div>
+</div>
+
+<!-- ============ WHAT IT DOES ============ -->
+<section id="does">
+  <div class="sec-h"><span class="icon">⚡</span><h2>WHAT IT DOES</h2><span class="step">STEP 1 · THE RECEPTORS</span></div>
+  <p class="sec-sub">Four receptors explain every one of these drugs. Learn the receptors and you never have to memorize a drug list again.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🗺️ The receptor map — where each receptor lives and what it does</h3>
+      <svg viewBox="-10 -10 758 490" role="img" aria-label="Map of adrenergic receptors: alpha-1 on blood vessels causing constriction, beta-1 on the heart increasing rate and force, beta-2 on lungs and vessels causing dilation, and dopaminergic receptors on renal and mesenteric vessels causing dilation">
+        <defs>
+          <linearGradient id="vesG" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#ff3b6b"/><stop offset="1" stop-color="#c02255"/>
+          </linearGradient>
+        </defs>
+
+        <!-- alpha 1 -->
+        <rect x="8" y="8" width="256" height="216" rx="16" fill="rgba(192,34,85,.3)" stroke="#ff3b6b" stroke-width="2.5"/>
+        <text x="24" y="38" font-size="19" font-weight="900" fill="#ff9db4">🐍 ALPHA 1 — vessels</text>
+        <text x="24" y="58" font-size="13" font-style="italic" fill="#ffd9e2">“Anaconda” — squeeze the pipes</text>
+        <rect x="24" y="74" width="216" height="34" rx="17" fill="rgba(255,255,255,.10)" stroke="#ffd9e2" stroke-width="2"/>
+        <rect x="30" y="84" width="204" height="14" rx="7" fill="url(#vesG)"/>
+        <text x="24" y="126" font-size="12.5" font-weight="800" fill="#ffd9e2">before</text>
+        <rect x="24" y="136" width="216" height="20" rx="10" fill="rgba(255,255,255,.10)" stroke="#ffd9e2" stroke-width="2"/>
+        <rect x="30" y="141" width="204" height="10" rx="5" fill="url(#vesG)"/>
+        <text x="24" y="174" font-size="12.5" font-weight="800" fill="#ffd9e2">after alpha-1 stimulation</text>
+        <text x="24" y="198" font-size="14.5" font-weight="900" fill="#ffc233">SVR ↑ → MAP ↑</text>
+        <text x="24" y="216" font-size="13" font-weight="800" fill="#ffd9e2">Blood pushed back to the core</text>
+
+        <!-- beta 1 -->
+        <rect x="276" y="8" width="256" height="216" rx="16" fill="rgba(255,138,61,.3)" stroke="#ff8a3d" stroke-width="2.5"/>
+        <text x="292" y="38" font-size="19" font-weight="900" fill="#ffd9b8">1️⃣ BETA 1 — 1 heart</text>
+        <text x="292" y="58" font-size="13" font-style="italic" fill="#ffe9d6">rate up + force up</text>
+        <path d="M356 96 C 340 80 310 86 310 112 C 310 138 344 160 356 174 C 368 160 402 138 402 112 C 402 86 372 80 356 96 Z"
+              fill="#ff3b6b" stroke="#ffd9e2" stroke-width="2"/>
+        <path d="M416 100 l14 -22 l6 16 l14 -14 l-4 26 z" fill="#ffc233"/>
+        <text x="292" y="200" font-size="14.5" font-weight="900" fill="#ffc233">+ Chronotropic = more BEATS</text>
+        <text x="292" y="218" font-size="14.5" font-weight="900" fill="#ffc233">+ Inotropic = more FORCE → CO ↑</text>
+
+        <!-- beta 2 -->
+        <rect x="8" y="238" width="256" height="222" rx="16" fill="rgba(0,194,199,.3)" stroke="#00c2c7" stroke-width="2.5"/>
+        <text x="24" y="268" font-size="19" font-weight="900" fill="#9ff2ee">2️⃣ BETA 2 — 2 lungs</text>
+        <text x="24" y="288" font-size="13" font-style="italic" fill="#d8fff0">big balloon: dilate bronchi &amp; vessels</text>
+        <ellipse cx="76" cy="356" rx="38" ry="48" fill="rgba(0,194,199,.55)" stroke="#eafff7" stroke-width="2"/>
+        <ellipse cx="164" cy="356" rx="38" ry="48" fill="rgba(0,194,199,.55)" stroke="#eafff7" stroke-width="2"/>
+        <rect x="114" y="300" width="12" height="42" rx="6" fill="#eafff7"/>
+        <text x="24" y="428" font-size="14.5" font-weight="900" fill="#ffc233">Bronchodilation (albuterol)</text>
+        <text x="24" y="448" font-size="13.5" font-weight="800" fill="#d8fff0">+ dilates skeletal-muscle vessels → can LOWER diastolic BP</text>
+
+        <!-- dopaminergic -->
+        <rect x="276" y="238" width="256" height="222" rx="16" fill="rgba(157,92,255,.32)" stroke="#9d5cff" stroke-width="2.5"/>
+        <text x="292" y="268" font-size="19" font-weight="900" fill="#d9c2ff">🫘 DOPAMINERGIC</text>
+        <text x="292" y="288" font-size="13" font-style="italic" fill="#efe6ff">renal &amp; mesenteric vessels</text>
+        <path d="M340 320 C 312 320 300 348 306 376 C 312 404 340 414 356 402 C 344 380 344 344 340 320 Z"
+              fill="rgba(157,92,255,.7)" stroke="#efe6ff" stroke-width="2"/>
+        <path d="M356 360 l30 0" stroke="#ffc233" stroke-width="5" stroke-linecap="round"/>
+        <text x="396" y="340" font-size="14" font-weight="900" fill="#efe6ff">kidney &amp;</text>
+        <text x="396" y="360" font-size="14" font-weight="900" fill="#efe6ff">gut vessels</text>
+        <text x="396" y="380" font-size="14" font-weight="900" fill="#efe6ff">DILATE</text>
+        <text x="292" y="428" font-size="14.5" font-weight="900" fill="#ffc233">Low-dose dopamine only</text>
+        <text x="292" y="448" font-size="13" font-weight="800" fill="#efe6ff">“Renal-dose” dopamine is no longer used to protect kidneys</text>
+      </svg>
+      <div class="mn">🧠 <b>“1 heart, 2 lungs, Alpha the Anaconda, Dopamine does the kidneys.”</b> Beta <b>1</b> = you have <b>1</b> heart. Beta <b>2</b> = you have <b>2</b> lungs. Alpha <b>1</b> wraps the vessels like a snake. Say it four times and it's yours.</div>
+    </div>
+
+    <div class="card topaz span2">
+      <h3>⭐ Where each drug LANDS — the receptor matrix</h3>
+      <svg viewBox="-10 -10 658 490" role="img" aria-label="Matrix showing each vasopressor and inotrope and the relative strength of its effect at alpha-1, beta-1, beta-2 and dopaminergic receptors, with vasopressin shown on a separate V1 receptor pathway">
+        <rect x="-6" y="-6" width="650" height="482" rx="14" fill="rgba(13,8,26,.6)" stroke="rgba(255,255,255,.35)" stroke-width="1.5"/>
+        <text x="18" y="34" font-size="15" font-weight="900" fill="#fff">DRUG</text>
+        <text x="206" y="34" font-size="14.5" font-weight="900" fill="#ff9db4">ALPHA 1</text>
+        <text x="300" y="34" font-size="14.5" font-weight="900" fill="#ffd9b8">BETA 1</text>
+        <text x="388" y="34" font-size="14.5" font-weight="900" fill="#9ff2ee">BETA 2</text>
+        <text x="466" y="34" font-size="14.5" font-weight="900" fill="#d9c2ff">DOPA</text>
+        <text x="206" y="50" font-size="11.5" font-style="italic" fill="#ffd9e2">squeeze</text>
+        <text x="300" y="50" font-size="11.5" font-style="italic" fill="#ffe9d6">rate/force</text>
+        <text x="388" y="50" font-size="11.5" font-style="italic" fill="#d8fff0">dilate</text>
+        <text x="466" y="50" font-size="11.5" font-style="italic" fill="#efe6ff">renal</text>
+        <line x1="14" y1="58" x2="546" y2="58" stroke="rgba(255,255,255,.4)" stroke-width="1.5"/>
+
+        <!-- norepinephrine -->
+        <text x="18" y="94" font-size="15" font-weight="900" fill="#fff">Norepinephrine</text>
+        <text x="18" y="112" font-size="11.5" font-style="italic" fill="#ffc233">septic shock — FIRST LINE</text>
+        <circle cx="230" cy="94" r="17" fill="#ff3b6b"/><text x="222" y="99" font-size="12" font-weight="900" fill="#fff">+++</text>
+        <circle cx="320" cy="94" r="12" fill="#ff8a3d"/><text x="314" y="99" font-size="11" font-weight="900" fill="#2b1200">++</text>
+        <text x="404" y="99" font-size="15" font-weight="900" fill="rgba(255,255,255,.45)">—</text>
+        <text x="482" y="99" font-size="15" font-weight="900" fill="rgba(255,255,255,.45)">—</text>
+        <line x1="14" y1="124" x2="546" y2="124" stroke="rgba(255,255,255,.2)"/>
+
+        <!-- epinephrine -->
+        <text x="18" y="158" font-size="15" font-weight="900" fill="#fff">Epinephrine</text>
+        <text x="18" y="176" font-size="11.5" font-style="italic" fill="#ffc233">anaphylaxis · cardiac arrest</text>
+        <circle cx="230" cy="158" r="17" fill="#ff3b6b"/><text x="222" y="163" font-size="12" font-weight="900" fill="#fff">+++</text>
+        <circle cx="320" cy="158" r="17" fill="#ff8a3d"/><text x="312" y="163" font-size="12" font-weight="900" fill="#2b1200">+++</text>
+        <circle cx="410" cy="158" r="12" fill="#00c2c7"/><text x="404" y="163" font-size="11" font-weight="900" fill="#00252b">++</text>
+        <text x="482" y="163" font-size="15" font-weight="900" fill="rgba(255,255,255,.45)">—</text>
+        <line x1="14" y1="188" x2="546" y2="188" stroke="rgba(255,255,255,.2)"/>
+
+        <!-- dopamine -->
+        <text x="18" y="222" font-size="15" font-weight="900" fill="#fff">Dopamine</text>
+        <text x="18" y="240" font-size="11.5" font-style="italic" fill="#ffc233">DOSE-DEPENDENT effects</text>
+        <circle cx="230" cy="222" r="12" fill="#ff3b6b"/><text x="224" y="227" font-size="11" font-weight="900" fill="#fff">++</text>
+        <circle cx="320" cy="222" r="12" fill="#ff8a3d"/><text x="314" y="227" font-size="11" font-weight="900" fill="#2b1200">++</text>
+        <text x="404" y="227" font-size="15" font-weight="900" fill="rgba(255,255,255,.45)">—</text>
+        <circle cx="490" cy="222" r="12" fill="#9d5cff"/><text x="484" y="227" font-size="11" font-weight="900" fill="#fff">++</text>
+        <line x1="14" y1="252" x2="546" y2="252" stroke="rgba(255,255,255,.2)"/>
+
+        <!-- dobutamine -->
+        <text x="18" y="286" font-size="15" font-weight="900" fill="#fff">Dobutamine</text>
+        <text x="18" y="304" font-size="11.5" font-style="italic" fill="#ffc233">INOTROPE — cardiogenic shock</text>
+        <text x="242" y="291" font-size="15" font-weight="900" fill="rgba(255,255,255,.45)">—</text>
+        <circle cx="320" cy="286" r="17" fill="#ff8a3d"/><text x="312" y="291" font-size="12" font-weight="900" fill="#2b1200">+++</text>
+        <circle cx="410" cy="286" r="8" fill="#00c2c7"/><text x="406" y="290" font-size="10" font-weight="900" fill="#00252b">+</text>
+        <text x="482" y="291" font-size="15" font-weight="900" fill="rgba(255,255,255,.45)">—</text>
+        <line x1="14" y1="316" x2="546" y2="316" stroke="rgba(255,255,255,.2)"/>
+
+        <!-- phenylephrine -->
+        <text x="18" y="350" font-size="15" font-weight="900" fill="#fff">Phenylephrine</text>
+        <text x="18" y="368" font-size="11.5" font-style="italic" fill="#ffc233">pure squeeze · no heart effect</text>
+        <circle cx="230" cy="350" r="17" fill="#ff3b6b"/><text x="222" y="355" font-size="12" font-weight="900" fill="#fff">+++</text>
+        <text x="332" y="355" font-size="15" font-weight="900" fill="rgba(255,255,255,.45)">—</text>
+        <text x="404" y="355" font-size="15" font-weight="900" fill="rgba(255,255,255,.45)">—</text>
+        <text x="482" y="355" font-size="15" font-weight="900" fill="rgba(255,255,255,.45)">—</text>
+        <line x1="14" y1="380" x2="546" y2="380" stroke="rgba(255,255,255,.4)" stroke-width="1.5"/>
+
+        <!-- vasopressin separate lane -->
+        <rect x="14" y="390" width="532" height="66" rx="12" fill="rgba(47,107,255,.35)" stroke="#bcd0ff" stroke-width="2"/>
+        <text x="26" y="414" font-size="15" font-weight="900" fill="#eaf1ff">Vasopressin — a SEPARATE pathway</text>
+        <text x="26" y="434" font-size="13.5" font-weight="800" fill="#dfe8ff">Works on <tspan font-weight="900" fill="#ffc233">V1 receptors</tspan> on vascular smooth muscle — NOT alpha or beta.</text>
+        <text x="26" y="452" font-size="13.5" font-weight="800" fill="#dfe8ff">That is exactly why it is added to norepinephrine: two different doors, one goal.</text>
+      </svg>
+      <p style="margin-top:8px"><b>Relative strengths only</b> — the exact effect of dopamine and epinephrine shifts with the infusion rate. No doses are given here on purpose; always titrate to the ordered MAP goal per protocol.</p>
+      <div class="mn">🧠 <b>Read the matrix as a shape.</b> Norepinephrine = mostly squeeze. Dobutamine = mostly force. Epinephrine = <i>everything</i>. Phenylephrine = squeeze only. Vasopressin = a different door entirely.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🔤 Agonist vs antagonist — the whole vocabulary</h3>
+      <table>
+        <tr><th class="up" style="width:50%">AGonists ADD ➕</th><th class="lo" style="width:50%">ANTagonists are ANTI ➖</th></tr>
+        <tr><td><b>Alpha agonist</b> — more constriction → <b>BP UP</b><br><i>(vasopressors)</i></td>
+            <td><b>Alpha-1 antagonist</b> — less constriction → <b>BP DOWN</b><br><i>(the “-osin” drugs; phentolamine)</i></td></tr>
+        <tr><td><b>Beta agonist</b> — faster, stronger heart; open lungs<br><i>(vasopressors, albuterol)</i></td>
+            <td><b>Beta antagonist</b> — slower, weaker heart<br><i>(beta blockers, the “-olol” drugs)</i></td></tr>
+        <tr><td><b>+ Chronotropic</b> = more beats/min <i>(chronos = time)</i><br><b>+ Inotropic</b> = more forceful beats → <b>cardiac output UP</b></td>
+            <td><b>– Chronotropic</b> = fewer beats<br><b>– Inotropic</b> = less force</td></tr>
+      </table>
+      <p style="margin-top:8px"><span class="tip">SOURCE FIX</span> The source lists <b>clonidine</b> as an example of an “alpha antagonist.” Clonidine does lower blood pressure, but it is a <b>central alpha-2 AGONIST</b> — it lowers BP by <i>reducing sympathetic outflow from the brain</i>, not by blocking alpha-1 on the vessel. True alpha-1 <b>antagonists</b> are the <b>“-osin”</b> drugs and <b>phentolamine</b>.</p>
+      <div class="mn">🧠 <b>“AG = ADD. ANT = ANTI.”</b> Two syllables carry half of cardiac pharmacology. Then just ask <i>which receptor?</i> — heart, vessels, or lungs.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🪥 Why it's called a PRESSor</h3>
+      <p><b>VasoPRESSors PRESS on the vessels.</b> Squeezing narrows the container, so the same volume generates a higher pressure — and blood is pushed inward toward the <b>CORE</b>, where the vital organs are.</p>
+      <p><b>The trade-off:</b> the core wins and the <b>periphery loses</b>. Fingers, toes, gut and skin are the tissue you sacrifice to keep the brain, heart and kidneys perfused. That is why you assess extremities every shift on a pressor.</p>
+      <div class="mn">🧠 <b>Squeeze the toothpaste tube.</b> Same paste, narrower tube, more pressure at the opening. And if the tube is <i>empty</i>, squeezing harder only splits the tube — which is exactly why fluids come first.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHICH SHOCK ============ -->
+<section id="which">
+  <div class="sec-h"><span class="icon">🎯</span><h2>WHICH DRUG, WHICH SHOCK</h2><span class="step">STEP 2 · MATCH IT</span></div>
+  <p class="sec-sub">Pick the drug that fixes the broken part. Every choice on this page reconciles with the hypovolemic, cardiogenic and septic shock pages.</p>
+
+  <div class="grid">
+    <div class="card emerald span2">
+      <h3>💧 Rule zero: <mark>fluids come before pressors</mark></h3>
+      <svg viewBox="0 0 540 260" role="img" aria-label="Two panels showing that squeezing an empty container produces pressure without flow while squeezing a filled container delivers perfusion, illustrating why fluid resuscitation precedes vasopressors">
+        <rect x="8" y="8" width="252" height="212" rx="14" fill="rgba(255,59,107,.2)" stroke="#ff3b6b" stroke-width="2.5"/>
+        <text x="24" y="38" font-size="17" font-weight="900" fill="#ff9db4">❌ SQUEEZE FIRST</text>
+        <rect x="30" y="56" width="180" height="52" rx="26" fill="rgba(255,255,255,.08)" stroke="#ffd9e2" stroke-width="2"/>
+        <rect x="38" y="76" width="34" height="12" rx="6" fill="#ff3b6b"/>
+        <path d="M120 118 L120 140" stroke="#ffc233" stroke-width="5" stroke-linecap="round"/>
+        <rect x="30" y="146" width="180" height="26" rx="13" fill="rgba(255,255,255,.08)" stroke="#ffd9e2" stroke-width="2"/>
+        <rect x="38" y="154" width="34" height="10" rx="5" fill="#ff3b6b"/>
+        <text x="24" y="196" font-size="14" font-weight="900" fill="#ffc233">Monitor number goes UP,</text>
+        <text x="24" y="214" font-size="14" font-weight="900" fill="#ffc233">tissue perfusion goes DOWN</text>
+
+        <rect x="276" y="8" width="256" height="212" rx="14" fill="rgba(18,184,134,.28)" stroke="#12b886" stroke-width="2.5"/>
+        <text x="292" y="38" font-size="17" font-weight="900" fill="#a5f3d4">✅ FILL, THEN SQUEEZE</text>
+        <rect x="298" y="56" width="180" height="52" rx="26" fill="rgba(255,255,255,.08)" stroke="#eafff7" stroke-width="2"/>
+        <rect x="306" y="72" width="164" height="20" rx="10" fill="#12b886"/>
+        <path d="M388 118 L388 140" stroke="#ffc233" stroke-width="5" stroke-linecap="round"/>
+        <rect x="298" y="146" width="180" height="26" rx="13" fill="rgba(255,255,255,.08)" stroke="#eafff7" stroke-width="2"/>
+        <rect x="304" y="152" width="168" height="14" rx="7" fill="#12b886"/>
+        <text x="292" y="196" font-size="14" font-weight="900" fill="#ffc233">Pressure AND flow rise —</text>
+        <text x="292" y="214" font-size="14" font-weight="900" fill="#ffc233">organs actually get blood</text>
+      </svg>
+      <p style="margin-top:10px"><b>Why:</b> blood pressure is a <i>number</i>; perfusion is <i>flow</i>. Vasoconstricting an under-filled circulation raises the number while cutting flow to the gut, kidneys and extremities — you can normalize a MAP and still let the patient die of tissue ischemia.</p>
+      <p><b>The exception:</b> <b>cardiogenic shock</b>, where the tank is already overfull — fluid boluses cause flash pulmonary edema. There you support the pump instead.</p>
+      <div class="mn">🧠 <b>“Fill before you squeeze.”</b> One sentence that answers a whole category of exam questions — and the one thing every shock page on this site repeats.</div>
+    </div>
+
+    <div class="card topaz span2">
+      <h3>⭐ The reconciliation table — pressor by shock type</h3>
+      <table class="hdr-sm">
+        <tr><th style="width:20%">Shock</th><th class="up">What's broken</th><th class="up">First-line drug</th><th class="lo">Why that one</th></tr>
+        <tr>
+          <td><b>Septic</b> 🦠</td>
+          <td>PIPES — vasodilation + capillary leak, <b>SVR ↓↓</b></td>
+          <td><b>Norepinephrine</b><br><i>after <span class="mono">30 mL/kg</span> crystalloid</i></td>
+          <td>Strong <b>alpha-1</b> squeeze restores the missing SVR, with modest beta-1 support and <b>fewer tachyarrhythmias than dopamine</b>. Add <b>vasopressin</b> (V1) to spare the dose; <b>epinephrine</b> is an alternative add-on.</td>
+        </tr>
+        <tr>
+          <td><b>Hypovolemic</b> 🩸</td>
+          <td>TANK — volume is gone</td>
+          <td><span class="never">No pressor as primary therapy</span><br><i>Volume &amp; blood products</i></td>
+          <td>Nothing to squeeze. A pressor is only a <b>short bridge</b> while blood is being obtained — it never replaces stopping the bleed and filling the tank.</td>
+        </tr>
+        <tr>
+          <td><b>Cardiogenic</b> 🫀</td>
+          <td>PUMP — contractility failed, <b>preload ↑↑</b></td>
+          <td><b>Dobutamine</b> (inotrope)<br><b>Norepinephrine</b> if hypotensive</td>
+          <td><b>Beta-1</b> raises contractility and cardiac output. If MAP is too low to perfuse the coronaries, norepinephrine holds the pressure. <i>The source card names <b>dopamine</b> and <b>digoxin</b> — both are true positive inotropes and fair game on an exam.</i></td>
+        </tr>
+        <tr>
+          <td><b>Anaphylactic</b> 🐝</td>
+          <td>PIPES — histamine dilation + airway swelling</td>
+          <td><b>Epinephrine, IM</b><br><i>anterolateral thigh</i></td>
+          <td>The only drug that hits all three problems at once: <b>alpha-1</b> constricts and shrinks swelling, <b>beta-1</b> supports the heart, <b>beta-2</b> opens the bronchi.</td>
+        </tr>
+        <tr>
+          <td><b>Neurogenic</b> 🦴</td>
+          <td>PIPES — sympathetic outflow severed (T6 or above)</td>
+          <td>Fluids + a <b>vasopressor</b> for tone;<br><b>atropine</b> for the bradycardia</td>
+          <td>There is no sympathetic signal at all, so tone must be supplied by drug. Remember this is the <b>only shock with bradycardia</b>.</td>
+        </tr>
+        <tr>
+          <td><b>Cardiac arrest</b> ⚡</td>
+          <td>No output at all</td>
+          <td><b>Epinephrine</b> (ACLS)</td>
+          <td>Alpha-1 vasoconstriction during CPR raises coronary and cerebral perfusion pressure.</td>
+        </tr>
+      </table>
+      <div class="mn">🧠 <b>“NED-EA”</b> — <b>N</b>orepinephrine = septic · <b>E</b>pinephrine = anaphylaxis &amp; arrest · <b>D</b>obutamine = cardiogenic · <b>E</b>mpty tank = fluids, not drugs · <b>A</b>tropine = neurogenic bradycardia.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>💊 The main vasopressors — one line each</h3>
+      <ul class="tick">
+        <li><b>Norepinephrine</b> — alpha-1 +++, beta-1 ++. <b>First-line in septic shock.</b></li>
+        <li><b>Epinephrine</b> — alpha-1 +++, beta-1 +++, beta-2 ++. <b>Anaphylaxis &amp; cardiac arrest.</b></li>
+        <li><b>Vasopressin</b> — <b>V1</b> receptors, not adrenergic. Second agent in septic shock.</li>
+        <li><b>Dopamine</b> — <b>dose-dependent</b>: dopaminergic → beta-1 → alpha-1 as the rate rises. Named on the source card for cardiogenic shock. More tachycardia and arrhythmias.</li>
+        <li><b>Dobutamine</b> — beta-1 +++. <b>An INOTROPE, not really a pressor</b> — it can <i>lower</i> blood pressure through mild beta-2 dilation.</li>
+        <li><b>Phenylephrine</b> — pure alpha-1. Squeeze with no direct heart effect.</li>
+      </ul>
+      <p style="margin-top:8px"><span class="tip">SOURCE FIX</span> <b>Desmopressin</b> appears in the source's drug list. <b>Desmopressin (DDAVP) is NOT a vasopressor</b> — it is a synthetic ADH analog selective for <b>V2</b> receptors, used for <b>diabetes insipidus</b>, nocturnal enuresis and <b>von Willebrand disease</b>. The pressor is <b>vasopressin</b> (V1). The two names look alike and do completely different jobs.</p>
+      <div class="mn">🧠 <b>“VasoPRESSin PRESSes. DesmoPRESSin does not.”</b> Vasopressin = <b>V1</b> = vessels. Desmopressin = <b>V2</b> = urine (and clotting factor release). One raises pressure, one saves water.</div>
+    </div>
+
+    <div class="card tealc">
+      <h3>🫀 Inotrope vs vasopressor — not the same job</h3>
+      <table>
+        <tr><th class="up" style="width:50%">INOTROPE</th><th class="lo" style="width:50%">VASOPRESSOR</th></tr>
+        <tr><td>Makes the <b>pump squeeze harder</b> (beta-1)</td><td>Makes the <b>pipes squeeze tighter</b> (alpha-1)</td></tr>
+        <tr><td>Raises <b>cardiac output</b></td><td>Raises <b>SVR / MAP</b></td></tr>
+        <tr><td>May <b>lower</b> BP</td><td>May <b>lower</b> cardiac output (more afterload to push against)</td></tr>
+        <tr><td><b>Dobutamine</b>, digoxin, milrinone</td><td><b>Norepinephrine</b>, phenylephrine, vasopressin</td></tr>
+        <tr><td colspan="2" style="text-align:center"><b>Dopamine &amp; epinephrine do BOTH</b> — which is why their effects shift with the rate</td></tr>
+      </table>
+      <div class="mn">🧠 <b>Pump vs pipes, again.</b> A failing pump needs an inotrope. Failing pipes need a pressor. Naming the broken part picks the drug every single time.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4 STAGES ============ -->
+<section id="stages">
+  <div class="sec-h"><span class="icon">🪜</span><h2>THE 4 STAGES</h2><span class="step">STEP 3 · WHEN PRESSORS ENTER</span></div>
+  <p class="sec-sub">Same four stages as every shock page — mapped to the moment a vasopressor becomes the right answer.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🪜 The 4 stages of shock — identical on every shock page</h3>
+      <table>
+        <tr><th style="width:22%">Stage</th><th class="up">What's happening</th><th class="lo">What you see</th></tr>
+        <tr><td><b>I · INITIAL</b></td><td>Cardiac output falls just enough that cells switch to <b>anaerobic metabolism</b> → <b>lactic acid</b> builds, blood glucose rises.</td><td><mark>Nothing.</mark> Signs &amp; symptoms are <b>ABSENT</b> in this stage — only a rising <span class="mono">lactate</span> gives it away.</td></tr>
+        <tr><td><b>II · COMPENSATORY</b></td><td>The <b>sympathetic nervous system</b> and <b>renin–angiotensin–aldosterone</b> rescue the pressure: catecholamines, vasoconstriction, ADH and aldosterone hold on to salt and water.</td><td><b>Tachycardia · tachypnea · restless &amp; anxious · cold clammy skin · narrowing pulse pressure · urine <span class="mono">&lt; 30 mL/hr</span></b>. <b>BP is still near normal.</b></td></tr>
+        <tr><td><b>III · PROGRESSIVE</b></td><td>Compensation <b>fails</b>. Capillaries leak, acidosis deepens, organs begin to die.</td><td><b>BP drops (MAP <span class="mono">&lt; 65</span>) · confusion → lethargy · cold mottled skin · weak thready pulse · crackles · oliguria → anuria · rising BUN/creatinine</b>.</td></tr>
+        <tr><td><b>IV · REFRACTORY</b><br><i>(also called irreversible)</i></td><td><b>MODS</b> — multiple organ dysfunction syndrome. The body no longer responds to fluids or vasopressors.</td><td><b>Unresponsive · profound hypotension · anuria · DIC · death is imminent.</b></td></tr>
+      </table>
+      <div class="mn">🧠 <b>“I Can't Perfuse Right”</b> — <b>I</b>nitial · <b>C</b>ompensatory · <b>P</b>rogressive · <b>R</b>efractory. The stage you must catch is <b>COMPENSATORY</b>: the cuff still looks fine, so your clues are <i>heart rate, respiratory rate, mental status and urine output</i>.</div>
+    </div>
+
+    <div class="card ruby span2">
+      <h3>📈 Stage progression — <u>where the vasopressor belongs</u></h3>
+      <svg viewBox="-10 -10 672 640" role="img" aria-label="Four stages of shock mapped to vasopressor decisions: no drug in the initial stage, fluids and cause control in the compensatory stage, vasopressor started for fluid-refractory hypotension in the progressive stage, and maximal support failing in the refractory stage">
+        <defs>
+          <linearGradient id="railV" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#00c2c7"/><stop offset="0.34" stop-color="#ffc233"/>
+            <stop offset="0.68" stop-color="#ff8a3d"/><stop offset="1" stop-color="#c02255"/>
+          </linearGradient>
+        </defs>
+        <text x="14" y="24" font-size="17" font-weight="900" fill="#ffd9b8">ESCALATION OF SUPPORT ↓</text>
+        <rect x="8" y="36" width="14" height="576" rx="7" fill="url(#railV)"/>
+
+        <rect x="32" y="36" width="520" height="128" rx="14" fill="rgba(0,194,199,.20)" stroke="#00c2c7" stroke-width="2"/>
+        <circle cx="70" cy="72" r="21" fill="#00c2c7"/><text x="60" y="79" font-size="17" font-weight="900" fill="#00252b">I</text>
+        <text x="102" y="68" font-size="19" font-weight="900" fill="#9ff2ee">INITIAL — no drug</text>
+        <text x="102" y="90" font-size="13.5" font-style="italic" fill="#d8fff0">lactate rising, vital signs normal</text>
+        <text x="102" y="114" font-size="14.5" font-weight="800" fill="#eafff7">• Find and fix the CAUSE (bleed, infection, MI)</text>
+        <text x="102" y="134" font-size="14.5" font-weight="800" fill="#eafff7">• Oxygen · IV access · draw the lactate</text>
+        <text x="102" y="154" font-size="14.5" font-weight="900" fill="#ffc233">• A vasopressor here would be wrong</text>
+
+        <rect x="32" y="176" width="520" height="140" rx="14" fill="rgba(255,194,51,.22)" stroke="#ffc233" stroke-width="2"/>
+        <circle cx="70" cy="212" r="21" fill="#ffc233"/><text x="56" y="219" font-size="17" font-weight="900" fill="#231a02">II</text>
+        <text x="102" y="208" font-size="19" font-weight="900" fill="#ffe49a">COMPENSATORY — FLUIDS</text>
+        <text x="102" y="230" font-size="13.5" font-style="italic" fill="#fff3d1">BP still normal, HR and RR climbing</text>
+        <text x="102" y="254" font-size="14.5" font-weight="800" fill="#fff8e6">• Isotonic crystalloid — septic shock: 30 mL/kg</text>
+        <text x="102" y="274" font-size="14.5" font-weight="800" fill="#fff8e6">• Blood products if hemorrhagic · antibiotics if septic</text>
+        <text x="102" y="294" font-size="14.5" font-weight="800" fill="#fff8e6">• Cardiogenic exception: NO bolus — start the inotrope</text>
+        <text x="102" y="312" font-size="14.5" font-weight="900" fill="#ff8a3d">• Fill the tank before you squeeze it</text>
+
+        <rect x="32" y="328" width="520" height="158" rx="14" fill="rgba(255,138,61,.24)" stroke="#ff8a3d" stroke-width="2"/>
+        <circle cx="70" cy="364" r="21" fill="#ff8a3d"/><text x="53" y="371" font-size="17" font-weight="900" fill="#2b1200">III</text>
+        <text x="102" y="360" font-size="19" font-weight="900" fill="#ffd9b8">PROGRESSIVE — START THE PRESSOR</text>
+        <text x="102" y="382" font-size="13.5" font-style="italic" fill="#ffe9d6">fluid-refractory: MAP &lt; 65 despite adequate volume</text>
+        <text x="102" y="406" font-size="14.5" font-weight="800" fill="#ffe9d6">• Septic → NOREPINEPHRINE first, add vasopressin</text>
+        <text x="102" y="426" font-size="14.5" font-weight="800" fill="#ffe9d6">• Cardiogenic → dobutamine ± norepinephrine</text>
+        <text x="102" y="446" font-size="14.5" font-weight="800" fill="#ffe9d6">• Anaphylactic → epinephrine (IM first, then infusion)</text>
+        <text x="102" y="466" font-size="14.5" font-weight="800" fill="#ffe9d6">• Titrate to MAP ≥ 65 · central line · arterial line</text>
+        <text x="102" y="482" font-size="13.5" font-weight="900" fill="#ffc233">• Reassess volume — a pressor does not replace fluid</text>
+
+        <rect x="32" y="498" width="520" height="114" rx="14" fill="rgba(192,34,85,.30)" stroke="#c02255" stroke-width="2"/>
+        <circle cx="70" cy="532" r="21" fill="#c02255"/><text x="52" y="539" font-size="16" font-weight="900" fill="#fff">IV</text>
+        <text x="102" y="528" font-size="19" font-weight="900" fill="#ff9db4">REFRACTORY — pressors stop working</text>
+        <text x="102" y="552" font-size="14.5" font-weight="800" fill="#ffd9e2">• Maximal doses no longer hold the MAP · acidosis blunts response</text>
+        <text x="102" y="572" font-size="14.5" font-weight="800" fill="#ffd9e2">• Consider steroids (septic) · mechanical support (cardiogenic)</text>
+        <text x="102" y="592" font-size="14.5" font-weight="900" fill="#ffc233">• MODS · goals-of-care conversation</text>
+      </svg>
+      <div class="mn">🧠 <b>The pressor belongs at stage III, not stage II.</b> If the stem says the patient is <i>still hypotensive after adequate fluid</i>, that phrase is the green light. Without it, the answer is fluid.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WATCH FOR / TEACH ============ -->
+<section id="watch">
+  <div class="sec-h"><span class="icon">👀</span><h2>WATCH FOR &amp; NURSING CARE</h2><span class="step">STEP 4 · KEEP THEM SAFE</span></div>
+  <p class="sec-sub">These are high-alert drugs. The nursing care is as tested as the pharmacology.</p>
+
+  <div class="grid">
+    <div class="card ruby span2">
+      <h3>🚨 Extravasation — the emergency with an antidote</h3>
+      <svg viewBox="-10 -10 587 320" role="img" aria-label="Diagram of vasopressor extravasation showing drug leaking into tissue causing blanching and necrosis, with the five nursing steps and phentolamine as the antidote">
+        <rect x="8" y="8" width="250" height="284" rx="14" fill="rgba(192,34,85,.28)" stroke="#ff3b6b" stroke-width="2.5"/>
+        <text x="24" y="38" font-size="17" font-weight="900" fill="#ff9db4">WHAT'S HAPPENING</text>
+        <rect x="24" y="54" width="216" height="86" rx="14" fill="rgba(255,208,189,.85)"/>
+        <rect x="40" y="84" width="150" height="12" rx="6" fill="#c02255"/>
+        <circle cx="120" cy="112" r="24" fill="rgba(255,255,255,.9)" stroke="#c02255" stroke-width="2"/>
+        <text x="88" y="160" font-size="13.5" font-weight="900" fill="#ffd9e2">drug pools in the tissue</text>
+        <text x="24" y="192" font-size="14" font-weight="900" fill="#ffc233">• Blanched, WHITE, cold skin</text>
+        <text x="24" y="214" font-size="14" font-weight="900" fill="#ffc233">• Swelling, pain, no blood return</text>
+        <text x="24" y="236" font-size="14" font-weight="900" fill="#ffc233">• Alpha-1 clamps the local vessels</text>
+        <text x="24" y="262" font-size="15" font-weight="900" fill="#fff">→ TISSUE NECROSIS</text>
+        <text x="24" y="282" font-size="13" font-style="italic" fill="#ffd9e2">can require debridement or amputation</text>
+
+        <rect x="272" y="8" width="260" height="284" rx="14" fill="rgba(18,184,134,.3)" stroke="#12b886" stroke-width="2.5"/>
+        <text x="288" y="38" font-size="17" font-weight="900" fill="#a5f3d4">WHAT YOU DO</text>
+        <circle cx="302" cy="66" r="14" fill="#12b886"/><text x="297" y="72" font-size="14" font-weight="900" fill="#03291c">1</text>
+        <text x="326" y="72" font-size="14" font-weight="900" fill="#eafff7">STOP the infusion</text>
+        <circle cx="302" cy="104" r="14" fill="#12b886"/><text x="297" y="110" font-size="14" font-weight="900" fill="#03291c">2</text>
+        <text x="326" y="104" font-size="14" font-weight="900" fill="#eafff7">Leave the catheter in —</text>
+        <text x="326" y="122" font-size="14" font-weight="900" fill="#eafff7">aspirate residual drug</text>
+        <circle cx="302" cy="154" r="14" fill="#12b886"/><text x="297" y="160" font-size="14" font-weight="900" fill="#03291c">3</text>
+        <text x="326" y="160" font-size="14" font-weight="900" fill="#eafff7">Notify the provider</text>
+        <circle cx="302" cy="192" r="14" fill="#12b886"/><text x="297" y="198" font-size="14" font-weight="900" fill="#03291c">4</text>
+        <text x="326" y="192" font-size="14" font-weight="900" fill="#eafff7">Elevate the limb · mark</text>
+        <text x="326" y="210" font-size="14" font-weight="900" fill="#eafff7">the border · WARM compress</text>
+        <circle cx="302" cy="242" r="14" fill="#ffc233"/><text x="297" y="248" font-size="14" font-weight="900" fill="#231a02">5</text>
+        <text x="326" y="242" font-size="15" font-weight="900" fill="#ffc233">PHENTOLAMINE</text>
+        <text x="326" y="262" font-size="13.5" font-weight="800" fill="#eafff7">infiltrated around the site</text>
+        <text x="288" y="286" font-size="13" font-style="italic" fill="#d8fff0">an alpha-blocker — it un-does the squeeze</text>
+      </svg>
+      <p style="margin-top:10px"><b>Why phentolamine?</b> The damage is caused by <b>alpha-1 vasoconstriction</b> strangling the local tissue. Phentolamine is an <b>alpha-adrenergic antagonist</b> — it <mark>blocks the very receptor the vasopressor is over-stimulating</mark>, so blood flow returns before the tissue dies.</p>
+      <p><b>Prevention beats rescue:</b> give vasopressors through a <b>central line</b> whenever possible, on a dedicated lumen and an infusion pump, and assess the site frequently.</p>
+      <div class="mn">🧠 <b>“Phentolamine un-does the anaconda.”</b> Alpha-1 agonist squeezed the tissue shut; the alpha-1 <i>blocker</i> lets go. <span class="never">Never just pull the IV and walk away</span> — you lose your chance to aspirate the drug.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>👀 Monitoring while a pressor runs</h3>
+      <ul class="tick">
+        <li>🎯 <b>Titrate to the ordered MAP</b> — usually <span class="mono">≥65 mmHg</span>. Continuous BP, ideally an <b>arterial line</b>.</li>
+        <li>📟 <b>Continuous ECG</b> — dysrhythmias and tachycardia are the main dose-limiting effects</li>
+        <li>🚽 <b>Hourly urine output</b> — the real proof organs are being perfused</li>
+        <li>🫱 <b>Assess extremities</b> every shift and with every rate change — color, temperature, pulses, cap refill. Digital ischemia is a real complication.</li>
+        <li>🩸 <b>Glucose</b> — epinephrine raises blood sugar</li>
+        <li>💉 <b>Always on an infusion pump</b>, dedicated line, and check compatibility</li>
+        <li>📉 <b>Wean gradually</b> — <span class="never">never stop a vasopressor infusion abruptly</span>; the pressure can crash</li>
+      </ul>
+      <div class="mn">🧠 <b>“Numbers on the monitor, fingers on the patient.”</b> A perfect MAP with dusky fingertips means the squeeze has gone too far. Both have to be true.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>⚠️ Adverse effects by receptor</h3>
+      <table>
+        <tr><th style="width:32%">Receptor</th><th class="up">Adverse effect</th></tr>
+        <tr><td><b>Alpha-1</b> 🐍</td><td><b>Peripheral / digital ischemia</b>, gut and renal hypoperfusion, extravasation necrosis, <b>reflex bradycardia</b>, rising afterload the failing heart must fight</td></tr>
+        <tr><td><b>Beta-1</b> 1️⃣</td><td><b>Tachycardia <span class="mono">&gt;100/min</span> and dysrhythmias</b> <span class="tip">NCLEX TIP</span>, <b>increased myocardial oxygen demand</b> — dangerous in an ischemic heart, chest pain</td></tr>
+        <tr><td><b>Beta-2</b> 2️⃣</td><td>Vasodilation that can <b>drop the diastolic BP</b>, tremor, <b>hypokalemia</b> (K⁺ driven into cells), hyperglycemia</td></tr>
+      </table>
+      <div class="mn">🧠 <b>Every pressor buys pressure with oxygen.</b> You are asking a starving heart to work harder. That's why the goal is the <i>lowest</i> dose that holds the MAP — and why you fix the cause, not the number.</div>
+    </div>
+
+    <div class="card citrinec span2">
+      <h3>📚 Teach &amp; connect — how this page fits the others</h3>
+      <div class="no-grid">
+        <div class="no-t"><span class="e">🩸</span>Hypovolemic<i>volume, not pressors</i></div>
+        <div class="no-t"><span class="e">🫀</span>Cardiogenic<i>dobutamine ± norepi</i></div>
+        <div class="no-t hot"><span class="e">🦠</span>Septic<i>norepinephrine 1st</i></div>
+        <div class="no-t"><span class="e">🐝</span>Anaphylactic<i>epinephrine IM</i></div>
+        <div class="no-t"><span class="e">🦴</span>Neurogenic<i>fluids + tone + atropine</i></div>
+        <div class="no-t hot"><span class="e">⚡</span>Arrest<i>epinephrine (ACLS)</i></div>
+      </div>
+      <p style="margin-top:11px"><b>One rule ties them together:</b> <mark>name the broken part first — pump, tank, or pipes — then pick the drug that fixes that part.</mark> A pressor fixes <b>pipes</b>. An inotrope fixes the <b>pump</b>. Fluid and blood fix the <b>tank</b>. Nothing else needs to be memorized.</p>
+      <div class="mn">🧠 <b>Say the chain out loud:</b> “Tank empty → fill it. Pump broken → strengthen it. Pipes wide → squeeze them. Still low after fluid → <b>norepinephrine</b>. Leaked into tissue → <b>phentolamine</b>.”</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">🐍 α1 squeeze · 1️⃣ β1 heart</span>2️⃣ β2 lungs · 🫘 dopaminergic = renal vessels</div>
+    <div class="rc rubybg"><span class="big">💧 Fill before you squeeze</span>Pressors go in at stage III — <i>hypotension despite adequate fluid</i></div>
+    <div class="rc topazbg"><span class="big">💊 Septic = norepinephrine</span>Add vasopressin (V1). Cardiogenic = dobutamine. Anaphylaxis = epinephrine IM.</div>
+    <div class="rc tealbg"><span class="big">🚨 Extravasation = phentolamine</span>Stop · leave the catheter &amp; aspirate · notify · elevate · infiltrate the antidote</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 7 rapid-fire questions</summary>
+      <div class="qa">Q1: What does each receptor do — alpha-1, beta-1, beta-2, dopaminergic? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Alpha-1: constricts blood vessels (SVR ↑, BP ↑) — "the anaconda." Beta-1: 1 heart — positive chronotropic (rate) and inotropic (force), so cardiac output rises. Beta-2: 2 lungs — dilates bronchi and also skeletal-muscle vessels. Dopaminergic: dilates renal and mesenteric vessels at low dopamine rates.</div></div>
+      <div class="qa">Q2: Why fluids before pressors? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Blood pressure is a number; perfusion is flow. Vasoconstricting an under-filled circulation raises the displayed MAP while cutting flow to gut, kidneys and extremities. Fill the tank first — except in cardiogenic shock, where the tank is already overfull.</div></div>
+      <div class="qa">Q3: Why norepinephrine first-line in septic shock? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">The defect in septic shock is lost vessel tone (SVR ↓↓) from cytokine-driven vasodilation. Norepinephrine is a potent alpha-1 vasoconstrictor with modest beta-1 support that directly replaces the missing tone, and it causes fewer tachyarrhythmias than dopamine. Vasopressin (V1 receptors — a separate pathway) is the usual second agent.</div></div>
+      <div class="qa">Q4: Which drug for anaphylaxis, by what route, and why does it work on everything at once? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Epinephrine, intramuscularly into the anterolateral thigh, immediately. Alpha-1 constricts the dilated leaking vessels (BP up, swelling down), beta-1 supports rate and force, beta-2 opens the bronchioles. Never delay it for antihistamines or steroids.</div></div>
+      <div class="qa">Q5: Is dobutamine a vasopressor? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Not really — it's an INOTROPE. It's almost purely beta-1, so it raises contractility and cardiac output, and its mild beta-2 activity can actually lower blood pressure. In cardiogenic shock it's often paired with norepinephrine when the MAP needs support.</div></div>
+      <div class="qa">Q6: Vasopressin vs desmopressin? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Vasopressin acts on V1 receptors on vascular smooth muscle and raises blood pressure — it's used in septic shock alongside norepinephrine. Desmopressin (DDAVP) is a V2-selective ADH analog for diabetes insipidus, nocturnal enuresis and von Willebrand disease — it is NOT a vasopressor. The source graphic lists it with the pressors; that is incorrect.</div></div>
+      <div class="qa">Q7: A norepinephrine infusion has extravasated. Steps and antidote? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Stop the infusion; leave the catheter in place and aspirate residual drug; notify the provider; elevate the limb, mark the border, apply a warm compress; anticipate PHENTOLAMINE infiltrated subcutaneously around the site. Phentolamine is an alpha-blocker, so it reverses the alpha-1 vasoconstriction that is strangling the tissue.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">WHAT IT DOES</span>→
+    <span style="background:rgba(47,107,255,.7)">WHICH SHOCK</span>→
+    <span style="background:rgba(255,138,61,.7)">STAGES</span>→
+    <span style="background:rgba(18,184,134,.7)">WATCH FOR</span>
+  </div>
+  <div>NG-053 · Source wording retained · ADHD-friendly visual edition v2</div>
+</footer>
+
+</div>
+</body></html>

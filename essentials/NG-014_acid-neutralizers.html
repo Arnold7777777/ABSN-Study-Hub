@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Acid Neutralizers · NG-014 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+
+/* -------- appended: page-specific additions (never edits above) -------- */
+#does .sec-h h2{color:#d9c2ff} #does .step{background:var(--amethyst)}
+#watch .sec-h h2{color:#ffb3c6} #watch .step{background:var(--garnet)}
+#teach .sec-h h2{color:#a5f3d4} #teach .step{background:var(--emerald);color:#03291c}
+.related{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0}
+.related a{display:inline-block;font-size:.85rem;font-weight:900;color:#fff;text-decoration:none;
+  padding:7px 12px;border-radius:10px;border:1px solid var(--line);background:rgba(13,8,26,.5)}
+.related a b{color:var(--topaz)}
+.figcap{margin:6px 0 0;font-size:.85rem;font-style:italic;opacity:.9}
+/* light-background cards: keep table headers, marks and never-rules readable */
+.card.tealc .up,.card.topaz .up,.card.citrinec .up{color:#7a3200}
+.card.tealc .lo,.card.topaz .lo,.card.citrinec .lo{color:#00565b}
+.card.tealc th,.card.tealc td,.card.topaz th,.card.topaz td,
+.card.citrinec th,.card.citrinec td{border-bottom-color:rgba(0,0,0,.28)}
+.card.tealc mark,.card.topaz mark,.card.citrinec mark{background:#231a02;color:#ffe49a}
+.card.tealc .never,.card.topaz .never,.card.citrinec .never{text-decoration-color:#8a2b00}
+.card.tealc .tip,.card.topaz .tip,.card.citrinec .tip{background:#231a02;color:#ffe49a}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#does">🧴 What it does</a>
+  <a class="c2" href="#watch">⚠️ Watch for</a>
+  <a class="c3" href="#teach">🗣️ Teach</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / GI · Pharmacology · Acid-Reducer Family — the ANTACID page</div>
+  <h1>Acid Neutralizers <span class="drop">🧴</span></h1>
+  <p class="sub">Antacids — aluminium · magnesium · calcium · sodium bicarbonate</p>
+  <div class="chips">
+    <span class="chip id">NG-014</span>
+    <span class="chip cat">GI · Pharmacology</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede">Antacids are the only acid drug that <b>does not touch the acid factory</b>. PPIs and H2 blockers stop acid from being <i>made</i>; an antacid simply <mark>combines chemically with the hydrochloric acid already sitting in the stomach and raises the pH</mark>. That gives them the <b>fastest onset and the shortest duration</b> in the whole family — and it is also why almost every antacid problem on the exam is about the <b>metal cation</b> attached to it.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">⚡ Fastest on, fastest off</span>Minutes to work, but only <span class="mono">30–60 min</span> of relief on an empty stomach. Rescue, not maintenance.</div>
+  <div class="rc tealbg"><span class="big">🧲 The cation decides the side effect</span><b>A</b>luminium &amp; <b>C</b>alcium → <b>constipation</b>. <b>M</b>agnesium → <b>diarrhea</b>.</div>
+  <div class="rc rubybg"><span class="big">⏱️ Separate ALL other oral drugs</span><span class="never">No oral drug within 1–2 hours of an antacid</span> — antacids bind and block absorption.</div>
+  <div class="rc topazbg"><span class="big">🧂 Sodium bicarb + heart failure</span>Sodium load → fluid retention. Contraindicated in HTN, HF, sodium-restricted diets.</div>
+</div>
+
+<!-- ============ WHAT IT DOES ============ -->
+<section id="does">
+  <div class="sec-h"><span class="icon">🧴</span><h2>WHAT IT DOES</h2><span class="step">STEP 1 · CHEMISTRY IN THE STOMACH</span></div>
+  <p class="sec-sub">A base meets an acid in the lumen. That's it — no receptor, no pump, no enzyme.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🔬 The stomach wall in cross-section — where the acid comes from and where the antacid works</h3>
+      <p><span class="tip">EXAM TIP</span> Acid is made by <b>parietal cells</b> deep in the gastric glands and pumped into the lumen. A protective <b>mucus–bicarbonate layer</b> normally keeps it off the epithelium. When that layer fails, acid burns the wall — that is an <b>ulcer</b>. <mark>The antacid never enters the cell; it works out in the lumen, neutralising acid that has already been secreted.</mark></p>
+      <svg viewBox="0 0 900 500" role="img" aria-label="Cutaway of the stomach wall in two panels: on the left an intact mucus layer over healthy epithelium with gastric pits, parietal cells secreting hydrochloric acid, submucosa and muscle layers; on the right a thinned mucus layer with acid eroding the epithelium into an ulcer crater, with antacid particles in the lumen neutralising acid and raising the pH">
+        <defs>
+          <linearGradient id="g14muc" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="rgba(0,194,199,.70)"/><stop offset="1" stop-color="rgba(0,194,199,.25)"/>
+          </linearGradient>
+          <linearGradient id="g14ep" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffcdb8"/><stop offset=".6" stop-color="#e9967c"/><stop offset="1" stop-color="#c26a54"/>
+          </linearGradient>
+          <linearGradient id="g14sub" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#f3b9a4"/><stop offset="1" stop-color="#c9705a"/>
+          </linearGradient>
+          <linearGradient id="g14mus" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#c9536b"/><stop offset="1" stop-color="#8e2138"/>
+          </linearGradient>
+          <linearGradient id="g14acid" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffc233"/><stop offset="1" stop-color="#ff8a3d"/>
+          </linearGradient>
+          <marker id="m14a" viewBox="0 0 12 12" refX="7" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/>
+          </marker>
+        </defs>
+        <rect x="4" y="4" width="892" height="492" rx="20" fill="rgba(13,8,26,.44)" stroke="rgba(255,255,255,.28)" stroke-width="2"/>
+        <line x1="450" y1="24" x2="450" y2="476" stroke="rgba(255,255,255,.24)" stroke-width="2" stroke-dasharray="9 8"/>
+
+        <!-- ============ LEFT: intact ============ -->
+        <text x="26" y="40" font-size="18" font-weight="900" fill="#7df0c6">✅ PROTECTED WALL</text>
+        <text x="26" y="60" font-size="13" font-style="italic" fill="#d8fff0">thick mucus–bicarbonate blanket · pH ~1–2 in the lumen</text>
+        <!-- lumen -->
+        <rect x="24" y="74" width="402" height="74" fill="rgba(255,138,61,.22)"/>
+        <text x="34" y="96" font-size="12.5" font-weight="900" fill="#ffc233">STOMACH LUMEN</text>
+        <g fill="#ffc233">
+          <text x="60" y="126" font-size="14" font-weight="900">H⁺</text><text x="120" y="118" font-size="14" font-weight="900">H⁺</text>
+          <text x="186" y="130" font-size="14" font-weight="900">Cl⁻</text><text x="250" y="118" font-size="14" font-weight="900">H⁺</text>
+          <text x="312" y="128" font-size="14" font-weight="900">H⁺</text><text x="372" y="120" font-size="14" font-weight="900">Cl⁻</text>
+        </g>
+        <!-- mucus -->
+        <path d="M24 148 C 70 138 118 156 166 146 C 214 136 262 156 310 146 C 356 136 396 154 426 146 L426 176 L24 176 Z" fill="url(#g14muc)" stroke="#9ff2ee" stroke-width="1.6"/>
+        <text x="300" y="168" font-size="11.5" font-weight="900" fill="#00343a">mucus + HCO₃⁻</text>
+        <!-- epithelium with pits -->
+        <rect x="24" y="176" width="402" height="86" fill="url(#g14ep)"/>
+        <g fill="rgba(120,40,25,.55)">
+          <rect x="62" y="176" width="16" height="62" rx="7"/><rect x="140" y="176" width="16" height="62" rx="7"/>
+          <rect x="218" y="176" width="16" height="62" rx="7"/><rect x="296" y="176" width="16" height="62" rx="7"/>
+          <rect x="374" y="176" width="16" height="62" rx="7"/>
+        </g>
+        <!-- parietal cells -->
+        <g>
+          <circle cx="52" cy="232" r="11" fill="#ffc233" stroke="#fff2c8" stroke-width="1.5"/>
+          <circle cx="90" cy="240" r="11" fill="#ffc233" stroke="#fff2c8" stroke-width="1.5"/>
+          <circle cx="130" cy="232" r="11" fill="#ffc233" stroke="#fff2c8" stroke-width="1.5"/>
+          <circle cx="168" cy="242" r="11" fill="#ffc233" stroke="#fff2c8" stroke-width="1.5"/>
+          <circle cx="208" cy="232" r="11" fill="#ffc233" stroke="#fff2c8" stroke-width="1.5"/>
+          <circle cx="246" cy="242" r="11" fill="#ffc233" stroke="#fff2c8" stroke-width="1.5"/>
+          <circle cx="286" cy="232" r="11" fill="#ffc233" stroke="#fff2c8" stroke-width="1.5"/>
+          <circle cx="324" cy="242" r="11" fill="#ffc233" stroke="#fff2c8" stroke-width="1.5"/>
+          <circle cx="364" cy="232" r="11" fill="#ffc233" stroke="#fff2c8" stroke-width="1.5"/>
+          <circle cx="402" cy="242" r="11" fill="#ffc233" stroke="#fff2c8" stroke-width="1.5"/>
+        </g>
+        <path d="M70 176 L70 148" stroke="#ffc233" stroke-width="3" marker-end="url(#m14a)"/>
+        <path d="M226 176 L226 148" stroke="#ffc233" stroke-width="3" marker-end="url(#m14a)"/>
+        <path d="M382 176 L382 148" stroke="#ffc233" stroke-width="3" marker-end="url(#m14a)"/>
+        <line x1="40" y1="266" x2="120" y2="290" stroke="#fff2c8" stroke-width="1.4"/>
+        <text x="26" y="308" font-size="12" font-weight="900" fill="#fff2c8">Parietal cells → secrete HCl</text>
+        <!-- submucosa -->
+        <rect x="24" y="262" width="402" height="46" fill="url(#g14sub)"/>
+        <path d="M40 288 C 90 278 140 296 190 286 C 240 276 290 294 340 284 C 380 276 404 290 424 284" fill="none" stroke="#c02255" stroke-width="4" stroke-linecap="round"/>
+        <text x="220" y="300" font-size="11.5" font-weight="800" fill="#5c1f12">submucosa (vessels)</text>
+        <!-- muscle -->
+        <rect x="24" y="308" width="402" height="52" fill="url(#g14mus)"/>
+        <g opacity=".5" stroke="#5c0f22" stroke-width="2">
+          <line x1="40" y1="312" x2="40" y2="356"/><line x1="70" y1="312" x2="70" y2="356"/><line x1="100" y1="312" x2="100" y2="356"/>
+          <line x1="130" y1="312" x2="130" y2="356"/><line x1="160" y1="312" x2="160" y2="356"/><line x1="190" y1="312" x2="190" y2="356"/>
+          <line x1="220" y1="312" x2="220" y2="356"/><line x1="250" y1="312" x2="250" y2="356"/><line x1="280" y1="312" x2="280" y2="356"/>
+          <line x1="310" y1="312" x2="310" y2="356"/><line x1="340" y1="312" x2="340" y2="356"/><line x1="370" y1="312" x2="370" y2="356"/>
+          <line x1="400" y1="312" x2="400" y2="356"/>
+        </g>
+        <text x="26" y="378" font-size="11.5" font-weight="800" fill="#ffd6de">muscularis</text>
+        <text x="26" y="416" font-size="14" font-weight="900" fill="#7df0c6">🔒 No burn</text>
+        <text x="26" y="438" font-size="12.5" font-style="italic" fill="#d8fff0">acid stays in the lumen, on top of the mucus</text>
+
+        <!-- ============ RIGHT: ulcerated + antacid ============ -->
+        <text x="478" y="40" font-size="18" font-weight="900" fill="#ff9db4">🔥 MUCUS FAILS → ULCER</text>
+        <text x="478" y="60" font-size="13" font-style="italic" fill="#ffd9e2">and where the antacid steps in</text>
+        <rect x="474" y="74" width="402" height="74" fill="rgba(255,138,61,.30)"/>
+        <g fill="#ffc233">
+          <text x="500" y="120" font-size="14" font-weight="900">H⁺</text><text x="560" y="130" font-size="14" font-weight="900">H⁺</text>
+          <text x="720" y="124" font-size="14" font-weight="900">H⁺</text><text x="836" y="120" font-size="14" font-weight="900">H⁺</text>
+        </g>
+        <!-- antacid particles neutralising -->
+        <g>
+          <circle cx="622" cy="104" r="15" fill="#12b886" stroke="#eafff7" stroke-width="2"/>
+          <text x="608" y="109" font-size="10.5" font-weight="900" fill="#03291c">OH⁻</text>
+          <circle cx="676" cy="126" r="15" fill="#12b886" stroke="#eafff7" stroke-width="2"/>
+          <text x="662" y="131" font-size="10.5" font-weight="900" fill="#03291c">OH⁻</text>
+          <circle cx="778" cy="106" r="15" fill="#12b886" stroke="#eafff7" stroke-width="2"/>
+          <text x="765" y="111" font-size="10.5" font-weight="900" fill="#03291c">CO₃</text>
+        </g>
+        <text x="596" y="146" font-size="12" font-weight="900" fill="#7df0c6">antacid base + H⁺ → salt + water</text>
+        <!-- thin mucus -->
+        <path d="M474 152 C 520 148 566 158 612 152 C 640 148 664 156 690 154 L690 168 L474 168 Z" fill="url(#g14muc)" opacity=".55" stroke="#9ff2ee" stroke-width="1.2"/>
+        <path d="M760 152 C 800 148 846 158 876 152 L876 168 L760 168 Z" fill="url(#g14muc)" opacity=".55" stroke="#9ff2ee" stroke-width="1.2"/>
+        <text x="474" y="186" font-size="11.5" font-weight="900" fill="#9ff2ee">mucus thin / broken here ▶</text>
+        <!-- epithelium with crater -->
+        <path d="M474 176 L690 176 C 700 200 706 232 722 240 C 738 248 748 216 756 196 C 760 186 762 178 764 176 L876 176 L876 262 L474 262 Z" fill="url(#g14ep)"/>
+        <path d="M690 176 C 700 200 706 232 722 240 C 738 248 748 216 756 196 C 760 186 762 178 764 176" fill="rgba(192,34,85,.55)" stroke="#ff9db4" stroke-width="2.5"/>
+        <g fill="rgba(120,40,25,.55)">
+          <rect x="506" y="176" width="16" height="58" rx="7"/><rect x="580" y="176" width="16" height="58" rx="7"/>
+          <rect x="800" y="176" width="16" height="58" rx="7"/><rect x="852" y="176" width="16" height="58" rx="7"/>
+        </g>
+        <g>
+          <circle cx="500" cy="234" r="11" fill="#ffc233" stroke="#fff2c8" stroke-width="1.5"/>
+          <circle cx="540" cy="244" r="11" fill="#ffc233" stroke="#fff2c8" stroke-width="1.5"/>
+          <circle cx="580" cy="234" r="11" fill="#ffc233" stroke="#fff2c8" stroke-width="1.5"/>
+          <circle cx="620" cy="244" r="11" fill="#ffc233" stroke="#fff2c8" stroke-width="1.5"/>
+          <circle cx="792" cy="236" r="11" fill="#ffc233" stroke="#fff2c8" stroke-width="1.5"/>
+          <circle cx="836" cy="244" r="11" fill="#ffc233" stroke="#fff2c8" stroke-width="1.5"/>
+        </g>
+        <line x1="726" y1="244" x2="784" y2="300" stroke="#ff9db4" stroke-width="1.6"/>
+        <text x="722" y="318" font-size="13" font-weight="900" fill="#ff9db4">Ulcer crater</text>
+        <text x="676" y="336" font-size="11.5" font-style="italic" fill="#ffd9e2">acid has eaten into the wall</text>
+        <rect x="474" y="262" width="402" height="46" fill="url(#g14sub)"/>
+        <path d="M490 288 C 540 278 590 296 640 286 C 690 276 740 294 790 284 C 830 276 854 290 874 284" fill="none" stroke="#c02255" stroke-width="4" stroke-linecap="round"/>
+        <rect x="474" y="308" width="402" height="52" fill="url(#g14mus)"/>
+        <g opacity=".5" stroke="#5c0f22" stroke-width="2">
+          <line x1="490" y1="312" x2="490" y2="356"/><line x1="520" y1="312" x2="520" y2="356"/><line x1="550" y1="312" x2="550" y2="356"/>
+          <line x1="580" y1="312" x2="580" y2="356"/><line x1="610" y1="312" x2="610" y2="356"/><line x1="640" y1="312" x2="640" y2="356"/>
+          <line x1="670" y1="312" x2="670" y2="356"/><line x1="700" y1="312" x2="700" y2="356"/><line x1="730" y1="312" x2="730" y2="356"/>
+          <line x1="760" y1="312" x2="760" y2="356"/><line x1="790" y1="312" x2="790" y2="356"/><line x1="820" y1="312" x2="820" y2="356"/>
+          <line x1="850" y1="312" x2="850" y2="356"/>
+        </g>
+        <text x="478" y="384" font-size="13.5" font-weight="900" fill="#ffc233">The antacid works HERE ⤴ — in the lumen only.</text>
+        <text x="478" y="406" font-size="12.5" font-style="italic" fill="#ffd9e2">It does not enter the parietal cell, does not block a receptor,</text>
+        <text x="478" y="424" font-size="12.5" font-style="italic" fill="#ffd9e2">does not touch the proton pump. Pure chemistry.</text>
+        <text x="478" y="456" font-size="13" font-weight="900" fill="#7df0c6">Bonus: antacids may also increase LOWER ESOPHAGEAL</text>
+        <text x="478" y="474" font-size="13" font-weight="900" fill="#7df0c6">SPHINCTER TONE — a second reason they help GERD.</text>
+      </svg>
+      <p class="figcap">Parietal cells (gold) sit at the base of the gastric glands. The mucus–bicarbonate layer (teal) is the only thing between pH 1–2 acid and living tissue.</p>
+      <div class="mn">🧠 <b>"Antacid = ANT-acid = AGAINST acid."</b> It is a base thrown into an acid puddle. Fast, chemical, and gone as soon as the stomach empties.</div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>⚡ Where antacids sit in the acid-drug family — fastest on, first off</h3>
+      <svg viewBox="0 0 900 300" role="img" aria-label="Timeline comparing the three acid drug classes: antacids begin working within minutes but last only about half an hour to an hour, H2 blockers take longer to start and last several hours, and proton pump inhibitors take the longest to reach full effect but last around a day">
+        <defs>
+          <linearGradient id="g14t1" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#ffc233"/><stop offset="1" stop-color="#ff8a3d"/>
+          </linearGradient>
+          <linearGradient id="g14t2" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#2f6bff"/><stop offset="1" stop-color="#7fb0ff"/>
+          </linearGradient>
+          <linearGradient id="g14t3" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#12b886"/><stop offset="1" stop-color="#7df0c6"/>
+          </linearGradient>
+        </defs>
+        <rect x="4" y="4" width="892" height="292" rx="18" fill="rgba(47,107,255,.12)" stroke="#2f6bff" stroke-width="2" stroke-dasharray="8 7"/>
+        <text x="26" y="36" font-size="17" font-weight="900" fill="#bcd0ff">⏱️ ONSET vs DURATION</text>
+        <line x1="200" y1="70" x2="860" y2="70" stroke="rgba(255,255,255,.4)" stroke-width="2"/>
+        <g font-size="11.5" fill="#dce6ff" font-weight="800">
+          <text x="192" y="60">0</text><text x="318" y="60">30 min</text><text x="452" y="60">2 h</text>
+          <text x="586" y="60">6 h</text><text x="716" y="60">12 h</text><text x="826" y="60">24 h</text>
+        </g>
+        <g stroke="rgba(255,255,255,.2)" stroke-width="1">
+          <line x1="200" y1="70" x2="200" y2="256"/><line x1="330" y1="70" x2="330" y2="256"/><line x1="462" y1="70" x2="462" y2="256"/>
+          <line x1="594" y1="70" x2="594" y2="256"/><line x1="726" y1="70" x2="726" y2="256"/><line x1="856" y1="70" x2="856" y2="256"/>
+        </g>
+        <!-- antacid -->
+        <text x="26" y="108" font-size="14.5" font-weight="900" fill="#ffc233">🧴 ANTACID</text>
+        <text x="26" y="126" font-size="11.5" font-style="italic" fill="#ffe6a8">this page</text>
+        <rect x="204" y="88" width="130" height="28" rx="12" fill="url(#g14t1)" stroke="#fff0c2" stroke-width="1.6"/>
+        <text x="214" y="107" font-size="12" font-weight="900" fill="#2a1f00">minutes → ~30–60 min</text>
+        <text x="346" y="107" font-size="12" font-style="italic" fill="#ffe6a8">…then the stomach empties and it's gone</text>
+        <!-- H2 -->
+        <text x="26" y="170" font-size="14.5" font-weight="900" fill="#9db8ff">🚫 H2 BLOCKER</text>
+        <text x="26" y="188" font-size="11.5" font-style="italic" fill="#dce6ff">-tidine · NG-119</text>
+        <rect x="270" y="150" width="326" height="28" rx="12" fill="url(#g14t2)" stroke="#eaf0ff" stroke-width="1.6"/>
+        <text x="284" y="169" font-size="12" font-weight="900" fill="#fff">slower start · several hours of cover</text>
+        <!-- PPI -->
+        <text x="26" y="232" font-size="14.5" font-weight="900" fill="#7df0c6">⛽ PPI</text>
+        <text x="26" y="250" font-size="11.5" font-style="italic" fill="#d8fff0">-prazole · NG-140</text>
+        <rect x="392" y="212" width="464" height="28" rx="12" fill="url(#g14t3)" stroke="#eafff7" stroke-width="1.6"/>
+        <text x="406" y="231" font-size="12" font-weight="900" fill="#03291c">slowest to full effect · longest, strongest suppression</text>
+        <text x="200" y="284" font-size="13" font-weight="900" fill="#ffc233">👉 If the question says "immediate relief" or "as-needed heartburn" → ANTACID.</text>
+      </svg>
+      <p class="figcap">Approximate teaching timeline — exact figures vary by product and whether the stomach is empty.</p>
+      <div class="mn">🧠 <b>"Antacid = the fire extinguisher. PPI = the sprinkler system."</b> One puts out the flames right now; the other keeps the building from catching fire at all.</div>
+    </div>
+
+    <div class="card tealc">
+      <h3>⭐ Why are they used? — the indications</h3>
+      <ul class="tick">
+        <li>🔥 <b>Heartburn, acid indigestion, sour stomach</b></li>
+        <li>🚪 <b>GERD</b> — gastroesophageal reflux disease</li>
+        <li>🕳️ <b>Peptic ulcer</b> — symptomatic relief</li>
+        <li>🫘 <b>Aluminium carbonate:</b> treats <b>hyperphosphatemia</b> in chronic renal failure — it binds phosphate in the gut so it is never absorbed</li>
+      </ul>
+      <p><span class="tip">EXAM TIP</span> <mark>An aluminium antacid ordered for a dialysis client is a phosphate binder, not a heartburn drug</mark> — and it must be given <b>with meals</b> for that purpose.</p>
+      <div class="mn">🧠 <b>"ALuminium = ALso a phosphate binder."</b> Same tablet, completely different reason.</div>
+    </div>
+
+    <div class="card topaz">
+      <h3>💊 The drugs &amp; the doses from the source</h3>
+      <table>
+        <tr><th style="width:34%">Generic</th><th class="up" style="width:22%">Trade</th><th class="lo">Adult dose</th></tr>
+        <tr><td><b>Aluminium carbonate</b></td><td>Basaljel</td><td><span class="mono">2 tablets/capsules</span> (or <span class="mono">10 mL</span> regular oral suspension) as often as <span class="mono">q2h</span>, up to <span class="mono">12×/day</span></td></tr>
+        <tr><td><b>Aluminium hydroxide</b></td><td>Amphojel</td><td>Per product label</td></tr>
+        <tr><td><b>Calcium carbonate</b><br><i>(may cause acid rebound)</i></td><td>Caltrate</td><td><span class="mono">0.5–1.5 g</span> orally</td></tr>
+        <tr><td><b>Magnesium hydroxide</b></td><td>Milk of Magnesia</td><td>Antacid: <span class="mono">622–1244 mg</span> (<span class="mono">5–15 mL</span> suspension) orally <span class="mono">QID</span><br>Laxative: <span class="mono">15–60 mL</span> orally</td></tr>
+        <tr><td><b>Magaldrate</b></td><td>Riopan</td><td>Per product label — an aluminium + magnesium combination</td></tr>
+        <tr><td><b>Sodium bicarbonate</b></td><td>—</td><td>Symptomatic relief of peptic ulcer &amp; stomach hyperacidity</td></tr>
+      </table>
+      <div class="mn">🧠 Notice <b>Milk of Magnesia has two doses</b> — a small one for acid and a big one for constipation. Same bottle, different job. That is a favourite exam swap.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WATCH FOR ============ -->
+<section id="watch">
+  <div class="sec-h"><span class="icon">⚠️</span><h2>WATCH FOR</h2><span class="step">STEP 2 · THE CATION DECIDES EVERYTHING</span></div>
+  <p class="sec-sub">Learn the metal, not the brand. Every adverse effect on this page comes from the cation riding along with the base.</p>
+
+  <div class="grid">
+    <div class="card ruby span2">
+      <h3>🧲 Aluminium &amp; Calcium → CONSTIPATION · Magnesium → DIARRHEA</h3>
+      <svg viewBox="0 0 900 400" role="img" aria-label="Cutaway of the large bowel in two states: on the left an aluminium or calcium antacid has slowed motility, the bowel wall is drawn in with dry hard stool packed in the lumen and haustral folds crowded; on the right a magnesium antacid has drawn water into the lumen producing watery stool and a distended bowel">
+        <defs>
+          <linearGradient id="g14bw" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#f7c2a6"/><stop offset=".55" stop-color="#dd8f6d"/><stop offset="1" stop-color="#a8543a"/>
+          </linearGradient>
+          <linearGradient id="g14stool" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#a2703f"/><stop offset="1" stop-color="#6b431f"/>
+          </linearGradient>
+          <linearGradient id="g14water" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#9ad9a0"/><stop offset="1" stop-color="#5e9a63"/>
+          </linearGradient>
+        </defs>
+        <rect x="4" y="4" width="892" height="392" rx="18" fill="rgba(13,8,26,.44)" stroke="rgba(255,255,255,.28)" stroke-width="2"/>
+        <line x1="450" y1="22" x2="450" y2="378" stroke="rgba(255,255,255,.24)" stroke-width="2" stroke-dasharray="9 8"/>
+
+        <!-- LEFT: constipation -->
+        <text x="26" y="40" font-size="17" font-weight="900" fill="#ffb3c6">🧱 ALUMINIUM &amp; CALCIUM</text>
+        <text x="26" y="60" font-size="13" font-style="italic" fill="#ffd9e2">motility slows · water is pulled out · stool hardens</text>
+        <!-- bowel segment cutaway -->
+        <path d="M40 120 C 120 96 250 96 340 120 L340 148 C 250 126 120 126 40 148 Z" fill="url(#g14bw)" stroke="#ffd8c4" stroke-width="2"/>
+        <path d="M40 268 C 120 292 250 292 340 268 L340 240 C 250 262 120 262 40 240 Z" fill="url(#g14bw)" stroke="#ffd8c4" stroke-width="2"/>
+        <rect x="40" y="148" width="300" height="92" fill="rgba(255,138,61,.12)"/>
+        <!-- haustra folds -->
+        <g stroke="#a8543a" stroke-width="3" fill="none" opacity=".85">
+          <path d="M96 128 C 90 156 92 186 96 214"/><path d="M162 126 C 156 156 158 188 162 216"/>
+          <path d="M228 126 C 222 156 224 188 228 216"/><path d="M294 128 C 288 156 290 186 294 214"/>
+        </g>
+        <!-- hard stool -->
+        <g fill="url(#g14stool)" stroke="#4d2f13" stroke-width="1.4">
+          <ellipse cx="76" cy="194" rx="20" ry="17"/><ellipse cx="122" cy="190" rx="19" ry="16"/>
+          <ellipse cx="166" cy="196" rx="20" ry="17"/><ellipse cx="212" cy="190" rx="19" ry="16"/>
+          <ellipse cx="256" cy="196" rx="20" ry="17"/><ellipse cx="302" cy="192" rx="19" ry="16"/>
+        </g>
+        <text x="26" y="304" font-size="13.5" font-weight="900" fill="#ff9db4">Constipation → impaction</text>
+        <text x="26" y="324" font-size="12.5" fill="#ffd9e2">Aluminium also: anorexia · weakness · tremors · <b>bone pain</b></text>
+        <text x="26" y="342" font-size="11.5" font-style="italic" fill="#ffd9e2">(it binds dietary phosphate → phosphate depletion → bone breakdown)</text>
+        <text x="26" y="368" font-size="12.5" fill="#ffd9e2">Calcium also: <b>rebound hyperacidity</b> · metabolic alkalosis · hypercalcemia</text>
+        <text x="26" y="386" font-size="12.5" fill="#ffd9e2">· vomiting · confusion · headache · <b>renal calculi</b> · neuro impairment</text>
+
+        <!-- RIGHT: diarrhea -->
+        <text x="478" y="40" font-size="17" font-weight="900" fill="#9ff2ee">💧 MAGNESIUM</text>
+        <text x="478" y="60" font-size="13" font-style="italic" fill="#d8fff0">osmotically pulls water INTO the lumen</text>
+        <path d="M492 112 C 572 84 702 84 792 112 L792 146 C 702 118 572 118 492 146 Z" fill="url(#g14bw)" stroke="#ffd8c4" stroke-width="2"/>
+        <path d="M492 276 C 572 304 702 304 792 276 L792 242 C 702 270 572 270 492 242 Z" fill="url(#g14bw)" stroke="#ffd8c4" stroke-width="2"/>
+        <rect x="492" y="146" width="300" height="96" fill="url(#g14water)" opacity=".45"/>
+        <g stroke="#a8543a" stroke-width="3" fill="none" opacity=".5">
+          <path d="M548 122 C 544 156 546 194 548 214"/><path d="M614 118 C 610 156 612 196 614 218"/>
+          <path d="M680 118 C 676 156 678 196 680 218"/><path d="M746 122 C 742 156 744 194 746 214"/>
+        </g>
+        <!-- water arrows in -->
+        <g stroke="#9ff2ee" stroke-width="3.4" stroke-linecap="round">
+          <path d="M540 100 L540 140"/><path d="M620 96 L620 140"/><path d="M700 96 L700 140"/><path d="M760 102 L760 140"/>
+        </g>
+        <g fill="#9ff2ee">
+          <path d="M532 132 L540 150 L548 132 Z"/><path d="M612 132 L620 150 L628 132 Z"/>
+          <path d="M692 132 L700 150 L708 132 Z"/><path d="M752 132 L760 150 L768 132 Z"/>
+        </g>
+        <g fill="#d8fff0" opacity=".8">
+          <ellipse cx="560" cy="196" rx="11" ry="7"/><ellipse cx="620" cy="204" rx="13" ry="8"/>
+          <ellipse cx="686" cy="192" rx="12" ry="7"/><ellipse cx="742" cy="202" rx="11" ry="7"/>
+        </g>
+        <text x="478" y="304" font-size="13.5" font-weight="900" fill="#9ff2ee">Severe diarrhea → DEHYDRATION</text>
+        <text x="478" y="326" font-size="13" font-weight="900" fill="#ff9db4">🚨 HYPERMAGNESEMIA — memorise these four:</text>
+        <text x="494" y="346" font-size="12.5" fill="#d8fff0">nausea &amp; vomiting · <b>hypotension</b> · <b>decreased respirations</b></text>
+        <text x="478" y="368" font-size="12" font-style="italic" fill="#d8fff0">Highest risk when kidney function is reduced — the kidney is the</text>
+        <text x="478" y="386" font-size="12" font-style="italic" fill="#d8fff0">only exit for magnesium.</text>
+      </svg>
+      <p class="figcap">Same class, opposite bowel problems — which is exactly why combination products (aluminium + magnesium, e.g. magaldrate) exist: the two cancel each other out.</p>
+      <div class="mn">🧠 <b>"A &amp; C = Cork it. Mg = Must go."</b> <b>A</b>luminium &amp; <b>C</b>alcium <b>C</b>onstipate. <b>M</b>agnesium <b>M</b>akes you run. Combination antacids pair them on purpose to keep the bowels even.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🧂 Sodium bicarbonate — the heart-failure trap</h3>
+      <svg viewBox="-10 -10 505 320" role="img" aria-label="A heart with weakened pumping and overloaded circulation: sodium from sodium bicarbonate holds water in the vessels, raising volume and pressure, with pitting edema in the ankle and crackles in the lungs">
+        <defs>
+          <linearGradient id="g14hrt" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ff8fa6"/><stop offset=".6" stop-color="#d32a4f"/><stop offset="1" stop-color="#8e1631"/>
+          </linearGradient>
+          <linearGradient id="g14lung" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="rgba(157,92,255,.55)"/><stop offset="1" stop-color="rgba(157,92,255,.22)"/>
+          </linearGradient>
+        </defs>
+        <rect x="-6" y="-6" width="497" height="312" rx="16" fill="rgba(192,34,85,.15)" stroke="#c02255" stroke-width="2" stroke-dasharray="8 7"/>
+        <text x="20" y="34" font-size="15" font-weight="900" fill="#ffb3c6">🧂 Na⁺ HOLDS WATER</text>
+        <!-- lungs -->
+        <path d="M150 66 C 128 74 118 108 124 140 C 128 162 146 172 158 164 C 168 157 170 118 168 92 C 167 74 160 62 150 66 Z" fill="url(#g14lung)" stroke="#e6d2ff" stroke-width="1.8"/>
+        <path d="M250 66 C 272 74 282 108 276 140 C 272 162 254 172 242 164 C 232 157 230 118 232 92 C 233 74 240 62 250 66 Z" fill="url(#g14lung)" stroke="#e6d2ff" stroke-width="1.8"/>
+        <g stroke="#e6d2ff" stroke-width="1.4" opacity=".7" fill="none">
+          <path d="M150 92 C 140 106 138 130 144 148"/><path d="M250 92 C 260 106 262 130 256 148"/>
+        </g>
+        <g fill="#9ff2ee" opacity=".85">
+          <circle cx="140" cy="132" r="4"/><circle cx="152" cy="146" r="4"/><circle cx="258" cy="136" r="4"/><circle cx="248" cy="150" r="4"/>
+        </g>
+        <text x="286" y="104" font-size="12" font-weight="900" fill="#e6d2ff">Crackles /</text>
+        <text x="286" y="120" font-size="12" font-weight="900" fill="#e6d2ff">pulmonary congestion</text>
+        <!-- heart -->
+        <path d="M200 168 C 186 142 148 144 144 176 C 140 210 174 234 200 258 C 226 234 262 210 258 176 C 254 144 216 142 200 168 Z" fill="url(#g14hrt)" stroke="#ffd6de" stroke-width="2"/>
+        <path d="M200 172 L200 252" stroke="#7d0f28" stroke-width="2.4" opacity=".7"/>
+        <path d="M166 190 C 184 182 216 182 236 190" fill="none" stroke="#7d0f28" stroke-width="2.4" opacity=".7"/>
+        <path d="M186 150 C 190 132 178 118 168 112" fill="none" stroke="#ff8fa6" stroke-width="9" stroke-linecap="round"/>
+        <path d="M216 150 C 214 130 226 116 238 110" fill="none" stroke="#ff8fa6" stroke-width="9" stroke-linecap="round"/>
+        <text x="150" y="284" font-size="13" font-weight="900" fill="#ff9db4">Weak pump + extra volume</text>
+        <!-- Na particles -->
+        <g fill="#ffc233">
+          <circle cx="60" cy="120" r="13"/><circle cx="86" cy="158" r="13"/><circle cx="56" cy="196" r="13"/>
+        </g>
+        <g font-size="11" font-weight="900" fill="#2a1f00">
+          <text x="51" y="124">Na⁺</text><text x="77" y="162">Na⁺</text><text x="47" y="200">Na⁺</text>
+        </g>
+        <text x="26" y="94" font-size="12.5" font-weight="900" fill="#ffc233">Sodium load</text>
+        <path d="M78 224 C 100 244 130 250 148 246" fill="none" stroke="#9ff2ee" stroke-width="4" stroke-dasharray="7 5"/>
+        <text x="26" y="236" font-size="12" font-style="italic" fill="#9ff2ee">water follows</text>
+        <text x="26" y="254" font-size="12" font-style="italic" fill="#9ff2ee">sodium</text>
+        <!-- ankle edema -->
+        <path d="M330 200 C 348 196 366 206 372 226 C 378 248 366 266 348 268 C 332 270 320 256 320 238 C 320 220 322 204 330 200 Z" fill="#ffd0bd" stroke="#ffe0d2" stroke-width="2"/>
+        <circle cx="344" cy="234" r="9" fill="rgba(0,0,0,.25)"/>
+        <text x="386" y="228" font-size="12" font-weight="900" fill="#ffd0bd">Pitting</text>
+        <text x="386" y="244" font-size="12" font-weight="900" fill="#ffd0bd">edema</text>
+        <text x="300" y="292" font-size="12" font-style="italic" fill="#ffd9e2">weight gain is the earliest sign</text>
+      </svg>
+      <ul class="tick">
+        <li>🚫 <b>Contraindicated</b> in cardiovascular problems — <b>hypertension</b>, <b>heart failure</b> — and on <b>sodium-restricted diets</b>.</li>
+        <li>🧪 Adverse: <b>systemic / metabolic alkalosis</b>, electrolyte imbalance, and <b>rebound hyperacidity</b>.</li>
+        <li>💡 <b>Think out of the box:</b> the same sodium bicarbonate is given <b>IV in metabolic acidosis</b> to buffer hydrogen ions and raise the pH. Same chemistry, different setting.</li>
+        <li>💉 When any of these drugs is given <b>IV, monitor the infusion rate frequently</b> — <span class="never">too rapid an infusion may induce cardiac arrhythmias.</span></li>
+      </ul>
+      <div class="mn">🧠 <b>"Baking soda for the belly, bicarb for the blood."</b> Oral = heartburn (and a salt load). IV = acidosis. Never give the oral salt load to a heart-failure client.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🚫 Contraindications &amp; cautions — sort them by cation</h3>
+      <table>
+        <tr><th style="width:30%">Cation</th><th class="up">Do NOT give / use caution when…</th></tr>
+        <tr><td><b>ALL antacids</b></td><td><span class="never">Severe abdominal pain of unknown origin</span> — you may mask an appendicitis or a perforation. Also caution during <b>lactation</b>; pregnancy category C.</td></tr>
+        <tr><td><b>Sodium</b> 🧂</td><td><b>HTN, heart failure</b>, sodium-restricted diet</td></tr>
+        <tr><td><b>Calcium</b> 🦴</td><td><b>Renal calculi</b> or <b>hypercalcemia</b>; caution in respiratory insufficiency, renal impairment, cardiac disease</td></tr>
+        <tr><td><b>Aluminium</b> 🧱</td><td>Caution in <b>gastric outlet obstruction</b> or <b>upper GI bleeding</b>; and with <b>decreased kidney function</b></td></tr>
+        <tr><td><b>Magnesium</b> 💧</td><td>Caution with <b>decreased kidney function</b> — magnesium accumulates fast</td></tr>
+      </table>
+      <div class="mn">🧠 <b>"Unknown belly pain = no antacid."</b> Relief that hides a surgical abdomen is not relief. That is the single highest-yield contraindication on the page.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TEACH ============ -->
+<section id="teach">
+  <div class="sec-h"><span class="icon">🗣️</span><h2>TEACH &amp; ADMINISTER</h2><span class="step">STEP 3 · THE 1–2 HOUR RULE</span></div>
+  <p class="sec-sub">The biggest antacid error in practice is not an overdose — it is giving another pill at the same time.</p>
+
+  <div class="grid">
+    <div class="card emerald span2">
+      <h3>⏱️ <mark>No oral drug within 1 to 2 hours of an antacid</mark></h3>
+      <p>An antacid does two things to other drugs: it <b>binds them</b> in the gut so they never get absorbed, and it <b>raises gastric pH</b> so pH-dependent drugs dissolve differently. Both mean <b>the other drug stops working</b>.</p>
+      <svg viewBox="-10 -10 969 400" role="img" aria-label="Cutaway of the small intestine wall with villi: on the left a drug molecule is absorbed normally through the villi into a capillary; in the middle an antacid particle has bound the drug so it passes through unabsorbed; on the right a clock shows separating the doses by one to two hours restores absorption">
+        <defs>
+          <linearGradient id="g14vil" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffcdb8"/><stop offset="1" stop-color="#d1785e"/>
+          </linearGradient>
+          <linearGradient id="g14lum" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="rgba(255,194,51,.28)"/><stop offset="1" stop-color="rgba(255,138,61,.16)"/>
+          </linearGradient>
+        </defs>
+        <rect x="-6" y="-6" width="961" height="392" rx="18" fill="rgba(18,184,134,.12)" stroke="#12b886" stroke-width="2" stroke-dasharray="8 7"/>
+        <text x="26" y="36" font-size="17" font-weight="900" fill="#a5f3d4">🦠 SMALL-INTESTINE WALL — where oral drugs get absorbed</text>
+
+        <!-- lumen band -->
+        <rect x="24" y="56" width="852" height="86" fill="url(#g14lum)"/>
+        <!-- villi row -->
+        <g>
+          <path d="M40 142 C 34 118 44 96 56 92 C 68 96 78 118 72 142 Z" fill="url(#g14vil)" stroke="#ffe0d2" stroke-width="1.4"/>
+          <path d="M84 142 C 78 118 88 96 100 92 C 112 96 122 118 116 142 Z" fill="url(#g14vil)" stroke="#ffe0d2" stroke-width="1.4"/>
+          <path d="M128 142 C 122 118 132 96 144 92 C 156 96 166 118 160 142 Z" fill="url(#g14vil)" stroke="#ffe0d2" stroke-width="1.4"/>
+          <path d="M172 142 C 166 118 176 96 188 92 C 200 96 210 118 204 142 Z" fill="url(#g14vil)" stroke="#ffe0d2" stroke-width="1.4"/>
+          <path d="M216 142 C 210 118 220 96 232 92 C 244 96 254 118 248 142 Z" fill="url(#g14vil)" stroke="#ffe0d2" stroke-width="1.4"/>
+          <path d="M260 142 C 254 118 264 96 276 92 C 288 96 298 118 292 142 Z" fill="url(#g14vil)" stroke="#ffe0d2" stroke-width="1.4"/>
+          <path d="M304 142 C 298 118 308 96 320 92 C 332 96 342 118 336 142 Z" fill="url(#g14vil)" stroke="#ffe0d2" stroke-width="1.4"/>
+          <path d="M348 142 C 342 118 352 96 364 92 C 376 96 386 118 380 142 Z" fill="url(#g14vil)" stroke="#ffe0d2" stroke-width="1.4"/>
+          <path d="M392 142 C 386 118 396 96 408 92 C 420 96 430 118 424 142 Z" fill="url(#g14vil)" stroke="#ffe0d2" stroke-width="1.4"/>
+          <path d="M436 142 C 430 118 440 96 452 92 C 464 96 474 118 468 142 Z" fill="url(#g14vil)" stroke="#ffe0d2" stroke-width="1.4"/>
+          <path d="M480 142 C 474 118 484 96 496 92 C 508 96 518 118 512 142 Z" fill="url(#g14vil)" stroke="#ffe0d2" stroke-width="1.4"/>
+          <path d="M524 142 C 518 118 528 96 540 92 C 552 96 562 118 556 142 Z" fill="url(#g14vil)" stroke="#ffe0d2" stroke-width="1.4"/>
+          <path d="M568 142 C 562 118 572 96 584 92 C 596 96 606 118 600 142 Z" fill="url(#g14vil)" stroke="#ffe0d2" stroke-width="1.4"/>
+          <path d="M612 142 C 606 118 616 96 628 92 C 640 96 650 118 644 142 Z" fill="url(#g14vil)" stroke="#ffe0d2" stroke-width="1.4"/>
+        </g>
+        <rect x="24" y="142" width="852" height="30" fill="#d1785e"/>
+        <rect x="24" y="172" width="852" height="24" fill="#b25c45"/>
+        <path d="M30 184 C 130 176 230 192 330 182 C 430 172 530 190 630 182 C 730 174 800 190 872 182" fill="none" stroke="#c02255" stroke-width="7" stroke-linecap="round"/>
+        <text x="700" y="164" font-size="12" font-weight="800" fill="#ffe0d2">capillary bed</text>
+
+        <!-- normal absorption -->
+        <circle cx="100" cy="76" r="13" fill="#2f6bff" stroke="#dce6ff" stroke-width="2"/>
+        <text x="88" y="81" font-size="10.5" font-weight="900" fill="#fff">DIG</text>
+        <path d="M100 92 L100 176" stroke="#7df0c6" stroke-width="4" stroke-linecap="round"/>
+        <path d="M92 168 L100 188 L108 168 Z" fill="#7df0c6"/>
+        <text x="30" y="236" font-size="13.5" font-weight="900" fill="#7df0c6">✅ ALONE</text>
+        <text x="30" y="256" font-size="12" fill="#d8fff0">drug crosses the villus into the</text>
+        <text x="30" y="274" font-size="12" fill="#d8fff0">capillary — full effect</text>
+
+        <!-- bound -->
+        <circle cx="420" cy="76" r="13" fill="#2f6bff" stroke="#dce6ff" stroke-width="2"/>
+        <text x="408" y="81" font-size="10.5" font-weight="900" fill="#fff">DIG</text>
+        <circle cx="448" cy="88" r="17" fill="#12b886" stroke="#eafff7" stroke-width="2"/>
+        <text x="432" y="93" font-size="10" font-weight="900" fill="#03291c">ANTA</text>
+        <path d="M420 92 L420 150" stroke="#ff3b6b" stroke-width="4" stroke-linecap="round"/>
+        <line x1="406" y1="126" x2="434" y2="150" stroke="#ff3b6b" stroke-width="4" stroke-linecap="round"/>
+        <line x1="434" y1="126" x2="406" y2="150" stroke="#ff3b6b" stroke-width="4" stroke-linecap="round"/>
+        <path d="M470 100 C 540 118 620 118 690 104" fill="none" stroke="#ff9db4" stroke-width="3.4" stroke-dasharray="8 6"/>
+        <text x="330" y="236" font-size="13.5" font-weight="900" fill="#ff9db4">❌ TOGETHER</text>
+        <text x="330" y="256" font-size="12" fill="#ffd9e2">antacid binds the drug → it rides</text>
+        <text x="330" y="274" font-size="12" fill="#ffd9e2">straight past the villi, unabsorbed</text>
+
+        <!-- clock -->
+        <circle cx="762" cy="264" r="54" fill="rgba(13,8,26,.6)" stroke="#ffc233" stroke-width="4"/>
+        <line x1="762" y1="264" x2="762" y2="226" stroke="#ffc233" stroke-width="5" stroke-linecap="round"/>
+        <line x1="762" y1="264" x2="794" y2="278" stroke="#ffc233" stroke-width="5" stroke-linecap="round"/>
+        <circle cx="762" cy="264" r="5" fill="#ffc233"/>
+        <text x="700" y="342" font-size="16" font-weight="900" fill="#ffc233">SEPARATE BY 1–2 HOURS</text>
+        <text x="30" y="342" font-size="14" font-weight="900" fill="#a5f3d4">Drugs the source names: digoxin · isoniazid · phenytoin · chlorpromazine · tetracycline · corticosteroids · salicylates</text>
+      </svg>
+      <table>
+        <tr><th style="width:40%">Interacting drug</th><th class="up">What the antacid does to it</th></tr>
+        <tr><td><b>Digoxin, isoniazid, phenytoin, chlorpromazine</b></td><td><b>Decreased absorption</b> → decreased effect of those drugs</td></tr>
+        <tr><td><b>Tetracycline</b></td><td><b>Decreased effectiveness</b> of the anti-infective</td></tr>
+        <tr><td><b>Corticosteroids</b></td><td><b>Decreased anti-inflammatory</b> properties</td></tr>
+        <tr><td><b>Salicylates</b> (aspirin)</td><td>Pain reliever is <b>excreted more rapidly in the urine</b> — alkaline urine speeds it out</td></tr>
+      </table>
+      <div class="mn">🧠 <b>"DIP-CTCS… just remember the fence."</b> Build a <b>1–2 hour fence</b> around the antacid and nothing else gets through it. If you can only remember one interaction, remember <b>tetracycline</b> — it is the classic exam pairing.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>✅ Administration &amp; nursing management</h3>
+      <div class="ladder">
+        <div class="rung"><div class="n">1</div><div class="t"><b>Chew tablets thoroughly</b>, then drink a <b>full glass of water or milk</b>.</div></div>
+        <div class="rung"><div class="n">2</div><div class="t"><b>Keep a record of bowel movements</b> — these drugs cause constipation <i>or</i> diarrhea, and the pattern tells you which cation is winning.</div></div>
+        <div class="rung"><div class="n">3</div><div class="t"><b>Watch for dehydration</b> if diarrhea starts (see the list below).</div></div>
+        <div class="rung"><div class="n">4</div><div class="t"><b>IV route:</b> monitor the infusion rate frequently — too rapid may induce <b>cardiac arrhythmias</b>.</div></div>
+        <div class="rung"><div class="n">5</div><div class="t"><span class="never">Do not use the maximum dose for more than 2 weeks</span> without the provider's supervision.</div></div>
+      </div>
+      <p style="margin-top:10px"><b>Signs of dehydration to observe for:</b> poor skin turgor · dry mucous membranes · decreased or absent urinary output · concentrated urine · restlessness · irritability · increased respiratory rate · confusion.</p>
+      <div class="mn">🧠 <b>Dehydration = "DRY CRIC"</b> — <b>D</b>ecreased urine · <b>R</b>estless · <b>Y</b>ellow concentrated urine · <b>C</b>onfusion · <b>R</b>apid respirations · <b>I</b>rritable · <b>C</b>racked dry mucous membranes + poor turgor.</div>
+    </div>
+
+    <div class="card topaz">
+      <h3>🔁 Acid rebound — why "more is worse"</h3>
+      <div class="flow">
+        <div class="fstep">🧴 Client takes antacid all day, every day</div>
+        <div class="farrow">▼</div>
+        <div class="fstep">📈 Gastric pH stays artificially high</div>
+        <div class="farrow">▼</div>
+        <div class="fstep">🔔 Stomach senses "not acid enough" → gastrin rises</div>
+        <div class="farrow">▼</div>
+        <div class="fstep hot">🔥 <b>REBOUND HYPERACIDITY</b> — more acid than before</div>
+      </div>
+      <p style="margin-top:9px"><b>Calcium carbonate</b> is the classic offender ("may cause acid rebound"), and <b>sodium bicarbonate</b> does it too. Teach: <mark>taking too much antacid makes the stomach secrete MORE acid</mark> — consult the provider or pharmacist about the appropriate dose.</p>
+      <div class="mn">🧠 <b>"Chase the acid and it chases you back."</b> If a client says "I take Tums all day and it's getting worse" — that <i>is</i> the mechanism, not a coincidence.</div>
+    </div>
+
+    <div class="card deep span2">
+      <h3>🔗 Where this page sits in the acid-reducer family</h3>
+      <div class="related">
+        <a href="../out_gi/NG-233_acid-prevention.html">🧴 <b>NG-233</b> Acid Prevention — the master comparison of all three classes</a>
+        <a href="../out_gi/NG-140_acid-reducers-proton-pump-inhibitors.html">⛽ <b>NG-140</b> PPIs — the -prazole drugs</a>
+        <a href="../out_gi/NG-119_histamine-h2-antagonists-acid-reducers.html">🚫 <b>NG-119</b> H2 Antagonists — the -tidine drugs</a>
+        <a href="../out_gi/NG-254_mucosal-protectant.html">🛡️ <b>NG-254</b> Mucosal Protectant — sucralfate &amp; misoprostol</a>
+        <a href="../done/batch04/NG-036_gerd.html">🔥 <b>NG-036</b> GERD — the disease these drugs treat</a>
+      </div>
+      <p style="margin-top:9px"><i>Four classes, one goal. Antacids <b>neutralise</b> acid that exists · H2 blockers and PPIs <b>stop it being made</b> · mucosal protectants <b>coat the wound</b>.</i></p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">🧴 Neutralise, don't block</span>Combines with HCl, raises gastric pH, may ↑ LES tone. Fastest on, shortest duration.</div>
+    <div class="rc tealbg"><span class="big">🧲 A &amp; C cork · Mg must go</span>Aluminium/calcium → constipation · magnesium → diarrhea &amp; hypermagnesemia</div>
+    <div class="rc rubybg"><span class="big">⏱️ 1–2 hour fence</span>No other oral drug near an antacid — digoxin, phenytoin, INH, tetracycline all lose potency</div>
+    <div class="rc topazbg"><span class="big">🚫 Unknown belly pain</span>= never give an antacid · sodium bicarb = never in HF/HTN</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 6 rapid-fire questions</summary>
+      <div class="qa">Q1: How does an antacid actually work? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">It combines chemically with hydrochloric acid already in the stomach and duodenum, neutralising it and increasing the pH. It may also increase lower esophageal sphincter tone. It does not block a receptor, a pump, or an enzyme.</div></div>
+      <div class="qa">Q2: A client on an aluminium antacid reports no bowel movement for 4 days. Expected or not? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Expected adverse effect — aluminium (and calcium) cause constipation and can progress to intestinal impaction. Keep a record of bowel movements; the provider may switch to or add a magnesium product.</div></div>
+      <div class="qa">Q3: A client takes Milk of Magnesia and digoxin at 0900. What's the problem? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">The antacid decreases digoxin absorption, so the digoxin loses effect. No oral drug should be given within 1–2 hours of an antacid.</div></div>
+      <div class="qa">Q4: Four signs of hypermagnesemia from a magnesium antacid? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Nausea, vomiting, hypotension, and decreased respirations — plus severe diarrhea and dehydration leading up to it. Highest risk with reduced kidney function.</div></div>
+      <div class="qa">Q5: Why is sodium bicarbonate contraindicated in heart failure? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">It delivers a sodium load; sodium holds water, raising circulating volume in a heart that already can't pump it. Same reason it's contraindicated in hypertension and on sodium-restricted diets. It also causes systemic alkalosis and rebound hyperacidity.</div></div>
+      <div class="qa">Q6: Which antacid also treats hyperphosphatemia, and in whom? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Aluminium carbonate — it binds phosphate in the GI tract, used for hyperphosphatemia associated with chronic renal failure.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">WHAT IT DOES</span>→
+    <span style="background:rgba(192,34,85,.7)">WATCH FOR</span>→
+    <span style="background:rgba(18,184,134,.7)">TEACH</span>
+  </div>
+  <div>NG-014 · Source wording retained · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>

@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aminosalicylates · NG-016 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+
+/* -------- appended: page-specific additions (never edits above) -------- */
+#does .sec-h h2{color:#d9c2ff} #does .step{background:var(--amethyst)}
+#watch .sec-h h2{color:#ffb3c6} #watch .step{background:var(--garnet)}
+#teach .sec-h h2{color:#a5f3d4} #teach .step{background:var(--emerald);color:#03291c}
+.related{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0}
+.related a{display:inline-block;font-size:.85rem;font-weight:900;color:#fff;text-decoration:none;
+  padding:7px 12px;border-radius:10px;border:1px solid var(--line);background:rgba(13,8,26,.5)}
+.related a b{color:var(--topaz)}
+.figcap{margin:6px 0 0;font-size:.85rem;font-style:italic;opacity:.9}
+/* light-background cards: keep table headers, marks and never-rules readable */
+.card.tealc .up,.card.topaz .up,.card.citrinec .up{color:#7a3200}
+.card.tealc .lo,.card.topaz .lo,.card.citrinec .lo{color:#00565b}
+.card.tealc th,.card.tealc td,.card.topaz th,.card.topaz td,
+.card.citrinec th,.card.citrinec td{border-bottom-color:rgba(0,0,0,.28)}
+.card.tealc mark,.card.topaz mark,.card.citrinec mark{background:#231a02;color:#ffe49a}
+.card.tealc .never,.card.topaz .never,.card.citrinec .never{text-decoration-color:#8a2b00}
+.card.tealc .tip,.card.topaz .tip,.card.citrinec .tip{background:#231a02;color:#ffe49a}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#does">💊 What it does</a>
+  <a class="c2" href="#watch">⚠️ Watch for</a>
+  <a class="c3" href="#teach">🗣️ Teach &amp; monitor</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / GI · Pharmacology · Inflammatory Bowel Disease</div>
+  <h1>Aminosalicylates <span class="drop">🎯</span></h1>
+  <p class="sub">5-ASA drugs — mesalamine · balsalazide · olsalazine · sulfasalazine</p>
+  <div class="chips">
+    <span class="chip id">NG-016</span>
+    <span class="chip cat">GI · Pharmacology</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede">Aminosalicylates are the <b>first-line anti-inflammatory class for inflammatory bowel disease</b>. What makes them different from every other IBD drug: they <mark>exert a TOPICAL anti-inflammatory effect in the bowel</mark> — the drug has to physically <i>land on</i> the inflamed lining to work. <i>The exact mechanism of action is unknown.</i> Because the effect is topical, the entire pharmacology of this class is really a delivery problem: <b>how do we get the drug to the diseased segment and no further?</b></p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">🎯 TOPICAL, not systemic</span>It works where it touches. That's why the formulation (delayed-release, enema, suppository) matters as much as the drug.</div>
+  <div class="rc tealbg"><span class="big">🩹 Treats UC &amp; Crohn's</span>Active disease <b>and</b> maintenance of remission — proctitis and proctosigmoiditis too.</div>
+  <div class="rc rubybg"><span class="big">🚫 Sulfa &amp; sulfite allergy</span>Contraindicated. Also: <b>intestinal obstruction</b> and children under <span class="mono">2</span> years.</div>
+  <div class="rc topazbg"><span class="big">📣 Report 3 things</span><b>Abdominal distention · fever · abdominal pain</b> — the deterioration triad.</div>
+</div>
+
+<!-- ============ WHAT IT DOES ============ -->
+<section id="does">
+  <div class="sec-h"><span class="icon">💊</span><h2>WHAT IT DOES</h2><span class="step">STEP 1 · TOPICAL ANTI-INFLAMMATORY</span></div>
+  <p class="sec-sub">Look at the bowel wall first. Once you see which layer is inflamed, the whole class makes sense.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🔬 Bowel wall in cutaway — inflamed vs. healed on aminosalicylate</h3>
+      <p><span class="tip">EXAM TIP</span> In ulcerative colitis the inflammation is <b>confined to the mucosa and submucosa</b> and it is <b>continuous</b> from the rectum upward. That superficial, continuous pattern is exactly why a drug that sits on the surface can work — <mark>a topical anti-inflammatory can reach mucosal disease, but it cannot reach through a full-thickness inflammatory tract.</mark></p>
+      <svg viewBox="0 0 900 520" role="img" aria-label="Cutaway of the colon wall in two panels: on the left an actively inflamed wall with ulcerated mucosa, crypt abscesses filled with neutrophils, loss of goblet cells, a swollen submucosa and pseudopolyps; on the right the same wall healed on aminosalicylate therapy with intact epithelium, restored crypts, goblet cells and a thin quiet submucosa">
+        <defs>
+          <linearGradient id="g16muc" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffd7c2"/><stop offset=".6" stop-color="#e79a7c"/><stop offset="1" stop-color="#bd6a50"/>
+          </linearGradient>
+          <linearGradient id="g16mucbad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ff9db4"/><stop offset=".55" stop-color="#d94466"/><stop offset="1" stop-color="#8e1a35"/>
+          </linearGradient>
+          <linearGradient id="g16sub" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#f6c0a8"/><stop offset="1" stop-color="#cd7c60"/>
+          </linearGradient>
+          <linearGradient id="g16subbad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffb3c6"/><stop offset="1" stop-color="#c0405f"/>
+          </linearGradient>
+          <linearGradient id="g16mus" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#c4566c"/><stop offset="1" stop-color="#8a2038"/>
+          </linearGradient>
+          <linearGradient id="g16ser" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="rgba(0,194,199,.55)"/><stop offset="1" stop-color="rgba(0,194,199,.25)"/>
+          </linearGradient>
+        </defs>
+        <rect x="4" y="4" width="892" height="512" rx="20" fill="rgba(13,8,26,.44)" stroke="rgba(255,255,255,.28)" stroke-width="2"/>
+        <line x1="450" y1="24" x2="450" y2="496" stroke="rgba(255,255,255,.24)" stroke-width="2" stroke-dasharray="9 8"/>
+
+        <!-- ===== LEFT: active disease ===== -->
+        <text x="26" y="42" font-size="18" font-weight="900" fill="#ff9db4">🔥 ACTIVE COLITIS</text>
+        <text x="26" y="62" font-size="13" font-style="italic" fill="#ffd9e2">mucosa ulcerated · crypts full of pus · wall boggy</text>
+        <text x="26" y="92" font-size="12" font-weight="900" fill="#ffc233">LUMEN</text>
+        <rect x="24" y="98" width="402" height="52" fill="rgba(255,59,107,.16)"/>
+        <!-- blood + mucus in lumen -->
+        <g fill="#c02255" opacity=".8">
+          <ellipse cx="80" cy="126" rx="14" ry="8"/><ellipse cx="180" cy="118" rx="12" ry="7"/>
+          <ellipse cx="300" cy="130" rx="15" ry="8"/><ellipse cx="380" cy="120" rx="11" ry="6"/>
+        </g>
+        <text x="120" y="132" font-size="11.5" font-style="italic" fill="#ffd9e2">bloody, mucus-filled stool</text>
+
+        <!-- mucosa with ulcers -->
+        <path d="M24 150 L86 150 C 96 172 106 196 122 196 C 140 196 148 168 156 150 L214 150 C 224 176 234 202 252 200 C 270 198 278 170 286 150 L426 150 L426 214 L24 214 Z" fill="url(#g16mucbad)"/>
+        <path d="M86 150 C 96 172 106 196 122 196 C 140 196 148 168 156 150" fill="none" stroke="#ffe0e8" stroke-width="2.4"/>
+        <path d="M214 150 C 224 176 234 202 252 200 C 270 198 278 170 286 150" fill="none" stroke="#ffe0e8" stroke-width="2.4"/>
+        <!-- crypt abscesses -->
+        <g>
+          <rect x="46" y="158" width="14" height="46" rx="6" fill="rgba(255,255,255,.35)"/>
+          <circle cx="53" cy="180" r="5" fill="#ffc233"/><circle cx="53" cy="194" r="5" fill="#ffc233"/>
+          <rect x="176" y="158" width="14" height="46" rx="6" fill="rgba(255,255,255,.35)"/>
+          <circle cx="183" cy="178" r="5" fill="#ffc233"/><circle cx="183" cy="192" r="5" fill="#ffc233"/>
+          <rect x="316" y="158" width="14" height="46" rx="6" fill="rgba(255,255,255,.35)"/>
+          <circle cx="323" cy="180" r="5" fill="#ffc233"/><circle cx="323" cy="194" r="5" fill="#ffc233"/>
+          <rect x="386" y="158" width="14" height="46" rx="6" fill="rgba(255,255,255,.35)"/>
+          <circle cx="393" cy="178" r="5" fill="#ffc233"/><circle cx="393" cy="192" r="5" fill="#ffc233"/>
+        </g>
+        <!-- pseudopolyp -->
+        <path d="M340 150 C 352 128 372 128 380 150 Z" fill="#ff7f9c" stroke="#ffe0e8" stroke-width="1.8"/>
+        <line x1="366" y1="128" x2="404" y2="96" stroke="#ff9db4" stroke-width="1.4"/>
+        <text x="330" y="88" font-size="11.5" font-weight="900" fill="#ff9db4">pseudopolyp</text>
+        <line x1="122" y1="196" x2="70" y2="248" stroke="#ffe0e8" stroke-width="1.4"/>
+        <text x="26" y="266" font-size="12" font-weight="900" fill="#ffe0e8">ulcer — mucosa stripped off</text>
+        <line x1="323" y1="186" x2="360" y2="248" stroke="#ffc233" stroke-width="1.4"/>
+        <text x="300" y="266" font-size="12" font-weight="900" fill="#ffc233">crypt abscess</text>
+        <!-- swollen submucosa -->
+        <rect x="24" y="214" width="402" height="58" fill="url(#g16subbad)"/>
+        <g opacity=".7">
+          <circle cx="70" cy="238" r="7" fill="#ffc233"/><circle cx="140" cy="248" r="7" fill="#ffc233"/>
+          <circle cx="210" cy="234" r="7" fill="#ffc233"/><circle cx="280" cy="250" r="7" fill="#ffc233"/><circle cx="356" cy="238" r="7" fill="#ffc233"/>
+        </g>
+        <path d="M34 258 C 100 246 160 268 226 254 C 292 240 352 262 418 250" fill="none" stroke="#8e1a35" stroke-width="4" stroke-linecap="round" opacity=".75"/>
+        <text x="26" y="300" font-size="12" font-weight="900" fill="#ffd9e2">submucosa — swollen, congested vessels</text>
+        <!-- muscularis + serosa -->
+        <rect x="24" y="272" width="402" height="48" fill="url(#g16mus)"/>
+        <g opacity=".45" stroke="#5c0f22" stroke-width="2">
+          <line x1="44" y1="276" x2="44" y2="316"/><line x1="80" y1="276" x2="80" y2="316"/><line x1="116" y1="276" x2="116" y2="316"/>
+          <line x1="152" y1="276" x2="152" y2="316"/><line x1="188" y1="276" x2="188" y2="316"/><line x1="224" y1="276" x2="224" y2="316"/>
+          <line x1="260" y1="276" x2="260" y2="316"/><line x1="296" y1="276" x2="296" y2="316"/><line x1="332" y1="276" x2="332" y2="316"/>
+          <line x1="368" y1="276" x2="368" y2="316"/><line x1="404" y1="276" x2="404" y2="316"/>
+        </g>
+        <rect x="24" y="320" width="402" height="16" fill="url(#g16ser)"/>
+        <text x="26" y="356" font-size="11.5" font-weight="800" fill="#ffd6de">muscularis · serosa — spared in UC</text>
+        <text x="26" y="392" font-size="13.5" font-weight="900" fill="#ff9db4">Clinically: bloody diarrhea, urgency, tenesmus,</text>
+        <text x="26" y="412" font-size="13.5" font-weight="900" fill="#ff9db4">cramping, weight loss, anemia</text>
+        <text x="26" y="446" font-size="12.5" font-style="italic" fill="#ffd9e2">Inflammation stays SUPERFICIAL and CONTINUOUS —</text>
+        <text x="26" y="464" font-size="12.5" font-style="italic" fill="#ffd9e2">which is precisely what a surface-acting drug can reach.</text>
+
+        <!-- ===== RIGHT: healed ===== -->
+        <text x="478" y="42" font-size="18" font-weight="900" fill="#7df0c6">✅ HEALED ON 5-ASA</text>
+        <text x="478" y="62" font-size="13" font-style="italic" fill="#d8fff0">epithelium re-lined · crypts restored · quiet submucosa</text>
+        <text x="478" y="92" font-size="12" font-weight="900" fill="#9ff2ee">LUMEN</text>
+        <rect x="474" y="98" width="402" height="52" fill="rgba(0,194,199,.12)"/>
+        <!-- 5-ASA granules coating the surface -->
+        <g>
+          <circle cx="520" cy="140" r="8" fill="#12b886" stroke="#eafff7" stroke-width="1.6"/>
+          <circle cx="592" cy="136" r="8" fill="#12b886" stroke="#eafff7" stroke-width="1.6"/>
+          <circle cx="664" cy="142" r="8" fill="#12b886" stroke="#eafff7" stroke-width="1.6"/>
+          <circle cx="736" cy="136" r="8" fill="#12b886" stroke="#eafff7" stroke-width="1.6"/>
+          <circle cx="812" cy="141" r="8" fill="#12b886" stroke="#eafff7" stroke-width="1.6"/>
+        </g>
+        <text x="540" y="122" font-size="11.5" font-weight="900" fill="#7df0c6">5-ASA drug sits ON the lining ⤵</text>
+        <!-- healthy mucosa -->
+        <rect x="474" y="150" width="402" height="64" fill="url(#g16muc)"/>
+        <g fill="rgba(120,50,30,.5)">
+          <rect x="498" y="152" width="13" height="52" rx="6"/><rect x="546" y="152" width="13" height="52" rx="6"/>
+          <rect x="594" y="152" width="13" height="52" rx="6"/><rect x="642" y="152" width="13" height="52" rx="6"/>
+          <rect x="690" y="152" width="13" height="52" rx="6"/><rect x="738" y="152" width="13" height="52" rx="6"/>
+          <rect x="786" y="152" width="13" height="52" rx="6"/><rect x="834" y="152" width="13" height="52" rx="6"/>
+        </g>
+        <g fill="#9ff2ee" opacity=".9">
+          <circle cx="504" cy="164" r="4"/><circle cx="552" cy="164" r="4"/><circle cx="600" cy="164" r="4"/><circle cx="648" cy="164" r="4"/>
+          <circle cx="696" cy="164" r="4"/><circle cx="744" cy="164" r="4"/><circle cx="792" cy="164" r="4"/><circle cx="840" cy="164" r="4"/>
+        </g>
+        <line x1="600" y1="164" x2="640" y2="238" stroke="#9ff2ee" stroke-width="1.4"/>
+        <text x="596" y="256" font-size="11.5" font-weight="900" fill="#9ff2ee">goblet cells back (mucus)</text>
+        <text x="478" y="200" font-size="11.5" font-weight="900" fill="#5c2a18">intact crypts</text>
+        <!-- quiet submucosa -->
+        <rect x="474" y="214" width="402" height="58" fill="url(#g16sub)"/>
+        <path d="M484 250 C 550 242 610 258 676 248 C 742 238 802 252 868 244" fill="none" stroke="#c02255" stroke-width="3" stroke-linecap="round" opacity=".55"/>
+        <text x="478" y="300" font-size="12" font-weight="900" fill="#5c2a18">submucosa — thin, not congested</text>
+        <rect x="474" y="272" width="402" height="48" fill="url(#g16mus)"/>
+        <g opacity=".45" stroke="#5c0f22" stroke-width="2">
+          <line x1="494" y1="276" x2="494" y2="316"/><line x1="530" y1="276" x2="530" y2="316"/><line x1="566" y1="276" x2="566" y2="316"/>
+          <line x1="602" y1="276" x2="602" y2="316"/><line x1="638" y1="276" x2="638" y2="316"/><line x1="674" y1="276" x2="674" y2="316"/>
+          <line x1="710" y1="276" x2="710" y2="316"/><line x1="746" y1="276" x2="746" y2="316"/><line x1="782" y1="276" x2="782" y2="316"/>
+          <line x1="818" y1="276" x2="818" y2="316"/><line x1="854" y1="276" x2="854" y2="316"/>
+        </g>
+        <rect x="474" y="320" width="402" height="16" fill="url(#g16ser)"/>
+        <text x="478" y="392" font-size="13.5" font-weight="900" fill="#7df0c6">Clinically: formed stool, no blood, no urgency,</text>
+        <text x="478" y="412" font-size="13.5" font-weight="900" fill="#7df0c6">appetite and weight recover</text>
+        <text x="478" y="446" font-size="12.5" font-style="italic" fill="#d8fff0">Remission is the goal — and these drugs are used BOTH</text>
+        <text x="478" y="464" font-size="12.5" font-style="italic" fill="#d8fff0">to treat the active flare and to MAINTAIN remission.</text>
+      </svg>
+      <p class="figcap">Gold dots = neutrophils packing the crypts (crypt abscesses), the histologic hallmark of active disease. Green = the 5-ASA drug sitting on the mucosal surface, exactly where it must be.</p>
+      <div class="mn">🧠 <b>"It's a paint, not a pill."</b> Think of 5-ASA as anti-inflammatory <i>paint</i> for the bowel lining. Paint only works on the surface you can reach — which is why an enema exists for the left colon and a suppository for the rectum.</div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>🗺️ Delivery is the whole game — where each formulation releases</h3>
+      <svg viewBox="0 0 900 430" role="img" aria-label="Anatomical map of the gastrointestinal tract showing the stomach, small intestine, ascending transverse descending and sigmoid colon and rectum, with coloured bands marking where each aminosalicylate formulation releases: controlled release capsules along the small bowel and colon, delayed release tablets in the distal ileum and colon, an enema reaching the left colon, and a suppository treating the rectum">
+        <defs>
+          <linearGradient id="g16gut" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#f7c4a8"/><stop offset=".55" stop-color="#dd9070"/><stop offset="1" stop-color="#a8543a"/>
+          </linearGradient>
+          <linearGradient id="g16stom" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ff9f86"/><stop offset="1" stop-color="#c94f5d"/>
+          </linearGradient>
+        </defs>
+        <rect x="4" y="4" width="892" height="422" rx="18" fill="rgba(47,107,255,.12)" stroke="#2f6bff" stroke-width="2" stroke-dasharray="8 7"/>
+        <text x="26" y="36" font-size="17" font-weight="900" fill="#bcd0ff">🗺️ GET THE DRUG TO THE DISEASED SEGMENT</text>
+
+        <!-- esophagus + stomach -->
+        <rect x="300" y="52" width="26" height="44" rx="11" fill="#ffd0bd"/>
+        <path d="M300 96 C 272 108 252 138 260 172 C 268 208 306 226 344 216 C 380 206 396 172 384 144 C 374 120 348 100 334 96 Z" fill="url(#g16stom)" stroke="#ffd0bd" stroke-width="2"/>
+        <text x="392" y="146" font-size="12.5" font-weight="800" fill="#ffd0bd">Stomach</text>
+        <text x="392" y="164" font-size="11" font-style="italic" fill="#ffd0bd">coating must survive here</text>
+
+        <!-- colon frame -->
+        <path d="M182 232 C 182 190 200 176 236 176 L620 176 C 656 176 674 192 674 232 L674 300"
+              fill="none" stroke="url(#g16gut)" stroke-width="34" stroke-linecap="round"/>
+        <path d="M182 232 L182 330" fill="none" stroke="url(#g16gut)" stroke-width="34" stroke-linecap="round"/>
+        <path d="M182 330 C 182 356 200 366 226 366" fill="none" stroke="url(#g16gut)" stroke-width="34" stroke-linecap="round"/>
+        <path d="M674 300 C 674 336 656 352 620 356 C 580 360 552 372 540 392" fill="none" stroke="url(#g16gut)" stroke-width="32" stroke-linecap="round"/>
+        <!-- haustra ticks -->
+        <g stroke="#8e4429" stroke-width="3" opacity=".55" stroke-linecap="round">
+          <line x1="270" y1="160" x2="270" y2="192"/><line x1="330" y1="160" x2="330" y2="192"/>
+          <line x1="390" y1="160" x2="390" y2="192"/><line x1="450" y1="160" x2="450" y2="192"/>
+          <line x1="510" y1="160" x2="510" y2="192"/><line x1="570" y1="160" x2="570" y2="192"/>
+          <line x1="166" y1="262" x2="198" y2="262"/><line x1="166" y1="296" x2="198" y2="296"/>
+          <line x1="658" y1="248" x2="690" y2="248"/><line x1="658" y1="284" x2="690" y2="284"/>
+        </g>
+        <!-- small intestine coil -->
+        <path d="M320 224 C 268 236 258 274 292 288 C 330 304 360 272 400 284 C 440 296 424 336 386 336 C 348 336 336 306 366 296 C 400 284 440 300 452 320 C 464 340 440 356 414 350"
+              fill="none" stroke="#e8a17f" stroke-width="20" stroke-linecap="round"/>
+        <path d="M320 224 C 268 236 258 274 292 288 C 330 304 360 272 400 284 C 440 296 424 336 386 336 C 348 336 336 306 366 296 C 400 284 440 300 452 320 C 464 340 440 356 414 350"
+              fill="none" stroke="#ffd8c2" stroke-width="4" stroke-linecap="round" opacity=".45"/>
+        <text x="470" y="352" font-size="12.5" font-weight="800" fill="#ffd0bd">Small intestine</text>
+
+        <!-- rectum -->
+        <rect x="512" y="384" width="44" height="30" rx="10" fill="#c9705a" stroke="#ffd8c2" stroke-width="2"/>
+        <text x="560" y="404" font-size="12.5" font-weight="800" fill="#ffd0bd">Rectum</text>
+        <text x="196" y="392" font-size="12.5" font-weight="800" fill="#ffd0bd">Ascending</text>
+        <text x="380" y="146" font-size="0" fill="none"> </text>
+        <text x="300" y="148" font-size="12.5" font-weight="800" fill="#ffd0bd">Transverse colon</text>
+        <text x="690" y="270" font-size="12.5" font-weight="800" fill="#ffd0bd">Descending</text>
+
+        <!-- release zones -->
+        <path d="M330 240 C 300 258 300 292 340 292" fill="none" stroke="#9d5cff" stroke-width="9" stroke-linecap="round" opacity=".85"/>
+        <path d="M182 200 L182 340" fill="none" stroke="#9d5cff" stroke-width="9" stroke-linecap="round" opacity=".85"/>
+        <path d="M240 176 L616 176" fill="none" stroke="#2f6bff" stroke-width="9" stroke-linecap="round" opacity=".85"/>
+        <path d="M674 232 L674 300" fill="none" stroke="#12b886" stroke-width="9" stroke-linecap="round" opacity=".9"/>
+        <path d="M674 300 C 674 336 656 352 620 356 C 580 360 552 372 540 392" fill="none" stroke="#12b886" stroke-width="9" stroke-linecap="round" opacity=".9"/>
+        <rect x="508" y="382" width="52" height="34" rx="10" fill="none" stroke="#ffc233" stroke-width="5"/>
+
+        <!-- legend -->
+        <g font-size="12.5">
+          <rect x="700" y="44" width="176" height="132" rx="12" fill="rgba(13,8,26,.6)" stroke="rgba(255,255,255,.3)" stroke-width="1.4"/>
+          <circle cx="716" cy="66" r="7" fill="#9d5cff"/><text x="730" y="71" fill="#e6d2ff" font-weight="800">Controlled-release</text>
+          <text x="730" y="86" fill="#e6d2ff" font-size="11" font-style="italic">(Pentasa) small bowel →</text>
+          <circle cx="716" cy="106" r="7" fill="#2f6bff"/><text x="730" y="111" fill="#dce6ff" font-weight="800">Delayed-release</text>
+          <text x="730" y="126" fill="#dce6ff" font-size="11" font-style="italic">(Asacol) ileum + colon</text>
+          <circle cx="716" cy="146" r="7" fill="#12b886"/><text x="730" y="151" fill="#d8fff0" font-weight="800">Enema — left colon</text>
+          <circle cx="716" cy="166" r="7" fill="#ffc233"/><text x="730" y="171" fill="#ffe6a8" font-weight="800">Suppository — rectum</text>
+        </g>
+        <text x="700" y="212" font-size="13" font-weight="900" fill="#ffc233">Proctitis → suppository</text>
+        <text x="700" y="232" font-size="13" font-weight="900" fill="#ffc233">Proctosigmoiditis → enema</text>
+        <text x="700" y="252" font-size="13" font-weight="900" fill="#ffc233">Extensive colitis → oral</text>
+        <text x="700" y="286" font-size="12" font-style="italic" fill="#dce6ff">Mesalamine suspension</text>
+        <text x="700" y="304" font-size="12" font-style="italic" fill="#dce6ff">enema: <tspan font-family="ui-monospace,Consolas,monospace" font-weight="900">4 g daily</tspan></text>
+        <text x="700" y="322" font-size="12" font-style="italic" fill="#dce6ff">— give at bedtime and</text>
+        <text x="700" y="340" font-size="12" font-style="italic" fill="#dce6ff">teach the client to RETAIN it</text>
+        <text x="700" y="358" font-size="12" font-style="italic" fill="#dce6ff">through the night, lying on</text>
+        <text x="700" y="376" font-size="12" font-style="italic" fill="#dce6ff">the LEFT side.</text>
+      </svg>
+      <div class="mn">🧠 <b>"Low disease, low route."</b> Rectum only → suppository. Rectum + sigmoid → enema. Whole colon or small bowel → oral, in the coating that opens at the right pH/time.</div>
+    </div>
+
+    <div class="card tealc">
+      <h3>💊 The four drugs — dose &amp; specific use</h3>
+      <table>
+        <tr><th style="width:26%">Generic</th><th class="up" style="width:22%">Trade</th><th class="lo" style="width:28%">Use</th><th style="width:24%">Dose</th></tr>
+        <tr><td><b>Balsalazide</b></td><td>Colazal</td><td>Active ulcerative colitis</td><td><span class="mono">2250 mg</span> PO <span class="mono">TID</span> × <span class="mono">8 weeks</span></td></tr>
+        <tr><td><b>Mesalamine</b></td><td>Asacol, Pentasa</td><td>Active UC, <b>proctosigmoiditis</b>, <b>proctitis</b></td><td><span class="mono">800–1000 mg</span> PO <span class="mono">TID or QID</span><br>Suspension enema: <span class="mono">4 g</span> daily</td></tr>
+        <tr><td><b>Olsalazine</b></td><td>Dipentum</td><td><b>Maintenance of remission</b> in UC</td><td><span class="mono">1 g/day</span> PO in <b>two divided doses</b></td></tr>
+        <tr><td><b>Sulfasalazine</b></td><td>Azulfidine</td><td>Ulcerative colitis <b>+ rheumatoid arthritis</b></td><td>Initial <span class="mono">3–4 g/day</span> PO in divided doses; maintenance <span class="mono">2 g/day</span> in divided doses</td></tr>
+      </table>
+      <p style="margin-top:8px"><b>Indications overall:</b> aminosalicylates treat <b>Crohn's disease and ulcerative colitis</b>, as well as other inflammatory diseases.</p>
+      <div class="mn">🧠 <b>"Balsalazide is the sprinter (8 weeks), olsalazine is the marathoner (maintenance)."</b> Mesalamine is the all-rounder with the most formulations. Sulfasalazine is the one that also does joints.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🆚 Topical action vs systemic immunosuppression</h3>
+      <p>This is the differentiator the exam wants. A 5-ASA works <b>on the lining</b>. A corticosteroid or biologic works <b>through the bloodstream</b>, dampening immunity everywhere.</p>
+      <svg viewBox="-10 -10 519 350" role="img" aria-label="Two panels: on the left the aminosalicylate coats the bowel mucosa from inside the lumen and stays local, with only the bowel affected; on the right a systemic immunosuppressant enters the bloodstream from the gut and travels to the lungs, skin, mouth and urinary tract, affecting the whole body">
+        <defs>
+          <linearGradient id="g16loc" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffd7c2"/><stop offset="1" stop-color="#c26a54"/>
+          </linearGradient>
+        </defs>
+        <rect x="-6" y="-6" width="511" height="342" rx="16" fill="rgba(13,8,26,.45)" stroke="rgba(255,255,255,.28)" stroke-width="2"/>
+        <line x1="228" y1="20" x2="228" y2="312" stroke="rgba(255,255,255,.24)" stroke-width="2" stroke-dasharray="8 7"/>
+        <text x="18" y="34" font-size="13.5" font-weight="900" fill="#7df0c6">🎯 TOPICAL — stays put</text>
+        <!-- local: bowel segment -->
+        <path d="M28 82 C 80 66 158 66 206 84 L206 106 C 158 90 80 90 28 106 Z" fill="url(#g16loc)" stroke="#ffd8c2" stroke-width="1.8"/>
+        <path d="M28 190 C 80 206 158 206 206 188 L206 166 C 158 182 80 182 28 166 Z" fill="url(#g16loc)" stroke="#ffd8c2" stroke-width="1.8"/>
+        <rect x="28" y="106" width="178" height="60" fill="rgba(255,138,61,.14)"/>
+        <g fill="#12b886" stroke="#eafff7" stroke-width="1.4">
+          <circle cx="52" cy="114" r="7"/><circle cx="88" cy="112" r="7"/><circle cx="124" cy="115" r="7"/><circle cx="160" cy="112" r="7"/><circle cx="192" cy="115" r="7"/>
+          <circle cx="52" cy="158" r="7"/><circle cx="88" cy="160" r="7"/><circle cx="124" cy="157" r="7"/><circle cx="160" cy="160" r="7"/><circle cx="192" cy="157" r="7"/>
+        </g>
+        <text x="18" y="228" font-size="12" font-weight="900" fill="#7df0c6">Drug coats the lining</text>
+        <text x="18" y="246" font-size="11.5" font-style="italic" fill="#d8fff0">little reaches the bloodstream</text>
+        <circle cx="120" cy="288" r="26" fill="rgba(18,184,134,.35)" stroke="#7df0c6" stroke-width="2"/>
+        <text x="88" y="293" font-size="12" font-weight="900" fill="#7df0c6">bowel only</text>
+
+        <!-- systemic -->
+        <text x="248" y="34" font-size="13.5" font-weight="900" fill="#ff9db4">💉 SYSTEMIC — goes everywhere</text>
+        <!-- body outline -->
+        <circle cx="340" cy="86" r="22" fill="#ffd0bd" stroke="#ffe0d2" stroke-width="1.8"/>
+        <path d="M328 106 C 322 118 306 122 294 130 C 282 138 276 152 276 172 C 276 202 282 232 284 252 L396 252 C 398 232 404 202 404 172 C 404 152 398 138 386 130 C 374 122 358 118 352 106 Z" fill="#ffd0bd" stroke="#ffe0d2" stroke-width="1.8"/>
+        <path d="M280 148 C 264 164 256 190 254 214" fill="none" stroke="#ffd0bd" stroke-width="12" stroke-linecap="round"/>
+        <path d="M400 148 C 416 164 424 190 426 214" fill="none" stroke="#ffd0bd" stroke-width="12" stroke-linecap="round"/>
+        <path d="M292 252 L288 306" stroke="#ffd0bd" stroke-width="13" stroke-linecap="round"/>
+        <path d="M388 252 L392 306" stroke="#ffd0bd" stroke-width="13" stroke-linecap="round"/>
+        <!-- vessels -->
+        <path d="M340 128 C 320 150 316 190 322 226" fill="none" stroke="#c02255" stroke-width="4" stroke-linecap="round" opacity=".8"/>
+        <path d="M340 128 C 360 150 364 190 358 226" fill="none" stroke="#c02255" stroke-width="4" stroke-linecap="round" opacity=".8"/>
+        <path d="M330 132 C 300 148 282 176 268 202" fill="none" stroke="#c02255" stroke-width="3" stroke-linecap="round" opacity=".7"/>
+        <path d="M350 132 C 380 148 398 176 412 202" fill="none" stroke="#c02255" stroke-width="3" stroke-linecap="round" opacity=".7"/>
+        <!-- drug dots everywhere -->
+        <g fill="#ff3b6b" stroke="#ffe0e8" stroke-width="1.2">
+          <circle cx="340" cy="80" r="6"/><circle cx="306" cy="164" r="6"/><circle cx="374" cy="170" r="6"/>
+          <circle cx="286" cy="206" r="6"/><circle cx="398" cy="204" r="6"/><circle cx="332" cy="228" r="6"/>
+          <circle cx="262" cy="200" r="5"/><circle cx="420" cy="200" r="5"/><circle cx="290" cy="290" r="5"/><circle cx="392" cy="292" r="5"/>
+        </g>
+        <text x="248" y="286" font-size="12" font-weight="900" fill="#ff9db4">Infection risk · glucose ·</text>
+        <text x="248" y="304" font-size="12" font-weight="900" fill="#ff9db4">bone · growth — body-wide</text>
+      </svg>
+      <table>
+        <tr><th class="up" style="width:50%">🎯 Aminosalicylate (this page)</th><th class="lo" style="width:50%">💉 Systemic IBD drugs</th></tr>
+        <tr>
+          <td>Acts <b>topically in the bowel</b> — must contact the mucosa</td>
+          <td>Act <b>body-wide</b> through the circulation</td>
+        </tr>
+        <tr>
+          <td>Adverse effects are mostly <b>GI + headache/dizziness</b></td>
+          <td>Adverse effects are <b>infection, glucose, bone, growth</b></td>
+        </tr>
+        <tr>
+          <td>Used for <b>mild–moderate disease</b> and to <b>hold remission</b></td>
+          <td>Used to <b>rescue</b> a severe flare or when 5-ASA fails</td>
+        </tr>
+        <tr>
+          <td>No routine "monitor for infection" teaching</td>
+          <td>Infection precautions are central</td>
+        </tr>
+      </table>
+      <div class="mn">🧠 <b>"Surface first, systemic second."</b> IBD therapy climbs a ladder — the topical rung is always tried before you accept whole-body immunosuppression.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WATCH FOR ============ -->
+<section id="watch">
+  <div class="sec-h"><span class="icon">⚠️</span><h2>WATCH FOR</h2><span class="step">STEP 2 · ADVERSE EFFECTS, CONTRAS &amp; TRAPS</span></div>
+  <p class="sec-sub">The adverse effects mimic the disease — which is exactly what makes them tricky.</p>
+
+  <div class="grid">
+    <div class="card garnet">
+      <h3>🚨 Adverse reactions — 7 to know</h3>
+      <div class="no-grid">
+        <div class="no-t hot"><span class="e">🤕</span>Abdominal pain<i>&nbsp;</i></div>
+        <div class="no-t hot"><span class="e">🤢</span>Nausea<i>&nbsp;</i></div>
+        <div class="no-t hot"><span class="e">💩</span>Diarrhea<i>&nbsp;</i></div>
+        <div class="no-t"><span class="e">🤯</span>Headache<i>&nbsp;</i></div>
+        <div class="no-t"><span class="e">💫</span>Dizziness<i>fall risk</i></div>
+        <div class="no-t"><span class="e">🌡️</span>Fever<i>report it</i></div>
+        <div class="no-t"><span class="e">🥱</span>Weakness<i>&nbsp;</i></div>
+      </div>
+      <p style="margin-top:11px"><span class="tip">EXAM TIP</span> <mark>Abdominal pain, nausea and diarrhea are also the symptoms of the disease.</mark> That is why the source insists you <b>question the patient about the type and intensity of symptoms BEFORE the first dose</b> — without a baseline you cannot tell a drug reaction from a flare.</p>
+      <div class="mn">🧠 <b>"You can't judge the change if you never measured the start."</b> Baseline symptom assessment is the whole reason this is a nursing-management question, not a pharmacology one.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🚫 Contraindications</h3>
+      <ul class="tick">
+        <li>❌ <b>Known hypersensitivity</b></li>
+        <li>❌ <b>Hypersensitivity to sulfonamides and sulfites</b> — ask about a <b>sulfa allergy</b> before every dose, especially with <b>sulfasalazine</b></li>
+        <li>❌ <span class="never">Intestinal obstruction</span> — a drug that must travel to the colon cannot be given into a blocked bowel</li>
+        <li>❌ <b>Children younger than 2 years</b></li>
+      </ul>
+      <p><b>Caution:</b> aminosalicylates are <b>pregnancy category B</b> — <i>except olsalazine, which is category C</i> — and all are used with caution during <b>pregnancy and lactation</b> (safety has not been established).</p>
+      <div class="mn">🧠 <b>"SOB-2"</b> — <b>S</b>ulfa/sulfite allergy · <b>O</b>bstruction · <b>B</b>elow age <b>2</b>. Three checks before you hand over the tablet.</div>
+    </div>
+
+    <div class="card topaz span2">
+      <h3>⭐ NCLEX TIP — the obstipation trap: <mark>loose stool that is actually constipation</mark></h3>
+      <p>A client with <b>hypoactive bowel sounds</b> and severe <b>obstipation</b> can leak <b>liquid stool around a hard fecal mass</b> — and it presents as <i>loose stool</i>. If you read that as diarrhea and treat it as a flare, you are treating the exact opposite of the real problem. <b>That patient needs completely different drug therapy.</b></p>
+      <svg viewBox="-10 -10 939 360" role="img" aria-label="Cutaway of the sigmoid colon and rectum showing a large hard impacted fecal mass with liquid stool seeping around it and out through the rectum, next to a stethoscope icon indicating hypoactive bowel sounds, contrasted with true diarrhea where the whole lumen is liquid">
+        <defs>
+          <linearGradient id="g16bw2" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#f7c4a8"/><stop offset=".55" stop-color="#dd9070"/><stop offset="1" stop-color="#a8543a"/>
+          </linearGradient>
+          <linearGradient id="g16mass" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#a2703f"/><stop offset=".6" stop-color="#7a4f24"/><stop offset="1" stop-color="#503115"/>
+          </linearGradient>
+        </defs>
+        <rect x="-6" y="-6" width="931" height="352" rx="18" fill="rgba(255,194,51,.14)" stroke="#ffc233" stroke-width="2" stroke-dasharray="8 7"/>
+        <line x1="470" y1="22" x2="470" y2="316" stroke="rgba(255,255,255,.24)" stroke-width="2" stroke-dasharray="9 8"/>
+
+        <!-- LEFT: obstipation with overflow -->
+        <text x="26" y="40" font-size="16" font-weight="900" fill="#ffe49a">🧱 OBSTIPATION with OVERFLOW</text>
+        <text x="26" y="60" font-size="12.5" font-style="italic" fill="#fff0c2">"loose stool" — but the bowel is BLOCKED</text>
+        <!-- bowel wall -->
+        <path d="M40 110 C 140 88 280 88 380 112 L380 142 C 280 118 140 118 40 140 Z" fill="url(#g16bw2)" stroke="#ffd8c2" stroke-width="2"/>
+        <path d="M40 252 C 140 274 280 274 380 250 L380 220 C 280 244 140 244 40 222 Z" fill="url(#g16bw2)" stroke="#ffd8c2" stroke-width="2"/>
+        <rect x="40" y="142" width="340" height="78" fill="rgba(120,60,20,.20)"/>
+        <!-- hard mass -->
+        <path d="M120 150 C 180 138 250 142 288 158 C 316 170 318 200 292 212 C 250 230 176 230 132 216 C 104 206 100 164 120 150 Z" fill="url(#g16mass)" stroke="#3c230f" stroke-width="2"/>
+        <g stroke="#4b2c12" stroke-width="2" opacity=".8" fill="none">
+          <path d="M140 168 C 176 160 220 164 254 174"/><path d="M136 190 C 174 182 226 186 268 196"/>
+          <path d="M156 208 C 194 202 236 206 274 212"/>
+        </g>
+        <text x="150" y="188" font-size="0" fill="none"> </text>
+        <line x1="204" y1="140" x2="220" y2="96" stroke="#ffe49a" stroke-width="1.6"/>
+        <text x="176" y="88" font-size="12.5" font-weight="900" fill="#ffe49a">hard impacted fecal mass</text>
+        <!-- liquid seeping around -->
+        <path d="M60 152 C 100 148 108 158 118 156" fill="none" stroke="#a8804a" stroke-width="8" stroke-linecap="round" opacity=".8"/>
+        <path d="M292 158 C 320 152 350 166 378 160" fill="none" stroke="#a8804a" stroke-width="9" stroke-linecap="round" opacity=".85"/>
+        <path d="M292 210 C 322 216 352 202 378 208" fill="none" stroke="#a8804a" stroke-width="9" stroke-linecap="round" opacity=".85"/>
+        <g fill="#a8804a" opacity=".9">
+          <ellipse cx="336" cy="180" rx="10" ry="6"/><ellipse cx="364" cy="192" rx="9" ry="5"/>
+        </g>
+        <path d="M382 184 L424 184" stroke="#a8804a" stroke-width="7" stroke-linecap="round"/>
+        <path d="M416 174 L438 184 L416 194 Z" fill="#a8804a"/>
+        <text x="300" y="256" font-size="12.5" font-weight="900" fill="#ffe49a">liquid seeps AROUND ⟶</text>
+        <!-- stethoscope / bowel sounds -->
+        <circle cx="90" cy="286" r="18" fill="none" stroke="#9ff2ee" stroke-width="4"/>
+        <path d="M90 268 C 74 250 62 246 56 254" fill="none" stroke="#9ff2ee" stroke-width="4" stroke-linecap="round"/>
+        <path d="M90 268 C 106 250 118 246 124 254" fill="none" stroke="#9ff2ee" stroke-width="4" stroke-linecap="round"/>
+        <text x="124" y="282" font-size="13.5" font-weight="900" fill="#9ff2ee">HYPOACTIVE bowel sounds</text>
+        <text x="124" y="302" font-size="12" font-style="italic" fill="#d8fff0">quiet gut + "loose stool" = suspect impaction</text>
+        <text x="26" y="326" font-size="12.5" font-weight="900" fill="#ff9db4">⚠️ Antidiarrheals here would make it far worse.</text>
+
+        <!-- RIGHT: true diarrhea -->
+        <text x="496" y="40" font-size="16" font-weight="900" fill="#9ff2ee">💧 TRUE DIARRHEA</text>
+        <text x="496" y="60" font-size="12.5" font-style="italic" fill="#d8fff0">the whole lumen is liquid · sounds are HYPERactive</text>
+        <path d="M500 110 C 600 88 740 88 840 112 L840 142 C 740 118 600 118 500 140 Z" fill="url(#g16bw2)" stroke="#ffd8c2" stroke-width="2"/>
+        <path d="M500 252 C 600 274 740 274 840 250 L840 220 C 740 244 600 244 500 222 Z" fill="url(#g16bw2)" stroke="#ffd8c2" stroke-width="2"/>
+        <rect x="500" y="142" width="340" height="78" fill="rgba(168,128,74,.45)"/>
+        <g fill="#c8a06a" opacity=".9">
+          <ellipse cx="560" cy="170" rx="14" ry="8"/><ellipse cx="628" cy="192" rx="16" ry="9"/>
+          <ellipse cx="700" cy="166" rx="15" ry="8"/><ellipse cx="772" cy="196" rx="14" ry="8"/>
+        </g>
+        <path d="M842 182 L884 182" stroke="#a8804a" stroke-width="10" stroke-linecap="round"/>
+        <circle cx="548" cy="286" r="18" fill="none" stroke="#9ff2ee" stroke-width="4"/>
+        <path d="M548 268 C 532 250 520 246 514 254" fill="none" stroke="#9ff2ee" stroke-width="4" stroke-linecap="round"/>
+        <path d="M548 268 C 564 250 576 246 582 254" fill="none" stroke="#9ff2ee" stroke-width="4" stroke-linecap="round"/>
+        <g stroke="#9ff2ee" stroke-width="2.6" fill="none" opacity=".9">
+          <path d="M576 276 C 584 282 584 290 576 296"/><path d="M586 270 C 598 280 598 292 586 302"/>
+        </g>
+        <text x="612" y="286" font-size="13.5" font-weight="900" fill="#9ff2ee">HYPERACTIVE bowel sounds</text>
+        <text x="612" y="306" font-size="12" font-style="italic" fill="#d8fff0">this one really is a flare — push fluids, monitor I&amp;O</text>
+      </svg>
+      <div class="mn">🧠 <b>"Quiet gut, liquid stool = a plug, not a flare."</b> Listen before you believe the stool. Hypoactive bowel sounds flip the entire care plan.</div>
+    </div>
+
+    <div class="card ruby span2">
+      <h3>💊 Interactions — four to memorise</h3>
+      <table>
+        <tr><th style="width:32%">Add this…</th><th class="up">…and you get</th><th class="lo">Nursing action</th></tr>
+        <tr><td><b>Digoxin</b></td><td><b>Reduced absorption</b> of digoxin</td><td>Watch for loss of rate/rhythm control; monitor digoxin level</td></tr>
+        <tr><td><b>Methotrexate</b></td><td><b>Increased risk of immunosuppression</b></td><td>Monitor CBC; infection precautions</td></tr>
+        <tr><td><b>Oral hypoglycemic drugs</b></td><td><b>Increased blood glucose level</b></td><td>Check fingersticks more often; teach hyperglycemia signs</td></tr>
+        <tr><td><b>Warfarin</b></td><td><b>Increased risk of bleeding</b></td><td>Monitor INR, bruising, dark stools, gum bleeding</td></tr>
+      </table>
+      <div class="mn">🧠 <b>"DMOW"</b> — <b>D</b>igoxin down · <b>M</b>ethotrexate marrow · <b>O</b>ral hypoglycemics = sugar up · <b>W</b>arfarin = bleed. Say it like <i>"D'MOW"</i> — the four things this drug mows down.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TEACH ============ -->
+<section id="teach">
+  <div class="sec-h"><span class="icon">🗣️</span><h2>TEACH &amp; MONITOR</h2><span class="step">STEP 3 · NURSING MANAGEMENT</span></div>
+  <p class="sec-sub">This is a nursing-process class: baseline, assess, report, replace fluids.</p>
+
+  <div class="grid">
+    <div class="card emerald span2">
+      <h3>✅ Nursing management, in order</h3>
+      <div class="ladder">
+        <div class="rung"><div class="n">1</div><div class="t"><b>Review the chart</b> for the course of treatment and <b>find the reason</b> the drug was prescribed — active flare or maintenance changes everything you teach.</div></div>
+        <div class="arrowdown">▼</div>
+        <div class="rung"><div class="n">2</div><div class="t"><b>Question the patient about the type and intensity of symptoms</b> — pain, discomfort, <b>diarrhea</b> or <b>constipation</b> — to create the <b>baseline</b> for evaluating effectiveness.</div></div>
+        <div class="arrowdown">▼</div>
+        <div class="rung"><div class="n">3</div><div class="t"><b>Assess for relief of symptoms</b> and <b>monitor vital signs</b>.</div></div>
+        <div class="arrowdown">▼</div>
+        <div class="rung"><div class="n">4</div><div class="t"><b>Monitor fluid intake &amp; output</b> — chronic diarrhea is a fluid and electrolyte problem before it is anything else.</div></div>
+        <div class="arrowdown">▼</div>
+        <div class="rung"><div class="n">5</div><div class="t">🚨 <b>REPORT: abdominal distention · fever · abdominal pain.</b></div></div>
+      </div>
+      <div class="mn">🧠 <b>"Baseline → Relief → Report."</b> Three verbs. Every aminosalicylate nursing question is one of those three.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🚨 Why "abdominal distention" is on the report list</h3>
+      <svg viewBox="-10 -10 511 340" role="img" aria-label="Abdominal outline comparing a normal flat abdomen with a distended tympanic abdomen from a massively dilated transverse colon, with fever and pain markers indicating a deteriorating colitis">
+        <defs>
+          <linearGradient id="g16abd" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffdcc8"/><stop offset="1" stop-color="#e8a184"/>
+          </linearGradient>
+          <linearGradient id="g16dil" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#f7c4a8"/><stop offset="1" stop-color="#b25f42"/>
+          </linearGradient>
+        </defs>
+        <rect x="-6" y="-6" width="503" height="332" rx="16" fill="rgba(192,34,85,.15)" stroke="#c02255" stroke-width="2" stroke-dasharray="8 7"/>
+        <text x="20" y="34" font-size="15" font-weight="900" fill="#ffb3c6">🎈 DISTENTION = DANGER</text>
+        <!-- normal abdomen -->
+        <path d="M40 80 C 90 68 150 68 196 80 C 206 130 204 190 194 238 C 148 252 88 252 42 238 C 32 190 30 130 40 80 Z" fill="url(#g16abd)" stroke="#ffd0bd" stroke-width="2"/>
+        <ellipse cx="118" cy="162" rx="8" ry="10" fill="#c98a6e"/>
+        <path d="M62 130 C 100 120 138 132 176 124" fill="none" stroke="#c98a6e" stroke-width="2" opacity=".5"/>
+        <text x="40" y="272" font-size="13" font-weight="900" fill="#7df0c6">✅ Flat, soft</text>
+        <text x="40" y="292" font-size="12" font-style="italic" fill="#d8fff0">bowel sounds present</text>
+        <!-- distended abdomen -->
+        <path d="M254 76 C 312 56 388 56 430 78 C 446 130 444 196 428 244 C 384 264 300 264 256 244 C 240 196 238 128 254 76 Z" fill="url(#g16abd)" stroke="#ffd0bd" stroke-width="2"/>
+        <path d="M268 116 C 300 96 388 96 418 118 C 426 146 420 176 404 190 C 380 210 306 210 282 190 C 266 176 260 144 268 116 Z" fill="url(#g16dil)" stroke="#a8543a" stroke-width="2" opacity=".9"/>
+        <g stroke="#8e4429" stroke-width="2.4" opacity=".55">
+          <line x1="304" y1="102" x2="300" y2="200"/><line x1="344" y1="98" x2="344" y2="204"/><line x1="384" y1="102" x2="388" y2="198"/>
+        </g>
+        <text x="290" y="160" font-size="12" font-weight="900" fill="#3b1a0c">dilated colon</text>
+        <ellipse cx="342" cy="222" rx="8" ry="10" fill="#c98a6e"/>
+        <g fill="#ff3b6b">
+          <circle cx="276" cy="92" r="6"/><circle cx="416" cy="94" r="6"/><circle cx="268" cy="230" r="6"/><circle cx="424" cy="228" r="6"/>
+        </g>
+        <text x="248" y="272" font-size="13" font-weight="900" fill="#ff9db4">🚨 Tight, tympanic, tender</text>
+        <text x="248" y="292" font-size="12" font-style="italic" fill="#ffd9e2">+ fever + rising pain → call the provider</text>
+        <text x="248" y="52" font-size="12" font-weight="900" fill="#ffc233">🌡️ Fever</text>
+        <text x="330" y="52" font-size="12" font-weight="900" fill="#ffc233">😖 Pain</text>
+      </svg>
+      <p>Worsening distention with fever and pain in a colitis client can signal severe colonic dilation — a surgical emergency, not a drug side effect. <span class="never">Never dismiss a newly distended, tender abdomen as "just the IBD."</span></p>
+      <div class="mn">🧠 <b>"Big belly + hot + hurting = phone, not chart."</b></div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>💧 Chronic diarrhea — what to actually offer</h3>
+      <p>If diarrhea is chronic, <b>encourage increased fluid intake</b>. The source names the exact options:</p>
+      <div class="no-grid">
+        <div class="no-t"><span class="e">🍵</span>Weak tea<i>&nbsp;</i></div>
+        <div class="no-t"><span class="e">💧</span>Water<i>&nbsp;</i></div>
+        <div class="no-t"><span class="e">🍲</span>Bouillon<i>salty broth</i></div>
+        <div class="no-t"><span class="e">🧃</span>Pedialyte<i>electrolytes</i></div>
+        <div class="no-t"><span class="e">🥤</span>Gatorade<i>electrolytes</i></div>
+      </div>
+      <ul class="tick" style="margin-top:11px">
+        <li>📋 <b>Monitor fluid intake &amp; output</b> — the number, not the impression.</li>
+        <li>⚖️ Daily weight is the fastest fluid-loss detector.</li>
+        <li>🧪 Ongoing diarrhea also risks <b>hypokalemia</b> — watch for muscle weakness and cramps.</li>
+      </ul>
+      <div class="mn">🧠 <b>"Water alone won't fix a salt problem."</b> Broth and electrolyte drinks replace what water can't.</div>
+    </div>
+
+    <div class="card tealc span2">
+      <h3>🌼 Herbal consideration — chamomile</h3>
+      <p>Chamomile is one of the most popular teas in Europe and is on the <b>FDA list of herbs generally recognised as safe (GRAS)</b>. Traditional uses include a <b>mild sedative</b> and treatment of <b>digestive upset, menstrual cramps and stomach ulcers</b>; topically for skin irritation and inflammation. As an infusion it appears to produce an <b>antispasmodic effect on GI smooth muscle</b> and to <b>protect against the development of stomach ulcers</b>.</p>
+      <p><span class="tip">SAFETY</span> The infusion is prepared from <b>pollen-filled flower heads</b>. In people hypersensitive to <b>ragweed, asters and chrysanthemums</b> it has caused reactions ranging from <b>mild contact dermatitis to severe anaphylaxis</b>. <mark>Always ask about ragweed/daisy-family allergy before endorsing chamomile tea.</mark></p>
+      <div class="mn">🧠 <b>"Chamomile is a daisy."</b> If ragweed makes them sneeze, the tea can make them swell. Same botanical family (Asteraceae).</div>
+    </div>
+
+    <div class="card deep span2">
+      <h3>🔗 Go deeper — the neighbouring pages</h3>
+      <div class="related">
+        <a href="../out_pharm/NG-175_anti-inflammatory-sulfasalazine.html">💊 <b>NG-175</b> Sulfasalazine — the sulfa-containing member, in depth</a>
+        <a href="../out_gi/NG-111_crohns-uc-treatments-complications.html">🩺 <b>NG-111</b> Crohn's &amp; UC — the diseases, treatments &amp; complications</a>
+        <a href="../out_gi/NG-142_anti-diarrheal.html">💩 <b>NG-142</b> Anti-diarrheals — and why they're wrong in obstipation</a>
+        <a href="../out_pharm/NG-100_anti-inflammatory-agents.html">🔥 <b>NG-100</b> Anti-inflammatory Agents — the wider class map</a>
+      </div>
+      <p style="margin-top:9px"><i>This page is the <b>class</b> page: topical action, delivery, and the nursing process around it. Go to NG-175 for sulfasalazine's own adverse-effect profile and to NG-111 for the disease picture.</i></p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">🎯 Topical in the bowel</span>Exact mechanism unknown · must contact the mucosa · formulation = the strategy</div>
+    <div class="rc tealbg"><span class="big">💊 4 drugs</span>Balsalazide · Mesalamine · Olsalazine · Sulfasalazine (also RA)</div>
+    <div class="rc rubybg"><span class="big">🚫 3 blocks</span>Sulfa/sulfite allergy · intestinal obstruction · under <span class="mono">2</span> years old</div>
+    <div class="rc topazbg"><span class="big">📣 Report trio</span>Abdominal distention · fever · abdominal pain</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 6 rapid-fire questions</summary>
+      <div class="qa">Q1: How do aminosalicylates work? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">They exert a topical anti-inflammatory effect in the bowel. The exact mechanism of action is unknown — say that, it's the expected answer.</div></div>
+      <div class="qa">Q2: A client on mesalamine has hypoactive bowel sounds and is passing small amounts of loose stool. What are you thinking? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Severe obstipation with overflow — liquid stool leaking around a hard fecal mass. It looks like diarrhea but the client is constipated, and needs very different drug therapy. Do not give an antidiarrheal.</div></div>
+      <div class="qa">Q3: Four interactions and their consequences? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Digoxin — reduced digoxin absorption. Methotrexate — increased risk of immunosuppression. Oral hypoglycemics — increased blood glucose. Warfarin — increased risk of bleeding.</div></div>
+      <div class="qa">Q4: Which allergy must be screened before sulfasalazine? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Sulfonamide (sulfa) and sulfite hypersensitivity — a contraindication for the class.</div></div>
+      <div class="qa">Q5: Three things you report immediately? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Abdominal distention, fever, and abdominal pain.</div></div>
+      <div class="qa">Q6: Your client with ragweed allergy asks about chamomile tea for cramps. Response? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Caution — chamomile is made from pollen-filled flower heads of the daisy family. People hypersensitive to ragweed, asters or chrysanthemums have had reactions from contact dermatitis to severe anaphylaxis. Discuss with the provider first.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">WHAT IT DOES</span>→
+    <span style="background:rgba(192,34,85,.7)">WATCH FOR</span>→
+    <span style="background:rgba(18,184,134,.7)">TEACH</span>
+  </div>
+  <div>NG-016 · Source wording retained · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>

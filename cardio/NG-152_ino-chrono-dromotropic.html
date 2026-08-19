@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Inotropic, Chronotropic, Dromotropic · NG-152 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+/* ---- appended: table centerpiece arrow chips ---- */
+.dir{display:inline-block;font-weight:900;padding:1px 8px;border-radius:7px;font-size:.9rem}
+.dir.up2{background:rgba(18,184,134,.65)}
+.dir.dn2{background:rgba(255,59,107,.65)}
+.dir.na{background:rgba(255,255,255,.2);color:#efe6ff}
+.dir.vary{background:rgba(255,194,51,.7);color:#231a02}
+table.master th{white-space:nowrap}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#define">📖 Define</a>
+  <a class="c2" href="#directions">↕️ Directions</a>
+  <a class="c3" href="#table">📋 The Table</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Cardio · Cardiac Pharmacology</div>
+  <h1>Ino · Chrono · Dromotropic <span class="drop">🫀</span></h1>
+  <p class="sub">Three suffixes that decode every cardiac drug question you'll ever see</p>
+  <div class="chips">
+    <span class="chip id">NG-152</span>
+    <span class="chip cat">Cardio</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede">Every cardiac drug — <b>digoxin, beta blockers, CCBs, epinephrine, atropine, adenosine</b> — can be fully described by what it does to <b>three</b> things: how <b>hard</b> the heart squeezes, how <b>fast</b> it beats, and how <b>quickly</b> the signal crosses the AV node. Learn these three words and the direction arrows, and <mark>every other cardiac drug page starts making sense together</mark>.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">💪 INO = force</span>Inotropic = strength of contraction. Positive ↑ squeeze, negative ↓ squeeze.</div>
+  <div class="rc rubybg"><span class="big">⏱️ CHRONO = rate</span>Chronotropic = heart rate. Positive ↑ HR, negative ↓ HR. <i>Chronos = time.</i></div>
+  <div class="rc tealbg"><span class="big">🛣️ DROMO = AV node speed</span>Dromotropic = conduction speed through the AV node. Positive ↑ speed, negative ↓ speed.</div>
+  <div class="rc topazbg"><span class="big">📋 Digoxin breaks the pattern</span>+ Inotropic but <b>–</b> Chronotropic and <b>–</b> Dromotropic — the one drug that doesn't move all three the same way.</div>
+</div>
+
+<!-- ============ DEFINE ============ -->
+<section id="define">
+  <div class="sec-h"><span class="icon">📖</span><h2>DEFINE</h2><span class="step">STEP 1 · THE THREE WORDS</span></div>
+  <p class="sec-sub">Same root pattern every time: what it means, then which direction is "positive."</p>
+
+  <div class="grid">
+    <div class="card tealc">
+      <h3>💪 Inotropic — force of contraction</h3>
+      <p><b>Ino-</b> refers to muscle fiber/strength. Inotropic effects change <b>how hard the ventricle squeezes</b> with each beat — this is <b>contractility</b>, which drives <b>stroke volume</b>.</p>
+      <svg viewBox="0 0 860 220" role="img" aria-label="Two hearts comparing inotropic effect: a small heart with a weak short squeeze arrow representing negative inotropic effect, and a larger heart with a strong long squeeze arrow representing positive inotropic effect">
+        <rect x="6" y="6" width="410" height="208" rx="16" fill="rgba(255,59,107,.16)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="22" y="34" font-size="16" font-weight="900" fill="#ff9db4">➖ NEGATIVE inotropic</text>
+        <text x="22" y="52" font-size="12.5" font-style="italic" fill="#ffd9e2">weaker squeeze</text>
+        <path d="M180 90 C 168 78 148 82 147 100 C 146 118 168 134 180 144 C 192 134 214 118 213 100 C 212 82 192 78 180 90 Z" fill="#ff3b6b" stroke="#fff" stroke-width="2" transform="scale(0.85) translate(30,10)"/>
+        <path d="M230 118 l26 0" stroke="#ffc233" stroke-width="5" stroke-linecap="round"/>
+        <path d="M256 110 l14 8 l-14 8 z" fill="#ffc233"/>
+        <text x="60" y="188" font-size="13.5" font-weight="800" fill="#ffc233">↓ stroke volume · ↓ CO</text>
+
+        <rect x="444" y="6" width="410" height="208" rx="16" fill="rgba(18,184,134,.16)" stroke="#12b886" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="460" y="34" font-size="16" font-weight="900" fill="#a5f3d4">➕ POSITIVE inotropic</text>
+        <text x="460" y="52" font-size="12.5" font-style="italic" fill="#d8fff0">stronger squeeze</text>
+        <path d="M636 72 C 616 50 578 58 576 92 C 574 126 616 156 636 174 C 656 156 698 126 696 92 C 694 58 656 50 636 72 Z" fill="#12b886" stroke="#fff" stroke-width="2.5"/>
+        <path d="M706 118 l36 0" stroke="#ffc233" stroke-width="7" stroke-linecap="round"/>
+        <path d="M742 106 l20 12 l-20 12 z" fill="#ffc233"/>
+        <text x="500" y="196" font-size="13.5" font-weight="800" fill="#ffc233">↑ stroke volume · ↑ CO</text>
+      </svg>
+      <div class="mn">🧠 <b>"Ino = the squeeze."</b> Positive inotropes are the drugs you reach for when the heart isn't squeezing hard enough (cardiogenic shock, acute HF).</div>
+    </div>
+
+    <div class="card tealc">
+      <h3>⏱️ Chronotropic — heart rate</h3>
+      <p><b>Chrono-</b> = time (chronology). Chronotropic effects change <b>how many times per minute</b> the heart beats — driven mainly by the <b>SA node</b>.</p>
+      <svg viewBox="0 0 860 220" role="img" aria-label="Two heart rate strips comparing chronotropic effect: widely spaced beats representing negative chronotropic effect and a slower rate, versus closely spaced beats representing positive chronotropic effect and a faster rate">
+        <rect x="6" y="6" width="410" height="208" rx="16" fill="rgba(255,59,107,.16)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="22" y="34" font-size="16" font-weight="900" fill="#ff9db4">➖ NEGATIVE chronotropic</text>
+        <text x="22" y="52" font-size="12.5" font-style="italic" fill="#ffd9e2">slower rate — beats far apart</text>
+        <line x1="24" y1="130" x2="392" y2="130" stroke="#ffd9e2" stroke-width="2"/>
+        <path d="M24 130 L96 130 L104 92 L112 150 L120 130 L192 130 L200 92 L208 150 L216 130 L288 130 L296 92 L304 150 L312 130 L392 130" fill="none" stroke="#ff3b6b" stroke-width="3"/>
+        <text x="60" y="188" font-size="14" font-weight="900" fill="#ffc233">~50 bpm example</text>
+
+        <rect x="444" y="6" width="410" height="208" rx="16" fill="rgba(18,184,134,.16)" stroke="#12b886" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="460" y="34" font-size="16" font-weight="900" fill="#a5f3d4">➕ POSITIVE chronotropic</text>
+        <text x="460" y="52" font-size="12.5" font-style="italic" fill="#d8fff0">faster rate — beats close together</text>
+        <line x1="462" y1="130" x2="830" y2="130" stroke="#eafff7" stroke-width="2"/>
+        <path d="M462 130 L490 130 L496 92 L502 150 L508 130 L536 130 L542 92 L548 150 L554 130 L582 130 L588 92 L594 150 L600 130 L628 130 L634 92 L640 150 L646 130 L674 130 L680 92 L686 150 L692 130 L720 130 L726 92 L732 150 L738 130 L766 130 L772 92 L778 150 L784 130 L812 130 L818 92 L824 150 L830 130" fill="none" stroke="#12b886" stroke-width="3"/>
+        <text x="500" y="188" font-size="14" font-weight="900" fill="#ffc233">~120 bpm example</text>
+      </svg>
+      <div class="mn">🧠 <b>"Chrono = the clock."</b> Positive chronotropes speed the clock (atropine, epinephrine); negative chronotropes slow it (beta blockers, digoxin).</div>
+    </div>
+
+    <div class="card tealc span2">
+      <h3>🛣️ Dromotropic — conduction speed through the AV node</h3>
+      <p><b>Dromo-</b> = running/racetrack (like a <i>hippodrome</i>). Dromotropic effects change <b>how fast the electrical signal travels through the AV node</b> on its way from the atria to the ventricles — the AV node is the "gatekeeper" between them.</p>
+      <svg viewBox="0 0 860 240" role="img" aria-label="Two panels showing electrical conduction from the SA node through a narrowed AV node gate for negative dromotropic effect and slower conduction, versus a wide-open AV node gate for positive dromotropic effect and faster conduction, both leading to the bundle branches and ventricles">
+        <rect x="6" y="6" width="410" height="228" rx="16" fill="rgba(255,59,107,.16)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="22" y="32" font-size="16" font-weight="900" fill="#ff9db4">➖ NEGATIVE dromotropic</text>
+        <text x="22" y="50" font-size="12.5" font-style="italic" fill="#ffd9e2">AV node gate narrows — slower crossing</text>
+        <circle cx="60" cy="100" r="16" fill="#ffc233"/><text x="30" y="86" font-size="11.5" fill="#ffe49a">SA node</text>
+        <path d="M76 100 L150 100" stroke="#ffd9e2" stroke-width="2.5"/>
+        <rect x="150" y="84" width="26" height="32" rx="6" fill="#ff3b6b" stroke="#fff" stroke-width="2"/>
+        <text x="118" y="140" font-size="11.5" fill="#ffe49a">AV node</text>
+        <text x="118" y="156" font-size="11.5" font-weight="900" fill="#ff9db4">(narrow gate)</text>
+        <path d="M176 100 L214 100" stroke="#ffd9e2" stroke-width="1.5" stroke-dasharray="3 4"/>
+        <path d="M214 100 L214 176 M214 100 L214 60" stroke="#ffd9e2" stroke-width="2"/>
+        <path d="M214 176 L260 190 M214 60 L260 46" stroke="#ffd9e2" stroke-width="2"/>
+        <text x="250" y="30" font-size="11.5" fill="#ffe49a">Ventricles</text>
+        <text x="30" y="200" font-size="13" font-weight="800" fill="#ffc233">slower signal → protective rate</text>
+        <text x="30" y="216" font-size="13" font-weight="800" fill="#ffc233">control, risk of heart block</text>
+
+        <rect x="444" y="6" width="410" height="228" rx="16" fill="rgba(18,184,134,.16)" stroke="#12b886" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="460" y="32" font-size="16" font-weight="900" fill="#a5f3d4">➕ POSITIVE dromotropic</text>
+        <text x="460" y="50" font-size="12.5" font-style="italic" fill="#d8fff0">AV node gate widens — faster crossing</text>
+        <circle cx="498" cy="100" r="16" fill="#ffc233"/><text x="468" y="86" font-size="11.5" fill="#ffe49a">SA node</text>
+        <path d="M514 100 L588 100" stroke="#eafff7" stroke-width="2.5"/>
+        <rect x="588" y="80" width="26" height="40" rx="6" fill="#12b886" stroke="#fff" stroke-width="2"/>
+        <text x="556" y="140" font-size="11.5" fill="#d8fff0">AV node</text>
+        <text x="556" y="156" font-size="11.5" font-weight="900" fill="#a5f3d4">(wide gate)</text>
+        <path d="M614 100 L652 100" stroke="#eafff7" stroke-width="2.5"/>
+        <path d="M652 100 L652 176 M652 100 L652 60" stroke="#eafff7" stroke-width="2.5"/>
+        <path d="M652 176 L698 190 M652 60 L698 46" stroke="#eafff7" stroke-width="2.5"/>
+        <text x="688" y="30" font-size="11.5" fill="#d8fff0">Ventricles</text>
+        <text x="468" y="200" font-size="13" font-weight="800" fill="#ffc233">faster signal → risk of rapid</text>
+        <text x="468" y="216" font-size="13" font-weight="800" fill="#ffc233">ventricular response if atria are chaotic</text>
+      </svg>
+      <div class="mn">🧠 <b>"Dromo = the road."</b> Think <i>hippodrome</i> — a racetrack. Negative dromotropes put up a toll booth at the AV node; positive dromotropes open the highway.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🔤 Word roots — why the syllables mean what they mean</h3>
+      <ul class="tick">
+        <li><b>Ino-</b> — Greek <i>is / inos</i>, "fiber, muscle" → <b>force</b> of the squeeze</li>
+        <li><b>Chrono-</b> — Greek <i>chronos</i>, "time" → <b>rate</b>, the clock</li>
+        <li><b>Dromo-</b> — Greek <i>dromos</i>, "running, racetrack" → <b>speed</b> through the AV node</li>
+        <li><b>-tropic</b> — "turning toward, affecting"</li>
+      </ul>
+      <div class="mn">🧠 <b>"Force, Clock, Track."</b> Three roots, three totally separate jobs — never let one drug's effect on one blur into your answer for another.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DIRECTIONS ============ -->
+<section id="directions">
+  <div class="sec-h"><span class="icon">↕️</span><h2>DIRECTIONS</h2><span class="step">STEP 2 · POSITIVE vs NEGATIVE</span></div>
+  <p class="sec-sub">Same three words, opposite arrows — and why a nurse actually cares which way each one points.</p>
+
+  <div class="grid">
+    <div class="card sapphire span2">
+      <h3>↕️ Positive vs negative, side by side</h3>
+      <table>
+        <tr><th style="width:16%">Property</th><th class="up" style="width:28%">POSITIVE (↑)</th><th class="lo" style="width:28%">NEGATIVE (↓)</th><th style="width:28%">Clinical relevance</th></tr>
+        <tr><td><b>Inotropic</b><br><i>force</i></td><td>↑ contractility → ↑ stroke volume &amp; CO</td><td>↓ contractility → ↓ stroke volume &amp; CO</td><td>Positive inotropes support a failing pump (cardiogenic shock, acute HF); negative inotropes reduce myocardial oxygen demand</td></tr>
+        <tr><td><b>Chronotropic</b><br><i>rate</i></td><td>↑ heart rate</td><td>↓ heart rate</td><td>Positive chronotropes treat symptomatic bradycardia; negative chronotropes treat tachyarrhythmias &amp; reduce cardiac workload</td></tr>
+        <tr><td><b>Dromotropic</b><br><i>AV node speed</i></td><td>↑ conduction speed</td><td>↓ conduction speed</td><td>Negative dromotropes are how we rate-control atrial fibrillation/flutter and terminate SVT; positive dromotropes risk rapid ventricular response</td></tr>
+      </table>
+      <div class="mn">🧠 <b>Force, rate, and speed can move independently.</b> That's exactly why digoxin (↑ force, ↓ rate, ↓ speed) is the drug that trips people up — see the TABLE section below.</div>
+    </div>
+
+    <svg viewBox="0 0 900 260" role="img" aria-label="Three gauge dials summarizing positive and negative direction for inotropic, chronotropic, and dromotropic effects, each needle able to point left for negative or right for positive" class="span2" style="grid-column:1/-1">
+      <rect x="6" y="6" width="888" height="248" rx="16" fill="rgba(13,8,26,.55)" stroke="rgba(255,255,255,.3)" stroke-width="1.5"/>
+      <text x="24" y="34" font-size="15" font-weight="900" fill="#fff">The three dials — every drug in this topic just sets these three needles</text>
+
+      <!-- gauge 1 -->
+      <g>
+        <path d="M110 190 A80 80 0 0 1 270 190" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="14"/>
+        <path d="M110 190 A80 80 0 0 1 190 110" fill="none" stroke="#ff3b6b" stroke-width="14"/>
+        <path d="M190 110 A80 80 0 0 1 270 190" fill="none" stroke="#12b886" stroke-width="14"/>
+        <line x1="190" y1="190" x2="150" y2="140" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+        <circle cx="190" cy="190" r="7" fill="#fff"/>
+        <text x="150" y="222" font-size="14.5" font-weight="900" fill="#eafff7" text-anchor="middle">INOTROPIC</text>
+        <text x="150" y="240" font-size="11.5" fill="#d8fff0" text-anchor="middle">force of squeeze</text>
+      </g>
+      <!-- gauge 2 -->
+      <g>
+        <path d="M360 190 A80 80 0 0 1 520 190" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="14"/>
+        <path d="M360 190 A80 80 0 0 1 440 110" fill="none" stroke="#ff3b6b" stroke-width="14"/>
+        <path d="M440 110 A80 80 0 0 1 520 190" fill="none" stroke="#12b886" stroke-width="14"/>
+        <line x1="440" y1="190" x2="490" y2="132" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+        <circle cx="440" cy="190" r="7" fill="#fff"/>
+        <text x="440" y="222" font-size="14.5" font-weight="900" fill="#eafff7" text-anchor="middle">CHRONOTROPIC</text>
+        <text x="440" y="240" font-size="11.5" fill="#d8fff0" text-anchor="middle">heart rate</text>
+      </g>
+      <!-- gauge 3 -->
+      <g>
+        <path d="M610 190 A80 80 0 0 1 770 190" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="14"/>
+        <path d="M610 190 A80 80 0 0 1 690 110" fill="none" stroke="#ff3b6b" stroke-width="14"/>
+        <path d="M690 110 A80 80 0 0 1 770 190" fill="none" stroke="#12b886" stroke-width="14"/>
+        <line x1="690" y1="190" x2="650" y2="140" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+        <circle cx="690" cy="190" r="7" fill="#fff"/>
+        <text x="690" y="222" font-size="14.5" font-weight="900" fill="#eafff7" text-anchor="middle">DROMOTROPIC</text>
+        <text x="690" y="240" font-size="11.5" fill="#d8fff0" text-anchor="middle">AV node speed</text>
+      </g>
+      <text x="24" y="255" font-size="11.5" font-style="italic" fill="#efe6ff">🔴 left = negative (↓) &nbsp;&nbsp; 🟢 right = positive (↑)</text>
+    </svg>
+
+    <div class="card ruby">
+      <h3>🚨 The digoxin hold parameter comes from this page</h3>
+      <p>Digoxin is <b>negative chronotropic</b> — it slows the heart on purpose. That's exactly why you check an <b>apical pulse for a full minute</b> before giving it, and <span class="never">hold the dose and notify the provider if the apical pulse is below <span class="mono">60 bpm</span></span> in an adult.</p>
+      <div class="mn">🧠 <b>Slow drug + slow heart = don't stack them.</b> The chronotropic direction of the drug <i>is</i> the nursing safety check.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>⚠️ NCLEX trap: stacking negative drugs</h3>
+      <p>Digoxin + a beta blocker, or digoxin + a non-dihydropyridine CCB (verapamil/diltiazem), <span class="never">both push chronotropic and dromotropic effects further negative</span> — additive risk of severe bradycardia or heart block.</p>
+      <div class="mn">🧠 If two drugs both live on the "negative" side of the same dial, expect the effect to add up — not cancel out.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE TABLE ============ -->
+<section id="table">
+  <div class="sec-h"><span class="icon">📋</span><h2>THE MASTER TABLE</h2><span class="step">STEP 3 · EVERY DRUG, ONE GLANCE</span></div>
+  <p class="sec-sub">This is the page. Every arrow below is the reason a cardiac drug is prescribed — or the reason it's dangerous in combination.</p>
+
+  <div class="grid">
+    <div class="card topaz span2">
+      <h3>⭐ Core six — the drugs you'll see constantly</h3>
+      <table class="master">
+        <tr><th style="width:20%">Drug</th><th style="width:18%">Inotropic</th><th style="width:18%">Chronotropic</th><th style="width:18%">Dromotropic</th><th style="width:26%">Why / when</th></tr>
+        <tr>
+          <td><b>Digoxin</b><br><i>cardiac glycoside</i></td>
+          <td><span class="dir up2">↑ Positive</span></td>
+          <td><span class="dir dn2">↓ Negative</span></td>
+          <td><span class="dir dn2">↓ Negative</span></td>
+          <td>Boosts contractility for HF while slowing rate/AV conduction for rate control in AFib — the classic "mixed" drug</td>
+        </tr>
+        <tr>
+          <td><b>Beta blockers</b><br><i>e.g. metoprolol, atenolol</i></td>
+          <td><span class="dir dn2">↓ Negative</span></td>
+          <td><span class="dir dn2">↓ Negative</span></td>
+          <td><span class="dir dn2">↓ Negative</span></td>
+          <td>Block beta-1 → all three go down together; reduces myocardial oxygen demand and rate-controls arrhythmias</td>
+        </tr>
+        <tr>
+          <td><b>Calcium channel blockers</b><br><i>non-dihydropyridine — verapamil, diltiazem</i></td>
+          <td><span class="dir dn2">↓ Negative</span></td>
+          <td><span class="dir dn2">↓ Negative</span></td>
+          <td><span class="dir dn2">↓ Negative</span></td>
+          <td>Same "all three down" pattern as beta blockers — used for rate control in AFib/SVT</td>
+        </tr>
+        <tr>
+          <td><b>Calcium channel blockers</b><br><i>dihydropyridine — amlodipine, nifedipine</i></td>
+          <td><span class="dir na">— minimal</span></td>
+          <td><span class="dir vary">↕ possible reflex ↑</span></td>
+          <td><span class="dir na">— minimal</span></td>
+          <td>Mainly vasodilate peripheral vessels, not the heart itself — reflex tachycardia can occur from BP dropping fast</td>
+        </tr>
+        <tr>
+          <td><b>Epinephrine</b></td>
+          <td><span class="dir up2">↑ Positive</span></td>
+          <td><span class="dir up2">↑ Positive</span></td>
+          <td><span class="dir up2">↑ Positive</span></td>
+          <td>Beta-1 agonist — pushes all three up together; used in cardiac arrest, anaphylaxis, symptomatic bradycardia</td>
+        </tr>
+        <tr>
+          <td><b>Atropine</b></td>
+          <td><span class="dir na">— minimal</span></td>
+          <td><span class="dir up2">↑ Positive</span></td>
+          <td><span class="dir up2">↑ Positive</span></td>
+          <td>Anticholinergic — blocks vagal tone on the SA/AV nodes; first-line for symptomatic bradycardia. No significant direct effect on contractile force</td>
+        </tr>
+        <tr>
+          <td><b>Adenosine</b></td>
+          <td><span class="dir na">— minimal</span></td>
+          <td><span class="dir dn2">↓ Negative (brief)</span></td>
+          <td><span class="dir dn2">↓↓ Negative (profound)</span></td>
+          <td>Transiently blocks the AV node almost completely — that block is the entire mechanism for terminating SVT</td>
+        </tr>
+      </table>
+      <div class="mn">🧠 <b>"Same direction" is the default; digoxin is the exception.</b> Beta blockers, non-DHP CCBs, and epinephrine each move all three arrows the same way. Digoxin and atropine are the ones where the arrows split — that split is exactly what gets tested.</div>
+    </div>
+
+    <div class="card deep span2">
+      <h3>➕ Bonus drugs from the original source graphic</h3>
+      <table>
+        <tr><th style="width:20%">Drug</th><th style="width:18%">Inotropic</th><th style="width:18%">Chronotropic</th><th style="width:18%">Dromotropic</th><th style="width:26%">Why / when</th></tr>
+        <tr><td><b>Dobutamine</b></td><td><span class="dir up2">↑↑ Positive</span></td><td><span class="dir up2">↑ Positive (mild)</span></td><td><span class="dir up2">↑ Positive (mild)</span></td><td>Beta-1 selective — main job is boosting contractility in cardiogenic shock/acute HF, rate effect is a side effect to watch</td></tr>
+        <tr><td><b>Dopamine</b></td><td><span class="dir vary">↕ dose-dependent</span></td><td><span class="dir vary">↕ dose-dependent</span></td><td><span class="dir vary">↕ dose-dependent</span></td><td>Low dose = mostly renal/mesenteric vasodilation; higher doses recruit beta-1 (↑ force &amp; rate) then alpha-1 (vasoconstriction)</td></tr>
+        <tr><td><b>Amiodarone</b></td><td><span class="dir na">— to mild ↓</span></td><td><span class="dir dn2">↓ Negative</span></td><td><span class="dir dn2">↓ Negative</span></td><td>Class III antiarrhythmic; slows rate &amp; conduction with comparatively little effect on contractility versus other antiarrhythmics</td></tr>
+        <tr><td><b>IV calcium</b><br><i>chloride/gluconate</i></td><td><span class="dir up2">↑ Positive</span></td><td><span class="dir na">— minimal</span></td><td><span class="dir na">— minimal</span></td><td>Calcium is required for excitation-contraction coupling — giving it directly can boost contractility (e.g. hyperkalemia, CCB overdose)</td></tr>
+      </table>
+      <p style="margin-top:8px">No doses are listed here on purpose — always confirm exact dosing against your course materials and current orders/protocol.</p>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🧪 Dihydropyridine vs non-dihydropyridine CCBs</h3>
+      <p>Not all CCBs behave the same on this table. <b>Non-dihydropyridines</b> (verapamil, diltiazem) act directly on the heart — negative triad, just like a beta blocker. <b>Dihydropyridines</b> (amlodipine, nifedipine) mainly relax peripheral vessels and have little direct cardiac effect.</p>
+      <div class="mn">🧠 Full mechanism and teaching for both types live on the <b>Calcium Channel Blockers</b> page — this table is only the ino/chrono/dromo summary.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🎯 The one anchor to memorize first</h3>
+      <svg viewBox="0 0 620 220" role="img" aria-label="Diagram anchoring digoxin's unique profile: one arrow pointing up for positive inotropic effect and two arrows pointing down for negative chronotropic and negative dromotropic effects">
+        <rect x="6" y="6" width="608" height="208" rx="16" fill="rgba(13,8,26,.35)" stroke="rgba(0,0,0,.3)" stroke-width="1.5"/>
+        <text x="24" y="34" font-size="16" font-weight="900" fill="#3d1a00">DIGOXIN — the drug that splits</text>
+        <path d="M110 170 L110 70" stroke="#0a5c3d" stroke-width="10" stroke-linecap="round"/>
+        <path d="M92 92 L110 58 L128 92 Z" fill="#0a5c3d"/>
+        <text x="60" y="196" font-size="13" font-weight="900" fill="#3d1a00">INOTROPIC ↑</text>
+
+        <path d="M300 70 L300 170" stroke="#7a0022" stroke-width="10" stroke-linecap="round"/>
+        <path d="M282 148 L300 182 L318 148 Z" fill="#7a0022"/>
+        <text x="248" y="196" font-size="13" font-weight="900" fill="#3d1a00">CHRONOTROPIC ↓</text>
+
+        <path d="M490 70 L490 170" stroke="#7a0022" stroke-width="10" stroke-linecap="round"/>
+        <path d="M472 148 L490 182 L508 148 Z" fill="#7a0022"/>
+        <text x="436" y="196" font-size="13" font-weight="900" fill="#3d1a00">DROMOTROPIC ↓</text>
+      </svg>
+      <div class="mn">🧠 <b>"Stronger, but slower and steadier."</b> One arrow up (force), two arrows down (rate &amp; conduction) — that's digoxin's whole personality in one picture.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">💪 Ino = force</span>⏱️ Chrono = rate · 🛣️ Dromo = AV node speed.</div>
+    <div class="rc rubybg"><span class="big">➕ / ➖</span>Positive = more/faster. Negative = less/slower. Same word, opposite arrow.</div>
+    <div class="rc tealbg"><span class="big">📋 Beta blockers &amp; non-DHP CCBs</span>All three arrows down together — the "matched negative" pattern.</div>
+    <div class="rc topazbg"><span class="big">📋 Digoxin &amp; atropine</span>The two drugs where the arrows don't all point the same way.</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 4 rapid-fire questions</summary>
+      <div class="qa">Q1: What does "dromotropic" mean, and where does the effect happen? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">The speed of electrical conduction through the AV node — the gatekeeper between the atria and ventricles.</div></div>
+      <div class="qa">Q2: A patient is on digoxin. What are its three effects? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Positive inotropic (↑ contractility), negative chronotropic (↓ heart rate), negative dromotropic (↓ AV conduction) — the one drug where the arrows split.</div></div>
+      <div class="qa">Q3: Why is adenosine effective at terminating SVT? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">It is profoundly negative dromotropic — it transiently blocks conduction through the AV node almost completely, interrupting the reentry circuit.</div></div>
+      <div class="qa">Q4: Before giving digoxin, what apical pulse threshold makes a nurse hold the dose and notify the provider in an adult? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Below 60 bpm — because digoxin is already negative chronotropic, stacking it on an already-slow heart risks further bradycardia.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">DEFINE</span>→
+    <span style="background:rgba(47,107,255,.7)">DIRECTIONS</span>→
+    <span style="background:rgba(18,184,134,.7)">TABLE</span>
+  </div>
+  <div>NG-152 · Source wording retained · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>

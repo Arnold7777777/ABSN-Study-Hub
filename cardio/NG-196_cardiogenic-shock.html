@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cardiogenic Shock · NG-196 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+
+/* ---------- appended for this page ---------- */
+nav a.c5{background:rgba(0,194,199,.72);color:#00252b}
+#stages .sec-h h2{color:#ffd9b8} #stages .step{background:var(--citrine);color:#2b1200}
+.hdr-sm th{font-size:.78rem}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#cause">🧨 Cause</a>
+  <a class="c2" href="#clues">🔎 Clues</a>
+  <a class="c5" href="#stages">🪜 4 Stages</a>
+  <a class="c3" href="#care">🩺 Care</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Cardio · Pathophysiology Course</div>
+  <h1>Cardiogenic Shock <span class="drop">🫀</span></h1>
+  <p class="sub">The PUMP is broken — CARDIOgenic = CARDIAC fails</p>
+  <div class="chips">
+    <span class="chip id">NG-196</span>
+    <span class="chip cat">Cardio · Shock</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede"><b>The heart fails to pump blood out of the heart and to the body</b> — like in a <b>heart attack where heart muscle DIES</b>, or a <b>heart failure exacerbation</b>. The tank is full. The pipes are fine. <i>The motor quit.</i> That is why this is the <b>only shock with a HIGH preload</b> — and the only one you must not flood with fluid.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">🫀 CARDIOgenic = CARDIAC fails</span>Preload <b>↑↑</b> · CO <b>↓↓</b> · SVR ↑ · skin <b>cold, clammy, mottled</b>.</div>
+  <div class="rc rubybg"><span class="big">📉 Watch the BP trend</span>Each set of vitals is <b>lower than the last</b> while the HR climbs. That trend <i>is</i> the diagnosis.</div>
+  <div class="rc topazbg"><span class="big">🎈 JVD + crackles</span>Blood backs up behind a failing pump: distended neck veins, wet lungs, S3, frothy pink sputum.</div>
+  <div class="rc tealbg"><span class="big">🧊💧 COLD &amp; WET</span>The classic profile. Cold = low output. Wet = congestion. <b>Do not bolus fluid.</b></div>
+</div>
+
+<!-- ============ CAUSE ============ -->
+<section id="cause">
+  <div class="sec-h"><span class="icon">🧨</span><h2>CAUSE</h2><span class="step">STEP 1 · THE MOTOR QUIT</span></div>
+  <p class="sec-sub">Something destroyed, stunned or disorganized the muscle — and the same volume that used to move forward now backs up.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🫀 Forward failure and backward failure — from one dead wall</h3>
+      <svg viewBox="-10 -10 615 420" role="img" aria-label="Heart diagram showing an infarcted left ventricular wall causing forward failure with low cardiac output to the body and backward failure with congestion into the lungs and neck veins">
+        <defs>
+          <linearGradient id="myoC" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ff6f8b"/><stop offset="1" stop-color="#c02255"/>
+          </linearGradient>
+          <marker id="aFwd" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/>
+          </marker>
+          <marker id="aBack" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#2f6bff"/>
+          </marker>
+        </defs>
+        <rect x="-6" y="-6" width="607" height="412" rx="16" fill="rgba(13,8,26,.42)" stroke="rgba(255,255,255,.3)" stroke-width="1.5"/>
+
+        <!-- lungs -->
+        <ellipse cx="126" cy="86" rx="46" ry="58" fill="rgba(47,107,255,.5)" stroke="#bcd0ff" stroke-width="2"/>
+        <ellipse cx="230" cy="86" rx="46" ry="58" fill="rgba(47,107,255,.5)" stroke="#bcd0ff" stroke-width="2"/>
+        <text x="94" y="82" font-size="15" font-weight="900" fill="#eaf1ff">LUNGS</text>
+        <text x="86" y="104" font-size="13" font-style="italic" fill="#bcd0ff">crackles · pink froth</text>
+        <circle cx="112" cy="112" r="6" fill="#9ff2ee"/><circle cx="148" cy="120" r="5" fill="#9ff2ee"/>
+        <circle cx="222" cy="114" r="6" fill="#9ff2ee"/><circle cx="252" cy="104" r="5" fill="#9ff2ee"/>
+
+        <!-- heart -->
+        <path d="M178 196 C 150 168 96 178 96 226 C 96 274 158 312 178 336 C 198 312 260 274 260 226 C 260 178 206 168 178 196 Z"
+              fill="url(#myoC)" stroke="#ffd9e2" stroke-width="2.5"/>
+        <path d="M178 196 C 200 176 244 180 254 212 C 232 200 202 208 186 226 Z" fill="#43424c"/>
+        <text x="196" y="204" font-size="13" font-weight="900" fill="#f0f0f0">DEAD</text>
+        <text x="192" y="220" font-size="13" font-weight="900" fill="#f0f0f0">MUSCLE</text>
+        <text x="118" y="262" font-size="16" font-weight="900" fill="#fff">LV</text>
+        <text x="106" y="284" font-size="12.5" font-style="italic" fill="#ffd9e2">can't squeeze</text>
+
+        <!-- backward arrow -->
+        <path d="M172 190 L150 148" stroke="#2f6bff" stroke-width="7" stroke-linecap="round" marker-end="url(#aBack)"/>
+        <text x="292" y="60" font-size="18" font-weight="900" fill="#bcd0ff">⬅️ BACKWARD FAILURE</text>
+        <text x="292" y="84" font-size="14.5" font-weight="800" fill="#dfe8ff">Blood can't move out, so it backs up:</text>
+        <text x="292" y="106" font-size="14.5" font-weight="800" fill="#dfe8ff">• Pulmonary congestion → crackles</text>
+        <text x="292" y="128" font-size="14.5" font-weight="800" fill="#dfe8ff">• JVD · high CVP · high PAWP</text>
+        <text x="292" y="150" font-size="14.5" font-weight="800" fill="#dfe8ff">• S3 gallop · frothy pink sputum</text>
+        <text x="292" y="172" font-size="14.5" font-weight="900" fill="#ffc233">= “WET”</text>
+
+        <!-- forward arrow -->
+        <path d="M264 250 L330 250" stroke="#ffc233" stroke-width="7" stroke-linecap="round" marker-end="url(#aFwd)"/>
+        <text x="292" y="222" font-size="18" font-weight="900" fill="#ffd9b8">➡️ FORWARD FAILURE</text>
+        <text x="292" y="284" font-size="14.5" font-weight="800" fill="#ffe9d6">Not enough blood reaches the body:</text>
+        <text x="292" y="306" font-size="14.5" font-weight="800" fill="#ffe9d6">• Hypotension · MAP &lt; 65</text>
+        <text x="292" y="328" font-size="14.5" font-weight="800" fill="#ffe9d6">• Cold, clammy, mottled skin</text>
+        <text x="292" y="350" font-size="14.5" font-weight="800" fill="#ffe9d6">• Confusion · urine &lt; 30 mL/hr</text>
+        <text x="292" y="372" font-size="14.5" font-weight="900" fill="#ffc233">= “COLD”</text>
+
+        <!-- body -->
+        <circle cx="72" cy="330" r="20" fill="rgba(157,92,255,.55)" stroke="#d9c2ff" stroke-width="2"/>
+        <text x="34" y="368" font-size="14" font-weight="900" fill="#d9c2ff">starved body</text>
+      </svg>
+      <p style="margin-top:10px"><mark>One failing ventricle produces both problems at once</mark> — that is why the cardiogenic patient is <b>hypotensive AND fluid-overloaded</b> at the same time, a combination no other shock produces.</p>
+      <div class="mn">🧠 <b>“Cold in front, wet behind.”</b> In front of the pump: nothing gets delivered (cold skin, low BP, no urine). Behind the pump: everything piles up (JVD, crackles, S3).</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🚨 What breaks the pump</h3>
+      <ul class="tick">
+        <li>💔 <b>Myocardial infarction — the #1 cause.</b> Heart tissue <b>dies</b> and stops contracting (classically a large anterior/LV infarct)</li>
+        <li>🫀 <b>Heart failure exacerbation</b> — already-weak muscle decompensates</li>
+        <li>⚡ <b>Lethal dysrhythmias</b> — VT, rapid AF, complete heart block: no organized squeeze, no output</li>
+        <li>🎈 <b>Acute valve failure</b> — papillary muscle rupture → sudden mitral regurgitation</li>
+        <li>🕳️ <b>Ventricular septal rupture</b> post-MI</li>
+        <li>🦠 <b>Myocarditis</b> or <b>cardiomyopathy</b></li>
+        <li>💊 <b>Overdose</b> of beta-blockers or calcium channel blockers</li>
+      </ul>
+      <div class="mn">🧠 <b>“MI, muscle, rhythm, valve.”</b> Four ways a pump quits: the muscle <i>dies</i>, the muscle is <i>tired</i>, the rhythm is <i>chaos</i>, or a <i>part falls off</i>.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🔬 Mechanism: the death spiral</h3>
+      <div class="flow">
+        <div class="fstep">💔 Heart muscle dies or fails</div>
+        <div class="farrow">▼</div>
+        <div class="fstep">📉 <b>Stroke volume ↓ → cardiac output ↓</b></div>
+        <div class="farrow">▼</div>
+        <div class="fstep">🩸 BP falls → <b>coronary arteries get less blood too</b></div>
+        <div class="farrow">▼</div>
+        <div class="fstep">💔 <b>More muscle becomes ischemic</b></div>
+        <div class="farrow">▼</div>
+        <div class="fstep hot">🌀 Output falls further — <b>the loop feeds itself</b></div>
+      </div>
+      <p style="margin-top:10px">Meanwhile the SNS raises HR and SVR to defend the BP — which raises myocardial oxygen demand on a heart that already can't get oxygen. <b>Compensation makes it worse.</b></p>
+      <div class="mn">🧠 <b>“The heart steals from itself.”</b> Coronary arteries fill during <i>diastole</i> from aortic pressure. When BP falls, the pump's own supply line is the first thing cut off.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLUES ============ -->
+<section id="clues">
+  <div class="sec-h"><span class="icon">🔎</span><h2>CLUES</h2><span class="step">STEP 2 · READ THE TREND</span></div>
+  <p class="sec-sub">One set of vitals means nothing. Four sets in a row, each worse than the last — that's cardiogenic shock announcing itself.</p>
+
+  <div class="grid">
+    <div class="card topaz span2">
+      <h3>⭐ The exhibit question: <b>just look at the blood pressure</b></h3>
+      <p>Classic stem — a client with an <b>MI confirmed by elevated troponin</b>. Which complication should the nurse report? Open the exhibit and <mark>the blood pressure goes lower and lower</mark> while the pulse and respirations climb.</p>
+      <svg viewBox="-10 -10 636 320" role="img" aria-label="Chart of four sets of vital signs fifteen minutes apart showing systolic blood pressure falling from 140 to 88 while heart rate rises from 92 to 118 and respiratory rate rises from 24 to 32">
+        <rect x="52" y="14" width="452" height="184" rx="10" fill="rgba(13,8,26,.5)" stroke="rgba(0,0,0,.35)" stroke-width="1.5"/>
+        <line x1="52" y1="198" x2="504" y2="198" stroke="#231a02" stroke-width="2"/>
+        <!-- BP bars -->
+        <rect x="76" y="46" width="42" height="152" rx="6" fill="#2f6bff"/>
+        <rect x="186" y="66" width="42" height="132" rx="6" fill="#2f6bff"/>
+        <rect x="296" y="98" width="42" height="100" rx="6" fill="#ff8a3d"/>
+        <rect x="406" y="126" width="42" height="72" rx="6" fill="#c02255"/>
+        <text x="70" y="38" font-size="14.5" font-weight="900" fill="#231a02">140/88</text>
+        <text x="180" y="58" font-size="14.5" font-weight="900" fill="#231a02">128/82</text>
+        <text x="290" y="90" font-size="14.5" font-weight="900" fill="#231a02">104/68</text>
+        <text x="398" y="118" font-size="14.5" font-weight="900" fill="#c02255">88/58</text>
+        <!-- HR line -->
+        <path d="M97 168 L207 160 L317 144 L427 118" fill="none" stroke="#ff3b6b" stroke-width="4.5" stroke-linecap="round"/>
+        <circle cx="97" cy="168" r="5.5" fill="#ff3b6b"/><circle cx="207" cy="160" r="5.5" fill="#ff3b6b"/>
+        <circle cx="317" cy="144" r="5.5" fill="#ff3b6b"/><circle cx="427" cy="118" r="5.5" fill="#ff3b6b"/>
+        <text x="452" y="112" font-size="13.5" font-weight="900" fill="#ff3b6b">HR ↑</text>
+        <text x="60" y="222" font-size="13.5" font-weight="900" fill="#231a02">11:00</text>
+        <text x="170" y="222" font-size="13.5" font-weight="900" fill="#231a02">11:15</text>
+        <text x="280" y="222" font-size="13.5" font-weight="900" fill="#231a02">11:30</text>
+        <text x="390" y="222" font-size="13.5" font-weight="900" fill="#231a02">11:45</text>
+        <text x="60" y="248" font-size="13.5" font-weight="800" fill="#231a02">HR 92</text>
+        <text x="170" y="248" font-size="13.5" font-weight="800" fill="#231a02">96</text>
+        <text x="280" y="248" font-size="13.5" font-weight="800" fill="#231a02">104</text>
+        <text x="390" y="248" font-size="13.5" font-weight="800" fill="#231a02">118</text>
+        <text x="60" y="272" font-size="13.5" font-weight="800" fill="#231a02">RR 24</text>
+        <text x="170" y="272" font-size="13.5" font-weight="800" fill="#231a02">26</text>
+        <text x="280" y="272" font-size="13.5" font-weight="800" fill="#231a02">28</text>
+        <text x="390" y="272" font-size="13.5" font-weight="800" fill="#231a02">32</text>
+        <text x="60" y="294" font-size="14" font-weight="900" fill="#c02255">BP DOWN · HR UP · RR UP = CARDIOGENIC SHOCK → alert the provider</text>
+      </svg>
+      <div class="mn">🧠 <b>“Down, down, down.”</b> If the exhibit gives you a column of blood pressures and each is lower than the one above it after an MI, the answer is <b>cardiogenic shock</b> — nothing else in that stem produces a steady downhill BP.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🚨 Signs &amp; symptoms</h3>
+      <ul class="tick">
+        <li>📉 <b>Sustained hypotension</b> — often <span class="mono">SBP &lt; 90</span>, MAP <span class="mono">&lt; 65</span></li>
+        <li>💓 <b>Tachycardia <span class="mono">&gt; 100/min</span></b> and <b>dysrhythmias</b> <span class="tip">NCLEX TIP</span></li>
+        <li>🥶 <b>Cold, clammy, mottled skin</b>; cap refill <span class="mono">&gt; 3 sec</span>; weak thready pulse</li>
+        <li>🎈 <b>JVD</b> — distended neck veins</li>
+        <li>🫁 <b>Crackles</b>, dyspnea, orthopnea, <b>frothy pink-tinged sputum</b></li>
+        <li>🔊 <b>S3 gallop</b> — the sound of a volume-overloaded ventricle</li>
+        <li>😖 <b>Chest pain</b>, anxiety, sense of impending doom</li>
+        <li>🧠 <b>Confusion, restlessness</b> → lethargy</li>
+        <li>🚽 <b>Urine <span class="mono">&lt; 30 mL/hr</span></b></li>
+      </ul>
+      <div class="mn">🧠 <b>“Cold hands, wet lungs, fat neck.”</b> Three findings you can get in ten seconds at the bedside — and together they mean the pump, not the tank.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🧪 Diagnostics &amp; numbers</h3>
+      <ul class="tick">
+        <li>🧪 <b>Troponin</b> — elevated confirms myocardial injury</li>
+        <li>📈 <b>12-lead ECG</b> — ST elevation, new LBBB, dysrhythmia</li>
+        <li>🫀 <b>Echocardiogram</b> — ejection fraction, wall motion, valve rupture <i>(normal EF <span class="mono">55–70%</span>)</i></li>
+        <li>🩻 <b>Chest X-ray</b> — pulmonary edema, enlarged heart</li>
+        <li>🧫 <b>BNP</b> — elevated with volume overload/HF</li>
+        <li>🧪 <b>Lactate ↑</b>, metabolic acidosis on ABG</li>
+        <li>📟 <b>Hemodynamics:</b> <b>PAWP <span class="mono">&gt; 18 mmHg</span></b>, <b>cardiac index <span class="mono">&lt; 2.2 L/min/m²</span></b>, <b>SVR ↑</b></li>
+      </ul>
+      <div class="mn">🧠 <b>High wedge + low index = cardiogenic.</b> "Wedge" (PAWP) is a window onto the left atrium — high wedge means the left ventricle isn't emptying.</div>
+    </div>
+
+    <div class="card tealc span2">
+      <h3>🧊💧 The COLD &amp; WET quadrant — where cardiogenic shock lives</h3>
+      <svg viewBox="0 0 520 380" role="img" aria-label="Four quadrant grid of heart failure profiles: warm and dry is compensated, warm and wet is congestion with adequate perfusion, cold and dry is low output without congestion, and cold and wet is cardiogenic shock">
+        <rect x="60" y="30" width="200" height="150" rx="12" fill="rgba(18,184,134,.55)" stroke="#eafff7" stroke-width="2"/>
+        <rect x="266" y="30" width="200" height="150" rx="12" fill="rgba(255,194,51,.6)" stroke="#eafff7" stroke-width="2"/>
+        <rect x="60" y="186" width="200" height="150" rx="12" fill="rgba(255,138,61,.6)" stroke="#eafff7" stroke-width="2"/>
+        <rect x="266" y="186" width="200" height="150" rx="12" fill="rgba(192,34,85,.75)" stroke="#ffc233" stroke-width="3.5"/>
+        <text x="76" y="62" font-size="17" font-weight="900" fill="#03291c">WARM &amp; DRY</text>
+        <text x="76" y="86" font-size="13.5" font-weight="800" fill="#03291c">Perfusing · no congestion</text>
+        <text x="76" y="108" font-size="13.5" font-weight="800" fill="#03291c">= compensated</text>
+        <text x="282" y="62" font-size="17" font-weight="900" fill="#231a02">WARM &amp; WET</text>
+        <text x="282" y="86" font-size="13.5" font-weight="800" fill="#231a02">Perfusing but congested</text>
+        <text x="282" y="108" font-size="13.5" font-weight="800" fill="#231a02">= diurese</text>
+        <text x="76" y="218" font-size="17" font-weight="900" fill="#2b1200">COLD &amp; DRY</text>
+        <text x="76" y="242" font-size="13.5" font-weight="800" fill="#2b1200">Low output, no congestion</text>
+        <text x="76" y="264" font-size="13.5" font-weight="800" fill="#2b1200">= may need volume</text>
+        <text x="282" y="218" font-size="17" font-weight="900" fill="#ffc233">COLD &amp; WET 🚨</text>
+        <text x="282" y="242" font-size="13.5" font-weight="900" fill="#fff">CARDIOGENIC SHOCK</text>
+        <text x="282" y="264" font-size="13.5" font-weight="800" fill="#ffd9e2">Low output + congestion</text>
+        <text x="282" y="286" font-size="13.5" font-weight="800" fill="#ffd9e2">= inotrope ± pressor,</text>
+        <text x="282" y="308" font-size="13.5" font-weight="800" fill="#ffd9e2">careful diuresis, revascularize</text>
+        <text x="10" y="106" font-size="14" font-weight="900" fill="#003b42">GOOD</text>
+        <text x="10" y="126" font-size="14" font-weight="900" fill="#003b42">perfusion</text>
+        <text x="10" y="262" font-size="14" font-weight="900" fill="#003b42">POOR</text>
+        <text x="10" y="282" font-size="14" font-weight="900" fill="#003b42">perfusion</text>
+        <text x="112" y="366" font-size="14" font-weight="900" fill="#003b42">DRY (no congestion)</text>
+        <text x="300" y="366" font-size="14" font-weight="900" fill="#003b42">WET (congested)</text>
+      </svg>
+      <div class="mn">🧠 <b>“Cold &amp; Wet = Cardiogenic.”</b> Both C-words. Cold skin (no forward flow) plus wet lungs (backward congestion) is the fingerprint that separates this from every other shock.</div>
+    </div>
+
+    <div class="card garnet span2">
+      <h3>📊 Where cardiogenic sits among the shocks</h3>
+      <table class="hdr-sm">
+        <tr><th style="width:25%">Type</th><th class="up">Preload<br>(CVP/PAWP)</th><th class="up">CO</th><th class="lo">SVR</th><th class="lo">Skin</th></tr>
+        <tr><td><b>Hypovolemic</b></td><td><b>↓↓</b></td><td><b>↓</b></td><td><b>↑</b></td><td>Cold, clammy, pale</td></tr>
+        <tr><td><b>Cardiogenic</b> ⬅️</td><td><b>↑↑</b></td><td><b>↓↓</b></td><td><b>↑</b></td><td>Cold, clammy, mottled</td></tr>
+        <tr><td><b>Septic — warm / early</b></td><td><b>↓</b></td><td><b>↑</b></td><td><b>↓↓</b></td><td>WARM, flushed, dry</td></tr>
+        <tr><td><b>Septic — cold / late</b></td><td><b>↓</b></td><td><b>↓</b></td><td><b>↑</b></td><td>Cold, clammy, mottled</td></tr>
+        <tr><td><b>Neurogenic</b></td><td><b>↓</b></td><td><b>↓</b></td><td><b>↓↓</b></td><td>WARM, dry, pink + <b>BRADYcardia</b></td></tr>
+        <tr><td><b>Anaphylactic</b></td><td><b>↓</b></td><td><b>↓</b></td><td><b>↓↓</b></td><td>WARM, flushed + hives / swelling</td></tr>
+      </table>
+      <p style="margin-top:8px"><mark>Cardiogenic is the only row with an UP arrow in the preload column.</mark></p>
+      <div class="mn">🧠 <b>Same cold skin, opposite neck.</b> Hypovolemic = flat neck veins. Cardiogenic = distended. That single finding tells you whether to give fluid or withhold it.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4 STAGES ============ -->
+<section id="stages">
+  <div class="sec-h"><span class="icon">🪜</span><h2>THE 4 STAGES</h2><span class="step">STEP 3 · STAGE IT</span></div>
+  <p class="sec-sub">Same four stages as every shock — here they are with the failing-pump patient's own findings written in.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🪜 The 4 stages of shock — identical on every shock page</h3>
+      <table>
+        <tr><th style="width:22%">Stage</th><th class="up">What's happening</th><th class="lo">What you see</th></tr>
+        <tr><td><b>I · INITIAL</b></td><td>Cardiac output falls just enough that cells switch to <b>anaerobic metabolism</b> → <b>lactic acid</b> builds, blood glucose rises.</td><td><mark>Nothing.</mark> Signs &amp; symptoms are <b>ABSENT</b> in this stage — only a rising <span class="mono">lactate</span> gives it away.</td></tr>
+        <tr><td><b>II · COMPENSATORY</b></td><td>The <b>sympathetic nervous system</b> and <b>renin–angiotensin–aldosterone</b> rescue the pressure: catecholamines, vasoconstriction, ADH and aldosterone hold on to salt and water.</td><td><b>Tachycardia · tachypnea · restless &amp; anxious · cold clammy skin · narrowing pulse pressure · urine <span class="mono">&lt; 30 mL/hr</span></b>. <b>BP is still near normal.</b></td></tr>
+        <tr><td><b>III · PROGRESSIVE</b></td><td>Compensation <b>fails</b>. Capillaries leak, acidosis deepens, organs begin to die.</td><td><b>BP drops (MAP <span class="mono">&lt; 65</span>) · confusion → lethargy · cold mottled skin · weak thready pulse · crackles · oliguria → anuria · rising BUN/creatinine</b>.</td></tr>
+        <tr><td><b>IV · REFRACTORY</b><br><i>(also called irreversible)</i></td><td><b>MODS</b> — multiple organ dysfunction syndrome. The body no longer responds to fluids or vasopressors.</td><td><b>Unresponsive · profound hypotension · anuria · DIC · death is imminent.</b></td></tr>
+      </table>
+      <div class="mn">🧠 <b>“I Can't Perfuse Right”</b> — <b>I</b>nitial · <b>C</b>ompensatory · <b>P</b>rogressive · <b>R</b>efractory. The stage you must catch is <b>COMPENSATORY</b>: the cuff still looks fine, so your clues are <i>heart rate, respiratory rate, mental status and urine output</i>.</div>
+    </div>
+
+    <div class="card ruby span2">
+      <h3>📈 Stage progression — <u>cardiogenic</u> findings on each stage</h3>
+      <svg viewBox="-10 -10 583 650" role="img" aria-label="Four descending stages of cardiogenic shock from silent infarct through compensatory tachycardia with normal pressure, progressive pulmonary edema and hypotension, to refractory multiple organ failure">
+        <defs>
+          <linearGradient id="railC" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#00c2c7"/><stop offset="0.34" stop-color="#ffc233"/>
+            <stop offset="0.68" stop-color="#ff8a3d"/><stop offset="1" stop-color="#c02255"/>
+          </linearGradient>
+        </defs>
+        <text x="14" y="24" font-size="17" font-weight="900" fill="#ffd9b8">PUMP FAILS ↑ · PERFUSION ↓</text>
+        <rect x="8" y="36" width="14" height="586" rx="7" fill="url(#railC)"/>
+
+        <rect x="32" y="36" width="520" height="132" rx="14" fill="rgba(0,194,199,.20)" stroke="#00c2c7" stroke-width="2"/>
+        <circle cx="70" cy="72" r="21" fill="#00c2c7"/><text x="60" y="79" font-size="17" font-weight="900" fill="#00252b">I</text>
+        <text x="102" y="68" font-size="19" font-weight="900" fill="#9ff2ee">INITIAL</text>
+        <text x="102" y="90" font-size="13.5" font-style="italic" fill="#d8fff0">muscle is dying, output just started to slip</text>
+        <text x="102" y="114" font-size="14.5" font-weight="800" fill="#eafff7">• Chest pain · troponin rising · ST changes on ECG</text>
+        <text x="102" y="134" font-size="14.5" font-weight="800" fill="#eafff7">• Stroke volume ↓ · lactate begins to rise</text>
+        <text x="102" y="156" font-size="14.5" font-weight="900" fill="#ffc233">• Vital signs still look fine</text>
+
+        <rect x="32" y="180" width="520" height="146" rx="14" fill="rgba(255,194,51,.22)" stroke="#ffc233" stroke-width="2"/>
+        <circle cx="70" cy="216" r="21" fill="#ffc233"/><text x="56" y="223" font-size="17" font-weight="900" fill="#231a02">II</text>
+        <text x="102" y="212" font-size="19" font-weight="900" fill="#ffe49a">COMPENSATORY</text>
+        <text x="102" y="234" font-size="13.5" font-style="italic" fill="#fff3d1">SNS whips the failing heart faster</text>
+        <text x="102" y="258" font-size="14.5" font-weight="800" fill="#fff8e6">• HR &gt; 100 · RR up · restless, anxious</text>
+        <text x="102" y="278" font-size="14.5" font-weight="800" fill="#fff8e6">• Cold clammy skin · faint basilar crackles · S3</text>
+        <text x="102" y="298" font-size="14.5" font-weight="800" fill="#fff8e6">• Urine &lt; 30 mL/hr · early JVD</text>
+        <text x="102" y="320" font-size="14.5" font-weight="900" fill="#ff8a3d">• BP still “normal” but sliding each set of vitals</text>
+
+        <rect x="32" y="338" width="520" height="150" rx="14" fill="rgba(255,138,61,.24)" stroke="#ff8a3d" stroke-width="2"/>
+        <circle cx="70" cy="374" r="21" fill="#ff8a3d"/><text x="53" y="381" font-size="17" font-weight="900" fill="#2b1200">III</text>
+        <text x="102" y="370" font-size="19" font-weight="900" fill="#ffd9b8">PROGRESSIVE</text>
+        <text x="102" y="392" font-size="13.5" font-style="italic" fill="#ffe9d6">the pump loses the fight</text>
+        <text x="102" y="416" font-size="14.5" font-weight="800" fill="#ffe9d6">• SBP &lt; 90 · MAP &lt; 65 · PAWP &gt; 18 · CI &lt; 2.2</text>
+        <text x="102" y="436" font-size="14.5" font-weight="800" fill="#ffe9d6">• Flash pulmonary edema · frothy pink sputum</text>
+        <text x="102" y="456" font-size="14.5" font-weight="800" fill="#ffe9d6">• Marked JVD · mottled knees · thready pulse</text>
+        <text x="102" y="478" font-size="14.5" font-weight="800" fill="#ffe9d6">• Confusion · oliguria · dysrhythmias · lactate &gt; 4</text>
+
+        <rect x="32" y="500" width="520" height="122" rx="14" fill="rgba(192,34,85,.30)" stroke="#c02255" stroke-width="2"/>
+        <circle cx="70" cy="534" r="21" fill="#c02255"/><text x="52" y="541" font-size="16" font-weight="900" fill="#fff">IV</text>
+        <text x="102" y="530" font-size="19" font-weight="900" fill="#ff9db4">REFRACTORY</text>
+        <text x="102" y="552" font-size="13.5" font-style="italic" fill="#ffd9e2">= irreversible · MODS</text>
+        <text x="102" y="576" font-size="14.5" font-weight="800" fill="#ffd9e2">• Maximal inotropes + pressors no longer raise the MAP</text>
+        <text x="102" y="596" font-size="14.5" font-weight="800" fill="#ffd9e2">• Anuria · liver failure · lethal rhythms</text>
+        <text x="102" y="616" font-size="14.5" font-weight="900" fill="#ffc233">• Mechanical support or death</text>
+      </svg>
+      <div class="mn">🧠 <b>In cardiogenic shock, stage II is a set of vitals — not one.</b> The compensatory stage looks like <i>“BP 128/82, HR 96”</i>. It only reveals itself when you line it up next to the last set.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CARE ============ -->
+<section id="care">
+  <div class="sec-h"><span class="icon">🩺</span><h2>CARE</h2><span class="step">STEP 4 · HELP THE PUMP</span></div>
+  <p class="sec-sub">Make the heart squeeze better, make its job easier, and open the blocked artery — without drowning it in fluid.</p>
+
+  <div class="grid">
+    <div class="card emerald span2">
+      <h3>💊 Inotropes — “more FORCEFUL beats”</h3>
+      <p><b>Positive INOtropic</b> = <i>more forceful contraction</i> → more blood comes <b>OUT</b> of the heart → cardiac output rises. That is exactly what a failing pump needs.</p>
+      <table>
+        <tr><th style="width:26%">Drug</th><th class="up">What it does</th><th class="lo">Watch for</th></tr>
+        <tr><td><b>Dopamine</b> 💊<br><i>(vasopressor)</i></td><td><b>Dose-dependent:</b> low = dopaminergic (renal vessels), moderate = <b>beta-1</b> inotropy &amp; chronotropy, high = <b>alpha-1</b> vasoconstriction.</td><td><b>Tachycardia <span class="mono">&gt;100/min</span></b> and <b>dysrhythmias</b> <span class="tip">NCLEX TIP</span>; extravasation risk</td></tr>
+        <tr><td><b>Dobutamine</b> 💊</td><td>Nearly pure <b>beta-1</b> — raises contractility and cardiac output with little vasoconstriction. The <b>inotrope of choice</b> in modern cardiogenic-shock practice.</td><td>May <b>lower</b> BP (mild beta-2 dilation); tachycardia, ectopy</td></tr>
+        <tr><td><b>Digoxin</b> 💊</td><td><b>“D is for DEEP contraction”</b> — a positive inotrope that also <i>slows</i> the rate (negative chronotropic). Used in heart failure and rate control in AF.</td><td><b>Hold and reassess if apical pulse <span class="mono">&lt; 60</span></b>; hypokalemia worsens toxicity</td></tr>
+        <tr><td><b>Norepinephrine</b> 💊</td><td>Strong <b>alpha-1</b> with some beta-1 — used to hold the <b>MAP ≥ 65</b> when the patient is frankly hypotensive so the coronaries stay perfused.</td><td>Extravasation → tissue necrosis (antidote <b>phentolamine</b>); reflex bradycardia</td></tr>
+      </table>
+      <p style="margin-top:8px"><span class="tip">SOURCE vs PRACTICE</span> The source infographic names <b>Dopamine</b> and <b>Digoxin</b> as the inotropes — both are genuinely positive inotropes and both are fair game on an exam. <b>In current critical-care practice, however, the acute agents are dobutamine (inotrope) and norepinephrine (pressor)</b>; digoxin has a slow onset and a narrow therapeutic window, so it is a chronic heart-failure drug rather than a shock rescue drug. Know both framings.</p>
+      <div class="mn">🧠 <b>“D drugs make it DEEP: Dopamine · Dobutamine · Digoxin.”</b> All three deepen the squeeze. <b>INO = force. CHRONO = rate.</b> <i>Chronos means time</i> — chronotropes change beats per minute.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>💊 Digoxin safety — the part that gets tested</h3>
+      <ul class="tick">
+        <li>🫀 <b>Take the apical pulse for a full minute</b> before every dose — <span class="never">hold if under 60 and notify the provider</span></li>
+        <li>🧪 Typical therapeutic serum level <span class="mono">0.5–2.0 ng/mL</span> <i>(many HF protocols target the lower end)</i></li>
+        <li>🍌 <b>Hypokalemia makes digoxin toxic at a normal level</b> — watch K⁺ with any diuretic</li>
+        <li>🤢 <b>Toxicity:</b> anorexia, nausea/vomiting, <b>visual changes — yellow-green halos</b>, confusion, bradycardia, dysrhythmias</li>
+        <li>💉 Antidote: <b>digoxin immune Fab</b></li>
+      </ul>
+      <div class="mn">🧠 <b>“Low K, high dig.”</b> Potassium and digoxin compete for the same pump site — drop the potassium and the digoxin takes over. A patient on dig <i>and</i> furosemide is a toxicity question waiting to happen.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🚨 Fluids: the exception to every other shock</h3>
+      <p>In hypovolemic and septic shock you <b>fill the tank first</b>. In cardiogenic shock <mark>the tank is already overfull</mark> — the pump just can't move it.</p>
+      <ul class="tick">
+        <li>❌ <span class="never">No large fluid boluses in LV cardiogenic shock</span> — they cause flash pulmonary edema</li>
+        <li>✅ Careful <b>diuresis</b> (e.g. IV furosemide) to unload the congested lungs, guided by BP</li>
+        <li>✅ <b>Nitrates</b> reduce preload and afterload — <b>only if the blood pressure tolerates it</b></li>
+        <li>⚠️ <b>Exception to the exception:</b> a <b>RIGHT ventricular infarct</b> (with an inferior MI) presents with hypotension, <b>JVD and CLEAR lungs</b> — that patient <b>needs fluid</b>, and <span class="never">nitroglycerin is contraindicated</span></li>
+      </ul>
+      <div class="mn">🧠 <b>“Wet lungs = no fluid. Clear lungs + JVD = fluid.”</b> Listen to the chest before you hang anything. The lungs decide.</div>
+    </div>
+
+    <div class="card topaz span2">
+      <h3>⚙️ Mechanical support &amp; fixing the cause</h3>
+      <p><b>The real cure for MI-related cardiogenic shock is opening the artery</b> — emergency cardiac catheterization with <b>PCI</b> (or CABG). Everything else is a bridge to that.</p>
+      <svg viewBox="-10 -10 689 320" role="img" aria-label="Intra-aortic balloon pump diagram showing the balloon inflating during diastole to push blood into the coronary arteries and deflating just before systole to reduce the work of ejection">
+        <rect x="8" y="8" width="248" height="240" rx="14" fill="rgba(18,184,134,.45)" stroke="#03291c" stroke-width="2"/>
+        <text x="24" y="38" font-size="17" font-weight="900" fill="#03291c">DIASTOLE → INFLATE 🎈</text>
+        <path d="M60 60 C 60 130 120 160 200 160" fill="none" stroke="#8a2020" stroke-width="22" stroke-linecap="round"/>
+        <ellipse cx="118" cy="140" rx="44" ry="17" fill="#ffc233" stroke="#231a02" stroke-width="2"/>
+        <path d="M62 62 L36 40" stroke="#c02255" stroke-width="9" stroke-linecap="round"/>
+        <path d="M74 58 L86 34" stroke="#c02255" stroke-width="9" stroke-linecap="round"/>
+        <text x="24" y="196" font-size="13.5" font-weight="900" fill="#03291c">Balloon fills the aorta →</text>
+        <text x="24" y="216" font-size="13.5" font-weight="900" fill="#03291c">pressure pushed BACK into</text>
+        <text x="24" y="236" font-size="13.5" font-weight="900" fill="#03291c">the CORONARY arteries 🫀</text>
+
+        <rect x="264" y="8" width="248" height="240" rx="14" fill="rgba(47,107,255,.5)" stroke="#eaf1ff" stroke-width="2"/>
+        <text x="280" y="38" font-size="17" font-weight="900" fill="#eaf1ff">SYSTOLE → DEFLATE 🫧</text>
+        <path d="M316 60 C 316 130 376 160 456 160" fill="none" stroke="#8a2020" stroke-width="22" stroke-linecap="round"/>
+        <ellipse cx="374" cy="140" rx="14" ry="7" fill="#ffc233" stroke="#231a02" stroke-width="2"/>
+        <path d="M318 62 L292 40" stroke="#5d7fae" stroke-width="9" stroke-linecap="round"/>
+        <path d="M330 58 L342 34" stroke="#5d7fae" stroke-width="9" stroke-linecap="round"/>
+        <text x="280" y="196" font-size="13.5" font-weight="900" fill="#eaf1ff">Balloon empties just BEFORE</text>
+        <text x="280" y="216" font-size="13.5" font-weight="900" fill="#eaf1ff">the heart ejects → the LV has</text>
+        <text x="280" y="236" font-size="13.5" font-weight="900" fill="#eaf1ff">less to push against ⬇️ afterload</text>
+
+        <text x="16" y="278" font-size="15" font-weight="900" fill="#231a02">IABP = MORE oxygen delivered to the heart + LESS work required from it</text>
+        <text x="16" y="296" font-size="13.5" font-style="italic" fill="#231a02">Nursing: keep the cannulated leg straight · check distal pulses · limit HOB elevation per protocol</text>
+      </svg>
+      <ul class="tick">
+        <li>🎈 <b>IABP</b> — intra-aortic balloon pump, as drawn above</li>
+        <li>🔩 <b>Impella / VAD</b> — pumps that take over ventricular work</li>
+        <li>🫁 <b>ECMO</b> — bypasses heart and lungs entirely in the sickest patients</li>
+        <li>🩺 <b>Treat the rhythm</b> — cardiovert/defibrillate, pace a bradycardia</li>
+        <li>🫀 <b>Reduce oxygen demand</b> — rest, pain control, anxiety control, correct hypoxia and anemia</li>
+      </ul>
+      <div class="mn">🧠 <b>“IN with diastole, OUT with systole.”</b> The balloon does the opposite of the heart: it fills when the heart relaxes (feeding the coronaries) and empties when the heart squeezes (lightening the load).</div>
+    </div>
+
+    <div class="card citrinec span2">
+      <h3>🐝 Also on this source card: ANAPHYLACTIC shock</h3>
+      <p><b>A severe allergic reaction</b> — bee sting, peanut, shellfish, latex, penicillin, contrast dye. Mast cells dump histamine, vessels dilate everywhere, capillaries leak, and the airway swells shut. It is a <b>distributive</b> (pipe) shock, not a pump problem.</p>
+      <table>
+        <tr><th class="up" style="width:50%">🚨 What you see</th><th class="lo" style="width:50%">✅ What you do</th></tr>
+        <tr>
+          <td>Hives/urticaria · flushing · <b>angioedema</b> of lips &amp; tongue · <b>stridor</b> · wheezing · throat tightness · hypotension · tachycardia · GI cramping/vomiting · <b>sense of impending doom</b></td>
+          <td><b>1. EPINEPHRINE — intramuscular, anterolateral thigh (vastus lateralis), immediately</b><br>2. Remove/stop the trigger · call for help<br>3. Airway &amp; high-flow oxygen — intubate early if stridor<br>4. IV isotonic fluids for the vasodilation<br>5. Antihistamines &amp; corticosteroids — <b>adjuncts only</b><br>6. Bronchodilator for wheeze<br>7. Observe for a <b>biphasic reaction</b> hours later</td>
+        </tr>
+      </table>
+      <p style="margin-top:8px"><b>Why epinephrine works on all of it at once:</b> <b>alpha-1</b> constricts the leaking dilated vessels (BP up, swelling down), <b>beta-1</b> raises rate and force, <b>beta-2</b> opens the bronchioles. <b>EpiPen auto-injector</b> = epinephrine = <i>adrenaline</i>; teach patients to carry two and to <span class="never">go to the ED even after the pen works</span>.</p>
+      <div class="mn">🧠 <b>“Epi first, everything else second.”</b> <span class="never">Never delay epinephrine to give diphenhydramine or steroids</span> — antihistamines treat the itch, epinephrine treats the dying.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">🫀 CARDIAC fails</span>Preload ↑↑ · CO ↓↓ · SVR ↑ · cold, clammy, mottled · <b>JVD</b></div>
+    <div class="rc rubybg"><span class="big">📉 BP lower &amp; lower</span>after an MI with elevated troponin = cardiogenic shock</div>
+    <div class="rc topazbg"><span class="big">💊 INO = force</span>Dopamine · Dobutamine · Digoxin — “D is for DEEP contraction”</div>
+    <div class="rc tealbg"><span class="big">🪜 I · C · P · R</span>Initial → Compensatory → Progressive → Refractory</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 6 rapid-fire questions</summary>
+      <div class="qa">Q1: A client with an MI and elevated troponin has these vitals over 45 minutes: 140/88 → 128/82 → 104/68 → 88/58, with HR 92 → 118 and RR 24 → 32. What complication, and what do you do? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Cardiogenic shock. Alert the primary health care provider immediately — the steadily falling blood pressure with rising pulse and respirations after an MI is the classic exhibit pattern.</div></div>
+      <div class="qa">Q2: Which shock has an INCREASED preload, and why? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Cardiogenic. The ventricle can't eject, so volume backs up behind it — high CVP/PAWP, JVD, crackles, S3. Every other type of shock has a LOW preload.</div></div>
+      <div class="qa">Q3: What does "positive inotropic" mean, and which drugs on this page have it? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">More forceful contraction, which increases cardiac output (more blood coming OUT of the heart). Dopamine, dobutamine and digoxin are all positive inotropes. Chronotropic = rate; dromotropic = conduction speed.</div></div>
+      <div class="qa">Q4: Before giving digoxin, what does the nurse check — and what stops the dose? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Apical pulse for a full minute. Hold the dose and notify the provider if it is under 60. Also check potassium — hypokalemia causes digoxin toxicity even at a normal serum level.</div></div>
+      <div class="qa">Q5: Why is fluid handled differently here than in hypovolemic shock? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">The tank is already full — the pump is the failure. Large boluses push a congested left ventricle into flash pulmonary edema. Exception: a right ventricular infarct (hypotension + JVD + CLEAR lungs) does need volume, and nitroglycerin is contraindicated there.</div></div>
+      <div class="qa">Q6: When does the intra-aortic balloon inflate, and what does that accomplish? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">It inflates during DIASTOLE, driving pressure backward into the coronary arteries to feed the starving myocardium, and deflates just before systole so the left ventricle ejects against less afterload.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">CAUSE</span>→
+    <span style="background:rgba(47,107,255,.7)">CLUES</span>→
+    <span style="background:rgba(255,138,61,.7)">STAGES</span>→
+    <span style="background:rgba(18,184,134,.7)">CARE</span>
+  </div>
+  <div>NG-196 · Source wording retained · ADHD-friendly visual edition v2</div>
+</footer>
+
+</div>
+</body></html>

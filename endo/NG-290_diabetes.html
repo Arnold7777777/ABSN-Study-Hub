@@ -1,0 +1,1663 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Diabetes · NG-290 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+
+
+/* ---- appended for the Endocrine batch (batch 15) ---- */
+nav a.c5{background:rgba(0,194,199,.72);color:#00252b}
+nav a.c6{background:rgba(255,138,61,.75);color:#2b1200}
+nav a.c7{background:rgba(192,34,85,.72)}
+#patho .sec-h h2{color:#d9c2ff} #patho .step{background:var(--amethyst)}
+#types .sec-h h2{color:#d9c2ff} #types .step{background:var(--amethyst)}
+#mech  .sec-h h2{color:#d9c2ff} #mech .step{background:var(--amethyst)}
+#axis  .sec-h h2{color:#d9c2ff} #axis .step{background:var(--amethyst)}
+#signs .sec-h h2{color:#bcd0ff} #signs .step{background:var(--sapphire)}
+#dx    .sec-h h2{color:#bcd0ff} #dx .step{background:var(--sapphire)}
+#labs  .sec-h h2{color:#bcd0ff} #labs .step{background:var(--sapphire)}
+#adverse .sec-h h2{color:#bcd0ff} #adverse .step{background:var(--sapphire)}
+#sodium .sec-h h2{color:#bcd0ff} #sodium .step{background:var(--sapphire)}
+#compare .sec-h h2{color:#9ff2ee} #compare .step{background:var(--teal);color:#00252b}
+#insulin .sec-h h2{color:#9ff2ee} #insulin .step{background:var(--teal);color:#00252b}
+#fluid .sec-h h2{color:#9ff2ee} #fluid .step{background:var(--teal);color:#00252b}
+#split .sec-h h2{color:#9ff2ee} #split .step{background:var(--teal);color:#00252b}
+#treat .sec-h h2{color:#a5f3d4} #treat .step{background:var(--emerald);color:#03291c}
+#mgmt  .sec-h h2{color:#a5f3d4} #mgmt .step{background:var(--emerald);color:#03291c}
+#oral  .sec-h h2{color:#a5f3d4} #oral .step{background:var(--emerald);color:#03291c}
+#monitor .sec-h h2{color:#a5f3d4} #monitor .step{background:var(--emerald);color:#03291c}
+#teach .sec-h h2{color:#ffd9b8} #teach .step{background:var(--citrine);color:#2b1200}
+#drug  .sec-h h2{color:#ffd9b8} #drug .step{background:var(--citrine);color:#2b1200}
+#feet  .sec-h h2{color:#ffd9b8} #feet .step{background:var(--citrine);color:#2b1200}
+#danger .sec-h h2{color:#ffb3c6} #danger .step{background:var(--garnet)}
+#emerg .sec-h h2{color:#ffb3c6} #emerg .step{background:var(--garnet)}
+#taper .sec-h h2{color:#ffb3c6} #taper .step{background:var(--garnet)}
+#hypo  .sec-h h2{color:#ffb3c6} #hypo .step{background:var(--garnet)}
+#comps .sec-h h2{color:#ffb3c6} #comps .step{background:var(--garnet)}
+#potassium .sec-h h2{color:#ffb3c6} #potassium .step{background:var(--garnet)}
+.setbar{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin:4px 0 16px;font-size:.82rem}
+.setbar .setlabel{font-weight:900;letter-spacing:.08em;color:#ffe49a;margin-right:2px}
+.setbar a{font-weight:800;padding:4px 11px;border-radius:999px;border:1px solid var(--line);
+  background:rgba(13,8,26,.5);color:#dbe8ff;text-decoration:none}
+.setbar a.cur{background:var(--topaz);color:#231a02;border-color:transparent;cursor:default}
+.legendrow{display:flex;gap:9px;flex-wrap:wrap;margin:11px 0 0;font-size:.84rem;font-weight:800}
+.legendrow span{padding:5px 11px;border-radius:9px;background:rgba(13,8,26,.55);
+  border:1px solid var(--line);display:flex;align-items:center;gap:7px}
+.sw{display:inline-block;width:15px;height:15px;border-radius:4px;border:1px solid rgba(255,255,255,.6)}
+.card a{color:#ffe49a;font-weight:800}
+.card.tealc a,.card.topaz a,.card.citrinec a{color:#0b3a52}
+.xref{margin-top:10px;padding:8px 12px;border-radius:11px;background:rgba(0,194,199,.20);
+  border:1px solid var(--line);font-size:.9rem;font-weight:700}
+.xref .pill{display:inline-block;font-size:.7rem;font-weight:900;letter-spacing:.08em;
+  background:var(--teal);color:#00252b;padding:2px 8px;border-radius:7px;margin-right:7px}
+.card.tealc .xref,.card.topaz .xref,.card.citrinec .xref{background:rgba(255,255,255,.45)}
+.trap{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(255,59,107,.22);
+  border:1px dashed rgba(255,150,180,.65);font-size:.93rem;color:#fff}
+.card.tealc .trap,.card.topaz .trap,.card.citrinec .trap{background:rgba(255,59,107,.22);
+  border-color:rgba(192,34,85,.55);color:#3d0014}
+.hedge{margin-top:10px;font-size:.84rem;font-style:italic;opacity:.9}
+.big2{font-size:1.35rem;font-weight:900;letter-spacing:.02em}
+.lede a{color:#ffe49a;font-weight:800}
+.rc a{color:#231a02;font-weight:900}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#patho">🧬 Patho</a>
+  <a class="c2" href="#types">⚖️ Type 1 vs 2</a>
+  <a class="c5" href="#signs">🔎 Clues</a>
+  <a class="c3" href="#dx">🧪 Diagnose</a>
+  <a class="c7" href="#comps">💔 Complications</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Endocrine · Diabetes Mellitus · Med-Surg</div>
+  <div class="setbar"><span class="setlabel">🍬 DIABETES SET</span>
+  <a class="cur" href="NG-290_diabetes.html">NG-290 Diabetes — the disease</a>
+  <a href="NG-292_diabetes-2.html">NG-292 Diabetes II — management</a>
+  <a href="NG-291_dka-vs-hhs.html">NG-291 DKA vs HHS</a>
+  <a href="NG-288_steroids.html">NG-288 Steroids</a></div>
+  <h1>Diabetes <span class="drop">🍬</span></h1>
+  <p class="sub">Part 1 of 2 — pathophysiology, the classic presentation, diagnosis, and what it destroys over 20 years</p>
+  <div class="chips">
+    <span class="chip id">NG-290</span>
+    <span class="chip cat">ENDOCRINE · DISEASE PAGE</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede"><b>This page = the disease.</b> What insulin actually does, why type 1 and type 2 fail in completely different ways, the 3 P's, the diagnostic numbers, and the long-term damage. <b>The sister page <a href="NG-292_diabetes-2.html">NG-292 — Diabetes II</a> = the management</b>: insulin types and timing, oral agents, sick-day rules, the rule of 15, foot care and self-monitoring. Learn the disease here, then go treat it there.</p>
+</header>
+
+<div class="recall">
+  <div class="rc tealbg"><span class="big">💉 INsulin puts IN</span>Glucose <b>and potassium</b> INto the cell. Remember the potassium — it is the whole DKA question.</div>
+  <div class="rc citrine"><span class="big">1 = None · 2 = Few</span>Type <b>1</b> makes <b>no</b> insulin (autoimmune β-cell death). Type <b>2</b> makes insulin but the <b>receptors resist</b> it.</div>
+  <div class="rc rubybg"><span class="big">3 P's</span>Poly<b>uria</b> · poly<b>dipsia</b> · poly<b>phagia</b> — peeing it out, drinking to catch up, starving in a sea of sugar.</div>
+  <div class="rc topazbg"><span class="big">🧪 A1C ≥ 6.5%</span>Pre-diabetes <span class="mono">5.7–6.4%</span>. Fasting glucose <span class="mono">≥126</span>. Random <span class="mono">≥200</span> with symptoms.</div>
+</div>
+
+<!-- ============================================================ -->
+<section id="patho">
+  <div class="sec-h"><span class="icon">🧬</span><h2>THE PANCREAS &amp; INSULIN</h2><span class="step">STEP 1 · MECHANISM</span></div>
+  <p class="sec-sub">Every single thing on this page comes from one sentence: <b>insulin is the key that opens the cell door to glucose</b>. Take the key away and sugar piles up outside while the cell starves inside.</p>
+  <div class="grid">
+
+    <div class="card tealc span2">
+      <h3>🔬 Where insulin is made — pancreas in situ, with an islet cutaway</h3>
+      <svg viewBox="-10 -10 920 580" role="img" aria-label="Anatomical drawing of the pancreas lying behind the stomach, with its head nestled in the C-loop of the duodenum, the body sweeping toward the spleen and the tail at the splenic hilum, the main pancreatic duct branching through lobulated tissue, and a magnified circular cutaway of an islet of Langerhans showing central beta cells that make insulin, peripheral alpha cells that make glucagon, delta cells, a fenestrated capillary running through the islet, and surrounding acinar exocrine tissue">
+        <defs>
+          <linearGradient id="p1panc" x1="0" y1="0" x2="0.2" y2="1">
+            <stop offset="0" stop-color="#ffe9c2"/><stop offset=".22" stop-color="#ffcf8f"/>
+            <stop offset=".55" stop-color="#f0a95f"/><stop offset=".8" stop-color="#cf7f3a"/>
+            <stop offset="1" stop-color="#96521f"/>
+          </linearGradient>
+          <radialGradient id="p1lob" cx=".35" cy=".3" r=".85">
+            <stop offset="0" stop-color="#fff2d8"/><stop offset=".5" stop-color="#ffc887"/>
+            <stop offset="1" stop-color="#c07430"/>
+          </radialGradient>
+          <linearGradient id="p1stom" x1="0" y1="0" x2="0.3" y2="1">
+            <stop offset="0" stop-color="#ffd7d9"/><stop offset=".3" stop-color="#f0a3ac"/>
+            <stop offset=".7" stop-color="#c9707f"/><stop offset="1" stop-color="#8e3b50"/>
+          </linearGradient>
+          <linearGradient id="p1duo" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#ffcfc0"/><stop offset=".45" stop-color="#e79c8b"/>
+            <stop offset="1" stop-color="#a85c50"/>
+          </linearGradient>
+          <radialGradient id="p1spl" cx=".35" cy=".28" r=".9">
+            <stop offset="0" stop-color="#b06fb8"/><stop offset=".45" stop-color="#7d3a86"/>
+            <stop offset="1" stop-color="#40163f"/>
+          </radialGradient>
+          <radialGradient id="p1isl" cx=".38" cy=".3" r=".9">
+            <stop offset="0" stop-color="#fff6e2"/><stop offset=".35" stop-color="#ffdda3"/>
+            <stop offset=".75" stop-color="#e8a75c"/><stop offset="1" stop-color="#a3672c"/>
+          </radialGradient>
+          <radialGradient id="p1beta" cx=".35" cy=".3" r=".85">
+            <stop offset="0" stop-color="#cfe0ff"/><stop offset=".45" stop-color="#5b8cff"/>
+            <stop offset="1" stop-color="#1b3f9e"/>
+          </radialGradient>
+          <radialGradient id="p1alpha" cx=".35" cy=".3" r=".85">
+            <stop offset="0" stop-color="#ffd0dc"/><stop offset=".45" stop-color="#ff5f85"/>
+            <stop offset="1" stop-color="#8e0f33"/>
+          </radialGradient>
+          <radialGradient id="p1delta" cx=".35" cy=".3" r=".85">
+            <stop offset="0" stop-color="#fff3cf"/><stop offset=".5" stop-color="#ffc233"/>
+            <stop offset="1" stop-color="#9a6b04"/>
+          </radialGradient>
+          <linearGradient id="p1cap" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#8ef4f6"/><stop offset=".5" stop-color="#00c2c7"/>
+            <stop offset="1" stop-color="#046468"/>
+          </linearGradient>
+          <filter id="p1sh" x="-30%" y="-30%" width="170%" height="170%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="7"/>
+            <feOffset dx="4" dy="9" result="o"/>
+            <feFlood flood-color="#000" flood-opacity=".55"/>
+            <feComposite in2="o" operator="in"/>
+            <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="p1blur"><feGaussianBlur stdDeviation="9"/></filter>
+          <filter id="p1blur2"><feGaussianBlur stdDeviation="4"/></filter>
+        </defs>
+
+        <rect x="-6" y="-6" width="912" height="572" rx="20" fill="rgba(0,194,199,.10)" stroke="#00c2c7" stroke-width="2" stroke-dasharray="8 7"/>
+        <text x="22" y="32" font-size="19" font-weight="900" fill="#0b3f45">PANCREAS · anterior view, stomach lifted away</text>
+        <text x="22" y="52" font-size="12.5" font-style="italic" fill="#0e5b62">patient's right is on your left · head sits in the duodenal C-loop · tail reaches the spleen</text>
+
+        <!-- context: stomach (semi-transparent, lifted) -->
+        <g opacity=".55">
+          <path d="M300 78 C 380 56, 470 60, 520 96 C 566 130, 560 176, 520 196 C 470 220, 400 216, 350 196 C 300 176, 268 150, 262 130 C 256 108, 268 88, 300 78 Z"
+                fill="url(#p1stom)" stroke="#7a2b40" stroke-width="2.5" stroke-opacity=".8"/>
+          <g stroke="#8e3b50" stroke-width="1.6" stroke-opacity=".5" fill="none" stroke-linecap="round">
+            <path d="M300 96 q26 14 20 34"/><path d="M336 86 q26 16 20 40"/><path d="M372 80 q28 18 22 44"/>
+            <path d="M410 80 q28 18 22 44"/><path d="M448 86 q26 18 20 42"/><path d="M482 98 q24 16 18 38"/>
+          </g>
+          <rect x="326" y="56" width="132" height="20" rx="7" fill="rgba(13,8,26,.6)"/><text x="392" y="70" font-size="13" font-weight="900" fill="#ffd9e2" text-anchor="middle">STOMACH (lifted)</text>
+        </g>
+
+        <!-- spleen -->
+        <g filter="url(#p1sh)">
+          <path d="M690 140 C 736 148, 762 194, 748 244 C 734 292, 690 314, 656 296 C 626 280, 618 236, 630 196 C 641 160, 662 136, 690 140 Z"
+                fill="url(#p1spl)" stroke="#3a1038" stroke-width="2.5"/>
+          <path d="M666 158 C 700 156, 726 190, 720 224" fill="none" stroke="#d6a6dd" stroke-width="6" stroke-opacity=".35" stroke-linecap="round" filter="url(#p1blur2)"/>
+        </g>
+        <text x="756" y="128" font-size="13" font-weight="900" fill="#e2b9e8" text-anchor="middle">SPLEEN</text>
+
+        <!-- duodenum C-loop -->
+        <g filter="url(#p1sh)">
+          <path d="M212 168 C 250 152, 296 158, 316 186 C 340 220, 342 268, 326 306 C 310 344, 272 366, 236 356 C 206 348, 190 322, 196 300"
+                fill="none" stroke="url(#p1duo)" stroke-width="34" stroke-linecap="round"/>
+          <path d="M212 168 C 250 152, 296 158, 316 186 C 340 220, 342 268, 326 306 C 310 344, 272 366, 236 356 C 206 348, 190 322, 196 300"
+                fill="none" stroke="#8d4a3f" stroke-width="35" stroke-opacity=".22" stroke-linecap="round"/>
+        </g>
+        <!-- duodenal mucosal folds -->
+        <g stroke="#a85c50" stroke-width="1.8" stroke-opacity=".65" fill="none" stroke-linecap="round">
+          <path d="M232 154 l-6 26"/><path d="M262 152 l-2 28"/><path d="M292 164 l6 26"/>
+          <path d="M324 200 l24 8"/><path d="M332 232 l26 4"/><path d="M334 264 l26 2"/>
+          <path d="M328 296 l25 -6"/><path d="M312 328 l22 -14"/><path d="M282 352 l12 -22"/>
+          <path d="M248 358 l4 -26"/><path d="M214 344 l-8 -22"/>
+        </g>
+        <text x="300" y="392" font-size="13" font-weight="900" fill="#ffcfc0" text-anchor="middle">DUODENUM (C-loop)</text>
+
+        <!-- PANCREAS body -->
+        <g filter="url(#p1sh)">
+          <path d="M232 214 C 220 246, 226 288, 254 306 C 288 328, 330 314, 366 296
+                   C 420 270, 476 250, 534 234 C 578 222, 618 206, 646 186
+                   C 664 172, 660 152, 640 148 C 610 142, 566 158, 520 176
+                   C 462 198, 404 216, 348 220 C 306 222, 268 210, 250 200
+                   C 236 192, 236 202, 232 214 Z"
+                fill="url(#p1panc)" stroke="#8a4a17" stroke-width="2.6" stroke-opacity=".85"/>
+        </g>
+        <!-- lobule texture: varied rounded blobs -->
+        <g opacity=".62">
+          <circle cx="252" cy="238" r="13" fill="url(#p1lob)"/><circle cx="276" cy="266" r="11" fill="url(#p1lob)"/>
+          <circle cx="250" cy="278" r="10" fill="url(#p1lob)"/><circle cx="288" cy="240" r="12" fill="url(#p1lob)"/>
+          <circle cx="308" cy="272" r="10" fill="url(#p1lob)"/><circle cx="330" cy="248" r="12" fill="url(#p1lob)"/>
+          <circle cx="352" cy="276" r="9" fill="url(#p1lob)"/><circle cx="372" cy="252" r="11" fill="url(#p1lob)"/>
+          <circle cx="396" cy="272" r="10" fill="url(#p1lob)"/><circle cx="418" cy="248" r="12" fill="url(#p1lob)"/>
+          <circle cx="442" cy="266" r="9" fill="url(#p1lob)"/><circle cx="462" cy="242" r="11" fill="url(#p1lob)"/>
+          <circle cx="486" cy="258" r="10" fill="url(#p1lob)"/><circle cx="508" cy="234" r="11" fill="url(#p1lob)"/>
+          <circle cx="530" cy="252" r="9" fill="url(#p1lob)"/><circle cx="552" cy="228" r="11" fill="url(#p1lob)"/>
+          <circle cx="574" cy="242" r="9" fill="url(#p1lob)"/><circle cx="596" cy="218" r="10" fill="url(#p1lob)"/>
+          <circle cx="616" cy="230" r="8" fill="url(#p1lob)"/><circle cx="634" cy="202" r="9" fill="url(#p1lob)"/>
+          <circle cx="330" cy="222" r="8" fill="url(#p1lob)"/><circle cx="372" cy="218" r="7" fill="url(#p1lob)"/>
+          <circle cx="418" cy="212" r="8" fill="url(#p1lob)"/><circle cx="464" cy="204" r="7" fill="url(#p1lob)"/>
+          <circle cx="508" cy="192" r="8" fill="url(#p1lob)"/><circle cx="556" cy="180" r="7" fill="url(#p1lob)"/>
+        </g>
+        <!-- lobule seams -->
+        <g stroke="#94551d" stroke-width="1.2" stroke-opacity=".45" fill="none" stroke-linecap="round">
+          <path d="M262 216 q8 30 -4 56"/><path d="M300 222 q10 32 -2 54"/><path d="M342 224 q12 30 0 50"/>
+          <path d="M386 220 q12 28 2 48"/><path d="M430 212 q12 28 2 46"/><path d="M474 204 q12 26 2 44"/>
+          <path d="M518 194 q12 26 2 42"/><path d="M562 182 q12 24 2 40"/><path d="M604 168 q10 22 2 36"/>
+        </g>
+        <!-- main pancreatic duct with branches -->
+        <path d="M252 264 C 300 288, 360 282, 420 258 C 484 232, 552 208, 616 178"
+              fill="none" stroke="#f2fbff" stroke-width="6.5" stroke-opacity=".9" stroke-linecap="round"/>
+        <path d="M252 264 C 300 288, 360 282, 420 258 C 484 232, 552 208, 616 178"
+              fill="none" stroke="#5fd8ff" stroke-width="3" stroke-opacity=".85" stroke-linecap="round"/>
+        <g stroke="#e8f8ff" stroke-width="3" stroke-opacity=".8" fill="none" stroke-linecap="round">
+          <path d="M300 280 q-8 -22 -22 -34"/><path d="M348 276 q6 -24 22 -34"/>
+          <path d="M396 264 q-8 -22 -20 -32"/><path d="M448 246 q8 -22 24 -30"/>
+          <path d="M500 226 q-6 -22 -18 -30"/><path d="M552 206 q8 -20 22 -28"/>
+          <path d="M324 282 q0 20 10 30"/><path d="M420 258 q2 20 12 28"/><path d="M520 216 q2 18 12 26"/>
+        </g>
+        <!-- specular sheen -->
+        <path d="M270 226 C 340 244, 430 226, 520 196 C 566 180, 606 166, 632 158"
+              fill="none" stroke="#fff8e8" stroke-width="16" stroke-opacity=".22" stroke-linecap="round" filter="url(#p1blur)"/>
+
+        <!-- labels on the pancreas -->
+        <g font-size="12.5" font-weight="900">
+          <rect x="228" y="322" width="84" height="20" rx="7" fill="rgba(13,8,26,.72)"/>
+          <text x="270" y="337" fill="#ffd9a8" text-anchor="middle">HEAD</text>
+          <rect x="392" y="300" width="84" height="20" rx="7" fill="rgba(13,8,26,.72)"/>
+          <text x="434" y="315" fill="#ffd9a8" text-anchor="middle">BODY</text>
+          <rect x="596" y="150" width="72" height="20" rx="7" fill="rgba(13,8,26,.72)"/>
+          <text x="632" y="165" fill="#ffd9a8" text-anchor="middle">TAIL</text>
+          <rect x="330" y="238" width="150" height="19" rx="7" fill="rgba(13,8,26,.6)"/>
+          <text x="405" y="252" font-size="11.5" fill="#bfefff" text-anchor="middle">main pancreatic duct</text>
+        </g>
+
+        <!-- magnifier lead -->
+        <circle cx="560" cy="222" r="26" fill="none" stroke="#ffc233" stroke-width="3" stroke-dasharray="5 4"/>
+        <path d="M578 240 L 660 336" stroke="#ffc233" stroke-width="2.4" stroke-dasharray="6 5"/>
+        <path d="M542 244 L 566 348" stroke="#ffc233" stroke-width="2.4" stroke-dasharray="6 5"/>
+
+        <!-- ===== magnified islet ===== -->
+        <g>
+          <circle cx="640" cy="430" r="118" fill="rgba(13,8,26,.55)" stroke="#ffc233" stroke-width="3"/>
+          <!-- acinar exocrine background -->
+          <g opacity=".8">
+            <circle cx="558" cy="378" r="17" fill="url(#p1lob)"/><circle cx="594" cy="356" r="14" fill="url(#p1lob)"/>
+            <circle cx="640" cy="342" r="16" fill="url(#p1lob)"/><circle cx="686" cy="352" r="14" fill="url(#p1lob)"/>
+            <circle cx="716" cy="382" r="16" fill="url(#p1lob)"/><circle cx="730" cy="424" r="14" fill="url(#p1lob)"/>
+            <circle cx="718" cy="466" r="16" fill="url(#p1lob)"/><circle cx="688" cy="500" r="14" fill="url(#p1lob)"/>
+            <circle cx="642" cy="516" r="16" fill="url(#p1lob)"/><circle cx="596" cy="504" r="14" fill="url(#p1lob)"/>
+            <circle cx="562" cy="476" r="16" fill="url(#p1lob)"/><circle cx="548" cy="428" r="14" fill="url(#p1lob)"/>
+            <g stroke="#8c4d18" stroke-width="1.1" stroke-opacity=".6" fill="none">
+              <circle cx="558" cy="378" r="5"/><circle cx="640" cy="342" r="5"/><circle cx="716" cy="382" r="5"/>
+              <circle cx="718" cy="466" r="5"/><circle cx="642" cy="516" r="5"/><circle cx="562" cy="476" r="5"/>
+            </g>
+          </g>
+          <!-- islet blob -->
+          <path d="M640 358 C 690 358, 722 392, 720 430 C 718 470, 686 502, 640 502 C 594 502, 560 470, 560 430 C 560 392, 592 358, 640 358 Z"
+                fill="url(#p1isl)" stroke="#a3672c" stroke-width="2.4" stroke-opacity=".9"/>
+          <!-- capillary through islet -->
+          <path d="M548 400 C 588 418, 612 396, 646 414 C 682 434, 700 412, 736 430"
+                fill="none" stroke="url(#p1cap)" stroke-width="11" stroke-linecap="round" opacity=".95"/>
+          <path d="M560 468 C 596 452, 626 476, 664 462 C 698 450, 712 470, 730 464"
+                fill="none" stroke="url(#p1cap)" stroke-width="8" stroke-linecap="round" opacity=".85"/>
+          <!-- beta cells (centre, majority) -->
+          <g stroke="#0d2a6b" stroke-width="1.3" stroke-opacity=".8">
+            <circle cx="616" cy="392" r="13" fill="url(#p1beta)"/><circle cx="648" cy="386" r="12" fill="url(#p1beta)"/>
+            <circle cx="678" cy="402" r="12" fill="url(#p1beta)"/><circle cx="600" cy="420" r="13" fill="url(#p1beta)"/>
+            <circle cx="632" cy="424" r="14" fill="url(#p1beta)"/><circle cx="666" cy="432" r="12" fill="url(#p1beta)"/>
+            <circle cx="694" cy="428" r="11" fill="url(#p1beta)"/><circle cx="606" cy="454" r="12" fill="url(#p1beta)"/>
+            <circle cx="640" cy="458" r="13" fill="url(#p1beta)"/><circle cx="674" cy="462" r="12" fill="url(#p1beta)"/>
+            <circle cx="622" cy="484" r="11" fill="url(#p1beta)"/><circle cx="656" cy="486" r="11" fill="url(#p1beta)"/>
+          </g>
+          <!-- alpha cells (periphery) -->
+          <g stroke="#6b0a26" stroke-width="1.3" stroke-opacity=".8">
+            <circle cx="578" cy="392" r="11" fill="url(#p1alpha)"/><circle cx="700" cy="378" r="10" fill="url(#p1alpha)"/>
+            <circle cx="572" cy="440" r="10" fill="url(#p1alpha)"/><circle cx="710" cy="452" r="11" fill="url(#p1alpha)"/>
+            <circle cx="588" cy="482" r="10" fill="url(#p1alpha)"/><circle cx="692" cy="490" r="10" fill="url(#p1alpha)"/>
+            <circle cx="640" cy="366" r="10" fill="url(#p1alpha)"/>
+          </g>
+          <!-- delta cells -->
+          <g stroke="#7a5203" stroke-width="1.2" stroke-opacity=".8">
+            <circle cx="604" cy="376" r="8" fill="url(#p1delta)"/><circle cx="692" cy="470" r="8" fill="url(#p1delta)"/>
+            <circle cx="646" cy="502" r="7" fill="url(#p1delta)"/>
+          </g>
+          <!-- sheen -->
+          <ellipse cx="606" cy="392" rx="50" ry="26" fill="#fff" opacity=".14" filter="url(#p1blur)"/>
+        </g>
+
+        <!-- islet legend -->
+        <g font-size="12" font-weight="800">
+          <rect x="18" y="410" width="300" height="132" rx="12" fill="rgba(13,8,26,.72)" stroke="#ffc233" stroke-width="1.5"/>
+          <text x="32" y="432" font-size="13.5" font-weight="900" fill="#ffe49a">ISLET OF LANGERHANS · ~1–2% of the gland</text>
+          <circle cx="42" cy="452" r="9" fill="url(#p1beta)"/>
+          <text x="58" y="457" fill="#cfe0ff">BETA cell → <tspan font-weight="900">INSULIN</tspan> (lowers sugar)</text>
+          <circle cx="42" cy="478" r="9" fill="url(#p1alpha)"/>
+          <text x="58" y="483" fill="#ffd0dc">ALPHA cell → <tspan font-weight="900">GLUCAGON</tspan> (raises sugar)</text>
+          <circle cx="42" cy="504" r="8" fill="url(#p1delta)"/>
+          <text x="58" y="509" fill="#ffeab3">DELTA cell → somatostatin (the brake)</text>
+          <rect x="34" y="522" width="18" height="7" rx="3" fill="url(#p1cap)"/>
+          <text x="58" y="530" fill="#9ff2ee">capillary — hormones go straight to blood</text>
+        </g>
+        <text x="640" y="566" font-size="12" font-style="italic" fill="#0e5b62" text-anchor="middle">Islets are scattered through the whole gland but are densest in the tail.</text>
+      </svg>
+      <div class="legendrow">
+        <span><i class="sw" style="background:#5b8cff"></i> beta = insulin</span>
+        <span><i class="sw" style="background:#ff5f85"></i> alpha = glucagon</span>
+        <span><i class="sw" style="background:#ffc233"></i> delta = somatostatin</span>
+        <span><i class="sw" style="background:#00c2c7"></i> islet capillary</span>
+      </div>
+      <div class="mn">🧠 <b>B before A in the alphabet, B before A in blood sugar.</b> <b>B</b>eta <b>B</b>rings sugar down. <b>A</b>lpha <b>A</b>mplifies it back up.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🔑 What insulin actually does</h3>
+      <p><b>Answer first: insulin puts things INto the cell.</b> Say it as <span class="mono">IN-sulin = IN the cell</span>.</p>
+      <ul class="tick">
+        <li><b>Glucose in</b> → serum sugar falls, the cell finally gets fuel.</li>
+        <li><b>Potassium in</b> → serum K⁺ falls. Remember this one; it is the single most tested consequence of insulin.</li>
+        <li><b>Tells the liver to stop</b> making and releasing glucose.</li>
+        <li><b>Stores the surplus</b> — glucose → <b>glycogen</b> in liver and muscle; fat into adipose.</li>
+      </ul>
+      <div class="mn">🧠 <b>GLY-cogen = GLucose stored in the Liver.</b> Insulin is the warehouse manager; glucagon is the guy who unlocks the warehouse when you skip breakfast.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🚨 Insulin moves potassium — remember it here</h3>
+      <p>Because insulin drives K⁺ into cells, giving insulin <b>drops the serum potassium</b>. This is why:</p>
+      <ul class="tick">
+        <li>Insulin + dextrose is a temporising treatment for <b>hyperkalemia</b>.</li>
+        <li>In DKA, starting the insulin drip can crash the potassium — you must check and replace it. <b>Insulin is held if K⁺ is too low.</b></li>
+      </ul>
+      <p>Typical adult reference range for serum potassium ≈ <span class="mono">3.5–5.0 mEq/L</span> (ranges vary slightly by lab).</p>
+      <div class="xref"><span class="pill">GO DEEPER</span> The whole potassium sequence is worked through on <a href="NG-291_dka-vs-hhs.html">NG-291 — DKA vs HHS</a>.</div>
+    </div>
+
+    <div class="card tealc span2">
+      <h3>🔬 The cell door — normal vs type 1 vs type 2</h3>
+      <svg viewBox="-10 -10 920 430" role="img" aria-label="Three side by side cutaways of a cell membrane. In the normal panel insulin binds its receptor, a signal travels inside, GLUT4 transporter vesicles fuse with the membrane and glucose flows into the cell. In the type 1 panel no insulin is present because the beta cells are destroyed, the receptor sits empty, GLUT4 vesicles stay trapped inside and glucose piles up in the blood. In the type 2 panel plenty of insulin is present but the receptors are resistant and blunted, so only a few GLUT4 transporters reach the membrane and glucose still piles up outside">
+        <defs>
+          <linearGradient id="p2mem" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffe0a8"/><stop offset=".3" stop-color="#f0b45e"/>
+            <stop offset=".7" stop-color="#f0b45e"/><stop offset="1" stop-color="#c07c26"/>
+          </linearGradient>
+          <radialGradient id="p2cyt" cx=".5" cy=".2" r="1">
+            <stop offset="0" stop-color="#1d5f5c"/><stop offset="1" stop-color="#08302f"/>
+          </radialGradient>
+          <radialGradient id="p2glu" cx=".35" cy=".3" r=".85">
+            <stop offset="0" stop-color="#fff6d0"/><stop offset=".5" stop-color="#ffc233"/>
+            <stop offset="1" stop-color="#a06f00"/>
+          </radialGradient>
+          <linearGradient id="p2rec" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#c8dcff"/><stop offset=".45" stop-color="#3f74ff"/>
+            <stop offset="1" stop-color="#122c78"/>
+          </linearGradient>
+          <linearGradient id="p2recX" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#b6b6c4"/><stop offset=".5" stop-color="#6c6c80"/>
+            <stop offset="1" stop-color="#31313f"/>
+          </linearGradient>
+          <radialGradient id="p2ins" cx=".35" cy=".3" r=".85">
+            <stop offset="0" stop-color="#d8ffe9"/><stop offset=".5" stop-color="#12b886"/>
+            <stop offset="1" stop-color="#04593f"/>
+          </radialGradient>
+          <filter id="p2sh" x="-40%" y="-40%" width="180%" height="180%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dx="2" dy="6" result="o"/>
+            <feFlood flood-color="#000" flood-opacity=".5"/><feComposite in2="o" operator="in"/>
+            <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="p2b"><feGaussianBlur stdDeviation="6"/></filter>
+          <marker id="p2ar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#ffe49a"/>
+          </marker>
+        </defs>
+        <rect x="-6" y="-6" width="912" height="422" rx="20" fill="rgba(0,194,199,.10)" stroke="#00c2c7" stroke-width="2" stroke-dasharray="8 7"/>
+        <text x="22" y="30" font-size="18" font-weight="900" fill="#0b3f45">THE CELL DOOR · why sugar stays in the blood</text>
+
+        <g id="p2panels">
+          <!-- ===== PANEL 1 NORMAL ===== -->
+          <g>
+            <rect x="20" y="44" width="278" height="344" rx="14" fill="rgba(18,184,134,.16)" stroke="#12b886" stroke-width="2"/>
+            <text x="159" y="68" font-size="15" font-weight="900" fill="#0a5a44" text-anchor="middle">NORMAL</text>
+            <!-- blood side -->
+            <rect x="26" y="76" width="266" height="118" fill="rgba(255,59,107,.14)"/>
+            <text x="38" y="92" font-size="11" font-weight="800" fill="#8e2340">BLOOD</text>
+            <!-- glucose outside: few -->
+            <g stroke="#7a5400" stroke-width="1.1">
+              <circle cx="70" cy="120" r="9" fill="url(#p2glu)"/><circle cx="120" cy="146" r="9" fill="url(#p2glu)"/>
+              <circle cx="212" cy="118" r="9" fill="url(#p2glu)"/><circle cx="256" cy="150" r="9" fill="url(#p2glu)"/>
+            </g>
+            <!-- insulin molecules -->
+            <g stroke="#04593f" stroke-width="1.2">
+              <circle cx="150" cy="106" r="11" fill="url(#p2ins)"/>
+              <circle cx="96" cy="86" r="9" fill="url(#p2ins)"/>
+            </g>
+            <!-- membrane bilayer -->
+            <rect x="26" y="194" width="266" height="26" fill="url(#p2mem)"/>
+            <g stroke="#a5731d" stroke-width="1.3" stroke-opacity=".75">
+              <path d="M34 200 v14 M46 200 v14 M58 200 v14 M70 200 v14 M82 200 v14 M94 200 v14 M106 200 v14 M118 200 v14 M130 200 v14 M190 200 v14 M202 200 v14 M214 200 v14 M226 200 v14 M238 200 v14 M250 200 v14 M262 200 v14 M274 200 v14 M286 200 v14"/>
+            </g>
+            <!-- cytoplasm -->
+            <rect x="26" y="220" width="266" height="162" fill="url(#p2cyt)"/>
+            <text x="38" y="238" font-size="11" font-weight="800" fill="#9ff2ee">INSIDE THE CELL</text>
+            <!-- receptor with insulin bound -->
+            <g filter="url(#p2sh)">
+              <path d="M142 186 q6 -12 18 0 l4 12 v30 h-26 v-30 z" fill="url(#p2rec)" stroke="#0d2260" stroke-width="1.6"/>
+              <circle cx="151" cy="180" r="10" fill="url(#p2ins)" stroke="#04593f" stroke-width="1.3"/>
+            </g>
+            <text x="151" y="166" font-size="10.5" font-weight="900" fill="#a5f3d4" text-anchor="middle">insulin</text>
+            <path d="M151 230 v24" stroke="#ffe49a" stroke-width="2.4" marker-end="url(#p2ar)"/>
+            <text x="190" y="248" font-size="10.5" font-weight="800" fill="#ffe49a">signal</text>
+            <!-- GLUT4 vesicle moving up -->
+            <circle cx="151" cy="290" r="24" fill="none" stroke="#00c2c7" stroke-width="2.4" stroke-dasharray="4 3"/>
+            <text x="151" y="294" font-size="10.5" font-weight="900" fill="#9ff2ee" text-anchor="middle">GLUT4</text>
+            <path d="M120 276 C 90 250, 76 236, 72 224" fill="none" stroke="#00c2c7" stroke-width="2.2" marker-end="url(#p2ar)"/>
+            <path d="M182 276 C 212 250, 226 236, 232 224" fill="none" stroke="#00c2c7" stroke-width="2.2" marker-end="url(#p2ar)"/>
+            <!-- inserted transporters -->
+            <g fill="#00c2c7" stroke="#046468" stroke-width="1.4">
+              <rect x="58" y="192" width="24" height="30" rx="7"/><rect x="220" y="192" width="24" height="30" rx="7"/>
+            </g>
+            <!-- glucose flowing in -->
+            <g stroke="#7a5400" stroke-width="1.1">
+              <circle cx="70" cy="182" r="8" fill="url(#p2glu)"/><circle cx="70" cy="240" r="8" fill="url(#p2glu)"/>
+              <circle cx="232" cy="240" r="8" fill="url(#p2glu)"/><circle cx="88" cy="266" r="8" fill="url(#p2glu)"/>
+              <circle cx="216" cy="272" r="8" fill="url(#p2glu)"/><circle cx="106" cy="330" r="8" fill="url(#p2glu)"/>
+              <circle cx="196" cy="336" r="8" fill="url(#p2glu)"/><circle cx="151" cy="348" r="8" fill="url(#p2glu)"/>
+            </g>
+            <rect x="34" y="356" width="250" height="22" rx="8" fill="rgba(13,8,26,.65)"/>
+            <text x="159" y="371" font-size="11.5" font-weight="900" fill="#a5f3d4" text-anchor="middle">Sugar goes in · blood sugar normal</text>
+          </g>
+
+          <!-- ===== PANEL 2 TYPE 1 ===== -->
+          <g>
+            <rect x="310" y="44" width="278" height="344" rx="14" fill="rgba(255,59,107,.16)" stroke="#ff3b6b" stroke-width="2"/>
+            <text x="449" y="68" font-size="15" font-weight="900" fill="#7d0e2c" text-anchor="middle">TYPE 1 · no key exists</text>
+            <rect x="316" y="76" width="266" height="118" fill="rgba(255,59,107,.2)"/>
+            <text x="328" y="92" font-size="11" font-weight="800" fill="#8e2340">BLOOD</text>
+            <!-- glucose crowding -->
+            <g stroke="#7a5400" stroke-width="1.1">
+              <circle cx="350" cy="112" r="9" fill="url(#p2glu)"/><circle cx="382" cy="140" r="9" fill="url(#p2glu)"/>
+              <circle cx="414" cy="108" r="9" fill="url(#p2glu)"/><circle cx="446" cy="140" r="9" fill="url(#p2glu)"/>
+              <circle cx="478" cy="110" r="9" fill="url(#p2glu)"/><circle cx="510" cy="142" r="9" fill="url(#p2glu)"/>
+              <circle cx="542" cy="112" r="9" fill="url(#p2glu)"/><circle cx="366" cy="172" r="9" fill="url(#p2glu)"/>
+              <circle cx="430" cy="174" r="9" fill="url(#p2glu)"/><circle cx="494" cy="172" r="9" fill="url(#p2glu)"/>
+              <circle cx="546" cy="176" r="9" fill="url(#p2glu)"/><circle cx="334" cy="146" r="9" fill="url(#p2glu)"/>
+            </g>
+            <!-- no insulin marker -->
+            <g>
+              <circle cx="449" cy="92" r="16" fill="rgba(13,8,26,.6)" stroke="#ff9db6" stroke-width="2" stroke-dasharray="4 3"/>
+              <path d="M440 83 L458 101 M458 83 L440 101" stroke="#ff9db6" stroke-width="3" stroke-linecap="round"/>
+              <text x="470" y="90" font-size="11" font-weight="900" fill="#ffc9d6">no insulin</text>
+            </g>
+            <rect x="316" y="194" width="266" height="26" fill="url(#p2mem)"/>
+            <g stroke="#a5731d" stroke-width="1.3" stroke-opacity=".75">
+              <path d="M324 200 v14 M336 200 v14 M348 200 v14 M360 200 v14 M372 200 v14 M384 200 v14 M396 200 v14 M408 200 v14 M420 200 v14 M480 200 v14 M492 200 v14 M504 200 v14 M516 200 v14 M528 200 v14 M540 200 v14 M552 200 v14 M564 200 v14 M576 200 v14"/>
+            </g>
+            <rect x="316" y="220" width="266" height="162" fill="url(#p2cyt)"/>
+            <text x="328" y="238" font-size="11" font-weight="800" fill="#9ff2ee">CELL IS STARVING</text>
+            <!-- empty receptor -->
+            <g filter="url(#p2sh)">
+              <path d="M432 186 q6 -12 18 0 l4 12 v30 h-26 v-30 z" fill="url(#p2rec)" stroke="#0d2260" stroke-width="1.6"/>
+            </g>
+            <text x="441" y="176" font-size="10.5" font-weight="900" fill="#ffc9d6" text-anchor="middle">receptor empty</text>
+            <!-- vesicles trapped -->
+            <g>
+              <circle cx="390" cy="300" r="21" fill="none" stroke="#00c2c7" stroke-width="2.2" stroke-dasharray="4 3" opacity=".6"/>
+              <text x="390" y="304" font-size="10" font-weight="900" fill="#9ff2ee" text-anchor="middle" opacity=".7">GLUT4</text>
+              <circle cx="500" cy="312" r="21" fill="none" stroke="#00c2c7" stroke-width="2.2" stroke-dasharray="4 3" opacity=".6"/>
+              <text x="500" y="316" font-size="10" font-weight="900" fill="#9ff2ee" text-anchor="middle" opacity=".7">GLUT4</text>
+              <text x="449" y="272" font-size="11" font-weight="900" fill="#ff9db6" text-anchor="middle">stuck inside — never called up</text>
+            </g>
+            <!-- ketone hint -->
+            <path d="M449 336 v22" stroke="#ff8a3d" stroke-width="2.4" marker-end="url(#p2ar)"/>
+            <rect x="344" y="356" width="210" height="22" rx="8" fill="rgba(192,34,85,.75)"/>
+            <text x="449" y="371" font-size="11.5" font-weight="900" fill="#fff" text-anchor="middle">Burns FAT instead → KETONES → DKA</text>
+          </g>
+
+          <!-- ===== PANEL 3 TYPE 2 ===== -->
+          <g>
+            <rect x="600" y="44" width="278" height="344" rx="14" fill="rgba(255,138,61,.18)" stroke="#ff8a3d" stroke-width="2"/>
+            <text x="739" y="68" font-size="15" font-weight="900" fill="#5c2400" text-anchor="middle">TYPE 2 · lock is jammed</text>
+            <rect x="606" y="76" width="266" height="118" fill="rgba(255,138,61,.18)"/>
+            <text x="618" y="92" font-size="11" font-weight="800" fill="#5c2400">BLOOD</text>
+            <g stroke="#7a5400" stroke-width="1.1">
+              <circle cx="640" cy="112" r="9" fill="url(#p2glu)"/><circle cx="672" cy="142" r="9" fill="url(#p2glu)"/>
+              <circle cx="704" cy="110" r="9" fill="url(#p2glu)"/><circle cx="768" cy="112" r="9" fill="url(#p2glu)"/>
+              <circle cx="800" cy="144" r="9" fill="url(#p2glu)"/><circle cx="832" cy="112" r="9" fill="url(#p2glu)"/>
+              <circle cx="656" cy="174" r="9" fill="url(#p2glu)"/><circle cx="720" cy="176" r="9" fill="url(#p2glu)"/>
+              <circle cx="784" cy="174" r="9" fill="url(#p2glu)"/><circle cx="840" cy="176" r="9" fill="url(#p2glu)"/>
+            </g>
+            <!-- lots of insulin -->
+            <g stroke="#04593f" stroke-width="1.2">
+              <circle cx="626" cy="146" r="10" fill="url(#p2ins)"/><circle cx="700" cy="86" r="10" fill="url(#p2ins)"/>
+              <circle cx="756" cy="146" r="10" fill="url(#p2ins)"/><circle cx="828" cy="86" r="10" fill="url(#p2ins)"/>
+              <circle cx="660" cy="86" r="9" fill="url(#p2ins)"/>
+            </g>
+            <text x="739" y="196" font-size="0" fill="none">.</text>
+            <rect x="606" y="194" width="266" height="26" fill="url(#p2mem)"/>
+            <g stroke="#a5731d" stroke-width="1.3" stroke-opacity=".75">
+              <path d="M614 200 v14 M626 200 v14 M638 200 v14 M650 200 v14 M662 200 v14 M674 200 v14 M686 200 v14 M698 200 v14 M710 200 v14 M770 200 v14 M782 200 v14 M794 200 v14 M806 200 v14 M818 200 v14 M830 200 v14 M842 200 v14 M854 200 v14 M866 200 v14"/>
+            </g>
+            <rect x="606" y="220" width="266" height="162" fill="url(#p2cyt)"/>
+            <text x="618" y="238" font-size="11" font-weight="800" fill="#9ff2ee">INSIDE THE CELL</text>
+            <!-- blunted resistant receptors -->
+            <g filter="url(#p2sh)">
+              <path d="M722 190 q6 -10 18 0 l3 10 v30 h-24 v-30 z" fill="url(#p2recX)" stroke="#22222c" stroke-width="1.6"/>
+              <circle cx="731" cy="180" r="10" fill="url(#p2ins)" stroke="#04593f" stroke-width="1.3" opacity=".9"/>
+              <path d="M718 172 l26 22" stroke="#ff3b6b" stroke-width="3" stroke-linecap="round"/>
+            </g>
+            <text x="731" y="164" font-size="10.5" font-weight="900" fill="#ffd9b8" text-anchor="middle">bound but no signal</text>
+            <path d="M731 232 v16" stroke="#8b8b9a" stroke-width="2.4" stroke-dasharray="4 4"/>
+            <text x="790" y="248" font-size="10.5" font-weight="800" fill="#c8c8d6">weak signal</text>
+            <circle cx="700" cy="300" r="21" fill="none" stroke="#00c2c7" stroke-width="2.2" stroke-dasharray="4 3" opacity=".55"/>
+            <text x="700" y="304" font-size="10" font-weight="900" fill="#9ff2ee" text-anchor="middle" opacity=".7">GLUT4</text>
+            <g fill="#00c2c7" stroke="#046468" stroke-width="1.4" opacity=".9">
+              <rect x="820" y="192" width="22" height="30" rx="7"/>
+            </g>
+            <circle cx="831" cy="240" r="8" fill="url(#p2glu)" stroke="#7a5400" stroke-width="1.1"/>
+            <text x="739" y="270" font-size="11" font-weight="900" fill="#ffd9b8" text-anchor="middle">only a trickle of doors open</text>
+            <rect x="634" y="356" width="210" height="22" rx="8" fill="rgba(255,138,61,.8)"/>
+            <text x="739" y="371" font-size="11.5" font-weight="900" fill="#2b1200" text-anchor="middle">Plenty of insulin · sugar still high</text>
+          </g>
+        </g>
+        <ellipse cx="180" cy="120" rx="120" ry="40" fill="#fff" opacity=".07" filter="url(#p2b)"/>
+      </svg>
+      <div class="mn">🧠 <b>Type 1 lost the key. Type 2 changed the lock.</b> Same locked door, two completely different repairs — replace the key (insulin) vs fix the lock (weight, activity, sensitisers).</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🔥 Why the cell starves in a sea of sugar</h3>
+      <p>Glucose can't get in, so the body behaves like it is <b>fasting</b> even with a glucose of 400:</p>
+      <ul class="tick">
+        <li>Liver dumps <b>more</b> glucose (gluconeogenesis + glycogenolysis) → sugar climbs further.</li>
+        <li>Muscle breaks down protein for fuel → <b>weight loss despite eating</b>.</li>
+        <li>Fat is broken down for fuel → in type 1, that produces <b>ketones</b> → acidosis.</li>
+      </ul>
+      <div class="mn">🧠 <b>Starvation in the middle of a feast.</b> That single image explains polyphagia, weight loss and ketones all at once.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section id="types">
+  <div class="sec-h"><span class="icon">⚖️</span><h2>TYPE 1 vs TYPE 2</h2><span class="step">STEP 2 · TELL THEM APART</span></div>
+  <p class="sec-sub">One is an autoimmune destruction you inherit the tendency for; the other is a receptor problem you build over years. <mark>1 = None. 2 = Few.</mark></p>
+  <div class="grid">
+
+    <div class="card deep span2">
+      <h3>🔬 What the islet looks like in each</h3>
+      <svg viewBox="-10 -10 920 420" role="img" aria-label="Two magnified islets side by side. On the left a type 1 islet is being attacked by immune lymphocytes, the beta cells are shrunken and dying and only alpha cells remain, labelled autoimmune insulitis. On the right a type 2 islet is intact and even enlarged with pink amyloid deposits between the cells and beta cells working overtime, with an inset showing a blunted resistant insulin receptor on a fat-laden muscle cell">
+        <defs>
+          <radialGradient id="p3beta" cx=".35" cy=".3" r=".85">
+            <stop offset="0" stop-color="#cfe0ff"/><stop offset=".45" stop-color="#5b8cff"/><stop offset="1" stop-color="#1b3f9e"/>
+          </radialGradient>
+          <radialGradient id="p3dead" cx=".35" cy=".3" r=".85">
+            <stop offset="0" stop-color="#9aa2b8"/><stop offset=".5" stop-color="#585f77"/><stop offset="1" stop-color="#25293a"/>
+          </radialGradient>
+          <radialGradient id="p3alpha" cx=".35" cy=".3" r=".85">
+            <stop offset="0" stop-color="#ffd0dc"/><stop offset=".45" stop-color="#ff5f85"/><stop offset="1" stop-color="#8e0f33"/>
+          </radialGradient>
+          <radialGradient id="p3lymph" cx=".35" cy=".3" r=".85">
+            <stop offset="0" stop-color="#e6d3ff"/><stop offset=".45" stop-color="#9d5cff"/><stop offset="1" stop-color="#3d1470"/>
+          </radialGradient>
+          <radialGradient id="p3isl" cx=".38" cy=".3" r=".9">
+            <stop offset="0" stop-color="#fff6e2"/><stop offset=".4" stop-color="#ffdda3"/>
+            <stop offset=".78" stop-color="#e8a75c"/><stop offset="1" stop-color="#a3672c"/>
+          </radialGradient>
+          <linearGradient id="p3amy" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#ffb3c6"/><stop offset="1" stop-color="#c0557a"/>
+          </linearGradient>
+          <filter id="p3b"><feGaussianBlur stdDeviation="7"/></filter>
+          <filter id="p3sh" x="-30%" y="-30%" width="170%" height="170%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="6"/><feOffset dx="3" dy="7" result="o"/>
+            <feFlood flood-color="#000" flood-opacity=".5"/><feComposite in2="o" operator="in"/>
+            <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <rect x="-6" y="-6" width="912" height="412" rx="20" fill="rgba(157,92,255,.10)" stroke="#9d5cff" stroke-width="2" stroke-dasharray="8 7"/>
+        <text x="22" y="30" font-size="18" font-weight="900" fill="#e2d3ff">THE SAME ISLET, TWO DISEASES</text>
+
+        <!-- LEFT: TYPE 1 -->
+        <rect x="20" y="46" width="420" height="342" rx="14" fill="rgba(255,59,107,.14)" stroke="#ff3b6b" stroke-width="2"/>
+        <text x="230" y="72" font-size="16" font-weight="900" fill="#ffc9d6" text-anchor="middle">TYPE 1 · autoimmune insulitis</text>
+        <g filter="url(#p3sh)">
+          <path d="M230 100 C 316 100, 366 154, 362 214 C 358 278, 306 322, 230 322 C 154 322, 100 278, 100 214 C 100 154, 148 100, 230 100 Z"
+                fill="url(#p3isl)" stroke="#a3672c" stroke-width="2.4"/>
+        </g>
+        <!-- dying beta cells -->
+        <g stroke="#1b2233" stroke-width="1.3" stroke-opacity=".8">
+          <circle cx="196" cy="152" r="9" fill="url(#p3dead)"/><circle cx="238" cy="146" r="8" fill="url(#p3dead)"/>
+          <circle cx="180" cy="196" r="7" fill="url(#p3dead)"/><circle cx="222" cy="192" r="9" fill="url(#p3dead)"/>
+          <circle cx="266" cy="182" r="7" fill="url(#p3dead)"/><circle cx="200" cy="240" r="8" fill="url(#p3dead)"/>
+          <circle cx="248" cy="238" r="7" fill="url(#p3dead)"/><circle cx="288" cy="222" r="6" fill="url(#p3dead)"/>
+          <circle cx="226" cy="282" r="7" fill="url(#p3dead)"/>
+        </g>
+        <!-- shrivel marks -->
+        <g stroke="#3b4258" stroke-width="1.4" stroke-linecap="round" opacity=".8" fill="none">
+          <path d="M190 146 l12 12 M232 140 l10 12 M216 186 l12 12 M194 234 l12 12"/>
+        </g>
+        <!-- remaining alpha cells -->
+        <g stroke="#6b0a26" stroke-width="1.3" stroke-opacity=".8">
+          <circle cx="150" cy="170" r="11" fill="url(#p3alpha)"/><circle cx="304" cy="166" r="11" fill="url(#p3alpha)"/>
+          <circle cx="142" cy="248" r="10" fill="url(#p3alpha)"/><circle cx="312" cy="262" r="10" fill="url(#p3alpha)"/>
+          <circle cx="230" cy="308" r="10" fill="url(#p3alpha)"/>
+        </g>
+        <!-- lymphocytes attacking -->
+        <g stroke="#2c0d55" stroke-width="1.4">
+          <circle cx="124" cy="126" r="14" fill="url(#p3lymph)"/><circle cx="342" cy="128" r="13" fill="url(#p3lymph)"/>
+          <circle cx="98" cy="216" r="13" fill="url(#p3lymph)"/><circle cx="360" cy="212" r="14" fill="url(#p3lymph)"/>
+          <circle cx="132" cy="300" r="13" fill="url(#p3lymph)"/><circle cx="332" cy="304" r="13" fill="url(#p3lymph)"/>
+          <circle cx="230" cy="90" r="13" fill="url(#p3lymph)"/>
+        </g>
+        <g stroke="#c9a6ff" stroke-width="2" stroke-linecap="round" opacity=".9" fill="none">
+          <path d="M136 138 l30 20"/><path d="M330 140 l-30 18"/><path d="M112 216 l40 -14"/>
+          <path d="M348 214 l-38 -12"/><path d="M144 292 l32 -20"/><path d="M320 296 l-32 -20"/><path d="M230 104 l0 26"/>
+        </g>
+        <rect x="60" y="336" width="340" height="42" rx="10" fill="rgba(13,8,26,.7)"/>
+        <text x="230" y="354" font-size="12.5" font-weight="900" fill="#ffc9d6" text-anchor="middle">T-cells destroy the BETA cells · alpha cells survive</text>
+        <text x="230" y="371" font-size="12" font-weight="800" fill="#ffe49a" text-anchor="middle">Result: ZERO insulin — must be injected for life</text>
+
+        <!-- RIGHT: TYPE 2 -->
+        <rect x="460" y="46" width="420" height="342" rx="14" fill="rgba(255,138,61,.16)" stroke="#ff8a3d" stroke-width="2"/>
+        <text x="670" y="72" font-size="16" font-weight="900" fill="#ffd9b8" text-anchor="middle">TYPE 2 · resistance + amyloid</text>
+        <g filter="url(#p3sh)">
+          <path d="M670 96 C 762 96, 816 154, 812 216 C 808 282, 752 326, 670 326 C 588 326, 530 282, 530 216 C 530 154, 582 96, 670 96 Z"
+                fill="url(#p3isl)" stroke="#a3672c" stroke-width="2.4"/>
+        </g>
+        <!-- amyloid deposits between cells -->
+        <g opacity=".75">
+          <path d="M596 150 q26 -10 48 4 q-20 18 -48 -4 z" fill="url(#p3amy)"/>
+          <path d="M700 138 q30 -8 50 8 q-24 16 -50 -8 z" fill="url(#p3amy)"/>
+          <path d="M572 226 q28 -12 48 6 q-24 16 -48 -6 z" fill="url(#p3amy)"/>
+          <path d="M714 236 q30 -10 52 8 q-26 16 -52 -8 z" fill="url(#p3amy)"/>
+          <path d="M628 292 q30 -12 52 6 q-26 18 -52 -6 z" fill="url(#p3amy)"/>
+        </g>
+        <!-- beta cells still there, working hard -->
+        <g stroke="#0d2a6b" stroke-width="1.3" stroke-opacity=".8">
+          <circle cx="620" cy="164" r="14" fill="url(#p3beta)"/><circle cx="668" cy="156" r="13" fill="url(#p3beta)"/>
+          <circle cx="716" cy="168" r="13" fill="url(#p3beta)"/><circle cx="596" cy="204" r="13" fill="url(#p3beta)"/>
+          <circle cx="646" cy="208" r="15" fill="url(#p3beta)"/><circle cx="696" cy="212" r="13" fill="url(#p3beta)"/>
+          <circle cx="744" cy="204" r="12" fill="url(#p3beta)"/><circle cx="616" cy="256" r="13" fill="url(#p3beta)"/>
+          <circle cx="668" cy="262" r="14" fill="url(#p3beta)"/><circle cx="720" cy="256" r="12" fill="url(#p3beta)"/>
+          <circle cx="646" cy="300" r="11" fill="url(#p3beta)"/><circle cx="700" cy="300" r="11" fill="url(#p3beta)"/>
+        </g>
+        <g stroke="#6b0a26" stroke-width="1.3" stroke-opacity=".8">
+          <circle cx="556" cy="166" r="10" fill="url(#p3alpha)"/><circle cx="782" cy="168" r="10" fill="url(#p3alpha)"/>
+          <circle cx="552" cy="256" r="10" fill="url(#p3alpha)"/><circle cx="788" cy="250" r="10" fill="url(#p3alpha)"/>
+        </g>
+        <!-- insulin sparks pouring out -->
+        <g stroke="#12b886" stroke-width="2.2" stroke-linecap="round" opacity=".95" fill="none">
+          <path d="M646 208 l-56 -46"/><path d="M668 262 l60 44"/><path d="M716 168 l50 -34"/>
+        </g>
+        <g stroke="#04593f" stroke-width="1.2">
+          <circle cx="584" cy="156" r="8" fill="url(#p2ins)"/><circle cx="734" cy="312" r="8" fill="url(#p2ins)"/>
+          <circle cx="772" cy="128" r="8" fill="url(#p2ins)"/>
+        </g>
+        <rect x="490" y="336" width="360" height="42" rx="10" fill="rgba(13,8,26,.7)"/>
+        <text x="670" y="354" font-size="12.5" font-weight="900" fill="#ffd9b8" text-anchor="middle">Beta cells intact, pumping out EXTRA insulin</text>
+        <text x="670" y="371" font-size="12" font-weight="800" fill="#ffe49a" text-anchor="middle">…but the muscle/fat receptors don't listen → sugar stays high</text>
+        <ellipse cx="640" cy="150" rx="90" ry="34" fill="#fff" opacity=".10" filter="url(#p3b)"/>
+      </svg>
+      <div class="mn">🧠 <b>Type 1 = empty factory. Type 2 = full factory, deaf customers.</b> Over years the type 2 factory does eventually burn out — that is why many type 2 patients end up on insulin too.</div>
+    </div>
+
+    <div class="card topaz span2">
+      <h3>⭐ Side-by-side — the table to memorise</h3>
+      <table>
+        <tr><th class="up">TYPE 1</th><th class="lo">TYPE 2</th></tr>
+        <tr><td><b>NONE</b> — body does not produce insulin</td><td><b>FEW</b> — insulin is made, but few receptors respond</td></tr>
+        <tr><td><b>Autoimmune</b> destruction of pancreatic beta cells</td><td><b>Insulin resistance</b> + progressive beta-cell fatigue</td></tr>
+        <tr><td>"<b>SON</b>" — heredity, <b>you can pass it on</b>; usually diagnosed younger</td><td>"<b>YOU</b>" — <b>your</b> diet (simple sugars), obesity, sedentary life; usually older, but rising in youth</td></tr>
+        <tr><td>Onset <b>abrupt</b> — the 3 P's arrive over days to weeks, often with weight loss</td><td>Onset <b>insidious</b> — may be silent for years, found on a routine A1C or at the eye doctor</td></tr>
+        <tr><td>Body type: often <b>thin</b> at diagnosis</td><td>Body type: often <b>overweight</b>, especially central/abdominal</td></tr>
+        <tr><td>Ketosis-prone → tends toward <b>DKA</b></td><td>Not usually ketotic → tends toward <b>HHS</b></td></tr>
+        <tr><td>Treatment: <b>insulin from day one, always</b></td><td>Treatment: <b>diet + exercise first</b>, then oral agents, then insulin if needed</td></tr>
+      </table>
+      <div class="trap">🚨 <b>NCLEX trap:</b> "Type 2 patients never take insulin" is <span class="never">false</span>. Many do — during illness, surgery, pregnancy, or once beta cells wear out.</div>
+      <div class="mn">🧠 <b>SON vs YOU.</b> Type ONE — you pass it <b>ON</b>. Type TWO — it's on <b>YOU</b> (diet + lifestyle). Crude, but it sticks.</div>
+    </div>
+
+    <div class="card amethystc" style="background:rgba(157,92,255,.60)">
+      <h3>⭐ Metabolic syndrome — "BOL" plus the letters</h3>
+      <p><b>3 or more</b> of these criteria = metabolic syndrome = increased risk of <b>diabetes, heart disease and stroke</b>.</p>
+      <ul class="tick">
+        <li><b>B</b>lood pressure — on BP meds, or systolic over <span class="mono">130</span> (≈ <span class="mono">130/85</span>)</li>
+        <li><b>B</b>lood sugar — on glucose-lowering meds, or fasting glucose <span class="mono">100+</span></li>
+        <li><b>O</b>bese — waist <span class="mono">35 in +</span> (female), <span class="mono">40 in +</span> (male)</li>
+        <li><b>L</b>ipids — triglycerides <span class="mono">150+</span>, or HDL under <span class="mono">40</span> (male) / <span class="mono">50</span> (female)</li>
+      </ul>
+      <p class="hedge">Exact cut-points differ slightly between the criteria sets in use — treat these as the standard teaching numbers and verify against your course reference.</p>
+      <div class="mn">🧠 <b>"BOL" = the Big Obvious Lifestyle four.</b> BP · Blood sugar · Obesity · Lipids. Any three and the alarm goes off.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🚨 Who tips into diabetes fastest</h3>
+      <ul class="tick">
+        <li><b>Family history</b> in a first-degree relative</li>
+        <li><b>Overweight / central adiposity</b> and inactivity</li>
+        <li><b>Gestational diabetes</b> in a previous pregnancy, or a baby over <span class="mono">9 lb</span></li>
+        <li><b>PCOS</b>, hypertension, dyslipidemia</li>
+        <li><b>Prediabetes</b> already documented (A1C <span class="mono">5.7–6.4%</span>)</li>
+        <li><b>Long-term steroids</b> — see <a href="NG-288_steroids.html">NG-288</a>; predniSONE raises sugar in anyone</li>
+      </ul>
+      <div class="mn">🧠 <b>Prediabetes is not "almost nothing" — it is the last exit before the highway.</b></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section id="signs">
+  <div class="sec-h"><span class="icon">🔎</span><h2>THE CLUES</h2><span class="step">STEP 3 · WHAT YOU SEE</span></div>
+  <p class="sec-sub">High sugar is <b>hot and dry</b>. Low sugar is <b>cold and clammy</b>. Get that reflex and half the questions answer themselves.</p>
+  <div class="grid">
+
+    <div class="card tealc span2">
+      <h3>🔬 Where the 3 P's come from</h3>
+      <svg viewBox="-10 -10 920 500" role="img" aria-label="Diagram tracing the three P symptoms of hyperglycemia through the body. A kidney is drawn in cross-section with cortex, medulla, pyramids and pelvis, showing glucose spilling past the reabsorption threshold into the urine and dragging water with it, which fills the bladder and causes polyuria. Falling blood volume triggers the thirst centre in the hypothalamus causing polydipsia, and starving cells signal hunger causing polyphagia despite weight loss">
+        <defs>
+          <linearGradient id="p4kid" x1=".2" y1="0" x2=".9" y2="1">
+            <stop offset="0" stop-color="#ff9db6"/><stop offset=".28" stop-color="#e75f83"/>
+            <stop offset=".62" stop-color="#c02255"/><stop offset="1" stop-color="#6d0c2f"/>
+          </linearGradient>
+          <linearGradient id="p4med" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#a71a45"/><stop offset="1" stop-color="#5e0a26"/>
+          </linearGradient>
+          <radialGradient id="p4bl" cx=".4" cy=".3" r=".9">
+            <stop offset="0" stop-color="#ffe9a8"/><stop offset=".5" stop-color="#ffc233"/>
+            <stop offset="1" stop-color="#9a6b04"/>
+          </radialGradient>
+          <radialGradient id="p4brain" cx=".38" cy=".3" r=".9">
+            <stop offset="0" stop-color="#f3e2ff"/><stop offset=".4" stop-color="#d3aef5"/>
+            <stop offset=".75" stop-color="#9d5cff"/><stop offset="1" stop-color="#48186f"/>
+          </radialGradient>
+          <radialGradient id="p4glu2" cx=".35" cy=".3" r=".85">
+            <stop offset="0" stop-color="#fff6d0"/><stop offset=".5" stop-color="#ffc233"/><stop offset="1" stop-color="#a06f00"/>
+          </radialGradient>
+          <filter id="p4sh" x="-30%" y="-30%" width="170%" height="170%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="6"/><feOffset dx="3" dy="7" result="o"/>
+            <feFlood flood-color="#000" flood-opacity=".5"/><feComposite in2="o" operator="in"/>
+            <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="p4b"><feGaussianBlur stdDeviation="8"/></filter>
+          <marker id="p4ar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#ffe49a"/>
+          </marker>
+        </defs>
+        <rect x="-6" y="-6" width="912" height="492" rx="20" fill="rgba(0,194,199,.10)" stroke="#00c2c7" stroke-width="2" stroke-dasharray="8 7"/>
+        <text x="22" y="30" font-size="18" font-weight="900" fill="#0b3f45">THE 3 P's · one cascade, three symptoms</text>
+
+        <!-- brain -->
+        <g filter="url(#p4sh)">
+          <path d="M118 96 C 150 62, 214 60, 244 92 C 272 122, 266 168, 232 186 C 200 202, 152 198, 128 176 C 104 154, 100 118, 118 96 Z"
+                fill="url(#p4brain)" stroke="#3f1364" stroke-width="2.4"/>
+          <g stroke="#5b2189" stroke-width="2.2" fill="none" stroke-linecap="round" opacity=".75">
+            <path d="M132 108 q22 -14 40 2 q18 16 40 0"/>
+            <path d="M124 132 q26 -12 46 4 q20 16 44 -2"/>
+            <path d="M128 156 q24 -10 44 4 q20 14 42 -4"/>
+            <path d="M142 176 q22 -8 40 2 q16 8 32 -4"/>
+          </g>
+          <ellipse cx="152" cy="106" rx="34" ry="14" fill="#fff" opacity=".22" filter="url(#p4b)"/>
+        </g>
+        <circle cx="182" cy="164" r="10" fill="#ffc233" stroke="#7a5400" stroke-width="1.6"/>
+        <text x="182" y="216" font-size="12.5" font-weight="900" fill="#e2d3ff" text-anchor="middle">THIRST CENTRE</text>
+        <text x="182" y="232" font-size="11.5" font-weight="800" fill="#ffe49a" text-anchor="middle">(hypothalamus)</text>
+
+        <!-- kidney -->
+        <g filter="url(#p4sh)">
+          <path d="M430 100 C 486 92, 528 132, 530 196 C 532 264, 490 306, 438 300 C 402 296, 388 268, 396 242
+                   C 404 216, 404 184, 394 158 C 386 132, 400 104, 430 100 Z"
+                fill="url(#p4kid)" stroke="#5e0a26" stroke-width="2.6"/>
+          <!-- medullary pyramids -->
+          <g fill="url(#p4med)" opacity=".92">
+            <path d="M470 126 L 508 148 L 470 166 Z"/>
+            <path d="M474 176 L 514 196 L 474 214 Z"/>
+            <path d="M470 224 L 508 244 L 468 264 Z"/>
+          </g>
+          <!-- pelvis / calyces -->
+          <path d="M432 148 C 414 172, 414 224, 432 250 C 442 264, 452 268, 458 262 C 442 236, 442 168, 458 142 C 452 136, 442 136, 432 148 Z"
+                fill="#ffe9c2" opacity=".85"/>
+          <!-- cortical stipple -->
+          <g fill="#ffd0dc" opacity=".45">
+            <circle cx="500" cy="118" r="3"/><circle cx="514" cy="140" r="2.6"/><circle cx="522" cy="170" r="3"/>
+            <circle cx="524" cy="204" r="2.6"/><circle cx="518" cy="238" r="3"/><circle cx="504" cy="268" r="2.6"/>
+            <circle cx="484" cy="288" r="3"/><circle cx="458" cy="294" r="2.6"/><circle cx="446" cy="112" r="3"/>
+            <circle cx="470" cy="104" r="2.6"/>
+          </g>
+          <ellipse cx="470" cy="130" rx="40" ry="18" fill="#fff" opacity=".16" filter="url(#p4b)"/>
+        </g>
+        <text x="462" y="86" font-size="13" font-weight="900" fill="#ffc9d6" text-anchor="middle">KIDNEY (cut)</text>
+
+        <!-- glucose spilling into tubule -->
+        <g stroke="#7a5400" stroke-width="1">
+          <circle cx="446" cy="160" r="7" fill="url(#p4glu2)"/><circle cx="440" cy="190" r="7" fill="url(#p4glu2)"/>
+          <circle cx="444" cy="220" r="7" fill="url(#p4glu2)"/><circle cx="438" cy="248" r="7" fill="url(#p4glu2)"/>
+        </g>
+        <text x="360" y="150" font-size="12" font-weight="900" fill="#ffe49a" text-anchor="end">glucose &gt; ~180 mg/dL</text>
+        <text x="360" y="167" font-size="11.5" font-weight="800" fill="#ffe49a" text-anchor="end">spills into urine</text>
+        <path d="M366 158 L 424 178" stroke="#ffe49a" stroke-width="2.2" marker-end="url(#p4ar)"/>
+        <text x="360" y="196" font-size="11.5" font-style="italic" fill="#cfe0ff" text-anchor="end">sugar drags WATER with it</text>
+        <text x="360" y="213" font-size="11.5" font-style="italic" fill="#cfe0ff" text-anchor="end">= osmotic diuresis</text>
+
+        <!-- ureter to bladder -->
+        <path d="M440 300 C 444 340, 470 366, 508 380" fill="none" stroke="#e75f83" stroke-width="9" stroke-linecap="round"/>
+        <path d="M440 300 C 444 340, 470 366, 508 380" fill="none" stroke="#ffd0dc" stroke-width="3" stroke-linecap="round" opacity=".6"/>
+
+        <!-- bladder -->
+        <g filter="url(#p4sh)">
+          <path d="M560 356 C 616 348, 664 380, 662 420 C 660 458, 616 480, 566 476 C 518 472, 490 444, 494 412 C 498 380, 522 360, 560 356 Z"
+                fill="url(#p4bl)" stroke="#8a5c04" stroke-width="2.4"/>
+          <g stroke="#a06f00" stroke-width="1.5" fill="none" opacity=".55">
+            <path d="M512 396 q40 -14 76 2"/><path d="M508 422 q46 -12 88 6"/><path d="M518 448 q40 -10 72 4"/>
+          </g>
+          <ellipse cx="546" cy="382" rx="34" ry="14" fill="#fff" opacity=".25" filter="url(#p4b)"/>
+        </g>
+        <text x="578" y="424" font-size="13.5" font-weight="900" fill="#3d2a00" text-anchor="middle">FULL BLADDER</text>
+
+        <!-- P labels -->
+        <g>
+          <rect x="690" y="70" width="200" height="106" rx="12" fill="rgba(47,107,255,.72)" stroke="rgba(255,255,255,.4)" stroke-width="1.5"/>
+          <text x="790" y="96" font-size="16" font-weight="900" fill="#fff" text-anchor="middle">1 · POLYURIA</text>
+          <text x="790" y="120" font-size="12.5" font-weight="800" fill="#dbe6ff" text-anchor="middle">Peeing out the sugar —</text>
+          <text x="790" y="138" font-size="12.5" font-weight="800" fill="#dbe6ff" text-anchor="middle">and the water with it.</text>
+          <text x="790" y="160" font-size="12" font-style="italic" fill="#ffe49a" text-anchor="middle">nocturia · new bedwetting in kids</text>
+
+          <rect x="690" y="190" width="200" height="106" rx="12" fill="rgba(0,194,199,.72)" stroke="rgba(255,255,255,.4)" stroke-width="1.5"/>
+          <text x="790" y="216" font-size="16" font-weight="900" fill="#00252b" text-anchor="middle">2 · POLYDIPSIA</text>
+          <text x="790" y="240" font-size="12.5" font-weight="800" fill="#00363c" text-anchor="middle">Volume drops → thirst</text>
+          <text x="790" y="258" font-size="12.5" font-weight="800" fill="#00363c" text-anchor="middle">centre fires → drink, drink.</text>
+          <text x="790" y="280" font-size="12" font-style="italic" fill="#062f34" text-anchor="middle">dry mouth · sticky mucous membranes</text>
+
+          <rect x="690" y="310" width="200" height="106" rx="12" fill="rgba(255,138,61,.78)" stroke="rgba(255,255,255,.4)" stroke-width="1.5"/>
+          <text x="790" y="336" font-size="16" font-weight="900" fill="#2b1200" text-anchor="middle">3 · POLYPHAGIA</text>
+          <text x="790" y="360" font-size="12.5" font-weight="800" fill="#3d1a00" text-anchor="middle">Cells never got fed →</text>
+          <text x="790" y="378" font-size="12.5" font-weight="800" fill="#3d1a00" text-anchor="middle">"I'm starving" signal.</text>
+          <text x="790" y="400" font-size="12" font-style="italic" fill="#3d1a00" text-anchor="middle">eats more · still LOSES weight</text>
+        </g>
+        <path d="M540 344 C 600 300, 640 220, 686 130" fill="none" stroke="#bcd0ff" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#p4ar)"/>
+        <path d="M232 190 C 400 240, 560 250, 686 244" fill="none" stroke="#9ff2ee" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#p4ar)"/>
+        <path d="M604 466 C 660 452, 676 420, 688 380" fill="none" stroke="#ffd9b8" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#p4ar)"/>
+        <text x="290" y="440" font-size="12.5" font-style="italic" fill="#0e5b62">Other classic clues: blurred vision · fatigue · slow-healing sores · recurrent yeast/UTI · tingling feet</text>
+      </svg>
+      <div class="mn">🧠 <b>Pee it · Drink it · Eat it.</b> Urine takes the sugar out, thirst tries to refill the tank, hunger is the cells screaming that none of it arrived.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🚨 HIGH sugar — hot and dry, sugar high</h3>
+      <p><b>Glucose above about <span class="mono">180 mg/dL</span> — or above this patient's target — and climbing</b> (treat the trend, not one number).</p>
+      <ul class="tick">
+        <li><b>Hot, flushed, dry skin</b>; dry mucous membranes</li>
+        <li>The <b>3 P's</b>; fruity breath and Kussmaul breathing if ketones build</li>
+        <li>Weakness, blurred vision, headache, drowsiness → coma if untreated</li>
+        <li><b>Blood "turns to mud"</b> — thick, sluggish, poorly perfusing</li>
+      </ul>
+      <p><b>Causes — the 4 S's:</b> <b>S</b>epsis/infection (#1), <b>S</b>tress (surgery, hospitalisation), <b>S</b>kipped insulin, <b>S</b>teroids (predni<b>SONE</b>).</p>
+      <p><b>Treatment:</b> insulin (plus fluids and treating the cause).</p>
+      <div class="mn">🧠 <b>Hot and dry — sugar HIGH.</b></div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🚨 LOW sugar — cold and clammy, need some candy</h3>
+      <p><b>Glucose <span class="mono">≤ 70 mg/dL</span></b> — and low sugar kills faster than high sugar. <mark>Hypoglycemia is the emergency.</mark></p>
+      <ul class="tick">
+        <li><b>Cool, pale, sweaty, clammy</b> — never flushed</li>
+        <li><b>HIWASH</b> — <b>H</b>eadache · <b>I</b>rritable · <b>W</b>eakness · <b>A</b>nxious · <b>S</b>haky/<b>S</b>weaty · <b>H</b>ungry</li>
+        <li>Tremor, tachycardia, confusion → seizure → coma</li>
+      </ul>
+      <p><b>Causes:</b> too much insulin · <b>insulin peak times</b> · exercise · alcohol · a missed or delayed meal.</p>
+      <div class="mn">🧠 <b>"Hypogly — brain will DIE."</b> The brain has no glucose store. It runs on what is in the blood right now.</div>
+      <div class="xref"><span class="pill">TREATMENT</span> The rule of 15 and the D50 decision live on <a href="NG-292_diabetes-2.html">NG-292 — Diabetes II</a>.</div>
+    </div>
+
+    <div class="card deep span2">
+      <h3>🔬 Two faces at the bedside — which one is in front of you?</h3>
+      <svg viewBox="-10 -10 920 400" role="img" aria-label="Two drawn head and shoulders figures compared side by side. The left figure shows hyperglycemia with warm flushed dry skin, deep rapid Kussmaul breathing, dry cracked lips, sunken eyes and a fruity breath cloud. The right figure shows hypoglycemia with pale cool skin, beads of sweat on the forehead, trembling hands, wide anxious eyes and a racing pulse trace">
+        <defs>
+          <radialGradient id="p5hot" cx=".38" cy=".28" r=".95">
+            <stop offset="0" stop-color="#ffd9c2"/><stop offset=".35" stop-color="#ffb492"/>
+            <stop offset=".7" stop-color="#e8795f"/><stop offset="1" stop-color="#a03c33"/>
+          </radialGradient>
+          <radialGradient id="p5cold" cx=".38" cy=".28" r=".95">
+            <stop offset="0" stop-color="#f4f7ff"/><stop offset=".38" stop-color="#dfe6f5"/>
+            <stop offset=".72" stop-color="#b9c4da"/><stop offset="1" stop-color="#7c88a2"/>
+          </radialGradient>
+          <linearGradient id="p5drop" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#e8fbff"/><stop offset=".6" stop-color="#8fd8ff"/><stop offset="1" stop-color="#2f6bff"/>
+          </linearGradient>
+          <filter id="p5sh" x="-30%" y="-30%" width="170%" height="170%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="6"/><feOffset dx="3" dy="7" result="o"/>
+            <feFlood flood-color="#000" flood-opacity=".5"/><feComposite in2="o" operator="in"/>
+            <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="p5b"><feGaussianBlur stdDeviation="7"/></filter>
+        </defs>
+        <rect x="-6" y="-6" width="912" height="392" rx="20" fill="rgba(13,8,26,.35)" stroke="#9d5cff" stroke-width="2" stroke-dasharray="8 7"/>
+
+        <!-- HYPER -->
+        <rect x="20" y="20" width="420" height="352" rx="14" fill="rgba(255,59,107,.18)" stroke="#ff3b6b" stroke-width="2"/>
+        <text x="230" y="46" font-size="16" font-weight="900" fill="#ffc9d6" text-anchor="middle">HYPERGLYCEMIA · hot &amp; dry</text>
+        <g filter="url(#p5sh)">
+          <!-- shoulders -->
+          <path d="M112 350 C 124 288, 176 262, 230 262 C 284 262, 336 288, 348 350 Z" fill="#8e3b50" opacity=".8"/>
+          <!-- neck -->
+          <path d="M206 220 h48 v46 h-48 z" fill="url(#p5hot)"/>
+          <!-- head -->
+          <path d="M230 86 C 282 86, 308 126, 306 168 C 304 212, 278 244, 230 244 C 182 244, 156 212, 154 168 C 152 126, 178 86, 230 86 Z"
+                fill="url(#p5hot)" stroke="#8a3226" stroke-width="2.2"/>
+          <!-- ears -->
+          <path d="M154 158 c-14 -6 -18 22 -2 28" fill="url(#p5hot)" stroke="#8a3226" stroke-width="1.8"/>
+          <path d="M306 158 c14 -6 18 22 2 28" fill="url(#p5hot)" stroke="#8a3226" stroke-width="1.8"/>
+        </g>
+        <!-- flush patches -->
+        <ellipse cx="186" cy="182" rx="22" ry="14" fill="#ff3b6b" opacity=".35" filter="url(#p5b)"/>
+        <ellipse cx="274" cy="182" rx="22" ry="14" fill="#ff3b6b" opacity=".35" filter="url(#p5b)"/>
+        <!-- sunken eyes -->
+        <g>
+          <path d="M172 156 q18 -12 36 0 q-18 14 -36 0 z" fill="#fff" opacity=".9"/>
+          <circle cx="190" cy="157" r="6" fill="#3a2418"/>
+          <path d="M252 156 q18 -12 36 0 q-18 14 -36 0 z" fill="#fff" opacity=".9"/>
+          <circle cx="270" cy="157" r="6" fill="#3a2418"/>
+          <path d="M168 146 q22 -12 44 -2" fill="none" stroke="#7d2e22" stroke-width="2.4" stroke-linecap="round"/>
+          <path d="M248 144 q22 -10 44 2" fill="none" stroke="#7d2e22" stroke-width="2.4" stroke-linecap="round"/>
+          <path d="M172 168 q18 8 36 2" fill="none" stroke="#8a3226" stroke-width="1.6" opacity=".7"/>
+          <path d="M252 170 q18 8 36 0" fill="none" stroke="#8a3226" stroke-width="1.6" opacity=".7"/>
+        </g>
+        <!-- dry cracked lips -->
+        <path d="M204 210 q26 -10 52 0 q-26 16 -52 0 z" fill="#b04b3f" stroke="#7d2e22" stroke-width="1.6"/>
+        <g stroke="#5e1c15" stroke-width="1.2" stroke-linecap="round">
+          <path d="M216 206 v9"/><path d="M228 204 v12"/><path d="M242 206 v9"/>
+        </g>
+        <!-- fruity breath cloud -->
+        <g opacity=".9">
+          <path d="M300 216 C 330 200, 366 206, 378 224 C 392 244, 372 262, 348 258 C 330 274, 300 266, 296 246 C 284 240, 286 222, 300 216 Z"
+                fill="rgba(255,194,51,.35)" stroke="#ffc233" stroke-width="1.8" stroke-dasharray="5 4"/>
+          <text x="338" y="236" font-size="11.5" font-weight="900" fill="#ffe49a" text-anchor="middle">fruity /</text>
+          <text x="338" y="250" font-size="11.5" font-weight="900" fill="#ffe49a" text-anchor="middle">acetone breath</text>
+        </g>
+        <!-- kussmaul waveform -->
+        <path d="M60 306 L 82 306 L 92 274 L 102 336 L 112 306 L 134 306 L 144 274 L 154 336 L 164 306 L 186 306"
+              fill="none" stroke="#ffe49a" stroke-width="2.6" stroke-linecap="round"/>
+        <text x="122" y="352" font-size="11.5" font-weight="800" fill="#ffe49a" text-anchor="middle">deep · rapid (Kussmaul)</text>
+        <g font-size="12" font-weight="800" fill="#ffd9e2">
+          <text x="352" y="96">hot</text><text x="352" y="114">flushed</text><text x="352" y="132">DRY skin</text>
+          <text x="352" y="150">thirsty</text><text x="352" y="168">polyuria</text>
+        </g>
+
+        <!-- HYPO -->
+        <rect x="460" y="20" width="420" height="352" rx="14" fill="rgba(47,107,255,.20)" stroke="#2f6bff" stroke-width="2"/>
+        <text x="670" y="46" font-size="16" font-weight="900" fill="#dbe6ff" text-anchor="middle">HYPOGLYCEMIA · cold &amp; clammy</text>
+        <g filter="url(#p5sh)">
+          <path d="M552 350 C 564 288, 616 262, 670 262 C 724 262, 776 288, 788 350 Z" fill="#3d4a68" opacity=".85"/>
+          <path d="M646 220 h48 v46 h-48 z" fill="url(#p5cold)"/>
+          <path d="M670 86 C 722 86, 748 126, 746 168 C 744 212, 718 244, 670 244 C 622 244, 596 212, 594 168 C 592 126, 618 86, 670 86 Z"
+                fill="url(#p5cold)" stroke="#6b7794" stroke-width="2.2"/>
+          <path d="M594 158 c-14 -6 -18 22 -2 28" fill="url(#p5cold)" stroke="#6b7794" stroke-width="1.8"/>
+          <path d="M746 158 c14 -6 18 22 2 28" fill="url(#p5cold)" stroke="#6b7794" stroke-width="1.8"/>
+        </g>
+        <!-- wide anxious eyes -->
+        <g>
+          <ellipse cx="630" cy="158" rx="19" ry="15" fill="#fff"/>
+          <circle cx="630" cy="158" r="7" fill="#26324a"/>
+          <ellipse cx="710" cy="158" rx="19" ry="15" fill="#fff"/>
+          <circle cx="710" cy="158" r="7" fill="#26324a"/>
+          <path d="M610 138 q20 -12 40 -2" fill="none" stroke="#55617d" stroke-width="2.4" stroke-linecap="round"/>
+          <path d="M690 136 q20 -10 40 2" fill="none" stroke="#55617d" stroke-width="2.4" stroke-linecap="round"/>
+        </g>
+        <path d="M646 212 q24 8 48 -2" fill="none" stroke="#8794b0" stroke-width="3" stroke-linecap="round"/>
+        <!-- sweat beads -->
+        <g>
+          <path d="M614 106 c6 8 8 12 0 16 c-8 -4 -6 -8 0 -16 z" fill="url(#p5drop)"/>
+          <path d="M644 96 c6 8 8 12 0 16 c-8 -4 -6 -8 0 -16 z" fill="url(#p5drop)"/>
+          <path d="M676 92 c6 8 8 12 0 16 c-8 -4 -6 -8 0 -16 z" fill="url(#p5drop)"/>
+          <path d="M708 98 c6 8 8 12 0 16 c-8 -4 -6 -8 0 -16 z" fill="url(#p5drop)"/>
+          <path d="M732 114 c6 8 8 12 0 16 c-8 -4 -6 -8 0 -16 z" fill="url(#p5drop)"/>
+          <path d="M600 190 c6 8 8 12 0 16 c-8 -4 -6 -8 0 -16 z" fill="url(#p5drop)"/>
+          <path d="M742 194 c6 8 8 12 0 16 c-8 -4 -6 -8 0 -16 z" fill="url(#p5drop)"/>
+        </g>
+        <!-- trembling hands -->
+        <g stroke="#dfe6f5" stroke-width="2.4" fill="none" stroke-linecap="round">
+          <path d="M510 322 q10 -10 20 0 q10 10 20 0"/>
+          <path d="M510 334 q10 -10 20 0 q10 10 20 0" opacity=".6"/>
+          <path d="M790 322 q10 -10 20 0 q10 10 20 0"/>
+          <path d="M790 334 q10 -10 20 0 q10 10 20 0" opacity=".6"/>
+        </g>
+        <text x="530" y="356" font-size="11.5" font-weight="800" fill="#dbe6ff" text-anchor="middle">tremor</text>
+        <text x="810" y="356" font-size="11.5" font-weight="800" fill="#dbe6ff" text-anchor="middle">tremor</text>
+        <!-- fast pulse trace -->
+        <path d="M500 264 L 516 264 L 522 246 L 528 284 L 534 264 L 548 264 L 554 246 L 560 284 L 566 264 L 580 264 L 586 246 L 592 284 L 598 264 L 612 264"
+              fill="none" stroke="#ff9db6" stroke-width="2.4" stroke-linecap="round"/>
+        <text x="556" y="236" font-size="11.5" font-weight="800" fill="#ff9db6" text-anchor="middle">tachycardia</text>
+        <g font-size="12" font-weight="800" fill="#dbe6ff">
+          <text x="790" y="96">pale</text><text x="790" y="114">cool</text><text x="790" y="132">CLAMMY</text>
+          <text x="790" y="150">anxious</text><text x="790" y="168">hungry</text>
+        </g>
+        <text x="460" y="386" font-size="0" fill="none">.</text>
+      </svg>
+      <div class="legendrow">
+        <span>🔥 HOT + DRY = sugar HIGH</span>
+        <span>🥶 COLD + CLAMMY = need some CANDY</span>
+        <span>⏱️ Low sugar deteriorates in minutes; high sugar over hours</span>
+      </div>
+      <div class="mn">🧠 If you cannot get a glucose reading and the patient is deteriorating, <b>treat for hypoglycemia</b> — a little extra sugar is survivable; a missed low is not.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section id="dx">
+  <div class="sec-h"><span class="icon">🧪</span><h2>DIAGNOSIS &amp; THE NUMBERS</h2><span class="step">STEP 4 · LABS</span></div>
+  <p class="sec-sub">Four tests, three zones each: normal · pre-diabetes · diabetes. <mark>A1C ≥ 6.5% is the headline number.</mark></p>
+  <div class="grid">
+
+    <div class="card sapphire span2">
+      <h3>📊 The threshold scales, drawn to size</h3>
+      <svg viewBox="-10 -10 920 430" role="img" aria-label="Four horizontal bar scales showing the diagnostic cut points for diabetes. Fasting plasma glucose: normal under 100, prediabetes 100 to 125, diabetes 126 or above. Two hour oral glucose tolerance test: normal under 140, prediabetes 140 to 199, diabetes 200 or above. Hemoglobin A1C: normal under 5.7 percent, prediabetes 5.7 to 6.4 percent, diabetes 6.5 percent or above. Random plasma glucose 200 or above with classic symptoms is diagnostic">
+        <defs>
+          <linearGradient id="p6bar" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#12b886"/><stop offset=".34" stop-color="#12b886"/>
+            <stop offset=".36" stop-color="#ffc233"/><stop offset=".62" stop-color="#ffc233"/>
+            <stop offset=".64" stop-color="#ff3b6b"/><stop offset="1" stop-color="#8e0f33"/>
+          </linearGradient>
+          <linearGradient id="p6gloss" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#fff" stop-opacity=".45"/><stop offset=".5" stop-color="#fff" stop-opacity=".05"/>
+            <stop offset="1" stop-color="#000" stop-opacity=".25"/>
+          </linearGradient>
+          <filter id="p6sh" x="-20%" y="-40%" width="140%" height="200%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="4"/><feOffset dx="1" dy="5" result="o"/>
+            <feFlood flood-color="#000" flood-opacity=".5"/><feComposite in2="o" operator="in"/>
+            <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <rect x="-6" y="-6" width="912" height="422" rx="20" fill="rgba(47,107,255,.12)" stroke="#2f6bff" stroke-width="2" stroke-dasharray="8 7"/>
+        <text x="22" y="30" font-size="18" font-weight="900" fill="#dbe6ff">DIAGNOSTIC THRESHOLDS</text>
+        <text x="22" y="50" font-size="12" font-style="italic" fill="#bcd0ff">Standard adult teaching values. Diagnosis normally needs two abnormal results, or one plus classic symptoms.</text>
+
+        <g font-size="13" font-weight="900" fill="#dbe6ff">
+          <!-- FASTING -->
+          <text x="24" y="92">FASTING plasma glucose <tspan font-size="11.5" font-weight="700" fill="#bcd0ff">(no calories ≥ 8 h)</tspan></text>
+          <g filter="url(#p6sh)">
+            <rect x="24" y="100" width="856" height="34" rx="10" fill="url(#p6bar)"/>
+            <rect x="24" y="100" width="856" height="34" rx="10" fill="url(#p6gloss)"/>
+          </g>
+          <path d="M316 96 v42" stroke="#fff" stroke-width="2.5"/><path d="M572 96 v42" stroke="#fff" stroke-width="2.5"/>
+          <text x="170" y="123" font-size="13" fill="#04321f" text-anchor="middle">NORMAL &lt; 100</text>
+          <text x="444" y="123" font-size="13" fill="#3d2a00" text-anchor="middle">PRE-DM 100–125</text>
+          <text x="726" y="123" font-size="13" fill="#fff" text-anchor="middle">DIABETES ≥ 126 mg/dL</text>
+
+          <!-- OGTT -->
+          <text x="24" y="176">2-hour ORAL GLUCOSE TOLERANCE TEST <tspan font-size="11.5" font-weight="700" fill="#bcd0ff">(75 g glucose load)</tspan></text>
+          <g filter="url(#p6sh)">
+            <rect x="24" y="184" width="856" height="34" rx="10" fill="url(#p6bar)"/>
+            <rect x="24" y="184" width="856" height="34" rx="10" fill="url(#p6gloss)"/>
+          </g>
+          <path d="M316 180 v42" stroke="#fff" stroke-width="2.5"/><path d="M572 180 v42" stroke="#fff" stroke-width="2.5"/>
+          <text x="170" y="207" font-size="13" fill="#04321f" text-anchor="middle">NORMAL &lt; 140</text>
+          <text x="444" y="207" font-size="13" fill="#3d2a00" text-anchor="middle">PRE-DM 140–199</text>
+          <text x="726" y="207" font-size="13" fill="#fff" text-anchor="middle">DIABETES ≥ 200 mg/dL</text>
+
+          <!-- A1C -->
+          <text x="24" y="260">HEMOGLOBIN A1C <tspan font-size="11.5" font-weight="700" fill="#bcd0ff">(average sugar over ~3 months)</tspan></text>
+          <g filter="url(#p6sh)">
+            <rect x="24" y="268" width="856" height="34" rx="10" fill="url(#p6bar)"/>
+            <rect x="24" y="268" width="856" height="34" rx="10" fill="url(#p6gloss)"/>
+          </g>
+          <path d="M316 264 v42" stroke="#fff" stroke-width="2.5"/><path d="M572 264 v42" stroke="#fff" stroke-width="2.5"/>
+          <text x="170" y="291" font-size="13" fill="#04321f" text-anchor="middle">NORMAL &lt; 5.7%</text>
+          <text x="444" y="291" font-size="13" fill="#3d2a00" text-anchor="middle">PRE-DM 5.7–6.4%</text>
+          <text x="726" y="291" font-size="13" fill="#fff" text-anchor="middle">DIABETES ≥ 6.5%</text>
+
+          <!-- RANDOM -->
+          <text x="24" y="344">RANDOM plasma glucose <tspan font-size="11.5" font-weight="700" fill="#bcd0ff">(any time, no fasting)</tspan></text>
+          <g filter="url(#p6sh)">
+            <rect x="24" y="352" width="856" height="34" rx="10" fill="#12b886"/>
+            <rect x="572" y="352" width="308" height="34" rx="10" fill="#ff3b6b"/>
+            <rect x="24" y="352" width="856" height="34" rx="10" fill="url(#p6gloss)"/>
+          </g>
+          <path d="M572 348 v42" stroke="#fff" stroke-width="2.5"/>
+          <text x="298" y="375" font-size="13" fill="#04321f" text-anchor="middle">usual range roughly 70–140 mg/dL</text>
+          <text x="726" y="375" font-size="13" fill="#fff" text-anchor="middle">≥ 200 + classic symptoms = DIABETES</text>
+        </g>
+        <text x="452" y="410" font-size="12" font-style="italic" fill="#bcd0ff" text-anchor="middle">Zone widths are drawn for legibility, not to numeric scale.</text>
+      </svg>
+      <div class="mn">🧠 <b>100 · 126 · 140 · 200 · 5.7 · 6.5.</b> Chant them. Fasting starts at 100 and diagnoses at 126; the 2-hour starts at 140 and diagnoses at 200; A1C starts at 5.7 and diagnoses at 6.5.</div>
+    </div>
+
+    <div class="card topaz">
+      <h3>🧪 What A1C really measures</h3>
+      <p><b>Answer first: A1C is a 3-month report card, not a snapshot.</b> Glucose sticks to hemoglobin inside red cells; RBCs live about <span class="mono">120 days</span>, so the % glycated reflects the <b>average</b> sugar over roughly 2–3 months.</p>
+      <ul class="tick">
+        <li>Cannot be faked by fasting the morning of the draw.</li>
+        <li>Usual target for many non-pregnant adults is <b>under <span class="mono">7%</span></b>, individualised — older adults and those with severe hypoglycemia may be given a looser goal.</li>
+        <li>Conditions that shorten or lengthen RBC life (anemia, recent transfusion, some hemoglobinopathies, pregnancy, CKD) make A1C <b>unreliable</b>.</li>
+      </ul>
+      <div class="mn">🧠 <b>Fingersticks are photos. A1C is the whole album.</b></div>
+    </div>
+
+    <div class="card tealc">
+      <h3>🧪 The other labs you'll see</h3>
+      <ul class="tick">
+        <li><b>Urine glucose &amp; ketones</b> — glucose spills once serum is over roughly <span class="mono">180 mg/dL</span> (the renal threshold). Ketones in urine = fat is being burned = think type 1 / DKA.</li>
+        <li><b>Serum creatinine &amp; eGFR / urine albumin</b> — screening for nephropathy. Creatinine above about <span class="mono">1.3 mg/dL</span> is a red flag; reference ranges vary by lab, sex and muscle mass.</li>
+        <li><b>Lipid panel &amp; BP</b> — because most people with diabetes die of <b>cardiovascular</b> disease, not of sugar.</li>
+        <li><b>Fructosamine</b> — a 2–3 week average, used when A1C can't be trusted.</li>
+      </ul>
+      <div class="mn">🧠 <b>Sugar in the urine = sugar over ~180.</b> That one number explains glucosuria, polyuria and the sweet-smelling urine in the old textbooks.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>⭐ Gestational diabetes — one line to remember</h3>
+      <p>Placental hormones cause insulin resistance in pregnancy. Screening is usually a <b>glucose challenge</b> around <span class="mono">24–28 weeks</span>, confirmed with a longer tolerance test if abnormal.</p>
+      <p>It usually resolves after delivery — but it flags a <b>markedly higher lifetime risk of type 2</b>, so the patient needs ongoing screening. Babies can be large (macrosomia) and may drop their own sugar after birth once the maternal glucose supply stops.</p>
+      <div class="mn">🧠 <b>Gestational diabetes is a stress test for the pancreas — and she failed it once.</b> Screen her forever after.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section id="comps">
+  <div class="sec-h"><span class="icon">💔</span><h2>WHAT IT DESTROYS</h2><span class="step">STEP 5 · COMPLICATIONS</span></div>
+  <p class="sec-sub">Chronically high glucose glycates and thickens vessel walls. Small vessels go first (<b>micro</b>), then big ones (<b>macro</b>). <mark>Every long-term complication is a blood-vessel story.</mark></p>
+  <div class="grid">
+
+    <div class="card deep span2">
+      <h3>🗺️ The complication map — every organ drawn</h3>
+      <svg viewBox="-10 -10 920 700" role="img" aria-label="A body figure surrounded by five drawn anatomical insets showing diabetic complications. A retina cross-section with microaneurysms, dot haemorrhages, hard exudates and new fragile vessels. A kidney glomerulus with a capillary tuft, thickened basement membrane and protein leaking into Bowman space. A peripheral nerve cross-section with fascicles, thinning myelin and a shrunken vasa nervorum. A coronary artery cross-section with an atherosclerotic plaque narrowing the lumen. A foot with a plantar ulcer over the metatarsal head, callus rim and poor pulses">
+        <defs>
+          <linearGradient id="p7body" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#7ea0d8"/><stop offset=".4" stop-color="#4a6ea8"/>
+            <stop offset="1" stop-color="#22355c"/>
+          </linearGradient>
+          <radialGradient id="p7ret" cx=".4" cy=".3" r=".9">
+            <stop offset="0" stop-color="#ffd9c2"/><stop offset=".4" stop-color="#ff9b6b"/>
+            <stop offset=".8" stop-color="#c0522a"/><stop offset="1" stop-color="#6d2a12"/>
+          </radialGradient>
+          <radialGradient id="p7glom" cx=".38" cy=".3" r=".9">
+            <stop offset="0" stop-color="#ffd0dc"/><stop offset=".4" stop-color="#ff6b8f"/>
+            <stop offset=".8" stop-color="#a81a44"/><stop offset="1" stop-color="#5c0a25"/>
+          </radialGradient>
+          <radialGradient id="p7nrv" cx=".4" cy=".3" r=".9">
+            <stop offset="0" stop-color="#fff4d6"/><stop offset=".4" stop-color="#ffdc8a"/>
+            <stop offset=".8" stop-color="#c99a2c"/><stop offset="1" stop-color="#7a5a10"/>
+          </radialGradient>
+          <radialGradient id="p7art" cx=".4" cy=".3" r=".9">
+            <stop offset="0" stop-color="#ffc0cd"/><stop offset=".35" stop-color="#f0637f"/>
+            <stop offset=".75" stop-color="#a81a44"/><stop offset="1" stop-color="#4d0a1e"/>
+          </radialGradient>
+          <radialGradient id="p7foot" cx=".4" cy=".28" r=".95">
+            <stop offset="0" stop-color="#ffe3cd"/><stop offset=".4" stop-color="#ecb890"/>
+            <stop offset=".8" stop-color="#b47a52"/><stop offset="1" stop-color="#6d4126"/>
+          </radialGradient>
+          <radialGradient id="p7plaq" cx=".4" cy=".3" r=".9">
+            <stop offset="0" stop-color="#fff8dc"/><stop offset=".6" stop-color="#ffd66b"/><stop offset="1" stop-color="#b58a1c"/>
+          </radialGradient>
+          <filter id="p7sh" x="-30%" y="-30%" width="170%" height="170%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="6"/><feOffset dx="3" dy="7" result="o"/>
+            <feFlood flood-color="#000" flood-opacity=".55"/><feComposite in2="o" operator="in"/>
+            <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="p7b"><feGaussianBlur stdDeviation="7"/></filter>
+        </defs>
+        <rect x="-6" y="-6" width="912" height="692" rx="20" fill="rgba(192,34,85,.12)" stroke="#c02255" stroke-width="2" stroke-dasharray="8 7"/>
+        <text x="22" y="32" font-size="19" font-weight="900" fill="#ffc9d6">CHRONIC HYPERGLYCEMIA · organ by organ</text>
+        <text x="22" y="52" font-size="12.5" font-style="italic" fill="#ffd9e2">Small vessels first (eyes · kidneys · nerves), then the big ones (heart · brain · legs).</text>
+
+        <!-- central body -->
+        <g filter="url(#p7sh)" opacity=".95">
+          <path d="M446 92 C 468 92, 480 110, 478 128 C 476 146, 466 156, 452 158
+                   C 470 164, 492 176, 500 196 L 512 300 L 496 306 L 486 240
+                   L 484 360 L 494 520 L 476 526 L 452 380 L 440 380 L 418 526 L 400 520 L 410 360
+                   L 408 240 L 398 306 L 382 300 L 394 196 C 402 176, 424 164, 442 158
+                   C 428 156, 418 146, 416 128 C 414 110, 424 92, 446 92 Z"
+                fill="url(#p7body)" stroke="#16233f" stroke-width="2.4"/>
+          <ellipse cx="428" cy="120" rx="16" ry="10" fill="#fff" opacity=".16" filter="url(#p7b)"/>
+        </g>
+        <!-- feet -->
+        <path d="M476 526 C 492 528, 508 540, 500 552 L 468 552 C 462 542, 466 530, 476 526 Z" fill="url(#p7body)" stroke="#16233f" stroke-width="2"/>
+        <path d="M418 526 C 402 528, 386 540, 394 552 L 426 552 C 432 542, 428 530, 418 526 Z" fill="url(#p7body)" stroke="#16233f" stroke-width="2"/>
+
+        <!-- ===== INSET 1 · RETINA ===== -->
+        <g>
+          <circle cx="128" cy="150" r="88" fill="rgba(13,8,26,.6)" stroke="#ff8a3d" stroke-width="2.5"/>
+          <circle cx="128" cy="150" r="80" fill="url(#p7ret)"/>
+          <!-- optic disc -->
+          <circle cx="92" cy="150" r="19" fill="#ffe9c2" stroke="#c07a3a" stroke-width="1.6"/>
+          <!-- normal retinal vessels branching -->
+          <g stroke="#a81a44" stroke-width="3.2" fill="none" stroke-linecap="round">
+            <path d="M108 142 C 140 126, 168 116, 192 112"/>
+            <path d="M110 158 C 142 176, 170 190, 194 194"/>
+            <path d="M132 132 C 152 120, 164 104, 170 90"/>
+            <path d="M136 170 C 158 182, 170 198, 176 210"/>
+          </g>
+          <g stroke="#c02255" stroke-width="1.8" fill="none" stroke-linecap="round">
+            <path d="M150 130 C 158 118, 172 112, 184 108"/><path d="M152 172 C 162 184, 176 190, 188 194"/>
+            <path d="M120 122 C 126 110, 134 100, 142 92"/><path d="M118 180 C 124 194, 132 204, 140 212"/>
+          </g>
+          <!-- microaneurysms -->
+          <g fill="#7d0e2c">
+            <circle cx="158" cy="126" r="4.5"/><circle cx="176" cy="150" r="4"/><circle cx="150" cy="180" r="4.5"/>
+            <circle cx="126" cy="196" r="4"/><circle cx="118" cy="104" r="4"/>
+          </g>
+          <!-- dot/blot haemorrhages -->
+          <g fill="#5c0a25" opacity=".85">
+            <ellipse cx="168" cy="178" rx="9" ry="6" transform="rotate(20 168 178)"/>
+            <ellipse cx="104" cy="196" rx="8" ry="5" transform="rotate(-25 104 196)"/>
+            <ellipse cx="142" cy="98" rx="8" ry="5" transform="rotate(15 142 98)"/>
+          </g>
+          <!-- hard exudates -->
+          <g fill="#ffe9a8">
+            <circle cx="186" cy="164" r="3.4"/><circle cx="192" cy="152" r="2.8"/><circle cx="180" cy="176" r="3"/>
+            <circle cx="96" cy="118" r="3"/><circle cx="88" cy="188" r="3.2"/>
+          </g>
+          <!-- neovascular tuft -->
+          <g stroke="#ff3b6b" stroke-width="1.6" fill="none">
+            <path d="M186 128 q10 -8 18 -2 M186 128 q6 -12 2 -20 M186 128 q14 4 20 12 M186 128 q-4 -12 -12 -16"/>
+          </g>
+          <text x="128" y="256" font-size="14" font-weight="900" fill="#ffd9b8" text-anchor="middle">RETINOPATHY</text>
+          <text x="128" y="273" font-size="11.5" font-weight="800" fill="#ffe49a" text-anchor="middle">leaking + fragile new vessels</text>
+          <text x="128" y="288" font-size="11.5" font-weight="800" fill="#ffe49a" text-anchor="middle">→ blindness · yearly dilated exam</text>
+        </g>
+        <path d="M216 150 C 300 130, 370 130, 402 138" fill="none" stroke="#ff8a3d" stroke-width="2.2" stroke-dasharray="6 5"/>
+
+        <!-- ===== INSET 2 · GLOMERULUS ===== -->
+        <g>
+          <circle cx="750" cy="150" r="88" fill="rgba(13,8,26,.6)" stroke="#ff3b6b" stroke-width="2.5"/>
+          <!-- Bowman capsule -->
+          <circle cx="750" cy="150" r="74" fill="rgba(255,208,220,.18)" stroke="#ff9db6" stroke-width="4"/>
+          <!-- capillary tuft -->
+          <g fill="none" stroke="url(#p7glom)" stroke-width="13" stroke-linecap="round">
+            <path d="M726 118 C 764 108, 792 132, 782 158"/>
+            <path d="M716 146 C 706 178, 742 200, 768 186"/>
+            <path d="M740 122 C 712 138, 716 168, 742 172"/>
+            <path d="M762 138 C 786 152, 780 184, 754 190"/>
+          </g>
+          <g fill="none" stroke="#ff9db6" stroke-width="4" stroke-linecap="round" opacity=".55">
+            <path d="M728 120 C 764 110, 790 134, 780 156"/><path d="M718 148 C 710 176, 742 196, 766 184"/>
+          </g>
+          <!-- thickened basement membrane highlight -->
+          <g fill="none" stroke="#ffc233" stroke-width="3.5" stroke-dasharray="5 4" opacity=".95">
+            <path d="M722 114 C 764 102, 798 130, 786 162"/>
+          </g>
+          <!-- afferent / efferent -->
+          <path d="M676 138 L 712 142" stroke="#c02255" stroke-width="10" stroke-linecap="round"/>
+          <path d="M676 172 L 710 166" stroke="#8e0f33" stroke-width="8" stroke-linecap="round"/>
+          <!-- protein leaking out -->
+          <g fill="#ffe49a">
+            <circle cx="790" cy="196" r="5"/><circle cx="806" cy="182" r="4"/><circle cx="800" cy="210" r="4.5"/>
+            <circle cx="778" cy="212" r="4"/>
+          </g>
+          <path d="M772 198 L 812 220" stroke="#ffe49a" stroke-width="2" stroke-dasharray="4 3"/>
+          <text x="750" y="256" font-size="14" font-weight="900" fill="#ffc9d6" text-anchor="middle">NEPHROPATHY</text>
+          <text x="750" y="273" font-size="11.5" font-weight="800" fill="#ffe49a" text-anchor="middle">thick, leaky filter → albumin in urine</text>
+          <text x="750" y="288" font-size="11.5" font-weight="800" fill="#ffe49a" text-anchor="middle">→ rising creatinine → dialysis</text>
+        </g>
+        <path d="M662 150 C 590 132, 520 132, 492 140" fill="none" stroke="#ff3b6b" stroke-width="2.2" stroke-dasharray="6 5"/>
+
+        <!-- ===== INSET 3 · CORONARY ARTERY ===== -->
+        <g>
+          <circle cx="128" cy="430" r="88" fill="rgba(13,8,26,.6)" stroke="#c02255" stroke-width="2.5"/>
+          <!-- adventitia -->
+          <circle cx="128" cy="430" r="72" fill="#7a3040"/>
+          <!-- media with smooth muscle striations -->
+          <circle cx="128" cy="430" r="60" fill="url(#p7art)"/>
+          <g stroke="#5c0a25" stroke-width="1.4" opacity=".5" fill="none">
+            <path d="M128 370 v10 M170 388 l-7 7 M188 430 h-10 M170 472 l-7 -7 M128 490 v-10 M86 472 l7 -7 M68 430 h10 M86 388 l7 7"/>
+          </g>
+          <!-- intima -->
+          <circle cx="128" cy="430" r="44" fill="#3d0c1c"/>
+          <!-- plaque -->
+          <path d="M128 430 m-44 0 a44 44 0 0 1 62 -40 C 172 404, 160 434, 132 442 C 112 448, 92 444, 84 430 Z"
+                fill="url(#p7plaq)" stroke="#8a6a10" stroke-width="1.8"/>
+          <g fill="#fff8dc" opacity=".7">
+            <circle cx="112" cy="404" r="4"/><circle cx="130" cy="398" r="3.4"/><circle cx="146" cy="408" r="3"/>
+            <circle cx="100" cy="420" r="3.4"/><circle cx="122" cy="418" r="3"/>
+          </g>
+          <!-- residual lumen -->
+          <path d="M96 446 C 118 458, 148 452, 160 436 C 150 462, 106 468, 96 446 Z" fill="#c02255" opacity=".9"/>
+          <text x="128" y="516" font-size="0" fill="none">.</text>
+          <text x="128" y="538" font-size="14" font-weight="900" fill="#ffc9d6" text-anchor="middle">CAD · CVA · PVD</text>
+          <text x="128" y="555" font-size="11.5" font-weight="800" fill="#ffe49a" text-anchor="middle">accelerated atherosclerosis</text>
+          <text x="128" y="570" font-size="11.5" font-weight="800" fill="#ffe49a" text-anchor="middle">MI may be SILENT (neuropathy)</text>
+        </g>
+        <path d="M216 420 C 300 400, 360 330, 392 250" fill="none" stroke="#c02255" stroke-width="2.2" stroke-dasharray="6 5"/>
+
+        <!-- ===== INSET 4 · PERIPHERAL NERVE ===== -->
+        <g>
+          <circle cx="750" cy="430" r="88" fill="rgba(13,8,26,.6)" stroke="#ffc233" stroke-width="2.5"/>
+          <!-- epineurium -->
+          <circle cx="750" cy="430" r="72" fill="url(#p7nrv)" stroke="#8a6410" stroke-width="2"/>
+          <!-- fascicles -->
+          <g stroke="#8a6410" stroke-width="2.2">
+            <circle cx="722" cy="404" r="24" fill="#ffeec0"/>
+            <circle cx="778" cy="410" r="21" fill="#ffeec0"/>
+            <circle cx="736" cy="458" r="23" fill="#ffeec0"/>
+            <circle cx="784" cy="462" r="18" fill="#ffeec0"/>
+          </g>
+          <!-- axons with thinning myelin -->
+          <g>
+            <circle cx="714" cy="398" r="6" fill="#2f6bff"/><circle cx="714" cy="398" r="9" fill="none" stroke="#9d5cff" stroke-width="3"/>
+            <circle cx="730" cy="410" r="5" fill="#2f6bff"/><circle cx="730" cy="410" r="8" fill="none" stroke="#9d5cff" stroke-width="1.6" stroke-dasharray="3 3"/>
+            <circle cx="722" cy="386" r="4" fill="#2f6bff"/><circle cx="722" cy="386" r="7" fill="none" stroke="#9d5cff" stroke-width="1.2" stroke-dasharray="2 3"/>
+            <circle cx="772" cy="404" r="5" fill="#2f6bff"/><circle cx="772" cy="404" r="8" fill="none" stroke="#9d5cff" stroke-width="1.4" stroke-dasharray="3 3"/>
+            <circle cx="786" cy="416" r="4" fill="#2f6bff"/><circle cx="786" cy="416" r="7" fill="none" stroke="#9d5cff" stroke-width="1.2" stroke-dasharray="2 3"/>
+            <circle cx="730" cy="452" r="5" fill="#2f6bff"/><circle cx="730" cy="452" r="8" fill="none" stroke="#9d5cff" stroke-width="1.4" stroke-dasharray="3 3"/>
+            <circle cx="744" cy="466" r="4" fill="#2f6bff"/><circle cx="744" cy="466" r="7" fill="none" stroke="#9d5cff" stroke-width="1.2" stroke-dasharray="2 3"/>
+            <circle cx="784" cy="460" r="4" fill="#2f6bff"/><circle cx="784" cy="460" r="7" fill="none" stroke="#9d5cff" stroke-width="1.2" stroke-dasharray="2 3"/>
+          </g>
+          <!-- shrunken vasa nervorum -->
+          <path d="M700 440 C 728 428, 760 436, 792 428" fill="none" stroke="#c02255" stroke-width="4" stroke-linecap="round" opacity=".8"/>
+          <circle cx="756" cy="434" r="6" fill="#5c0a25"/>
+          <text x="750" y="538" font-size="14" font-weight="900" fill="#ffe49a" text-anchor="middle">NEUROPATHY</text>
+          <text x="750" y="555" font-size="11.5" font-weight="800" fill="#ffe49a" text-anchor="middle">stocking-glove numbness · burning</text>
+          <text x="750" y="570" font-size="11.5" font-weight="800" fill="#ffe49a" text-anchor="middle">→ they cannot FEEL the injury</text>
+        </g>
+        <path d="M662 430 C 590 410, 530 360, 500 300" fill="none" stroke="#ffc233" stroke-width="2.2" stroke-dasharray="6 5"/>
+
+        <!-- ===== INSET 5 · FOOT ULCER ===== -->
+        <g>
+          <rect x="308" y="566" width="284" height="122" rx="16" fill="rgba(13,8,26,.6)" stroke="#ff8a3d" stroke-width="2.5"/>
+          <!-- foot in profile -->
+          <g filter="url(#p7sh)">
+            <path d="M340 652 C 348 618, 372 600, 404 598 C 442 596, 470 606, 494 606
+                     C 520 606, 534 614, 532 626 C 530 640, 512 646, 486 646
+                     C 452 646, 420 654, 400 660 C 372 668, 346 666, 340 652 Z"
+                  fill="url(#p7foot)" stroke="#6d4126" stroke-width="2.2"/>
+          </g>
+          <!-- toes -->
+          <g fill="url(#p7foot)" stroke="#6d4126" stroke-width="1.6">
+            <ellipse cx="524" cy="616" rx="12" ry="9"/><ellipse cx="528" cy="632" rx="9" ry="7"/>
+          </g>
+          <!-- ulcer with callus rim over metatarsal head -->
+          <ellipse cx="452" cy="650" rx="24" ry="13" fill="#e8c9a8" stroke="#a8794c" stroke-width="2"/>
+          <ellipse cx="452" cy="650" rx="14" ry="8" fill="#8e0f33"/>
+          <ellipse cx="452" cy="650" rx="7" ry="4" fill="#3d0c1c"/>
+          <!-- reduced pulse marker -->
+          <circle cx="352" cy="618" r="9" fill="none" stroke="#ff3b6b" stroke-width="2.4"/>
+          <path d="M346 612 l12 12 M358 612 l-12 12" stroke="#ff3b6b" stroke-width="2.4" stroke-linecap="round"/>
+          <text x="450" y="672" font-size="11" font-weight="900" fill="#ffe49a" text-anchor="middle">painless plantar ulcer over the metatarsal head</text>
+          <text x="450" y="684" font-size="10.5" font-weight="800" fill="#ff9db6" text-anchor="middle">⊗ = weak or absent pedal pulse</text>
+          <text x="322" y="586" font-size="13.5" font-weight="900" fill="#ffd9b8">DIABETIC FOOT</text>
+        </g>
+        <path d="M470 560 C 470 540, 470 540, 470 530" fill="none" stroke="#ff8a3d" stroke-width="2.2" stroke-dasharray="6 5"/>
+
+        <!-- micro / macro legend -->
+        <g>
+          <rect x="316" y="316" width="264" height="118" rx="14" fill="rgba(13,8,26,.72)" stroke="#ffc233" stroke-width="1.6"/>
+          <text x="448" y="342" font-size="14" font-weight="900" fill="#ffe49a" text-anchor="middle">TWO SIZES OF DAMAGE</text>
+          <text x="332" y="366" font-size="12.5" font-weight="900" fill="#9ff2ee">MICROvascular</text>
+          <text x="332" y="384" font-size="11.5" font-weight="800" fill="#dbe6ff">eyes · kidneys · nerves</text>
+          <text x="332" y="408" font-size="12.5" font-weight="900" fill="#ff9db6">MACROvascular</text>
+          <text x="332" y="426" font-size="11.5" font-weight="800" fill="#ffd9e2">heart · brain · legs (CAD, CVA, PVD)</text>
+        </g>
+      </svg>
+      <div class="legendrow">
+        <span><i class="sw" style="background:#ff8a3d"></i> retina</span>
+        <span><i class="sw" style="background:#ff3b6b"></i> glomerulus</span>
+        <span><i class="sw" style="background:#c02255"></i> coronary artery</span>
+        <span><i class="sw" style="background:#ffc233"></i> peripheral nerve</span>
+        <span><i class="sw" style="background:#ecb890"></i> foot</span>
+      </div>
+      <div class="mn">🧠 Walk it head-to-toe: <b>eyes · kidneys · heart · nerves · feet.</b> Five stops, five yearly checks.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>👁️ EYE — retinopathy</h3>
+      <p><b>The #1 cause of new blindness in working-age adults.</b> Capillaries balloon (microaneurysms), leak (exudates, macular oedema), then the retina grows <b>fragile new vessels</b> that bleed.</p>
+      <p><b>Nursing:</b> annual <b>dilated</b> retinal exam even with no symptoms — damage is silent until it isn't. Report sudden floaters, "curtain" or vision loss <b>immediately</b>. Also screen for cataracts and glaucoma.</p>
+      <div class="mn">🧠 <b>The eye doctor often diagnoses the diabetes.</b></div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🫘 KIDNEY — nephropathy</h3>
+      <p><b>The leading cause of end-stage renal disease.</b> The glomerular filter thickens and leaks: first <b>albumin</b>, then protein, then a rising <b>creatinine</b> and falling eGFR.</p>
+      <p><b>Nursing:</b> annual urine albumin-to-creatinine ratio + eGFR; tight BP and glucose control; ACE inhibitors / ARBs are commonly used for renal protection. Watch nephrotoxins — <b>IV contrast and NSAIDs</b>.</p>
+      <div class="trap">🚨 Metformin is generally held around iodinated <b>IV contrast</b> studies because contrast can injure kidneys and metformin plus renal impairment risks lactic acidosis — follow your facility's protocol for exactly when to stop and restart.</div>
+      <div class="mn">🧠 <b>Protein in the urine is the kidney's first cry for help.</b></div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🦶 NERVES — neuropathy</h3>
+      <p><b>Stocking-and-glove</b> distribution: burning, tingling, then <b>numbness</b>. Numbness is the dangerous stage — the patient stops feeling injuries.</p>
+      <ul class="tick">
+        <li><b>Autonomic</b> neuropathy: gastroparesis (early fullness, nausea, erratic sugars), orthostatic hypotension, erectile dysfunction, <b>hypoglycemia unawareness</b>, painless "silent" MI.</li>
+        <li>Assess with <b>monofilament</b> testing and vibration sense at every visit.</li>
+      </ul>
+      <div class="mn">🧠 <b>No pain = no warning.</b> The most dangerous foot is the one that doesn't hurt.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>❤️ HEART, BRAIN &amp; LEGS — macrovascular</h3>
+      <ul class="tick">
+        <li><b>CAD / MI</b> — and it may be <b>silent</b> or present only as fatigue, dyspnea or nausea because of autonomic neuropathy.</li>
+        <li><b>CVA / stroke</b> — same accelerated atherosclerosis in the cerebral vessels.</li>
+        <li><b>PVD</b> — claudication, cool feet, hair loss on the legs, thin shiny skin, weak or absent pedal pulses, slow capillary refill.</li>
+        <li><b>Hypertension and dyslipidemia</b> travel with diabetes and multiply the risk.</li>
+      </ul>
+      <div class="mn">🧠 <b>People with diabetes die of vessels, not of sugar.</b> BP and lipids matter as much as the A1C.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🦠 INFECTION — the silent multiplier</h3>
+      <p>High glucose impairs white-cell function and feeds organisms; poor circulation stops antibiotics and oxygen reaching the tissue.</p>
+      <ul class="tick">
+        <li>Recurrent <b>yeast</b> infections, UTIs, cellulitis, slow-healing wounds</li>
+        <li>A foot ulcer + neuropathy + PVD is the road to <b>osteomyelitis and amputation</b></li>
+        <li>Infection also <b>raises</b> the sugar — a vicious loop, and the #1 precipitant of DKA/HHS</li>
+      </ul>
+      <div class="xref"><span class="pill">SEE ALSO</span> <a href="NG-291_dka-vs-hhs.html">NG-291 — DKA vs HHS</a> for what happens when infection tips the sugar over the edge.</div>
+      <div class="mn">🧠 <b>Sugar is bacteria food.</b> Any fever in a diabetic patient is a glucose problem too.</div>
+    </div>
+
+    <div class="card emerald span2">
+      <h3>✅ What actually prevents all of the above</h3>
+      <div class="ladder">
+        <div class="rung"><div class="n">1</div><div class="t"><b>Glycemic control.</b> Every point of A1C reduction lowers microvascular damage. This is the only intervention that touches all five organs.</div></div>
+        <div class="rung"><div class="n">2</div><div class="t"><b>Blood pressure control.</b> Protects kidneys, retina and brain at the same time.</div></div>
+        <div class="rung"><div class="n">3</div><div class="t"><b>Lipids + no smoking.</b> Smoking with diabetes is the fastest route to amputation and MI.</div></div>
+        <div class="rung"><div class="n">4</div><div class="t"><b>The yearly checks.</b> Dilated eye exam · urine albumin + eGFR · foot exam with monofilament · lipids · dental · immunisations (influenza, pneumococcal).</div></div>
+        <div class="rung"><div class="n">5</div><div class="t"><b>Daily foot inspection.</b> The cheapest amputation-prevention programme in medicine — details on <a href="NG-292_diabetes-2.html">NG-292</a>.</div></div>
+      </div>
+      <div class="mn">🧠 <b>ABC: A</b>1C · <b>B</b>lood pressure · <b>C</b>holesterol. Three letters, most of the outcome.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc tealbg"><span class="big">💉 IN-sulin = IN the cell</span>Glucose <b>and potassium</b> go in. Glucagon does the opposite.</div>
+    <div class="rc citrine"><span class="big">1 = None · 2 = Few</span>Lost the key vs changed the lock.</div>
+    <div class="rc rubybg"><span class="big">🔥 Hot &amp; dry = sugar HIGH</span>🥶 Cold &amp; clammy = need some candy. Low sugar is the emergency.</div>
+    <div class="rc topazbg"><span class="big">🧪 100 · 126 · 140 · 200 · 5.7 · 6.5</span>The six diagnostic numbers, in order.</div>
+  </div>
+
+  <div class="card deep">
+    <h3>➡️ Now go to the management page</h3>
+    <p>This page was the disease. <b><a href="NG-292_diabetes-2.html">NG-292 — Diabetes II</a></b> is the treatment: insulin types and their onset/peak/duration, oral agents class by class, sick-day rules, hypoglycemia and the rule of 15, foot care and self-monitoring teaching. <b><a href="NG-291_dka-vs-hhs.html">NG-291 — DKA vs HHS</a></b> covers the two hyperglycemic emergencies.</p>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 10 rapid-fire questions</summary>
+      <div class="qa">Q1: In one sentence, what does insulin do? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">It moves glucose <b>and potassium</b> from the blood into the cell, tells the liver to stop releasing glucose, and stores the surplus as glycogen and fat.</div></div>
+      <div class="qa">Q2: Which cells in the islet make insulin, and which make glucagon? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Beta cells make insulin (Beta Brings sugar down). Alpha cells make glucagon (Alpha Amplifies sugar up). Delta cells make somatostatin.</div></div>
+      <div class="qa">Q3: Why does a newly diagnosed type 1 patient lose weight while eating constantly? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Without insulin, glucose can't enter cells. The body behaves as if starving — it breaks down muscle protein and fat for fuel — so the patient eats more (polyphagia) yet loses weight, and fat breakdown produces ketones.</div></div>
+      <div class="qa">Q4: A patient's fasting glucose is 118 mg/dL and A1C is 6.1%. What is this? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Pre-diabetes — fasting 100–125 and A1C 5.7–6.4%. This is the intervention window: weight loss, activity, diet, and repeat screening.</div></div>
+      <div class="qa">Q5: Why does hyperglycemia cause polyuria? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Once serum glucose passes roughly 180 mg/dL the kidney cannot reabsorb it all, so glucose spills into the urine and drags water with it osmotically — osmotic diuresis. That fluid loss then causes thirst (polydipsia).</div></div>
+      <div class="qa">Q6: Your patient is cool, pale, sweaty, shaky and irritable. High or low sugar? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">LOW — cold and clammy, need some candy. Check the glucose, but if you cannot, treat for hypoglycemia; it kills faster than hyperglycemia.</div></div>
+      <div class="qa">Q7: Which is the #1 cause of hyperglycemia in a hospitalised patient? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Infection/sepsis — remember the 4 S's: Sepsis, Stress (surgery), Skipped insulin, Steroids. Even non-diabetic patients run high sugars while septic.</div></div>
+      <div class="qa">Q8: Name the three microvascular and three macrovascular complications. <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Micro: retinopathy (eyes), nephropathy (kidneys), neuropathy (nerves). Macro: coronary artery disease, cerebrovascular disease/stroke, peripheral vascular disease.</div></div>
+      <div class="qa">Q9: Why might a diabetic patient have a "silent" MI? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Autonomic neuropathy blunts the pain signal. They may present only with fatigue, shortness of breath, nausea or a sudden unexplained rise in glucose — so keep a low threshold for an ECG.</div></div>
+      <div class="qa">Q10: Which three criteria minimum define metabolic syndrome, and what are the four categories? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Any <b>3 or more</b> of: elevated blood pressure, elevated fasting glucose, central obesity by waist circumference, and abnormal lipids (high triglycerides or low HDL).</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">PATHO</span>→
+    <span style="background:rgba(47,107,255,.7)">CLUES</span>→
+    <span style="background:rgba(18,184,134,.7)">DIAGNOSE</span>→
+    <span style="background:rgba(192,34,85,.7)">COMPLICATIONS</span>
+  </div>
+  <div>NG-290 · Diabetes part 1 of 2 · pairs with NG-292 (management) · Educational study aid — verify clinical details and facility policy</div>
+</footer>
+
+</div>
+</body></html>

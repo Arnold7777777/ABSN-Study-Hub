@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Septic Shock · NG-129 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+
+/* ---------- appended for this page ---------- */
+nav a.c5{background:rgba(0,194,199,.72);color:#00252b}
+#stages .sec-h h2{color:#ffd9b8} #stages .step{background:var(--citrine);color:#2b1200}
+.hdr-sm th{font-size:.78rem}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#cause">🧨 Cause</a>
+  <a class="c2" href="#clues">🔎 Clues</a>
+  <a class="c5" href="#stages">🪜 4 Stages</a>
+  <a class="c3" href="#care">🩺 Care</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Cardio · Pathophysiology Course</div>
+  <h1>Septic Shock <span class="drop">🦠</span></h1>
+  <p class="sub">The PIPES blow wide open — infection everywhere</p>
+  <div class="chips">
+    <span class="chip id">NG-129</span>
+    <span class="chip cat">Cardio · Shock</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede">Septic shock <b>results from a widespread bloodborne infection that overwhelms the body</b> — typically bacterial, from something ordinary like <b>pneumonia</b>, a <b>UTI</b> or a kidney infection that got worse. A <b>systemic cytokine release</b> inside the bloodstream causes <b>extreme vasodilation and fluid leakage from the capillaries</b>. The blood is still there — it's just in all the wrong places.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">🚿 Pipes wide + leaking</span>SVR <b>↓↓</b> · preload ↓ · CO <b>↑ early, ↓ late</b>. The volume leaked into the tissue.</div>
+  <div class="rc rubybg"><span class="big">🔥 WARM first, 🥶 COLD later</span>Warm, flushed, bounding early. Cold, clammy, mottled late. <b>Warm → cold means WORSE.</b></div>
+  <div class="rc topazbg"><span class="big">⏱️ The 1-hour bundle</span>Lactate · <b>cultures BEFORE antibiotics</b> · broad-spectrum antibiotics · <span class="mono">30 mL/kg</span> crystalloid · pressors for MAP <span class="mono">≥65</span>.</div>
+  <div class="rc tealbg"><span class="big">💊 Norepinephrine = 1st line</span>Because the problem is <i>lost vessel tone</i> — and norepi is the strongest alpha-1 squeeze with the least arrhythmia.</div>
+</div>
+
+<!-- ============ CAUSE ============ -->
+<section id="cause">
+  <div class="sec-h"><span class="icon">🧨</span><h2>CAUSE</h2><span class="step">STEP 1 · INFECTION GOES SYSTEMIC</span></div>
+  <p class="sec-sub">An ordinary infection escapes into the bloodstream, the immune system overreacts, and the overreaction — not the germ — is what causes the shock.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🦠 From a UTI to a code: infection → sepsis → septic shock</h3>
+      <svg viewBox="-10 -10 667 320" role="img" aria-label="Escalation diagram from a local infection, to sepsis with organ dysfunction, to septic shock requiring vasopressors with a high lactate">
+        <defs>
+          <marker id="aSep" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/>
+          </marker>
+        </defs>
+        <rect x="10" y="34" width="164" height="112" rx="14" fill="rgba(18,184,134,.5)" stroke="#eafff7" stroke-width="2"/>
+        <text x="26" y="62" font-size="17" font-weight="900" fill="#03291c">🦠 INFECTION</text>
+        <text x="26" y="86" font-size="13.5" font-weight="800" fill="#03291c">Pneumonia · UTI ·</text>
+        <text x="26" y="106" font-size="13.5" font-weight="800" fill="#03291c">wound · IV line</text>
+        <text x="26" y="130" font-size="13" font-style="italic" fill="#03291c">local, contained</text>
+
+        <rect x="188" y="34" width="164" height="112" rx="14" fill="rgba(255,194,51,.6)" stroke="#231a02" stroke-width="2"/>
+        <text x="204" y="62" font-size="17" font-weight="900" fill="#231a02">🔥 SEPSIS</text>
+        <text x="204" y="86" font-size="13.5" font-weight="800" fill="#231a02">Body-wide response +</text>
+        <text x="204" y="106" font-size="13.5" font-weight="800" fill="#231a02">ORGAN dysfunction</text>
+        <text x="204" y="130" font-size="13" font-style="italic" fill="#231a02">fever · tachycardia · confusion</text>
+
+        <rect x="366" y="34" width="164" height="112" rx="14" fill="rgba(192,34,85,.8)" stroke="#ffc233" stroke-width="3"/>
+        <text x="382" y="62" font-size="17" font-weight="900" fill="#ffc233">💀 SEPTIC SHOCK</text>
+        <text x="382" y="86" font-size="13.5" font-weight="800" fill="#fff">Needs VASOPRESSORS</text>
+        <text x="382" y="106" font-size="13.5" font-weight="800" fill="#fff">for MAP ≥ 65 +</text>
+        <text x="382" y="126" font-size="13.5" font-weight="800" fill="#fff">lactate &gt; 2 mmol/L</text>
+        <text x="382" y="142" font-size="12.5" font-style="italic" fill="#ffd9e2">despite adequate fluid</text>
+
+        <path d="M176 90 L186 90" stroke="#ffc233" stroke-width="6" marker-end="url(#aSep)"/>
+        <path d="M354 90 L364 90" stroke="#ffc233" stroke-width="6" marker-end="url(#aSep)"/>
+
+        <text x="14" y="188" font-size="16" font-weight="900" fill="#ffd9b8">TOP SOURCES OF THE INFECTION</text>
+        <rect x="14" y="200" width="120" height="42" rx="10" fill="rgba(47,107,255,.5)" stroke="#bcd0ff" stroke-width="1.5"/>
+        <text x="26" y="220" font-size="14" font-weight="900" fill="#eaf1ff">🫁 Pneumonia</text>
+        <text x="26" y="236" font-size="12" font-style="italic" fill="#bcd0ff">most common</text>
+        <rect x="144" y="200" width="120" height="42" rx="10" fill="rgba(157,92,255,.5)" stroke="#d9c2ff" stroke-width="1.5"/>
+        <text x="156" y="220" font-size="14" font-weight="900" fill="#f0e8ff">🫘 UTI / kidney</text>
+        <text x="156" y="236" font-size="12" font-style="italic" fill="#d9c2ff">pyelonephritis</text>
+        <rect x="274" y="200" width="120" height="42" rx="10" fill="rgba(0,194,199,.5)" stroke="#9ff2ee" stroke-width="1.5"/>
+        <text x="286" y="220" font-size="14" font-weight="900" fill="#eafff7">🩹 Wound / skin</text>
+        <text x="286" y="236" font-size="12" font-style="italic" fill="#9ff2ee">surgical, pressure</text>
+        <rect x="404" y="200" width="126" height="42" rx="10" fill="rgba(255,138,61,.55)" stroke="#ffd9b8" stroke-width="1.5"/>
+        <text x="416" y="220" font-size="14" font-weight="900" fill="#2b1200">💉 Lines &amp; tubes</text>
+        <text x="416" y="236" font-size="12" font-style="italic" fill="#2b1200">CVC, Foley, vent</text>
+
+        <text x="14" y="272" font-size="15" font-weight="900" fill="#ffc233">HIGHEST RISK:</text>
+        <text x="132" y="272" font-size="14" font-weight="800" fill="#efe6ff">very old · very young · immunosuppressed · chemo/neutropenic ·</text>
+        <text x="132" y="292" font-size="14" font-weight="800" fill="#efe6ff">diabetes · post-op · anyone with an indwelling device</text>
+      </svg>
+      <div class="mn">🧠 <b>“Sepsis is the body's friendly fire.”</b> The bacteria start it, but the <i>cytokine storm</i> — the immune response — is what dilates the vessels and drops the pressure. That's why antibiotics alone don't fix the shock.</div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>🔬 Mechanism: why the pressure disappears</h3>
+      <svg viewBox="0 0 540 330" role="img" aria-label="Diagram of a blood vessel in sepsis: bacteria release toxins, cytokines are released, the vessel dilates massively and the capillary walls leak plasma into the tissue while microclots form">
+        <defs>
+          <linearGradient id="bloodS" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ff3b6b"/><stop offset="1" stop-color="#c02255"/>
+          </linearGradient>
+          <marker id="aLeak" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/>
+          </marker>
+        </defs>
+        <!-- normal vessel -->
+        <text x="16" y="28" font-size="16" font-weight="900" fill="#eafff7">NORMAL VESSEL</text>
+        <rect x="16" y="40" width="230" height="48" rx="24" fill="rgba(255,255,255,.10)" stroke="#eafff7" stroke-width="2"/>
+        <rect x="24" y="54" width="214" height="20" rx="10" fill="url(#bloodS)"/>
+        <text x="256" y="60" font-size="14" font-weight="900" fill="#eafff7">Tight walls · good tone</text>
+        <text x="256" y="80" font-size="14" font-weight="900" fill="#eafff7">Pressure is held</text>
+
+        <!-- septic vessel -->
+        <text x="16" y="130" font-size="16" font-weight="900" fill="#ff9db4">SEPTIC VESSEL</text>
+        <rect x="16" y="142" width="300" height="94" rx="47" fill="rgba(255,59,107,.22)" stroke="#ff9db4" stroke-width="2" stroke-dasharray="9 6"/>
+        <rect x="26" y="180" width="280" height="18" rx="9" fill="url(#bloodS)"/>
+        <circle cx="70" cy="166" r="7" fill="#7df0c6"/><circle cx="130" cy="212" r="7" fill="#7df0c6"/>
+        <circle cx="210" cy="164" r="7" fill="#7df0c6"/><circle cx="266" cy="210" r="7" fill="#7df0c6"/>
+        <text x="60" y="152" font-size="11.5" font-weight="900" fill="#7df0c6">bacteria</text>
+        <!-- leaks -->
+        <path d="M80 236 L64 276" stroke="#ffc233" stroke-width="4.5" marker-end="url(#aLeak)"/>
+        <path d="M160 236 L160 276" stroke="#ffc233" stroke-width="4.5" marker-end="url(#aLeak)"/>
+        <path d="M244 236 L262 276" stroke="#ffc233" stroke-width="4.5" marker-end="url(#aLeak)"/>
+        <ellipse cx="164" cy="298" rx="140" ry="22" fill="rgba(255,194,51,.32)" stroke="#ffc233" stroke-width="2"/>
+        <text x="66" y="304" font-size="13.5" font-weight="900" fill="#ffc233">plasma leaks into tissue → edema</text>
+        <!-- microclots -->
+        <rect x="330" y="142" width="200" height="94" rx="14" fill="rgba(13,8,26,.55)" stroke="#ff9db4" stroke-width="1.5"/>
+        <text x="342" y="166" font-size="14" font-weight="900" fill="#ff9db4">+ MICROCLOTS</text>
+        <text x="342" y="188" font-size="13" font-weight="800" fill="#ffd9e2">Clotting cascade fires</text>
+        <text x="342" y="208" font-size="13" font-weight="800" fill="#ffd9e2">everywhere → DIC:</text>
+        <text x="342" y="228" font-size="13" font-weight="800" fill="#ffd9e2">clots AND bleeding</text>
+        <text x="330" y="266" font-size="14" font-weight="900" fill="#ffc233">Vessels DILATE +</text>
+        <text x="330" y="286" font-size="14" font-weight="900" fill="#ffc233">capillaries LEAK</text>
+        <text x="330" y="306" font-size="14" font-weight="900" fill="#ffc233">= SVR ↓↓ and preload ↓</text>
+      </svg>
+      <div class="flow" style="margin-top:12px">
+        <div class="fstep">🦠 Bacteria &amp; endotoxin reach the bloodstream</div>
+        <div class="farrow">▼</div>
+        <div class="fstep">🌊 <b>Systemic cytokine release</b> (TNF-α, interleukins) → nitric oxide</div>
+        <div class="farrow">▼</div>
+        <div class="fstep">🚿 <b>Extreme vasodilation</b> — SVR falls through the floor</div>
+        <div class="farrow">▼</div>
+        <div class="fstep">💧 <b>Capillary leak</b> — plasma escapes into the tissues (relative hypovolemia)</div>
+        <div class="farrow">▼</div>
+        <div class="fstep">🧩 Microclots block capillaries — <b>maldistribution</b> of what blood is left</div>
+        <div class="farrow">▼</div>
+        <div class="fstep hot">💀 Cells starve despite a "normal" blood volume → lactate ↑ → MODS</div>
+      </div>
+      <p style="margin-top:10px"><mark>Septic shock is a distribution problem, not a volume problem</mark> — which is why fluids alone can't fix it and why a vasopressor is eventually mandatory.</p>
+      <div class="mn">🧠 <b>“Same water, bigger pool.”</b> Nobody drained the pool — the pool got enormous. That's why the water level (blood pressure) fell.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLUES ============ -->
+<section id="clues">
+  <div class="sec-h"><span class="icon">🔎</span><h2>CLUES</h2><span class="step">STEP 2 · WARM THEN COLD</span></div>
+  <p class="sec-sub">Septic shock is the only shock that changes what the skin feels like as it gets worse. Know both faces.</p>
+
+  <div class="grid">
+    <div class="card garnet span2">
+      <h3>⭐ WARM phase vs COLD phase — the single most tested distinction</h3>
+      <svg viewBox="-10 -10 655 420" role="img" aria-label="Two panels comparing early hyperdynamic warm septic shock with flushed dry skin, bounding pulses, wide pulse pressure and high cardiac output, to late hypodynamic cold septic shock with mottled clammy skin, thready pulses, narrow pulse pressure and low cardiac output">
+        <defs>
+          <linearGradient id="warmSk" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffc233"/><stop offset="1" stop-color="#ff3b6b"/>
+          </linearGradient>
+          <linearGradient id="coldSk" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#9fb6d9"/><stop offset="1" stop-color="#4f6b96"/>
+          </linearGradient>
+          <marker id="aPhase" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/>
+          </marker>
+        </defs>
+        <rect x="8" y="8" width="252" height="330" rx="16" fill="rgba(255,138,61,.24)" stroke="#ff8a3d" stroke-width="2.5"/>
+        <text x="24" y="40" font-size="19" font-weight="900" fill="#ffd9b8">🔥 WARM · EARLY</text>
+        <text x="24" y="60" font-size="13" font-style="italic" fill="#ffe9d6">“hyperdynamic” — compensatory stage</text>
+        <circle cx="76" cy="98" r="20" fill="url(#warmSk)"/>
+        <rect x="54" y="122" width="44" height="68" rx="14" fill="url(#warmSk)"/>
+        <rect x="34" y="126" width="16" height="58" rx="8" fill="url(#warmSk)"/>
+        <rect x="102" y="126" width="16" height="58" rx="8" fill="url(#warmSk)"/>
+        <rect x="57" y="194" width="17" height="58" rx="8" fill="url(#warmSk)"/>
+        <rect x="78" y="194" width="17" height="58" rx="8" fill="url(#warmSk)"/>
+        <text x="130" y="106" font-size="13.5" font-weight="900" fill="#ffe9d6">Flushed, HOT, DRY</text>
+        <text x="130" y="128" font-size="13.5" font-weight="900" fill="#ffe9d6">Bounding pulses</text>
+        <text x="130" y="150" font-size="13.5" font-weight="900" fill="#ffe9d6">Brisk cap refill</text>
+        <text x="130" y="172" font-size="13.5" font-weight="900" fill="#ffe9d6">WIDE pulse pressure</text>
+        <text x="130" y="194" font-size="13.5" font-weight="900" fill="#ffe9d6">Fever · tachycardia</text>
+        <text x="130" y="216" font-size="13.5" font-weight="900" fill="#ffe9d6">Tachypnea · confusion</text>
+        <rect x="24" y="266" width="220" height="60" rx="12" fill="rgba(13,8,26,.55)" stroke="#ffd9b8" stroke-width="1.5"/>
+        <text x="36" y="288" font-size="14.5" font-weight="900" fill="#ffc233">SVR ↓↓ · CO ↑ (high output)</text>
+        <text x="36" y="310" font-size="13" font-weight="800" fill="#ffe9d6">The heart is winning — for now</text>
+
+        <rect x="280" y="8" width="252" height="330" rx="16" fill="rgba(47,107,255,.24)" stroke="#2f6bff" stroke-width="2.5"/>
+        <text x="296" y="40" font-size="19" font-weight="900" fill="#bcd0ff">🥶 COLD · LATE</text>
+        <text x="296" y="60" font-size="13" font-style="italic" fill="#dfe8ff">“hypodynamic” — progressive stage</text>
+        <circle cx="348" cy="98" r="20" fill="url(#coldSk)"/>
+        <rect x="326" y="122" width="44" height="68" rx="14" fill="url(#coldSk)"/>
+        <rect x="306" y="126" width="16" height="58" rx="8" fill="url(#coldSk)"/>
+        <rect x="374" y="126" width="16" height="58" rx="8" fill="url(#coldSk)"/>
+        <rect x="329" y="194" width="17" height="58" rx="8" fill="url(#coldSk)"/>
+        <rect x="350" y="194" width="17" height="58" rx="8" fill="url(#coldSk)"/>
+        <circle cx="314" cy="190" r="7" fill="#3f5f8f"/><circle cx="382" cy="190" r="7" fill="#3f5f8f"/>
+        <text x="402" y="106" font-size="13.5" font-weight="900" fill="#dfe8ff">Cold, clammy, PALE</text>
+        <text x="402" y="128" font-size="13.5" font-weight="900" fill="#dfe8ff">Mottled extremities</text>
+        <text x="402" y="150" font-size="13.5" font-weight="900" fill="#dfe8ff">Cap refill &gt; 3 sec</text>
+        <text x="402" y="172" font-size="13.5" font-weight="900" fill="#dfe8ff">NARROW pulse pressure</text>
+        <text x="402" y="194" font-size="13.5" font-weight="900" fill="#dfe8ff">Weak, thready pulses</text>
+        <text x="402" y="216" font-size="13.5" font-weight="900" fill="#dfe8ff">Hypothermia possible</text>
+        <rect x="296" y="266" width="220" height="60" rx="12" fill="rgba(13,8,26,.6)" stroke="#bcd0ff" stroke-width="1.5"/>
+        <text x="308" y="288" font-size="14.5" font-weight="900" fill="#ffc233">SVR ↑ · CO ↓ (low output)</text>
+        <text x="308" y="310" font-size="13" font-weight="800" fill="#dfe8ff">The heart has given up</text>
+
+        <path d="M186 356 L354 356" stroke="#ffc233" stroke-width="7" stroke-linecap="round" marker-end="url(#aPhase)"/>
+        <text x="76" y="386" font-size="15.5" font-weight="900" fill="#ffc233">WARM turning COLD = the patient is getting WORSE, not better</text>
+      </svg>
+      <p style="margin-top:10px"><b>Why the switch happens — say this out loud:</b> early, cytokines dilate every vessel (<b>SVR ↓↓</b>) and the heart answers with a <b>high cardiac output</b>, so warm blood is being flung out to the skin → <b>warm, flushed, dry, bounding, wide pulse pressure</b>. Later, the capillary leak has drained the intravascular volume, <b>sepsis-induced myocardial depression</b> weakens the heart, and endogenous catecholamines plus acidosis plus the vasopressors you started clamp the periphery → <b>output falls, skin goes cold, clammy and mottled, pulse pressure narrows.</b></p>
+      <p><span class="tip">SOURCE NOTE</span> The original card lists only <b>“cold, clammy skin (pale &amp; cool extremities)”</b> for septic shock. That is the <b>late / cold phase</b>. It is <b>incomplete on its own</b> — the earlier, more salvageable phase is <b>warm and flushed</b>, and missing it is how sepsis gets missed.</p>
+      <div class="mn">🧠 <b>“Sepsis starts a party, then turns off the lights.”</b> Warm, flushed, bounding = the party. Cold, mottled, thready = the lights went out. <i>Both are septic shock.</i></div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🚨 Signs &amp; symptoms from the source — expanded</h3>
+      <ul class="tick">
+        <li>📉 <b>Severely low blood pressure.</b> The source says <span class="mono">&lt;80 systolic</span> — that is <i>profound, late</i> hypotension. The clinical triggers are earlier: <b>SBP <span class="mono">&lt;90</span></b>, a drop of <span class="mono">≥40</span> from the patient's baseline, or <b>MAP <span class="mono">&lt;65</span></b>.</li>
+        <li>🥶 <b>Cold, clammy skin, pale &amp; cool extremities</b> — <i>late/cold phase</i></li>
+        <li>🫱 <b>Delayed capillary refill</b> <span class="mono">&gt;3 sec</span>, mottling</li>
+        <li>🧠 <b>Confusion &amp; disorientation — mental status change</b> <span class="tip">NCLEX TIP</span></li>
+        <li>🧪 <b>High WBC</b>. Source: <span class="mono">&gt;10,000</span> (above the normal adult range of <span class="mono">5,000–10,000/mm³</span>). Formal sepsis criteria use <b><span class="mono">&gt;12,000</span> OR <span class="mono">&lt;4,000</span></b>, or <span class="mono">&gt;10%</span> bands.</li>
+        <li>🌡️ <b>Temperature HIGH or very LOW</b> — fever <span class="mono">&gt;38.3 °C (101 °F)</span> <b>or</b> hypothermia <span class="mono">&lt;36 °C (96.8 °F)</span>. The source's <span class="mono">96 °F</span> is that low end.</li>
+        <li>💓 Tachycardia · 🌬️ tachypnea · 🚽 urine <span class="mono">&lt;30 mL/hr</span></li>
+      </ul>
+      <div class="mn">🧠 <b>A LOW temperature is scarier than a high one.</b> Hypothermia in sepsis means the body has stopped mounting a response — it carries a worse prognosis than fever. <i>In older adults, new confusion may be the ONLY sign; many never run a fever at all.</i></div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🧪 Screening tools &amp; labs</h3>
+      <p><b>qSOFA — 2 of 3 at the bedside, no lab needed:</b></p>
+      <ul class="tick">
+        <li>🌬️ <b>RR <span class="mono">≥22</span></b></li>
+        <li>🧠 <b>Altered mentation</b></li>
+        <li>📉 <b>SBP <span class="mono">≤100</span></b></li>
+      </ul>
+      <p style="margin-top:8px"><b>Labs that matter:</b></p>
+      <ul class="tick">
+        <li>🧪 <b>Lactate</b> — <span class="mono">&gt;2 mmol/L</span> is part of the septic-shock definition; <span class="mono">≥4</span> triggers aggressive fluids. <b>Recheck it</b> to prove you're winning.</li>
+        <li>🧫 <b>Blood cultures ×2</b> from separate sites — <span class="never">always BEFORE the first antibiotic</span></li>
+        <li>🩸 <b>CBC with differential</b>, procalcitonin, CRP</li>
+        <li>🫘 <b>BUN/creatinine</b> (AKI), <b>LFTs &amp; bilirubin</b>, <b>platelets</b> (fall in DIC), <b>PT/INR &amp; fibrinogen</b></li>
+        <li>🫧 <b>ABG</b> — metabolic acidosis; <b>ScvO₂</b> for oxygen extraction</li>
+      </ul>
+      <div class="mn">🧠 <b>“qSOFA = 22, confused, 100.”</b> Respiratory rate 22 or more, altered mental status, systolic 100 or less. Two of those three at any bedside = screen for sepsis <i>now</i>.</div>
+    </div>
+
+    <div class="card tealc span2">
+      <h3>📊 Where septic shock sits among the shocks</h3>
+      <table class="hdr-sm">
+        <tr><th style="width:25%">Type</th><th class="up">Preload<br>(CVP/PAWP)</th><th class="up">CO</th><th class="lo">SVR</th><th class="lo">Skin</th></tr>
+        <tr><td><b>Hypovolemic</b></td><td><b>↓↓</b></td><td><b>↓</b></td><td><b>↑</b></td><td>Cold, clammy, pale</td></tr>
+        <tr><td><b>Cardiogenic</b></td><td><b>↑↑</b></td><td><b>↓↓</b></td><td><b>↑</b></td><td>Cold, clammy, mottled</td></tr>
+        <tr><td><b>Septic — warm / early</b> ⬅️</td><td><b>↓</b></td><td><b>↑</b></td><td><b>↓↓</b></td><td>WARM, flushed, dry</td></tr>
+        <tr><td><b>Septic — cold / late</b> ⬅️</td><td><b>↓</b></td><td><b>↓</b></td><td><b>↑</b></td><td>Cold, clammy, mottled</td></tr>
+        <tr><td><b>Neurogenic</b></td><td><b>↓</b></td><td><b>↓</b></td><td><b>↓↓</b></td><td>WARM, dry, pink + <b>BRADYcardia</b></td></tr>
+        <tr><td><b>Anaphylactic</b></td><td><b>↓</b></td><td><b>↓</b></td><td><b>↓↓</b></td><td>WARM, flushed + hives / swelling</td></tr>
+      </table>
+      <p style="margin-top:8px"><mark>Septic shock is the only type that occupies two rows</mark> — it is the only shock whose fingerprint changes over time.</p>
+      <div class="mn">🧠 <b>Warm + fever + confusion + wide pulse pressure = septic, early.</b> Same patient six hours later, cold and mottled = septic, progressing. Don't call it "a different shock."</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4 STAGES ============ -->
+<section id="stages">
+  <div class="sec-h"><span class="icon">🪜</span><h2>THE 4 STAGES</h2><span class="step">STEP 3 · STAGE IT</span></div>
+  <p class="sec-sub">Same four stages as every shock — here they are with the septic patient's own findings, including where warm becomes cold.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🪜 The 4 stages of shock — identical on every shock page</h3>
+      <table>
+        <tr><th style="width:22%">Stage</th><th class="up">What's happening</th><th class="lo">What you see</th></tr>
+        <tr><td><b>I · INITIAL</b></td><td>Cardiac output falls just enough that cells switch to <b>anaerobic metabolism</b> → <b>lactic acid</b> builds, blood glucose rises.</td><td><mark>Nothing.</mark> Signs &amp; symptoms are <b>ABSENT</b> in this stage — only a rising <span class="mono">lactate</span> gives it away.</td></tr>
+        <tr><td><b>II · COMPENSATORY</b></td><td>The <b>sympathetic nervous system</b> and <b>renin–angiotensin–aldosterone</b> rescue the pressure: catecholamines, vasoconstriction, ADH and aldosterone hold on to salt and water.</td><td><b>Tachycardia · tachypnea · restless &amp; anxious · cold clammy skin · narrowing pulse pressure · urine <span class="mono">&lt; 30 mL/hr</span></b>. <b>BP is still near normal.</b></td></tr>
+        <tr><td><b>III · PROGRESSIVE</b></td><td>Compensation <b>fails</b>. Capillaries leak, acidosis deepens, organs begin to die.</td><td><b>BP drops (MAP <span class="mono">&lt; 65</span>) · confusion → lethargy · cold mottled skin · weak thready pulse · crackles · oliguria → anuria · rising BUN/creatinine</b>.</td></tr>
+        <tr><td><b>IV · REFRACTORY</b><br><i>(also called irreversible)</i></td><td><b>MODS</b> — multiple organ dysfunction syndrome. The body no longer responds to fluids or vasopressors.</td><td><b>Unresponsive · profound hypotension · anuria · DIC · death is imminent.</b></td></tr>
+      </table>
+      <p style="margin-top:8px"><span class="tip">SEPSIS EXCEPTION</span> In the <b>compensatory</b> stage of <i>septic</i> shock the skin is <b>WARM and flushed</b>, not cold — because the vasodilation overpowers the sympathetic squeeze. The generic "cold clammy" description arrives in the <b>progressive</b> stage.</p>
+      <div class="mn">🧠 <b>“I Can't Perfuse Right”</b> — <b>I</b>nitial · <b>C</b>ompensatory · <b>P</b>rogressive · <b>R</b>efractory. The stage you must catch is <b>COMPENSATORY</b>: the cuff still looks fine, so your clues are <i>heart rate, respiratory rate, mental status and urine output</i>.</div>
+    </div>
+
+    <div class="card garnet span2">
+      <h3>📈 Stage progression — <u>septic</u> findings on each stage</h3>
+      <svg viewBox="-10 -10 629 660" role="img" aria-label="Four descending stages of septic shock from silent cytokine release, through a warm hyperdynamic compensatory stage, to a cold hypodynamic progressive stage, to refractory multiple organ dysfunction">
+        <defs>
+          <linearGradient id="railSe" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#00c2c7"/><stop offset="0.34" stop-color="#ffc233"/>
+            <stop offset="0.68" stop-color="#ff8a3d"/><stop offset="1" stop-color="#c02255"/>
+          </linearGradient>
+        </defs>
+        <text x="14" y="24" font-size="17" font-weight="900" fill="#ffd9b8">INFECTION SPREADS ↑ · PERFUSION ↓</text>
+        <rect x="8" y="36" width="14" height="596" rx="7" fill="url(#railSe)"/>
+
+        <rect x="32" y="36" width="520" height="128" rx="14" fill="rgba(0,194,199,.20)" stroke="#00c2c7" stroke-width="2"/>
+        <circle cx="70" cy="72" r="21" fill="#00c2c7"/><text x="60" y="79" font-size="17" font-weight="900" fill="#00252b">I</text>
+        <text x="102" y="68" font-size="19" font-weight="900" fill="#9ff2ee">INITIAL</text>
+        <text x="102" y="90" font-size="13.5" font-style="italic" fill="#d8fff0">the infection seeds the bloodstream</text>
+        <text x="102" y="114" font-size="14.5" font-weight="800" fill="#eafff7">• Cytokines released · vessels begin to dilate</text>
+        <text x="102" y="134" font-size="14.5" font-weight="800" fill="#eafff7">• Lactate starts to climb · maybe just a fever</text>
+        <text x="102" y="154" font-size="14.5" font-weight="900" fill="#ffc233">• No shock signs yet — this is when to screen</text>
+
+        <rect x="32" y="176" width="520" height="152" rx="14" fill="rgba(255,194,51,.22)" stroke="#ffc233" stroke-width="2"/>
+        <circle cx="70" cy="212" r="21" fill="#ffc233"/><text x="56" y="219" font-size="17" font-weight="900" fill="#231a02">II</text>
+        <text x="102" y="208" font-size="19" font-weight="900" fill="#ffe49a">COMPENSATORY · the WARM phase 🔥</text>
+        <text x="102" y="230" font-size="13.5" font-style="italic" fill="#fff3d1">hyperdynamic — high output fights the dilation</text>
+        <text x="102" y="254" font-size="14.5" font-weight="800" fill="#fff8e6">• WARM, FLUSHED, DRY skin · bounding pulses</text>
+        <text x="102" y="274" font-size="14.5" font-weight="800" fill="#fff8e6">• WIDE pulse pressure · brisk capillary refill</text>
+        <text x="102" y="294" font-size="14.5" font-weight="800" fill="#fff8e6">• Fever &gt; 38.3 °C or temp &lt; 36 °C · WBC high or low</text>
+        <text x="102" y="322" font-size="14.5" font-weight="900" fill="#ff8a3d">• Tachycardia · tachypnea · NEW CONFUSION · BP still holding</text>
+
+        <rect x="32" y="340" width="520" height="158" rx="14" fill="rgba(255,138,61,.24)" stroke="#ff8a3d" stroke-width="2"/>
+        <circle cx="70" cy="376" r="21" fill="#ff8a3d"/><text x="53" y="383" font-size="17" font-weight="900" fill="#2b1200">III</text>
+        <text x="102" y="372" font-size="19" font-weight="900" fill="#ffd9b8">PROGRESSIVE · the COLD phase 🥶</text>
+        <text x="102" y="394" font-size="13.5" font-style="italic" fill="#ffe9d6">hypodynamic — the leak wins, the heart tires</text>
+        <text x="102" y="418" font-size="14.5" font-weight="800" fill="#ffe9d6">• COLD, CLAMMY, MOTTLED · cap refill &gt; 3 sec</text>
+        <text x="102" y="438" font-size="14.5" font-weight="800" fill="#ffe9d6">• NARROW pulse pressure · thready pulses</text>
+        <text x="102" y="458" font-size="14.5" font-weight="800" fill="#ffe9d6">• MAP &lt; 65 despite fluids → VASOPRESSOR required</text>
+        <text x="102" y="478" font-size="14.5" font-weight="800" fill="#ffe9d6">• Lactate &gt; 2 (often &gt; 4) · oliguria · ARDS · DIC begins</text>
+        <text x="102" y="494" font-size="13.5" font-weight="900" fill="#ffc233">• This is the point at which it is called SEPTIC SHOCK</text>
+
+        <rect x="32" y="510" width="520" height="122" rx="14" fill="rgba(192,34,85,.30)" stroke="#c02255" stroke-width="2"/>
+        <circle cx="70" cy="544" r="21" fill="#c02255"/><text x="52" y="551" font-size="16" font-weight="900" fill="#fff">IV</text>
+        <text x="102" y="540" font-size="19" font-weight="900" fill="#ff9db4">REFRACTORY</text>
+        <text x="102" y="562" font-size="13.5" font-style="italic" fill="#ffd9e2">= irreversible · MODS</text>
+        <text x="102" y="586" font-size="14.5" font-weight="800" fill="#ffd9e2">• Maximal pressors can't hold MAP 65 · profound acidosis</text>
+        <text x="102" y="606" font-size="14.5" font-weight="800" fill="#ffd9e2">• Anuria · ARDS · full DIC · liver failure · unresponsive</text>
+        <text x="102" y="626" font-size="14.5" font-weight="900" fill="#ffc233">• Death is imminent</text>
+      </svg>
+      <div class="mn">🧠 <b>Watch the pulse pressure, not just the BP.</b> WIDE in the warm phase (dilated pipes drop the diastolic), NARROW in the cold phase (clamped pipes raise it back). The pulse pressure flips before the patient does.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CARE ============ -->
+<section id="care">
+  <div class="sec-h"><span class="icon">🩺</span><h2>CARE</h2><span class="step">STEP 4 · THE FIRST HOUR</span></div>
+  <p class="sec-sub">Emergency treatment: supplemental oxygen, intravenous fluids, antibiotics — and the drugs that put tone back in the pipes.</p>
+
+  <div class="grid">
+    <div class="card emerald span2">
+      <h3>⏱️ The 1-hour sepsis bundle — five things, in this order</h3>
+      <svg viewBox="-10 -10 618 300" role="img" aria-label="Clock face divided into the five hour-one sepsis bundle actions: measure lactate, draw blood cultures before antibiotics, give broad spectrum antibiotics, give 30 mL per kilogram of crystalloid, and start vasopressors for a mean arterial pressure of at least 65">
+        <circle cx="112" cy="140" r="96" fill="rgba(13,8,26,.55)" stroke="#ffc233" stroke-width="4"/>
+        <line x1="112" y1="140" x2="112" y2="66" stroke="#ffc233" stroke-width="6" stroke-linecap="round"/>
+        <line x1="112" y1="140" x2="164" y2="164" stroke="#ff3b6b" stroke-width="6" stroke-linecap="round"/>
+        <circle cx="112" cy="140" r="7" fill="#ffc233"/>
+        <text x="72" y="38" font-size="20" font-weight="900" fill="#ffc233">HOUR 1</text>
+        <text x="46" y="262" font-size="14.5" font-style="italic" fill="#eafff7">the clock starts at recognition</text>
+        <rect x="228" y="24" width="304" height="38" rx="10" fill="rgba(0,194,199,.55)" stroke="#eafff7" stroke-width="1.5"/>
+        <text x="240" y="49" font-size="15" font-weight="900" fill="#00252b">1 · MEASURE LACTATE (recheck if &gt; 2)</text>
+        <rect x="228" y="70" width="304" height="38" rx="10" fill="rgba(157,92,255,.6)" stroke="#eafff7" stroke-width="1.5"/>
+        <text x="240" y="95" font-size="15" font-weight="900" fill="#fff">2 · BLOOD CULTURES — before antibiotics</text>
+        <rect x="228" y="116" width="304" height="38" rx="10" fill="rgba(255,59,107,.65)" stroke="#eafff7" stroke-width="1.5"/>
+        <text x="240" y="141" font-size="15" font-weight="900" fill="#fff">3 · BROAD-SPECTRUM ANTIBIOTICS</text>
+        <rect x="228" y="162" width="304" height="38" rx="10" fill="rgba(47,107,255,.65)" stroke="#eafff7" stroke-width="1.5"/>
+        <text x="240" y="187" font-size="15" font-weight="900" fill="#fff">4 · 30 mL/kg CRYSTALLOID</text>
+        <rect x="228" y="208" width="304" height="38" rx="10" fill="rgba(255,194,51,.75)" stroke="#231a02" stroke-width="1.5"/>
+        <text x="240" y="233" font-size="15" font-weight="900" fill="#231a02">5 · VASOPRESSORS → MAP ≥ 65</text>
+        <text x="228" y="266" font-size="13.5" font-style="italic" fill="#eafff7">Fluids are given for hypotension or lactate ≥ 4 mmol/L</text>
+      </svg>
+      <p style="margin-top:10px"><mark>Cultures come before antibiotics — but antibiotics are never delayed for cultures.</mark> Draw them fast, then hang the drug. Every hour of delay costs survival.</p>
+      <div class="mn">🧠 <b>“Lactate, Cultures, Antibiotics, Fluids, Pressors.”</b> <b>L-C-A-F-P</b> — <i>“Let's Cure A Failing Patient.”</i> That is the whole first hour.</div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>💊 Why norepinephrine, and why only after fluids</h3>
+      <table>
+        <tr><th style="width:30%">Question</th><th class="up">Answer</th></tr>
+        <tr><td><b>Why fluids first?</b></td><td>Capillary leak has genuinely emptied the intravascular space. <b>Squeezing an empty circuit</b> raises the number on the monitor while cutting off the gut, kidneys and fingers. Give <span class="mono">30 mL/kg</span> of <b>isotonic crystalloid</b> (0.9% NS or LR) first.</td></tr>
+        <tr><td><b>Why norepinephrine first-line?</b></td><td>The core defect is <b>lost vessel tone (SVR ↓↓)</b>. Norepinephrine is a powerful <b>alpha-1</b> vasoconstrictor with modest <b>beta-1</b> support — it fixes exactly what is broken and causes <b>fewer tachyarrhythmias than dopamine</b>.</td></tr>
+        <tr><td><b>What's added next?</b></td><td><b>Vasopressin</b> as a second agent to spare the norepinephrine dose (it works through <b>V1</b> receptors, a completely separate pathway). <b>Epinephrine</b> is an alternative add-on.</td></tr>
+        <tr><td><b>Why not dopamine?</b></td><td>It works, but it drives <b>more tachycardia and arrhythmias</b>. It is reserved for selected patients.</td></tr>
+        <tr><td><b>What if the pressure still won't hold?</b></td><td>Consider <b>IV corticosteroids (hydrocortisone)</b> for pressor-refractory septic shock, and hunt again for an undrained source.</td></tr>
+      </table>
+      <p style="margin-top:8px"><b>Line safety:</b> vasopressors are ideally given through a <b>central line</b>. If a peripheral infusion extravasates — <span class="never">stop the infusion, do not pull the catheter, aspirate, notify the provider</span> — the antidote is <b>phentolamine</b> infiltrated around the site.</p>
+      <div class="mn">🧠 <b>“Fill the pool, then narrow the pool.”</b> Fluids restore the water; norepinephrine shrinks the pool back down to a size that water can fill. Doing it in the other order drowns the tissue in a squeeze with nothing behind it.</div>
+    </div>
+
+    <div class="card topaz">
+      <h3>✅ Everything else that has to happen</h3>
+      <ul class="tick">
+        <li>🫁 <b>Supplemental oxygen</b>; intubate and use lung-protective ventilation if ARDS develops</li>
+        <li>🔪 <b>SOURCE CONTROL</b> — drain the abscess, remove the infected line, debride the wound. <b>Antibiotics cannot fix a collection nobody drained.</b></li>
+        <li>🧫 <b>De-escalate antibiotics</b> once cultures and sensitivities return</li>
+        <li>🩸 <b>Glucose control</b> — sepsis and stress raise blood glucose; follow the unit protocol</li>
+        <li>🛡️ <b>Prophylaxis</b> — VTE and stress-ulcer prevention</li>
+        <li>🌡️ <b>Temperature support</b> — warm the hypothermic patient, treat fever for comfort</li>
+        <li>🧼 <b>Prevention is nursing's biggest lever</b> — hand hygiene, CLABSI and CAUTI bundles, early Foley removal, oral care to prevent VAP</li>
+      </ul>
+      <div class="mn">🧠 <b>“Drugs kill the germ; you remove the nest.”</b> Source control is the step that gets skipped on exams and on units — always ask <i>where is the infection actually sitting?</i></div>
+    </div>
+
+    <div class="card ruby">
+      <h3>📈 Is it working? &amp; what can still go wrong</h3>
+      <p><b>Signs you're winning:</b></p>
+      <ul class="tick">
+        <li>🎯 <b>MAP <span class="mono">≥65</span></b> holding with less pressor</li>
+        <li>🧪 <b>Lactate clearing</b> on the recheck</li>
+        <li>🚽 <b>Urine <span class="mono">≥30 mL/hr</span></b> (<span class="mono">≈0.5 mL/kg/hr</span>)</li>
+        <li>🧠 <b>Mental status improving</b>; skin warming <i>with</i> a rising BP</li>
+      </ul>
+      <p style="margin-top:8px"><b>Complications to watch for:</b></p>
+      <ul class="tick">
+        <li>🫁 <b>ARDS</b> — refractory hypoxemia, bilateral infiltrates</li>
+        <li>🩸 <b>DIC</b> — clotting <i>and</i> bleeding at once; falling platelets, oozing IV sites</li>
+        <li>🫘 <b>AKI</b> — rising creatinine, anuria</li>
+        <li>💀 <b>MODS</b> — the endpoint of refractory shock</li>
+      </ul>
+      <div class="mn">🧠 <b>Careful:</b> warm skin can mean <i>improving</i> (perfusion restored, BP up) <b>or</b> <i>the early warm phase</i>. Read it together with the blood pressure and the lactate, never alone.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">🚿 SVR ↓↓ is the problem</span>Cytokines → vasodilation + capillary leak. Same blood, bigger pool.</div>
+    <div class="rc rubybg"><span class="big">🔥→🥶 Warm then cold</span>Warm/flushed/wide pulse pressure early · cold/mottled/narrow late</div>
+    <div class="rc topazbg"><span class="big">⏱️ L-C-A-F-P</span>Lactate · Cultures · Antibiotics · Fluids <span class="mono">30 mL/kg</span> · Pressors</div>
+    <div class="rc tealbg"><span class="big">💊 Norepinephrine first</span>Then vasopressin. Extravasation antidote = <b>phentolamine</b>.</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 6 rapid-fire questions</summary>
+      <div class="qa">Q1: Why is early septic shock WARM and late septic shock COLD? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Early: cytokines cause massive vasodilation (SVR ↓↓) and the heart compensates with a HIGH cardiac output, flinging warm blood to the skin — warm, flushed, dry, bounding pulses, wide pulse pressure. Late: capillary leak has drained the intravascular volume, sepsis-induced myocardial depression drops the output, and catecholamines plus acidosis clamp the periphery — cold, clammy, mottled, narrow pulse pressure. Warm turning cold means it is getting worse.</div></div>
+      <div class="qa">Q2: List the 1-hour bundle in order. <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">1) Measure lactate (recheck if &gt;2). 2) Draw blood cultures BEFORE antibiotics. 3) Give broad-spectrum antibiotics. 4) Give 30 mL/kg isotonic crystalloid for hypotension or lactate ≥4. 5) Start vasopressors during or after fluids to keep MAP ≥65.</div></div>
+      <div class="qa">Q3: Which vasopressor is first-line and why? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Norepinephrine. The defect is lost vessel tone, and norepinephrine is a strong alpha-1 vasoconstrictor with modest beta-1 support and fewer tachyarrhythmias than dopamine. Vasopressin (V1 receptors) is the usual add-on to spare the norepinephrine dose.</div></div>
+      <div class="qa">Q4: A 78-year-old is newly confused, temp 96.2 °F, HR 112, RR 24, BP 96/48, skin warm and flushed. What's going on? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Septic shock in the warm/compensatory phase. Note the HYPOthermia — older adults often never mount a fever, and new confusion may be the only mental-status clue. qSOFA is already positive (RR ≥22, altered mentation, SBP ≤100). Start the bundle.</div></div>
+      <div class="qa">Q5: The WBC is 3,200. Does that rule out sepsis? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">No — the opposite. Sepsis criteria include WBC &gt;12,000 OR &lt;4,000 (or &gt;10 % bands). A LOW white count means the marrow is being consumed and carries a worse prognosis. (Normal adult range is about 5,000–10,000/mm³.)</div></div>
+      <div class="qa">Q6: A peripheral norepinephrine infusion has infiltrated and the arm is blanched. What do you do? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Stop the infusion immediately but leave the catheter in place to aspirate residual drug, notify the provider, elevate the extremity, and anticipate PHENTOLAMINE infiltrated subcutaneously around the site as the antidote — it is an alpha-blocker that reverses the vasoconstriction before tissue necroses.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">CAUSE</span>→
+    <span style="background:rgba(47,107,255,.7)">CLUES</span>→
+    <span style="background:rgba(255,138,61,.7)">STAGES</span>→
+    <span style="background:rgba(18,184,134,.7)">CARE</span>
+  </div>
+  <div>NG-129 · Source wording retained · ADHD-friendly visual edition v2</div>
+</footer>
+
+</div>
+</body></html>

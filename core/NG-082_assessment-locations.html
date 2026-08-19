@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Assessment Locations · NG-082 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+/* ---- page-specific additions (append-only) ---- */
+#pulses .sec-h h2{color:#d9c2ff} #pulses .step{background:var(--amethyst)}
+#lungs .sec-h h2{color:#bcd0ff} #lungs .step{background:var(--sapphire)}
+#heartabd .sec-h h2{color:#a5f3d4} #heartabd .step{background:var(--emerald);color:#03291c}
+.xref{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:8px;padding:9px 12px;
+  border-radius:11px;background:rgba(13,8,26,.45);border:1px solid var(--line);font-size:.88rem}
+.xref .pill{font-weight:900;padding:3px 10px;border-radius:999px;background:var(--topaz);color:#231a02;font-size:.78rem}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#pulses">💓 Pulses</a>
+  <a class="c2" href="#lungs">🫁 Lung Auscultation</a>
+  <a class="c3" href="#heartabd">🫀 Heart &amp; Abdomen</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Nursing Core · Fundamentals of Nursing</div>
+  <h1>Assessment Locations <span class="drop">📍</span></h1>
+  <p class="sub">Exactly where to put your fingers and your stethoscope</p>
+  <div class="chips">
+    <span class="chip id">NG-082</span>
+    <span class="chip cat">Nursing Core</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede">Every vital sign from NG-079 has a <b>physical spot on the body</b> where you actually collect it. This page is the landmark map — <i>pulse points, lung auscultation ladder, heart's five listening points, and the abdomen's four quadrants.</i></p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">💓 7 pulse points</span>Radial, brachial, carotid, femoral, popliteal, dorsalis pedis, posterior tibial.</div>
+  <div class="rc rubybg"><span class="big">⚠️ Never both carotids at once</span>Bilateral pressure can slow heart rate or drop cerebral blood flow.</div>
+  <div class="rc tealbg"><span class="big">🫀 "All Pigs Eat Too Much"</span>Aortic → Pulmonic → Erb's → Tricuspid → Mitral, top to bottom.</div>
+  <div class="rc topazbg"><span class="big">🩻 IAPP for the belly</span>Inspect → <b>Auscultate</b> → Percuss → Palpate (auscultate BEFORE touching).</div>
+</div>
+
+<!-- ============ PULSES ============ -->
+<section id="pulses">
+  <div class="sec-h"><span class="icon">💓</span><h2>PULSE POINTS</h2><span class="step">STEP 1 · FIND THE BEAT</span></div>
+  <p class="sec-sub">Same seven sites you saw on NG-079 — here's the exact anatomy and the one you never press on both sides at once.</p>
+
+  <div class="grid">
+    <div class="card sapphire span2">
+      <h3>📍 The seven peripheral pulse points</h3>
+      <svg viewBox="-10 -10 546 460" role="img" aria-label="Front view body outline marking seven pulse points: carotid at the neck, brachial at the inner elbow, radial at the wrist, femoral at the groin, popliteal behind the knee, dorsalis pedis on top of the foot, and posterior tibialis behind the ankle">
+        <rect x="-6" y="-6" width="538" height="452" rx="18" fill="rgba(13,8,26,.5)" stroke="#2f6bff" stroke-width="2" stroke-dasharray="7 6"/>
+        <circle cx="220" cy="50" r="26" fill="#ffd0bd"/>
+        <rect x="192" y="76" width="56" height="92" rx="18" fill="#c9b6ff"/>
+        <rect x="150" y="84" width="30" height="122" rx="14" fill="#c9b6ff"/>
+        <rect x="260" y="84" width="30" height="122" rx="14" fill="#c9b6ff"/>
+        <rect x="178" y="168" width="84" height="92" rx="16" fill="#a98cff"/>
+        <rect x="182" y="258" width="32" height="132" rx="14" fill="#c9b6ff"/>
+        <rect x="226" y="258" width="32" height="132" rx="14" fill="#c9b6ff"/>
+
+        <circle cx="206" cy="94" r="6.5" fill="#ff3b6b"/>
+        <text x="30" y="90" font-size="13.5" font-weight="800" fill="#ff9db4">1 Carotid — neck, beside trachea</text>
+        <line x1="140" y1="94" x2="198" y2="94" stroke="#ff9db4" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+        <circle cx="165" cy="118" r="6.5" fill="#00c2c7"/>
+        <text x="30" y="140" font-size="13.5" font-weight="800" fill="#9ff2ee">2 Brachial — inner elbow crease</text>
+        <line x1="140" y1="140" x2="158" y2="122" stroke="#9ff2ee" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+        <circle cx="163" cy="204" r="6.5" fill="#2f6bff"/>
+        <text x="30" y="226" font-size="13.5" font-weight="800" fill="#bcd0ff">3 Radial — thumb-side of wrist</text>
+        <line x1="140" y1="226" x2="156" y2="208" stroke="#bcd0ff" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+        <circle cx="200" cy="258" r="6.5" fill="#ffc233"/>
+        <text x="250" y="256" font-size="13.5" font-weight="800" fill="#ffe49a">4 Femoral — groin crease</text>
+
+        <circle cx="196" cy="352" r="6.5" fill="#ff8a3d"/>
+        <text x="250" y="350" font-size="13.5" font-weight="800" fill="#ffcda1">5 Popliteal — behind the knee</text>
+
+        <circle cx="192" cy="396" r="6" fill="#ff3b6b"/>
+        <text x="30" y="416" font-size="13" font-weight="800" fill="#ff9db4">6 Dorsalis pedis — top of foot</text>
+        <line x1="130" y1="416" x2="186" y2="398" stroke="#ff9db4" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+        <circle cx="238" cy="396" r="6" fill="#12b886"/>
+        <text x="250" y="416" font-size="13" font-weight="800" fill="#7df0c6">7 Post. tibialis — behind medial ankle</text>
+      </svg>
+      <div class="mn">🧠 <b>"CBR-FPD-T"</b> top to bottom: Carotid, Brachial, Radial, Femoral, Popliteal, Dorsalis pedis, Tibialis (posterior). Walk down the body and you hit every site in order.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>⚠️ Caution: carotid pulse</h3>
+      <p><span class="never">Never palpate both carotid pulses at the same time</span> — bilateral compression can slow the heart rate (vagal response) or reduce blood flow to the brain.</p>
+      <div class="mn">🧠 <b>"One side of the neck at a time — always."</b></div>
+    </div>
+
+    <div class="card emerald">
+      <h3>✅ Circulation checks — distal to the pulse</h3>
+      <ul class="tick">
+        <li><b>Capillary refill</b>: press nail bed, should return <span class="mono">&lt;3 sec</span></li>
+        <li><b>Skin turgor</b>: pinch skin, should return <span class="mono">&lt;3 sec</span></li>
+        <li>Temperature should be <b>equal bilaterally</b> in all extremities</li>
+      </ul>
+      <div class="xref"><span class="pill">SEE ALSO</span> NG-190 Head-to-Toe — where these fit in the full exam sequence.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LUNG AUSCULTATION ============ -->
+<section id="lungs">
+  <div class="sec-h"><span class="icon">🫁</span><h2>LUNG AUSCULTATION</h2><span class="step">STEP 2 · WALK THE LADDER</span></div>
+  <p class="sec-sub">A systematic zig-zag down the chest, comparing side to side at every stop — never straight down one side then the other.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🪜 The auscultation ladder — anterior &amp; posterior</h3>
+      <div class="duo">
+        <svg viewBox="-10 -10 362 380" role="img" aria-label="Anterior chest diagram showing the auscultation ladder pattern starting above the clavicle and moving down comparing side to side through the sixth intercostal space at the midaxillary line">
+          <rect x="-6" y="-6" width="354" height="372" rx="16" fill="rgba(47,107,255,.15)" stroke="#2f6bff" stroke-width="2" stroke-dasharray="6 5"/>
+          <text x="18" y="30" font-size="15" font-weight="900" fill="#bcd0ff">ANTERIOR</text>
+          <rect x="90" y="42" width="120" height="270" rx="30" fill="#c9b6ff" opacity=".35"/>
+          <!-- clavicle -->
+          <line x1="96" y1="60" x2="204" y2="60" stroke="#eafff7" stroke-width="4"/>
+          <text x="18" y="56" font-size="11.5" fill="#dbe6ff">clavicle</text>
+          <!-- stops -->
+          <circle cx="118" cy="76" r="6" fill="#ffc233"/><circle cx="182" cy="76" r="6" fill="#ffc233"/>
+          <text x="214" y="80" font-size="11.5" font-weight="800" fill="#ffe49a">1 · above clavicle</text>
+          <circle cx="118" cy="120" r="6" fill="#12b886"/><circle cx="182" cy="120" r="6" fill="#12b886"/>
+          <text x="214" y="124" font-size="11.5" font-weight="800" fill="#7df0c6">2 · 2nd ICS midclav.</text>
+          <circle cx="118" cy="164" r="6" fill="#00c2c7"/><circle cx="182" cy="164" r="6" fill="#00c2c7"/>
+          <text x="214" y="168" font-size="11.5" font-weight="800" fill="#9ff2ee">3 · 3rd ICS</text>
+          <circle cx="118" cy="208" r="6" fill="#ff3b6b"/><circle cx="182" cy="208" r="6" fill="#ff3b6b"/>
+          <text x="214" y="212" font-size="11.5" font-weight="800" fill="#ff9db4">4 · 4th ICS</text>
+          <circle cx="118" cy="252" r="6" fill="#ff8a3d"/><circle cx="182" cy="252" r="6" fill="#ff8a3d"/>
+          <text x="214" y="256" font-size="11.5" font-weight="800" fill="#ffcda1">5 · 5th ICS</text>
+          <circle cx="118" cy="296" r="6" fill="#9d5cff"/><circle cx="182" cy="296" r="6" fill="#9d5cff"/>
+          <text x="150" y="330" font-size="12" font-weight="900" fill="#d9c2ff" text-anchor="middle">6 · 6th ICS midaxillary (armpit)</text>
+        </svg>
+
+        <svg viewBox="-10 -10 418 380" role="img" aria-label="Posterior chest diagram: client leans forward with hands in lap to separate the shoulder blades, then the nurse listens top to bottom comparing side to side, especially at the lung bases for fluid">
+          <rect x="-6" y="-6" width="410" height="372" rx="16" fill="rgba(18,184,134,.15)" stroke="#12b886" stroke-width="2" stroke-dasharray="6 5"/>
+          <text x="18" y="30" font-size="15" font-weight="900" fill="#a5f3d4">POSTERIOR</text>
+          <text x="18" y="48" font-size="11.5" font-style="italic" fill="#d8fff0">lean forward, hands in lap</text>
+          <rect x="90" y="60" width="120" height="260" rx="30" fill="#7df0c6" opacity=".2"/>
+          <circle cx="118" cy="94" r="6" fill="#ffc233"/><circle cx="182" cy="94" r="6" fill="#ffc233"/>
+          <text x="214" y="98" font-size="11.5" font-weight="800" fill="#ffe49a">1 · top</text>
+          <circle cx="118" cy="138" r="6" fill="#00c2c7"/><circle cx="182" cy="138" r="6" fill="#00c2c7"/>
+          <text x="214" y="142" font-size="11.5" font-weight="800" fill="#9ff2ee">2</text>
+          <circle cx="118" cy="182" r="6" fill="#2f6bff"/><circle cx="182" cy="182" r="6" fill="#2f6bff"/>
+          <text x="214" y="186" font-size="11.5" font-weight="800" fill="#bcd0ff">3</text>
+          <circle cx="118" cy="226" r="6" fill="#ff3b6b"/><circle cx="182" cy="226" r="6" fill="#ff3b6b"/>
+          <text x="214" y="230" font-size="11.5" font-weight="800" fill="#ff9db4">4 · listen for CRACKLES here</text>
+          <rect x="94" y="252" width="112" height="44" rx="10" fill="rgba(255,59,107,.4)" stroke="#ff3b6b"/>
+          <text x="150" y="270" font-size="11.5" font-weight="900" fill="#ffd9e2" text-anchor="middle">BASES</text>
+          <text x="150" y="286" font-size="10.5" font-weight="800" fill="#ffd9e2" text-anchor="middle">best spot for HF fluid</text>
+          <text x="18" y="332" font-size="11.5" font-style="italic" fill="#d8fff0">continue down to the basilar/lower lobes</text>
+        </svg>
+      </div>
+      <ol style="margin:10px 0 0;padding-left:22px;font-size:.93rem;line-height:1.6">
+        <li>Start top-right, <b>above the clavicle</b> — listen for a full inhale + exhale</li>
+        <li>Move to the <b>opposite side</b>, same spot — compare quality, depth, extra sounds</li>
+        <li>Move down one interspace at a time, comparing side-to-side every stop</li>
+        <li>Continue through the <b>6th ICS at the midaxillary line</b> (armpit) — this covers the lower lobes</li>
+        <li>Flip to posterior: client <b>leans forward, hands in lap</b> to separate the scapulae for a clean listen</li>
+      </ol>
+      <div class="mn">🧠 <b>"HF = Heavy Fluid."</b> The lung bases are the best place to catch crackles from fluid overload / heart failure. <b>"A is for Armpit"</b> — the 6th ICS midaxillary line is right at the armpit and picks up the lower lobes.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🫱 Tactile fremitus</h3>
+      <p>Use the <b>ulnar and palmar surfaces</b> of your hands against the chest wall while the client says "ninety-nine" — vibration should feel <b>equal</b> bilaterally.</p>
+      <div class="mn">🧠 Increased fremitus = consolidation (e.g., pneumonia). Decreased = air/fluid blocking transmission (e.g., pneumothorax, effusion).</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🗣️ Charting the subjective symptom: dyspnea</h3>
+      <p>Correct client language for shortness of breath: <mark>"It's hard for me to breathe and I feel short winded all the time."</mark></p>
+      <p><b>Dys-PNEA</b> = Difficult breathing — a <span class="tip">PRIORITY</span> symptom.</p>
+    </div>
+
+    <div class="card emerald">
+      <h3>🚨 Priority interventions — "breathing problems"</h3>
+      <ul class="tick">
+        <li>Ensure the <b>airway is open</b></li>
+        <li><b>Monitor O2 saturation</b></li>
+        <li>Place client in <b>High Fowler's</b></li>
+        <li><b>Evaluate</b> effectiveness of respiratory effort after intervening</li>
+      </ul>
+      <div class="mn">🧠 Most important <i>objective</i> data confirming hypoxia: <b>ABGs (arterial blood gases)</b> — not just the SpO2 number.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>👀 Cyanosis assessment sites</h3>
+      <p>Bluish discoloration from hypoxia is checked at:</p>
+      <ul class="tick">
+        <li><b>Nailbeds</b> — peripheral cyanosis</li>
+        <li><b>Conjunctiva</b> — central/mucosal cyanosis, more reliable in darker skin tones</li>
+        <li><b>Earlobes</b></li>
+      </ul>
+      <div class="mn">🧠 Also watch for: <b>clubbing</b> of the fingernail beds (chronic hypoxia), <b>vertigo</b>/dizziness, and increased pulse rate as signs of longer-term hypoxia.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HEART & ABDOMEN ============ -->
+<section id="heartabd">
+  <div class="sec-h"><span class="icon">🫀</span><h2>HEART &amp; ABDOMEN</h2><span class="step">STEP 3 · THE OTHER TWO STOPS</span></div>
+  <p class="sec-sub">Five points for the heart, four quadrants for the belly — and one order you can't mix up.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🫀 Heart auscultation — 5 points, "All Pigs Eat Too Much"</h3>
+      <svg viewBox="-10 -10 511 280" role="img" aria-label="Chest diagram showing the five heart auscultation landmarks in order from top to bottom: Aortic at the 2nd right intercostal space, Pulmonic at the 2nd left intercostal space, Erb's point at the 3rd left intercostal space, Tricuspid at the 4th left intercostal space, and Mitral at the 5th left intercostal space midclavicular line">
+        <rect x="-6" y="-6" width="503" height="272" rx="16" fill="rgba(18,184,134,.14)" stroke="#12b886" stroke-width="2" stroke-dasharray="6 5"/>
+        <rect x="160" y="26" width="120" height="210" rx="26" fill="#a98cff" opacity=".3"/>
+        <circle cx="200" cy="56" r="7" fill="#ff3b6b"/><text x="248" y="60" font-size="14" font-weight="900" fill="#ff9db4">A — Aortic (2nd R ICS)</text>
+        <circle cx="200" cy="96" r="7" fill="#2f6bff"/><text x="248" y="100" font-size="14" font-weight="900" fill="#bcd0ff">P — Pulmonic (2nd L ICS)</text>
+        <circle cx="200" cy="132" r="7" fill="#ffc233"/><text x="248" y="136" font-size="14" font-weight="900" fill="#ffe49a">E — Erb's point (3rd L ICS)</text>
+        <circle cx="200" cy="170" r="7" fill="#00c2c7"/><text x="248" y="174" font-size="14" font-weight="900" fill="#9ff2ee">T — Tricuspid (4th L ICS)</text>
+        <circle cx="200" cy="208" r="7" fill="#12b886"/><text x="248" y="212" font-size="14" font-weight="900" fill="#7df0c6">M — Mitral (5th L ICS midclav.)</text>
+        <line x1="200" y1="56" x2="200" y2="208" stroke="#eafff7" stroke-width="2" stroke-dasharray="3 4"/>
+      </svg>
+      <div class="mn">🧠 <b>"All Pigs Eat Too Much"</b> — <b>A</b>ortic, <b>P</b>ulmonic, <b>E</b>rb's point, <b>T</b>ricuspid, <b>M</b>itral, top to bottom down the left sternal border, ending at the apex (mitral/apical — the same spot you count the apical pulse from NG-079).</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🩻 Bowel sounds — four quadrants</h3>
+      <svg viewBox="0 0 300 240" role="img" aria-label="Abdomen divided into four quadrants: right upper, left upper, right lower, left lower, with the umbilicus at the center where the quadrants meet">
+        <rect x="4" y="4" width="292" height="232" rx="16" fill="rgba(47,107,255,.15)" stroke="#2f6bff" stroke-width="2" stroke-dasharray="6 5"/>
+        <line x1="150" y1="20" x2="150" y2="220" stroke="#eafff7" stroke-width="2"/>
+        <line x1="30" y1="120" x2="270" y2="120" stroke="#eafff7" stroke-width="2"/>
+        <circle cx="150" cy="120" r="5" fill="#ffc233"/>
+        <text x="42" y="68" font-size="13" font-weight="900" fill="#bcd0ff">RUQ</text>
+        <text x="196" y="68" font-size="13" font-weight="900" fill="#7df0c6">LUQ</text>
+        <text x="42" y="176" font-size="13" font-weight="900" fill="#ff9db4">RLQ</text>
+        <text x="196" y="176" font-size="13" font-weight="900" fill="#ffe49a">LLQ</text>
+        <text x="118" y="140" font-size="10.5" fill="#dbe6ff">umbilicus</text>
+      </svg>
+      <p style="margin-top:8px">Listen for sounds in <b>all four quadrants</b>. If absent, <b>listen for a full 5 minutes</b> before charting "absent."</p>
+      <div class="mn">🧠 Chart as <b>active, hyperactive, or hypoactive</b> — never just "present."</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🚨 The order you can't mix up: IAPP</h3>
+      <div class="flow">
+        <div class="fstep">1️⃣ Inspect</div>
+        <div class="farrow">▼</div>
+        <div class="fstep hot">2️⃣ Auscultate</div>
+        <div class="farrow">▼</div>
+        <div class="fstep">3️⃣ Percuss</div>
+        <div class="farrow">▼</div>
+        <div class="fstep">4️⃣ Palpate</div>
+      </div>
+      <p style="margin-top:10px"><mark>The abdomen is the ONE exception</mark> to the usual inspect→palpate→percuss→auscultate order — palpating or percussing first can <span class="never">artificially stimulate bowel sounds</span> and give a false reading.</p>
+      <div class="mn">🧠 <b>"Look, Listen, THEN Touch"</b> for the belly — auscultate before you ever press on it.</div>
+    </div>
+
+    <div class="card emerald span2">
+      <h3>🫃 Normal abdominal shape</h3>
+      <p>Belly should be <b>flat</b>, <b>non-pulsating</b>, and <b>even/symmetric</b>. Ask about pain with palpation — <mark>a rigid, board-like abdomen with fever and tachycardia is peritonitis until proven otherwise</mark> and is a priority to report.</p>
+      <div class="xref"><span class="pill">SEE ALSO</span> NG-190 Head-to-Toe Assessment — where heart, lung, and abdominal auscultation fit into the full systematic exam sequence.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">💓 7 pulse points</span>never both carotids at once</div>
+    <div class="rc rubybg"><span class="big">🫁 6th ICS midaxillary</span>lowest stop on the ladder = lower lobes</div>
+    <div class="rc tealbg"><span class="big">🫀 APE To Man</span>Aortic → Pulmonic → Erb's → Tricuspid → Mitral</div>
+    <div class="rc topazbg"><span class="big">🩻 Auscultate before palpate</span>only true for the abdomen</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 4 rapid-fire questions</summary>
+      <div class="qa">Q1: Why should you never palpate both carotid pulses at once? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Bilateral pressure can slow the heart rate via a vagal response or reduce cerebral blood flow.</div></div>
+      <div class="qa">Q2: Where is the best place to auscultate for fluid overload in the lungs? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">The posterior lung bases — listen for crackles ("HF = Heavy Fluid").</div></div>
+      <div class="qa">Q3: What's the correct order of abdominal assessment, and why is it different from other systems? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Inspect, Auscultate, Percuss, Palpate — auscultate before touching so you don't artificially stimulate bowel sounds.</div></div>
+      <div class="qa">Q4: List the five heart auscultation points in order. <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Aortic (2nd R ICS) → Pulmonic (2nd L ICS) → Erb's point (3rd L ICS) → Tricuspid (4th L ICS) → Mitral (5th L ICS, midclavicular) — "All Pigs Eat Too Much."</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">PULSES</span>→
+    <span style="background:rgba(47,107,255,.7)">LUNGS</span>→
+    <span style="background:rgba(18,184,134,.7)">HEART &amp; ABDOMEN</span>
+  </div>
+  <div>NG-082 · Nursing Core batch · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>

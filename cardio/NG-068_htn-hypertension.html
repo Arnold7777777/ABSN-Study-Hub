@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hypertension · NG-068 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#cause">🧬 Cause</a>
+  <a class="c2" href="#clues">🔎 Clues</a>
+  <a class="c3" href="#care">🩺 Care</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Cardio · Med-Surg &amp; Pharmacology Course</div>
+  <h1>Hypertension <span class="drop">🩸</span></h1>
+  <p class="sub">HTN — the silent killer, staged, sourced &amp; matched to the right drug class</p>
+  <div class="chips">
+    <span class="chip id">NG-068</span>
+    <span class="chip cat">Cardio</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede"><b>Persistently elevated arterial blood pressure</b> — usually <mark>silent</mark> until it has already damaged an organ. Two big questions drive this whole topic: <b>where is it coming from</b> (primary vs secondary), and <b>which lever fixes it</b> — lifestyle first, then the right drug class for the right patient. This page is the <i>overview that ties your ACE inhibitor, ARB, beta blocker, CCB, clonidine, diuretic &amp; nitrate pages together</i> — it won't re-teach each drug, just where each one fits.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">🤫 The silent killer</span>Usually no symptoms until it has already damaged an organ — that's why routine screening matters.</div>
+  <div class="rc rubybg"><span class="big">📊 Numbers shift by source</span>Cut-offs below follow the ACC/AHA scheme common in current texts. Staging has changed over the years — confirm the version your course tests.</div>
+  <div class="rc tealbg"><span class="big">🧬 ~90% primary</span>No single cause. The other ~10% (secondary) has one identifiable, often fixable cause.</div>
+  <div class="rc topazbg"><span class="big">🥗 Lifestyle first</span>DASH · sodium · weight · exercise · alcohol limits — before, and alongside, any drug.</div>
+</div>
+
+<!-- ============ CAUSE ============ -->
+<section id="cause">
+  <div class="sec-h"><span class="icon">🧬</span><h2>CAUSE</h2><span class="step">STEP 1 · PRIMARY vs SECONDARY</span></div>
+  <p class="sec-sub">Same number on the cuff, two very different reasons it got there.</p>
+
+  <div class="grid">
+    <div class="card citrinec span2">
+      <h3>⭐ The core equation — everything else is commentary on this</h3>
+      <p style="font-size:1.15rem"><span class="mono">BP = CO × SVR</span> &nbsp;(<b>C</b>ardiac <b>O</b>utput × <b>S</b>ystemic <b>V</b>ascular <b>R</b>esistance)</p>
+      <p>Anything that raises how much blood the heart pumps out, <i>or</i> how tightly the vessels squeeze around it, raises the pressure. Every risk factor, every cause, and every drug class on this page works by pushing one of those two numbers up or down.</p>
+      <div class="mn">🧠 <b>“Pump harder or squeeze tighter — either one raises the number.”</b> Diuretics and vasodilators attack the equation from opposite sides but land on the same number.</div>
+    </div>
+
+    <div class="card deep span2">
+      <h3>🧭 Primary vs secondary — where the ~90/10 split comes from</h3>
+      <div class="duo">
+        <svg viewBox="-10 -10 462 320" role="img" aria-label="Primary essential hypertension diagram: multiple contributing factors including genetics, high sodium diet, obesity, aging vessels and stress converge with no single identifiable cause">
+          <defs>
+            <marker id="arrPri" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="7" markerHeight="7" orient="auto">
+              <path d="M1 1 L11 6 L1 11 z" fill="#d9c2ff"/>
+            </marker>
+          </defs>
+          <rect x="-6" y="-6" width="454" height="312" rx="18" fill="rgba(157,92,255,.16)" stroke="#9d5cff" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="24" y="40" font-size="20" font-weight="900" fill="#d9c2ff">🧬 PRIMARY — ~90–95%</text>
+          <text x="24" y="62" font-size="14" font-style="italic" fill="#efe6ff">multifactorial — no single cause</text>
+
+          <text x="30" y="98" font-size="14" font-weight="700" fill="#efe6ff">🧬 Genetics / family history</text>
+          <text x="30" y="126" font-size="14" font-weight="700" fill="#efe6ff">🧂 High-sodium diet</text>
+          <text x="30" y="154" font-size="14" font-weight="700" fill="#efe6ff">⚖️ Obesity</text>
+          <text x="30" y="182" font-size="14" font-weight="700" fill="#efe6ff">📅 Aging, stiffening vessels</text>
+          <text x="30" y="210" font-size="14" font-weight="700" fill="#efe6ff">😖 Chronic stress</text>
+
+          <path d="M250 92 L292 214" stroke="#d9c2ff" stroke-width="2" marker-end="url(#arrPri)"/>
+          <path d="M240 120 L292 220" stroke="#d9c2ff" stroke-width="2" marker-end="url(#arrPri)"/>
+          <path d="M175 154 L292 226" stroke="#d9c2ff" stroke-width="2" marker-end="url(#arrPri)"/>
+          <path d="M230 182 L292 232" stroke="#d9c2ff" stroke-width="2" marker-end="url(#arrPri)"/>
+          <path d="M190 210 L292 238" stroke="#d9c2ff" stroke-width="2" marker-end="url(#arrPri)"/>
+
+          <rect x="296" y="206" width="126" height="60" rx="14" fill="#9d5cff" stroke="#fff" stroke-width="2"/>
+          <text x="312" y="232" font-size="15" font-weight="900" fill="#fff">HIGH BP</text>
+          <text x="312" y="250" font-size="11.5" fill="#efe6ff">manage risk</text>
+          <text x="312" y="262" font-size="11.5" fill="#efe6ff">factors, not "cure"</text>
+        </svg>
+
+        <svg viewBox="-10 -10 462 320" role="img" aria-label="Secondary hypertension diagram: kidney disease, adrenal or thyroid endocrine disorders, and other identifiable organ causes each point to one fixable source of high blood pressure">
+          <defs>
+            <marker id="arrSec" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="7" markerHeight="7" orient="auto">
+              <path d="M1 1 L11 6 L1 11 z" fill="#a5f3d4"/>
+            </marker>
+          </defs>
+          <rect x="-6" y="-6" width="454" height="312" rx="18" fill="rgba(18,184,134,.16)" stroke="#12b886" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="24" y="40" font-size="20" font-weight="900" fill="#a5f3d4">🩻 SECONDARY — ~5–10%</text>
+          <text x="24" y="62" font-size="14" font-style="italic" fill="#d8fff0">one identifiable, often fixable cause</text>
+
+          <!-- kidney icon -->
+          <path d="M50 96 C 30 96 22 118 26 140 C 30 162 52 172 66 160 C 58 140 58 116 50 96 Z" fill="#a5f3d4" stroke="#eafff7" stroke-width="1.5"/>
+          <text x="82" y="120" font-size="14" font-weight="800" fill="#eafff7">Renal — renal artery</text>
+          <text x="82" y="138" font-size="14" font-weight="800" fill="#eafff7">stenosis, CKD</text>
+
+          <!-- adrenal/endocrine icon -->
+          <circle cx="50" cy="184" r="16" fill="#ffc233"/>
+          <text x="82" y="180" font-size="14" font-weight="800" fill="#eafff7">Endocrine — Cushing's,</text>
+          <text x="82" y="198" font-size="14" font-weight="800" fill="#eafff7">pheochromocytoma,</text>
+          <text x="82" y="216" font-size="14" font-weight="800" fill="#eafff7">aldosteronism, thyroid</text>
+
+          <!-- other icons -->
+          <text x="30" y="248" font-size="14" font-weight="800" fill="#eafff7">🫁 OSA</text>
+          <text x="120" y="248" font-size="14" font-weight="800" fill="#eafff7">💊 Meds (NSAIDs, OCPs)</text>
+          <text x="30" y="270" font-size="14" font-weight="800" fill="#eafff7">🤰 Pregnancy (preeclampsia)</text>
+          <text x="260" y="270" font-size="14" font-weight="800" fill="#eafff7">🫀 Coarctation of aorta</text>
+
+          <path d="M70 128 L296 96" stroke="#a5f3d4" stroke-width="2" marker-end="url(#arrSec)"/>
+          <path d="M70 190 L296 100" stroke="#a5f3d4" stroke-width="2" marker-end="url(#arrSec)"/>
+          <rect x="300" y="72" width="122" height="56" rx="14" fill="#12b886" stroke="#fff" stroke-width="2"/>
+          <text x="316" y="96" font-size="15" font-weight="900" fill="#03291c">HIGH BP</text>
+          <text x="316" y="114" font-size="11.5" fill="#03291c">fix source →</text>
+          <text x="316" y="126" font-size="11.5" fill="#03291c">BP often improves</text>
+        </svg>
+      </div>
+      <div class="mn">🧠 <b>“ROPE”</b> for secondary causes — <b>R</b>enal disease · <b>O</b>SA · <b>P</b>heochromocytoma / aldosteronism · <b>E</b>ndocrine &amp; Estrogen (OCPs, pregnancy). Pull the rope (fix the cause) and the BP often comes down on its own.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>⚠️ Modifiable risk factors — the ones she can change</h3>
+      <ul class="tick">
+        <li>🧂 High-sodium diet</li>
+        <li>⚖️ Obesity</li>
+        <li>🛋️ Physical inactivity</li>
+        <li>🚬 Smoking</li>
+        <li>🍺 Excess alcohol</li>
+        <li>😖 Chronic stress, poor sleep</li>
+      </ul>
+      <div class="mn">🧠 These six are exactly the six targets of the <b>lifestyle modification</b> card in the CARE section below.</div>
+    </div>
+
+    <div class="card tealc">
+      <h3>🧬 Non-modifiable risk factors — the ones she can't</h3>
+      <ul class="tick">
+        <li>📅 <b>Age</b> — risk rises as vessels stiffen</li>
+        <li>🧬 <b>Family history / genetics</b></li>
+        <li>🌍 <b>Race</b> — Black adults have earlier onset, higher rates &amp; often more severe disease</li>
+        <li>🚻 <b>Sex</b> — higher risk in men at younger ages; women's risk rises after menopause</li>
+      </ul>
+      <div class="mn">🧠 Can't change these — so the modifiable list works <i>harder</i> to compensate.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLUES ============ -->
+<section id="clues">
+  <div class="sec-h"><span class="icon">🔎</span><h2>CLUES</h2><span class="step">STEP 2 · STAGING &amp; TARGET ORGANS</span></div>
+  <p class="sec-sub">Numbers on a chart — until they've been high long enough to hit an organ.</p>
+
+  <div class="grid">
+    <div class="card topaz span2">
+      <h3>📏 BP categories — a labeled bar scale</h3>
+      <svg viewBox="0 0 900 260" role="img" aria-label="Bar scale of blood pressure categories from normal through elevated, stage 1 hypertension, stage 2 hypertension, to hypertensive crisis, with systolic and diastolic ranges labeled for each zone">
+        <rect x="6" y="6" width="888" height="248" rx="16" fill="rgba(13,8,26,.55)" stroke="rgba(255,255,255,.3)" stroke-width="1.5"/>
+        <text x="24" y="34" font-size="15" font-weight="900" fill="#fff">Systolic / Diastolic mmHg — low to high, left to right</text>
+
+        <!-- bar -->
+        <rect x="30" y="56" width="150" height="60" fill="#12b886"/>
+        <rect x="180" y="56" width="120" height="60" fill="#00c2c7"/>
+        <rect x="300" y="56" width="150" height="60" fill="#ffc233"/>
+        <rect x="450" y="56" width="180" height="60" fill="#ff8a3d"/>
+        <rect x="630" y="56" width="240" height="60" fill="#ff3b6b"/>
+        <rect x="30" y="56" width="840" height="60" fill="none" stroke="#fff" stroke-width="1.5"/>
+        <line x1="180" y1="56" x2="180" y2="116" stroke="#fff" stroke-width="1.5"/>
+        <line x1="300" y1="56" x2="300" y2="116" stroke="#fff" stroke-width="1.5"/>
+        <line x1="450" y1="56" x2="450" y2="116" stroke="#fff" stroke-width="1.5"/>
+        <line x1="630" y1="56" x2="630" y2="116" stroke="#fff" stroke-width="1.5"/>
+
+        <!-- labels above -->
+        <text x="60" y="46" font-size="13.5" font-weight="900" fill="#a5f3d4">NORMAL</text>
+        <text x="192" y="46" font-size="13.5" font-weight="900" fill="#9ff2ee">ELEVATED</text>
+        <text x="316" y="46" font-size="13.5" font-weight="900" fill="#ffe49a">STAGE 1</text>
+        <text x="486" y="46" font-size="13.5" font-weight="900" fill="#ffd9b8">STAGE 2</text>
+        <text x="680" y="46" font-size="13.5" font-weight="900" fill="#ffb3c6">HYPERTENSIVE CRISIS</text>
+
+        <!-- values below -->
+        <text x="40" y="140" font-size="13" font-weight="800" fill="#eafff7">&lt;120 and</text>
+        <text x="40" y="158" font-size="13" font-weight="800" fill="#eafff7">&lt;80</text>
+
+        <text x="190" y="140" font-size="13" font-weight="800" fill="#eafff7">120–129 and</text>
+        <text x="190" y="158" font-size="13" font-weight="800" fill="#eafff7">&lt;80</text>
+
+        <text x="308" y="140" font-size="13" font-weight="800" fill="#2b1200">130–139 or</text>
+        <text x="308" y="158" font-size="13" font-weight="800" fill="#2b1200">80–89</text>
+
+        <text x="460" y="140" font-size="13" font-weight="800" fill="#2b1200">≥140 or</text>
+        <text x="460" y="158" font-size="13" font-weight="800" fill="#2b1200">≥90</text>
+
+        <text x="650" y="140" font-size="13" font-weight="800" fill="#3d0014">&gt;180 and/or</text>
+        <text x="650" y="158" font-size="13" font-weight="800" fill="#3d0014">&gt;120</text>
+        <text x="650" y="178" font-size="12" font-style="italic" fill="#3d0014">needs urgent eval</text>
+
+        <text x="30" y="210" font-size="13" font-style="italic" fill="#ffd9e2">⚠️ Numbers shown follow the ACC/AHA scheme common in current texts. Older sources</text>
+        <text x="30" y="230" font-size="13" font-style="italic" fill="#ffd9e2">(e.g. JNC7) use different cut-offs. Confirm which version your course tests.</text>
+      </svg>
+      <p style="margin-top:8px">Only <b>one</b> value has to fall in a category to qualify for it — whichever number (systolic or diastolic) is worse determines the stage.</p>
+      <div class="mn">🧠 <b>“130 starts the staging, 180 is a crisis.”</b> Anchor those two numbers and interpolate the rest — but always double-check the exact table your instructor is using.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🚨 Hypertensive crisis — urgency vs emergency</h3>
+      <p><b>Urgency:</b> severely elevated BP <i>without</i> acute symptoms of organ damage. Usually managed with oral meds and close follow-up.</p>
+      <p><b>Emergency:</b> severely elevated BP <mark>with</mark> acute target-organ damage — chest pain, dyspnea, vision changes, confusion, worsening renal function. This is an <b>ICU-level, IV-drip situation</b>.</p>
+      <div class="mn">🧠 <b>Symptoms are what turn "urgency" into "emergency."</b> Same terrifying number, totally different level of response.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🤫 Why it's the "silent killer"</h3>
+      <p>Most people feel <b>nothing</b> until damage has already started. When symptoms do show up — severe headache, visual changes, nosebleed, dizziness — the pressure is often already very high.</p>
+      <p>This is exactly why <b>routine screening</b> matters more than waiting for symptoms.</p>
+      <div class="mn">🧠 A disease with no early warning system needs a nurse with a cuff instead.</div>
+    </div>
+
+    <div class="card deep span2">
+      <h3>🗺️ Target organ damage — the body map</h3>
+      <svg viewBox="0 0 700 420" role="img" aria-label="Simple body map showing the four major sites of hypertensive target organ damage: the brain with stroke risk, the eyes with hypertensive retinopathy, the heart with left ventricular hypertrophy and heart failure, and the kidneys with nephrosclerosis and chronic kidney disease">
+        <!-- silhouette -->
+        <circle cx="350" cy="52" r="34" fill="rgba(255,255,255,.14)" stroke="rgba(255,255,255,.5)" stroke-width="2"/>
+        <path d="M300 92 C 260 100 250 150 256 210 L280 400 L320 400 L332 240 L368 240 L380 400 L420 400 L444 210 C 450 150 440 100 400 92 Z"
+              fill="rgba(255,255,255,.10)" stroke="rgba(255,255,255,.45)" stroke-width="2"/>
+
+        <!-- brain callout -->
+        <circle cx="350" cy="46" r="14" fill="#9d5cff" stroke="#fff" stroke-width="2"/>
+        <line x1="364" y1="40" x2="470" y2="30" stroke="#d9c2ff" stroke-width="2"/>
+        <rect x="472" y="6" width="212" height="66" rx="12" fill="rgba(157,92,255,.35)" stroke="#d9c2ff" stroke-width="1.5"/>
+        <text x="486" y="26" font-size="14.5" font-weight="900" fill="#d9c2ff">🧠 BRAIN</text>
+        <text x="486" y="44" font-size="12" fill="#efe6ff">Stroke, TIA, vascular</text>
+        <text x="486" y="60" font-size="12" fill="#efe6ff">dementia, encephalopathy</text>
+
+        <!-- eyes callout -->
+        <circle cx="342" cy="52" r="3.5" fill="#00c2c7"/><circle cx="358" cy="52" r="3.5" fill="#00c2c7"/>
+        <line x1="342" y1="52" x2="34" y2="90" stroke="#9ff2ee" stroke-width="2"/>
+        <rect x="16" y="66" width="212" height="66" rx="12" fill="rgba(0,194,199,.32)" stroke="#9ff2ee" stroke-width="1.5"/>
+        <text x="30" y="86" font-size="14.5" font-weight="900" fill="#9ff2ee">👁️ EYES</text>
+        <text x="30" y="104" font-size="12" fill="#d8fff0">Hypertensive retinopathy —</text>
+        <text x="30" y="120" font-size="12" fill="#d8fff0">narrowed vessels, hemorrhages</text>
+
+        <!-- heart callout -->
+        <path d="M336 148 C 328 138 308 140 306 156 C 304 174 336 194 336 194 C 336 194 368 174 366 156 C 364 140 344 138 336 148 Z" fill="#ff3b6b" stroke="#fff" stroke-width="1.5"/>
+        <line x1="366" y1="166" x2="470" y2="176" stroke="#ff9db4" stroke-width="2"/>
+        <rect x="472" y="146" width="212" height="66" rx="12" fill="rgba(255,59,107,.32)" stroke="#ff9db4" stroke-width="1.5"/>
+        <text x="486" y="166" font-size="14.5" font-weight="900" fill="#ff9db4">🫀 HEART</text>
+        <text x="486" y="184" font-size="12" fill="#ffd9e2">LVH, heart failure,</text>
+        <text x="486" y="200" font-size="12" fill="#ffd9e2">CAD / MI</text>
+
+        <!-- kidney callout -->
+        <path d="M322 250 C 312 250 306 262 309 274 C 312 286 324 290 330 282 C 326 272 326 260 322 250 Z" fill="#ffc233" stroke="#fff" stroke-width="1.5"/>
+        <path d="M350 250 C 360 250 366 262 363 274 C 360 286 348 290 342 282 C 346 272 346 260 350 250 Z" fill="#ffc233" stroke="#fff" stroke-width="1.5"/>
+        <line x1="322" y1="268" x2="34" y2="280" stroke="#ffe49a" stroke-width="2"/>
+        <rect x="16" y="254" width="212" height="66" rx="12" fill="rgba(255,194,51,.30)" stroke="#ffe49a" stroke-width="1.5"/>
+        <text x="30" y="274" font-size="14.5" font-weight="900" fill="#ffe49a">🫘 KIDNEYS</text>
+        <text x="30" y="292" font-size="12" fill="#fff3d0">Nephrosclerosis, CKD</text>
+        <text x="30" y="308" font-size="12" fill="#fff3d0">progression, proteinuria</text>
+
+        <text x="230" y="400" font-size="13" font-style="italic" fill="#efe6ff">4 sites, 1 disease — the "quiet" damage happens here first</text>
+      </svg>
+      <div class="mn">🧠 <b>"HEBK"</b> — <b>H</b>eart · <b>E</b>yes · <b>B</b>rain · <b>K</b>idneys. Say it like <i>"he broke"</i> — that's exactly what unchecked HTN quietly does.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CARE ============ -->
+<section id="care">
+  <div class="sec-h"><span class="icon">🩺</span><h2>CARE</h2><span class="step">STEP 3 · LIFESTYLE + THE RIGHT DRUG</span></div>
+  <p class="sec-sub">Lifestyle changes come first and stay first — drugs get layered on top, matched to who the patient is.</p>
+
+  <div class="grid">
+    <div class="card emerald span2">
+      <h3>✅ Lifestyle modification — the five levers</h3>
+      <svg viewBox="0 0 900 240" role="img" aria-label="Five lifestyle modification levers for blood pressure: DASH diet, sodium restriction, weight loss, regular aerobic exercise, and limiting alcohol intake">
+        <rect x="6" y="6" width="888" height="228" rx="16" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.3)" stroke-width="1.5"/>
+        <!-- 5 columns -->
+        <g>
+          <circle cx="106" cy="70" r="34" fill="#12b886" stroke="#fff" stroke-width="2"/>
+          <text x="106" y="78" font-size="24" text-anchor="middle">🥗</text>
+          <text x="106" y="126" font-size="14" font-weight="900" fill="#a5f3d4" text-anchor="middle">DASH diet</text>
+          <text x="106" y="146" font-size="11.5" fill="#d8fff0" text-anchor="middle">fruit · veg · low-fat</text>
+          <text x="106" y="162" font-size="11.5" fill="#d8fff0" text-anchor="middle">dairy · low sat. fat</text>
+        </g>
+        <g>
+          <circle cx="286" cy="70" r="34" fill="#00c2c7" stroke="#fff" stroke-width="2"/>
+          <text x="286" y="78" font-size="24" text-anchor="middle">🧂</text>
+          <text x="286" y="126" font-size="14" font-weight="900" fill="#9ff2ee" text-anchor="middle">Sodium</text>
+          <text x="286" y="146" font-size="11.5" fill="#d8fff0" text-anchor="middle">limit intake — per</text>
+          <text x="286" y="162" font-size="11.5" fill="#d8fff0" text-anchor="middle">AHA guidance</text>
+        </g>
+        <g>
+          <circle cx="466" cy="70" r="34" fill="#ffc233" stroke="#fff" stroke-width="2"/>
+          <text x="466" y="78" font-size="24" text-anchor="middle">⚖️</text>
+          <text x="466" y="126" font-size="14" font-weight="900" fill="#ffe49a" text-anchor="middle">Weight loss</text>
+          <text x="466" y="146" font-size="11.5" fill="#fff3d0" text-anchor="middle">even modest loss</text>
+          <text x="466" y="162" font-size="11.5" fill="#fff3d0" text-anchor="middle">lowers BP</text>
+        </g>
+        <g>
+          <circle cx="646" cy="70" r="34" fill="#ff8a3d" stroke="#fff" stroke-width="2"/>
+          <text x="646" y="78" font-size="24" text-anchor="middle">🏃</text>
+          <text x="646" y="126" font-size="14" font-weight="900" fill="#ffd9b8" text-anchor="middle">Exercise</text>
+          <text x="646" y="146" font-size="11.5" fill="#ffe9d6" text-anchor="middle">regular moderate</text>
+          <text x="646" y="162" font-size="11.5" fill="#ffe9d6" text-anchor="middle">aerobic activity</text>
+        </g>
+        <g>
+          <circle cx="806" cy="70" r="34" fill="#ff3b6b" stroke="#fff" stroke-width="2"/>
+          <text x="806" y="78" font-size="24" text-anchor="middle">🍷</text>
+          <text x="806" y="126" font-size="14" font-weight="900" fill="#ff9db4" text-anchor="middle">Alcohol</text>
+          <text x="806" y="146" font-size="11.5" fill="#ffd9e2" text-anchor="middle">limit to moderate</text>
+          <text x="806" y="162" font-size="11.5" fill="#ffd9e2" text-anchor="middle">intake or less</text>
+        </g>
+        <text x="450" y="204" font-size="12.5" font-style="italic" fill="#efe6ff" text-anchor="middle">All five are recommended first — and continued even after a drug is started.</text>
+      </svg>
+      <p style="margin-top:8px"><b>DASH</b> = Dietary Approaches to Stop Hypertension: fruits, vegetables, whole grains, low-fat dairy, lean protein; low in saturated fat, sodium &amp; added sugar. Sodium restriction guidance commonly cited by the AHA is roughly <span class="mono">&lt;2,300 mg/day</span>, with greater BP benefit closer to <span class="mono">1,500 mg/day</span> — confirm the exact figure your course uses. Weight loss and exercise (regular moderate aerobic activity most days of the week) both independently lower BP; alcohol should be kept to a moderate amount or avoided.</p>
+      <div class="mn">🧠 <b>"DASH away the salt, walk off the weight, pour less wine."</b> Five levers, zero prescriptions — and they're never optional just because a drug got added.</div>
+    </div>
+
+    <div class="card topaz span2">
+      <h3>🎯 Which drug class for which patient — the overview</h3>
+      <p class="sec-sub" style="margin-bottom:10px">This is the map, not the manual — full mechanism, side effects &amp; teaching for each class live on their own pages.</p>
+      <table>
+        <tr><th class="up" style="width:34%">Patient picture</th><th class="lo" style="width:33%">Preferred class</th><th style="width:33%">See the full page</th></tr>
+        <tr><td>No compelling indication — first-line for most adults</td><td>Thiazide diuretic, ACE inhibitor, ARB, or CCB</td><td>Diuretics · ACE Inhibitors · ARBs · CCB</td></tr>
+        <tr><td>Diabetes or CKD with proteinuria</td><td>ACE inhibitor or ARB — kidney-protective</td><td>ACE Inhibitors · ARBs</td></tr>
+        <tr><td>Black adult, no CKD</td><td>CCB or thiazide diuretic often preferred first</td><td>CCB · Diuretics</td></tr>
+        <tr><td>Heart failure with reduced EF</td><td>ACE inhibitor/ARB + beta blocker + diuretic</td><td>ACE Inhibitors · Beta Blockers · Diuretics</td></tr>
+        <tr><td>Post-MI / coronary artery disease</td><td>Beta blocker + ACE inhibitor</td><td>Beta Blockers · ACE Inhibitors</td></tr>
+        <tr><td>Angina alongside HTN</td><td>Beta blocker or CCB for daily control; <b>nitrates</b> for acute chest pain, not routine daily HTN dosing</td><td>Beta Blockers · CCB · Nitrates</td></tr>
+        <tr><td>Needs rate control for a tachyarrhythmia</td><td>Beta blocker or a non-dihydropyridine CCB</td><td>Beta Blockers · CCB</td></tr>
+        <tr><td>Cough intolerable on an ACE inhibitor</td><td>Switch to an ARB — same benefit, no bradykinin cough</td><td>ACE Inhibitors · ARBs</td></tr>
+        <tr><td>Pregnancy</td><td><span class="never">Avoid ACE inhibitors &amp; ARBs</span> — teratogenic; other agents preferred per OB protocol</td><td>ACE Inhibitors · ARBs</td></tr>
+        <tr><td>Resistant HTN — still uncontrolled on 3 classes</td><td>Add-on options may include <b>clonidine</b></td><td>Clonidine</td></tr>
+        <tr><td>Hypertensive emergency needing an IV drip</td><td>IV agents per protocol (e.g. IV nitrates)</td><td>Nitrates</td></tr>
+      </table>
+      <div class="mn">🧠 <b>Match the patient, not just the number.</b> Two people with the exact same BP can walk out with different prescriptions — kidneys, race, pregnancy status, and comorbid heart disease all change the answer.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>⚠️ One NCLEX trap that lives on this page</h3>
+      <p><span class="never">Never let clonidine stop abruptly</span> — rebound hypertensive crisis. It's the single most-tested safety point that touches this overview; full teaching is on the Clonidine page.</p>
+      <div class="mn">🧠 Clonidine doesn't get to just <i>stop</i> — it gets <i>tapered</i>.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🔁 The theme across every class</h3>
+      <p>Every one of these drug classes attacks <span class="mono">BP = CO × SVR</span> from a different angle: diuretics shrink volume, ACEi/ARB relax vessels &amp; protect kidneys, beta blockers slow &amp; soften the heart, CCBs relax vessels or slow the heart depending on type, clonidine turns down sympathetic outflow centrally, and nitrates dilate veins to drop preload.</p>
+      <div class="mn">🧠 Learn the equation once here, then every drug page is just <i>"which side of CO × SVR does this one push?"</i></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">🤫 Silent killer</span>No symptoms until organ damage — screen regularly.</div>
+    <div class="rc rubybg"><span class="big">📏 Normal &lt;120/&lt;80</span>Stage 1 starts around 130/80, crisis &gt;180/&gt;120 — but confirm your course's exact table.</div>
+    <div class="rc tealbg"><span class="big">🧬 90% primary, 10% secondary</span>Secondary has a fixable ROPE: Renal, OSA, Pheo/aldosteronism, Endocrine/Estrogen.</div>
+    <div class="rc topazbg"><span class="big">🎯 Match the patient</span>DASH + sodium + weight + exercise + alcohol first, then the drug class that fits this patient.</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 4 rapid-fire questions</summary>
+      <div class="qa">Q1: What's the core equation behind every blood pressure number? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">BP = Cardiac Output × Systemic Vascular Resistance. Every risk factor and every drug class pushes one of those two numbers.</div></div>
+      <div class="qa">Q2: A patient has HTN caused by pheochromocytoma. Primary or secondary — and what's different about the plan? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Secondary — there's one identifiable cause. Treating the pheochromocytoma can improve or resolve the BP, unlike primary HTN which is managed, not cured.</div></div>
+      <div class="qa">Q3: Which four organs make up the target-organ-damage body map? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Heart, Eyes, Brain, Kidneys — "HEBK."</div></div>
+      <div class="qa">Q4: A patient with diabetes and proteinuria needs an antihypertensive. Which class, and why? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">ACE inhibitor or ARB — kidney-protective, reduces proteinuria. See the ACE Inhibitors / ARBs pages for the mechanism and teaching.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">CAUSE</span>→
+    <span style="background:rgba(47,107,255,.7)">CLUES</span>→
+    <span style="background:rgba(18,184,134,.7)">CARE</span>
+  </div>
+  <div>NG-068 · Built from standard nursing curriculum knowledge (source graphic unavailable) · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>

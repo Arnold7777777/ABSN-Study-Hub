@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Stress · NG-009 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+
+/* ===== appended for this page (append-only) ===== */
+.xref{margin-top:11px;padding:10px 13px;border-radius:12px;background:rgba(13,8,26,.55);
+  border:1px solid var(--line);border-left:4px solid var(--teal);font-size:.9rem;line-height:1.5}
+.xref b{color:var(--topaz)}
+.card.tealc .xref,.card.topaz .xref,.card.citrinec .xref{background:rgba(255,255,255,.5);color:#1a1030}
+.card.tealc .xref b,.card.topaz .xref b,.card.citrinec .xref b{color:#7a1fbf}
+.steps5{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));margin:10px 0 0}
+.st5{border-radius:13px;padding:11px 10px;text-align:center;background:rgba(13,8,26,.55);
+  border:1px solid var(--line);font-weight:800;font-size:.86rem;line-height:1.3}
+.st5 .l{display:block;font-size:2rem;font-weight:900;line-height:1.1;color:var(--topaz)}
+.st5 i{display:block;font-size:.76rem;font-weight:600;opacity:.88;font-style:normal}
+.tbl-wrap{overflow-x:auto}
+
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#cause">🧬 The physiology</a>
+  <a class="c2" href="#clues">🔎 Signs</a>
+  <a class="c3" href="#care">🧘 Coping &amp; care</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Mental Health · Fundamentals of Nursing</div>
+  <h1>Stress <span class="drop">🌊</span></h1>
+  <p class="sub">General Adaptation Syndrome, the HPA axis, and what the nurse actually does about it</p>
+  <div class="chips">
+    <span class="chip id">NG-009</span>
+    <span class="chip cat">Mental Health</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede"><b>Stress can be good AND bad.</b> Good when it helps us adapt to changes in the body and the environment — bad when it is <b>chronic or persistent, with no periods of rest between stressful events</b>. That kind <b>raises blood pressure, raises cortisol, and puts loads of strain on the body</b>. It is typically caused by family drama, money issues, and normal life events — <i>like nursing school</i>.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">3️⃣ Alarm → Resistance → Exhaustion</span>Selye's General Adaptation Syndrome. Exhaustion is where people get sick.</div>
+  <div class="rc rubybg"><span class="big">📈 ↑ Cortisol · ↑ BP</span>Chronic stress = sustained cortisol = strain on every system.</div>
+  <div class="rc tealbg"><span class="big">🛡️ ↓ Immunity</span>Cortisol suppresses immune function → infections &amp; slow wound healing.</div>
+  <div class="rc topazbg"><span class="big">🤝 Refer &amp; resource</span>Identify community resources; refer to counselling if needed.</div>
+</div>
+
+<!-- ============ SECTION 1 — THE PHYSIOLOGY ============ -->
+<section id="cause">
+  <div class="sec-h"><span class="icon">🧬</span><h2>WHAT STRESS DOES TO THE BODY</h2><span class="step">STEP 1 · THE MECHANISM</span></div>
+  <p class="sec-sub">Two systems fire: one in seconds (nerves), one over minutes to hours (hormones). Both are useful in a crisis and corrosive over years.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🧠 The HPA axis — hypothalamus → pituitary → adrenal → cortisol</h3>
+      <p><mark>Hypothalamus releases CRH → anterior pituitary releases ACTH → adrenal <b>cortex</b> releases cortisol.</mark> Cortisol then feeds back and switches the whole axis off again — <i>unless the stressor never stops</i>.</p>
+
+      <svg viewBox="0 0 660 540" role="img" aria-label="HPA axis illustration: a side view of the head showing the brain with the hypothalamus and the pituitary gland on its stalk, releasing CRH then ACTH, travelling through the bloodstream to a kidney with the adrenal gland on top drawn in cutaway with its capsule, three cortical zones and inner medulla, releasing cortisol which feeds back negatively on the hypothalamus and pituitary, and adrenaline from the medulla acting on the heart">
+        <defs>
+          <linearGradient id="s9skin" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#ffe0cf"/><stop offset="0.55" stop-color="#f0b799"/><stop offset="1" stop-color="#cf8a68"/></linearGradient>
+          <linearGradient id="s9brain" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffc9d8"/><stop offset="0.6" stop-color="#e88ba7"/><stop offset="1" stop-color="#b6567a"/></linearGradient>
+          <linearGradient id="s9kid" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#c4749a"/><stop offset="0.5" stop-color="#8e3a63"/><stop offset="1" stop-color="#511a3a"/></linearGradient>
+          <linearGradient id="s9cortex" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffe08a"/><stop offset="1" stop-color="#d9932a"/></linearGradient>
+          <linearGradient id="s9med" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ff9db4"/><stop offset="1" stop-color="#9c1338"/></linearGradient>
+          <marker id="s9ar" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/></marker>
+          <marker id="s9arT" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#00c2c7"/></marker>
+          <marker id="s9arR" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#ff3b6b"/></marker>
+        </defs>
+        <rect x="4" y="4" width="652" height="532" rx="18" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.28)" stroke-width="2"/>
+        <text x="8.0" y="34" font-size="17.23" font-weight="900" fill="#d9c2ff">🧬 THE HPA AXIS — the slow, hormonal arm of the stress response</text>
+
+        <!-- head profile (facing right) -->
+        <path d="M96 130 C 130 88 210 82 250 122 C 276 148 282 186 274 214 C 286 224 296 234 290 244
+                 C 284 254 272 256 264 257 C 262 276 260 292 246 302 C 232 312 210 310 198 305
+                 L 198 356 C 152 348 112 316 96 274 C 78 226 76 156 96 130 Z"
+              fill="url(#s9skin)" stroke="#c97a58" stroke-width="2.5"/>
+        <!-- skull line -->
+        <path d="M104 156 C 128 108 202 100 240 138 C 262 160 268 190 262 212 L 108 212 C 98 190 96 172 104 156 Z"
+              fill="none" stroke="#e9d6c4" stroke-width="2.5" stroke-dasharray="5 4"/>
+        <!-- brain -->
+        <path d="M112 158 C 134 116 200 108 236 142 C 258 162 262 190 256 208 C 240 216 200 220 172 216
+                 C 144 212 118 196 112 178 C 110 170 110 164 112 158 Z" fill="url(#s9brain)" stroke="#b6567a" stroke-width="2"/>
+        <g fill="none" stroke="#b6567a" stroke-width="2" opacity=".7">
+          <path d="M126 168 C 142 156 156 168 172 158"/><path d="M134 188 C 150 176 166 190 182 178"/>
+          <path d="M150 204 C 166 194 182 206 198 196"/><path d="M186 140 C 202 132 214 144 228 138"/>
+          <path d="M200 168 C 216 158 228 172 242 162"/><path d="M210 196 C 224 188 236 200 248 192"/>
+        </g>
+        <!-- cerebellum + brainstem -->
+        <path d="M114 216 C 130 210 150 214 156 226 C 160 236 150 244 138 242 C 124 240 112 230 114 216 Z" fill="#e88ba7" stroke="#b6567a" stroke-width="1.8"/>
+        <path d="M166 218 C 174 236 174 258 168 272 C 176 274 186 270 190 262 C 196 244 194 226 186 214 Z" fill="#d3748f" stroke="#b6567a" stroke-width="1.8"/>
+        <!-- hypothalamus -->
+        <ellipse cx="188" cy="212" rx="20" ry="13" fill="#9d5cff" stroke="#efe6ff" stroke-width="2"/>
+        <text x="216" y="200" font-size="13" font-weight="900" fill="#d9c2ff">HYPOTHALAMUS</text>
+        <text x="216" y="216" font-size="11.5" font-style="italic" fill="#efe6ff">the stress thermostat</text>
+        <!-- stalk + pituitary -->
+        <path d="M188 224 L188 240" stroke="#efe6ff" stroke-width="5" stroke-linecap="round"/>
+        <ellipse cx="182" cy="250" rx="13" ry="11" fill="#ffc233" stroke="#fff8e6" stroke-width="2"/>
+        <ellipse cx="198" cy="250" rx="10" ry="10" fill="#ff8a3d" stroke="#fff8e6" stroke-width="2"/>
+        <text x="216" y="252" font-size="13" font-weight="900" fill="#ffc233">PITUITARY</text>
+        <text x="216" y="268" font-size="11.5" font-style="italic" fill="#fff3cf">anterior lobe = ACTH</text>
+
+        <!-- CRH arrow -->
+        <path d="M188 226 L188 238" fill="none" stroke="#ffc233" stroke-width="4" marker-end="url(#s9ar)"/>
+        <rect x="316" y="194" width="104" height="28" rx="9" fill="rgba(157,92,255,.65)" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
+        <text x="328" y="213" font-size="13.5" font-weight="900" fill="#fff">① CRH ⬇</text>
+
+        <!-- ACTH long arrow through bloodstream -->
+        <path d="M206 262 C 300 300 380 360 430 396" fill="none" stroke="#ffc233" stroke-width="6"
+              stroke-dasharray="12 8" stroke-linecap="round" marker-end="url(#s9ar)"/>
+        <rect x="248" y="330" width="206" height="30" rx="9" fill="rgba(255,194,51,.75)" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
+        <text x="258" y="350" font-size="13.5" font-weight="900" fill="#231a02">② ACTH ➡ via the blood</text>
+
+        <!-- kidney + adrenal -->
+        <path d="M462 402 C 434 402 410 430 410 472 C 410 512 434 528 462 528 C 486 528 502 512 502 496
+                 C 502 484 492 476 482 468 C 472 460 470 454 480 446 C 490 438 502 430 502 418
+                 C 502 402 486 402 462 402 Z" fill="url(#s9kid)" stroke="#ffd9e2" stroke-width="2.5"/>
+        <path d="M480 446 C 470 454 470 460 480 468 C 488 474 498 480 502 488 C 494 494 482 496 474 490
+                 C 460 480 454 462 462 448 Z" fill="#2a0f1e" opacity=".5"/>
+        <text x="432" y="500" font-size="12.5" font-weight="900" fill="#ffe3ea">KIDNEY</text>
+        <!-- adrenal gland cutaway -->
+        <path d="M418 400 C 424 372 452 358 476 368 C 496 376 504 392 496 404 C 474 392 442 392 418 400 Z"
+              fill="url(#s9cortex)" stroke="#fff3cf" stroke-width="2"/>
+        <path d="M424 392 C 446 382 476 382 492 394" fill="none" stroke="#fff8e6" stroke-width="2" opacity=".8"/>
+        <path d="M428 382 C 448 374 472 374 486 384" fill="none" stroke="#fff8e6" stroke-width="1.8" opacity=".6"/>
+        <path d="M436 396 C 452 390 470 390 482 396 C 472 402 448 402 436 396 Z" fill="url(#s9med)" stroke="#ffe3ea" stroke-width="1.5"/>
+        <text x="452" y="196" font-size="13.5" font-weight="900" fill="#ffe49a">ADRENAL GLAND</text>
+        <text x="452" y="214" font-size="11.5" font-weight="800" fill="#fff3cf">CORTEX (outer) → cortisol</text>
+        <text x="452" y="230" font-size="10.5" font-style="italic" fill="#fff8e6">glomerulosa · fasciculata · reticularis</text>
+        <text x="452" y="248" font-size="11.5" font-weight="800" fill="#ff9db4">MEDULLA (inner) → adrenaline</text>
+        <path d="M530 256 C 546 300 536 344 508 384" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+        <!-- cortisol out -->
+        <path d="M500 396 C 580 382 626 336 626 252" fill="none" stroke="#00c2c7" stroke-width="6"
+              stroke-dasharray="12 8" stroke-linecap="round" marker-end="url(#s9arT)"/>
+        <rect x="466" y="286" width="150" height="30" rx="9" fill="rgba(0,194,199,.7)" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
+        <text x="478" y="306" font-size="14" font-weight="900" fill="#00252b">③ CORTISOL ⬆</text>
+        <text x="416" y="358" font-size="11.5" font-weight="800" fill="#9ff2ee">↑glucose · ↓immunity · ↑BP</text>
+        <text x="416" y="340" font-size="11.5" font-weight="800" fill="#9ff2ee">breaks down protein &amp; fat</text>
+
+        <!-- negative feedback -->
+        <path d="M618 222 C 556 148 400 116 262 146" fill="none" stroke="#ff3b6b" stroke-width="4"
+              stroke-dasharray="9 7" stroke-linecap="round" marker-end="url(#s9arR)"/>
+        <text x="243.5" y="112" font-size="13.5" font-weight="900" fill="#ff9db4">④ ⊖ NEGATIVE FEEDBACK — cortisol shuts the axis off</text>
+        <text x="240.0" y="130" font-size="12" font-style="italic" fill="#ffd9e2">…which fails when the stressor never stops. That is CHRONIC stress.</text>
+
+        <!-- fast arm -->
+        <rect x="24" y="386" width="360" height="128" rx="14" fill="rgba(255,59,107,.20)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="38" y="412" font-size="14.5" font-weight="900" fill="#ff9db4">⚡ THE FAST ARM (seconds) — sympathetic nerves</text>
+        <text x="38" y="436" font-size="12.5" font-weight="800" fill="#ffd9e2">adrenal MEDULLA → adrenaline + noradrenaline</text>
+        <!-- little heart -->
+        <path d="M60 462 C 54 452 66 444 74 450 C 80 454 82 462 82 468 C 82 478 72 484 66 480 C 58 475 56 468 60 462 Z" fill="#ff3b6b" stroke="#ffd9e2" stroke-width="1.6"/>
+        <path d="M92 470 L110 470 L116 456 L124 484 L132 464 L138 470 L164 470" fill="none" stroke="#ff3b6b" stroke-width="2.6" stroke-linecap="round"/>
+        <text x="176" y="466" font-size="12" font-weight="800" fill="#ffd9e2">↑HR · ↑BP · ↑RR · pupils dilate</text>
+        <text x="176" y="484" font-size="12" font-weight="800" fill="#ffd9e2">digestion stops · glucose ↑</text>
+        <text x="38" y="504" font-size="11.5" font-style="italic" fill="#ffb3c6">this is the “alarm” you feel before an exam</text>
+      </svg>
+      <div class="mn">🧠 <b>“<u>H</u>ypothalamus <u>P</u>ages the <u>A</u>drenal.”</b> H-P-A. CRH is the page, ACTH is the messenger, cortisol is the response — and cortisol is supposed to hang up the phone afterwards.</div>
+    </div>
+
+    <div class="card deep span2">
+      <h3>📈 General Adaptation Syndrome — the three stages, drawn as one curve</h3>
+      <p>Hans Selye described the body's <b>non-specific response to any demand</b>. It is the same three stages whether the stressor is a bacterium, a bereavement, or a nursing exam.</p>
+
+      <svg viewBox="0 0 660 400" role="img" aria-label="Graph of resistance to stress over time showing the three stages of the General Adaptation Syndrome: an initial dip below the normal line during the alarm stage, a sustained plateau above normal during the resistance stage, and a fall well below normal during the exhaustion stage">
+        <defs>
+          <linearGradient id="s9fill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="rgba(255,194,51,.5)"/><stop offset="1" stop-color="rgba(255,194,51,0)"/></linearGradient>
+        </defs>
+        <rect x="4" y="4" width="652" height="392" rx="16" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.28)" stroke-width="2"/>
+        <g stroke="rgba(255,255,255,.10)" stroke-width="1">
+          <line x1="70" y1="90" x2="620" y2="90"/><line x1="70" y1="140" x2="620" y2="140"/>
+          <line x1="70" y1="240" x2="620" y2="240"/><line x1="70" y1="290" x2="620" y2="290"/>
+          <line x1="252" y1="60" x2="252" y2="320"/><line x1="434" y1="60" x2="434" y2="320"/>
+        </g>
+        <!-- stage bands -->
+        <rect x="70" y="60" width="182" height="260" fill="rgba(255,59,107,.12)"/>
+        <rect x="252" y="60" width="182" height="260" fill="rgba(18,184,134,.12)"/>
+        <rect x="434" y="60" width="186" height="260" fill="rgba(157,92,255,.16)"/>
+        <!-- normal line -->
+        <line x1="70" y1="190" x2="620" y2="190" stroke="#00c2c7" stroke-width="3" stroke-dasharray="9 7"/>
+        <text x="76" y="182" font-size="12.5" font-weight="900" fill="#9ff2ee">normal level of resistance</text>
+        <!-- axes -->
+        <line x1="70" y1="60" x2="70" y2="320" stroke="#efe6ff" stroke-width="2.5"/>
+        <line x1="70" y1="320" x2="628" y2="320" stroke="#efe6ff" stroke-width="2.5"/>
+        <text x="16" y="150" font-size="12.5" font-weight="900" fill="#efe6ff">RESIST-</text>
+        <text x="16" y="168" font-size="12.5" font-weight="900" fill="#efe6ff">ANCE</text>
+        <text x="344" y="348" text-anchor="middle" font-size="13" font-weight="900" fill="#efe6ff">TIME ➡</text>
+        <!-- curve -->
+        <path d="M70 190 C 96 190 108 250 132 258 C 160 268 194 214 222 176 C 240 152 252 128 276 118
+                 C 320 100 380 102 434 108 C 470 112 500 140 526 186 C 552 232 578 274 620 296 L620 320 L70 320 Z"
+              fill="url(#s9fill)" opacity=".65"/>
+        <path d="M70 190 C 96 190 108 250 132 258 C 160 268 194 214 222 176 C 240 152 252 128 276 118
+                 C 320 100 380 102 434 108 C 470 112 500 140 526 186 C 552 232 578 274 620 296"
+              fill="none" stroke="#ffc233" stroke-width="6" stroke-linecap="round"/>
+        <circle cx="132" cy="258" r="8" fill="#ff3b6b" stroke="#fff" stroke-width="2"/>
+        <circle cx="344" cy="105" r="8" fill="#12b886" stroke="#fff" stroke-width="2"/>
+        <circle cx="600" cy="288" r="8" fill="#9d5cff" stroke="#fff" stroke-width="2"/>
+        <!-- stage labels -->
+        <text x="82" y="84" font-size="16" font-weight="900" fill="#ff9db4">1️⃣ ALARM</text>
+        <text x="82" y="104" font-size="11.5" font-weight="700" fill="#ffd9e2">fight-or-flight fires ·</text>
+        <text x="82" y="120" font-size="11.5" font-weight="700" fill="#ffd9e2">adrenaline · ↑HR ↑BP ↑glucose ·</text>
+        <text x="82" y="136" font-size="11.5" font-weight="700" fill="#ffd9e2">resistance briefly DIPS</text>
+        <text x="264" y="230" font-size="16" font-weight="900" fill="#a5f3d4">2️⃣ RESISTANCE</text>
+        <text x="264" y="250" font-size="11.5" font-weight="700" fill="#d8fff0">the body adapts and looks</text>
+        <text x="264" y="266" font-size="11.5" font-weight="700" fill="#d8fff0">“fine” — cortisol keeps glucose</text>
+        <text x="264" y="282" font-size="11.5" font-weight="700" fill="#d8fff0">up, but reserves are being spent</text>
+        <text x="446" y="84" font-size="16" font-weight="900" fill="#d9c2ff">3️⃣ EXHAUSTION</text>
+        <text x="446" y="104" font-size="11.5" font-weight="700" fill="#efe6ff">reserves are gone → illness,</text>
+        <text x="446" y="120" font-size="11.5" font-weight="700" fill="#efe6ff">infection, hypertension, ulcers,</text>
+        <text x="446" y="136" font-size="11.5" font-weight="700" fill="#efe6ff">depression, burnout, collapse</text>
+        <rect x="24" y="356" width="612" height="34" rx="10" fill="rgba(255,194,51,.25)" stroke="#ffc233" stroke-width="1.5"/>
+        <text x="8.0" y="378" font-size="10.4" font-weight="900" fill="#ffe49a">🛌 A rest period between stressors lets the curve return to normal. No rest = the curve never comes back up.</text>
+      </svg>
+      <div class="mn">🧠 <b>“A-R-E you okay?”</b> <b>A</b>larm · <b>R</b>esistance · <b>E</b>xhaustion. And the answer at stage three is <i>no</i>.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>⭐ Eustress vs distress</h3>
+      <div class="tbl-wrap">
+      <table>
+        <tr><th class="lo" style="width:50%">😀 EUSTRESS (good)</th><th class="up" style="width:50%">😰 DISTRESS (bad)</th></tr>
+        <tr><td>Helps us <b>adapt</b> to changes in the body and the environment</td><td><b>Chronic or persistent</b>, with no periods of rest between stressful occurrences</td></tr>
+        <tr><td>Motivating, time-limited, ends with recovery</td><td>Raises <b>blood pressure</b> and <b>cortisol</b>, and puts loads of <b>strain on the body</b></td></tr>
+        <tr><td>A wedding, a promotion, exam week that <i>ends</i></td><td>Money issues, family drama, caregiving with no break, an unrelenting semester</td></tr>
+      </table>
+      </div>
+      <div class="mn">🧠 <b>It is not the size of the stressor — it is whether there is a gap afterwards.</b> Same load, no rest, and eustress becomes distress.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>📖 The vocabulary you will be tested on</h3>
+      <ul class="tick">
+        <li><b>Stressor</b> — the thing that triggers it. <b>Stress</b> — the body's response.</li>
+        <li><b>General Adaptation Syndrome (GAS)</b> — the <b>whole-body</b> response: alarm → resistance → exhaustion.</li>
+        <li><b>Local Adaptation Syndrome (LAS)</b> — a <b>local</b> response in one area: the reflex pain response and the inflammatory response.</li>
+        <li><b>Homeostasis</b> — the balance the body is trying to get back to.</li>
+        <li><b>Adaptation</b> — the successful adjustment; <b>maladaptation</b> when the coping makes things worse.</li>
+        <li><b>Appraisal</b> — how <i>this</i> client interprets the stressor. Two people, one event, two completely different stress responses.</li>
+      </ul>
+      <div class="mn">🧠 <b>G is General (whole body), L is Local (one spot).</b> A sprained ankle gets LAS; the exam that made you sprain it gets GAS.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 2 — SIGNS ============ -->
+<section id="clues">
+  <div class="sec-h"><span class="icon">🔎</span><h2>SIGNS &amp; SYMPTOMS</h2><span class="step">STEP 2 · SPOT IT</span></div>
+  <p class="sec-sub">Stress presents as a physical complaint far more often than as “I am stressed.”</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🧍 Where stress shows up — a body map</h3>
+
+      <svg viewBox="0 0 660 560" role="img" aria-label="Full body silhouette with labelled stress effects by system: headaches and insomnia in the head, chest tightness and raised heart rate and blood pressure at the heart, rapid shallow breathing at the lungs, gastrointestinal upset and appetite change at the abdomen, reduced immunity and slow wound healing, muscle aches and tension, skin flare-ups, and fatigue overall">
+        <defs>
+          <linearGradient id="s9body" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#3a2450"/><stop offset="1" stop-color="#1c1030"/></linearGradient>
+          <radialGradient id="s9hot" cx="50%" cy="50%" r="50%">
+            <stop offset="0" stop-color="rgba(255,59,107,.75)"/><stop offset="1" stop-color="rgba(255,59,107,0)"/></radialGradient>
+          <radialGradient id="s9warm" cx="50%" cy="50%" r="50%">
+            <stop offset="0" stop-color="rgba(255,194,51,.7)"/><stop offset="1" stop-color="rgba(255,194,51,0)"/></radialGradient>
+        </defs>
+        <rect x="4" y="4" width="652" height="552" rx="18" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.28)" stroke-width="2"/>
+        <text x="22" y="34" font-size="18" font-weight="900" fill="#ff9db4">🧍 CHRONIC STRESS — system by system</text>
+
+        <!-- body -->
+        <path d="M330 62 C 348 62 362 76 362 94 C 362 108 356 120 346 126
+                 C 380 134 410 146 426 162 C 442 178 450 204 454 232
+                 C 458 262 462 288 468 310 L 436 322 C 430 302 424 282 420 264
+                 C 420 322 422 374 426 422 C 430 458 431 486 429 508 L 372 508
+                 C 368 470 362 428 356 392 C 350 428 344 470 340 508 L 283 508
+                 C 281 486 282 458 286 422 C 290 374 292 322 292 264
+                 C 288 282 282 302 276 322 L 244 310 C 250 288 254 262 258 232
+                 C 262 204 270 178 286 162 C 302 146 332 134 366 126 Z"
+              fill="url(#s9body)" stroke="rgba(255,255,255,.45)" stroke-width="2.5"/>
+        <path d="M258 232 C 238 258 224 300 218 344 C 214 372 212 398 214 418 L 240 422
+                 C 240 398 244 368 250 340 C 256 308 264 278 274 256 Z" fill="url(#s9body)" stroke="rgba(255,255,255,.45)" stroke-width="2.5"/>
+        <path d="M454 232 C 474 258 488 300 494 344 C 498 372 500 398 498 418 L 472 422
+                 C 472 398 468 368 462 340 C 456 308 448 278 438 256 Z" fill="url(#s9body)" stroke="rgba(255,255,255,.45)" stroke-width="2.5"/>
+
+        <!-- hot spots -->
+        <circle cx="330" cy="92" r="46" fill="url(#s9hot)"/>
+        <circle cx="316" cy="196" r="44" fill="url(#s9hot)"/>
+        <circle cx="368" cy="196" r="38" fill="url(#s9warm)"/>
+        <circle cx="352" cy="278" r="48" fill="url(#s9warm)"/>
+        <circle cx="252" cy="330" r="34" fill="url(#s9warm)"/>
+        <circle cx="460" cy="330" r="34" fill="url(#s9warm)"/>
+        <circle cx="356" cy="440" r="34" fill="url(#s9warm)"/>
+
+        <!-- organs -->
+        <path d="M300 178 C 294 166 310 156 320 164 C 328 170 332 182 332 192
+                 C 332 206 320 214 310 209 C 298 202 294 188 300 178 Z" fill="#c02255" stroke="#ffd9e2" stroke-width="1.8"/>
+        <path d="M356 172 C 368 164 382 170 386 182 C 392 198 388 218 378 226 C 370 232 360 228 358 218 C 354 202 352 182 356 172 Z" fill="#e88ba7" opacity=".9" stroke="#ffd9e2" stroke-width="1.6"/>
+        <path d="M396 172 C 408 166 420 174 422 186 C 424 202 418 220 408 226 C 400 230 392 224 392 214 C 392 198 392 180 396 172 Z" fill="#e88ba7" opacity=".9" stroke="#ffd9e2" stroke-width="1.6"/>
+        <path d="M334 250 C 322 262 318 282 328 294 C 340 308 364 308 374 294 C 382 282 378 262 366 250 C 356 240 344 240 334 250 Z" fill="#f2a389" stroke="#ffd0bd" stroke-width="1.8"/>
+        <path d="M320 312 C 350 302 384 306 396 320 C 386 330 356 332 336 326 C 326 322 320 318 320 312 Z" fill="#cf7360" stroke="#ffd0bd" stroke-width="1.6"/>
+
+        <!-- callouts -->
+        <g font-weight="900">
+          <text x="30" y="96" font-size="14" fill="#ff9db4">🧠 HEAD</text>
+          <text x="30" y="116" font-size="12" font-weight="700" fill="#ffd9e2">headaches · trouble sleeping ·</text>
+          <text x="30" y="133" font-size="12" font-weight="700" fill="#ffd9e2">poor concentration · irritability</text>
+
+          <text x="30" y="196" font-size="14" fill="#ff9db4">❤️ HEART</text>
+          <text x="30" y="216" font-size="12" font-weight="700" fill="#ffd9e2">CHEST PAIN / TIGHTNESS ·</text>
+          <text x="30" y="233" font-size="12" font-weight="700" fill="#ffd9e2">↑ heart rate · ↑ blood pressure</text>
+
+          <text x="30" y="296" font-size="14" fill="#ffe49a">🫁 LUNGS</text>
+          <text x="30" y="316" font-size="12" font-weight="700" fill="#fff3cf">rapid, shallow breathing ·</text>
+          <text x="30" y="333" font-size="12" font-weight="700" fill="#fff3cf">asthma flares</text>
+
+          <text x="30" y="392" font-size="14" fill="#ffe49a">🫃 GI</text>
+          <text x="30" y="412" font-size="12" font-weight="700" fill="#fff3cf">GI UPSET · nausea · reflux ·</text>
+          <text x="30" y="429" font-size="12" font-weight="700" fill="#fff3cf">CHANGES IN APPETITE · IBS</text>
+
+          <text x="516" y="132" font-size="14" fill="#a5f3d4">🛡️ IMMUNE</text>
+          <text x="489.3" y="152" font-size="12" font-weight="700" fill="#d8fff0">DECREASED IMMUNITY ·</text>
+          <text x="513.5" y="169" font-size="12" font-weight="700" fill="#d8fff0">frequent infections ·</text>
+          <text x="516" y="186" font-size="12" font-weight="700" fill="#d8fff0">slow wound healing</text>
+
+          <text x="516" y="240" font-size="14" fill="#ffe49a">💪 MUSCLES</text>
+          <text x="484.8" y="260" font-size="12" font-weight="700" fill="#fff3cf">ACHES &amp; PAIN · tension ·</text>
+          <text x="481.6" y="277" font-size="12" font-weight="700" fill="#fff3cf">jaw clenching · back pain</text>
+
+          <text x="516" y="330" font-size="14" fill="#d9c2ff">🔋 WHOLE BODY</text>
+          <text x="470.8" y="350" font-size="12" font-weight="700" fill="#efe6ff">EXHAUSTION · fatigue that</text>
+          <text x="516" y="367" font-size="12" font-weight="700" fill="#efe6ff">sleep does not fix</text>
+
+          <text x="477.2" y="420" font-size="14" fill="#9ff2ee">🩹 SKIN &amp; ENDOCRINE</text>
+          <text x="485.2" y="440" font-size="12" font-weight="700" fill="#d8fff0">eczema/psoriasis flares ·</text>
+          <text x="432.2" y="457" font-size="12" font-weight="700" fill="#d8fff0">hyperglycaemia · weight change</text>
+        </g>
+        <g stroke="rgba(255,255,255,.35)" stroke-width="1.5" stroke-dasharray="4 4">
+          <line x1="230" y1="100" x2="292" y2="94"/><line x1="230" y1="204" x2="300" y2="192"/>
+          <line x1="230" y1="304" x2="360" y2="198"/><line x1="230" y1="400" x2="330" y2="282"/>
+          <line x1="510" y1="152" x2="440" y2="200"/><line x1="510" y1="252" x2="472" y2="300"/>
+          <line x1="510" y1="342" x2="440" y2="420"/><line x1="510" y1="432" x2="430" y2="450"/>
+        </g>
+        <text x="8.0" y="540" font-size="8.42" font-weight="900" fill="#ffe49a">⭐ Source list: aches &amp; pain · chest pain/tightness · GI upset · changes in appetite · exhaustion · trouble sleeping · decreased immunity</text>
+      </svg>
+      <div class="mn">🧠 <b>“Head, heart, gut, muscles, immunity, sleep.”</b> Six places to ask about. A client who ticks four of the six is telling you about stress even if they never use the word.</div>
+    </div>
+
+    <div class="card deep span2">
+      <h3>⚔️ Fight-or-flight vs rest-and-digest — the same organs, opposite orders</h3>
+
+      <svg viewBox="0 0 660 470" role="img" aria-label="Two panels comparing the sympathetic fight or flight response with dilated pupils, bronchodilation, a fast heart, stopped digestion and sweating, against the parasympathetic rest and digest state with constricted pupils, a slow heart and active digestion">
+        <defs>
+          <radialGradient id="s9iris" cx="40%" cy="35%" r="70%">
+            <stop offset="0" stop-color="#7fd4ff"/><stop offset="1" stop-color="#12456e"/></radialGradient>
+          <linearGradient id="s9lung" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffc9d8"/><stop offset="1" stop-color="#c9748f"/></linearGradient>
+        </defs>
+
+        <!-- SNS -->
+        <rect x="6" y="6" width="322" height="458" rx="16" fill="rgba(255,59,107,.15)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="22" y="36" font-size="17" font-weight="900" fill="#ff9db4">⚡ SYMPATHETIC — fight or flight</text>
+        <text x="22" y="56" font-size="12.5" font-style="italic" fill="#ffd9e2">the ALARM stage, in one column</text>
+        <!-- eye dilated -->
+        <ellipse cx="86" cy="112" rx="52" ry="30" fill="#fff" stroke="#c97a58" stroke-width="2.5"/>
+        <circle cx="86" cy="112" r="27" fill="url(#s9iris)" stroke="#0b3550" stroke-width="2"/>
+        <g stroke="#bde5ff" stroke-width="1.4" opacity=".7">
+          <line x1="86" y1="88" x2="86" y2="96"/><line x1="104" y1="96" x2="99" y2="102"/>
+          <line x1="110" y1="112" x2="102" y2="112"/><line x1="104" y1="128" x2="99" y2="122"/>
+          <line x1="86" y1="136" x2="86" y2="128"/><line x1="68" y1="128" x2="73" y2="122"/>
+          <line x1="62" y1="112" x2="70" y2="112"/><line x1="68" y1="96" x2="73" y2="102"/>
+        </g>
+        <circle cx="86" cy="112" r="18" fill="#0a0a14"/>
+        <circle cx="78" cy="104" r="5" fill="#fff" opacity=".8"/>
+        <text x="152" y="106" font-size="13.5" font-weight="900" fill="#ffd9e2">pupils DILATE</text>
+        <text x="152" y="124" font-size="11.5" font-style="italic" fill="#ffb3c6">let more light in — see the threat</text>
+        <!-- lungs -->
+        <path d="M62 176 C 46 194 42 232 52 258 C 58 274 76 276 82 262 C 88 244 88 200 80 180 C 76 170 68 170 62 176 Z" fill="url(#s9lung)" stroke="#ffd9e2" stroke-width="1.8"/>
+        <path d="M116 176 C 132 194 136 232 126 258 C 120 274 102 276 96 262 C 90 244 90 200 98 180 C 102 170 110 170 116 176 Z" fill="url(#s9lung)" stroke="#ffd9e2" stroke-width="1.8"/>
+        <path d="M89 158 L89 190" stroke="#eaf6ff" stroke-width="7" stroke-linecap="round"/>
+        <path d="M89 188 L74 206 M89 188 L104 206" stroke="#eaf6ff" stroke-width="5" stroke-linecap="round"/>
+        <path d="M74 206 L66 222 M104 206 L112 222" stroke="#eaf6ff" stroke-width="4" stroke-linecap="round"/>
+        <text x="152" y="196" font-size="13.5" font-weight="900" fill="#ffd9e2">bronchi DILATE</text>
+        <text x="152" y="214" font-size="11.5" font-style="italic" fill="#ffb3c6">↑ rate &amp; depth — more oxygen</text>
+        <!-- heart -->
+        <path d="M62 300 C 54 288 70 276 82 284 C 92 290 96 302 96 312 C 96 326 82 334 72 328 C 58 320 56 308 62 300 Z" fill="#c02255" stroke="#ffd9e2" stroke-width="2"/>
+        <path d="M110 312 L128 312 L134 296 L142 330 L150 306 L156 312 L182 312" fill="none" stroke="#ff3b6b" stroke-width="3" stroke-linecap="round"/>
+        <text x="194" y="306" font-size="13.5" font-weight="900" fill="#ffd9e2">↑ HR · ↑ BP</text>
+        <text x="194" y="324" font-size="11.5" font-style="italic" fill="#ffb3c6">blood to muscles &amp; brain</text>
+        <!-- gut -->
+        <path d="M58 384 C 84 372 118 376 132 392 C 122 404 88 406 68 398 C 60 394 56 390 58 384 Z" fill="#cf7360" stroke="#ffd0bd" stroke-width="1.8"/>
+        <path d="M60 410 C 76 402 106 402 122 412 C 132 418 128 430 116 430 C 96 430 70 428 60 420 Z" fill="#b45a44" stroke="#ffd0bd" stroke-width="1.6"/>
+        <path d="M52 372 l84 68 M136 372 l-84 68" stroke="#ff3b6b" stroke-width="4" stroke-linecap="round" opacity=".85"/>
+        <text x="152" y="396" font-size="13.5" font-weight="900" fill="#ffd9e2">digestion STOPS</text>
+        <text x="152" y="414" font-size="11.5" font-style="italic" fill="#ffb3c6">dry mouth · nausea · “knot” in the gut</text>
+        <text x="22" y="450" font-size="12.5" font-weight="900" fill="#ffc233">💧 sweating · 🍬 glucose released · 🚽 urgency</text>
+
+        <!-- PNS -->
+        <rect x="336" y="6" width="318" height="458" rx="16" fill="rgba(18,184,134,.15)" stroke="#12b886" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="289.0" y="36" font-size="17" font-weight="900" fill="#7df0c6">🕊️ PARASYMPATHETIC — rest &amp; digest</text>
+        <text x="352" y="56" font-size="12.5" font-style="italic" fill="#d8fff0">the state every coping skill aims for</text>
+        <ellipse cx="412" cy="112" rx="52" ry="30" fill="#fff" stroke="#c97a58" stroke-width="2.5"/>
+        <circle cx="412" cy="112" r="27" fill="url(#s9iris)" stroke="#0b3550" stroke-width="2"/>
+        <g stroke="#bde5ff" stroke-width="1.4" opacity=".7">
+          <line x1="412" y1="88" x2="412" y2="96"/><line x1="430" y1="96" x2="425" y2="102"/>
+          <line x1="436" y1="112" x2="428" y2="112"/><line x1="430" y1="128" x2="425" y2="122"/>
+          <line x1="412" y1="136" x2="412" y2="128"/><line x1="394" y1="128" x2="399" y2="122"/>
+          <line x1="388" y1="112" x2="396" y2="112"/><line x1="394" y1="96" x2="399" y2="102"/>
+        </g>
+        <circle cx="412" cy="112" r="8" fill="#0a0a14"/>
+        <circle cx="408" cy="107" r="3" fill="#fff" opacity=".8"/>
+        <text x="478" y="106" font-size="13.5" font-weight="900" fill="#d8fff0">pupils CONSTRICT</text>
+        <text x="478" y="124" font-size="11.5" font-style="italic" fill="#a5f3d4">nothing to run from</text>
+        <path d="M388 176 C 372 194 368 232 378 258 C 384 274 402 276 408 262 C 414 244 414 200 406 180 C 402 170 394 170 388 176 Z" fill="url(#s9lung)" stroke="#d8fff0" stroke-width="1.8" opacity=".85"/>
+        <path d="M442 176 C 458 194 462 232 452 258 C 446 274 428 276 422 262 C 416 244 416 200 424 180 C 428 170 436 170 442 176 Z" fill="url(#s9lung)" stroke="#d8fff0" stroke-width="1.8" opacity=".85"/>
+        <path d="M415 158 L415 190" stroke="#eafff7" stroke-width="6" stroke-linecap="round"/>
+        <text x="478" y="196" font-size="13.5" font-weight="900" fill="#d8fff0">slow, deep breathing</text>
+        <text x="478" y="214" font-size="11.5" font-style="italic" fill="#a5f3d4">this is the lever YOU can pull</text>
+        <path d="M388 300 C 380 288 396 276 408 284 C 418 290 422 302 422 312 C 422 326 408 334 398 328 C 384 320 382 308 388 300 Z" fill="#0d8f68" stroke="#d8fff0" stroke-width="2"/>
+        <path d="M436 312 L456 312 L462 302 L470 324 L478 308 L484 312 L510 312" fill="none" stroke="#12b886" stroke-width="3" stroke-linecap="round"/>
+        <text x="522" y="306" font-size="13.5" font-weight="900" fill="#d8fff0">↓ HR · ↓ BP</text>
+        <path d="M384 384 C 410 372 444 376 458 392 C 448 404 414 406 394 398 C 386 394 382 390 384 384 Z" fill="#cf7360" stroke="#ffd0bd" stroke-width="1.8"/>
+        <path d="M386 410 C 402 402 432 402 448 412 C 458 418 454 430 442 430 C 422 430 396 428 386 420 Z" fill="#b45a44" stroke="#ffd0bd" stroke-width="1.6"/>
+        <path d="M470 396 l14 -10 l0 20 Z" fill="#12b886"/>
+        <text x="492" y="396" font-size="13.5" font-weight="900" fill="#d8fff0">digestion RESUMES</text>
+        <text x="254.7" y="450" font-size="12.5" font-weight="900" fill="#7df0c6">🌬️ deep breathing · 🧘 relaxation · 😴 sleep · 🤝 support</text>
+      </svg>
+      <div class="mn">🧠 <b>Breathing is the only autonomic function you can drive on purpose.</b> That is why every relaxation technique starts there — slow exhalation is a direct switch from the left column to the right.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🔎 Assessment — what to ask</h3>
+      <ul class="tick">
+        <li><b>What is the stressor?</b> And how long has it been going on?</li>
+        <li><b>How does the client see it?</b> (appraisal) — threat or challenge?</li>
+        <li><b>What have they tried?</b> What has worked before?</li>
+        <li><b>Support system</b> — who is around? What changed recently?</li>
+        <li><b>Sleep, appetite, weight, energy, concentration.</b></li>
+        <li><b>Substance use</b> — alcohol, nicotine, cannabis, caffeine, sedatives.</li>
+        <li class="never">Always screen for <b>self-harm and suicidal ideation</b> when stress is severe. Ask directly — asking does not plant the idea.</li>
+      </ul>
+      <div class="mn">🧠 <b>Ask “what has changed lately?”</b> It gets the stressor faster than “are you stressed?”, which almost everyone answers “a bit.”</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🚨 When stress stops being “just stress”</h3>
+      <ul class="tick">
+        <li><b>Crisis</b> — usual coping has failed and function has broken down. Safety first, then crisis intervention. Typically <b>time-limited (about <span class="mono">4–6 weeks</span>)</b> and resolves with support.</li>
+        <li><b>Panic attack</b> — abrupt, intense, peaks within <span class="mono">10 minutes</span>: palpitations, chest pain, dyspnoea, sense of doom. Stay with the client, calm short sentences, safe quiet space.</li>
+        <li><b>Acute stress disorder / PTSD</b> — after a traumatic event, with re-experiencing, avoidance and hyperarousal.</li>
+        <li><b>Burnout &amp; compassion fatigue</b> — in the caregiver <i>and</i> in you.</li>
+      </ul>
+      <div class="xref">📎 <b>NG-126 Panic Attack</b> · <b>NG-078 PTSD &amp; Acute Stress Disorder</b> · <b>NG-089 Sleep &amp; Circadian Rhythm</b> · <b>NG-135 Sleep Hygiene</b>.</div>
+      <div class="mn">🧠 <b>Chest pain in a stressed client is still chest pain.</b> Rule out the physical cause before you call it anxiety — that is the tested trap.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 3 — COPING & CARE ============ -->
+<section id="care">
+  <div class="sec-h"><span class="icon">🧘</span><h2>COPING SKILLS &amp; NURSING CARE</h2><span class="step">STEP 3 · WHAT YOU DO</span></div>
+  <p class="sec-sub">Teach the skill, build the plan, and know when to hand off.</p>
+
+  <div class="grid">
+    <div class="card emerald span2">
+      <h3>✅ Coping skills — the source list, expanded</h3>
+      <div class="no-grid">
+        <div class="no-t"><span class="e">🏃</span>Exercise<i>regularly — the single best one</i></div>
+        <div class="no-t"><span class="e">🧘</span>Meditation<i>mindfulness</i></div>
+        <div class="no-t"><span class="e">🌬️</span>Breathing<i>slow, long exhale</i></div>
+        <div class="no-t"><span class="e">😴</span>Sleep<i>routine &amp; hygiene</i></div>
+        <div class="no-t"><span class="e">📓</span>Journaling<i>name the stressor</i></div>
+        <div class="no-t"><span class="e">🗣️</span>Talking<i>to someone safe</i></div>
+        <div class="no-t"><span class="e">⏰</span>Time management<i>break it into steps</i></div>
+        <div class="no-t"><span class="e">🚫</span>Boundaries<i>“no” is a coping skill</i></div>
+        <div class="no-t"><span class="e">🎨</span>Hobbies<i>music, art, nature</i></div>
+      </div>
+      <p style="margin-top:11px"><b>Teach one technique concretely:</b></p>
+      <ul class="tick">
+        <li><b>Diaphragmatic breathing</b> — hand on the belly, breathe in through the nose so the hand rises, out slowly through pursed lips. <b>Make the out-breath longer than the in-breath.</b></li>
+        <li><b>Progressive muscle relaxation</b> — tense a muscle group for a few seconds, then release, working up the body.</li>
+        <li><b>Guided imagery</b> — a detailed, sensory safe place.</li>
+        <li><b>Grounding</b> — name what you can see, hear and feel right now.</li>
+      </ul>
+      <div class="mn">🧠 <b>“Long exhale = the vagus nerve's off switch.”</b> A longer out-breath than in-breath physically shifts the client toward parasympathetic. It is free, portable, and it works during an exam.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>⚖️ Adaptive vs maladaptive coping</h3>
+      <div class="tbl-wrap">
+      <table>
+        <tr><th class="lo" style="width:50%">✅ Adaptive</th><th class="up" style="width:50%">❌ Maladaptive</th></tr>
+        <tr><td>Exercise · meditation · breathing · problem-solving · asking for help · rest · humour · planning</td>
+            <td>Alcohol &amp; drugs · avoidance &amp; denial · isolation · overeating or not eating · aggression · overworking · self-harm</td></tr>
+        <tr><td>Reduces the stressor <b>or</b> the response, and does not create a new problem</td>
+            <td>Relieves it briefly, then <b>adds a second problem</b> on top of the first</td></tr>
+      </table>
+      </div>
+      <p><b>Problem-focused</b> coping changes the stressor (make a plan, get the tutor). <b>Emotion-focused</b> coping changes the feeling (reframe, relax, talk). <mark>Use problem-focused when the situation is changeable, emotion-focused when it is not.</mark></p>
+      <div class="mn">🧠 <b>Can I change it? Change it. Can't change it? Change how I carry it.</b> That single question sorts the two strategies.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>📉 The cortisol rhythm — and what chronic stress does to it</h3>
+      <svg viewBox="0 0 440 300" role="img" aria-label="Line graph over twenty four hours comparing a normal cortisol curve which peaks in the early morning and falls to a low at night, with a chronic stress curve that stays high all day and never falls at night">
+        <defs>
+          <linearGradient id="s9c1" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="rgba(18,184,134,.45)"/><stop offset="1" stop-color="rgba(18,184,134,0)"/></linearGradient>
+        </defs>
+        <rect x="4" y="4" width="432" height="292" rx="14" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.28)" stroke-width="1.5"/>
+        <g stroke="rgba(255,255,255,.12)" stroke-width="1">
+          <line x1="52" y1="70" x2="410" y2="70"/><line x1="52" y1="120" x2="410" y2="120"/>
+          <line x1="52" y1="170" x2="410" y2="170"/><line x1="52" y1="220" x2="410" y2="220"/>
+        </g>
+        <line x1="52" y1="46" x2="52" y2="240" stroke="#efe6ff" stroke-width="2"/>
+        <line x1="52" y1="240" x2="416" y2="240" stroke="#efe6ff" stroke-width="2"/>
+        <path d="M52 200 C 70 200 82 90 108 74 C 134 60 158 96 186 128 C 220 166 254 190 292 206 C 330 222 370 228 404 230 L404 240 L52 240 Z" fill="url(#s9c1)"/>
+        <path d="M52 200 C 70 200 82 90 108 74 C 134 60 158 96 186 128 C 220 166 254 190 292 206 C 330 222 370 228 404 230"
+              fill="none" stroke="#12b886" stroke-width="4.5" stroke-linecap="round"/>
+        <path d="M52 150 C 90 130 120 96 158 92 C 200 88 236 106 276 100 C 320 94 366 104 404 96"
+              fill="none" stroke="#ff3b6b" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="12 7"/>
+        <circle cx="108" cy="74" r="6" fill="#12b886" stroke="#fff" stroke-width="2"/>
+        <text x="120" y="60" font-size="12.5" font-weight="900" fill="#a5f3d4">normal morning peak</text>
+        <text x="150" y="126" font-size="12.5" font-weight="900" fill="#ff9db4">chronic stress — never comes down</text>
+        <text x="270" y="222" font-size="12" font-weight="900" fill="#a5f3d4">normal night low</text>
+        <g font-size="11.5" font-weight="800" fill="#d9c2ff" text-anchor="middle">
+          <text x="80" y="258">6 am</text><text x="170" y="258">noon</text>
+          <text x="270" y="258">6 pm</text><text x="380" y="258">midnight</text>
+        </g>
+        <text x="14" y="130" font-size="11.5" font-weight="900" fill="#efe6ff" transform="rotate(-90 14 130)">CORTISOL</text>
+        <text x="8.0" y="284" font-size="8.29" font-weight="900" fill="#ffe49a">🛌 A flat, high curve is why stressed clients cannot sleep — and why they wake exhausted.</text>
+      </svg>
+      <div class="mn">🧠 <b>Cortisol is supposed to be a morning hormone.</b> When it is still high at midnight, sleep, immunity and glucose all suffer at once.</div>
+    </div>
+
+    <div class="card deep span2">
+      <h3>🩺 The nursing interventions — in the order you would use them</h3>
+      <div class="ladder">
+        <div class="rung"><div class="n">1</div><div class="t">🛡️ <b>Safety first.</b> Screen for self-harm, harm to others, and unsafe coping (substances, driving, neglecting a dependent).</div></div>
+        <div class="arrowdown">↓</div>
+        <div class="rung"><div class="n">2</div><div class="t">👂 <b>Therapeutic communication.</b> Sit down, open-ended questions, silence, reflect feelings, do <b>not</b> say “don't worry” or “it will be fine.”</div></div>
+        <div class="arrowdown">↓</div>
+        <div class="rung"><div class="n">3</div><div class="t">🧩 <b>Help them name the stressor</b> and separate what can be changed from what cannot.</div></div>
+        <div class="arrowdown">↓</div>
+        <div class="rung"><div class="n">4</div><div class="t">🌬️ <b>Teach one concrete technique</b> and practise it with them once. One skill learned beats five skills listed.</div></div>
+        <div class="arrowdown">↓</div>
+        <div class="rung"><div class="n">5</div><div class="t">😴 <b>Protect the basics</b> — sleep, food, movement, daylight, caffeine and alcohol reduction.</div></div>
+        <div class="arrowdown">↓</div>
+        <div class="rung"><div class="n">6</div><div class="t">🤝 <b>As nurses we identify available community resources and refer the client to counselling if needed.</b></div></div>
+      </div>
+      <div class="mn">🧠 <b>Presence is an intervention.</b> “I'll sit with you for a few minutes” scores higher on an exam than any advice you could give.</div>
+    </div>
+
+    <div class="card tealc">
+      <h3>💊 Where medication fits — and where it doesn't</h3>
+      <ul class="tick">
+        <li>Stress itself is <b>not</b> primarily a drug problem. Behavioural and cognitive strategies come first.</li>
+        <li><b>Anxiolytics</b> (benzodiazepines) are for <b>short-term, situational</b> use only — sedation, fall risk, dependence and rebound anxiety are real.</li>
+        <li>Longer-term anxiety and depression are usually treated with antidepressants, which take <span class="mono">4–6 weeks</span> to work — teach that so the client does not quit at day 4.</li>
+        <li><b>CBT</b> has the best evidence for changing the appraisal that drives the stress response.</li>
+      </ul>
+      <div class="xref">📎 <b>NG-236 Anxiolytics</b> for the drug detail · 📎 <b>NG-221 CBT</b> for the therapy · 📎 <b>NG-271 Therapeutic Communication</b> for the words to use at the bedside.</div>
+      <div class="mn">🧠 <b>“Talk first, pill second, and never a benzo forever.”</b></div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🩺 And the one nobody teaches: your own stress</h3>
+      <ul class="tick">
+        <li>Nursing school <i>is</i> the stressor in the source's own example. Treat yourself like a client: sleep, movement, food, boundaries, people.</li>
+        <li>Build the <b>rest period between stressors</b> deliberately — that is the whole difference between eustress and distress.</li>
+        <li>Debrief after a hard shift. Use the employee assistance programme, peer support, or counselling without shame.</li>
+        <li>Watch for <b>compassion fatigue</b>: numbness, cynicism, dreading work, snapping at people you love.</li>
+      </ul>
+      <div class="mn">🧠 <b>You cannot pour from an empty cup — and you cannot chart your way out of exhaustion.</b> Schedule the recovery the way you schedule the study block.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">3️⃣ A · R · E</span>Alarm → Resistance → Exhaustion.</div>
+    <div class="rc tealbg"><span class="big">🧬 H · P · A</span>Hypothalamus (CRH) → Pituitary (ACTH) → Adrenal (cortisol).</div>
+    <div class="rc rubybg"><span class="big">📉 Chronic = ↑BP ↑cortisol ↓immunity</span>Aches, chest tightness, GI upset, appetite change, exhaustion, insomnia.</div>
+    <div class="rc topazbg"><span class="big">🌬️ Long exhale</span>Breathing is the switch from fight-or-flight to rest-and-digest.</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 7 rapid-fire questions</summary>
+      <div class="qa">Q1: Name the three stages of the General Adaptation Syndrome. <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Alarm (sympathetic fight-or-flight fires), Resistance (the body adapts and looks fine while reserves are spent), Exhaustion (reserves gone → illness, immunosuppression, hypertension, depression, collapse).</div></div>
+      <div class="qa">Q2: Trace the HPA axis with the three hormones. <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Hypothalamus releases CRH → anterior pituitary releases ACTH → adrenal cortex releases cortisol → cortisol feeds back negatively on the hypothalamus and pituitary.</div></div>
+      <div class="qa">Q3: What does cortisol do to blood glucose and immunity? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Raises glucose (gluconeogenesis) and suppresses immune/inflammatory function — which is why chronically stressed clients get more infections and heal more slowly.</div></div>
+      <div class="qa">Q4: When is stress “good”? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">When it helps us adapt to changes in the body and the environment — eustress. It becomes harmful when it is chronic or persistent, with no periods of rest between stressful occurrences.</div></div>
+      <div class="qa">Q5: List the source's signs &amp; symptoms of stress. <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Aches &amp; pain, chest pain/tightness, GI upset, changes in appetite, exhaustion, trouble sleeping, and decreased immunity.</div></div>
+      <div class="qa">Q6: What is the nurse's role once coping skills are taught? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Identify available community resources and refer the client to counselling if needed — plus keep screening for safety and reassess whether the coping is working.</div></div>
+      <div class="qa">Q7: A stressed client reports chest tightness. What do you do first? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Assess it as chest pain — vital signs, ECG per protocol, rule out a cardiac cause. Never label chest pain as “just stress” before the physical cause is excluded.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">PHYSIOLOGY</span>→
+    <span style="background:rgba(47,107,255,.7)">SIGNS</span>→
+    <span style="background:rgba(18,184,134,.7)">COPING &amp; CARE</span>
+  </div>
+  <div>NG-009 · Mental Health · ADHD-friendly visual edition · educational study aid — verify clinical details &amp; facility policy</div>
+</footer>
+
+</div>
+</body></html>

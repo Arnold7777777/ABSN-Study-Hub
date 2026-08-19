@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Diet Types · NG-084 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+/* ---------- appended: xref ---------- */
+.xref{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(47,107,255,.35);
+  border:1px solid var(--line);font-size:.88rem}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#cause">🥣 Diet Progression</a>
+  <a class="c2" href="#clues">🩺 Therapeutic Diets</a>
+  <a class="c3" href="#care">🍽️ Nursing Care</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Nursing Core · Fundamentals of Nursing</div>
+  <h1>Diet Types <span class="drop">🍽️</span></h1>
+  <p class="sub">Diet Progression &amp; Special Therapeutic Diets</p>
+  <div class="chips">
+    <span class="chip id">NG-084</span>
+    <span class="chip cat">Nursing Core</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede"><b>Diets are ordered along a texture ladder</b> — NPO to regular — and layered with <i>disease-specific restrictions</i> like renal, cardiac, or diabetic diets. Know both axes: how solid the food is, and what it's restricting.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">🚫 NPO</span>Nothing by mouth — not even ice chips. Pre-op cutoff often midnight.</div>
+  <div class="rc rubybg"><span class="big">🥤 Clear → Full → Soft → Regular</span>The texture progression after NPO, step by step.</div>
+  <div class="rc tealbg"><span class="big">🧂 Cardiac diet</span>Low sodium — under <span class="mono">2g/day</span>.</div>
+  <div class="rc topazbg"><span class="big">🚨 CHF + fluid restriction</span>Educate — the heart can't pump forward, fluid backs up into the lungs.</div>
+</div>
+
+<!-- ============ DIET PROGRESSION ============ -->
+<section id="cause">
+  <div class="sec-h"><span class="icon">🥣</span><h2>DIET PROGRESSION</h2><span class="step">STEP 1 · TEXTURE LADDER</span></div>
+  <p class="sec-sub">Post-op and GI-recovery diets advance one texture step at a time — never skip a rung.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🪜 The standard diet progression</h3>
+      <svg viewBox="-10 -10 781 210" role="img" aria-label="Diet progression ladder from NPO to clear liquid to full liquid to pureed or mechanical soft to soft diet to regular diet, advancing left to right">
+        <rect x="-6" y="-6" width="773" height="202" rx="16" fill="rgba(157,92,255,.14)" stroke="#9d5cff" stroke-width="2" stroke-dasharray="7 6"/>
+        <g font-size="11" font-weight="900" text-anchor="middle">
+          <circle cx="70" cy="80" r="34" fill="rgba(255,59,107,.55)" stroke="#ff9db4" stroke-width="2"/>
+          <text x="70" y="76" fill="#fff">NPO</text><text x="70" y="90" fill="#fff" font-size="9">nothing</text>
+          <path d="M104 80 L146 80" stroke="#d9c2ff" stroke-width="4" marker-end="url(#pd)"/>
+          <circle cx="180" cy="80" r="34" fill="rgba(0,194,199,.55)" stroke="#9ff2ee" stroke-width="2"/>
+          <text x="180" y="72" fill="#00252b">Clear</text><text x="180" y="84" fill="#00252b">liquid</text>
+          <path d="M214 80 L256 80" stroke="#d9c2ff" stroke-width="4" marker-end="url(#pd)"/>
+          <circle cx="290" cy="80" r="34" fill="rgba(0,194,199,.75)" stroke="#9ff2ee" stroke-width="2"/>
+          <text x="290" y="72" fill="#00252b">Full</text><text x="290" y="84" fill="#00252b">liquid</text>
+          <path d="M324 80 L366 80" stroke="#d9c2ff" stroke-width="4" marker-end="url(#pd)"/>
+          <circle cx="400" cy="80" r="34" fill="rgba(255,194,51,.65)" stroke="#ffe49a" stroke-width="2"/>
+          <text x="400" y="72" fill="#231a02">Pureed /</text><text x="400" y="84" fill="#231a02">mech. soft</text>
+          <path d="M434 80 L476 80" stroke="#d9c2ff" stroke-width="4" marker-end="url(#pd)"/>
+          <circle cx="510" cy="80" r="34" fill="rgba(255,138,61,.65)" stroke="#ffcf9e" stroke-width="2"/>
+          <text x="510" y="76" fill="#2b1200">Soft</text><text x="510" y="88" fill="#2b1200" font-size="9">low fiber</text>
+          <path d="M544 80 L586 80" stroke="#d9c2ff" stroke-width="4" marker-end="url(#pd)"/>
+          <circle cx="600" cy="80" r="24" fill="rgba(18,184,134,.65)" stroke="#7de3c1" stroke-width="2"/>
+          <text x="600" y="84" fill="#03291c" font-size="10">Regular</text>
+        </g>
+        <defs><marker id="pd" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#d9c2ff"/></marker></defs>
+        <text x="20" y="150" font-size="13" font-style="italic" fill="#efe6ff">Advances one step at a time as GI function and tolerance return — never skip a rung after surgery or NPO status.</text>
+      </svg>
+      <div class="mn">🧠 <b>"See it, sip it, sneak it in, chew it."</b> Clear (see through it) → Full (sip it, dairy added) → Pureed/mechanical soft (blend/chop it) → Soft/Regular (chew it).</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🚫 NPO — nothing per oral</h3>
+      <p><b>No food or water, not even ice chips.</b> Classic use: before surgery, often ordered as <span class="mono">NPO after midnight</span>.</p>
+      <div class="mn">🧠 <b>"N-P-Zero."</b> NPO status means zero intake — ice chips still count as intake and are not automatically allowed.</div>
+    </div>
+
+    <div class="card tealc">
+      <h3>🥤 Clear liquid diet</h3>
+      <p>Any liquid you can <b>see through</b>: clear juice (apple, not orange), gelatin/Jell-O, broth, water, clear sports drinks, black coffee/tea.</p>
+      <div class="mn">🧠 <b>If you can read a newspaper through it, it's clear.</b></div>
+    </div>
+
+    <div class="card tealc">
+      <h3>🥛 Full liquid diet</h3>
+      <p>Everything in clear liquid <b>plus</b> liquid dairy (milk, custard, ice cream) and all other juices (with pulp okay).</p>
+      <div class="mn">🧠 <b>"Full = clear + dairy."</b> One-word difference from clear liquid: dairy is now allowed.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🥣 Pureed &amp; mechanical soft</h3>
+      <p><b>Pureed:</b> clear + full liquid, plus pureed meats, eggs, and fruits — anything that can go in a blender.<br><b>Mechanical soft:</b> clear + full liquid, plus chopped, diced, or ground food.</p>
+      <div class="mn">🧠 <b>Pureed = blender. Mechanical soft = knife.</b> Same base diet, different processing tool.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🍞 Soft diet</h3>
+      <p>Easy-to-digest foods that are <b>low in fiber</b> — a bridge between mechanical soft and a full regular diet.</p>
+      <div class="mn">🧠 <b>Soft = gentle on a healing gut,</b> not just gentle to chew.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THERAPEUTIC DIETS ============ -->
+<section id="clues">
+  <div class="sec-h"><span class="icon">🩺</span><h2>THERAPEUTIC DIETS</h2><span class="step">STEP 2 · MATCH THE DIET TO THE DISEASE</span></div>
+  <p class="sec-sub">These restrict or emphasize specific nutrients based on a diagnosis — layered on top of, not instead of, the texture diet.</p>
+
+  <div class="grid">
+    <div class="card sapphire span2">
+      <h3>🧂 Cardiac / low-sodium diet</h3>
+      <svg viewBox="0 0 460 130" role="img" aria-label="Two plates compared: a regular plate with a salt shaker and added salt, versus a low sodium plate with herbs and no added salt, showing less fluid retention on the low sodium side">
+        <rect x="4" y="4" width="220" height="122" rx="14" fill="rgba(255,59,107,.16)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="6 5"/>
+        <circle cx="70" cy="66" r="42" fill="#ffe3ea" stroke="#ff9db4" stroke-width="3"/>
+        <rect x="140" y="40" width="14" height="26" rx="4" fill="#ff3b6b"/><circle cx="147" cy="36" r="8" fill="#ff3b6b"/>
+        <text x="20" y="20" font-size="11" font-weight="900" fill="#ff9db4">❌ High sodium</text>
+        <text x="20" y="112" font-size="10" fill="#ffd9e2">fluid retention ↑</text>
+        <rect x="236" y="4" width="220" height="122" rx="14" fill="rgba(18,184,134,.16)" stroke="#12b886" stroke-width="2" stroke-dasharray="6 5"/>
+        <circle cx="300" cy="66" r="42" fill="#d8fff0" stroke="#7de3c1" stroke-width="3"/>
+        <path d="M370 40 q6 12 0 24 M382 36 q6 14 0 28 M394 44 q4 10 0 18" stroke="#12b886" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <text x="248" y="20" font-size="11" font-weight="900" fill="#7df0c6">✅ Low sodium &lt; 2g</text>
+        <text x="248" y="112" font-size="10" fill="#d8fff0">herbs, spices instead of salt</text>
+      </svg>
+      <p><mark>No added salt, less than <span class="mono">2 g</span> of sodium/day</mark>. Often paired with a <b>low-cholesterol diet</b> (less than <span class="mono">300 mg</span> cholesterol/day) for cardiovascular disease.</p>
+      <p>Used for heart failure, hypertension, and coronary artery disease — excess sodium pulls in fluid, raising blood pressure and cardiac workload.</p>
+      <div class="mn">🧠 <b>"Salt holds water, water raises pressure."</b> Every gram of sodium the patient skips is a little less fluid the heart has to move.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🩸 Renal diet</h3>
+      <svg viewBox="0 0 300 150" role="img" aria-label="Kidney shape with four labeled restrictions for the renal diet: sodium, potassium, phosphorus, and fluid, each with a down arrow indicating restriction">
+        <rect x="4" y="4" width="292" height="142" rx="14" fill="rgba(192,34,85,.16)" stroke="#c02255" stroke-width="2" stroke-dasharray="6 5"/>
+        <path d="M60 40 C40 40 30 65 40 90 C48 110 70 118 78 100 C84 86 76 78 84 66 C92 54 80 40 60 40 Z" fill="#e8637f" stroke="#ffd0bd" stroke-width="2"/>
+        <text x="105" y="34" font-size="11.5" font-weight="900" fill="#ff9db4">↓ Sodium</text>
+        <text x="105" y="58" font-size="11.5" font-weight="900" fill="#ff9db4">↓ Potassium</text>
+        <text x="105" y="82" font-size="11.5" font-weight="900" fill="#ff9db4">↓ Phosphorus</text>
+        <text x="105" y="106" font-size="11.5" font-weight="900" fill="#ff9db4">↓ Fluid (if ordered)</text>
+        <text x="105" y="130" font-size="10" font-style="italic" fill="#ffd9e2">± protein — individualized by stage</text>
+      </svg>
+      <p>Typically restricts <b>sodium, potassium, phosphorus,</b> and sometimes <b>protein and fluid</b>, depending on the stage of kidney disease and dialysis status. Exact restrictions vary by lab values and nephrology orders — always individualized.</p>
+      <div class="xref">➡️ See the <b>Renal batch</b> pages (electrolyte imbalances, AKI/CKD) for the lab values and pathophysiology behind each restriction.</div>
+      <div class="mn">🧠 <b>Renal diet = the kidneys can't clear it, so the plate has to.</b> Failing kidneys can't excrete potassium/phosphorus/fluid — diet does the filtering job the kidneys can't.</div>
+    </div>
+
+    <div class="card emerald">
+      <h3>🍬 Diabetic / consistent-carbohydrate diet</h3>
+      <p>A <b>balance of protein and carbohydrates</b>, no added sugar (soda, refined pasta, white bread). Modern practice favors a <b>consistent-carbohydrate</b> approach — same amount of carbs at each meal/snack, timed with insulin — over a strict "diabetic diet" of banned foods.</p>
+      <div class="mn">🧠 <b>Consistency &gt; restriction.</b> The goal isn't zero carbs, it's predictable carbs the insulin dose can match.</div>
+    </div>
+
+    <div class="card topaz">
+      <h3>🌾 Low-residue / low-fiber diet</h3>
+      <p>Minimizes undigested material reaching the colon — used for <b>IBD flares, diverticulitis, bowel rest, or before/after bowel surgery</b>. Restricts raw fruits/veggies, whole grains, nuts, and seeds.</p>
+      <div class="mn">🧠 <b>Low-residue = "give the gut a break."</b> Less bulk moving through an inflamed or healing bowel.</div>
+    </div>
+
+    <div class="card ruby span2">
+      <h3>🚨 Dysphagia diet levels — aspiration prevention</h3>
+      <p>Ordered after a swallow evaluation (often with speech-language pathology); texture is modified for both <b>food</b> and <b>liquids</b> to reduce aspiration risk.</p>
+      <ul class="tick">
+        <li><b>Food levels (general concept):</b> pureed → mechanically altered/ground → soft &amp; bite-sized → regular, with each step requiring less oral processing.</li>
+        <li><b>Liquid thickness levels (general concept):</b> thin → nectar-thick → honey-thick → pudding-thick, from least to most viscous.</li>
+      </ul>
+      <svg viewBox="0 0 460 110" role="img" aria-label="Liquid thickness levels from thin to nectar-thick to honey-thick to pudding-thick, shown as glasses with increasingly slow-pouring liquid">
+        <rect x="4" y="4" width="452" height="102" rx="14" fill="rgba(13,8,26,.4)" stroke="#231a02" stroke-width="1.5" stroke-dasharray="6 5"/>
+        <g font-size="10" font-weight="800" text-anchor="middle" fill="#fff">
+          <path d="M40 30 L60 30 L56 80 L44 80 Z" fill="none" stroke="#9ff2ee" stroke-width="2"/>
+          <path d="M43 40 L57 40 L55 78 L45 78 Z" fill="#9ff2ee" opacity=".5"/>
+          <text x="50" y="98">Thin</text>
+          <path d="M140 30 L160 30 L156 80 L144 80 Z" fill="none" stroke="#ffe49a" stroke-width="2"/>
+          <path d="M143 44 L157 44 L155 78 L145 78 Z" fill="#ffe49a" opacity=".6"/>
+          <text x="150" y="98">Nectar</text>
+          <path d="M240 30 L260 30 L256 80 L244 80 Z" fill="none" stroke="#ffb98a" stroke-width="2"/>
+          <path d="M243 52 L257 52 L255 78 L245 78 Z" fill="#ffb98a" opacity=".7"/>
+          <text x="250" y="98">Honey</text>
+          <path d="M340 30 L360 30 L356 80 L344 80 Z" fill="none" stroke="#ff9db4" stroke-width="2"/>
+          <path d="M343 60 L357 60 L355 78 L345 78 Z" fill="#ff9db4" opacity=".85"/>
+          <text x="350" y="98">Pudding</text>
+        </g>
+        <text x="60" y="18" font-size="10.5" font-style="italic" fill="#efe6ff">thinner → pours fast, more aspiration risk</text>
+      </svg>
+      <p><i>Exact level names and numbering vary by facility and by the framework used (e.g., IDDSI) — always follow the speech-language pathology recommendation and facility protocol rather than a memorized universal scale.</i></p>
+      <div class="mn">🧠 <b>Thicker liquids move slower</b> — that extra second gives an impaired swallow more time to protect the airway before the bolus reaches the pharynx.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NURSING CARE ============ -->
+<section id="care">
+  <div class="sec-h"><span class="icon">🍽️</span><h2>NURSING CARE</h2><span class="step">STEP 3 · INTAKE, MONITORING &amp; TEACHING</span></div>
+  <p class="sec-sub">Diet orders only work if intake is actually monitored and the patient understands why.</p>
+
+  <div class="grid">
+    <div class="card deep">
+      <h3>⚖️ Daily weight &amp; I&amp;O</h3>
+      <ul class="tick">
+        <li>Weigh at the <b>same time every day</b>, same scale, same clothing — usually first thing in the morning after the first void.</li>
+        <li>All liquid intake/output measured in <b>mL</b>.</li>
+        <li><span class="mono">1 oz = 30 mL</span> — the conversion you'll use constantly.</li>
+      </ul>
+      <div class="mn">🧠 <b>Same time, same scale, same clothes.</b> Any variable you change makes the trend meaningless.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>💧 Fluid restriction vs. encouragement</h3>
+      <p><b>Restriction:</b> heart failure and other conditions where fluid backs up into the lungs/body — <mark>educate the patient on why</mark>, don't just enforce it silently.</p>
+      <p><b>Encouragement:</b> some clients need more than the recommended intake — offer favorite (diet-appropriate) drinks and keep the pitcher full and fresh.</p>
+      <div class="mn">🧠 <b>Same intervention, opposite direction</b> — always check the order before assuming "more fluids is always better."</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>⚠️ Factors affecting nutrition &amp; intake</h3>
+      <ul class="tick">
+        <li><b>Age:</b> decreased metabolism, decreased thirst mechanism, increased fiber need in older adults.</li>
+        <li><b>Financial constraints</b> — fixed income, cost of protein.</li>
+        <li><b>Religion</b> — restricts certain foods (pork, seafood) or requires fasting periods.</li>
+        <li><b>Appetite</b> — illness, eating disorders, or bad past experiences with "hospital food."</li>
+        <li><b>Environment</b> — hospital smells/sights are not always conducive to eating.</li>
+        <li><b>Disease &amp; medications</b> — a newly diagnosed diabetic may dislike the options offered; some meds suppress appetite.</li>
+      </ul>
+      <div class="mn">🧠 <b>Nutrition isn't just the tray — it's the whole person.</b> Screen for the barrier before assuming noncompliance.</div>
+    </div>
+
+    <div class="card emerald span2">
+      <h3>✅ Priority teaching points</h3>
+      <ul class="tick">
+        <li>Explain the <i>reason</i> for every diet restriction — adherence improves when the patient understands the "why," e.g., low-sodium prevents fluid overload in heart failure.</li>
+        <li>Confirm understanding of any fluid restriction and how to track it at home.</li>
+        <li>For dysphagia diets, reinforce that thickened liquids and modified textures are a safety measure, not a punishment.</li>
+        <li>Coordinate with dietitian/speech-language pathology for complex or combined therapeutic diets.</li>
+      </ul>
+      <div class="mn">🧠 <b>"Bland but explained."</b> A low-sodium tray tastes worse — patients stick with it when they understand it's protecting their heart, not just hospital policy.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">🚫 NPO</span>Nothing at all — not even ice chips</div>
+    <div class="rc rubybg"><span class="big">🥤 Clear vs Full</span>Full liquid = clear liquid + dairy</div>
+    <div class="rc tealbg"><span class="big">🧂 Cardiac diet</span>Low sodium, &lt; 2g/day</div>
+    <div class="rc topazbg"><span class="big">🩸 Renal diet</span>Restricts Na, K, phosphorus ± protein/fluid</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 4 rapid-fire questions</summary>
+      <div class="qa">Q1: What's the difference between clear liquid and full liquid diets? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Clear liquid is anything you can see through (broth, clear juice, gelatin, water). Full liquid is clear liquid plus liquid dairy and all other juices.</div></div>
+      <div class="qa">Q2: A heart failure patient is on a low-sodium diet — how much sodium per day, and why? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Less than 2 g/day. Sodium holds fluid, and in heart failure the heart can't pump that extra fluid forward, so it backs up into the lungs/body.</div></div>
+      <div class="qa">Q3: What nutrients does a renal diet typically restrict? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Sodium, potassium, and phosphorus, often with protein and fluid restrictions too — individualized to the stage of kidney disease and dialysis status.</div></div>
+      <div class="qa">Q4: Why are dysphagia diets ordered, and who typically evaluates the patient first? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">To reduce aspiration risk by modifying food and liquid texture/thickness. A speech-language pathologist typically performs the swallow evaluation and recommends the specific level.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">PROGRESSION</span>→
+    <span style="background:rgba(47,107,255,.7)">THERAPEUTIC</span>→
+    <span style="background:rgba(18,184,134,.7)">CARE</span>
+  </div>
+  <div>NG-084 · Nursing Core · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>

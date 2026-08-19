@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PVD — Patho &amp; Signs · NG-045 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+
+/* ===== appended for the VESSEL set — components the shell lacks ===== */
+.setbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:0 0 4px;
+  padding:9px 12px;border-radius:14px;background:rgba(13,8,26,.62);border:1px solid var(--line);
+  font-size:.86rem;font-weight:800}
+.setbar .lbl{font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:#e9dcff}
+.setbar a,.setbar span.pg{padding:4px 11px;border-radius:999px;border:1px solid var(--line);
+  text-decoration:none;color:#fff;font-weight:900;background:rgba(255,255,255,.12);line-height:1.3}
+.setbar span.pg.on{background:var(--topaz);color:#231a02}
+.av{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(min(100%,255px),1fr));margin:10px 0 0}
+.av .side{border-radius:14px;padding:12px 14px;border:1px solid var(--line);font-size:.92rem;line-height:1.45}
+.av .side h4{margin:0 0 6px;font-size:1.02rem;font-weight:900;letter-spacing:.03em}
+.av .art{background:rgba(255,59,107,.55)}
+.av .ven{background:rgba(47,107,255,.58)}
+.av .side .pos{display:block;margin-top:8px;padding:7px 10px;border-radius:10px;font-weight:900;
+  background:rgba(13,8,26,.55);border:1px dashed rgba(255,255,255,.5)}
+#red .sec-h h2{color:#ffb3c6} #red .step{background:var(--garnet)}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#cause">🧭 What it is</a>
+  <a class="c2" href="#clues">👀 How it looks</a>
+  <a class="c3" href="#red">🚨 Red flags</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Cardio · Pathophysiology Course</div>
+  <div class="setbar">
+    <span class="lbl">PVD set</span>
+    <span class="pg on">1 · Patho &amp; Signs</span>
+    <a href="NG-127_pvd-causes-complications.html">2 · Causes &amp; Complications →</a>
+    <a href="NG-161_pvd-treatments.html">3 · Treatments →</a>
+  </div>
+  <h1>PVD — Patho &amp; Signs <span class="drop">🦵</span></h1>
+  <p class="sub">Peripheral Vascular Disease I · what it <i>is</i> and how it <i>looks &amp; feels</i></p>
+  <div class="chips">
+    <span class="chip id">NG-045</span>
+    <span class="chip cat">CARDIO</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede"><b>PVD = any disease of the blood vessels OUTSIDE the heart</b> — almost always the legs. It splits into <b>two opposite problems</b>: <i>arteries</i> can't get oxygen <b>IN</b> (PAD), or <i>veins</i> can't get blood back <b>OUT</b> (chronic venous insufficiency). Page 1 teaches the difference. Get that one contrast right and most of the exam falls over.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc rubybg"><span class="big">🩸 ARTERIES = blood IN</span>Cool · pale · hairless · <b>no pulse</b> · ulcer on the <b>TOES</b> · pain when <b>walking</b>.</div>
+  <div class="rc tealbg"><span class="big">🫙 VEINS = blood OUT</span>Warm · brown · swollen · <b>pulse present</b> · ulcer at the <b>ANKLE</b> · aches at <b>end of day</b>.</div>
+  <div class="rc topazbg"><span class="big">↕️ The trap = position</span>Arterial <b>DANGLE ⬇️</b> · Venous <b>ELEVATE ⬆️</b>. Opposite answers, same-looking question.</div>
+  <div class="rc citrine"><span class="big">🚨 6 P's = emergency</span>Sudden cold, pulseless, painful leg = <b>acute arterial occlusion</b>. Limb is on a clock.</div>
+</div>
+
+<!-- ============ WHAT IT IS ============ -->
+<section id="cause">
+  <div class="sec-h"><span class="icon">🧭</span><h2>WHAT IT IS</h2><span class="step">STEP 1 · TWO PIPES</span></div>
+  <p class="sec-sub">One leg, two plumbing systems. Arteries deliver, veins drain — and each one fails in its own signature way.</p>
+
+  <div class="grid">
+
+    <div class="card deep span2">
+      <h3>🧭 One leg, two circuits — <mark>arteries deliver, veins drain</mark></h3>
+      <p>Every sign in this whole topic comes from asking one question: <b>is the problem getting blood IN, or getting blood OUT?</b></p>
+      <svg viewBox="0 0 900 430" role="img" aria-label="Diagram of the leg circulation: an artery carrying oxygenated blood down into the foot and a vein carrying blood back up to the heart, with the two failure points labeled">
+        <defs>
+          <marker id="dn45" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#ff3b6b"/>
+          </marker>
+          <marker id="up45" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#4d8bff"/>
+          </marker>
+        </defs>
+        <rect x="6" y="6" width="888" height="418" rx="18" fill="rgba(13,8,26,.35)" stroke="rgba(255,255,255,.35)" stroke-width="2"/>
+
+        <!-- heart -->
+        <path d="M118 74 C118 50 152 44 164 66 C176 44 210 50 210 74 C210 106 164 130 164 130 C164 130 118 106 118 74 Z" fill="#c02255" stroke="#ffd0bd" stroke-width="2.5"/>
+        <text x="112" y="152" font-size="17" font-weight="900" fill="#ffd0bd">HEART 🫀</text>
+        <text x="96" y="174" font-size="13.5" font-style="italic" fill="#efe6ff">the pump at the top</text>
+
+        <!-- leg silhouette -->
+        <path d="M300 96 C294 168 300 214 312 254 C324 296 316 330 310 366 L306 388 L392 388 L390 366 C384 330 378 296 390 254 C402 214 408 168 402 96 Z"
+              fill="rgba(255,255,255,.10)" stroke="rgba(255,255,255,.45)" stroke-width="2"/>
+        <path d="M306 388 L392 388 L392 406 C392 416 382 422 366 422 L286 422 C276 422 272 412 280 406 Z"
+              fill="rgba(255,255,255,.10)" stroke="rgba(255,255,255,.45)" stroke-width="2"/>
+        <text x="286" y="88" font-size="15" font-weight="800" fill="#efe6ff">the leg</text>
+
+        <!-- artery down -->
+        <path d="M330 108 L330 372" fill="none" stroke="#ff3b6b" stroke-width="12" stroke-linecap="round"/>
+        <path d="M330 130 L330 344" fill="none" stroke="#ffd9e2" stroke-width="4" stroke-dasharray="16 12" marker-end="url(#dn45)"/>
+        <!-- vein up -->
+        <path d="M372 372 L372 108" fill="none" stroke="#2f6bff" stroke-width="12" stroke-linecap="round"/>
+        <path d="M372 350 L372 136" fill="none" stroke="#cfe0ff" stroke-width="4" stroke-dasharray="16 12" marker-end="url(#up45)"/>
+
+        <!-- connectors to heart -->
+        <path d="M330 108 C330 78 240 84 206 84" fill="none" stroke="#ff3b6b" stroke-width="10" stroke-linecap="round"/>
+        <path d="M372 108 C372 62 250 58 200 62" fill="none" stroke="#2f6bff" stroke-width="10" stroke-linecap="round"/>
+
+        <!-- arterial label block -->
+        <rect x="470" y="58" width="404" height="148" rx="14" fill="rgba(255,59,107,.22)" stroke="#ff3b6b" stroke-width="2"/>
+        <text x="490" y="92" font-size="20" font-weight="900" fill="#ff9db4">🩸 ARTERY — blood IN ⬇️</text>
+        <text x="490" y="120" font-size="15.5" fill="#ffe3ea">Carries oxygen-rich blood DOWN from the heart</text>
+        <text x="490" y="142" font-size="15.5" fill="#ffe3ea">into the foot. High pressure, pushed by the heart.</text>
+        <text x="490" y="172" font-size="16" font-weight="900" fill="#ffc233">FAILS BY: narrowing (plaque) → ISCHEMIA</text>
+        <text x="490" y="194" font-size="14.5" font-style="italic" fill="#ffe3ea">= PAD · peripheral ARTERIAL disease</text>
+
+        <!-- venous label block -->
+        <rect x="470" y="228" width="404" height="164" rx="14" fill="rgba(47,107,255,.24)" stroke="#2f6bff" stroke-width="2"/>
+        <text x="490" y="262" font-size="20" font-weight="900" fill="#bcd0ff">🫙 VEIN — blood OUT ⬆️</text>
+        <text x="490" y="290" font-size="15.5" fill="#e3ecff">Carries used blood UP against gravity, using</text>
+        <text x="490" y="312" font-size="15.5" fill="#e3ecff">one-way VALVES + the calf muscle squeeze.</text>
+        <text x="490" y="342" font-size="16" font-weight="900" fill="#ffc233">FAILS BY: leaky valves → POOLING</text>
+        <text x="490" y="364" font-size="14.5" font-style="italic" fill="#e3ecff">= CVI · chronic VENOUS insufficiency</text>
+        <text x="490" y="384" font-size="14.5" font-style="italic" fill="#e3ecff">(varicose veins are the visible version)</text>
+      </svg>
+      <div class="mn">🧠 <b>“A = Away, V = Vacuum.”</b> <b>A</b>rteries carry blood <b>A</b>way from the heart — when they fail you <i>drop the leg down</i> so gravity helps push blood <b>A</b>way and into the foot. <b>V</b>eins <b>V</b>acuum blood back up — when they fail you <i>lift the leg up</i> and let gravity drain it. <i>This one line answers most position questions on the exam.</i></div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🚧 ARTERIAL patho: the pipe narrows, the muscle starves</h3>
+      <p><b>Answer first:</b> plaque narrows the artery → oxygen supply can't rise when demand rises → <b>pain with activity</b>.</p>
+      <svg viewBox="0 0 440 300" role="img" aria-label="Cross-sections of an artery: a wide open normal lumen, a narrowed lumen from plaque, and a nearly blocked lumen causing ischemia">
+        <defs><marker id="axArr" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#fff"/></marker></defs>
+        <rect x="6" y="6" width="428" height="288" rx="16" fill="rgba(13,8,26,.4)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+        <text x="22" y="38" font-size="17" font-weight="900" fill="#ffc233">Artery cross-section · the lumen closes</text>
+
+        <circle cx="90" cy="132" r="58" fill="#8d2340" stroke="#ffd0bd" stroke-width="3"/>
+        <circle cx="90" cy="132" r="42" fill="#ff3b6b"/>
+        <text x="52" y="216" font-size="15" font-weight="900" fill="#a5f3d4">NORMAL</text>
+        <text x="34" y="238" font-size="13" font-style="italic" fill="#d8fff0">wide open lumen</text>
+        <text x="42" y="258" font-size="13" font-style="italic" fill="#d8fff0">full O₂ delivery</text>
+
+        <circle cx="220" cy="132" r="58" fill="#8d2340" stroke="#ffd0bd" stroke-width="3"/>
+        <circle cx="220" cy="132" r="42" fill="#ff3b6b"/>
+        <path d="M220 132 m-42 0 a42 42 0 0 1 66 -34 a30 30 0 0 0 -30 46 z" fill="#ffc233"/>
+        <path d="M220 132 m42 0 a42 42 0 0 1 -56 39 a26 26 0 0 0 40 -34 z" fill="#ffc233"/>
+        <text x="176" y="216" font-size="15" font-weight="900" fill="#ffc233">PLAQUE</text>
+        <text x="152" y="238" font-size="13" font-style="italic" fill="#ffe6b8">lipids · calcium</text>
+        <text x="150" y="258" font-size="13" font-style="italic" fill="#ffe6b8">hard &amp; narrow</text>
+
+        <circle cx="350" cy="132" r="58" fill="#8d2340" stroke="#ffd0bd" stroke-width="3"/>
+        <circle cx="350" cy="132" r="42" fill="#ffc233"/>
+        <circle cx="350" cy="132" r="11" fill="#ff3b6b"/>
+        <text x="304" y="216" font-size="15" font-weight="900" fill="#ff9db4">ISCHEMIA</text>
+        <text x="288" y="238" font-size="13" font-style="italic" fill="#ffd9e2">trickle of blood</text>
+        <text x="292" y="258" font-size="13" font-style="italic" fill="#ffd9e2">pain · tissue dies</text>
+
+        <path d="M156 132 L182 132" stroke="#fff" stroke-width="3" marker-end="url(#axArr)"/>
+        <path d="M286 132 L312 132" stroke="#fff" stroke-width="3" marker-end="url(#axArr)"/>
+      </svg>
+      <p style="margin-top:9px"><b>Supply vs demand:</b> at rest the trickle is <i>just</i> enough. Start walking, the calf muscle demands more O₂, supply can't rise → <b>cramping pain</b> that stops when they stop. That's <b>intermittent claudication</b>.</p>
+      <div class="mn">🧠 <b>“Claudication = the limping clock.”</b> <i>Claudicare</i> is Latin for <b>to limp</b>. It shows up at the <b>same distance every time</b> — that reproducible distance is the tell.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🚪 VENOUS patho: the valves quit, blood pools</h3>
+      <p><b>Answer first:</b> incompetent valves let blood fall backward → pressure builds in the leg veins → fluid and iron leak into the tissue.</p>
+      <svg viewBox="0 0 440 320" role="img" aria-label="Two veins compared: one with competent one-way valves moving blood upward, one with incompetent leaky valves letting blood fall back and pool in the ankle">
+        <defs><marker id="vvUp" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#a5f3d4"/></marker><marker id="vvDn" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ff3b6b"/></marker></defs>
+        <rect x="6" y="6" width="428" height="308" rx="16" fill="rgba(13,8,26,.4)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+        <text x="22" y="36" font-size="17" font-weight="900" fill="#9ff2ee">Vein valves · the one-way doors</text>
+
+        <!-- competent -->
+        <rect x="46" y="56" width="60" height="212" rx="22" fill="#2f6bff" stroke="#cfe0ff" stroke-width="2.5"/>
+        <path d="M46 116 L76 138 L106 116" fill="none" stroke="#eafff7" stroke-width="5" stroke-linejoin="round"/>
+        <path d="M46 180 L76 202 L106 180" fill="none" stroke="#eafff7" stroke-width="5" stroke-linejoin="round"/>
+        <path d="M76 250 L76 84" fill="none" stroke="#a5f3d4" stroke-width="5" stroke-dasharray="12 8" marker-end="url(#vvUp)"/>
+        <text x="26" y="292" font-size="15" font-weight="900" fill="#a5f3d4">✅ COMPETENT</text>
+        <text x="30" y="311" font-size="12.5" font-style="italic" fill="#d8fff0">blood only goes UP</text>
+
+        <!-- incompetent -->
+        <rect x="176" y="56" width="86" height="212" rx="30" fill="#3d5fa8" stroke="#cfe0ff" stroke-width="2.5"/>
+        <path d="M176 116 L204 128 L176 132" fill="none" stroke="#ffc233" stroke-width="5" stroke-linejoin="round"/>
+        <path d="M262 116 L234 128 L262 132" fill="none" stroke="#ffc233" stroke-width="5" stroke-linejoin="round"/>
+        <path d="M176 184 L206 196 L176 200" fill="none" stroke="#ffc233" stroke-width="5" stroke-linejoin="round"/>
+        <path d="M262 184 L232 196 L262 200" fill="none" stroke="#ffc233" stroke-width="5" stroke-linejoin="round"/>
+        <path d="M219 96 L219 246" fill="none" stroke="#ff3b6b" stroke-width="5" stroke-dasharray="12 8" marker-end="url(#vvDn)"/>
+        <ellipse cx="219" cy="252" rx="38" ry="17" fill="#7a3f6b"/>
+        <text x="150" y="292" font-size="15" font-weight="900" fill="#ffc233">❌ INCOMPETENT</text>
+        <text x="150" y="311" font-size="12.5" font-style="italic" fill="#ffe6b8">blood falls back &amp; POOLS</text>
+
+        <!-- consequence stack -->
+        <rect x="290" y="56" width="132" height="212" rx="14" fill="rgba(47,107,255,.28)" stroke="#2f6bff" stroke-width="2"/>
+        <text x="302" y="84" font-size="14.5" font-weight="900" fill="#bcd0ff">POOLING →</text>
+        <text x="302" y="112" font-size="14" fill="#e3ecff">💧 edema</text>
+        <text x="302" y="140" font-size="14" fill="#e3ecff">🟤 brown</text>
+        <text x="302" y="158" font-size="14" fill="#e3ecff">    staining</text>
+        <text x="302" y="186" font-size="14" fill="#e3ecff">🧱 thick skin</text>
+        <text x="302" y="214" font-size="14" fill="#e3ecff">🕳️ ankle ulcer</text>
+        <text x="302" y="244" font-size="13.5" font-style="italic" fill="#ffc233">…all at the ankle</text>
+      </svg>
+      <p style="margin-top:9px">The brown stain is <b>hemosiderin</b> — iron left behind when pooled red cells break down. It is <b>permanent</b>, and it is the fingerprint of a <i>venous</i> leg.</p>
+      <div class="mn">🧠 <b>“Rusty ankles = venous.”</b> Blood sat still in the ankle so long it <i>rusted</i> the skin brown. Rust doesn't wash off — neither does hemosiderin staining.</div>
+    </div>
+
+    <div class="card tealc span2">
+      <h3>📚 Word check — PVD, PAD, CVI, and the two “-scleroses”</h3>
+      <table>
+        <tr><th style="width:26%">Term</th><th class="up">What it actually means</th><th class="lo">Use it when…</th></tr>
+        <tr><td><b>PVD</b><br><i>peripheral vascular disease</i></td><td>The <b>umbrella</b> — any disease of vessels outside the heart, arterial <i>or</i> venous.</td><td>The question doesn't specify which side.</td></tr>
+        <tr><td><b>PAD</b><br><i>peripheral arterial disease</i></td><td>The <b>arterial</b> half. Narrowed arteries → ischemia.</td><td>Claudication, absent pulses, toe ulcers.</td></tr>
+        <tr><td><b>CVI</b><br><i>chronic venous insufficiency</i></td><td>The <b>venous</b> half. Failed valves → pooling.</td><td>Ankle edema, brown skin, medial ankle ulcer.</td></tr>
+        <tr><td><b>Arteriosclerosis</b></td><td><b>Hardening</b> &amp; loss of elasticity of the artery wall — the general aging change.</td><td>Talking about <i>stiff</i> vessels.</td></tr>
+        <tr><td><b>Atherosclerosis</b></td><td><b>Athero</b> = fatty. Plaque (lipids, calcium, clot) <i>inside</i> the lumen. A <b>type of</b> arteriosclerosis.</td><td>Talking about <i>clogged</i> vessels. This is the PAD driver.</td></tr>
+      </table>
+      <div class="mn">🧠 <b>“AtherO = Oatmeal in the pipe. ArteriO = Old, stiff pipe.”</b> Oatmeal clogs it, age stiffens it. Both narrow flow — only one is a plaque you can rupture.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT LOOKS ============ -->
+<section id="clues">
+  <div class="sec-h"><span class="icon">👀</span><h2>HOW IT LOOKS &amp; FEELS</h2><span class="step">STEP 2 · SPOT IT</span></div>
+  <p class="sec-sub">The single most tested contrast in vascular nursing. Read the leg, then read the ulcer, then check the position that helps.</p>
+
+  <div class="grid">
+
+    <div class="card deep span2">
+      <h3>⭐ THE BIG SIDE-BY-SIDE — <mark>arterial leg vs venous leg</mark></h3>
+      <svg viewBox="-10 -10 940 780" role="img" aria-label="Full side by side comparison of an arterial leg and a venous leg showing skin appearance, hair and nail changes, pulses, edema, pain pattern, ulcer location and shape, and the opposite positioning advice: dangle the legs for arterial disease and elevate the legs for venous disease">
+        <defs>
+          <linearGradient id="artLeg" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#f2e2d8"/><stop offset="1" stop-color="#d9c3b6"/>
+          </linearGradient>
+          <linearGradient id="venLeg" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#c98f72"/><stop offset="1" stop-color="#7b4a35"/>
+          </linearGradient>
+          <marker id="dnBig" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/>
+          </marker>
+          <marker id="upBig" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#a5f3d4"/>
+          </marker>
+        </defs>
+
+        <!-- ===== LEFT: ARTERIAL ===== -->
+        <rect x="8" y="8" width="436" height="744" rx="18" fill="rgba(255,59,107,.15)" stroke="#ff3b6b" stroke-width="2.5"/>
+        <text x="28" y="46" font-size="24" font-weight="900" fill="#ff9db4">🩸 ARTERIAL · PAD</text>
+        <text x="28" y="72" font-size="15" font-style="italic" fill="#ffd9e2">blood can't get IN — the tissue is starving</text>
+
+        <!-- arterial leg -->
+        <path d="M52 104 C46 176 54 222 66 262 C78 304 70 340 64 378 L60 402 L146 402 L144 378 C138 340 132 304 144 262 C156 222 164 176 158 104 Z" fill="url(#artLeg)" stroke="#fff" stroke-width="2"/>
+        <path d="M60 402 L146 402 L146 424 C146 436 134 442 118 442 L44 442 C33 442 29 431 38 424 Z" fill="url(#artLeg)" stroke="#fff" stroke-width="2"/>
+        <!-- shiny highlight = taut shiny skin -->
+        <path d="M78 140 C74 200 86 250 90 300" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round" opacity=".65"/>
+        <!-- ulcers: toe tip + lateral malleolus -->
+        <circle cx="44" cy="428" r="11" fill="#2b0a12" stroke="#ffc233" stroke-width="3"/>
+        <circle cx="146" cy="392" r="10" fill="#2b0a12" stroke="#ffc233" stroke-width="3"/>
+        <text x="30" y="470" font-size="13.5" font-weight="900" fill="#ffc233">ulcers on TOES,</text>
+        <text x="30" y="488" font-size="13.5" font-weight="900" fill="#ffc233">heel &amp; outer ankle</text>
+        <!-- no hair marks -->
+        <text x="164" y="150" font-size="13" font-weight="800" fill="#ffd9e2">no hair</text>
+        <text x="164" y="168" font-size="13" font-weight="800" fill="#ffd9e2">shiny, taut</text>
+        <text x="164" y="292" font-size="13" font-weight="800" fill="#ffd9e2">thin, cool</text>
+        <text x="164" y="310" font-size="13" font-weight="800" fill="#ffd9e2">skin</text>
+        <text x="164" y="418" font-size="13" font-weight="800" fill="#ffd9e2">thick, brittle</text>
+        <text x="164" y="436" font-size="13" font-weight="800" fill="#ffd9e2">nails</text>
+
+        <!-- arterial findings list -->
+        <text x="246" y="120" font-size="15.5" font-weight="900" fill="#fff">🌡️ COOL &amp; PALE</text>
+        <text x="246" y="140" font-size="13" font-style="italic" fill="#ffd9e2">pale on ELEVATION,</text>
+        <text x="246" y="157" font-size="13" font-style="italic" fill="#ffd9e2">dusky red when hanging</text>
+
+        <text x="246" y="190" font-size="15.5" font-weight="900" fill="#fff">💈 HAIR LOSS · SHINY</text>
+        <text x="246" y="210" font-size="13" font-style="italic" fill="#ffd9e2">thick brittle nails</text>
+
+        <text x="246" y="243" font-size="15.5" font-weight="900" fill="#fff">💓 PULSES WEAK</text>
+        <text x="246" y="263" font-size="15.5" font-weight="900" fill="#fff">    or ABSENT</text>
+        <text x="246" y="283" font-size="13" font-style="italic" fill="#ffd9e2">may need a Doppler</text>
+
+        <text x="246" y="316" font-size="15.5" font-weight="900" fill="#fff">💧 EDEMA: minimal</text>
+        <text x="246" y="336" font-size="13" font-style="italic" fill="#ffd9e2">nothing is pooling</text>
+
+        <text x="246" y="369" font-size="15.5" font-weight="900" fill="#fff">😖 PAIN: CLAUDICATION</text>
+        <text x="246" y="389" font-size="13" font-style="italic" fill="#ffd9e2">cramping with WALKING,</text>
+        <text x="246" y="406" font-size="13" font-style="italic" fill="#ffd9e2">stops with rest · later,</text>
+        <text x="246" y="423" font-size="13" font-style="italic" fill="#ffd9e2">REST PAIN at night in bed</text>
+
+        <text x="246" y="456" font-size="15.5" font-weight="900" fill="#fff">🕳️ ULCER SITE</text>
+        <text x="246" y="476" font-size="13" font-style="italic" fill="#ffd9e2">toes, heel, LATERAL</text>
+        <text x="246" y="493" font-size="13" font-style="italic" fill="#ffd9e2">ankle — pressure points</text>
+
+        <text x="246" y="526" font-size="15.5" font-weight="900" fill="#fff">⭕ ULCER SHAPE</text>
+        <text x="246" y="546" font-size="13" font-style="italic" fill="#ffd9e2">round, deep, “PUNCHED</text>
+        <text x="246" y="563" font-size="13" font-style="italic" fill="#ffd9e2">OUT”, even edges, pale</text>
+        <text x="246" y="580" font-size="13" font-style="italic" fill="#ffd9e2">dry base · LITTLE drainage</text>
+        <text x="246" y="597" font-size="13" font-style="italic" fill="#ffd9e2">· very PAINFUL</text>
+
+        <!-- arterial POSITION banner -->
+        <rect x="26" y="620" width="400" height="118" rx="14" fill="rgba(255,194,51,.9)" stroke="#fff" stroke-width="2.5"/>
+        <text x="46" y="654" font-size="21" font-weight="900" fill="#231a02">⬇️ POSITION: DANGLE</text>
+        <text x="46" y="678" font-size="14.5" font-weight="800" fill="#2b1200">Hang the legs DOWN / off the bed.</text>
+        <text x="46" y="699" font-size="14.5" font-weight="800" fill="#2b1200">Gravity pushes arterial blood INTO the foot.</text>
+        <text x="46" y="722" font-size="14.5" font-weight="900" fill="#7a0c25">❌ never elevate · ❌ no compression stockings</text>
+        <path d="M392 636 L392 726" fill="none" stroke="#c02255" stroke-width="7" stroke-linecap="round" marker-end="url(#dnBig)"/>
+
+        <!-- ===== RIGHT: VENOUS ===== -->
+        <rect x="456" y="8" width="436" height="744" rx="18" fill="rgba(47,107,255,.17)" stroke="#2f6bff" stroke-width="2.5"/>
+        <text x="476" y="46" font-size="24" font-weight="900" fill="#bcd0ff">🫙 VENOUS · CVI</text>
+        <text x="476" y="72" font-size="15" font-style="italic" fill="#e3ecff">blood can't get OUT — the leg is flooded</text>
+
+        <!-- venous leg (swollen: wider ankle) -->
+        <path d="M500 104 C494 176 500 220 512 258 C526 300 522 336 526 372 L528 400 L620 400 L620 372 C622 336 620 300 632 258 C644 220 650 176 644 104 Z" fill="url(#venLeg)" stroke="#fff" stroke-width="2"/>
+        <path d="M528 400 L620 400 L622 424 C622 438 608 444 590 444 L508 444 C496 444 492 432 502 424 Z" fill="url(#venLeg)" stroke="#fff" stroke-width="2"/>
+        <!-- hemosiderin stain patches at the ankle -->
+        <ellipse cx="556" cy="376" rx="26" ry="18" fill="#4a2415" opacity=".9"/>
+        <ellipse cx="596" cy="392" rx="20" ry="13" fill="#4a2415" opacity=".9"/>
+        <!-- varicose veins -->
+        <path d="M520 150 C548 178 512 206 540 238 C562 262 528 286 552 316" fill="none" stroke="#3b2c7a" stroke-width="7" stroke-linecap="round"/>
+        <path d="M624 168 C602 196 634 224 610 252" fill="none" stroke="#3b2c7a" stroke-width="6" stroke-linecap="round"/>
+        <!-- ulcer at MEDIAL malleolus (inner ankle = right side of this leg as drawn) -->
+        <path d="M614 366 c14 -6 26 2 28 12 c2 12 -8 22 -20 20 c-12 -2 -20 -8 -18 -18 c1 -7 4 -11 10 -14 z" fill="#8f1030" stroke="#ffc233" stroke-width="3"/>
+        <text x="486" y="472" font-size="13.5" font-weight="900" fill="#ffc233">ulcer at the MEDIAL</text>
+        <text x="486" y="490" font-size="13.5" font-weight="900" fill="#ffc233">(inner) ankle bone</text>
+        <text x="486" y="150" font-size="13" font-weight="800" fill="#e3ecff">varicose</text>
+        <text x="486" y="168" font-size="13" font-weight="800" fill="#e3ecff">veins</text>
+        <text x="486" y="316" font-size="13" font-weight="800" fill="#e3ecff">swollen,</text>
+        <text x="486" y="334" font-size="13" font-weight="800" fill="#e3ecff">warm calf</text>
+        <text x="486" y="392" font-size="13" font-weight="800" fill="#ffc233">brown stain</text>
+
+        <!-- venous findings list -->
+        <text x="672" y="120" font-size="15.5" font-weight="900" fill="#fff">🌡️ WARM &amp; RUDDY</text>
+        <text x="672" y="140" font-size="13" font-style="italic" fill="#e3ecff">brown HEMOSIDERIN</text>
+        <text x="672" y="157" font-size="13" font-style="italic" fill="#e3ecff">staining at the ankle</text>
+
+        <text x="672" y="190" font-size="15.5" font-weight="900" fill="#fff">🧱 THICK, LEATHERY</text>
+        <text x="672" y="210" font-size="13" font-style="italic" fill="#e3ecff">weepy stasis dermatitis</text>
+
+        <text x="672" y="243" font-size="15.5" font-weight="900" fill="#fff">💓 PULSES PRESENT</text>
+        <text x="672" y="263" font-size="13" font-style="italic" fill="#e3ecff">arteries are fine — may</text>
+        <text x="672" y="280" font-size="13" font-style="italic" fill="#e3ecff">be buried under edema</text>
+
+        <text x="672" y="316" font-size="15.5" font-weight="900" fill="#fff">💧 EDEMA: HEAVY</text>
+        <text x="672" y="336" font-size="13" font-style="italic" fill="#e3ecff">pitting, worse by evening</text>
+
+        <text x="672" y="369" font-size="15.5" font-weight="900" fill="#fff">😩 PAIN: DULL ACHE</text>
+        <text x="672" y="389" font-size="13" font-style="italic" fill="#e3ecff">heavy, tired legs · worse</text>
+        <text x="672" y="406" font-size="13" font-style="italic" fill="#e3ecff">with STANDING &amp; at the</text>
+        <text x="672" y="423" font-size="13" font-style="italic" fill="#e3ecff">end of the day · itching</text>
+
+        <text x="672" y="456" font-size="15.5" font-weight="900" fill="#fff">🕳️ ULCER SITE</text>
+        <text x="672" y="476" font-size="13" font-style="italic" fill="#e3ecff">MEDIAL malleolus —</text>
+        <text x="672" y="493" font-size="13" font-style="italic" fill="#e3ecff">the inner ankle bone</text>
+
+        <text x="672" y="526" font-size="15.5" font-weight="900" fill="#fff">〰️ ULCER SHAPE</text>
+        <text x="672" y="546" font-size="13" font-style="italic" fill="#e3ecff">shallow, IRREGULAR</text>
+        <text x="672" y="563" font-size="13" font-style="italic" fill="#e3ecff">edges, beefy red moist</text>
+        <text x="672" y="580" font-size="13" font-style="italic" fill="#e3ecff">base · HEAVY drainage</text>
+        <text x="672" y="597" font-size="13" font-style="italic" fill="#e3ecff">· aching, less sharp</text>
+
+        <!-- venous POSITION banner -->
+        <rect x="474" y="620" width="400" height="118" rx="14" fill="rgba(18,184,134,.92)" stroke="#fff" stroke-width="2.5"/>
+        <text x="494" y="654" font-size="21" font-weight="900" fill="#03291c">⬆️ POSITION: ELEVATE</text>
+        <text x="494" y="678" font-size="14.5" font-weight="800" fill="#032b1e">Legs UP above the level of the heart.</text>
+        <text x="494" y="699" font-size="14.5" font-weight="800" fill="#032b1e">Gravity drains the pooled venous blood OUT.</text>
+        <text x="494" y="722" font-size="14.5" font-weight="900" fill="#0a3d2c">✅ compression stockings · ❌ don't dangle or stand</text>
+        <path d="M840 726 L840 636" fill="none" stroke="#03291c" stroke-width="7" stroke-linecap="round" marker-end="url(#upBig)"/>
+      </svg>
+      <div class="mn">🧠 <b>“ARTERIAL falls DOWN the leg to the TOES. VENOUS pools at the ANKLE.”</b> Arterial damage shows up at the <i>furthest, coldest, bumpiest</i> spots — <b>toe tips, heel, outer ankle</b>. Venous damage shows up where the blood <i>puddles</i> — the <b>inner ankle</b>. And the fix is always the opposite of where the problem is: <b>starving foot → drop it down. Flooded ankle → lift it up.</b></div>
+    </div>
+
+    <div class="card topaz span2">
+      <h3>⭐ The same nine rows, in table form — memorize this grid</h3>
+      <table>
+        <tr><th style="width:20%">Assess</th><th class="up">🩸 ARTERIAL (PAD)</th><th class="lo">🫙 VENOUS (CVI)</th></tr>
+        <tr><td><b>Pain</b></td><td><b>Intermittent claudication</b> — cramping with walking, gone with rest. Advanced: <b>rest pain</b> at night, relieved by hanging the leg down.</td><td><b>Dull, heavy ache</b> — worse with standing and by evening, relieved by elevating.</td></tr>
+        <tr><td><b>Pulses</b></td><td><b>Weak, thready or ABSENT</b> distal to the block.</td><td><b>Present</b> (may be hard to palpate through edema).</td></tr>
+        <tr><td><b>Temperature</b></td><td><b>Cool / cold</b> foot.</td><td><b>Warm</b> leg.</td></tr>
+        <tr><td><b>Color</b></td><td><b>Pale</b> when elevated (<i>elevation pallor</i>), <b>dusky red</b> when dependent (<i>dependent rubor</i>).</td><td><b>Ruddy / brown</b> — hemosiderin staining that does not fade.</td></tr>
+        <tr><td><b>Skin · hair · nails</b></td><td><b>Thin, shiny, taut, HAIRLESS</b>; thick brittle nails; slow cap refill.</td><td><b>Thick, leathery, weepy</b> stasis dermatitis; itching; hair usually intact.</td></tr>
+        <tr><td><b>Edema</b></td><td><b>Minimal</b> — nothing is pooling.</td><td><b>Marked pitting edema</b>, worse at end of day.</td></tr>
+        <tr><td><b>Ulcer location</b></td><td><b>Toes, tips of toes, heel, LATERAL (outer) ankle</b> — bony pressure points.</td><td><b>MEDIAL (inner) malleolus</b> — the inner ankle bone.</td></tr>
+        <tr><td><b>Ulcer look</b></td><td>Round, deep, <b>“punched-out”</b>, even edges, <b>pale/dry/necrotic</b> base, <b>scant</b> drainage, <b>very painful</b>.</td><td>Shallow, <b>irregular</b> edges, <b>beefy red moist</b> granulation base, <b>heavy</b> drainage.</td></tr>
+        <tr><td><b>What helps</b></td><td class="never">DANGLE / lower the legs ⬇️ · keep warm · NO compression</td><td class="never">ELEVATE above the heart ⬆️ · compression stockings ✅</td></tr>
+      </table>
+      <div class="mn">🧠 <b>“6 letters, 6 letters.”</b> <b>ARTERY</b> and <b>LATERAL</b> both point outward and downward — arterial ulcers sit on the <b>outer</b> ankle and toes, and you drop the leg <b>down</b>. <b>VEIN</b> and <b>MEDIAL</b> both point inward and upward — venous ulcers sit on the <b>inner</b> ankle, and you lift the leg <b>up</b>.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>😖 Claudication vs rest pain — the arterial timeline</h3>
+      <div class="flow">
+        <div class="fstep">🚶 <b>Stage 1 · No symptoms</b> — plaque is there, flow is still enough</div>
+        <div class="farrow">▼</div>
+        <div class="fstep">🦵 <b>Stage 2 · Intermittent claudication</b> — cramping calf pain at a <i>reproducible distance</i>, gone in minutes of rest</div>
+        <div class="farrow">▼</div>
+        <div class="fstep">🌙 <b>Stage 3 · REST PAIN</b> — burning pain in the forefoot/toes at night; client hangs the leg off the bed to relieve it</div>
+        <div class="farrow">▼</div>
+        <div class="fstep hot">🖤 <b>Stage 4 · Tissue loss</b> — ulcer, necrosis, gangrene = critical limb ischemia</div>
+      </div>
+      <p style="margin-top:9px"><b>Why the night?</b> Lying flat removes the gravity assist and cardiac output falls in sleep — the foot loses its last bit of perfusion. <i>Hanging the leg over the side of the bed is a diagnostic clue, not a bad habit.</i></p>
+      <div class="mn">🧠 <b>“Walks in pain → sleeps in pain → loses tissue.”</b> Pain moving <i>earlier in the day</i> and <i>closer to the toes</i> means the disease is advancing. Rest pain is the alarm before the ulcer.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🔬 The position test at the bedside: pallor ⬆️ / rubor ⬇️</h3>
+      <svg viewBox="0 0 440 330" role="img" aria-label="Position test for arterial disease: raising the leg makes it turn pale, and lowering the leg makes it turn dusky red, which is called dependent rubor">
+        <rect x="6" y="6" width="428" height="318" rx="16" fill="rgba(13,8,26,.4)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+        <text x="22" y="36" font-size="16.5" font-weight="900" fill="#bcd0ff">Arterial leg · watch the color change</text>
+
+        <!-- elevated -->
+        <text x="24" y="72" font-size="15" font-weight="900" fill="#e3ecff">RAISE it 60° for 1 min</text>
+        <rect x="24" y="150" width="150" height="18" rx="9" fill="rgba(255,255,255,.25)"/>
+        <path d="M30 150 L152 88 L172 96 L44 158 Z" fill="#f7ece4" stroke="#fff" stroke-width="2"/>
+        <ellipse cx="160" cy="90" rx="17" ry="12" fill="#fdf7f2" stroke="#fff" stroke-width="2"/>
+        <text x="118" y="196" font-size="16" font-weight="900" fill="#ffd9e2">→ PALE 😶</text>
+        <text x="24" y="216" font-size="13.5" font-style="italic" fill="#e3ecff">gravity beats the weak</text>
+        <text x="24" y="234" font-size="13.5" font-style="italic" fill="#e3ecff">arterial push = pallor</text>
+
+        <!-- dependent -->
+        <text x="238" y="72" font-size="15" font-weight="900" fill="#e3ecff">Then HANG it down</text>
+        <rect x="238" y="96" width="150" height="18" rx="9" fill="rgba(255,255,255,.25)"/>
+        <path d="M258 114 L300 114 L318 208 L276 214 Z" fill="#e0a08c" stroke="#fff" stroke-width="2"/>
+        <ellipse cx="300" cy="216" rx="26" ry="14" fill="#c9524d" stroke="#fff" stroke-width="2"/>
+        <text x="238" y="252" font-size="16" font-weight="900" fill="#ffc233">→ DUSKY RED 🟥</text>
+        <text x="238" y="272" font-size="13.5" font-style="italic" fill="#e3ecff">= DEPENDENT RUBOR</text>
+        <text x="238" y="290" font-size="13.5" font-style="italic" fill="#e3ecff">blood finally reaches</text>
+        <text x="238" y="308" font-size="13.5" font-style="italic" fill="#e3ecff">the foot &amp; sits there</text>
+
+        <text x="24" y="272" font-size="13.5" font-weight="900" fill="#a5f3d4">A healthy leg does</text>
+        <text x="24" y="290" font-size="13.5" font-weight="900" fill="#a5f3d4">NEITHER — color</text>
+        <text x="24" y="308" font-size="13.5" font-weight="900" fill="#a5f3d4">stays the same.</text>
+      </svg>
+      <p style="margin-top:9px">Normal color returns in about <span class="mono">10 s</span> and normal veins refill in about <span class="mono">15 s</span> after lowering. Marked delay points to arterial disease.</p>
+      <div class="mn">🧠 <b>“Up = white, down = red, both = arterial.”</b> A <i>venous</i> leg goes the other way — elevating it makes it feel <b>better</b> and look <b>less</b> swollen.</div>
+    </div>
+
+    <div class="card citrinec span2">
+      <h3>⚠️ Look-alikes that get confused with a venous leg</h3>
+      <ul class="tick">
+        <li><b>DVT</b> — <i>sudden</i>, one-sided calf pain, swelling, warmth and redness in a leg that was fine yesterday. CVI is <b>chronic and gradual</b>; DVT is <b>acute</b>. <span class="tip">SEE NG-223</span></li>
+        <li><b>Cellulitis</b> — hot, sharply demarcated red skin <b>with fever</b> and rising WBC. Venous stasis skin is brown and chronic, not febrile.</li>
+        <li><b>Heart-failure edema</b> — <b>bilateral</b>, symmetric, comes with weight gain, crackles and JVD. Venous insufficiency edema is often <b>one leg worse</b> and has skin staining.</li>
+        <li><b>Lymphedema</b> — non-pitting, firm, involves the <b>toes and foot dorsum</b>, no brown staining.</li>
+      </ul>
+      <div class="mn">🧠 <b>“Both legs = the heart. One leg = the vein.”</b> Then ask <i>how fast</i>: yesterday-fast = DVT, months-slow = chronic venous insufficiency.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RED FLAGS ============ -->
+<section id="red">
+  <div class="sec-h"><span class="icon">🚨</span><h2>RED FLAGS &amp; ASSESSMENT</h2><span class="step">STEP 3 · WHEN TO ESCALATE</span></div>
+  <p class="sec-sub">Chronic PVD is managed. A limb that goes cold, white and pulseless is an emergency measured in hours.</p>
+
+  <div class="grid">
+
+    <div class="card garnet span2">
+      <h3>🚨 ACUTE ARTERIAL OCCLUSION — the <mark>6 P's</mark> · time is tissue</h3>
+      <svg viewBox="0 0 900 400" role="img" aria-label="Diagram of the six P's of acute arterial occlusion: pain, pallor, pulselessness, paresthesia, paralysis and poikilothermia, arranged around a blocked artery, with the late signs marked as the most urgent">
+        <defs><marker id="pArr" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffe3ea"/></marker></defs>
+        <rect x="6" y="6" width="888" height="388" rx="18" fill="rgba(192,34,85,.2)" stroke="#ff3b6b" stroke-width="2.5"/>
+        <text x="28" y="44" font-size="20" font-weight="900" fill="#ffd0bd">Sudden block → six findings, in this order</text>
+
+        <!-- blocked artery graphic -->
+        <rect x="34" y="86" width="240" height="58" rx="26" fill="#8d2340" stroke="#ffd0bd" stroke-width="3"/>
+        <rect x="46" y="98" width="216" height="34" rx="16" fill="#ff3b6b"/>
+        <ellipse cx="180" cy="115" rx="34" ry="20" fill="#2b0a12" stroke="#ffc233" stroke-width="3"/>
+        <text x="150" y="121" font-size="15" font-weight="900" fill="#ffc233">CLOT</text>
+        <path d="M60 115 L120 115" stroke="#ffe3ea" stroke-width="5" marker-end="url(#pArr)"/>
+        <text x="34" y="172" font-size="14.5" font-style="italic" fill="#ffd9e2">everything downstream is cut off</text>
+
+        <!-- 6 tiles -->
+        <g>
+          <rect x="34" y="200" width="270" height="80" rx="12" fill="rgba(13,8,26,.6)" stroke="#ffc233" stroke-width="2"/>
+          <text x="50" y="230" font-size="17" font-weight="900" fill="#ffc233">1 · PAIN</text>
+          <text x="50" y="254" font-size="13.5" fill="#ffe3ea">sudden, severe, not relieved</text>
+          <text x="50" y="272" font-size="13.5" fill="#ffe3ea">by rest or by opioids</text>
+
+          <rect x="318" y="200" width="270" height="80" rx="12" fill="rgba(13,8,26,.6)" stroke="#ffc233" stroke-width="2"/>
+          <text x="334" y="230" font-size="17" font-weight="900" fill="#ffc233">2 · PALLOR</text>
+          <text x="334" y="254" font-size="13.5" fill="#ffe3ea">white, waxy, then mottled</text>
+          <text x="334" y="272" font-size="13.5" fill="#ffe3ea">blue-grey marbling</text>
+
+          <rect x="602" y="200" width="266" height="80" rx="12" fill="rgba(13,8,26,.6)" stroke="#ffc233" stroke-width="2"/>
+          <text x="618" y="230" font-size="17" font-weight="900" fill="#ffc233">3 · PULSELESSNESS</text>
+          <text x="618" y="254" font-size="13.5" fill="#ffe3ea">no pulse below the block —</text>
+          <text x="618" y="272" font-size="13.5" fill="#ffe3ea">confirm with a Doppler</text>
+
+          <rect x="34" y="294" width="270" height="86" rx="12" fill="rgba(13,8,26,.6)" stroke="#ff3b6b" stroke-width="2"/>
+          <text x="50" y="324" font-size="17" font-weight="900" fill="#ff9db4">4 · PARESTHESIA</text>
+          <text x="50" y="348" font-size="13.5" fill="#ffe3ea">numbness, tingling, loss of</text>
+          <text x="50" y="366" font-size="13.5" fill="#ffe3ea">light touch — LATE, nerve dying</text>
+
+          <rect x="318" y="294" width="270" height="86" rx="12" fill="rgba(255,59,107,.35)" stroke="#fff" stroke-width="2.5"/>
+          <text x="334" y="324" font-size="17" font-weight="900" fill="#fff">5 · PARALYSIS 🚨</text>
+          <text x="334" y="348" font-size="13.5" fill="#ffe3ea">can't wiggle the toes = the</text>
+          <text x="334" y="366" font-size="13.5" fill="#ffe3ea">LATEST &amp; WORST sign</text>
+
+          <rect x="602" y="294" width="266" height="86" rx="12" fill="rgba(13,8,26,.6)" stroke="#ff3b6b" stroke-width="2"/>
+          <text x="618" y="324" font-size="17" font-weight="900" fill="#ff9db4">6 · POIKILOTHERMIA</text>
+          <text x="618" y="348" font-size="13.5" fill="#ffe3ea">the limb goes COLD — it takes</text>
+          <text x="618" y="366" font-size="13.5" fill="#ffe3ea">on room temperature</text>
+        </g>
+      </svg>
+      <div class="ladder" style="margin-top:12px">
+        <div class="rung"><div class="n">1</div><div class="t">🛑 <b>Stop and stay with the client</b> — assess both legs, compare, mark where you found (or lost) the pulse with a pen.</div></div>
+        <div class="rung"><div class="n">2</div><div class="t">📞 <b>Notify the provider / rapid response IMMEDIATELY</b> — this is a limb-threat, not a next-round finding.</div></div>
+        <div class="rung"><div class="n">3</div><div class="t">⬇️ <b>Keep the limb DEPENDENT (below heart level) and at rest</b> — never elevate an acutely ischemic leg.</div></div>
+        <div class="rung"><div class="n">4</div><div class="t">🧣 <b>Keep it comfortably warm with a light blanket</b> — <span class="never">never apply a heating pad, hot water bottle, or ice</span>.</div></div>
+        <div class="rung"><div class="n">5</div><div class="t">🍽️ <b>Keep NPO and get IV access</b> — anticipate anticoagulation, thrombolytics, embolectomy or angiography.</div></div>
+      </div>
+      <div class="mn">🧠 <b>The 6 P's in order of doom:</b> <b>P</b>ain → <b>P</b>allor → <b>P</b>ulselessness → <b>P</b>aresthesia → <b>P</b>aralysis → <b>P</b>oikilothermia. The <i>first three</i> say “something's wrong.” The <b>last three say the nerve and muscle are dying</b> — those are the ones you shout about.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>❌ NEVER — the four that fail students</h3>
+      <ul class="tick">
+        <li><span class="never">Never apply heat (heating pad, hot soak) to an ischemic or neuropathic limb</span> — the skin can't feel it and can't dissipate it. Burn on a foot that can't heal.</li>
+        <li><span class="never">Never elevate a leg with arterial disease for comfort</span> — elevation is the venous answer. Arterial legs go <b>down</b>.</li>
+        <li><span class="never">Never apply compression stockings or wraps to an arterial leg</span> — squeezing a starving limb finishes the job. Compression is the <b>venous</b> answer, and only after arterial supply is confirmed adequate.</li>
+        <li><span class="never">Never let the client cut their own corns, calluses or toenails</span> — trimming is done by a podiatrist / provider.</li>
+      </ul>
+      <div class="mn">🧠 <b>“Hot, high, and tight — all three are wrong for arteries.”</b> No <b>hot</b> packs, don't hold it <b>high</b>, don't wrap it <b>tight</b>.</div>
+    </div>
+
+    <div class="card emerald">
+      <h3>✅ What the nurse actually assesses, every shift</h3>
+      <svg viewBox="-10 -10 476 360" role="img" aria-label="Map of the lower limb pulse points a nurse palpates: femoral in the groin, popliteal behind the knee, posterior tibial behind the inner ankle bone, and dorsalis pedis on top of the foot">
+        <rect x="-6" y="-6" width="468" height="352" rx="16" fill="rgba(13,8,26,.42)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+        <text x="20" y="34" font-size="16.5" font-weight="900" fill="#a5f3d4">Where you put your fingers 🖐️</text>
+
+        <path d="M92 56 C86 130 96 172 108 214 C120 254 112 282 106 306 L104 314 L172 314 L170 306 C164 282 158 254 170 214 C182 172 190 130 184 56 Z"
+              fill="rgba(255,255,255,.12)" stroke="rgba(255,255,255,.5)" stroke-width="2"/>
+        <path d="M104 314 L172 314 L172 326 L94 326 C86 326 84 318 92 314 Z" fill="rgba(255,255,255,.12)" stroke="rgba(255,255,255,.5)" stroke-width="2"/>
+
+        <circle cx="128" cy="70" r="11" fill="#12b886" stroke="#eafff7" stroke-width="2.5"/>
+        <line x1="139" y1="70" x2="212" y2="70" stroke="#a5f3d4" stroke-width="2"/>
+        <text x="218" y="66" font-size="15" font-weight="900" fill="#a5f3d4">FEMORAL</text>
+        <text x="218" y="84" font-size="12.5" font-style="italic" fill="#d8fff0">groin crease</text>
+
+        <circle cx="150" cy="176" r="11" fill="#12b886" stroke="#eafff7" stroke-width="2.5"/>
+        <line x1="161" y1="176" x2="212" y2="150" stroke="#a5f3d4" stroke-width="2"/>
+        <text x="218" y="148" font-size="15" font-weight="900" fill="#a5f3d4">POPLITEAL</text>
+        <text x="218" y="166" font-size="12.5" font-style="italic" fill="#d8fff0">behind the knee</text>
+
+        <circle cx="160" cy="300" r="11" fill="#12b886" stroke="#eafff7" stroke-width="2.5"/>
+        <line x1="171" y1="300" x2="212" y2="240" stroke="#a5f3d4" stroke-width="2"/>
+        <text x="218" y="230" font-size="15" font-weight="900" fill="#a5f3d4">POSTERIOR TIBIAL</text>
+        <text x="218" y="248" font-size="12.5" font-style="italic" fill="#d8fff0">behind the inner ankle bone</text>
+
+        <circle cx="112" cy="320" r="11" fill="#12b886" stroke="#eafff7" stroke-width="2.5"/>
+        <line x1="101" y1="320" x2="60" y2="290" stroke="#a5f3d4" stroke-width="2"/>
+        <text x="20" y="284" font-size="15" font-weight="900" fill="#a5f3d4">DORSALIS PEDIS</text>
+        <text x="20" y="302" font-size="12.5" font-style="italic" fill="#d8fff0">top of the foot</text>
+
+        <rect x="218" y="266" width="200" height="56" rx="11" fill="rgba(255,194,51,.85)"/>
+        <text x="230" y="290" font-size="14" font-weight="900" fill="#231a02">Compare LEFT vs RIGHT</text>
+        <text x="230" y="310" font-size="13" font-weight="800" fill="#2b1200">Grade 0 absent → 3+ bounding</text>
+      </svg>
+      <ul class="tick" style="margin-top:10px">
+        <li>💓 <b>Bilateral pulses</b> — palpate, compare sides, mark the spot; if you can't feel it, get a <b>Doppler</b> before you chart “absent.”</li>
+        <li>🎨 <b>Color, temperature, cap refill</b> (<span class="mono">&lt;3 s</span> normal), hair distribution, nail thickness.</li>
+        <li>👣 <b>Inspect the feet daily — including between the toes</b> and the heels.</li>
+        <li>📏 <b>Measure calf circumference</b> at the same marked point each time.</li>
+        <li>🚶 <b>Ask the distance</b>: “how far can you walk before the cramp starts?” A <i>shrinking</i> distance = disease progressing.</li>
+      </ul>
+      <div class="mn">🧠 <b>“The 6 T's of a foot check”</b> — <b>T</b>emperature, <b>T</b>one (pulse), <b>T</b>int (color), <b>T</b>oes (between them), <b>T</b>ime (cap refill), <b>T</b>rimming (who does the nails). Same six every shift.</div>
+    </div>
+
+    <div class="card deep span2">
+      <h3>➡️ Where this goes next</h3>
+      <div class="av">
+        <div class="side art">
+          <h4>🩸 Arterial thread</h4>
+          <p>Risk factors that build plaque and the complications when it ruptures → <b>page 2</b>. ABI, antiplatelets, statins, revascularization → <b>page 3</b>.</p>
+          <span class="pos">⬇️ DANGLE stays true on every page</span>
+        </div>
+        <div class="side ven">
+          <h4>🫙 Venous thread</h4>
+          <p>Why valves fail and where venous ulcers come from → <b>page 2</b>. Compression, positioning and vein procedures → <b>page 3</b>. Acute clot → <b>NG-223 DVT</b>.</p>
+          <span class="pos">⬆️ ELEVATE stays true on every page</span>
+        </div>
+      </div>
+      <div class="setbar" style="margin-top:12px">
+        <span class="lbl">PVD set</span>
+        <span class="pg on">1 · Patho &amp; Signs</span>
+        <a href="NG-127_pvd-causes-complications.html">2 · Causes &amp; Complications →</a>
+        <a href="NG-161_pvd-treatments.html">3 · Treatments →</a>
+        <a href="NG-223_dvt-deep-vein-thrombosis.html">＋ DVT →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc rubybg"><span class="big">🩸 Arterial</span>Cool, pale, hairless, pulseless · <b>toe/heel/lateral</b> ulcer, round &amp; punched out · pain when <b>walking</b> · <b>DANGLE ⬇️</b></div>
+    <div class="rc tealbg"><span class="big">🫙 Venous</span>Warm, brown, swollen, pulse present · <b>medial ankle</b> ulcer, irregular &amp; weepy · pain when <b>standing</b> · <b>ELEVATE ⬆️</b></div>
+    <div class="rc topazbg"><span class="big">🕳️ Ulcer shortcut</span><b>A</b>rterial = <b>A</b>way &amp; down (toes, outer). <b>V</b>enous = in the middle (medial malleolus).</div>
+    <div class="rc citrine"><span class="big">🚨 6 P's</span>Pain · Pallor · Pulselessness · Paresthesia · <b>Paralysis</b> · Poikilothermia = call NOW, keep the leg <b>down</b> &amp; warm.</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 6 rapid-fire questions</summary>
+      <div class="qa">Q1: A client's leg ulcer sits over the <b>medial malleolus</b>, is shallow with irregular edges and drains heavily. Arterial or venous — and how do you position the leg? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">VENOUS. Elevate the leg above the level of the heart, and compression stockings are appropriate once arterial supply is confirmed adequate.</div></div>
+      <div class="qa">Q2: A round, deep, “punched-out” ulcer on the tip of the great toe with a pale dry base and scant drainage. Which one, and what position? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">ARTERIAL. Keep the leg dependent — dangle it. Do NOT elevate, do NOT apply compression, do NOT apply heat.</div></div>
+      <div class="qa">Q3: What is intermittent claudication and what makes it stop? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Cramping muscle pain brought on by walking at a reproducible distance, caused by O₂ demand outrunning a narrowed arterial supply. It stops within minutes of RESTING.</div></div>
+      <div class="qa">Q4: The client hangs their foot off the side of the bed at night to relieve burning foot pain. What does that tell you? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">ARTERIAL rest pain — advanced PAD. Gravity is the only thing getting blood into the forefoot. It signals disease has progressed past claudication and needs to be reported.</div></div>
+      <div class="qa">Q5: Name the 6 P's and say which one is the most ominous. <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Pain, Pallor, Pulselessness, Paresthesia, Paralysis, Poikilothermia. PARALYSIS (inability to move the toes) is the latest and worst — the muscle and nerve are dying.</div></div>
+      <div class="qa">Q6: Which leg findings are pulses PRESENT in — arterial or venous disease? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">VENOUS. The arteries are healthy; the pulse may just be buried under edema. Absent or weak pulses point to ARTERIAL disease.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">WHAT IT IS</span>→
+    <span style="background:rgba(47,107,255,.7)">HOW IT LOOKS</span>→
+    <span style="background:rgba(192,34,85,.75)">RED FLAGS</span>
+  </div>
+  <div>NG-045 · PVD set page 1 of 3 · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>

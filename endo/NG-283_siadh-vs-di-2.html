@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SIADH vs DI II · NG-283 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+
+
+/* ---- appended for the Endocrine batch (batch 15) ---- */
+nav a.c5{background:rgba(0,194,199,.72);color:#00252b}
+nav a.c6{background:rgba(255,138,61,.75);color:#2b1200}
+nav a.c7{background:rgba(192,34,85,.72)}
+#patho .sec-h h2{color:#d9c2ff} #patho .step{background:var(--amethyst)}
+#types .sec-h h2{color:#d9c2ff} #types .step{background:var(--amethyst)}
+#mech  .sec-h h2{color:#d9c2ff} #mech .step{background:var(--amethyst)}
+#axis  .sec-h h2{color:#d9c2ff} #axis .step{background:var(--amethyst)}
+#signs .sec-h h2{color:#bcd0ff} #signs .step{background:var(--sapphire)}
+#dx    .sec-h h2{color:#bcd0ff} #dx .step{background:var(--sapphire)}
+#labs  .sec-h h2{color:#bcd0ff} #labs .step{background:var(--sapphire)}
+#adverse .sec-h h2{color:#bcd0ff} #adverse .step{background:var(--sapphire)}
+#sodium .sec-h h2{color:#bcd0ff} #sodium .step{background:var(--sapphire)}
+#compare .sec-h h2{color:#9ff2ee} #compare .step{background:var(--teal);color:#00252b}
+#insulin .sec-h h2{color:#9ff2ee} #insulin .step{background:var(--teal);color:#00252b}
+#fluid .sec-h h2{color:#9ff2ee} #fluid .step{background:var(--teal);color:#00252b}
+#split .sec-h h2{color:#9ff2ee} #split .step{background:var(--teal);color:#00252b}
+#treat .sec-h h2{color:#a5f3d4} #treat .step{background:var(--emerald);color:#03291c}
+#mgmt  .sec-h h2{color:#a5f3d4} #mgmt .step{background:var(--emerald);color:#03291c}
+#oral  .sec-h h2{color:#a5f3d4} #oral .step{background:var(--emerald);color:#03291c}
+#monitor .sec-h h2{color:#a5f3d4} #monitor .step{background:var(--emerald);color:#03291c}
+#teach .sec-h h2{color:#ffd9b8} #teach .step{background:var(--citrine);color:#2b1200}
+#drug  .sec-h h2{color:#ffd9b8} #drug .step{background:var(--citrine);color:#2b1200}
+#feet  .sec-h h2{color:#ffd9b8} #feet .step{background:var(--citrine);color:#2b1200}
+#danger .sec-h h2{color:#ffb3c6} #danger .step{background:var(--garnet)}
+#emerg .sec-h h2{color:#ffb3c6} #emerg .step{background:var(--garnet)}
+#taper .sec-h h2{color:#ffb3c6} #taper .step{background:var(--garnet)}
+#hypo  .sec-h h2{color:#ffb3c6} #hypo .step{background:var(--garnet)}
+#comps .sec-h h2{color:#ffb3c6} #comps .step{background:var(--garnet)}
+#potassium .sec-h h2{color:#ffb3c6} #potassium .step{background:var(--garnet)}
+.setbar{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin:4px 0 16px;font-size:.82rem}
+.setbar .setlabel{font-weight:900;letter-spacing:.08em;color:#ffe49a;margin-right:2px}
+.setbar a{font-weight:800;padding:4px 11px;border-radius:999px;border:1px solid var(--line);
+  background:rgba(13,8,26,.5);color:#dbe8ff;text-decoration:none}
+.setbar a.cur{background:var(--topaz);color:#231a02;border-color:transparent;cursor:default}
+.legendrow{display:flex;gap:9px;flex-wrap:wrap;margin:11px 0 0;font-size:.84rem;font-weight:800}
+.legendrow span{padding:5px 11px;border-radius:9px;background:rgba(13,8,26,.55);
+  border:1px solid var(--line);display:flex;align-items:center;gap:7px}
+.sw{display:inline-block;width:15px;height:15px;border-radius:4px;border:1px solid rgba(255,255,255,.6)}
+.card a{color:#ffe49a;font-weight:800}
+.card.tealc a,.card.topaz a,.card.citrinec a{color:#0b3a52}
+.xref{margin-top:10px;padding:8px 12px;border-radius:11px;background:rgba(0,194,199,.20);
+  border:1px solid var(--line);font-size:.9rem;font-weight:700}
+.xref .pill{display:inline-block;font-size:.7rem;font-weight:900;letter-spacing:.08em;
+  background:var(--teal);color:#00252b;padding:2px 8px;border-radius:7px;margin-right:7px}
+.card.tealc .xref,.card.topaz .xref,.card.citrinec .xref{background:rgba(255,255,255,.45)}
+.trap{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(255,59,107,.22);
+  border:1px dashed rgba(255,150,180,.65);font-size:.93rem;color:#fff}
+.card.tealc .trap,.card.topaz .trap,.card.citrinec .trap{background:rgba(255,59,107,.22);
+  border-color:rgba(192,34,85,.55);color:#3d0014}
+.hedge{margin-top:10px;font-size:.84rem;font-style:italic;opacity:.9}
+.big2{font-size:1.35rem;font-weight:900;letter-spacing:.02em}
+.lede a{color:#ffe49a;font-weight:800}
+.rc a{color:#231a02;font-weight:900}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#mech">🚰 The tap</a>
+  <a class="c5" href="#fluid">💧 Fluid management</a>
+  <a class="c2" href="#sodium">🧂 Sodium safety</a>
+  <a class="c6" href="#drug">💊 Desmopressin</a>
+  <a class="c3" href="#monitor">📊 Monitoring</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Endocrine · Posterior Pituitary · Med-Surg</div>
+  <div class="setbar"><span class="setlabel">💧 ADH SET</span>
+  <a href="NG-282_siadh-vs-di-1.html">NG-282 SIADH vs DI — part 1</a>
+  <a class="cur" href="NG-283_siadh-vs-di-2.html">NG-283 SIADH vs DI — part 2</a>
+  <a href="NG-287_addisons-vs-cushings.html">NG-287 Addison's vs Cushing's</a>
+  <a href="NG-288_steroids.html">NG-288 Steroids</a></div>
+  <h1>SIADH vs DI <span class="drop">💧</span></h1>
+  <p class="sub">Part 2 of 2 — the nursing management: fluid rules, sodium safety, desmopressin and monitoring</p>
+  <div class="chips">
+    <span class="chip id">NG-283</span>
+    <span class="chip cat">ENDOCRINE · MANAGEMENT PAGE</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede"><b>Part 1 (<a href="NG-282_siadh-vs-di-1.html">NG-282</a>) carries the core comparison</b>: <b>SIADH</b> = too much ADH → water is <b>retained</b> → dilutional <b>hyponatremia</b>, concentrated urine, weight gain. <b>DI</b> = too little ADH (or kidneys that ignore it) → dilute water <b>pours out</b> → <b>hypernatremia</b>, huge pale urine output, dehydration. <b>This page is what you DO about it</b> — fluid restriction, hypertonic saline and the danger of correcting sodium too fast, daily weights, strict I&amp;O, seizure precautions, desmopressin administration and teaching, and the numbers you watch.</p>
+</header>
+
+<div class="recall">
+  <div class="rc tealbg"><span class="big">⚖️ Daily weight = best measure</span>Not weekly. <span class="mono">1 kg ≈ 1 L</span> of fluid. Same time, same scale, same clothes.</div>
+  <div class="rc rubybg"><span class="big">🐌 Correct sodium SLOWLY</span>Fast correction of hyponatremia → <b>osmotic demyelination</b>. Fast correction of hypernatremia → <b>cerebral oedema</b>.</div>
+  <div class="rc citrine"><span class="big">💊 Desmopressin is ADH, not a pressor</span>It is a <b>synthetic antidiuretic hormone</b> that reduces urine output. <span class="never">It is not a blood-pressure drug.</span></div>
+  <div class="rc topazbg"><span class="big">🚨 Headache = report it</span>New headache, nausea or confusion on desmopressin = <b>sodium falling</b>. Never "normal".</div>
+</div>
+
+<!-- ============================================================ -->
+<section id="mech">
+  <div class="sec-h"><span class="icon">🚰</span><h2>THE TAP IN THE COLLECTING DUCT</h2><span class="step">STEP 1 · WHY IT ALL WORKS</span></div>
+  <p class="sec-sub">Everything on this page happens in one tiny place: the wall of the renal collecting duct, where ADH decides whether water gets to leave the body.</p>
+  <div class="grid">
+
+    <div class="card tealc span2">
+      <h3>🔬 Aquaporin cutaway — no ADH · normal · too much ADH</h3>
+      <svg viewBox="-10 -10 920 560" role="img" aria-label="Three cutaways through the wall of a renal collecting duct. In the middle normal panel, ADH binds its receptor on the blood side of the principal cell, vesicles carrying aquaporin-2 water channels fuse with the tubule-facing membrane, and water moves from the urine back into the blood. In the left diabetes insipidus panel there is no ADH, the vesicles stay inside the cell, no water channels are inserted and huge volumes of dilute pale urine flow past. In the right SIADH panel there is excess ADH, many channels are inserted, almost all water is pulled back into the blood and only a small volume of dark concentrated urine leaves">
+        <defs>
+          <linearGradient id="w1cell" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffe0a8"/><stop offset=".25" stop-color="#f5c473"/>
+            <stop offset=".7" stop-color="#e0a54a"/><stop offset="1" stop-color="#a8701c"/>
+          </linearGradient>
+          <linearGradient id="w1urin" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#eafcff"/><stop offset=".5" stop-color="#bfeef7"/><stop offset="1" stop-color="#79cfe0"/>
+          </linearGradient>
+          <linearGradient id="w1urin2" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffd88a"/><stop offset=".5" stop-color="#e0a02c"/><stop offset="1" stop-color="#9a6304"/>
+          </linearGradient>
+          <linearGradient id="w1blood" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ff9db6"/><stop offset=".5" stop-color="#c02255"/><stop offset="1" stop-color="#6d0c2f"/>
+          </linearGradient>
+          <radialGradient id="w1adh" cx=".35" cy=".3" r=".85">
+            <stop offset="0" stop-color="#e6d3ff"/><stop offset=".45" stop-color="#9d5cff"/><stop offset="1" stop-color="#3d1470"/>
+          </radialGradient>
+          <linearGradient id="w1aqp" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#9ff2ee"/><stop offset=".5" stop-color="#00c2c7"/><stop offset="1" stop-color="#046468"/>
+          </linearGradient>
+          <filter id="w1sh" x="-30%" y="-30%" width="170%" height="170%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dx="2" dy="6" result="o"/>
+            <feFlood flood-color="#000" flood-opacity=".5"/><feComposite in2="o" operator="in"/>
+            <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="w1b"><feGaussianBlur stdDeviation="6"/></filter>
+          <marker id="w1ar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#9ff2ee"/>
+          </marker>
+        </defs>
+        <rect x="-6" y="-6" width="912" height="552" rx="20" fill="rgba(0,194,199,.10)" stroke="#00c2c7" stroke-width="2" stroke-dasharray="8 7"/>
+        <text x="22" y="30" font-size="18" font-weight="900" fill="#0b3f45">COLLECTING DUCT · where ADH opens the water gate</text>
+
+        <!-- ============ PANEL DI ============ -->
+        <g>
+          <rect x="18" y="46" width="286" height="440" rx="14" fill="rgba(255,194,51,.2)" stroke="#ffc233" stroke-width="2.2"/>
+          <text x="161" y="72" font-size="15" font-weight="900" fill="#3d2a00" text-anchor="middle">DI · no ADH</text>
+          <!-- urine lumen -->
+          <rect x="34" y="86" width="76" height="356" fill="url(#w1urin)"/>
+          <text x="72" y="106" font-size="11" font-weight="900" fill="#03323d" text-anchor="middle">URINE</text>
+          <!-- cell -->
+          <rect x="110" y="86" width="112" height="356" fill="url(#w1cell)" stroke="#8a5a12" stroke-width="2"/>
+          <circle cx="166" cy="180" r="22" fill="#c07a2a" stroke="#8a5a12" stroke-width="1.6"/>
+          <circle cx="166" cy="180" r="9" fill="#e0a54a"/>
+          <!-- blood side -->
+          <rect x="222" y="86" width="68" height="356" fill="url(#w1blood)"/>
+          <text x="256" y="106" font-size="11" font-weight="900" fill="#ffd9e2" text-anchor="middle">BLOOD</text>
+          <!-- no ADH -->
+          <circle cx="256" cy="240" r="18" fill="rgba(13,8,26,.6)" stroke="#ff9db6" stroke-width="2" stroke-dasharray="4 3"/>
+          <path d="M246 230 L 266 250 M266 230 L 246 250" stroke="#ff9db6" stroke-width="3" stroke-linecap="round"/>
+          <text x="256" y="278" font-size="11" font-weight="900" fill="#ffd9e2" text-anchor="middle">no ADH</text>
+          <!-- trapped vesicles -->
+          <g>
+            <circle cx="150" cy="270" r="17" fill="none" stroke="#00c2c7" stroke-width="2.4" stroke-dasharray="4 3"/>
+            <text x="150" y="274" font-size="9" font-weight="900" fill="#046468" text-anchor="middle">AQP2</text>
+            <circle cx="188" cy="318" r="15" fill="none" stroke="#00c2c7" stroke-width="2.4" stroke-dasharray="4 3"/>
+            <text x="188" y="322" font-size="9" font-weight="900" fill="#046468" text-anchor="middle">AQP2</text>
+            <circle cx="146" cy="360" r="14" fill="none" stroke="#00c2c7" stroke-width="2.4" stroke-dasharray="4 3"/>
+          </g>
+          <rect x="96" y="392" width="142" height="18" rx="6" fill="rgba(255,255,255,.55)"/><text x="167" y="405" font-size="11" font-weight="900" fill="#5c3a12" text-anchor="middle">channels stay INSIDE</text>
+          <!-- big flow of dilute urine -->
+          <g stroke="#79cfe0" stroke-width="5" stroke-linecap="round" opacity=".9">
+            <path d="M52 130 v50"/><path d="M72 148 v50"/><path d="M92 130 v50"/>
+            <path d="M52 220 v50"/><path d="M72 238 v50"/><path d="M92 220 v50"/>
+            <path d="M52 310 v50"/><path d="M72 328 v50"/><path d="M92 310 v50"/>
+          </g>
+          <path d="M72 400 v34" stroke="#79cfe0" stroke-width="8" marker-end="url(#w1ar)"/>
+          <rect x="30" y="450" width="264" height="28" rx="9" fill="rgba(255,194,51,.85)"/>
+          <text x="162" y="469" font-size="12.5" font-weight="900" fill="#231a02" text-anchor="middle">HUGE pale urine · specific gravity ≈ 1.005</text>
+        </g>
+
+        <!-- ============ PANEL NORMAL ============ -->
+        <g>
+          <rect x="316" y="46" width="286" height="440" rx="14" fill="rgba(18,184,134,.18)" stroke="#12b886" stroke-width="2.2"/>
+          <text x="459" y="72" font-size="15" font-weight="900" fill="#0a5a44" text-anchor="middle">NORMAL · ADH working</text>
+          <rect x="332" y="86" width="76" height="356" fill="url(#w1urin)"/>
+          <text x="370" y="106" font-size="11" font-weight="900" fill="#03323d" text-anchor="middle">URINE</text>
+          <rect x="408" y="86" width="112" height="356" fill="url(#w1cell)" stroke="#8a5a12" stroke-width="2"/>
+          <circle cx="464" cy="180" r="22" fill="#c07a2a" stroke="#8a5a12" stroke-width="1.6"/>
+          <circle cx="464" cy="180" r="9" fill="#e0a54a"/>
+          <rect x="520" y="86" width="68" height="356" fill="url(#w1blood)"/>
+          <text x="554" y="106" font-size="11" font-weight="900" fill="#ffd9e2" text-anchor="middle">BLOOD</text>
+          <!-- ADH binding V2 receptor -->
+          <g filter="url(#w1sh)">
+            <path d="M512 226 q6 -12 18 0 l3 12 v28 h-24 v-28 z" fill="#3f74ff" stroke="#0d2260" stroke-width="1.6"/>
+            <circle cx="521" cy="218" r="11" fill="url(#w1adh)" stroke="#2c0d55" stroke-width="1.4"/>
+          </g>
+          <text x="544" y="202" font-size="10.5" font-weight="900" fill="#fff">ADH</text>
+          <text x="542" y="214" font-size="9.5" font-weight="800" fill="#ffd9e2">V2 receptor</text>
+          <!-- vesicle moving to apical membrane -->
+          <circle cx="470" cy="290" r="17" fill="none" stroke="#00c2c7" stroke-width="2.4" stroke-dasharray="4 3"/>
+          <text x="470" y="294" font-size="9" font-weight="900" fill="#046468" text-anchor="middle">AQP2</text>
+          <path d="M456 278 C 436 260, 424 250, 416 244" fill="none" stroke="#00c2c7" stroke-width="2.4" marker-end="url(#w1ar)"/>
+          <!-- inserted channels -->
+          <g fill="url(#w1aqp)" stroke="#046468" stroke-width="1.4">
+            <rect x="400" y="140" width="18" height="34" rx="7"/>
+            <rect x="400" y="220" width="18" height="34" rx="7"/>
+            <rect x="400" y="330" width="18" height="34" rx="7"/>
+          </g>
+          <!-- water moving in -->
+          <g stroke="#9ff2ee" stroke-width="3.4" stroke-linecap="round">
+            <path d="M370 157 L 396 157" marker-end="url(#w1ar)"/>
+            <path d="M370 237 L 396 237" marker-end="url(#w1ar)"/>
+            <path d="M370 347 L 396 347" marker-end="url(#w1ar)"/>
+            <path d="M424 157 L 516 157" marker-end="url(#w1ar)"/>
+            <path d="M424 237 L 508 237" marker-end="url(#w1ar)"/>
+            <path d="M424 347 L 516 347" marker-end="url(#w1ar)"/>
+          </g>
+          <text x="466" y="126" font-size="10" font-weight="900" fill="#3d2a00" text-anchor="middle">H₂O back to blood</text>
+          <path d="M370 400 v34" stroke="#bfeef7" stroke-width="5" marker-end="url(#w1ar)"/>
+          <rect x="328" y="450" width="264" height="28" rx="9" fill="rgba(18,184,134,.8)"/>
+          <text x="460" y="469" font-size="12.5" font-weight="900" fill="#fff" text-anchor="middle">normal volume · SG ≈ 1.005–1.030</text>
+        </g>
+
+        <!-- ============ PANEL SIADH ============ -->
+        <g>
+          <rect x="614" y="46" width="268" height="440" rx="14" fill="rgba(157,92,255,.2)" stroke="#9d5cff" stroke-width="2.2"/>
+          <text x="748" y="72" font-size="15" font-weight="900" fill="#e2d3ff" text-anchor="middle">SIADH · too much ADH</text>
+          <rect x="630" y="86" width="62" height="356" fill="url(#w1urin2)"/>
+          <text x="661" y="106" font-size="11" font-weight="900" fill="#3d2a00" text-anchor="middle">URINE</text>
+          <rect x="692" y="86" width="104" height="356" fill="url(#w1cell)" stroke="#8a5a12" stroke-width="2"/>
+          <circle cx="744" cy="180" r="20" fill="#c07a2a" stroke="#8a5a12" stroke-width="1.6"/>
+          <circle cx="744" cy="180" r="8" fill="#e0a54a"/>
+          <rect x="796" y="86" width="70" height="356" fill="url(#w1blood)"/>
+          <text x="831" y="106" font-size="11" font-weight="900" fill="#ffd9e2" text-anchor="middle">BLOOD</text>
+          <!-- lots of ADH -->
+          <g stroke="#2c0d55" stroke-width="1.4">
+            <circle cx="820" cy="150" r="10" fill="url(#w1adh)"/><circle cx="848" cy="188" r="10" fill="url(#w1adh)"/>
+            <circle cx="818" cy="230" r="10" fill="url(#w1adh)"/><circle cx="848" cy="272" r="10" fill="url(#w1adh)"/>
+            <circle cx="820" cy="316" r="10" fill="url(#w1adh)"/><circle cx="848" cy="356" r="10" fill="url(#w1adh)"/>
+          </g>
+          <!-- many inserted channels -->
+          <g fill="url(#w1aqp)" stroke="#046468" stroke-width="1.4">
+            <rect x="684" y="126" width="16" height="30" rx="6"/><rect x="684" y="176" width="16" height="30" rx="6"/>
+            <rect x="684" y="226" width="16" height="30" rx="6"/><rect x="684" y="276" width="16" height="30" rx="6"/>
+            <rect x="684" y="326" width="16" height="30" rx="6"/><rect x="684" y="376" width="16" height="30" rx="6"/>
+          </g>
+          <g stroke="#9ff2ee" stroke-width="3.4" stroke-linecap="round">
+            <path d="M652 141 L 680 141" marker-end="url(#w1ar)"/><path d="M652 191 L 680 191" marker-end="url(#w1ar)"/>
+            <path d="M652 241 L 680 241" marker-end="url(#w1ar)"/><path d="M652 291 L 680 291" marker-end="url(#w1ar)"/>
+            <path d="M652 341 L 680 341" marker-end="url(#w1ar)"/><path d="M652 391 L 680 391" marker-end="url(#w1ar)"/>
+            <path d="M706 141 L 792 141" marker-end="url(#w1ar)"/><path d="M706 241 L 792 241" marker-end="url(#w1ar)"/>
+            <path d="M706 341 L 792 341" marker-end="url(#w1ar)"/>
+          </g>
+          <path d="M661 414 v20" stroke="#9a6304" stroke-width="3" marker-end="url(#w1ar)"/>
+          <rect x="626" y="450" width="250" height="28" rx="9" fill="rgba(157,92,255,.85)"/>
+          <text x="751" y="469" font-size="12.5" font-weight="900" fill="#fff" text-anchor="middle">tiny dark urine · SG high (&gt;1.030)</text>
+          <ellipse cx="720" cy="140" rx="60" ry="24" fill="#fff" opacity=".08" filter="url(#w1b)"/>
+        </g>
+        <text x="452" y="518" font-size="12.5" font-weight="900" fill="#0b3f45" text-anchor="middle">Water follows the channels. Everything else — the sodium, the weight, the neurology — follows the water.</text>
+        <text x="452" y="538" font-size="11.5" font-style="italic" fill="#0e5b62" text-anchor="middle">Reference band for urine specific gravity ≈ 1.005–1.030; serum sodium ≈ 135–145 mEq/L. Ranges vary by lab.</text>
+      </svg>
+      <div class="legendrow">
+        <span><i class="sw" style="background:#9d5cff"></i> ADH</span>
+        <span><i class="sw" style="background:#00c2c7"></i> aquaporin-2 water channel</span>
+        <span><i class="sw" style="background:#bfeef7"></i> dilute urine</span>
+        <span><i class="sw" style="background:#e0a02c"></i> concentrated urine</span>
+      </div>
+      <div class="mn">🧠 <b>ADH = "Add water back to the blood."</b> No ADH → the plug is out → DI. Too much ADH → the drain is welded shut → SIADH.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🔁 One-line refresher before you go on</h3>
+      <table>
+        <tr><th class="up">SIADH</th><th class="lo">DI</th></tr>
+        <tr><td>Too <b>much</b> ADH</td><td>Too <b>little</b> ADH (or kidneys ignore it)</td></tr>
+        <tr><td>Water <b>retained</b> → dilutional <b>hypoNAtremia</b> (&lt;135)</td><td>Water <b>lost</b> → <b>hyperNAtremia</b> (&gt;145)</td></tr>
+        <tr><td>Urine: small, dark, <b>concentrated</b>, high specific gravity</td><td>Urine: huge, pale, <b>dilute</b>, low specific gravity</td></tr>
+        <tr><td><b>Weight UP</b>, no oedema typically, serum osmolality LOW</td><td><b>Weight DOWN</b>, dry, thirsty, serum osmolality HIGH</td></tr>
+        <tr><td>Danger: <b>seizures from low sodium</b></td><td>Danger: <b>hypovolemic shock and hypernatremia</b></td></tr>
+      </table>
+      <div class="xref"><span class="pill">FULL COMPARISON</span> All the patho and the diagnostic detail is on <a href="NG-282_siadh-vs-di-1.html">NG-282 — SIADH vs DI part 1</a>.</div>
+      <svg viewBox="-6 -6 470 380" role="img" aria-label="A kidney drawn in cross-section with a single nephron enlarged beside it, showing the glomerulus in Bowman capsule, the proximal tubule, the loop of Henle descending into the medulla, the distal tubule, and the collecting duct highlighted where ADH acts before urine drains into the renal pelvis and ureter">
+        <defs>
+          <linearGradient id="w6kid" x1=".2" y1="0" x2=".9" y2="1">
+            <stop offset="0" stop-color="#ff9db6"/><stop offset=".28" stop-color="#e75f83"/>
+            <stop offset=".62" stop-color="#c02255"/><stop offset="1" stop-color="#6d0c2f"/>
+          </linearGradient>
+          <linearGradient id="w6med" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#a71a45"/><stop offset="1" stop-color="#5e0a26"/>
+          </linearGradient>
+          <linearGradient id="w6tub" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffe9c2"/><stop offset=".5" stop-color="#f0c489"/><stop offset="1" stop-color="#b8853c"/>
+          </linearGradient>
+          <linearGradient id="w6cd" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#9ff2ee"/><stop offset=".5" stop-color="#00c2c7"/><stop offset="1" stop-color="#046468"/>
+          </linearGradient>
+          <filter id="w6sh" x="-30%" y="-30%" width="170%" height="170%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="4"/><feOffset dx="2" dy="5" result="o"/>
+            <feFlood flood-color="#000" flood-opacity=".5"/><feComposite in2="o" operator="in"/>
+            <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <rect x="-4" y="-4" width="466" height="376" rx="16" fill="rgba(13,8,26,.4)" stroke="#00c2c7" stroke-width="1.6" stroke-dasharray="7 6"/>
+        <text x="16" y="24" font-size="13.5" font-weight="900" fill="#9ff2ee">WHERE THE COLLECTING DUCT SITS</text>
+        <g filter="url(#w6sh)">
+          <path d="M92 52 C 142 44, 178 80, 180 138 C 182 200, 146 240, 100 234
+                   C 68 230, 54 206, 62 184 C 70 162, 70 132, 60 108 C 52 84, 66 58, 92 52 Z"
+                fill="url(#w6kid)" stroke="#5e0a26" stroke-width="2.4"/>
+          <g fill="url(#w6med)" opacity=".92">
+            <path d="M124 78 L 158 96 L 124 112 Z"/><path d="M128 124 L 164 140 L 128 156 Z"/>
+            <path d="M124 168 L 156 184 L 122 200 Z"/>
+          </g>
+          <path d="M94 96 C 82 116, 82 160, 94 182 C 102 192, 110 192, 114 188 C 102 166, 102 112, 114 92 C 110 86, 102 86, 94 96 Z"
+                fill="#ffe9c2" opacity=".85"/>
+        </g>
+        <path d="M98 232 C 104 262, 118 284, 138 296" fill="none" stroke="#e75f83" stroke-width="8" stroke-linecap="round"/>
+        <text x="150" y="312" font-size="11" font-weight="900" fill="#ffd9e2">ureter</text>
+        <text x="118" y="256" font-size="11.5" font-weight="900" fill="#ffc9d6" text-anchor="middle">KIDNEY</text>
+        <rect x="150" y="60" width="16" height="16" rx="4" fill="none" stroke="#ffc233" stroke-width="2" stroke-dasharray="3 3"/>
+        <path d="M168 68 L 218 68" stroke="#ffc233" stroke-width="2" stroke-dasharray="5 4"/>
+
+        <!-- nephron -->
+        <g>
+          <circle cx="252" cy="82" r="26" fill="rgba(255,208,220,.2)" stroke="#ff9db6" stroke-width="3"/>
+          <g fill="none" stroke="#c02255" stroke-width="7" stroke-linecap="round">
+            <path d="M240 70 C 262 64, 274 80, 266 92"/>
+            <path d="M238 88 C 234 100, 254 108, 264 100"/>
+          </g>
+          <path d="M218 74 L 232 76" stroke="#c02255" stroke-width="6" stroke-linecap="round"/>
+          <text x="252" y="46" font-size="11" font-weight="900" fill="#ffd0dc" text-anchor="middle">glomerulus</text>
+          <!-- proximal tubule -->
+          <path d="M276 88 C 306 84, 316 108, 300 118 C 286 128, 300 140, 318 136"
+                fill="none" stroke="url(#w6tub)" stroke-width="13" stroke-linecap="round"/>
+          <text x="336" y="98" font-size="10.5" font-weight="900" fill="#ffe9c2">proximal</text>
+          <text x="336" y="112" font-size="10.5" font-weight="900" fill="#ffe9c2">tubule</text>
+          <!-- loop of Henle -->
+          <path d="M318 136 L 306 220 C 304 244, 336 246, 338 220 L 350 140"
+                fill="none" stroke="url(#w6tub)" stroke-width="13" stroke-linecap="round"/>
+          <text x="322" y="268" font-size="10.5" font-weight="900" fill="#ffe9c2" text-anchor="middle">loop of Henle</text>
+          <!-- distal tubule -->
+          <path d="M350 140 C 366 124, 392 130, 396 148"
+                fill="none" stroke="url(#w6tub)" stroke-width="13" stroke-linecap="round"/>
+          <text x="404" y="132" font-size="10.5" font-weight="900" fill="#ffe9c2">distal</text>
+          <!-- collecting duct highlighted -->
+          <path d="M396 148 L 400 320" fill="none" stroke="url(#w6cd)" stroke-width="20" stroke-linecap="round"/>
+          <path d="M396 148 L 400 320" fill="none" stroke="#eafcff" stroke-width="6" stroke-linecap="round" opacity=".45"/>
+          <circle cx="398" cy="236" r="34" fill="none" stroke="#ffc233" stroke-width="2.6" stroke-dasharray="5 4"/>
+          <text x="352" y="196" font-size="11.5" font-weight="900" fill="#9ff2ee" text-anchor="end">COLLECTING</text>
+          <text x="352" y="210" font-size="11.5" font-weight="900" fill="#9ff2ee" text-anchor="end">DUCT</text>
+          <text x="352" y="228" font-size="11" font-weight="900" fill="#ffe49a" text-anchor="end">ADH acts HERE</text>
+          <path d="M400 328 l-7 -12 l14 0 z" fill="#00c2c7"/>
+          <text x="400" y="352" font-size="11" font-weight="900" fill="#9ff2ee" text-anchor="middle">to urine</text>
+        </g>
+      </svg>
+      <div class="mn">🧠 <b>SIADH = Soaked Inside. DI = Dry Inside.</b> Every management decision below flows from those four words.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>⭐ Why the causes matter for management</h3>
+      <ul class="tick">
+        <li><b>DI — central:</b> damage to the hypothalamus/posterior pituitary — <b>tumour, trauma, neurosurgery</b>, infection. <b>Responds to desmopressin.</b></li>
+        <li><b>DI — nephrogenic:</b> the kidney cannot respond to ADH (some medications, chronic kidney disease, electrolyte problems). <b>Desmopressin will not fix it</b> — management focuses on the cause, adequate water, and sometimes thiazide diuretics and a low-sodium diet.</li>
+        <li><b>SIADH:</b> lung cancers (classically small-cell), CNS injury/infection, pneumonia, pain, nausea, surgery, and several drugs. Treating the cause is part of the treatment.</li>
+      </ul>
+      <div class="trap">🚨 If desmopressin is not reducing the urine output, ask whether this is <b>nephrogenic</b> DI — the receptor problem is downstream of the hormone.</div>
+      <div class="mn">🧠 <b>Central = no messenger. Nephrogenic = no mailbox.</b> Only one of them can be fixed by sending more mail.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section id="fluid">
+  <div class="sec-h"><span class="icon">💧</span><h2>FLUID MANAGEMENT</h2><span class="step">STEP 2 · THE CORE INTERVENTION</span></div>
+  <p class="sec-sub">SIADH: <b>take water away.</b> DI: <b>give water back.</b> <mark>And weigh them every single day.</mark></p>
+  <div class="grid">
+
+    <div class="card sapphire span2">
+      <h3>⚖️ Daily weights — the best fluid-status measure there is</h3>
+      <svg viewBox="-10 -10 920 420" role="img" aria-label="A drawn floor scale with a patient's feet on it, next to a conversion showing that one kilogram of body weight equals about one litre of fluid, and a chart of daily weights with an upward trend flagged in SIADH and a downward trend flagged in diabetes insipidus, plus the rules for weighing consistently">
+        <defs>
+          <linearGradient id="w2scale" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#e6ecf7"/><stop offset=".4" stop-color="#b6c2d6"/>
+            <stop offset=".8" stop-color="#7d8aa3"/><stop offset="1" stop-color="#48536b"/>
+          </linearGradient>
+          <radialGradient id="w2foot" cx=".4" cy=".28" r=".95">
+            <stop offset="0" stop-color="#ffe3cd"/><stop offset=".45" stop-color="#eec0a0"/>
+            <stop offset="1" stop-color="#a9764f"/>
+          </radialGradient>
+          <linearGradient id="w2jug" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#ffffff" stop-opacity=".6"/><stop offset=".4" stop-color="#cfeaf5" stop-opacity=".5"/>
+            <stop offset="1" stop-color="#8fc6dd" stop-opacity=".5"/>
+          </linearGradient>
+          <filter id="w2sh" x="-30%" y="-30%" width="170%" height="170%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dx="2" dy="6" result="o"/>
+            <feFlood flood-color="#000" flood-opacity=".5"/><feComposite in2="o" operator="in"/>
+            <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <rect x="-6" y="-6" width="912" height="412" rx="20" fill="rgba(47,107,255,.12)" stroke="#2f6bff" stroke-width="2" stroke-dasharray="8 7"/>
+        <text x="22" y="30" font-size="18" font-weight="900" fill="#dbe6ff">WEIGH DAILY — not weekly</text>
+
+        <!-- scale -->
+        <g filter="url(#w2sh)">
+          <rect x="40" y="196" width="220" height="70" rx="14" fill="url(#w2scale)" stroke="#3a4459" stroke-width="2.2"/>
+          <rect x="70" y="212" width="160" height="38" rx="8" fill="#0d2a24" stroke="#0a5a44" stroke-width="2"/>
+          <text x="150" y="242" font-size="26" font-weight="900" fill="#a5f3d4" text-anchor="middle" font-family="ui-monospace,monospace">78.4</text>
+          <text x="243" y="240" font-size="12" font-weight="900" fill="#0d2a24">kg</text>
+        </g>
+        <g filter="url(#w2sh)">
+          <ellipse cx="112" cy="176" rx="26" ry="16" fill="url(#w2foot)" stroke="#7d5232" stroke-width="1.8"/>
+          <ellipse cx="188" cy="176" rx="26" ry="16" fill="url(#w2foot)" stroke="#7d5232" stroke-width="1.8"/>
+          <g fill="url(#w2foot)" stroke="#7d5232" stroke-width="1.2">
+            <ellipse cx="96" cy="163" rx="7" ry="5"/><ellipse cx="110" cy="159" rx="6" ry="4.5"/>
+            <ellipse cx="122" cy="160" rx="5" ry="4"/>
+            <ellipse cx="204" cy="163" rx="7" ry="5"/><ellipse cx="190" cy="159" rx="6" ry="4.5"/>
+            <ellipse cx="178" cy="160" rx="5" ry="4"/>
+          </g>
+        </g>
+        <!-- equivalence -->
+        <g>
+          <text x="150" y="304" font-size="15" font-weight="900" fill="#fff" text-anchor="middle">1 kg  ≈  1 L</text>
+          <g filter="url(#w2sh)">
+            <path d="M212 292 h48 v52 a10 10 0 0 1 -10 10 h-28 a10 10 0 0 1 -10 -10 z" fill="url(#w2jug)" stroke="#bfe6f5" stroke-width="1.8"/>
+            <path d="M260 302 q16 6 0 20" fill="none" stroke="#bfe6f5" stroke-width="3"/>
+            <rect x="216" y="316" width="40" height="34" rx="4" fill="#8fc6dd" opacity=".7"/>
+          </g>
+          <text x="150" y="330" font-size="12.5" font-weight="800" fill="#bcd0ff" text-anchor="middle">2.2 lb of body weight</text>
+          <text x="150" y="348" font-size="12.5" font-weight="800" fill="#bcd0ff" text-anchor="middle">= about a litre of water</text>
+          <text x="150" y="376" font-size="11.5" font-style="italic" fill="#ffe49a" text-anchor="middle">A scale detects shifts before assessment does.</text>
+        </g>
+
+        <!-- trend chart -->
+        <g>
+          <rect x="316" y="46" width="564" height="216" rx="14" fill="rgba(13,8,26,.6)" stroke="#2f6bff" stroke-width="1.8"/>
+          <text x="334" y="72" font-size="14" font-weight="900" fill="#bcd0ff">THE TREND IS THE DIAGNOSIS</text>
+          <g stroke="rgba(255,255,255,.22)" stroke-width="1"><path d="M356 232 H 856"/><path d="M356 88 V 232"/></g>
+          <g stroke="rgba(255,255,255,.12)" stroke-width="1" stroke-dasharray="3 5">
+            <path d="M436 88 V 232"/><path d="M516 88 V 232"/><path d="M596 88 V 232"/><path d="M676 88 V 232"/><path d="M756 88 V 232"/>
+          </g>
+          <g font-size="10.5" font-weight="800" fill="#bcd0ff" text-anchor="middle">
+            <text x="356" y="248">D1</text><text x="436" y="248">D2</text><text x="516" y="248">D3</text>
+            <text x="596" y="248">D4</text><text x="676" y="248">D5</text><text x="756" y="248">D6</text><text x="836" y="248">D7</text>
+          </g>
+          <!-- SIADH rising -->
+          <path d="M356 180 L 436 170 L 516 156 L 596 140 L 676 124 L 756 110 L 836 100"
+                fill="none" stroke="#9d5cff" stroke-width="3.4" stroke-linecap="round"/>
+          <g fill="#9d5cff" stroke="#fff" stroke-width="1.4">
+            <circle cx="356" cy="180" r="5"/><circle cx="516" cy="156" r="5"/><circle cx="676" cy="124" r="5"/><circle cx="836" cy="100" r="5"/>
+          </g>
+          <text x="536" y="96" font-size="12.5" font-weight="900" fill="#c9a6ff">SIADH — weight climbing (water retained)</text>
+          <!-- DI falling -->
+          <path d="M356 180 L 436 192 L 516 202 L 596 212 L 676 220 L 756 226 L 836 230"
+                fill="none" stroke="#ffc233" stroke-width="3.4" stroke-linecap="round"/>
+          <g fill="#ffc233" stroke="#fff" stroke-width="1.4">
+            <circle cx="436" cy="192" r="5"/><circle cx="596" cy="212" r="5"/><circle cx="756" cy="226" r="5"/>
+          </g>
+          <text x="620" y="216" font-size="12.5" font-weight="900" fill="#ffe49a">DI — weight falling (water lost)</text>
+          <text x="340" y="176" font-size="11" font-weight="800" fill="#dbe6ff" text-anchor="end">kg</text>
+        </g>
+        <g>
+          <rect x="316" y="278" width="564" height="102" rx="14" fill="rgba(18,184,134,.4)" stroke="rgba(255,255,255,.4)" stroke-width="1.6"/>
+          <text x="334" y="302" font-size="13.5" font-weight="900" fill="#fff">HOW TO WEIGH SO THE NUMBER MEANS SOMETHING</text>
+          <text x="334" y="324" font-size="12.5" font-weight="800" fill="#e8fff6">• same TIME each day (usually first thing in the morning)</text>
+          <text x="334" y="342" font-size="12.5" font-weight="800" fill="#e8fff6">• same SCALE, same amount of CLOTHING, after voiding</text>
+          <text x="334" y="360" font-size="12.5" font-weight="800" fill="#ffe49a">• record it, compare it to yesterday, and report a sudden change</text>
+          <text x="334" y="376" font-size="11.5" font-style="italic" fill="#fff">Weight beats intake/output charts, because nobody charts perfectly.</text>
+        </g>
+      </svg>
+      <div class="mn">🧠 <b>A litre is a kilo is 2.2 pounds.</b> If the weight moved and nothing else explains it, water moved.</div>
+    </div>
+
+    <div class="card amethystc" style="background:rgba(157,92,255,.60)">
+      <h3>🚱 SIADH — fluid RESTRICTION is the cornerstone</h3>
+      <ul class="tick">
+        <li><b>Restrict fluids</b> — the prescribed volume is commonly in the region of <span class="mono">800–1000 mL/24 h</span>, but it is <b>always an individual order</b>. Follow the written restriction.</li>
+        <li><b>Count everything liquid at room temperature</b> — ice chips (about half their volume), gelatin, soup, ice cream, IV flushes and medication diluents.</li>
+        <li><b>Spread the allowance across the day</b> and involve the patient in planning it; put the day's allowance in a labelled jug so it is visible.</li>
+        <li><b>Mouth care</b>, sugar-free hard candy or gum, and lip balm for thirst — not extra fluid.</li>
+        <li>Post the restriction at the bedside and tell the family, or the well-meaning visitor with a soda undoes the plan.</li>
+        <li>Expect a rise in sodium and a fall in weight as it works; if urine output stays tiny and sodium keeps falling, escalate.</li>
+      </ul>
+      <svg viewBox="-16 -16 492 280" role="img" aria-label="A labelled jug holding the day's fluid allowance next to icons for the hidden fluids people forget: ice chips counted as about half their volume, gelatin, soup, ice cream, and intravenous flushes and medication diluents">
+        <defs>
+          <linearGradient id="w7jug" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#ffffff" stop-opacity=".6"/><stop offset=".4" stop-color="#cfeaf5" stop-opacity=".5"/>
+            <stop offset="1" stop-color="#8fc6dd" stop-opacity=".5"/>
+          </linearGradient>
+          <linearGradient id="w7wat" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#bfeef7"/><stop offset="1" stop-color="#4fb6d8"/>
+          </linearGradient>
+          <filter id="w7sh" x="-30%" y="-30%" width="170%" height="170%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="4"/><feOffset dx="2" dy="5" result="o"/>
+            <feFlood flood-color="#000" flood-opacity=".45"/><feComposite in2="o" operator="in"/>
+            <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <rect x="-12" y="-12" width="484" height="272" rx="16" fill="rgba(13,8,26,.45)" stroke="#9d5cff" stroke-width="1.6" stroke-dasharray="7 6"/>
+        <text x="16" y="24" font-size="13.5" font-weight="900" fill="#e2d3ff">THE DAY'S ALLOWANCE — and what people forget to count</text>
+        <g filter="url(#w7sh)">
+          <path d="M40 60 h74 v146 a12 12 0 0 1 -12 12 h-50 a12 12 0 0 1 -12 -12 z" fill="url(#w7jug)" stroke="#bfe6f5" stroke-width="2"/>
+          <path d="M114 78 q26 12 0 34" fill="none" stroke="#bfe6f5" stroke-width="4"/>
+          <path d="M46 128 h62 v78 a10 10 0 0 1 -10 10 h-42 a10 10 0 0 1 -10 -10 z" fill="url(#w7wat)" opacity=".85"/>
+          <g stroke="#eafcff" stroke-width="1.6" opacity=".8">
+            <path d="M46 92 h18 M46 116 h18 M46 140 h18 M46 164 h18 M46 188 h18"/>
+          </g>
+        </g>
+        <text x="77" y="240" font-size="11.5" font-weight="900" fill="#9ff2ee" text-anchor="middle">labelled · at the bedside</text>
+        <g>
+          <rect x="148" y="52" width="300" height="30" rx="9" fill="rgba(157,92,255,.6)"/>
+          <text x="164" y="72" font-size="11.5" font-weight="900" fill="#fff">🧊 ice chips — count HALF the volume</text>
+          <rect x="148" y="88" width="300" height="30" rx="9" fill="rgba(157,92,255,.6)"/>
+          <text x="164" y="108" font-size="12.5" font-weight="900" fill="#fff">🍮 gelatin · ice cream · sorbet · popsicles</text>
+          <rect x="148" y="124" width="300" height="30" rx="9" fill="rgba(157,92,255,.6)"/>
+          <text x="164" y="144" font-size="12.5" font-weight="900" fill="#fff">🍜 soup, broth, milk on cereal, gravy</text>
+          <rect x="148" y="160" width="300" height="30" rx="9" fill="rgba(255,59,107,.6)"/>
+          <text x="164" y="180" font-size="12.5" font-weight="900" fill="#fff">💉 IV flushes &amp; medication diluents COUNT</text>
+          <rect x="148" y="196" width="300" height="30" rx="9" fill="rgba(18,184,134,.6)"/>
+          <text x="164" y="216" font-size="11.5" font-weight="900" fill="#fff">🍬 thirst → mouth care &amp; sugar-free candy</text>
+        </g>
+      </svg>
+      <div class="mn">🧠 <b>In SIADH the problem is the water, not the salt.</b> That is why the first move is taking water away rather than pouring sodium in.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🚰 DI — replace the water they are losing</h3>
+      <ul class="tick">
+        <li><b>Free access to water</b> if the patient is awake, alert and able to drink — their thirst is a life-saving reflex. <span class="never">Do not restrict fluids in DI.</span></li>
+        <li>If they cannot drink enough or are obtunded, <b>IV hypotonic fluid</b> (commonly 0.45% NS or D5W) is used to replace free water — the exact fluid and rate are prescribed and guided by the sodium.</li>
+        <li><b>Match output with intake</b> — hourly urine measurement in the acute phase; output can be enormous.</li>
+        <li>Watch for <b>hypovolemia</b>: falling BP, rising HR, poor turgor, dry mucous membranes, weak pulses, decreasing level of consciousness.</li>
+        <li><b>Safety:</b> frequent urination and nocturia = fall risk. Call bell in reach, clear path to the bathroom, night light, bedside commode if needed.</li>
+        <li>Once desmopressin starts, the pendulum can swing — now the risk is <b>too much</b> water.</li>
+      </ul>
+      <div class="mn">🧠 <b>DI patients are drowning in thirst.</b> Never take the glass away.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section id="sodium">
+  <div class="sec-h"><span class="icon">🧂</span><h2>SODIUM SAFETY</h2><span class="step">STEP 3 · THE DANGEROUS PART</span></div>
+  <p class="sec-sub">Brain cells sit in whatever sodium you give them. <mark>Change it too fast in either direction and you injure the brain.</mark></p>
+  <div class="grid">
+
+    <div class="card deep span2">
+      <h3>🔬 What sodium does to a brain cell — and why speed matters</h3>
+      <svg viewBox="-10 -10 920 620" role="img" aria-label="Top row shows three neurons: a normal neuron in normal sodium, a swollen neuron in low sodium with water pulled into the cell causing cerebral oedema and seizures, and a shrunken wrinkled neuron in high sodium with water pulled out. Bottom shows a graph of serum sodium over twenty-four hours with a safe gentle correction slope inside a green corridor and a dangerous steep slope leaving the corridor, annotated with osmotic demyelination when hyponatremia is corrected too quickly and cerebral oedema when hypernatremia is corrected too quickly, next to a drawing of the brainstem and pons">
+        <defs>
+          <radialGradient id="w3neu" cx=".38" cy=".3" r=".9">
+            <stop offset="0" stop-color="#f6e6ff"/><stop offset=".35" stop-color="#d8b4f2"/>
+            <stop offset=".75" stop-color="#9d5cff"/><stop offset="1" stop-color="#48186f"/>
+          </radialGradient>
+          <radialGradient id="w3swol" cx=".38" cy=".3" r=".9">
+            <stop offset="0" stop-color="#e3f6ff"/><stop offset=".35" stop-color="#a8dcf2"/>
+            <stop offset=".75" stop-color="#2f8fd8"/><stop offset="1" stop-color="#123f70"/>
+          </radialGradient>
+          <radialGradient id="w3shrn" cx=".38" cy=".3" r=".9">
+            <stop offset="0" stop-color="#ffe0c2"/><stop offset=".35" stop-color="#e8a878"/>
+            <stop offset=".75" stop-color="#a85c30"/><stop offset="1" stop-color="#5c2a12"/>
+          </radialGradient>
+          <radialGradient id="w3brain" cx=".38" cy=".3" r=".9">
+            <stop offset="0" stop-color="#ffd9c2"/><stop offset=".4" stop-color="#e8a892"/>
+            <stop offset=".8" stop-color="#a85c52"/><stop offset="1" stop-color="#5c2420"/>
+          </radialGradient>
+          <linearGradient id="w3safe" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#12b886" stop-opacity=".45"/><stop offset="1" stop-color="#04593f" stop-opacity=".2"/>
+          </linearGradient>
+          <filter id="w3sh" x="-30%" y="-30%" width="170%" height="170%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dx="2" dy="6" result="o"/>
+            <feFlood flood-color="#000" flood-opacity=".5"/><feComposite in2="o" operator="in"/>
+            <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="w3b"><feGaussianBlur stdDeviation="6"/></filter>
+        </defs>
+        <rect x="-6" y="-6" width="912" height="612" rx="20" fill="rgba(192,34,85,.14)" stroke="#c02255" stroke-width="2" stroke-dasharray="8 7"/>
+        <text x="22" y="30" font-size="18" font-weight="900" fill="#ffc9d6">BRAIN CELLS LIVE OR DIE BY THE SODIUM</text>
+
+        <!-- neuron: normal -->
+        <g>
+          <rect x="20" y="46" width="280" height="230" rx="14" fill="rgba(18,184,134,.16)" stroke="#12b886" stroke-width="2"/>
+          <text x="160" y="72" font-size="14" font-weight="900" fill="#a5f3d4" text-anchor="middle">Na⁺ 135–145 · NORMAL</text>
+          <g filter="url(#w3sh)">
+            <circle cx="160" cy="164" r="52" fill="url(#w3neu)" stroke="#3f1364" stroke-width="2.2"/>
+            <g stroke="#9d5cff" stroke-width="5" stroke-linecap="round" fill="none">
+              <path d="M112 140 L 62 116"/><path d="M116 190 L 66 214"/><path d="M160 112 L 152 68"/>
+              <path d="M208 164 L 268 164"/><path d="M198 200 L 234 232"/>
+            </g>
+            <circle cx="160" cy="164" r="18" fill="#5b2189"/>
+            <ellipse cx="140" cy="142" rx="18" ry="10" fill="#fff" opacity=".25" filter="url(#w3b)"/>
+          </g>
+          <text x="160" y="256" font-size="12" font-weight="800" fill="#a5f3d4" text-anchor="middle">cell volume just right</text>
+        </g>
+        <!-- neuron: swollen -->
+        <g>
+          <rect x="312" y="46" width="280" height="230" rx="14" fill="rgba(47,107,255,.2)" stroke="#2f6bff" stroke-width="2"/>
+          <text x="452" y="72" font-size="14" font-weight="900" fill="#dbe6ff" text-anchor="middle">Na⁺ &lt; 135 · SIADH</text>
+          <g filter="url(#w3sh)">
+            <circle cx="452" cy="164" r="68" fill="url(#w3swol)" stroke="#123f70" stroke-width="2.4"/>
+            <g stroke="#2f8fd8" stroke-width="6" stroke-linecap="round" fill="none">
+              <path d="M394 132 L 354 112"/><path d="M398 198 L 356 220"/><path d="M452 96 L 446 62"/>
+              <path d="M518 176 L 570 180"/>
+            </g>
+            <circle cx="452" cy="164" r="20" fill="#1c5f96"/>
+            <ellipse cx="428" cy="136" rx="22" ry="12" fill="#fff" opacity=".28" filter="url(#w3b)"/>
+          </g>
+          <g stroke="#9ff2ee" stroke-width="3" stroke-linecap="round">
+            <path d="M356 96 L 392 122"/><path d="M548 96 L 512 122"/>
+            <path d="M356 236 L 392 208"/><path d="M548 236 L 512 208"/>
+          </g>
+          <text x="452" y="256" font-size="12" font-weight="900" fill="#9ff2ee" text-anchor="middle">water IN → cerebral oedema → SEIZURES</text>
+        </g>
+        <!-- neuron: shrunken -->
+        <g>
+          <rect x="604" y="46" width="278" height="230" rx="14" fill="rgba(255,138,61,.2)" stroke="#ff8a3d" stroke-width="2"/>
+          <text x="742" y="72" font-size="14" font-weight="900" fill="#ffd9b8" text-anchor="middle">Na⁺ &gt; 145 · DI</text>
+          <g filter="url(#w3sh)">
+            <path d="M742 122 q22 -8 32 12 q18 -2 14 18 q14 12 -2 26 q6 20 -16 22 q-8 18 -28 8
+                     q-18 12 -30 -6 q-20 -2 -16 -22 q-14 -14 4 -26 q-4 -20 18 -22 q10 -16 24 -10 Z"
+                  fill="url(#w3shrn)" stroke="#5c2a12" stroke-width="2.2"/>
+            <g stroke="#a85c30" stroke-width="4" stroke-linecap="round" fill="none">
+              <path d="M700 140 L 656 118"/><path d="M704 194 L 660 216"/><path d="M742 112 L 738 76"/>
+              <path d="M788 168 L 836 172"/>
+            </g>
+            <circle cx="742" cy="168" r="15" fill="#7a3c18"/>
+          </g>
+          <g stroke="#ffc233" stroke-width="3" stroke-linecap="round">
+            <path d="M676 92 L 646 74"/><path d="M810 92 L 840 74"/>
+            <path d="M676 240 L 646 258"/><path d="M810 240 L 840 258"/>
+          </g>
+          <text x="742" y="256" font-size="12" font-weight="900" fill="#ffe49a" text-anchor="middle">water OUT → cells shrink → seizures</text>
+        </g>
+
+        <!-- correction graph -->
+        <g>
+          <rect x="20" y="292" width="580" height="298" rx="14" fill="rgba(13,8,26,.6)" stroke="#ff3b6b" stroke-width="1.8"/>
+          <text x="40" y="318" font-size="15" font-weight="900" fill="#ffc9d6">CORRECT IT SLOWLY — the corridor matters</text>
+          <g stroke="rgba(255,255,255,.25)" stroke-width="1"><path d="M80 540 H 570"/><path d="M80 336 V 540"/></g>
+          <g font-size="10.5" font-weight="800" fill="#ffd9e2" text-anchor="middle">
+            <text x="80" y="558">0 h</text><text x="203" y="558">6 h</text><text x="325" y="558">12 h</text>
+            <text x="448" y="558">18 h</text><text x="570" y="558">24 h</text>
+          </g>
+          <text x="60" y="440" font-size="11" font-weight="900" fill="#ffd9e2" text-anchor="middle" transform="rotate(-90 60 440)">serum Na⁺</text>
+          <!-- safe corridor -->
+          <path d="M80 500 L 570 420 L 570 470 L 80 512 Z" fill="url(#w3safe)"/>
+          <path d="M80 506 C 200 490, 380 460, 570 444" fill="none" stroke="#12b886" stroke-width="3.6" stroke-linecap="round"/>
+          <text x="440" y="432" font-size="12" font-weight="900" fill="#a5f3d4">SAFE, gradual rise ✓</text>
+          <!-- dangerous -->
+          <path d="M80 506 C 140 440, 190 384, 260 358" fill="none" stroke="#ff3b6b" stroke-width="3.6" stroke-dasharray="7 5" stroke-linecap="round"/>
+          <text x="266" y="352" font-size="12" font-weight="900" fill="#ff9db6">TOO FAST ✗</text>
+          <circle cx="260" cy="358" r="8" fill="#ff3b6b" stroke="#fff" stroke-width="2"/>
+          <text x="286" y="378" font-size="12" font-weight="900" fill="#ffe49a">→ OSMOTIC DEMYELINATION</text>
+          <text x="286" y="394" font-size="11.5" font-weight="800" fill="#ffd9e2">(central pontine myelinolysis):</text>
+          <text x="286" y="410" font-size="11.5" font-weight="800" fill="#ffd9e2">confusion, dysarthria, dysphagia,</text>
+          <text x="286" y="426" font-size="11.5" font-weight="800" fill="#ffd9e2">paralysis — often permanent</text>
+          <text x="96" y="524" font-size="11.5" font-style="italic" fill="#ffd9e2">Facilities set a maximum rise per 24 h — know your protocol.</text>
+        </g>
+
+        <!-- brainstem -->
+        <g>
+          <rect x="612" y="292" width="270" height="298" rx="14" fill="rgba(157,92,255,.2)" stroke="#9d5cff" stroke-width="1.8"/>
+          <text x="747" y="318" font-size="14" font-weight="900" fill="#e2d3ff" text-anchor="middle">WHERE THE DAMAGE LANDS</text>
+          <g filter="url(#w3sh)">
+            <path d="M700 340 C 760 330, 820 352, 830 390 C 840 428, 810 452, 776 452
+                     C 748 452, 720 442, 706 420 C 692 398, 686 356, 700 340 Z"
+                  fill="url(#w3brain)" stroke="#5c2420" stroke-width="2.2"/>
+            <g stroke="#8a4038" stroke-width="2.2" fill="none" stroke-linecap="round" opacity=".7">
+              <path d="M710 356 q22 -10 40 4 q18 14 42 -2"/>
+              <path d="M704 382 q24 -8 44 6 q20 14 44 -4"/>
+              <path d="M710 408 q22 -6 42 6 q18 10 40 -6"/>
+            </g>
+            <!-- brainstem / pons -->
+            <path d="M754 450 C 748 470, 748 496, 756 512 C 764 528, 786 528, 792 510
+                     C 798 490, 796 466, 788 450 Z"
+                  fill="#c98a6e" stroke="#5c2420" stroke-width="2"/>
+            <ellipse cx="772" cy="470" rx="20" ry="14" fill="#ffe49a" opacity=".85" stroke="#a06f00" stroke-width="1.6"/>
+          </g>
+          <text x="772" y="474" font-size="10" font-weight="900" fill="#3d2a00" text-anchor="middle">PONS</text>
+          <text x="747" y="548" font-size="12" font-weight="800" fill="#e2d3ff" text-anchor="middle">Rapid correction of chronic</text>
+          <text x="747" y="564" font-size="12" font-weight="800" fill="#e2d3ff" text-anchor="middle">hyponatremia damages myelin here.</text>
+          <text x="747" y="582" font-size="11.5" font-style="italic" fill="#ffe49a" text-anchor="middle">Slow is not timid — slow is correct.</text>
+        </g>
+      </svg>
+      <div class="mn">🧠 <b>Water follows salt.</b> Low sodium = swollen brain. High sodium = shrivelled brain. Fixing it fast is a second injury on top of the first.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🚨 Hypertonic saline (3% NaCl) — handle with respect</h3>
+      <p><b>Reserved for severe, symptomatic hyponatremia</b> — seizures, obtundation, coma — not for a mildly low number.</p>
+      <ul class="tick">
+        <li>Given <b>on an infusion pump</b>, at a prescribed rate, usually in a <b>monitored setting</b> and often through a central line per policy.</li>
+        <li><b>Serum sodium is rechecked frequently</b> during the infusion, on the schedule the protocol sets.</li>
+        <li><b>Correct slowly.</b> There is a maximum rise permitted per 24 hours; going faster risks <b>osmotic demyelination syndrome</b>.</li>
+        <li>Monitor for <b>fluid overload</b> — crackles, dyspnea, jugular venous distension, rising BP — especially in heart failure. A loop diuretic is sometimes given alongside.</li>
+        <li>Neuro checks throughout: level of consciousness, orientation, speech, swallowing, motor strength.</li>
+      </ul>
+      <div class="trap">🚨 Never infuse hypertonic saline by gravity, and never "catch up" a delayed infusion by speeding it up.</div>
+      <div class="mn">🧠 <b>3% saline is a drug, not a fluid.</b> Pump, monitor, recheck, slow.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🚨 Seizure precautions for severe hyponatremia</h3>
+      <p><b>Answer first: sodium under about <span class="mono">120 mEq/L</span>, or any sodium falling fast, is a seizure risk.</b> Set the room up before it happens.</p>
+      <ul class="tick">
+        <li><b>Bed in the lowest position, side rails padded and up</b> per policy.</li>
+        <li><b>Suction and oxygen at the bedside</b>, working, plus a bag-valve mask.</li>
+        <li><b>IV access</b> maintained.</li>
+        <li><b>Reduce stimulation</b> — quiet, dim, uninterrupted rest.</li>
+        <li><b>Never put anything in the mouth</b> during a seizure; turn the patient to the side and protect the head.</li>
+        <li><b>Frequent neuro checks</b>: level of consciousness, orientation, headache, nausea/vomiting, muscle twitching.</li>
+      </ul>
+      <div class="mn">🧠 <b>"Death by headache" for low sodium.</b> Headache → nausea → confusion → seizure → coma. Catch it at the headache.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>⚠️ The mirror problem in DI — hypernatremia</h3>
+      <ul class="tick">
+        <li>Sodium above <span class="mono">145 mEq/L</span> with a high serum osmolality: thirst, dry sticky mucous membranes, fever, restlessness, irritability, lethargy, twitching, seizures, coma.</li>
+        <li><b>Rehydrate gradually.</b> Dropping the sodium too quickly pulls water into brain cells → <b>cerebral oedema</b>.</li>
+        <li>Monitor level of consciousness continuously during correction; a patient who becomes <b>more</b> confused while you are fixing the number is a red flag.</li>
+        <li>Watch simultaneously for hypovolemia: hypotension, tachycardia, poor perfusion, oliguria as the deficit deepens.</li>
+      </ul>
+      <div class="mn">🧠 <b>Both directions, same rule: the brain hates fast.</b></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section id="drug">
+  <div class="sec-h"><span class="icon">💊</span><h2>DESMOPRESSIN (DDAVP)</h2><span class="step">STEP 4 · THE DRUG</span></div>
+  <p class="sec-sub">A synthetic copy of ADH. <mark>It reduces urine output. It is not a vasopressor.</mark></p>
+  <div class="grid">
+
+    <div class="card ruby span2">
+      <h3>🚨 Say it correctly — the accuracy point that costs marks</h3>
+      <p><span class="big2">Desmopressin is a synthetic <u>antidiuretic hormone</u> analog.</span></p>
+      <p>Its therapeutic job is to make the collecting duct reabsorb water, so <b>urine output falls and urine becomes more concentrated</b>. <span class="never">It is not a blood-pressure drug and it is not a vasopressor.</span></p>
+      <p>The confusion comes from the word "vasopressin" — the natural hormone's other name. Natural <b>vasopressin</b> does have vasoconstrictor activity at higher doses and is used in some shock protocols; <b>desmopressin</b> was deliberately modified to act on the water-handling receptors with minimal vasoconstriction. If an option says desmopressin is given "to raise the blood pressure," that option is wrong.</p>
+      <div class="trap">🚨 If blood pressure improves after desmopressin in DI, it is because you stopped the patient from urinating away their circulating volume — not because the drug squeezed their vessels.</div>
+      <div class="mn">🧠 <b>Desmo-<u>PRESS</u>-in PRESSES the urine output DOWN.</b> Not the blood pressure up.</div>
+    </div>
+
+    <div class="card citrinec span2">
+      <h3>💊 Routes, and what to teach for each</h3>
+      <svg viewBox="-10 -10 920 400" role="img" aria-label="Three drawn dosage forms of desmopressin: an intranasal spray bottle with instructions to clear the nose, prime the pump and alternate nostrils, an oral tablet blister pack taken at the same time each day, and a syringe and vial for subcutaneous or intravenous use in hospital, with a note that absorption of the nasal spray is unreliable during a cold or allergies">
+        <defs>
+          <linearGradient id="w4spray" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#e8f6ff"/><stop offset=".35" stop-color="#bcd9ee"/>
+            <stop offset=".75" stop-color="#7fa4c2"/><stop offset="1" stop-color="#4e6c88"/>
+          </linearGradient>
+          <linearGradient id="w4cap" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#a5f3d4"/><stop offset=".5" stop-color="#12b886"/><stop offset="1" stop-color="#04593f"/>
+          </linearGradient>
+          <linearGradient id="w4blist" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#f2f6ff"/><stop offset=".5" stop-color="#cfd8ea"/><stop offset="1" stop-color="#95a2ba"/>
+          </linearGradient>
+          <linearGradient id="w4syr" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#f2f6ff"/><stop offset=".45" stop-color="#c2ccdd"/><stop offset="1" stop-color="#5b6478"/>
+          </linearGradient>
+          <filter id="w4sh" x="-30%" y="-30%" width="170%" height="170%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="4"/><feOffset dx="2" dy="5" result="o"/>
+            <feFlood flood-color="#000" flood-opacity=".5"/><feComposite in2="o" operator="in"/>
+            <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <rect x="-6" y="-6" width="912" height="392" rx="20" fill="rgba(255,138,61,.14)" stroke="#ff8a3d" stroke-width="2" stroke-dasharray="8 7"/>
+        <text x="22" y="30" font-size="18" font-weight="900" fill="#3d1a00">HOW IT IS GIVEN</text>
+
+        <!-- nasal spray -->
+        <g>
+          <rect x="20" y="46" width="282" height="326" rx="14" fill="rgba(0,194,199,.2)" stroke="#00c2c7" stroke-width="2"/>
+          <text x="161" y="72" font-size="14.5" font-weight="900" fill="#00363c" text-anchor="middle">INTRANASAL SPRAY</text>
+          <g filter="url(#w4sh)">
+            <path d="M132 140 h58 v106 a12 12 0 0 1 -12 12 h-34 a12 12 0 0 1 -12 -12 z" fill="url(#w4spray)" stroke="#3f5c75" stroke-width="1.8"/>
+            <rect x="146" y="118" width="30" height="24" rx="5" fill="url(#w4cap)" stroke="#04593f" stroke-width="1.4"/>
+            <rect x="154" y="102" width="14" height="18" rx="4" fill="#8fb3cc" stroke="#3f5c75" stroke-width="1.2"/>
+            <rect x="140" y="176" width="42" height="56" rx="4" fill="#a8c8e0" opacity=".55"/>
+          </g>
+          <g stroke="#9ff2ee" stroke-width="2" stroke-linecap="round" opacity=".9">
+            <path d="M161 96 l-14 -16"/><path d="M161 96 l0 -20"/><path d="M161 96 l14 -16"/>
+          </g>
+          <text x="161" y="288" font-size="12" font-weight="900" fill="#00363c" text-anchor="middle">clear the nose · prime the pump</text>
+          <text x="161" y="306" font-size="12" font-weight="900" fill="#00363c" text-anchor="middle">alternate nostrils · sit upright</text>
+          <text x="161" y="332" font-size="11.5" font-weight="900" fill="#8e0f33" text-anchor="middle">⚠ a cold, congestion or allergies</text>
+          <text x="161" y="348" font-size="11.5" font-weight="900" fill="#8e0f33" text-anchor="middle">change absorption — call the provider</text>
+        </g>
+
+        <!-- tablet -->
+        <g>
+          <rect x="316" y="46" width="282" height="326" rx="14" fill="rgba(255,194,51,.24)" stroke="#ffc233" stroke-width="2"/>
+          <text x="457" y="72" font-size="14.5" font-weight="900" fill="#3d2a00" text-anchor="middle">ORAL TABLET</text>
+          <g filter="url(#w4sh)">
+            <rect x="376" y="128" width="162" height="112" rx="10" fill="url(#w4blist)" stroke="#7d8aa3" stroke-width="1.8"/>
+            <g fill="#fff8ec" stroke="#b8a68a" stroke-width="1.4">
+              <circle cx="410" cy="158" r="15"/><circle cx="457" cy="158" r="15"/><circle cx="504" cy="158" r="15"/>
+              <circle cx="410" cy="206" r="15"/><circle cx="457" cy="206" r="15"/><circle cx="504" cy="206" r="15"/>
+            </g>
+            <g stroke="#c9b89a" stroke-width="1.4">
+              <path d="M403 158 h14 M450 158 h14 M497 158 h14 M403 206 h14 M450 206 h14 M497 206 h14"/>
+            </g>
+          </g>
+          <text x="457" y="284" font-size="12" font-weight="900" fill="#3d2a00" text-anchor="middle">take at the SAME time each day</text>
+          <text x="457" y="302" font-size="12" font-weight="900" fill="#3d2a00" text-anchor="middle">do not double a missed dose</text>
+          <text x="457" y="328" font-size="11.5" font-weight="800" fill="#3d2a00" text-anchor="middle">keep a supply — running out means</text>
+          <text x="457" y="344" font-size="11.5" font-weight="800" fill="#3d2a00" text-anchor="middle">the polyuria comes straight back</text>
+        </g>
+
+        <!-- injection -->
+        <g>
+          <rect x="612" y="46" width="270" height="326" rx="14" fill="rgba(47,107,255,.2)" stroke="#2f6bff" stroke-width="2"/>
+          <text x="747" y="72" font-size="14.5" font-weight="900" fill="#dbe6ff" text-anchor="middle">SUBCUTANEOUS / IV</text>
+          <g filter="url(#w4sh)">
+            <rect x="656" y="150" width="140" height="26" rx="7" fill="url(#w4syr)" stroke="#5b6478" stroke-width="1.6"/>
+            <rect x="648" y="144" width="14" height="38" rx="4" fill="#c2ccdd" stroke="#5b6478" stroke-width="1.2"/>
+            <path d="M796 163 L 848 163" stroke="#dfe6f5" stroke-width="3.4" stroke-linecap="round"/>
+            <rect x="668" y="155" width="84" height="16" rx="4" fill="#cfeaf5"/>
+            <g stroke="#8b97ad" stroke-width="1.2">
+              <path d="M684 150 v8 M704 150 v8 M724 150 v8 M744 150 v8 M764 150 v8"/>
+            </g>
+          </g>
+          <g filter="url(#w4sh)">
+            <rect x="676" y="212" width="52" height="76" rx="7" fill="#dfe9f5" stroke="#8b97ad" stroke-width="1.6"/>
+            <rect x="686" y="200" width="32" height="16" rx="4" fill="#9d5cff" stroke="#4d1a8a" stroke-width="1.4"/>
+            <rect x="682" y="238" width="40" height="42" rx="4" fill="#bcd9ee" opacity=".7"/>
+          </g>
+          <text x="747" y="312" font-size="12" font-weight="900" fill="#dbe6ff" text-anchor="middle">used in hospital and after</text>
+          <text x="747" y="330" font-size="12" font-weight="900" fill="#dbe6ff" text-anchor="middle">neurosurgery, when precise</text>
+          <text x="747" y="348" font-size="12" font-weight="900" fill="#dbe6ff" text-anchor="middle">control is needed</text>
+        </g>
+      </svg>
+      <div class="mn">🧠 <b>Nose, mouth, needle.</b> Same hormone, three doors — and the nose is the one a head cold can close.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🚨 Signs the dose is TOO MUCH — water intoxication</h3>
+      <p><b>Too much desmopressin turns DI into SIADH.</b> The patient stops excreting water and the sodium falls.</p>
+      <ul class="tick">
+        <li><b>HEADACHE</b> — the earliest and most important warning. <span class="never">A frequent headache on this drug is never "normal".</span></li>
+        <li>Nausea and vomiting, abdominal cramps</li>
+        <li><b>Weight gain</b> and a sudden drop in urine output</li>
+        <li><b>Confusion, drowsiness, restlessness</b> → seizures → coma</li>
+      </ul>
+      <p><b>Action:</b> hold and report per order, check weight, I&amp;O and serum sodium, institute seizure precautions, and reassess the dose.</p>
+      <div class="mn">🧠 <b>Headache → hold and report.</b> Low sodium announces itself in the head first.</div>
+    </div>
+
+    <div class="card emerald">
+      <h3>✅ Patient teaching for desmopressin</h3>
+      <ul class="tick">
+        <li><b>Weigh yourself DAILY</b> — same time, same scale. <span class="tip">NOT WEEKLY</span></li>
+        <li><b>Record intake and output</b> and take the record to appointments.</li>
+        <li><b>Report headache, nausea, confusion, sudden weight gain or a big drop in urine output.</b></li>
+        <li><b>Avoid drinking excessively</b> while on the drug — thirst is no longer a safe guide once the water is being held on to. Follow the fluid advice you were given.</li>
+        <li>Take it exactly as prescribed and <b>do not run out</b>; carry a supply when travelling.</li>
+        <li><b>Medical alert identification</b>, and tell every provider you take it.</li>
+        <li>Report intercurrent illness — fever, vomiting, diarrhoea and nasal congestion all change fluid balance or absorption.</li>
+      </ul>
+      <div class="trap">🚨 <b>Wrong statements to spot:</b> "frequent headaches are normal" · "I'll weigh myself weekly" · "this treats my SIADH" (it would make SIADH <b>worse</b>) · "it's a blood-pressure medicine".</div>
+      <div class="mn">🧠 <b>Weigh · record · report the headache.</b> Three habits, one safe patient.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>💊 On the SIADH side — the drug options</h3>
+      <ul class="tick">
+        <li><b>Fluid restriction first</b> — it is the treatment, not a supporting measure.</li>
+        <li><b>Hypertonic saline</b> for severe symptomatic hyponatremia, as above.</li>
+        <li><b>ADH receptor antagonists</b> ("vaptans", e.g. tolvaptan, conivaptan) block ADH at the kidney and produce a water diuresis; they require close sodium monitoring and are typically started in a monitored setting.</li>
+        <li><b>Loop diuretics</b> may be used in selected patients alongside sodium replacement.</li>
+        <li><b>Treat the cause</b>: the tumour, the pneumonia, the head injury, or the offending medication.</li>
+        <li>Increased dietary sodium and protein are sometimes recommended — follow the prescribed plan.</li>
+      </ul>
+      <div class="mn">🧠 <b>SIADH: block the hormone or remove the water.</b> DI: replace the hormone or replace the water. Perfect mirror.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section id="monitor">
+  <div class="sec-h"><span class="icon">📊</span><h2>MONITORING PARAMETERS</h2><span class="step">STEP 5 · WHAT YOU CHART</span></div>
+  <p class="sec-sub">Six numbers tell you whether the plan is working — and which direction the patient is drifting.</p>
+  <div class="grid">
+
+    <div class="card tealc span2">
+      <h3>🧪 Strict I&amp;O and the specific gravity scale</h3>
+      <svg viewBox="-10 -10 920 400" role="img" aria-label="An intake and output chart drawn as a balance, with a urinometer strip showing urine specific gravity from very dilute at 1.001 through the normal band of 1.005 to 1.030 to very concentrated above 1.030, marking diabetes insipidus at the dilute end and SIADH at the concentrated end, alongside sample urine colours in specimen containers">
+        <defs>
+          <linearGradient id="w5sg" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#eafcff"/><stop offset=".22" stop-color="#bfeef7"/>
+            <stop offset=".38" stop-color="#12b886"/><stop offset=".66" stop-color="#12b886"/>
+            <stop offset=".8" stop-color="#e0a02c"/><stop offset="1" stop-color="#9a6304"/>
+          </linearGradient>
+          <linearGradient id="w5jar" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#ffffff" stop-opacity=".55"/><stop offset=".4" stop-color="#ffffff" stop-opacity=".18"/>
+            <stop offset="1" stop-color="#000000" stop-opacity=".12"/>
+          </linearGradient>
+          <filter id="w5sh" x="-30%" y="-30%" width="170%" height="170%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="4"/><feOffset dx="2" dy="5" result="o"/>
+            <feFlood flood-color="#000" flood-opacity=".45"/><feComposite in2="o" operator="in"/>
+            <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <rect x="-6" y="-6" width="912" height="392" rx="20" fill="rgba(0,194,199,.10)" stroke="#00c2c7" stroke-width="2" stroke-dasharray="8 7"/>
+        <text x="22" y="30" font-size="18" font-weight="900" fill="#0b3f45">URINE SPECIFIC GRAVITY · one strip, both diseases</text>
+
+        <rect x="60" y="60" width="800" height="40" rx="12" fill="url(#w5sg)"/>
+        <g stroke="#fff" stroke-width="2.5">
+          <path d="M364 54 V 108"/><path d="M588 54 V 108"/>
+        </g>
+        <g font-size="12.5" font-weight="900">
+          <text x="212" y="86" fill="#03323d" text-anchor="middle">VERY DILUTE</text>
+          <text x="476" y="86" fill="#04321f" text-anchor="middle">NORMAL 1.005 – 1.030</text>
+          <text x="724" y="86" fill="#3d2a00" text-anchor="middle">CONCENTRATED</text>
+        </g>
+        <g font-size="11.5" font-weight="800" fill="#0e5b62" text-anchor="middle">
+          <text x="60" y="124">1.001</text><text x="364" y="124">1.005</text><text x="588" y="124">1.030</text><text x="860" y="124">1.035+</text>
+        </g>
+        <g>
+          <rect x="90" y="140" width="248" height="52" rx="11" fill="rgba(255,194,51,.85)"/>
+          <text x="214" y="162" font-size="14" font-weight="900" fill="#231a02" text-anchor="middle">DI lives here</text>
+          <text x="214" y="181" font-size="12" font-weight="800" fill="#3d2a00" text-anchor="middle">huge volumes of nearly clear urine</text>
+          <rect x="612" y="140" width="248" height="52" rx="11" fill="rgba(157,92,255,.85)"/>
+          <text x="736" y="162" font-size="14" font-weight="900" fill="#fff" text-anchor="middle">SIADH lives here</text>
+          <text x="736" y="181" font-size="12" font-weight="800" fill="#efe6ff" text-anchor="middle">small volumes of dark, dense urine</text>
+        </g>
+
+        <!-- specimen jars -->
+        <g filter="url(#w5sh)">
+          <path d="M120 216 h60 v92 a10 10 0 0 1 -10 10 h-40 a10 10 0 0 1 -10 -10 z" fill="#eafcff" stroke="#8fb3cc" stroke-width="1.8"/>
+          <path d="M120 216 h60 v92 a10 10 0 0 1 -10 10 h-40 a10 10 0 0 1 -10 -10 z" fill="url(#w5jar)"/>
+          <path d="M420 216 h60 v92 a10 10 0 0 1 -10 10 h-40 a10 10 0 0 1 -10 -10 z" fill="#ffeaa8" stroke="#c09a3a" stroke-width="1.8"/>
+          <path d="M420 216 h60 v92 a10 10 0 0 1 -10 10 h-40 a10 10 0 0 1 -10 -10 z" fill="url(#w5jar)"/>
+          <path d="M720 216 h60 v92 a10 10 0 0 1 -10 10 h-40 a10 10 0 0 1 -10 -10 z" fill="#b4780f" stroke="#6b4506" stroke-width="1.8"/>
+          <path d="M720 216 h60 v92 a10 10 0 0 1 -10 10 h-40 a10 10 0 0 1 -10 -10 z" fill="url(#w5jar)"/>
+        </g>
+        <text x="150" y="336" font-size="12" font-weight="900" fill="#0b3f45" text-anchor="middle">DI — "water"</text>
+        <text x="450" y="336" font-size="12" font-weight="900" fill="#0b3f45" text-anchor="middle">normal straw</text>
+        <text x="750" y="336" font-size="12" font-weight="900" fill="#0b3f45" text-anchor="middle">SIADH — dark, scant</text>
+        <text x="300" y="372" font-size="12" font-style="italic" fill="#0e5b62">Chart EVERY source in and out: oral, IV, flushes, urine, drains, emesis, stool.</text>
+        <text x="300" y="256" font-size="0" fill="none">.</text>
+        <g>
+          <rect x="236" y="222" width="150" height="86" rx="11" fill="rgba(13,8,26,.6)"/>
+          <text x="311" y="244" font-size="12.5" font-weight="900" fill="#9ff2ee" text-anchor="middle">STRICT I&amp;O</text>
+          <text x="311" y="264" font-size="11.5" font-weight="800" fill="#fff" text-anchor="middle">hourly in the acute phase</text>
+          <text x="311" y="282" font-size="11.5" font-weight="800" fill="#fff" text-anchor="middle">adult adequacy marker:</text>
+          <text x="311" y="300" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="middle">≥ 30 mL/hr</text>
+        </g>
+        <g>
+          <rect x="536" y="222" width="150" height="86" rx="11" fill="rgba(13,8,26,.6)"/>
+          <text x="611" y="244" font-size="12.5" font-weight="900" fill="#9ff2ee" text-anchor="middle">TYPICAL RANGES</text>
+          <text x="611" y="264" font-size="11.5" font-weight="800" fill="#fff" text-anchor="middle">serum Na⁺ 135–145 mEq/L</text>
+          <text x="611" y="282" font-size="11.5" font-weight="800" fill="#fff" text-anchor="middle">urine SG 1.005–1.030</text>
+          <text x="611" y="300" font-size="10.5" font-style="italic" fill="#c9c2e6" text-anchor="middle">ranges vary by laboratory</text>
+        </g>
+      </svg>
+      <div class="mn">🧠 <b>DI pees water. SIADH pees syrup.</b> The specific gravity strip is the fastest bedside confirmation you have.</div>
+    </div>
+
+    <div class="card topaz span2">
+      <h3>⭐ The monitoring table</h3>
+      <table>
+        <tr><th class="up">What you monitor</th><th class="up">SIADH — expect</th><th class="lo">DI — expect</th></tr>
+        <tr><td><b>Daily weight</b> <span class="tip">BEST MEASURE</span></td><td><b>Rising</b> — water retained</td><td><b>Falling</b> — water lost</td></tr>
+        <tr><td><b>Urine output</b> (hourly if acute)</td><td>Low, scant</td><td>Very high — can be litres per day</td></tr>
+        <tr><td><b>Urine specific gravity</b></td><td><b>High</b> (&gt;1.030), concentrated</td><td><b>Low</b> (≈1.005 or less), dilute</td></tr>
+        <tr><td><b>Serum sodium</b> (≈135–145 mEq/L)</td><td><b>LOW</b> — dilutional hyponatremia</td><td><b>HIGH</b> — hypernatremia</td></tr>
+        <tr><td><b>Serum osmolality</b></td><td>Low</td><td>High</td></tr>
+        <tr><td><b>Neuro status</b></td><td>Headache → confusion → <b>seizure</b></td><td>Thirst, irritability, lethargy → seizure if severe</td></tr>
+        <tr><td><b>Vital signs</b></td><td>BP may rise; watch for overload</td><td><b>Hypotension</b>, tachycardia, poor perfusion</td></tr>
+        <tr><td><b>Skin &amp; mucous membranes</b></td><td>Moist; possible puffiness</td><td>Dry, tenting turgor, cracked lips</td></tr>
+        <tr><td><b>Priority nursing action</b></td><td><b>Restrict fluids</b> + seizure precautions</td><td><b>Replace fluids</b> + desmopressin, prevent falls</td></tr>
+      </table>
+      <div class="mn">🧠 Read the table left to right once a day: <b>weight · output · gravity · sodium.</b> Those four move together, and they move opposite ways in the two diseases.</div>
+    </div>
+
+    <div class="card emerald">
+      <h3>✅ Handover-ready summary</h3>
+      <div class="ladder">
+        <div class="rung"><div class="n">1</div><div class="t"><b>Today's weight and the change</b> from yesterday.</div></div>
+        <div class="rung"><div class="n">2</div><div class="t"><b>24-hour I&amp;O balance</b>, and the current hourly urine output.</div></div>
+        <div class="rung"><div class="n">3</div><div class="t"><b>Latest serum sodium</b>, the trend, and when the next one is due.</div></div>
+        <div class="rung"><div class="n">4</div><div class="t"><b>Neuro status</b> and whether seizure precautions are in place.</div></div>
+        <div class="rung"><div class="n">5</div><div class="t"><b>Current orders</b>: fluid restriction volume, hypertonic saline rate, desmopressin dose/route and last dose given.</div></div>
+      </div>
+      <div class="mn">🧠 If you can say the <b>weight, the sodium and the last dose</b>, you can hand this patient over safely.</div>
+    </div>
+
+    <div class="card deep">
+      <h3>🧾 Patient &amp; family teaching to send home</h3>
+      <ul class="tick">
+        <li><b>Weigh daily</b> and keep a simple log; report a sudden gain or loss.</li>
+        <li><b>Know your target</b>: the fluid restriction volume (SIADH) or the need for free water access (DI).</li>
+        <li><b>Recognise the red flags</b>: headache, confusion, unusual drowsiness, seizure, marked change in urine output.</li>
+        <li><b>Never stop or double the desmopressin</b> without advice; keep a supply on hand.</li>
+        <li><b>Medical alert identification</b> for both conditions.</li>
+        <li>Bring the weight and I&amp;O log to every appointment; keep follow-up sodium checks.</li>
+      </ul>
+      <div class="mn">🧠 <b>The scale and the log are the home monitor.</b> Teach them to trust the trend, not how they feel.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc tealbg"><span class="big">⚖️ Daily weight wins</span><span class="mono">1 kg ≈ 1 L</span>. Same time, same scale. Weekly is a wrong answer.</div>
+    <div class="rc rubybg"><span class="big">🐌 Slow the sodium</span>Fast up → osmotic demyelination. Fast down → cerebral oedema.</div>
+    <div class="rc citrine"><span class="big">💊 Desmopressin = synthetic ADH</span>Lowers urine output. <b>Not</b> a vasopressor, and it would make SIADH worse.</div>
+    <div class="rc topazbg"><span class="big">🚨 Headache is the alarm</span>On desmopressin or in SIADH, a new headache means the sodium is falling.</div>
+  </div>
+
+  <div class="card deep">
+    <h3>➡️ Where to go next</h3>
+    <p>The core comparison and patho: <b><a href="NG-282_siadh-vs-di-1.html">NG-282 — SIADH vs DI part 1</a></b>. Related endocrine pages: <b><a href="NG-287_addisons-vs-cushings.html">NG-287 — Addison's vs Cushing's</a></b> and <b><a href="NG-288_steroids.html">NG-288 — Steroids</a></b>.</p>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 10 rapid-fire questions</summary>
+      <div class="qa">Q1: What is the single best measure of fluid status in these patients? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Daily weight — same time, same scale, same clothing, after voiding. About 1 kg of weight change equals 1 litre of fluid. Weighing weekly is not adequate.</div></div>
+      <div class="qa">Q2: What is the cornerstone treatment of SIADH? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Fluid restriction, at the volume prescribed. Everything liquid at room temperature counts — including ice chips, gelatin, soup and IV diluents.</div></div>
+      <div class="qa">Q3: Why must hyponatremia be corrected slowly? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Raising the sodium too quickly causes osmotic demyelination syndrome (central pontine myelinolysis) — confusion, dysarthria, dysphagia and paralysis, often permanent. Follow the protocol's maximum rise per 24 hours and recheck sodium frequently.</div></div>
+      <div class="qa">Q4: When is hypertonic (3%) saline used, and what are the nursing rules? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Only for severe, symptomatic hyponatremia (seizures, obtundation). Give on an infusion pump at the prescribed rate, usually in a monitored setting, recheck sodium frequently, watch for fluid overload, and never speed it up to catch up.</div></div>
+      <div class="qa">Q5: Which serum sodium level should make you set up seizure precautions? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Severe hyponatremia — around 120 mEq/L or below, and any sodium that is falling rapidly. Set up suction, oxygen, padded rails, IV access and a quiet environment before the seizure happens.</div></div>
+      <div class="qa">Q6: What class of drug is desmopressin? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">A synthetic antidiuretic hormone (ADH/vasopressin) analog. It increases water reabsorption in the collecting duct so urine output falls and urine concentrates. It is <b>not</b> a vasopressor and is not given to raise blood pressure.</div></div>
+      <div class="qa">Q7: Your patient on desmopressin reports frequent headaches. What does that mean? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Possible water intoxication with falling sodium — the dose may be too high. Headaches are never "normal" on this drug. Check weight, I&O and serum sodium, hold/report per order, and start seizure precautions if the sodium is low.</div></div>
+      <div class="qa">Q8: Would you restrict fluids in diabetes insipidus? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">No. An alert patient with DI must have free access to water — thirst is protecting them from severe hypernatremia. Restricting fluids can be fatal. (Once on desmopressin, they are taught to avoid <i>excessive</i> intake, which is a different thing.)</div></div>
+      <div class="qa">Q9: Compare urine specific gravity in SIADH and DI. <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">SIADH: high, above about 1.030 — small volumes of dark concentrated urine. DI: low, around 1.005 or less — huge volumes of nearly clear urine. Normal band is roughly 1.005–1.030.</div></div>
+      <div class="qa">Q10: A patient with DI says, "I'm glad this medicine treats my SIADH." Correct or not? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Incorrect — needs teaching. Desmopressin treats diabetes insipidus by replacing ADH. Giving it in SIADH would make the water retention and hyponatremia worse.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(0,194,199,.7)">MECHANISM</span>→
+    <span style="background:rgba(47,107,255,.7)">FLUIDS</span>→
+    <span style="background:rgba(192,34,85,.7)">SODIUM</span>→
+    <span style="background:rgba(255,138,61,.7)">DRUG &amp; MONITORING</span>
+  </div>
+  <div>NG-283 · SIADH vs DI part 2 of 2 · pairs with NG-282 · Educational study aid — verify clinical details and facility policy</div>
+</footer>
+
+</div>
+</body></html>

@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Steroids · NG-288 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+
+
+/* ---- appended for the Endocrine batch (batch 15) ---- */
+nav a.c5{background:rgba(0,194,199,.72);color:#00252b}
+nav a.c6{background:rgba(255,138,61,.75);color:#2b1200}
+nav a.c7{background:rgba(192,34,85,.72)}
+#patho .sec-h h2{color:#d9c2ff} #patho .step{background:var(--amethyst)}
+#types .sec-h h2{color:#d9c2ff} #types .step{background:var(--amethyst)}
+#mech  .sec-h h2{color:#d9c2ff} #mech .step{background:var(--amethyst)}
+#axis  .sec-h h2{color:#d9c2ff} #axis .step{background:var(--amethyst)}
+#signs .sec-h h2{color:#bcd0ff} #signs .step{background:var(--sapphire)}
+#dx    .sec-h h2{color:#bcd0ff} #dx .step{background:var(--sapphire)}
+#labs  .sec-h h2{color:#bcd0ff} #labs .step{background:var(--sapphire)}
+#adverse .sec-h h2{color:#bcd0ff} #adverse .step{background:var(--sapphire)}
+#sodium .sec-h h2{color:#bcd0ff} #sodium .step{background:var(--sapphire)}
+#compare .sec-h h2{color:#9ff2ee} #compare .step{background:var(--teal);color:#00252b}
+#insulin .sec-h h2{color:#9ff2ee} #insulin .step{background:var(--teal);color:#00252b}
+#fluid .sec-h h2{color:#9ff2ee} #fluid .step{background:var(--teal);color:#00252b}
+#split .sec-h h2{color:#9ff2ee} #split .step{background:var(--teal);color:#00252b}
+#treat .sec-h h2{color:#a5f3d4} #treat .step{background:var(--emerald);color:#03291c}
+#mgmt  .sec-h h2{color:#a5f3d4} #mgmt .step{background:var(--emerald);color:#03291c}
+#oral  .sec-h h2{color:#a5f3d4} #oral .step{background:var(--emerald);color:#03291c}
+#monitor .sec-h h2{color:#a5f3d4} #monitor .step{background:var(--emerald);color:#03291c}
+#teach .sec-h h2{color:#ffd9b8} #teach .step{background:var(--citrine);color:#2b1200}
+#drug  .sec-h h2{color:#ffd9b8} #drug .step{background:var(--citrine);color:#2b1200}
+#feet  .sec-h h2{color:#ffd9b8} #feet .step{background:var(--citrine);color:#2b1200}
+#danger .sec-h h2{color:#ffb3c6} #danger .step{background:var(--garnet)}
+#emerg .sec-h h2{color:#ffb3c6} #emerg .step{background:var(--garnet)}
+#taper .sec-h h2{color:#ffb3c6} #taper .step{background:var(--garnet)}
+#hypo  .sec-h h2{color:#ffb3c6} #hypo .step{background:var(--garnet)}
+#comps .sec-h h2{color:#ffb3c6} #comps .step{background:var(--garnet)}
+#potassium .sec-h h2{color:#ffb3c6} #potassium .step{background:var(--garnet)}
+.setbar{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin:4px 0 16px;font-size:.82rem}
+.setbar .setlabel{font-weight:900;letter-spacing:.08em;color:#ffe49a;margin-right:2px}
+.setbar a{font-weight:800;padding:4px 11px;border-radius:999px;border:1px solid var(--line);
+  background:rgba(13,8,26,.5);color:#dbe8ff;text-decoration:none}
+.setbar a.cur{background:var(--topaz);color:#231a02;border-color:transparent;cursor:default}
+.legendrow{display:flex;gap:9px;flex-wrap:wrap;margin:11px 0 0;font-size:.84rem;font-weight:800}
+.legendrow span{padding:5px 11px;border-radius:9px;background:rgba(13,8,26,.55);
+  border:1px solid var(--line);display:flex;align-items:center;gap:7px}
+.sw{display:inline-block;width:15px;height:15px;border-radius:4px;border:1px solid rgba(255,255,255,.6)}
+.card a{color:#ffe49a;font-weight:800}
+.card.tealc a,.card.topaz a,.card.citrinec a{color:#0b3a52}
+.xref{margin-top:10px;padding:8px 12px;border-radius:11px;background:rgba(0,194,199,.20);
+  border:1px solid var(--line);font-size:.9rem;font-weight:700}
+.xref .pill{display:inline-block;font-size:.7rem;font-weight:900;letter-spacing:.08em;
+  background:var(--teal);color:#00252b;padding:2px 8px;border-radius:7px;margin-right:7px}
+.card.tealc .xref,.card.topaz .xref,.card.citrinec .xref{background:rgba(255,255,255,.45)}
+.trap{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(255,59,107,.22);
+  border:1px dashed rgba(255,150,180,.65);font-size:.93rem;color:#fff}
+.card.tealc .trap,.card.topaz .trap,.card.citrinec .trap{background:rgba(255,59,107,.22);
+  border-color:rgba(192,34,85,.55);color:#3d0014}
+.hedge{margin-top:10px;font-size:.84rem;font-style:italic;opacity:.9}
+.big2{font-size:1.35rem;font-weight:900;letter-spacing:.02em}
+.lede a{color:#ffe49a;font-weight:800}
+.rc a{color:#231a02;font-weight:900}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#mech">⚙️ What it does</a>
+  <a class="c2" href="#adverse">⚠️ The 7 S's</a>
+  <a class="c7" href="#taper">🛑 Never stop abruptly</a>
+  <a class="c6" href="#teach">📚 Teach</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Endocrine · Corticosteroids · Pharmacology + Med-Surg</div>
+  <div class="setbar"><span class="setlabel">🧪 ENDOCRINE SET</span>
+  <a class="cur" href="NG-288_steroids.html">NG-288 Steroids</a>
+  <a href="NG-287_addisons-vs-cushings.html">NG-287 Addison's vs Cushing's</a>
+  <a href="NG-290_diabetes.html">NG-290 Diabetes</a>
+  <a href="NG-292_diabetes-2.html">NG-292 Diabetes II</a>
+  <a href="NG-291_dka-vs-hhs.html">NG-291 DKA vs HHS</a></div>
+  <h1>Steroids <span class="drop">💊</span></h1>
+  <p class="sub">Corticosteroids — the stress &amp; swelling hormone, and the enormous price you pay for it</p>
+  <div class="chips">
+    <span class="chip id">NG-288</span>
+    <span class="chip cat">ENDOCRINE · DRUG PAGE</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede">Every corticosteroid is a copy of <b>cortisol</b> — the hormone your adrenal glands make in a crisis. Give it and inflammation stops beautifully. Keep giving it and you slowly build a patient with <b>iatrogenic Cushing's syndrome</b> whose own adrenal glands have gone to sleep. Then the single most dangerous thing anyone can do is <b class="never">stop the drug suddenly</b> — because the sleeping adrenals cannot restart in time, and the patient falls into <b>adrenal crisis</b>. That link is the whole point of this page: see <a href="NG-287_addisons-vs-cushings.html">NG-287 — Addison's vs Cushing's</a>.</p>
+</header>
+
+<div class="recall">
+  <div class="rc citrine"><span class="big">"-SONE" &amp; "-OLONE"</span>predni<b>sone</b> · dexametha<b>sone</b> · hydrocorti<b>sone</b> · fludrocorti<b>sone</b> · methylpredniso<b>lone</b></div>
+  <div class="rc tealbg"><span class="big">S = Stress &amp; Swelling</span>Given for anything <b>inflamed</b> — lung, joint, skin, bowel, brain — and to replace missing cortisol.</div>
+  <div class="rc rubybg"><span class="big">🛑 NEVER stop abruptly</span><b>Taper.</b> Abrupt withdrawal → adrenal crisis → shock → death.</div>
+  <div class="rc topazbg"><span class="big">🚨 Fever + low WBC = PRIORITY</span>Steroids <b>mask</b> infection. A small fever in a steroid patient is a big deal.</div>
+</div>
+
+<!-- ============================================================ -->
+<section id="mech">
+  <div class="sec-h"><span class="icon">⚙️</span><h2>WHAT IT DOES</h2><span class="step">STEP 1 · MECHANISM</span></div>
+  <p class="sec-sub">One drug switches off the inflammatory cascade at the very top — which is why it works on everything, and why it wrecks everything.</p>
+  <div class="grid">
+
+    <div class="card tealc span2">
+      <h3>🔬 The HPA axis — and what long-term steroids do to it</h3>
+      <svg viewBox="-10 -10 920 600" role="img" aria-label="Two panels comparing the hypothalamic pituitary adrenal axis. In the normal panel a head in profile shows the hypothalamus releasing CRH to the pituitary sitting in the sella turcica, the pituitary releasing ACTH into the blood, and the adrenal gland capping the kidney releasing cortisol, with a negative feedback arrow returning to the brain. In the suppressed panel a prescription bottle of prednisone floods the blood with exogenous steroid, the negative feedback shuts off CRH and ACTH, and the adrenal cortex is drawn shrunken and atrophied with a thin pale cortex">
+        <defs>
+          <radialGradient id="s1brain" cx=".38" cy=".3" r=".9">
+            <stop offset="0" stop-color="#f6e6ff"/><stop offset=".35" stop-color="#d8b4f2"/>
+            <stop offset=".72" stop-color="#9d5cff"/><stop offset="1" stop-color="#48186f"/>
+          </radialGradient>
+          <radialGradient id="s1head" cx=".4" cy=".25" r=".95">
+            <stop offset="0" stop-color="#ffe3cd"/><stop offset=".4" stop-color="#f0c3a2"/>
+            <stop offset=".8" stop-color="#bd8b64"/><stop offset="1" stop-color="#6d4126"/>
+          </radialGradient>
+          <radialGradient id="s1pit" cx=".35" cy=".3" r=".85">
+            <stop offset="0" stop-color="#fff0c2"/><stop offset=".5" stop-color="#ffc233"/><stop offset="1" stop-color="#9a6b04"/>
+          </radialGradient>
+          <linearGradient id="s1kid" x1=".2" y1="0" x2=".9" y2="1">
+            <stop offset="0" stop-color="#ff9db6"/><stop offset=".3" stop-color="#e75f83"/>
+            <stop offset=".68" stop-color="#c02255"/><stop offset="1" stop-color="#6d0c2f"/>
+          </linearGradient>
+          <linearGradient id="s1adr" x1="0" y1="0" x2=".4" y2="1">
+            <stop offset="0" stop-color="#ffe9c2"/><stop offset=".3" stop-color="#ffcf8f"/>
+            <stop offset=".7" stop-color="#e0a054"/><stop offset="1" stop-color="#a06a1e"/>
+          </linearGradient>
+          <linearGradient id="s1adrX" x1="0" y1="0" x2=".4" y2="1">
+            <stop offset="0" stop-color="#e6e2d8"/><stop offset=".4" stop-color="#c0b8a6"/>
+            <stop offset="1" stop-color="#7d7565"/>
+          </linearGradient>
+          <linearGradient id="s1bot" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#ffd08a"/><stop offset=".35" stop-color="#e8a24c"/>
+            <stop offset=".8" stop-color="#a86a1c"/><stop offset="1" stop-color="#ffd9a8"/>
+          </linearGradient>
+          <filter id="s1sh" x="-30%" y="-30%" width="170%" height="170%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="6"/><feOffset dx="3" dy="7" result="o"/>
+            <feFlood flood-color="#000" flood-opacity=".55"/><feComposite in2="o" operator="in"/>
+            <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="s1b"><feGaussianBlur stdDeviation="7"/></filter>
+          <marker id="s1ar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#ffe49a"/>
+          </marker>
+          <marker id="s1arR" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#ff3b6b"/>
+          </marker>
+        </defs>
+        <rect x="-6" y="-6" width="912" height="592" rx="20" fill="rgba(0,194,199,.10)" stroke="#00c2c7" stroke-width="2" stroke-dasharray="8 7"/>
+        <text x="22" y="30" font-size="18" font-weight="900" fill="#0b3f45">HYPOTHALAMUS → PITUITARY → ADRENAL</text>
+
+        <!-- ===== NORMAL ===== -->
+        <rect x="20" y="46" width="420" height="530" rx="16" fill="rgba(18,184,134,.16)" stroke="#12b886" stroke-width="2.2"/>
+        <text x="230" y="74" font-size="16" font-weight="900" fill="#0a5a44" text-anchor="middle">NORMAL AXIS</text>
+
+        <!-- head profile -->
+        <g filter="url(#s1sh)">
+          <path d="M150 106 C 200 84, 268 96, 292 142 C 314 186, 306 236, 278 258
+                   C 262 272, 252 288, 254 306 L 214 306 C 200 306, 196 296, 200 286
+                   L 190 268 C 160 262, 138 232, 138 190 C 138 152, 140 116, 150 106 Z"
+                fill="url(#s1head)" stroke="#6d4126" stroke-width="2.2"/>
+        </g>
+        <!-- brain -->
+        <path d="M162 124 C 202 104, 260 114, 280 150 C 298 184, 288 222, 264 234
+                 C 232 250, 184 244, 166 218 C 150 194, 150 142, 162 124 Z"
+              fill="url(#s1brain)" stroke="#3f1364" stroke-width="2"/>
+        <g stroke="#5b2189" stroke-width="2" fill="none" stroke-linecap="round" opacity=".7">
+          <path d="M172 138 q22 -12 40 2 q18 14 40 0"/>
+          <path d="M166 162 q24 -10 44 4 q20 14 44 -2"/>
+          <path d="M170 188 q22 -8 42 4 q20 12 40 -4"/>
+          <path d="M182 212 q22 -8 40 2 q16 8 32 -4"/>
+        </g>
+        <ellipse cx="192" cy="140" rx="30" ry="12" fill="#fff" opacity=".22" filter="url(#s1b)"/>
+        <!-- hypothalamus -->
+        <ellipse cx="226" cy="216" rx="20" ry="12" fill="#ff8a3d" stroke="#8a3f06" stroke-width="1.8"/>
+        <text x="226" y="220" font-size="9.5" font-weight="900" fill="#3d1a00" text-anchor="middle">HYPO</text>
+        <!-- pituitary in sella -->
+        <path d="M216 234 h20 v10 h-20 z" fill="#c9a06a"/>
+        <circle cx="226" cy="252" r="13" fill="url(#s1pit)" stroke="#7a5203" stroke-width="1.8"/>
+        <path d="M208 264 q18 10 36 0" fill="none" stroke="#8a6a3a" stroke-width="3"/>
+        <text x="334" y="250" font-size="11" font-weight="900" fill="#ffe49a">pituitary</text>
+        <text x="334" y="264" font-size="10" font-weight="800" fill="#ffe49a">(sella turcica)</text>
+        <text x="316" y="212" font-size="11" font-weight="900" fill="#ffd9b8">hypothalamus</text>
+
+        <!-- CRH arrow -->
+        <path d="M226 230 L 226 238" stroke="#ffe49a" stroke-width="3" marker-end="url(#s1ar)"/>
+        <text x="150" y="240" font-size="11.5" font-weight="900" fill="#0b3f45" text-anchor="end">CRH ↓</text>
+        <path d="M156 236 L 200 244" stroke="#12b886" stroke-width="2.4" marker-end="url(#s1ar)"/>
+
+        <!-- ACTH down to adrenal -->
+        <path d="M226 268 C 226 300, 220 330, 210 356" stroke="#12b886" stroke-width="3.4" fill="none" marker-end="url(#s1ar)"/>
+        <text x="256" y="326" font-size="12.5" font-weight="900" fill="#0a5a44">ACTH</text>
+
+        <!-- kidney + adrenal -->
+        <g filter="url(#s1sh)">
+          <path d="M172 400 C 216 392, 246 424, 248 470 C 250 518, 218 548, 180 542
+                   C 152 538, 140 516, 146 496 C 152 478, 152 452, 144 432 C 138 412, 150 394, 172 400 Z"
+                fill="url(#s1kid)" stroke="#5e0a26" stroke-width="2.4"/>
+          <path d="M176 428 C 162 448, 162 490, 176 512 C 184 522, 192 522, 196 518 C 184 496, 184 442, 196 424 C 192 418, 184 418, 176 428 Z"
+                fill="#ffe9c2" opacity=".85"/>
+          <!-- adrenal cap -->
+          <path d="M154 400 C 168 372, 216 366, 236 388 C 248 402, 240 416, 216 414
+                   C 194 412, 168 414, 154 400 Z"
+                fill="url(#s1adr)" stroke="#8a5a12" stroke-width="2.2"/>
+          <g stroke="#a06a1e" stroke-width="1.3" opacity=".65" fill="none">
+            <path d="M172 396 q10 -12 22 -6"/><path d="M200 392 q10 -12 22 -4"/>
+          </g>
+          <ellipse cx="184" cy="386" rx="24" ry="8" fill="#fff" opacity=".3" filter="url(#s1b)"/>
+        </g>
+        <text x="262" y="374" font-size="12" font-weight="900" fill="#ffd9a8">ADRENAL GLAND</text>
+        <rect x="160" y="498" width="72" height="19" rx="7" fill="rgba(13,8,26,.65)"/><text x="196" y="512" font-size="12" font-weight="900" fill="#ffd0dc" text-anchor="middle">KIDNEY</text>
+
+        <!-- cortisol out -->
+        <g fill="#ffc233" stroke="#7a5400" stroke-width="1.3">
+          <circle cx="268" cy="418" r="9"/><circle cx="290" cy="440" r="9"/><circle cx="270" cy="464" r="9"/>
+        </g>
+        <text x="292" y="424" font-size="12.5" font-weight="900" fill="#0b3f45">CORTISOL</text>
+        <text x="292" y="442" font-size="11" font-weight="800" fill="#0e5b62">anti-inflammatory</text>
+        <text x="292" y="457" font-size="11" font-weight="800" fill="#0e5b62">raises glucose</text>
+        <text x="292" y="472" font-size="11" font-weight="800" fill="#0e5b62">stress response</text>
+        <text x="292" y="487" font-size="11" font-weight="800" fill="#0e5b62">retains Na⁺/H₂O</text>
+        <!-- negative feedback -->
+        <path d="M400 490 C 434 400, 430 300, 322 250" fill="none" stroke="#ff3b6b" stroke-width="2.6" stroke-dasharray="7 5" marker-end="url(#s1arR)"/>
+        <text x="344" y="392" font-size="11.5" font-weight="900" fill="#8e0f33">negative</text>
+        <text x="344" y="408" font-size="11.5" font-weight="900" fill="#8e0f33">feedback</text>
+        <rect x="40" y="530" width="380" height="34" rx="10" fill="rgba(13,8,26,.65)"/>
+        <text x="230" y="552" font-size="11.5" font-weight="900" fill="#a5f3d4" text-anchor="middle">The glands stay awake — they are still being asked to work.</text>
+
+        <!-- ===== SUPPRESSED ===== -->
+        <rect x="458" y="46" width="424" height="530" rx="16" fill="rgba(192,34,85,.18)" stroke="#c02255" stroke-width="2.2"/>
+        <text x="670" y="74" font-size="16" font-weight="900" fill="#ffc9d6" text-anchor="middle">AFTER WEEKS OF STEROIDS</text>
+
+        <g filter="url(#s1sh)">
+          <path d="M590 106 C 640 84, 708 96, 732 142 C 754 186, 746 236, 718 258
+                   C 702 272, 692 288, 694 306 L 654 306 C 640 306, 636 296, 640 286
+                   L 630 268 C 600 262, 578 232, 578 190 C 578 152, 580 116, 590 106 Z"
+                fill="url(#s1head)" stroke="#6d4126" stroke-width="2.2"/>
+        </g>
+        <path d="M602 124 C 642 104, 700 114, 720 150 C 738 184, 728 222, 704 234
+                 C 672 250, 624 244, 606 218 C 590 194, 590 142, 602 124 Z"
+              fill="url(#s1brain)" stroke="#3f1364" stroke-width="2" opacity=".65"/>
+        <g stroke="#5b2189" stroke-width="2" fill="none" stroke-linecap="round" opacity=".45">
+          <path d="M612 138 q22 -12 40 2 q18 14 40 0"/><path d="M606 162 q24 -10 44 4 q20 14 44 -2"/>
+          <path d="M610 188 q22 -8 42 4 q20 12 40 -4"/>
+        </g>
+        <ellipse cx="666" cy="216" rx="20" ry="12" fill="#8c8478" stroke="#4f4a42" stroke-width="1.8"/>
+        <text x="666" y="220" font-size="9.5" font-weight="900" fill="#2c2822" text-anchor="middle">HYPO</text>
+        <circle cx="666" cy="252" r="13" fill="#a8a094" stroke="#4f4a42" stroke-width="1.8"/>
+        <!-- CRH/ACTH switched off -->
+        <g stroke="#ff3b6b" stroke-width="4" stroke-linecap="round">
+          <path d="M652 232 l28 12"/><path d="M680 232 l-28 12"/>
+          <path d="M652 292 l28 20"/><path d="M680 292 l-28 20"/>
+        </g>
+        <text x="712" y="240" font-size="12" font-weight="900" fill="#ff9db6">no CRH</text>
+        <text x="712" y="308" font-size="12" font-weight="900" fill="#ff9db6">no ACTH</text>
+
+        <!-- pill bottle -->
+        <g filter="url(#s1sh)">
+          <rect x="500" y="120" width="76" height="102" rx="10" fill="url(#s1bot)" stroke="#7a4d16" stroke-width="2"/>
+          <rect x="494" y="102" width="88" height="22" rx="6" fill="#e0e6f2" stroke="#8b97ad" stroke-width="1.6"/>
+          <rect x="508" y="146" width="60" height="46" rx="5" fill="#fff8ec" opacity=".9"/>
+          <text x="538" y="166" font-size="11" font-weight="900" fill="#5c3a12" text-anchor="middle">PREDNISONE</text>
+          <text x="538" y="182" font-size="9.5" font-weight="800" fill="#8a5a12" text-anchor="middle">take daily</text>
+        </g>
+        <g fill="#ffe9a8" stroke="#a06f00" stroke-width="1.2">
+          <circle cx="518" cy="248" r="9"/><circle cx="548" cy="266" r="9"/><circle cx="580" cy="248" r="9"/>
+          <circle cx="530" cy="290" r="9"/><circle cx="566" cy="296" r="9"/>
+        </g>
+        <text x="546" y="326" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="middle">exogenous steroid</text>
+        <text x="546" y="342" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="middle">floods the blood</text>
+        <path d="M596 268 C 634 262, 646 258, 648 254" fill="none" stroke="#ff3b6b" stroke-width="2.6" stroke-dasharray="7 5" marker-end="url(#s1arR)"/>
+
+        <!-- atrophied adrenal -->
+        <g filter="url(#s1sh)">
+          <path d="M612 400 C 656 392, 686 424, 688 470 C 690 518, 658 548, 620 542
+                   C 592 538, 580 516, 586 496 C 592 478, 592 452, 584 432 C 578 412, 590 394, 612 400 Z"
+                fill="url(#s1kid)" stroke="#5e0a26" stroke-width="2.4"/>
+          <path d="M616 428 C 602 448, 602 490, 616 512 C 624 522, 632 522, 636 518 C 624 496, 624 442, 636 424 C 632 418, 624 418, 616 428 Z"
+                fill="#ffe9c2" opacity=".85"/>
+          <path d="M600 402 C 612 384, 648 380, 662 394 C 670 402, 664 410, 648 409 C 632 408, 610 410, 600 402 Z"
+                fill="url(#s1adrX)" stroke="#5c574c" stroke-width="2"/>
+        </g>
+        <text x="726" y="392" font-size="12.5" font-weight="900" fill="#ffc9d6">ATROPHIED</text>
+        <text x="726" y="408" font-size="12.5" font-weight="900" fill="#ffc9d6">adrenal cortex</text>
+        <text x="726" y="428" font-size="11.5" font-weight="800" fill="#ffd9e2">shrunken · pale · cannot</text>
+        <text x="726" y="444" font-size="11.5" font-weight="800" fill="#ffd9e2">produce cortisol on demand</text>
+        <g stroke="#ff3b6b" stroke-width="3.4" stroke-linecap="round">
+          <path d="M700 470 l24 24"/><path d="M724 470 l-24 24"/>
+        </g>
+        <text x="700" y="516" font-size="12" font-weight="900" fill="#ff9db6">no cortisol output</text>
+        <rect x="478" y="530" width="384" height="34" rx="10" fill="rgba(13,8,26,.7)"/>
+        <text x="670" y="552" font-size="11.5" font-weight="900" fill="#ffe49a" text-anchor="middle">Stop the drug suddenly now and there is NOTHING to take over.</text>
+      </svg>
+      <div class="mn">🧠 <b>Muscles you don't use, waste.</b> Give the adrenals cortisol for weeks and they stop working out — which is exactly why the drug has to be tapered, not switched off.</div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>🔬 Where it blocks the inflammation cascade</h3>
+      <svg viewBox="-10 -10 920 400" role="img" aria-label="A diagram of the inflammatory cascade drawn on a cell membrane. Membrane phospholipids are converted by phospholipase A2 into arachidonic acid, which cyclooxygenase turns into prostaglandins causing pain, fever and swelling, and lipoxygenase turns into leukotrienes causing bronchoconstriction. A corticosteroid blocks phospholipase A2 at the very top of the cascade, while an NSAID blocks only cyclooxygenase further down">
+        <defs>
+          <linearGradient id="s2mem" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffe0a8"/><stop offset=".3" stop-color="#f0b45e"/>
+            <stop offset=".7" stop-color="#f0b45e"/><stop offset="1" stop-color="#c07c26"/>
+          </linearGradient>
+          <linearGradient id="s2box" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="rgba(47,107,255,.75)"/><stop offset="1" stop-color="rgba(18,40,110,.75)"/>
+          </linearGradient>
+          <filter id="s2sh" x="-30%" y="-30%" width="170%" height="170%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="4"/><feOffset dx="2" dy="5" result="o"/>
+            <feFlood flood-color="#000" flood-opacity=".5"/><feComposite in2="o" operator="in"/>
+            <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <marker id="s2ar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#ffe49a"/>
+          </marker>
+        </defs>
+        <rect x="-6" y="-6" width="912" height="392" rx="20" fill="rgba(47,107,255,.12)" stroke="#2f6bff" stroke-width="2" stroke-dasharray="8 7"/>
+        <text x="22" y="30" font-size="18" font-weight="900" fill="#dbe6ff">STEROIDS BLOCK THE TOP OF THE CASCADE</text>
+
+        <!-- membrane -->
+        <rect x="30" y="56" width="240" height="26" fill="url(#s2mem)"/>
+        <g stroke="#a5731d" stroke-width="1.3" stroke-opacity=".75">
+          <path d="M38 61 v16 M52 61 v16 M66 61 v16 M80 61 v16 M94 61 v16 M108 61 v16 M122 61 v16 M136 61 v16 M150 61 v16 M164 61 v16 M178 61 v16 M192 61 v16 M206 61 v16 M220 61 v16 M234 61 v16 M248 61 v16 M262 61 v16"/>
+        </g>
+        <text x="150" y="102" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="middle">membrane phospholipids</text>
+
+        <path d="M150 110 L 150 150" stroke="#ffe49a" stroke-width="3" marker-end="url(#s2ar)"/>
+        <g filter="url(#s2sh)">
+          <rect x="56" y="152" width="188" height="40" rx="10" fill="url(#s2box)" stroke="rgba(255,255,255,.4)" stroke-width="1.6"/>
+        </g>
+        <text x="150" y="178" font-size="14" font-weight="900" fill="#fff" text-anchor="middle">PHOSPHOLIPASE A₂</text>
+
+        <!-- steroid blocking -->
+        <g>
+          <rect x="286" y="150" width="196" height="46" rx="12" fill="rgba(18,184,134,.75)" stroke="rgba(255,255,255,.5)" stroke-width="2"/>
+          <text x="384" y="170" font-size="14" font-weight="900" fill="#fff" text-anchor="middle">CORTICOSTEROID</text>
+          <text x="384" y="188" font-size="12" font-weight="800" fill="#d8ffe9" text-anchor="middle">blocks HERE — at the source</text>
+        </g>
+        <path d="M282 172 L 254 172" stroke="#12b886" stroke-width="3.4" marker-end="url(#s2ar)"/>
+        <g stroke="#ff3b6b" stroke-width="5" stroke-linecap="round">
+          <path d="M136 206 l28 26"/><path d="M164 206 l-28 26"/>
+        </g>
+
+        <path d="M150 244 L 150 274" stroke="#ffe49a" stroke-width="3" marker-end="url(#s2ar)" opacity=".5"/>
+        <g filter="url(#s2sh)" opacity=".55">
+          <rect x="56" y="276" width="188" height="40" rx="10" fill="url(#s2box)" stroke="rgba(255,255,255,.4)" stroke-width="1.6"/>
+        </g>
+        <text x="150" y="302" font-size="14" font-weight="900" fill="#fff" text-anchor="middle" opacity=".7">ARACHIDONIC ACID</text>
+
+        <!-- two branches -->
+        <path d="M244 296 L 320 262" stroke="#ffe49a" stroke-width="2.6" marker-end="url(#s2ar)" opacity=".55"/>
+        <path d="M244 306 L 320 340" stroke="#ffe49a" stroke-width="2.6" marker-end="url(#s2ar)" opacity=".55"/>
+        <g opacity=".65">
+          <rect x="330" y="236" width="150" height="38" rx="10" fill="rgba(255,138,61,.7)" stroke="rgba(255,255,255,.4)" stroke-width="1.5"/>
+          <text x="405" y="260" font-size="13" font-weight="900" fill="#2b1200" text-anchor="middle">COX enzymes</text>
+          <rect x="330" y="322" width="150" height="38" rx="10" fill="rgba(157,92,255,.7)" stroke="rgba(255,255,255,.4)" stroke-width="1.5"/>
+          <text x="405" y="346" font-size="13" font-weight="900" fill="#fff" text-anchor="middle">lipoxygenase</text>
+        </g>
+        <!-- NSAID blocks COX only -->
+        <g>
+          <rect x="520" y="230" width="150" height="50" rx="12" fill="rgba(255,194,51,.85)" stroke="rgba(255,255,255,.5)" stroke-width="2"/>
+          <text x="595" y="250" font-size="13.5" font-weight="900" fill="#231a02" text-anchor="middle">NSAID</text>
+          <text x="595" y="268" font-size="11.5" font-weight="800" fill="#3d2a00" text-anchor="middle">blocks only COX, lower down</text>
+        </g>
+        <path d="M516 255 L 488 255" stroke="#ffc233" stroke-width="3" marker-end="url(#s2ar)"/>
+        <g opacity=".55">
+          <path d="M484 254 L 528 254" stroke="none"/>
+          <rect x="700" y="222" width="182" height="66" rx="12" fill="rgba(255,59,107,.5)" stroke="rgba(255,255,255,.4)" stroke-width="1.5"/>
+          <text x="791" y="246" font-size="13" font-weight="900" fill="#fff" text-anchor="middle">PROSTAGLANDINS</text>
+          <text x="791" y="264" font-size="11.5" font-weight="800" fill="#ffe0e6" text-anchor="middle">pain · fever · swelling</text>
+          <text x="791" y="280" font-size="11.5" font-weight="800" fill="#ffe0e6" text-anchor="middle">…and stomach lining protection</text>
+          <rect x="520" y="322" width="362" height="38" rx="10" fill="rgba(157,92,255,.5)" stroke="rgba(255,255,255,.4)" stroke-width="1.5"/>
+          <text x="701" y="346" font-size="13" font-weight="900" fill="#fff" text-anchor="middle">LEUKOTRIENES · bronchoconstriction, allergy</text>
+        </g>
+        <rect x="520" y="52" width="362" height="150" rx="14" fill="rgba(13,8,26,.65)" stroke="#12b886" stroke-width="1.8"/>
+        <text x="538" y="78" font-size="14" font-weight="900" fill="#a5f3d4">WHY IT WORKS ON EVERYTHING</text>
+        <text x="538" y="102" font-size="12.5" font-weight="800" fill="#fff">Blocking at the top switches off BOTH branches —</text>
+        <text x="538" y="120" font-size="12.5" font-weight="800" fill="#fff">prostaglandins AND leukotrienes.</text>
+        <text x="538" y="146" font-size="12.5" font-weight="800" fill="#ffe49a">Steroids also suppress white cells, stabilise cell</text>
+        <text x="538" y="164" font-size="12.5" font-weight="800" fill="#ffe49a">membranes and calm the immune response overall.</text>
+        <text x="538" y="188" font-size="12" font-style="italic" fill="#ffc9d6">That is also exactly why infection gets missed.</text>
+      </svg>
+      <div class="mn">🧠 <b>NSAIDs turn off one tap. Steroids turn off the water main.</b> Bigger effect, bigger bill.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>💊 Know the names — "-sone" and "-olone"</h3>
+      <ul class="tick">
+        <li><b>Prednisone / prednisolone</b> — the everyday oral workhorse</li>
+        <li><b>Methylprednisolone</b> — IV / dose-pack forms</li>
+        <li><b>Dexamethasone</b> — potent, long-acting; used for cerebral oedema and many other indications</li>
+        <li><b>Hydrocortisone</b> — closest to natural cortisol; used for replacement and acute crisis</li>
+        <li><b>Fludrocortisone</b> — mainly <b>mineralocorticoid</b> (sodium and water retention); used in adrenal insufficiency</li>
+      </ul>
+      <div class="mn">🧠 <b>"-SONE" = Stress &amp; Swelling hOrmoNE.</b> If the drug ends in -sone or -olone, every warning on this page applies.</div>
+    </div>
+
+    <div class="card emerald">
+      <h3>✅ What they are given FOR</h3>
+      <p>Anything <b>inflamed</b>, and anything that needs a stress response the body can't mount:</p>
+      <ul class="tick">
+        <li><b>Inflamed lung</b> — asthma and COPD exacerbations</li>
+        <li><b>Inflamed joints</b> — rheumatoid arthritis, gout flares, bursitis</li>
+        <li><b>Inflamed skin</b> — psoriasis, severe eczema, contact dermatitis</li>
+        <li><b>Inflamed bowel</b> — Crohn's, ulcerative colitis flares</li>
+        <li><b>Whole-body autoimmunity</b> — lupus, vasculitis</li>
+        <li><b>Allergic reactions</b> where everything swells, and transplant rejection prevention</li>
+        <li><b>Cerebral oedema</b> and some cancer protocols</li>
+        <li><b>Adrenal insufficiency (Addison's)</b> — here the steroid is <b>replacement</b>, not a treatment: "we need to <b>ADD</b> some steroids for <b>ADD</b>ison's"</li>
+      </ul>
+      <div class="xref"><span class="pill">PAIRED PAGE</span> Replacement dosing and adrenal crisis live on <a href="NG-287_addisons-vs-cushings.html">NG-287 — Addison's vs Cushing's</a>.</div>
+      <div class="mn">🧠 <b>If it ends in "-itis", a steroid has probably been tried on it.</b></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section id="adverse">
+  <div class="sec-h"><span class="icon">⚠️</span><h2>THE 7 S's — STEROID PRECAUTIONS</h2><span class="step">STEP 2 · WATCH FOR</span></div>
+  <p class="sec-sub">One drug, an adverse effect in nearly every body system. <mark>Long-term steroids create iatrogenic Cushing's syndrome.</mark></p>
+  <div class="grid">
+
+    <div class="card deep span2">
+      <h3>🗺️ The Cushingoid body map</h3>
+      <svg viewBox="-10 -10 920 640" role="img" aria-label="A body figure showing the physical changes of long-term corticosteroid use. A rounded moon face with facial flushing and extra facial hair, a fat pad at the base of the neck called a buffalo hump, central truncal obesity with purple stretch marks on the abdomen, thin fragile skin with easy bruising on the forearms, thin wasted arm and leg muscles, ankle oedema, and poor wound healing at a leg sore, with callouts for cataracts, high blood glucose, osteoporosis, gastric ulceration and mood change">
+        <defs>
+          <radialGradient id="s3skin" cx=".4" cy=".25" r=".95">
+            <stop offset="0" stop-color="#ffe3cd"/><stop offset=".4" stop-color="#f5c6a6"/>
+            <stop offset=".8" stop-color="#c08e69"/><stop offset="1" stop-color="#7d5232"/>
+          </radialGradient>
+          <radialGradient id="s3face" cx=".38" cy=".28" r=".95">
+            <stop offset="0" stop-color="#ffd9c6"/><stop offset=".3" stop-color="#ffb9a0"/>
+            <stop offset=".7" stop-color="#e08a72"/><stop offset="1" stop-color="#a3543c"/>
+          </radialGradient>
+          <linearGradient id="s3stria" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#c9628f"/><stop offset=".5" stop-color="#9d3f7a"/><stop offset="1" stop-color="#6b2352"/>
+          </linearGradient>
+          <filter id="s3sh" x="-30%" y="-30%" width="170%" height="170%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="6"/><feOffset dx="3" dy="7" result="o"/>
+            <feFlood flood-color="#000" flood-opacity=".55"/><feComposite in2="o" operator="in"/>
+            <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="s3b"><feGaussianBlur stdDeviation="7"/></filter>
+        </defs>
+        <rect x="-6" y="-6" width="912" height="632" rx="20" fill="rgba(255,138,61,.14)" stroke="#ff8a3d" stroke-width="2" stroke-dasharray="8 7"/>
+        <text x="22" y="30" font-size="19" font-weight="900" fill="#ffd9b8">CUSHINGOID APPEARANCE</text>
+        <text x="22" y="50" font-size="13" font-style="italic" fill="#ffe49a">what long-term steroids build</text>
+
+        <g filter="url(#s3sh)">
+          <!-- buffalo hump -->
+          <path d="M398 138 C 430 118, 500 118, 528 144 C 546 160, 540 182, 512 184
+                   C 476 186, 424 184, 402 172 C 386 162, 388 146, 398 138 Z"
+                fill="url(#s3skin)" stroke="#7d5232" stroke-width="2.2"/>
+          <!-- neck -->
+          <path d="M436 118 h56 v52 h-56 z" fill="url(#s3skin)"/>
+          <!-- moon face -->
+          <ellipse cx="464" cy="76" rx="76" ry="66" fill="url(#s3face)" stroke="#a3543c" stroke-width="2.4"/>
+          <!-- trunk: central obesity -->
+          <path d="M400 176 C 380 200, 372 240, 372 286 C 372 340, 384 386, 396 414
+                   L 532 414 C 544 386, 556 340, 556 286 C 556 240, 548 200, 528 176 Z"
+                fill="url(#s3skin)" stroke="#7d5232" stroke-width="2.2"/>
+          <!-- thin arms -->
+          <path d="M398 188 C 368 210, 350 268, 344 330 L 366 336 C 376 280, 390 232, 408 210 Z"
+                fill="url(#s3skin)" stroke="#7d5232" stroke-width="2"/>
+          <path d="M530 188 C 560 210, 578 268, 584 330 L 562 336 C 552 280, 538 232, 520 210 Z"
+                fill="url(#s3skin)" stroke="#7d5232" stroke-width="2"/>
+          <!-- thin legs -->
+          <path d="M410 414 C 404 468, 402 528, 406 566 L 434 566 C 434 520, 438 464, 442 414 Z"
+                fill="url(#s3skin)" stroke="#7d5232" stroke-width="2"/>
+          <path d="M518 414 C 524 468, 526 528, 522 566 L 494 566 C 494 520, 490 464, 486 414 Z"
+                fill="url(#s3skin)" stroke="#7d5232" stroke-width="2"/>
+          <!-- swollen ankles -->
+          <ellipse cx="420" cy="576" rx="24" ry="16" fill="url(#s3skin)" stroke="#7d5232" stroke-width="2"/>
+          <ellipse cx="508" cy="576" rx="24" ry="16" fill="url(#s3skin)" stroke="#7d5232" stroke-width="2"/>
+        </g>
+        <ellipse cx="432" cy="52" rx="34" ry="18" fill="#fff" opacity=".2" filter="url(#s3b)"/>
+        <!-- facial flush -->
+        <ellipse cx="418" cy="86" rx="24" ry="15" fill="#ff3b6b" opacity=".3" filter="url(#s3b)"/>
+        <ellipse cx="510" cy="86" rx="24" ry="15" fill="#ff3b6b" opacity=".3" filter="url(#s3b)"/>
+        <!-- face features -->
+        <g>
+          <ellipse cx="438" cy="66" rx="12" ry="8" fill="#fff"/><circle cx="438" cy="66" r="5" fill="#4a3323"/>
+          <ellipse cx="490" cy="66" rx="12" ry="8" fill="#fff"/><circle cx="490" cy="66" r="5" fill="#4a3323"/>
+          <path d="M422 50 q16 -8 32 -2" fill="none" stroke="#8a5a3c" stroke-width="2.4" stroke-linecap="round"/>
+          <path d="M474 48 q16 -6 32 2" fill="none" stroke="#8a5a3c" stroke-width="2.4" stroke-linecap="round"/>
+          <path d="M464 78 q-6 14 4 18" fill="none" stroke="#a3543c" stroke-width="2" stroke-linecap="round"/>
+          <path d="M440 112 q24 10 48 0" fill="none" stroke="#a3543c" stroke-width="2.6" stroke-linecap="round"/>
+        </g>
+        <!-- facial hair (hirsutism) -->
+        <g stroke="#7d5232" stroke-width="1.4" stroke-linecap="round" opacity=".8">
+          <path d="M432 120 v8"/><path d="M442 124 v8"/><path d="M452 126 v8"/><path d="M464 127 v8"/>
+          <path d="M476 126 v8"/><path d="M486 124 v8"/><path d="M496 120 v8"/>
+        </g>
+        <!-- striae -->
+        <g stroke="url(#s3stria)" stroke-width="5" stroke-linecap="round" fill="none">
+          <path d="M404 268 q24 8 40 -4"/><path d="M400 296 q28 10 48 -4"/>
+          <path d="M404 324 q26 10 44 -4"/><path d="M412 352 q24 8 40 -4"/>
+          <path d="M486 272 q24 8 42 -4"/><path d="M484 300 q26 10 46 -4"/>
+          <path d="M486 328 q24 10 42 -4"/><path d="M490 356 q22 8 38 -4"/>
+        </g>
+        <!-- bruises on forearm -->
+        <g>
+          <ellipse cx="356" cy="296" rx="12" ry="8" fill="#9d5cff" opacity=".65" transform="rotate(-20 356 296)"/>
+          <ellipse cx="350" cy="316" rx="9" ry="6" fill="#7d2f8a" opacity=".6" transform="rotate(-15 350 316)"/>
+          <ellipse cx="574" cy="300" rx="11" ry="7" fill="#9d5cff" opacity=".6" transform="rotate(18 574 300)"/>
+        </g>
+        <!-- leg sore -->
+        <ellipse cx="424" cy="506" rx="14" ry="10" fill="#8e0f33" stroke="#5c0a25" stroke-width="1.8"/>
+        <ellipse cx="424" cy="506" rx="7" ry="5" fill="#3d0c1c"/>
+
+        <!-- callouts -->
+        <g font-size="12.5" font-weight="900">
+          <rect x="24" y="60" width="306" height="62" rx="12" fill="rgba(255,194,51,.75)"/>
+          <text x="40" y="82" fill="#231a02">🌕 MOON FACE + facial flushing</text>
+          <text x="40" y="100" font-size="11.5" font-weight="800" fill="#3d2a00">rounded cheeks · fat moves to the face</text>
+          <text x="40" y="116" font-size="11.5" font-weight="800" fill="#3d2a00">extra facial hair in women (hirsutism)</text>
+
+          <rect x="592" y="120" width="306" height="62" rx="12" fill="rgba(157,92,255,.7)"/>
+          <text x="606" y="142" fill="#fff">🐃 BUFFALO HUMP</text>
+          <text x="606" y="160" font-size="11.5" font-weight="800" fill="#efe6ff">fat pad over the upper back /</text>
+          <text x="606" y="176" font-size="11.5" font-weight="800" fill="#efe6ff">base of the neck</text>
+
+          <rect x="24" y="196" width="306" height="80" rx="12" fill="rgba(0,194,199,.7)"/>
+          <text x="40" y="218" fill="#00252b">👁️ SIGHT — cataracts &amp; glaucoma</text>
+          <text x="40" y="236" font-size="11.5" font-weight="800" fill="#00363c">refer for eye examination; report blurred</text>
+          <text x="40" y="252" font-size="11.5" font-weight="800" fill="#00363c">vision, halos or eye pain</text>
+          <text x="40" y="268" font-size="11.5" font-weight="800" fill="#00363c">🧠 mood: euphoria, insomnia, psychosis</text>
+
+          <rect x="592" y="200" width="306" height="80" rx="12" fill="rgba(255,59,107,.65)"/>
+          <text x="606" y="222" fill="#fff">🍬 SUGAR UP — hyperglycemia</text>
+          <text x="606" y="240" font-size="11.5" font-weight="800" fill="#ffe0e6">steroids raise glucose in EVERYONE,</text>
+          <text x="606" y="256" font-size="11.5" font-weight="800" fill="#ffe0e6">diabetic or not — monitor glucose</text>
+          <text x="606" y="272" font-size="11.5" font-weight="800" fill="#ffe49a">a diabetic patient may need more insulin</text>
+
+          <rect x="24" y="300" width="306" height="80" rx="12" fill="rgba(192,34,85,.7)"/>
+          <text x="40" y="322" fill="#fff">🩹 THIN, FRAGILE SKIN</text>
+          <text x="40" y="340" font-size="11.5" font-weight="800" fill="#ffd9e2">easy bruising · purple striae · poor wound</text>
+          <text x="40" y="356" font-size="11.5" font-weight="800" fill="#ffd9e2">healing — that leg sore will not close</text>
+          <text x="40" y="372" font-size="11.5" font-weight="800" fill="#ffe49a">handle gently · protect from injury</text>
+
+          <rect x="592" y="300" width="306" height="80" rx="12" fill="rgba(255,138,61,.75)"/>
+          <text x="606" y="322" fill="#2b1200">🦴 SKINNY BONES &amp; MUSCLE</text>
+          <text x="606" y="340" font-size="11.5" font-weight="800" fill="#3d1a00">osteoporosis → fracture risk; proximal</text>
+          <text x="606" y="356" font-size="11.5" font-weight="800" fill="#3d1a00">muscle wasting → thin arms and legs</text>
+          <text x="606" y="372" font-size="11.5" font-weight="800" fill="#3d1a00">calcium + vitamin D · weight-bearing work</text>
+
+          <rect x="24" y="404" width="306" height="80" rx="12" fill="rgba(47,107,255,.7)"/>
+          <text x="40" y="426" fill="#fff">💧 SWOLLEN — Na⁺ &amp; water retention</text>
+          <text x="40" y="444" font-size="11.5" font-weight="800" fill="#dbe6ff">weight gain, oedema, hypertension, LOW K⁺</text>
+          <text x="40" y="460" font-size="11.5" font-weight="800" fill="#ffe49a">REPORT: 1 lb/day, or 2–3 lb in a few days</text>
+          <text x="40" y="476" font-size="11.5" font-weight="800" fill="#ffe49a">DAILY WEIGHTS are the key monitoring value</text>
+
+          <rect x="592" y="404" width="306" height="98" rx="12" fill="rgba(18,184,134,.7)"/>
+          <text x="606" y="426" fill="#fff">🦠 SEPSIS — infection risk, MASKED</text>
+          <text x="606" y="444" font-size="11.5" font-weight="800" fill="#e8fff6">immunosuppression + blunted fever &amp; WBC</text>
+          <text x="606" y="460" font-size="11.5" font-weight="800" fill="#ffe49a">ANY fever or low WBC = PRIORITY report</text>
+          <text x="606" y="476" font-size="11.5" font-weight="800" fill="#e8fff6">avoid crowds &amp; sick contacts</text>
+          <text x="606" y="492" font-size="11.5" font-weight="800" fill="#e8fff6">live vaccines? check with the provider first</text>
+
+          <rect x="24" y="500" width="306" height="88" rx="12" fill="rgba(13,8,26,.75)"/>
+          <text x="40" y="524" fill="#ffe49a">🩸 STOMACH — GI ulceration</text>
+          <text x="40" y="544" font-size="11.5" font-weight="800" fill="#fff">take WITH food · avoid NSAIDs and alcohol</text>
+          <text x="40" y="560" font-size="11.5" font-weight="800" fill="#fff">report black tarry stools or</text><text x="40" y="578" font-size="11.5" font-weight="800" fill="#fff">coffee-ground emesis</text>
+        </g>
+        <text x="464" y="606" font-size="12.5" font-style="italic" fill="#ffe49a" text-anchor="middle">Thin limbs + a fat trunk + a round face is the classic silhouette — the fat moves to the centre while the muscle wastes.</text>
+      </svg>
+      <div class="legendrow">
+        <span>🌕 Moon face</span><span>🐃 Buffalo hump</span><span>🟣 Purple striae</span>
+        <span>🦴 Osteoporosis</span><span>🍬 Hyperglycemia</span><span>🦠 Masked infection</span>
+      </div>
+      <div class="mn">🧠 <b>The 7 S's: S</b>wollen · <b>S</b>epsis · <b>S</b>ugar · <b>S</b>kinny bones &amp; muscle · <b>S</b>ight · <b>S</b>tomach · <b>S</b>lowly taper (never stop).</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>💧 S — SWOLLEN (fluid &amp; weight)</h3>
+      <p><b>Answer first: daily weight is the single most important thing this patient monitors.</b></p>
+      <ul class="tick">
+        <li>Steroids (especially fludrocortisone and hydrocortisone) hold on to <b>sodium and water</b> and dump <b>potassium</b>.</li>
+        <li>Expect weight gain, oedema, puffiness, hypertension, and a falling K⁺.</li>
+        <li><b>Report a gain of about <span class="mono">1 lb in 1 day</span>, or <span class="mono">2–3 lb over a few days</span></b> — key words are "sudden", "rapid", "excessive".</li>
+        <li>Weigh at the same time each day, same scale, same clothing.</li>
+      </ul>
+      <div class="trap">🚨 "New bilateral pedal oedema is normal on this drug" is a <span class="never">wrong</span> statement — it needs reporting, not reassurance.</div>
+      <div class="mn">🧠 <b>The scale is the early-warning system.</b> A pound of water is about 500 mL.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🚨 S — SEPSIS (and the masking)</h3>
+      <p><b>Steroids suppress the immune response AND the signs of infection.</b> The patient can be septic without a dramatic fever or a high white count.</p>
+      <ul class="tick">
+        <li><b>Any</b> fever, or a <b>low WBC</b>, is a <b>priority</b> finding — report it.</li>
+        <li>Watch for subtle clues: malaise, a sore that will not heal, new cough, urinary symptoms, oral thrush.</li>
+        <li>Teach: <b>avoid crowds and people who are sick</b>, meticulous hand hygiene, food safety.</li>
+        <li><b>Live vaccines</b> are generally avoided during significant immunosuppression — always check with the provider.</li>
+      </ul>
+      <div class="trap">🚨 <b>Classic:</b> "I have a sore on my leg that won't go away." In a patient on dexamethasone or hydrocortisone, that is impaired healing plus possible infection — <b>this is the statement that should worry you</b>.</div>
+      <svg viewBox="-6 -6 470 280" role="img" aria-label="A comparison of the body's alarm signals during infection. Without steroids a thermometer shows a high fever and a white cell count bar is tall. On steroids the same infection produces only a small temperature rise and a low white cell bar, so the alarm is muted even though bacteria are multiplying">
+        <defs>
+          <linearGradient id="s7glass" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#ffffff" stop-opacity=".7"/><stop offset=".4" stop-color="#dfe9f5" stop-opacity=".4"/>
+            <stop offset="1" stop-color="#9fb0c6" stop-opacity=".4"/>
+          </linearGradient>
+          <linearGradient id="s7merc" x1="0" y1="1" x2="0" y2="0">
+            <stop offset="0" stop-color="#8e0f33"/><stop offset=".6" stop-color="#ff3b6b"/><stop offset="1" stop-color="#ff9db6"/>
+          </linearGradient>
+          <linearGradient id="s7wbc" x1="0" y1="1" x2="0" y2="0">
+            <stop offset="0" stop-color="#04593f"/><stop offset=".6" stop-color="#12b886"/><stop offset="1" stop-color="#a5f3d4"/>
+          </linearGradient>
+        </defs>
+        <rect x="-4" y="-4" width="466" height="276" rx="16" fill="rgba(13,8,26,.45)" stroke="#12b886" stroke-width="1.6" stroke-dasharray="7 6"/>
+        <text x="16" y="24" font-size="13.5" font-weight="900" fill="#a5f3d4">SAME INFECTION · MUTED ALARM</text>
+
+        <!-- no steroid -->
+        <text x="112" y="48" font-size="12.5" font-weight="900" fill="#fff" text-anchor="middle">NO STEROID</text>
+        <g>
+          <rect x="66" y="60" width="20" height="146" rx="10" fill="url(#s7glass)" stroke="#8b97ad" stroke-width="1.4"/>
+          <circle cx="76" cy="216" r="14" fill="url(#s7merc)" stroke="#8b97ad" stroke-width="1.4"/>
+          <rect x="70" y="82" width="12" height="130" rx="6" fill="url(#s7merc)"/>
+          <text x="76" y="238" font-size="11.5" font-weight="900" fill="#ff9db6" text-anchor="middle">39.2 °C</text>
+        </g>
+        <g>
+          <rect x="126" y="86" width="34" height="120" rx="7" fill="url(#s7wbc)"/>
+          <text x="143" y="238" font-size="11.5" font-weight="900" fill="#a5f3d4" text-anchor="middle">WBC ↑↑</text>
+          <text x="143" y="76" font-size="11" font-weight="800" fill="#a5f3d4" text-anchor="middle">loud alarm</text>
+        </g>
+
+        <path d="M206 140 L 244 140" stroke="#ffe49a" stroke-width="3"/>
+        <path d="M244 140 l-10 -6 l0 12 z" fill="#ffe49a"/>
+        <text x="225" y="126" font-size="11" font-weight="900" fill="#ffe49a" text-anchor="middle">add</text>
+        <text x="225" y="164" font-size="11" font-weight="900" fill="#ffe49a" text-anchor="middle">steroid</text>
+
+        <!-- on steroid -->
+        <text x="340" y="48" font-size="12.5" font-weight="900" fill="#fff" text-anchor="middle">ON STEROIDS</text>
+        <g>
+          <rect x="294" y="60" width="20" height="146" rx="10" fill="url(#s7glass)" stroke="#8b97ad" stroke-width="1.4"/>
+          <circle cx="304" cy="216" r="14" fill="url(#s7merc)" stroke="#8b97ad" stroke-width="1.4"/>
+          <rect x="298" y="178" width="12" height="34" rx="6" fill="url(#s7merc)"/>
+          <text x="304" y="238" font-size="11.5" font-weight="900" fill="#ffd9e2" text-anchor="middle">37.6 °C</text>
+        </g>
+        <g>
+          <rect x="354" y="172" width="34" height="34" rx="7" fill="url(#s7wbc)" opacity=".8"/>
+          <text x="371" y="238" font-size="11.5" font-weight="900" fill="#a5f3d4" text-anchor="middle">WBC low</text>
+          <text x="371" y="160" font-size="11" font-weight="800" fill="#ff9db6" text-anchor="middle">alarm barely rings</text>
+        </g>
+        <g fill="#9d5cff" opacity=".8">
+          <ellipse cx="414" cy="96" rx="8" ry="5" transform="rotate(20 414 96)"/>
+          <ellipse cx="432" cy="114" rx="7" ry="4" transform="rotate(-15 432 114)"/>
+          <ellipse cx="412" cy="128" rx="8" ry="5" transform="rotate(35 412 128)"/>
+          <ellipse cx="434" cy="146" rx="7" ry="4" transform="rotate(10 434 146)"/>
+        </g>
+        <text x="424" y="80" font-size="10.5" font-weight="900" fill="#c9a6ff" text-anchor="middle">bacteria</text>
+        <text x="424" y="170" font-size="10.5" font-weight="900" fill="#c9a6ff" text-anchor="middle">still</text>
+        <text x="424" y="184" font-size="10.5" font-weight="900" fill="#c9a6ff" text-anchor="middle">multiplying</text>
+        <text x="235" y="264" font-size="11.5" font-style="italic" fill="#ffe49a" text-anchor="middle">So treat a SMALL fever in a steroid patient as if it were a big one.</text>
+      </svg>
+      <div class="mn">🧠 <b>Steroids don't stop infection — they hide it.</b> Low threshold, early report.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🍬 S — SUGAR (hyperglycemia)</h3>
+      <p>Cortisol raises blood glucose by design — it mobilises fuel for a crisis. So steroids raise the sugar of <b>everyone</b>, diabetic or not.</p>
+      <ul class="tick">
+        <li>Monitor blood glucose, especially at initiation and dose increases.</li>
+        <li>Patients with diabetes often need <b>more</b> insulin or medication while on steroids.</li>
+        <li>Non-diabetic patients can develop steroid-induced hyperglycemia and occasionally frank diabetes.</li>
+        <li>Teach the 3 P's and the hyperglycemia signs so they know when to call.</li>
+      </ul>
+      <div class="xref"><span class="pill">SEE ALSO</span> <a href="NG-290_diabetes.html">NG-290 — Diabetes</a> and <a href="NG-291_dka-vs-hhs.html">NG-291 — DKA vs HHS</a>: steroids are one of the classic "4 S" triggers of a hyperglycemic crisis.</div>
+      <div class="mn">🧠 <b>Predni-SONE raises the sugar.</b> If an exam asks "which drug causes hyperglycemia?", the steroid is the answer.</div>
+    </div>
+
+    <div class="card citrinec span2">
+      <h3>🦴 S — SKINNY bones &amp; muscle</h3>
+      <svg viewBox="-6 -6 900 300" role="img" aria-label="A cross-section comparison of bone. On the left healthy bone shows a thick outer cortex and a dense lattice of trabecular struts inside. On the right steroid-induced osteoporotic bone shows a thin cortex and a sparse, broken lattice with wide empty spaces and a hairline fracture">
+        <defs>
+          <linearGradient id="s4cort" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#fffaf0"/><stop offset=".35" stop-color="#f2e5cd"/>
+            <stop offset=".75" stop-color="#d4c3a2"/><stop offset="1" stop-color="#9e8b68"/>
+          </linearGradient>
+          <radialGradient id="s4mar" cx=".4" cy=".3" r=".9">
+            <stop offset="0" stop-color="#ffd0dc"/><stop offset=".5" stop-color="#c9576f"/><stop offset="1" stop-color="#6d1c2c"/>
+          </radialGradient>
+          <filter id="s4sh" x="-30%" y="-30%" width="170%" height="170%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dx="2" dy="6" result="o"/>
+            <feFlood flood-color="#000" flood-opacity=".5"/><feComposite in2="o" operator="in"/>
+            <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <rect x="-4" y="-4" width="896" height="296" rx="16" fill="rgba(13,8,26,.4)" stroke="#ff8a3d" stroke-width="1.6" stroke-dasharray="7 6"/>
+        <text x="16" y="26" font-size="14" font-weight="900" fill="#ffd9b8">BONE CROSS-SECTION · what steroids do to the lattice</text>
+
+        <!-- healthy -->
+        <g filter="url(#s4sh)">
+          <ellipse cx="220" cy="160" rx="150" ry="96" fill="url(#s4cort)" stroke="#8d7a58" stroke-width="2.4"/>
+          <ellipse cx="220" cy="160" rx="126" ry="76" fill="url(#s4mar)"/>
+        </g>
+        <g stroke="#f2e5cd" stroke-width="4.5" stroke-linecap="round" opacity=".95" fill="none">
+          <path d="M116 132 L 158 108 L 202 128 L 244 104 L 288 126 L 320 106"/>
+          <path d="M110 162 L 154 142 L 196 164 L 240 140 L 284 162 L 326 142"/>
+          <path d="M114 196 L 156 174 L 200 196 L 242 174 L 286 194 L 322 176"/>
+          <path d="M120 218 L 162 200 L 206 220 L 248 200 L 290 218"/>
+          <path d="M158 108 L 154 142 L 156 174 L 162 200"/>
+          <path d="M202 128 L 196 164 L 200 196 L 206 220"/>
+          <path d="M244 104 L 240 140 L 242 174 L 248 200"/>
+          <path d="M288 126 L 284 162 L 286 194 L 290 218"/>
+        </g>
+        <text x="220" y="278" font-size="13.5" font-weight="900" fill="#a5f3d4" text-anchor="middle">HEALTHY · thick cortex, dense trabeculae</text>
+
+        <!-- osteoporotic -->
+        <g filter="url(#s4sh)">
+          <ellipse cx="640" cy="160" rx="150" ry="96" fill="url(#s4cort)" stroke="#8d7a58" stroke-width="2.4"/>
+          <ellipse cx="640" cy="160" rx="138" ry="86" fill="url(#s4mar)"/>
+        </g>
+        <g stroke="#f2e5cd" stroke-width="2.4" stroke-linecap="round" opacity=".8" fill="none">
+          <path d="M536 130 L 576 112 L 618 132"/>
+          <path d="M690 118 L 730 134"/>
+          <path d="M528 176 L 566 160"/>
+          <path d="M614 168 L 656 150 L 700 172"/>
+          <path d="M540 214 L 584 198"/>
+          <path d="M646 204 L 688 190 L 728 206"/>
+          <path d="M576 112 L 566 160"/>
+          <path d="M656 150 L 646 204"/>
+          <path d="M730 134 L 728 206"/>
+        </g>
+        <path d="M700 92 L 736 116" stroke="#ff3b6b" stroke-width="3.4" stroke-linecap="round"/>
+        <text x="756" y="96" font-size="11.5" font-weight="900" fill="#ff9db6">fracture</text>
+        <text x="640" y="278" font-size="13.5" font-weight="900" fill="#ffc9d6" text-anchor="middle">STEROID-INDUCED OSTEOPOROSIS · thin cortex, broken lattice</text>
+        <path d="M394 160 L 466 160" stroke="#ffe49a" stroke-width="3"/>
+        <path d="M466 160 l-10 -6 l0 12 z" fill="#ffe49a"/>
+        <text x="430" y="146" font-size="12" font-weight="900" fill="#ffe49a" text-anchor="middle">months–years</text>
+      </svg>
+      <ul class="tick">
+        <li>Steroids reduce bone formation and calcium absorption → <b>osteoporosis and fracture risk</b> (vertebral compression fractures especially).</li>
+        <li>Teach <b>calcium and vitamin D</b> intake and <b>weight-bearing exercise</b> as tolerated; bone density testing for long-term therapy.</li>
+        <li>Also expect <b>proximal muscle wasting</b> — difficulty rising from a chair or climbing stairs.</li>
+        <li>In children, long-term steroids can <b>suppress growth</b>.</li>
+        <li>Fall prevention matters: weak muscles + brittle bones + possible cataracts.</li>
+      </ul>
+      <div class="mn">🧠 <b>Skinny arms, fat belly, brittle spine.</b> The drug moves the fat inward and eats the scaffolding.</div>
+    </div>
+
+    <div class="card topaz">
+      <h3>🩸 S — STOMACH &amp; 👁️ S — SIGHT</h3>
+      <ul class="tick">
+        <li><b>GI ulceration and bleeding.</b> Take <b>with food</b> or milk; avoid <b>NSAIDs</b> and alcohol; a PPI may be prescribed. Report <b>black tarry stools</b>, coffee-ground emesis, or epigastric pain.</li>
+        <li><b>Cataracts and glaucoma</b> with long-term use. Refer for regular eye exams; report blurred vision, halos around lights or eye pain.</li>
+      </ul>
+      <div class="trap">🚨 Steroid + NSAID (e.g. naproxen, ibuprofen) together = a <b>much</b> higher GI bleed risk. That combination should be reviewed with the provider.</div>
+      <div class="mn">🧠 <b>Two S's that need a partner drug:</b> stomach protection, and an eye doctor.</div>
+    </div>
+
+    <div class="card deep">
+      <h3>🧠 The ones people forget</h3>
+      <ul class="tick">
+        <li><b>Mood and sleep</b> — euphoria, irritability, insomnia, depression, and occasionally frank steroid psychosis. Warn the family.</li>
+        <li><b>Hypokalemia</b> — from the mineralocorticoid effect; monitor K⁺ and watch for weakness and arrhythmias.</li>
+        <li><b>Hypertension</b> from fluid retention.</li>
+        <li><b>Delayed wound healing</b> — a real problem after surgery.</li>
+        <li><b>Avascular necrosis</b> of the femoral head with prolonged high dosing — new hip or groin pain is not nothing.</li>
+        <li><b>Take the dose in the MORNING with food</b> — matching the body's natural cortisol peak reduces both insomnia and adrenal suppression.</li>
+      </ul>
+      <div class="mn">🧠 <b>Morning, with food.</b> Two words that fix insomnia and the stomach at the same time.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section id="taper">
+  <div class="sec-h"><span class="icon">🛑</span><h2>NEVER STOP ABRUPTLY</h2><span class="step">STEP 3 · THE SAFETY RULE</span></div>
+  <p class="sec-sub">This is the one rule that turns a nuisance drug into a lethal one. <mark>Taper to let the adrenal glands wake up.</mark></p>
+  <div class="grid">
+
+    <div class="card garnet span2">
+      <h3>📉 The taper — and what the adrenals are doing while you do it</h3>
+      <svg viewBox="-10 -10 920 460" role="img" aria-label="A chart with a descending staircase of steroid doses over weeks alongside a rising curve showing adrenal cortisol production gradually recovering. A second overlay shows what happens if the drug is stopped suddenly: the dose drops to zero in one step while the adrenal curve is still flat, leaving a dangerous gap labelled adrenal crisis, with the signs of crisis listed">
+        <defs>
+          <linearGradient id="s5step" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffd9a8"/><stop offset=".5" stop-color="#ff8a3d"/><stop offset="1" stop-color="#a8480c"/>
+          </linearGradient>
+          <linearGradient id="s5gap" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ff3b6b" stop-opacity=".65"/><stop offset="1" stop-color="#8e0f33" stop-opacity=".25"/>
+          </linearGradient>
+          <filter id="s5sh" x="-20%" y="-40%" width="140%" height="200%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="4"/><feOffset dx="1" dy="5" result="o"/>
+            <feFlood flood-color="#000" flood-opacity=".5"/><feComposite in2="o" operator="in"/>
+            <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <rect x="-6" y="-6" width="912" height="452" rx="20" fill="rgba(192,34,85,.14)" stroke="#c02255" stroke-width="2" stroke-dasharray="8 7"/>
+        <text x="22" y="30" font-size="18" font-weight="900" fill="#ffc9d6">TAPER = handing the job back slowly</text>
+
+        <g stroke="rgba(255,255,255,.28)" stroke-width="1"><path d="M70 340 H 560"/><path d="M70 60 V 340"/></g>
+        <text x="46" y="200" font-size="12" font-weight="900" fill="#ffd9e2" text-anchor="middle" transform="rotate(-90 46 200)">DOSE</text>
+        <text x="315" y="364" font-size="12" font-weight="900" fill="#ffd9e2" text-anchor="middle">weeks →</text>
+
+        <!-- staircase -->
+        <g filter="url(#s5sh)">
+          <path d="M70 340 L 70 100 L 152 100 L 152 156 L 234 156 L 234 204 L 316 204
+                   L 316 244 L 398 244 L 398 278 L 480 278 L 480 306 L 560 306 L 560 340 Z"
+                fill="url(#s5step)" stroke="#8a3f06" stroke-width="2.2"/>
+        </g>
+        <text x="300" y="132" font-size="13" font-weight="900" fill="#3d1a00">gradual, stepped reduction</text>
+
+        <!-- adrenal recovery curve -->
+        <path d="M70 336 C 180 332, 250 306, 320 272 C 396 236, 470 176, 560 120"
+              fill="none" stroke="#12b886" stroke-width="4" stroke-linecap="round"/>
+        <text x="470" y="150" font-size="12.5" font-weight="900" fill="#a5f3d4">adrenal cortisol recovering</text>
+        <circle cx="560" cy="120" r="7" fill="#12b886" stroke="#fff" stroke-width="2"/>
+        <text x="586" y="112" font-size="12" font-weight="900" fill="#a5f3d4">own glands</text>
+        <text x="586" y="128" font-size="12" font-weight="900" fill="#a5f3d4">back online ✓</text>
+
+        <!-- abrupt stop panel -->
+        <g>
+          <rect x="612" y="60" width="270" height="146" rx="14" fill="rgba(13,8,26,.7)" stroke="#ff3b6b" stroke-width="1.8"/>
+          <text x="628" y="84" font-size="14" font-weight="900" fill="#ff9db6">IF YOU STOP IT SUDDENLY</text>
+          <g stroke="rgba(255,255,255,.25)" stroke-width="1"><path d="M636 178 H 862"/><path d="M636 96 V 178"/></g>
+          <path d="M636 178 L 636 104 L 706 104 L 706 178 Z" fill="url(#s5step)" stroke="#8a3f06" stroke-width="1.6"/>
+          <path d="M636 176 C 690 175, 780 174, 858 174" fill="none" stroke="#12b886" stroke-width="3"/>
+          <path d="M706 104 L 706 178 L 858 178 L 858 174 L 710 174 Z" fill="url(#s5gap)"/>
+          <text x="786" y="136" font-size="12.5" font-weight="900" fill="#ff9db6" text-anchor="middle">THE GAP</text>
+          <text x="786" y="152" font-size="11.5" font-weight="800" fill="#ffd9e2" text-anchor="middle">no drug, no cortisol</text>
+          <text x="748" y="196" font-size="12" font-weight="900" fill="#ffe49a" text-anchor="middle">= ADRENAL CRISIS</text>
+        </g>
+
+        <g>
+          <rect x="612" y="220" width="270" height="200" rx="14" fill="rgba(192,34,85,.6)" stroke="rgba(255,255,255,.45)" stroke-width="1.8"/>
+          <text x="628" y="246" font-size="14" font-weight="900" fill="#fff">ADRENAL CRISIS LOOKS LIKE</text>
+          <text x="628" y="270" font-size="12.5" font-weight="800" fill="#ffe0e6">• profound weakness, exhaustion</text>
+          <text x="628" y="290" font-size="12.5" font-weight="800" fill="#ffe0e6">• nausea, vomiting, abdominal pain</text>
+          <text x="628" y="310" font-size="12.5" font-weight="900" fill="#ffe49a">• HYPOTENSION → shock</text>
+          <text x="628" y="330" font-size="12.5" font-weight="800" fill="#ffe0e6">• hypoglycemia</text>
+          <text x="628" y="350" font-size="12.5" font-weight="800" fill="#ffe0e6">• LOW sodium, HIGH potassium</text>
+          <text x="628" y="370" font-size="12.5" font-weight="800" fill="#ffe0e6">• fever, confusion, collapse</text>
+          <text x="628" y="396" font-size="12.5" font-weight="900" fill="#fff">It is a medical EMERGENCY —</text>
+          <text x="628" y="412" font-size="12.5" font-weight="900" fill="#fff">IV fluids + IV steroid, fast.</text>
+        </g>
+
+        <g>
+          <rect x="70" y="376" width="490" height="60" rx="12" fill="rgba(255,194,51,.75)"/>
+          <text x="86" y="398" font-size="13.5" font-weight="900" fill="#231a02">STRESS or SURGERY? The dose goes UP, not down.</text>
+          <text x="86" y="418" font-size="12" font-weight="800" fill="#3d2a00">A body on steroids cannot mount its own stress response — illness, injury,</text>
+          <text x="86" y="432" font-size="12" font-weight="800" fill="#3d2a00">surgery and infection all need a temporarily INCREASED dose, per the provider.</text>
+        </g>
+      </svg>
+      <div class="mn">🧠 <b>Taper down slowly; in a crisis, dose UP.</b> Both directions are counter-intuitive, and both are exam answers.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🚨 Why abrupt withdrawal is lethal</h3>
+      <p>Weeks of exogenous steroid switch off CRH and ACTH, and the adrenal cortex <b>atrophies</b>. Remove the drug in one step and the body has <b>no cortisol at all</b> — it cannot maintain blood pressure, blood sugar or sodium.</p>
+      <p><b>The result is acute adrenal insufficiency (adrenal crisis)</b>: hypotension progressing to shock, hypoglycemia, hyponatremia, hyperkalemia, vomiting, weakness and collapse.</p>
+      <p>Recovery of the axis can take <b>weeks to many months</b> after long courses — which is why tapers can be slow and why patients on chronic steroids need <b>stress dosing</b> long after the drug is stopped.</p>
+      <div class="xref"><span class="pill">THE LINK</span> Exogenous steroids produce <b>iatrogenic Cushing's</b>; abrupt withdrawal produces <b>Addisonian crisis</b>. Both sides of that coin are on <a href="NG-287_addisons-vs-cushings.html">NG-287 — Addison's vs Cushing's</a>.</div>
+      <svg viewBox="-6 -6 470 320" role="img" aria-label="Two wedge cross-sections through the adrenal gland. The normal wedge shows a capsule, a thin outer zona glomerulosa making aldosterone, a thick middle zona fasciculata making cortisol, an inner zona reticularis making androgens, and the medulla making adrenaline. The suppressed wedge shows the fasciculata and reticularis markedly thinned and pale after prolonged ACTH suppression, while the glomerulosa is relatively preserved">
+        <defs>
+          <linearGradient id="s6cap" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#f2e6d0"/><stop offset="1" stop-color="#bda781"/>
+          </linearGradient>
+          <linearGradient id="s6glo" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffe9b8"/><stop offset="1" stop-color="#e0b458"/>
+          </linearGradient>
+          <linearGradient id="s6fas" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffd88a"/><stop offset=".5" stop-color="#f0a93e"/><stop offset="1" stop-color="#b06f14"/>
+          </linearGradient>
+          <linearGradient id="s6ret" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#e8945e"/><stop offset="1" stop-color="#9c4a1e"/>
+          </linearGradient>
+          <linearGradient id="s6med" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#f0a3b8"/><stop offset=".5" stop-color="#c02255"/><stop offset="1" stop-color="#6d0c2f"/>
+          </linearGradient>
+          <linearGradient id="s6pale" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#e6e0d4"/><stop offset="1" stop-color="#a89f8c"/>
+          </linearGradient>
+          <filter id="s6sh" x="-30%" y="-30%" width="170%" height="170%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="4"/><feOffset dx="2" dy="5" result="o"/>
+            <feFlood flood-color="#000" flood-opacity=".5"/><feComposite in2="o" operator="in"/>
+            <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <rect x="-4" y="-4" width="466" height="316" rx="16" fill="rgba(13,8,26,.4)" stroke="#ff8a3d" stroke-width="1.6" stroke-dasharray="7 6"/>
+        <text x="16" y="24" font-size="13.5" font-weight="900" fill="#ffd9b8">ADRENAL CORTEX · layer by layer</text>
+
+        <!-- normal wedge -->
+        <g filter="url(#s6sh)">
+          <rect x="30" y="46" width="130" height="14" rx="4" fill="url(#s6cap)"/>
+          <rect x="30" y="60" width="130" height="22" fill="url(#s6glo)"/>
+          <rect x="30" y="82" width="130" height="76" fill="url(#s6fas)"/>
+          <rect x="30" y="158" width="130" height="34" fill="url(#s6ret)"/>
+          <rect x="30" y="192" width="130" height="60" rx="0" fill="url(#s6med)"/>
+        </g>
+        <g stroke="#a06f00" stroke-width="1" opacity=".45">
+          <path d="M42 86 v70 M58 86 v70 M74 86 v70 M90 86 v70 M106 86 v70 M122 86 v70 M138 86 v70 M152 86 v70"/>
+        </g>
+        <g stroke="#e0b458" stroke-width="1" opacity=".5" fill="none">
+          <circle cx="48" cy="70" r="5"/><circle cx="72" cy="72" r="5"/><circle cx="96" cy="69" r="5"/>
+          <circle cx="120" cy="72" r="5"/><circle cx="144" cy="70" r="5"/>
+        </g>
+        <text x="95" y="272" font-size="12.5" font-weight="900" fill="#a5f3d4" text-anchor="middle">NORMAL</text>
+        <text x="95" y="290" font-size="11" font-weight="800" fill="#dbe6ff" text-anchor="middle">thick cortisol layer</text>
+
+        <!-- labels -->
+        <g font-size="11" font-weight="800">
+          <text x="172" y="58" fill="#e2d3ff">capsule</text>
+          <text x="172" y="76" fill="#ffe49a">zona glomerulosa → <tspan font-weight="900">aldosterone</tspan></text>
+          <text x="172" y="122" fill="#ffe49a">zona fasciculata → <tspan font-weight="900">CORTISOL</tspan></text>
+          <text x="172" y="140" fill="#ffd9b8">(this is the layer steroids shut down)</text>
+          <text x="172" y="178" fill="#ffd9b8">zona reticularis → androgens</text>
+          <text x="172" y="226" fill="#ffc9d6">medulla → adrenaline / noradrenaline</text>
+          <text x="172" y="244" fill="#dbe6ff">(medulla is NOT ACTH-driven — it is spared)</text>
+        </g>
+
+        <!-- atrophic wedge -->
+        <g filter="url(#s6sh)">
+          <rect x="330" y="46" width="112" height="14" rx="4" fill="url(#s6cap)"/>
+          <rect x="330" y="60" width="112" height="20" fill="url(#s6glo)"/>
+          <rect x="330" y="80" width="112" height="26" fill="url(#s6pale)"/>
+          <rect x="330" y="106" width="112" height="14" fill="url(#s6pale)" opacity=".8"/>
+          <rect x="330" y="120" width="112" height="60" fill="url(#s6med)"/>
+        </g>
+        <g stroke="#8a8272" stroke-width="1" opacity=".45">
+          <path d="M344 84 v34 M362 84 v34 M380 84 v34 M398 84 v34 M416 84 v34 M432 84 v34"/>
+        </g>
+        <text x="386" y="200" font-size="12.5" font-weight="900" fill="#ffc9d6" text-anchor="middle">SUPPRESSED</text>
+        <text x="386" y="218" font-size="11" font-weight="800" fill="#ffd9e2" text-anchor="middle">cortisol layer thinned</text>
+        <text x="386" y="234" font-size="11" font-weight="800" fill="#ffd9e2" text-anchor="middle">&amp; pale after weeks of</text>
+        <text x="386" y="250" font-size="11" font-weight="800" fill="#ffd9e2" text-anchor="middle">exogenous steroid</text>
+        <text x="358" y="276" font-size="10.5" font-weight="900" fill="#ff9db6" text-anchor="middle">…and it cannot regrow overnight.</text>
+      </svg>
+      <div class="mn">🧠 <b>Too much steroid = Cushing's. Suddenly none = Addison's.</b> Same patient, one week apart.</div>
+    </div>
+
+    <div class="card emerald">
+      <h3>✅ What the nurse actually does</h3>
+      <ul class="tick">
+        <li><b>Confirm the taper schedule</b> is written and the patient understands it — including how to get a refill so they never run out.</li>
+        <li><b>Medical alert bracelet or card</b> stating chronic steroid use.</li>
+        <li>Teach: <b>call the provider before surgery, dental work, or during illness</b> — the dose may need to increase.</li>
+        <li>Monitor BP, weight, glucose, electrolytes (especially K⁺ and Na⁺) and signs of infection.</li>
+        <li>Never let a patient "just stop because they feel better."</li>
+        <li>If a dose is missed, follow the provider's instruction — do <b>not</b> double up without advice.</li>
+      </ul>
+      <div class="mn">🧠 <b>The prescription is not finished until the taper is finished.</b></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section id="teach">
+  <div class="sec-h"><span class="icon">📚</span><h2>TEACHING &amp; TEST TRAPS</h2><span class="step">STEP 4 · TEACH</span></div>
+  <p class="sec-sub">Most steroid questions are testing one of four things: taper, infection, weight, or sugar.</p>
+  <div class="grid">
+
+    <div class="card topaz span2">
+      <h3>⭐ Correct vs incorrect patient statements</h3>
+      <table>
+        <tr><th class="up">✅ Shows understanding</th><th class="lo">❌ Needs more teaching</th></tr>
+        <tr><td>"I will <b>not</b> stop this medication suddenly — I'll follow the taper."</td><td>"When I feel better I'll just stop taking it."</td></tr>
+        <tr><td>"I'll report any <b>fever</b> or signs of infection right away."</td><td>"A little fever is expected on steroids."</td></tr>
+        <tr><td>"The most important thing to monitor is my <b>weight</b> — daily."</td><td>"I'll weigh myself once a week." <span class="tip">TOO INFREQUENT</span></td></tr>
+        <tr><td>"I'll call if I gain a pound in a day or a few pounds in a few days."</td><td>"<b>New swelling in both feet is normal</b> on this drug."</td></tr>
+        <tr><td>"I'll take it in the <b>morning with food</b>."</td><td>"I'll take it at bedtime on an empty stomach."</td></tr>
+        <tr><td>"I'll tell the surgeon and dentist that I take steroids, and ask whether the dose should go <b>up</b>."</td><td>"I should stop it before surgery so it doesn't interfere."</td></tr>
+        <tr><td>"I'll check my blood sugar more often."</td><td>"I'll call the doctor immediately for any tiny rise in blood sugar." <span class="tip">EXPECTED EFFECT</span></td></tr>
+        <tr><td>"I'll avoid ibuprofen and alcohol and report black stools."</td><td>"I'll take naproxen with it for my joint pain."</td></tr>
+        <tr><td>"I'll wear medical alert identification."</td><td>"Nobody needs to know I'm on this."</td></tr>
+      </table>
+      <div class="mn">🧠 The four keystones: <b>taper · infection · weight · sugar.</b> If an option contradicts one of those, it's the wrong statement.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>⭐ Priority teaching for a new prescription</h3>
+      <div class="ladder">
+        <div class="rung"><div class="n">1</div><div class="t"><b>Never stop abruptly.</b> Take exactly as prescribed and finish the taper.</div></div>
+        <div class="rung"><div class="n">2</div><div class="t"><b>Increase the dose for stress or surgery</b> — but only on the provider's instruction. Call before procedures.</div></div>
+        <div class="rung"><div class="n">3</div><div class="t"><b>Report infection signs immediately</b>, however mild.</div></div>
+        <div class="rung"><div class="n">4</div><div class="t"><b>Weigh daily</b> and report sudden gain or new swelling.</div></div>
+        <div class="rung"><div class="n">5</div><div class="t"><b>Take in the morning with food.</b> Avoid NSAIDs and alcohol.</div></div>
+      </div>
+      <div class="mn">🧠 If a question asks for the <b>priority</b> teaching on a long-term steroid, the answer is almost always about <b>not stopping it</b> or <b>stress-dosing</b>.</div>
+    </div>
+
+    <div class="card deep">
+      <h3>🧪 Monitoring parameters</h3>
+      <ul class="tick">
+        <li><b>Daily weight</b> and intake/output</li>
+        <li><b>Blood pressure</b> — fluid retention drives it up</li>
+        <li><b>Blood glucose</b> — expect it to rise</li>
+        <li><b>Electrolytes</b> — <b>K⁺ falls</b>, Na⁺ rises with mineralocorticoid effect</li>
+        <li><b>WBC and temperature</b> — remembering both can be blunted</li>
+        <li><b>Signs of GI bleeding</b>; stool for occult blood if indicated</li>
+        <li><b>Bone density</b> and eye exams for long-term therapy</li>
+        <li><b>Mood and sleep</b> — ask, don't assume</li>
+      </ul>
+      <div class="mn">🧠 <b>Weight · BP · sugar · potassium · temperature.</b> Five checks that catch nearly every steroid complication.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>💊 Special populations &amp; forms</h3>
+      <ul class="tick">
+        <li><b>Inhaled steroids</b> (asthma/COPD): <b>rinse the mouth</b> after each use to prevent oral candidiasis and hoarseness; they are controllers, <span class="never">not rescue inhalers</span>.</li>
+        <li><b>Topical steroids</b>: use the smallest effective amount, avoid occlusive dressings unless prescribed; long-term use thins skin.</li>
+        <li><b>Children</b>: growth suppression with long courses — monitor height.</li>
+        <li><b>Older adults</b>: greater risk of osteoporosis, hyperglycemia, delirium and infection.</li>
+        <li><b>Fludrocortisone</b> is chiefly a mineralocorticoid — the biggest watch item is <b>fluid and sodium retention with weight gain and low potassium</b>.</li>
+      </ul>
+      <div class="mn">🧠 <b>Inhaled steroid → rinse and spit.</b> One sentence, one guaranteed exam point.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc rubybg"><span class="big">🛑 Taper — never stop suddenly</span>Abrupt withdrawal → adrenal crisis → shock.</div>
+    <div class="rc citrine"><span class="big">📈 Stress/surgery = MORE</span>The body can't make its own stress cortisol any more.</div>
+    <div class="rc topazbg"><span class="big">⚖️ Weigh DAILY</span>1 lb in a day, or 2–3 lb in a few days → report.</div>
+    <div class="rc tealbg"><span class="big">🦠 Fever = priority</span>Infection is masked. Any fever or low WBC gets reported.</div>
+  </div>
+
+  <div class="card deep">
+    <h3>➡️ Where to go next</h3>
+    <p>The endocrine other half: <b><a href="NG-287_addisons-vs-cushings.html">NG-287 — Addison's vs Cushing's</a></b> (too little vs too much cortisol — the disease version of everything on this page). Because steroids raise glucose: <b><a href="NG-290_diabetes.html">NG-290 — Diabetes</a></b>, <b><a href="NG-292_diabetes-2.html">NG-292 — Diabetes II</a></b> and <b><a href="NG-291_dka-vs-hhs.html">NG-291 — DKA vs HHS</a></b>.</p>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 10 rapid-fire questions</summary>
+      <div class="qa">Q1: Why can a corticosteroid never be stopped abruptly after long-term use? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Exogenous steroid suppresses CRH and ACTH, so the adrenal cortex atrophies. Stopping suddenly leaves the body with no cortisol at all, causing acute adrenal insufficiency — hypotension and shock, hypoglycemia, low sodium, high potassium, vomiting and collapse. The drug must be tapered so the axis can recover.</div></div>
+      <div class="qa">Q2: What happens to the dose before surgery or during a serious illness? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">It goes UP, on the provider's instruction. The patient cannot mount their own stress cortisol response, so the extra demand has to be given.</div></div>
+      <div class="qa">Q3: A patient on prednisone has a temperature of 38.0 °C and a low WBC. Priority? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Report immediately. Steroids suppress the immune system and mask the signs of infection, so even a modest fever with a low white count can represent serious infection.</div></div>
+      <div class="qa">Q4: What is the most important value for the patient to monitor at home? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Daily weight. Report a gain of about 1 lb in a day, or 2–3 lb over a few days, and any new swelling — those reflect sodium and fluid retention.</div></div>
+      <div class="qa">Q5: Why do steroids cause hyperglycemia? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Cortisol's normal job is mobilising fuel for stress — it raises hepatic glucose production and opposes insulin. Everyone's sugar rises; patients with diabetes usually need more medication while on steroids.</div></div>
+      <div class="qa">Q6: A patient on dexamethasone says, "I have a sore on my leg that won't go away." Why does this concern you? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Steroids delay wound healing, thin the skin and mask infection. A non-healing sore in a steroid patient needs assessment and reporting — it may already be infected.</div></div>
+      <div class="qa">Q7: Which common analgesic class should be reviewed with the provider in a steroid patient, and why? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">NSAIDs (naproxen, ibuprofen). Combined with a steroid they sharply increase the risk of gastric ulceration and GI bleeding.</div></div>
+      <div class="qa">Q8: When should an oral steroid be taken, and with what? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">In the morning, with food. Morning dosing matches the natural cortisol peak (less insomnia, less adrenal suppression) and food protects the stomach.</div></div>
+      <div class="qa">Q9: List the 7 S's of steroid precautions. <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Swollen (fluid/weight gain) · Sepsis (infection risk, masked) · Sugar (hyperglycemia) · Skinny bones and muscle (osteoporosis, wasting) · Sight (cataracts/glaucoma) · Stomach (ulceration) · Slowly taper — never stop abruptly, and increase for Stress/Surgery.</div></div>
+      <div class="qa">Q10: What is the teaching point for an inhaled corticosteroid? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Rinse the mouth and spit after every use to prevent oral thrush and hoarseness — and remember it is a controller medication, not a rescue inhaler.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">MECHANISM</span>→
+    <span style="background:rgba(47,107,255,.7)">7 S's</span>→
+    <span style="background:rgba(192,34,85,.7)">TAPER</span>→
+    <span style="background:rgba(255,138,61,.7)">TEACH</span>
+  </div>
+  <div>NG-288 · Corticosteroids · pairs with NG-287 Addison's vs Cushing's · Educational study aid — verify clinical details and facility policy</div>
+</footer>
+
+</div>
+</body></html>

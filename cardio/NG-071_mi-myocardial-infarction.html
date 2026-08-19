@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MI — Myocardial Infarction · NG-071 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+/* ---------- appended for this page ---------- */
+nav a.c5{background:rgba(0,194,199,.72);color:#00252b}
+nav a.c6{background:rgba(192,34,85,.72)}
+#ekg .sec-h h2{color:#9ff2ee} #ekg .step{background:var(--teal);color:#00252b}
+#arteries .sec-h h2{color:#ffd9b8} #arteries .step{background:var(--citrine);color:#2b1200}
+.mona{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,175px),1fr));gap:10px;margin:12px 0 0}
+.mn-t{border-radius:13px;padding:12px;border:1px solid var(--line);background:rgba(13,8,26,.58);font-size:.9rem;line-height:1.4}
+.mn-t .l{display:block;font-size:1.7rem;font-weight:900;line-height:1.1}
+.mn-t.warn{background:rgba(192,34,85,.6)}
+.leadbox{display:inline-block;font-family:ui-monospace,Consolas,monospace;font-weight:900;
+  background:rgba(13,8,26,.6);border:1px solid var(--line);border-radius:7px;padding:1px 7px}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#cause">🧨 Cause</a>
+  <a class="c2" href="#clues">🔎 Clues</a>
+  <a class="c5" href="#ekg">📈 EKG &amp; Labs</a>
+  <a class="c6" href="#arteries">🗺️ Which artery</a>
+  <a class="c3" href="#care">🩺 Care</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Cardio · Pathophysiology Course</div>
+  <h1>MI <span class="drop">💔</span></h1>
+  <p class="sub">Myocardial Infarction — the heart muscle DIES</p>
+  <div class="chips">
+    <span class="chip id">NG-071</span>
+    <span class="chip cat">Cardio · ACS</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede"><b>Myocardial Infarction (MI) = the heart muscle DIES — “necrosis” — from lack of oxygen.</b> This happens when there's a <b>blockage of the coronary arteries</b>, the “O₂ tubes” feeding the heart. The blockage is almost always a <b>ruptured atherosclerotic plaque + clot</b> — stage 4 of <b>NG-145</b>. <b>Time = muscle.</b></p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc rubybg"><span class="big">💥 Plaque SNAP → clot</span>Atherosclerosis stage 4. The clot — not the narrowing — is what infarcts.</div>
+  <div class="rc topazbg"><span class="big">📈 ST ↑ = STEMI</span>Full-thickness, artery <b>fully</b> blocked → reperfuse NOW. ST ↓ / T inversion + troponin = <b>NSTEMI</b>.</div>
+  <div class="rc citrine"><span class="big">🧪 Troponin is the answer</span>Most specific marker. Up by <span class="mono">3–4 h</span>, peaks <span class="mono">12–24 h</span>, stays up <span class="mono">10–14 days</span>.</div>
+  <div class="rc tealbg"><span class="big">⏱️ EKG in 10 minutes</span>Any chest pain: <b>EKG first</b>, then labs. Aspirin chewed early.</div>
+</div>
+
+<!-- ============ CAUSE ============ -->
+<section id="cause">
+  <div class="sec-h"><span class="icon">🧨</span><h2>CAUSE</h2><span class="step">STEP 1 · THE BLOCKED O₂ TUBE</span></div>
+  <p class="sec-sub">The coronary arteries feed the heart itself. Block one, and the muscle downstream starves, then dies.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>💔 Ischemia → Injury → Infarct: three zones, one blockage</h3>
+      <svg viewBox="0 0 1000 380" role="img" aria-label="A heart with a blocked coronary artery showing three concentric zones: a dead infarct core, a surrounding injured zone, and an outer ischemic zone that can still be saved">
+        <defs>
+          <radialGradient id="z71" cx="50%" cy="50%" r="50%">
+            <stop offset="0" stop-color="#4b0d22"/><stop offset="1" stop-color="#c02255"/>
+          </radialGradient>
+        </defs>
+        <rect x="4" y="4" width="992" height="372" rx="18" fill="rgba(13,8,26,.5)" stroke="#ff3b6b" stroke-width="2"/>
+
+        <!-- heart -->
+        <path d="M300 70 C 190 70 130 165 155 265 C 175 345 265 355 330 330 C 400 302 440 220 425 150 C 412 92 370 70 300 70 Z"
+              fill="rgba(255,59,107,.35)" stroke="#ff9db4" stroke-width="3"/>
+        <!-- coronary artery with clot -->
+        <path d="M262 66 C 250 130 236 190 258 268" fill="none" stroke="#ffc233" stroke-width="13" stroke-linecap="round"/>
+        <circle cx="248" cy="150" r="17" fill="#4b0d22" stroke="#fff" stroke-width="3"/>
+        <path d="M238 140 l20 20 M258 140 l-20 20" stroke="#fff" stroke-width="3.5"/>
+        <text x="120" y="46" font-size="17" font-weight="900" fill="#ffd97a">🚫 BLOCKED coronary artery</text>
+
+        <!-- zones -->
+        <ellipse cx="312" cy="240" rx="96" ry="74" fill="rgba(255,194,51,.30)" stroke="#ffc233" stroke-width="2.5" stroke-dasharray="7 5"/>
+        <ellipse cx="312" cy="240" rx="66" ry="50" fill="rgba(255,138,61,.45)" stroke="#ff8a3d" stroke-width="2.5"/>
+        <ellipse cx="312" cy="240" rx="36" ry="28" fill="url(#z71)" stroke="#fff" stroke-width="2.5"/>
+        <text x="312" y="246" font-size="15" font-weight="900" fill="#fff" text-anchor="middle">DEAD</text>
+
+        <!-- legend -->
+        <rect x="470" y="60" width="500" height="86" rx="13" fill="rgba(255,194,51,.22)" stroke="#ffc233" stroke-width="2"/>
+        <text x="492" y="92" font-size="18" font-weight="900" fill="#ffd97a">🟡 ISCHEMIA — outer zone</text>
+        <text x="492" y="118" font-size="15" fill="#fff0c9">O₂ starved but ALIVE · shows as <tspan font-weight="900">T-wave inversion</tspan></text>
+        <text x="492" y="138" font-size="15" font-weight="900" fill="#fff0c9">→ 100% salvageable</text>
+
+        <rect x="470" y="158" width="500" height="86" rx="13" fill="rgba(255,138,61,.25)" stroke="#ff8a3d" stroke-width="2"/>
+        <text x="492" y="190" font-size="18" font-weight="900" fill="#ffbf8f">🟠 INJURY — middle zone</text>
+        <text x="492" y="216" font-size="15" fill="#ffe3cf">Acutely damaged · shows as <tspan font-weight="900">ST elevation</tspan></text>
+        <text x="492" y="236" font-size="15" font-weight="900" fill="#ffe3cf">→ savable if you reperfuse FAST</text>
+
+        <rect x="470" y="256" width="500" height="86" rx="13" fill="rgba(192,34,85,.45)" stroke="#ff3b6b" stroke-width="2"/>
+        <text x="492" y="288" font-size="18" font-weight="900" fill="#ff9db4">🔴 INFARCT — the core</text>
+        <text x="492" y="314" font-size="15" fill="#ffd9e2">Necrosis · shows as <tspan font-weight="900">pathologic Q waves</tspan></text>
+        <text x="492" y="334" font-size="15" font-weight="900" fill="#ffd9e2">→ gone forever, replaced by scar</text>
+      </svg>
+      <p style="margin-top:10px"><span class="tip">PATHO TIP</span> <mark>Necrosis begins within about 20–40 minutes of total occlusion</mark> and spreads outward from the inner layer (subendocardium) toward the outer layer over the next several hours. That is why every minute of door-to-balloon time is muscle.</p>
+      <div class="mn">🧠 <b>“Ring of fire.”</b> Dead center 🔴, burning ring 🟠, smoky edge 🟡. The EKG shows you which ring you're looking at: <b>Q = dead · ST = injury · T = ischemia.</b></div>
+    </div>
+
+    <div class="card garnet span2">
+      <h3>⚠️ Causes — <b>“SODDA”</b></h3>
+      <table>
+        <tr><th style="width:16%">Letter</th><th class="up">Risk factor</th><th class="lo">The accurate detail</th></tr>
+        <tr><td><b>S</b></td><td><b>S</b>tress · <b>S</b>moking · <b>S</b>timulants</td><td>Caffeine, amphetamines, <b>cocaine</b> — cocaine causes coronary <i>spasm</i> plus clotting (see NG-098)</td></tr>
+        <tr><td><b>O</b></td><td><b>O</b>besity</td><td><span class="mono">BMI 25–29.9</span> = overweight · <span class="mono">≥30</span> = obesity. <i>Central/abdominal fat carries the most risk.</i></td></tr>
+        <tr><td><b>D</b></td><td><b>D</b>iabetes &amp; hypertension</td><td>Older texts: HTN <span class="mono">&gt;140/90</span>. 2017 ACC/AHA: HTN starts at <span class="mono">≥130/80</span>; <span class="mono">≥140/90</span> is stage 2.</td></tr>
+        <tr><td><b>D</b></td><td><b>D</b>iet</td><td>High cholesterol, animal &amp; trans fats → feeds the plaque (NG-145 &amp; NG-242)</td></tr>
+        <tr><td><b>A</b></td><td><b>A</b>ge &amp; sex</td><td>Risk climbs for men <span class="mono">≥45</span>, women <span class="mono">≥55</span>. Men earlier than women; women catch up after menopause. <i>Black adults carry a higher CVD burden — driven largely by access, chronic stress &amp; social determinants.</i></td></tr>
+      </table>
+      <div class="mn">🧠 <b>“SODDA pops the artery.”</b> Picture a shaken soda can — <b>S</b>tress, <b>O</b>besity, <b>D</b>iabetes, <b>D</b>iet, <b>A</b>ge. Shake it long enough and it <i>bursts</i>, exactly like the plaque.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>📈 The progression — <b>“CAM”</b></h3>
+      <div class="flow">
+        <div class="fstep"><b>C</b> — <b>CAD</b> “coronary artery disease” <i>plaque is building</i></div>
+        <div class="farrow">▼</div>
+        <div class="fstep"><b>A</b> — <b>ACS</b> “acute coronary syndrome” <i>the umbrella term</i></div>
+        <div class="farrow">▼</div>
+        <div class="fstep">🙂 <b>Stable angina</b> — “Safer” — <b>relieved</b> by rest &amp; nitro</div>
+        <div class="fstep hot">😰 <b>Unstable angina</b> — “Unsafe” — <b>UNrelieved</b>, at rest, troponin <b>negative</b></div>
+        <div class="farrow">▼</div>
+        <div class="fstep hot"><b>M</b> — <b>MI</b> — heart muscle <b>dies</b>, troponin <b>positive</b></div>
+      </div>
+      <p style="margin-top:9px"><b>ACS = unstable angina + NSTEMI + STEMI.</b> The one thing that separates unstable angina from NSTEMI is <mark>the troponin</mark>.</p>
+      <div class="mn">🧠 <b>“CAM” films the whole movie:</b> <b>C</b>AD builds the set → <b>A</b>CS is opening night → <b>M</b>I is the tragedy. Stable = <i>safer</i>, unstable = <i>unsafe</i>.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>💔 The MI that isn't a plaque</h3>
+      <p>Most MIs are <b>type 1</b> — plaque rupture + thrombus. But the muscle can also die when <b>supply and demand split apart</b>:</p>
+      <ul class="tick">
+        <li>🌀 <b>Coronary spasm</b> — Prinzmetal/variant angina, cocaine (NG-098)</li>
+        <li>📉 <b>Severe hypotension / shock</b> — no pressure, no coronary flow</li>
+        <li>🫀 <b>Sustained tachydysrhythmia</b> — demand outruns supply</li>
+        <li>🩸 <b>Severe anemia or hypoxia</b> — the blood arrives, but empty-handed</li>
+        <li>💉 <b>Coronary embolus</b> or dissection</li>
+      </ul>
+      <div class="mn">🧠 <b>Supply vs demand — the heart's checkbook.</b> An MI happens when the heart spends more O₂ than the coronary account can deliver, no matter <i>why</i> the account is short.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLUES ============ -->
+<section id="clues">
+  <div class="sec-h"><span class="icon">🔎</span><h2>CLUES</h2><span class="step">STEP 2 · SPOT IT</span></div>
+  <p class="sec-sub">Classic crushing chest pain is one presentation — and the one that kills quietly is the one that doesn't look like that.</p>
+
+  <div class="grid">
+    <div class="card ruby span2">
+      <h3>🚨 Signs &amp; symptoms — the classic picture</h3>
+      <div class="duo">
+        <div>
+          <p><b>PAIN:</b> substernal chest pain radiating to the <b>jaw, neck, left arm, mid-back/shoulder</b>, or felt as <b>heartburn (epigastric)</b>.</p>
+          <p><span class="tip">KEY WORDS = PRIORITY</span> <mark>“Sudden” · “Crushing” · “Radiating”</mark> — if the stem says any of these, treat it as cardiac until proven otherwise.</p>
+          <ul class="tick">
+            <li>🫁 <b>SOB</b> — “dyspnea,” “labored breathing”</li>
+            <li>🤢 <b>Nausea, vomiting, abdominal pain</b></li>
+            <li>💦 <b>Diaphoresis</b> — sweating, often cold and drenching</li>
+            <li>🥶 <b>Pale, cool, “dusky”</b> skin</li>
+            <li>😰 <b>Anxiety</b> — classic “impending sense of doom”</li>
+            <li>😵 Dizziness, syncope, palpitations</li>
+          </ul>
+        </div>
+        <svg viewBox="0 0 440 430" role="img" aria-label="Body diagram showing where myocardial infarction pain radiates: jaw and neck, left arm, substernal chest, mid back and shoulder, and epigastric area">
+          <rect x="6" y="6" width="428" height="418" rx="16" fill="rgba(13,8,26,.5)" stroke="#ff3b6b" stroke-width="2"/>
+          <circle cx="220" cy="74" r="38" fill="rgba(255,59,107,.3)" stroke="#ffd9e2" stroke-width="2.5"/>
+          <path d="M192 108 L248 108 L286 152 L286 300 L154 300 L154 152 Z" fill="rgba(255,59,107,.3)" stroke="#ffd9e2" stroke-width="2.5"/>
+          <path d="M154 156 L118 178 L96 288" fill="none" stroke="#ffd9e2" stroke-width="14" stroke-linecap="round"/>
+          <path d="M286 156 L322 178 L344 288" fill="none" stroke="#ffd9e2" stroke-width="14" stroke-linecap="round"/>
+          <!-- hot zones -->
+          <ellipse cx="220" cy="104" rx="40" ry="16" fill="#ffc233" opacity=".85"/>
+          <ellipse cx="206" cy="192" rx="46" ry="34" fill="#ff3b6b" opacity=".95"/>
+          <ellipse cx="118" cy="216" rx="20" ry="46" fill="#ffc233" opacity=".8"/>
+          <ellipse cx="220" cy="264" rx="42" ry="22" fill="#ff8a3d" opacity=".85"/>
+          <text x="28" y="44" font-size="16" font-weight="900" fill="#ffd97a">🔥 Radiation map</text>
+          <line x1="258" y1="100" x2="330" y2="80" stroke="#ffc233" stroke-width="2"/>
+          <text x="336" y="76" font-size="14" font-weight="900" fill="#ffd97a">Jaw ·</text>
+          <text x="336" y="94" font-size="14" font-weight="900" fill="#ffd97a">neck</text>
+          <line x1="160" y1="192" x2="66" y2="150" stroke="#ff3b6b" stroke-width="2"/>
+          <text x="20" y="140" font-size="14" font-weight="900" fill="#ff9db4">Substernal</text>
+          <text x="20" y="158" font-size="14" font-weight="900" fill="#ff9db4">CRUSHING</text>
+          <line x1="98" y1="240" x2="46" y2="256" stroke="#ffc233" stroke-width="2"/>
+          <text x="16" y="278" font-size="14" font-weight="900" fill="#ffd97a">Left arm</text>
+          <line x1="262" y1="264" x2="330" y2="272" stroke="#ff8a3d" stroke-width="2"/>
+          <text x="336" y="268" font-size="14" font-weight="900" fill="#ffbf8f">Epigastric</text>
+          <text x="336" y="286" font-size="13" fill="#ffe3cf">“heartburn”</text>
+          <line x1="286" y1="200" x2="336" y2="176" stroke="#ffc233" stroke-width="2"/>
+          <text x="336" y="172" font-size="14" font-weight="900" fill="#ffd97a">Mid-back /</text>
+          <text x="336" y="190" font-size="14" font-weight="900" fill="#ffd97a">shoulder</text>
+          <text x="28" y="358" font-size="15" font-weight="900" fill="#ffd9e2">💦 Diaphoresis · 🥶 pale, cool, dusky</text>
+          <text x="28" y="382" font-size="15" font-weight="900" fill="#ffd9e2">🤢 N/V · 🫁 dyspnea · 😰 doom</text>
+          <text x="28" y="406" font-size="14" font-style="italic" fill="#ffd9e2">Pain UNRELIEVED by rest or nitro</text>
+        </svg>
+      </div>
+      <div class="mn">🧠 <b>Angina takes a break; an MI does not.</b> Rest + up to 3 nitro and the pain is <i>still</i> there → the muscle is dying, not just complaining.</div>
+    </div>
+
+    <div class="card topaz span2">
+      <h3>⭐ ATYPICAL presentations — women, diabetics &amp; older adults</h3>
+      <svg viewBox="0 0 1000 300" role="img" aria-label="Three panels contrasting the classic male presentation with the atypical presentation in women, the silent MI in diabetics, and the confused presentation in older adults">
+        <rect x="4" y="4" width="322" height="292" rx="16" fill="rgba(47,107,255,.25)" stroke="#2f6bff" stroke-width="2"/>
+        <text x="165" y="42" font-size="19" font-weight="900" fill="#bcd0ff" text-anchor="middle">👩 WOMEN</text>
+        <text x="165" y="66" font-size="13.5" font-style="italic" fill="#dde7ff" text-anchor="middle">often NO crushing chest pain</text>
+        <text x="26" y="102" font-size="15" fill="#fff">😴 Unusual <tspan font-weight="900">FATIGUE</tspan> — often for</text>
+        <text x="26" y="122" font-size="15" fill="#fff">weeks before the event</text>
+        <text x="26" y="150" font-size="15" fill="#fff">🫁 <tspan font-weight="900">Shortness of breath</tspan></text>
+        <text x="26" y="178" font-size="15" fill="#fff">🤢 Nausea · indigestion</text>
+        <text x="26" y="206" font-size="15" fill="#fff">😬 <tspan font-weight="900">Jaw, neck, back</tspan> pain</text>
+        <text x="26" y="234" font-size="15" fill="#fff">😟 Anxiety · sleep disturbance</text>
+        <text x="26" y="262" font-size="15" fill="#fff">😵 Lightheadedness</text>
+        <text x="26" y="286" font-size="13.5" font-style="italic" fill="#ffd97a">Often dismissed as “stress” or reflux</text>
+
+        <rect x="338" y="4" width="322" height="292" rx="16" fill="rgba(157,92,255,.28)" stroke="#9d5cff" stroke-width="2"/>
+        <text x="499" y="42" font-size="19" font-weight="900" fill="#d9c2ff" text-anchor="middle">🍬 DIABETICS</text>
+        <text x="499" y="66" font-size="13.5" font-style="italic" fill="#efe6ff" text-anchor="middle">the SILENT MI</text>
+        <text x="360" y="102" font-size="15" fill="#fff">🧠 <tspan font-weight="900">Autonomic neuropathy</tspan></text>
+        <text x="360" y="122" font-size="15" fill="#fff">blunts the pain nerves</text>
+        <text x="360" y="150" font-size="15" fill="#fff">🫁 May feel ONLY dyspnea</text>
+        <text x="360" y="178" font-size="15" fill="#fff">😴 …or only fatigue/weakness</text>
+        <text x="360" y="206" font-size="15" fill="#fff">📈 Unexplained <tspan font-weight="900">hyperglycemia</tspan></text>
+        <text x="360" y="234" font-size="15" fill="#fff">💦 Diaphoresis with no pain</text>
+        <text x="360" y="262" font-size="15" font-weight="900" fill="#ffd97a">Beta blockers ALSO mask it</text>
+        <text x="360" y="286" font-size="13.5" font-style="italic" fill="#ffd97a">(sweating still breaks through)</text>
+
+        <rect x="672" y="4" width="324" height="292" rx="16" fill="rgba(0,194,199,.25)" stroke="#00c2c7" stroke-width="2"/>
+        <text x="834" y="42" font-size="19" font-weight="900" fill="#9ff2ee" text-anchor="middle">👵 OLDER ADULTS</text>
+        <text x="834" y="66" font-size="13.5" font-style="italic" fill="#d8fff0" text-anchor="middle">the vague presentation</text>
+        <text x="694" y="102" font-size="15" fill="#fff">😕 <tspan font-weight="900">New confusion</tspan> / delirium</text>
+        <text x="694" y="130" font-size="15" fill="#fff">😮‍💨 Sudden dyspnea</text>
+        <text x="694" y="158" font-size="15" fill="#fff">🪑 Syncope or a fall</text>
+        <text x="694" y="186" font-size="15" fill="#fff">😴 Profound weakness</text>
+        <text x="694" y="214" font-size="15" fill="#fff">🤢 “Just don't feel right”</text>
+        <text x="694" y="252" font-size="14.5" font-weight="900" fill="#ffd97a">Any of these + risk factors</text>
+        <text x="694" y="274" font-size="14.5" font-weight="900" fill="#ffd97a">= get the 12-lead EKG.</text>
+      </svg>
+      <p style="margin-top:10px"><span class="tip">NCLEX TIP</span> <mark>A woman or diabetic with unexplained fatigue, nausea and dyspnea gets an EKG</mark> — not an antacid. Delay in recognition is a documented reason women have worse MI outcomes.</p>
+      <div class="mn">🧠 <b>“Women whisper, men shout.”</b> The classic elephant-on-the-chest is the loud version. In women, diabetics and older adults, the MI <i>whispers</i>: tired, nauseated, short of breath, jaw aches. Believe the whisper.</div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>🆚 STEMI vs NSTEMI vs Unstable angina</h3>
+      <table>
+        <tr><th style="width:22%">&nbsp;</th><th class="up">STEMI</th><th class="lo">NSTEMI</th><th style="color:#d9c2ff;font-weight:900">Unstable angina</th></tr>
+        <tr><td><b>Artery</b></td><td><b>100% occluded</b> — complete, sustained</td><td><b>Partly / intermittently</b> occluded</td><td>Partly occluded, no muscle death yet</td></tr>
+        <tr><td><b>Depth of damage</b></td><td><b>Transmural</b> — full thickness of the wall</td><td><b>Subendocardial</b> — inner layer only</td><td>None (ischemia only)</td></tr>
+        <tr><td><b>EKG</b></td><td><b>ST ELEVATION</b> in ≥2 contiguous leads (new LBBB is treated as an equivalent); Q waves may develop</td><td><b>ST depression</b> and/or <b>T-wave inversion</b> — or a normal EKG</td><td>ST depression / T inversion / normal</td></tr>
+        <tr><td><b>Troponin</b></td><td>✅ <b>POSITIVE</b></td><td>✅ <b>POSITIVE</b></td><td>❌ <b>NEGATIVE</b> — this is the whole difference</td></tr>
+        <tr><td><b>Treatment urgency</b></td><td><mark>Immediate reperfusion</mark> — PCI target <span class="mono">≤90 min</span> door-to-balloon (<span class="mono">≤120 min</span> if transferring); fibrinolytic <span class="mono">≤30 min</span> door-to-needle if PCI unavailable</td><td>Antithrombotic therapy + risk stratification; cath <b>usually within 24–72 h</b>, sooner if high risk or unstable</td><td>Same anti-ischemic therapy, then stratify</td></tr>
+      </table>
+      <p style="margin-top:8px"><b>Why the depth matters:</b> a full-thickness (transmural) injury pushes the ST segment <b>up</b>; an inner-layer (subendocardial) injury pushes it <b>down</b>. Same disease, different depth, opposite arrow.</p>
+      <div class="mn">🧠 <b>“ST UP = artery SHUT. ST DOWN = partly around.”</b> And <b>troponin is the tie-breaker</b> between NSTEMI (positive) and unstable angina (negative).</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EKG & LABS ============ -->
+<section id="ekg">
+  <div class="sec-h"><span class="icon">📈</span><h2>EKG &amp; LABS</h2><span class="step">STEP 3 · READ THE PROOF</span></div>
+  <p class="sec-sub">EKG first — within <span class="mono">10 minutes</span> of arrival for any chest pain. Then serial troponins. The EKG tells you <i>how fast</i>; the troponin tells you <i>whether</i>.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>📈 The four tracings you must recognize on sight</h3>
+      <svg viewBox="0 0 1000 570" role="img" aria-label="Four EKG tracings drawn to compare: a normal complex, ST segment elevation of STEMI, ST segment depression of ischemia, and inverted T waves of ischemia">
+        <defs>
+          <pattern id="gridA" width="20" height="20" patternUnits="userSpaceOnUse">
+            <path d="M20 0 L0 0 0 20" fill="none" stroke="rgba(255,255,255,.13)" stroke-width="1"/>
+          </pattern>
+        </defs>
+
+        <!-- ===== PANEL A : NORMAL ===== -->
+        <rect x="4" y="4" width="490" height="276" rx="15" fill="rgba(18,184,134,.14)" stroke="#12b886" stroke-width="2.5"/>
+        <rect x="20" y="80" width="458" height="176" fill="url(#gridA)"/>
+        <text x="24" y="38" font-size="19" font-weight="900" fill="#7df0c6">✅ NORMAL</text>
+        <text x="24" y="62" font-size="14" font-style="italic" fill="#d8fff0">ST sits flat on the baseline · T upright</text>
+        <line x1="20" y1="190" x2="478" y2="190" stroke="#7df0c6" stroke-width="1.5" stroke-dasharray="6 6"/>
+        <path d="M30 190 l14 0 q8 -14 16 0 l10 0 l4 6 l8 -46 l8 52 l6 -12 l14 0 q12 -20 24 0 l16 0" fill="none" stroke="#eafff7" stroke-width="3"/>
+        <path d="M150 190 l14 0 q8 -14 16 0 l10 0 l4 6 l8 -46 l8 52 l6 -12 l14 0 q12 -20 24 0 l16 0" fill="none" stroke="#eafff7" stroke-width="3"/>
+        <path d="M270 190 l14 0 q8 -14 16 0 l10 0 l4 6 l8 -46 l8 52 l6 -12 l14 0 q12 -20 24 0 l16 0" fill="none" stroke="#eafff7" stroke-width="3"/>
+        <text x="176" y="176" font-size="12.5" font-weight="900" fill="#7df0c6">P</text>
+        <text x="196" y="140" font-size="12.5" font-weight="900" fill="#7df0c6">R</text>
+        <text x="222" y="180" font-size="12.5" font-weight="900" fill="#7df0c6">ST</text>
+        <text x="252" y="164" font-size="12.5" font-weight="900" fill="#7df0c6">T</text>
+
+        <!-- ===== PANEL B : ST ELEVATION ===== -->
+        <rect x="506" y="4" width="490" height="276" rx="15" fill="rgba(255,59,107,.18)" stroke="#ff3b6b" stroke-width="2.5"/>
+        <rect x="522" y="80" width="458" height="176" fill="url(#gridA)"/>
+        <text x="526" y="38" font-size="19" font-weight="900" fill="#ff9db4">🚨 ST ELEVATION = STEMI</text>
+        <text x="526" y="62" font-size="14" font-style="italic" fill="#ffd9e2">INJURY · artery fully blocked · reperfuse NOW</text>
+        <line x1="522" y1="190" x2="980" y2="190" stroke="#ff9db4" stroke-width="1.5" stroke-dasharray="6 6"/>
+        <path d="M532 190 l14 0 q8 -14 16 0 l10 0 l4 6 l8 -46 l8 52 l6 -22 l14 0 q12 -18 24 10 l16 0" fill="none" stroke="#fff" stroke-width="3"/>
+        <path d="M652 190 l14 0 q8 -14 16 0 l10 0 l4 6 l8 -46 l8 52 l6 -22 l14 0 q12 -18 24 10 l16 0" fill="none" stroke="#fff" stroke-width="3"/>
+        <path d="M772 190 l14 0 q8 -14 16 0 l10 0 l4 6 l8 -46 l8 52 l6 -22 l14 0 q12 -18 24 10 l16 0" fill="none" stroke="#fff" stroke-width="3"/>
+        <rect x="694" y="166" width="46" height="26" rx="5" fill="rgba(255,194,51,.55)"/>
+        <path d="M760 152 L724 168" stroke="#ffc233" stroke-width="2.5"/>
+        <text x="766" y="150" font-size="14" font-weight="900" fill="#ffd97a">ST sits ABOVE</text>
+        <text x="766" y="168" font-size="14" font-weight="900" fill="#ffd97a">the baseline</text>
+        <text x="526" y="272" font-size="14" font-weight="900" fill="#ffd9e2">≥2 contiguous leads · “tombstones” when huge</text>
+
+        <!-- ===== PANEL C : ST DEPRESSION ===== -->
+        <rect x="4" y="292" width="490" height="274" rx="15" fill="rgba(255,138,61,.20)" stroke="#ff8a3d" stroke-width="2.5"/>
+        <rect x="20" y="366" width="458" height="176" fill="url(#gridA)"/>
+        <text x="24" y="326" font-size="19" font-weight="900" fill="#ffbf8f">⚠️ ST DEPRESSION</text>
+        <text x="24" y="350" font-size="14" font-style="italic" fill="#ffe3cf">ISCHEMIA · NSTEMI or unstable angina</text>
+        <line x1="20" y1="470" x2="478" y2="470" stroke="#ffbf8f" stroke-width="1.5" stroke-dasharray="6 6"/>
+        <path d="M30 470 l14 0 q8 -14 16 0 l10 0 l4 6 l8 -46 l8 52 l6 -4 l14 0 q12 -24 24 -8 l16 0" fill="none" stroke="#fff" stroke-width="3"/>
+        <path d="M150 470 l14 0 q8 -14 16 0 l10 0 l4 6 l8 -46 l8 52 l6 -4 l14 0 q12 -24 24 -8 l16 0" fill="none" stroke="#fff" stroke-width="3"/>
+        <path d="M270 470 l14 0 q8 -14 16 0 l10 0 l4 6 l8 -46 l8 52 l6 -4 l14 0 q12 -24 24 -8 l16 0" fill="none" stroke="#fff" stroke-width="3"/>
+        <rect x="212" y="470" width="44" height="12" rx="4" fill="rgba(255,138,61,.7)"/>
+        <path d="M300 502 L262 482" stroke="#ff8a3d" stroke-width="2.5"/>
+        <text x="306" y="508" font-size="14" font-weight="900" fill="#ffbf8f">ST dips BELOW</text>
+        <text x="306" y="526" font-size="14" font-weight="900" fill="#ffbf8f">the baseline</text>
+        <text x="24" y="558" font-size="14" font-weight="900" fill="#ffe3cf">Troponin POSITIVE → NSTEMI · NEGATIVE → unstable angina</text>
+
+        <!-- ===== PANEL D : T INVERSION ===== -->
+        <rect x="506" y="292" width="490" height="274" rx="15" fill="rgba(255,194,51,.18)" stroke="#ffc233" stroke-width="2.5"/>
+        <rect x="522" y="366" width="458" height="176" fill="url(#gridA)"/>
+        <text x="526" y="326" font-size="19" font-weight="900" fill="#ffd97a">🔻 T-WAVE INVERSION</text>
+        <text x="526" y="350" font-size="14" font-style="italic" fill="#fff0c9">ISCHEMIA · muscle starved but still alive</text>
+        <line x1="522" y1="470" x2="980" y2="470" stroke="#ffd97a" stroke-width="1.5" stroke-dasharray="6 6"/>
+        <path d="M532 470 l14 0 q8 -14 16 0 l10 0 l4 6 l8 -46 l8 52 l6 -12 l14 0 q12 20 24 0 l16 0" fill="none" stroke="#fff" stroke-width="3"/>
+        <path d="M652 470 l14 0 q8 -14 16 0 l10 0 l4 6 l8 -46 l8 52 l6 -12 l14 0 q12 20 24 0 l16 0" fill="none" stroke="#fff" stroke-width="3"/>
+        <path d="M772 470 l14 0 q8 -14 16 0 l10 0 l4 6 l8 -46 l8 52 l6 -12 l14 0 q12 20 24 0 l16 0" fill="none" stroke="#fff" stroke-width="3"/>
+        <path d="M812 496 L866 496" stroke="#ffc233" stroke-width="2.5"/>
+        <text x="872" y="502" font-size="14" font-weight="900" fill="#ffd97a">T flips DOWN</text>
+        <text x="526" y="558" font-size="14" font-weight="900" fill="#fff0c9">Also seen with old ischemia — compare to her prior EKG</text>
+      </svg>
+      <div class="mn">🧠 <b>“Elevation = elimination. Depression = deprivation.”</b> ST <b>up</b> means the artery is <i>eliminated</i> (fully shut) — go to the cath lab. ST <b>down</b> / T flipped means the muscle is only <i>deprived</i> — treat, then stratify.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🪦 Pathologic Q wave = the scar</h3>
+      <svg viewBox="0 0 440 250" role="img" aria-label="An EKG tracing with a deep wide pathologic Q wave indicating an old completed infarction">
+        <rect x="6" y="6" width="428" height="238" rx="14" fill="rgba(192,34,85,.28)" stroke="#ff3b6b" stroke-width="2"/>
+        <rect x="20" y="70" width="400" height="150" fill="url(#gridA)"/>
+        <text x="24" y="38" font-size="17" font-weight="900" fill="#ff9db4">🪦 PATHOLOGIC Q</text>
+        <text x="24" y="60" font-size="13.5" font-style="italic" fill="#ffd9e2">deep &amp; wide — dead muscle doesn't conduct</text>
+        <line x1="20" y1="150" x2="420" y2="150" stroke="#ff9db4" stroke-width="1.5" stroke-dasharray="6 6"/>
+        <path d="M30 150 l14 0 q8 -14 16 0 l10 0 l6 24 l6 -50 l8 40 l6 -14 l14 0 q12 -20 24 0 l16 0" fill="none" stroke="#fff" stroke-width="3"/>
+        <path d="M170 150 l14 0 q8 -14 16 0 l10 0 l6 24 l6 -50 l8 40 l6 -14 l14 0 q12 -20 24 0 l16 0" fill="none" stroke="#fff" stroke-width="3"/>
+        <path d="M120 210 L96 178" stroke="#ffc233" stroke-width="2.5"/>
+        <text x="126" y="218" font-size="14" font-weight="900" fill="#ffd97a">deep Q dips down first</text>
+      </svg>
+      <p style="margin-top:9px">Q waves usually appear <b>hours to days</b> after the infarct and are often <b>permanent</b> — the EKG's tattoo of an old MI.</p>
+      <div class="mn">🧠 <b>Q = “Quit.”</b> That muscle quit for good. ST elevation is <i>happening now</i>; a pathologic Q already <i>happened</i>.</div>
+    </div>
+
+    <div class="card tealc">
+      <h3>⏱️ Order of operations</h3>
+      <div class="ladder">
+        <div class="rung"><div class="n">1</div><div class="t"><b>12-lead EKG within <span class="mono">10 min</span></b> of arrival — for <i>any</i> chest pain or MI symptoms</div></div>
+        <div class="rung"><div class="n">2</div><div class="t"><b>Serial troponins</b> — a baseline plus repeat draws per the assay/protocol</div></div>
+        <div class="rung"><div class="n">3</div><div class="t"><b>Continuous cardiac monitoring</b> + IV access + O₂ <i>if hypoxic</i></div></div>
+        <div class="rung"><div class="n">4</div><div class="t"><b>Echo</b> (wall motion, EF) · <b>CXR</b> · <b>cath</b> for the definitive picture</div></div>
+      </div>
+      <div class="mn">🧠 <b>“Strip before you stick.”</b> EKG comes before labs — a STEMI on the strip sends her to the cath lab <i>before</i> a single troponin has resulted.</div>
+    </div>
+
+    <div class="card deep span2">
+      <h3>🧪 Cardiac markers — troponin vs CK-MB vs myoglobin</h3>
+      <svg viewBox="0 0 1000 400" role="img" aria-label="Line graph of cardiac marker levels over time after myocardial infarction: myoglobin rises first and clears fast, CK-MB rises in four to six hours and normalizes by two to three days, troponin rises in three to four hours and stays elevated ten to fourteen days">
+        <rect x="4" y="4" width="992" height="392" rx="18" fill="rgba(13,8,26,.55)" stroke="#00c2c7" stroke-width="2"/>
+        <!-- axes -->
+        <line x1="80" y1="320" x2="950" y2="320" stroke="#9ff2ee" stroke-width="3"/>
+        <line x1="80" y1="60" x2="80" y2="320" stroke="#9ff2ee" stroke-width="3"/>
+        <text x="40" y="70" font-size="14" font-weight="900" fill="#9ff2ee">HIGH</text>
+        <text x="30" y="316" font-size="14" font-weight="900" fill="#9ff2ee">normal</text>
+        <!-- detection threshold -->
+        <line x1="80" y1="286" x2="950" y2="286" stroke="#ffc233" stroke-width="2" stroke-dasharray="8 6"/>
+        <text x="856" y="280" font-size="13" font-weight="900" fill="#ffd97a">cut-off</text>
+        <!-- x ticks -->
+        <text x="80" y="346" font-size="13.5" font-weight="900" fill="#d8fff0" text-anchor="middle">0h</text>
+        <text x="200" y="346" font-size="13.5" font-weight="900" fill="#d8fff0" text-anchor="middle">6h</text>
+        <text x="290" y="346" font-size="13.5" font-weight="900" fill="#d8fff0" text-anchor="middle">12h</text>
+        <text x="400" y="346" font-size="13.5" font-weight="900" fill="#d8fff0" text-anchor="middle">24h</text>
+        <text x="520" y="346" font-size="13.5" font-weight="900" fill="#d8fff0" text-anchor="middle">2d</text>
+        <text x="620" y="346" font-size="13.5" font-weight="900" fill="#d8fff0" text-anchor="middle">3d</text>
+        <text x="790" y="346" font-size="13.5" font-weight="900" fill="#d8fff0" text-anchor="middle">5d</text>
+        <text x="930" y="346" font-size="13.5" font-weight="900" fill="#d8fff0" text-anchor="middle">7–14d</text>
+        <text x="515" y="378" font-size="15" font-weight="900" fill="#9ff2ee" text-anchor="middle">TIME SINCE CHEST PAIN STARTED</text>
+        <!-- myoglobin -->
+        <path d="M90 318 C 140 316 190 200 230 194 C 280 188 340 290 400 316" fill="none" stroke="#9d5cff" stroke-width="5"/>
+        <!-- ck-mb -->
+        <path d="M140 318 C 220 314 300 150 350 148 C 440 146 540 300 620 316" fill="none" stroke="#12b886" stroke-width="5"/>
+        <!-- troponin -->
+        <path d="M110 318 C 200 312 290 92 340 90 C 430 88 560 170 700 210 C 800 238 890 262 946 274" fill="none" stroke="#ff3b6b" stroke-width="6"/>
+        <!-- legend -->
+        <rect x="600" y="52" width="352" height="120" rx="12" fill="rgba(13,8,26,.65)" stroke="rgba(255,255,255,.3)"/>
+        <line x1="616" y1="80" x2="656" y2="80" stroke="#ff3b6b" stroke-width="6"/>
+        <text x="666" y="86" font-size="15" font-weight="900" fill="#ff9db4">TROPONIN — most specific ⭐</text>
+        <line x1="616" y1="114" x2="656" y2="114" stroke="#12b886" stroke-width="5"/>
+        <text x="666" y="120" font-size="15" font-weight="900" fill="#7df0c6">CK-MB — clears fast</text>
+        <line x1="616" y1="148" x2="656" y2="148" stroke="#9d5cff" stroke-width="5"/>
+        <text x="666" y="154" font-size="15" font-weight="900" fill="#d9c2ff">Myoglobin — earliest, least specific</text>
+      </svg>
+      <table style="margin-top:12px">
+        <tr><th style="width:20%">Marker</th><th class="up">Rises</th><th class="up">Peaks</th><th class="lo">Back to normal</th><th>Why you'd use it</th></tr>
+        <tr><td><b>Troponin I / T</b> ⭐</td><td><span class="mono">3–4 h</span> <i>(high-sensitivity assays: 1–3 h)</i></td><td><span class="mono">12–24 h</span></td><td><span class="mono">10–14 days</span></td><td><b>The diagnostic marker.</b> Most cardiac-specific. Serial draws show the <b>rise and fall</b>.</td></tr>
+        <tr><td><b>CK-MB</b></td><td><span class="mono">4–6 h</span></td><td><span class="mono">12–24 h</span></td><td><span class="mono">48–72 h</span></td><td>Because it clears fast, a <b>second rise</b> flags <b>RE-infarction</b> while troponin is still elevated.</td></tr>
+        <tr><td><b>Myoglobin</b></td><td><span class="mono">1–3 h</span> — earliest</td><td><span class="mono">6–9 h</span></td><td><span class="mono">~24 h</span></td><td>Fast but <b>not specific</b> — rises with <i>any</i> muscle injury. Mostly historical now.</td></tr>
+        <tr><td><b>hs-CRP</b></td><td colspan="3">Inflammation, not injury</td><td>Risk stratification only — <b>not</b> an MI diagnostic</td></tr>
+      </table>
+      <p style="margin-top:10px"><span class="tip">SOURCE CHECK</span> A single number like <span class="mono">&gt;0.5 ng/mL</span> gets quoted a lot, but <b>troponin cut-offs are assay- and lab-specific</b> — always read the reference range printed on that lab report. And troponin is <b>not</b> the only marker of cardiac injury: it also rises in <b>renal failure, heart failure, PE, sepsis, myocarditis and cardiac contusion</b>. What confirms MI is <mark>a rise-and-fall pattern plus a clinical picture</mark>, not one number in isolation.</p>
+      <div class="mn">🧠 <b>“Troponin is the tattoo, CK-MB is the sticker.”</b> The tattoo stays for two weeks (great for a late arrival, useless for spotting a second MI). The sticker washes off in 2–3 days — so if CK-MB climbs again, she's re-infarcting.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHICH ARTERY ============ -->
+<section id="arteries">
+  <div class="sec-h"><span class="icon">🗺️</span><h2>WHICH ARTERY, WHICH WALL</h2><span class="step">STEP 4 · LOCALIZE IT</span></div>
+  <p class="sec-sub">The leads with ST elevation tell you which artery is blocked — and which artery tells you which complication to watch for.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🫀 The coronary tree — <mark>who feeds what</mark></h3>
+      <svg viewBox="0 0 1000 540" role="img" aria-label="Labeled coronary artery tree on an anterior view of the heart: left main dividing into left anterior descending supplying the anterior wall and septum, circumflex supplying the lateral wall, and right coronary artery supplying the inferior wall, right ventricle and conduction nodes">
+        <rect x="4" y="4" width="992" height="532" rx="18" fill="rgba(13,8,26,.5)" stroke="#ff8a3d" stroke-width="2"/>
+        <text x="24" y="40" font-size="17" font-weight="900" fill="#ffd9b8">Anterior view — the patient's LEFT is on your RIGHT</text>
+
+        <!-- heart body -->
+        <path d="M470 90 C 330 90 250 200 275 330 C 296 440 400 500 500 492 C 640 480 720 370 700 250 C 684 150 610 90 470 90 Z"
+              fill="rgba(157,92,255,.22)" stroke="#d9c2ff" stroke-width="3"/>
+        <!-- aorta -->
+        <path d="M452 96 C 452 60 470 44 500 44 C 530 44 548 62 548 96" fill="none" stroke="#ff9db4" stroke-width="20" stroke-linecap="round"/>
+        <text x="500" y="30" font-size="15" font-weight="900" fill="#ff9db4" text-anchor="middle">AORTA</text>
+        <!-- pulmonary artery hint -->
+        <path d="M396 96 C 396 66 412 54 434 56" fill="none" stroke="#6f8dff" stroke-width="14" stroke-linecap="round"/>
+        <text x="336" y="60" font-size="13.5" font-weight="900" fill="#bcd0ff">pulm. artery</text>
+
+        <!-- LEFT MAIN -->
+        <path d="M520 100 C 528 130 528 140 524 154" fill="none" stroke="#ffc233" stroke-width="14" stroke-linecap="round"/>
+        <text x="560" y="126" font-size="15" font-weight="900" fill="#ffd97a">Left main</text>
+        <!-- LAD (down the front middle) -->
+        <path d="M524 154 C 500 210 480 300 486 420" fill="none" stroke="#2f6bff" stroke-width="13" stroke-linecap="round"/>
+        <path d="M500 230 L440 250 M492 300 L430 322 M486 360 L432 382" stroke="#2f6bff" stroke-width="7" stroke-linecap="round"/>
+        <text x="368" y="196" font-size="17" font-weight="900" fill="#bcd0ff">LAD</text>
+        <text x="300" y="218" font-size="13.5" font-weight="900" fill="#dde7ff">“the widow-maker”</text>
+        <!-- Circumflex (wraps to viewer right = patient's left) -->
+        <path d="M524 154 C 590 168 646 216 656 300" fill="none" stroke="#12b886" stroke-width="13" stroke-linecap="round"/>
+        <path d="M612 196 L664 178 M642 250 L700 240" stroke="#12b886" stroke-width="7" stroke-linecap="round"/>
+        <text x="706" y="182" font-size="17" font-weight="900" fill="#7df0c6">Circumflex</text>
+        <text x="706" y="204" font-size="13.5" font-weight="900" fill="#d8fff0">(LCx)</text>
+        <!-- RCA (viewer left = patient's right) -->
+        <path d="M448 108 C 380 130 324 190 322 292 C 320 372 380 440 452 456" fill="none" stroke="#ff3b6b" stroke-width="13" stroke-linecap="round"/>
+        <path d="M330 220 L272 206 M322 300 L262 300" stroke="#ff3b6b" stroke-width="7" stroke-linecap="round"/>
+        <text x="120" y="290" font-size="17" font-weight="900" fill="#ff9db4">RCA</text>
+        <text x="120" y="312" font-size="13.5" font-weight="900" fill="#ffd9e2">right coronary</text>
+        <!-- PDA -->
+        <path d="M452 456 C 490 468 520 462 548 442" fill="none" stroke="#ff3b6b" stroke-width="11" stroke-linecap="round"/>
+        <text x="470" y="500" font-size="13.5" font-weight="900" fill="#ffd9e2">posterior descending (PDA)</text>
+        <!-- nodes -->
+        <circle cx="400" cy="128" r="12" fill="#ffc233" stroke="#fff" stroke-width="2"/>
+        <text x="360" y="106" font-size="13" font-weight="900" fill="#ffd97a">SA node</text>
+        <circle cx="410" cy="230" r="12" fill="#ffc233" stroke="#fff" stroke-width="2"/>
+        <text x="352" y="252" font-size="13" font-weight="900" fill="#ffd97a">AV node</text>
+
+        <!-- territory key -->
+        <rect x="748" y="330" width="234" height="190" rx="13" fill="rgba(13,8,26,.7)" stroke="rgba(255,255,255,.3)"/>
+        <text x="768" y="360" font-size="15" font-weight="900" fill="#fff">WALL KEY</text>
+        <rect x="768" y="374" width="20" height="20" rx="4" fill="#2f6bff"/>
+        <text x="798" y="390" font-size="14" font-weight="900" fill="#bcd0ff">Anterior + septal</text>
+        <rect x="768" y="404" width="20" height="20" rx="4" fill="#12b886"/>
+        <text x="798" y="420" font-size="14" font-weight="900" fill="#7df0c6">Lateral</text>
+        <rect x="768" y="434" width="20" height="20" rx="4" fill="#ff3b6b"/>
+        <text x="798" y="450" font-size="14" font-weight="900" fill="#ff9db4">Inferior + RV</text>
+        <rect x="768" y="464" width="20" height="20" rx="4" fill="#ffc233"/>
+        <text x="798" y="480" font-size="14" font-weight="900" fill="#ffd97a">Conduction nodes</text>
+        <text x="768" y="506" font-size="12.5" font-style="italic" fill="#efe6ff">RCA feeds the nodes in most people</text>
+      </svg>
+
+      <table style="margin-top:12px">
+        <tr><th style="width:20%">Artery</th><th class="up">Wall it feeds</th><th class="lo">Leads with changes</th><th>Watch for</th></tr>
+        <tr><td style="color:#bcd0ff"><b>LAD</b><br><i>left anterior descending</i></td>
+            <td><b>ANTERIOR</b> wall + <b>SEPTUM</b> + much of the left ventricle</td>
+            <td><span class="leadbox">V1 V2</span> septal · <span class="leadbox">V3 V4</span> anterior</td>
+            <td><b>The “widow-maker.”</b> Biggest infarcts → <b>heart failure, cardiogenic shock</b>, ↓EF, bundle branch blocks</td></tr>
+        <tr><td style="color:#7df0c6"><b>LCx</b><br><i>left circumflex</i></td>
+            <td><b>LATERAL</b> wall of the left ventricle (± posterior)</td>
+            <td><span class="leadbox">I</span> <span class="leadbox">aVL</span> <span class="leadbox">V5 V6</span></td>
+            <td>Often quieter on the 12-lead — <b>posterior</b> involvement can hide as ST <i>depression</i> in V1–V2</td></tr>
+        <tr><td style="color:#ff9db4"><b>RCA</b><br><i>right coronary</i></td>
+            <td><b>INFERIOR</b> wall, <b>right ventricle</b>, and in most people the <b>SA &amp; AV nodes</b></td>
+            <td><span class="leadbox">II</span> <span class="leadbox">III</span> <span class="leadbox">aVF</span></td>
+            <td><b>Bradycardia &amp; heart blocks</b> · nausea/vomiting · <b>RV infarct → preload dependent</b></td></tr>
+        <tr><td><b>Left main</b></td>
+            <td>Feeds LAD + LCx = most of the left ventricle</td>
+            <td>Widespread changes</td>
+            <td>Catastrophic — very high mortality</td></tr>
+      </table>
+      <div class="mn">🧠 <b>“I See All Leads”</b> for the four walls: <b>I</b>nferior = <b>II, III, aVF</b> · <b>S</b>eptal = <b>V1–V2</b> · <b>A</b>nterior = <b>V3–V4</b> · <b>L</b>ateral = <b>I, aVL, V5–V6</b>. And the artery order matches: <b>RCA → inferior</b>, <b>LAD → septal + anterior</b>, <b>LCx → lateral</b>.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🚨 Inferior MI: the nitro trap</h3>
+      <p><b>Answer first:</b> <span class="never">Be very cautious with nitroglycerin in an inferior (RCA) MI</span> — up to about half of inferior MIs involve the <b>right ventricle</b>.</p>
+      <ul class="tick">
+        <li>The infarcted RV can't pump forward — it survives on <b>preload</b></li>
+        <li>Nitro <b>drops preload</b> → BP can crash suddenly and severely</li>
+        <li>Clues: inferior ST elevation + <b>hypotension</b> + <b>clear lungs</b> + <b>JVD</b></li>
+        <li>Confirm with <b>right-sided leads</b> (V4R)</li>
+        <li>Treatment leans on <b>IV fluids</b> to fill the RV</li>
+      </ul>
+      <div class="mn">🧠 <b>“Inferior = fill her, not chill her.”</b> A right ventricle in trouble wants <b>volume</b>, not vasodilation. Hypotension + clear lungs + JVD after nitro = you just emptied the RV.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>💔 Complications by timeline</h3>
+      <ul class="tick">
+        <li>⚡ <b>Minutes–hours: dysrhythmias</b> — <b>V-fib is the leading cause of early death</b> after MI. This is why she's on a monitor.</li>
+        <li>🫁 <b>Hours–days: heart failure &amp; cardiogenic shock</b> — crackles, ↓BP, ↓urine, cool skin (NG-196)</li>
+        <li>🔊 <b>Days: papillary muscle rupture</b> → sudden new murmur + flash pulmonary edema</li>
+        <li>💥 <b>Days: ventricular free-wall or septal rupture</b> → sudden collapse, tamponade</li>
+        <li>🩹 <b>Days–weeks: pericarditis</b> — sharp pain, <b>better sitting forward</b>, friction rub (Dressler syndrome later)</li>
+        <li>🎈 <b>Weeks: ventricular aneurysm &amp; mural thrombus</b> → embolic stroke risk</li>
+      </ul>
+      <div class="mn">🧠 <b>“First the rhythm, then the pump, then the plumbing tears.”</b> That's the order complications arrive — and the order you assess for them.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CARE ============ -->
+<section id="care">
+  <div class="sec-h"><span class="icon">🩺</span><h2>CARE</h2><span class="step">STEP 5 · DURING &amp; AFTER</span></div>
+  <p class="sec-sub">During the pain: <b>MONA</b> (with modern asterisks). After: stabilize the clot, rest the heart, and send her home able to protect it.</p>
+
+  <div class="grid">
+    <div class="card topaz span2">
+      <h3>🚨 DURING — any chest pain: <b>MONA</b>, updated</h3>
+      <div class="mona">
+        <div class="mn-t warn"><span class="l">M</span><b>Morphine</b> — for pain <b>unrelieved by nitro</b>. <i>Qualified now: use judiciously.</i></div>
+        <div class="mn-t warn"><span class="l">O</span><b>Oxygen</b> — <b>only if SpO₂ &lt;90%</b> or she's in distress. <i>Not routine anymore.</i></div>
+        <div class="mn-t"><span class="l">N</span><b>Nitroglycerin</b> — SL <span class="mono">0.4 mg</span> q<span class="mono">5 min</span>, <b>max 3 doses</b>.</div>
+        <div class="mn-t"><span class="l">A</span><b>Aspirin</b> — <b>CHEWED</b>, non-enteric-coated, <span class="mono">162–325 mg</span>. <i>Give it FIRST.</i></div>
+      </div>
+      <p style="margin-top:12px"><b>Why morphine got an asterisk:</b> it still relieves pain, anxiety and preload — but registry data linked morphine to <b>worse outcomes in NSTE-ACS</b>, and it <b>slows absorption of oral antiplatelets</b> (clopidogrel/ticagrelor), delaying their effect. It also <b>masks ongoing ischemic pain</b>, which is one of your best assessment tools. So: reasonable for continuing pain in STEMI, used cautiously and not as a reflex.</p>
+      <p><b>Why oxygen got an asterisk:</b> in patients who are <b>not hypoxic</b>, routine O₂ showed <b>no benefit</b> and possible harm — hyperoxia causes <b>coronary vasoconstriction</b> and free-radical injury. <mark>Titrate O₂ to a target, don't hand out a nasal cannula by habit.</mark></p>
+      <p><b>The real order in practice:</b> <b>A</b>spirin chewed → <b>N</b>itro → <b>O</b>₂ only if hypoxic → <b>M</b>orphine only if pain persists. Nurses often say <b>“ANOM”</b> to remember the true sequence.</p>
+      <div class="mn">🧠 <b>MONA still gets you the 4 drugs — but she's changed her order.</b> Say: <i>“Aspirin first, nitro next, oxygen only if she's blue, morphine only if she's still hurting.”</i></div>
+    </div>
+
+    <div class="card ruby">
+      <h3>💊 Nitroglycerin — the hold rules</h3>
+      <ul class="tick">
+        <li>💊 <b>SL <span class="mono">0.4 mg</span> q<span class="mono">5 min</span> × <span class="mono">3 max</span></b>. Pain still there after 3? <b>= MI (injury)</b> — activate EMS/the MI protocol.</li>
+        <li>📉 <b>Nitro drip: hold/stop if SBP <span class="mono">&lt;90</span></b> or a drop of <span class="mono">&gt;30 mmHg</span> from her baseline</li>
+        <li>💥 <span class="never">NEVER with a PDE-5 inhibitor — sildenafil and the other “-afil” drugs</span> — the combination can cause fatal hypotension (avoid within <span class="mono">24 h</span>; ~<span class="mono">48 h</span> for tadalafil)</li>
+        <li>⚠️ <b>Caution in RV/inferior MI</b> — preload dependent (see above)</li>
+        <li>🤕 <b>Headache is expected</b> — it means it's working &amp; potent</li>
+        <li>🪑 <b>Change positions slowly</b> — orthostatic hypotension/syncope</li>
+        <li>🌡️ Store in the <b>dark glass bottle</b>, replace per expiration; sit or lie down before taking</li>
+      </ul>
+      <div class="mn">🧠 <b>“3 strikes and she's OUT — to the ER.”</b> Three nitro, five minutes apart. Still hurting = infarction, not angina.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🩸 Clot stabilization — <b>heparin</b></h3>
+      <ul class="tick">
+        <li>🛑 <b>Heparin PREVENTS clot growth</b> — <span class="never">it does NOT dissolve an existing clot</span></li>
+        <li>💥 Only <b>fibrinolytics ("-ase": alteplase, tenecteplase)</b> actually dissolve clot</li>
+        <li>🧪 Monitor <b>aPTT</b> for IV unfractionated heparin. A commonly taught therapeutic range is <span class="mono">46–70 seconds</span>, but every lab publishes its own — the real target is about <span class="mono">1.5–2.5 ×</span> the control value</li>
+        <li>💉 <b>Antidote: protamine sulfate</b></li>
+        <li>🩸 Monitor <b>platelets</b> — a falling platelet count on heparin suggests <b>HIT</b></li>
+        <li>📋 Low-molecular-weight heparin (enoxaparin) doesn't need routine aPTT monitoring</li>
+      </ul>
+      <p style="margin-top:8px"><span class="tip">SOURCE CHECK</span> A “<span class="mono">3×</span> max” is sometimes written for aPTT; the safer teaching is <b>above roughly <span class="mono">2.5×</span> control = bleeding risk</b>. Follow the range printed by your lab.</p>
+      <div class="mn">🧠 <b>“Heparin holds, -ase erases.”</b> Heparin holds the clot where it is; the “-ase” drugs erase it. <b>Warfarin → INR/vitamin K · Heparin → aPTT/protamine.</b></div>
+    </div>
+
+    <div class="card emerald span2">
+      <h3>💊 AFTER the MI — the take-home drug set</h3>
+      <table>
+        <tr><th style="width:22%">Class</th><th class="up">Job</th><th class="lo">Nursing watch</th></tr>
+        <tr><td><b>A — Antiplatelets</b><br><i>aspirin + clopidogrel</i></td>
+            <td>Stop new platelet plugs — especially critical after a <b>stent</b></td>
+            <td>Bleeding, bruising, black stools. Many protocols <b>hold if platelets fall to about <span class="mono">50,000/mm³</span> or less</b> (normal <span class="mono">150–400 K</span>) — follow the order. <i>Antiplatelets are followed by platelet count, not INR or aPTT.</i></td></tr>
+        <tr><td><b>C — Cholesterol lowering</b><br><i>“-statin”</i></td>
+            <td>Lower LDL <b>and</b> stabilize the plaque cap (NG-145 / NG-242)</td>
+            <td>Muscle pain/tenderness without injury → <b>report</b>; liver enzymes; <b>no grapefruit</b>; take in the evening</td></tr>
+        <tr><td><b>B — Beta blockers</b><br><i>“-olol” e.g. metoprolol, atenolol</i></td>
+            <td>Lower HR &amp; BP → <b>less O₂ demand</b>, fewer dysrhythmias, less remodeling</td>
+            <td><b>Hold parameters:</b> typically HR <span class="mono">&lt;60</span> or SBP <span class="mono">&lt;90–100</span> (per order). <span class="never">Never stop abruptly — rebound tachycardia, HTN and angina</span></td></tr>
+        <tr><td><b>A — ACE inhibitors</b> <i>“-pril”</i><br>then <b>ARBs</b> <i>“-sartan”</i></td>
+            <td>Prevent <b>ventricular remodeling</b> after MI; ACE is first-line, ARB if she can't tolerate ACE</td>
+            <td><b>C</b>ough &amp; angio<b>e</b>dema = ACE only · monitor <b>K⁺</b> <span class="mono">3.5–5.0 mEq/L</span> and creatinine (about <span class="mono">0.6–1.2 mg/dL</span>) · <b>avoid in pregnancy</b> · hold for low BP (not low HR)</td></tr>
+        <tr><td><b>Nitrates</b><br><i>isosorbide</i></td>
+            <td>Vasodilate — “a pillow for the heart”</td>
+            <td>Headache, orthostatic hypotension, <b>never with “-afil”</b></td></tr>
+        <tr><td><b>CCBs</b><br><i>diltiazem, verapamil, nifedipine</i></td>
+            <td>Vasodilate and (non-dihydropyridines) slow the heart</td>
+            <td><b>Diltiazem &amp; verapamil</b> ↓ HR and contractility. <b>“-dipine”</b> drugs are mainly vasodilators and can cause <b>reflex tachycardia</b> — don't expect them to lower the heart rate</td></tr>
+      </table>
+      <p style="margin-top:8px"><span class="tip">EXAM TIP</span> <mark>Beta blockers can mask hypoglycemia in diabetics</mark> — they blunt the tremor and tachycardia. <b>Diaphoresis still comes through</b>, so teach her to check glucose rather than wait to “feel low.” Also caution with asthma/COPD (bronchospasm, especially nonselective agents) and in <b>acute decompensated</b> heart failure.</p>
+      <div class="mn">🧠 <b>“ABCA” — the post-MI alphabet:</b> <b>A</b>ntiplatelet · <b>B</b>eta blocker · <b>C</b>holesterol statin · <b>A</b>CE inhibitor. Four bottles on the nightstand, four different jobs: <i>don't clot, don't race, don't clog, don't remodel.</i></div>
+    </div>
+
+    <div class="card citrinec span2">
+      <h3>🏠 DISCHARGE — <b>“DRESS”</b> her to go home</h3>
+      <div class="ladder">
+        <div class="rung"><div class="n">D</div><div class="t"><b>Diet</b> — low sodium &amp; fluid restriction as ordered (a commonly taught target is <span class="mono">2 g</span> sodium / <span class="mono">2 L</span> fluid per day). <b>Report new, rapid weight gain — that's water, and water means heart failure.</b> Daily weights: same time, same scale, same clothes.</div></div>
+        <div class="rung"><div class="n">R</div><div class="t"><b>Reduce</b> stress, alcohol, caffeine and cholesterol (animal fats)</div></div>
+        <div class="rung"><div class="n">E</div><div class="t"><b>Exercise</b> — build toward about <span class="mono">30 min × 5 days/week</span>, through <b>cardiac rehab</b>. Stop and rest for chest pain, and take nitro as prescribed.</div></div>
+        <div class="rung"><div class="n">S</div><div class="t"><b>Smoking cessation</b> — the single highest-yield change she can make</div></div>
+        <div class="rung"><div class="n">S</div><div class="t"><b>Sex</b> — generally safe to resume when she can climb <b>2 flights of stairs with no SOB or chest pain</b>. <span class="never">No erectile-dysfunction “-afil” drugs with nitrates.</span></div></div>
+      </div>
+      <p style="margin-top:11px"><span class="tip">NCLEX TIP</span> <b>AVOID NSAIDs</b> (ibuprofen, naproxen) after MI — <mark>they increase cardiovascular/clot risk</mark> and can blunt aspirin's effect.</p>
+      <div class="mn">🧠 <b>“Get DRESSed before you leave.”</b> <b>D</b>iet · <b>R</b>educe · <b>E</b>xercise · <b>S</b>moking · <b>S</b>ex. And the stair test is the one she'll actually remember: <i>two flights, no huffing.</i></div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>⚡ K⁺ &amp; the monitor</h3>
+      <ul class="tick">
+        <li>🧪 <b>Potassium <span class="mono">3.5–5.0 mEq/L</span></b> — ACE inhibitors and ARBs push it <b>up</b></li>
+        <li>🥗 Teach: <b>avoid salt substitutes</b> (they're potassium chloride) and don't load up on high-potassium foods without checking</li>
+        <li>📈 <b>High K⁺ = peaked T waves</b>, widening QRS, ST changes → <b>cardiac monitor first</b></li>
+        <li>💪 Watch for <b>muscle cramps, spasms, weakness</b></li>
+        <li>📉 Low K⁺ (from diuretics) is just as arrhythmogenic — flattened T, U waves</li>
+      </ul>
+      <div class="mn">🧠 <b>“Peaked T = potassium's peak.”</b> Tall pointy T waves after starting a “-pril” or “-sartan” = check the K⁺ and get her on the monitor.</div>
+    </div>
+
+    <div class="card tealc">
+      <h3>✅ Nursing priorities in the first hour</h3>
+      <ul class="tick">
+        <li>1️⃣ <b>Assess</b> — pain (OPQRST), vitals, SpO₂, lung sounds, skin</li>
+        <li>2️⃣ <b>12-lead EKG within <span class="mono">10 min</span></b> + continuous monitoring</li>
+        <li>3️⃣ <b>Aspirin chewed</b>, IV access ×2, labs including troponin</li>
+        <li>4️⃣ <b>Nitro</b> per protocol with BP before/after every dose</li>
+        <li>5️⃣ <b>Semi-Fowler's</b>, calm environment, keep her at rest — <b>reduce O₂ demand</b></li>
+        <li>6️⃣ <b>Prepare for reperfusion</b> — cath lab consent, NPO, check bleeding contraindications if fibrinolytics</li>
+        <li>7️⃣ <b>Stay with her</b> — anxiety itself raises catecholamines and O₂ demand</li>
+      </ul>
+      <div class="mn">🧠 <b>Everything in that list does one of two things:</b> raise O₂ supply or lower O₂ demand. If an answer choice does neither, it isn't the priority.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc rubybg"><span class="big">📈 ST ↑ = STEMI</span>Full thickness · fully blocked · <b>reperfuse now</b>. ST ↓ / T flip + troponin = NSTEMI.</div>
+    <div class="rc citrine"><span class="big">🧪 Troponin 3–4 h → 10–14 d</span>CK-MB clears in <span class="mono">48–72 h</span> → catches <b>re-infarction</b>.</div>
+    <div class="rc topazbg"><span class="big">💊 A-N-O-M</span>Aspirin chewed · nitro ×3 · O₂ only if SpO₂ <span class="mono">&lt;90%</span> · morphine only if still hurting.</div>
+    <div class="rc tealbg"><span class="big">🗺️ II·III·aVF = RCA</span>Inferior MI → bradycardia, blocks, RV infarct → <b>careful with nitro</b>.</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 8 rapid-fire questions</summary>
+      <div class="qa">Q1: What's the one lab that separates NSTEMI from unstable angina? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Troponin. Positive = NSTEMI (muscle died). Negative = unstable angina (ischemia only). Both can show ST depression or T-wave inversion.</div></div>
+      <div class="qa">Q2: A client with chest pain has ST elevation in II, III and aVF. Which artery, and what's your nitro concern? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">RCA — inferior wall MI. Up to half involve the right ventricle, which is preload dependent, so nitroglycerin can cause severe hypotension. Look for hypotension + clear lungs + JVD, get right-sided leads (V4R), and expect fluids.</div></div>
+      <div class="qa">Q3: When do you give oxygen in an MI? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Only if SpO₂ is below about 90% or she's in respiratory distress. Routine oxygen in a non-hypoxic patient gives no benefit and hyperoxia can cause coronary vasoconstriction.</div></div>
+      <div class="qa">Q4: Chest pain, 3 SL nitro 5 minutes apart, still hurting. Interpretation? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Pain unrelieved after the 3-dose max = MI (injury), not stable angina. Activate the MI protocol / EMS — this is not "try a fourth."</div></div>
+      <div class="qa">Q5: Troponin has been elevated for 5 days; she gets new chest pain. Which marker helps? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">CK-MB — it returns to normal in 48–72 hours, so a new rise flags RE-infarction while troponin is still elevated from the first event.</div></div>
+      <div class="qa">Q6: A 58-year-old woman with diabetes reports 2 weeks of fatigue, nausea and jaw ache, no chest pain. Next action? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">12-lead EKG and troponin. This is the classic atypical/silent presentation — autonomic neuropathy blunts pain, and women frequently present without crushing chest pain.</div></div>
+      <div class="qa">Q7: Which four drug classes go home with almost every post-MI client? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Antiplatelet (aspirin ± clopidogrel), Beta blocker, Cholesterol-lowering statin, ACE inhibitor (or ARB). "ABCA": don't clot, don't race, don't clog, don't remodel.</div></div>
+      <div class="qa">Q8: She asks when she can have sex again. <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Generally when she can climb 2 flights of stairs without shortness of breath or chest pain, per her provider. And never combine nitrates with "-afil" ED drugs.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">CAUSE</span>→
+    <span style="background:rgba(47,107,255,.7)">CLUES</span>→
+    <span style="background:rgba(0,194,199,.7);color:#00252b">EKG</span>→
+    <span style="background:rgba(192,34,85,.7)">ARTERY</span>→
+    <span style="background:rgba(18,184,134,.7)">CARE</span>
+  </div>
+  <div>NG-071 · Source wording retained · ADHD-friendly visual edition v2</div>
+</footer>
+
+</div>
+</body></html>
