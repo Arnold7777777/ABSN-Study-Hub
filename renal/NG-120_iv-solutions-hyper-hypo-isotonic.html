@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IV Solutions (Hyper, Hypo, Isotonic) · NG-120 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+
+/* ---------- page extras (appended — shell rules untouched) ---------- */
+nav a.c0{background:rgba(0,194,199,.70);color:#00252b}
+#ruler .sec-h h2{color:#ffe49a} #ruler .step{background:var(--citrine);color:#2b1200}
+#iso   .sec-h h2{color:#9ff2ee} #iso .step{background:var(--teal);color:#00252b}
+#hypo  .sec-h h2{color:#bcd0ff} #hypo .step{background:var(--sapphire)}
+#hyper .sec-h h2{color:#ffc2d2} #hyper .step{background:var(--ruby)}
+#pick  .sec-h h2{color:#ffe49a} #pick .step{background:var(--topaz);color:#231a02}
+.trio{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr))}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c0" href="#iso">⚖️ Isotonic</a>
+  <a class="c1" href="#hypo">🦛 Hypotonic</a>
+  <a class="c2" href="#hyper">🏃 Hypertonic</a>
+  <a class="c3" href="#pick">🎯 Pick the bag</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Renal + Fluid · Pathophysiology Course</div>
+  <h1>IV Solutions <span class="drop">💧</span></h1>
+  <p class="sub">Tonicity of Fluids · Isotonic · Hypotonic · Hypertonic</p>
+  <div class="chips">
+    <span class="chip id">NG-120</span>
+    <span class="chip cat">RENAL + FLUID</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede"><b>This page is the BAGS.</b> Six fluids you will hang for the rest of your career — <i>what is dissolved in each one, when you hang it, and when you must never hang it.</i> Normal serum osmolality is <span class="mono">275–295 mOsm/kg</span>; every bag is named by how it compares to <b>that</b> number.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc tealbg"><span class="big">⚖️ ISO = stays put</span><span class="mono">0.9% NS</span> · <span class="mono">LR</span> · <span class="mono">D5W</span> — fills the <b>vessel</b>, no cell shift.</div>
+  <div class="rc citrine"><span class="big">🦛 HYPO = cells swell</span><span class="mono">0.45% NS</span> · <span class="mono">0.33%</span> · <span class="mono">0.225%</span> — water goes <b>into</b> the cell.</div>
+  <div class="rc rubybg"><span class="big">🏃 HYPER = cells shrink</span><span class="mono">3% NS</span> · <span class="mono">D5NS</span> · <span class="mono">D10W</span> — pulls water <b>out</b> of the cell.</div>
+  <div class="rc topazbg"><span class="big">🩸 Blood? <span class="mono">0.9% NS</span> only</span>Never LR (calcium clots it) · never D5W (hemolysis).</div>
+</div>
+
+<!-- ============ THE RULER (intro visual) ============ -->
+<section id="ruler">
+  <div class="sec-h"><span class="icon">📏</span><h2>THE RULER</h2><span class="step">START HERE · ONE NUMBER</span></div>
+  <p class="sec-sub">Every fluid on this page is just a dot on one number line — where it sits next to <span class="mono">275–295</span> is the whole story.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>📏 Serum osmolality <span class="mono">275–295 mOsm/kg</span> — the line everything is measured against</h3>
+      <p><mark>Below the band = hypotonic · inside the band = isotonic · above the band = hypertonic.</mark> That is the entire naming system.</p>
+      <svg viewBox="0 0 900 340" role="img" aria-label="Number line of IV fluid osmolarity from 0 to 1100 milliosmoles per liter, showing hypotonic fluids below 275, isotonic fluids inside the 275 to 295 normal band, and hypertonic fluids above 295">
+        <defs>
+          <linearGradient id="ruleG" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#2f6bff"/><stop offset="0.30" stop-color="#00c2c7"/>
+            <stop offset="0.44" stop-color="#12b886"/><stop offset="0.62" stop-color="#ffc233"/>
+            <stop offset="1" stop-color="#ff3b6b"/>
+          </linearGradient>
+        </defs>
+        <rect x="6" y="6" width="888" height="328" rx="18" fill="rgba(13,8,26,.55)" stroke="rgba(255,255,255,.35)" stroke-width="2"/>
+        <text x="26" y="40" font-size="21" font-weight="900" fill="#ffe49a">OSMOLARITY RULER (mOsm/L)</text>
+
+        <!-- the bar -->
+        <rect x="60" y="150" width="800" height="26" rx="13" fill="url(#ruleG)"/>
+        <!-- normal band -->
+        <rect x="258" y="132" width="42" height="62" rx="8" fill="rgba(18,184,134,.35)" stroke="#7df0c6" stroke-width="2.5"/>
+        <text x="212" y="122" font-size="15" font-weight="900" fill="#7df0c6">NORMAL BAND</text>
+        <text x="214" y="216" font-size="15" font-weight="900" fill="#7df0c6">275–295</text>
+
+        <!-- ticks -->
+        <g font-size="13" font-weight="800" fill="#e9dcff">
+          <line x1="60" y1="176" x2="60" y2="190" stroke="#e9dcff" stroke-width="2"/><text x="48" y="208">0</text>
+          <line x1="205" y1="176" x2="205" y2="190" stroke="#e9dcff" stroke-width="2"/><text x="186" y="208">200</text>
+          <line x1="424" y1="176" x2="424" y2="190" stroke="#e9dcff" stroke-width="2"/><text x="405" y="208">500</text>
+          <line x1="642" y1="176" x2="642" y2="190" stroke="#e9dcff" stroke-width="2"/><text x="620" y="208">800</text>
+          <line x1="860" y1="176" x2="860" y2="190" stroke="#e9dcff" stroke-width="2"/><text x="832" y="208">1100</text>
+        </g>
+
+        <!-- HYPO markers (above the bar) -->
+        <text x="70" y="76" font-size="17" font-weight="900" fill="#9ecbff">🦛 HYPOTONIC — below 275</text>
+        <g font-size="13" font-weight="800" fill="#cfe0ff">
+          <line x1="116" y1="150" x2="116" y2="98" stroke="#2f6bff" stroke-width="2.5"/><circle cx="116" cy="150" r="5" fill="#2f6bff"/>
+          <text x="86" y="94">0.225% NS · 77</text>
+          <line x1="135" y1="150" x2="135" y2="118" stroke="#2f6bff" stroke-width="2.5"/><circle cx="135" cy="150" r="5" fill="#2f6bff"/>
+          <text x="150" y="118">0.33% NS · 103</text>
+          <line x1="172" y1="150" x2="172" y2="140" stroke="#00c2c7" stroke-width="2.5"/><circle cx="172" cy="150" r="5" fill="#00c2c7"/>
+          <text x="188" y="140" fill="#9ff2ee">0.45% NS (½NS) · 154</text>
+        </g>
+
+        <!-- ISO markers (below the bar) -->
+        <g font-size="13" font-weight="800" fill="#a5f3d4">
+          <line x1="243" y1="176" x2="243" y2="248" stroke="#12b886" stroke-width="2.5"/><circle cx="243" cy="176" r="5" fill="#12b886"/>
+          <text x="150" y="266">D5W · 252 <tspan font-style="italic">(in the bag)</tspan></text>
+          <line x1="259" y1="176" x2="259" y2="286" stroke="#12b886" stroke-width="2.5"/><circle cx="259" cy="176" r="5" fill="#12b886"/>
+          <text x="196" y="304">LR · 273</text>
+          <line x1="284" y1="176" x2="284" y2="316" stroke="#12b886" stroke-width="2.5"/><circle cx="284" cy="176" r="5" fill="#12b886"/>
+          <text x="300" y="322">0.9% NS (normal saline) · 308</text>
+        </g>
+
+        <!-- HYPER markers (above the bar, right side) -->
+        <text x="470" y="76" font-size="17" font-weight="900" fill="#ff9db4">🏃 HYPERTONIC — above 295</text>
+        <g font-size="13" font-weight="800" fill="#ffd9e2">
+          <line x1="356" y1="150" x2="356" y2="118" stroke="#ffc233" stroke-width="2.5"/><circle cx="356" cy="150" r="5" fill="#ffc233"/>
+          <text x="330" y="112" fill="#ffe49a">D5½NS · 406</text>
+          <line x1="428" y1="150" x2="428" y2="140" stroke="#ff8a3d" stroke-width="2.5"/><circle cx="428" cy="150" r="5" fill="#ff8a3d"/>
+          <text x="440" y="140" fill="#ffd0bd">D10W · 505</text>
+          <line x1="466" y1="150" x2="466" y2="118" stroke="#ff8a3d" stroke-width="2.5"/><circle cx="466" cy="150" r="5" fill="#ff8a3d"/>
+          <text x="560" y="112" fill="#ffd0bd">D5LR · 525 · D5NS · 560</text>
+          <line x1="807" y1="150" x2="807" y2="140" stroke="#ff3b6b" stroke-width="2.5"/><circle cx="807" cy="150" r="6" fill="#ff3b6b"/>
+          <text x="700" y="136" fill="#ff9db4">3% NS · 1026</text>
+        </g>
+        <text x="60" y="262" font-size="15" font-weight="900" fill="#a5f3d4">⚖️ ISOTONIC</text>
+        <text x="60" y="284" font-size="12.5" font-style="italic" fill="#d8fff0">sits in the band</text>
+      </svg>
+      <div class="mn">🧠 <b>“Two-seventy-five to two-ninety-five, the cell survives.”</b> Anything under the band pushes water <i>into</i> cells; anything over the band pulls water <i>out</i>. Memorize the band once and every bag sorts itself.</div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>🧪 What “tonicity” actually measures</h3>
+      <table>
+        <tr><th style="width:30%">Term</th><th class="up">What it means</th><th class="lo">Nurse translation</th></tr>
+        <tr><td><b>Osmolarity</b></td><td>Solute particles per <b>liter of solution</b> <span class="mono">mOsm/L</span> — what's printed on the bag</td><td>The <i>bag's</i> number</td></tr>
+        <tr><td><b>Osmolality</b></td><td>Solute particles per <b>kg of water</b> <span class="mono">mOsm/kg</span> — what the lab reports</td><td>The <i>patient's</i> number, <span class="mono">275–295</span></td></tr>
+        <tr><td><b>Tonicity</b></td><td>The <b>effective</b> pull on a cell once the fluid is in the body</td><td>Which way the water actually moves</td></tr>
+      </table>
+      <p style="margin-top:8px">📈 Quick bedside estimate: <span class="mono">serum osm ≈ 2(Na) + glucose/18 + BUN/2.8</span>. <i>Sodium is doing most of the work</i> — which is why every fluid on this page is described by its salt.</p>
+      <div class="mn">🧠 <b>“The bag has osmolARity, the patient has osmolALity.”</b> <b>R</b> for the <b>R</b>eady-made bag, <b>L</b> for the <b>L</b>ab draw.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ISOTONIC ============ -->
+<section id="iso">
+  <div class="sec-h"><span class="icon">⚖️</span><h2>ISOTONIC</h2><span class="step">STEP 1 · I'M SO PERFECT</span></div>
+  <p class="sec-sub">Same concentration inside and outside the cell — so the fluid stays in the blood vessel and fills the tank.</p>
+
+  <div class="grid">
+    <div class="card tealc span2">
+      <h3>⭐ ISO-tonic — think <b>“I-SO-perfect”</b></h3>
+      <p>These solutions have a <b>perfect balance (equilibrium) of solutes both inside &amp; outside the cell</b>, therefore <b>no fluid shifts are made</b>. Human blood is isotonic, so <i>very little osmosis occurs</i> — isotonic fluids have <b>the same osmolality as body fluids</b>.</p>
+      <p>🎯 So where does the fluid go? <mark>It stays in the vascular space and expands the blood volume.</mark> That is exactly what you want in shock, bleeding and dehydration.</p>
+      <div class="mn">🧠 <b>“I'm SO perfect — I don't move.”</b> Isotonic fluid is the roommate who never rearranges the furniture. Nothing shifts.</div>
+    </div>
+
+    <div class="card deep span2">
+      <h3>🧊 The three isotonic bags, side by side</h3>
+      <div class="trio">
+        <svg viewBox="0 0 260 330" role="img" aria-label="IV bag of 0.9 percent sodium chloride normal saline, 308 milliosmoles, with a cell that stays the same size">
+          <rect x="6" y="6" width="248" height="318" rx="16" fill="rgba(18,184,134,.14)" stroke="#12b886" stroke-width="2" stroke-dasharray="7 6"/>
+          <path d="M112 26 h36 v14 h-36 z" fill="#d8fff0"/>
+          <rect x="66" y="40" width="128" height="176" rx="18" fill="rgba(0,194,199,.35)" stroke="#9ff2ee" stroke-width="2.5"/>
+          <path d="M70 130 h120 v78 a14 14 0 0 1 -14 14 h-92 a14 14 0 0 1 -14 -14 z" fill="rgba(0,194,199,.55)"/>
+          <text x="130" y="82" font-size="19" font-weight="900" fill="#eafff7" text-anchor="middle">0.9%</text>
+          <text x="130" y="106" font-size="15" font-weight="800" fill="#eafff7" text-anchor="middle">NaCl</text>
+          <text x="130" y="168" font-size="14" font-weight="900" fill="#00252b" text-anchor="middle">308</text>
+          <text x="130" y="188" font-size="12" font-weight="800" fill="#00252b" text-anchor="middle">mOsm/L</text>
+          <line x1="130" y1="216" x2="130" y2="238" stroke="#9ff2ee" stroke-width="3"/>
+          <text x="130" y="262" font-size="15.5" font-weight="900" fill="#7df0c6" text-anchor="middle">NORMAL SALINE</text>
+          <circle cx="130" cy="292" r="20" fill="#ff5b7f" stroke="#ffd0bd" stroke-width="2"/>
+          <circle cx="130" cy="292" r="8" fill="rgba(13,8,26,.45)"/>
+          <text x="130" y="322" font-size="12.5" font-style="italic" fill="#d8fff0" text-anchor="middle">cell unchanged</text>
+        </svg>
+
+        <svg viewBox="0 0 260 330" role="img" aria-label="IV bag of lactated Ringer's, 273 milliosmoles, containing sodium potassium calcium chloride and lactate, with a cell that stays the same size">
+          <rect x="6" y="6" width="248" height="318" rx="16" fill="rgba(18,184,134,.14)" stroke="#12b886" stroke-width="2" stroke-dasharray="7 6"/>
+          <path d="M112 26 h36 v14 h-36 z" fill="#d8fff0"/>
+          <rect x="66" y="40" width="128" height="176" rx="18" fill="rgba(18,184,134,.32)" stroke="#7df0c6" stroke-width="2.5"/>
+          <path d="M70 122 h120 v86 a14 14 0 0 1 -14 14 h-92 a14 14 0 0 1 -14 -14 z" fill="rgba(18,184,134,.55)"/>
+          <text x="130" y="80" font-size="21" font-weight="900" fill="#eafff7" text-anchor="middle">LR</text>
+          <text x="130" y="102" font-size="12.5" font-weight="800" fill="#eafff7" text-anchor="middle">Lactated Ringer's</text>
+          <text x="130" y="150" font-size="11.5" font-weight="800" fill="#eafff7" text-anchor="middle">Na 130 · K 4 · Ca 3</text>
+          <text x="130" y="170" font-size="11.5" font-weight="800" fill="#eafff7" text-anchor="middle">Cl 109 · lactate 28</text>
+          <text x="130" y="196" font-size="14" font-weight="900" fill="#eafff7" text-anchor="middle">273 mOsm/L</text>
+          <line x1="130" y1="216" x2="130" y2="238" stroke="#7df0c6" stroke-width="3"/>
+          <text x="130" y="262" font-size="15.5" font-weight="900" fill="#7df0c6" text-anchor="middle">“THE ONE WITH K”</text>
+          <circle cx="130" cy="292" r="20" fill="#ff5b7f" stroke="#ffd0bd" stroke-width="2"/>
+          <circle cx="130" cy="292" r="8" fill="rgba(13,8,26,.45)"/>
+          <text x="130" y="322" font-size="12.5" font-style="italic" fill="#d8fff0" text-anchor="middle">cell unchanged</text>
+        </svg>
+
+        <svg viewBox="0 0 260 330" role="img" aria-label="IV bag of 5 percent dextrose in water, 252 milliosmoles, isotonic in the bag but hypotonic in the body once the sugar is burned">
+          <rect x="6" y="6" width="248" height="318" rx="16" fill="rgba(255,194,51,.16)" stroke="#ffc233" stroke-width="2" stroke-dasharray="7 6"/>
+          <path d="M112 26 h36 v14 h-36 z" fill="#fff3d1"/>
+          <rect x="66" y="40" width="128" height="176" rx="18" fill="rgba(255,194,51,.30)" stroke="#ffe49a" stroke-width="2.5"/>
+          <path d="M70 134 h120 v74 a14 14 0 0 1 -14 14 h-92 a14 14 0 0 1 -14 -14 z" fill="rgba(255,194,51,.55)"/>
+          <text x="130" y="82" font-size="21" font-weight="900" fill="#fff3d1" text-anchor="middle">D5W</text>
+          <text x="130" y="106" font-size="12" font-weight="800" fill="#fff3d1" text-anchor="middle">5% dextrose in water</text>
+          <text x="130" y="170" font-size="14" font-weight="900" fill="#3a2a00" text-anchor="middle">252 mOsm/L</text>
+          <text x="130" y="192" font-size="11.5" font-weight="800" fill="#3a2a00" text-anchor="middle">50 g sugar · ~170 kcal</text>
+          <line x1="130" y1="216" x2="130" y2="234" stroke="#ffe49a" stroke-width="3"/>
+          <text x="130" y="256" font-size="14" font-weight="900" fill="#ffe49a" text-anchor="middle">ISO in the bag…</text>
+          <text x="130" y="278" font-size="14" font-weight="900" fill="#ff9db4" text-anchor="middle">HYPO in the body</text>
+          <circle cx="130" cy="304" r="21" fill="#ff5b7f" stroke="#ffd0bd" stroke-width="2" opacity=".55"/>
+          <circle cx="130" cy="304" r="15" fill="none" stroke="#ffc233" stroke-width="2" stroke-dasharray="5 4"/>
+          <text x="130" y="326" font-size="11.5" font-style="italic" fill="#ffe49a" text-anchor="middle">then the cell swells</text>
+        </svg>
+      </div>
+      <div class="mn">🧠 <b>“NS · LR · D5W — the three that don't push.”</b> Say them as one word: <i>“ns-lr-dee-five-double-you.”</i> They are the fluids you can hang without thinking about cell size — with one asterisk, and its name is D5W.</div>
+    </div>
+
+    <div class="card emerald span2">
+      <h3>✅ USES — when you hang an isotonic bag</h3>
+      <ul class="tick">
+        <li>📉 <b>Hypotension</b> — low blood pressure, needs volume in the vessel</li>
+        <li>🩸 <b>Blood transfusions</b> — <span class="mono">0.9% NS</span> is the priming/flush fluid</li>
+        <li>🚑 <b>Hemorrhaging</b> — blood loss, trauma, surgery</li>
+        <li>🍬 <b>DKA</b> — diabetic ketoacidosis, the type-1 emergency</li>
+        <li>🍭 <b>HHNS</b> — hyperosmolar hyperglycemic state, the type-2 emergency</li>
+        <li>🤮 <b>Fluid volume deficit</b> from vomiting, diarrhea, NG suction, burns, sepsis</li>
+      </ul>
+      <p style="margin-top:8px">Every one of those is the same problem: <mark>the tank is empty — refill the tank.</mark></p>
+      <div class="mn">🧠 <b>“Isotonic fills the TANK, not the cells.”</b> Picture pouring water into a garden hose, not into the plants. Pressure comes up; the plants don't change size.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>💧 <span class="mono">0.9% Sodium Chloride</span> — normal saline (NS)</h3>
+      <ul class="tick">
+        <li><b>Contents:</b> Na <span class="mono">154</span> · Cl <span class="mono">154 mEq/L</span> · <span class="mono">308 mOsm/L</span></li>
+        <li><b>The only fluid compatible with blood products.</b></li>
+        <li>Used to dilute/flush many IV drugs and to keep lines patent</li>
+        <li>Rehydrates and replaces sodium at the same time</li>
+      </ul>
+      <p>⚠️ <b>Large volumes</b> deliver a big chloride load → <b>hyperchloremic metabolic acidosis</b>, and can push a heart-failure or kidney-failure patient into overload.</p>
+      <div class="mn">🧠 <b>“Normal Saline = Necessary for Sanguine (blood).”</b> If the question involves <i>blood</i>, the answer involves <span class="mono">0.9% NS</span>.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>💧 <span class="mono">Lactated Ringer's</span> (LR) — the one with electrolytes</h3>
+      <ul class="tick">
+        <li><b>Contents:</b> Na <span class="mono">130</span> · K <span class="mono">4</span> · Ca <span class="mono">3</span> · Cl <span class="mono">109</span> · lactate <span class="mono">28 mEq/L</span></li>
+        <li><b>Lactate → bicarbonate</b> in the liver, so LR gently buffers acidosis</li>
+        <li>The resuscitation fluid of choice in <b>major burns</b> (Parkland-type formulas use LR)</li>
+        <li>Surgery, trauma, GI losses, dehydration</li>
+      </ul>
+      <p>⚠️ It <b>contains potassium</b> → caution in <b>renal failure / hyperkalemia</b>. It <b>contains calcium</b> → <span class="never">never run with blood products</span> (calcium + the citrate anticoagulant = clot). Liver failure can't convert the lactate.</p>
+      <div class="mn">🧠 <b>“LR = Liver + Renal say no.”</b> The <b>L</b>iver has to convert the <b>L</b>actate; the kidney has to handle the <b>K</b>. Bad liver or bad kidneys? Think twice.</div>
+    </div>
+
+    <div class="card topaz span2">
+      <h3>⭐ SIDE NOTE — the <span class="mono">D5W</span> trick everyone gets wrong</h3>
+      <p><b>Isotonic in the bag <span class="mono">(252)</span> · HYPOTONIC in the body.</b> The dextrose is metabolized by the cells within minutes, and what is left behind is <b>plain free water</b> — which then rushes into the cells.</p>
+      <svg viewBox="0 0 880 250" role="img" aria-label="Three step diagram: a D5W bag at 252 milliosmoles is isotonic, the body burns the dextrose for energy, leaving free water which is hypotonic and swells the cell">
+        <rect x="6" y="6" width="868" height="238" rx="16" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.35)" stroke-width="2"/>
+        <!-- step 1 -->
+        <rect x="34" y="52" width="90" height="128" rx="16" fill="rgba(255,194,51,.35)" stroke="#ffe49a" stroke-width="2.5"/>
+        <text x="79" y="104" font-size="19" font-weight="900" fill="#fff3d1" text-anchor="middle">D5W</text>
+        <text x="79" y="130" font-size="13" font-weight="800" fill="#fff3d1" text-anchor="middle">252</text>
+        <text x="79" y="150" font-size="12" font-weight="800" fill="#fff3d1" text-anchor="middle">mOsm/L</text>
+        <text x="79" y="212" font-size="15" font-weight="900" fill="#ffe49a" text-anchor="middle">1 · IN THE BAG</text>
+        <text x="79" y="232" font-size="13" font-style="italic" fill="#fff3d1" text-anchor="middle">isotonic ⚖️</text>
+        <text x="160" y="122" font-size="30" fill="#ffc233">➜</text>
+        <!-- step 2 -->
+        <circle cx="300" cy="116" r="60" fill="rgba(157,92,255,.35)" stroke="#d9c2ff" stroke-width="2.5"/>
+        <text x="300" y="104" font-size="15" font-weight="900" fill="#f0e6ff" text-anchor="middle">CELLS BURN</text>
+        <text x="300" y="128" font-size="15" font-weight="900" fill="#f0e6ff" text-anchor="middle">THE SUGAR</text>
+        <text x="300" y="150" font-size="12" font-style="italic" fill="#e9dcff" text-anchor="middle">~170 kcal/L</text>
+        <text x="300" y="212" font-size="15" font-weight="900" fill="#d9c2ff" text-anchor="middle">2 · IN THE BODY</text>
+        <text x="300" y="232" font-size="13" font-style="italic" fill="#e9dcff" text-anchor="middle">dextrose disappears</text>
+        <text x="382" y="122" font-size="30" fill="#ffc233">➜</text>
+        <!-- step 3 -->
+        <rect x="440" y="56" width="120" height="120" rx="16" fill="rgba(47,107,255,.30)" stroke="#9ecbff" stroke-width="2.5"/>
+        <text x="500" y="106" font-size="17" font-weight="900" fill="#dfe9ff" text-anchor="middle">FREE</text>
+        <text x="500" y="130" font-size="17" font-weight="900" fill="#dfe9ff" text-anchor="middle">WATER</text>
+        <text x="500" y="152" font-size="13" font-weight="800" fill="#9ecbff" text-anchor="middle">H₂O only</text>
+        <text x="500" y="212" font-size="15" font-weight="900" fill="#9ecbff" text-anchor="middle">3 · WHAT'S LEFT</text>
+        <text x="500" y="232" font-size="13" font-style="italic" fill="#dfe9ff" text-anchor="middle">hypotonic 🦛</text>
+        <text x="586" y="122" font-size="30" fill="#ffc233">➜</text>
+        <!-- swollen cell -->
+        <circle cx="716" cy="116" r="34" fill="rgba(255,59,107,.35)" stroke="#ff9db4" stroke-width="2" stroke-dasharray="5 4"/>
+        <circle cx="716" cy="116" r="52" fill="rgba(255,59,107,.45)" stroke="#ffd0bd" stroke-width="3"/>
+        <path d="M660 60 l14 14 M772 60 l-14 14 M660 172 l14 -14 M772 172 l-14 -14" stroke="#9ecbff" stroke-width="4" stroke-linecap="round"/>
+        <text x="716" y="212" font-size="15" font-weight="900" fill="#ff9db4" text-anchor="middle">4 · CELL SWELLS</text>
+        <text x="716" y="232" font-size="13" font-style="italic" fill="#ffd9e2" text-anchor="middle">cerebral edema risk</text>
+        <text x="716" y="122" font-size="13" font-weight="900" fill="#fff" text-anchor="middle">💧💧</text>
+      </svg>
+      <p style="margin-top:6px"><b>So when do you hang it?</b> To give <b>free water</b> and calories, to <b>dilute IV medications</b>, and to treat <b>hypernatremia</b>. ❌ <span class="never">Never in head injury, stroke, or raised ICP</span> — free water goes straight to swelling brain cells. ❌ Not the fluid for resuscitating shock.</p>
+      <div class="mn">🧠 <b>“D5W = Dextrose Vanishes, Water Wins.”</b> The bag lies. Read the label as <i>“water with a sugar disguise.”</i></div>
+    </div>
+
+    <div class="card garnet span2">
+      <h3>🚨 CAUTION — too much isotonic</h3>
+      <div class="flow">
+        <div class="fstep">💧 Too much isotonic fluid, too fast</div>
+        <div class="farrow">▼</div>
+        <div class="fstep">🫗 <b>Fluid volume OVERLOAD (FVO)</b> — the vessel is over-filled</div>
+        <div class="farrow">▼</div>
+        <div class="fstep hot">🩺 <b>MONITOR: BLOOD PRESSURE</b> — <span class="mono">BP over 180</span> systolic = <b>HTN crisis!</b></div>
+        <div class="farrow">▼</div>
+        <div class="fstep hot">🧠 <b>Risk for CVA / stroke</b></div>
+      </div>
+      <p style="margin-top:10px"><b>Other FVO tells:</b> crackles in the lungs 🫁 · bounding pulse 💓 · JVD 🦒 · dependent edema 🦵 · dyspnea · sudden weight gain — <span class="mono">1 kg = 1 L</span> of fluid.</p>
+      <p>👀 <b>Highest-risk clients:</b> heart failure, kidney failure, older adults, infants.</p>
+      <div class="mn">🧠 <b>“Full tank, high pressure, burst hose.”</b> Over-fill the vascular hose → pressure spikes over <span class="mono">180</span> → a vessel in the brain gives out. That is the whole FVO → HTN crisis → CVA chain.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HYPOTONIC ============ -->
+<section id="hypo">
+  <div class="sec-h"><span class="icon">🦛</span><h2>HYPOTONIC</h2><span class="step">STEP 2 · HIPPO-TONIC</span></div>
+  <p class="sec-sub">Weaker than the cell — so water leaves the vessel and moves INTO the cell, fattening it like a hippo.</p>
+
+  <div class="grid">
+    <div class="card tealc span2">
+      <h3>⭐ HYPO-tonic — think <b>LOW</b></h3>
+      <p>These solutions have a <b>LOWer osmolarity &amp; LOWer concentration of solutes</b> than body fluids. They cause the <b>movement of water INTO cells by osmosis</b>, <b>swelling the cells like a BIG fat hippo</b> — and therefore should be <b>administered SLOWLY to prevent cellular edema</b>.</p>
+      <p>🎯 Job: <mark>rehydrate the CELL, not the vessel.</mark> This is the fluid for <b>cellular dehydration</b>.</p>
+      <div class="mn">🧠 <b>“HYPO-tonic = HIPPO-tonic.”</b> Low number, fat cell. Picture a hippo squeezing into the IV bag — <i>the cell puffs up.</i></div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>🦛 Watch the cell swell — hypotonic in one picture</h3>
+      <svg viewBox="0 0 880 300" role="img" aria-label="Hypotonic diagram: an IV bag with few solute dots hangs beside a cell, water arrows point into the cell and it swells from normal to bloated">
+        <rect x="6" y="6" width="868" height="288" rx="16" fill="rgba(47,107,255,.16)" stroke="#2f6bff" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="28" y="44" font-size="21" font-weight="900" fill="#9ecbff">🦛 HYPOTONIC — fewer particles outside, so water runs IN</text>
+
+        <!-- bag -->
+        <path d="M96 66 h36 v14 h-36 z" fill="#dfe9ff"/>
+        <rect x="52" y="80" width="124" height="160" rx="18" fill="rgba(47,107,255,.30)" stroke="#9ecbff" stroke-width="2.5"/>
+        <g fill="#dfe9ff"><circle cx="86" cy="140" r="5"/><circle cx="140" cy="176" r="5"/><circle cx="108" cy="208" r="5"/></g>
+        <text x="114" y="116" font-size="16" font-weight="900" fill="#dfe9ff" text-anchor="middle">0.45% NS</text>
+        <text x="114" y="264" font-size="14" font-weight="900" fill="#9ecbff" text-anchor="middle">few solutes 🔵</text>
+        <text x="114" y="284" font-size="12.5" font-style="italic" fill="#dfe9ff" text-anchor="middle">“a lot of water”</text>
+
+        <!-- normal cell -->
+        <text x="330" y="76" font-size="16" font-weight="900" fill="#e9dcff" text-anchor="middle">BEFORE</text>
+        <circle cx="330" cy="164" r="52" fill="rgba(255,59,107,.5)" stroke="#ffd0bd" stroke-width="3"/>
+        <circle cx="330" cy="164" r="20" fill="rgba(13,8,26,.4)"/>
+        <text x="330" y="248" font-size="14" font-weight="800" fill="#ffd9e2" text-anchor="middle">normal cell</text>
+
+        <!-- arrows in -->
+        <g stroke="#00c2c7" stroke-width="6" stroke-linecap="round" fill="none">
+          <path d="M470 110 L520 140"/><path d="M470 218 L520 188"/><path d="M456 164 L520 164"/>
+        </g>
+        <g fill="#00c2c7">
+          <path d="M520 132 l18 8 l-18 8 z"/><path d="M520 180 l18 8 l-18 8 z"/><path d="M522 156 l18 8 l-18 8 z"/>
+        </g>
+        <text x="486" y="92" font-size="15" font-weight="900" fill="#9ff2ee" text-anchor="middle">H₂O IN ➜</text>
+
+        <!-- swollen cell -->
+        <text x="640" y="76" font-size="16" font-weight="900" fill="#ffe49a" text-anchor="middle">AFTER</text>
+        <circle cx="640" cy="164" r="52" fill="none" stroke="#ffd0bd" stroke-width="2" stroke-dasharray="6 5"/>
+        <circle cx="640" cy="164" r="82" fill="rgba(255,59,107,.42)" stroke="#ff9db4" stroke-width="4"/>
+        <circle cx="640" cy="164" r="22" fill="rgba(13,8,26,.4)"/>
+        <g fill="#9ff2ee"><circle cx="606" cy="132" r="6"/><circle cx="676" cy="140" r="6"/><circle cx="618" cy="198" r="6"/><circle cx="672" cy="192" r="6"/></g>
+        <text x="640" y="272" font-size="15" font-weight="900" fill="#ff9db4" text-anchor="middle">SWOLLEN — cellular edema</text>
+        <text x="792" y="128" font-size="34" text-anchor="middle">🦛</text>
+        <text x="800" y="164" font-size="13" font-weight="900" fill="#9ecbff" text-anchor="middle">fat</text>
+        <text x="800" y="182" font-size="13" font-weight="900" fill="#9ecbff" text-anchor="middle">hippo</text>
+      </svg>
+      <div class="mn">🧠 <b>“Low outside → flows inside.”</b> Water always chases salt. Not enough salt in the bag means the saltiest place is <i>inside the cell</i> — so in it goes.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🧪 List of hypotonic fluids</h3>
+      <ul class="tick">
+        <li><span class="mono">0.45%</span> Sodium Chloride — <b>½ NS</b>, <span class="mono">154 mOsm/L</span> <i>(the one you'll actually see)</i></li>
+        <li><span class="mono">0.33%</span> Sodium Chloride — <b>⅓ NS</b>, <span class="mono">103 mOsm/L</span></li>
+        <li><span class="mono">0.225%</span> Sodium Chloride — <b>¼ NS</b>, <span class="mono">77 mOsm/L</span></li>
+        <li><span class="mono">D5¼NS</span> — 5% dextrose in 0.225% saline</li>
+        <li><span class="mono">D5W</span> — <i>isotonic in the bag, hypotonic in the body</i> ⭐</li>
+      </ul>
+      <div class="mn">🧠 <b>“A lot of numbers = a lot of fluid IN the cell.”</b> The busiest-looking labels (<span class="mono">0.225 · 0.33 · 0.45</span>) are the weakest bags — small percent, big cell.</div>
+    </div>
+
+    <div class="card emerald">
+      <h3>✅ USES — hang it for <b>cellular dehydration</b></h3>
+      <ul class="tick">
+        <li>🌵 <b>Cellular dehydration</b> — the cells, not just the vessel, are dry</li>
+        <li>🧂 <b>Hypernatremia</b> — <b>sodium over <span class="mono">145 mEq/L</span></b></li>
+        <li>🍬 <b>DKA / HHNS maintenance</b> — <i>after</i> the initial isotonic resuscitation, per orders</li>
+        <li>💊 Diluting some drugs and providing daily maintenance water</li>
+      </ul>
+      <p>🐢 <b>Give SLOWLY</b> — on a pump, and reassess neuro status.</p>
+      <div class="mn">🧠 <b>“Salt too high? Water the cells.”</b> Hypernatremia <span class="mono">&gt;145</span> means the cells are shriveled and salty — a weak, watery bag is the fix.</div>
+    </div>
+
+    <div class="card garnet span2">
+      <h3>🚨 CAUTION — give slowly to prevent cerebral edema</h3>
+      <p>Cells everywhere swell, but the one that matters is the <b>brain cell</b>, because the skull cannot expand. <mark>Cellular edema → cerebral swelling → ↑ICP.</mark></p>
+      <div class="ladder">
+        <div class="rung"><div class="n" style="background:var(--ruby)">1</div><div class="t">🤕 <b>HEADACHE</b> — the very first complaint</div></div>
+        <div class="arrowdown" style="color:#ff9db4">▼</div>
+        <div class="rung"><div class="n" style="background:var(--ruby)">2</div><div class="t">🌀 <b>MENTAL STATUS CHANGES</b> — <i>“altered level of consciousness”</i>: <b>new confusion, restless, agitated</b></div></div>
+        <div class="arrowdown" style="color:#ff9db4">▼</div>
+        <div class="rung"><div class="n" style="background:var(--garnet)">3</div><div class="t">⚡ <b>SEIZURES &amp; COMA</b> — stop the infusion and call the provider</div></div>
+      </div>
+      <p style="margin-top:10px">❌ <span class="never">NOT for clients with increased ICP, head injury, stroke, or neurosurgery</span> — you would be pouring water onto a swelling brain.</p>
+      <p>❌ Also not for <b>burns, trauma, third-spacing or liver disease with low albumin</b> — the fluid leaks straight out of the vessel. ❌ Not for <b>hypotension/shock</b>: it does not stay in the tank.</p>
+      <div class="mn">🧠 <b>“Hippo in the skull.”</b> A hippo in a hard box has nowhere to go — <b>H</b>eadache → <b>A</b>ltered LOC → <b>S</b>eizure. <i>Headache is your early-warning siren; report it before it becomes a seizure.</i></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HYPERTONIC ============ -->
+<section id="hyper">
+  <div class="sec-h"><span class="icon">🏃</span><h2>HYPERTONIC</h2><span class="step">STEP 3 · HIGH &amp; DRY</span></div>
+  <p class="sec-sub">Thick, salty, concentrated — it drags water OUT of the cells and into the vessel, and the cells get skinny.</p>
+
+  <div class="grid">
+    <div class="card tealc span2">
+      <h3>⭐ HYPER-tonic — think <b>HIGH &amp; dry</b></h3>
+      <p>These solutions have a <b>HIGHER osmolarity &amp; HIGHER concentration of solutes</b> than body fluids. They are <b>very thick salty solutions</b> with <b>more solutes &amp; less water</b>, causing water to be <b>moved OUTSIDE the cells</b> and <b>making the cells skinny like a hyper person</b>.</p>
+      <p>🎯 Job: <mark>pull water back into the blood vessel.</mark> Volume goes up fast — which is exactly why it is the most dangerous family on this page.</p>
+      <div class="mn">🧠 <b>“HYPER-tonic = HYPER person — skinny cells.”</b> The hyper friend who never sits down and never eats. High number, thin cell.</div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>🏃 Watch the cell shrink — hypertonic in one picture</h3>
+      <svg viewBox="0 0 880 300" role="img" aria-label="Hypertonic diagram: an IV bag crowded with solute dots hangs beside a cell, water arrows point out of the cell and it shrivels and crenates">
+        <rect x="6" y="6" width="868" height="288" rx="16" fill="rgba(255,59,107,.16)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="28" y="44" font-size="21" font-weight="900" fill="#ff9db4">🏃 HYPERTONIC — more particles outside, so water is dragged OUT</text>
+
+        <!-- bag -->
+        <path d="M96 66 h36 v14 h-36 z" fill="#ffd9e2"/>
+        <rect x="52" y="80" width="124" height="160" rx="18" fill="rgba(255,59,107,.30)" stroke="#ff9db4" stroke-width="2.5"/>
+        <g fill="#ffe3ea">
+          <circle cx="78" cy="132" r="5"/><circle cx="104" cy="146" r="5"/><circle cx="132" cy="130" r="5"/>
+          <circle cx="156" cy="152" r="5"/><circle cx="90" cy="172" r="5"/><circle cx="120" cy="182" r="5"/>
+          <circle cx="150" cy="196" r="5"/><circle cx="70" cy="204" r="5"/><circle cx="104" cy="216" r="5"/>
+          <circle cx="140" cy="222" r="5"/>
+        </g>
+        <text x="114" y="116" font-size="16" font-weight="900" fill="#ffe3ea" text-anchor="middle">3% NS</text>
+        <text x="114" y="264" font-size="14" font-weight="900" fill="#ff9db4" text-anchor="middle">crowded with salt 🔴</text>
+        <text x="114" y="284" font-size="12.5" font-style="italic" fill="#ffd9e2" text-anchor="middle">“thick &amp; salty”</text>
+
+        <!-- normal cell -->
+        <text x="330" y="76" font-size="16" font-weight="900" fill="#e9dcff" text-anchor="middle">BEFORE</text>
+        <circle cx="330" cy="164" r="60" fill="rgba(255,59,107,.5)" stroke="#ffd0bd" stroke-width="3"/>
+        <circle cx="330" cy="164" r="22" fill="rgba(13,8,26,.4)"/>
+        <text x="330" y="252" font-size="14" font-weight="800" fill="#ffd9e2" text-anchor="middle">normal cell</text>
+
+        <!-- arrows out -->
+        <g stroke="#ffc233" stroke-width="6" stroke-linecap="round" fill="none">
+          <path d="M520 140 L470 110"/><path d="M520 188 L470 218"/><path d="M520 164 L456 164"/>
+        </g>
+        <g fill="#ffc233">
+          <path d="M470 102 l-18 8 l18 8 z"/><path d="M470 210 l-18 8 l18 8 z"/><path d="M456 156 l-18 8 l18 8 z"/>
+        </g>
+        <text x="486" y="92" font-size="15" font-weight="900" fill="#ffe49a" text-anchor="middle">⬅ H₂O OUT</text>
+
+        <!-- crenated cell -->
+        <text x="660" y="76" font-size="16" font-weight="900" fill="#ffe49a" text-anchor="middle">AFTER</text>
+        <circle cx="660" cy="164" r="60" fill="none" stroke="#ffd0bd" stroke-width="2" stroke-dasharray="6 5"/>
+        <path d="M660 122 l14 10 l16 -6 l-4 17 l14 11 l-16 7 l1 17 l-15 -8 l-12 12 l-6 -16 l-17 2 l6 -16 l-13 -12 l17 -5 l0 -17 l15 8 z"
+              fill="rgba(255,59,107,.55)" stroke="#ff9db4" stroke-width="3"/>
+        <circle cx="660" cy="163" r="13" fill="rgba(13,8,26,.45)"/>
+        <text x="660" y="252" font-size="15" font-weight="900" fill="#ff9db4" text-anchor="middle">SHRUNKEN — crenated</text>
+        <text x="806" y="132" font-size="34" text-anchor="middle">🏃</text>
+        <text x="812" y="168" font-size="13" font-weight="900" fill="#ff9db4" text-anchor="middle">skinny</text>
+        <text x="812" y="186" font-size="13" font-weight="900" fill="#ff9db4" text-anchor="middle">&amp; hyper</text>
+      </svg>
+      <div class="mn">🧠 <b>“Very little numbers = very little fluid in the cell.”</b> The tiny-looking labels — <span class="mono">3%</span>, <span class="mono">5%</span> — are the <i>strongest</i> bags, and they leave the cell nearly empty.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🧪 List of hypertonic fluids</h3>
+      <ul class="tick">
+        <li><span class="mono">3%</span> Sodium Chloride — <span class="mono">~1026 mOsm/L</span> ⭐ the ICU one</li>
+        <li><span class="mono">5%</span> Sodium Chloride — the strongest saline</li>
+        <li><span class="mono">D10W</span> — 10% dextrose in water, <span class="mono">~505</span></li>
+        <li><span class="mono">D5NS</span> — 5% dextrose in 0.9% saline, <span class="mono">~560</span></li>
+        <li><span class="mono">D5½NS</span> — 5% dextrose in 0.45% saline, <span class="mono">~406</span></li>
+        <li><span class="mono">D5LR</span> — 5% dextrose in lactated Ringer's, <span class="mono">~525</span></li>
+      </ul>
+      <div class="mn">🧠 <b>“Add a D, add a degree.”</b> Bolt <b>D5</b> onto any isotonic bag and it climbs into hypertonic territory: <span class="mono">NS → D5NS · LR → D5LR</span>.</div>
+    </div>
+
+    <div class="card emerald">
+      <h3>✅ USES — used for clients with…</h3>
+      <ul class="tick">
+        <li>🫗 <b>HYPOVOLEMIA</b> — including <b>heat-related</b> illness / heat exhaustion</li>
+        <li>🔥 <b>PERITONITIS</b> and other third-spacing states</li>
+        <li>🩺 <b>PERITONEAL DIALYSIS</b> — the dialysate is hypertonic on purpose, to pull fluid off</li>
+        <li>🧠 <b>Cerebral edema / ↑ICP</b> — <span class="mono">3% NS</span> shrinks swollen brain cells</li>
+        <li>🧂 <b>Severe symptomatic hyponatremia</b> — seizing from a low sodium</li>
+        <li>🍽️ <b>TPN</b> and <span class="mono">D10W</span> for calories/hypoglycemia support</li>
+      </ul>
+      <div class="mn">🧠 <b>“Hypertonic = the tow truck.”</b> It goes out and <i>drags</i> stranded fluid back into the vessel — from the belly, from the tissues, from the brain.</div>
+    </div>
+
+    <div class="card garnet span2">
+      <h3>🚨 CAUTION — give slowly to prevent…</h3>
+      <div class="duo">
+        <div>
+          <p><b>1️⃣ FLUID VOLUME OVERLOAD (FVO)</b> — you just pulled a large volume into the vessel.</p>
+          <ul class="tick">
+            <li>🩺 <b>MONITOR: BLOOD PRESSURE</b></li>
+            <li>📈 <span class="mono">BP over 180</span> systolic = <b>HTN crisis!</b></li>
+            <li>🧠 <b>Risk for CVA / stroke</b></li>
+            <li>🫁 Crackles, dyspnea, pulmonary edema</li>
+          </ul>
+        </div>
+        <div>
+          <p><b>2️⃣ CELLULAR DEHYDRATION</b> — you just emptied the cells.</p>
+          <ul class="tick">
+            <li>🥵 Thirst, dry sticky mucous membranes</li>
+            <li>🌀 Restlessness, confusion, weakness</li>
+            <li>🧂 <b>Hypernatremia</b> — Na <span class="mono">&gt;145 mEq/L</span></li>
+            <li>💧 Decreased urine output, ↑ specific gravity</li>
+          </ul>
+        </div>
+      </div>
+      <p style="margin-top:10px">🐢 <b>Safety rules for <span class="mono">3% NS</span>:</b> infusion <b>pump only</b>, frequent <b>serum sodium</b> checks, hourly neuro checks, and — because it is a vein irritant — a <b>central line is preferred</b> in most facilities. Correct sodium <b>slowly</b>; over-fast correction risks <b>osmotic demyelination</b>. ❌ <span class="never">Never bolus 3% NS</span> and <span class="never">never hang hypertonic fluid in heart failure or kidney failure without a specific order</span>.</p>
+      <div class="mn">🧠 <b>“HYPER = High BP, Hypernatremia, Heart failure risk.”</b> Three H's, one rule: <i>slow, pump, and check the sodium.</i></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PICK THE BAG ============ -->
+<section id="pick">
+  <div class="sec-h"><span class="icon">🎯</span><h2>PICK THE BAG</h2><span class="step">STEP 4 · AT THE BEDSIDE</span></div>
+  <p class="sec-sub">One table, one decision tree, and the never-list that shows up on every exam.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>📊 All three families on one line</h3>
+      <table>
+        <tr><th style="width:22%">&nbsp;</th><th class="up">🦛 HYPOTONIC</th><th style="color:#a5f3d4;font-weight:900">⚖️ ISOTONIC</th><th class="lo">🏃 HYPERTONIC</th></tr>
+        <tr><td><b>Osmolarity</b></td><td><span class="mono">&lt;275</span></td><td><span class="mono">275–295</span></td><td><span class="mono">&gt;295</span></td></tr>
+        <tr><td><b>Water moves</b></td><td>Vessel ➜ <b>into cell</b></td><td>Nowhere — no shift</td><td>Cell ➜ <b>out to vessel</b></td></tr>
+        <tr><td><b>Cell becomes</b></td><td>Swollen 🦛 <i>(may lyse)</i></td><td>Unchanged 🙂</td><td>Shrunken 🏃 <i>(crenated)</i></td></tr>
+        <tr><td><b>Classic bags</b></td><td><span class="mono">0.45% · 0.33% · 0.225% NS</span></td><td><span class="mono">0.9% NS · LR · D5W</span></td><td><span class="mono">3% NS · 5% NS · D10W · D5NS · D5½NS · D5LR</span></td></tr>
+        <tr><td><b>Hang it for</b></td><td>Cellular dehydration · Na <span class="mono">&gt;145</span></td><td>Hypotension · hemorrhage · blood · DKA · HHNS</td><td>Hypovolemia · third-spacing · cerebral edema · severe ↓Na</td></tr>
+        <tr><td><b>Never for</b></td><td>↑ICP · head injury · burns · shock</td><td>Uncontrolled FVO · <i>(LR: liver/renal, blood)</i></td><td>Heart failure · kidney failure · dehydrated cells</td></tr>
+        <tr><td><b>Biggest danger</b></td><td>Cerebral edema 🧠</td><td>FVO → HTN crisis</td><td>FVO <b>and</b> cellular dehydration</td></tr>
+      </table>
+      <div class="mn">🧠 <b>Read the row, not the bag.</b> If a question names a fluid you have never heard of, find its <b>percent</b> — under <span class="mono">0.9%</span> is hypo, at <span class="mono">0.9%</span> is iso, above it (or with D5 bolted on) is hyper.</div>
+    </div>
+
+    <div class="card topaz span2">
+      <h3>🎯 The 10-second decision tree</h3>
+      <svg viewBox="0 0 880 380" role="img" aria-label="Decision tree: is the vessel empty then hang isotonic, are the cells dry then hang hypotonic, is fluid stuck in the tissues or brain then hang hypertonic">
+        <rect x="6" y="6" width="868" height="368" rx="16" fill="rgba(13,8,26,.55)" stroke="rgba(255,255,255,.35)" stroke-width="2"/>
+        <rect x="300" y="26" width="280" height="52" rx="14" fill="rgba(255,194,51,.75)" stroke="#fff3d1" stroke-width="2"/>
+        <text x="440" y="59" font-size="19" font-weight="900" fill="#2a1f00" text-anchor="middle">WHERE IS THE FLUID MISSING?</text>
+        <path d="M440 78 L440 104" stroke="#ffe49a" stroke-width="3"/>
+        <path d="M160 104 L760 104" stroke="#ffe49a" stroke-width="3"/>
+        <path d="M160 104 L160 128 M440 104 L440 128 M760 104 L760 128" stroke="#ffe49a" stroke-width="3"/>
+
+        <!-- branch 1 -->
+        <rect x="34" y="128" width="252" height="96" rx="14" fill="rgba(18,184,134,.55)" stroke="#a5f3d4" stroke-width="2"/>
+        <text x="160" y="158" font-size="16" font-weight="900" fill="#eafff7" text-anchor="middle">The VESSEL is empty</text>
+        <text x="160" y="182" font-size="13.5" fill="#eafff7" text-anchor="middle">↓BP · bleeding · vomiting</text>
+        <text x="160" y="204" font-size="13.5" fill="#eafff7" text-anchor="middle">DKA · HHNS · shock</text>
+        <path d="M160 224 L160 250" stroke="#a5f3d4" stroke-width="3"/><path d="M152 250 l8 14 l8 -14 z" fill="#a5f3d4"/>
+        <rect x="34" y="264" width="252" height="86" rx="14" fill="rgba(13,8,26,.6)" stroke="#a5f3d4" stroke-width="2"/>
+        <text x="160" y="296" font-size="19" font-weight="900" fill="#a5f3d4" text-anchor="middle">⚖️ ISOTONIC</text>
+        <text x="160" y="322" font-size="14" font-weight="800" fill="#eafff7" text-anchor="middle">0.9% NS · LR</text>
+        <text x="160" y="342" font-size="12.5" font-style="italic" fill="#d8fff0" text-anchor="middle">blood coming? NS only</text>
+
+        <!-- branch 2 -->
+        <rect x="314" y="128" width="252" height="96" rx="14" fill="rgba(47,107,255,.55)" stroke="#9ecbff" stroke-width="2"/>
+        <text x="440" y="158" font-size="16" font-weight="900" fill="#dfe9ff" text-anchor="middle">The CELLS are dry</text>
+        <text x="440" y="182" font-size="13.5" fill="#dfe9ff" text-anchor="middle">Na &gt; 145 · hypernatremia</text>
+        <text x="440" y="204" font-size="13.5" fill="#dfe9ff" text-anchor="middle">cellular dehydration</text>
+        <path d="M440 224 L440 250" stroke="#9ecbff" stroke-width="3"/><path d="M432 250 l8 14 l8 -14 z" fill="#9ecbff"/>
+        <rect x="314" y="264" width="252" height="86" rx="14" fill="rgba(13,8,26,.6)" stroke="#9ecbff" stroke-width="2"/>
+        <text x="440" y="296" font-size="19" font-weight="900" fill="#9ecbff" text-anchor="middle">🦛 HYPOTONIC</text>
+        <text x="440" y="322" font-size="14" font-weight="800" fill="#dfe9ff" text-anchor="middle">0.45% NS · ⅓ · ¼ NS</text>
+        <text x="440" y="342" font-size="12.5" font-style="italic" fill="#dfe9ff" text-anchor="middle">slowly — watch the neuro</text>
+
+        <!-- branch 3 -->
+        <rect x="594" y="128" width="252" height="96" rx="14" fill="rgba(255,59,107,.55)" stroke="#ff9db4" stroke-width="2"/>
+        <text x="720" y="158" font-size="16" font-weight="900" fill="#ffe3ea" text-anchor="middle">Fluid is STUCK</text>
+        <text x="720" y="182" font-size="13.5" fill="#ffe3ea" text-anchor="middle">third-spacing · peritonitis</text>
+        <text x="720" y="204" font-size="13.5" fill="#ffe3ea" text-anchor="middle">cerebral edema · ↓↓Na</text>
+        <path d="M720 224 L720 250" stroke="#ff9db4" stroke-width="3"/><path d="M712 250 l8 14 l8 -14 z" fill="#ff9db4"/>
+        <rect x="594" y="264" width="252" height="86" rx="14" fill="rgba(13,8,26,.6)" stroke="#ff9db4" stroke-width="2"/>
+        <text x="720" y="296" font-size="19" font-weight="900" fill="#ff9db4" text-anchor="middle">🏃 HYPERTONIC</text>
+        <text x="720" y="322" font-size="14" font-weight="800" fill="#ffe3ea" text-anchor="middle">3% NS · D5NS · D10W</text>
+        <text x="720" y="342" font-size="12.5" font-style="italic" fill="#ffd9e2" text-anchor="middle">pump · central line · slow</text>
+      </svg>
+      <div class="mn">🧠 <b>“Tank · Cells · Stuck.”</b> Three questions, three answers, in that order. Empty <b>tank</b> = iso · dry <b>cells</b> = hypo · fluid <b>stuck</b> in the wrong space = hyper.</div>
+    </div>
+
+    <div class="card ruby span2">
+      <h3>🩸 Blood products: <span class="mono">0.9% NS</span> and nothing else</h3>
+      <svg viewBox="0 0 880 230" role="img" aria-label="Blood transfusion compatibility: 0.9 percent normal saline is approved, lactated Ringer's is not because calcium clots the blood, and D5W is not because it causes hemolysis">
+        <rect x="6" y="6" width="868" height="218" rx="16" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.35)" stroke-width="2"/>
+        <!-- blood bag -->
+        <path d="M78 34 h34 v14 h-34 z" fill="#ffd0bd"/>
+        <rect x="42" y="48" width="106" height="140" rx="16" fill="rgba(192,34,85,.75)" stroke="#ffd0bd" stroke-width="2.5"/>
+        <text x="95" y="112" font-size="17" font-weight="900" fill="#ffe3ea" text-anchor="middle">PRBC</text>
+        <text x="95" y="136" font-size="12" font-weight="800" fill="#ffe3ea" text-anchor="middle">🩸 blood</text>
+        <text x="95" y="212" font-size="13" font-weight="900" fill="#ff9db4" text-anchor="middle">the transfusion</text>
+
+        <!-- yes -->
+        <rect x="200" y="42" width="196" height="150" rx="14" fill="rgba(18,184,134,.35)" stroke="#12b886" stroke-width="3"/>
+        <text x="298" y="80" font-size="34" text-anchor="middle">✅</text>
+        <text x="298" y="112" font-size="18" font-weight="900" fill="#a5f3d4" text-anchor="middle">0.9% NS</text>
+        <text x="298" y="140" font-size="13.5" fill="#eafff7" text-anchor="middle">prime the tubing,</text>
+        <text x="298" y="160" font-size="13.5" fill="#eafff7" text-anchor="middle">flush before &amp; after</text>
+        <text x="298" y="182" font-size="12.5" font-style="italic" fill="#d8fff0" text-anchor="middle">Y-tubing with a filter</text>
+
+        <!-- no LR -->
+        <rect x="418" y="42" width="196" height="150" rx="14" fill="rgba(255,59,107,.3)" stroke="#ff3b6b" stroke-width="3"/>
+        <text x="516" y="80" font-size="34" text-anchor="middle">❌</text>
+        <text x="516" y="112" font-size="18" font-weight="900" fill="#ff9db4" text-anchor="middle">LR</text>
+        <text x="516" y="140" font-size="13.5" fill="#ffe3ea" text-anchor="middle">calcium + citrate</text>
+        <text x="516" y="160" font-size="13.5" fill="#ffe3ea" text-anchor="middle">anticoagulant</text>
+        <text x="516" y="182" font-size="13.5" font-weight="900" fill="#ffc233" text-anchor="middle">= CLOTS 🧱</text>
+
+        <!-- no D5W -->
+        <rect x="636" y="42" width="196" height="150" rx="14" fill="rgba(255,59,107,.3)" stroke="#ff3b6b" stroke-width="3"/>
+        <text x="734" y="80" font-size="34" text-anchor="middle">❌</text>
+        <text x="734" y="112" font-size="18" font-weight="900" fill="#ff9db4" text-anchor="middle">D5W</text>
+        <text x="734" y="140" font-size="13.5" fill="#ffe3ea" text-anchor="middle">free water swells</text>
+        <text x="734" y="160" font-size="13.5" fill="#ffe3ea" text-anchor="middle">and bursts the RBCs</text>
+        <text x="734" y="182" font-size="13.5" font-weight="900" fill="#ffc233" text-anchor="middle">= HEMOLYSIS 💥</text>
+      </svg>
+      <div class="mn">🧠 <b>“Blood only dates Saline.”</b> LR brings calcium (clots) and D5W brings water (pops cells). <i>Only <span class="mono">0.9% NaCl</span> is allowed in the same tubing as blood.</i></div>
+    </div>
+
+    <div class="card ruby">
+      <h3>❌ The NEVER list</h3>
+      <ul class="tick">
+        <li><span class="never">Never hang LR with blood products</span> — calcium clots it</li>
+        <li><span class="never">Never give hypotonic fluid with increased ICP or head injury</span></li>
+        <li><span class="never">Never bolus 3% NS</span> — pump, slow rate, serial sodium levels</li>
+        <li><span class="never">Never use D5W to resuscitate a hypotensive client</span> — it leaves the vessel</li>
+        <li><span class="never">Never hang a fluid you didn't check against the label, order, and the client's ID</span></li>
+      </ul>
+      <div class="mn">🧠 <b>“Blood-LR · Brain-hypo · Bolus-3%.”</b> Three B's you never do. Say them the way you'd say three things you'd never text your ex.</div>
+    </div>
+
+    <div class="card emerald">
+      <h3>✅ Every bag, every time — the nursing routine</h3>
+      <ul class="tick">
+        <li>🔍 <b>Check the bag:</b> right fluid, right %, additives, clarity, expiration, no leaks</li>
+        <li>⚙️ <b>Pump &amp; rate</b> per order — hypotonic and hypertonic are <b>slow</b></li>
+        <li>⚖️ <b>Daily weight</b> at the same time, same scale — <span class="mono">1 kg = 1 L</span></li>
+        <li>📋 <b>Strict I&amp;O</b>; urine output target <span class="mono">≥0.5 mL/kg/hr</span> (≈<span class="mono">30 mL/hr</span> adult)</li>
+        <li>🫁 <b>Lungs &amp; neuro checks</b> — crackles mean too much; confusion means shifting</li>
+        <li>🧪 <b>Labs:</b> sodium, potassium, BUN/creatinine, serum osmolality</li>
+      </ul>
+      <div class="mn">🧠 <b>“WILL N”</b> — <b>W</b>eight · <b>I</b>&amp;O · <b>L</b>ungs · <b>L</b>abs · <b>N</b>euro. If you assess those five, you will catch every fluid problem early.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc tealbg"><span class="big">⚖️ I'm SO perfect</span>Iso = no shift · fills the <b>vessel</b> · <span class="mono">0.9% NS · LR · D5W</span></div>
+    <div class="rc citrine"><span class="big">🦛 Hippo-tonic</span>Hypo = cells <b>swell</b> · watch for <b>headache → confusion → seizure</b></div>
+    <div class="rc rubybg"><span class="big">🏃 Hyper person</span>Hyper = cells <b>shrink</b> · pump only · watch <span class="mono">BP &gt;180</span> &amp; Na <span class="mono">&gt;145</span></div>
+    <div class="rc topazbg"><span class="big">⚠️ Too much of ANY of them</span>FVO → <span class="mono">BP over 180</span> = HTN crisis → risk for <b>CVA</b></div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 6 rapid-fire questions</summary>
+      <div class="qa">Q1: The client is hemorrhaging and hypotensive. Which family of fluid? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Isotonic — 0.9% NS or LR. It stays in the vascular space and refills the tank. And if blood is coming, the fluid must be 0.9% NS.</div></div>
+      <div class="qa">Q2: Why can D5W be called both isotonic and hypotonic? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">It measures 252 mOsm/L in the bag (isotonic), but the cells burn the dextrose within minutes and only free water is left — so in the body it acts hypotonic and swells cells. Never give it for raised ICP.</div></div>
+      <div class="qa">Q3: Serum sodium is 152 mEq/L. Hypo, iso, or hyper? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Hypotonic — hypernatremia is sodium over 145. The cells are shriveled and salty, so give a weak fluid such as 0.45% NS, SLOWLY, watching neuro status.</div></div>
+      <div class="qa">Q4: Why is LR never hung with a blood transfusion? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">LR contains calcium (3 mEq/L). Calcium reverses the citrate anticoagulant in banked blood and causes clotting in the tubing.</div></div>
+      <div class="qa">Q5: One hour into a hypotonic infusion the client reports a new headache and seems restless and confused. Now what? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Stop/slow the infusion and notify the provider — this is cellular and cerebral edema. Headache → altered LOC → seizures &amp; coma is the progression, so act at the headache.</div></div>
+      <div class="qa">Q6: A client on IV fluids has a BP of 188/96, crackles and 2 kg weight gain overnight. Interpretation? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Fluid volume overload. BP over 180 systolic is a hypertensive crisis with risk for CVA. Slow the infusion to a keep-open rate, sit them up, give oxygen, notify the provider, anticipate a diuretic. 2 kg = about 2 L of retained fluid.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(0,194,199,.7);color:#00252b">ISO</span>→
+    <span style="background:rgba(47,107,255,.7)">HYPO</span>→
+    <span style="background:rgba(255,59,107,.7)">HYPER</span>→
+    <span style="background:rgba(255,194,51,.75);color:#231a02">PICK</span>
+  </div>
+  <div>NG-120 · Source wording retained · ADHD-friendly visual edition v2</div>
+</footer>
+
+</div>
+</body></html>

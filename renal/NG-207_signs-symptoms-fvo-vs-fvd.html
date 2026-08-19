@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Signs &amp; Symptoms FVO vs. FVD · NG-207 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+/* ===== appended for the RENAL + FLUID series (new components only) ===== */
+#fvo  .sec-h h2{color:#ffb3c6} #fvo  .step{background:var(--garnet)}
+#fvd  .sec-h h2{color:#ffd9b8} #fvd  .step{background:var(--citrine);color:#2b1200}
+#tell .sec-h h2{color:#a5f3d4} #tell .step{background:var(--emerald);color:#03291c}
+.trio{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,205px),1fr))}
+.pill{display:inline-block;font-size:.78rem;font-weight:900;padding:3px 10px;border-radius:999px;
+  background:rgba(13,8,26,.5);border:1px solid var(--line);margin:0 5px 5px 0}
+.card.tealc .pill,.card.topaz .pill,.card.citrinec .pill{background:rgba(255,255,255,.5);color:#1a1030;border-color:rgba(0,0,0,.3)}
+.svgcap{margin:7px 0 0;font-size:.86rem;font-style:italic;opacity:.92;text-align:center}
+.sysrow{margin:0 0 14px;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:rgba(13,8,26,.5)}
+.sysrow h4{margin:0;padding:9px 14px;font-size:1rem;font-weight:900;letter-spacing:.06em;
+  background:rgba(255,255,255,.14);text-transform:uppercase}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#fvo">🎈 FVO side</a>
+  <a class="c2" href="#fvd">🍇 FVD side</a>
+  <a class="c3" href="#tell">⚖️ Tell them apart</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Renal + Fluid · Fundamentals of Nursing</div>
+  <h1>FVO <span class="drop">vs.</span> FVD ⚖️</h1>
+  <p class="sub">Signs &amp; symptoms · head-to-toe · fluid volume OVERLOAD vs. DEFICIT</p>
+  <div class="chips">
+    <span class="chip id">NG-207</span>
+    <span class="chip cat">RENAL + FLUID</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede"><b>Two opposite patients, one set of body systems.</b> <b>Hypervolemia</b> = HIGH fluid volume = a <i>big &amp; bulging body</i>. <b>Hypovolemia</b> = LOW fluid volume = a <i>low &amp; little body</i>. Learn one column properly and the other is simply <b>every arrow flipped</b>.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc rubybg"><span class="big">🎈 FVO = BIG &amp; BULGING</span>BP ⬆ · bounding pulse · JVD ⬆ · CVP ⬆ · edema · crackles · weight ⬆</div>
+  <div class="rc citrine"><span class="big">🍇 FVD = LOW &amp; LITTLE</span>BP ⬇ · thready pulse · flat veins · CVP ⬇ · tenting skin · weight ⬇</div>
+  <div class="rc tealbg"><span class="big">🧪 Low when Liquidy</span>FVO dilutes every lab. <b>High when Dry</b> — FVD concentrates every lab.</div>
+  <div class="rc topazbg"><span class="big">⚖️ 2–3 lb / 5 lb</span>in <span class="mono">1 day</span> / in <span class="mono">7 days</span> = report. <b>Weight gain = water gain.</b></div>
+</div>
+
+<!-- ============ SIDE A: FVO ============ -->
+<section id="fvo">
+  <div class="sec-h"><span class="icon">🎈</span><h2>SIDE A · FLUID VOLUME OVERLOAD</h2><span class="step">HYPERVOLEMIA</span></div>
+  <p class="sec-sub">HIGH fluid volume · big &amp; bulging body · everything you measure goes UP except the labs.</p>
+
+  <div class="grid">
+
+    <div class="card deep span2">
+      <h3>💧 Which way is the water moving?</h3>
+      <svg viewBox="0 0 880 300" role="img" aria-label="Fluid volume overload compartment diagram: the vessel is overfilled and arrows push water outward into a flooded interstitial space, producing pitting edema">
+        <defs>
+          <marker id="a207a" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6.5" markerHeight="6.5" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/>
+          </marker>
+          <linearGradient id="g207o" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ff6f92"/><stop offset="1" stop-color="#c02255"/>
+          </linearGradient>
+        </defs>
+        <rect x="4" y="4" width="872" height="292" rx="16" fill="rgba(255,59,107,.18)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="8 6"/>
+        <text x="28" y="42" font-size="20" font-weight="900" fill="#ff9db4">🎈 FVO — the vessel overflows INTO the tissue</text>
+
+        <rect x="40" y="66" width="120" height="200" rx="44" fill="url(#g207o)" stroke="#ffd9e2" stroke-width="3"/>
+        <text x="100" y="288" font-size="14" font-weight="900" text-anchor="middle" fill="#ffb3c6">VESSEL: overfilled</text>
+        <text x="100" y="60" font-size="13" font-weight="900" text-anchor="middle" fill="#ffb3c6">↑ hydrostatic pressure</text>
+
+        <rect x="200" y="66" width="330" height="200" rx="16" fill="rgba(0,194,199,.45)" stroke="#9ff2ee" stroke-width="2.5"/>
+        <text x="365" y="92" font-size="15" font-weight="900" text-anchor="middle" fill="#e6ffff">INTERSTITIAL SPACE — FLOODED</text>
+        <circle cx="365" cy="176" r="58" fill="rgba(157,92,255,.62)" stroke="#efe4ff" stroke-width="3"/>
+        <text x="365" y="182" font-size="15" font-weight="900" text-anchor="middle" fill="#ffffff">CELL</text>
+        <text x="365" y="288" font-size="14" font-weight="900" text-anchor="middle" fill="#9ff2ee">= PITTING EDEMA you can see</text>
+
+        <path d="M166 104 L246 104" stroke="#ffc233" stroke-width="8" stroke-linecap="round" marker-end="url(#a207a)"/>
+        <path d="M166 166 L246 166" stroke="#ffc233" stroke-width="8" stroke-linecap="round" marker-end="url(#a207a)"/>
+        <path d="M166 228 L246 228" stroke="#ffc233" stroke-width="8" stroke-linecap="round" marker-end="url(#a207a)"/>
+
+        <rect x="560" y="66" width="292" height="200" rx="14" fill="rgba(13,8,26,.55)" stroke="rgba(255,255,255,.35)" stroke-width="2"/>
+        <text x="580" y="98" font-size="16" font-weight="900" fill="#ffe49a">SO YOU SEE:</text>
+        <text x="580" y="128" font-size="15" font-weight="800" fill="#ffffff">⬆ BP · bounding pulse</text>
+        <text x="580" y="156" font-size="15" font-weight="800" fill="#ffffff">⬆ CVP · JVD (fat neck veins)</text>
+        <text x="580" y="184" font-size="15" font-weight="800" fill="#ffffff">⬆ weight · pitting edema</text>
+        <text x="580" y="212" font-size="15" font-weight="800" fill="#ffffff">🫁 crackles · pulmonary edema</text>
+        <text x="580" y="242" font-size="15" font-weight="900" fill="#9ff2ee">⬇ every lab (diluted)</text>
+      </svg>
+      <div class="mn">🧠 <b>“BIG &amp; BULGING BODY = BIG fluid volume.”</b> The arrow points <b>out of the pipe, into the tissue</b> — that single arrow explains the edema, the crackles and the bulging neck veins all at once.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🧠 Neuromuscular · FVO</h3>
+      <ul class="tick">
+        <li><b>Headache</b></li>
+        <li><b>Weakness</b></li>
+        <li><b>Lethargy → coma</b></li>
+        <li><b>ALOC</b> — altered level of consciousness, “mental status changes”</li>
+        <li>Seizures if sodium falls fast</li>
+      </ul>
+      <p><i>Why:</i> extra water <b>dilutes the sodium</b> → water follows into brain cells → <b>cerebral edema</b>.</p>
+      <div class="mn">🧠 <b>“Waterlogged brain gets sleepy.”</b> Headache first, then the level of consciousness slides <i>down</i>.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🫀 Cardiovascular · FVO</h3>
+      <ul class="tick">
+        <li><b>High blood pressure</b> <span class="tip">TEST TIP</span> — <b>deadly hypertension</b> at systolic <span class="mono">140</span>; <b>hypertensive CRISIS</b> at systolic <span class="mono">180</span> with <b>STROKE RISK</b></li>
+        <li><b>Increased central venous pressure (CVP)</b> — normal ≈ <span class="mono">2–6 mmHg</span></li>
+        <li><b>Bounding pulses</b></li>
+        <li><b>Big distended veins</b> · <b>jugular vein distention (JVD)</b></li>
+      </ul>
+      <div class="mn">🧠 <b>“Full tank → high pressure → fat veins → bounding pulse.”</b> Say it as one chain; it is always the same chain.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🖐️ Integumentary (skin) · FVO</h3>
+      <ul class="tick">
+        <li><b>Periorbital edema</b> — puffy eyelids, worst in the morning</li>
+        <li><b>Pitting edema</b> <i>(think “water-bed skin”)</i> from <b>hydrostatic pressure</b></li>
+        <li><b>Pale, cool skin</b>; taut and shiny over the swelling</li>
+        <li><b>Sacral edema</b> in bedbound clients — check where they lie, not just the ankles</li>
+      </ul>
+      <div class="mn">🧠 <b>“Water-bed skin.”</b> Press it and the dent stays — like a memory-foam mattress holding your handprint.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🫁 Respiratory · 🚽 renal · 🍽️ GI · FVO</h3>
+      <p><b>RESPIRATORY:</b> <span class="pill">rapid respiratory rate</span><span class="pill">dyspnea &amp; orthopnea</span><span class="pill">RALES — moist crackles = fluid in the lungs</span><span class="pill">PULMONARY EDEMA</span></p>
+      <p><b>RENAL &amp; URINARY:</b> <b>increased urine output</b> as the kidneys dump the extra — but <b>decreased urine output</b> when <b>renal failure</b> is the reason they are overloaded in the first place.</p>
+      <p><b>GASTROINTESTINAL:</b> <span class="pill">increased motility — diarrhea</span><span class="pill">hepatomegaly (enlarged liver)</span><span class="pill">ascites (abdominal fluid)</span></p>
+      <div class="mn">🧠 <b>“Wet lungs, wet gut, wet belly.”</b> Rales + diarrhea + ascites — the water shows up in every hollow space it can reach.</div>
+    </div>
+
+    <div class="card topaz span2">
+      <h3>🧪 LAB VALUES · FVO — “LOW when LIQUIDY”</h3>
+      <svg viewBox="0 0 440 486" role="img" aria-label="Bar scales showing that in fluid volume overload the serum osmolality, hematocrit, blood urea nitrogen and serum sodium are all below the normal range because the plasma is diluted, and urine specific gravity is low"><text x="8" y="19" font-size="15" font-weight="800" fill="#ffffff">Serum osmolality</text><text x="432" y="19" font-size="13.5" font-weight="900" text-anchor="end" fill="#2f6bff">⬇ DECREASED</text><rect x="8" y="26" width="140" height="22" rx="7" fill="#2f6bff" opacity=".85"/><rect x="148" y="26" width="144" height="22" fill="#12b886" opacity=".9"/><rect x="292" y="26" width="140" height="22" rx="7" fill="#ff3b6b" opacity=".85"/><text x="78" y="41" font-size="11.5" font-weight="900" text-anchor="middle" fill="#eaf0ff">LOW</text><text x="220" y="41" font-size="11.5" font-weight="900" text-anchor="middle" fill="#03291c">NORMAL</text><text x="362" y="41" font-size="11.5" font-weight="900" text-anchor="middle" fill="#fff0f4">HIGH</text><path d="M74.3 64 L94.3 64 L84.3 49 z" fill="#2f6bff" stroke="#0d081a" stroke-width="1.5"/><line x1="148" y1="26" x2="148" y2="52" stroke="#ffffff" stroke-width="2"/><line x1="292" y1="26" x2="292" y2="52" stroke="#ffffff" stroke-width="2"/><text x="148" y="80" font-size="12.5" font-weight="900" text-anchor="middle" fill="#cfe0ff">275</text><text x="292" y="80" font-size="12.5" font-weight="900" text-anchor="middle" fill="#cfe0ff">295</text><text x="432" y="80" font-size="12" font-style="italic" text-anchor="end" fill="#d9c2ff">mOsm/kg · DECREASED</text><text x="8" y="115" font-size="15" font-weight="800" fill="#ffffff">Hematocrit (HCT)</text><text x="432" y="115" font-size="13.5" font-weight="900" text-anchor="end" fill="#2f6bff">⬇ DECREASED</text><rect x="8" y="122" width="140" height="22" rx="7" fill="#2f6bff" opacity=".85"/><rect x="148" y="122" width="144" height="22" fill="#12b886" opacity=".9"/><rect x="292" y="122" width="140" height="22" rx="7" fill="#ff3b6b" opacity=".85"/><text x="78" y="137" font-size="11.5" font-weight="900" text-anchor="middle" fill="#eaf0ff">LOW</text><text x="220" y="137" font-size="11.5" font-weight="900" text-anchor="middle" fill="#03291c">NORMAL</text><text x="362" y="137" font-size="11.5" font-weight="900" text-anchor="middle" fill="#fff0f4">HIGH</text><path d="M74.3 160 L94.3 160 L84.3 145 z" fill="#2f6bff" stroke="#0d081a" stroke-width="1.5"/><line x1="148" y1="122" x2="148" y2="148" stroke="#ffffff" stroke-width="2"/><line x1="292" y1="122" x2="292" y2="148" stroke="#ffffff" stroke-width="2"/><text x="148" y="176" font-size="12.5" font-weight="900" text-anchor="middle" fill="#cfe0ff">37 (F) / 42 (M)</text><text x="292" y="176" font-size="12.5" font-weight="900" text-anchor="middle" fill="#cfe0ff">47 (F) / 52 (M)</text><text x="432" y="176" font-size="12" font-style="italic" text-anchor="end" fill="#d9c2ff">% · DECREASED</text><text x="8" y="211" font-size="15" font-weight="800" fill="#ffffff">Blood Urea Nitrogen (BUN)</text><text x="432" y="211" font-size="13.5" font-weight="900" text-anchor="end" fill="#2f6bff">⬇ DECREASED</text><rect x="8" y="218" width="140" height="22" rx="7" fill="#2f6bff" opacity=".85"/><rect x="148" y="218" width="144" height="22" fill="#12b886" opacity=".9"/><rect x="292" y="218" width="140" height="22" rx="7" fill="#ff3b6b" opacity=".85"/><text x="78" y="233" font-size="11.5" font-weight="900" text-anchor="middle" fill="#eaf0ff">LOW</text><text x="220" y="233" font-size="11.5" font-weight="900" text-anchor="middle" fill="#03291c">NORMAL</text><text x="362" y="233" font-size="11.5" font-weight="900" text-anchor="middle" fill="#fff0f4">HIGH</text><path d="M74.3 256 L94.3 256 L84.3 241 z" fill="#2f6bff" stroke="#0d081a" stroke-width="1.5"/><line x1="148" y1="218" x2="148" y2="244" stroke="#ffffff" stroke-width="2"/><line x1="292" y1="218" x2="292" y2="244" stroke="#ffffff" stroke-width="2"/><text x="148" y="272" font-size="12.5" font-weight="900" text-anchor="middle" fill="#cfe0ff">10</text><text x="292" y="272" font-size="12.5" font-weight="900" text-anchor="middle" fill="#cfe0ff">20</text><text x="432" y="272" font-size="12" font-style="italic" text-anchor="end" fill="#d9c2ff">mg/dL · DECREASED</text><text x="8" y="307" font-size="15" font-weight="800" fill="#ffffff">Sodium Na⁺ &amp; electrolytes</text><text x="432" y="307" font-size="13.5" font-weight="900" text-anchor="end" fill="#2f6bff">⬇ DECREASED</text><rect x="8" y="314" width="140" height="22" rx="7" fill="#2f6bff" opacity=".85"/><rect x="148" y="314" width="144" height="22" fill="#12b886" opacity=".9"/><rect x="292" y="314" width="140" height="22" rx="7" fill="#ff3b6b" opacity=".85"/><text x="78" y="329" font-size="11.5" font-weight="900" text-anchor="middle" fill="#eaf0ff">LOW</text><text x="220" y="329" font-size="11.5" font-weight="900" text-anchor="middle" fill="#03291c">NORMAL</text><text x="362" y="329" font-size="11.5" font-weight="900" text-anchor="middle" fill="#fff0f4">HIGH</text><path d="M65.8 352 L85.8 352 L75.8 337 z" fill="#2f6bff" stroke="#0d081a" stroke-width="1.5"/><line x1="148" y1="314" x2="148" y2="340" stroke="#ffffff" stroke-width="2"/><line x1="292" y1="314" x2="292" y2="340" stroke="#ffffff" stroke-width="2"/><text x="148" y="368" font-size="12.5" font-weight="900" text-anchor="middle" fill="#cfe0ff">135</text><text x="292" y="368" font-size="12.5" font-weight="900" text-anchor="middle" fill="#cfe0ff">145</text><text x="432" y="368" font-size="12" font-style="italic" text-anchor="end" fill="#d9c2ff">mEq/L · HYPOnatremia &lt;135</text><text x="8" y="403" font-size="15" font-weight="800" fill="#ffffff">Urine specific gravity</text><text x="432" y="403" font-size="13.5" font-weight="900" text-anchor="end" fill="#2f6bff">⬇ DECREASED</text><rect x="8" y="410" width="140" height="22" rx="7" fill="#2f6bff" opacity=".85"/><rect x="148" y="410" width="144" height="22" fill="#12b886" opacity=".9"/><rect x="292" y="410" width="140" height="22" rx="7" fill="#ff3b6b" opacity=".85"/><text x="78" y="425" font-size="11.5" font-weight="900" text-anchor="middle" fill="#eaf0ff">LOW</text><text x="220" y="425" font-size="11.5" font-weight="900" text-anchor="middle" fill="#03291c">NORMAL</text><text x="362" y="425" font-size="11.5" font-weight="900" text-anchor="middle" fill="#fff0f4">HIGH</text><path d="M57.4 448 L77.4 448 L67.4 433 z" fill="#2f6bff" stroke="#0d081a" stroke-width="1.5"/><line x1="148" y1="410" x2="148" y2="436" stroke="#ffffff" stroke-width="2"/><line x1="292" y1="410" x2="292" y2="436" stroke="#ffffff" stroke-width="2"/><text x="148" y="464" font-size="12.5" font-weight="900" text-anchor="middle" fill="#cfe0ff">1.005</text><text x="292" y="464" font-size="12.5" font-weight="900" text-anchor="middle" fill="#cfe0ff">1.030</text><text x="432" y="464" font-size="12" font-style="italic" text-anchor="end" fill="#d9c2ff">pale watery urine</text></svg>
+      <p style="margin-top:10px">🚨 <b>LOW SODIUM Na⁺ — hyponatremia, below <span class="mono">135 mEq/L</span> → RISK FOR BRAIN DAMAGE.</b> Water shifts into brain cells and swells them.</p>
+      <div class="mn">🧠 <b>“Urine LOW when Liquidy.”</b> Dilute blood → dilute urine → <b>low specific gravity</b>. <b>LOW gravity = LOW weight</b> — watery urine literally weighs less than concentrated urine.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SIDE B: FVD ============ -->
+<section id="fvd">
+  <div class="sec-h"><span class="icon">🍇</span><h2>SIDE B · FLUID VOLUME DEFICIT</h2><span class="step">HYPOVOLEMIA</span></div>
+  <p class="sec-sub">LOW fluid volume · low &amp; little body · everything you measure goes DOWN except the heart rate and the labs.</p>
+
+  <div class="grid">
+
+    <div class="card deep span2">
+      <h3>💧 Which way is the water moving?</h3>
+      <svg viewBox="0 0 880 300" role="img" aria-label="Fluid volume deficit compartment diagram: the vessel collapses and arrows show water leaving the body while osmosis pulls water out of the cells when sodium is high">
+        <defs>
+          <marker id="a207b" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6.5" markerHeight="6.5" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/>
+          </marker>
+          <linearGradient id="g207d" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ff6f92"/><stop offset="1" stop-color="#c02255"/>
+          </linearGradient>
+        </defs>
+        <rect x="4" y="4" width="872" height="292" rx="16" fill="rgba(255,138,61,.20)" stroke="#ff8a3d" stroke-width="2" stroke-dasharray="8 6"/>
+        <text x="28" y="42" font-size="20" font-weight="900" fill="#ffb066">🍇 FVD — water leaves the tissue AND the body</text>
+
+        <rect x="52" y="66" width="96" height="200" rx="34" fill="none" stroke="#ffd9e2" stroke-width="2" stroke-dasharray="7 7"/>
+        <rect x="84" y="66" width="32" height="200" rx="15" fill="url(#g207d)" stroke="#ffd9e2" stroke-width="2.5"/>
+        <text x="100" y="288" font-size="14" font-weight="900" text-anchor="middle" fill="#ffb3c6">VESSEL: collapsed</text>
+        <text x="100" y="60" font-size="13" font-weight="900" text-anchor="middle" fill="#ffb3c6">↓ BP · ↓ CVP</text>
+
+        <rect x="200" y="66" width="330" height="200" rx="16" fill="rgba(0,194,199,.12)" stroke="#9ff2ee" stroke-width="2" stroke-dasharray="7 7"/>
+        <text x="365" y="92" font-size="15" font-weight="900" text-anchor="middle" fill="#9ff2ee">INTERSTITIAL SPACE — DRY</text>
+        <path d="M322 132 q26 -24 52 0 q24 -8 30 14 q16 24 -12 34 q-10 28 -36 18 q-26 12 -34 -14 q-24 -20 0 -52 z" fill="rgba(157,92,255,.62)" stroke="#efe4ff" stroke-width="3"/>
+        <text x="360" y="186" font-size="14" font-weight="900" text-anchor="middle" fill="#ffffff">CELL</text>
+        <text x="365" y="230" font-size="13" font-style="italic" text-anchor="middle" fill="#e3d2ff">shrivels when Na⁺ is high</text>
+        <text x="365" y="288" font-size="14" font-weight="900" text-anchor="middle" fill="#9ff2ee">= tenting skin · sunken eyes</text>
+
+        <path d="M300 174 L240 158" stroke="#ffc233" stroke-width="7" stroke-linecap="round" marker-end="url(#a207b)"/>
+        <path d="M186 130 L120 118" stroke="#ffc233" stroke-width="7" stroke-linecap="round" marker-end="url(#a207b)"/>
+        <text x="222" y="122" font-size="12.5" font-weight="900" text-anchor="middle" fill="#ffc233">osmosis pulls water</text>
+        <text x="222" y="106" font-size="12.5" font-weight="900" text-anchor="middle" fill="#ffc233">OUT of the cell</text>
+
+        <rect x="560" y="66" width="292" height="200" rx="14" fill="rgba(13,8,26,.55)" stroke="rgba(255,255,255,.35)" stroke-width="2"/>
+        <text x="580" y="98" font-size="16" font-weight="900" fill="#ffe49a">SO YOU SEE:</text>
+        <text x="580" y="128" font-size="15" font-weight="800" fill="#ffffff">⬇ BP · weak thready pulse</text>
+        <text x="580" y="156" font-size="15" font-weight="800" fill="#ffffff">⬇ CVP · FLAT neck &amp; hand veins</text>
+        <text x="580" y="184" font-size="15" font-weight="800" fill="#ffffff">⬇ weight · ⬇ urine output</text>
+        <text x="580" y="212" font-size="15" font-weight="800" fill="#ffffff">💓 tachycardia over 100</text>
+        <text x="580" y="242" font-size="15" font-weight="900" fill="#ff9db4">⬆ every lab (concentrated)</text>
+      </svg>
+      <div class="mn">🧠 <b>“LOW &amp; LITTLE BODY = LOW fluid volume.”</b> The arrows point <b>out of the body</b> — urine, sweat, vomit, stool, blood, burned skin.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🧠 Neuromuscular · FVD</h3>
+      <ul class="tick">
+        <li><b>Weakness &amp; paresthesias</b> (numbness, tingling)</li>
+        <li><b>Mental status changes</b> — confusion, especially in older adults</li>
+        <li>Dizziness, light-headedness, syncope</li>
+        <li>Extreme thirst</li>
+      </ul>
+      <p><i>Why:</i> less volume → less perfusion to the brain, plus rising sodium pulls water <b>out</b> of brain cells.</p>
+      <div class="mn">🧠 <b>“New confusion in Grandma = check her fluids.”</b> Dehydration is one of the most common reversible causes of sudden confusion in older adults.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🫀 Cardiovascular · FVD</h3>
+      <ul class="tick">
+        <li><b>Low blood pressure</b> <span class="tip">TEST TIP</span> — <b>deadly hypotension</b></li>
+        <li><b>Orthostatic hypotension</b> — <i>light-headed &amp; dizziness upon standing</i> (systolic drops <span class="mono">≥20</span> or diastolic <span class="mono">≥10 mmHg</span>)</li>
+        <li><b>Decreased central venous pressure (CVP)</b></li>
+        <li><b>Weak, thready pulses</b></li>
+        <li><b>Flat neck &amp; hand veins</b></li>
+        <li><b>Tachycardia — pulse over <span class="mono">100</span></b></li>
+      </ul>
+      <div class="mn">🧠 <b>“Empty tank → fast pump → flat veins → thready pulse.”</b> The exact mirror of the FVO chain.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🖐️ Integumentary (skin) · FVD</h3>
+      <ul class="tick">
+        <li><b>Sunken eyes</b> (and sunken fontanel in infants)</li>
+        <li><b>Dry skin — poor turgor &amp; tenting</b></li>
+        <li><b>Dry mucous membranes (MM)</b> — dry tongue, dry axilla, no tears</li>
+        <li><b>Increased body temperature</b> — less fluid to carry heat away</li>
+      </ul>
+      <p>⚠️ In older adults, test turgor over the <b>sternum or forehead</b> — arm skin tents normally with age.</p>
+      <div class="mn">🧠 <b>“Sucked in &amp; shrivelled up, like a dried-out raisin in the sun.”</b></div>
+    </div>
+
+    <div class="card">
+      <h3>🫁 Respiratory · 🚽 renal · 🍽️ GI · FVD</h3>
+      <p><b>RESPIRATORY:</b> <span class="pill">rapid respiratory rate</span><span class="pill">deep, rapid Kussmaul breathing when the cause is DKA</span><span class="pill">clear lungs — no crackles</span></p>
+      <p><b>RENAL &amp; URINARY:</b> <b>decreased urine output</b> — under <span class="mono">30 mL/hr</span>, dark and concentrated. <i>Exception:</i> when the <b>cause</b> is DI, DKA or diuretics, output is <b>high</b> on the way <i>into</i> the deficit.</p>
+      <p><b>GASTROINTESTINAL:</b> <span class="pill">decreased motility — CONSTIPATION</span><span class="pill">diminished bowel sounds</span><span class="pill">thirst, nausea, anorexia</span></p>
+      <div class="mn">🧠 <b>“Dry gut = slow gut.”</b> No water in the bowel means hard stool and quiet bowel sounds — the mirror image of the overloaded client's diarrhea.</div>
+    </div>
+
+    <div class="card topaz span2">
+      <h3>🧪 LAB VALUES · FVD — “APPEAR HIGH when DRY”</h3>
+      <svg viewBox="0 0 440 486" role="img" aria-label="Bar scales showing that in fluid volume deficit the serum osmolality, hematocrit, blood urea nitrogen and serum sodium are all above the normal range because the plasma is concentrated, and urine specific gravity is high"><text x="8" y="19" font-size="15" font-weight="800" fill="#ffffff">Serum osmolality</text><text x="432" y="19" font-size="13.5" font-weight="900" text-anchor="end" fill="#ff3b6b">⬆ INCREASED</text><rect x="8" y="26" width="140" height="22" rx="7" fill="#2f6bff" opacity=".85"/><rect x="148" y="26" width="144" height="22" fill="#12b886" opacity=".9"/><rect x="292" y="26" width="140" height="22" rx="7" fill="#ff3b6b" opacity=".85"/><text x="78" y="41" font-size="11.5" font-weight="900" text-anchor="middle" fill="#eaf0ff">LOW</text><text x="220" y="41" font-size="11.5" font-weight="900" text-anchor="middle" fill="#03291c">NORMAL</text><text x="362" y="41" font-size="11.5" font-weight="900" text-anchor="middle" fill="#fff0f4">HIGH</text><path d="M354.2 64 L374.2 64 L364.2 49 z" fill="#ff3b6b" stroke="#0d081a" stroke-width="1.5"/><line x1="148" y1="26" x2="148" y2="52" stroke="#ffffff" stroke-width="2"/><line x1="292" y1="26" x2="292" y2="52" stroke="#ffffff" stroke-width="2"/><text x="148" y="80" font-size="12.5" font-weight="900" text-anchor="middle" fill="#cfe0ff">275</text><text x="292" y="80" font-size="12.5" font-weight="900" text-anchor="middle" fill="#cfe0ff">295</text><text x="432" y="80" font-size="12" font-style="italic" text-anchor="end" fill="#d9c2ff">mOsm/kg · INCREASED</text><text x="8" y="115" font-size="15" font-weight="800" fill="#ffffff">Hematocrit (HCT)</text><text x="432" y="115" font-size="13.5" font-weight="900" text-anchor="end" fill="#ff3b6b">⬆ INCREASED</text><rect x="8" y="122" width="140" height="22" rx="7" fill="#2f6bff" opacity=".85"/><rect x="148" y="122" width="144" height="22" fill="#12b886" opacity=".9"/><rect x="292" y="122" width="140" height="22" rx="7" fill="#ff3b6b" opacity=".85"/><text x="78" y="137" font-size="11.5" font-weight="900" text-anchor="middle" fill="#eaf0ff">LOW</text><text x="220" y="137" font-size="11.5" font-weight="900" text-anchor="middle" fill="#03291c">NORMAL</text><text x="362" y="137" font-size="11.5" font-weight="900" text-anchor="middle" fill="#fff0f4">HIGH</text><path d="M354.2 160 L374.2 160 L364.2 145 z" fill="#ff3b6b" stroke="#0d081a" stroke-width="1.5"/><line x1="148" y1="122" x2="148" y2="148" stroke="#ffffff" stroke-width="2"/><line x1="292" y1="122" x2="292" y2="148" stroke="#ffffff" stroke-width="2"/><text x="148" y="176" font-size="12.5" font-weight="900" text-anchor="middle" fill="#cfe0ff">37 (F) / 42 (M)</text><text x="292" y="176" font-size="12.5" font-weight="900" text-anchor="middle" fill="#cfe0ff">47 (F) / 52 (M)</text><text x="432" y="176" font-size="12" font-style="italic" text-anchor="end" fill="#d9c2ff">% · INCREASED</text><text x="8" y="211" font-size="15" font-weight="800" fill="#ffffff">Blood Urea Nitrogen (BUN)</text><text x="432" y="211" font-size="13.5" font-weight="900" text-anchor="end" fill="#ff3b6b">⬆ INCREASED</text><rect x="8" y="218" width="140" height="22" rx="7" fill="#2f6bff" opacity=".85"/><rect x="148" y="218" width="144" height="22" fill="#12b886" opacity=".9"/><rect x="292" y="218" width="140" height="22" rx="7" fill="#ff3b6b" opacity=".85"/><text x="78" y="233" font-size="11.5" font-weight="900" text-anchor="middle" fill="#eaf0ff">LOW</text><text x="220" y="233" font-size="11.5" font-weight="900" text-anchor="middle" fill="#03291c">NORMAL</text><text x="362" y="233" font-size="11.5" font-weight="900" text-anchor="middle" fill="#fff0f4">HIGH</text><path d="M354.2 256 L374.2 256 L364.2 241 z" fill="#ff3b6b" stroke="#0d081a" stroke-width="1.5"/><line x1="148" y1="218" x2="148" y2="244" stroke="#ffffff" stroke-width="2"/><line x1="292" y1="218" x2="292" y2="244" stroke="#ffffff" stroke-width="2"/><text x="148" y="272" font-size="12.5" font-weight="900" text-anchor="middle" fill="#cfe0ff">10</text><text x="292" y="272" font-size="12.5" font-weight="900" text-anchor="middle" fill="#cfe0ff">20</text><text x="432" y="272" font-size="12" font-style="italic" text-anchor="end" fill="#d9c2ff">mg/dL · INCREASED</text><text x="8" y="307" font-size="15" font-weight="800" fill="#ffffff">Sodium Na⁺ &amp; electrolytes</text><text x="432" y="307" font-size="13.5" font-weight="900" text-anchor="end" fill="#ff3b6b">⬆ INCREASED</text><rect x="8" y="314" width="140" height="22" rx="7" fill="#2f6bff" opacity=".85"/><rect x="148" y="314" width="144" height="22" fill="#12b886" opacity=".9"/><rect x="292" y="314" width="140" height="22" rx="7" fill="#ff3b6b" opacity=".85"/><text x="78" y="329" font-size="11.5" font-weight="900" text-anchor="middle" fill="#eaf0ff">LOW</text><text x="220" y="329" font-size="11.5" font-weight="900" text-anchor="middle" fill="#03291c">NORMAL</text><text x="362" y="329" font-size="11.5" font-weight="900" text-anchor="middle" fill="#fff0f4">HIGH</text><path d="M362.6 352 L382.6 352 L372.6 337 z" fill="#ff3b6b" stroke="#0d081a" stroke-width="1.5"/><line x1="148" y1="314" x2="148" y2="340" stroke="#ffffff" stroke-width="2"/><line x1="292" y1="314" x2="292" y2="340" stroke="#ffffff" stroke-width="2"/><text x="148" y="368" font-size="12.5" font-weight="900" text-anchor="middle" fill="#cfe0ff">135</text><text x="292" y="368" font-size="12.5" font-weight="900" text-anchor="middle" fill="#cfe0ff">145</text><text x="432" y="368" font-size="12" font-style="italic" text-anchor="end" fill="#d9c2ff">mEq/L · HYPERnatremia &gt;145</text><text x="8" y="403" font-size="15" font-weight="800" fill="#ffffff">Urine specific gravity</text><text x="432" y="403" font-size="13.5" font-weight="900" text-anchor="end" fill="#ff3b6b">⬆ INCREASED</text><rect x="8" y="410" width="140" height="22" rx="7" fill="#2f6bff" opacity=".85"/><rect x="148" y="410" width="144" height="22" fill="#12b886" opacity=".9"/><rect x="292" y="410" width="140" height="22" rx="7" fill="#ff3b6b" opacity=".85"/><text x="78" y="425" font-size="11.5" font-weight="900" text-anchor="middle" fill="#eaf0ff">LOW</text><text x="220" y="425" font-size="11.5" font-weight="900" text-anchor="middle" fill="#03291c">NORMAL</text><text x="362" y="425" font-size="11.5" font-weight="900" text-anchor="middle" fill="#fff0f4">HIGH</text><path d="M371.1 448 L391.1 448 L381.1 433 z" fill="#ff3b6b" stroke="#0d081a" stroke-width="1.5"/><line x1="148" y1="410" x2="148" y2="436" stroke="#ffffff" stroke-width="2"/><line x1="292" y1="410" x2="292" y2="436" stroke="#ffffff" stroke-width="2"/><text x="148" y="464" font-size="12.5" font-weight="900" text-anchor="middle" fill="#cfe0ff">1.005</text><text x="292" y="464" font-size="12.5" font-weight="900" text-anchor="middle" fill="#cfe0ff">1.030</text><text x="432" y="464" font-size="12" font-style="italic" text-anchor="end" fill="#d9c2ff">dark concentrated urine</text></svg>
+      <p style="margin-top:10px">🚨 <b>HIGH SODIUM Na⁺ — hypernatremia, over <span class="mono">145 mEq/L</span> → RISK FOR BRAIN BLEEDING.</b> Brain cells shrink and pull away from their vessels, tearing them.</p>
+      <div class="mn">🧠 <b>“Urine HIGH when Dry.”</b> Concentrated blood → concentrated urine → <b>high specific gravity</b>. <b>HIGH gravity = HIGH weight</b> — the more solute packed in, the heavier the urine.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TELL THEM APART ============ -->
+<section id="tell">
+  <div class="sec-h"><span class="icon">⚖️</span><h2>TELL THEM APART</h2><span class="step">SYSTEM BY SYSTEM</span></div>
+  <p class="sec-sub">The whole page on one screen. Read a row left to right and say the two opposites out loud.</p>
+
+  <div class="grid">
+
+    <div class="card deep span2">
+      <h3>📋 The master head-to-toe table</h3>
+
+      <div class="sysrow">
+        <h4>🧠 Neuromuscular</h4>
+        <table>
+          <tr><th class="up" style="width:50%">🎈 FLUID VOLUME OVERLOAD</th><th class="lo" style="width:50%">🍇 FLUID VOLUME DEFICIT</th></tr>
+          <tr><td>Headache · weakness</td><td>Weakness &amp; <b>paresthesias</b></td></tr>
+          <tr><td><b>Lethargy → coma</b></td><td>Dizziness · light-headedness · syncope</td></tr>
+          <tr><td><b>ALOC</b> — altered level of consciousness, “mental status changes”</td><td><b>Mental status changes</b> — new confusion in the elderly</td></tr>
+        </table>
+      </div>
+
+      <div class="sysrow">
+        <h4>🫀 Cardiovascular</h4>
+        <table>
+          <tr><th class="up" style="width:50%">🎈 OVERLOAD</th><th class="lo" style="width:50%">🍇 DEFICIT</th></tr>
+          <tr><td><b>HIGH blood pressure</b> — deadly hypertension (<span class="mono">140</span> systolic); <b>HTN crisis <span class="mono">180</span> systolic = STROKE RISK</b></td>
+              <td><b>LOW blood pressure</b> — deadly hypotension; <b>orthostatic hypotension</b> (light-headed &amp; dizzy on standing)</td></tr>
+          <tr><td><b>Increased CVP</b> (normal ≈ <span class="mono">2–6 mmHg</span>)</td><td><b>Decreased CVP</b></td></tr>
+          <tr><td><b>Bounding pulses</b></td><td><b>Weak, thready pulses</b></td></tr>
+          <tr><td><b>Big distended veins · JVD</b></td><td><b>Flat neck &amp; hand veins</b></td></tr>
+          <tr><td>Rate may be normal or elevated; S3 gallop</td><td><b>Tachycardia — pulse over <span class="mono">100</span></b></td></tr>
+        </table>
+      </div>
+
+      <div class="sysrow">
+        <h4>🖐️ Integumentary (skin)</h4>
+        <table>
+          <tr><th class="up" style="width:50%">🎈 OVERLOAD</th><th class="lo" style="width:50%">🍇 DEFICIT</th></tr>
+          <tr><td><b>Periorbital edema</b></td><td><b>Sunken eyes</b> (sunken fontanel in infants)</td></tr>
+          <tr><td><b>Pitting edema</b> — “water-bed skin” — from hydrostatic pressure</td><td><b>Dry skin — poor turgor &amp; tenting</b></td></tr>
+          <tr><td><b>Pale, cool skin</b>; taut and shiny</td><td><b>Dry mucous membranes (MM)</b></td></tr>
+          <tr><td>Sacral edema when bedbound</td><td><b>Increased body temperature</b></td></tr>
+        </table>
+      </div>
+
+      <div class="sysrow">
+        <h4>🚽 Renal &amp; urinary</h4>
+        <table>
+          <tr><th class="up" style="width:50%">🎈 OVERLOAD</th><th class="lo" style="width:50%">🍇 DEFICIT</th></tr>
+          <tr><td><b>Increased urine output</b> — kidneys dumping the excess</td><td><b>Decreased urine output</b> — under <span class="mono">30 mL/hr</span>, dark &amp; concentrated</td></tr>
+          <tr><td><b>Decreased output if renal failure is the cause</b> of the overload</td><td><b>Increased output if the CAUSE is DI, DKA or diuretics</b></td></tr>
+          <tr><td>Urine looks <b>pale and watery</b></td><td>Urine looks <b>dark and strong</b></td></tr>
+        </table>
+      </div>
+
+      <div class="sysrow">
+        <h4>🫁 Respiratory</h4>
+        <table>
+          <tr><th class="up" style="width:50%">🎈 OVERLOAD</th><th class="lo" style="width:50%">🍇 DEFICIT</th></tr>
+          <tr><td><b>Rapid respiratory rate</b>, dyspnea, orthopnea</td><td><b>Rapid respiratory rate</b> (compensating)</td></tr>
+          <tr><td><b>RALES (moist crackles) — fluid in the lungs</b></td><td><b>Lungs stay CLEAR</b> — no crackles</td></tr>
+          <tr><td><b>PULMONARY EDEMA</b> — pink frothy sputum, falling SpO₂</td><td><b>Deep, rapid Kussmaul breathing</b> when the cause is DKA</td></tr>
+        </table>
+      </div>
+
+      <div class="sysrow">
+        <h4>🍽️ Gastrointestinal</h4>
+        <table>
+          <tr><th class="up" style="width:50%">🎈 OVERLOAD</th><th class="lo" style="width:50%">🍇 DEFICIT</th></tr>
+          <tr><td><b>Increased motility — diarrhea</b></td><td><b>Decreased motility — constipation</b></td></tr>
+          <tr><td><b>Hepatomegaly</b> (enlarged liver)</td><td><b>Diminished bowel sounds</b></td></tr>
+          <tr><td><b>Ascites</b> (abdominal fluid)</td><td>Thirst, nausea, anorexia</td></tr>
+        </table>
+      </div>
+
+      <div class="sysrow">
+        <h4>🧪 Lab values</h4>
+        <table>
+          <tr><th class="up" style="width:50%">🎈 OVERLOAD — “low when liquidy”</th><th class="lo" style="width:50%">🍇 DEFICIT — “appear high when dry”</th></tr>
+          <tr><td><b>DECREASED osmolality</b> (<span class="mono">275–295 mOsm/kg</span>)</td><td><b>INCREASED osmolality</b></td></tr>
+          <tr><td><b>DECREASED hematocrit (HCT)</b></td><td><b>INCREASED hematocrit (HCT)</b></td></tr>
+          <tr><td><b>DECREASED blood urea nitrogen (BUN)</b> (<span class="mono">10–20 mg/dL</span>)</td><td><b>INCREASED BUN</b> — BUN:creatinine over <span class="mono">20:1</span></td></tr>
+          <tr><td><b>DECREASED electrolytes</b></td><td><b>INCREASED electrolytes</b></td></tr>
+          <tr><td><b>LOW sodium Na⁺</b> — hyponatremia <span class="mono">&lt;135 mEq/L</span> → <b>risk for BRAIN DAMAGE</b></td>
+              <td><b>HIGH sodium Na⁺</b> — hypernatremia <span class="mono">&gt;145 mEq/L</span> → <b>risk for BRAIN BLEEDING</b></td></tr>
+          <tr><td><b>DECREASED urine specific gravity</b> — below <span class="mono">1.005</span></td><td><b>INCREASED urine specific gravity</b> — above <span class="mono">1.030</span></td></tr>
+        </table>
+      </div>
+
+      <div class="sysrow">
+        <h4>⚖️ Weight</h4>
+        <table>
+          <tr><th class="up" style="width:50%">🎈 OVERLOAD</th><th class="lo" style="width:50%">🍇 DEFICIT</th></tr>
+          <tr><td><b>WEIGHT GAIN = WATER GAIN</b></td><td><b>WEIGHT LOSS = WATER LOSS</b></td></tr>
+          <tr><td colspan="2" style="text-align:center"><b>Report either direction:</b> <span class="mono">2–3 lb in 1 day</span> · <span class="mono">5 lb in 7 days</span> · <span class="mono">1 kg = 1 L = 2.2 lb</span></td></tr>
+        </table>
+      </div>
+
+      <div class="mn">🧠 <b>Read every row as one sentence:</b> “Overload is <b>big, bulging, bounding and diluted</b>. Deficit is <b>little, flat, thready and concentrated</b>.” Eight adjectives, whole page.</div>
+    </div>
+
+    <div class="card deep span2">
+      <h3>📏 Same scale, two patients — where each one sits</h3>
+      <svg viewBox="0 0 880 450" role="img" aria-label="Five lab scales each showing the normal range in the middle, with a fluid volume overload marker on the low side and a fluid volume deficit marker on the high side of every scale">
+        <rect x="4" y="4" width="872" height="442" rx="16" fill="rgba(13,8,26,.42)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+
+        <text x="16" y="45" font-size="15" font-weight="800" fill="#ffffff">Osmolality</text>
+        <rect x="200" y="30" width="212" height="26" rx="8" fill="#2f6bff" opacity=".85"/>
+        <rect x="412" y="30" width="216" height="26" fill="#12b886" opacity=".9"/>
+        <rect x="628" y="30" width="212" height="26" rx="8" fill="#ff3b6b" opacity=".85"/>
+        <text x="520" y="48" font-size="12.5" font-weight="900" text-anchor="middle" fill="#03291c">NORMAL 275–295 mOsm/kg</text>
+        <rect x="252" y="6" width="86" height="20" rx="7" fill="#2f6bff"/><text x="295" y="21" font-size="12.5" font-weight="900" text-anchor="middle" fill="#fff">🎈 FVO ⬇</text>
+        <path d="M287 26 L303 26 L295 34 z" fill="#2f6bff"/>
+        <rect x="690" y="60" width="86" height="20" rx="7" fill="#ff3b6b"/><text x="733" y="75" font-size="12.5" font-weight="900" text-anchor="middle" fill="#fff">🍇 FVD ⬆</text>
+        <path d="M725 60 L741 60 L733 52 z" fill="#ff3b6b"/>
+
+        <text x="16" y="129" font-size="15" font-weight="800" fill="#ffffff">Hematocrit</text>
+        <rect x="200" y="114" width="212" height="26" rx="8" fill="#2f6bff" opacity=".85"/>
+        <rect x="412" y="114" width="216" height="26" fill="#12b886" opacity=".9"/>
+        <rect x="628" y="114" width="212" height="26" rx="8" fill="#ff3b6b" opacity=".85"/>
+        <text x="520" y="132" font-size="12.5" font-weight="900" text-anchor="middle" fill="#03291c">NORMAL 37–47% (F) · 42–52% (M)</text>
+        <rect x="252" y="90" width="86" height="20" rx="7" fill="#2f6bff"/><text x="295" y="105" font-size="12.5" font-weight="900" text-anchor="middle" fill="#fff">🎈 FVO ⬇</text>
+        <path d="M287 110 L303 110 L295 118 z" fill="#2f6bff"/>
+        <rect x="690" y="144" width="86" height="20" rx="7" fill="#ff3b6b"/><text x="733" y="159" font-size="12.5" font-weight="900" text-anchor="middle" fill="#fff">🍇 FVD ⬆</text>
+        <path d="M725 144 L741 144 L733 136 z" fill="#ff3b6b"/>
+
+        <text x="16" y="213" font-size="15" font-weight="800" fill="#ffffff">BUN</text>
+        <rect x="200" y="198" width="212" height="26" rx="8" fill="#2f6bff" opacity=".85"/>
+        <rect x="412" y="198" width="216" height="26" fill="#12b886" opacity=".9"/>
+        <rect x="628" y="198" width="212" height="26" rx="8" fill="#ff3b6b" opacity=".85"/>
+        <text x="520" y="216" font-size="12.5" font-weight="900" text-anchor="middle" fill="#03291c">NORMAL 10–20 mg/dL</text>
+        <rect x="252" y="174" width="86" height="20" rx="7" fill="#2f6bff"/><text x="295" y="189" font-size="12.5" font-weight="900" text-anchor="middle" fill="#fff">🎈 FVO ⬇</text>
+        <path d="M287 194 L303 194 L295 202 z" fill="#2f6bff"/>
+        <rect x="690" y="228" width="86" height="20" rx="7" fill="#ff3b6b"/><text x="733" y="243" font-size="12.5" font-weight="900" text-anchor="middle" fill="#fff">🍇 FVD ⬆</text>
+        <path d="M725 228 L741 228 L733 220 z" fill="#ff3b6b"/>
+
+        <text x="16" y="297" font-size="15" font-weight="800" fill="#ffffff">Sodium Na⁺</text>
+        <rect x="200" y="282" width="212" height="26" rx="8" fill="#2f6bff" opacity=".85"/>
+        <rect x="412" y="282" width="216" height="26" fill="#12b886" opacity=".9"/>
+        <rect x="628" y="282" width="212" height="26" rx="8" fill="#ff3b6b" opacity=".85"/>
+        <text x="520" y="300" font-size="12.5" font-weight="900" text-anchor="middle" fill="#03291c">NORMAL 135–145 mEq/L</text>
+        <text x="295" y="278" font-size="12" font-weight="900" text-anchor="middle" fill="#cfe0ff">HYPOnatremia &lt;135 — brain damage</text>
+        <rect x="252" y="252" width="86" height="20" rx="7" fill="#2f6bff"/><text x="295" y="267" font-size="12.5" font-weight="900" text-anchor="middle" fill="#fff">🎈 FVO ⬇</text>
+        <path d="M287 282 L303 282 L295 290 z" fill="#2f6bff"/>
+        <rect x="690" y="312" width="86" height="20" rx="7" fill="#ff3b6b"/><text x="733" y="327" font-size="12.5" font-weight="900" text-anchor="middle" fill="#fff">🍇 FVD ⬆</text>
+        <path d="M725 312 L741 312 L733 304 z" fill="#ff3b6b"/>
+        <text x="733" y="346" font-size="12" font-weight="900" text-anchor="middle" fill="#ffd9e2">HYPERnatremia &gt;145 — brain bleeding</text>
+
+        <text x="16" y="393" font-size="15" font-weight="800" fill="#ffffff">Urine sp. gravity</text>
+        <rect x="200" y="378" width="212" height="26" rx="8" fill="#2f6bff" opacity=".85"/>
+        <rect x="412" y="378" width="216" height="26" fill="#12b886" opacity=".9"/>
+        <rect x="628" y="378" width="212" height="26" rx="8" fill="#ff3b6b" opacity=".85"/>
+        <text x="520" y="396" font-size="12.5" font-weight="900" text-anchor="middle" fill="#03291c">NORMAL 1.005 – 1.030</text>
+        <rect x="252" y="354" width="86" height="20" rx="7" fill="#2f6bff"/><text x="295" y="369" font-size="12.5" font-weight="900" text-anchor="middle" fill="#fff">🎈 FVO ⬇</text>
+        <path d="M287 374 L303 374 L295 382 z" fill="#2f6bff"/>
+        <rect x="690" y="408" width="86" height="20" rx="7" fill="#ff3b6b"/><text x="733" y="423" font-size="12.5" font-weight="900" text-anchor="middle" fill="#fff">🍇 FVD ⬆</text>
+        <path d="M725 408 L741 408 L733 400 z" fill="#ff3b6b"/>
+        <text x="295" y="440" font-size="12.5" font-weight="900" text-anchor="middle" fill="#cfe0ff">LOW gravity = LOW weight (liquidy)</text>
+        <text x="733" y="440" font-size="12.5" font-weight="900" text-anchor="middle" fill="#ffd9e2">HIGH gravity = HIGH weight (dry)</text>
+      </svg>
+      <p class="svgcap">Five different labs, <b>one pattern</b>: the blue marker (overload) always sits low, the red marker (deficit) always sits high.</p>
+      <div class="mn">🧠 <b>“Blue is dilute, red is concentrate.”</b> You never have to memorise five lab directions — memorise <i>one</i>.</div>
+    </div>
+
+    <div class="card tealc">
+      <h3>🚽 Urine tells you in 3 seconds</h3>
+      <svg viewBox="0 0 440 250" role="img" aria-label="Two urine specimen cups: pale watery urine with low specific gravity in fluid overload, and dark concentrated urine with high specific gravity in fluid deficit">
+        <rect x="4" y="4" width="212" height="242" rx="14" fill="rgba(47,107,255,.3)" stroke="#bcd0ff" stroke-width="2"/>
+        <path d="M52 70 L164 70 L152 190 L64 190 z" fill="rgba(255,247,200,.55)" stroke="#ffffff" stroke-width="2.5"/>
+        <text x="110" y="42" font-size="15" font-weight="900" text-anchor="middle" fill="#dce8ff">🎈 FVO — LIQUIDY</text>
+        <text x="110" y="136" font-size="17" font-weight="900" text-anchor="middle" fill="#0a1a3d">pale</text>
+        <text x="110" y="216" font-size="15.5" font-weight="900" text-anchor="middle" fill="#dce8ff">SG below 1.005</text>
+        <text x="110" y="236" font-size="13" font-style="italic" text-anchor="middle" fill="#cfe0ff">LOW gravity = LOW weight</text>
+
+        <rect x="228" y="4" width="208" height="242" rx="14" fill="rgba(255,59,107,.3)" stroke="#ff9db4" stroke-width="2"/>
+        <path d="M274 70 L386 70 L374 190 L286 190 z" fill="rgba(160,90,10,.85)" stroke="#ffffff" stroke-width="2.5"/>
+        <text x="332" y="42" font-size="15" font-weight="900" text-anchor="middle" fill="#ffd9e2">🍇 FVD — DRY</text>
+        <text x="332" y="136" font-size="17" font-weight="900" text-anchor="middle" fill="#ffe7c8">dark</text>
+        <text x="332" y="216" font-size="15.5" font-weight="900" text-anchor="middle" fill="#ffd9e2">SG above 1.030</text>
+        <text x="332" y="236" font-size="13" font-style="italic" text-anchor="middle" fill="#ffe3ea">HIGH gravity = HIGH weight</text>
+      </svg>
+      <div class="mn">🧠 <b>“Urine LOW when Liquidy · Urine HIGH when Dry.”</b> Specific gravity is literally <i>how heavy the urine is compared with water</i> — more solute, heavier number.</div>
+    </div>
+
+    <div class="card topaz">
+      <h3>⚖️ The scale, both directions</h3>
+      <svg viewBox="0 0 440 250" role="img" aria-label="Weight change diagram: a gain of three pounds from 143 to 146 indicates fluid overload, a loss of five pounds from 143 to 138 indicates fluid deficit">
+        <rect x="4" y="4" width="432" height="242" rx="14" fill="rgba(13,8,26,.55)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+        <rect x="152" y="90" width="136" height="70" rx="12" fill="rgba(255,255,255,.22)" stroke="#ffffff" stroke-width="2"/>
+        <text x="220" y="122" font-size="15" font-weight="900" text-anchor="middle" fill="#ffffff">BASELINE</text>
+        <text x="220" y="148" font-size="21" font-weight="900" text-anchor="middle" fill="#ffe49a">143 lb</text>
+        <rect x="16" y="90" width="118" height="70" rx="12" fill="rgba(255,138,61,.6)" stroke="#ffe0c6" stroke-width="2"/>
+        <text x="75" y="118" font-size="14" font-weight="900" text-anchor="middle" fill="#2b1200">🍇 FVD</text>
+        <text x="75" y="144" font-size="20" font-weight="900" text-anchor="middle" fill="#2b1200">138 lb</text>
+        <path d="M148 125 L104 125" stroke="#ffb066" stroke-width="7" stroke-linecap="round"/>
+        <path d="M112 115 L94 125 L112 135 z" fill="#ffb066"/>
+        <rect x="306" y="90" width="118" height="70" rx="12" fill="rgba(255,59,107,.62)" stroke="#ffd9e2" stroke-width="2"/>
+        <text x="365" y="118" font-size="14" font-weight="900" text-anchor="middle" fill="#ffffff">🎈 FVO</text>
+        <text x="365" y="144" font-size="20" font-weight="900" text-anchor="middle" fill="#ffffff">146 lb</text>
+        <path d="M292 125 L336 125" stroke="#ff9db4" stroke-width="7" stroke-linecap="round"/>
+        <path d="M328 115 L346 125 L328 135 z" fill="#ff9db4"/>
+        <text x="220" y="42" font-size="16" font-weight="900" text-anchor="middle" fill="#ffe49a">KEY NUMBERS</text>
+        <text x="220" y="68" font-size="14.5" font-weight="900" text-anchor="middle" fill="#ffffff">2–3 lb in 1 day · 5 lb in 7 days = REPORT</text>
+        <text x="220" y="196" font-size="15.5" font-weight="900" text-anchor="middle" fill="#a5f3d4">Weight GAIN = Water GAIN</text>
+        <text x="220" y="220" font-size="15.5" font-weight="900" text-anchor="middle" fill="#ffb066">Weight LOSS = Water LOSS</text>
+        <text x="220" y="240" font-size="13.5" font-style="italic" text-anchor="middle" fill="#e9dcff">1 kg = 1 L = 2.2 lb of fluid</text>
+      </svg>
+      <div class="mn">🧠 <b>“The scale doesn't lie and it doesn't wait.”</b> It moves before the crackles appear and before the BP drops.</div>
+    </div>
+
+    <div class="card emerald span2">
+      <h3>🧭 Which one is it? — a 5-second decision path</h3>
+      <div class="flow">
+        <div class="fstep">🩺 Look at the <b>neck veins</b> first</div>
+        <div class="farrow">▼</div>
+        <div class="fstep"><b>Distended / bulging (JVD)</b> → think <b>OVERLOAD</b> &nbsp;·&nbsp; <b>Flat</b> → think <b>DEFICIT</b></div>
+        <div class="farrow">▼</div>
+        <div class="fstep">🫁 <b>Listen to the lung bases.</b> Crackles = overload. Clear = deficit.</div>
+        <div class="farrow">▼</div>
+        <div class="fstep">⚖️ <b>Check the weight trend.</b> Up = overload. Down = deficit.</div>
+        <div class="farrow">▼</div>
+        <div class="fstep hot">🧪 <b>Confirm with the labs.</b> All LOW = overload. All HIGH = deficit.</div>
+      </div>
+      <p style="margin-top:10px"><mark>Veins → lungs → scale → labs.</mark> Four checks, in that order, and you have your answer before the chart loads.</p>
+      <div class="mn">🧠 <b>“Necks, chest, scale, serum.”</b> Free, fast, and available at the bedside in that order.</div>
+    </div>
+
+    <div class="card ruby span2">
+      <h3>🚨 NCLEX traps on this comparison</h3>
+      <ul class="tick">
+        <li><b>“Increased urine output” appears on BOTH sides.</b> In FVO it means the kidneys are unloading. In FVD it means the <b>cause</b> (DI, DKA, diuretics) is <i>making</i> the deficit. Read what came first.</li>
+        <li><b>Third spacing looks like both at once</b> — <span class="never">weight UP but BP down, HR up, urine down.</span> Treat the vital signs; the client is <b>intravascularly dry</b>.</li>
+        <li><b>Both hyponatremia and hypernatremia are brain problems.</b> LOW Na⁺ = brain <b>swells</b> (damage). HIGH Na⁺ = brain <b>shrinks</b> and vessels tear (bleeding).</li>
+        <li><b>A normal BP does not rule out deficit.</b> Tachycardia and falling urine output come first; BP falls last.</li>
+        <li><b>Skin turgor is unreliable in older adults.</b> Use weight, urine output, mucous membranes and mental status instead.</li>
+        <li><b>You can create the opposite problem.</b> Over-diuresing an FVO client makes FVD; over-hydrating an FVD client makes FVO. Reassess after every intervention.</li>
+      </ul>
+      <div class="mn">🧠 <b>“Same word, opposite reason.”</b> Whenever a sign appears in <i>both</i> columns, the exam is asking you <b>why</b> it is there, not <b>whether</b> it is there.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc rubybg"><span class="big">🎈 HYPERvolemia</span>HIGH fluid volume · BIG &amp; BULGING BODY</div>
+    <div class="rc citrine"><span class="big">🍇 HYPOvolemia</span>LOW fluid volume · LOW &amp; LITTLE BODY</div>
+    <div class="rc tealbg"><span class="big">🧪 Liquidy vs Dry</span>Low when Liquidy · High when Dry — all 5 labs, same direction</div>
+    <div class="rc topazbg"><span class="big">🧠 Na⁺ 135 / 145</span>&lt;135 brain DAMAGE (swells) · &gt;145 brain BLEEDING (shrinks)</div>
+  </div>
+
+  <div class="recall">
+    <div class="rc rubybg"><span class="big">🫀 Bounding vs thready</span>JVD + ↑CVP + high BP  ⟷  flat veins + ↓CVP + low BP</div>
+    <div class="rc citrine"><span class="big">🫁 Crackles vs clear</span>Rales &amp; pulmonary edema  ⟷  clear lungs, rapid rate</div>
+    <div class="rc topazbg"><span class="big">🍽️ Diarrhea vs constipation</span>+ ascites &amp; hepatomegaly  ⟷  diminished bowel sounds</div>
+    <div class="rc tealbg"><span class="big">🧭 Necks·chest·scale·serum</span>the 4-step bedside decision path</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 7 rapid-fire questions</summary>
+      <div class="qa">Q1: Bounding pulses, JVD, crackles and a 3 lb overnight weight gain — which one and why? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Fluid volume OVERLOAD (hypervolemia). Extra volume raises pressure in the vessels, distends the veins and pushes fluid into the lungs. Weight gain = water gain.</div></div>
+      <div class="qa">Q2: Urine specific gravity is 1.002. Overload or deficit? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Overload. Normal is 1.005–1.030; below 1.005 the urine is dilute and watery. "Urine LOW when Liquidy — low gravity = low weight."</div></div>
+      <div class="qa">Q3: Which sodium abnormality goes with which fluid problem, and what is the brain risk? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">FVO → hyponatremia below 135 mEq/L → water enters brain cells → cerebral edema and BRAIN DAMAGE. FVD → hypernatremia above 145 mEq/L → brain cells shrink and vessels tear → BRAIN BLEEDING.</div></div>
+      <div class="qa">Q4: Why do BUN and hematocrit both rise in deficit when nothing was added? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Hemoconcentration — the same solutes and red cells are suspended in less plasma, so they only APPEAR high. "Lab values appear high when dry."</div></div>
+      <div class="qa">Q5: Give the GI findings for each side. <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">FVO: increased motility — diarrhea, plus hepatomegaly and ascites. FVD: decreased motility — constipation, diminished bowel sounds, thirst.</div></div>
+      <div class="qa">Q6: Client's weight is up 4 lb but the BP is 86/48, HR 122, urine 15 mL/hr. Which column? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Trick question — third spacing. Total body water is up (the scale) but the INTRAVASCULAR space is empty (the vital signs). Treat as fluid volume deficit intravascularly, and expect a later reabsorption phase with overload risk.</div></div>
+      <div class="qa">Q7: What is the fastest bedside sequence to sort FVO from FVD? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Necks → chest → scale → serum. Neck veins distended or flat; lungs crackly or clear; weight trending up or down; then confirm with labs — all low (overload) or all high (deficit).</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(192,34,85,.75)">FVO</span>→
+    <span style="background:rgba(255,138,61,.75);color:#2b1200">FVD</span>→
+    <span style="background:rgba(18,184,134,.7)">TELL THEM APART</span>
+  </div>
+  <div>NG-207 · Source wording retained · ADHD-friendly visual edition v2</div>
+</footer>
+
+</div>
+</body></html>

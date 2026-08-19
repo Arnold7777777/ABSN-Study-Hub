@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bladder Control · NG-104 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+
+/* ---------- appended: drug-page section accents ---------- */
+#does .sec-h h2{color:#d9c2ff} #does .step{background:var(--amethyst)}
+#watch .sec-h h2{color:#ffb3c6} #watch .step{background:var(--ruby)}
+#teach .sec-h h2{color:#a5f3d4} #teach .step{background:var(--emerald);color:#03291c}
+/* ---------- appended: incontinence-page section accents ---------- */
+#types .sec-h h2{color:#d9c2ff} #types .step{background:var(--amethyst)}
+#apart .sec-h h2{color:#bcd0ff} #apart .step{background:var(--sapphire)}
+#fix   .sec-h h2{color:#a5f3d4} #fix .step{background:var(--emerald);color:#03291c}
+/* ---------- appended: bladder-control page section accents ---------- */
+#works .sec-h h2{color:#d9c2ff} #works .step{background:var(--amethyst)}
+#train .sec-h h2{color:#bcd0ff} #train .step{background:var(--sapphire)}
+#meds  .sec-h h2{color:#a5f3d4} #meds .step{background:var(--emerald);color:#03291c}
+/* ---------- appended: small numbered type badge ---------- */
+.tnum{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;
+  border-radius:50%;background:rgba(13,8,26,.6);border:1px solid var(--line);
+  font-weight:900;font-size:.9rem;margin-right:6px;vertical-align:-4px}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#works">🫙 How voiding works</a>
+  <a class="c2" href="#train">🏋️ Train the bladder</a>
+  <a class="c3" href="#meds">💊 When drugs are added</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Renal + Fluid · Anatomy → Intervention</div>
+  <h1>Bladder Control <span class="drop">🫙</span></h1>
+  <p class="sub">The anatomy &amp; physiology of voiding — and how to retrain it</p>
+  <div class="chips">
+    <span class="chip id">NG-104</span>
+    <span class="chip cat">Renal + Fluid</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede"><b>Two muscles decide everything.</b> The <b>detrusor</b> squeezes the urine out; the <b>sphincters</b> hold it in. Continence is just those two taking turns on cue. Learn the wiring first — then <b>bladder training, Kegels and timed voiding</b> stop being random tips and start being <i>mechanism</i>. <i>(The five types of incontinence live on the companion page, NG-272.)</i></p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">💪 Detrusor squeezes</span>Sphincters hold. Continence = the two taking turns.</div>
+  <div class="rc tealbg"><span class="big">🧠 S2, S3, S4</span>&ldquo;keep the pee off the floor&rdquo; — the sacral micturition centre.</div>
+  <div class="rc rubybg"><span class="big">🏋️ Kegels: 10 · 10 · 3</span>Hold <span class="mono">10</span> sec · <span class="mono">10</span> reps · <span class="mono">3</span> sets a day.</div>
+  <div class="rc topazbg"><span class="big">⏰ Timed voiding</span>Start q<span class="mono">1–2</span> h, add <span class="mono">15–30</span> min a week, aim for q<span class="mono">3–4</span> h.</div>
+</div>
+
+<!-- ============ HOW VOIDING WORKS ============ -->
+<section id="works">
+  <div class="sec-h"><span class="icon">🫙</span><h2>HOW VOIDING WORKS</h2><span class="step">STEP 1 · THE WIRING</span></div>
+  <p class="sec-sub">One muscle, two doors, one reflex loop, and a brain with veto power.</p>
+
+  <div class="grid">
+
+    <div class="card deep span2">
+      <h3>🫙 The bladder — <mark>detrusor muscle and two sphincters</mark></h3>
+      <svg viewBox="-10 -10 583 480" role="img" aria-label="Cross-section of the urinary bladder labeled with the ureters entering at the ureterovesical junctions, the trigone, the detrusor muscle in the wall, the involuntary internal urethral sphincter at the bladder neck, the voluntary external urethral sphincter, the pelvic floor muscles and the urethra">
+        <defs>
+          <linearGradient id="det104" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ff9f86"/><stop offset="1" stop-color="#c02255"/>
+          </linearGradient>
+        </defs>
+        <rect x="-6" y="-6" width="575" height="472" rx="20" fill="rgba(13,8,26,.55)" stroke="#9d5cff" stroke-width="2"/>
+        <text x="20" y="34" font-size="19" font-weight="900" fill="#d9c2ff">🫙 BLADDER — CROSS SECTION</text>
+        <text x="20" y="56" font-size="13.5" font-style="italic" fill="#efe6ff">one muscle to push · two sphincters to hold</text>
+
+        <!-- ureters -->
+        <path d="M148 84 C 168 132 186 160 206 190" fill="none" stroke="#00c2c7" stroke-width="11" stroke-linecap="round"/>
+        <path d="M412 84 C 392 132 374 160 354 190" fill="none" stroke="#00c2c7" stroke-width="11" stroke-linecap="round"/>
+        <text x="66" y="92" font-size="14.5" font-weight="900" fill="#9ff2ee">Ureter</text>
+        <text x="424" y="92" font-size="14.5" font-weight="900" fill="#9ff2ee">Ureter</text>
+        <text x="418" y="112" font-size="12" font-style="italic" fill="#d6fbfa">urine arrives by</text>
+        <text x="418" y="128" font-size="12" font-style="italic" fill="#d6fbfa">peristalsis</text>
+
+        <!-- bladder wall (detrusor) -->
+        <path d="M280 132 C 176 132 118 194 118 262 C 118 322 186 356 280 356 C 374 356 442 322 442 262 C 442 194 384 132 280 132 Z"
+              fill="url(#det104)" stroke="#ffd0bd" stroke-width="3"/>
+        <path d="M280 156 C 194 156 144 206 144 262 C 144 310 202 336 280 336 C 358 336 416 310 416 262 C 416 206 366 156 280 156 Z"
+              fill="rgba(255,194,51,.55)"/>
+        <text x="222" y="256" font-size="16" font-weight="900" fill="#3a2b00">URINE</text>
+        <text x="204" y="278" font-size="12.5" font-style="italic" fill="#3a2b00">stored, not made, here</text>
+
+        <!-- detrusor label -->
+        <line x1="118" y1="212" x2="52" y2="196" stroke="#ffd0bd" stroke-width="2"/>
+        <text x="16" y="188" font-size="15.5" font-weight="900" fill="#ffd0bd">DETRUSOR</text>
+        <text x="16" y="208" font-size="12.5" font-style="italic" fill="#ffd0bd">smooth muscle</text>
+        <text x="16" y="224" font-size="12.5" font-style="italic" fill="#ffd0bd">of the wall —</text>
+        <text x="16" y="240" font-size="12.5" font-style="italic" fill="#ffd0bd">it SQUEEZES</text>
+
+        <!-- ureterovesical junctions -->
+        <circle cx="206" cy="192" r="9" fill="#00c2c7" stroke="#eafff7" stroke-width="2"/>
+        <circle cx="354" cy="192" r="9" fill="#00c2c7" stroke="#eafff7" stroke-width="2"/>
+        <line x1="354" y1="192" x2="470" y2="176" stroke="#9ff2ee" stroke-width="2"/>
+        <text x="452" y="166" font-size="13.5" font-weight="900" fill="#9ff2ee">Ureterovesical</text>
+        <text x="452" y="184" font-size="13.5" font-weight="900" fill="#9ff2ee">junction</text>
+        <text x="452" y="202" font-size="11.5" font-style="italic" fill="#d6fbfa">one-way flap —</text>
+        <text x="452" y="218" font-size="11.5" font-style="italic" fill="#d6fbfa">stops reflux</text>
+
+        <!-- trigone -->
+        <path d="M206 192 L354 192 L280 322 Z" fill="none" stroke="#9d5cff" stroke-width="3" stroke-dasharray="7 5"/>
+        <text x="240" y="316" font-size="13.5" font-weight="900" fill="#d9c2ff">TRIGONE</text>
+        <line x1="240" y1="322" x2="150" y2="360" stroke="#d9c2ff" stroke-width="2"/>
+        <text x="66" y="380" font-size="12" font-style="italic" fill="#d9c2ff">smooth triangle · does not stretch</text>
+
+        <!-- internal sphincter -->
+        <ellipse cx="252" cy="360" rx="20" ry="13" fill="#ffc233" stroke="#fff2cf" stroke-width="2"/>
+        <ellipse cx="308" cy="360" rx="20" ry="13" fill="#ffc233" stroke="#fff2cf" stroke-width="2"/>
+        <line x1="330" y1="356" x2="424" y2="330" stroke="#ffc233" stroke-width="2"/>
+        <text x="410" y="320" font-size="14.5" font-weight="900" fill="#ffc233">INTERNAL</text>
+        <text x="410" y="338" font-size="14.5" font-weight="900" fill="#ffc233">sphincter</text>
+        <text x="410" y="356" font-size="11.5" font-style="italic" fill="#fff2cf">smooth muscle ·</text>
+        <text x="410" y="372" font-size="11.5" font-style="italic" fill="#fff2cf">INVOLUNTARY 🔒</text>
+
+        <!-- external sphincter -->
+        <ellipse cx="254" cy="404" rx="20" ry="13" fill="#12b886" stroke="#eafff7" stroke-width="2"/>
+        <ellipse cx="306" cy="404" rx="20" ry="13" fill="#12b886" stroke="#eafff7" stroke-width="2"/>
+        <line x1="228" y1="404" x2="150" y2="414" stroke="#a5f3d4" stroke-width="2"/>
+        <text x="16" y="410" font-size="14.5" font-weight="900" fill="#a5f3d4">EXTERNAL</text>
+        <text x="16" y="428" font-size="14.5" font-weight="900" fill="#a5f3d4">sphincter</text>
+        <text x="16" y="446" font-size="11.5" font-style="italic" fill="#d8fff0">skeletal · VOLUNTARY ✋ (pudendal S2–S4)</text>
+
+        <!-- pelvic floor -->
+        <path d="M196 420 C 240 442 320 442 364 420" fill="none" stroke="#9d5cff" stroke-width="9" stroke-linecap="round"/>
+        <text x="386" y="424" font-size="13.5" font-weight="900" fill="#d9c2ff">Pelvic floor</text>
+        <text x="386" y="442" font-size="11.5" font-style="italic" fill="#efe6ff">the Kegel muscles</text>
+
+        <!-- urethra -->
+        <rect x="272" y="356" width="16" height="98" rx="7" fill="#ff9f86" stroke="#ffd0bd" stroke-width="2"/>
+        <text x="200" y="452" font-size="13.5" font-weight="900" fill="#ffd0bd">Urethra ↓</text>
+      </svg>
+      <p style="margin-top:11px"><b>Read it as a chain:</b> kidneys make urine ➜ ureters deliver it ➜ the <b>detrusor</b> relaxes to store it ➜ the <b>trigone</b> stays flat ➜ two <b>sphincters</b> hold the door ➜ when the brain says yes, the detrusor squeezes and both doors open.</p>
+      <div class="mn">🧠 <b>&ldquo;IN-ternal = IN-voluntary. EX-ternal = EX-ercise it.&rdquo;</b> The internal sphincter you can never control; the external one is the muscle you actually train with Kegels. That one word pair is worth a whole exam question.</div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>🔁 The micturition reflex — filling vs emptying</h3>
+      <div class="duo">
+        <svg viewBox="0 0 420 320" role="img" aria-label="Filling phase: sympathetic nerves from T11 to L2 relax the detrusor via beta-3 receptors and tighten the internal sphincter via alpha-1 receptors so urine is stored">
+          <rect x="4" y="4" width="412" height="312" rx="16" fill="rgba(47,107,255,.18)" stroke="#2f6bff" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="18" y="34" font-size="17" font-weight="900" fill="#bcd0ff">🅢 FILLING / STORAGE</text>
+          <text x="18" y="56" font-size="13" font-style="italic" fill="#e6eeff">SYMPATHETIC · T11–L2</text>
+          <path d="M198 84 C 138 84 106 122 106 162 C 106 198 148 220 198 220 C 248 220 290 198 290 162 C 290 122 258 84 198 84 Z"
+                fill="rgba(255,255,255,.12)" stroke="#bcd0ff" stroke-width="3"/>
+          <path d="M110 176 C 150 206 246 206 286 176 C 288 200 250 220 198 220 C 146 220 108 200 110 176 Z" fill="#ffc233"/>
+          <text x="146" y="146" font-size="14" font-weight="900" fill="#bcd0ff">detrusor RELAXED</text>
+          <text x="168" y="166" font-size="12.5" font-style="italic" fill="#e6eeff">β₃ receptors</text>
+          <ellipse cx="180" cy="228" rx="18" ry="11" fill="#12b886" stroke="#eafff7" stroke-width="2"/>
+          <ellipse cx="216" cy="228" rx="18" ry="11" fill="#12b886" stroke="#eafff7" stroke-width="2"/>
+          <text x="240" y="234" font-size="13" font-weight="900" fill="#a5f3d4">sphincter TIGHT 🔒</text>
+          <text x="240" y="252" font-size="12" font-style="italic" fill="#d8fff0">α₁ receptors</text>
+          <rect x="18" y="266" width="384" height="38" rx="10" fill="rgba(13,8,26,.55)"/>
+          <text x="30" y="290" font-size="14" font-weight="900" fill="#bcd0ff">Sympathetic STORES the urine 🅢</text>
+        </svg>
+        <svg viewBox="0 0 420 320" role="img" aria-label="Emptying phase: stretch receptors signal the sacral cord at S2 to S4, parasympathetic nerves contract the detrusor through M3 muscarinic receptors, the internal sphincter relaxes and the brain voluntarily relaxes the external sphincter">
+          <rect x="4" y="4" width="412" height="312" rx="16" fill="rgba(18,184,134,.18)" stroke="#12b886" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="18" y="34" font-size="17" font-weight="900" fill="#a5f3d4">🅟 EMPTYING / VOIDING</text>
+          <text x="18" y="56" font-size="13" font-style="italic" fill="#d8fff0">PARASYMPATHETIC · S2–S4</text>
+          <path d="M198 88 C 148 88 122 120 122 154 C 122 184 156 202 198 202 C 240 202 274 184 274 154 C 274 120 248 88 198 88 Z"
+                fill="rgba(18,184,134,.6)" stroke="#eafff7" stroke-width="4"/>
+          <g stroke="#ffc233" stroke-width="5" stroke-linecap="round">
+            <line x1="124" y1="120" x2="106" y2="106"/><line x1="272" y1="120" x2="290" y2="106"/>
+            <line x1="122" y1="176" x2="102" y2="188"/><line x1="274" y1="176" x2="294" y2="188"/>
+          </g>
+          <text x="140" y="152" font-size="14" font-weight="900" fill="#fff">detrusor SQUEEZES</text>
+          <text x="164" y="172" font-size="12.5" font-style="italic" fill="#d8fff0">M₃ receptors + ACh</text>
+          <ellipse cx="178" cy="212" rx="17" ry="10" fill="#ff3b6b" stroke="#ffe3ea" stroke-width="2"/>
+          <ellipse cx="218" cy="212" rx="17" ry="10" fill="#ff3b6b" stroke="#ffe3ea" stroke-width="2"/>
+          <text x="242" y="216" font-size="13" font-weight="900" fill="#ff9db4">both doors OPEN 🔓</text>
+          <rect x="190" y="222" width="16" height="46" rx="7" fill="#ff9f86"/>
+          <path d="M198 272 L198 292" stroke="#9ff2ee" stroke-width="5" stroke-linecap="round"/>
+          <rect x="18" y="278" width="150" height="30" rx="9" fill="rgba(13,8,26,.55)"/>
+          <text x="26" y="298" font-size="13" font-weight="900" fill="#a5f3d4">Para PEES 🅟</text>
+        </svg>
+      </div>
+      <div class="flow" style="margin-top:12px">
+        <div class="fstep">1️⃣ Bladder fills ➜ <b>stretch receptors</b> in the wall fire</div>
+        <div class="farrow">▼</div>
+        <div class="fstep">2️⃣ Signal travels to the <b>sacral micturition centre — S2, S3, S4</b></div>
+        <div class="farrow">▼</div>
+        <div class="fstep">3️⃣ Message goes up to the <b>pontine micturition centre</b> &amp; cortex ➜ &ldquo;<b>is now a good time?</b>&rdquo;</div>
+        <div class="farrow">▼</div>
+        <div class="fstep hot">4️⃣ Brain says <b>YES</b> ➜ parasympathetic fires: <b>detrusor contracts</b>, <b>internal sphincter relaxes</b></div>
+        <div class="farrow">▼</div>
+        <div class="fstep">5️⃣ You <b>voluntarily relax the external sphincter</b> (pudendal nerve) ➜ 🚽 void</div>
+      </div>
+      <div class="mn">🧠 <b>&ldquo;S2, 3, 4 keep the pee off the floor.&rdquo;</b> Then: <b>S</b>ympathetic <b>S</b>tores · <b>P</b>arasympathetic <b>P</b>ees. Two rhymes cover the entire neuro physiology of voiding.</div>
+    </div>
+
+    <div class="card tealc">
+      <h3>📏 Volumes &amp; numbers to know</h3>
+      <svg viewBox="0 0 440 220" role="img" aria-label="Bladder volume gauge showing first urge to void at 150 to 250 millilitres, strong urge at 400 to 500 millilitres, normal capacity 400 to 600 millilitres, and discomfort above that">
+        <rect x="4" y="4" width="432" height="212" rx="16" fill="rgba(13,8,26,.45)" stroke="#00c2c7" stroke-width="2"/>
+        <text x="18" y="32" font-size="15" font-weight="900" fill="#9ff2ee">🫙 HOW FULL IS FULL?</text>
+        <defs>
+          <linearGradient id="vol104" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#12b886"/><stop offset="0.45" stop-color="#ffc233"/><stop offset="1" stop-color="#ff3b6b"/>
+          </linearGradient>
+        </defs>
+        <rect x="22" y="48" width="396" height="28" rx="9" fill="url(#vol104)"/>
+        <line x1="150" y1="42" x2="150" y2="82" stroke="#fff" stroke-width="2"/>
+        <line x1="290" y1="42" x2="290" y2="82" stroke="#fff" stroke-width="2"/>
+        <line x1="368" y1="42" x2="368" y2="82" stroke="#fff" stroke-width="2"/>
+        <text x="28" y="104" font-size="13" font-weight="900" fill="#a5f3d4">0–150 mL</text>
+        <text x="28" y="122" font-size="12" font-style="italic" fill="#d8fff0">no sensation</text>
+        <text x="156" y="104" font-size="13" font-weight="900" fill="#ffe49a">150–250 mL</text>
+        <text x="156" y="122" font-size="12" font-style="italic" fill="#fff2cf">FIRST urge to void</text>
+        <text x="296" y="104" font-size="13" font-weight="900" fill="#ff9db4">400–500 mL</text>
+        <text x="296" y="122" font-size="12" font-style="italic" fill="#ffd9e2">strong urge</text>
+        <text x="22" y="156" font-size="13.5" font-weight="900" fill="#fff">Adult capacity <tspan class="mono" fill="#9ff2ee">400–600 mL</tspan> · normal void <tspan class="mono" fill="#9ff2ee">250–400 mL</tspan></text>
+        <text x="22" y="180" font-size="13.5" font-weight="900" fill="#fff">Minimum output <tspan class="mono" fill="#ffe49a">30 mL/hr</tspan> · <tspan class="mono" fill="#ffe49a">0.5 mL/kg/hr</tspan></text>
+        <text x="22" y="204" font-size="13.5" font-weight="900" fill="#fff">Post-void residual <tspan class="mono" fill="#a5f3d4">&lt;50 mL</tspan> is normal emptying</text>
+      </svg>
+      <p style="margin-top:10px">Typical adult: <b><span class="mono">1500 mL</span></b> of urine a day over about <b><span class="mono">5–6</span></b> voids. Voiding more than <span class="mono">8</span> times in 24 hours is <b>frequency</b>; getting up more than once at night is <b>nocturia</b>.</p>
+      <div class="mn">🧠 <b>&ldquo;150 whispers, 400 shouts.&rdquo;</b> At <span class="mono">150 mL</span> the bladder <i>mentions</i> it; by <span class="mono">400 mL</span> it is <i>yelling</i>. Bladder training works by teaching the brain to ignore the whisper.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>⚠️ What breaks the system</h3>
+      <ul class="tick">
+        <li>🧠 <b>Brain / spinal cord damage</b> — stroke, MS, Parkinson's, SCI ➜ the veto signal never arrives ➜ <b>neurogenic bladder</b></li>
+        <li>🍬 <b>Diabetic neuropathy</b> ➜ the stretch receptors go silent ➜ the bladder over-fills without warning</li>
+        <li>🚧 <b>Obstruction</b> — BPH, stricture, stones ➜ the detrusor can squeeze but urine can't leave</li>
+        <li>🧵 <b>Weak pelvic floor</b> — childbirth, aging, low estrogen ➜ the external sphincter can't back up the internal one</li>
+        <li>💊 <b>Drugs</b> — anticholinergics &amp; opioids cause retention; diuretics cause urgency; sedatives blunt the signal</li>
+      </ul>
+      <div class="mn">🧠 <b>&ldquo;Nerve, narrow, or noodle.&rdquo;</b> Bladder control fails for one of three reasons: the <b>nerve</b> is damaged, the outlet is <b>narrowed</b>, or the muscle is a <b>noodle</b>. Match the failure to the fix.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ TRAIN THE BLADDER ============ -->
+<section id="train">
+  <div class="sec-h"><span class="icon">🏋️</span><h2>TRAIN THE BLADDER</h2><span class="step">STEP 2 · FIRST-LINE, ALWAYS</span></div>
+  <p class="sec-sub">Behavioral therapy comes before drugs and before surgery — on the exam and in practice.</p>
+
+  <div class="grid">
+
+    <div class="card emerald span2">
+      <h3>🏋️ Kegels (pelvic floor muscle training) — <mark>hold 10 · repeat 10 · 3 times a day</mark></h3>
+      <div class="duo">
+        <svg viewBox="0 0 420 260" role="img" aria-label="Pelvic floor muscle lifting upward to support the bladder and squeeze the urethra closed during a Kegel contraction">
+          <rect x="4" y="4" width="412" height="252" rx="16" fill="rgba(18,184,134,.16)" stroke="#12b886" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="18" y="32" font-size="16" font-weight="900" fill="#a5f3d4">💪 THE LIFT</text>
+          <path d="M204 54 C 152 54 124 88 124 122 C 124 152 160 172 204 172 C 248 172 284 152 284 122 C 284 88 256 54 204 54 Z"
+                fill="rgba(255,194,51,.6)" stroke="#fff2cf" stroke-width="2"/>
+          <text x="170" y="122" font-size="13.5" font-weight="900" fill="#3a2b00">bladder</text>
+          <rect x="196" y="172" width="16" height="52" rx="7" fill="#ff9f86" stroke="#ffd0bd" stroke-width="2"/>
+          <path d="M120 216 C 164 190 244 190 288 216" fill="none" stroke="#12b886" stroke-width="12" stroke-linecap="round"/>
+          <g stroke="#a5f3d4" stroke-width="4" stroke-linecap="round">
+            <line x1="150" y1="244" x2="150" y2="222"/><line x1="204" y1="248" x2="204" y2="226"/><line x1="258" y1="244" x2="258" y2="222"/>
+          </g>
+          <g fill="#a5f3d4">
+            <path d="M144 226 l6 -12 l6 12 z"/><path d="M198 230 l6 -12 l6 12 z"/><path d="M252 226 l6 -12 l6 12 z"/>
+          </g>
+          <text x="300" y="212" font-size="13.5" font-weight="900" fill="#a5f3d4">pelvic floor</text>
+          <text x="300" y="230" font-size="13.5" font-weight="900" fill="#a5f3d4">LIFTS ⬆️</text>
+          <text x="18" y="196" font-size="13" font-style="italic" fill="#d8fff0">the urethra is</text>
+          <text x="18" y="214" font-size="13" font-style="italic" fill="#d8fff0">squeezed shut</text>
+        </svg>
+        <svg viewBox="0 0 420 260" role="img" aria-label="Kegel timing diagram: squeeze for ten seconds, relax for ten seconds, ten repetitions per set, three sets each day">
+          <rect x="4" y="4" width="412" height="252" rx="16" fill="rgba(13,8,26,.5)" stroke="#12b886" stroke-width="2"/>
+          <text x="18" y="32" font-size="16" font-weight="900" fill="#a5f3d4">⏱️ THE COUNT</text>
+          <circle cx="86" cy="102" r="42" fill="rgba(18,184,134,.6)" stroke="#eafff7" stroke-width="3"/>
+          <text x="62" y="98" font-size="20" font-weight="900" fill="#fff">10</text>
+          <text x="52" y="122" font-size="12.5" font-weight="800" fill="#d8fff0">sec HOLD</text>
+          <text x="146" y="94" font-size="14" font-weight="900" fill="#a5f3d4">Squeeze &amp; hold</text>
+          <text x="146" y="114" font-size="12.5" font-style="italic" fill="#d8fff0">start at 5 sec if 10 is too long</text>
+          <circle cx="86" cy="192" r="42" fill="rgba(47,107,255,.6)" stroke="#eafff7" stroke-width="3"/>
+          <text x="62" y="188" font-size="20" font-weight="900" fill="#fff">10</text>
+          <text x="48" y="212" font-size="12.5" font-weight="800" fill="#e6eeff">sec RELAX</text>
+          <text x="146" y="184" font-size="14" font-weight="900" fill="#bcd0ff">Fully relax</text>
+          <text x="146" y="204" font-size="12.5" font-style="italic" fill="#e6eeff">rest is part of the exercise</text>
+          <rect x="146" y="222" width="256" height="30" rx="9" fill="rgba(255,194,51,.75)"/>
+          <text x="158" y="242" font-size="13.5" font-weight="900" fill="#231a02">10 reps × 3 sets every day</text>
+          <text x="146" y="56" font-size="13" font-weight="900" fill="#ffe49a">≈ 30 contractions daily</text>
+        </svg>
+      </div>
+      <table style="margin-top:12px">
+        <tr><th class="lo" style="width:50%">✅ DO</th><th class="up" style="width:50%">❌ DON'T</th></tr>
+        <tr>
+          <td>Squeeze as if you are <b>stopping urine and holding in gas</b> at the same time</td>
+          <td><span class="never">Don't routinely stop the stream mid-void to practice</span> — use it <b>once</b> only to find the muscle; repeating it causes incomplete emptying</td>
+        </tr>
+        <tr>
+          <td><b>Breathe normally</b> and count out loud</td>
+          <td>Don't <b>hold your breath</b> or bear down</td>
+        </tr>
+        <tr>
+          <td>Isolate the pelvic floor only</td>
+          <td>Don't tighten the <b>abdomen, buttocks or thighs</b></td>
+        </tr>
+        <tr>
+          <td>Do them <b>anywhere</b> — sitting, standing, lying, in line at the store</td>
+          <td>Don't quit early — expect <span class="mono">4–6</span> weeks for improvement, up to <span class="mono">3</span> months for full benefit</td>
+        </tr>
+      </table>
+      <p style="margin-top:10px"><b>Who benefits:</b> stress incontinence ✅ · urge incontinence ✅ <i>(quick contractions suppress the urge)</i> · mixed ✅ · <b>men after prostatectomy</b> ✅ · pregnancy &amp; postpartum ✅.</p>
+      <div class="mn">🧠 <b>&ldquo;Elevator, not a slam.&rdquo;</b> Ride the pelvic floor <i>up</i> like an elevator, hold it on the top floor for <span class="mono">10</span>, then ride it back down slowly. And it is a lifetime habit — stop the exercises and the leaking returns.</div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>⏰ Bladder training — stretch the interval, week by week</h3>
+      <p><b>Who it's for:</b> a <b>cognitively intact</b> client with <b>urge</b> or <b>mixed</b> incontinence. Goal: retrain the brain to postpone the urge.</p>
+      <svg viewBox="0 0 540 240" role="img" aria-label="Bladder training timeline: start voiding every one to two hours in week one, add fifteen to thirty minutes each week, reaching every three to four hours by week four">
+        <rect x="4" y="4" width="532" height="232" rx="16" fill="rgba(13,8,26,.5)" stroke="#2f6bff" stroke-width="2"/>
+        <text x="18" y="32" font-size="16" font-weight="900" fill="#bcd0ff">📅 STRETCH THE SCHEDULE</text>
+        <line x1="40" y1="150" x2="500" y2="150" stroke="#bcd0ff" stroke-width="4"/>
+        <g>
+          <circle cx="76" cy="150" r="16" fill="#ff3b6b"/><text x="70" y="156" font-size="14" font-weight="900" fill="#fff">1</text>
+          <text x="46" y="110" font-size="13.5" font-weight="900" fill="#ffd9e2">Week 1</text>
+          <text x="42" y="196" font-size="13" font-weight="900" fill="#fff">q1–2 hr</text>
+          <text x="42" y="214" font-size="11.5" font-style="italic" fill="#e6eeff">by the clock</text>
+        </g>
+        <g>
+          <circle cx="216" cy="150" r="16" fill="#ff8a3d"/><text x="210" y="156" font-size="14" font-weight="900" fill="#2b1200">2</text>
+          <text x="186" y="110" font-size="13.5" font-weight="900" fill="#ffd0bd">Week 2</text>
+          <text x="180" y="196" font-size="13" font-weight="900" fill="#fff">+15–30 min</text>
+          <text x="180" y="214" font-size="11.5" font-style="italic" fill="#e6eeff">≈ q2 hr</text>
+        </g>
+        <g>
+          <circle cx="356" cy="150" r="16" fill="#ffc233"/><text x="350" y="156" font-size="14" font-weight="900" fill="#231a02">3</text>
+          <text x="326" y="110" font-size="13.5" font-weight="900" fill="#ffe49a">Week 3</text>
+          <text x="320" y="196" font-size="13" font-weight="900" fill="#fff">+15–30 min</text>
+          <text x="320" y="214" font-size="11.5" font-style="italic" fill="#e6eeff">≈ q2.5–3 hr</text>
+        </g>
+        <g>
+          <circle cx="480" cy="150" r="16" fill="#12b886"/><text x="474" y="156" font-size="14" font-weight="900" fill="#03291c">4</text>
+          <text x="446" y="110" font-size="13.5" font-weight="900" fill="#a5f3d4">Week 4+</text>
+          <text x="436" y="196" font-size="13" font-weight="900" fill="#fff">GOAL q3–4 hr</text>
+          <text x="436" y="214" font-size="11.5" font-style="italic" fill="#d8fff0">continent</text>
+        </g>
+        <path d="M40 78 C 200 56 360 56 500 78" fill="none" stroke="#a5f3d4" stroke-width="3" stroke-dasharray="8 6"/>
+        <text x="196" y="62" font-size="13" font-weight="900" fill="#a5f3d4">longer and longer between voids ➜</text>
+      </svg>
+      <p style="margin-top:11px"><b>Urge-suppression technique</b> — teach this exact sequence for when the urge hits between scheduled times:</p>
+      <div class="ladder">
+        <div class="rung"><div class="n">1</div><div class="t">🛑 <b>STOP</b> and stand still or sit down — <span class="never">never run to the bathroom</span>, running makes the spasm worse</div></div>
+        <div class="rung"><div class="n">2</div><div class="t">💪 <b>Quick flicks</b> — several fast, strong pelvic floor squeezes to shut the urge down</div></div>
+        <div class="rung"><div class="n">3</div><div class="t">😮‍💨 <b>Breathe deeply</b> and relax; distract yourself (count backward from 50)</div></div>
+        <div class="rung"><div class="n">4</div><div class="t">🚶 When the urge passes, <b>walk calmly</b> to the toilet</div></div>
+      </div>
+      <div class="mn">🧠 <b>&ldquo;Freeze, squeeze, breathe, then leave.&rdquo;</b> Four steps in order. Running to the toilet <i>jostles</i> the bladder and triggers the detrusor — standing still and squeezing turns it off.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>⏱️ Timed voiding &amp; its cousins — know the difference</h3>
+      <table>
+        <tr><th style="width:34%">Technique</th><th class="up">What it is</th><th class="lo">Best for</th></tr>
+        <tr><td><b>Timed / scheduled voiding</b></td><td>Void on a <b>fixed clock schedule</b> (e.g. q<span class="mono">2</span>h) whether or not there is an urge</td><td>Any client; the default in facilities</td></tr>
+        <tr><td><b>Habit training</b></td><td>Schedule built around the client's <b>own pattern</b> from the bladder diary</td><td>Clients with a predictable pattern</td></tr>
+        <tr><td><b>Prompted voiding</b></td><td>Caregiver <b>asks</b> at intervals whether the client needs to go, and praises success</td><td><b>Cognitive impairment</b> / dementia</td></tr>
+        <tr><td><b>Bladder training</b></td><td>Progressively <b>lengthens</b> the interval with urge suppression</td><td><b>Cognitively intact</b> urge/mixed</td></tr>
+      </table>
+      <p style="margin-top:10px"><b>Double voiding:</b> void, wait <span class="mono">2–5</span> minutes, lean slightly forward and void again — helps empty a bladder with residual urine.</p>
+      <div class="mn">🧠 <b>&ldquo;The clock decides, not the bladder.&rdquo;</b> That is the whole idea of timed voiding — you empty <i>before</i> the bladder gets loud enough to win the argument.</div>
+    </div>
+
+    <div class="card emerald">
+      <h3>✅ Habits that make training work</h3>
+      <ul class="tick">
+        <li>💧 <b><span class="mono">1500–2000 mL</span>/day</b> — <span class="never">never restrict fluids to control leaking</span>; concentrated urine irritates the bladder</li>
+        <li>🌙 Limit fluids <span class="mono">2–3</span> hours before bed for nocturia</li>
+        <li>☕ Cut the irritants: caffeine, alcohol, carbonated drinks, artificial sweeteners, citrus, tomato, spicy foods</li>
+        <li>📔 Keep a <b>bladder diary</b> — times, volumes, leaks, triggers, intake</li>
+        <li>💩 <b>Treat constipation</b>; ⚖️ lose weight; 🚬 stop smoking (chronic cough)</li>
+        <li>🚻 Set up the path: bedside commode, call light in reach, night light, elastic-waist clothing, non-skid shoes</li>
+      </ul>
+      <div class="mn">🧠 <b>&ldquo;Drink enough, cut the buzz, clear the path.&rdquo;</b> Enough water, no caffeine or alcohol, and a bathroom you can actually reach. Simple, and it beats a drug in most first-line questions.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ WHEN DRUGS ARE ADDED ============ -->
+<section id="meds">
+  <div class="sec-h"><span class="icon">💊</span><h2>WHEN DRUGS ARE ADDED</h2><span class="step">STEP 3 · OXYBUTYNIN &amp; TOLTERODINE</span></div>
+  <p class="sec-sub">If behavioral therapy isn't enough for an overactive bladder, these are the drugs — and they dry out the entire body.</p>
+
+  <div class="grid">
+
+    <div class="card emerald span2">
+      <h3>💊 Oxybutynin &amp; tolterodine — <mark>anticholinergics that relax the detrusor</mark></h3>
+      <div class="duo">
+        <div>
+          <p><b>Indication:</b> <b>overactive bladder</b>. Decreases <b>urgency</b>, <b>frequency</b> and <b>nighttime bathroom visits (nocturia)</b>.</p>
+          <p><b>MOA:</b> an <b>anticholinergic</b> — it blocks <b>acetylcholine at the M₃ muscarinic receptors</b> on the detrusor, so the muscle stops spasming and the bladder holds more.</p>
+          <p><b>Think:</b> anticholinergic = <b>anti-secretions</b> = <b>dry the body out.</b></p>
+        </div>
+        <svg viewBox="0 0 420 250" role="img" aria-label="Mechanism diagram: acetylcholine normally binds the M3 muscarinic receptor to contract the detrusor, while oxybutynin blocks that receptor so the muscle relaxes">
+          <rect x="4" y="4" width="412" height="242" rx="16" fill="rgba(13,8,26,.5)" stroke="#12b886" stroke-width="2"/>
+          <text x="16" y="30" font-size="14.5" font-weight="900" fill="#a5f3d4">🔒 BLOCK THE RECEPTOR</text>
+          <rect x="16" y="44" width="388" height="16" rx="8" fill="#ff9f86"/>
+          <text x="16" y="80" font-size="12.5" font-style="italic" fill="#ffd0bd">detrusor muscle cell surface</text>
+          <path d="M96 60 L96 92 M76 92 L116 92" stroke="#d8fff0" stroke-width="4"/>
+          <circle cx="96" cy="112" r="16" fill="#ffc233"/><text x="84" y="118" font-size="12" font-weight="900" fill="#231a02">ACh</text>
+          <text x="126" y="118" font-size="13" font-weight="800" fill="#ffe49a">→ normally: SQUEEZE</text>
+          <path d="M280 60 L280 92 M260 92 L300 92" stroke="#d8fff0" stroke-width="4"/>
+          <rect x="256" y="98" width="48" height="34" rx="9" fill="#12b886" stroke="#eafff7" stroke-width="2"/>
+          <text x="260" y="120" font-size="11.5" font-weight="900" fill="#fff">OXY-</text>
+          <circle cx="336" cy="120" r="15" fill="#ffc233" opacity=".5"/>
+          <path d="M322 106 L350 134 M350 106 L322 134" stroke="#ff3b6b" stroke-width="4"/>
+          <text x="240" y="156" font-size="13" font-weight="900" fill="#a5f3d4">ACh locked out</text>
+          <rect x="16" y="176" width="388" height="56" rx="12" fill="rgba(18,184,134,.5)"/>
+          <text x="30" y="200" font-size="14" font-weight="900" fill="#fff">Detrusor RELAXES ➜ bladder holds more</text>
+          <text x="30" y="222" font-size="13" font-weight="800" fill="#d8fff0">➜ less urgency · less frequency · less nocturia</text>
+        </svg>
+      </div>
+      <div class="mn">🧠 <b>&ldquo;Oxy-<u>Buty</u>-nin — <u>B</u> for <u>B</u>ladder. The Ox is on your Bladder!&rdquo;</b> Picture a huge ox sitting on the bladder, pinning it still so it can't spasm. Given for urinary <b>frequency</b>.</div>
+    </div>
+
+    <div class="card ruby span2">
+      <h3>🚫 Side effects — the whole body dries out</h3>
+      <div class="no-grid">
+        <div class="no-t hot"><span class="e">👁️</span>Blurred vision<i>can't SEE</i></div>
+        <div class="no-t hot"><span class="e">😶</span>Dry mouth<i>can't SPIT</i></div>
+        <div class="no-t hot"><span class="e">🥺</span>Dry eyes<i>&nbsp;</i></div>
+        <div class="no-t hot"><span class="e">🚽</span>Urinary retention<i>can't PEE</i></div>
+        <div class="no-t"><span class="e">💩</span>Constipation<i>can't POOP</i></div>
+        <div class="no-t"><span class="e">😴</span>Drowsy · dizzy<i>&nbsp;</i></div>
+        <div class="no-t"><span class="e">🥵</span>Can't sweat<i>hyperthermia</i></div>
+        <div class="no-t"><span class="e">💓</span>Tachycardia<i>&nbsp;</i></div>
+        <div class="no-t"><span class="e">🧠</span>Confusion<i>esp. older adults</i></div>
+      </div>
+      <p style="margin-top:11px"><b>Common NCLEX question:</b> <i>Which are <b>expected</b> side effects of oxybutynin? Select all that apply.</i></p>
+      <table>
+        <tr><th class="lo" style="width:50%">✅ Correct</th><th class="up" style="width:50%">❌ Distractors — and why</th></tr>
+        <tr><td><b>Dry eyes</b></td><td><b>Hypertension</b> — not an anticholinergic effect <i>(that's mirabegron)</i></td></tr>
+        <tr><td><b>Dry mouth</b></td><td><b>Diarrhea</b> — the opposite; expect <b>constipation</b></td></tr>
+        <tr><td colspan="2"><b>Hypokalemia</b> — not related to this drug class at all</td></tr>
+      </table>
+      <div class="mn">🧠 <b>&ldquo;Can't see, can't pee, can't spit, can't poop.&rdquo;</b> The classic anticholinergic quartet — plus <b>&ldquo;hot as a hare, dry as a bone, red as a beet, mad as a hatter.&rdquo;</b> Every symptom is just <i>drying</i>.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🚨 Major adverse effect &amp; the two &ldquo;avoids&rdquo;</h3>
+      <p style="font-size:1.04rem"><b>Urinary retention</b> — <i>&ldquo;no urination all day&rdquo;</i> ➜ <mark>REPORT TO THE HCP</mark>.</p>
+      <p>It is the cruel irony of the drug class: given for bladder symptoms, it can stop the bladder from emptying entirely.</p>
+      <ul class="tick">
+        <li>👁️ <span class="never">AVOID in glaucoma</span> — anticholinergics can raise intraocular pressure (narrow-angle)</li>
+        <li>🧔 <span class="never">AVOID in BPH</span> — already obstructed; this tips him into full retention</li>
+        <li>🚧 Caution in GI obstruction, ileus, myasthenia gravis, and in <b>older adults</b> (confusion, falls)</li>
+      </ul>
+      <div class="mn">🧠 <b>&ldquo;Dry body — avoid Glaucoma &amp; BPH. That's ALL anticholinergics.&rdquo;</b> Learn it once here and it transfers to every anticholinergic you will ever be tested on.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🗣️ Patient teaching</h3>
+      <ul class="tick">
+        <li>🧍 <b>Change positions slowly</b> — prevents orthostatic hypotension</li>
+        <li>🥵 <b>Avoid hyperthermia</b> — too much sun, hot tubs, heavy exercise in heat; the body can't sweat to cool itself</li>
+        <li>🍬 Sugar-free gum or hard candy, sips of water for <b>dry mouth</b></li>
+        <li>🥗 Fiber + fluids for <b>constipation</b>; report <b>no bowel movement</b> or <b>no urination</b></li>
+        <li>👓 Expect <b>blurred vision</b> — no driving until the effect is known</li>
+        <li>💊 <b>Do not crush or chew</b> extended-release tablets</li>
+      </ul>
+      <div class="mn">🧠 <b>&ldquo;Slow up, stay cool, sip water.&rdquo;</b> Three sentences the client leaves with. The fourth — <i>call if you haven't urinated all day</i> — is the one that keeps her out of the ED.</div>
+    </div>
+
+    <div class="card topaz span2">
+      <h3>⭐ Don't get tricked by sound-alike names</h3>
+      <table>
+        <tr><th style="width:24%">Drug</th><th class="up">What it actually is</th><th class="lo">Memory clue</th></tr>
+        <tr><td><b>Oxy<u>butyn</u>in</b></td><td><b>Bladder</b> — anticholinergic for overactive bladder / frequency</td><td><b>B</b>uty = <b>B</b>ladder. <i>The Ox is on your Bladder!</i></td></tr>
+        <tr><td><b>Oxy<u>codone</u></b></td><td><b>Opioid</b> pain medication</td><td><b>Codone</b> sounds like <b>codeine</b> — or just look for the <b>O</b>'s in c<b>O</b>d<b>O</b>ne: <b>O</b> for <b>O</b>pioid</td></tr>
+        <tr><td><b>Oxy<u>tocin</u></b></td><td><b>Labor</b> — given to induce/augment contractions</td><td><b>To-cin</b> = <b>to contract</b></td></tr>
+      </table>
+      <p style="margin-top:11px"><b>Also on the shelf:</b> <b>tolterodine (Detrol)</b> — same anticholinergic class, same teaching. <b>Mirabegron</b> is a different mechanism (<b>beta-3 agonist</b>, relaxes the detrusor without the drying) — but it can <b>raise blood pressure</b>, so monitor BP.</p>
+      <div class="mn">🧠 <b>&ldquo;Bladder · Opioid · Contractions.&rdquo;</b> Three &ldquo;oxy&rdquo; drugs, three completely different patients. Read past the first three letters — that is the entire trap.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">💪 Detrusor + 2 sphincters</span>Internal = involuntary 🔒 · External = voluntary ✋ = the Kegel muscle.</div>
+    <div class="rc tealbg"><span class="big">🅢 Stores · 🅟 Pees</span>Sympathetic stores (T11–L2) · Parasympathetic pees (S2–S4).</div>
+    <div class="rc rubybg"><span class="big">🏋️ Behavioral FIRST</span>Kegels, bladder training, timed voiding before drugs.</div>
+    <div class="rc topazbg"><span class="big">🚽 No pee all day</span>= retention on oxybutynin ➜ <b>report to HCP</b>.</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 7 rapid-fire questions</summary>
+      <div class="qa">Q1: Name the two sphincters and say which one you can control. <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Internal urethral sphincter — smooth muscle, involuntary. External urethral sphincter — skeletal muscle, voluntary, pudendal nerve S2–S4. The external one is what Kegels train.</div></div>
+      <div class="qa">Q2: Which spinal levels control the micturition reflex? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">S2, S3, S4 — the sacral micturition centre. "S2, 3, 4 keep the pee off the floor."</div></div>
+      <div class="qa">Q3: At what volume does the first urge to void appear, and what is normal adult capacity? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">First urge around 150–250 mL; capacity roughly 400–600 mL. Normal post-void residual is under 50 mL.</div></div>
+      <div class="qa">Q4: Describe the Kegel prescription and one thing the client should NOT do. <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Contract 10 seconds, relax 10 seconds, 10 repetitions, 3 sets a day. Do not hold your breath, do not tighten abdomen/buttocks/thighs, and do not routinely stop the urine stream to practice — use that once only to identify the muscle. Expect 4–6 weeks for improvement.</div></div>
+      <div class="qa">Q5: A client on bladder training gets a strong urge 40 minutes before her scheduled void. What do you teach her to do? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Stop and stand still (do not run), do several quick pelvic floor contractions, breathe deeply and distract herself, then walk calmly to the toilet when the urge passes.</div></div>
+      <div class="qa">Q6: Which are expected side effects of oxybutynin — hypertension, dry eyes, dry mouth, diarrhea, hypokalemia? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Dry eyes and dry mouth. Not hypertension, not diarrhea (expect constipation), not hypokalemia.</div></div>
+      <div class="qa">Q7: Two conditions where you avoid oxybutynin, and why? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Glaucoma — anticholinergics can raise intraocular pressure. BPH — the outlet is already obstructed and the drug can cause complete urinary retention. This applies to all anticholinergics.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">ANATOMY</span>→
+    <span style="background:rgba(47,107,255,.7)">TRAINING</span>→
+    <span style="background:rgba(18,184,134,.7)">DRUGS</span>
+  </div>
+  <div>NG-104 · Source wording retained · Companion page: NG-272 Urinary Incontinence types</div>
+</footer>
+
+</div>
+
+</body></html>

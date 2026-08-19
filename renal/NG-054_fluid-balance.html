@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fluid Balance · NG-054 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+/* ===== appended for the RENAL + FLUID series (new components only) ===== */
+#compart .sec-h h2{color:#9ff2ee} #compart .step{background:var(--teal);color:#00252b}
+#flow    .sec-h h2{color:#bcd0ff} #flow .step{background:var(--sapphire)}
+#control .sec-h h2{color:#d9c2ff} #control .step{background:var(--amethyst)}
+.trio{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,205px),1fr))}
+.pill{display:inline-block;font-size:.78rem;font-weight:900;padding:3px 10px;border-radius:999px;
+  background:rgba(13,8,26,.5);border:1px solid var(--line);margin:0 5px 5px 0}
+.card.tealc .pill,.card.topaz .pill,.card.citrinec .pill{background:rgba(255,255,255,.5);color:#1a1030;border-color:rgba(0,0,0,.3)}
+.svgcap{margin:7px 0 0;font-size:.86rem;font-style:italic;opacity:.92;text-align:center}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#compart">🫗 Compartments</a>
+  <a class="c2" href="#flow">🔁 In &amp; Out</a>
+  <a class="c3" href="#control">🎛️ Controls</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Renal + Fluid · Fundamentals of Nursing</div>
+  <h1>Fluid Balance <span class="drop">💧</span></h1>
+  <p class="sub">Where body water lives · how it moves · who controls it</p>
+  <div class="chips">
+    <span class="chip id">NG-054</span>
+    <span class="chip cat">RENAL + FLUID</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede"><b>Water is not stored in one bucket — it lives in three.</b> Two-thirds sits <i>inside your cells</i>; one-third sits <i>outside</i> them, and that outside third is split between the <b>space around cells</b> and the <b>blood vessels</b>. Every fluid disorder you will ever be tested on is just <b>water moving between those three tanks</b>.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc tealbg"><span class="big">💧 60 · 40 · 20</span>Total body water ≈ <span class="mono">60%</span> of body weight · <span class="mono">40%</span> inside cells · <span class="mono">20%</span> outside.</div>
+  <div class="rc citrine"><span class="big">🪣 ⅔ in · ⅓ out</span>ICF = ⅔ of body water. ECF = ⅓ — and that ⅓ is <b>¾ interstitial</b>, <b>¼ intravascular</b>.</div>
+  <div class="rc topazbg"><span class="big">⚖️ 1 kg = 1 L = 2.2 lb</span>Daily weight is the <b>single best</b> fluid-status measure. Same scale, same time, same clothes.</div>
+  <div class="rc rubybg"><span class="big">🎛️ Hold vs. dump</span><b>ADH + aldosterone HOLD</b> water. <b>ANP/BNP DUMPS</b> it. Thirst tops you up.</div>
+</div>
+
+<!-- ============ COMPARTMENTS ============ -->
+<section id="compart">
+  <div class="sec-h"><span class="icon">🫗</span><h2>COMPARTMENTS</h2><span class="step">STEP 1 · THE THREE TANKS</span></div>
+  <p class="sec-sub">Learn the three tanks and the doors between them — then every fluid problem is just “which way is the water going?”</p>
+
+  <div class="grid">
+
+    <div class="card deep span2">
+      <h3>🗺️ The map: total body water, split three ways</h3>
+      <p><mark>ICF ⅔ · ECF ⅓ · and ECF splits ¾ interstitial / ¼ intravascular.</mark> In a <span class="mono">70 kg</span> adult that is roughly <span class="mono">42 L</span> of water total.</p>
+
+      <svg viewBox="-13 -10 903 560" role="img" aria-label="Body fluid compartment map: a stacked bar showing intracellular fluid two thirds, interstitial fluid one quarter and plasma one twelfth of total body water, beside a diagram of a capillary, the interstitial space and a cell with arrows showing water moving by filtration, reabsorption and osmosis">
+        <defs>
+          <linearGradient id="icfG" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#b98cff"/><stop offset="1" stop-color="#7c3bea"/>
+          </linearGradient>
+          <linearGradient id="istG" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#4fe0e4"/><stop offset="1" stop-color="#00949a"/>
+          </linearGradient>
+          <linearGradient id="plaG" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#ff6f92"/><stop offset="1" stop-color="#c02255"/>
+          </linearGradient>
+          <marker id="a54a" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6.5" markerHeight="6.5" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/>
+          </marker>
+          <marker id="a54b" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6.5" markerHeight="6.5" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#7df0c6"/>
+          </marker>
+        </defs>
+        <rect x="-9" y="-6" width="895" height="552" rx="20" fill="rgba(13,8,26,.42)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+
+        <!-- ============ LEFT: stacked bar ============ -->
+        <text x="28" y="44" font-size="21" font-weight="900" fill="#ffe49a">TOTAL BODY WATER</text>
+        <text x="28" y="70" font-size="15" font-style="italic" fill="#e9dcff">70 kg adult ≈ 42 L (60% of body weight)</text>
+
+        <rect x="28" y="88" width="230" height="288" rx="14" fill="url(#icfG)" stroke="#efe4ff" stroke-width="2"/>
+        <text x="143" y="212" font-size="26" font-weight="900" text-anchor="middle" fill="#ffffff">ICF</text>
+        <text x="143" y="240" font-size="16" font-weight="800" text-anchor="middle" fill="#f3e9ff">INTRAcellular</text>
+        <text x="143" y="266" font-size="20" font-weight="900" text-anchor="middle" fill="#ffe49a">⅔ · ≈ 28 L</text>
+        <text x="143" y="292" font-size="14.5" font-style="italic" text-anchor="middle" fill="#f3e9ff">inside the cells</text>
+
+        <rect x="28" y="380" width="230" height="108" rx="12" fill="url(#istG)" stroke="#d9ffff" stroke-width="2"/>
+        <text x="143" y="412" font-size="20" font-weight="900" text-anchor="middle" fill="#00252b">INTERSTITIAL</text>
+        <text x="143" y="436" font-size="17" font-weight="900" text-anchor="middle" fill="#00252b">¾ of ECF · ≈ 10.5 L</text>
+        <text x="143" y="460" font-size="14" font-style="italic" text-anchor="middle" fill="#00353c">between the cells — where edema shows</text>
+
+        <rect x="28" y="492" width="230" height="36" rx="10" fill="url(#plaG)" stroke="#ffd9e2" stroke-width="2"/>
+        <text x="143" y="516" font-size="15.5" font-weight="900" text-anchor="middle" fill="#ffffff">PLASMA ¼ of ECF ≈ 3.5 L</text>
+
+        <!-- ECF brace -->
+        <path d="M272 380 L286 380 L286 528 L272 528" fill="none" stroke="#ffc233" stroke-width="3"/>
+        <text x="296" y="440" font-size="18" font-weight="900" fill="#ffc233">ECF</text>
+        <text x="296" y="462" font-size="14.5" font-weight="800" fill="#ffe49a">⅓ · ≈ 14 L</text>
+        <text x="296" y="482" font-size="13" font-style="italic" fill="#ffe49a">outside the cells</text>
+
+        <!-- ============ RIGHT: capillary / interstitium / cell ============ -->
+        <text x="392" y="44" font-size="21" font-weight="900" fill="#7df0c6">THE DOORS BETWEEN THE TANKS</text>
+        <text x="392" y="70" font-size="15" font-style="italic" fill="#d8fff0">water only ever travels along these two routes</text>
+
+        <!-- interstitial background -->
+        <rect x="392" y="88" width="460" height="426" rx="18" fill="rgba(0,194,199,.22)" stroke="#00c2c7" stroke-width="2" stroke-dasharray="8 6"/>
+        <text x="404" y="116" font-size="16" font-weight="900" fill="#9ff2ee">INTERSTITIAL SPACE (around the cells)</text>
+
+        <!-- capillary -->
+        <rect x="410" y="150" width="80" height="330" rx="30" fill="rgba(192,34,85,.55)" stroke="#ffd9e2" stroke-width="2.5"/>
+        <circle cx="440" cy="200" r="12" fill="#ff6f92"/><circle cx="466" cy="250" r="12" fill="#ff6f92"/>
+        <circle cx="436" cy="304" r="12" fill="#ff6f92"/><circle cx="464" cy="368" r="12" fill="#ff6f92"/>
+        <circle cx="440" cy="428" r="12" fill="#ff6f92"/>
+        <text x="450" y="512" font-size="15.5" font-weight="900" text-anchor="middle" fill="#ff9db4">CAPILLARY</text>
+        <text x="450" y="140" font-size="15" font-weight="900" text-anchor="middle" fill="#ff9db4">INTRAvascular</text>
+
+        <!-- cell -->
+        <circle cx="740" cy="300" r="98" fill="rgba(157,92,255,.62)" stroke="#efe4ff" stroke-width="3"/>
+        <circle cx="740" cy="300" r="34" fill="rgba(13,8,26,.55)" stroke="#efe4ff" stroke-width="2"/>
+        <text x="740" y="306" font-size="14" font-weight="900" text-anchor="middle" fill="#efe4ff">nucleus</text>
+        <text x="740" y="180" font-size="17" font-weight="900" text-anchor="middle" fill="#e3d2ff">CELL · ICF</text>
+        <text x="740" y="424" font-size="14" font-weight="900" text-anchor="middle" fill="#e3d2ff">K⁺ lives in here</text>
+
+        <!-- arrows cap -> interstitium (filtration, arterial end) -->
+        <path d="M494 208 L588 208" fill="none" stroke="#ffc233" stroke-width="7" stroke-linecap="round" marker-end="url(#a54a)"/>
+        <text x="500" y="192" font-size="14.5" font-weight="900" fill="#ffc233">FILTRATION ➜ out</text>
+        <text x="500" y="234" font-size="13" font-style="italic" fill="#ffe49a">pushed by hydrostatic pressure</text>
+
+        <!-- arrows interstitium -> cap (reabsorption, venous end) -->
+        <path d="M600 400 L500 400" fill="none" stroke="#7df0c6" stroke-width="7" stroke-linecap="round" marker-end="url(#a54b)"/>
+        <text x="506" y="384" font-size="14.5" font-weight="900" fill="#7df0c6">⬅ REABSORPTION</text>
+        <text x="506" y="426" font-size="13" font-style="italic" fill="#d8fff0">pulled by albumin (oncotic)</text>
+
+        <!-- arrows interstitium <-> cell (osmosis) -->
+        <path d="M628 288 L634 288" fill="none" stroke="#ffc233" stroke-width="6"/>
+        <path d="M612 282 L636 282" fill="none" stroke="#ffc233" stroke-width="7" stroke-linecap="round" marker-end="url(#a54a)"/>
+        <path d="M636 322 L612 322" fill="none" stroke="#ffc233" stroke-width="7" stroke-linecap="round" marker-end="url(#a54a)"/>
+        <text x="624" y="256" font-size="15" font-weight="900" text-anchor="middle" fill="#ffc233">OSMOSIS ⇄</text>
+        <text x="624" y="352" font-size="13" font-style="italic" text-anchor="middle" fill="#ffe49a">water only</text>
+        <text x="624" y="370" font-size="13" font-style="italic" text-anchor="middle" fill="#ffe49a">follows salt</text>
+      </svg>
+      <p class="svgcap">Water crosses the capillary wall by pressure (filtration &amp; reabsorption) and crosses the cell membrane by osmosis. Sodium stays outside, potassium stays inside — <b>water chases sodium.</b></p>
+      <div class="mn">🧠 <b>“⅔ – ¾ – ¼.”</b> Two-thirds of your water is <b>in</b> the cells. Of what's left, <b>three-quarters bathes</b> the cells and only <b>one-quarter is in the pipes</b>. That tiny quarter is the one that keeps your blood pressure up — which is why losing “just a little” volume hits so hard.</div>
+    </div>
+
+    <div class="card">
+      <h3>🧊 ICF — intracellular fluid <span class="tip">⅔</span></h3>
+      <ul class="tick">
+        <li><b>≈ <span class="mono">28 L</span></b> in a 70 kg adult · <span class="mono">40%</span> of body weight.</li>
+        <li>Main cation: <b>potassium <span class="mono">K⁺</span></b> (also Mg²⁺, phosphate).</li>
+        <li>This is where cells do their chemistry — swelling or shrinking it changes how the <b>brain</b> works first.</li>
+      </ul>
+      <div class="mn">🧠 <b>“K stays in the Kell.”</b> Potassium = inside the cell. That's why cell death (crush injury, burns, tumor lysis) dumps <b>K⁺ into the blood</b> and causes hyper<b>K</b>alemia.</div>
+    </div>
+
+    <div class="card tealc">
+      <h3>🌊 ECF — extracellular fluid <span class="tip">⅓</span></h3>
+      <ul class="tick">
+        <li><b>Interstitial</b> ≈ <span class="mono">10.5 L</span> — the puddle around cells. <b>This is the space that puffs up as edema.</b></li>
+        <li><b>Intravascular (plasma)</b> ≈ <span class="mono">3.5 L</span> — inside vessels. Drives BP, pulse and perfusion.</li>
+        <li><b>Transcellular</b> ≈ <span class="mono">1 L</span> — CSF, synovial, pleural, peritoneal, pericardial, GI secretions. <i>Where “third spacing” hides.</i></li>
+      </ul>
+      <p>Main cation: <b>sodium <span class="mono">Na⁺</span></b>; main anion <span class="mono">Cl⁻</span>.</p>
+      <div class="mn">🧠 <b>“Na⁺ is the OUTsider.”</b> Sodium waits outside the cell holding the water hose. Wherever sodium goes, <b>water follows</b>.</div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>🚪 Four ways things move — and which one moves WATER</h3>
+      <div class="trio">
+        <div>
+          <svg viewBox="0 0 220 170" role="img" aria-label="Diffusion: solute dots spreading from a crowded side to an empty side of a membrane until both sides are equal">
+            <rect x="4" y="4" width="212" height="162" rx="12" fill="rgba(47,107,255,.28)" stroke="#bcd0ff" stroke-width="2"/>
+            <line x1="110" y1="28" x2="110" y2="152" stroke="#ffffff" stroke-width="3" stroke-dasharray="6 5"/>
+            <text x="110" y="22" font-size="13" font-weight="900" text-anchor="middle" fill="#ffe49a">DIFFUSION</text>
+            <circle cx="40" cy="52" r="7" fill="#ffc233"/><circle cx="62" cy="74" r="7" fill="#ffc233"/>
+            <circle cx="38" cy="96" r="7" fill="#ffc233"/><circle cx="66" cy="120" r="7" fill="#ffc233"/>
+            <circle cx="86" cy="60" r="7" fill="#ffc233"/><circle cx="88" cy="106" r="7" fill="#ffc233"/>
+            <circle cx="156" cy="86" r="7" fill="#ffc233"/>
+            <path d="M96 88 L150 88" stroke="#ffc233" stroke-width="5" stroke-linecap="round"/>
+            <path d="M144 80 L158 88 L144 96 z" fill="#ffc233"/>
+            <text x="110" y="166" font-size="11.5" font-weight="800" text-anchor="middle" fill="#eaf0ff">SOLUTES: high ➜ low</text>
+          </svg>
+          <p style="margin:6px 0 0"><b>Diffusion</b> — <i>solutes</i> move from <b>greater</b> to <b>lesser</b> concentration until equal. <br><span class="pill">O₂ &amp; CO₂ swapping in the lungs</span></p>
+        </div>
+        <div>
+          <svg viewBox="0 0 220 170" role="img" aria-label="Osmosis: water molecules crossing a semipermeable membrane from the dilute side toward the concentrated salty side">
+            <rect x="4" y="4" width="212" height="162" rx="12" fill="rgba(0,194,199,.28)" stroke="#9ff2ee" stroke-width="2"/>
+            <line x1="110" y1="28" x2="110" y2="152" stroke="#ffffff" stroke-width="3" stroke-dasharray="4 4"/>
+            <text x="110" y="22" font-size="13" font-weight="900" text-anchor="middle" fill="#ffe49a">OSMOSIS</text>
+            <text x="56" y="60" font-size="12" font-weight="900" text-anchor="middle" fill="#d8fff0">dilute</text>
+            <text x="166" y="60" font-size="12" font-weight="900" text-anchor="middle" fill="#d8fff0">salty</text>
+            <circle cx="40" cy="86" r="6" fill="#9ff2ee"/><circle cx="62" cy="110" r="6" fill="#9ff2ee"/>
+            <circle cx="44" cy="132" r="6" fill="#9ff2ee"/><circle cx="84" cy="130" r="6" fill="#9ff2ee"/>
+            <circle cx="150" cy="94" r="8" fill="#ff8a3d"/><circle cx="176" cy="118" r="8" fill="#ff8a3d"/>
+            <circle cx="152" cy="140" r="8" fill="#ff8a3d"/><circle cx="184" cy="76" r="8" fill="#ff8a3d"/>
+            <path d="M78 86 L150 66" stroke="#9ff2ee" stroke-width="5" stroke-linecap="round"/>
+            <path d="M142 60 L158 64 L146 74 z" fill="#9ff2ee"/>
+            <text x="110" y="166" font-size="11.5" font-weight="800" text-anchor="middle" fill="#d8fff0">WATER: low ➜ high solute</text>
+          </svg>
+          <p style="margin:6px 0 0"><b>Osmosis</b> — <i>water</i> moves from <b>lower</b> to <b>higher</b> solute concentration. <br><span class="pill">large intestine reabsorbing water</span></p>
+        </div>
+        <div>
+          <svg viewBox="0 0 220 170" role="img" aria-label="Filtration: pressure in a vessel pushing both fluid and solutes through a membrane into a low pressure space, as in the kidney glomerulus">
+            <rect x="4" y="4" width="212" height="162" rx="12" fill="rgba(255,59,107,.26)" stroke="#ff9db4" stroke-width="2"/>
+            <text x="110" y="22" font-size="13" font-weight="900" text-anchor="middle" fill="#ffe49a">FILTRATION</text>
+            <rect x="18" y="46" width="66" height="98" rx="16" fill="rgba(192,34,85,.6)" stroke="#ffd9e2" stroke-width="2"/>
+            <text x="51" y="100" font-size="12" font-weight="900" text-anchor="middle" fill="#ffffff">HIGH</text>
+            <text x="51" y="116" font-size="12" font-weight="900" text-anchor="middle" fill="#ffffff">PRESSURE</text>
+            <line x1="92" y1="44" x2="92" y2="146" stroke="#ffffff" stroke-width="3" stroke-dasharray="5 5"/>
+            <path d="M96 74 L168 74" stroke="#ffc233" stroke-width="5" stroke-linecap="round"/>
+            <path d="M162 67 L176 74 L162 81 z" fill="#ffc233"/>
+            <path d="M96 116 L168 116" stroke="#ffc233" stroke-width="5" stroke-linecap="round"/>
+            <path d="M162 109 L176 116 L162 123 z" fill="#ffc233"/>
+            <text x="150" y="100" font-size="12" font-weight="900" text-anchor="middle" fill="#ffe49a">low pressure</text>
+            <text x="110" y="166" font-size="11.5" font-weight="800" text-anchor="middle" fill="#ffd9e2">FLUID + SOLUTES together</text>
+          </svg>
+          <p style="margin:6px 0 0"><b>Filtration</b> — <b>both</b> fluid <i>and</i> solutes, from <b>high</b> hydrostatic pressure to <b>low</b>. <br><span class="pill">the glomerulus filtering blood</span></p>
+        </div>
+      </div>
+      <p style="margin-top:12px">🔋 <b>Active transport</b> is the fourth: it burns <span class="mono">ATP</span> to push ions <i>against</i> their gradient. The <b>sodium–potassium pump</b> shoves <span class="mono">3 Na⁺ out</span> for every <span class="mono">2 K⁺ in</span> — that pump is the whole reason Na⁺ is an outsider and K⁺ an insider.</p>
+      <div class="mn">🧠 <b>“Solutes Diffuse, Water Osmoses, Pressure Filters, ATP Pumps.”</b> If the question says <i>water</i> moved — it was <b>osmosis</b>. If it says water <i>and</i> particles moved because of <i>pressure</i> — it was <b>filtration</b>.</div>
+    </div>
+
+    <div class="card topaz span2">
+      <h3>🧪 Osmolality — the one number that says “thick or thin?”</h3>
+      <p><b>Osmolality = the concentration of a solution.</b> High osmolality = <b>more solute, heavier, thicker</b>. Low osmolality = <b>fewer solutes, lighter, more dilute</b>.</p>
+      <p><b>Normal serum osmolality: <span class="mono">275–295 mOsm/kg</span></b> (adult reference range). Sodium is the biggest driver — a quick bedside estimate is <span class="mono">2 × Na⁺</span>.</p>
+      <svg viewBox="0 0 440 294" role="img" aria-label="Bar scale showing normal adult serum osmolality of 275 to 295 milliosmoles per kilogram and normal serum sodium of 135 to 145 milliequivalents per liter"><text x="8" y="19" font-size="15" font-weight="800" fill="#ffffff">Serum osmolality</text><text x="432" y="19" font-size="13.5" font-weight="900" text-anchor="end" fill="#ffc233">normal</text><rect x="8" y="26" width="140" height="22" rx="7" fill="#2f6bff" opacity=".85"/><rect x="148" y="26" width="144" height="22" fill="#12b886" opacity=".9"/><rect x="292" y="26" width="140" height="22" rx="7" fill="#ff3b6b" opacity=".85"/><text x="78" y="41" font-size="11.5" font-weight="900" text-anchor="middle" fill="#eaf0ff">LOW</text><text x="220" y="41" font-size="11.5" font-weight="900" text-anchor="middle" fill="#03291c">NORMAL</text><text x="362" y="41" font-size="11.5" font-weight="900" text-anchor="middle" fill="#fff0f4">HIGH</text><path d="M210.0 64 L230.0 64 L220.0 49 z" fill="#ffc233" stroke="#0d081a" stroke-width="1.5"/><line x1="148" y1="26" x2="148" y2="52" stroke="#ffffff" stroke-width="2"/><line x1="292" y1="26" x2="292" y2="52" stroke="#ffffff" stroke-width="2"/><text x="148" y="80" font-size="12.5" font-weight="900" text-anchor="middle" fill="#cfe0ff">275</text><text x="292" y="80" font-size="12.5" font-weight="900" text-anchor="middle" fill="#cfe0ff">295</text><text x="432" y="80" font-size="12" font-style="italic" text-anchor="end" fill="#d9c2ff">mOsm/kg</text><text x="8" y="115" font-size="15" font-weight="800" fill="#ffffff">Serum sodium (Na⁺)</text><text x="432" y="115" font-size="13.5" font-weight="900" text-anchor="end" fill="#ffc233">normal</text><rect x="8" y="122" width="140" height="22" rx="7" fill="#2f6bff" opacity=".85"/><rect x="148" y="122" width="144" height="22" fill="#12b886" opacity=".9"/><rect x="292" y="122" width="140" height="22" rx="7" fill="#ff3b6b" opacity=".85"/><text x="78" y="137" font-size="11.5" font-weight="900" text-anchor="middle" fill="#eaf0ff">LOW</text><text x="220" y="137" font-size="11.5" font-weight="900" text-anchor="middle" fill="#03291c">NORMAL</text><text x="362" y="137" font-size="11.5" font-weight="900" text-anchor="middle" fill="#fff0f4">HIGH</text><path d="M210.0 160 L230.0 160 L220.0 145 z" fill="#ffc233" stroke="#0d081a" stroke-width="1.5"/><line x1="148" y1="122" x2="148" y2="148" stroke="#ffffff" stroke-width="2"/><line x1="292" y1="122" x2="292" y2="148" stroke="#ffffff" stroke-width="2"/><text x="148" y="176" font-size="12.5" font-weight="900" text-anchor="middle" fill="#cfe0ff">135</text><text x="292" y="176" font-size="12.5" font-weight="900" text-anchor="middle" fill="#cfe0ff">145</text><text x="432" y="176" font-size="12" font-style="italic" text-anchor="end" fill="#d9c2ff">mEq/L</text><text x="8" y="211" font-size="15" font-weight="800" fill="#ffffff">Urine specific gravity</text><text x="432" y="211" font-size="13.5" font-weight="900" text-anchor="end" fill="#ffc233">normal</text><rect x="8" y="218" width="140" height="22" rx="7" fill="#2f6bff" opacity=".85"/><rect x="148" y="218" width="144" height="22" fill="#12b886" opacity=".9"/><rect x="292" y="218" width="140" height="22" rx="7" fill="#ff3b6b" opacity=".85"/><text x="78" y="233" font-size="11.5" font-weight="900" text-anchor="middle" fill="#eaf0ff">LOW</text><text x="220" y="233" font-size="11.5" font-weight="900" text-anchor="middle" fill="#03291c">NORMAL</text><text x="362" y="233" font-size="11.5" font-weight="900" text-anchor="middle" fill="#fff0f4">HIGH</text><path d="M210.0 256 L230.0 256 L220.0 241 z" fill="#ffc233" stroke="#0d081a" stroke-width="1.5"/><line x1="148" y1="218" x2="148" y2="244" stroke="#ffffff" stroke-width="2"/><line x1="292" y1="218" x2="292" y2="244" stroke="#ffffff" stroke-width="2"/><text x="148" y="272" font-size="12.5" font-weight="900" text-anchor="middle" fill="#cfe0ff">1.005</text><text x="292" y="272" font-size="12.5" font-weight="900" text-anchor="middle" fill="#cfe0ff">1.030</text><text x="432" y="272" font-size="12" font-style="italic" text-anchor="end" fill="#d9c2ff">dilute ➜ concentrated</text></svg>
+      <p style="margin-top:10px"><b>Read those scales like a see-saw:</b> too much <i>water</i> pushes every one of them <span class="mono">LOW</span> (diluted). Too little water pushes every one of them <span class="mono">HIGH</span> (concentrated).</p>
+      <div class="mn">🧠 <b>“Low when Liquidy, High when Dry.”</b> One sentence covers osmolality, sodium, hematocrit, BUN and urine specific gravity. Memorise it now — it is the backbone of the whole fluid unit.</div>
+    </div>
+
+    <div class="card citrinec span2">
+      <h3>🧫 Tonicity — what a solution DOES to a cell</h3>
+      <svg viewBox="-10 -10 902 280" role="img" aria-label="Three red blood cells: in an isotonic solution the cell stays the same size, in a hypotonic solution water moves into the cell and it swells and bursts, in a hypertonic solution water moves out of the cell and it shrivels">
+        <defs>
+          <marker id="a54c" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#2b1200"/>
+          </marker>
+        </defs>
+        <rect x="4" y="4" width="288" height="252" rx="16" fill="rgba(18,184,134,.30)" stroke="#0a6b4f" stroke-width="2"/>
+        <text x="148" y="34" font-size="19" font-weight="900" text-anchor="middle" fill="#06301f">ISOTONIC</text>
+        <text x="148" y="56" font-size="13.5" font-weight="800" text-anchor="middle" fill="#06301f">270–300 mOsm/L · same as blood</text>
+        <circle cx="148" cy="146" r="52" fill="#c02255" stroke="#2b1200" stroke-width="3"/>
+        <circle cx="148" cy="146" r="22" fill="rgba(0,0,0,.28)"/>
+        <text x="148" y="228" font-size="15" font-weight="900" text-anchor="middle" fill="#06301f">no shift — cell unchanged</text>
+        <text x="148" y="248" font-size="13" font-style="italic" text-anchor="middle" fill="#06301f">expands the ECF only</text>
+
+        <rect x="300" y="4" width="288" height="252" rx="16" fill="rgba(47,107,255,.30)" stroke="#12306e" stroke-width="2"/>
+        <text x="444" y="34" font-size="19" font-weight="900" text-anchor="middle" fill="#0a1a3d">HYPOTONIC</text>
+        <text x="444" y="56" font-size="13.5" font-weight="800" text-anchor="middle" fill="#0a1a3d">&lt; 270 mOsm/L · light &amp; dilute</text>
+        <circle cx="444" cy="146" r="66" fill="#c02255" stroke="#0a1a3d" stroke-width="3" stroke-dasharray="9 6"/>
+        <circle cx="444" cy="146" r="26" fill="rgba(0,0,0,.28)"/>
+        <path d="M370 100 L414 126" stroke="#0a1a3d" stroke-width="5" marker-end="url(#a54c)"/>
+        <path d="M518 100 L474 126" stroke="#0a1a3d" stroke-width="5" marker-end="url(#a54c)"/>
+        <path d="M370 192 L414 166" stroke="#0a1a3d" stroke-width="5" marker-end="url(#a54c)"/>
+        <path d="M518 192 L474 166" stroke="#0a1a3d" stroke-width="5" marker-end="url(#a54c)"/>
+        <text x="444" y="228" font-size="15" font-weight="900" text-anchor="middle" fill="#0a1a3d">water moves IN — cell SWELLS</text>
+        <text x="444" y="248" font-size="13" font-style="italic" text-anchor="middle" fill="#0a1a3d">risk: cerebral edema</text>
+
+        <rect x="596" y="4" width="280" height="252" rx="16" fill="rgba(255,59,107,.30)" stroke="#5a0d23" stroke-width="2"/>
+        <text x="736" y="34" font-size="19" font-weight="900" text-anchor="middle" fill="#3d0413">HYPERTONIC</text>
+        <text x="736" y="56" font-size="13.5" font-weight="800" text-anchor="middle" fill="#3d0413">&gt; 300 mOsm/L · heavy &amp; thick</text>
+        <path d="M700 110 q18 -18 36 0 q22 -10 30 14 q16 22 -10 34 q-8 28 -34 18 q-24 12 -34 -14 q-22 -18 12 -52 z" fill="#c02255" stroke="#3d0413" stroke-width="3"/>
+        <circle cx="736" cy="146" r="18" fill="rgba(0,0,0,.28)"/>
+        <path d="M714 118 L668 92" stroke="#3d0413" stroke-width="5" marker-end="url(#a54c)"/>
+        <path d="M760 118 L806 92" stroke="#3d0413" stroke-width="5" marker-end="url(#a54c)"/>
+        <path d="M714 176 L668 200" stroke="#3d0413" stroke-width="5" marker-end="url(#a54c)"/>
+        <path d="M760 176 L806 200" stroke="#3d0413" stroke-width="5" marker-end="url(#a54c)"/>
+        <text x="736" y="228" font-size="15" font-weight="900" text-anchor="middle" fill="#3d0413">water moves OUT — cell SHRIVELS</text>
+        <text x="736" y="248" font-size="13" font-style="italic" text-anchor="middle" fill="#3d0413">pulls fluid into the vessels</text>
+      </svg>
+      <div class="mn">🧠 <b>“HypO = O for swellO. HypER = shrivER.”</b> Or picture a raisin: put a raisin in plain water (hypotonic) and it <b>plumps</b>; put a grape in syrup (hypertonic) and it <b>shrivels</b> into a raisin.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ IN & OUT ============ -->
+<section id="flow">
+  <div class="sec-h"><span class="icon">🔁</span><h2>INTAKE &amp; OUTPUT</h2><span class="step">STEP 2 · THE LEDGER</span></div>
+  <p class="sec-sub">Roughly 2,500 mL in, roughly 2,500 mL out. When the two columns stop matching, the patient's weight tells you first.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>⚖️ The daily balance sheet <span class="tip">≈ 2,500 mL EACH WAY</span></h3>
+      <svg viewBox="0 0 880 400" role="img" aria-label="Balance scale comparing daily fluid intake of about 2500 millilitres from drinks, food and metabolism against daily output of about 2500 millilitres from urine, skin, lungs and stool">
+        <defs>
+          <linearGradient id="inG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#4fe0e4"/><stop offset="1" stop-color="#00949a"/>
+          </linearGradient>
+          <linearGradient id="outG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffb066"/><stop offset="1" stop-color="#e0621b"/>
+          </linearGradient>
+        </defs>
+        <rect x="4" y="4" width="872" height="392" rx="18" fill="rgba(13,8,26,.4)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+        <!-- fulcrum -->
+        <path d="M420 330 L440 250 L460 330 z" fill="#d9c2ff"/>
+        <rect x="384" y="330" width="112" height="14" rx="7" fill="#d9c2ff"/>
+        <rect x="120" y="238" width="640" height="14" rx="7" fill="#efe4ff"/>
+        <line x1="200" y1="252" x2="200" y2="286" stroke="#efe4ff" stroke-width="4"/>
+        <line x1="680" y1="252" x2="680" y2="286" stroke="#efe4ff" stroke-width="4"/>
+
+        <!-- IN pan -->
+        <rect x="60" y="286" width="280" height="70" rx="14" fill="url(#inG)" stroke="#d9ffff" stroke-width="2"/>
+        <text x="200" y="316" font-size="21" font-weight="900" text-anchor="middle" fill="#00252b">INTAKE ≈ 2,500 mL</text>
+        <text x="200" y="340" font-size="14" font-style="italic" text-anchor="middle" fill="#00353c">everything that goes in</text>
+        <text x="60" y="52" font-size="20" font-weight="900" fill="#9ff2ee">⬇️ IN</text>
+        <rect x="60" y="66" width="280" height="42" rx="10" fill="rgba(0,194,199,.35)" stroke="#9ff2ee" stroke-width="1.5"/>
+        <text x="76" y="93" font-size="16" font-weight="800" fill="#d8fff0">🥤 Liquids you drink</text>
+        <text x="326" y="93" font-size="16" font-weight="900" text-anchor="end" fill="#ffe49a">~1,500 mL</text>
+        <rect x="60" y="116" width="280" height="42" rx="10" fill="rgba(0,194,199,.35)" stroke="#9ff2ee" stroke-width="1.5"/>
+        <text x="76" y="143" font-size="16" font-weight="800" fill="#d8fff0">🍎 Water in food</text>
+        <text x="326" y="143" font-size="16" font-weight="900" text-anchor="end" fill="#ffe49a">~700–1,000 mL</text>
+        <rect x="60" y="166" width="280" height="42" rx="10" fill="rgba(0,194,199,.35)" stroke="#9ff2ee" stroke-width="1.5"/>
+        <text x="76" y="193" font-size="16" font-weight="800" fill="#d8fff0">🔥 Metabolism</text>
+        <text x="326" y="193" font-size="16" font-weight="900" text-anchor="end" fill="#ffe49a">~200–300 mL</text>
+
+        <!-- OUT pan -->
+        <rect x="540" y="286" width="280" height="70" rx="14" fill="url(#outG)" stroke="#ffe0c6" stroke-width="2"/>
+        <text x="680" y="316" font-size="21" font-weight="900" text-anchor="middle" fill="#2b1200">OUTPUT ≈ 2,500 mL</text>
+        <text x="680" y="340" font-size="14" font-style="italic" text-anchor="middle" fill="#3d1a00">everything that leaves</text>
+        <text x="540" y="52" font-size="20" font-weight="900" fill="#ffb066">⬆️ OUT</text>
+        <rect x="540" y="66" width="280" height="42" rx="10" fill="rgba(255,138,61,.35)" stroke="#ffb066" stroke-width="1.5"/>
+        <text x="556" y="93" font-size="16" font-weight="800" fill="#ffe0c6">🚽 Urine</text>
+        <text x="806" y="93" font-size="16" font-weight="900" text-anchor="end" fill="#ffe49a">~1,500 mL</text>
+        <rect x="540" y="116" width="280" height="42" rx="10" fill="rgba(255,138,61,.35)" stroke="#ffb066" stroke-width="1.5"/>
+        <text x="556" y="143" font-size="16" font-weight="800" fill="#ffe0c6">💦 Skin (insensible)</text>
+        <text x="806" y="143" font-size="16" font-weight="900" text-anchor="end" fill="#ffe49a">~500–600 mL</text>
+        <rect x="540" y="166" width="280" height="42" rx="10" fill="rgba(255,138,61,.35)" stroke="#ffb066" stroke-width="1.5"/>
+        <text x="556" y="193" font-size="16" font-weight="800" fill="#ffe0c6">🫁 Lungs · 💩 stool</text>
+        <text x="806" y="193" font-size="16" font-weight="900" text-anchor="end" fill="#ffe49a">~400 + ~150 mL</text>
+
+        <text x="440" y="382" font-size="16" font-weight="900" text-anchor="middle" fill="#ffe49a">BALANCED = weight stays the same</text>
+      </svg>
+      <p class="svgcap">Skin and lung losses are <b>insensible</b> — you cannot measure them, but they climb fast with fever, tachypnea, diaphoresis, burns and open wounds.</p>
+      <div class="mn">🧠 <b>“2.5 in, 2.5 out.”</b> If output drops below intake for two shifts running, the water is going <i>somewhere</i> — look for edema, crackles and a rising weight.</div>
+    </div>
+
+    <div class="card emerald">
+      <h3>⭐ Daily weight is the BEST fluid indicator</h3>
+      <p><mark><span class="mono">1 kg = 1 L = 2.2 lb</span></mark> of fluid. A scale catches fluid changes that I&amp;O charting misses.</p>
+      <ul class="tick">
+        <li>⏰ <b>Same time</b> — early morning, <b>after voiding, before breakfast</b>.</li>
+        <li>⚖️ <b>Same scale</b>, <b>same amount of clothing</b>, every day.</li>
+        <li>📈 <b>Report</b> a gain or loss of <span class="mono">2–3 lb in 1 day</span> or <span class="mono">5 lb in 1 week</span>.</li>
+      </ul>
+      <div class="mn">🧠 <b>“Weight gain = water gain. Weight loss = water loss.”</b> Overnight, a body cannot build or burn 3 lb of tissue — it can only hold or lose <b>water</b>.</div>
+    </div>
+
+    <div class="card topaz">
+      <h3>🚨 The number that means “kidneys still working”</h3>
+      <p><b>Minimum acceptable urine output: <span class="mono">30 mL/hr</span></b> — about <span class="mono">0.5 mL/kg/hr</span> in an adult.</p>
+      <svg viewBox="0 0 440 294" role="img" aria-label="Bar scale for hourly urine output showing that under 30 millilitres per hour is oliguria and must be reported"><text x="8" y="19" font-size="15" font-weight="800" fill="#ffffff">Urine output</text><text x="432" y="19" font-size="13.5" font-weight="900" text-anchor="end" fill="#ff3b6b">&lt;30 = REPORT</text><rect x="8" y="26" width="140" height="22" rx="7" fill="#2f6bff" opacity=".85"/><rect x="148" y="26" width="144" height="22" fill="#12b886" opacity=".9"/><rect x="292" y="26" width="140" height="22" rx="7" fill="#ff3b6b" opacity=".85"/><text x="78" y="41" font-size="11.5" font-weight="900" text-anchor="middle" fill="#eaf0ff">LOW</text><text x="220" y="41" font-size="11.5" font-weight="900" text-anchor="middle" fill="#03291c">NORMAL</text><text x="362" y="41" font-size="11.5" font-weight="900" text-anchor="middle" fill="#fff0f4">HIGH</text><path d="M74.3 64 L94.3 64 L84.3 49 z" fill="#ff3b6b" stroke="#0d081a" stroke-width="1.5"/><line x1="148" y1="26" x2="148" y2="52" stroke="#ffffff" stroke-width="2"/><line x1="292" y1="26" x2="292" y2="52" stroke="#ffffff" stroke-width="2"/><text x="148" y="80" font-size="12.5" font-weight="900" text-anchor="middle" fill="#cfe0ff">30 mL/hr</text><text x="292" y="80" font-size="12.5" font-weight="900" text-anchor="middle" fill="#cfe0ff">~100 mL/hr</text><text x="432" y="80" font-size="12" font-style="italic" text-anchor="end" fill="#d9c2ff">per hour</text><text x="8" y="115" font-size="15" font-weight="800" fill="#ffffff">Adult heart rate</text><text x="432" y="115" font-size="13.5" font-weight="900" text-anchor="end" fill="#ffc233">normal</text><rect x="8" y="122" width="140" height="22" rx="7" fill="#2f6bff" opacity=".85"/><rect x="148" y="122" width="144" height="22" fill="#12b886" opacity=".9"/><rect x="292" y="122" width="140" height="22" rx="7" fill="#ff3b6b" opacity=".85"/><text x="78" y="137" font-size="11.5" font-weight="900" text-anchor="middle" fill="#eaf0ff">LOW</text><text x="220" y="137" font-size="11.5" font-weight="900" text-anchor="middle" fill="#03291c">NORMAL</text><text x="362" y="137" font-size="11.5" font-weight="900" text-anchor="middle" fill="#fff0f4">HIGH</text><path d="M210.0 160 L230.0 160 L220.0 145 z" fill="#ffc233" stroke="#0d081a" stroke-width="1.5"/><line x1="148" y1="122" x2="148" y2="148" stroke="#ffffff" stroke-width="2"/><line x1="292" y1="122" x2="292" y2="148" stroke="#ffffff" stroke-width="2"/><text x="148" y="176" font-size="12.5" font-weight="900" text-anchor="middle" fill="#cfe0ff">60</text><text x="292" y="176" font-size="12.5" font-weight="900" text-anchor="middle" fill="#cfe0ff">100</text><text x="432" y="176" font-size="12" font-style="italic" text-anchor="end" fill="#d9c2ff">beats/min</text><text x="8" y="211" font-size="15" font-weight="800" fill="#ffffff">Systolic BP</text><text x="432" y="211" font-size="13.5" font-weight="900" text-anchor="end" fill="#ffc233">normal</text><rect x="8" y="218" width="140" height="22" rx="7" fill="#2f6bff" opacity=".85"/><rect x="148" y="218" width="144" height="22" fill="#12b886" opacity=".9"/><rect x="292" y="218" width="140" height="22" rx="7" fill="#ff3b6b" opacity=".85"/><text x="78" y="233" font-size="11.5" font-weight="900" text-anchor="middle" fill="#eaf0ff">LOW</text><text x="220" y="233" font-size="11.5" font-weight="900" text-anchor="middle" fill="#03291c">NORMAL</text><text x="362" y="233" font-size="11.5" font-weight="900" text-anchor="middle" fill="#fff0f4">HIGH</text><path d="M210.0 256 L230.0 256 L220.0 241 z" fill="#ffc233" stroke="#0d081a" stroke-width="1.5"/><line x1="148" y1="218" x2="148" y2="244" stroke="#ffffff" stroke-width="2"/><line x1="292" y1="218" x2="292" y2="244" stroke="#ffffff" stroke-width="2"/><text x="148" y="272" font-size="12.5" font-weight="900" text-anchor="middle" fill="#cfe0ff">90</text><text x="292" y="272" font-size="12.5" font-weight="900" text-anchor="middle" fill="#cfe0ff">120</text><text x="432" y="272" font-size="12" font-style="italic" text-anchor="end" fill="#d9c2ff">mmHg</text></svg>
+      <p style="margin-top:10px"><b>Under <span class="mono">30 mL/hr</span> = oliguria.</b> Think: not enough volume reaching the kidney, or the kidney itself is failing. <span class="never">Never “just keep watching” two hours of oliguria — report it.</span></p>
+      <div class="mn">🧠 <b>“30 or Tell.”</b> Under 30 mL an hour, you tell somebody.</div>
+    </div>
+
+    <div class="card tealc">
+      <h3>📋 What actually counts on the I&amp;O sheet</h3>
+      <p><b>INTAKE:</b> <span class="pill">oral liquids</span><span class="pill">ice chips (count ½ the volume)</span><span class="pill">soup, gelatin, ice cream, popsicles</span><span class="pill">IV fluids &amp; IV meds</span><span class="pill">tube feeds + flushes</span><span class="pill">irrigants that stay in</span></p>
+      <p><b>OUTPUT:</b> <span class="pill">urine</span><span class="pill">emesis</span><span class="pill">diarrhea / liquid stool</span><span class="pill">NG &amp; other suction</span><span class="pill">surgical drains</span><span class="pill">wound &amp; fistula drainage</span><span class="pill">blood loss</span></p>
+      <p><b>Anything liquid at room temperature is intake.</b> A cup of gelatin is fluid, not food.</p>
+      <div class="mn">🧠 <b>“If it melts, it counts.”</b> Ice chips, popsicles, ice cream, gelatin — melt it and it's a fluid.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>⚠️ Third spacing — the fluid you can't find</h3>
+      <p><b>Fluid leaves the vessels and gets trapped</b> in a space that does no work: the abdomen (ascites), the gut lumen, the pleural space, or burned tissue.</p>
+      <ul class="tick">
+        <li>😵 The scale goes <b>UP</b> and the abdomen swells, <b>but the patient is intravascularly DRY</b> — tachycardic, hypotensive, oliguric.</li>
+        <li>🩸 Causes: <b>burns, sepsis, peritonitis, bowel obstruction, cirrhosis, pancreatitis, major surgery, low albumin</b>.</li>
+        <li>🔄 <b>Phase 2 is the trap:</b> a few days later the fluid pours <i>back</i> into the vessels → sudden <b>fluid overload</b>, ↑BP, crackles. Watch for it.</li>
+      </ul>
+      <div class="mn">🧠 <b>“Third space = wrong space.”</b> The water is <i>in</i> the body (weight up) but not <i>in the pipes</i> (BP down). Trust the vital signs over the weight.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>📈 Who dries out fastest — age &amp; body build</h3>
+      <ul class="tick">
+        <li>👶 <b>Infants ≈ <span class="mono">70–80%</span> water</b>, high metabolic rate, large body surface area, immature kidneys → <b>dehydrate in hours</b>.</li>
+        <li>👵 <b>Older adults ≈ <span class="mono">45–50%</span></b> — less muscle, blunted thirst, decreased kidney concentrating ability → <b>high risk, quiet symptoms</b>.</li>
+        <li>💪 <b>Muscle holds water; fat does not.</b> More muscle = more total body water.</li>
+        <li>🚻 Men average more total body water than women because they average <b>more muscle and less fat</b>.</li>
+      </ul>
+      <div class="mn">🧠 <b>“Muscle is a sponge, fat is a raincoat.”</b> The more muscle, the more water on board — so babies (mostly water) and frail elders (mostly not) are the two ends of the danger scale.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTROLS ============ -->
+<section id="control">
+  <div class="sec-h"><span class="icon">🎛️</span><h2>THE CONTROLS</h2><span class="step">STEP 3 · WHO TURNS THE TAPS</span></div>
+  <p class="sec-sub">Four hormones and one thirst centre. Two of them HOLD water, one DUMPS it — that is the whole control panel.</p>
+
+  <div class="grid">
+
+    <div class="card sapphire span2">
+      <h3>🔗 RAAS — the “blood pressure is dropping!” cascade</h3>
+      <svg viewBox="0 0 880 430" role="img" aria-label="Renin angiotensin aldosterone system cascade: low blood pressure triggers renin from the kidney, angiotensinogen becomes angiotensin one, ACE in the lungs converts it to angiotensin two, which causes vasoconstriction and aldosterone release, retaining sodium and water and raising blood pressure">
+        <defs>
+          <marker id="a54d" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/>
+          </marker>
+        </defs>
+        <rect x="4" y="4" width="872" height="422" rx="18" fill="rgba(13,8,26,.42)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+        <rect x="24" y="26" width="240" height="60" rx="14" fill="rgba(255,59,107,.6)" stroke="#ffd9e2" stroke-width="2"/>
+        <text x="144" y="52" font-size="17" font-weight="900" text-anchor="middle" fill="#ffffff">⬇️ BP / blood volume</text>
+        <text x="144" y="74" font-size="13.5" font-style="italic" text-anchor="middle" fill="#ffe3ea">less blood reaching the kidney</text>
+        <path d="M144 92 L144 122" stroke="#ffc233" stroke-width="6" marker-end="url(#a54d)"/>
+
+        <rect x="24" y="130" width="240" height="60" rx="14" fill="rgba(47,107,255,.6)" stroke="#cfe0ff" stroke-width="2"/>
+        <text x="144" y="156" font-size="17" font-weight="900" text-anchor="middle" fill="#ffffff">🫘 KIDNEY releases RENIN</text>
+        <text x="144" y="178" font-size="13.5" font-style="italic" text-anchor="middle" fill="#dce8ff">juxtaglomerular cells</text>
+        <path d="M144 196 L144 226" stroke="#ffc233" stroke-width="6" marker-end="url(#a54d)"/>
+
+        <rect x="24" y="234" width="240" height="60" rx="14" fill="rgba(157,92,255,.6)" stroke="#efe4ff" stroke-width="2"/>
+        <text x="144" y="260" font-size="16.5" font-weight="900" text-anchor="middle" fill="#ffffff">Angiotensinogen (liver)</text>
+        <text x="144" y="282" font-size="15" font-weight="900" text-anchor="middle" fill="#ffe49a">➜ ANGIOTENSIN I</text>
+        <path d="M270 264 L322 264" stroke="#ffc233" stroke-width="6" marker-end="url(#a54d)"/>
+
+        <rect x="332" y="234" width="240" height="60" rx="14" fill="rgba(0,194,199,.6)" stroke="#d9ffff" stroke-width="2"/>
+        <text x="452" y="260" font-size="16.5" font-weight="900" text-anchor="middle" fill="#00252b">🫁 LUNGS make ACE</text>
+        <text x="452" y="282" font-size="15" font-weight="900" text-anchor="middle" fill="#00252b">➜ ANGIOTENSIN II</text>
+        <path d="M452 226 L452 196" stroke="#ffc233" stroke-width="6" marker-end="url(#a54d)"/>
+
+        <rect x="332" y="130" width="240" height="60" rx="14" fill="rgba(255,138,61,.65)" stroke="#ffe0c6" stroke-width="2"/>
+        <text x="452" y="156" font-size="16.5" font-weight="900" text-anchor="middle" fill="#2b1200">💥 VASOCONSTRICTION</text>
+        <text x="452" y="178" font-size="13.5" font-style="italic" text-anchor="middle" fill="#3d1a00">squeeze the pipes → BP up</text>
+        <path d="M578 264 L630 264" stroke="#ffc233" stroke-width="6" marker-end="url(#a54d)"/>
+
+        <rect x="640" y="234" width="216" height="60" rx="14" fill="rgba(18,184,134,.62)" stroke="#d8fff0" stroke-width="2"/>
+        <text x="748" y="260" font-size="16.5" font-weight="900" text-anchor="middle" fill="#03291c">🧢 ADRENAL CORTEX</text>
+        <text x="748" y="282" font-size="15" font-weight="900" text-anchor="middle" fill="#03291c">➜ ALDOSTERONE</text>
+        <path d="M748 226 L748 196" stroke="#ffc233" stroke-width="6" marker-end="url(#a54d)"/>
+
+        <rect x="640" y="130" width="216" height="60" rx="14" fill="rgba(255,194,51,.72)" stroke="#fff2cc" stroke-width="2"/>
+        <text x="748" y="156" font-size="16.5" font-weight="900" text-anchor="middle" fill="#231a02">Na⁺ &amp; H₂O held IN</text>
+        <text x="748" y="178" font-size="14.5" font-weight="900" text-anchor="middle" fill="#231a02">K⁺ dumped OUT in urine</text>
+        <path d="M748 122 L748 92" stroke="#ffc233" stroke-width="6" marker-end="url(#a54d)"/>
+
+        <rect x="332" y="26" width="524" height="60" rx="14" fill="rgba(192,34,85,.62)" stroke="#ffd9e2" stroke-width="2"/>
+        <text x="594" y="52" font-size="19" font-weight="900" text-anchor="middle" fill="#ffffff">⬆️ BLOOD VOLUME &amp; BLOOD PRESSURE RESTORED</text>
+        <text x="594" y="74" font-size="13.5" font-style="italic" text-anchor="middle" fill="#ffe3ea">…and the kidney stops releasing renin (negative feedback)</text>
+
+        <text x="24" y="336" font-size="16" font-weight="900" fill="#ffe49a">💊 Where the drugs cut the wire:</text>
+        <text x="24" y="362" font-size="14.5" font-weight="800" fill="#cfe0ff">ACE inhibitors (-pril) block ACE in the lungs · ARBs (-sartan) block angiotensin II at the receptor</text>
+        <text x="24" y="386" font-size="14.5" font-weight="800" fill="#a5f3d4">Spironolactone blocks aldosterone → holds K⁺ (potassium-sparing)</text>
+        <text x="24" y="410" font-size="14.5" font-weight="800" fill="#ffb3c6">Beta blockers reduce renin release from the kidney</text>
+      </svg>
+      <div class="mn">🧠 <b>“Renin Angers the Lungs' ACE, and ACE calls Aldo to Add Salt.”</b> Run it in order every time: <b>R</b>enin → <b>A</b>ngiotensin I → <b>A</b>CE → <b>A</b>ngiotensin II → <b>A</b>ldosterone. <i>Five steps, four A's, one job: raise the pressure.</i></div>
+    </div>
+
+    <div class="card">
+      <h3>💧 ADH (vasopressin) — the water-saving hormone</h3>
+      <ul class="tick">
+        <li>📍 Made in the <b>hypothalamus</b>, stored &amp; released by the <b>posterior pituitary</b>.</li>
+        <li>🔔 Trigger: <b>osmoreceptors</b> sense the blood is <b>too concentrated</b> (high osmolality), or volume/BP drops.</li>
+        <li>🚰 Action: opens water channels in the <b>collecting duct</b> → <b>water back into the blood</b>.</li>
+        <li>🧪 Result: <b>small amount of dark, concentrated urine</b>; serum osmolality falls back to normal.</li>
+      </ul>
+      <p><b>Too much ADH = SIADH</b> → holds water, dilute blood, <b>low Na⁺</b>. <b>Too little ADH = diabetes insipidus</b> → dumps water, <b>huge pale urine output</b>, high Na⁺.</p>
+      <div class="mn">🧠 <b>ADH = “Add<u>s</u> D<u>a</u> H₂O back.”</b> And for the two diseases: <b>SIADH = Soaked Inside</b> · <b>DI = Dry Inside</b>.</div>
+    </div>
+
+    <div class="card emerald">
+      <h3>🧂 Aldosterone — the salt-saving hormone</h3>
+      <ul class="tick">
+        <li>📍 From the <b>adrenal cortex</b> (outer layer of the adrenal gland).</li>
+        <li>🔔 Trigger: <b>angiotensin II</b>, low blood volume, or a <b>high serum K⁺</b>.</li>
+        <li>🔁 Action at the distal tubule: <b>Na⁺ and water IN, K⁺ OUT</b>.</li>
+        <li>📈 Result: ECF volume and BP rise; serum <b>K⁺ falls</b>.</li>
+      </ul>
+      <p><b>Too much = Conn's / hyperaldosteronism</b> → hypertension + <b>hypokalemia</b>. <b>Too little = Addison's</b> → hypotension, <b>hyperkalemia</b>, salt craving.</p>
+      <div class="mn">🧠 <b>“Aldo SAVES salt, WASTES potassium.”</b> Aldo is a bouncer: sodium gets in the club, potassium gets thrown out.</div>
+    </div>
+
+    <div class="card tealc">
+      <h3>🫀 ANP &amp; BNP — the “too full” release valve</h3>
+      <ul class="tick">
+        <li>📍 <b>ANP</b> from stretched <b>atria</b>; <b>BNP</b> from stretched <b>ventricles</b>.</li>
+        <li>🔔 Trigger: the heart chambers are <b>stretched by too much volume</b>.</li>
+        <li>🚽 Action: <b>natriuresis</b> (dump Na⁺) + diuresis + vasodilation, and it <b>blocks renin, aldosterone and ADH</b>.</li>
+        <li>🧪 <b>BNP is a lab you will actually see:</b> it rises in heart failure and fluid overload — <span class="mono">&lt;100 pg/mL</span> makes HF unlikely.</li>
+      </ul>
+      <div class="mn">🧠 <b>“ANP is the ANti-Pressure hormone.”</b> RAAS and ADH are the <i>hold</i> team; ANP/BNP is the one-player <i>dump</i> team. Stretch the heart → open the valve.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🥤 Thirst — the backup you cannot count on</h3>
+      <p><b>Osmoreceptors in the hypothalamus</b> fire when serum osmolality rises by only a small amount — you feel thirsty, you drink, osmolality falls.</p>
+      <ul class="tick">
+        <li>👵 <b>Blunted in older adults</b> — they get dry before they ever feel thirsty.</li>
+        <li>👶 <b>Useless in infants</b>, the sedated, the confused, the intubated, anyone NPO or restrained.</li>
+        <li>🩺 So: <b>offer fluids on a schedule</b>, don't wait for a request.</li>
+      </ul>
+      <div class="mn">🧠 <b>“Thirst is the last alarm, not the first.”</b> By the time a patient says they're thirsty, they have already lost fluid — and many patients can't say it at all.</div>
+    </div>
+
+    <div class="card deep span2">
+      <h3>🧾 The control panel on one page</h3>
+      <table>
+        <tr><th style="width:20%">Hormone</th><th style="width:18%">From</th><th class="up">Fires when…</th><th class="lo">Does what</th></tr>
+        <tr><td><b>ADH</b> 💧</td><td>Posterior pituitary</td><td>Serum osmolality <b>HIGH</b> (too salty) or volume low</td><td>Reabsorbs <b>water</b> → concentrated urine, more volume</td></tr>
+        <tr><td><b>Aldosterone</b> 🧂</td><td>Adrenal cortex</td><td>Angiotensin II, low volume, <b>high K⁺</b></td><td><b>Na⁺ + water in, K⁺ out</b> → more volume, lower K⁺</td></tr>
+        <tr><td><b>Renin / Ang II</b> 🔗</td><td>Kidney / lungs (ACE)</td><td><b>Low</b> renal perfusion or BP</td><td>Vasoconstricts <b>and</b> triggers aldosterone</td></tr>
+        <tr><td><b>ANP / BNP</b> 🫀</td><td>Atria / ventricles</td><td>Heart chambers <b>overstretched</b></td><td>Dumps Na⁺ &amp; water, vasodilates, <b>blocks RAAS + ADH</b></td></tr>
+        <tr><td><b>Thirst</b> 🥤</td><td>Hypothalamus</td><td>Osmolality rises / volume falls</td><td>Makes you drink — <b>unreliable in the very old &amp; very young</b></td></tr>
+      </table>
+      <div class="mn">🧠 <b>“TWO HOLD, ONE DUMPS.”</b> ADH holds <b>water</b> · Aldosterone holds <b>salt (and water follows)</b> · ANP/BNP <b>dumps both</b>. Any fluid question is asking which team is winning.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc tealbg"><span class="big">🪣 ⅔ ICF · ⅓ ECF</span>and ECF = ¾ interstitial + ¼ intravascular</div>
+    <div class="rc citrine"><span class="big">💧 Water follows salt</span>Na⁺ outside · K⁺ inside · osmosis moves only water</div>
+    <div class="rc topazbg"><span class="big">⚖️ 1 kg = 1 L = 2.2 lb</span>Daily weight beats I&amp;O · report 2–3 lb/day or 5 lb/week</div>
+    <div class="rc rubybg"><span class="big">🚨 30 mL/hr</span>minimum urine output · under it, report</div>
+  </div>
+
+  <div class="recall">
+    <div class="rc citrine"><span class="big">🧪 275–295 mOsm/kg</span>normal serum osmolality · Na⁺ 135–145 mEq/L</div>
+    <div class="rc tealbg"><span class="big">🎛️ ADH + Aldo HOLD</span>ANP/BNP DUMPS · thirst is the last alarm</div>
+    <div class="rc topazbg"><span class="big">🔗 R–AI–ACE–AII–Aldo</span>five steps, one goal: raise the pressure</div>
+    <div class="rc rubybg"><span class="big">⚠️ Third spacing</span>weight UP, but the pipes are DRY</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 6 rapid-fire questions</summary>
+      <div class="qa">Q1: A 70 kg adult has about how much total body water, and how is it split? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">≈ 42 L (60% of body weight). ⅔ intracellular (~28 L); ⅓ extracellular (~14 L), which is ¾ interstitial (~10.5 L) and ¼ intravascular/plasma (~3.5 L).</div></div>
+      <div class="qa">Q2: Osmosis vs. diffusion vs. filtration — which moves what? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Diffusion moves SOLUTES from greater → lesser concentration. Osmosis moves WATER from lower → higher solute concentration. Filtration moves BOTH fluid and solutes from high → low hydrostatic pressure (the glomerulus).</div></div>
+      <div class="qa">Q3: What is the single most reliable indicator of fluid status, and how do you do it right? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Daily weight. Same time each morning, after voiding, before breakfast, same scale, same clothing. 1 kg = 1 L = 2.2 lb. Report 2–3 lb in a day or 5 lb in a week.</div></div>
+      <div class="qa">Q4: Serum osmolality is 305 mOsm/kg. What will the body do? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">That is above the 275–295 normal range — the blood is too concentrated. Osmoreceptors trigger THIRST and ADH release; the kidney reabsorbs water and makes a small amount of dark concentrated urine until osmolality falls.</div></div>
+      <div class="qa">Q5: Aldosterone does what to sodium and potassium? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Holds sodium (and water follows) and wastes potassium in the urine. So too much aldosterone = high BP + LOW K⁺; too little (Addison's) = low BP + HIGH K⁺.</div></div>
+      <div class="qa">Q6: A post-op patient's weight is up 4 lb but the BP is 88/50, HR 118 and urine output 20 mL/hr. What is happening? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Third spacing — fluid has shifted out of the vessels into a non-functional space (abdomen, gut, burned or surgical tissue). Weight is up but the intravascular compartment is DRY. Treat the vital signs, and anticipate a later reabsorption phase with risk of fluid overload.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(0,194,199,.7);color:#00252b">COMPARTMENTS</span>→
+    <span style="background:rgba(47,107,255,.7)">IN &amp; OUT</span>→
+    <span style="background:rgba(157,92,255,.7)">CONTROLS</span>
+  </div>
+  <div>NG-054 · Source wording retained · ADHD-friendly visual edition v2</div>
+</footer>
+
+</div>
+</body></html>

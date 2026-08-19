@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fluid Volume Overload · NG-169 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+/* ===== appended for the RENAL + FLUID series (new components only) ===== */
+.trio{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,205px),1fr))}
+.pill{display:inline-block;font-size:.78rem;font-weight:900;padding:3px 10px;border-radius:999px;
+  background:rgba(13,8,26,.5);border:1px solid var(--line);margin:0 5px 5px 0}
+.card.tealc .pill,.card.topaz .pill,.card.citrinec .pill{background:rgba(255,255,255,.5);color:#1a1030;border-color:rgba(0,0,0,.3)}
+.svgcap{margin:7px 0 0;font-size:.86rem;font-style:italic;opacity:.92;text-align:center}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#cause">🧨 Cause</a>
+  <a class="c2" href="#clues">🔎 Clues</a>
+  <a class="c3" href="#care">🩺 Care</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Renal + Fluid · Fundamentals of Nursing</div>
+  <h1>Fluid Volume <span class="drop">OVERLOAD 🎈</span></h1>
+  <p class="sub">Hypervolemia · Fluid Volume Excess · Overhydration · FVO</p>
+  <div class="chips">
+    <span class="chip id">NG-169</span>
+    <span class="chip cat">RENAL + FLUID</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede"><b>Too much water on board.</b> The client <i>puffs up like a big water balloon</i> — the excess spills out of the vessels into the tissue and shows as <b>edema</b>. Blood pressure climbs, veins bulge, the lungs get wet, and every lab looks <b>diluted</b>. <b>Overhydration for Overload!</b></p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc rubybg"><span class="big">🎈 Everything goes UP</span>BP ⬆ · weight ⬆ · CVP ⬆ · JVD ⬆ · edema ⬆ · bounding pulse.</div>
+  <div class="rc tealbg"><span class="big">🧪 Every lab goes DOWN</span>Diluted: Hct ⬇ BUN ⬇ Na⁺ ⬇ osmolality ⬇ urine specific gravity ⬇.</div>
+  <div class="rc citrine"><span class="big">🫁 Wet lungs kill first</span>Crackles + dyspnea = <b>pulmonary edema</b>. High Fowler's + O₂ + call it in.</div>
+  <div class="rc topazbg"><span class="big">⚖️ 2–3 lb in a day</span>= about <span class="mono">1–1.5 L</span> of retained water. Report it. <b>Weight gain = water gain.</b></div>
+</div>
+
+<!-- ============ CAUSE ============ -->
+<section id="cause">
+  <div class="sec-h"><span class="icon">🧨</span><h2>CAUSE</h2><span class="step">STEP 1 · WHY IT PILES UP</span></div>
+  <p class="sec-sub">Either the body takes in too much, or it cannot get rid of what it has — then pressure pushes the extra out of the vessels and into the tissue.</p>
+
+  <div class="grid">
+
+    <div class="card deep span2">
+      <h3>💧 Where the extra water goes — the compartment picture</h3>
+      <p><b>Fluid volume overload</b> = an <b>excess of isotonic fluid in the extracellular space</b>. The pipes fill first, then the pressure pushes water out into the <b>interstitium</b> — which is exactly what you see as <mark>pitting edema</mark>.</p>
+      <svg viewBox="0 0 880 470" role="img" aria-label="Compartment diagram of fluid volume overload: an overfilled capillary pushes water outward into a swollen interstitial space, the cell swells slightly, and the whole extracellular compartment is expanded">
+        <defs>
+          <marker id="a169a" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6.5" markerHeight="6.5" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/>
+          </marker>
+          <linearGradient id="g169n" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#4fe0e4"/><stop offset="1" stop-color="#00949a"/>
+          </linearGradient>
+          <linearGradient id="g169o" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ff6f92"/><stop offset="1" stop-color="#c02255"/>
+          </linearGradient>
+        </defs>
+        <rect x="4" y="4" width="872" height="462" rx="18" fill="rgba(13,8,26,.42)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+
+        <!-- LEFT: normal -->
+        <rect x="20" y="22" width="392" height="426" rx="16" fill="rgba(18,184,134,.20)" stroke="#12b886" stroke-width="2" stroke-dasharray="8 6"/>
+        <text x="216" y="54" font-size="20" font-weight="900" text-anchor="middle" fill="#7df0c6">✅ NORMAL BALANCE</text>
+        <rect x="52" y="86" width="70" height="320" rx="26" fill="url(#g169n)" stroke="#d9ffff" stroke-width="2"/>
+        <text x="87" y="428" font-size="13.5" font-weight="900" text-anchor="middle" fill="#9ff2ee">vessel</text>
+        <rect x="140" y="86" width="240" height="320" rx="16" fill="rgba(0,194,199,.16)" stroke="#9ff2ee" stroke-width="1.5"/>
+        <text x="260" y="110" font-size="13.5" font-weight="900" text-anchor="middle" fill="#9ff2ee">interstitial space (dry, thin)</text>
+        <circle cx="260" cy="250" r="72" fill="rgba(157,92,255,.6)" stroke="#efe4ff" stroke-width="3"/>
+        <text x="260" y="256" font-size="16" font-weight="900" text-anchor="middle" fill="#ffffff">CELL</text>
+        <text x="260" y="428" font-size="13.5" font-weight="900" text-anchor="middle" fill="#9ff2ee">pressures in / out are equal</text>
+
+        <!-- RIGHT: overload -->
+        <rect x="440" y="22" width="420" height="426" rx="16" fill="rgba(255,59,107,.22)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="8 6"/>
+        <text x="650" y="54" font-size="20" font-weight="900" text-anchor="middle" fill="#ff9db4">🎈 FLUID VOLUME OVERLOAD</text>
+        <rect x="470" y="76" width="112" height="340" rx="40" fill="url(#g169o)" stroke="#ffd9e2" stroke-width="3"/>
+        <text x="526" y="438" font-size="13.5" font-weight="900" text-anchor="middle" fill="#ffb3c6">vessel: OVERFILLED</text>
+        <text x="526" y="70" font-size="13" font-weight="900" text-anchor="middle" fill="#ffb3c6">↑ hydrostatic pressure</text>
+        <rect x="600" y="76" width="240" height="340" rx="16" fill="rgba(0,194,199,.42)" stroke="#9ff2ee" stroke-width="2.5"/>
+        <text x="720" y="100" font-size="14" font-weight="900" text-anchor="middle" fill="#e6ffff">interstitial space: FLOODED</text>
+        <text x="720" y="438" font-size="13.5" font-weight="900" text-anchor="middle" fill="#9ff2ee">= visible PITTING EDEMA</text>
+        <circle cx="720" cy="256" r="80" fill="rgba(157,92,255,.6)" stroke="#efe4ff" stroke-width="3" stroke-dasharray="10 6"/>
+        <text x="720" y="250" font-size="16" font-weight="900" text-anchor="middle" fill="#ffffff">CELL</text>
+        <text x="720" y="272" font-size="12.5" font-style="italic" text-anchor="middle" fill="#efe4ff">may swell if Na⁺ is low</text>
+
+        <!-- arrows vessel -> interstitium -->
+        <path d="M588 140 L668 140" stroke="#ffc233" stroke-width="8" stroke-linecap="round" marker-end="url(#a169a)"/>
+        <path d="M588 210 L668 210" stroke="#ffc233" stroke-width="8" stroke-linecap="round" marker-end="url(#a169a)"/>
+        <path d="M588 300 L668 300" stroke="#ffc233" stroke-width="8" stroke-linecap="round" marker-end="url(#a169a)"/>
+        <path d="M588 372 L668 372" stroke="#ffc233" stroke-width="8" stroke-linecap="round" marker-end="url(#a169a)"/>
+        <text x="628" y="176" font-size="14.5" font-weight="900" text-anchor="middle" fill="#ffc233">WATER PUSHED OUT</text>
+        <text x="628" y="338" font-size="14.5" font-weight="900" text-anchor="middle" fill="#ffc233">WATER PUSHED OUT</text>
+      </svg>
+      <p class="svgcap">The arrows only ever point <b>one way in FVO</b>: out of the vessel, into the tissue. Everything you assess — the swelling, the crackles, the bulging neck veins — is that arrow.</p>
+      <div class="mn">🧠 <b>“Overhydration for Overload!”</b> Picture the client as a <b>big water balloon</b> — squeeze it anywhere and the water bulges out somewhere else: ankles, sacrum, eyelids, lungs.</div>
+    </div>
+
+    <div class="card tealc">
+      <h3>🏷️ Four names, one problem</h3>
+      <ul class="tick">
+        <li><b>Fluid Volume Overload (FVO)</b></li>
+        <li><b>Fluid Volume Excess (FVE)</b></li>
+        <li><b>Hypervolemia</b> — <i>hyper</i> = high, <i>vol</i> = volume, <i>emia</i> = in the blood</li>
+        <li><b>Overhydration</b></li>
+      </ul>
+      <p><b>EDEMA</b> = <i>the swelling of soft tissues as a result of excess fluid accumulation.</i> Edema is the <b>sign</b>; hypervolemia is the <b>state</b>.</p>
+      <div class="mn">🧠 <b>“HYPER = HIGH, and the body is HYPED up.”</b> Big body, big BP, big veins, big weight.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🚨 The two that show up on every exam</h3>
+      <ul class="tick">
+        <li>🫘 <b>RENAL FAILURE</b> — the kidney can't excrete the water, so it stays.</li>
+        <li>🫀 <b>HEART FAILURE</b> — the pump can't move it forward, so it backs up.</li>
+      </ul>
+      <p>Both raise <b>hydrostatic pressure</b> inside the vessels — the push that forces water out into the tissue.</p>
+      <div class="mn">🧠 <b>HF = Heart Failure = HEAVY FLUID.</b> Same two letters, same patient. And a failing kidney is a <i>closed drain</i> — the tub fills whether you like it or not.</div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>⭐ The 4 mechanisms of EDEMA — memorise these four boxes</h3>
+      <svg viewBox="-10 -10 919 420" role="img" aria-label="Four mechanisms of edema shown as four capillary panels: increased hydrostatic pressure, decreased colloid osmotic pressure from low albumin, increased capillary permeability, and lymphatic obstruction">
+        <defs>
+          <marker id="a169b" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/>
+          </marker>
+        </defs>
+        <rect x="-6" y="-6" width="911" height="412" rx="18" fill="rgba(13,8,26,.4)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+
+        <!-- 1 -->
+        <rect x="20" y="20" width="206" height="360" rx="14" fill="rgba(255,59,107,.26)" stroke="#ff9db4" stroke-width="2"/>
+        <circle cx="52" cy="52" r="18" fill="#ff3b6b"/><text x="52" y="59" font-size="19" font-weight="900" text-anchor="middle" fill="#fff">1</text>
+        <text x="80" y="48" font-size="14.5" font-weight="900" fill="#ffd9e2">↑ HYDROSTATIC</text>
+        <text x="80" y="66" font-size="14.5" font-weight="900" fill="#ffd9e2">PRESSURE</text>
+        <rect x="46" y="92" width="60" height="190" rx="22" fill="#c02255" stroke="#ffd9e2" stroke-width="3"/>
+        <path d="M112 130 L182 130" stroke="#ffc233" stroke-width="7" stroke-linecap="round" marker-end="url(#a169b)"/>
+        <path d="M112 190 L182 190" stroke="#ffc233" stroke-width="7" stroke-linecap="round" marker-end="url(#a169b)"/>
+        <path d="M112 250 L182 250" stroke="#ffc233" stroke-width="7" stroke-linecap="round" marker-end="url(#a169b)"/>
+        <text x="123" y="308" font-size="13.5" font-weight="900" fill="#ffe49a">too much VOLUME</text>
+        <text x="36" y="336" font-size="13.5" font-weight="800" fill="#ffffff">Renal failure</text>
+        <text x="36" y="358" font-size="13.5" font-weight="800" fill="#ffffff">Heart failure (HF)</text>
+        <text x="36" y="376" font-size="12.5" font-style="italic" fill="#ffd9e2">too much IV fluid</text>
+
+        <!-- 2 -->
+        <rect x="238" y="20" width="206" height="360" rx="14" fill="rgba(255,138,61,.26)" stroke="#ffb066" stroke-width="2"/>
+        <circle cx="270" cy="52" r="18" fill="#ff8a3d"/><text x="270" y="59" font-size="19" font-weight="900" text-anchor="middle" fill="#2b1200">2</text>
+        <text x="298" y="48" font-size="14.5" font-weight="900" fill="#ffe0c6">↓ COLLOID</text>
+        <text x="298" y="66" font-size="14.5" font-weight="900" fill="#ffe0c6">OSMOTIC PRESS.</text>
+        <rect x="264" y="92" width="60" height="190" rx="22" fill="#c02255" stroke="#ffd9e2" stroke-width="3"/>
+        <text x="294" y="150" font-size="13" font-weight="900" text-anchor="middle" fill="#ffe49a">no</text>
+        <text x="294" y="168" font-size="13" font-weight="900" text-anchor="middle" fill="#ffe49a">albumin</text>
+        <text x="294" y="188" font-size="13" font-weight="900" text-anchor="middle" fill="#ffe49a">left to</text>
+        <text x="294" y="206" font-size="13" font-weight="900" text-anchor="middle" fill="#ffe49a">pull</text>
+        <path d="M330 130 L400 130" stroke="#ffc233" stroke-width="7" stroke-linecap="round" marker-end="url(#a169b)"/>
+        <path d="M330 240 L400 240" stroke="#ffc233" stroke-width="7" stroke-linecap="round" marker-end="url(#a169b)"/>
+        <text x="336" y="308" font-size="13.5" font-weight="900" fill="#ffe49a">LOW ALBUMIN</text>
+        <text x="254" y="336" font-size="13.5" font-weight="800" fill="#ffffff">Cirrhosis (liver)</text>
+        <text x="254" y="358" font-size="13.5" font-weight="800" fill="#ffffff">Starvation / malnutrition</text>
+        <text x="254" y="376" font-size="12.5" font-style="italic" fill="#ffe0c6">nephrotic syndrome, burns</text>
+
+        <!-- 3 -->
+        <rect x="456" y="20" width="206" height="360" rx="14" fill="rgba(157,92,255,.26)" stroke="#d9c2ff" stroke-width="2"/>
+        <circle cx="488" cy="52" r="18" fill="#9d5cff"/><text x="488" y="59" font-size="19" font-weight="900" text-anchor="middle" fill="#fff">3</text>
+        <text x="516" y="48" font-size="14.5" font-weight="900" fill="#e3d2ff">↑ CAPILLARY</text>
+        <text x="516" y="66" font-size="14.5" font-weight="900" fill="#e3d2ff">PERMEABILITY</text>
+        <rect x="482" y="92" width="60" height="190" rx="22" fill="#c02255" stroke="#ffd9e2" stroke-width="3" stroke-dasharray="9 8"/>
+        <text x="512" y="300" font-size="13" font-weight="900" text-anchor="middle" fill="#e3d2ff">leaky wall</text>
+        <path d="M548 122 L618 112" stroke="#ffc233" stroke-width="7" stroke-linecap="round" marker-end="url(#a169b)"/>
+        <path d="M548 186 L618 186" stroke="#ffc233" stroke-width="7" stroke-linecap="round" marker-end="url(#a169b)"/>
+        <path d="M548 250 L618 262" stroke="#ffc233" stroke-width="7" stroke-linecap="round" marker-end="url(#a169b)"/>
+        <text x="472" y="336" font-size="13.5" font-weight="800" fill="#ffffff">Bacteria / infection</text>
+        <text x="472" y="358" font-size="13.5" font-weight="800" fill="#ffffff">Sepsis · BURNS</text>
+        <text x="472" y="376" font-size="12.5" font-style="italic" fill="#e3d2ff">allergic / anaphylactic reaction</text>
+
+        <!-- 4 -->
+        <rect x="674" y="20" width="186" height="360" rx="14" fill="rgba(0,194,199,.26)" stroke="#9ff2ee" stroke-width="2"/>
+        <circle cx="706" cy="52" r="18" fill="#00c2c7"/><text x="706" y="59" font-size="19" font-weight="900" text-anchor="middle" fill="#00252b">4</text>
+        <text x="734" y="48" font-size="14.5" font-weight="900" fill="#d8fff0">LYMPHATIC</text>
+        <text x="734" y="66" font-size="14.5" font-weight="900" fill="#d8fff0">OBSTRUCTION</text>
+        <path d="M700 100 L700 210" stroke="#9ff2ee" stroke-width="14" stroke-linecap="round"/>
+        <path d="M700 240 L700 296" stroke="#9ff2ee" stroke-width="14" stroke-linecap="round"/>
+        <circle cx="700" cy="224" r="24" fill="#ff3b6b" stroke="#ffe3ea" stroke-width="3"/>
+        <path d="M690 214 L710 234 M710 214 L690 234" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+        <text x="740" y="150" font-size="13.5" font-weight="900" fill="#d8fff0">drain</text>
+        <text x="740" y="170" font-size="13.5" font-weight="900" fill="#d8fff0">BLOCKED</text>
+        <text x="740" y="230" font-size="13" font-weight="900" fill="#ff9db4">fluid</text>
+        <text x="740" y="248" font-size="13" font-weight="900" fill="#ff9db4">backs up</text>
+        <text x="688" y="336" font-size="13.5" font-weight="800" fill="#ffffff">Cancer (tumor blockage)</text>
+        <text x="688" y="358" font-size="13.5" font-weight="800" fill="#ffffff">Infection (big lymph nodes)</text>
+        <text x="688" y="376" font-size="12.5" font-style="italic" fill="#d8fff0">node removal after mastectomy</text>
+      </svg>
+      <div class="mn">🧠 <b>“PUSH · PULL · LEAK · PLUG.”</b> ① Too much <b>PUSH</b> (hydrostatic) · ② Not enough <b>PULL</b> (albumin) · ③ A <b>LEAK</b> in the wall (permeability) · ④ A <b>PLUG</b> in the drain (lymphatics). Every case of edema you will ever see is one of those four.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🅰️ Albumin: the magnet that keeps water in the pipes</h3>
+      <p><b>A = ALBUMIN. A = ATTRACTS fluid.</b> Albumin is the plasma protein that creates <b>colloid osmotic (oncotic) pressure</b> — the inward pull that drags water back into the capillary at the venous end.</p>
+      <p>Normal serum albumin: <span class="mono">3.5–5.0 g/dL</span> (adult reference range). Drop it and the pull disappears → water stays in the tissue.</p>
+      <p><b>Who loses albumin?</b> <span class="pill">cirrhosis — the liver stops making it</span><span class="pill">starvation / malnutrition</span><span class="pill">nephrotic syndrome — kidneys leak it</span><span class="pill">major burns</span></p>
+      <div class="mn">🧠 <b>“ALBUMIN ATTRACTS.”</b> Two A-words that go together. No albumin = no attraction = the water wanders off into the ankles and the belly (ascites).</div>
+    </div>
+
+    <div class="card">
+      <h3>💉 The causes you can accidentally create</h3>
+      <ul class="tick">
+        <li>🩸 <b>Too much IV fluid, too fast</b> — especially in elderly, infants, renal or cardiac patients.</li>
+        <li>🧂 <b>High sodium</b> — diet, IV normal saline, sodium-containing meds. <i>Water follows salt.</i></li>
+        <li>💊 <b>Corticosteroids</b> — mimic aldosterone: hold Na⁺ and water.</li>
+        <li>🧠 <b>SIADH</b> — too much ADH holds water → dilutional hyponatremia.</li>
+        <li>🩹 <b>Blood products given rapidly</b> — transfusion-associated circulatory overload.</li>
+        <li>🧢 <b>Hyperaldosteronism</b> — the salt-saving hormone stuck ON.</li>
+      </ul>
+      <div class="mn">🧠 <b>“The IV pump is the fastest way to flood a patient.”</b> If a client with heart or kidney failure gets fluids, <b>you</b> are the safety check on the rate.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLUES ============ -->
+<section id="clues">
+  <div class="sec-h"><span class="icon">🔎</span><h2>CLUES</h2><span class="step">STEP 2 · EVERYTHING IS BIG</span></div>
+  <p class="sec-sub">One rule carries the whole assessment: <b>volumes and pressures go UP, lab values go DOWN.</b></p>
+
+  <div class="grid">
+
+    <div class="card deep span2">
+      <h3>⭐ Grading pitting edema — 0+ to 4+</h3>
+      <p>Press a fingertip over a bony area (shin, ankle, sacrum) for a few seconds and let go. <b>How deep is the dent, and how long does it take to bounce back?</b></p>
+      <svg viewBox="-10 -10 970 360" role="img" aria-label="Pitting edema grading scale from zero plus to four plus showing pit depth of two, four, six and eight millimetres and rebound times of immediate, fifteen seconds, thirty seconds and one to two minutes">
+        <defs>
+          <linearGradient id="skin169" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffd0bd"/><stop offset="1" stop-color="#e79a86"/>
+          </linearGradient>
+        </defs>
+        <rect x="-6" y="-6" width="962" height="352" rx="18" fill="rgba(13,8,26,.42)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+        <text x="24" y="38" font-size="18" font-weight="900" fill="#ffe49a">🛏️ “Edema makes the skin look like a memory-foam mattress.”</text>
+
+        <!-- 0+ -->
+        <text x="106" y="76" font-size="22" font-weight="900" text-anchor="middle" fill="#7df0c6">0+</text>
+        <rect x="26" y="92" width="160" height="86" rx="10" fill="url(#skin169)" stroke="#fff" stroke-width="2"/>
+        <text x="106" y="204" font-size="14.5" font-weight="900" text-anchor="middle" fill="#7df0c6">NO pitting</text>
+        <text x="106" y="226" font-size="13" font-style="italic" text-anchor="middle" fill="#d8fff0">flat, normal skin</text>
+
+        <!-- 1+ -->
+        <text x="278" y="76" font-size="22" font-weight="900" text-anchor="middle" fill="#9ff2ee">1+</text>
+        <rect x="198" y="92" width="160" height="86" rx="10" fill="url(#skin169)" stroke="#fff" stroke-width="2"/>
+        <path d="M254 92 q24 16 48 0 z" fill="rgba(13,8,26,.6)"/>
+        <line x1="254" y1="92" x2="302" y2="92" stroke="#00c2c7" stroke-width="3"/>
+        <text x="278" y="204" font-size="14.5" font-weight="900" text-anchor="middle" fill="#9ff2ee">2 mm · MILD</text>
+        <text x="278" y="226" font-size="13" font-style="italic" text-anchor="middle" fill="#d8fff0">immediate rebound</text>
+
+        <!-- 2+ -->
+        <text x="450" y="76" font-size="22" font-weight="900" text-anchor="middle" fill="#ffe49a">2+</text>
+        <rect x="370" y="92" width="160" height="86" rx="10" fill="url(#skin169)" stroke="#fff" stroke-width="2"/>
+        <path d="M424 92 q26 30 52 0 z" fill="rgba(13,8,26,.6)"/>
+        <line x1="424" y1="92" x2="476" y2="92" stroke="#ffc233" stroke-width="3"/>
+        <text x="450" y="204" font-size="14.5" font-weight="900" text-anchor="middle" fill="#ffe49a">3–4 mm · MODERATE</text>
+        <text x="450" y="226" font-size="13" font-style="italic" text-anchor="middle" fill="#fff2cc">15 seconds to rebound</text>
+
+        <!-- 3+ -->
+        <text x="622" y="76" font-size="22" font-weight="900" text-anchor="middle" fill="#ffb066">3+</text>
+        <rect x="542" y="92" width="160" height="86" rx="10" fill="url(#skin169)" stroke="#fff" stroke-width="2"/>
+        <path d="M594 92 q28 48 56 0 z" fill="rgba(13,8,26,.6)"/>
+        <line x1="594" y1="92" x2="650" y2="92" stroke="#ff8a3d" stroke-width="3"/>
+        <text x="622" y="204" font-size="14.5" font-weight="900" text-anchor="middle" fill="#ffb066">5–6 mm · MOD-SEVERE</text>
+        <text x="622" y="226" font-size="13" font-style="italic" text-anchor="middle" fill="#ffe0c6">30 seconds to rebound</text>
+
+        <!-- 4+ -->
+        <text x="794" y="76" font-size="22" font-weight="900" text-anchor="middle" fill="#ff9db4">4+</text>
+        <rect x="714" y="92" width="150" height="86" rx="10" fill="url(#skin169)" stroke="#fff" stroke-width="2"/>
+        <path d="M762 92 q28 72 56 0 z" fill="rgba(13,8,26,.65)"/>
+        <line x1="762" y1="92" x2="818" y2="92" stroke="#ff3b6b" stroke-width="3"/>
+        <text x="789" y="204" font-size="14.5" font-weight="900" text-anchor="middle" fill="#ff9db4">8 mm+ · SEVERE!</text>
+        <text x="789" y="226" font-size="13" font-style="italic" text-anchor="middle" fill="#ffd9e2">1–2 minutes to rebound</text>
+
+        <!-- depth ruler -->
+        <rect x="26" y="252" width="838" height="64" rx="12" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.35)" stroke-width="1.5"/>
+        <text x="44" y="278" font-size="15" font-weight="900" fill="#ffe49a">DEPTH LADDER:</text>
+        <text x="196" y="278" font-size="15" font-weight="900" fill="#9ff2ee">2 mm</text>
+        <text x="300" y="278" font-size="15" font-weight="900" fill="#ffe49a">4 mm</text>
+        <text x="404" y="278" font-size="15" font-weight="900" fill="#ffb066">6 mm</text>
+        <text x="508" y="278" font-size="15" font-weight="900" fill="#ff9db4">8 mm</text>
+        <text x="44" y="304" font-size="14" font-weight="900" fill="#ffe49a">REBOUND LADDER:</text>
+        <text x="196" y="304" font-size="14" font-weight="800" fill="#9ff2ee">instant</text>
+        <text x="300" y="304" font-size="14" font-weight="800" fill="#ffe49a">15 sec</text>
+        <text x="404" y="304" font-size="14" font-weight="800" fill="#ffb066">30 sec</text>
+        <text x="508" y="304" font-size="14" font-weight="800" fill="#ff9db4">1–2 min</text>
+        <text x="620" y="292" font-size="14" font-style="italic" fill="#e9dcff">deeper pit + slower rebound = worse overload</text>
+      </svg>
+      <div class="mn">🧠 <b>“2-4-6-8, how long did the dent wait?”</b> Depths climb by twos — <span class="mono">2 · 4 · 6 · 8 mm</span> — and the rebound goes <b>instant → 15 sec → 30 sec → 1–2 min</b>. Count the grade on your fingers.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🫀 Cardiovascular — everything BOUNDS</h3>
+      <ul class="tick">
+        <li>🔺 <b>High blood pressure</b> — the extra volume has nowhere to go.</li>
+        <li>💓 <b>Bounding, full pulses</b> — you can feel them from across the room.</li>
+        <li>🫧 <b>Jugular vein distention (JVD)</b> — big distended neck veins with the HOB at 30–45°.</li>
+        <li>📈 <b>Increased CVP</b> (central venous pressure) — normal is about <span class="mono">2–6 mmHg</span>.</li>
+        <li>🎵 <b>S3 gallop</b> — the sound of a ventricle slapping into a wall of extra volume.</li>
+      </ul>
+      <p><span class="tip">TEST TIP</span> Sustained systolic <span class="mono">≥140</span> is <b>deadly hypertension</b>; systolic <span class="mono">&gt;180</span> is <b>hypertensive crisis</b> with <b>stroke risk</b> — that is an emergency, not a “recheck later”.</p>
+      <div class="mn">🧠 <b>“Full tank, tight pipes, loud pulse.”</b> If a pulse is <i>bounding</i> and the neck veins are <i>fat</i>, the patient is wet — you do not need a lab to tell you.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🚨 Respiratory — the part that kills</h3>
+      <ul class="tick">
+        <li>🫁 <b>Crackles / rales</b> — moist popping in the bases = <b>fluid in the lungs</b>.</li>
+        <li>😮‍💨 <b>Dyspnea, orthopnea</b> — can't breathe lying flat; sleeps on extra pillows.</li>
+        <li>⚡ <b>Rapid, shallow respirations</b> — stiff wet lungs can't expand.</li>
+        <li>🩸 <b>Pulmonary edema</b> — <span class="never">frothy pink-tinged sputum, severe dyspnea, anxiety, falling SpO₂</span>. <b>MEDICAL EMERGENCY.</b></li>
+      </ul>
+      <p><b>First action:</b> sit them <b>high Fowler's</b>, apply <b>oxygen</b>, and get help. Airway and breathing always outrank the lab draw.</p>
+      <div class="mn">🧠 <b>“Wet lungs, pink froth, sit them up.”</b> Pink frothy sputum is the classic pulmonary-edema answer — nothing else on the fluid unit looks like it.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🧠 Neuro &amp; 🖐️ skin — the quieter signs</h3>
+      <p><b>Neuromuscular:</b> <span class="pill">headache</span><span class="pill">weakness</span><span class="pill">lethargy → coma</span><span class="pill">ALOC — “altered level of consciousness”</span><span class="pill">mental status changes</span><span class="pill">seizures if Na⁺ falls fast</span></p>
+      <p>Why? The excess water <b>dilutes the sodium</b>, so water moves into brain cells → <b>cerebral edema</b>.</p>
+      <p><b>Integumentary:</b> <span class="pill">periorbital edema (puffy eyelids)</span><span class="pill">pitting edema</span><span class="pill">taut, shiny, cool skin</span><span class="pill">sacral edema in bedbound clients</span></p>
+      <div class="mn">🧠 <b>“Water on the brain = the brain goes quiet.”</b> Headache → lethargy → coma is a <b>descending</b> ladder. A newly sleepy overloaded patient is a red flag, not a nap.</div>
+    </div>
+
+    <div class="card topaz">
+      <h3>🧪 Labs: diluted, so everything reads LOW</h3>
+      <svg viewBox="0 0 440 486" role="img" aria-label="Bar scales showing that in fluid volume overload the serum sodium, hematocrit, blood urea nitrogen, serum osmolality and urine specific gravity are all below the normal range because the blood is diluted"><text x="8" y="19" font-size="15" font-weight="800" fill="#ffffff">Serum sodium (Na⁺)</text><text x="432" y="19" font-size="13.5" font-weight="900" text-anchor="end" fill="#2f6bff">LOW ⬇</text><rect x="8" y="26" width="140" height="22" rx="7" fill="#2f6bff" opacity=".85"/><rect x="148" y="26" width="144" height="22" fill="#12b886" opacity=".9"/><rect x="292" y="26" width="140" height="22" rx="7" fill="#ff3b6b" opacity=".85"/><text x="78" y="41" font-size="11.5" font-weight="900" text-anchor="middle" fill="#eaf0ff">LOW</text><text x="220" y="41" font-size="11.5" font-weight="900" text-anchor="middle" fill="#03291c">NORMAL</text><text x="362" y="41" font-size="11.5" font-weight="900" text-anchor="middle" fill="#fff0f4">HIGH</text><path d="M82.8 64 L102.8 64 L92.8 49 z" fill="#2f6bff" stroke="#0d081a" stroke-width="1.5"/><line x1="148" y1="26" x2="148" y2="52" stroke="#ffffff" stroke-width="2"/><line x1="292" y1="26" x2="292" y2="52" stroke="#ffffff" stroke-width="2"/><text x="148" y="80" font-size="12.5" font-weight="900" text-anchor="middle" fill="#cfe0ff">135</text><text x="292" y="80" font-size="12.5" font-weight="900" text-anchor="middle" fill="#cfe0ff">145</text><text x="432" y="80" font-size="12" font-style="italic" text-anchor="end" fill="#d9c2ff">mEq/L · &lt;135 = hyponatremia</text><text x="8" y="115" font-size="15" font-weight="800" fill="#ffffff">Hematocrit</text><text x="432" y="115" font-size="13.5" font-weight="900" text-anchor="end" fill="#2f6bff">LOW ⬇</text><rect x="8" y="122" width="140" height="22" rx="7" fill="#2f6bff" opacity=".85"/><rect x="148" y="122" width="144" height="22" fill="#12b886" opacity=".9"/><rect x="292" y="122" width="140" height="22" rx="7" fill="#ff3b6b" opacity=".85"/><text x="78" y="137" font-size="11.5" font-weight="900" text-anchor="middle" fill="#eaf0ff">LOW</text><text x="220" y="137" font-size="11.5" font-weight="900" text-anchor="middle" fill="#03291c">NORMAL</text><text x="362" y="137" font-size="11.5" font-weight="900" text-anchor="middle" fill="#fff0f4">HIGH</text><path d="M82.8 160 L102.8 160 L92.8 145 z" fill="#2f6bff" stroke="#0d081a" stroke-width="1.5"/><line x1="148" y1="122" x2="148" y2="148" stroke="#ffffff" stroke-width="2"/><line x1="292" y1="122" x2="292" y2="148" stroke="#ffffff" stroke-width="2"/><text x="148" y="176" font-size="12.5" font-weight="900" text-anchor="middle" fill="#cfe0ff">37 (F) / 42 (M)</text><text x="292" y="176" font-size="12.5" font-weight="900" text-anchor="middle" fill="#cfe0ff">47 (F) / 52 (M)</text><text x="432" y="176" font-size="12" font-style="italic" text-anchor="end" fill="#d9c2ff">% · diluted red cells</text><text x="8" y="211" font-size="15" font-weight="800" fill="#ffffff">BUN</text><text x="432" y="211" font-size="13.5" font-weight="900" text-anchor="end" fill="#2f6bff">LOW ⬇</text><rect x="8" y="218" width="140" height="22" rx="7" fill="#2f6bff" opacity=".85"/><rect x="148" y="218" width="144" height="22" fill="#12b886" opacity=".9"/><rect x="292" y="218" width="140" height="22" rx="7" fill="#ff3b6b" opacity=".85"/><text x="78" y="233" font-size="11.5" font-weight="900" text-anchor="middle" fill="#eaf0ff">LOW</text><text x="220" y="233" font-size="11.5" font-weight="900" text-anchor="middle" fill="#03291c">NORMAL</text><text x="362" y="233" font-size="11.5" font-weight="900" text-anchor="middle" fill="#fff0f4">HIGH</text><path d="M82.8 256 L102.8 256 L92.8 241 z" fill="#2f6bff" stroke="#0d081a" stroke-width="1.5"/><line x1="148" y1="218" x2="148" y2="244" stroke="#ffffff" stroke-width="2"/><line x1="292" y1="218" x2="292" y2="244" stroke="#ffffff" stroke-width="2"/><text x="148" y="272" font-size="12.5" font-weight="900" text-anchor="middle" fill="#cfe0ff">10</text><text x="292" y="272" font-size="12.5" font-weight="900" text-anchor="middle" fill="#cfe0ff">20</text><text x="432" y="272" font-size="12" font-style="italic" text-anchor="end" fill="#d9c2ff">mg/dL</text><text x="8" y="307" font-size="15" font-weight="800" fill="#ffffff">Serum osmolality</text><text x="432" y="307" font-size="13.5" font-weight="900" text-anchor="end" fill="#2f6bff">LOW ⬇</text><rect x="8" y="314" width="140" height="22" rx="7" fill="#2f6bff" opacity=".85"/><rect x="148" y="314" width="144" height="22" fill="#12b886" opacity=".9"/><rect x="292" y="314" width="140" height="22" rx="7" fill="#ff3b6b" opacity=".85"/><text x="78" y="329" font-size="11.5" font-weight="900" text-anchor="middle" fill="#eaf0ff">LOW</text><text x="220" y="329" font-size="11.5" font-weight="900" text-anchor="middle" fill="#03291c">NORMAL</text><text x="362" y="329" font-size="11.5" font-weight="900" text-anchor="middle" fill="#fff0f4">HIGH</text><path d="M82.8 352 L102.8 352 L92.8 337 z" fill="#2f6bff" stroke="#0d081a" stroke-width="1.5"/><line x1="148" y1="314" x2="148" y2="340" stroke="#ffffff" stroke-width="2"/><line x1="292" y1="314" x2="292" y2="340" stroke="#ffffff" stroke-width="2"/><text x="148" y="368" font-size="12.5" font-weight="900" text-anchor="middle" fill="#cfe0ff">275</text><text x="292" y="368" font-size="12.5" font-weight="900" text-anchor="middle" fill="#cfe0ff">295</text><text x="432" y="368" font-size="12" font-style="italic" text-anchor="end" fill="#d9c2ff">mOsm/kg</text><text x="8" y="403" font-size="15" font-weight="800" fill="#ffffff">Urine specific gravity</text><text x="432" y="403" font-size="13.5" font-weight="900" text-anchor="end" fill="#2f6bff">LOW ⬇</text><rect x="8" y="410" width="140" height="22" rx="7" fill="#2f6bff" opacity=".85"/><rect x="148" y="410" width="144" height="22" fill="#12b886" opacity=".9"/><rect x="292" y="410" width="140" height="22" rx="7" fill="#ff3b6b" opacity=".85"/><text x="78" y="425" font-size="11.5" font-weight="900" text-anchor="middle" fill="#eaf0ff">LOW</text><text x="220" y="425" font-size="11.5" font-weight="900" text-anchor="middle" fill="#03291c">NORMAL</text><text x="362" y="425" font-size="11.5" font-weight="900" text-anchor="middle" fill="#fff0f4">HIGH</text><path d="M74.3 448 L94.3 448 L84.3 433 z" fill="#2f6bff" stroke="#0d081a" stroke-width="1.5"/><line x1="148" y1="410" x2="148" y2="436" stroke="#ffffff" stroke-width="2"/><line x1="292" y1="410" x2="292" y2="436" stroke="#ffffff" stroke-width="2"/><text x="148" y="464" font-size="12.5" font-weight="900" text-anchor="middle" fill="#cfe0ff">1.005</text><text x="292" y="464" font-size="12.5" font-weight="900" text-anchor="middle" fill="#cfe0ff">1.030</text><text x="432" y="464" font-size="12" font-style="italic" text-anchor="end" fill="#d9c2ff">pale, watery urine</text></svg>
+      <p style="margin-top:10px"><b>Hyponatremia <span class="mono">&lt;135 mEq/L</span></b> is the dangerous one — <b>risk of cerebral edema and brain damage</b>.</p>
+      <div class="mn">🧠 <b>“LOW when LIQUIDY.”</b> Add water to juice and everything measures weaker. Same blood, more water, lower numbers — the red cells and solutes were never lost, just <b>diluted</b>.</div>
+    </div>
+
+    <div class="card emerald span2">
+      <h3>⚖️ The scale tells you before the lungs do</h3>
+      <svg viewBox="0 0 880 210" role="img" aria-label="Weight gain scale: two to three pounds gained in one day or five pounds in one week equals about one to two litres of retained fluid and must be reported">
+        <rect x="4" y="4" width="872" height="202" rx="16" fill="rgba(13,8,26,.42)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+        <rect x="26" y="30" width="250" height="150" rx="14" fill="rgba(18,184,134,.4)" stroke="#a5f3d4" stroke-width="2"/>
+        <text x="151" y="66" font-size="17" font-weight="900" text-anchor="middle" fill="#eafff7">BASELINE</text>
+        <text x="151" y="112" font-size="34" font-weight="900" text-anchor="middle" fill="#ffffff">143 lb</text>
+        <text x="151" y="146" font-size="14" font-style="italic" text-anchor="middle" fill="#d8fff0">yesterday, 0600, after voiding</text>
+        <path d="M292 105 L358 105" stroke="#ffc233" stroke-width="9" stroke-linecap="round"/>
+        <path d="M350 92 L372 105 L350 118 z" fill="#ffc233"/>
+        <text x="326" y="86" font-size="14" font-weight="900" text-anchor="middle" fill="#ffc233">24 hrs</text>
+        <rect x="384" y="30" width="250" height="150" rx="14" fill="rgba(255,59,107,.45)" stroke="#ffd9e2" stroke-width="2"/>
+        <text x="509" y="66" font-size="17" font-weight="900" text-anchor="middle" fill="#ffe3ea">TODAY</text>
+        <text x="509" y="112" font-size="34" font-weight="900" text-anchor="middle" fill="#ffffff">146 lb</text>
+        <text x="509" y="146" font-size="14" font-style="italic" text-anchor="middle" fill="#ffd9e2">same scale, same time, same gown</text>
+        <rect x="650" y="30" width="204" height="150" rx="14" fill="rgba(255,194,51,.7)" stroke="#fff2cc" stroke-width="2"/>
+        <text x="752" y="62" font-size="16" font-weight="900" text-anchor="middle" fill="#231a02">+3 lb in 1 day</text>
+        <text x="752" y="94" font-size="19" font-weight="900" text-anchor="middle" fill="#231a02">≈ 1.4 L of water</text>
+        <text x="752" y="126" font-size="15" font-weight="900" text-anchor="middle" fill="#231a02">1 kg = 1 L = 2.2 lb</text>
+        <text x="752" y="158" font-size="16" font-weight="900" text-anchor="middle" fill="#7a1027">🚨 REPORT IT</text>
+      </svg>
+      <p style="margin-top:10px"><b>Report:</b> a gain of <span class="mono">2–3 lb in 1 day</span> or <span class="mono">5 lb in 7 days</span>. Weigh <b>same time, same scale, same clothing, after voiding, before breakfast.</b></p>
+      <div class="mn">🧠 <b>“Weight GAIN = water GAIN.”</b> Nobody grows three pounds of muscle overnight. Overnight pounds are always <b>water</b>.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CARE ============ -->
+<section id="care">
+  <div class="sec-h"><span class="icon">🩺</span><h2>CARE</h2><span class="step">STEP 3 · GET IT OFF</span></div>
+  <p class="sec-sub">Sit them up, get the water out, stop putting more in — and watch the potassium while you do it.</p>
+
+  <div class="grid">
+
+    <div class="card emerald span2">
+      <h3>🪜 Priority order at the bedside</h3>
+      <div class="ladder">
+        <div class="rung"><div class="n">1</div><div class="t">🫁 <b>Airway &amp; breathing first.</b> High Fowler's / sitting upright, <b>oxygen</b>, pulse ox, listen to lung bases. Crackles + dyspnea = act now.</div></div>
+        <div class="arrowdown">▼</div>
+        <div class="rung"><div class="n">2</div><div class="t">🛑 <b>Stop or slow the source.</b> Reduce or hold IV fluids per order; check the pump rate; hold sodium-loaded fluids.</div></div>
+        <div class="arrowdown">▼</div>
+        <div class="rung"><div class="n">3</div><div class="t">💊 <b>Give the diuretic</b> — usually a <b>loop diuretic</b>. Then measure what comes out.</div></div>
+        <div class="arrowdown">▼</div>
+        <div class="rung"><div class="n">4</div><div class="t">📏 <b>Measure everything:</b> daily weight, strict I&amp;O, VS, O₂ sat, edema grade, abdominal girth if ascites.</div></div>
+        <div class="arrowdown">▼</div>
+        <div class="rung"><div class="n">5</div><div class="t">🧪 <b>Recheck electrolytes</b> — especially <b>K⁺</b> after diuresis — and reassess lungs.</div></div>
+      </div>
+      <div class="mn">🧠 <b>“SIT · STOP · SQUEEZE · SCALE · SERUM.”</b> Sit them up · Stop the fluids · Squeeze the water out with a diuretic · Scale them daily · check the Serum potassium.</div>
+    </div>
+
+    <div class="card">
+      <h3>💊 Diuretics — the main tool</h3>
+      <table>
+        <tr><th style="width:32%">Class</th><th class="up">Examples</th><th class="lo">Watch for</th></tr>
+        <tr><td><b>Loop</b> 🔁<br><i>strongest</i></td><td>furosemide, bumetanide, torsemide</td><td><b>Hypokalemia</b>, hyponatremia, hypotension, <b>ototoxicity</b>, dehydration</td></tr>
+        <tr><td><b>Thiazide</b> 🚿</td><td>hydrochlorothiazide, chlorthalidone</td><td>Hypokalemia, hyponatremia, <b>hyper</b>glycemia, hyperuricemia</td></tr>
+        <tr><td><b>Potassium-sparing</b> 🛡️</td><td>spironolactone, triamterene</td><td><span class="never">HYPERkalemia</span> — no salt substitutes, no K⁺ supplements</td></tr>
+      </table>
+      <p style="margin-top:8px">⚠️ <b>Push IV furosemide SLOWLY</b> — rapid IV administration is linked to <b>ototoxicity</b> (tinnitus, hearing loss). Give diuretics <b>in the morning</b> so the client isn't up all night.</p>
+      <div class="mn">🧠 <b>“LOOPs LOSE K⁺ · SPARERs SAVE K⁺.”</b> Loop and thiazide = potassium goes <i>down</i>. Spironolactone = potassium goes <i>up</i>. Get that backwards on an exam and you kill the patient.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🚨 What diuresis can do to you</h3>
+      <ul class="tick">
+        <li>🍌 <b>Hypokalemia</b> (<span class="mono">&lt;3.5 mEq/L</span>) → muscle weakness, cramps, <b>dysrhythmias</b>.</li>
+        <li>💛 <b>Digoxin toxicity</b> — <span class="never">low K⁺ makes digoxin toxic even at a normal dose.</span> Check K⁺ before giving digoxin.</li>
+        <li>🤸 <b>Orthostatic hypotension &amp; falls</b> — stand them up slowly, put fall precautions in place.</li>
+        <li>🏜️ <b>Over-correcting into deficit</b> — you can diurese a patient from overload straight into dehydration.</li>
+      </ul>
+      <div class="mn">🧠 <b>“Low K⁺ + Dig = Danger.”</b> Two D's you never want in the same sentence. Potassium first, digoxin second.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🧂 Restrictions &amp; teaching</h3>
+      <ul class="tick">
+        <li>💧 <b>Fluid restriction</b> as ordered — spread the allowance across the day, give ice chips (count ½ volume), offer frequent <b>mouth care</b> and hard candy for thirst.</li>
+        <li>🧂 <b>Sodium restriction</b> — commonly around <span class="mono">2 g/day</span>, but the exact limit is individualized. <b>Read labels</b>: canned soup, deli meat, frozen dinners, pickles, soy sauce, cheese.</li>
+        <li>🚫 <b>No salt substitutes</b> if on a potassium-sparing diuretic or an ACE inhibitor — they are <b>potassium</b> chloride.</li>
+        <li>⚖️ <b>Weigh yourself every morning</b> and call for <span class="mono">2–3 lb</span> overnight or <span class="mono">5 lb</span> in a week.</li>
+        <li>📞 Call for <b>new shortness of breath, sleeping on more pillows, or new ankle swelling</b>.</li>
+      </ul>
+      <div class="mn">🧠 <b>“If it comes in a can, a box, or a bag — it's salty.”</b> Fresh food is naturally low sodium; processed food is a salt delivery system.</div>
+    </div>
+
+    <div class="card tealc">
+      <h3>🛏️ Protecting edematous skin</h3>
+      <ul class="tick">
+        <li>🔄 <b>Reposition at least every 2 hours</b> — swollen skin is stretched, thin and poorly perfused; it breaks down fast.</li>
+        <li>🦵 <b>Elevate edematous limbs</b> above heart level when possible.</li>
+        <li>🧴 Keep skin <b>clean and dry</b>; moisturize; <b>no massaging</b> over pitting edema.</li>
+        <li>👀 Check the <b>sacrum, heels and scrotum</b> in bedbound clients — that's where fluid pools.</li>
+        <li>🧦 Avoid tight elastic, tight ID bands, and anything constricting a swollen limb.</li>
+      </ul>
+      <div class="mn">🧠 <b>“Wet skin is tissue paper.”</b> Edema stretches the skin thin and pushes the capillaries apart — pressure injuries appear in hours, not days.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🔧 When diuretics aren't enough</h3>
+      <ul class="tick">
+        <li>🩸 <b>IV albumin</b> — replaces the missing <i>pull</i> in low-albumin states, drawing fluid back into the vessels (often paired with a diuretic).</li>
+        <li>🪡 <b>Paracentesis</b> — drains ascitic fluid from the abdomen; <b>have the client void first</b>, monitor for hypotension afterward.</li>
+        <li>🧰 <b>Dialysis / ultrafiltration</b> — the answer when the <b>kidneys</b> are the reason the fluid can't leave.</li>
+        <li>🫀 Treat the <b>underlying cause</b>: heart failure meds, liver disease management, stopping the offending IV.</li>
+      </ul>
+      <div class="mn">🧠 <b>“Pull it, drain it, or filter it.”</b> Albumin <b>pulls</b>, paracentesis <b>drains</b>, dialysis <b>filters</b>.</div>
+    </div>
+
+    <div class="card ruby span2">
+      <h3>❌ Never-do list for the overloaded client</h3>
+      <ul class="tick">
+        <li><span class="never">Never run IV fluids wide open</span> in a client with heart failure, renal failure, or known FVO — verify the rate.</li>
+        <li><span class="never">Never give a potassium supplement or salt substitute with a potassium-sparing diuretic.</span></li>
+        <li><span class="never">Never lay a dyspneic overloaded client flat</span> — sit them up.</li>
+        <li><span class="never">Never give digoxin without checking the potassium</span> in a client being diuresed.</li>
+        <li><span class="never">Never ignore crackles that are new</span>, even if the vital signs still look acceptable.</li>
+      </ul>
+      <div class="mn">🧠 <b>“Wide open, flat, and salty — three ways to hurt a wet patient.”</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc rubybg"><span class="big">🎈 Big &amp; bulging body</span>High BP · bounding pulse · JVD · ↑CVP · pitting edema</div>
+    <div class="rc tealbg"><span class="big">🧪 Low when liquidy</span>Na⁺ ⬇ Hct ⬇ BUN ⬇ osmolality ⬇ urine SG ⬇</div>
+    <div class="rc citrine"><span class="big">🪜 2-4-6-8 mm</span>Pitting edema 1+ → 4+ · instant → 1–2 min rebound</div>
+    <div class="rc topazbg"><span class="big">🅰️ Albumin Attracts</span>No albumin = no pull = fluid stays in the tissue</div>
+  </div>
+
+  <div class="recall">
+    <div class="rc citrine"><span class="big">🔁 PUSH·PULL·LEAK·PLUG</span>The 4 mechanisms of edema, in order</div>
+    <div class="rc rubybg"><span class="big">🚨 Pink frothy sputum</span>= pulmonary edema · sit up + O₂ + call</div>
+    <div class="rc topazbg"><span class="big">💊 Loops LOSE K⁺</span>Spironolactone SAVES K⁺ · check K⁺ before digoxin</div>
+    <div class="rc tealbg"><span class="big">⚖️ 2–3 lb / 5 lb</span>in 1 day / in 7 days = report</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 6 rapid-fire questions</summary>
+      <div class="qa">Q1: Name the four mechanisms that produce edema. <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">① Increased hydrostatic pressure (increased volume — renal failure, heart failure) ② Decreased colloid osmotic pressure (low albumin — cirrhosis, starvation) ③ Increased capillary permeability (infection/bacteria, burns) ④ Lymphatic obstruction (cancer/tumor blockage, big infected lymph nodes). PUSH · PULL · LEAK · PLUG.</div></div>
+      <div class="qa">Q2: A pit 6 mm deep that rebounds in 30 seconds is what grade? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">3+ — moderately severe. (1+ = 2 mm/immediate, 2+ = 3–4 mm/15 sec, 3+ = 5–6 mm/30 sec, 4+ = 8 mm or deeper/1–2 minutes.)</div></div>
+      <div class="qa">Q3: Why are the labs LOW in fluid overload if nothing was lost? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Dilution. The same amount of sodium, urea and red cells is spread through more water, so Na⁺, BUN, Hct, osmolality and urine specific gravity all read low. "Low when liquidy."</div></div>
+      <div class="qa">Q4: The client is dyspneic with crackles and pink frothy sputum. First action? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Pulmonary edema — an emergency. Sit them upright in high Fowler's, apply oxygen, stay with them, and get help / notify the provider. Airway and breathing come before labs, weights and diuretics.</div></div>
+      <div class="qa">Q5: Which lab must you check before giving digoxin to a client on furosemide? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Potassium. Loop diuretics waste K⁺, and hypokalemia makes digoxin toxic even at a normal dose.</div></div>
+      <div class="qa">Q6: Client on spironolactone asks about using a salt substitute. Your answer? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">No. Salt substitutes are potassium chloride, and spironolactone is potassium-sparing — together they cause hyperkalemia and dysrhythmias.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">CAUSE</span>→
+    <span style="background:rgba(47,107,255,.7)">CLUES</span>→
+    <span style="background:rgba(18,184,134,.7)">CARE</span>
+  </div>
+  <div>NG-169 · Source wording retained · ADHD-friendly visual edition v2</div>
+</footer>
+
+</div>
+</body></html>

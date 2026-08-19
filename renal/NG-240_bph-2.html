@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BPH II · NG-240 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+
+/* ---------- appended for NG-240 (page-specific components only) ---------- */
+nav a.c5{background:rgba(192,34,85,.7)}
+#turp .sec-h h2{color:#ffb3c6} #turp .step{background:var(--garnet)}
+.qbox{margin:10px 0 0;padding:11px 13px;border-radius:12px;
+  background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qbox .q{font-weight:900;display:block;margin-bottom:5px}
+.qbox .ans{font-weight:900;color:var(--topaz)}
+.card.tealc .qbox,.card.topaz .qbox,.card.citrinec .qbox{background:rgba(255,255,255,.5);border-color:rgba(0,0,0,.3);color:#1a1030}
+.card.tealc .qbox .ans,.card.topaz .qbox .ans,.card.citrinec .qbox .ans{color:#7a1f8a}
+.neverlist{display:grid;gap:9px;margin:10px 0 0}
+.nv{display:grid;grid-template-columns:40px 1fr;gap:10px;align-items:center;
+  border-radius:12px;padding:10px 12px;background:rgba(192,34,85,.55);border:1px solid var(--line)}
+.nv .x{font-size:1.4rem;font-weight:900;text-align:center}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#cause">🧨 Cause</a>
+  <a class="c2" href="#clues">🔎 Clues &amp; labs</a>
+  <a class="c3" href="#care">🩺 Care</a>
+  <a class="c5" href="#turp">🔪 TURP &amp; CBI</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Renal + Fluid · Med-Surg II</div>
+  <h1>BPH II <span class="drop">🌰🔪</span></h1>
+  <p class="sub">Benign Prostatic Hyperplasia · PSA · TURP &amp; continuous bladder irrigation</p>
+  <div class="chips">
+    <span class="chip id">NG-240</span>
+    <span class="chip cat">Renal + Fluid</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede"><b>Part 2 is the surgical half.</b> A prostate that keeps growing eventually stops responding to pills — then it's <b>TURP</b> 🔪, a <b>3-way Foley</b> 🚿, and a set of rules about urine color and irrigation that the NCLEX asks over and over: <b>output must always be MORE than input.</b></p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">🌰 BPH = benign</span>Too many normal cells — <b>not cancer</b> — squeezing the urethra.</div>
+  <div class="rc tealbg"><span class="big">🧪 PSA before DRE</span>Draw the blood <b>first</b> — an exam or catheter falsely raises PSA.</div>
+  <div class="rc rubybg"><span class="big">🚿 Output &gt; Input</span>With CBI, drainage must exceed irrigant. <b>Never</b> “equal to” or “less than.”</div>
+  <div class="rc topazbg"><span class="big">🩸 Bright red at <span class="mono">24 hr</span></span>= not expected → <b>contact the HCP immediately</b>.</div>
+</div>
+
+<!-- ============ CAUSE ============ -->
+<section id="cause">
+  <div class="sec-h"><span class="icon">🧨</span><h2>CAUSE</h2><span class="step">STEP 1 · THE GLAND THAT GREW</span></div>
+  <p class="sec-sub">Age plus hormones make a walnut into a lemon — and the urethra is running straight through the middle of it.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🌰 Where the prostate sits — and why size matters so much</h3>
+      <p>The prostate is a <b>walnut-sized</b> gland that sits <b>directly below the bladder</b> and <b>completely encircles the urethra</b>. Its normal job is making fluid for semen. Starting around age <span class="mono">40–50</span>, hormone changes (mainly <b>DHT</b>) make the cells multiply — <b>hyperplasia</b>.</p>
+      <p><mark>Because the gland is a ring around the pipe, growth goes INWARD and closes the pipe.</mark> That single fact explains every symptom, every drug and every surgery on this page.</p>
+
+      <svg viewBox="-10 -10 929 450" role="img" aria-label="Progression of benign prostatic hyperplasia in three stages: a normal small prostate with an open urethra, a moderately enlarged gland with a narrowed channel and a thickened bladder wall, and severe obstruction with a huge residual volume backing pressure up to the kidneys">
+        <defs>
+          <linearGradient id="u240" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#7ff0f2"/><stop offset="1" stop-color="#00c2c7"/>
+          </linearGradient>
+          <marker id="ar240" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/>
+          </marker>
+        </defs>
+        <rect x="-6" y="-6" width="921" height="442" rx="18" fill="rgba(13,8,26,.45)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+        <text x="28" y="42" font-size="22" font-weight="900" fill="#ffd0bd">🌰 HOW BPH CLOSES THE PIPE — three stages</text>
+
+        <!-- STAGE 1 -->
+        <rect x="26" y="62" width="266" height="342" rx="16" fill="rgba(18,184,134,.15)" stroke="#12b886" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="46" y="94" font-size="17" font-weight="900" fill="#7df0c6">1 · NORMAL 🌰</text>
+        <ellipse cx="159" cy="164" rx="70" ry="46" fill="url(#u240)" stroke="#eafff7" stroke-width="2.5"/>
+        <text x="159" y="170" font-size="13.5" font-weight="900" fill="#00343a" text-anchor="middle">BLADDER</text>
+        <ellipse cx="159" cy="256" rx="44" ry="32" fill="rgba(255,138,61,.75)" stroke="#fff0d6" stroke-width="2"/>
+        <rect x="147" y="212" width="24" height="88" rx="9" fill="#7ff0f2"/>
+        <path d="M159 306 L159 344" stroke="#12b886" stroke-width="8" stroke-linecap="round"/>
+        <path d="M148 334 l11 20 l11 -20 z" fill="#12b886"/>
+        <text x="46" y="382" font-size="14" font-weight="900" fill="#a5f3d4">Wide channel · empties fully</text>
+        <text x="46" y="400" font-size="13" font-style="italic" fill="#d8fff0">PVR &lt; 50 mL · thin bladder wall</text>
+
+        <!-- STAGE 2 -->
+        <rect x="308" y="62" width="266" height="342" rx="16" fill="rgba(255,194,51,.16)" stroke="#ffc233" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="328" y="94" font-size="17" font-weight="900" fill="#ffc233">2 · ENLARGING 🍋</text>
+        <ellipse cx="441" cy="164" rx="74" ry="50" fill="url(#u240)" stroke="#fff0d6" stroke-width="6"/>
+        <text x="441" y="162" font-size="13" font-weight="900" fill="#00343a" text-anchor="middle">wall THICKENS</text>
+        <text x="441" y="182" font-size="11.5" font-style="italic" fill="#00343a" text-anchor="middle">(hypertrophy from straining)</text>
+        <ellipse cx="441" cy="258" rx="62" ry="42" fill="rgba(255,194,51,.8)" stroke="#fff0d6" stroke-width="2"/>
+        <rect x="434" y="212" width="14" height="92" rx="6" fill="#7ff0f2"/>
+        <path d="M441 306 L441 336" stroke="#ffc233" stroke-width="5" stroke-linecap="round"/>
+        <path d="M434 328 l7 16 l7 -16 z" fill="#ffc233"/>
+        <text x="328" y="382" font-size="14" font-weight="900" fill="#ffc233">Hesitancy · weak stream · nocturia</text>
+        <text x="328" y="400" font-size="13" font-style="italic" fill="#fff0d6">residual urine starts collecting</text>
+
+        <!-- STAGE 3 -->
+        <rect x="590" y="62" width="284" height="342" rx="16" fill="rgba(255,59,107,.16)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="610" y="94" font-size="17" font-weight="900" fill="#ff9db4">3 · OBSTRUCTED 🚫</text>
+        <!-- kidneys backing up -->
+        <path d="M628 122 C 612 132 612 158 628 168 C 644 160 644 130 628 122 Z" fill="rgba(157,92,255,.7)" stroke="#d9c2ff" stroke-width="2"/>
+        <path d="M844 122 C 860 132 860 158 844 168 C 828 160 828 130 844 122 Z" fill="rgba(157,92,255,.7)" stroke="#d9c2ff" stroke-width="2"/>
+        <text x="736" y="118" font-size="12.5" font-weight="900" fill="#d9c2ff" text-anchor="middle">back-pressure ⬆️ hydronephrosis</text>
+        <path d="M690 196 L646 170" stroke="#ffc233" stroke-width="4" marker-end="url(#ar240)"/>
+        <path d="M782 196 L826 170" stroke="#ffc233" stroke-width="4" marker-end="url(#ar240)"/>
+        <ellipse cx="736" cy="222" rx="88" ry="56" fill="rgba(255,138,61,.8)" stroke="#fff0d6" stroke-width="7"/>
+        <text x="736" y="216" font-size="13.5" font-weight="900" fill="#3a1c00" text-anchor="middle">HUGE RESIDUAL</text>
+        <text x="736" y="238" font-size="12.5" font-style="italic" fill="#3a1c00" text-anchor="middle">overflow dribbling</text>
+        <ellipse cx="736" cy="316" rx="76" ry="46" fill="rgba(192,34,85,.8)" stroke="#ffd9e2" stroke-width="2"/>
+        <rect x="732" y="272" width="8" height="96" rx="4" fill="#ff9db4"/>
+        <text x="736" y="322" font-size="13" font-weight="900" fill="#fff" text-anchor="middle">GLAND TAKES OVER</text>
+        <text x="610" y="392" font-size="14" font-weight="900" fill="#ff9db4">UTI 🦠 · stones 🪨 · acute retention 🚨</text>
+        <text x="610" y="410" font-size="13" font-weight="900" fill="#ffc233">→ post-renal AKI: ↑ BUN, ↑ creatinine</text>
+      </svg>
+      <div class="mn">🧠 <b>“Walnut 🌰 → lemon 🍋 → grapefruit 🍊.”</b> The gland grows through fruit sizes while the <b>hole in the middle shrinks</b>. Picture the fruit and you can rebuild the whole pathophysiology.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>⭐ Who gets it — the risk picture</h3>
+      <ul class="tick">
+        <li>👴 <b>Age is the risk factor</b> — starts around <span class="mono">40–50</span>; roughly <b>half of men by <span class="mono">60</span></b> and most men by their <span class="mono">80s</span> have some BPH</li>
+        <li>🧬 Hormonal shift: aging changes the testosterone-to-<b>DHT</b> balance</li>
+        <li>👪 Family history · obesity · sedentary life · diabetes</li>
+        <li>🚫 <b>BPH does NOT cause prostate cancer</b> — but a man can have both, so screening still matters</li>
+      </ul>
+      <div class="mn">🧠 <b>Benign ≠ harmless.</b> “Benign” only means <i>not cancer</i>. This benign gland can still shut down a kidney.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>⚠️ What makes BPH suddenly become an emergency</h3>
+      <ul class="tick">
+        <li>💊 <b>Anticholinergics &amp; antihistamines</b> — stop the squeeze</li>
+        <li>🫗 <b>Decongestants</b> (pseudoephedrine) — tighten the bladder neck</li>
+        <li>🍺 <b>Alcohol</b> binge · large fluid load at once</li>
+        <li>🥶 Cold weather · immobility · surgery &amp; anesthesia</li>
+        <li>💩 <b>Constipation / fecal impaction</b> pressing on the urethra</li>
+        <li>⏳ <b>Holding urine too long</b></li>
+      </ul>
+      <p><span class="never">Acute urinary retention is a urologic emergency — it needs immediate catheterization.</span></p>
+      <div class="mn">🧠 <b>“Cold pill + cold night + held it too long.”</b> That sentence is the classic ED admission for acute retention in a man with BPH.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLUES ============ -->
+<section id="clues">
+  <div class="sec-h"><span class="icon">🔎</span><h2>CLUES &amp; LABS</h2><span class="step">STEP 2 · FIND IT</span></div>
+  <p class="sec-sub">Two symptom families, one finger exam, and one lab everybody mis-times.</p>
+
+  <div class="grid">
+    <div class="card sapphire">
+      <h3>🚿 Obstructive symptoms — the stream</h3>
+      <ul class="tick">
+        <li>⏳ <b>Hesitancy</b> — can't get started</li>
+        <li>💨 <b>Weak, intermittent stream</b> · straining</li>
+        <li>💧 <b>Post-void dribbling</b></li>
+        <li>🫗 Feeling of <b>incomplete emptying</b></li>
+        <li>🚨 Complete inability to void = <b>acute retention</b></li>
+      </ul>
+      <div class="mn">🧠 <b>Obstructive = the pipe.</b> Everything in this list is about how the <i>urine leaves</i>.</div>
+    </div>
+
+    <div class="card tealc">
+      <h3>🔁 Irritative symptoms — the bladder</h3>
+      <ul class="tick">
+        <li>🌙 <b>Nocturia</b> — up multiple times a night; usually the reason they finally come in</li>
+        <li>🔔 <b>Urgency</b> · frequency</li>
+        <li>💧 Small voided volumes · overflow incontinence</li>
+        <li>🔥 Dysuria if a UTI has set in</li>
+      </ul>
+      <div class="mn">🧠 <b>Irritative = the tank.</b> The overworked, thickened bladder is twitchy — it complains constantly even though little comes out.</div>
+    </div>
+
+    <div class="card deep span2">
+      <h3>👆 The DRE — digital rectal exam tells BPH from cancer</h3>
+      <div class="duo">
+        <svg viewBox="0 0 440 300" role="img" aria-label="Digital rectal exam finding in benign prostatic hyperplasia: a smooth firm rubbery symmetrically enlarged gland">
+          <rect x="6" y="6" width="428" height="288" rx="18" fill="rgba(18,184,134,.15)" stroke="#12b886" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="22" y="42" font-size="20" font-weight="900" fill="#7df0c6">🌰 BPH feels like…</text>
+          <path d="M220 88 C 168 88 130 128 130 172 C 130 216 168 250 220 250 C 272 250 310 216 310 172 C 310 128 272 88 220 88 Z"
+                fill="rgba(18,184,134,.6)" stroke="#a5f3d4" stroke-width="3"/>
+          <line x1="220" y1="92" x2="220" y2="246" stroke="#a5f3d4" stroke-width="2" stroke-dasharray="6 5"/>
+          <text x="220" y="176" font-size="15" font-weight="900" fill="#eafff7" text-anchor="middle">SMOOTH</text>
+          <text x="24" y="120" font-size="14.5" font-weight="900" fill="#a5f3d4">• Smooth surface</text>
+          <text x="24" y="146" font-size="14.5" font-weight="900" fill="#a5f3d4">• Firm &amp; RUBBERY</text>
+          <text x="24" y="278" font-size="14.5" font-weight="900" fill="#a5f3d4">• Symmetrically enlarged (both lobes)</text>
+          <text x="330" y="176" font-size="13.5" font-weight="900" fill="#a5f3d4">even</text>
+          <text x="330" y="196" font-size="13.5" font-weight="900" fill="#a5f3d4">on both</text>
+          <text x="330" y="216" font-size="13.5" font-weight="900" fill="#a5f3d4">sides</text>
+        </svg>
+
+        <svg viewBox="0 0 440 300" role="img" aria-label="Digital rectal exam finding suspicious for prostate cancer: a hard fixed nodular asymmetric gland">
+          <rect x="6" y="6" width="428" height="288" rx="18" fill="rgba(255,59,107,.15)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="22" y="42" font-size="20" font-weight="900" fill="#ff9db4">🎗️ CANCER feels like…</text>
+          <path d="M220 88 C 166 92 128 126 132 174 C 136 220 172 252 224 250 C 276 248 314 214 308 168 C 303 126 274 84 220 88 Z"
+                fill="rgba(192,34,85,.7)" stroke="#ffd9e2" stroke-width="3"/>
+          <circle cx="184" cy="146" r="17" fill="#ff3b6b" stroke="#ffe3ea" stroke-width="2"/>
+          <circle cx="252" cy="196" r="22" fill="#ff3b6b" stroke="#ffe3ea" stroke-width="2"/>
+          <circle cx="236" cy="132" r="11" fill="#ff3b6b" stroke="#ffe3ea" stroke-width="2"/>
+          <text x="24" y="120" font-size="14.5" font-weight="900" fill="#ff9db4">• HARD, stony</text>
+          <text x="24" y="146" font-size="14.5" font-weight="900" fill="#ff9db4">• NODULAR (lumps)</text>
+          <text x="24" y="278" font-size="14.5" font-weight="900" fill="#ff9db4">• ASYMMETRIC · fixed, immobile</text>
+          <text x="330" y="176" font-size="13.5" font-weight="900" fill="#ffc233">lumpy</text>
+          <text x="330" y="196" font-size="13.5" font-weight="900" fill="#ffc233">&amp; uneven</text>
+        </svg>
+      </div>
+      <p style="margin-top:11px"><mark>Smooth &amp; rubbery = benign. Hard &amp; nodular = report it.</mark></p>
+      <div class="mn">🧠 <b>“Rubber ball = benign 🎾. Rock = report 🪨.”</b> Two textures, two totally different conversations with the provider.</div>
+    </div>
+
+    <div class="card topaz span2">
+      <h3>🧪 PSA — prostate specific antigen</h3>
+      <p><b>PSA is a screening tool, not a diagnosis.</b> It is <b>prostate</b> specific, not <b>cancer</b> specific — BPH itself raises it.</p>
+      <svg viewBox="0 0 900 380" role="img" aria-label="PSA reference scale: under 4 nanograms per millilitre generally normal, 4 to 10 a grey zone needing follow up, above 10 higher suspicion; plus a list of things that falsely raise PSA and the rule to draw PSA before a digital rectal exam">
+        <defs>
+          <linearGradient id="psaG" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#12b886"/><stop offset=".42" stop-color="#12b886"/>
+            <stop offset=".52" stop-color="#ffc233"/><stop offset=".74" stop-color="#ff8a3d"/>
+            <stop offset="1" stop-color="#ff3b6b"/>
+          </linearGradient>
+        </defs>
+        <rect x="4" y="4" width="892" height="372" rx="18" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+        <text x="28" y="42" font-size="22" font-weight="900" fill="#ffc233">🧪 PSA SCALE (adult male, ng/mL)</text>
+        <text x="28" y="68" font-size="14" font-style="italic" fill="#efe6ff">age-specific ranges are used and labs differ — treat these as the standard teaching cut-offs</text>
+
+        <rect x="40" y="96" width="820" height="50" rx="14" fill="url(#psaG)"/>
+        <line x1="384" y1="96" x2="384" y2="146" stroke="#140b24" stroke-width="4"/>
+        <line x1="628" y1="96" x2="628" y2="146" stroke="#140b24" stroke-width="4"/>
+        <text x="40"  y="88" font-size="15" font-weight="900" fill="#fff">0</text>
+        <text x="366" y="88" font-size="15" font-weight="900" fill="#fff">4</text>
+        <text x="610" y="88" font-size="15" font-weight="900" fill="#fff">10</text>
+        <text x="820" y="88" font-size="15" font-weight="900" fill="#fff">20+</text>
+        <text x="60"  y="128" font-size="16" font-weight="900" fill="#03291c">GENERALLY NORMAL</text>
+        <text x="404" y="128" font-size="16" font-weight="900" fill="#231a02">GREY ZONE</text>
+        <text x="650" y="128" font-size="16" font-weight="900" fill="#fff">HIGHER SUSPICION</text>
+
+        <rect x="40" y="176" width="344" height="94" rx="12" fill="rgba(18,184,134,.55)" stroke="#a5f3d4" stroke-width="2"/>
+        <text x="58" y="204" font-size="15.5" font-weight="900" fill="#eafff7">&lt; 4 ng/mL</text>
+        <text x="58" y="228" font-size="13.5" fill="#eafff7">Usually reassuring — but BPH,</text>
+        <text x="58" y="248" font-size="13.5" fill="#eafff7">prostatitis and cancer can all</text>
+        <text x="58" y="264" font-size="13.5" fill="#eafff7">exist with a “normal” PSA.</text>
+
+        <rect x="396" y="176" width="232" height="94" rx="12" fill="rgba(255,194,51,.8)" stroke="#fff0d6" stroke-width="2"/>
+        <text x="414" y="204" font-size="15.5" font-weight="900" fill="#231a02">4–10 ng/mL</text>
+        <text x="414" y="228" font-size="13.5" fill="#231a02">Follow-up: repeat PSA,</text>
+        <text x="414" y="248" font-size="13.5" fill="#231a02">trend it over time,</text>
+        <text x="414" y="264" font-size="13.5" fill="#231a02">consider biopsy.</text>
+
+        <rect x="640" y="176" width="220" height="94" rx="12" fill="rgba(255,59,107,.7)" stroke="#ffe3ea" stroke-width="2"/>
+        <text x="658" y="204" font-size="15.5" font-weight="900" fill="#fff">Over 10 ng/mL</text>
+        <text x="658" y="228" font-size="13.5" fill="#fff">Higher suspicion of</text>
+        <text x="658" y="248" font-size="13.5" fill="#fff">cancer — urology,</text>
+        <text x="658" y="264" font-size="13.5" fill="#fff">TRUS + biopsy.</text>
+
+        <rect x="40" y="292" width="820" height="66" rx="12" fill="rgba(47,107,255,.5)" stroke="#bcd0ff" stroke-width="2"/>
+        <text x="58" y="318" font-size="16" font-weight="900" fill="#fff">⚠️ FALSELY RAISES PSA — so DRAW THE PSA FIRST:</text>
+        <text x="58" y="344" font-size="14.5" font-weight="800" fill="#dfe8ff">DRE 👆 · catheterization 🩺 · cystoscopy · recent ejaculation · prostatitis/UTI · bike riding 🚴 · biopsy</text>
+      </svg>
+      <p style="margin-top:10px">💊 <b>Finasteride lowers PSA by roughly half</b> — the provider mentally doubles the result while the client is on it.</p>
+      <div class="mn">🧠 <b>“Blood before finger.”</b> <b>P</b>SA comes before the <b>P</b>oke. If a question has the nurse doing a DRE and <i>then</i> drawing the PSA, that's the error.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🔬 The rest of the workup</h3>
+      <ul class="tick">
+        <li>📟 <b>Bladder scan / PVR</b> — how much is left behind</li>
+        <li>🧪 <b>Urinalysis &amp; culture</b> — rule out UTI/hematuria</li>
+        <li>🧪 <b>BUN &amp; creatinine</b> — is the obstruction hurting the kidneys?</li>
+        <li>📊 <b>IPSS / AUA symptom score</b> — grades severity and tracks response</li>
+        <li>💨 <b>Uroflowmetry</b> — measures stream strength</li>
+        <li>📷 <b>TRUS</b> (transrectal ultrasound) <b>+ biopsy</b> if cancer is suspected</li>
+        <li>🔭 <b>Cystoscopy</b> — direct look at the urethra &amp; bladder</li>
+      </ul>
+      <div class="mn">🧠 <b>Scan · dip · draw · score.</b> Four cheap tests before anybody talks about surgery.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CARE ============ -->
+<section id="care">
+  <div class="sec-h"><span class="icon">🩺</span><h2>CARE</h2><span class="step">STEP 3 · PILLS BEFORE SCALPELS</span></div>
+  <p class="sec-sub">Watchful waiting, then relax it, then shrink it — surgery is what happens when all of that fails.</p>
+
+  <div class="grid">
+    <div class="card emerald span2">
+      <h3>💊 Alpha blockers vs 5-alpha reductase inhibitors — the exam's favorite comparison</h3>
+      <table>
+        <tr><th style="width:24%">&nbsp;</th><th class="up">🚪 ALPHA-1 BLOCKERS</th><th class="lo">🌰 5-ALPHA REDUCTASE INHIBITORS</th></tr>
+        <tr><td><b>Drugs</b></td><td><b>Terazosin</b> · <b>Tamsulosin</b> · doxazosin · alfuzosin <i>(<span class="mono">-osin</span>)</i></td><td><b>Finasteride</b> · dutasteride <i>(<span class="mono">-steride</span>)</i></td></tr>
+        <tr><td><b>What it does</b></td><td><b>RELAXES</b> smooth muscle in the bladder neck &amp; prostate</td><td><b>SHRINKS</b> the gland by blocking testosterone → <b>DHT</b></td></tr>
+        <tr><td><b>Gland size</b></td><td>Unchanged</td><td><b>Actually smaller</b></td></tr>
+        <tr><td><b>Onset</b></td><td><b>Days</b> ⚡</td><td><span class="mono">3–6 months</span> 🐢</td></tr>
+        <tr><td><b>Signature side effect</b></td><td><b>Orthostatic hypotension</b>, dizziness, retrograde ejaculation</td><td>↓ libido, ED, <b>gynecomastia</b></td></tr>
+        <tr><td><b>Lab effect</b></td><td>None on PSA</td><td><b>Lowers PSA ~50%</b></td></tr>
+        <tr><td><b>Big teaching</b></td><td>First dose at <b>bedtime</b>; change positions slowly</td><td><span class="never">Pregnant women must not handle broken tablets</span></td></tr>
+      </table>
+      <div class="mn">🧠 <b>“-osin RELAXES fast · -steride SHRINKS slow.”</b> Onset is the giveaway: if the question says the client wants relief <i>this week</i>, that's an <b>-osin</b>.</div>
+    </div>
+
+    <div class="card tealc">
+      <h3>✅ Lifestyle &amp; conservative care</h3>
+      <ul class="tick">
+        <li>💧 Fluids <span class="mono">2–3 L/day</span>, but <b>limit in the evening</b> for nocturia</li>
+        <li>☕ Cut <b>caffeine &amp; alcohol</b> — bladder irritants and diuretics</li>
+        <li>⏰ <b>Timed voiding</b> q<span class="mono">2–3 hr</span> · <b>double voiding</b></li>
+        <li>🚫 Avoid <b>anticholinergics, antihistamines, decongestants</b></li>
+        <li>🚶 Exercise; treat constipation</li>
+        <li>👀 <b>Watchful waiting</b> is legitimate care for mild symptoms</li>
+      </ul>
+      <div class="mn">🧠 <b>Front-load the fluids.</b> Same total volume, drunk earlier in the day = same hydration, far less nocturia.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🔪 When do the pills stop being enough?</h3>
+      <ul class="tick">
+        <li>🚨 <b>Recurrent acute urinary retention</b></li>
+        <li>🦠 Recurrent <b>UTIs</b> · 🪨 bladder stones</li>
+        <li>🩸 Persistent gross <b>hematuria</b> from the prostate</li>
+        <li>🧪 Rising <b>creatinine</b> / hydronephrosis</li>
+        <li>😩 Symptoms intolerable despite maximum medical therapy</li>
+      </ul>
+      <div class="qbox"><span class="q">📗 HESI: “BPH refractory to treatment with other medications?”</span><span class="ans">✅ Anticipate a TURP.</span></div>
+      <div class="mn">🧠 <b>“Refractory = resect.”</b> The word <i>refractory</i> in a BPH stem is the exam telling you surgery is next.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TURP & CBI ============ -->
+<section id="turp">
+  <div class="sec-h"><span class="icon">🔪</span><h2>TURP &amp; CBI</h2><span class="step">STEP 4 · THE SURGICAL HALF</span></div>
+  <p class="sec-sub">Two surgeries, one catheter with three lumens, and a short list of things you must never do.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🔪 TURP vs prostatectomy — through the pipe or through the belly</h3>
+      <div class="duo">
+        <svg viewBox="0 0 440 320" role="img" aria-label="TURP: a resectoscope is passed through the urethra with no incision to shave away prostate tissue from the inside">
+          <rect x="6" y="6" width="428" height="308" rx="18" fill="rgba(47,107,255,.16)" stroke="#2f6bff" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="22" y="40" font-size="19" font-weight="900" fill="#bcd0ff">🔭 TURP — LESS invasive</text>
+          <text x="22" y="62" font-size="13" font-style="italic" fill="#dfe8ff">Trans-Urethral Resection of the Prostate</text>
+          <ellipse cx="230" cy="118" rx="66" ry="42" fill="rgba(0,194,199,.65)" stroke="#eafff7" stroke-width="2"/>
+          <text x="230" y="124" font-size="13.5" font-weight="900" fill="#00343a" text-anchor="middle">BLADDER</text>
+          <ellipse cx="230" cy="200" rx="54" ry="36" fill="rgba(255,138,61,.75)" stroke="#fff0d6" stroke-width="2"/>
+          <text x="230" y="206" font-size="12.5" font-weight="900" fill="#2b1200" text-anchor="middle">PROSTATE</text>
+          <!-- scope through urethra -->
+          <rect x="220" y="160" width="20" height="140" rx="8" fill="#140b24" stroke="#bcd0ff" stroke-width="2"/>
+          <rect x="224" y="164" width="12" height="132" rx="6" fill="#bcd0ff"/>
+          <circle cx="230" cy="176" r="8" fill="#ffc233"/>
+          <text x="264" y="268" font-size="13.5" font-weight="900" fill="#bcd0ff">resectoscope</text>
+          <text x="264" y="288" font-size="13.5" font-weight="900" fill="#bcd0ff">up the urethra</text>
+          <text x="22" y="240" font-size="14" font-weight="900" fill="#a5f3d4">✅ NO incision</text>
+          <text x="22" y="262" font-size="14" font-weight="900" fill="#a5f3d4">✅ Shorter stay</text>
+          <text x="22" y="284" font-size="13" font-weight="800" fill="#dfe8ff">Tissue shaved from</text>
+          <text x="22" y="302" font-size="13" font-weight="800" fill="#dfe8ff">the inside out</text>
+        </svg>
+
+        <svg viewBox="0 0 440 320" role="img" aria-label="Open prostatectomy: a surgical incision is made in the lower abdomen to remove prostate tissue, which is more invasive with a wound and drains">
+          <rect x="6" y="6" width="428" height="308" rx="18" fill="rgba(192,34,85,.18)" stroke="#c02255" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="22" y="40" font-size="19" font-weight="900" fill="#ff9db4">🔪 PROSTATECTOMY — MORE invasive</text>
+          <text x="22" y="62" font-size="13" font-style="italic" fill="#ffd9e2">a surgical incision is made</text>
+          <!-- abdomen -->
+          <path d="M110 96 C 110 84 330 84 330 96 L330 250 C 330 292 110 292 110 250 Z" fill="rgba(157,92,255,.35)" stroke="#d9c2ff" stroke-width="2"/>
+          <ellipse cx="220" cy="176" rx="58" ry="38" fill="rgba(0,194,199,.6)" stroke="#eafff7" stroke-width="2"/>
+          <text x="220" y="182" font-size="12.5" font-weight="900" fill="#00343a" text-anchor="middle">BLADDER</text>
+          <ellipse cx="220" cy="242" rx="42" ry="28" fill="rgba(255,138,61,.75)" stroke="#fff0d6" stroke-width="2"/>
+          <text x="220" y="248" font-size="11.5" font-weight="900" fill="#2b1200" text-anchor="middle">PROSTATE</text>
+          <!-- incision -->
+          <line x1="150" y1="126" x2="290" y2="126" stroke="#ff3b6b" stroke-width="7" stroke-linecap="round"/>
+          <line x1="162" y1="118" x2="162" y2="134" stroke="#ffe3ea" stroke-width="3"/>
+          <line x1="192" y1="118" x2="192" y2="134" stroke="#ffe3ea" stroke-width="3"/>
+          <line x1="222" y1="118" x2="222" y2="134" stroke="#ffe3ea" stroke-width="3"/>
+          <line x1="252" y1="118" x2="252" y2="134" stroke="#ffe3ea" stroke-width="3"/>
+          <line x1="282" y1="118" x2="282" y2="134" stroke="#ffe3ea" stroke-width="3"/>
+          <text x="120" y="108" font-size="13.5" font-weight="900" fill="#ff9db4">surgical incision + sutures</text>
+          <text x="22" y="282" font-size="13.5" font-weight="900" fill="#ff9db4">⚠️ Wound care · drains · longer recovery</text>
+          <text x="22" y="302" font-size="13" font-weight="800" fill="#ffd9e2">Used for very large glands or when TURP isn't possible</text>
+        </svg>
+      </div>
+      <p style="margin-top:12px"><mark>After EITHER procedure a 3-way Foley catheter is used for continuous bladder irrigation (CBI).</mark> It does two jobs: <b>puts pressure on bleeding tissue</b> and <b>allows urine drainage</b> without clots plugging the catheter.</p>
+      <div class="mn">🧠 <b>“TURP goes THROUGH, prostatectomy CUTS.”</b> T = <b>T</b>hrough the urethra, no scar. Prostate<b>ectomy</b> = <b>-ectomy</b> means cut it out.</div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>🚿 The 3-way Foley &amp; continuous bladder irrigation</h3>
+      <svg viewBox="-10 -10 1178 480" role="img" aria-label="Three way Foley catheter with continuous bladder irrigation: lumen one inflates the balloon, lumen two runs sterile irrigation fluid in, lumen three drains urine plus irrigant out; total drainage must always be greater than the irrigant infused, and true urine output equals total output minus irrigant">
+        <defs>
+          <marker id="arIn" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#00c2c7"/>
+          </marker>
+          <marker id="arOut" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/>
+          </marker>
+        </defs>
+        <rect x="-6" y="-6" width="1170" height="472" rx="18" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+        <text x="28" y="42" font-size="22" font-weight="900" fill="#9ff2ee">🚿 THREE LUMENS, THREE JOBS</text>
+
+        <!-- irrigation bag -->
+        <rect x="34" y="76" width="120" height="150" rx="14" fill="rgba(0,194,199,.55)" stroke="#9ff2ee" stroke-width="2"/>
+        <text x="94" y="118" font-size="14.5" font-weight="900" fill="#eafff7" text-anchor="middle">STERILE</text>
+        <text x="94" y="140" font-size="14.5" font-weight="900" fill="#eafff7" text-anchor="middle">IRRIGANT</text>
+        <text x="94" y="164" font-size="12.5" font-style="italic" fill="#eafff7" text-anchor="middle">isotonic saline</text>
+        <text x="94" y="192" font-size="13.5" font-weight="900" fill="#fff" text-anchor="middle">INPUT ⬇️</text>
+        <path d="M94 232 C 94 286 190 268 250 274" fill="none" stroke="#00c2c7" stroke-width="7" marker-end="url(#arIn)"/>
+        <text x="112" y="256" font-size="13" font-weight="900" fill="#9ff2ee">lumen 2 · fluid IN</text>
+
+        <!-- bladder -->
+        <ellipse cx="400" cy="228" rx="118" ry="86" fill="rgba(255,138,61,.5)" stroke="#fff0d6" stroke-width="3"/>
+        <text x="400" y="196" font-size="16" font-weight="900" fill="#fff" text-anchor="middle">BLADDER</text>
+        <text x="400" y="220" font-size="13" font-style="italic" fill="#ffe9d6" text-anchor="middle">raw, bleeding prostate bed</text>
+        <circle cx="352" cy="256" r="7" fill="#ff3b6b"/><circle cx="404" cy="268" r="6" fill="#ff3b6b"/><circle cx="440" cy="248" r="8" fill="#ff3b6b"/>
+
+        <!-- balloon -->
+        <circle cx="400" cy="318" r="26" fill="rgba(157,92,255,.75)" stroke="#d9c2ff" stroke-width="2"/>
+        <text x="400" y="324" font-size="13" font-weight="900" fill="#fff" text-anchor="middle">🎈</text>
+        <text x="446" y="316" font-size="13.5" font-weight="900" fill="#d9c2ff">lumen 1 · balloon</text>
+        <text x="446" y="336" font-size="12.5" font-style="italic" fill="#d9c2ff">large volume + gentle traction</text>
+        <text x="446" y="356" font-size="12.5" font-style="italic" fill="#d9c2ff">presses on bleeding tissue</text>
+
+        <!-- catheter shaft -->
+        <rect x="386" y="342" width="28" height="76" rx="10" fill="#140b24" stroke="#9ff2ee" stroke-width="2"/>
+        <path d="M414 400 C 520 418 600 400 664 386" fill="none" stroke="#ffc233" stroke-width="8" marker-end="url(#arOut)"/>
+        <text x="452" y="424" font-size="13.5" font-weight="900" fill="#ffc233">lumen 3 · urine + irrigant OUT</text>
+
+        <!-- drainage bag -->
+        <rect x="676" y="316" width="140" height="120" rx="14" fill="rgba(255,138,61,.6)" stroke="#fff0d6" stroke-width="2"/>
+        <text x="746" y="356" font-size="14.5" font-weight="900" fill="#2b1200" text-anchor="middle">DRAINAGE</text>
+        <text x="746" y="380" font-size="13" font-weight="900" fill="#2b1200" text-anchor="middle">urine + irrigant</text>
+        <text x="746" y="406" font-size="14.5" font-weight="900" fill="#2b1200" text-anchor="middle">OUTPUT ⬆️</text>
+
+        <!-- math panel -->
+        <rect x="556" y="66" width="312" height="212" rx="16" fill="rgba(18,184,134,.5)" stroke="#a5f3d4" stroke-width="2"/>
+        <text x="578" y="100" font-size="18" font-weight="900" fill="#fff">🧮 THE MATH</text>
+        <text x="578" y="134" font-size="16" font-weight="900" fill="#eafff7">OUTPUT must be</text>
+        <text x="578" y="158" font-size="20" font-weight="900" fill="#ffc233">MORE than INPUT</text>
+        <text x="578" y="184" font-size="13.5" font-weight="800" fill="#eafff7">never “equal to,” never “less than”</text>
+        <line x1="578" y1="198" x2="846" y2="198" stroke="#a5f3d4" stroke-width="2"/>
+        <text x="578" y="226" font-size="15" font-weight="900" fill="#fff">True urine output =</text>
+        <text x="578" y="250" font-size="15" font-weight="900" fill="#ffc233">total drained − irrigant in</text>
+        <text x="578" y="270" font-size="12.5" font-style="italic" fill="#eafff7">e.g. 2600 mL out − 2000 mL irrigant = 600 mL urine</text>
+
+        <text x="28" y="440" font-size="14.5" font-weight="900" fill="#ff9db4">If output ever drops below input → the catheter is obstructed. Assess, then irrigate/notify per order — do NOT just keep the fluid running.</text>
+      </svg>
+      <div class="mn">🧠 <b>“More out than in, or something's plugged in.”</b> Every CBI question reduces to that rhyme. And the irrigant is <b>not</b> urine — subtract it before you chart output.</div>
+    </div>
+
+    <div class="card topaz span2">
+      <h3>🩸 Urine color timeline — the numbers to memorize</h3>
+      <svg viewBox="0 0 900 320" role="img" aria-label="Post TURP urine color timeline: immediately after surgery bloody urine is expected, by 24 hours it should be light red to pink, small blood clots are acceptable up to about 36 hours, and bright red urine or increasing clots after 24 hours must be reported immediately">
+        <rect x="4" y="4" width="892" height="312" rx="18" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+        <text x="28" y="42" font-size="22" font-weight="900" fill="#ffc233">🩸 WHAT THE URINE SHOULD LOOK LIKE — AND WHEN</text>
+
+        <line x1="60" y1="118" x2="840" y2="118" stroke="rgba(255,255,255,.4)" stroke-width="4"/>
+
+        <!-- stage 1 -->
+        <circle cx="140" cy="118" r="16" fill="#c02255" stroke="#fff" stroke-width="3"/>
+        <text x="140" y="96" font-size="15" font-weight="900" fill="#fff" text-anchor="middle">0 hr</text>
+        <rect x="52" y="150" width="176" height="132" rx="14" fill="rgba(192,34,85,.7)" stroke="#ffd9e2" stroke-width="2"/>
+        <text x="140" y="180" font-size="15.5" font-weight="900" fill="#fff" text-anchor="middle">IMMEDIATELY</text>
+        <text x="140" y="208" font-size="15" font-weight="900" fill="#ffc233" text-anchor="middle">BLOODY urine</text>
+        <text x="140" y="234" font-size="13.5" fill="#ffd9e2" text-anchor="middle">✅ EXPECTED</text>
+        <text x="140" y="258" font-size="12.5" font-style="italic" fill="#ffd9e2" text-anchor="middle">Kaplan: this is the</text>
+        <text x="140" y="274" font-size="12.5" font-style="italic" fill="#ffd9e2" text-anchor="middle">normal finding</text>
+
+        <!-- stage 2 -->
+        <circle cx="380" cy="118" r="16" fill="#ff8a3d" stroke="#fff" stroke-width="3"/>
+        <text x="380" y="96" font-size="15" font-weight="900" fill="#fff" text-anchor="middle">24 hr</text>
+        <rect x="292" y="150" width="176" height="132" rx="14" fill="rgba(255,138,61,.7)" stroke="#fff0d6" stroke-width="2"/>
+        <text x="380" y="180" font-size="15.5" font-weight="900" fill="#2b1200" text-anchor="middle">BY 24 HOURS</text>
+        <text x="380" y="208" font-size="15" font-weight="900" fill="#3a1c00" text-anchor="middle">LIGHT RED → PINK</text>
+        <text x="380" y="234" font-size="13.5" font-weight="800" fill="#2b1200" text-anchor="middle">✅ clearing steadily</text>
+        <text x="380" y="260" font-size="12.5" font-style="italic" fill="#2b1200" text-anchor="middle">light pink drainage</text>
+        <text x="380" y="276" font-size="12.5" font-style="italic" fill="#2b1200" text-anchor="middle">= the BEST answer</text>
+
+        <!-- stage 3 -->
+        <circle cx="620" cy="118" r="16" fill="#ffc233" stroke="#fff" stroke-width="3"/>
+        <text x="620" y="96" font-size="15" font-weight="900" fill="#fff" text-anchor="middle">36 hr</text>
+        <rect x="532" y="150" width="176" height="132" rx="14" fill="rgba(255,194,51,.8)" stroke="#fff0d6" stroke-width="2"/>
+        <text x="620" y="180" font-size="15.5" font-weight="900" fill="#231a02" text-anchor="middle">36 HOURS MAX</text>
+        <text x="620" y="208" font-size="15" font-weight="900" fill="#231a02" text-anchor="middle">small clots OK</text>
+        <text x="620" y="234" font-size="13.5" font-weight="800" fill="#231a02" text-anchor="middle">⚠️ ceiling, not a goal</text>
+        <text x="620" y="260" font-size="12.5" font-style="italic" fill="#231a02" text-anchor="middle">after this window,</text>
+        <text x="620" y="276" font-size="12.5" font-style="italic" fill="#231a02" text-anchor="middle">clots are abnormal</text>
+
+        <!-- report -->
+        <circle cx="800" cy="118" r="16" fill="#ff3b6b" stroke="#fff" stroke-width="3"/>
+        <text x="800" y="96" font-size="15" font-weight="900" fill="#fff" text-anchor="middle">🚨</text>
+        <rect x="726" y="150" width="146" height="132" rx="14" fill="rgba(255,59,107,.75)" stroke="#ffe3ea" stroke-width="2"/>
+        <text x="799" y="180" font-size="15" font-weight="900" fill="#fff" text-anchor="middle">REPORT NOW</text>
+        <text x="799" y="206" font-size="13" font-weight="800" fill="#fff" text-anchor="middle">Bright red at 24 hr</text>
+        <text x="799" y="226" font-size="13" font-weight="800" fill="#fff" text-anchor="middle">Clots increasing</text>
+        <text x="799" y="246" font-size="13" font-weight="800" fill="#fff" text-anchor="middle">Ketchup-thick urine</text>
+        <text x="799" y="266" font-size="13" font-weight="800" fill="#fff" text-anchor="middle">Output &lt; input</text>
+      </svg>
+      <div class="qbox"><span class="q">📘 Kaplan: “24 hours after TURP the nurse notices <b>bright red</b> urine. First action?”</span><span class="ans">✅ Contact the health care provider immediately — bright red is arterial-looking bleeding, not the expected pink.</span></div>
+      <div class="qbox"><span class="q">📗 HESI: “<b>5 days</b> after prostatectomy the client reports small blood clots. First action?”</span><span class="ans">✅ Advise the client to follow up with the HCP immediately — clots days later are not expected.</span></div>
+      <div class="mn">🧠 <b>“Red → rosé → clear.”</b> Like wine getting weaker: <b>0 hr red 🍷 · 24 hr rosé 🌸 · then clear 💧</b>. Going <i>backwards</i> in that sequence is always a call to the provider.</div>
+    </div>
+
+    <div class="card ruby span2">
+      <h3>🚨 SEVERE PAIN during continuous bladder irrigation — the classic question</h3>
+      <p><i>“A client reports <b>SEVERE PAIN</b> with continuous bladder irrigation after a TURP. First nursing action?”</i></p>
+      <div class="ladder">
+        <div class="rung"><div class="n">1</div><div class="t">🔎 <b>ASSESS the amount &amp; character of urine output</b> — <mark>light pink color = BEST</mark></div></div>
+        <div class="arrowdown">▼</div>
+        <div class="rung"><div class="n">2</div><div class="t">🧮 <b>Compare output to input</b> — output must be <b>MORE than</b> input, not “equal to” or “less than”</div></div>
+        <div class="arrowdown">▼</div>
+        <div class="rung"><div class="n">3</div><div class="t">🔗 <b>Check the tubing</b> for kinks, clots and dependent loops; check the bladder for distention</div></div>
+        <div class="arrowdown">▼</div>
+        <div class="rung"><div class="n">4</div><div class="t">🚿 <b>Obstructed?</b> Manually irrigate per order / increase the CBI rate as ordered, then <b>notify the HCP</b></div></div>
+      </div>
+      <p style="margin-top:10px"><b>Why pain matters:</b> severe pain usually means the catheter is <b>plugged with a clot</b> and the bladder is over-distending behind it. Pain is the alarm; obstruction is the fire.</p>
+      <div class="mn">🧠 <b>“Pain = plugged.”</b> Do <b>not</b> reach for the pain med first. Assess the output, do the math, unplug the catheter — the pain resolves when the bladder drains.</div>
+    </div>
+
+    <div class="card garnet span2">
+      <h3>❌ The NEVER list after prostate surgery</h3>
+      <div class="neverlist">
+        <div class="nv"><div class="x">❌</div><div><span class="never">Never let output be less than (or equal to) input</span> — that is an obstruction until proven otherwise.</div></div>
+        <div class="nv"><div class="x">❌</div><div><span class="never">Never chart the irrigant as urine output</span> — subtract it first, or you will report a wildly false output.</div></div>
+        <div class="nv"><div class="x">❌</div><div><span class="never">Never stop the irrigation because the urine looks bloody</span> — bleeding needs MORE flow (per order), not less, or clots will form.</div></div>
+        <div class="nv"><div class="x">❌</div><div><span class="never">Never take a rectal temperature, give an enema, or insert a rectal suppository</span> — the prostate bed sits right against the rectum and can be made to bleed.</div></div>
+        <div class="nv"><div class="x">❌</div><div><span class="never">Never release or adjust catheter traction without an order</span> — the taped traction is what tamponades the bleeding.</div></div>
+        <div class="nv"><div class="x">❌</div><div><span class="never">Never let the client strain</span> — no straining at stool, no heavy lifting (over about <span class="mono">10 lb</span>), no long car rides until the HCP clears them. Stool softeners are standard.</div></div>
+        <div class="nv"><div class="x">❌</div><div><span class="never">Never medicate severe CBI pain before assessing catheter patency</span> — assessment precedes intervention every single time.</div></div>
+      </div>
+      <div class="mn">🧠 <b>“Nothing in the rectum, nothing but assessment first.”</b> Two sentences that answer most post-TURP SATA items.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>✅ Post-op teaching — what they go home knowing</h3>
+      <ul class="tick">
+        <li>💧 <b>Fluid intake <span class="mono">2–3 L/day</span></b> — flushes the bladder and prevents clots <i>(HESI answer)</i></li>
+        <li>🦠 <b>Observe for signs of UTI</b> — fever, chills, burning, cloudy foul urine <i>(HESI answer)</i></li>
+        <li>💪 <b>Kegel exercises</b> for control after the catheter is removed</li>
+        <li>💩 Stool softeners; high-fiber diet; <b>no straining</b></li>
+        <li>🚫 No heavy lifting, driving or sexual activity until cleared (often <span class="mono">4–6 weeks</span>)</li>
+        <li>☕ Avoid alcohol &amp; caffeine early — they irritate the bladder</li>
+        <li>📞 Report bright red bleeding, clots, fever, or inability to void</li>
+      </ul>
+      <div class="mn">🧠 <b>“Drink, don't strain, watch for burn.”</b> Three habits cover almost every post-TURP discharge question.</div>
+    </div>
+
+    <div class="card emerald">
+      <h3>⭐ Two things that are EXPECTED — don't panic</h3>
+      <div class="qbox"><span class="q">📘 Kaplan: “Third day post-op TURP, the catheter is removed and the client has <b>uncontrolled dribbling</b> after urinating.”</span><span class="ans">✅ Temporary incontinence is EXPECTED following urinary catheter removal — reassure and teach Kegels.</span></div>
+      <p style="margin-top:10px"><b>Retrograde ejaculation</b> is also common after TURP: semen goes backward into the bladder, so the urine looks <b>cloudy</b> after sex. It is harmless but affects fertility — <b>tell them before discharge</b>.</p>
+      <div class="mn">🧠 <b>Expected vs emergency.</b> <b>Dribbling</b> and <b>cloudy urine after sex</b> = expected. <b>Bright red urine</b> and <b>no output</b> = emergency. The exam mixes them on purpose.</div>
+    </div>
+
+    <div class="card ruby span2">
+      <h3>🚨 TUR syndrome — the classic complication to recognize</h3>
+      <p>If a large volume of <b>hypotonic irrigating fluid</b> is absorbed through the open prostate vessels, the client becomes <b>fluid-overloaded and dilutionally hyponatremic</b>. Modern practice uses <b>isotonic saline</b> with bipolar equipment, which has made this much less common — but it is still classic test content.</p>
+      <div class="duo">
+        <div style="padding:14px 16px;border-radius:12px;background:rgba(192,34,85,.55);border:1px solid rgba(255,255,255,.3);line-height:1.45">
+          <b>🧠 Neuro first</b><br>Confusion, restlessness, agitation, headache, <b>visual changes</b>, seizures
+        </div>
+        <div style="padding:14px 16px;border-radius:12px;background:rgba(192,34,85,.55);border:1px solid rgba(255,255,255,.3);line-height:1.45">
+          <b>💓 Vitals</b><br><b>Bradycardia</b> + <b>hypertension</b>, nausea/vomiting, respiratory distress from overload
+        </div>
+      </div>
+      <p style="margin-top:11px">🧪 <b>Serum sodium</b> — normal adult <span class="mono">135–145 mEq/L</span>. A falling sodium plus new confusion after a TURP = <b>report immediately</b>.</p>
+      <div class="mn">🧠 <b>“Water on the brain.”</b> Dilutional hyponatremia is <i>too much water around the cells</i> — so brain cells swell and the earliest signs are <b>neuro</b>, not urinary.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">🌰 Ring around the pipe</span>Prostate grows inward → obstruction → residual → AKI</div>
+    <div class="rc tealbg"><span class="big">👆 Smooth = benign</span>Hard &amp; nodular = report. Draw <b>PSA before DRE</b>.</div>
+    <div class="rc rubybg"><span class="big">🚿 Output &gt; input</span>Always. Subtract irrigant to chart true urine output.</div>
+    <div class="rc topazbg"><span class="big">🩸 Red → pink → clear</span><span class="mono">0 hr</span> bloody · <span class="mono">24 hr</span> light pink · <span class="mono">36 hr</span> small clots max</div>
+  </div>
+  <div class="recall">
+    <div class="rc rubybg"><span class="big">😖 Pain on CBI</span>= assess output &amp; patency FIRST — it's a clot, not just pain</div>
+    <div class="rc citrine"><span class="big">❌ Nothing rectal</span>No rectal temps, enemas or suppositories after prostate surgery</div>
+    <div class="rc tealbg"><span class="big">💧 <span class="mono">2–3 L</span>/day</span>+ watch for UTI = the discharge SATA answers</div>
+    <div class="rc topazbg"><span class="big">💧 Dribbling after cath removal</span>= EXPECTED · teach Kegels</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 8 rapid-fire questions</summary>
+      <div class="qa">Q1: BPH refractory to medication — what do you anticipate? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">A TURP — transurethral resection of the prostate.</div></div>
+      <div class="qa">Q2: What is the expected assessment finding immediately after a TURP? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Bloody urinary drainage. It should lighten to light red/pink by about 24 hours.</div></div>
+      <div class="qa">Q3: 24 hours after TURP the urine is bright red. First action? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Contact the health care provider immediately.</div></div>
+      <div class="qa">Q4: Severe pain during continuous bladder irrigation — first nursing action? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Assess the amount and color of urine output and compare output to input. Light pink is the best color; output must be MORE than input. Severe pain usually means a clot is obstructing the catheter.</div></div>
+      <div class="qa">Q5: The CBI bag has infused 2000 mL and the drainage bag holds 2600 mL. What is the urine output? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">600 mL. Total drainage minus irrigant infused. Never chart the irrigant as urine.</div></div>
+      <div class="qa">Q6: Third day post-op TURP, catheter removed, uncontrolled dribbling. What do you tell the client? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Temporary incontinence is expected following urinary catheter removal. Reassure and teach Kegel exercises.</div></div>
+      <div class="qa">Q7: Which discharge instructions after prostatectomy? (SATA) <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Observe for signs of UTI, and ensure a fluid intake of 2–3 L per day. Also: no straining or heavy lifting, nothing rectal, and report bright red bleeding or clots.</div></div>
+      <div class="qa">Q8: Why is PSA drawn before the digital rectal exam? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Manipulating the prostate (DRE, catheterization, cystoscopy, ejaculation, biopsy) falsely raises PSA. Blood before finger.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">CAUSE</span>→
+    <span style="background:rgba(47,107,255,.7)">CLUES</span>→
+    <span style="background:rgba(18,184,134,.7)">CARE</span>→
+    <span style="background:rgba(192,34,85,.7)">TURP</span>
+  </div>
+  <div>NG-240 · Educational study aid — verify clinical details &amp; facility policy · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>

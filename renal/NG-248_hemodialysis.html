@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hemodialysis · NG-248 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+
+/* ===== appended for procedure-arc pages (shell rules above untouched) ===== */
+nav a.c5{background:rgba(255,138,61,.72)}
+nav a.c6{background:rgba(0,194,199,.68);color:#00252b}
+#before .sec-h h2{color:#d9c2ff} #before .step{background:var(--amethyst)}
+#during .sec-h h2{color:#bcd0ff} #during .step{background:var(--sapphire)}
+#after .sec-h h2{color:#a5f3d4} #after .step{background:var(--emerald);color:#03291c}
+#extra .sec-h h2{color:#ffd9b8} #extra .step{background:var(--citrine);color:#2b1200}
+.legend{display:flex;gap:9px;flex-wrap:wrap;margin:10px 0 0;font-size:.84rem;font-weight:800}
+.legend span{display:flex;align-items:center;gap:6px;background:rgba(13,8,26,.5);
+  border:1px solid var(--line);border-radius:999px;padding:4px 11px}
+.legend i{width:13px;height:13px;border-radius:4px;display:inline-block;flex:0 0 13px}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#cause">🧼 What it is</a>
+  <a class="c2" href="#before">🩺 Before</a>
+  <a class="c3" href="#during">⚙️ During</a>
+  <a class="c5" href="#after">✅ After</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Renal + Fluid · Med-Surg Course</div>
+  <h1>Hemodialysis <span class="drop">🩸</span></h1>
+  <p class="sub">The machine version of the kidney · AV fistula care · DDS</p>
+  <div class="chips">
+    <span class="chip id">NG-248</span>
+    <span class="chip cat">Renal</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede"><b>Hemodialysis is a machine version of the kidney.</b> Blood leaves the body, runs past a filter, and comes back <i>clean</i> — it <b>removes waste, excess fluid &amp; electrolytes</b> the failed kidney can no longer clear. Almost every test question is about <b>the access arm</b> 🖐️ or <b>pulling fluid off too fast</b> 🧠.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">🧼 “DIAL” = the soap</span>Any word with <b>DIAL</b> — think <i>Dial soap</i>. It <b>cleans the blood</b>.</div>
+  <div class="rc tealbg"><span class="big">🖐️ Thrill + Bruit</span><b>FEEL</b> the vibration, <b>HEAR</b> the whoosh. Every shift, every visit.</div>
+  <div class="rc rubybg"><span class="big">🧠 DDS is the killer</span>Solutes pulled too fast → <b>brain swells</b> → ↑ICP. <b>Slow or stop it.</b></div>
+  <div class="rc topazbg"><span class="big">🚫 The fistula arm</span>No BP · no sticks · no watch · no lotion · no purse (<span class="mono">&gt;5 lb</span>).</div>
+</div>
+
+<!-- ============ WHAT IT IS ============ -->
+<section id="cause">
+  <div class="sec-h"><span class="icon">🧼</span><h2>WHAT IT IS</h2><span class="step">STEP 1 · THE CIRCUIT</span></div>
+  <p class="sec-sub">Blood out, through a filter, back in — and the whole thing runs through one precious arm.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🩸 The hemodialysis circuit — follow one drop of blood</h3>
+      <p><mark>Blood out ➜ pump ➜ dialyzer ➜ air trap ➜ blood back.</mark> The <b>dialyzer</b> is the artificial kidney. It does not "make urine" — it lets waste diffuse out of the blood into a fluid called <b>dialysate</b> running the other direction.</p>
+      <svg viewBox="0 0 900 470" role="img" aria-label="Hemodialysis circuit diagram: blood leaves the arteriovenous fistula in the arm through the arterial line with heparin added, passes the blood pump, enters the dialyzer where dialysate flows counter-current, then returns through the air trap and venous line to the patient">
+        <defs>
+          <linearGradient id="hdblood" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#ff3b6b"/><stop offset="1" stop-color="#c02255"/>
+          </linearGradient>
+          <linearGradient id="hdclean" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#2f6bff"/><stop offset="1" stop-color="#00c2c7"/>
+          </linearGradient>
+          <marker id="hdArrR" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#ff3b6b"/>
+          </marker>
+          <marker id="hdArrB" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#00c2c7"/>
+          </marker>
+          <marker id="hdArrY" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/>
+          </marker>
+        </defs>
+        <rect x="4" y="4" width="892" height="462" rx="20" fill="rgba(13,8,26,.55)" stroke="rgba(255,255,255,.30)" stroke-width="2"/>
+
+        <!-- patient arm -->
+        <rect x="26" y="140" width="150" height="200" rx="22" fill="rgba(157,92,255,.35)" stroke="#d9c2ff" stroke-width="2"/>
+        <text x="42" y="172" font-size="19" font-weight="900" fill="#e9dcff">PATIENT</text>
+        <text x="42" y="194" font-size="14.5" font-style="italic" fill="#e9dcff">access arm</text>
+        <path d="M52 226 C 96 214 130 244 152 236" fill="none" stroke="#ff6b8e" stroke-width="11" stroke-linecap="round"/>
+        <path d="M52 286 C 96 298 130 268 152 278" fill="none" stroke="#5aa0ff" stroke-width="11" stroke-linecap="round"/>
+        <circle cx="104" cy="232" r="9" fill="#ffc233" stroke="#2a1f00" stroke-width="2"/>
+        <circle cx="104" cy="286" r="9" fill="#ffc233" stroke="#2a1f00" stroke-width="2"/>
+        <text x="42" y="322" font-size="13.5" font-weight="800" fill="#ffc233">2 needles: AV fistula</text>
+
+        <!-- arterial line out -->
+        <path d="M176 232 L262 232" fill="none" stroke="url(#hdblood)" stroke-width="13" stroke-linecap="round" marker-end="url(#hdArrR)"/>
+        <text x="182" y="212" font-size="14.5" font-weight="900" fill="#ff9db4">ARTERIAL (dirty)</text>
+
+        <!-- blood pump -->
+        <circle cx="300" cy="232" r="36" fill="rgba(255,59,107,.35)" stroke="#ff3b6b" stroke-width="3"/>
+        <path d="M300 200 A32 32 0 0 1 328 248" fill="none" stroke="#ffd9e2" stroke-width="7" stroke-linecap="round"/>
+        <circle cx="300" cy="232" r="7" fill="#ffd9e2"/>
+        <text x="258" y="298" font-size="14.5" font-weight="900" fill="#ff9db4">BLOOD PUMP</text>
+        <text x="258" y="316" font-size="12.5" font-style="italic" fill="#ffd9e2">sets the speed</text>
+
+        <!-- heparin -->
+        <rect x="252" y="120" width="96" height="44" rx="10" fill="rgba(255,194,51,.30)" stroke="#ffc233" stroke-width="2"/>
+        <text x="264" y="140" font-size="13.5" font-weight="900" fill="#ffc233">HEPARIN</text>
+        <text x="264" y="157" font-size="11.5" font-style="italic" fill="#ffe49a">stops clotting</text>
+        <path d="M300 166 L300 194" fill="none" stroke="#ffc233" stroke-width="4" marker-end="url(#hdArrY)"/>
+
+        <!-- dialyzer -->
+        <path d="M336 232 L400 232" fill="none" stroke="url(#hdblood)" stroke-width="13" stroke-linecap="round" marker-end="url(#hdArrR)"/>
+        <rect x="404" y="112" width="150" height="248" rx="26" fill="rgba(47,107,255,.28)" stroke="#8fb6ff" stroke-width="3"/>
+        <text x="410" y="100" font-size="17" font-weight="900" fill="#bcd0ff">DIALYZER</text>
+        <text x="410" y="382" font-size="13.5" font-style="italic" fill="#bcd0ff">= artificial kidney</text>
+        <text x="410" y="400" font-size="13.5" font-style="italic" fill="#bcd0ff">semipermeable fibers</text>
+        <g stroke="#ffd0bd" stroke-width="5" stroke-linecap="round" opacity=".9">
+          <line x1="424" y1="126" x2="424" y2="346"/><line x1="446" y1="126" x2="446" y2="346"/>
+          <line x1="468" y1="126" x2="468" y2="346"/><line x1="490" y1="126" x2="490" y2="346"/>
+          <line x1="512" y1="126" x2="512" y2="346"/><line x1="534" y1="126" x2="534" y2="346"/>
+        </g>
+        <!-- dialysate counter-current -->
+        <path d="M478 372 L478 300" fill="none" stroke="#12b886" stroke-width="7" stroke-dasharray="10 7" marker-end="url(#hdArrB)"/>
+        <text x="566" y="356" font-size="14" font-weight="900" fill="#7df0c6">DIALYSATE IN ⬆</text>
+        <text x="566" y="374" font-size="12.5" font-style="italic" fill="#d8fff0">flows the OPPOSITE way</text>
+        <text x="566" y="150" font-size="14" font-weight="900" fill="#ffc233">WASTE OUT ⬅</text>
+        <text x="566" y="168" font-size="12.5" font-style="italic" fill="#ffe49a">urea · creatinine · K⁺ · water</text>
+        <path d="M556 138 L600 138" fill="none" stroke="#ffc233" stroke-width="5" marker-end="url(#hdArrY)"/>
+
+        <!-- venous line -->
+        <path d="M554 232 L640 232" fill="none" stroke="url(#hdclean)" stroke-width="13" stroke-linecap="round" marker-end="url(#hdArrB)"/>
+        <!-- air trap -->
+        <rect x="648" y="184" width="76" height="96" rx="16" fill="rgba(0,194,199,.28)" stroke="#9ff2ee" stroke-width="3"/>
+        <circle cx="672" cy="208" r="6" fill="#eafff7"/><circle cx="700" cy="220" r="5" fill="#eafff7"/>
+        <path d="M652 246 h68" stroke="#9ff2ee" stroke-width="4"/>
+        <text x="628" y="308" font-size="14" font-weight="900" fill="#9ff2ee">AIR TRAP +</text>
+        <text x="628" y="326" font-size="14" font-weight="900" fill="#9ff2ee">AIR DETECTOR</text>
+        <text x="628" y="344" font-size="12.5" font-style="italic" fill="#d8fff0">catches air emboli</text>
+
+        <!-- back to patient -->
+        <path d="M724 232 L800 232 L800 400 L120 400 L120 300" fill="none" stroke="url(#hdclean)" stroke-width="12" stroke-linecap="round" marker-end="url(#hdArrB)"/>
+        <text x="640" y="150" font-size="14.5" font-weight="900" fill="#9ff2ee">VENOUS (clean) ➜ back</text>
+
+        <text x="26" y="440" font-size="14" font-weight="900" fill="#ffc233">⏱️ Typical schedule: 3–4 hours · 3 days a week (varies by order)</text>
+      </svg>
+      <div class="legend">
+        <span><i style="background:#ff3b6b"></i>Dirty blood out</span>
+        <span><i style="background:#00c2c7"></i>Clean blood back</span>
+        <span><i style="background:#12b886"></i>Dialysate</span>
+        <span><i style="background:#ffc233"></i>Waste removed</span>
+      </div>
+      <div class="mn">🧠 <b>“DIAL the soap.”</b> Any time you see the word <b>DIAL</b> — <i>dialysis, dialyzer, dialysate</i> — picture a bar of <b>Dial soap scrubbing the blood clean</b>. Soap in, dirt out.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🔬 Inside the dialyzer — 2 forces, 2 jobs</h3>
+      <svg viewBox="0 0 440 250" role="img" aria-label="Close-up of the semipermeable dialyzer membrane: urea, creatinine and potassium diffuse from blood into dialysate while red blood cells and proteins are too big to cross">
+        <rect x="6" y="6" width="428" height="238" rx="16" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+        <rect x="20" y="34" width="400" height="76" rx="12" fill="rgba(255,59,107,.30)"/>
+        <text x="32" y="60" font-size="14.5" font-weight="900" fill="#ff9db4">BLOOD SIDE</text>
+        <circle cx="150" cy="84" r="13" fill="#ff3b6b" stroke="#ffd9e2" stroke-width="2"/>
+        <circle cx="196" cy="80" r="13" fill="#ff3b6b" stroke="#ffd9e2" stroke-width="2"/>
+        <text x="228" y="88" font-size="12.5" font-weight="800" fill="#ffd9e2">RBCs · protein = TOO BIG ❌</text>
+        <!-- membrane -->
+        <rect x="20" y="112" width="400" height="16" rx="6" fill="#d9c2ff"/>
+        <g fill="#140b24"><circle cx="60" cy="120" r="3"/><circle cx="110" cy="120" r="3"/><circle cx="160" cy="120" r="3"/><circle cx="210" cy="120" r="3"/><circle cx="260" cy="120" r="3"/><circle cx="310" cy="120" r="3"/><circle cx="360" cy="120" r="3"/></g>
+        <text x="20" y="146" font-size="12.5" font-weight="900" fill="#d9c2ff">SEMIPERMEABLE MEMBRANE (tiny pores)</text>
+        <rect x="20" y="156" width="400" height="76" rx="12" fill="rgba(18,184,134,.30)"/>
+        <text x="32" y="182" font-size="14.5" font-weight="900" fill="#7df0c6">DIALYSATE SIDE</text>
+        <g fill="#ffc233">
+          <circle cx="86" cy="96" r="6"/><circle cx="86" cy="146" r="6"/><circle cx="86" cy="190" r="6"/>
+          <circle cx="330" cy="96" r="6"/><circle cx="330" cy="150" r="6"/><circle cx="330" cy="196" r="6"/>
+        </g>
+        <path d="M86 92 L86 200" stroke="#ffc233" stroke-width="2" stroke-dasharray="5 5"/>
+        <path d="M330 92 L330 202" stroke="#ffc233" stroke-width="2" stroke-dasharray="5 5"/>
+        <text x="104" y="214" font-size="12.5" font-weight="800" fill="#ffe49a">urea · creatinine · K⁺ cross ✅</text>
+      </svg>
+      <ul class="tick">
+        <li><b>Diffusion</b> — solutes move from <i>high to low</i>: urea, creatinine, K⁺ leave the blood.</li>
+        <li><b>Ultrafiltration</b> — pressure pulls <i>water</i> off. That's how fluid comes off.</li>
+      </ul>
+      <div class="mn">🧠 <b>Diffusion cleans, ultrafiltration dries.</b> One takes the <i>trash</i>, the other takes the <i>water</i>.</div>
+    </div>
+
+    <div class="card tealc">
+      <h3>🚪 Three ways in — pick the right access</h3>
+      <table>
+        <tr><th style="width:30%">Access</th><th class="up">What it is</th><th class="lo">Ready to use</th></tr>
+        <tr><td><b>AV fistula</b> ⭐<br><i>best / longest life</i></td><td>Surgeon sews the client's own <b>artery to vein</b></td><td>Needs weeks to <b>mature</b> — commonly <span class="mono">6 wk–4 mo</span> <i>(varies)</i></td></tr>
+        <tr><td><b>AV graft</b></td><td>Synthetic tube bridges artery → vein</td><td>Sooner than a fistula, but <b>clots &amp; infects more</b></td></tr>
+        <tr><td><b>Central venous catheter</b></td><td>Large tunneled/temporary line in a central vein</td><td><b>Immediate</b> — but <b>highest infection risk</b>; short-term</td></tr>
+      </table>
+      <div class="mn">🧠 <b>“Fistula First.”</b> Own vessels &gt; plastic graft &gt; catheter. The catheter is the <i>fastest and the most dangerous</i>.</div>
+    </div>
+
+    <div class="card garnet span2">
+      <h3>🖐️ The AV fistula — <mark>feel the THRILL, hear the BRUIT</mark></h3>
+      <svg viewBox="0 0 880 330" role="img" aria-label="Arteriovenous fistula diagram: the radial artery is joined to a vein at the anastomosis, the enlarged vein is palpated for a thrill and auscultated for a bruit, and the hand distal to the fistula is checked for the six Ps">
+        <defs>
+          <marker id="fArr" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/>
+          </marker>
+        </defs>
+        <rect x="4" y="4" width="872" height="322" rx="18" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+        <!-- arm shape -->
+        <path d="M60 126 L560 106 L640 150 L700 150 L700 214 L640 214 L560 250 L60 224 Z" fill="rgba(255,208,189,.22)" stroke="#ffd0bd" stroke-width="2"/>
+        <text x="70" y="98" font-size="16" font-weight="900" fill="#ffd0bd">UPPER ARM ⟵</text>
+        <text x="596" y="98" font-size="16" font-weight="900" fill="#ffd0bd">⟶ HAND (distal)</text>
+        <!-- artery -->
+        <path d="M70 196 C 200 200 300 200 372 190" fill="none" stroke="#ff3b6b" stroke-width="14" stroke-linecap="round"/>
+        <text x="80" y="232" font-size="15" font-weight="900" fill="#ff9db4">ARTERY (high pressure)</text>
+        <!-- vein -->
+        <path d="M70 152 C 200 146 300 146 372 158" fill="none" stroke="#2f6bff" stroke-width="12" stroke-linecap="round"/>
+        <text x="80" y="138" font-size="15" font-weight="900" fill="#8fb6ff">VEIN (low pressure)</text>
+        <!-- anastomosis -->
+        <path d="M372 190 C 404 186 404 162 372 158" fill="none" stroke="#9d5cff" stroke-width="14" stroke-linecap="round"/>
+        <circle cx="392" cy="174" r="27" fill="none" stroke="#ffc233" stroke-width="3" stroke-dasharray="6 5"/>
+        <text x="330" y="286" font-size="14.5" font-weight="900" fill="#e9dcff">ANASTOMOSIS = surgical joint</text>
+        <path d="M392 205 L392 262" stroke="#ffc233" stroke-width="3" marker-end="url(#fArr)"/>
+        <!-- enlarged vein -->
+        <path d="M412 168 C 470 150 520 146 566 156" fill="none" stroke="#7a5cff" stroke-width="24" stroke-linecap="round"/>
+        <text x="424" y="126" font-size="15.5" font-weight="900" fill="#d9c2ff">Vein enlarges &amp; toughens = the needle site</text>
+        <!-- thrill hand -->
+        <text x="466" y="212" font-size="26">🤚</text>
+        <text x="440" y="244" font-size="15" font-weight="900" fill="#7df0c6">FEEL = THRILL</text>
+        <text x="440" y="263" font-size="12.5" font-style="italic" fill="#d8fff0">buzzing vibration</text>
+        <!-- bruit -->
+        <text x="600" y="212" font-size="26">🩺</text>
+        <text x="586" y="244" font-size="15" font-weight="900" fill="#9ff2ee">HEAR = BRUIT</text>
+        <text x="586" y="263" font-size="12.5" font-style="italic" fill="#d8fff0">whooshing swish</text>
+        <!-- distal 6 Ps -->
+        <rect x="700" y="60" width="164" height="216" rx="14" fill="rgba(192,34,85,.42)" stroke="#ffd9e2" stroke-width="2"/>
+        <text x="712" y="86" font-size="15" font-weight="900" fill="#ffd9e2">DISTAL CHECK</text>
+        <text x="712" y="106" font-size="12" font-style="italic" fill="#ffd9e2">past the fistula</text>
+        <text x="712" y="134" font-size="13.5" font-weight="800" fill="#fff">P — Pallor</text>
+        <text x="712" y="156" font-size="13.5" font-weight="800" fill="#fff">P — Paresthesia</text>
+        <text x="712" y="178" font-size="13.5" font-weight="800" fill="#fff">P — Pulses ↓</text>
+        <text x="712" y="200" font-size="13.5" font-weight="800" fill="#fff">P — Poor cap refill</text>
+        <text x="712" y="222" font-size="13.5" font-weight="800" fill="#fff">P — Pain</text>
+        <text x="712" y="252" font-size="13" font-weight="900" fill="#ffc233">= REPORT to HCP</text>
+        <text x="60" y="308" font-size="14" font-weight="900" fill="#ffc233">✅ Mild pitting edema of the arm = EXPECTED · ❌ Cold, pale, numb, pulseless hand = NOT expected</text>
+      </svg>
+      <p><b>No thrill + no bruit = the fistula has clotted.</b> That is not "wait and see" — <span class="never">report it immediately.</span></p>
+      <div class="mn">🧠 <b>“Thrill you Touch, Bruit you Blisten.”</b> (Say it wrong on purpose — <b>B</b>ruit = listen with the <b>B</b>ell.) <b>T</b>hrill = <b>T</b>ouch. Teach her to check it <b>several times a day</b> at home.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>💪 Help the new fistula mature</h3>
+      <ul class="tick">
+        <li>🎾 <b>Squeeze or grip</b> a <b>“rubber ball”</b> or <b>sponge</b> — exercise enlarges the vein.</li>
+        <li>💧 Keep the arm <b>warm</b>, keep the client <b>hydrated</b> and <b>not hypotensive</b> — low BP clots a new fistula.</li>
+        <li>👀 Look at the site daily for redness, warmth, drainage.</li>
+      </ul>
+      <div class="mn">🧠 <b>Ball in the hand, blood in the vein.</b> Squeezing is the fistula's workout.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BEFORE ============ -->
+<section id="before">
+  <div class="sec-h"><span class="icon">🩺</span><h2>BEFORE DIALYSIS</h2><span class="step">STEP 2 · SET THE BASELINE</span></div>
+  <p class="sec-sub">Weight, vitals, fistula, and the meds you must NOT give — this is where the exam lives.</p>
+
+  <div class="grid">
+    <div class="card emerald span2">
+      <h3>✅ The pre-dialysis checklist</h3>
+      <div class="ladder">
+        <div class="rung"><div class="n">1</div><div class="t"><b>⚖️ Weigh the client</b> — <i>current AND previous weight.</i> Weight is the #1 measure of fluid status. <span class="mono">1 kg = 1 L</span> of fluid.</div></div>
+        <div class="rung"><div class="n">2</div><div class="t"><b>🌡️ Full vital signs</b> — especially <b>BP</b> (baseline for the hypotension that follows) and <b>temp</b> (infection screen).</div></div>
+        <div class="rung"><div class="n">3</div><div class="t"><b>🖐️ Assess the fistula</b> — <b>FEEL a thrill</b>, <b>HEAR a bruit</b>, inspect for infection &amp; bleeding.</div></div>
+        <div class="rung"><div class="n">4</div><div class="t"><b>💧 Assess fluid status</b> — lungs, edema, JVD, breath sounds, I&amp;O.</div></div>
+        <div class="rung"><div class="n">5</div><div class="t"><b>💊 HOLD the meds that will be washed out or drop the BP.</b></div></div>
+      </div>
+      <div class="mn">🧠 <b>“W-V-F-F-M”</b> → <b>W</b>eigh · <b>V</b>itals · <b>F</b>istula · <b>F</b>luid · <b>M</b>eds. Say it as <i>“We Very Fully Fix Meds.”</i></div>
+    </div>
+
+    <div class="card ruby span2">
+      <h3>💊 HOLD antihypertensives — dialysis already drops the BP</h3>
+      <p>Dialysis pulls <b>volume</b> off. Give a BP pill on top of that and you get <mark>hypotension during the run</mark> — the most common complication of hemodialysis.</p>
+      <svg viewBox="0 0 880 250" role="img" aria-label="Five classes of blood pressure medication held before dialysis: ACE inhibitors and ARBs, beta blockers, calcium channel blockers, diuretics and vasodilators, each with example drugs">
+        <rect x="4" y="4" width="872" height="242" rx="16" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+        <text x="24" y="38" font-size="18" font-weight="900" fill="#ffc233">🚫 HOLD BEFORE DIALYSIS — the 5 BP families</text>
+        <g>
+          <rect x="24" y="56" width="160" height="120" rx="14" fill="rgba(157,92,255,.45)" stroke="#e9dcff" stroke-width="2"/>
+          <text x="38" y="84" font-size="15" font-weight="900" fill="#fff">ACE &amp; ARBs</text>
+          <text x="38" y="110" font-size="13" fill="#f2e9ff">Lisinopril</text>
+          <text x="38" y="130" font-size="13" fill="#f2e9ff">Losartan</text>
+          <text x="38" y="158" font-size="12" font-style="italic" fill="#e9dcff">-pril / -sartan</text>
+
+          <rect x="196" y="56" width="160" height="120" rx="14" fill="rgba(47,107,255,.45)" stroke="#bcd0ff" stroke-width="2"/>
+          <text x="210" y="84" font-size="15" font-weight="900" fill="#fff">Beta blockers</text>
+          <text x="210" y="110" font-size="13" fill="#e6efff">Atenolol</text>
+          <text x="210" y="158" font-size="12" font-style="italic" fill="#bcd0ff">-olol</text>
+
+          <rect x="368" y="56" width="200" height="120" rx="14" fill="rgba(0,194,199,.45)" stroke="#9ff2ee" stroke-width="2"/>
+          <text x="382" y="84" font-size="15" font-weight="900" fill="#00252b">Ca channel blockers</text>
+          <text x="382" y="110" font-size="13" fill="#00252b">Nifedipine</text>
+          <text x="382" y="130" font-size="13" fill="#00252b">Verapamil · Diltiazem</text>
+          <text x="382" y="158" font-size="12" font-style="italic" fill="#00252b">-dipine + the 2 non-DHPs</text>
+
+          <rect x="580" y="56" width="146" height="120" rx="14" fill="rgba(18,184,134,.45)" stroke="#a5f3d4" stroke-width="2"/>
+          <text x="594" y="84" font-size="15" font-weight="900" fill="#fff">Diuretics</text>
+          <text x="594" y="110" font-size="13" fill="#d8fff0">Furosemide</text>
+          <text x="594" y="130" font-size="13" fill="#d8fff0">HCTZ</text>
+          <text x="594" y="158" font-size="12" font-style="italic" fill="#d8fff0">already pulling water</text>
+
+          <rect x="738" y="56" width="114" height="120" rx="14" fill="rgba(255,138,61,.5)" stroke="#ffd9b8" stroke-width="2"/>
+          <text x="752" y="84" font-size="15" font-weight="900" fill="#2b1200">Dilators</text>
+          <text x="752" y="110" font-size="13" fill="#2b1200">Nitroglycerin</text>
+          <text x="752" y="158" font-size="12" font-style="italic" fill="#2b1200">vasodilation</text>
+        </g>
+        <text x="24" y="206" font-size="15" font-weight="900" fill="#ff9db4">Dialysis removes volume ➜ BP falls on its own ➜ a BP pill stacks a second drop on top.</text>
+        <text x="24" y="230" font-size="14" font-weight="900" fill="#a5f3d4">✅ Give them AFTER the treatment, when ordered.</text>
+      </svg>
+      <div class="mn">🧠 <b>“A-B-C-D-D”</b> — <b>A</b>CE/ARB · <b>B</b>eta blocker · <b>C</b>alcium channel blocker · <b>D</b>iuretic · <b>D</b>ilator. <i>Five letters, five held bottles.</i></div>
+    </div>
+
+    <div class="card topaz span2">
+      <h3>🧪 “Washed out” meds — the dialyzer eats them <span class="tip">NCLEX TIP</span></h3>
+      <p>Small, <b>water-soluble</b> molecules cross the membrane and get thrown away with the dialysate. Giving them <i>before</i> the run wastes the dose — <mark>give them AFTER dialysis.</mark></p>
+      <table>
+        <tr><th class="up" style="width:38%">Washed out</th><th class="lo">Examples</th></tr>
+        <tr><td><b>Antibiotics</b> 💉</td><td><b>Penicillins</b>, <b>cephalosporins</b></td></tr>
+        <tr><td><b>Digoxin</b> ❤️</td><td>Narrow therapeutic range — <i>and</i> a low K⁺ after dialysis makes dig toxicity worse</td></tr>
+        <tr><td><b>Water-soluble vitamins</b> 🍊</td><td><b>B</b> vitamins, <b>C</b>, <b>folic acid</b> — replaced daily in dialysis clients</td></tr>
+      </table>
+      <div class="mn">🧠 <b>“A-D-V goes down the drain”</b> — <b>A</b>ntibiotics · <b>D</b>igoxin · <b>V</b>itamins (water-soluble). Picture them <b>swirling down the dialysate drain</b> 🌀. Fat-soluble vitamins (A, D, E, K) stay put — <i>fat floats</i>.</div>
+    </div>
+
+    <div class="card deep">
+      <h3>🧪 Labs that drive the treatment <span class="tip">STANDARD ADULT RANGES</span></h3>
+      <table>
+        <tr><th class="up">Lab</th><th class="lo">Normal</th><th>In renal failure</th></tr>
+        <tr><td><b>BUN</b></td><td><span class="mono">10–20 mg/dL</span></td><td>📈 HIGH</td></tr>
+        <tr><td><b>Creatinine</b></td><td><span class="mono">0.6–1.2 mg/dL</span></td><td>📈 HIGH <i>(best kidney marker)</i></td></tr>
+        <tr><td><b>Potassium</b></td><td><span class="mono">3.5–5.0 mEq/L</span></td><td>📈 HIGH ⚠️ <i>peaked T waves</i></td></tr>
+        <tr><td><b>Phosphorus</b></td><td><span class="mono">3.0–4.5 mg/dL</span></td><td>📈 HIGH</td></tr>
+        <tr><td><b>Calcium</b></td><td><span class="mono">8.6–10.2 mg/dL</span></td><td>📉 LOW <i>(mirror of phosphorus)</i></td></tr>
+        <tr><td><b>Hgb / Hct</b></td><td><span class="mono">12–18 g/dL</span></td><td>📉 LOW <i>(no erythropoietin)</i></td></tr>
+      </table>
+      <div class="mn">🧠 <b>Phosphorus and calcium are on a see-saw</b> ⚖️ — one up, the other down. Every time.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>💊 The take-home renal meds</h3>
+      <ul class="tick">
+        <li><b>Phosphate binders</b> (calcium acetate, sevelamer) — <span class="never">give WITH meals</span>, not between. They bind the phosphorus in the food.</li>
+        <li><b>Epoetin alfa</b> — replaces the erythropoietin the kidney no longer makes; treats the anemia. Monitor <b>BP</b> and <b>Hgb</b>.</li>
+        <li><b>Active vitamin D</b> (calcitriol) — the failed kidney can't activate vitamin D, so calcium can't be absorbed.</li>
+      </ul>
+      <div class="mn">🧠 <b>Binders eat with you.</b> If the client swallows it away from food, there's no phosphorus there to bind — wasted dose.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DURING ============ -->
+<section id="during">
+  <div class="sec-h"><span class="icon">⚙️</span><h2>DURING DIALYSIS</h2><span class="step">STEP 3 · WATCH THE BRAIN &amp; THE BP</span></div>
+  <p class="sec-sub">Everything that goes wrong during the run goes wrong because something was pulled off too fast.</p>
+
+  <div class="grid">
+    <div class="card garnet span2">
+      <h3>🚨 DEADLY: <mark>Dialysis Disequilibrium Syndrome (DDS)</mark></h3>
+      <p><b>Definition:</b> solutes are removed <b>too quickly</b> from the blood. Urea stays high inside the brain cells, so <b>water rushes into the brain</b> — the cells swell, and <b>ICP rises</b>. Untreated it goes to <b>seizures, coma &amp; death</b>.</p>
+      <svg viewBox="0 0 880 300" role="img" aria-label="Dialysis disequilibrium syndrome: blood urea drops fast while brain urea stays high, so water shifts into brain cells causing cerebral edema and raised intracranial pressure">
+        <defs>
+          <marker id="ddsArr" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#00c2c7"/>
+          </marker>
+        </defs>
+        <rect x="4" y="4" width="872" height="292" rx="18" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+        <!-- vessel -->
+        <rect x="30" y="90" width="300" height="120" rx="18" fill="rgba(47,107,255,.28)" stroke="#8fb6ff" stroke-width="2"/>
+        <text x="44" y="72" font-size="16" font-weight="900" fill="#bcd0ff">BLOOD after fast dialysis</text>
+        <text x="44" y="124" font-size="15" font-weight="900" fill="#9ff2ee">urea = LOW ⬇⬇</text>
+        <circle cx="70" cy="164" r="7" fill="#ffc233"/>
+        <text x="90" y="170" font-size="13" font-style="italic" fill="#d8fff0">almost empty — few solutes left</text>
+        <!-- brain cell -->
+        <ellipse cx="640" cy="150" rx="150" ry="104" fill="rgba(157,92,255,.3)" stroke="#d9c2ff" stroke-width="3"/>
+        <ellipse cx="640" cy="150" rx="118" ry="80" fill="rgba(255,59,107,.25)" stroke="#ff9db4" stroke-width="3" stroke-dasharray="8 6"/>
+        <text x="556" y="60" font-size="16" font-weight="900" fill="#d9c2ff">BRAIN CELLS</text>
+        <text x="562" y="132" font-size="15" font-weight="900" fill="#ffc233">urea still HIGH</text>
+        <g fill="#ffc233"><circle cx="600" cy="160" r="7"/><circle cx="636" cy="176" r="7"/><circle cx="676" cy="156" r="7"/><circle cx="656" cy="196" r="7"/><circle cx="608" cy="196" r="7"/></g>
+        <text x="556" y="234" font-size="15" font-weight="900" fill="#ff9db4">💧 water rushes IN = SWELLING</text>
+        <!-- arrow -->
+        <path d="M340 150 L484 150" fill="none" stroke="#00c2c7" stroke-width="10" stroke-dasharray="14 9" stroke-linecap="round" marker-end="url(#ddsArr)"/>
+        <text x="340" y="128" font-size="15" font-weight="900" fill="#9ff2ee">WATER follows the solute</text>
+        <text x="340" y="188" font-size="13.5" font-style="italic" fill="#d8fff0">osmosis: water chases the higher concentration</text>
+        <text x="30" y="266" font-size="16" font-weight="900" fill="#ff6b8e">RESULT ➜ cerebral edema ➜ ↑ ICP ➜ seizures · coma · DEATH</text>
+      </svg>
+      <div class="duo" style="margin-top:12px">
+        <div>
+          <p style="font-weight:900;color:#ffd9e2">🔎 KEY SIGNS</p>
+          <ul class="tick">
+            <li>😵 <b>Restless &amp; disoriented</b> <i>(first change = LOC)</i></li>
+            <li>🤢 <b>Vomiting</b></li>
+            <li>🤕 <b>Headache</b></li>
+            <li>➕ later: <b>twitching, seizures, ↓LOC</b></li>
+          </ul>
+        </div>
+        <div>
+          <p style="font-weight:900;color:#ffd9e2">🚑 PRIORITY ACTION <span class="tip">NCLEX TIP</span></p>
+          <ul class="tick">
+            <li>1️⃣ <b>STOP or SLOW the dialysis</b> — fix the cause first.</li>
+            <li>2️⃣ <b>Report to the provider.</b></li>
+            <li>3️⃣ Seizure precautions · protect the airway · reorient.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="mn">🧠 <b>“Fast dialysis = swollen brain.”</b> Any <b>new confusion, headache or vomiting during a run</b> is DDS until proven otherwise. The fix is always <b>slow it down</b> — never speed it up to "finish faster." <i>Most likely in the FIRST few treatments and in clients with very high BUN.</i></div>
+    </div>
+
+    <div class="card ruby">
+      <h3>📉 Hypotension — the MOST common complication</h3>
+      <p><b>Why:</b> volume is coming off faster than the vessels can refill.</p>
+      <ul class="tick">
+        <li>😵‍💫 Dizzy, nauseated, pale, diaphoretic, cramping</li>
+        <li>✅ <b>Slow/stop ultrafiltration</b>, lay flat &amp; <b>raise the legs</b> (Trendelenburg per policy)</li>
+        <li>✅ Give <b>normal saline bolus</b> per order · recheck BP</li>
+      </ul>
+      <div class="mn">🧠 <b>Water out too fast = pressure down.</b> Same fix as DDS: <i>slow the machine.</i></div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🫧 Air embolism — rare but instant</h3>
+      <ul class="tick">
+        <li>Signs: <b>sudden dyspnea, chest pain, cyanosis, ↓LOC</b></li>
+        <li>1️⃣ <b>Clamp the line</b> · stop the pump</li>
+        <li>2️⃣ Place <b>left side-lying, head down</b> (traps air in the right atrium)</li>
+        <li>3️⃣ <b>100% oxygen</b> · call for help</li>
+      </ul>
+      <div class="mn">🧠 <b>“Clamp · Left · Low · O₂.”</b> Air floats — so put the air where it can't reach the lungs.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🩸 Bleeding — heparin is running</h3>
+      <p>The circuit is heparinized to stop clotting, so during and just after a run the client <b>bleeds easily</b>.</p>
+      <ul class="tick">
+        <li>Watch: gums, GI bleed, bruising, the needle sites</li>
+        <li>Hold pressure longer after any stick</li>
+        <li><b>Antidote to heparin: protamine sulfate</b></li>
+      </ul>
+      <div class="mn">🧠 <b>Heparin in the tubing = thin blood in the client.</b></div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>💪 Muscle cramps &amp; nausea</h3>
+      <p>From rapid fluid and sodium shifts, usually late in the run.</p>
+      <ul class="tick">
+        <li>✅ Slow the ultrafiltration rate</li>
+        <li>✅ Normal saline per order</li>
+        <li>📉 Often a sign the client gained <b>too much between treatments</b></li>
+      </ul>
+      <div class="mn">🧠 <b>Big gain = rough run.</b> Cramping is the body's receipt for skipping the fluid restriction.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AFTER ============ -->
+<section id="after">
+  <div class="sec-h"><span class="icon">✅</span><h2>AFTER + TEACHING</h2><span class="step">STEP 4 · PROTECT THE ARM</span></div>
+  <p class="sec-sub">Weigh, watch the BP, guard the access — and the four NO-NOs she has to know by heart.</p>
+
+  <div class="grid">
+    <div class="card emerald span2">
+      <h3>⚖️ Post-dialysis assessment — weight tells the story</h3>
+      <svg viewBox="0 0 880 250" role="img" aria-label="Scale comparison before and after dialysis showing a three kilogram weight loss equal to three liters of fluid removed">
+        <rect x="4" y="4" width="872" height="242" rx="16" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+        <!-- before scale -->
+        <rect x="46" y="120" width="200" height="70" rx="14" fill="rgba(255,59,107,.35)" stroke="#ff9db4" stroke-width="2"/>
+        <rect x="86" y="72" width="120" height="48" rx="10" fill="rgba(13,8,26,.6)" stroke="#ff9db4" stroke-width="2"/>
+        <text x="100" y="105" font-size="24" font-weight="900" fill="#ff9db4">72 kg</text>
+        <text x="58" y="164" font-size="16" font-weight="900" fill="#fff">BEFORE</text>
+        <text x="58" y="184" font-size="12.5" font-style="italic" fill="#ffd9e2">fluid overloaded</text>
+        <!-- arrow -->
+        <path d="M266 155 L376 155" stroke="#ffc233" stroke-width="9" stroke-linecap="round"/>
+        <path d="M370 140 L400 155 L370 170 z" fill="#ffc233"/>
+        <text x="264" y="128" font-size="16" font-weight="900" fill="#ffc233">3–4 hr run</text>
+        <!-- after scale -->
+        <rect x="416" y="120" width="200" height="70" rx="14" fill="rgba(18,184,134,.38)" stroke="#a5f3d4" stroke-width="2"/>
+        <rect x="456" y="72" width="120" height="48" rx="10" fill="rgba(13,8,26,.6)" stroke="#a5f3d4" stroke-width="2"/>
+        <text x="470" y="105" font-size="24" font-weight="900" fill="#a5f3d4">69 kg</text>
+        <text x="428" y="164" font-size="16" font-weight="900" fill="#fff">AFTER</text>
+        <text x="428" y="184" font-size="12.5" font-style="italic" fill="#d8fff0">at “dry weight”</text>
+        <!-- conversion -->
+        <rect x="646" y="60" width="206" height="130" rx="16" fill="rgba(255,194,51,.28)" stroke="#ffc233" stroke-width="2"/>
+        <text x="662" y="92" font-size="17" font-weight="900" fill="#ffc233">1 kg = 1 L</text>
+        <text x="662" y="118" font-size="14.5" font-weight="800" fill="#ffe49a">3 kg lost</text>
+        <text x="662" y="142" font-size="14.5" font-weight="800" fill="#ffe49a">= 3 L of fluid off</text>
+        <text x="662" y="172" font-size="12.5" font-style="italic" fill="#ffe49a">also = 2.2 lb per kg</text>
+        <text x="46" y="228" font-size="15" font-weight="900" fill="#a5f3d4">Also after: vital signs · orthostatic BP · access site for bleeding · give the meds you held</text>
+      </svg>
+      <div class="mn">🧠 <b>The scale is the kidney's report card.</b> <span class="mono">1 kg = 1 L = 2.2 lb</span>. A client who gains <span class="mono">2 kg</span> between runs drank <span class="mono">2 L</span> more than they should have.</div>
+    </div>
+
+    <div class="card garnet span2">
+      <h3>🚫 The fistula arm NO-NOs — <span class="never">never on that arm</span></h3>
+      <div class="no-grid">
+        <div class="no-t hot"><span class="e">🩺</span>NO blood pressure<i>use the other arm</i></div>
+        <div class="no-t hot"><span class="e">💉</span>NO IVs or lab draws<i>no venipuncture</i></div>
+        <div class="no-t hot"><span class="e">⌚</span>NO tight clothing<i>or watches / jewelry</i></div>
+        <div class="no-t hot"><span class="e">😴</span>NO sleeping on it<i>compression clots it</i></div>
+        <div class="no-t"><span class="e">🧴</span>NO creams or lotions<i>skin breakdown + infection</i></div>
+        <div class="no-t"><span class="e">👜</span>NO lifting <span class="mono">&gt;5 lb</span><i>no purse on that arm</i></div>
+      </div>
+      <p style="margin-top:11px">Every one of these does the same thing: it <b>squeezes the fistula shut</b> or <b>lets bacteria in</b>. A clotted fistula means surgery.</p>
+      <div class="mn">🧠 <b>“No BP, no needles, no bling, no bag, no bed, no balm.”</b> Six NOs — say them in one breath while pointing at your own arm.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🚨 Report to the HCP — the 5 P's distal to the shunt <span class="tip">NCLEX TIP</span></h3>
+      <ul class="tick">
+        <li><b>P</b>allor — pale skin below the fistula</li>
+        <li><b>P</b>aresthesia — <i>numbness or tingling</i></li>
+        <li><b>P</b>ulses diminished</li>
+        <li><b>P</b>oor cap refill <i>(over <span class="mono">3 seconds</span>)</i></li>
+        <li><b>P</b>ain distal to the shunt</li>
+      </ul>
+      <p>These mean the fistula is <b>stealing blood from the hand</b>. ✅ <b>Mild pitting edema of that arm is NORMAL.</b></p>
+      <div class="mn">🧠 <b>5 P's = “Please Protect Pale Poor Painful hands.”</b> Edema = fine. <i>Cold, white, numb</i> = call.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🌡️ Monitor the access site itself</h3>
+      <ul class="tick">
+        <li>🔥 <b>Infection</b> — warm, red, tender, or <b>drainage</b> at the shunt site</li>
+        <li>🩸 <b>Bleeding</b> — hold firm pressure, <span class="never">do NOT occlude the flow</span></li>
+        <li>🔇 <b>No thrill / no bruit</b> = clotted = report NOW</li>
+      </ul>
+      <div class="mn">🧠 <b>Hot &amp; red = infected. Silent = clotted.</b> Both get a phone call.</div>
+    </div>
+
+    <div class="card citrinec span2">
+      <h3>🍽️ Diet &amp; fluid teaching for the dialysis client</h3>
+      <table>
+        <tr><th class="up" style="width:32%">Restrict</th><th class="lo">Why · examples</th></tr>
+        <tr><td><b>Potassium</b> 🍌</td><td>The kidney can't excrete it → <b>fatal dysrhythmias</b>. Limit bananas, oranges, potatoes, tomatoes, avocado, salt substitutes.</td></tr>
+        <tr><td><b>Sodium</b> 🧂</td><td>Sodium holds water → weight gain, edema, high BP between runs.</td></tr>
+        <tr><td><b>Phosphorus</b> 🥛</td><td>Dairy, dark colas, nuts, processed foods. Take <b>binders with meals</b>.</td></tr>
+        <tr><td><b>Fluid</b> 💧</td><td>Usually restricted; goal is a small gain between treatments. <i>Exact limit is individualized — follow the order.</i></td></tr>
+        <tr><td><b>Protein</b> 🍗</td><td><b>Different rule:</b> pre-dialysis CKD restricts protein, but <b>on hemodialysis protein is INCREASED</b> — amino acids are lost through the dialyzer.</td></tr>
+      </table>
+      <div class="mn">🧠 <b>“Na · K · P · H₂O down — protein UP once dialysis starts.”</b> The trap answer is telling a dialysis client to eat <i>less</i> protein.</div>
+    </div>
+
+    <div class="card deep">
+      <h3>📅 Living with it — daily teaching</h3>
+      <ul class="tick">
+        <li>🤚 <b>Check the thrill several times a day</b> — teach the client and the family.</li>
+        <li>⚖️ <b>Weigh daily</b> at the same time, same clothes; report rapid gains.</li>
+        <li>💉 <b>Never skip a treatment</b> — missed runs = hyperkalemia + fluid overload.</li>
+        <li>🆘 Carry ID that says <b>"dialysis access — no BP/no sticks this arm."</b></li>
+      </ul>
+      <div class="mn">🧠 <b>Touch it, weigh it, show up.</b> Three habits that keep a dialysis client alive.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">🧼 DIAL = clean blood</span>Machine kidney: removes <b>waste, fluid &amp; electrolytes</b>.</div>
+    <div class="rc tealbg"><span class="big">🖐️ Thrill + bruit</span><b>Feel</b> the buzz, <b>hear</b> the whoosh — before every run.</div>
+    <div class="rc rubybg"><span class="big">🧠 DDS = brain swells</span>Restless · vomiting · headache ➜ <b>SLOW/STOP + report</b>.</div>
+    <div class="rc topazbg"><span class="big">💊 Hold BP meds</span>+ antibiotics, digoxin &amp; water-soluble vitamins get <b>washed out</b>.</div>
+  </div>
+
+  <div class="recall">
+    <div class="rc rubybg"><span class="big">🚫 That arm</span>No BP · no sticks · no watch · no lotion · no <span class="mono">&gt;5 lb</span> purse · no sleeping on it.</div>
+    <div class="rc topazbg"><span class="big">🖐️ 5 P's</span>Pallor · Paresthesia · Pulses ↓ · Poor refill · Pain = <b>report</b>. Pitting edema = OK.</div>
+    <div class="rc tealbg"><span class="big">⚖️ 1 kg = 1 L</span>Weigh before AND after. The scale is the fluid record.</div>
+    <div class="rc citrine"><span class="big">🍗 Protein UP</span>On dialysis, protein <b>increases</b> — K⁺, Na⁺, phosphorus &amp; fluid go DOWN.</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 6 rapid-fire questions</summary>
+      <div class="qa">Q1: You assess the fistula and feel nothing and hear nothing. Now what? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">No thrill + no bruit = the fistula has clotted. Report to the provider immediately — do not use the access.</div></div>
+      <div class="qa">Q2: Two hours into dialysis the client is restless, disoriented, vomiting and has a headache. Priority? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Dialysis disequilibrium syndrome — solutes removed too fast, brain cells swell, ICP rises. STOP or SLOW the treatment first, then report to the provider. Seizure precautions.</div></div>
+      <div class="qa">Q3: Which meds are held before dialysis, and which are just given after? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">HOLD antihypertensives (ACE/ARBs, beta blockers, calcium channel blockers, diuretics, nitroglycerin) — dialysis already drops the BP. Give AFTER the run: antibiotics (penicillins, cephalosporins), digoxin, and water-soluble vitamins (B, C, folic acid) — they get washed out through the dialyzer.</div></div>
+      <div class="qa">Q4: The client's hand below the fistula is pale, numb and has a cap refill of 4 seconds. Expected or report? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">REPORT — that's the 5 P's (pallor, paresthesia, pulses diminished, poor cap refill, pain) = the access is stealing blood from the hand. Mild pitting edema of that arm, on the other hand, is expected.</div></div>
+      <div class="qa">Q5: The client weighed 72 kg before and 69 kg after. How much fluid came off? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">3 L. 1 kg = 1 L = 2.2 lb.</div></div>
+      <div class="qa">Q6: Name four things that must never happen to the fistula arm. <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">No blood pressure cuff, no IVs/venipuncture/lab draws, no restrictive clothing or jewelry (watches), no sleeping on it, no creams or lotions, no lifting over 5 lb (no purse).</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">WHAT IT IS</span>→
+    <span style="background:rgba(47,107,255,.7)">BEFORE</span>→
+    <span style="background:rgba(0,194,199,.7);color:#00252b">DURING</span>→
+    <span style="background:rgba(18,184,134,.7)">AFTER</span>
+  </div>
+  <div>NG-248 · Educational study aid — verify clinical details &amp; facility policy · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>

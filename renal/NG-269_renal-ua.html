@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Urinalysis (UA) · NG-269 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#cause">🧫 Collect</a>
+  <a class="c2" href="#clues">🔎 Read the strip</a>
+  <a class="c3" href="#care">🩺 Act on it</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Renal + Fluid · Diagnostics</div>
+  <h1>Urinalysis <span class="drop">🧪</span></h1>
+  <p class="sub">UA — Urine Analysis · read every line on the strip</p>
+  <div class="chips">
+    <span class="chip id">NG-269</span>
+    <span class="chip cat">RENAL + FLUID</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede">A UA is <b>a picture of the kidney taken through the toilet</b> 🚽. Each pad on the strip answers one question: <b>how hydrated?</b> · <b>is there infection?</b> · <b>is there bleeding?</b> · <b>is protein or sugar leaking?</b> Learn the <b>normal band</b> for each line and abnormal jumps off the page.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">💡 Light = hydrated</span>Dark = dehydrated — <i>unless</i> on diuretics, SIADH or DI.</div>
+  <div class="rc tealbg"><span class="big">💧 Spec. gravity 1.003–1.030</span><span class="mono">1.003</span> = liquidy body · <span class="mono">1.030</span> = dry body.</div>
+  <div class="rc rubybg"><span class="big">🧠 Look for the “N”</span><b>N</b>itrites → pyelo<b>n</b>ephritis (kidney infection).</div>
+  <div class="rc topazbg"><span class="big">🥩 Protein HIGH</span>= <b>N</b>ephrotic syndrome — <b>N</b>asty protein loss. Glucose high = diabetes.</div>
+</div>
+
+<!-- ============ COLLECT ============ -->
+<section id="cause">
+  <div class="sec-h"><span class="icon">🧫</span><h2>COLLECT IT RIGHT</h2><span class="step">STEP 1 · A DIRTY SAMPLE IS A WRONG ANSWER</span></div>
+  <p class="sec-sub">Half of UA test questions are not about the result at all — they are about how you got the specimen.</p>
+
+  <div class="grid">
+
+    <div class="card emerald span2">
+      <h3>✅ Clean-catch midstream — the standard specimen</h3>
+      <svg viewBox="-10 -10 880 270" role="img" aria-label="Four steps of a clean catch midstream urine specimen: clean front to back, start the stream into the toilet, catch the middle of the stream in a sterile cup, then label and send to the lab within one hour">
+        <rect x="-6" y="-6" width="872" height="262" rx="16" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+        <circle cx="90" cy="76" r="26" fill="#12b886"/><text x="80" y="86" font-size="24" font-weight="900" fill="#03291c">1</text>
+        <text x="30" y="136" font-size="14" font-weight="900" fill="#a5f3d4">CLEAN the area</text>
+        <text x="30" y="156" font-size="12.5" fill="#d8fff0">front → back, one wipe</text>
+        <text x="30" y="174" font-size="12.5" fill="#d8fff0">per swab, then discard</text>
+        <path d="M126 76 L172 76" stroke="#a5f3d4" stroke-width="4"/><path d="M170 68 L188 76 L170 84 Z" fill="#a5f3d4"/>
+        <circle cx="248" cy="76" r="26" fill="#12b886"/><text x="238" y="86" font-size="24" font-weight="900" fill="#03291c">2</text>
+        <text x="196" y="136" font-size="14" font-weight="900" fill="#a5f3d4">START the stream</text>
+        <text x="196" y="156" font-size="12.5" fill="#d8fff0">first few mL go in the</text>
+        <text x="196" y="174" font-size="12.5" fill="#d8fff0">toilet — they wash out skin flora</text>
+        <path d="M284 76 L330 76" stroke="#a5f3d4" stroke-width="4"/><path d="M328 68 L346 76 L328 84 Z" fill="#a5f3d4"/>
+        <circle cx="406" cy="76" r="26" fill="#ffc233"/><text x="396" y="86" font-size="24" font-weight="900" fill="#231a02">3</text>
+        <rect x="372" y="106" width="66" height="10" rx="4" fill="#eafeff"/>
+        <path d="M378 116 L432 116 L426 156 L384 156 Z" fill="rgba(255,194,51,.65)" stroke="#eafeff" stroke-width="2"/>
+        <text x="360" y="188" font-size="14" font-weight="900" fill="#ffc233">CATCH the MIDDLE</text>
+        <text x="360" y="208" font-size="12.5" fill="#ffe49a">sterile cup · don't touch the inside</text>
+        <path d="M448 76 L494 76" stroke="#ffc233" stroke-width="4"/><path d="M492 68 L510 76 L492 84 Z" fill="#ffc233"/>
+        <circle cx="570" cy="76" r="26" fill="#00c2c7"/><text x="560" y="86" font-size="24" font-weight="900" fill="#00252b">4</text>
+        <text x="520" y="136" font-size="14" font-weight="900" fill="#9ff2ee">LABEL &amp; SEND</text>
+        <text x="520" y="156" font-size="12.5" fill="#eafeff">to lab within 1 hour,</text>
+        <text x="520" y="174" font-size="12.5" fill="#eafeff">or refrigerate</text>
+        <text x="520" y="196" font-size="12.5" font-style="italic" fill="#ff9db4">sitting urine grows bacteria</text>
+      </svg>
+      <p style="margin-top:11px"><span class="never">Never collect a specimen from the urine drainage bag</span> — that urine is old, warm and not sterile. It will grow bacteria that were never in the client.</p>
+      <div class="mn">🧠 <b>“Clean, Skip, Catch, Ship.”</b> Clean the area · skip the first squirt · catch the middle · ship it to the lab in an hour. <i>First morning void is the most concentrated and the best sample when you get a choice.</i></div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>⭐ Sterile specimen from a Foley — the exact 4 steps <span class="tip">KAPLAN</span></h3>
+      <svg viewBox="-10 -10 767 280" role="img" aria-label="Four steps to draw a sterile urine specimen from an indwelling catheter: clamp the drainage tube below the port, wait fifteen to thirty minutes, scrub the port with antiseptic, then aspirate with a sterile needleless device">
+        <rect x="-6" y="-6" width="759" height="272" rx="16" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+        <!-- catheter tubing -->
+        <path d="M40 70 C160 70 200 118 320 118 C440 118 480 70 660 70" fill="none" stroke="#ffe49a" stroke-width="14" stroke-linecap="round"/>
+        <circle cx="252" cy="106" r="16" fill="#00c2c7" stroke="#eafeff" stroke-width="3"/>
+        <text x="212" y="80" font-size="13.5" font-weight="900" fill="#9ff2ee">ACCESS PORT</text>
+        <!-- clamp -->
+        <rect x="352" y="94" width="18" height="42" rx="5" fill="#ff3b6b" stroke="#ffe3ea" stroke-width="2"/>
+        <text x="332" y="164" font-size="13.5" font-weight="900" fill="#ff9db4">CLAMP</text>
+        <text x="316" y="182" font-size="12" font-style="italic" fill="#ffd9e2">below the port</text>
+        <!-- bag -->
+        <path d="M600 84 L668 84 L660 168 L608 168 Z" fill="rgba(255,194,51,.5)" stroke="#ffe49a" stroke-width="2"/>
+        <text x="596" y="188" font-size="12.5" font-weight="900" fill="#ffe49a">drainage bag</text>
+        <text x="558" y="208" font-size="12.5" font-weight="900" fill="#ff9db4">❌ never sample from here</text>
+        <!-- steps -->
+        <rect x="24" y="196" width="150" height="50" rx="11" fill="rgba(255,59,107,.45)" stroke="#ff3b6b" stroke-width="2"/>
+        <text x="36" y="216" font-size="13.5" font-weight="900" fill="#fff">1 · CLAMP tubing</text>
+        <text x="36" y="234" font-size="12" fill="#ffd9e2">below the port</text>
+        <rect x="184" y="196" width="150" height="50" rx="11" fill="rgba(255,138,61,.5)" stroke="#ff8a3d" stroke-width="2"/>
+        <text x="196" y="216" font-size="13.5" font-weight="900" fill="#fff">2 · WAIT</text>
+        <text x="196" y="234" font-size="12" fill="#ffeee7">15–30 minutes to fill</text>
+        <rect x="344" y="196" width="150" height="50" rx="11" fill="rgba(255,194,51,.55)" stroke="#ffc233" stroke-width="2"/>
+        <text x="356" y="216" font-size="13.5" font-weight="900" fill="#231a02">3 · SCRUB the port</text>
+        <text x="356" y="234" font-size="12" fill="#3a2c00">antiseptic swab</text>
+        <rect x="504" y="196" width="170" height="50" rx="11" fill="rgba(18,184,134,.5)" stroke="#12b886" stroke-width="2"/>
+        <text x="516" y="216" font-size="13.5" font-weight="900" fill="#fff">4 · ASPIRATE</text>
+        <text x="516" y="234" font-size="12" fill="#d8fff0">sterile needleless device</text>
+        <text x="24" y="42" font-size="16" font-weight="900" fill="#ffd9b8">INDWELLING CATHETER · sterile specimen</text>
+        <text x="440" y="42" font-size="13" font-weight="900" fill="#a5f3d4">✅ unclamp as soon as you're done</text>
+      </svg>
+      <div class="mn">🧠 <b>“Clamp · Chill · Cleanse · Collect.”</b> Four C's in order. <i>Forget the clamp and there is nothing at the port to draw; forget to unclamp and you just gave the client urinary retention.</i></div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🕐 24-hour urine collection</h3>
+      <ul class="tick">
+        <li><b>Discard</b> the first void and <b>write down the time</b> — that's the start.</li>
+        <li>Save <b>every drop</b> for the next 24 hours.</li>
+        <li>At the end time, have the client void one last time and <b>add it in</b>.</li>
+        <li>Keep the container <b>on ice or refrigerated</b>.</li>
+        <li>One missed void = <b>start over</b>. ❌</li>
+      </ul>
+      <div class="mn">🧠 <b>“Toss the first, keep the last.”</b> The one you throw away is the urine made <i>before</i> the clock started — it doesn't belong to your 24 hours.</div>
+    </div>
+
+    <div class="card tealc">
+      <h3>🔬 What a full UA actually reports</h3>
+      <ul class="tick">
+        <li><b>Physical:</b> color · clarity · odor · specific gravity</li>
+        <li><b>Chemical (the dipstick):</b> pH · protein · glucose · ketones · blood · nitrites · leukocyte esterase · bilirubin</li>
+        <li><b>Microscopic:</b> RBCs · WBCs · bacteria · casts · crystals · epithelial cells</li>
+      </ul>
+      <div class="mn">🧠 <b>Look · Dip · Scope.</b> Three layers, in that order — and the exam question almost always lives in the <i>dip</i> layer.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ READ THE STRIP ============ -->
+<section id="clues">
+  <div class="sec-h"><span class="icon">🔎</span><h2>READ THE STRIP</h2><span class="step">STEP 2 · LOW · NORMAL · HIGH</span></div>
+  <p class="sec-sub">Every line gets a bar. Find where the client's number lands, and the diagnosis walks up to you.</p>
+
+  <div class="grid">
+
+    <div class="card deep span2">
+      <h3>🎨 COLOR — the fastest hydration read in nursing</h3>
+      <svg viewBox="-10 -10 880 270" role="img" aria-label="Urine color hydration scale from clear and pale yellow meaning hydrated through dark amber and brown meaning dehydrated, with red for blood">
+        <rect x="-6" y="-6" width="872" height="262" rx="16" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+        <text x="20" y="32" font-size="17" font-weight="900" fill="#ffd9b8">💡 LIGHT = HYDRATED  ·  🏜️ DARKER = DEHYDRATED</text>
+        <rect x="24" y="52" width="94" height="86" rx="10" fill="#f4feff" stroke="#eafeff" stroke-width="2"/>
+        <rect x="130" y="52" width="94" height="86" rx="10" fill="#fbf6c4" stroke="#eafeff" stroke-width="2"/>
+        <rect x="236" y="52" width="94" height="86" rx="10" fill="#f2e05a" stroke="#eafeff" stroke-width="2"/>
+        <rect x="342" y="52" width="94" height="86" rx="10" fill="#e0a51c" stroke="#eafeff" stroke-width="2"/>
+        <rect x="448" y="52" width="94" height="86" rx="10" fill="#a86408" stroke="#eafeff" stroke-width="2"/>
+        <rect x="554" y="52" width="94" height="86" rx="10" fill="#6a3405" stroke="#eafeff" stroke-width="2"/>
+        <text x="40" y="158" font-size="12.5" font-weight="900" fill="#eafeff">clear</text>
+        <text x="140" y="158" font-size="12.5" font-weight="900" fill="#eafeff">pale straw</text>
+        <text x="252" y="158" font-size="12.5" font-weight="900" fill="#eafeff">yellow</text>
+        <text x="358" y="158" font-size="12.5" font-weight="900" fill="#eafeff">dark yellow</text>
+        <text x="470" y="158" font-size="12.5" font-weight="900" fill="#eafeff">amber</text>
+        <text x="562" y="158" font-size="12.5" font-weight="900" fill="#eafeff">brown / tea</text>
+        <path d="M24 176 L648 176" stroke="#ffc233" stroke-width="4"/>
+        <path d="M642 168 L664 176 L642 184 Z" fill="#ffc233"/>
+        <text x="24" y="198" font-size="13.5" font-weight="900" fill="#9ff2ee">💧 OVER-hydrated / dilute</text>
+        <text x="470" y="198" font-size="13.5" font-weight="900" fill="#ff9db4">🏜️ DEHYDRATED / concentrated</text>
+        <text x="24" y="224" font-size="13" font-weight="900" fill="#ffc233">⚠️ BUT: pale urine does NOT mean hydrated if the client is on DIURETICS, has SIADH, or has DIABETES INSIPIDUS.</text>
+        <text x="24" y="242" font-size="13" font-weight="900" fill="#ff9db4">🚨 Red / pink / cola-colored = BLOOD. Cloudy + foul = infection. Fruity smell = ketones.</text>
+      </svg>
+      <div class="mn">🧠 <b>Think lemonade → iced tea.</b> Lemonade urine = well watered. Iced-tea urine = dry as a bone. <i>Cola-colored is a whole different alarm — that's blood or myoglobin.</i></div>
+    </div>
+
+    <!-- MASTER BAR SCALES -->
+    <div class="card deep span2">
+      <h3>⭐ Every UA component on a low–normal–high bar</h3>
+      <p><span class="tip">HIGH YIELD</span> <mark>Green band = normal. Anything outside it has a name.</mark></p>
+      <svg viewBox="-10 -10 988 720" role="img" aria-label="Bar scales for urinalysis components: specific gravity, pH, protein, glucose, ketones, red blood cells, white blood cells, nitrites and bilirubin, each showing the low, normal and high ranges with their clinical meaning">
+        <rect x="-6" y="-6" width="980" height="712" rx="16" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+        <text x="20" y="30" font-size="17" font-weight="900" fill="#ffd9b8">URINALYSIS · LOW ◀ NORMAL ▶ HIGH</text>
+        <text x="20" y="50" font-size="12" font-style="italic" fill="#e9dcff">standard adult reference values — confirm against your facility's lab sheet</text>
+
+        <!-- 1 SPECIFIC GRAVITY -->
+        <text x="20" y="82" font-size="14.5" font-weight="900" fill="#9ff2ee">💧 SPECIFIC GRAVITY — how thick is the urine?</text>
+        <rect x="20" y="90" width="200" height="28" rx="7" fill="rgba(0,194,199,.65)"/>
+        <rect x="220" y="90" width="270" height="28" fill="rgba(18,184,134,.7)"/>
+        <rect x="490" y="90" width="190" height="28" rx="7" fill="rgba(255,138,61,.8)"/>
+        <text x="30" y="110" font-size="12.5" font-weight="900" fill="#00252b">1.003 LOW · LIQUIDY body</text>
+        <text x="272" y="110" font-size="12.5" font-weight="900" fill="#03291c">1.005 – 1.030 NORMAL</text>
+        <text x="500" y="110" font-size="12.5" font-weight="900" fill="#2b1200">1.030 HIGH · DRY body</text>
+        <text x="20" y="136" font-size="11.8" fill="#eafeff">LOW → fluid overload, over-hydration, diuretics, DIABETES INSIPIDUS.   HIGH → dehydration, SIADH, hemorrhage, contrast dye.</text>
+
+        <!-- 2 pH -->
+        <text x="20" y="168" font-size="14.5" font-weight="900" fill="#d9c2ff">⚗️ pH — acid or alkaline?</text>
+        <rect x="20" y="176" width="170" height="28" rx="7" fill="rgba(255,59,107,.6)"/>
+        <rect x="190" y="176" width="300" height="28" fill="rgba(18,184,134,.7)"/>
+        <rect x="490" y="176" width="190" height="28" rx="7" fill="rgba(47,107,255,.7)"/>
+        <text x="34" y="196" font-size="12.5" font-weight="900" fill="#fff">under 4.6 ACIDIC</text>
+        <text x="270" y="196" font-size="12.5" font-weight="900" fill="#03291c">4.6 – 8.0 NORMAL</text>
+        <text x="510" y="196" font-size="12.5" font-weight="900" fill="#fff">over 8.0 ALKALINE</text>
+        <text x="20" y="222" font-size="11.8" fill="#efe6ff">ACIDIC → starvation, DKA, high-protein diet.  ALKALINE → UTI with urea-splitting bacteria, old sitting specimen.</text>
+
+        <!-- 3 PROTEIN -->
+        <text x="20" y="254" font-size="14.5" font-weight="900" fill="#ffc233">🥩 PROTEIN — should be NONE</text>
+        <rect x="20" y="262" width="300" height="28" rx="7" fill="rgba(18,184,134,.7)"/>
+        <rect x="320" y="262" width="140" height="28" fill="rgba(255,194,51,.75)"/>
+        <rect x="460" y="262" width="220" height="28" rx="7" fill="rgba(255,59,107,.8)"/>
+        <text x="98" y="282" font-size="12.5" font-weight="900" fill="#03291c">NEGATIVE / NONE = NORMAL ✅</text>
+        <text x="342" y="282" font-size="12.5" font-weight="900" fill="#231a02">TRACE · recheck</text>
+        <text x="472" y="282" font-size="12.5" font-weight="900" fill="#fff">HIGH = NEPHROTIC SYNDROME 🚨</text>
+        <text x="20" y="308" font-size="11.8" fill="#ffe49a">Protein is too big to pass a healthy glomerulus. HIGH also seen in glomerulonephritis, preeclampsia, and heavy exercise/fever (transient).</text>
+
+        <!-- 4 GLUCOSE -->
+        <text x="20" y="340" font-size="14.5" font-weight="900" fill="#ff9db4">🍬 GLUCOSE — should be NONE</text>
+        <rect x="20" y="348" width="340" height="28" rx="7" fill="rgba(18,184,134,.7)"/>
+        <rect x="360" y="348" width="320" height="28" rx="7" fill="rgba(255,59,107,.8)"/>
+        <text x="118" y="368" font-size="12.5" font-weight="900" fill="#03291c">NEGATIVE = NORMAL ✅</text>
+        <text x="392" y="368" font-size="12.5" font-weight="900" fill="#fff">HIGH = DIABETES / hyperglycemia</text>
+        <text x="20" y="394" font-size="11.8" fill="#ffd9e2">Sugar only spills once blood glucose passes the renal threshold (about 180 mg/dL) — the tubule can't reabsorb any more.</text>
+
+        <!-- 5 KETONES -->
+        <text x="20" y="426" font-size="14.5" font-weight="900" fill="#ffc9a3">🔥 KETONES — should be NONE</text>
+        <rect x="20" y="434" width="340" height="28" rx="7" fill="rgba(18,184,134,.7)"/>
+        <rect x="360" y="434" width="320" height="28" rx="7" fill="rgba(255,138,61,.85)"/>
+        <text x="118" y="454" font-size="12.5" font-weight="900" fill="#03291c">NEGATIVE = NORMAL ✅</text>
+        <text x="382" y="454" font-size="12.5" font-weight="900" fill="#2b1200">PRESENT = DKA · starvation · low-carb</text>
+
+        <!-- 6 RBC -->
+        <text x="20" y="490" font-size="14.5" font-weight="900" fill="#ff9db4">🩸 RBC / BLOOD “hematuria”</text>
+        <rect x="20" y="498" width="300" height="28" rx="7" fill="rgba(18,184,134,.7)"/>
+        <rect x="320" y="498" width="360" height="28" rx="7" fill="rgba(192,34,85,.85)"/>
+        <text x="76" y="518" font-size="12.5" font-weight="900" fill="#03291c">0 – 2 per hpf / NONE ✅</text>
+        <text x="336" y="518" font-size="12.5" font-weight="900" fill="#fff">HIGH → stones · bladder CA · post-op TURP · trauma</text>
+
+        <!-- 7 WBC -->
+        <text x="20" y="554" font-size="14.5" font-weight="900" fill="#a5f3d4">🦠 WBC “leukocytes” / leukocyte esterase</text>
+        <rect x="20" y="562" width="300" height="28" rx="7" fill="rgba(18,184,134,.7)"/>
+        <rect x="320" y="562" width="360" height="28" rx="7" fill="rgba(255,194,51,.8)"/>
+        <text x="76" y="582" font-size="12.5" font-weight="900" fill="#03291c">0 – 4 per hpf / NEGATIVE ✅</text>
+        <text x="336" y="582" font-size="12.5" font-weight="900" fill="#231a02">HIGH → INFECTION (UTI) · cloudy, foul urine</text>
+
+        <!-- 8 NITRITES -->
+        <text x="20" y="618" font-size="14.5" font-weight="900" fill="#ffe49a">🧫 NITRITES</text>
+        <rect x="20" y="626" width="300" height="28" rx="7" fill="rgba(18,184,134,.7)"/>
+        <rect x="320" y="626" width="360" height="28" rx="7" fill="rgba(255,59,107,.85)"/>
+        <text x="106" y="646" font-size="12.5" font-weight="900" fill="#03291c">NEGATIVE = NORMAL ✅</text>
+        <text x="336" y="646" font-size="12.5" font-weight="900" fill="#fff">POSITIVE → kidney infection “pyeloNephritis” 🚨</text>
+        <text x="20" y="678" font-size="12" font-weight="900" fill="#9ff2ee">🧠 LOOK FOR THE “N”:  N-itrites  →  pyelo-N-ephritis.  Bacteria turn nitrates into nitrites, so a positive pad means bacteria are living up there.</text>
+      </svg>
+      <div class="mn">🧠 <b>“Nothing should be in pee but pee.”</b> Protein, glucose, ketones, blood, nitrites and leukocytes should all read <i>negative</i>. The moment one turns positive, it names its own disease.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🩸 RBC in urine = hematuria — the big three causes</h3>
+      <ul class="tick">
+        <li>🪨 <b>Kidney stones</b> — the stone scrapes the tract on the way down.</li>
+        <li>🎗️ <b>Bladder cancer</b> — classic clue is <i>painless</i> hematuria.</li>
+        <li>🔪 <b>Post-operative TURP</b> — some pink drainage is <b>expected</b>; <span class="never">bright red with clots is not</span>.</li>
+      </ul>
+      <p style="margin-top:8px"><b>Also on the list:</b> trauma, glomerulonephritis, anticoagulants, and a menstruating client (recollect).</p>
+      <div class="mn">🧠 <b>“Stones, Suspicious growth, Surgery.”</b> Three S's that put blood in the bowl (the growth is bladder <i>carcinoma</i>). <i>Painful hematuria = stone. Painless hematuria = cancer until proven otherwise.</i></div>
+    </div>
+
+    <div class="card topaz">
+      <h3>🦠 WBC + nitrites = the infection pair</h3>
+      <table>
+        <tr><th style="width:36%">Finding</th><th class="up">What it means</th></tr>
+        <tr><td><b>WBC / leukocyte esterase</b></td><td>Inflammation or <b>infection</b> — usually a <b>UTI</b></td></tr>
+        <tr><td><b>Nitrites</b></td><td>Gram-negative bacteria present → think <b>pyeloNephritis</b></td></tr>
+        <tr><td><b>Cloudy + foul odor</b></td><td>Pus and bacteria in the specimen</td></tr>
+        <tr><td><b>WBC casts</b></td><td>Infection is <b>up in the kidney</b>, not just the bladder</td></tr>
+      </table>
+      <div class="mn">🧠 <b>Bladder burns, kidney BLOWS UP.</b> Cystitis = burning + frequency. Pyelonephritis adds <b>fever, chills, and CVA/flank tenderness</b> — that's the one you escalate.</div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>🔬 Under the microscope — casts tell you WHERE the damage is</h3>
+      <svg viewBox="0 0 700 260" role="img" aria-label="Microscope field showing red blood cells, white blood cells, bacteria, red cell casts, white cell casts and muddy brown granular casts with the disease each one points to">
+        <rect x="4" y="4" width="692" height="252" rx="16" fill="rgba(13,8,26,.55)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+        <circle cx="140" cy="120" r="98" fill="rgba(0,194,199,.12)" stroke="#00c2c7" stroke-width="3"/>
+        <circle cx="106" cy="86" r="11" fill="#ff3b6b"/><circle cx="150" cy="72" r="11" fill="#ff3b6b"/><circle cx="178" cy="112" r="11" fill="#ff3b6b"/>
+        <circle cx="96" cy="150" r="14" fill="#a5f3d4" stroke="#12b886" stroke-width="2"/>
+        <circle cx="150" cy="164" r="14" fill="#a5f3d4" stroke="#12b886" stroke-width="2"/>
+        <rect x="176" y="150" width="26" height="9" rx="4" fill="#ffc233"/>
+        <rect x="112" y="112" width="24" height="8" rx="4" fill="#ffc233"/>
+        <text x="86" y="240" font-size="13.5" font-weight="900" fill="#9ff2ee">microscopic field</text>
+        <rect x="266" y="34" width="410" height="46" rx="10" fill="rgba(255,59,107,.35)" stroke="#ff3b6b" stroke-width="2"/>
+        <text x="280" y="54" font-size="14" font-weight="900" fill="#ff9db4">🔴 RBC CASTS</text>
+        <text x="280" y="72" font-size="12.5" fill="#ffd9e2">→ GLOMERULONEPHRITIS — the filter itself is bleeding</text>
+        <rect x="266" y="90" width="410" height="46" rx="10" fill="rgba(255,194,51,.35)" stroke="#ffc233" stroke-width="2"/>
+        <text x="280" y="110" font-size="14" font-weight="900" fill="#ffc233">⚪ WBC CASTS</text>
+        <text x="280" y="128" font-size="12.5" fill="#ffe49a">→ PYELONEPHRITIS — infection has climbed to the kidney</text>
+        <rect x="266" y="146" width="410" height="46" rx="10" fill="rgba(255,138,61,.35)" stroke="#ff8a3d" stroke-width="2"/>
+        <text x="280" y="166" font-size="14" font-weight="900" fill="#ffc9a3">🟤 MUDDY BROWN GRANULAR CASTS</text>
+        <text x="280" y="184" font-size="12.5" fill="#ffeee7">→ ACUTE TUBULAR NECROSIS — intrarenal AKI</text>
+        <rect x="266" y="202" width="410" height="44" rx="10" fill="rgba(18,184,134,.3)" stroke="#12b886" stroke-width="2"/>
+        <text x="280" y="222" font-size="14" font-weight="900" fill="#a5f3d4">💠 HYALINE CASTS</text>
+        <text x="280" y="240" font-size="12.5" fill="#d8fff0">→ often normal — exercise, fever, dehydration</text>
+      </svg>
+      <div class="mn">🧠 <b>Casts are molds of the tubule.</b> Whatever was sitting in the tubule got shaped like a tube and washed out — so a cast <i>proves</i> the problem is inside the kidney, not the bladder.</div>
+    </div>
+
+    <div class="card emerald">
+      <h3>🧫 Urine Culture &amp; Sensitivity — two different answers</h3>
+      <svg viewBox="-10 -10 710 270" role="img" aria-label="Culture and sensitivity plate showing bacterial growth with antibiotic discs and zones of inhibition, one large zone marked sensitive and one small zone marked resistant">
+        <rect x="-6" y="-6" width="702" height="262" rx="16" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+        <circle cx="140" cy="126" r="100" fill="rgba(255,194,51,.28)" stroke="#ffc233" stroke-width="3"/>
+        <circle cx="100" cy="90" r="30" fill="rgba(13,8,26,.7)"/><circle cx="100" cy="90" r="9" fill="#eafeff"/>
+        <text x="76" y="52" font-size="12.5" font-weight="900" fill="#a5f3d4">big zone = SENSITIVE ✅</text>
+        <circle cx="180" cy="164" r="14" fill="rgba(13,8,26,.7)"/><circle cx="180" cy="164" r="9" fill="#eafeff"/>
+        <text x="146" y="218" font-size="12.5" font-weight="900" fill="#ff9db4">small zone = RESISTANT ❌</text>
+        <rect x="266" y="36" width="336" height="66" rx="12" fill="rgba(47,107,255,.35)" stroke="#2f6bff" stroke-width="2"/>
+        <text x="280" y="60" font-size="15" font-weight="900" fill="#bcd0ff">CULTURE</text>
+        <text x="280" y="80" font-size="12.5" fill="#e6edff">WHICH bacteria is causing the infection?</text>
+        <text x="280" y="96" font-size="12.5" font-style="italic" fill="#e6edff">takes 24–72 hours to grow</text>
+        <rect x="266" y="112" width="336" height="66" rx="12" fill="rgba(18,184,134,.35)" stroke="#12b886" stroke-width="2"/>
+        <text x="280" y="136" font-size="15" font-weight="900" fill="#a5f3d4">SENSITIVITY</text>
+        <text x="280" y="156" font-size="12.5" fill="#d8fff0">WHICH antibiotic will kill that bacteria?</text>
+        <text x="280" y="172" font-size="12.5" font-style="italic" fill="#d8fff0">tells you if the empiric drug was right</text>
+        <rect x="266" y="188" width="336" height="46" rx="12" fill="rgba(255,194,51,.5)" stroke="#ffc233" stroke-width="2"/>
+        <text x="280" y="210" font-size="14" font-weight="900" fill="#231a02">Over 10,000 organisms/mL = UTI</text>
+        <text x="280" y="228" font-size="11.5" font-style="italic" fill="#3a2c00">many texts use 100,000 CFU/mL for a clean catch — know your source</text>
+      </svg>
+      <p style="margin-top:10px"><b>⏱️ Order of operations:</b> <mark>Draw the culture BEFORE the first dose of antibiotic.</mark> Then start the broad-spectrum drug; narrow it when sensitivities return.</p>
+      <div class="mn">🧠 <b>“Culture = WHO. Sensitivity = WHAT KILLS IT.”</b> <i>Culture the criminal, sentence it with the sensitivity.</i></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ACT ON IT ============ -->
+<section id="care">
+  <div class="sec-h"><span class="icon">🩺</span><h2>ACT ON IT</h2><span class="step">STEP 3 · MATCH THE PATTERN</span></div>
+  <p class="sec-sub">Test questions never give you one value — they give you a panel and dare you to pick the one that matters.</p>
+
+  <div class="grid">
+
+    <div class="card deep span2">
+      <h3>⭐ NCLEX exhibit — read the whole UA, then answer</h3>
+      <p>Client with a <b>history of diabetes</b>. The UA reads:</p>
+      <table>
+        <tr><th style="width:40%">Component</th><th class="up">Result</th><th class="lo">Normal?</th></tr>
+        <tr><td><b>Specific gravity</b></td><td><span class="mono">1.030</span></td><td>🚩 top of range — <b>concentrated / dry</b></td></tr>
+        <tr><td><b>Protein</b></td><td>None</td><td>✅ normal — <i>rules OUT nephrotic syndrome</i></td></tr>
+        <tr><td><b>Glucose</b></td><td><b>High</b></td><td>🚩 abnormal — <b>diabetes / hyperglycemia</b></td></tr>
+        <tr><td><b>Red blood cells</b></td><td>None</td><td>✅ normal — <i>rules OUT stones &amp; bladder CA</i></td></tr>
+        <tr><td><b>Leukocytes</b></td><td><b>Medium</b></td><td>🚩 abnormal — <b>infection</b></td></tr>
+      </table>
+      <p style="margin-top:10px"><b>What does the nurse suspect?</b> <mark>Dehydration from low fluid intake, plus a possible UTI.</mark></p>
+      <p>The high specific gravity says <i>dry</i>; the leukocytes say <i>infection</i>; the glucose just confirms the diabetes we already knew about — and <b>sugar in the urine feeds bacteria</b>, which is exactly why diabetics get UTIs.</p>
+      <div class="mn">🧠 <b>“Sweet pee = happy bacteria.”</b> Diabetes + concentrated urine + leukocytes is a UTI setup every single time. <i>The normal lines (protein, RBC) are doing work too — they cross diagnoses OFF.</i></div>
+    </div>
+
+    <div class="card deep span2">
+      <h3>🧪 Common NCLEX blood panel — which value is the kidney red flag?</h3>
+      <svg viewBox="-10 -10 731 420" role="img" aria-label="Bar scales with markers for a blood urea nitrogen of 19, blood glucose of 155, creatinine of 1.9 and white blood cell count of 14500, showing which values fall outside the normal range">
+        <rect x="-6" y="-6" width="723" height="412" rx="16" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+        <text x="20" y="30" font-size="16.5" font-weight="900" fill="#ffd9b8">FOUR VALUES · WHERE DOES EACH ONE LAND?</text>
+
+        <!-- BUN 19 -->
+        <text x="20" y="66" font-size="14" font-weight="900" fill="#bcd0ff">1 · BUN 19 mg/dL</text>
+        <rect x="20" y="76" width="140" height="26" rx="7" fill="rgba(0,194,199,.6)"/>
+        <rect x="160" y="76" width="330" height="26" fill="rgba(18,184,134,.7)"/>
+        <rect x="490" y="76" width="190" height="26" rx="7" fill="rgba(255,59,107,.75)"/>
+        <text x="40" y="95" font-size="11.5" font-weight="900" fill="#00252b">&lt;10 LOW</text>
+        <text x="250" y="95" font-size="11.5" font-weight="900" fill="#03291c">10 – 20 NORMAL</text>
+        <text x="520" y="95" font-size="11.5" font-weight="900" fill="#fff">&gt;20 HIGH</text>
+        <path d="M466 68 L458 56 L474 56 Z" fill="#fff"/>
+        <text x="416" y="50" font-size="12.5" font-weight="900" fill="#a5f3d4">19 ✅ NORMAL</text>
+
+        <!-- Glucose 155 -->
+        <text x="20" y="140" font-size="14" font-weight="900" fill="#ffc9a3">2 · Blood glucose 155 mg/dL</text>
+        <rect x="20" y="150" width="110" height="26" rx="7" fill="rgba(255,59,107,.7)"/>
+        <rect x="130" y="150" width="230" height="26" fill="rgba(18,184,134,.7)"/>
+        <rect x="360" y="150" width="320" height="26" rx="7" fill="rgba(255,138,61,.8)"/>
+        <text x="28" y="169" font-size="11.5" font-weight="900" fill="#fff">&lt;70 LOW 🚨</text>
+        <text x="170" y="169" font-size="11.5" font-weight="900" fill="#03291c">70 – 100 fasting NORMAL</text>
+        <text x="440" y="169" font-size="11.5" font-weight="900" fill="#2b1200">HIGH · hyperglycemia</text>
+        <path d="M446 142 L438 130 L454 130 Z" fill="#fff"/>
+        <text x="376" y="124" font-size="12.5" font-weight="900" fill="#ffc9a3">155 🚩 HIGH (expected in diabetes)</text>
+
+        <!-- Creatinine 1.9 -->
+        <text x="20" y="214" font-size="14" font-weight="900" fill="#ff9db4">3 · Creatinine 1.9 mg/dL  ← the kidney-specific one</text>
+        <rect x="20" y="224" width="120" height="26" rx="7" fill="rgba(0,194,199,.6)"/>
+        <rect x="140" y="224" width="230" height="26" fill="rgba(18,184,134,.7)"/>
+        <rect x="370" y="224" width="310" height="26" rx="7" fill="rgba(192,34,85,.85)"/>
+        <text x="34" y="243" font-size="11.5" font-weight="900" fill="#00252b">LOW</text>
+        <text x="176" y="243" font-size="11.5" font-weight="900" fill="#03291c">0.6 – 1.2 NORMAL</text>
+        <text x="420" y="243" font-size="11.5" font-weight="900" fill="#fff">OVER 1.3 = BAD KIDNEY 🚨</text>
+        <path d="M540 216 L532 204 L548 204 Z" fill="#fff"/>
+        <text x="452" y="198" font-size="12.5" font-weight="900" fill="#ff9db4">1.9 🚨 KIDNEY DAMAGE</text>
+
+        <!-- WBC 14500 -->
+        <text x="20" y="288" font-size="14" font-weight="900" fill="#ffe49a">4 · WBC 14,500 /mm³</text>
+        <rect x="20" y="298" width="130" height="26" rx="7" fill="rgba(157,92,255,.7)"/>
+        <rect x="150" y="298" width="270" height="26" fill="rgba(18,184,134,.7)"/>
+        <rect x="420" y="298" width="260" height="26" rx="7" fill="rgba(255,194,51,.85)"/>
+        <text x="28" y="317" font-size="11.5" font-weight="900" fill="#fff">&lt;5,000 LOW · neutropenia</text>
+        <text x="196" y="317" font-size="11.5" font-weight="900" fill="#03291c">5,000 – 10,000 NORMAL</text>
+        <text x="450" y="317" font-size="11.5" font-weight="900" fill="#231a02">&gt;10,000 HIGH · INFECTION</text>
+        <path d="M520 290 L512 278 L528 278 Z" fill="#fff"/>
+        <text x="432" y="272" font-size="12.5" font-weight="900" fill="#ffe49a">14,500 🚩 INFECTION</text>
+
+        <rect x="20" y="340" width="660" height="46" rx="11" fill="rgba(255,194,51,.5)" stroke="#ffc233" stroke-width="2"/>
+        <text x="34" y="362" font-size="13.5" font-weight="900" fill="#231a02">🎯 The creatinine of 1.9 is the one that says KIDNEY. The WBC of 14,500 says INFECTION.</text>
+        <text x="34" y="380" font-size="13" font-weight="900" fill="#3a2c00">BUN 19 is normal — do not get baited by a number just because it sits near the edge.</text>
+      </svg>
+      <div class="mn">🧠 <b>Creatinine is the kidney's own handwriting.</b> BUN can be raised by dehydration, steroids, a GI bleed or a steak dinner — creatinine only climbs when the filter is broken.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🚨 UA findings you escalate, not chart</h3>
+      <ul class="tick">
+        <li>🩸 <b>Gross hematuria with clots</b> — especially after TURP or biopsy.</li>
+        <li>🌡️ <b>Nitrites + fever + flank pain</b> → pyelonephritis, needs antibiotics now.</li>
+        <li>🥩 <b>New heavy proteinuria + edema</b> → nephrotic syndrome workup.</li>
+        <li>💧 <b>Urine output under <span class="mono">30 mL/hr</span></b> → kidneys in distress.</li>
+        <li>🟤 <b>Cola / tea-colored urine after crush injury or a statin</b> → rhabdomyolysis.</li>
+      </ul>
+      <div class="mn">🧠 <b>Color + fever + output.</b> Three things you can assess without a lab — and any two of them together buy a phone call to the provider.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🗣️ Teach the client</h3>
+      <ul class="tick">
+        <li>💧 <b>Fluids</b> <span class="mono">2–3 L/day</span> unless fluid-restricted for renal or cardiac disease.</li>
+        <li>🚽 <b>Void every 2–4 hours</b> and always <b>after intercourse</b>.</li>
+        <li>🧻 Wipe <b>front to back</b>, cotton underwear, no bubble baths or douches.</li>
+        <li>💊 <b>Finish the entire antibiotic course</b> even after the burning stops.</li>
+        <li>⚠️ Tell them <b>phenazopyridine turns urine bright orange</b> — it's harmless and it stains clothing.</li>
+      </ul>
+      <div class="mn">🧠 <b>“Flush, wipe, finish.”</b> Water flushes bacteria out, wiping keeps them from getting in, and finishing the antibiotic keeps them from coming back stronger.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">💧 1.003 vs 1.030</span>liquidy body vs dry body</div>
+    <div class="rc rubybg"><span class="big">🩸 RBC in urine</span>= stones · bladder cancer · post-op TURP</div>
+    <div class="rc tealbg"><span class="big">🦠 WBC = UTI · N = pyeloNephritis</span>nitrites climb to the kidney</div>
+    <div class="rc topazbg"><span class="big">🥩 Protein high = Nephrotic</span>🍬 Glucose high = Diabetes</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 6 rapid-fire questions</summary>
+      <div class="qa">Q1: Specific gravity is 1.003. Wet or dry? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Wet — a liquidy body. Dilute urine from over-hydration, diuretics or diabetes insipidus. 1.030 is the dry, concentrated end.</div></div>
+      <div class="qa">Q2: Nitrites are positive. What are you thinking? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Look for the “N” — Nitrites means pyeloNephritis, a kidney infection. Bacteria convert nitrates to nitrites.</div></div>
+      <div class="qa">Q3: List the exact steps to get a sterile specimen from a Foley. <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">1) Clamp the drainage tube below the port. 2) Wait 15–30 minutes. 3) Scrub the port with an antiseptic swab. 4) Attach a sterile, needleless access device and aspirate through the port. Then unclamp. Never take it from the drainage bag.</div></div>
+      <div class="qa">Q4: High protein in the urine — which syndrome? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Nephrotic syndrome — “Nasty protein loss.” Also consider glomerulonephritis and preeclampsia.</div></div>
+      <div class="qa">Q5: What is the difference between a culture and a sensitivity? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Culture identifies WHICH bacteria is causing the infection. Sensitivity identifies WHICH antibiotic that bacteria is sensitive to, so you know what will kill it. Collect the specimen before the first antibiotic dose.</div></div>
+      <div class="qa">Q6: BUN 19, glucose 155, creatinine 1.9, WBC 14,500. Which one screams kidney? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Creatinine 1.9 — normal is 0.6–1.2 and over 1.3 means a bad kidney. The WBC of 14,500 signals infection; BUN 19 is still within the normal 10–20.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">COLLECT</span>→
+    <span style="background:rgba(47,107,255,.7)">READ</span>→
+    <span style="background:rgba(18,184,134,.7)">ACT</span>
+  </div>
+  <div>NG-269 · Educational study aid — verify clinical details &amp; facility policy</div>
+</footer>
+
+</div>
+</body></html>

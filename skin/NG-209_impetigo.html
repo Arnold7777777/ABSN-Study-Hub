@@ -1,0 +1,1700 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Impetigo · NG-209 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+
+/* ---- appended for the SKIN & WOUND set (batch 14) ---- */
+nav a.c5{background:rgba(0,194,199,.72);color:#00252b}
+nav a.c6{background:rgba(255,138,61,.75);color:#2b1200}
+nav a.c7{background:rgba(192,34,85,.70)}
+#base .sec-h h2{color:#9ff2ee} #base .step{background:var(--teal);color:#00252b}
+#causes .sec-h h2{color:#ffd9b8} #causes .step{background:var(--citrine);color:#2b1200}
+#tell .sec-h h2{color:#ffe49a} #tell .step{background:var(--topaz);color:#231a02}
+#teach .sec-h h2{color:#ffc6d6} #teach .step{background:var(--garnet)}
+.setbar{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin:4px 0 16px;font-size:.82rem}
+.setbar .setlabel{font-weight:900;letter-spacing:.08em;color:#ffe49a;margin-right:2px}
+.setbar a{font-weight:800;padding:4px 11px;border-radius:999px;border:1px solid var(--line);
+  background:rgba(13,8,26,.5);color:#dbe8ff;text-decoration:none}
+.setbar a.cur{background:var(--topaz);color:#231a02;border-color:transparent;cursor:default}
+.legendrow{display:flex;gap:9px;flex-wrap:wrap;margin:11px 0 0;font-size:.84rem;font-weight:800}
+.legendrow span{padding:5px 11px;border-radius:9px;background:rgba(13,8,26,.55);
+  border:1px solid var(--line);display:flex;align-items:center;gap:7px}
+.sw{display:inline-block;width:15px;height:15px;border-radius:4px;border:1px solid rgba(255,255,255,.6)}
+.card.tealc .legendrow span,.card.topaz .legendrow span,.card.citrinec .legendrow span{
+  background:rgba(255,255,255,.5);color:#1a1030;border-color:rgba(0,0,0,.3)}
+.svgcap{margin:8px 0 0;font-size:.86rem;font-style:italic;opacity:.92}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c5" href="#base">🧬 Normal skin</a>
+  <a class="c1" href="#cause">🦠 Patho &amp; causes</a>
+  <a class="c2" href="#clues">🔎 Clues</a>
+  <a class="c3" href="#care">🩺 Care</a>
+  <a class="c6" href="#tell">🔀 Tell apart</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Integumentary · Skin Infections &amp; Inflammatory Conditions · Pathophysiology Course</div>
+  <div class="setbar"><span class="setlabel">🩹 SKIN INFECTION &amp; INFLAMMATION SET</span><a href="NG-147_cellulitis.html">NG-147 Cellulitis</a><a class="cur" href="NG-209_impetigo.html">NG-209 Impetigo</a><a href="NG-067_tinea-fungal-infection.html">NG-067 Tinea</a><a href="NG-202_hsv-shingles.html">NG-202 HSV &amp; Shingles</a><a href="NG-225_psoriasis.html">NG-225 Psoriasis</a></div>
+  <h1>Impetigo <span class="drop">🍯</span></h1>
+  <p class="sub">The honey-crusted rash — highly contagious, mostly in children</p>
+  <div class="chips">
+    <span class="chip id">NG-209</span>
+    <span class="chip cat">INTEGUMENTARY · PEDS INFECTION</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede">Impetigo is a <b>very common, highly contagious superficial bacterial skin infection</b> of infants and children, caused by <b>Staph aureus</b> and/or <b>Group A Strep</b>. Itchy red sores around the <b>nose and mouth</b> burst and dry into the unmistakable <mark>honey-coloured crust</mark> — and that crusting stage is when it spreads fastest, by hands, towels, linen and toys. Nursing care is half skin care and half <b>stopping the spread</b>, plus one safety-net: strep in the skin can later reach the <b>kidneys</b>.</p>
+</header>
+
+
+<div class="recall">
+  <div class="rc topazbg"><span class="big">🍯 Honey-coloured crust</span>The single most recognisable sign in dermatology. Golden, stuck-on crust <b>around the nose and mouth</b> of a child.</div>
+  <div class="rc rubybg"><span class="big">🚨 HIGHLY contagious</span>Direct contact <b>and</b> objects — towels, linen, toys, clothes. The <b>crusting stage is the most contagious</b>.</div>
+  <div class="rc citrine"><span class="big">🦠 Staph or Strep</span>Superficial — <b>top of the epidermis only</b>, so it heals <b>without scarring</b> (except the deep form, ecthyma).</div>
+  <div class="rc tealbg"><span class="big">🏫 Home from school</span>Off school/daycare, hand hygiene, separate laundry in hot water, short nails, gently soak crusts off.</div>
+</div>
+
+<!-- ================= BASE ================= -->
+<section id="base">
+  <div class="sec-h"><span class="icon">🧬</span><h2>THE SKIN MODEL</h2><span class="step">STEP 0 · LEARN THIS ONCE</span></div>
+  <p class="sec-sub">Same skin drawing as every page in this set — this time with a shallow blister forming right under the surface.</p>
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🔬 Skin cutaway — impetigo is the SHALLOW one</h3>
+      <p><span class="tip">DEPTH = THE ANSWER</span> The blister forms <b>under the stratum corneum</b>, so its roof is paper-thin. It ruptures almost immediately, and the fluid dries into <mark>the honey-coloured crust</mark>. Because it never reaches the dermis, <b>ordinary impetigo does not scar</b>.</p>
+      <svg viewBox="-58 -10 948 660" role="img" aria-label="IMPETIGO · the same skin model, infected — Staph or Strep multiply just under the stratum corneum — a shallow blister that bursts and dries into crust.">
+<defs>
+  <linearGradient id="icorn" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#fdf1e4"/><stop offset=".6" stop-color="#f2ddc6"/><stop offset="1" stop-color="#e0bfa2"/></linearGradient>
+  <linearGradient id="igran" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#f3cfae"/><stop offset="1" stop-color="#e3b18b"/></linearGradient>
+  <linearGradient id="ispin" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#eec1a1"/><stop offset=".55" stop-color="#dfa781"/><stop offset="1" stop-color="#c8865e"/></linearGradient>
+  <linearGradient id="ipap" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#f6b7a6"/><stop offset="1" stop-color="#e08f8c"/></linearGradient>
+  <linearGradient id="iret" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#e29290"/><stop offset=".5" stop-color="#c86e77"/><stop offset="1" stop-color="#a44f63"/></linearGradient>
+  <linearGradient id="ifat" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#ffeeb4"/><stop offset=".5" stop-color="#f8d878"/><stop offset="1" stop-color="#e8b93f"/></linearGradient>
+  <radialGradient id="iadip" cx=".36" cy=".32" r=".8">
+    <stop offset="0" stop-color="#fff8d6"/><stop offset=".7" stop-color="#f7d979"/><stop offset="1" stop-color="#dda72f"/></radialGradient>
+  <linearGradient id="ifas" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#e2687f"/><stop offset="1" stop-color="#8e1f3c"/></linearGradient>
+  <linearGradient id="iart" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#ff8fa6"/><stop offset=".5" stop-color="#ff3b6b"/><stop offset="1" stop-color="#a01a3e"/></linearGradient>
+  <linearGradient id="iven" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#8fc0ff"/><stop offset=".5" stop-color="#2f6bff"/><stop offset="1" stop-color="#173f9c"/></linearGradient>
+  <linearGradient id="ihair" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#7a5133"/><stop offset=".45" stop-color="#4a2d18"/><stop offset="1" stop-color="#2a180b"/></linearGradient>
+  <radialGradient id="iseb" cx=".4" cy=".35" r=".8">
+    <stop offset="0" stop-color="#fff6cf"/><stop offset="1" stop-color="#e9c451"/></radialGradient>
+  <radialGradient id="iswt" cx=".4" cy=".35" r=".8">
+    <stop offset="0" stop-color="#c9fbff"/><stop offset="1" stop-color="#25a7c6"/></radialGradient>
+  <marker id="iar" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+    <path d="M1 1 L11 6 L1 11 z" fill="#ffe49a"/></marker>
+  <marker id="iarw" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="5.5" markerHeight="5.5" orient="auto">
+    <path d="M1 1 L11 6 L1 11 z" fill="#fff"/></marker>
+
+<linearGradient id="icrust" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#ffd98a"/><stop offset=".45" stop-color="#d99223"/><stop offset="1" stop-color="#8c5310"/></linearGradient>
+<radialGradient id="ipus" cx=".4" cy=".3" r=".85">
+  <stop offset="0" stop-color="#fffbe0"/><stop offset=".6" stop-color="#f2d264"/><stop offset="1" stop-color="#c79a16"/></radialGradient>
+<radialGradient id="icoc" cx=".34" cy=".3" r=".8">
+  <stop offset="0" stop-color="#ffe0aa"/><stop offset=".6" stop-color="#f0a02e"/><stop offset="1" stop-color="#8a4c05"/></radialGradient>
+<radialGradient id="iinf" cx=".5" cy=".5" r=".6">
+  <stop offset="0" stop-color="#ff3b6b" stop-opacity=".55"/><stop offset="1" stop-color="#ff3b6b" stop-opacity="0"/></radialGradient>
+</defs>
+<rect x="-54" y="-6" width="940" height="652" rx="18" fill="rgba(0,194,199,.09)" stroke="#00c2c7" stroke-width="2" stroke-dasharray="8 7"/>
+<text x="20" y="30" font-size="19" font-weight="900" fill="#9ff2ee">IMPETIGO · the same skin model, infected</text>
+<text x="20" y="50" font-size="12.6" font-style="italic" fill="#d8fff0">Staph or Strep multiply just under the stratum corneum — a shallow blister that bursts and dries into crust.</text>
+<g transform="translate(0,38)">
+<path d="M44 523 L53 525 L62 526 L71 526 L80 526 L89 525 L98 524 L107 522 L116 520 L125 519 L134 518 L143 518 L152 518 L161 519 L170 521 L179 522 L188 524 L197 525 L206 526 L215 526 L224 525 L233 524 L242 523 L251 521 L260 520 L269 519 L278 518 L287 518 L296 519 L305 520 L314 521 L323 523 L332 524 L341 525 L350 526 L359 526 L368 525 L377 524 L386 522 L395 521 L404 519 L413 518 L422 518 L431 518 L440 519 L449 521 L458 522 L467 524 L476 525 L485 526 L494 526 L503 526 L512 525 L521 523 L530 522 L539 520 L548 519 L557 518 L560 518 L560 556 L44 556 Z" fill="url(#ifas)" stroke="#ffd0dc" stroke-width="1.6"/>
+<path d="M44 528 C 54 524 66 532 76 528" fill="none" stroke="#ffb3c6" stroke-width="1.4" opacity=".5"/>
+<path d="M76 538 C 86 534 98 542 108 538" fill="none" stroke="#ffb3c6" stroke-width="1.4" opacity=".5"/>
+<path d="M108 548 C 118 544 130 552 140 548" fill="none" stroke="#ffb3c6" stroke-width="1.4" opacity=".5"/>
+<path d="M140 528 C 150 524 162 532 172 528" fill="none" stroke="#ffb3c6" stroke-width="1.4" opacity=".5"/>
+<path d="M172 538 C 182 534 194 542 204 538" fill="none" stroke="#ffb3c6" stroke-width="1.4" opacity=".5"/>
+<path d="M204 548 C 214 544 226 552 236 548" fill="none" stroke="#ffb3c6" stroke-width="1.4" opacity=".5"/>
+<path d="M236 528 C 246 524 258 532 268 528" fill="none" stroke="#ffb3c6" stroke-width="1.4" opacity=".5"/>
+<path d="M268 538 C 278 534 290 542 300 538" fill="none" stroke="#ffb3c6" stroke-width="1.4" opacity=".5"/>
+<path d="M300 548 C 310 544 322 552 332 548" fill="none" stroke="#ffb3c6" stroke-width="1.4" opacity=".5"/>
+<path d="M332 528 C 342 524 354 532 364 528" fill="none" stroke="#ffb3c6" stroke-width="1.4" opacity=".5"/>
+<path d="M364 538 C 374 534 386 542 396 538" fill="none" stroke="#ffb3c6" stroke-width="1.4" opacity=".5"/>
+<path d="M396 548 C 406 544 418 552 428 548" fill="none" stroke="#ffb3c6" stroke-width="1.4" opacity=".5"/>
+<path d="M428 528 C 438 524 450 532 460 528" fill="none" stroke="#ffb3c6" stroke-width="1.4" opacity=".5"/>
+<path d="M460 538 C 470 534 482 542 492 538" fill="none" stroke="#ffb3c6" stroke-width="1.4" opacity=".5"/>
+<path d="M492 548 C 502 544 514 552 524 548" fill="none" stroke="#ffb3c6" stroke-width="1.4" opacity=".5"/>
+<path d="M524 528 C 534 524 546 532 556 528" fill="none" stroke="#ffb3c6" stroke-width="1.4" opacity=".5"/>
+<path d="M44 409 L53 409 L62 408 L71 407 L80 404 L89 402 L98 400 L107 399 L116 399 L125 400 L134 402 L143 405 L152 407 L161 408 L170 409 L179 409 L188 407 L197 405 L206 403 L215 401 L224 399 L233 399 L242 400 L251 401 L260 404 L269 406 L278 408 L287 409 L296 409 L305 408 L314 406 L323 403 L332 401 L341 400 L350 399 L359 399 L368 401 L377 403 L386 405 L395 407 L404 409 L413 409 L422 408 L431 407 L440 404 L449 402 L458 400 L467 399 L476 399 L485 400 L494 402 L503 405 L512 407 L521 408 L530 409 L539 409 L548 407 L557 405 L560 404 L560 518 L557 518 L548 519 L539 520 L530 522 L521 523 L512 525 L503 526 L494 526 L485 526 L476 525 L467 524 L458 522 L449 521 L440 519 L431 518 L422 518 L413 518 L404 519 L395 521 L386 522 L377 524 L368 525 L359 526 L350 526 L341 525 L332 524 L323 523 L314 521 L305 520 L296 519 L287 518 L278 518 L269 519 L260 520 L251 521 L242 523 L233 524 L224 525 L215 526 L206 526 L197 525 L188 524 L179 522 L170 521 L161 519 L152 518 L143 518 L134 518 L125 519 L116 520 L107 522 L98 524 L89 525 L80 526 L71 526 L62 526 L53 525 L44 523 Z" fill="url(#ifat)" stroke="#ffe9a8" stroke-width="1.8"/>
+<circle cx="66" cy="427" r="14.0" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="60" cy="423" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="100" cy="426" r="13.0" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="94" cy="423" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="134" cy="429" r="13.0" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="128" cy="423" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="168" cy="428" r="14.5" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="161" cy="423" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="202" cy="430" r="14.3" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="196" cy="423" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="236" cy="425" r="12.5" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="230" cy="424" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="270" cy="425" r="12.9" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="264" cy="423" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="304" cy="431" r="13.1" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="298" cy="423" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="338" cy="426" r="13.6" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="332" cy="423" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="372" cy="426" r="14.4" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="365" cy="423" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="406" cy="426" r="14.5" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="399" cy="423" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="440" cy="427" r="14.6" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="433" cy="423" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="474" cy="430" r="12.0" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="469" cy="424" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="508" cy="427" r="12.7" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="502" cy="424" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="542" cy="430" r="12.8" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="536" cy="424" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="83" cy="459" r="12.2" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="78" cy="454" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="117" cy="458" r="12.3" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="111" cy="454" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="151" cy="460" r="14.7" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="144" cy="453" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="185" cy="461" r="12.3" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="179" cy="454" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="219" cy="459" r="13.1" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="213" cy="453" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="253" cy="455" r="13.2" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="247" cy="453" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="287" cy="455" r="12.1" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="282" cy="454" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="321" cy="458" r="13.3" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="315" cy="453" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="355" cy="458" r="14.6" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="348" cy="453" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="389" cy="457" r="12.2" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="384" cy="454" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="423" cy="457" r="13.5" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="417" cy="453" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="457" cy="456" r="12.5" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="451" cy="454" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="491" cy="459" r="13.5" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="485" cy="453" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="525" cy="460" r="13.1" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="519" cy="453" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="66" cy="486" r="14.5" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="59" cy="483" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="100" cy="487" r="14.5" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="93" cy="483" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="134" cy="487" r="13.3" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="128" cy="483" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="168" cy="487" r="12.8" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="162" cy="484" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="202" cy="490" r="13.7" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="196" cy="483" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="236" cy="491" r="12.7" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="230" cy="484" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="270" cy="491" r="13.6" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="264" cy="483" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="304" cy="489" r="14.2" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="298" cy="483" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="338" cy="488" r="13.7" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="332" cy="483" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="372" cy="488" r="12.2" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="367" cy="484" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="406" cy="490" r="13.4" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="400" cy="483" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="440" cy="486" r="12.0" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="435" cy="484" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="474" cy="486" r="13.7" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="468" cy="483" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="508" cy="487" r="13.3" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="502" cy="483" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="542" cy="488" r="12.7" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="536" cy="484" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="83" cy="520" r="14.6" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="76" cy="513" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="117" cy="517" r="13.5" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="111" cy="513" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="151" cy="516" r="14.9" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="144" cy="513" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="185" cy="515" r="14.6" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="178" cy="513" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="219" cy="517" r="13.4" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="213" cy="513" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="253" cy="521" r="14.4" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="247" cy="513" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="287" cy="517" r="12.3" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="281" cy="514" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="321" cy="518" r="13.3" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="315" cy="513" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="355" cy="521" r="12.9" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="349" cy="513" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="389" cy="519" r="13.0" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="383" cy="513" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="423" cy="521" r="13.2" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="417" cy="513" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="457" cy="515" r="12.1" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="452" cy="514" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="491" cy="516" r="12.1" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="486" cy="514" r="2.2" fill="#a5761a" opacity=".8"/>
+<circle cx="525" cy="521" r="14.3" fill="url(#iadip)" stroke="#c99a20" stroke-width="1.1" opacity=".95"/>
+<circle cx="519" cy="513" r="2.2" fill="#a5761a" opacity=".8"/>
+<path d="M300 404 C 300 440 302 480 296 522" fill="none" stroke="#f6e6b4" stroke-width="3" opacity=".8" stroke-linecap="round"/>
+<path d="M44 217 L53 220 L62 220 L71 218 L80 214 L89 211 L98 208 L107 208 L116 210 L125 214 L134 217 L143 220 L152 220 L161 218 L170 214 L179 211 L188 208 L197 208 L206 210 L215 214 L224 217 L233 220 L242 220 L251 218 L260 214 L269 211 L278 208 L287 208 L296 210 L305 214 L314 217 L323 220 L332 220 L341 218 L350 214 L359 211 L368 208 L377 208 L386 210 L395 214 L404 217 L413 220 L422 220 L431 218 L440 214 L449 211 L458 208 L467 208 L476 210 L485 214 L494 217 L503 220 L512 220 L521 218 L530 214 L539 211 L548 208 L557 208 L560 209 L560 404 L557 405 L548 407 L539 409 L530 409 L521 408 L512 407 L503 405 L494 402 L485 400 L476 399 L467 399 L458 400 L449 402 L440 404 L431 407 L422 408 L413 409 L404 409 L395 407 L386 405 L377 403 L368 401 L359 399 L350 399 L341 400 L332 401 L323 403 L314 406 L305 408 L296 409 L287 409 L278 408 L269 406 L260 404 L251 401 L242 400 L233 399 L224 399 L215 401 L206 403 L197 405 L188 407 L179 409 L170 409 L161 408 L152 407 L143 405 L134 402 L125 400 L116 399 L107 399 L98 400 L89 402 L80 404 L71 407 L62 408 L53 409 L44 409 Z" fill="url(#iret)" stroke="#ffd6cf" stroke-width="1.8"/>
+<path d="M110 253 q 16 -3 32 0 q 16 3 32 0" fill="none" stroke="#f6c9bd" stroke-width="2.4" opacity="0.49" stroke-linecap="round"/>
+<path d="M214 256 q 23 -4 45 0 q 23 5 45 0" fill="none" stroke="#f6c9bd" stroke-width="2.2" opacity="0.31" stroke-linecap="round"/>
+<path d="M307 321 q 20 -3 39 0 q 20 5 39 0" fill="none" stroke="#f6c9bd" stroke-width="2.3" opacity="0.48" stroke-linecap="round"/>
+<path d="M387 365 q 17 -4 33 0 q 17 6 33 0" fill="none" stroke="#f6c9bd" stroke-width="1.9" opacity="0.35" stroke-linecap="round"/>
+<path d="M342 371 q 17 -6 34 0 q 17 4 34 0" fill="none" stroke="#f6c9bd" stroke-width="1.5" opacity="0.53" stroke-linecap="round"/>
+<path d="M206 301 q 12 -4 23 0 q 12 7 23 0" fill="none" stroke="#f6c9bd" stroke-width="1.5" opacity="0.42" stroke-linecap="round"/>
+<path d="M90 297 q 20 -3 39 0 q 20 5 39 0" fill="none" stroke="#f6c9bd" stroke-width="2.4" opacity="0.39" stroke-linecap="round"/>
+<path d="M486 319 q 23 -6 47 0 q 23 4 47 0" fill="none" stroke="#f6c9bd" stroke-width="1.9" opacity="0.31" stroke-linecap="round"/>
+<path d="M229 249 q 12 -4 23 0 q 12 6 23 0" fill="none" stroke="#f6c9bd" stroke-width="1.2" opacity="0.33" stroke-linecap="round"/>
+<path d="M495 237 q 27 -4 53 0 q 27 7 53 0" fill="none" stroke="#f6c9bd" stroke-width="1.3" opacity="0.40" stroke-linecap="round"/>
+<path d="M298 245 q 13 -7 26 0 q 13 6 26 0" fill="none" stroke="#f6c9bd" stroke-width="1.3" opacity="0.32" stroke-linecap="round"/>
+<path d="M374 273 q 13 -5 26 0 q 13 7 26 0" fill="none" stroke="#f6c9bd" stroke-width="1.7" opacity="0.46" stroke-linecap="round"/>
+<path d="M220 270 q 16 -3 32 0 q 16 5 32 0" fill="none" stroke="#f6c9bd" stroke-width="2.0" opacity="0.44" stroke-linecap="round"/>
+<path d="M143 228 q 23 -4 47 0 q 23 4 47 0" fill="none" stroke="#f6c9bd" stroke-width="2.3" opacity="0.47" stroke-linecap="round"/>
+<path d="M193 394 q 16 -4 33 0 q 16 3 33 0" fill="none" stroke="#f6c9bd" stroke-width="1.8" opacity="0.47" stroke-linecap="round"/>
+<path d="M109 380 q 19 -5 38 0 q 19 5 38 0" fill="none" stroke="#f6c9bd" stroke-width="1.3" opacity="0.44" stroke-linecap="round"/>
+<path d="M345 249 q 17 -7 35 0 q 17 5 35 0" fill="none" stroke="#f6c9bd" stroke-width="1.2" opacity="0.54" stroke-linecap="round"/>
+<path d="M255 249 q 20 -5 40 0 q 20 7 40 0" fill="none" stroke="#f6c9bd" stroke-width="1.4" opacity="0.53" stroke-linecap="round"/>
+<path d="M125 270 q 13 -3 25 0 q 13 5 25 0" fill="none" stroke="#f6c9bd" stroke-width="2.1" opacity="0.29" stroke-linecap="round"/>
+<path d="M249 281 q 13 -6 26 0 q 13 4 26 0" fill="none" stroke="#f6c9bd" stroke-width="1.8" opacity="0.44" stroke-linecap="round"/>
+<path d="M349 291 q 27 -4 54 0 q 27 6 54 0" fill="none" stroke="#f6c9bd" stroke-width="1.8" opacity="0.41" stroke-linecap="round"/>
+<path d="M149 233 q 15 -6 30 0 q 15 7 30 0" fill="none" stroke="#f6c9bd" stroke-width="2.1" opacity="0.32" stroke-linecap="round"/>
+<path d="M196 376 q 24 -7 47 0 q 24 4 47 0" fill="none" stroke="#f6c9bd" stroke-width="1.6" opacity="0.47" stroke-linecap="round"/>
+<path d="M64 281 q 25 -7 50 0 q 25 6 50 0" fill="none" stroke="#f6c9bd" stroke-width="2.1" opacity="0.41" stroke-linecap="round"/>
+<path d="M407 258 q 25 -6 49 0 q 25 7 49 0" fill="none" stroke="#f6c9bd" stroke-width="1.6" opacity="0.31" stroke-linecap="round"/>
+<path d="M454 356 q 28 -5 56 0 q 28 4 56 0" fill="none" stroke="#f6c9bd" stroke-width="2.2" opacity="0.49" stroke-linecap="round"/>
+<path d="M202 285 q 22 -5 45 0 q 22 5 45 0" fill="none" stroke="#f6c9bd" stroke-width="1.8" opacity="0.43" stroke-linecap="round"/>
+<path d="M503 285 q 14 -5 29 0 q 14 6 29 0" fill="none" stroke="#f6c9bd" stroke-width="1.5" opacity="0.51" stroke-linecap="round"/>
+<path d="M61 392 q 29 -6 57 0 q 29 5 57 0" fill="none" stroke="#f6c9bd" stroke-width="1.8" opacity="0.47" stroke-linecap="round"/>
+<path d="M205 380 q 23 -5 45 0 q 23 5 45 0" fill="none" stroke="#f6c9bd" stroke-width="1.4" opacity="0.47" stroke-linecap="round"/>
+<ellipse cx="277" cy="271" rx="4.6" ry="2.2" fill="#8d3b53" opacity=".55" transform="rotate(-35 370 253)"/>
+<ellipse cx="433" cy="319" rx="4.6" ry="2.2" fill="#8d3b53" opacity=".55" transform="rotate(-35 257 374)"/>
+<ellipse cx="260" cy="239" rx="4.6" ry="2.2" fill="#8d3b53" opacity=".55" transform="rotate(-10 516 284)"/>
+<ellipse cx="84" cy="249" rx="4.6" ry="2.2" fill="#8d3b53" opacity=".55" transform="rotate(34 237 371)"/>
+<ellipse cx="406" cy="235" rx="4.6" ry="2.2" fill="#8d3b53" opacity=".55" transform="rotate(-33 73 310)"/>
+<ellipse cx="479" cy="362" rx="4.6" ry="2.2" fill="#8d3b53" opacity=".55" transform="rotate(27 448 251)"/>
+<ellipse cx="411" cy="260" rx="4.6" ry="2.2" fill="#8d3b53" opacity=".55" transform="rotate(-32 139 274)"/>
+<ellipse cx="362" cy="238" rx="4.6" ry="2.2" fill="#8d3b53" opacity=".55" transform="rotate(15 262 299)"/>
+<ellipse cx="330" cy="244" rx="4.6" ry="2.2" fill="#8d3b53" opacity=".55" transform="rotate(25 231 366)"/>
+<ellipse cx="316" cy="330" rx="4.6" ry="2.2" fill="#8d3b53" opacity=".55" transform="rotate(-35 348 235)"/>
+<ellipse cx="311" cy="312" rx="4.6" ry="2.2" fill="#8d3b53" opacity=".55" transform="rotate(-14 484 353)"/>
+<ellipse cx="239" cy="271" rx="4.6" ry="2.2" fill="#8d3b53" opacity=".55" transform="rotate(-14 186 247)"/>
+<ellipse cx="138" cy="270" rx="4.6" ry="2.2" fill="#8d3b53" opacity=".55" transform="rotate(-24 134 316)"/>
+<ellipse cx="112" cy="348" rx="4.6" ry="2.2" fill="#8d3b53" opacity=".55" transform="rotate(4 97 242)"/>
+<path d="M44 156 L49 165 L54 170 L59 171 L64 166 L69 158 L74 149 L79 143 L84 141 L89 145 L94 152 L99 161 L104 168 L109 171 L114 168 L119 161 L124 152 L129 145 L134 141 L139 143 L144 149 L149 158 L154 166 L159 171 L164 170 L169 165 L174 156 L179 147 L184 142 L189 141 L194 146 L199 154 L204 163 L209 169 L214 171 L219 167 L224 160 L229 151 L234 144 L239 141 L244 144 L249 151 L254 160 L259 167 L264 171 L269 169 L274 163 L279 154 L284 146 L289 141 L294 142 L299 147 L304 156 L309 165 L314 170 L319 171 L324 166 L329 158 L334 149 L339 143 L344 141 L349 145 L354 152 L359 161 L364 168 L369 171 L374 168 L379 161 L384 152 L389 145 L394 141 L399 143 L404 149 L409 158 L414 166 L419 171 L424 170 L429 165 L434 156 L439 147 L444 142 L449 141 L454 146 L459 154 L464 163 L469 169 L474 171 L479 167 L484 160 L489 151 L494 144 L499 141 L504 144 L509 151 L514 160 L519 167 L524 171 L529 169 L534 163 L539 154 L544 146 L549 141 L554 142 L559 147 L560 149 L560 209 L557 208 L548 208 L539 211 L530 214 L521 218 L512 220 L503 220 L494 217 L485 214 L476 210 L467 208 L458 208 L449 211 L440 214 L431 218 L422 220 L413 220 L404 217 L395 214 L386 210 L377 208 L368 208 L359 211 L350 214 L341 218 L332 220 L323 220 L314 217 L305 214 L296 210 L287 208 L278 208 L269 211 L260 214 L251 218 L242 220 L233 220 L224 217 L215 214 L206 210 L197 208 L188 208 L179 211 L170 214 L161 218 L152 220 L143 220 L134 217 L125 214 L116 210 L107 208 L98 208 L89 211 L80 214 L71 218 L62 220 L53 220 L44 217 Z" fill="url(#ipap)" stroke="#ffe0da" stroke-width="1.5"/>
+<path d="M44 116 L53 117 L62 115 L71 113 L80 112 L89 112 L98 113 L107 115 L116 117 L125 116 L134 114 L143 112 L152 111 L161 112 L170 114 L179 116 L188 117 L197 115 L206 113 L215 112 L224 112 L233 113 L242 115 L251 116 L260 116 L269 115 L278 112 L287 111 L296 112 L305 114 L314 116 L323 117 L332 116 L341 114 L350 112 L359 111 L368 113 L377 115 L386 116 L395 116 L404 115 L413 113 L422 111 L431 112 L440 114 L449 116 L458 117 L467 116 L476 114 L485 112 L494 111 L503 113 L512 115 L521 116 L530 116 L539 115 L548 113 L557 112 L560 111 L560 149 L559 147 L554 142 L549 141 L544 146 L539 154 L534 163 L529 169 L524 171 L519 167 L514 160 L509 151 L504 144 L499 141 L494 144 L489 151 L484 160 L479 167 L474 171 L469 169 L464 163 L459 154 L454 146 L449 141 L444 142 L439 147 L434 156 L429 165 L424 170 L419 171 L414 166 L409 158 L404 149 L399 143 L394 141 L389 145 L384 152 L379 161 L374 168 L369 171 L364 168 L359 161 L354 152 L349 145 L344 141 L339 143 L334 149 L329 158 L324 166 L319 171 L314 170 L309 165 L304 156 L299 147 L294 142 L289 141 L284 146 L279 154 L274 163 L269 169 L264 171 L259 167 L254 160 L249 151 L244 144 L239 141 L234 144 L229 151 L224 160 L219 167 L214 171 L209 169 L204 163 L199 154 L194 146 L189 141 L184 142 L179 147 L174 156 L169 165 L164 170 L159 171 L154 166 L149 158 L144 149 L139 143 L134 141 L129 145 L124 152 L119 161 L114 168 L109 171 L104 168 L99 161 L94 152 L89 145 L84 141 L79 143 L74 149 L69 158 L64 166 L59 171 L54 170 L49 165 L44 156 Z" fill="url(#ispin)" stroke="#f3d3ba" stroke-width="1.4"/>
+<ellipse cx="277" cy="145" rx="6.2" ry="4.4" fill="#f7dcc4" stroke="#c08a62" stroke-width="0.9" opacity=".85"/>
+<circle cx="277" cy="145" r="1.7" fill="#8a5a35" opacity=".8"/>
+<ellipse cx="324" cy="145" rx="6.2" ry="4.4" fill="#f7dcc4" stroke="#c08a62" stroke-width="0.9" opacity=".85"/>
+<circle cx="324" cy="145" r="1.7" fill="#8a5a35" opacity=".8"/>
+<ellipse cx="84" cy="132" rx="6.2" ry="4.4" fill="#f7dcc4" stroke="#c08a62" stroke-width="0.9" opacity=".85"/>
+<circle cx="84" cy="132" r="1.7" fill="#8a5a35" opacity=".8"/>
+<ellipse cx="280" cy="133" rx="6.2" ry="4.4" fill="#f7dcc4" stroke="#c08a62" stroke-width="0.9" opacity=".85"/>
+<circle cx="280" cy="133" r="1.7" fill="#8a5a35" opacity=".8"/>
+<ellipse cx="59" cy="129" rx="6.2" ry="4.4" fill="#f7dcc4" stroke="#c08a62" stroke-width="0.9" opacity=".85"/>
+<circle cx="59" cy="129" r="1.7" fill="#8a5a35" opacity=".8"/>
+<ellipse cx="465" cy="132" rx="6.2" ry="4.4" fill="#f7dcc4" stroke="#c08a62" stroke-width="0.9" opacity=".85"/>
+<circle cx="465" cy="132" r="1.7" fill="#8a5a35" opacity=".8"/>
+<ellipse cx="371" cy="125" rx="6.2" ry="4.4" fill="#f7dcc4" stroke="#c08a62" stroke-width="0.9" opacity=".85"/>
+<circle cx="371" cy="125" r="1.7" fill="#8a5a35" opacity=".8"/>
+<ellipse cx="309" cy="141" rx="6.2" ry="4.4" fill="#f7dcc4" stroke="#c08a62" stroke-width="0.9" opacity=".85"/>
+<circle cx="309" cy="141" r="1.7" fill="#8a5a35" opacity=".8"/>
+<ellipse cx="219" cy="122" rx="6.2" ry="4.4" fill="#f7dcc4" stroke="#c08a62" stroke-width="0.9" opacity=".85"/>
+<circle cx="219" cy="122" r="1.7" fill="#8a5a35" opacity=".8"/>
+<ellipse cx="155" cy="138" rx="6.2" ry="4.4" fill="#f7dcc4" stroke="#c08a62" stroke-width="0.9" opacity=".85"/>
+<circle cx="155" cy="138" r="1.7" fill="#8a5a35" opacity=".8"/>
+<ellipse cx="266" cy="136" rx="6.2" ry="4.4" fill="#f7dcc4" stroke="#c08a62" stroke-width="0.9" opacity=".85"/>
+<circle cx="266" cy="136" r="1.7" fill="#8a5a35" opacity=".8"/>
+<ellipse cx="430" cy="138" rx="6.2" ry="4.4" fill="#f7dcc4" stroke="#c08a62" stroke-width="0.9" opacity=".85"/>
+<circle cx="430" cy="138" r="1.7" fill="#8a5a35" opacity=".8"/>
+<ellipse cx="217" cy="142" rx="6.2" ry="4.4" fill="#f7dcc4" stroke="#c08a62" stroke-width="0.9" opacity=".85"/>
+<circle cx="217" cy="142" r="1.7" fill="#8a5a35" opacity=".8"/>
+<ellipse cx="498" cy="132" rx="6.2" ry="4.4" fill="#f7dcc4" stroke="#c08a62" stroke-width="0.9" opacity=".85"/>
+<circle cx="498" cy="132" r="1.7" fill="#8a5a35" opacity=".8"/>
+<ellipse cx="329" cy="124" rx="6.2" ry="4.4" fill="#f7dcc4" stroke="#c08a62" stroke-width="0.9" opacity=".85"/>
+<circle cx="329" cy="124" r="1.7" fill="#8a5a35" opacity=".8"/>
+<ellipse cx="476" cy="139" rx="6.2" ry="4.4" fill="#f7dcc4" stroke="#c08a62" stroke-width="0.9" opacity=".85"/>
+<circle cx="476" cy="139" r="1.7" fill="#8a5a35" opacity=".8"/>
+<ellipse cx="139" cy="130" rx="6.2" ry="4.4" fill="#f7dcc4" stroke="#c08a62" stroke-width="0.9" opacity=".85"/>
+<circle cx="139" cy="130" r="1.7" fill="#8a5a35" opacity=".8"/>
+<ellipse cx="113" cy="135" rx="6.2" ry="4.4" fill="#f7dcc4" stroke="#c08a62" stroke-width="0.9" opacity=".85"/>
+<circle cx="113" cy="135" r="1.7" fill="#8a5a35" opacity=".8"/>
+<ellipse cx="228" cy="132" rx="6.2" ry="4.4" fill="#f7dcc4" stroke="#c08a62" stroke-width="0.9" opacity=".85"/>
+<circle cx="228" cy="132" r="1.7" fill="#8a5a35" opacity=".8"/>
+<ellipse cx="467" cy="125" rx="6.2" ry="4.4" fill="#f7dcc4" stroke="#c08a62" stroke-width="0.9" opacity=".85"/>
+<circle cx="467" cy="125" r="1.7" fill="#8a5a35" opacity=".8"/>
+<ellipse cx="302" cy="145" rx="6.2" ry="4.4" fill="#f7dcc4" stroke="#c08a62" stroke-width="0.9" opacity=".85"/>
+<circle cx="302" cy="145" r="1.7" fill="#8a5a35" opacity=".8"/>
+<ellipse cx="527" cy="139" rx="6.2" ry="4.4" fill="#f7dcc4" stroke="#c08a62" stroke-width="0.9" opacity=".85"/>
+<circle cx="527" cy="139" r="1.7" fill="#8a5a35" opacity=".8"/>
+<ellipse cx="411" cy="126" rx="6.2" ry="4.4" fill="#f7dcc4" stroke="#c08a62" stroke-width="0.9" opacity=".85"/>
+<circle cx="411" cy="126" r="1.7" fill="#8a5a35" opacity=".8"/>
+<ellipse cx="417" cy="129" rx="6.2" ry="4.4" fill="#f7dcc4" stroke="#c08a62" stroke-width="0.9" opacity=".85"/>
+<circle cx="417" cy="129" r="1.7" fill="#8a5a35" opacity=".8"/>
+<ellipse cx="547" cy="122" rx="6.2" ry="4.4" fill="#f7dcc4" stroke="#c08a62" stroke-width="0.9" opacity=".85"/>
+<circle cx="547" cy="122" r="1.7" fill="#8a5a35" opacity=".8"/>
+<ellipse cx="391" cy="138" rx="6.2" ry="4.4" fill="#f7dcc4" stroke="#c08a62" stroke-width="0.9" opacity=".85"/>
+<circle cx="391" cy="138" r="1.7" fill="#8a5a35" opacity=".8"/>
+<ellipse cx="509" cy="132" rx="6.2" ry="4.4" fill="#f7dcc4" stroke="#c08a62" stroke-width="0.9" opacity=".85"/>
+<circle cx="509" cy="132" r="1.7" fill="#8a5a35" opacity=".8"/>
+<ellipse cx="323" cy="125" rx="6.2" ry="4.4" fill="#f7dcc4" stroke="#c08a62" stroke-width="0.9" opacity=".85"/>
+<circle cx="323" cy="125" r="1.7" fill="#8a5a35" opacity=".8"/>
+<ellipse cx="218" cy="146" rx="6.2" ry="4.4" fill="#f7dcc4" stroke="#c08a62" stroke-width="0.9" opacity=".85"/>
+<circle cx="218" cy="146" r="1.7" fill="#8a5a35" opacity=".8"/>
+<ellipse cx="260" cy="143" rx="6.2" ry="4.4" fill="#f7dcc4" stroke="#c08a62" stroke-width="0.9" opacity=".85"/>
+<circle cx="260" cy="143" r="1.7" fill="#8a5a35" opacity=".8"/>
+<ellipse cx="390" cy="126" rx="6.2" ry="4.4" fill="#f7dcc4" stroke="#c08a62" stroke-width="0.9" opacity=".85"/>
+<circle cx="390" cy="126" r="1.7" fill="#8a5a35" opacity=".8"/>
+<ellipse cx="342" cy="122" rx="6.2" ry="4.4" fill="#f7dcc4" stroke="#c08a62" stroke-width="0.9" opacity=".85"/>
+<circle cx="342" cy="122" r="1.7" fill="#8a5a35" opacity=".8"/>
+<ellipse cx="294" cy="143" rx="6.2" ry="4.4" fill="#f7dcc4" stroke="#c08a62" stroke-width="0.9" opacity=".85"/>
+<circle cx="294" cy="143" r="1.7" fill="#8a5a35" opacity=".8"/>
+<ellipse cx="139" cy="125" rx="6.2" ry="4.4" fill="#f7dcc4" stroke="#c08a62" stroke-width="0.9" opacity=".85"/>
+<circle cx="139" cy="125" r="1.7" fill="#8a5a35" opacity=".8"/>
+<path d="M44 101 L53 103 L62 103 L71 101 L80 99 L89 97 L98 97 L107 99 L116 101 L125 103 L134 103 L143 101 L152 99 L161 97 L170 97 L179 98 L188 100 L197 102 L206 103 L215 102 L224 100 L233 98 L242 97 L251 98 L260 100 L269 102 L278 103 L287 102 L296 100 L305 98 L314 97 L323 98 L332 99 L341 102 L350 103 L359 103 L368 101 L377 99 L386 97 L395 97 L404 99 L413 101 L422 103 L431 103 L440 101 L449 99 L458 97 L467 97 L476 99 L485 101 L494 103 L503 103 L512 102 L521 100 L530 98 L539 97 L548 98 L557 100 L560 101 L560 111 L557 112 L548 113 L539 115 L530 116 L521 116 L512 115 L503 113 L494 111 L485 112 L476 114 L467 116 L458 117 L449 116 L440 114 L431 112 L422 111 L413 113 L404 115 L395 116 L386 116 L377 115 L368 113 L359 111 L350 112 L341 114 L332 116 L323 117 L314 116 L305 114 L296 112 L287 111 L278 112 L269 115 L260 116 L251 116 L242 115 L233 113 L224 112 L215 112 L206 113 L197 115 L188 117 L179 116 L170 114 L161 112 L152 111 L143 112 L134 114 L125 116 L116 117 L107 115 L98 113 L89 112 L80 112 L71 113 L62 115 L53 117 L44 116 Z" fill="url(#igran)" stroke="#f6e0c8" stroke-width="1.2"/>
+<circle cx="56" cy="110" r="1.9" fill="#6d4322" opacity=".75"/>
+<circle cx="80" cy="109" r="1.9" fill="#6d4322" opacity=".75"/>
+<circle cx="104" cy="108" r="1.9" fill="#6d4322" opacity=".75"/>
+<circle cx="128" cy="109" r="1.9" fill="#6d4322" opacity=".75"/>
+<circle cx="152" cy="109" r="1.9" fill="#6d4322" opacity=".75"/>
+<circle cx="176" cy="108" r="1.9" fill="#6d4322" opacity=".75"/>
+<circle cx="200" cy="108" r="1.9" fill="#6d4322" opacity=".75"/>
+<circle cx="224" cy="109" r="1.9" fill="#6d4322" opacity=".75"/>
+<circle cx="248" cy="110" r="1.9" fill="#6d4322" opacity=".75"/>
+<circle cx="272" cy="110" r="1.9" fill="#6d4322" opacity=".75"/>
+<circle cx="296" cy="111" r="1.9" fill="#6d4322" opacity=".75"/>
+<circle cx="320" cy="111" r="1.9" fill="#6d4322" opacity=".75"/>
+<circle cx="344" cy="108" r="1.9" fill="#6d4322" opacity=".75"/>
+<circle cx="368" cy="110" r="1.9" fill="#6d4322" opacity=".75"/>
+<circle cx="392" cy="107" r="1.9" fill="#6d4322" opacity=".75"/>
+<circle cx="416" cy="108" r="1.9" fill="#6d4322" opacity=".75"/>
+<circle cx="440" cy="108" r="1.9" fill="#6d4322" opacity=".75"/>
+<circle cx="464" cy="110" r="1.9" fill="#6d4322" opacity=".75"/>
+<circle cx="488" cy="107" r="1.9" fill="#6d4322" opacity=".75"/>
+<circle cx="512" cy="107" r="1.9" fill="#6d4322" opacity=".75"/>
+<circle cx="536" cy="110" r="1.9" fill="#6d4322" opacity=".75"/>
+<circle cx="560" cy="110" r="1.9" fill="#6d4322" opacity=".75"/>
+<path d="M44 80 L53 82 L62 83 L71 82 L80 80 L89 78 L98 77 L107 78 L116 79 L125 82 L134 83 L143 83 L152 81 L161 79 L170 77 L179 77 L188 79 L197 81 L206 83 L215 83 L224 81 L233 79 L242 77 L251 77 L260 79 L269 81 L278 83 L287 83 L296 82 L305 79 L314 78 L323 77 L332 78 L341 80 L350 82 L359 83 L368 82 L377 80 L386 78 L395 77 L404 78 L413 80 L422 82 L431 83 L440 82 L449 81 L458 78 L467 77 L476 77 L485 79 L494 81 L503 83 L512 83 L521 81 L530 79 L539 77 L548 77 L557 79 L560 79 L560 101 L557 100 L548 98 L539 97 L530 98 L521 100 L512 102 L503 103 L494 103 L485 101 L476 99 L467 97 L458 97 L449 99 L440 101 L431 103 L422 103 L413 101 L404 99 L395 97 L386 97 L377 99 L368 101 L359 103 L350 103 L341 102 L332 99 L323 98 L314 97 L305 98 L296 100 L287 102 L278 103 L269 102 L260 100 L251 98 L242 97 L233 98 L224 100 L215 102 L206 103 L197 102 L188 100 L179 98 L170 97 L161 97 L152 99 L143 101 L134 103 L125 103 L116 101 L107 99 L98 97 L89 97 L80 99 L71 101 L62 103 L53 103 L44 101 Z" fill="url(#icorn)" stroke="#fff4e6" stroke-width="1.6"/>
+<path d="M47 84 L55 86 L63 87 L71 86 L79 85 L87 83 L95 82 L103 81 L111 82 L119 84 L127 85 L135 86 L143 86 L151 85 L159 84 L167 82 L175 81 L183 82 L191 83 L199 85 L207 86 L215 87 L223 86 L231 84 L239 83 L247 82 L255 82 L263 83 L271 84 L279 86 L287 87 L295 86 L303 85 L311 83 L319 82 L327 81 L335 82 L343 84 L351 86 L359 87 L367 86 L375 85 L383 83 L391 82 L399 81 L407 82 L415 84 L423 85 L431 86 L439 86 L447 85 L455 84 L463 82 L471 81 L479 82 L487 83 L495 85 L503 86 L511 87 L519 86 L527 84 L535 83 L543 82 L551 82 L557 82" fill="none" stroke="#d9bfa4" stroke-width="1" opacity=".7"/>
+<path d="M47 89 L55 90 L63 91 L71 90 L79 89 L87 87 L95 86 L103 86 L111 87 L119 88 L127 90 L135 91 L143 91 L151 89 L159 88 L167 86 L175 86 L183 87 L191 88 L199 90 L207 91 L215 91 L223 90 L231 88 L239 87 L247 86 L255 86 L263 88 L271 89 L279 91 L287 91 L295 90 L303 89 L311 87 L319 86 L327 86 L335 87 L343 89 L351 90 L359 91 L367 90 L375 89 L383 87 L391 86 L399 86 L407 87 L415 88 L423 90 L431 91 L439 91 L447 89 L455 88 L463 86 L471 86 L479 87 L487 88 L495 90 L503 91 L511 91 L519 90 L527 88 L535 87 L543 86 L551 86 L557 87" fill="none" stroke="#d9bfa4" stroke-width="1" opacity=".7"/>
+<path d="M47 94 L55 95 L63 95 L71 94 L79 93 L87 91 L95 90 L103 90 L111 92 L119 93 L127 95 L135 95 L143 95 L151 93 L159 92 L167 90 L175 90 L183 91 L191 93 L199 95 L207 95 L215 95 L223 94 L231 92 L239 91 L247 90 L255 91 L263 93 L271 94 L279 95 L287 95 L295 94 L303 92 L311 91 L319 90 L327 91 L335 92 L343 94 L351 95 L359 95 L367 94 L375 93 L383 91 L391 90 L399 90 L407 92 L415 93 L423 95 L431 95 L439 95 L447 93 L455 92 L463 90 L471 90 L479 91 L487 93 L495 95 L503 95 L511 95 L519 94 L527 92 L535 91 L543 90 L551 91 L557 92" fill="none" stroke="#d9bfa4" stroke-width="1" opacity=".7"/>
+<path d="M47 99 L55 100 L63 100 L71 98 L79 97 L87 95 L95 95 L103 95 L111 97 L119 98 L127 100 L135 100 L143 99 L151 97 L159 96 L167 95 L175 95 L183 96 L191 98 L199 99 L207 100 L215 99 L223 98 L231 96 L239 95 L247 95 L255 96 L263 97 L271 99 L279 100 L287 99 L295 98 L303 96 L311 95 L319 95 L327 95 L335 97 L343 99 L351 100 L359 100 L367 98 L375 97 L383 95 L391 95 L399 95 L407 97 L415 98 L423 100 L431 100 L439 99 L447 97 L455 96 L463 95 L471 95 L479 96 L487 98 L495 99 L503 100 L511 99 L519 98 L527 96 L535 95 L543 95 L551 96 L557 97" fill="none" stroke="#d9bfa4" stroke-width="1" opacity=".7"/>
+<path d="M44 156 L49 165 L54 170 L59 171 L64 166 L69 158 L74 149 L79 143 L84 141 L89 145 L94 152 L99 161 L104 168 L109 171 L114 168 L119 161 L124 152 L129 145 L134 141 L139 143 L144 149 L149 158 L154 166 L159 171 L164 170 L169 165 L174 156 L179 147 L184 142 L189 141 L194 146 L199 154 L204 163 L209 169 L214 171 L219 167 L224 160 L229 151 L234 144 L239 141 L244 144 L249 151 L254 160 L259 167 L264 171 L269 169 L274 163 L279 154 L284 146 L289 141 L294 142 L299 147 L304 156 L309 165 L314 170 L319 171 L324 166 L329 158 L334 149 L339 143 L344 141 L349 145 L354 152 L359 161 L364 168 L369 171 L374 168 L379 161 L384 152 L389 145 L394 141 L399 143 L404 149 L409 158 L414 166 L419 171 L424 170 L429 165 L434 156 L439 147 L444 142 L449 141 L454 146 L459 154 L464 163 L469 169 L474 171 L479 167 L484 160 L489 151 L494 144 L499 141 L504 144 L509 151 L514 160 L519 167 L524 171 L529 169 L534 163 L539 154 L544 146 L549 141 L554 142 L559 147 L560 149" fill="none" stroke="#8a4a2c" stroke-width="2.6" opacity=".9"/>
+<ellipse cx="56" cy="166" rx="4.4" ry="5.6" fill="#c98a5e" stroke="#7c4526" stroke-width="0.9"/>
+<ellipse cx="78" cy="139" rx="4.4" ry="5.6" fill="#c98a5e" stroke="#7c4526" stroke-width="0.9"/>
+<ellipse cx="100" cy="158" rx="4.4" ry="5.6" fill="#c98a5e" stroke="#7c4526" stroke-width="0.9"/>
+<ellipse cx="122" cy="151" rx="4.4" ry="5.6" fill="#c98a5e" stroke="#7c4526" stroke-width="0.9"/>
+<ellipse cx="144" cy="144" rx="4.4" ry="5.6" fill="#c98a5e" stroke="#7c4526" stroke-width="0.9"/>
+<ellipse cx="166" cy="163" rx="4.4" ry="5.6" fill="#c98a5e" stroke="#7c4526" stroke-width="0.9"/>
+<ellipse cx="188" cy="136" rx="4.4" ry="5.6" fill="#c98a5e" stroke="#7c4526" stroke-width="0.9"/>
+<ellipse cx="210" cy="165" rx="4.4" ry="5.6" fill="#c98a5e" stroke="#7c4526" stroke-width="0.9"/>
+<ellipse cx="232" cy="141" rx="4.4" ry="5.6" fill="#c98a5e" stroke="#7c4526" stroke-width="0.9"/>
+<ellipse cx="254" cy="155" rx="4.4" ry="5.6" fill="#c98a5e" stroke="#7c4526" stroke-width="0.9"/>
+<ellipse cx="276" cy="155" rx="4.4" ry="5.6" fill="#c98a5e" stroke="#7c4526" stroke-width="0.9"/>
+<ellipse cx="298" cy="141" rx="4.4" ry="5.6" fill="#c98a5e" stroke="#7c4526" stroke-width="0.9"/>
+<ellipse cx="320" cy="165" rx="4.4" ry="5.6" fill="#c98a5e" stroke="#7c4526" stroke-width="0.9"/>
+<ellipse cx="342" cy="136" rx="4.4" ry="5.6" fill="#c98a5e" stroke="#7c4526" stroke-width="0.9"/>
+<ellipse cx="364" cy="163" rx="4.4" ry="5.6" fill="#c98a5e" stroke="#7c4526" stroke-width="0.9"/>
+<ellipse cx="386" cy="144" rx="4.4" ry="5.6" fill="#c98a5e" stroke="#7c4526" stroke-width="0.9"/>
+<ellipse cx="408" cy="151" rx="4.4" ry="5.6" fill="#c98a5e" stroke="#7c4526" stroke-width="0.9"/>
+<ellipse cx="430" cy="158" rx="4.4" ry="5.6" fill="#c98a5e" stroke="#7c4526" stroke-width="0.9"/>
+<ellipse cx="452" cy="139" rx="4.4" ry="5.6" fill="#c98a5e" stroke="#7c4526" stroke-width="0.9"/>
+<ellipse cx="474" cy="166" rx="4.4" ry="5.6" fill="#c98a5e" stroke="#7c4526" stroke-width="0.9"/>
+<ellipse cx="496" cy="137" rx="4.4" ry="5.6" fill="#c98a5e" stroke="#7c4526" stroke-width="0.9"/>
+<ellipse cx="518" cy="161" rx="4.4" ry="5.6" fill="#c98a5e" stroke="#7c4526" stroke-width="0.9"/>
+<ellipse cx="540" cy="147" rx="4.4" ry="5.6" fill="#c98a5e" stroke="#7c4526" stroke-width="0.9"/>
+<ellipse cx="562" cy="147" rx="4.4" ry="5.6" fill="#c98a5e" stroke="#7c4526" stroke-width="0.9"/>
+<path d="M118 40 C 124 66 130 88 138 116 C 148 152 160 210 172 268 C 178 300 186 322 196 336 L 224 322 C 214 306 208 286 202 258 C 190 200 178 146 168 112 C 160 84 152 60 144 38 Z" fill="#f7e2cd" stroke="#c79b74" stroke-width="1.6" opacity=".95"/>
+<path d="M126 24 C 134 60 146 104 158 152 C 168 194 180 250 190 292 C 194 310 200 322 208 330 L 214 322 C 206 312 200 298 196 280 C 186 236 174 182 164 142 C 152 96 142 56 134 22 Z" fill="url(#ihair)" stroke="#2a180b" stroke-width="1.2"/>
+<path d="M188 330 C 176 350 182 372 202 378 C 224 384 240 366 234 344 C 230 328 216 318 202 322 Z" fill="#f2d3b4" stroke="#b8875f" stroke-width="1.8"/>
+<ellipse cx="212" cy="352" rx="12" ry="10" fill="url(#ipap)" stroke="#c9636b" stroke-width="1.4"/>
+<path d="M188 344 C 196 336 206 336 212 342" fill="none" stroke="#ff3b6b" stroke-width="2.4" stroke-linecap="round"/>
+<circle cx="166" cy="222" r="15" fill="url(#iseb)" stroke="#c99e2c" stroke-width="1.4"/>
+<circle cx="166" cy="222" r="10" fill="none" stroke="#e6c968" stroke-width="1" opacity=".8"/>
+<circle cx="186" cy="236" r="12" fill="url(#iseb)" stroke="#c99e2c" stroke-width="1.4"/>
+<circle cx="186" cy="236" r="7" fill="none" stroke="#e6c968" stroke-width="1" opacity=".8"/>
+<circle cx="150" cy="240" r="11" fill="url(#iseb)" stroke="#c99e2c" stroke-width="1.4"/>
+<circle cx="150" cy="240" r="6" fill="none" stroke="#e6c968" stroke-width="1" opacity=".8"/>
+<path d="M160 210 C 156 196 152 182 150 172" fill="none" stroke="#e9c451" stroke-width="4" stroke-linecap="round"/>
+<path d="M96 176 C 116 190 138 208 156 232" fill="none" stroke="#b7365a" stroke-width="7" stroke-linecap="round" opacity=".9"/>
+<path d="M100 180 C 118 194 138 210 152 230" fill="none" stroke="#ff7f9d" stroke-width="2" stroke-linecap="round" opacity=".7"/>
+<path d="M330 84 C 328 120 340 150 336 186 C 332 224 346 254 342 296" fill="none" stroke="#25a7c6" stroke-width="7" stroke-linecap="round"/>
+<path d="M330 88 C 328 122 340 150 336 186 C 332 224 346 254 342 294" fill="none" stroke="#c9fbff" stroke-width="2.6" stroke-linecap="round"/>
+<path d="M342 296 c 26 2 26 6 0 8 c -26 2 -26 6 0 8 c 26 2 26 6 0 8 c -26 2 -26 6 0 8 c 26 2 26 6 0 8 c -26 2 -26 6 0 8 c 26 2 26 6 0 8 c -26 2 -26 6 0 8 c 26 2 26 6 0 8 " fill="none" stroke="url(#iswt)" stroke-width="9" stroke-linecap="round" opacity=".95"/>
+<circle cx="330" cy="82" r="4.6" fill="#0b2b33" stroke="#c9fbff" stroke-width="1.6"/>
+<path d="M50 396 C 140 384 200 408 260 394 C 330 378 400 404 470 392 C 510 385 540 394 554 390" fill="none" stroke="url(#iart)" stroke-width="9" stroke-linecap="round"/>
+<path d="M50 414 C 150 402 210 426 270 412 C 340 396 410 422 480 410 C 515 404 540 412 554 408" fill="none" stroke="url(#iven)" stroke-width="10" stroke-linecap="round"/>
+<path d="M54 196 C 150 188 220 204 290 194 C 360 184 430 202 500 192 L 550 192" fill="none" stroke="url(#iart)" stroke-width="5.5" stroke-linecap="round"/>
+<path d="M252 194 C 249 176 249 156 256 152 C 263 148 263 168 264 194" fill="none" stroke="#ff3b6b" stroke-width="2.8" stroke-linecap="round" opacity=".95"/>
+<path d="M292 194 C 289 176 289 156 296 152 C 303 148 303 168 304 194" fill="none" stroke="#ff3b6b" stroke-width="2.8" stroke-linecap="round" opacity=".95"/>
+<path d="M386 194 C 383 176 383 156 390 152 C 397 148 397 168 398 194" fill="none" stroke="#ff3b6b" stroke-width="2.8" stroke-linecap="round" opacity=".95"/>
+<path d="M424 194 C 421 176 421 156 428 152 C 435 148 435 168 436 194" fill="none" stroke="#ff3b6b" stroke-width="2.8" stroke-linecap="round" opacity=".95"/>
+<path d="M462 194 C 459 176 459 156 466 152 C 473 148 473 168 474 194" fill="none" stroke="#ff3b6b" stroke-width="2.8" stroke-linecap="round" opacity=".95"/>
+<path d="M500 194 C 497 176 497 156 504 152 C 511 148 511 168 512 194" fill="none" stroke="#ff3b6b" stroke-width="2.8" stroke-linecap="round" opacity=".95"/>
+<path d="M232 392 C 230 330 236 262 240 200" fill="none" stroke="#ff5c81" stroke-width="4" stroke-linecap="round" opacity=".9"/>
+<path d="M470 408 C 468 340 462 258 466 198" fill="none" stroke="#5b8bff" stroke-width="4" stroke-linecap="round" opacity=".9"/>
+<path d="M52 470 C 130 452 190 448 250 440 C 320 430 380 400 400 340 C 414 296 404 240 396 190" fill="none" stroke="#ffc233" stroke-width="6" stroke-linecap="round"/>
+<path d="M396 190 C 392 176 384 166 376 160 M396 190 C 402 176 412 168 420 162" fill="none" stroke="#ffc233" stroke-width="2.6" stroke-linecap="round"/>
+<ellipse cx="304" cy="238" rx="15" ry="10" fill="#fff0c2" stroke="#ffc233" stroke-width="2"/>
+<path d="M292 238 q 6 -5 12 0 q 6 5 12 0" fill="none" stroke="#c9922a" stroke-width="1.6"/>
+<ellipse cx="266" cy="452" rx="20" ry="15" fill="#fff6dd" stroke="#ffc233" stroke-width="2.2"/>
+<ellipse cx="266" cy="452" rx="16" ry="12" fill="none" stroke="#e0b23c" stroke-width="1.1" opacity=".8"/>
+<ellipse cx="266" cy="452" rx="12" ry="9" fill="none" stroke="#e0b23c" stroke-width="1.1" opacity=".8"/>
+<ellipse cx="266" cy="452" rx="8" ry="6" fill="none" stroke="#e0b23c" stroke-width="1.1" opacity=".8"/>
+<ellipse cx="266" cy="452" rx="4" ry="3" fill="none" stroke="#e0b23c" stroke-width="1.1" opacity=".8"/>
+<line x1="552" y1="94" x2="578" y2="94" stroke="#ffffff" stroke-width="1.2" opacity=".65"/>
+<text x="584" y="98" font-size="14.5" font-weight="900" fill="#ffffff">Stratum corneum</text>
+<text x="584" y="113" font-size="11.5" font-style="italic" fill="#ffe6d0">dead keratin — the barrier</text>
+<line x1="552" y1="124" x2="578" y2="124" stroke="#ffffff" stroke-width="1.2" opacity=".65"/>
+<text x="584" y="128" font-size="14.5" font-weight="900" fill="#ffffff">Granular + spinous layers</text>
+<text x="584" y="143" font-size="11.5" font-style="italic" fill="#ffe6d0">living keratinocytes</text>
+<line x1="552" y1="162" x2="578" y2="162" stroke="#ffffff" stroke-width="1.2" opacity=".65"/>
+<text x="584" y="166" font-size="14.5" font-weight="900" fill="#ffffff">Basal layer &amp; rete ridges</text>
+<text x="584" y="181" font-size="11.5" font-style="italic" fill="#ffe6d0">new cells are born here</text>
+<line x1="552" y1="206" x2="578" y2="206" stroke="#ffffff" stroke-width="1.2" opacity=".65"/>
+<text x="584" y="210" font-size="14.5" font-weight="900" fill="#ffffff">Papillary dermis</text>
+<text x="584" y="225" font-size="11.5" font-style="italic" fill="#ffe6d0">capillary loops</text>
+<line x1="552" y1="300" x2="578" y2="300" stroke="#ffffff" stroke-width="1.2" opacity=".65"/>
+<text x="584" y="304" font-size="14.5" font-weight="900" fill="#ffffff">Reticular dermis</text>
+<text x="584" y="319" font-size="11.5" font-style="italic" fill="#ffe6d0">collagen, glands, follicles</text>
+<line x1="552" y1="452" x2="578" y2="452" stroke="#ffffff" stroke-width="1.2" opacity=".65"/>
+<text x="584" y="456" font-size="14.5" font-weight="900" fill="#ffffff">Subcutaneous fat</text>
+<text x="584" y="471" font-size="11.5" font-style="italic" fill="#ffe6d0">adipose lobules</text>
+<line x1="552" y1="540" x2="578" y2="540" stroke="#ffffff" stroke-width="1.2" opacity=".65"/>
+<text x="584" y="544" font-size="14.5" font-weight="900" fill="#ffffff">Fascia / muscle</text>
+<line x1="166" y1="348" x2="192" y2="350" stroke="#ffe6d0" stroke-width="1.4"/>
+<rect x="141" y="26" width="88" height="19" rx="7" fill="rgba(10,6,20,.72)" stroke="rgba(255,255,255,.28)" stroke-width="1"/>
+<text x="148" y="40" font-size="12.5" font-weight="800" fill="#ffe6d0">hair shaft</text>
+<rect x="199" y="194" width="125" height="19" rx="7" fill="rgba(10,6,20,.72)" stroke="rgba(255,255,255,.28)" stroke-width="1"/>
+<text x="206" y="208" font-size="12.5" font-weight="800" fill="#ffe9a8">sebaceous gland</text>
+<rect x="77" y="338" width="81" height="19" rx="7" fill="rgba(10,6,20,.72)" stroke="rgba(255,255,255,.28)" stroke-width="1"/>
+<text x="84" y="352" font-size="12.5" font-weight="800" fill="#ffe6d0">hair bulb</text>
+<rect x="375" y="326" width="132" height="19" rx="7" fill="rgba(10,6,20,.72)" stroke="rgba(255,255,255,.28)" stroke-width="1"/>
+<text x="382" y="340" font-size="12.5" font-weight="800" fill="#c9fbff">sweat gland coil</text>
+<rect x="55" y="366" width="81" height="19" rx="7" fill="rgba(10,6,20,.72)" stroke="rgba(255,255,255,.28)" stroke-width="1"/>
+<text x="62" y="380" font-size="12.5" font-weight="800" fill="#ffb3c6">arteriole</text>
+<rect x="55" y="416" width="58" height="19" rx="7" fill="rgba(10,6,20,.72)" stroke="rgba(255,255,255,.28)" stroke-width="1"/>
+<text x="62" y="430" font-size="12.5" font-weight="800" fill="#bcd0ff">venule</text>
+<rect x="317" y="218" width="118" height="19" rx="7" fill="rgba(10,6,20,.72)" stroke="rgba(255,255,255,.28)" stroke-width="1"/>
+<text x="324" y="232" font-size="12.5" font-weight="800" fill="#ffe49a">touch receptor</text>
+<rect x="289" y="484" width="110" height="19" rx="7" fill="rgba(10,6,20,.72)" stroke="rgba(255,255,255,.28)" stroke-width="1"/>
+<text x="296" y="498" font-size="12.5" font-weight="800" fill="#ffe49a">sensory nerve</text>
+<path d="M32 78 L20 78 L20 160 L32 160" fill="none" stroke="#ffc233" stroke-width="3.5" stroke-linecap="round"/><text x="16" y="119" font-size="13.5" font-weight="900" fill="#ffc233" transform="rotate(-90 16 119)" text-anchor="middle">EPIDERMIS ONLY</text>
+<ellipse cx="300" cy="190" rx="220" ry="52" fill="url(#iinf)"/>
+<path d="M130 100 C 136 62 236 58 244 100 C 236 116 138 116 130 100 Z" fill="url(#ipus)" stroke="#c79a16" stroke-width="2"/>
+<path d="M142 92 C 152 74 200 70 216 78" fill="none" stroke="#fffbe0" stroke-width="2.4" opacity=".8"/>
+<circle cx="166" cy="88" r="3.4" fill="url(#icoc)" stroke="#5c3200" stroke-width="0.8"/><circle cx="162" cy="94" r="3.4" fill="url(#icoc)" stroke="#5c3200" stroke-width="0.8"/><circle cx="155" cy="92" r="3.4" fill="url(#icoc)" stroke="#5c3200" stroke-width="0.8"/><circle cx="155" cy="84" r="3.4" fill="url(#icoc)" stroke="#5c3200" stroke-width="0.8"/><circle cx="162" cy="82" r="3.4" fill="url(#icoc)" stroke="#5c3200" stroke-width="0.8"/>
+<circle cx="202" cy="82" r="3.4" fill="url(#icoc)" stroke="#5c3200" stroke-width="0.8"/><circle cx="198" cy="88" r="3.4" fill="url(#icoc)" stroke="#5c3200" stroke-width="0.8"/><circle cx="191" cy="86" r="3.4" fill="url(#icoc)" stroke="#5c3200" stroke-width="0.8"/><circle cx="191" cy="78" r="3.4" fill="url(#icoc)" stroke="#5c3200" stroke-width="0.8"/><circle cx="198" cy="76" r="3.4" fill="url(#icoc)" stroke="#5c3200" stroke-width="0.8"/>
+<circle cx="228" cy="92" r="3.4" fill="url(#icoc)" stroke="#5c3200" stroke-width="0.8"/><circle cx="224" cy="98" r="3.4" fill="url(#icoc)" stroke="#5c3200" stroke-width="0.8"/><circle cx="217" cy="96" r="3.4" fill="url(#icoc)" stroke="#5c3200" stroke-width="0.8"/><circle cx="217" cy="88" r="3.4" fill="url(#icoc)" stroke="#5c3200" stroke-width="0.8"/><circle cx="224" cy="86" r="3.4" fill="url(#icoc)" stroke="#5c3200" stroke-width="0.8"/>
+<circle cx="176" cy="96" r="5.4" fill="#ffffff" opacity=".92" stroke="#c8d6ff" stroke-width="1"/>
+<circle cx="206" cy="94" r="5.4" fill="#ffffff" opacity=".92" stroke="#c8d6ff" stroke-width="1"/>
+<circle cx="150" cy="98" r="5.4" fill="#ffffff" opacity=".92" stroke="#c8d6ff" stroke-width="1"/>
+<path d="M187 196 L 190 122" stroke="#ffe49a" stroke-width="2.4" marker-end="url(#iar)"/>
+<rect x="72" y="196" width="230" height="42" rx="10" fill="rgba(10,6,20,.84)" stroke="#ffe49a" stroke-width="1.8"/>
+<text x="187" y="214" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="middle">① thin-walled vesicle</text>
+<text x="187" y="230" font-size="10.8" font-style="italic" fill="#ffe9d6" text-anchor="middle">just UNDER the stratum corneum</text>
+<path d="M336 96 C 344 66 420 60 452 78 C 470 88 476 100 470 106 L 340 106 Z" fill="url(#ipus)" opacity=".55"/>
+<path d="M330 96 C 340 70 356 58 372 74 C 386 60 404 64 412 78 C 428 62 452 68 456 86 C 466 78 480 88 476 102 C 468 112 340 112 330 96 Z" fill="url(#icrust)" stroke="#7a4708" stroke-width="2"/>
+<path d="M336 92 q 8 -7 17 -2" fill="none" stroke="#ffe6a8" stroke-width="2" opacity=".8"/>
+<path d="M356 92 q 8 -7 17 -2" fill="none" stroke="#ffe6a8" stroke-width="2" opacity=".8"/>
+<path d="M376 92 q 8 -7 17 -2" fill="none" stroke="#ffe6a8" stroke-width="2" opacity=".8"/>
+<path d="M396 92 q 8 -7 17 -2" fill="none" stroke="#ffe6a8" stroke-width="2" opacity=".8"/>
+<path d="M416 92 q 8 -7 17 -2" fill="none" stroke="#ffe6a8" stroke-width="2" opacity=".8"/>
+<path d="M436 92 q 8 -7 17 -2" fill="none" stroke="#ffe6a8" stroke-width="2" opacity=".8"/>
+<path d="M456 92 q 8 -7 17 -2" fill="none" stroke="#ffe6a8" stroke-width="2" opacity=".8"/>
+<path d="M336 106 L 476 106" stroke="#a3324f" stroke-width="3" opacity=".85"/>
+<path d="M400 268 L 406 116" stroke="#ffc233" stroke-width="2.4" marker-end="url(#iar)"/>
+<rect x="318" y="268" width="240" height="42" rx="10" fill="rgba(10,6,20,.84)" stroke="#ffc233" stroke-width="1.8"/>
+<text x="438" y="286" font-size="12.5" font-weight="900" fill="#ffc233" text-anchor="middle">② it bursts → HONEY CRUST</text>
+<text x="438" y="302" font-size="10.8" font-style="italic" fill="#ffe9d6" text-anchor="middle">the MOST contagious moment</text>
+<circle cx="505" cy="82" r="3.6" fill="url(#icoc)" stroke="#5c3200" stroke-width="0.8"/><circle cx="500" cy="89" r="3.6" fill="url(#icoc)" stroke="#5c3200" stroke-width="0.8"/><circle cx="492" cy="86" r="3.6" fill="url(#icoc)" stroke="#5c3200" stroke-width="0.8"/><circle cx="492" cy="78" r="3.6" fill="url(#icoc)" stroke="#5c3200" stroke-width="0.8"/><circle cx="500" cy="75" r="3.6" fill="url(#icoc)" stroke="#5c3200" stroke-width="0.8"/>
+<circle cx="527" cy="66" r="3.6" fill="url(#icoc)" stroke="#5c3200" stroke-width="0.8"/><circle cx="522" cy="73" r="3.6" fill="url(#icoc)" stroke="#5c3200" stroke-width="0.8"/><circle cx="514" cy="70" r="3.6" fill="url(#icoc)" stroke="#5c3200" stroke-width="0.8"/><circle cx="514" cy="62" r="3.6" fill="url(#icoc)" stroke="#5c3200" stroke-width="0.8"/><circle cx="522" cy="59" r="3.6" fill="url(#icoc)" stroke="#5c3200" stroke-width="0.8"/>
+<circle cx="547" cy="90" r="3.6" fill="url(#icoc)" stroke="#5c3200" stroke-width="0.8"/><circle cx="542" cy="97" r="3.6" fill="url(#icoc)" stroke="#5c3200" stroke-width="0.8"/><circle cx="534" cy="94" r="3.6" fill="url(#icoc)" stroke="#5c3200" stroke-width="0.8"/><circle cx="534" cy="86" r="3.6" fill="url(#icoc)" stroke="#5c3200" stroke-width="0.8"/><circle cx="542" cy="83" r="3.6" fill="url(#icoc)" stroke="#5c3200" stroke-width="0.8"/>
+<path d="M480 84 C 500 68 520 62 544 62" fill="none" stroke="#ffe49a" stroke-width="3" stroke-dasharray="6 5" marker-end="url(#iar)"/>
+<rect x="470" y="24" width="176" height="36" rx="9" fill="rgba(10,6,20,.84)" stroke="#ffe49a" stroke-width="1.6"/>
+<text x="480" y="40" font-size="11.5" font-weight="900" fill="#ffe49a">onto hands, towels,</text>
+<text x="480" y="54" font-size="11.5" font-weight="900" fill="#ffe49a">toys, bed linen →</text>
+<rect x="286" y="332" width="256" height="52" rx="10" fill="rgba(10,6,20,.84)" stroke="#ffc233" stroke-width="2"/>
+<text x="298" y="352" font-size="13" font-weight="900" fill="#ffc233">IMPETIGO stays SHALLOW:</text>
+<text x="298" y="372" font-size="12.5" font-weight="800" fill="#ffffff">top of the epidermis only</text>
+<rect x="90" y="396" width="424" height="26" rx="9" fill="rgba(10,6,20,.8)" stroke="rgba(255,255,255,.3)" stroke-width="1"/>
+<text x="302" y="414" font-size="12.5" font-weight="800" fill="#ffffff" text-anchor="middle">Shallow = heals WITHOUT scarring. Deep (ecthyma) = it scars.</text>
+</g>
+</svg>
+      <div class="legendrow">
+        <span><i class="sw" style="background:#f2d264"></i>blister fluid / pus</span>
+        <span><i class="sw" style="background:#d99223"></i>honey crust</span>
+        <span><i class="sw" style="background:#f0a02e"></i>staph &amp; strep cocci</span>
+        <span><i class="sw" style="background:#ffffff"></i>neutrophils</span>
+      </div>
+      <div class="mn">🧠 <b>"Impetigo is a roof problem."</b> The infection is in the roof of the skin, so it peels and crusts instead of swelling and spreading like cellulitis.</div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>📖 Lesion vocabulary — impetigo uses four of these words</h3>
+      <p>Impetigo is a <b>vesicle → pustule → crust</b> story, and the bullous form adds the <b>bulla</b>. Highlighted below.</p>
+      <svg viewBox="0 0 840 490" role="img" aria-label="Plate of eight primary and secondary skin lesion types drawn as cutaways and surface views: macule, papule, plaque, vesicle, bulla, pustule, crust and scale"><defs><linearGradient id="ille" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fdf0e2"/><stop offset=".45" stop-color="#e8b891"/><stop offset="1" stop-color="#c07f5e"/></linearGradient><linearGradient id="illd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e29290"/><stop offset="1" stop-color="#a44f63"/></linearGradient><radialGradient id="illf" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#eafeff"/><stop offset="1" stop-color="#6fd8e6"/></radialGradient><radialGradient id="illp" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#fff6c9"/><stop offset="1" stop-color="#e0b32a"/></radialGradient></defs>
+<rect x="2" y="2" width="836" height="486" rx="18" fill="rgba(157,92,255,.10)" stroke="#9d5cff" stroke-width="2" stroke-dasharray="8 7"/>
+<text x="20" y="30" font-size="19" font-weight="900" fill="#d9c2ff">LESION MORPHOLOGY — the vocabulary behind every skin question</text>
+<text x="20" y="51" font-size="13" font-style="italic" fill="#efe6ff">Side-on cutaway (top) + what you see looking down at the skin (bottom).</text>
+<rect x="22" y="66" width="192" height="200" rx="13" fill="rgba(13,8,26,.45)" stroke="rgba(255,255,255,.34)" stroke-width="1.2"/>
+<text x="34" y="86" font-size="14.5" font-weight="900" fill="#ffffff">MACULE</text>
+<text x="34" y="100" font-size="10.6" font-weight="700" fill="#cfd8ff">flat, colour only · &lt; 1 cm</text>
+<text x="34" y="118" font-size="9.6" font-weight="900" fill="#9ff2ee" letter-spacing="1">SIDE VIEW ▾</text>
+<rect x="34" y="142" width="168" height="24" fill="url(#ille)" stroke="#f0dcc6" stroke-width="1.1"/>
+<rect x="34" y="166" width="168" height="26" fill="url(#illd)" stroke="#ffd6cf" stroke-width="1.1"/>
+<rect x="95" y="142" width="46" height="24" fill="#b8546b" opacity=".65"/>
+<text x="34" y="212" font-size="9.6" font-weight="900" fill="#9ff2ee" letter-spacing="1">LOOKING DOWN ▾</text>
+<circle cx="66" cy="238" r="28" fill="url(#ille)" stroke="#e6c8ac" stroke-width="1.4"/>
+<circle cx="66" cy="238" r="17" fill="#b8546b" opacity=".72"/>
+<text x="100" y="242" font-size="10" font-style="italic" fill="#dfe6ff">e.g. freckle</text>
+<rect x="228" y="66" width="192" height="200" rx="13" fill="rgba(13,8,26,.45)" stroke="rgba(255,255,255,.34)" stroke-width="1.2"/>
+<text x="240" y="86" font-size="14.5" font-weight="900" fill="#ffffff">PAPULE</text>
+<text x="240" y="100" font-size="10.6" font-weight="700" fill="#cfd8ff">solid raised bump · &lt; 1 cm</text>
+<text x="240" y="118" font-size="9.6" font-weight="900" fill="#9ff2ee" letter-spacing="1">SIDE VIEW ▾</text>
+<rect x="240" y="142" width="168" height="24" fill="url(#ille)" stroke="#f0dcc6" stroke-width="1.1"/>
+<rect x="240" y="166" width="168" height="26" fill="url(#illd)" stroke="#ffd6cf" stroke-width="1.1"/>
+<path d="M298 142 C 308 120 340 120 350 142 Z" fill="url(#ille)" stroke="#c98a62" stroke-width="1.6"/>
+<ellipse cx="324" cy="138" rx="14" ry="8" fill="#c4645f" opacity=".5"/>
+<text x="240" y="212" font-size="9.6" font-weight="900" fill="#9ff2ee" letter-spacing="1">LOOKING DOWN ▾</text>
+<circle cx="272" cy="238" r="28" fill="url(#ille)" stroke="#e6c8ac" stroke-width="1.4"/>
+<circle cx="272" cy="238" r="12" fill="#d1706a" stroke="#8f3a48" stroke-width="1.6"/>
+<circle cx="268" cy="234" r="4" fill="#ffe0d0" opacity=".7"/>
+<text x="306" y="242" font-size="10" font-style="italic" fill="#dfe6ff">e.g. insect bite</text>
+<rect x="434" y="66" width="192" height="200" rx="13" fill="rgba(13,8,26,.45)" stroke="rgba(255,255,255,.34)" stroke-width="1.2"/>
+<text x="446" y="86" font-size="14.5" font-weight="900" fill="#ffffff">PLAQUE</text>
+<text x="446" y="100" font-size="10.6" font-weight="700" fill="#cfd8ff">raised flat-topped · &gt; 1 cm</text>
+<text x="446" y="118" font-size="9.6" font-weight="900" fill="#9ff2ee" letter-spacing="1">SIDE VIEW ▾</text>
+<rect x="446" y="142" width="168" height="24" fill="url(#ille)" stroke="#f0dcc6" stroke-width="1.1"/>
+<rect x="446" y="166" width="168" height="26" fill="url(#illd)" stroke="#ffd6cf" stroke-width="1.1"/>
+<path d="M468 142 L 476 124 C 500 118 560 118 584 124 L 592 142 Z" fill="url(#ille)" stroke="#c98a62" stroke-width="1.6"/>
+<path d="M476 130 l 9 -6" stroke="#ffffff" stroke-width="2.4" opacity=".85" stroke-linecap="round"/>
+<path d="M492 130 l 9 -6" stroke="#ffffff" stroke-width="2.4" opacity=".85" stroke-linecap="round"/>
+<path d="M508 130 l 9 -6" stroke="#ffffff" stroke-width="2.4" opacity=".85" stroke-linecap="round"/>
+<path d="M524 130 l 9 -6" stroke="#ffffff" stroke-width="2.4" opacity=".85" stroke-linecap="round"/>
+<path d="M540 130 l 9 -6" stroke="#ffffff" stroke-width="2.4" opacity=".85" stroke-linecap="round"/>
+<path d="M556 130 l 9 -6" stroke="#ffffff" stroke-width="2.4" opacity=".85" stroke-linecap="round"/>
+<path d="M572 130 l 9 -6" stroke="#ffffff" stroke-width="2.4" opacity=".85" stroke-linecap="round"/>
+<text x="446" y="212" font-size="9.6" font-weight="900" fill="#9ff2ee" letter-spacing="1">LOOKING DOWN ▾</text>
+<circle cx="478" cy="238" r="28" fill="url(#ille)" stroke="#e6c8ac" stroke-width="1.4"/>
+<path d="M460 234 q 14 -14 28 -2 q 12 12 -2 22 q -18 10 -28 -4 q -8 -10 2 -16 Z" fill="#d0625f" stroke="#8f3a48" stroke-width="1.6"/>
+<path d="M464 242 l 8 -5" stroke="#fff" stroke-width="2.2" opacity=".9" stroke-linecap="round"/>
+<path d="M471 242 l 8 -5" stroke="#fff" stroke-width="2.2" opacity=".9" stroke-linecap="round"/>
+<path d="M478 242 l 8 -5" stroke="#fff" stroke-width="2.2" opacity=".9" stroke-linecap="round"/>
+<path d="M485 242 l 8 -5" stroke="#fff" stroke-width="2.2" opacity=".9" stroke-linecap="round"/>
+<path d="M492 242 l 8 -5" stroke="#fff" stroke-width="2.2" opacity=".9" stroke-linecap="round"/>
+<text x="512" y="242" font-size="10" font-style="italic" fill="#dfe6ff">e.g. psoriasis</text>
+<rect x="640" y="66" width="192" height="200" rx="13" fill="rgba(13,8,26,.62)" stroke="#ffc233" stroke-width="2.8"/>
+<text x="652" y="86" font-size="14.5" font-weight="900" fill="#ffe49a">VESICLE</text>
+<text x="652" y="100" font-size="10.6" font-weight="700" fill="#cfd8ff">clear fluid blister · &lt; 1 cm</text>
+<text x="652" y="118" font-size="9.6" font-weight="900" fill="#9ff2ee" letter-spacing="1">SIDE VIEW ▾</text>
+<rect x="652" y="142" width="168" height="24" fill="url(#ille)" stroke="#f0dcc6" stroke-width="1.1"/>
+<rect x="652" y="166" width="168" height="26" fill="url(#illd)" stroke="#ffd6cf" stroke-width="1.1"/>
+<path d="M716 150 C 716 120 756 120 756 150 Z" fill="url(#illf)" stroke="#7fe3ef" stroke-width="1.8"/>
+<path d="M722 140 C 722 127 734 125 738 126" fill="none" stroke="#ffffff" stroke-width="1.6" opacity=".7"/>
+<text x="652" y="212" font-size="9.6" font-weight="900" fill="#9ff2ee" letter-spacing="1">LOOKING DOWN ▾</text>
+<circle cx="684" cy="238" r="28" fill="url(#ille)" stroke="#e6c8ac" stroke-width="1.4"/>
+<circle cx="684" cy="238" r="9" fill="url(#illf)" stroke="#5fc7d6" stroke-width="1.8"/>
+<circle cx="681" cy="235" r="2" fill="#fff" opacity=".55"/>
+<text x="718" y="242" font-size="10" font-style="italic" fill="#dfe6ff">e.g. shingles</text>
+<rect x="22" y="278" width="192" height="200" rx="13" fill="rgba(13,8,26,.62)" stroke="#ffc233" stroke-width="2.8"/>
+<text x="34" y="298" font-size="14.5" font-weight="900" fill="#ffe49a">BULLA</text>
+<text x="34" y="312" font-size="10.6" font-weight="700" fill="#cfd8ff">big fluid blister · &gt; 1 cm</text>
+<text x="34" y="330" font-size="9.6" font-weight="900" fill="#9ff2ee" letter-spacing="1">SIDE VIEW ▾</text>
+<rect x="34" y="354" width="168" height="24" fill="url(#ille)" stroke="#f0dcc6" stroke-width="1.1"/>
+<rect x="34" y="378" width="168" height="26" fill="url(#illd)" stroke="#ffd6cf" stroke-width="1.1"/>
+<path d="M78 362 C 78 332 158 332 158 362 Z" fill="url(#illf)" stroke="#7fe3ef" stroke-width="1.8"/>
+<path d="M84 352 C 84 339 116 337 120 338" fill="none" stroke="#ffffff" stroke-width="1.6" opacity=".7"/>
+<text x="34" y="424" font-size="9.6" font-weight="900" fill="#9ff2ee" letter-spacing="1">LOOKING DOWN ▾</text>
+<circle cx="66" cy="450" r="28" fill="url(#ille)" stroke="#e6c8ac" stroke-width="1.4"/>
+<circle cx="66" cy="450" r="18" fill="url(#illf)" stroke="#5fc7d6" stroke-width="1.8"/>
+<circle cx="60" cy="444" r="4" fill="#fff" opacity=".55"/>
+<text x="100" y="454" font-size="10" font-style="italic" fill="#dfe6ff">e.g. bullous impetigo</text>
+<rect x="228" y="278" width="192" height="200" rx="13" fill="rgba(13,8,26,.62)" stroke="#ffc233" stroke-width="2.8"/>
+<text x="240" y="298" font-size="14.5" font-weight="900" fill="#ffe49a">PUSTULE</text>
+<text x="240" y="312" font-size="10.6" font-weight="700" fill="#cfd8ff">pus-filled · any size</text>
+<text x="240" y="330" font-size="9.6" font-weight="900" fill="#9ff2ee" letter-spacing="1">SIDE VIEW ▾</text>
+<rect x="240" y="354" width="168" height="24" fill="url(#ille)" stroke="#f0dcc6" stroke-width="1.1"/>
+<rect x="240" y="378" width="168" height="26" fill="url(#illd)" stroke="#ffd6cf" stroke-width="1.1"/>
+<path d="M300 362 C 300 330 348 330 348 362 Z" fill="url(#illp)" stroke="#e8c34e" stroke-width="1.8"/>
+<circle cx="308" cy="340" r="2.4" fill="#fffbe0" opacity=".9"/>
+<circle cx="316" cy="340" r="2.4" fill="#fffbe0" opacity=".9"/>
+<circle cx="324" cy="340" r="2.4" fill="#fffbe0" opacity=".9"/>
+<circle cx="332" cy="340" r="2.4" fill="#fffbe0" opacity=".9"/>
+<circle cx="340" cy="340" r="2.4" fill="#fffbe0" opacity=".9"/>
+<circle cx="308" cy="350" r="2.4" fill="#fffbe0" opacity=".9"/>
+<circle cx="316" cy="350" r="2.4" fill="#fffbe0" opacity=".9"/>
+<circle cx="324" cy="350" r="2.4" fill="#fffbe0" opacity=".9"/>
+<circle cx="332" cy="350" r="2.4" fill="#fffbe0" opacity=".9"/>
+<text x="240" y="424" font-size="9.6" font-weight="900" fill="#9ff2ee" letter-spacing="1">LOOKING DOWN ▾</text>
+<circle cx="272" cy="450" r="28" fill="url(#ille)" stroke="#e6c8ac" stroke-width="1.4"/>
+<circle cx="272" cy="450" r="14" fill="#e8837f" opacity=".8"/>
+<circle cx="272" cy="450" r="7" fill="#fff3b8" stroke="#e0b32a" stroke-width="1.4"/>
+<text x="306" y="454" font-size="10" font-style="italic" fill="#dfe6ff">e.g. impetigo</text>
+<rect x="434" y="278" width="192" height="200" rx="13" fill="rgba(13,8,26,.62)" stroke="#ffc233" stroke-width="2.8"/>
+<text x="446" y="298" font-size="14.5" font-weight="900" fill="#ffe49a">CRUST</text>
+<text x="446" y="312" font-size="10.6" font-weight="700" fill="#cfd8ff">dried exudate · on top</text>
+<text x="446" y="330" font-size="9.6" font-weight="900" fill="#9ff2ee" letter-spacing="1">SIDE VIEW ▾</text>
+<rect x="446" y="354" width="168" height="24" fill="url(#ille)" stroke="#f0dcc6" stroke-width="1.1"/>
+<rect x="446" y="378" width="168" height="26" fill="url(#illd)" stroke="#ffd6cf" stroke-width="1.1"/>
+<path d="M490 356 C 500 334 524 342 534 332 C 552 330 566 346 572 356 Z" fill="#c8801f" stroke="#8c5310" stroke-width="1.6"/>
+<path d="M500 348 C 518 340 540 344 560 348" fill="none" stroke="#ffd98a" stroke-width="2" opacity=".8"/>
+<path d="M500 362 h 60" stroke="#a3324f" stroke-width="3" opacity=".8"/>
+<text x="446" y="424" font-size="9.6" font-weight="900" fill="#9ff2ee" letter-spacing="1">LOOKING DOWN ▾</text>
+<circle cx="478" cy="450" r="28" fill="url(#ille)" stroke="#e6c8ac" stroke-width="1.4"/>
+<path d="M460 450 q 10 -12 22 -6 q 14 -8 20 6 q 8 14 -8 18 q -18 6 -28 -2 q -10 -8 -6 -16 Z" fill="#c8801f" stroke="#8c5310" stroke-width="1.5"/>
+<text x="512" y="454" font-size="10" font-style="italic" fill="#dfe6ff">e.g. honey crust</text>
+<rect x="640" y="278" width="192" height="200" rx="13" fill="rgba(13,8,26,.45)" stroke="rgba(255,255,255,.34)" stroke-width="1.2"/>
+<text x="652" y="298" font-size="14.5" font-weight="900" fill="#ffffff">SCALE</text>
+<text x="652" y="312" font-size="10.6" font-weight="700" fill="#cfd8ff">flaking keratin · on top</text>
+<text x="652" y="330" font-size="9.6" font-weight="900" fill="#9ff2ee" letter-spacing="1">SIDE VIEW ▾</text>
+<rect x="652" y="354" width="168" height="24" fill="url(#ille)" stroke="#f0dcc6" stroke-width="1.1"/>
+<rect x="652" y="378" width="168" height="26" fill="url(#illd)" stroke="#ffd6cf" stroke-width="1.1"/>
+<path d="M684 346 l 20 -4 l -4 12 l -18 3 Z" fill="#f4f7ff" stroke="#b9c6e8" stroke-width="1.2" opacity=".95"/>
+<path d="M702 346 l 20 -4 l -4 12 l -18 3 Z" fill="#f4f7ff" stroke="#b9c6e8" stroke-width="1.2" opacity=".95"/>
+<path d="M720 346 l 20 -4 l -4 12 l -18 3 Z" fill="#f4f7ff" stroke="#b9c6e8" stroke-width="1.2" opacity=".95"/>
+<path d="M738 346 l 20 -4 l -4 12 l -18 3 Z" fill="#f4f7ff" stroke="#b9c6e8" stroke-width="1.2" opacity=".95"/>
+<path d="M756 346 l 20 -4 l -4 12 l -18 3 Z" fill="#f4f7ff" stroke="#b9c6e8" stroke-width="1.2" opacity=".95"/>
+<path d="M774 346 l 20 -4 l -4 12 l -18 3 Z" fill="#f4f7ff" stroke="#b9c6e8" stroke-width="1.2" opacity=".95"/>
+<text x="652" y="424" font-size="9.6" font-weight="900" fill="#9ff2ee" letter-spacing="1">LOOKING DOWN ▾</text>
+<circle cx="684" cy="450" r="28" fill="url(#ille)" stroke="#e6c8ac" stroke-width="1.4"/>
+<path d="M666 442 l 11 -3 l -2 9 l -10 2 Z" fill="#f4f7ff" stroke="#b9c6e8" stroke-width="1" opacity=".95"/>
+<path d="M678 442 l 11 -3 l -2 9 l -10 2 Z" fill="#f4f7ff" stroke="#b9c6e8" stroke-width="1" opacity=".95"/>
+<path d="M690 442 l 11 -3 l -2 9 l -10 2 Z" fill="#f4f7ff" stroke="#b9c6e8" stroke-width="1" opacity=".95"/>
+<path d="M702 442 l 11 -3 l -2 9 l -10 2 Z" fill="#f4f7ff" stroke="#b9c6e8" stroke-width="1" opacity=".95"/>
+<path d="M666 454 l 11 -3 l -2 9 l -10 2 Z" fill="#f4f7ff" stroke="#b9c6e8" stroke-width="1" opacity=".95"/>
+<path d="M678 454 l 11 -3 l -2 9 l -10 2 Z" fill="#f4f7ff" stroke="#b9c6e8" stroke-width="1" opacity=".95"/>
+<path d="M690 454 l 11 -3 l -2 9 l -10 2 Z" fill="#f4f7ff" stroke="#b9c6e8" stroke-width="1" opacity=".95"/>
+<text x="718" y="454" font-size="10" font-style="italic" fill="#dfe6ff">e.g. tinea</text></svg>
+      <div class="mn">🧠 <b>Vesicle is small, bulla is big.</b> "B" for BIG bulla.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CAUSE ================= -->
+<section id="cause">
+  <div class="sec-h"><span class="icon">🦠</span><h2>PATHO &amp; CAUSES</h2><span class="step">STEP 1 · WHY IT HAPPENS</span></div>
+  <p class="sec-sub">Common bacteria + a child's skin + a scratch = the most contagious rash on the ward.</p>
+  <div class="grid">
+    <div class="card">
+      <h3>🧠 The one-sentence definition</h3>
+      <p>Impetigo is a <b>very common, highly contagious superficial bacterial skin infection</b> caused by <b>Staphylococcus aureus</b> and/or <b>Group A Streptococcus</b>, affecting mostly <b>infants and young children</b>.</p>
+      <p>It lives in the <b>top of the epidermis</b> — that is why it crusts rather than swells, and why it usually heals without a scar.</p>
+      <div class="mn">🧠 <b>"Impetigo — infant-igo."</b> The name itself tells you the age group.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>⚙️ Mechanism, step by step</h3>
+      <div class="flow">
+        <div class="fstep">Bacteria colonise the nose &amp; skin surface</div><div class="farrow">▼</div>
+        <div class="fstep">A tiny break — scratch, bite, eczema, cut</div><div class="farrow">▼</div>
+        <div class="fstep">Bacteria multiply just under the stratum corneum</div><div class="farrow">▼</div>
+        <div class="fstep">A thin-walled vesicle fills with pus</div><div class="farrow">▼</div>
+        <div class="fstep hot">It ruptures → oozes → dries into HONEY-COLOURED CRUST</div><div class="farrow">▼</div>
+        <div class="fstep hot">The child scratches → new lesions + other children</div>
+      </div>
+      <div class="mn">🧠 <b>Itch is the engine.</b> Scratching is what seeds the next lesion and the next child — which is why short nails is a real intervention, not a nicety.</div>
+    </div>
+
+    <div class="card topaz">
+      <h3>⭐ Who gets it &amp; what makes it worse</h3>
+      <ul class="tick">
+        <li><b>Age 2–5 years</b> is the classic peak; can occur at any age</li>
+        <li><b>Crowding</b> — daycare, school, siblings, sports teams</li>
+        <li><b>Warm, humid weather</b> and summer months</li>
+        <li><b>Broken skin</b> — eczema, insect bites, chickenpox, scabies, minor trauma</li>
+        <li><b>Poor hygiene</b> or limited access to washing facilities</li>
+        <li><b>Skin-to-skin contact sports</b> — wrestling, rugby</li>
+      </ul>
+      <div class="mn">🧠 <b>"Hot, crowded, scratched."</b> Those three words cover nearly every risk factor.</div>
+    </div>
+
+    <div class="card garnet span2">
+      <h3>🚨 How it travels — and the five places you break the chain</h3>
+      <svg viewBox="0 0 840 390" role="img" aria-label="Transmission diagram showing an infected child with crusted lesions passing bacteria by scratching and via bed linen, towels, clothes, toys and skin contact to another child"><defs><linearGradient id="itk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b2a52"/><stop offset="1" stop-color="#18102a"/></linearGradient><marker id="itar" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ff3b6b"/></marker><path id="ikid" d="M60 6 C71 6 79 15 79 27 C79 36 75 43 69 46 L69 53 C88 57 102 66 106 80 L115 142 C116 151 108 156 104 148 L95 104 L93 172 C93 181 89 187 87 200 L83 274 C82 285 73 287 70 278 L64 206 L60 190 L56 206 L50 278 C47 287 38 285 37 274 L33 200 C31 187 27 181 27 172 L25 104 L16 148 C12 156 4 151 5 142 L14 80 C18 66 32 57 51 53 L51 46 C45 43 41 36 41 27 C41 15 49 6 60 6 Z"/></defs>
+<rect x="2" y="2" width="836" height="386" rx="18" fill="rgba(255,59,107,.10)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="8 7"/>
+<text x="20" y="30" font-size="19" font-weight="900" fill="#ff8fa6">HOW IT TRAVELS — and the five places you can break the chain</text>
+<text x="20" y="51" font-size="13" font-style="italic" fill="#ffd9e2">Direct skin contact AND contaminated objects (fomites). This is why impetigo sweeps through a daycare room.</text>
+<g transform="translate(34,86) scale(0.82)"><use href="#ikid" fill="url(#itk)" stroke="#ffb3c6" stroke-width="2.4"/><ellipse cx="60" cy="36" rx="14" ry="9" fill="#d99223"/><circle cx="55" cy="31" r="3.4" fill="#8c5310"/><circle cx="66" cy="40" r="3.4" fill="#8c5310"/><circle cx="10" cy="150" r="8" fill="#d99223"/><circle cx="110" cy="150" r="8" fill="#d99223"/><path d="M14 150 C 30 138 40 132 52 120" fill="none" stroke="#ffe49a" stroke-width="3" stroke-dasharray="5 4"/></g>
+<text x="98" y="356" font-size="13" font-weight="900" fill="#ffb3c6" text-anchor="middle">INFECTED CHILD</text>
+<text x="98" y="372" font-size="10.2" font-style="italic" fill="#ffd9e2" text-anchor="middle">scratches → bacteria on fingers</text>
+<rect x="230" y="90" width="138" height="58" rx="11" fill="rgba(13,8,26,.55)" stroke="#ffc233" stroke-width="1.4"/>
+<text x="242" y="128" font-size="24">🧺</text>
+<text x="278" y="126" font-size="12.4" font-weight="900" fill="#ffffff">Bed linen</text>
+<rect x="380" y="90" width="138" height="58" rx="11" fill="rgba(13,8,26,.55)" stroke="#ffc233" stroke-width="1.4"/>
+<text x="392" y="128" font-size="24">🧻</text>
+<text x="428" y="126" font-size="12.4" font-weight="900" fill="#ffffff">Towels</text>
+<rect x="230" y="164" width="138" height="58" rx="11" fill="rgba(13,8,26,.55)" stroke="#ffc233" stroke-width="1.4"/>
+<text x="242" y="202" font-size="24">👕</text>
+<text x="278" y="200" font-size="12.4" font-weight="900" fill="#ffffff">Clothes</text>
+<rect x="380" y="164" width="138" height="58" rx="11" fill="rgba(13,8,26,.55)" stroke="#ffc233" stroke-width="1.4"/>
+<text x="392" y="202" font-size="24">🧸</text>
+<text x="428" y="200" font-size="12.4" font-weight="900" fill="#ffffff">Toys</text>
+<rect x="305" y="312" width="138" height="58" rx="11" fill="rgba(13,8,26,.55)" stroke="#ffc233" stroke-width="1.4"/>
+<text x="317" y="350" font-size="24">🤝</text>
+<text x="353" y="348" font-size="12.4" font-weight="900" fill="#ffffff">Skin-to-skin</text>
+<path d="M158 190 C 190 160 200 140 226 120" fill="none" stroke="#ff3b6b" stroke-width="4" marker-end="url(#itar)"/>
+<path d="M158 210 C 190 240 210 300 300 336" fill="none" stroke="#ff3b6b" stroke-width="4" marker-end="url(#itar)"/>
+<path d="M524 150 C 570 160 590 180 612 200" fill="none" stroke="#ff3b6b" stroke-width="4" marker-end="url(#itar)"/>
+<path d="M446 340 C 520 330 570 280 606 236" fill="none" stroke="#ff3b6b" stroke-width="4" marker-end="url(#itar)"/>
+<g transform="translate(660,86) scale(0.82)"><use href="#ikid" fill="url(#itk)" stroke="#a5f3d4" stroke-width="2.4"/><ellipse cx="60" cy="36" rx="10" ry="7" fill="#ff3b6b" opacity=".6"/></g>
+<text x="710" y="356" font-size="13" font-weight="900" fill="#a5f3d4" text-anchor="middle">NEXT CHILD</text>
+<text x="710" y="372" font-size="10.8" font-style="italic" fill="#d8fff0" text-anchor="middle">new lesions in 1–3 days</text></svg>
+      <div class="mn">🧠 <b>Fomite = an object that carries the bug.</b> Towel, toy, doorknob, wrestling mat. Impetigo spreads by <i>contact</i>, not by air.</div>
+    </div>
+
+    <div class="card deep span2">
+      <h3>🧪 Bug → drug: the rule that runs this whole set</h3>
+      <svg viewBox="0 0 840 520" role="img" aria-label="Four column figure linking bacterial, fungal, viral and autoimmune skin disease to their treatment classes, with drawn staphylococci and streptococci, branching fungal hyphae with spores, an enveloped virus particle and a T lymphocyte attacking a keratinocyte"><defs><linearGradient id="ibbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(255,255,255,.16)"/><stop offset="1" stop-color="rgba(0,0,0,.28)"/></linearGradient><radialGradient id="ibcoc" cx=".34" cy=".3" r=".8"><stop offset="0" stop-color="#ffb0c4"/><stop offset=".6" stop-color="#ff3b6b"/><stop offset="1" stop-color="#8e1636"/></radialGradient><radialGradient id="ibhy" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#8ff5d3"/><stop offset="1" stop-color="#0d7a5a"/></radialGradient><radialGradient id="ibvr" cx=".35" cy=".3" r=".85"><stop offset="0" stop-color="#a8c6ff"/><stop offset=".6" stop-color="#2f6bff"/><stop offset="1" stop-color="#12306e"/></radialGradient><radialGradient id="ibtc" cx=".35" cy=".3" r=".85"><stop offset="0" stop-color="#dcc0ff"/><stop offset=".6" stop-color="#9d5cff"/><stop offset="1" stop-color="#4a1e8c"/></radialGradient><marker id="ibarr" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffe49a"/></marker></defs>
+<rect x="2" y="2" width="836" height="516" rx="18" fill="rgba(255,194,51,.09)" stroke="#ffc233" stroke-width="2" stroke-dasharray="8 7"/>
+<text x="20" y="30" font-size="19" font-weight="900" fill="#ffe49a">NAME THE ORGANISM → THE DRUG CLASS NAMES ITSELF</text>
+<text x="20" y="51" font-size="13" font-style="italic" fill="#fff2cf">This one rule answers most skin-infection questions. The suffix tells you the class.</text>
+<rect x="20" y="66" width="192" height="436" rx="14" fill="url(#ibbg)" stroke="#ffc233" stroke-width="3.4"/>
+<rect x="20" y="66" width="192" height="436" rx="14" fill="rgba(255,194,51,.13)"/>
+<text x="116" y="86" font-size="11.5" font-weight="900" fill="#ffe49a" text-anchor="middle">◀ THIS PAGE ▶</text>
+<text x="116" y="108" font-size="16.5" font-weight="900" fill="#ffe49a" text-anchor="middle">BACTERIAL</text>
+<circle cx="72" cy="154" r="10" fill="url(#ibcoc)" stroke="#ffd0dc" stroke-width="1.2"/>
+<circle cx="91" cy="154" r="10" fill="url(#ibcoc)" stroke="#ffd0dc" stroke-width="1.2"/>
+<circle cx="110" cy="154" r="10" fill="url(#ibcoc)" stroke="#ffd0dc" stroke-width="1.2"/>
+<circle cx="72" cy="173" r="10" fill="url(#ibcoc)" stroke="#ffd0dc" stroke-width="1.2"/>
+<circle cx="91" cy="173" r="10" fill="url(#ibcoc)" stroke="#ffd0dc" stroke-width="1.2"/>
+<circle cx="110" cy="173" r="10" fill="url(#ibcoc)" stroke="#ffd0dc" stroke-width="1.2"/>
+<circle cx="72" cy="192" r="10" fill="url(#ibcoc)" stroke="#ffd0dc" stroke-width="1.2"/>
+<circle cx="91" cy="192" r="10" fill="url(#ibcoc)" stroke="#ffd0dc" stroke-width="1.2"/>
+<circle cx="110" cy="192" r="10" fill="url(#ibcoc)" stroke="#ffd0dc" stroke-width="1.2"/>
+<circle cx="134" cy="150" r="9" fill="url(#ibcoc)" stroke="#ffd0dc" stroke-width="1.2"/>
+<circle cx="140" cy="166" r="9" fill="url(#ibcoc)" stroke="#ffd0dc" stroke-width="1.2"/>
+<circle cx="146" cy="182" r="9" fill="url(#ibcoc)" stroke="#ffd0dc" stroke-width="1.2"/>
+<circle cx="152" cy="198" r="9" fill="url(#ibcoc)" stroke="#ffd0dc" stroke-width="1.2"/>
+<circle cx="158" cy="214" r="9" fill="url(#ibcoc)" stroke="#ffd0dc" stroke-width="1.2"/>
+<text x="116" y="228" font-size="10" font-weight="800" fill="#ffd0dc" text-anchor="middle">clusters = staph</text>
+<text x="116" y="242" font-size="10" font-weight="800" fill="#ffd0dc" text-anchor="middle">chains = strep</text>
+<text x="116" y="276" font-size="10.6" font-weight="700" fill="#e9e2ff" text-anchor="middle">Staph aureus · Strep pyogenes</text>
+<path d="M116 286 L 116 308" stroke="#ffe49a" stroke-width="4" marker-end="url(#ibarr)"/>
+<rect x="28" y="316" width="176" height="32" rx="9" fill="rgba(255,194,51,.92)"/>
+<text x="116" y="338" font-size="14.5" font-weight="900" fill="#231a02" text-anchor="middle">ANTIBIOTIC</text>
+<text x="116" y="368" font-size="10.8" font-weight="700" fill="#ffffff" text-anchor="middle">cephalexin ·</text>
+<text x="116" y="382" font-size="10.8" font-weight="700" fill="#ffffff" text-anchor="middle">dicloxacillin ·</text>
+<text x="116" y="396" font-size="10.8" font-weight="700" fill="#ffffff" text-anchor="middle">clindamycin · mupirocin</text>
+<text x="116" y="410" font-size="10.8" font-weight="700" fill="#ffffff" text-anchor="middle">(topical) · doxycycline</text>
+<text x="116" y="424" font-size="10.8" font-weight="700" fill="#ffffff" text-anchor="middle">or TMP-SMX if MRSA</text>
+<text x="116" y="438" font-size="10.8" font-weight="700" fill="#ffffff" text-anchor="middle">suspected</text>
+<text x="116" y="488" font-size="12" font-weight="900" fill="#ff3b6b" text-anchor="middle">Cellulitis · Impetigo</text>
+<rect x="225" y="66" width="192" height="436" rx="14" fill="url(#ibbg)" stroke="#12b886" stroke-width="1.4"/>
+<text x="321" y="100" font-size="16.5" font-weight="900" fill="#12b886" text-anchor="middle">FUNGAL</text>
+<path d="M259 202 C 281 170 311 184 337 150" fill="none" stroke="url(#ibhy)" stroke-width="7" stroke-linecap="round"/>
+<path d="M299 180 C 315 200 341 196 375 208" fill="none" stroke="url(#ibhy)" stroke-width="6" stroke-linecap="round"/>
+<path d="M323 166 C 343 154 359 164 379 154" fill="none" stroke="url(#ibhy)" stroke-width="5" stroke-linecap="round"/>
+<line x1="267" y1="196" x2="271" y2="206" stroke="#04412f" stroke-width="2" opacity=".8"/>
+<line x1="281" y1="191" x2="285" y2="201" stroke="#04412f" stroke-width="2" opacity=".8"/>
+<line x1="295" y1="186" x2="299" y2="196" stroke="#04412f" stroke-width="2" opacity=".8"/>
+<line x1="309" y1="181" x2="313" y2="191" stroke="#04412f" stroke-width="2" opacity=".8"/>
+<line x1="323" y1="176" x2="327" y2="186" stroke="#04412f" stroke-width="2" opacity=".8"/>
+<line x1="337" y1="171" x2="341" y2="181" stroke="#04412f" stroke-width="2" opacity=".8"/>
+<line x1="351" y1="166" x2="355" y2="176" stroke="#04412f" stroke-width="2" opacity=".8"/>
+<line x1="365" y1="161" x2="369" y2="171" stroke="#04412f" stroke-width="2" opacity=".8"/>
+<circle cx="271" cy="228" r="5.5" fill="#c6ffe9" stroke="#0d7a5a" stroke-width="1.3"/>
+<circle cx="296" cy="228" r="5.5" fill="#c6ffe9" stroke="#0d7a5a" stroke-width="1.3"/>
+<circle cx="321" cy="228" r="5.5" fill="#c6ffe9" stroke="#0d7a5a" stroke-width="1.3"/>
+<circle cx="346" cy="228" r="5.5" fill="#c6ffe9" stroke="#0d7a5a" stroke-width="1.3"/>
+<circle cx="371" cy="228" r="5.5" fill="#c6ffe9" stroke="#0d7a5a" stroke-width="1.3"/>
+<text x="321" y="252" font-size="10" font-weight="800" fill="#a5f3d4" text-anchor="middle">branching hyphae + spores</text>
+<text x="321" y="276" font-size="10.6" font-weight="700" fill="#e9e2ff" text-anchor="middle">dermatophytes (Trichophyton)</text>
+<path d="M321 286 L 321 308" stroke="#ffe49a" stroke-width="4" marker-end="url(#ibarr)"/>
+<rect x="233" y="316" width="176" height="32" rx="9" fill="rgba(255,194,51,.92)"/>
+<text x="321" y="338" font-size="14.5" font-weight="900" fill="#231a02" text-anchor="middle">ANTIFUNGAL</text>
+<text x="321" y="368" font-size="10.8" font-weight="700" fill="#ffffff" text-anchor="middle">topical "-azole"</text>
+<text x="321" y="382" font-size="10.8" font-weight="700" fill="#ffffff" text-anchor="middle">(clotrimazole,</text>
+<text x="321" y="396" font-size="10.8" font-weight="700" fill="#ffffff" text-anchor="middle">miconazole,</text>
+<text x="321" y="410" font-size="10.8" font-weight="700" fill="#ffffff" text-anchor="middle">ketoconazole) ·</text>
+<text x="321" y="424" font-size="10.8" font-weight="700" fill="#ffffff" text-anchor="middle">terbinafine · oral</text>
+<text x="321" y="438" font-size="10.8" font-weight="700" fill="#ffffff" text-anchor="middle">terbinafine /</text>
+<text x="321" y="452" font-size="10.8" font-weight="700" fill="#ffffff" text-anchor="middle">griseofulvin for scalp</text>
+<text x="321" y="466" font-size="10.8" font-weight="700" fill="#ffffff" text-anchor="middle">&amp; nails</text>
+<text x="321" y="488" font-size="12" font-weight="900" fill="#12b886" text-anchor="middle">Tinea (ringworm)</text>
+<rect x="430" y="66" width="192" height="436" rx="14" fill="url(#ibbg)" stroke="#2f6bff" stroke-width="1.4"/>
+<text x="526" y="100" font-size="16.5" font-weight="900" fill="#2f6bff" text-anchor="middle">VIRAL</text>
+<circle cx="526" cy="176" r="34" fill="url(#ibvr)" stroke="#cfe1ff" stroke-width="2"/>
+<line x1="559.0" y1="176.0" x2="570.0" y2="176.0" stroke="#bcd0ff" stroke-width="2.4" stroke-linecap="round"/>
+<circle cx="571.0" cy="176.0" r="2.6" fill="#eaf1ff"/>
+<line x1="557.0" y1="187.3" x2="567.3" y2="191.0" stroke="#bcd0ff" stroke-width="2.4" stroke-linecap="round"/>
+<circle cx="568.3" cy="191.4" r="2.6" fill="#eaf1ff"/>
+<line x1="551.3" y1="197.2" x2="559.7" y2="204.3" stroke="#bcd0ff" stroke-width="2.4" stroke-linecap="round"/>
+<circle cx="560.5" cy="204.9" r="2.6" fill="#eaf1ff"/>
+<line x1="542.5" y1="204.6" x2="548.0" y2="214.1" stroke="#bcd0ff" stroke-width="2.4" stroke-linecap="round"/>
+<circle cx="548.5" cy="215.0" r="2.6" fill="#eaf1ff"/>
+<line x1="531.7" y1="208.5" x2="533.6" y2="219.3" stroke="#bcd0ff" stroke-width="2.4" stroke-linecap="round"/>
+<circle cx="533.8" cy="220.3" r="2.6" fill="#eaf1ff"/>
+<line x1="520.3" y1="208.5" x2="518.4" y2="219.3" stroke="#bcd0ff" stroke-width="2.4" stroke-linecap="round"/>
+<circle cx="518.2" cy="220.3" r="2.6" fill="#eaf1ff"/>
+<line x1="509.5" y1="204.6" x2="504.0" y2="214.1" stroke="#bcd0ff" stroke-width="2.4" stroke-linecap="round"/>
+<circle cx="503.5" cy="215.0" r="2.6" fill="#eaf1ff"/>
+<line x1="500.7" y1="197.2" x2="492.3" y2="204.3" stroke="#bcd0ff" stroke-width="2.4" stroke-linecap="round"/>
+<circle cx="491.5" cy="204.9" r="2.6" fill="#eaf1ff"/>
+<line x1="495.0" y1="187.3" x2="484.7" y2="191.0" stroke="#bcd0ff" stroke-width="2.4" stroke-linecap="round"/>
+<circle cx="483.7" cy="191.4" r="2.6" fill="#eaf1ff"/>
+<line x1="493.0" y1="176.0" x2="482.0" y2="176.0" stroke="#bcd0ff" stroke-width="2.4" stroke-linecap="round"/>
+<circle cx="481.0" cy="176.0" r="2.6" fill="#eaf1ff"/>
+<line x1="495.0" y1="164.7" x2="484.7" y2="161.0" stroke="#bcd0ff" stroke-width="2.4" stroke-linecap="round"/>
+<circle cx="483.7" cy="160.6" r="2.6" fill="#eaf1ff"/>
+<line x1="500.7" y1="154.8" x2="492.3" y2="147.7" stroke="#bcd0ff" stroke-width="2.4" stroke-linecap="round"/>
+<circle cx="491.5" cy="147.1" r="2.6" fill="#eaf1ff"/>
+<line x1="509.5" y1="147.4" x2="504.0" y2="137.9" stroke="#bcd0ff" stroke-width="2.4" stroke-linecap="round"/>
+<circle cx="503.5" cy="137.0" r="2.6" fill="#eaf1ff"/>
+<line x1="520.3" y1="143.5" x2="518.4" y2="132.7" stroke="#bcd0ff" stroke-width="2.4" stroke-linecap="round"/>
+<circle cx="518.2" cy="131.7" r="2.6" fill="#eaf1ff"/>
+<line x1="531.7" y1="143.5" x2="533.6" y2="132.7" stroke="#bcd0ff" stroke-width="2.4" stroke-linecap="round"/>
+<circle cx="533.8" cy="131.7" r="2.6" fill="#eaf1ff"/>
+<line x1="542.5" y1="147.4" x2="548.0" y2="137.9" stroke="#bcd0ff" stroke-width="2.4" stroke-linecap="round"/>
+<circle cx="548.5" cy="137.0" r="2.6" fill="#eaf1ff"/>
+<line x1="551.3" y1="154.8" x2="559.7" y2="147.7" stroke="#bcd0ff" stroke-width="2.4" stroke-linecap="round"/>
+<circle cx="560.5" cy="147.1" r="2.6" fill="#eaf1ff"/>
+<line x1="557.0" y1="164.7" x2="567.3" y2="161.0" stroke="#bcd0ff" stroke-width="2.4" stroke-linecap="round"/>
+<circle cx="568.3" cy="160.6" r="2.6" fill="#eaf1ff"/>
+<polygon points="541.8,184.6 526.4,194.0 510.6,185.4 510.2,167.4 525.6,158.0 541.4,166.6" fill="#0f2a63" stroke="#8fb4ff" stroke-width="1.6"/>
+<path d="M508 176 c 6 -8 12 8 18 0 c 6 -8 12 8 18 0" fill="none" stroke="#ffe49a" stroke-width="2.4"/>
+<text x="526" y="246" font-size="10" font-weight="800" fill="#bcd0ff" text-anchor="middle">enveloped DNA virus</text>
+<text x="526" y="276" font-size="10.6" font-weight="700" fill="#e9e2ff" text-anchor="middle">HSV-1 / HSV-2 · varicella-zoster</text>
+<path d="M526 286 L 526 308" stroke="#ffe49a" stroke-width="4" marker-end="url(#ibarr)"/>
+<rect x="438" y="316" width="176" height="32" rx="9" fill="rgba(255,194,51,.92)"/>
+<text x="526" y="338" font-size="14.5" font-weight="900" fill="#231a02" text-anchor="middle">ANTIVIRAL</text>
+<text x="526" y="368" font-size="10.8" font-weight="700" fill="#ffffff" text-anchor="middle">the "-cyclovir" family:</text>
+<text x="526" y="382" font-size="10.8" font-weight="700" fill="#ffffff" text-anchor="middle">acyclovir · valacyclovir</text>
+<text x="526" y="396" font-size="10.8" font-weight="700" fill="#ffffff" text-anchor="middle">· famciclovir — start</text>
+<text x="526" y="410" font-size="10.8" font-weight="700" fill="#ffffff" text-anchor="middle">early, they shorten but</text>
+<text x="526" y="424" font-size="10.8" font-weight="700" fill="#ffffff" text-anchor="middle">do not cure</text>
+<text x="526" y="488" font-size="12" font-weight="900" fill="#2f6bff" text-anchor="middle">Cold sores · Shingles</text>
+<rect x="635" y="66" width="192" height="436" rx="14" fill="url(#ibbg)" stroke="#9d5cff" stroke-width="1.4"/>
+<text x="731" y="100" font-size="16.5" font-weight="900" fill="#9d5cff" text-anchor="middle">AUTOIMMUNE</text>
+<circle cx="701" cy="176" r="26" fill="url(#ibtc)" stroke="#e6d5ff" stroke-width="2"/>
+<circle cx="701" cy="176" r="11" fill="#2c0f57" opacity=".85"/>
+<line x1="726.0" y1="176.0" x2="734.0" y2="176.0" stroke="#dcc0ff" stroke-width="2" stroke-linecap="round"/>
+<line x1="720.2" y1="192.1" x2="726.3" y2="197.2" stroke="#dcc0ff" stroke-width="2" stroke-linecap="round"/>
+<line x1="705.3" y1="200.6" x2="706.7" y2="208.5" stroke="#dcc0ff" stroke-width="2" stroke-linecap="round"/>
+<line x1="688.5" y1="197.7" x2="684.5" y2="204.6" stroke="#dcc0ff" stroke-width="2" stroke-linecap="round"/>
+<line x1="677.5" y1="184.6" x2="670.0" y2="187.3" stroke="#dcc0ff" stroke-width="2" stroke-linecap="round"/>
+<line x1="677.5" y1="167.4" x2="670.0" y2="164.7" stroke="#dcc0ff" stroke-width="2" stroke-linecap="round"/>
+<line x1="688.5" y1="154.3" x2="684.5" y2="147.4" stroke="#dcc0ff" stroke-width="2" stroke-linecap="round"/>
+<line x1="705.3" y1="151.4" x2="706.7" y2="143.5" stroke="#dcc0ff" stroke-width="2" stroke-linecap="round"/>
+<line x1="720.2" y1="159.9" x2="726.3" y2="154.8" stroke="#dcc0ff" stroke-width="2" stroke-linecap="round"/>
+<ellipse cx="771" cy="182" rx="24" ry="17" fill="#f7dcc4" stroke="#c08a62" stroke-width="1.8"/>
+<circle cx="771" cy="182" r="6" fill="#8a5a35" opacity=".85"/>
+<path d="M729 178 L 745 181" stroke="#ffe49a" stroke-width="3.4" marker-end="url(#ibarr)"/>
+<text x="731" y="238" font-size="10" font-weight="800" fill="#e6d5ff" text-anchor="middle">T cell attacks keratinocytes</text>
+<text x="731" y="276" font-size="10.6" font-weight="700" fill="#e9e2ff" text-anchor="middle">the patient's own T cells</text>
+<path d="M731 286 L 731 308" stroke="#ffe49a" stroke-width="4" marker-end="url(#ibarr)"/>
+<rect x="643" y="316" width="176" height="32" rx="9" fill="rgba(255,194,51,.92)"/>
+<text x="731" y="338" font-size="11.6" font-weight="900" fill="#231a02" text-anchor="middle">IMMUNOMODULATION</text>
+<text x="731" y="368" font-size="10.8" font-weight="700" fill="#ffffff" text-anchor="middle">topical corticosteroids</text>
+<text x="731" y="382" font-size="10.8" font-weight="700" fill="#ffffff" text-anchor="middle">· vitamin D analogue</text>
+<text x="731" y="396" font-size="10.8" font-weight="700" fill="#ffffff" text-anchor="middle">(calcipotriene) ·</text>
+<text x="731" y="410" font-size="10.8" font-weight="700" fill="#ffffff" text-anchor="middle">phototherapy ·</text>
+<text x="731" y="424" font-size="10.8" font-weight="700" fill="#ffffff" text-anchor="middle">methotrexate · biologics</text>
+<text x="731" y="438" font-size="10.8" font-weight="700" fill="#ffffff" text-anchor="middle">(e.g. infliximab)</text>
+<text x="731" y="488" font-size="12" font-weight="900" fill="#9d5cff" text-anchor="middle">Psoriasis · Eczema</text></svg>
+      <div class="mn">🧠 <b>Bacteria → antibiotic.</b> The only extra decision in impetigo is <b>topical or oral</b> — and that is decided by how much skin is involved.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CLUES ================= -->
+<section id="clues">
+  <div class="sec-h"><span class="icon">🔎</span><h2>CLUES</h2><span class="step">STEP 2 · WHAT YOU SEE</span></div>
+  <p class="sec-sub">A child, itchy sores around the nose and mouth, and a crust the colour of dried honey.</p>
+  <div class="grid">
+    <div class="card citrinec span2">
+      <h3>🍯 The classic picture</h3>
+      <svg viewBox="-13 -10 863 500" role="img" aria-label="Drawing of a child's face with impetigo lesions around the nose and mouth, some intact vesicles and some dried into golden crusts, beside a magnified view of a honey coloured crust on red weeping skin"><defs><radialGradient id="ifac" cx=".4" cy=".32" r=".8"><stop offset="0" stop-color="#ffe6cf"/><stop offset=".6" stop-color="#f3c9a5"/><stop offset="1" stop-color="#cf9c71"/></radialGradient><linearGradient id="ihair" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a5a34"/><stop offset="1" stop-color="#3f2411"/></linearGradient><linearGradient id="icru2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd98a"/><stop offset=".45" stop-color="#d99223"/><stop offset="1" stop-color="#8c5310"/></linearGradient><radialGradient id="ives" cx=".38" cy=".3" r=".8"><stop offset="0" stop-color="#fffbe0"/><stop offset=".65" stop-color="#f2d264"/><stop offset="1" stop-color="#c79a16"/></radialGradient><clipPath id="imag"><circle cx="150" cy="176" r="128"/></clipPath></defs>
+<rect x="-9" y="-6" width="855" height="492" rx="18" fill="rgba(255,194,51,.10)" stroke="#ffc233" stroke-width="2" stroke-dasharray="8 7"/>
+<text x="20" y="30" font-size="19" font-weight="900" fill="#ffe49a">THE CLASSIC PICTURE — a child, around the nose and mouth</text>
+<text x="20" y="51" font-size="13" font-style="italic" fill="#fff2cf">Itchy red sores that ooze and dry to a stuck-on, golden crust. Most common in infants and young children.</text>
+<g transform="translate(40,66)">
+<path d="M140 22 C 78 22 44 66 44 130 C 44 190 74 250 116 276 C 140 291 176 291 200 276 C 242 250 272 190 272 130 C 272 66 238 22 176 22 Z" fill="url(#ifac)" stroke="#c08a62" stroke-width="2.4"/>
+<path d="M44 118 C 26 116 22 148 38 160 C 46 166 52 160 52 152 Z" fill="url(#ifac)" stroke="#c08a62" stroke-width="2"/>
+<path d="M272 118 C 290 116 294 148 278 160 C 270 166 264 160 264 152 Z" fill="url(#ifac)" stroke="#c08a62" stroke-width="2"/>
+<path d="M40 108 C 44 40 96 8 158 8 C 220 8 274 40 276 108 C 256 74 226 56 190 62 C 160 68 120 66 92 78 C 68 88 50 96 40 108 Z" fill="url(#ihair)" stroke="#2c1808" stroke-width="2"/>
+<path d="M60 60 C 66 40 70 28 76 20" fill="none" stroke="#5e3a1c" stroke-width="2.4" opacity=".7"/>
+<path d="M85 60 C 91 40 95 28 101 20" fill="none" stroke="#5e3a1c" stroke-width="2.4" opacity=".7"/>
+<path d="M110 60 C 116 40 120 28 126 20" fill="none" stroke="#5e3a1c" stroke-width="2.4" opacity=".7"/>
+<path d="M135 60 C 141 40 145 28 151 20" fill="none" stroke="#5e3a1c" stroke-width="2.4" opacity=".7"/>
+<path d="M160 60 C 166 40 170 28 176 20" fill="none" stroke="#5e3a1c" stroke-width="2.4" opacity=".7"/>
+<path d="M185 60 C 191 40 195 28 201 20" fill="none" stroke="#5e3a1c" stroke-width="2.4" opacity=".7"/>
+<path d="M210 60 C 216 40 220 28 226 20" fill="none" stroke="#5e3a1c" stroke-width="2.4" opacity=".7"/>
+<path d="M235 60 C 241 40 245 28 251 20" fill="none" stroke="#5e3a1c" stroke-width="2.4" opacity=".7"/>
+<path d="M260 60 C 266 40 270 28 276 20" fill="none" stroke="#5e3a1c" stroke-width="2.4" opacity=".7"/>
+<ellipse cx="108" cy="140" rx="24" ry="13" fill="#fffaf2" stroke="#a9754c" stroke-width="1.8"/>
+<circle cx="108" cy="140" r="9" fill="#4a3320"/><circle cx="108" cy="140" r="4" fill="#120b04"/>
+<circle cx="104" cy="136" r="2.6" fill="#ffffff" opacity=".9"/>
+<path d="M82 122 C 96 112 120 112 134 122" fill="none" stroke="#4a2d18" stroke-width="3" stroke-linecap="round"/>
+<ellipse cx="208" cy="140" rx="24" ry="13" fill="#fffaf2" stroke="#a9754c" stroke-width="1.8"/>
+<circle cx="208" cy="140" r="9" fill="#4a3320"/><circle cx="208" cy="140" r="4" fill="#120b04"/>
+<circle cx="204" cy="136" r="2.6" fill="#ffffff" opacity=".9"/>
+<path d="M182 122 C 196 112 220 112 234 122" fill="none" stroke="#4a2d18" stroke-width="3" stroke-linecap="round"/>
+<path d="M158 148 C 150 176 142 192 148 200 C 154 208 168 208 174 200" fill="none" stroke="#c08a62" stroke-width="2.6" stroke-linecap="round"/>
+<path d="M136 200 C 146 210 172 210 182 200" fill="none" stroke="#b57f56" stroke-width="2" opacity=".8"/>
+<path d="M116 236 C 138 224 178 224 200 236 C 178 254 138 254 116 236 Z" fill="#d9737e" stroke="#a3475a" stroke-width="2"/>
+<path d="M116 236 C 146 232 172 232 200 236" fill="none" stroke="#7d3040" stroke-width="1.8"/>
+<circle cx="104" cy="214" r="22" fill="#ff3b6b" opacity=".32"/>
+<path d="M89 214 q 7 -15 15 -5 q 7 -7 15 7 q 5 15 -5 15 q -15 5 -15 -5 Z" fill="url(#icru2)" stroke="#7a4708" stroke-width="1.6"/>
+<path d="M92 211 q 15 -6 24 0" fill="none" stroke="#ffe6a8" stroke-width="1.8" opacity=".85"/>
+<circle cx="206" cy="216" r="20" fill="#ff3b6b" opacity=".32"/>
+<path d="M193 216 q 6 -13 13 -4 q 6 -6 13 6 q 4 13 -4 13 q -13 4 -13 -4 Z" fill="url(#icru2)" stroke="#7a4708" stroke-width="1.6"/>
+<path d="M196 213 q 13 -6 20 0" fill="none" stroke="#ffe6a8" stroke-width="1.8" opacity=".85"/>
+<circle cx="142" cy="260" r="23" fill="#ff3b6b" opacity=".32"/>
+<path d="M126 260 q 8 -16 16 -5 q 8 -8 16 8 q 5 16 -5 16 q -16 5 -16 -5 Z" fill="url(#icru2)" stroke="#7a4708" stroke-width="1.6"/>
+<path d="M129 257 q 16 -6 26 0" fill="none" stroke="#ffe6a8" stroke-width="1.8" opacity=".85"/>
+<circle cx="188" cy="262" r="19" fill="#ff3b6b" opacity=".32"/>
+<circle cx="188" cy="262" r="12" fill="url(#ives)" stroke="#c79a16" stroke-width="1.6"/>
+<circle cx="184" cy="258" r="3.6" fill="#ffffff" opacity=".55"/>
+<circle cx="120" cy="194" r="18" fill="#ff3b6b" opacity=".32"/>
+<circle cx="120" cy="194" r="11" fill="url(#ives)" stroke="#c79a16" stroke-width="1.6"/>
+<circle cx="116" cy="190" r="3.3" fill="#ffffff" opacity=".55"/>
+<circle cx="196" cy="190" r="17" fill="#ff3b6b" opacity=".32"/>
+<path d="M186 190 q 5 -10 10 -3 q 5 -5 10 5 q 3 10 -3 10 q -10 3 -10 -3 Z" fill="url(#icru2)" stroke="#7a4708" stroke-width="1.6"/>
+<path d="M189 187 q 10 -6 14 0" fill="none" stroke="#ffe6a8" stroke-width="1.8" opacity=".85"/>
+<circle cx="162" cy="274" r="20" fill="#ff3b6b" opacity=".32"/>
+<path d="M149 274 q 6 -13 13 -4 q 6 -6 13 6 q 4 13 -4 13 q -13 4 -13 -4 Z" fill="url(#icru2)" stroke="#7a4708" stroke-width="1.6"/>
+<path d="M152 271 q 13 -6 20 0" fill="none" stroke="#ffe6a8" stroke-width="1.8" opacity=".85"/>
+<circle cx="86" cy="246" r="18" fill="#ff3b6b" opacity=".32"/>
+<circle cx="86" cy="246" r="11" fill="url(#ives)" stroke="#c79a16" stroke-width="1.6"/>
+<circle cx="82" cy="242" r="3.3" fill="#ffffff" opacity=".55"/>
+<circle cx="232" cy="244" r="17" fill="#ff3b6b" opacity=".32"/>
+<path d="M222 244 q 5 -10 10 -3 q 5 -5 10 5 q 3 10 -3 10 q -10 3 -10 -3 Z" fill="url(#icru2)" stroke="#7a4708" stroke-width="1.6"/>
+<path d="M225 241 q 10 -6 14 0" fill="none" stroke="#ffe6a8" stroke-width="1.8" opacity=".85"/>
+</g>
+<g transform="translate(430,84)">
+<text x="150" y="26" font-size="14" font-weight="900" fill="#ffe49a" text-anchor="middle">HONEY-COLOURED CRUST — up close</text>
+<circle cx="150" cy="176" r="128" fill="rgba(13,8,26,.55)"/>
+<g clip-path="url(#imag)">
+<path d="M4 224 C 60 210 110 228 150 218 C 194 208 240 226 296 214 L 296 300 L 4 300 Z" fill="url(#ifac)" stroke="#c08a62" stroke-width="2"/>
+<path d="M4 246 C 60 234 110 252 150 242 C 194 232 240 250 296 238" fill="none" stroke="#c9866b" stroke-width="2" opacity=".7"/>
+<ellipse cx="150" cy="244" rx="126" ry="40" fill="#ff3b6b" opacity=".28"/>
+<path d="M50 222 C 62 182 92 164 116 182 C 132 154 168 152 182 178 C 206 158 240 172 244 204 C 258 200 268 214 260 226 C 214 240 92 242 50 222 Z" fill="url(#icru2)" stroke="#6f3f06" stroke-width="2.6"/>
+<path d="M58 212 q 12 -10 24 -3" fill="none" stroke="#ffe6a8" stroke-width="2.2" opacity=".8"/>
+<path d="M80 204 q 12 -10 24 -3" fill="none" stroke="#ffe6a8" stroke-width="2.2" opacity=".8"/>
+<path d="M102 196 q 12 -10 24 -3" fill="none" stroke="#ffe6a8" stroke-width="2.2" opacity=".8"/>
+<path d="M124 212 q 12 -10 24 -3" fill="none" stroke="#ffe6a8" stroke-width="2.2" opacity=".8"/>
+<path d="M146 204 q 12 -10 24 -3" fill="none" stroke="#ffe6a8" stroke-width="2.2" opacity=".8"/>
+<path d="M168 196 q 12 -10 24 -3" fill="none" stroke="#ffe6a8" stroke-width="2.2" opacity=".8"/>
+<path d="M190 212 q 12 -10 24 -3" fill="none" stroke="#ffe6a8" stroke-width="2.2" opacity=".8"/>
+<path d="M212 204 q 12 -10 24 -3" fill="none" stroke="#ffe6a8" stroke-width="2.2" opacity=".8"/>
+<path d="M234 196 q 12 -10 24 -3" fill="none" stroke="#ffe6a8" stroke-width="2.2" opacity=".8"/>
+<path d="M74 192 l 10 14" stroke="#8c5310" stroke-width="1.6" opacity=".7"/>
+<path d="M102 202 l 10 14" stroke="#8c5310" stroke-width="1.6" opacity=".7"/>
+<path d="M130 192 l 10 14" stroke="#8c5310" stroke-width="1.6" opacity=".7"/>
+<path d="M158 202 l 10 14" stroke="#8c5310" stroke-width="1.6" opacity=".7"/>
+<path d="M186 192 l 10 14" stroke="#8c5310" stroke-width="1.6" opacity=".7"/>
+<path d="M214 202 l 10 14" stroke="#8c5310" stroke-width="1.6" opacity=".7"/>
+<path d="M62 228 C 110 238 200 238 250 226" fill="none" stroke="#a3324f" stroke-width="3" opacity=".8"/>
+</g>
+<circle cx="150" cy="176" r="128" fill="none" stroke="#ffc233" stroke-width="3"/>
+<circle cx="150" cy="176" r="116" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="1.4"/>
+<text x="150" y="330" font-size="12.6" font-weight="900" fill="#ffe49a" text-anchor="middle">Stuck-on, golden-yellow, "corn-flake" crust</text>
+<text x="150" y="348" font-size="11.6" font-weight="800" fill="#ffffff" text-anchor="middle">Underneath it is moist, red and weeping.</text>
+</g></svg>
+      <div class="mn">🧠 <b>"Golden crust on a small face."</b> If the stem says honey-coloured or golden-yellow crust in a child, the answer is impetigo — every time.</div>
+    </div>
+
+    <div class="card">
+      <h3>👀 Signs &amp; symptoms</h3>
+      <ul class="tick">
+        <li><b>Itchy red sores</b>, classically around the <b>nose and mouth</b>; also hands, feet, arms and legs</li>
+        <li>Sores <b>burst and dry</b> into a stuck-on, <b>honey/golden crust</b></li>
+        <li><b>Lesions at different stages</b> at the same time — new ones keep appearing</li>
+        <li><b>Regional lymph nodes</b> may be swollen and tender</li>
+        <li>Usually <b>little or no fever</b> and the child is otherwise well</li>
+        <li><b>Itch, not pain</b> — pain suggests the deeper form (ecthyma) or cellulitis</li>
+      </ul>
+      <div class="mn">🧠 <b>Itchy + crusty + a well child = impetigo. Painful + hot + an unwell child = think cellulitis.</b></div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🧪 Diagnosis &amp; work-up</h3>
+      <ul class="tick">
+        <li><b>Mostly clinical</b> — the appearance is the diagnosis</li>
+        <li><b>Swab for culture &amp; sensitivity</b> if it is widespread, recurrent, not responding, or MRSA is suspected</li>
+        <li>Consider checking for an underlying cause: eczema, scabies, head lice, chickenpox</li>
+        <li>If PSGN is suspected later: <b>urinalysis</b> (blood + protein), <b>BP</b>, and renal function</li>
+      </ul>
+      <div class="mn">🧠 Swab <b>before</b> starting the antibiotic if a swab is being taken at all.</div>
+    </div>
+
+    <div class="card span2">
+      <h3>📈 How one sore evolves — and its most contagious moment</h3>
+      <svg viewBox="0 0 1020 340" role="img" aria-label="Five stage cutaway sequence showing an impetigo lesion evolve from a red macule to a vesicle, a pustule, a ruptured oozing erosion and finally a golden honey coloured crust"><defs><linearGradient id="iee" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fdf0e2"/><stop offset=".45" stop-color="#e8b891"/><stop offset="1" stop-color="#c07f5e"/></linearGradient><linearGradient id="ied" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e29290"/><stop offset="1" stop-color="#a44f63"/></linearGradient><radialGradient id="iev" cx=".38" cy=".3" r=".8"><stop offset="0" stop-color="#fffbe0"/><stop offset=".65" stop-color="#f2d264"/><stop offset="1" stop-color="#c79a16"/></radialGradient><linearGradient id="iec" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd98a"/><stop offset=".45" stop-color="#d99223"/><stop offset="1" stop-color="#8c5310"/></linearGradient><marker id="iea" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffe49a"/></marker></defs>
+<rect x="2" y="2" width="1016" height="336" rx="18" fill="rgba(255,138,61,.10)" stroke="#ff8a3d" stroke-width="2" stroke-dasharray="8 7"/>
+<text x="20" y="30" font-size="19" font-weight="900" fill="#ffd9b8">HOW ONE SORE EVOLVES — and when it is most contagious</text>
+<text x="20" y="51" font-size="13" font-style="italic" fill="#ffe9d6">Each lesion runs this course in a few days. New lesions keep appearing while old ones crust — so you see all stages at once.</text>
+<rect x="22" y="66" width="176" height="254" rx="13" fill="rgba(13,8,26,.45)" stroke="#ff8fa6" stroke-width="1.6"/>
+<text x="110" y="90" font-size="14" font-weight="900" fill="#ff8fa6" text-anchor="middle">① MACULE</text>
+<rect x="36" y="150" width="148" height="24" fill="url(#iee)" stroke="#f0dcc6" stroke-width="1.2"/>
+<rect x="36" y="174" width="148" height="30" fill="url(#ied)" stroke="#ffd6cf" stroke-width="1.2"/>
+<rect x="84" y="150" width="52" height="24" fill="#c94f6b" opacity=".7"/>
+<text x="110" y="228" font-size="12" font-weight="800" fill="#ffffff" text-anchor="middle">red flat spot</text>
+<text x="110" y="296" font-size="10.6" font-style="italic" fill="#ffe9d6" text-anchor="middle">the itch starts here</text>
+<text x="110" y="310" font-size="10.6" font-style="italic" fill="#ffe9d6" text-anchor="middle">scratching seeds more</text>
+<path d="M202 180 L 216 180" stroke="#ffe49a" stroke-width="4" marker-end="url(#iea)"/>
+<rect x="222" y="66" width="176" height="254" rx="13" fill="rgba(13,8,26,.45)" stroke="#ffc233" stroke-width="1.6"/>
+<text x="310" y="90" font-size="14" font-weight="900" fill="#ffc233" text-anchor="middle">② VESICLE</text>
+<rect x="236" y="150" width="148" height="24" fill="url(#iee)" stroke="#f0dcc6" stroke-width="1.2"/>
+<rect x="236" y="174" width="148" height="30" fill="url(#ied)" stroke="#ffd6cf" stroke-width="1.2"/>
+<path d="M276 156 C 276 126 344 126 344 156 Z" fill="url(#iev)" stroke="#c79a16" stroke-width="2"/>
+<path d="M286 146 C 288 132 304 130 312 134" fill="none" stroke="#fffbe0" stroke-width="2" opacity=".8"/>
+<text x="310" y="228" font-size="12" font-weight="800" fill="#ffffff" text-anchor="middle">thin-walled blister</text>
+<text x="310" y="296" font-size="10.6" font-style="italic" fill="#ffe9d6" text-anchor="middle">roof is paper-thin</text>
+<text x="310" y="310" font-size="10.6" font-style="italic" fill="#ffe9d6" text-anchor="middle">so it bursts fast</text>
+<path d="M402 180 L 416 180" stroke="#ffe49a" stroke-width="4" marker-end="url(#iea)"/>
+<rect x="422" y="66" width="176" height="254" rx="13" fill="rgba(13,8,26,.45)" stroke="#ffc233" stroke-width="1.6"/>
+<text x="510" y="90" font-size="14" font-weight="900" fill="#ffc233" text-anchor="middle">③ PUSTULE</text>
+<rect x="436" y="150" width="148" height="24" fill="url(#iee)" stroke="#f0dcc6" stroke-width="1.2"/>
+<rect x="436" y="174" width="148" height="30" fill="url(#ied)" stroke="#ffd6cf" stroke-width="1.2"/>
+<path d="M474 156 C 474 122 546 122 546 156 Z" fill="url(#iev)" stroke="#c79a16" stroke-width="2"/>
+<circle cx="486" cy="134" r="3" fill="#fffbe0" opacity=".95"/>
+<circle cx="498" cy="134" r="3" fill="#fffbe0" opacity=".95"/>
+<circle cx="510" cy="134" r="3" fill="#fffbe0" opacity=".95"/>
+<circle cx="522" cy="134" r="3" fill="#fffbe0" opacity=".95"/>
+<circle cx="534" cy="134" r="3" fill="#fffbe0" opacity=".95"/>
+<circle cx="486" cy="146" r="3" fill="#fffbe0" opacity=".95"/>
+<circle cx="498" cy="146" r="3" fill="#fffbe0" opacity=".95"/>
+<circle cx="510" cy="146" r="3" fill="#fffbe0" opacity=".95"/>
+<circle cx="522" cy="146" r="3" fill="#fffbe0" opacity=".95"/>
+<circle cx="534" cy="146" r="3" fill="#fffbe0" opacity=".95"/>
+<text x="510" y="228" font-size="12" font-weight="800" fill="#ffffff" text-anchor="middle">fills with pus</text>
+<text x="510" y="296" font-size="10.6" font-style="italic" fill="#ffe9d6" text-anchor="middle">neutrophils pile in</text>
+<text x="510" y="310" font-size="10.6" font-style="italic" fill="#ffe9d6" text-anchor="middle">fluid turns cloudy</text>
+<path d="M602 180 L 616 180" stroke="#ffe49a" stroke-width="4" marker-end="url(#iea)"/>
+<rect x="622" y="66" width="176" height="254" rx="13" fill="rgba(13,8,26,.62)" stroke="#ff3b6b" stroke-width="2.6"/>
+<text x="710" y="90" font-size="14" font-weight="900" fill="#ff3b6b" text-anchor="middle">④ RUPTURE</text>
+<rect x="636" y="150" width="148" height="24" fill="url(#iee)" stroke="#f0dcc6" stroke-width="1.2"/>
+<rect x="636" y="174" width="148" height="30" fill="url(#ied)" stroke="#ffd6cf" stroke-width="1.2"/>
+<path d="M674 152 C 676 130 704 128 708 140 L 708 152 Z" fill="url(#iev)" opacity=".6" stroke="#c79a16" stroke-width="1.6"/>
+<path d="M712 140 C 720 128 744 132 746 152 Z" fill="url(#iev)" opacity=".6" stroke="#c79a16" stroke-width="1.6"/>
+<path d="M686 150 q 10 12 20 4 q 12 12 22 0" fill="none" stroke="#f2d264" stroke-width="4" stroke-linecap="round"/>
+<path d="M684 150 L 736 150" stroke="#a3324f" stroke-width="3.4"/>
+<text x="710" y="228" font-size="12" font-weight="800" fill="#ffffff" text-anchor="middle">bursts, oozes</text>
+<rect x="636" y="242" width="148" height="26" rx="8" fill="rgba(255,59,107,.85)"/>
+<text x="710" y="260" font-size="11.4" font-weight="900" fill="#ffffff" text-anchor="middle">🚨 MOST CONTAGIOUS</text>
+<text x="710" y="296" font-size="10.6" font-style="italic" fill="#ffe9d6" text-anchor="middle">the fluid is loaded</text>
+<text x="710" y="310" font-size="10.6" font-style="italic" fill="#ffe9d6" text-anchor="middle">with live bacteria</text>
+<path d="M802 180 L 816 180" stroke="#ffe49a" stroke-width="4" marker-end="url(#iea)"/>
+<rect x="822" y="66" width="176" height="254" rx="13" fill="rgba(13,8,26,.62)" stroke="#ff3b6b" stroke-width="2.6"/>
+<text x="910" y="90" font-size="14" font-weight="900" fill="#d99223" text-anchor="middle">⑤ CRUST</text>
+<rect x="836" y="150" width="148" height="24" fill="url(#iee)" stroke="#f0dcc6" stroke-width="1.2"/>
+<rect x="836" y="174" width="148" height="30" fill="url(#ied)" stroke="#ffd6cf" stroke-width="1.2"/>
+<path d="M870 154 C 880 128 902 118 908 136 C 920 118 936 124 940 140 C 948 132 954 146 950 154 Z" fill="url(#iec)" stroke="#6f3f06" stroke-width="2"/>
+<path d="M878 140 q 8 -7 16 -2" fill="none" stroke="#ffe6a8" stroke-width="2" opacity=".85"/>
+<path d="M896 140 q 8 -7 16 -2" fill="none" stroke="#ffe6a8" stroke-width="2" opacity=".85"/>
+<path d="M914 140 q 8 -7 16 -2" fill="none" stroke="#ffe6a8" stroke-width="2" opacity=".85"/>
+<path d="M932 140 q 8 -7 16 -2" fill="none" stroke="#ffe6a8" stroke-width="2" opacity=".85"/>
+<text x="910" y="228" font-size="12" font-weight="800" fill="#ffffff" text-anchor="middle">dries golden</text>
+<rect x="836" y="242" width="148" height="26" rx="8" fill="rgba(255,59,107,.85)"/>
+<text x="910" y="260" font-size="11.4" font-weight="900" fill="#ffffff" text-anchor="middle">🚨 STILL CONTAGIOUS</text>
+<text x="910" y="296" font-size="10.6" font-style="italic" fill="#ffe9d6" text-anchor="middle">crust still sheds</text>
+<text x="910" y="310" font-size="10.6" font-style="italic" fill="#ffe9d6" text-anchor="middle">bacteria — keep covered</text></svg>
+      <div class="mn">🧠 <b>The crust is not the "healed" stage.</b> Students lose marks here: a crusted lesion is still shedding bacteria.</div>
+    </div>
+
+    <div class="card tealc span2">
+      <h3>🔬 Three forms — non-bullous vs bullous vs ecthyma</h3>
+      <svg viewBox="0 0 840 420" role="img" aria-label="Three cutaways comparing non-bullous impetigo with a small vesicle and honey crust, bullous impetigo with a large flaccid blister, and ecthyma as a deep punched out dermal ulcer that scars"><defs><linearGradient id="ite" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fdf1e4"/><stop offset=".5" stop-color="#f0cfae"/><stop offset="1" stop-color="#d29a72"/></linearGradient><linearGradient id="itd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e8a09b"/><stop offset="1" stop-color="#a44f63"/></linearGradient><linearGradient id="itf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffeeb4"/><stop offset="1" stop-color="#e8b93f"/></linearGradient><radialGradient id="itv" cx=".38" cy=".3" r=".8"><stop offset="0" stop-color="#fffbe0"/><stop offset=".65" stop-color="#f2d264"/><stop offset="1" stop-color="#c79a16"/></radialGradient><linearGradient id="itc" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd98a"/><stop offset=".5" stop-color="#d99223"/><stop offset="1" stop-color="#8c5310"/></linearGradient></defs>
+<rect x="2" y="2" width="836" height="416" rx="18" fill="rgba(47,107,255,.10)" stroke="#2f6bff" stroke-width="2" stroke-dasharray="8 7"/>
+<text x="20" y="30" font-size="19" font-weight="900" fill="#bcd0ff">THREE FORMS — the difference is DEPTH</text>
+<text x="20" y="51" font-size="13" font-style="italic" fill="#e2e9ff">Shallow forms heal clean. The deep form leaves a scar — that is the whole reason to know them apart.</text>
+<rect x="20" y="66" width="248" height="340" rx="13" fill="rgba(13,8,26,.48)" stroke="#ffc233" stroke-width="2"/>
+<text x="144" y="90" font-size="15.5" font-weight="900" fill="#ffc233" text-anchor="middle">NON-BULLOUS</text>
+<text x="144" y="107" font-size="11" font-style="italic" fill="#e2e9ff" text-anchor="middle">~70% of cases · Staph or Strep</text>
+<rect x="36" y="150" width="216" height="30" fill="url(#ite)" stroke="#f0dcc6" stroke-width="1.3"/>
+<rect x="36" y="180" width="216" height="44" fill="url(#itd)" stroke="#ffd6cf" stroke-width="1.3"/>
+<rect x="36" y="224" width="216" height="26" fill="url(#itf)" stroke="#ffe9a8" stroke-width="1.3"/>
+<text x="41" y="169" font-size="10" font-weight="800" fill="#6b4a2c">epidermis</text>
+<text x="41" y="199" font-size="10" font-weight="800" fill="#ffe0da">dermis</text>
+<text x="41" y="242" font-size="10" font-weight="800" fill="#6b5200">fat</text>
+<path d="M114 158 C 114 136 174 136 174 158 Z" fill="url(#itv)" stroke="#c79a16" stroke-width="1.8"/>
+<path d="M178 152 C 186 138 206 134 212 140 C 220 132 228 138 232 152 Z" fill="url(#itc)" stroke="#6f3f06" stroke-width="1.6"/>
+<ellipse cx="144" cy="190" rx="70" ry="14" fill="#ff3b6b" opacity=".3"/>
+<text x="144" y="292" font-size="10.8" font-weight="800" fill="#ffffff" text-anchor="middle">Small vesicles that rupture</text>
+<text x="144" y="307" font-size="10.8" font-weight="800" fill="#ffffff" text-anchor="middle">fast and leave the classic</text>
+<text x="144" y="322" font-size="10.8" font-weight="800" fill="#ffffff" text-anchor="middle">honey crust. Around the nose</text>
+<text x="144" y="337" font-size="10.8" font-weight="800" fill="#ffffff" text-anchor="middle">and mouth. Heals WITHOUT</text>
+<text x="144" y="352" font-size="10.8" font-weight="800" fill="#ffffff" text-anchor="middle">scarring.</text>
+<rect x="296" y="66" width="248" height="340" rx="13" fill="rgba(13,8,26,.48)" stroke="#00c2c7" stroke-width="2"/>
+<text x="420" y="90" font-size="15.5" font-weight="900" fill="#00c2c7" text-anchor="middle">BULLOUS</text>
+<text x="420" y="107" font-size="11" font-style="italic" fill="#e2e9ff" text-anchor="middle">Staph aureus toxin</text>
+<rect x="312" y="150" width="216" height="30" fill="url(#ite)" stroke="#f0dcc6" stroke-width="1.3"/>
+<rect x="312" y="180" width="216" height="44" fill="url(#itd)" stroke="#ffd6cf" stroke-width="1.3"/>
+<rect x="312" y="224" width="216" height="26" fill="url(#itf)" stroke="#ffe9a8" stroke-width="1.3"/>
+<text x="317" y="169" font-size="10" font-weight="800" fill="#6b4a2c">epidermis</text>
+<text x="317" y="199" font-size="10" font-weight="800" fill="#ffe0da">dermis</text>
+<text x="317" y="242" font-size="10" font-weight="800" fill="#6b5200">fat</text>
+<path d="M354 156 C 354 106 486 106 486 156 Z" fill="url(#itv)" stroke="#c79a16" stroke-width="2.2" opacity=".9"/>
+<path d="M372 142 C 376 120 408 116 424 122" fill="none" stroke="#fffbe0" stroke-width="2.4" opacity=".8"/>
+<text x="420" y="130" font-size="11" font-weight="900" fill="#00252b" text-anchor="middle">&gt; 1 cm</text>
+<ellipse cx="420" cy="190" rx="80" ry="12" fill="#ff3b6b" opacity=".25"/>
+<text x="420" y="292" font-size="10.8" font-weight="800" fill="#ffffff" text-anchor="middle">Large flaccid BULLAE (&gt; 1</text>
+<text x="420" y="307" font-size="10.8" font-weight="800" fill="#ffffff" text-anchor="middle">cm) with clear then cloudy</text>
+<text x="420" y="322" font-size="10.8" font-weight="800" fill="#ffffff" text-anchor="middle">fluid, on the trunk, arms,</text>
+<text x="420" y="337" font-size="10.8" font-weight="800" fill="#ffffff" text-anchor="middle">nappy area. Common under 2</text>
+<text x="420" y="352" font-size="10.8" font-weight="800" fill="#ffffff" text-anchor="middle">years. Heals WITHOUT</text>
+<text x="420" y="367" font-size="10.8" font-weight="800" fill="#ffffff" text-anchor="middle">scarring.</text>
+<rect x="572" y="66" width="248" height="340" rx="13" fill="rgba(13,8,26,.48)" stroke="#ff3b6b" stroke-width="2"/>
+<text x="696" y="90" font-size="15.5" font-weight="900" fill="#ff3b6b" text-anchor="middle">ECTHYMA</text>
+<text x="696" y="107" font-size="11" font-style="italic" fill="#e2e9ff" text-anchor="middle">the deep, ulcerating form</text>
+<rect x="588" y="150" width="216" height="30" fill="url(#ite)" stroke="#f0dcc6" stroke-width="1.3"/>
+<rect x="588" y="180" width="216" height="44" fill="url(#itd)" stroke="#ffd6cf" stroke-width="1.3"/>
+<rect x="588" y="224" width="216" height="26" fill="url(#itf)" stroke="#ffe9a8" stroke-width="1.3"/>
+<text x="593" y="169" font-size="10" font-weight="800" fill="#6b4a2c">epidermis</text>
+<text x="593" y="199" font-size="10" font-weight="800" fill="#ffe0da">dermis</text>
+<text x="593" y="242" font-size="10" font-weight="800" fill="#6b5200">fat</text>
+<path d="M652 150 L 740 150 C 736 176 716 214 696 214 C 676 214 656 176 652 150 Z" fill="#7a2b3f" stroke="#ff8fa6" stroke-width="2"/>
+<path d="M648 150 C 662 122 692 116 700 132 C 720 114 738 122 744 150 Z" fill="url(#itc)" stroke="#6f3f06" stroke-width="2"/>
+<path d="M646 150 C 656 142 676 142 686 150" fill="none" stroke="#9d5cff" stroke-width="5" stroke-linecap="round"/>
+<path d="M706 150 C 716 142 736 142 746 150" fill="none" stroke="#9d5cff" stroke-width="5" stroke-linecap="round"/>
+<ellipse cx="696" cy="206" rx="60" ry="16" fill="#ff3b6b" opacity=".4"/>
+<text x="696" y="272" font-size="12.5" font-weight="900" fill="#ff8fa6" text-anchor="middle">SCARS when it heals</text>
+<text x="696" y="292" font-size="10.8" font-weight="800" fill="#ffffff" text-anchor="middle">Punches through into the</text>
+<text x="696" y="307" font-size="10.8" font-weight="800" fill="#ffffff" text-anchor="middle">DERMIS: a painful,</text>
+<text x="696" y="322" font-size="10.8" font-weight="800" fill="#ffffff" text-anchor="middle">punched-out ulcer with a</text>
+<text x="696" y="337" font-size="10.8" font-weight="800" fill="#ffffff" text-anchor="middle">thick crust and a raised</text>
+<text x="696" y="352" font-size="10.8" font-weight="800" fill="#ffffff" text-anchor="middle">violet edge. DOES scar.</text></svg>
+      <table>
+        <tr><th></th><th class="up">NON-BULLOUS</th><th class="up">BULLOUS</th><th class="lo">ECTHYMA</th></tr>
+        <tr><td><b>Depth</b></td><td>Superficial epidermis</td><td>Superficial epidermis</td><td>Into the dermis</td></tr>
+        <tr><td><b>Lesion</b></td><td>Small vesicles → honey crust</td><td>Large flaccid bullae &gt; 1 cm</td><td>Punched-out ulcer, thick crust</td></tr>
+        <tr><td><b>Where</b></td><td>Face, around nose/mouth</td><td>Trunk, arms, nappy area</td><td>Legs, buttocks</td></tr>
+        <tr><td><b>Pain</b></td><td>Itchy</td><td>Itchy, may be tender</td><td>Painful</td></tr>
+        <tr><td><b>Scars?</b></td><td>No</td><td>No</td><td><b>Yes</b></td></tr>
+        <tr><td><b>Treatment</b></td><td>Topical, or oral if extensive</td><td>Usually oral antibiotic</td><td>Oral antibiotic</td></tr>
+      </table>
+      <div class="mn">🧠 <b>"Ecthyma etches."</b> Only the deep one leaves a mark.</div>
+    </div>
+
+    <div class="card garnet span2">
+      <h3>🚨 The complication that matters — PSGN</h3>
+      <svg viewBox="0 0 1020 430" role="img" aria-label="Three panel figure: a strep skin lesion, a kidney with a magnified glomerulus showing immune complexes stuck on the capillary loops and red cells leaking into the filtrate, and the family-visible signs including tea coloured urine, puffy eyes and high blood pressure"><defs><linearGradient id="ikd1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f2907f"/><stop offset=".5" stop-color="#c0455f"/><stop offset="1" stop-color="#7d1f3c"/></linearGradient><radialGradient id="ikcap" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#ffd6df"/><stop offset="1" stop-color="#c04a68"/></radialGradient><linearGradient id="ikur" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c98a2a"/><stop offset="1" stop-color="#6b3208"/></linearGradient><marker id="ikar" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffe49a"/></marker></defs>
+<rect x="2" y="2" width="1016" height="426" rx="18" fill="rgba(192,34,85,.11)" stroke="#c02255" stroke-width="2" stroke-dasharray="8 7"/>
+<text x="20" y="30" font-size="19" font-weight="900" fill="#ffb3c6">THE COMPLICATION THAT MATTERS — strep skin infection → the kidney</text>
+<text x="20" y="51" font-size="13" font-style="italic" fill="#ffd9e2">Post-streptococcal glomerulonephritis (PSGN). It typically appears 1–3 weeks AFTER the skin infection, when the sores may already look better.</text>
+<g transform="translate(26,78)">
+<rect x="0" y="0" width="196" height="326" rx="13" fill="rgba(13,8,26,.45)" stroke="#ffc233" stroke-width="1.8"/>
+<text x="98" y="26" font-size="13.5" font-weight="900" fill="#ffc233" text-anchor="middle">① SKIN INFECTION</text>
+<ellipse cx="98" cy="120" rx="72" ry="52" fill="#f3c9a5" stroke="#c08a62" stroke-width="2"/>
+<path d="M56 112 C 64 90 96 84 108 102 C 124 86 150 96 152 118 C 130 132 74 132 56 112 Z" fill="#d99223" stroke="#7a4708" stroke-width="1.8"/>
+<ellipse cx="104" cy="128" rx="54" ry="22" fill="#ff3b6b" opacity=".3"/>
+<text x="98" y="196" font-size="12" font-weight="900" fill="#ffffff" text-anchor="middle">Group A Streptococcus</text>
+<text x="98" y="214" font-size="11.4" font-weight="800" fill="#ffe9d6" text-anchor="middle">in the skin lesion</text>
+<text x="98" y="252" font-size="11.4" font-weight="800" fill="#ffe49a" text-anchor="middle">The body makes antibodies</text>
+<text x="98" y="268" font-size="11.4" font-weight="800" fill="#ffe49a" text-anchor="middle">against the strep.</text>
+<text x="98" y="294" font-size="11.4" font-weight="800" fill="#ffffff" text-anchor="middle">Antibody + antigen stick</text>
+<text x="98" y="310" font-size="11.4" font-weight="800" fill="#ffffff" text-anchor="middle">together = immune complex</text>
+</g>
+<path d="M228 220 L 262 220" stroke="#ffe49a" stroke-width="5" marker-end="url(#ikar)"/>
+<g transform="translate(272,78)">
+<rect x="0" y="0" width="330" height="326" rx="13" fill="rgba(13,8,26,.45)" stroke="#ff3b6b" stroke-width="1.8"/>
+<text x="165" y="26" font-size="13.5" font-weight="900" fill="#ff8fa6" text-anchor="middle">② TRAPPED IN THE GLOMERULUS</text>
+<path d="M62 60 C 34 62 20 96 24 138 C 28 182 48 218 74 226 C 96 232 108 214 104 188 C 100 160 106 140 118 128 C 106 116 98 96 100 76 C 102 58 84 58 62 60 Z" fill="url(#ikd1)" stroke="#ffd0dc" stroke-width="2.2"/>
+<path d="M100 76 C 88 96 86 122 100 140 C 84 154 76 178 80 200" fill="none" stroke="#ffd0dc" stroke-width="2" opacity=".7"/>
+<path d="M104 140 C 124 142 140 150 152 164" fill="none" stroke="#ffc233" stroke-width="5" stroke-linecap="round"/>
+<circle cx="62" cy="112" r="9" fill="#ffe49a" opacity=".9"/>
+<path d="M70 110 L 178 96" stroke="#ffe49a" stroke-width="1.6" stroke-dasharray="4 4"/>
+<circle cx="234" cy="140" r="86" fill="rgba(255,255,255,.06)" stroke="#ffc233" stroke-width="2.4"/>
+<circle cx="234" cy="140" r="68" fill="#f7d5da" opacity=".18" stroke="#ffd0dc" stroke-width="1.6"/>
+<path d="M198 116 C 214 92 254 92 268 114 C 284 138 274 168 250 174 C 224 182 200 168 196 146 C 194 134 194 124 198 116 Z" fill="url(#ikcap)" stroke="#a8304c" stroke-width="2"/>
+<path d="M257 152 q 1 12 -18 13" fill="none" stroke="#ff3b6b" stroke-width="5" stroke-linecap="round" opacity=".95"/>
+<path d="M238 166 q -9 8 -21 -6" fill="none" stroke="#ff3b6b" stroke-width="5" stroke-linecap="round" opacity=".95"/>
+<path d="M217 159 q -12 -2 -9 -20" fill="none" stroke="#ff3b6b" stroke-width="5" stroke-linecap="round" opacity=".95"/>
+<path d="M208 138 q -6 -10 10 -19" fill="none" stroke="#ff3b6b" stroke-width="5" stroke-linecap="round" opacity=".95"/>
+<path d="M219 119 q 5 -11 22 -4" fill="none" stroke="#ff3b6b" stroke-width="5" stroke-linecap="round" opacity=".95"/>
+<path d="M241 115 q 12 -3 17 14" fill="none" stroke="#ff3b6b" stroke-width="5" stroke-linecap="round" opacity=".95"/>
+<path d="M164 128 C 180 122 190 122 198 126" fill="none" stroke="#ff3b6b" stroke-width="7" stroke-linecap="round"/>
+<path d="M168 162 C 184 162 194 158 200 152" fill="none" stroke="#2f6bff" stroke-width="6" stroke-linecap="round"/>
+<text x="140" y="106" font-size="10.4" font-weight="800" fill="#ffb3c6">afferent</text>
+<text x="140" y="182" font-size="10.4" font-weight="800" fill="#bcd0ff">efferent</text>
+<circle cx="276" cy="152" r="5.6" fill="#9d5cff" stroke="#e6d5ff" stroke-width="1.4"/>
+<circle cx="259" cy="173" r="5.6" fill="#9d5cff" stroke="#e6d5ff" stroke-width="1.4"/>
+<circle cx="230" cy="180" r="5.6" fill="#9d5cff" stroke="#e6d5ff" stroke-width="1.4"/>
+<circle cx="203" cy="169" r="5.6" fill="#9d5cff" stroke="#e6d5ff" stroke-width="1.4"/>
+<circle cx="190" cy="145" r="5.6" fill="#9d5cff" stroke="#e6d5ff" stroke-width="1.4"/>
+<circle cx="197" cy="119" r="5.6" fill="#9d5cff" stroke="#e6d5ff" stroke-width="1.4"/>
+<circle cx="220" cy="102" r="5.6" fill="#9d5cff" stroke="#e6d5ff" stroke-width="1.4"/>
+<circle cx="249" cy="102" r="5.6" fill="#9d5cff" stroke="#e6d5ff" stroke-width="1.4"/>
+<circle cx="272" cy="119" r="5.6" fill="#9d5cff" stroke="#e6d5ff" stroke-width="1.4"/>
+<ellipse cx="250" cy="196" rx="5" ry="3.4" fill="#c02255" stroke="#ffd0dc" stroke-width="1"/>
+<ellipse cx="259" cy="205" rx="5" ry="3.4" fill="#c02255" stroke="#ffd0dc" stroke-width="1"/>
+<ellipse cx="268" cy="196" rx="5" ry="3.4" fill="#c02255" stroke="#ffd0dc" stroke-width="1"/>
+<ellipse cx="277" cy="205" rx="5" ry="3.4" fill="#c02255" stroke="#ffd0dc" stroke-width="1"/>
+<ellipse cx="286" cy="196" rx="5" ry="3.4" fill="#c02255" stroke="#ffd0dc" stroke-width="1"/>
+<path d="M252 196 C 268 210 280 216 292 218" fill="none" stroke="#c02255" stroke-width="3" stroke-dasharray="5 4" marker-end="url(#ikar)"/>
+<text x="234" y="246" font-size="11.6" font-weight="900" fill="#e6d5ff" text-anchor="middle">immune complexes clog the filter</text>
+<text x="234" y="262" font-size="11.6" font-weight="900" fill="#ffb3c6" text-anchor="middle">→ blood + protein leak into urine</text>
+<text x="165" y="292" font-size="11.6" font-weight="800" fill="#ffffff" text-anchor="middle">Filtration falls → fluid is retained →</text>
+<text x="165" y="308" font-size="11.6" font-weight="800" fill="#ffffff" text-anchor="middle">puffiness and a rising blood pressure.</text>
+</g>
+<path d="M610 220 L 644 220" stroke="#ffe49a" stroke-width="5" marker-end="url(#ikar)"/>
+<g transform="translate(654,78)">
+<rect x="0" y="0" width="342" height="326" rx="13" fill="rgba(13,8,26,.45)" stroke="#ffc233" stroke-width="1.8"/>
+<text x="171" y="26" font-size="13.5" font-weight="900" fill="#ffc233" text-anchor="middle">③ WHAT THE FAMILY WILL SEE</text>
+<rect x="20" y="44" width="130" height="120" rx="10" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.4)" stroke-width="1.4"/>
+<path d="M48 66 L 122 66 L 112 152 C 110 158 60 158 58 152 Z" fill="url(#ikur)" stroke="#ffe49a" stroke-width="2"/>
+<path d="M50 84 C 70 78 100 90 120 84" fill="none" stroke="#ffd98a" stroke-width="2" opacity=".7"/>
+<text x="85" y="182" font-size="12" font-weight="900" fill="#ffc233" text-anchor="middle">TEA / COLA urine</text>
+<text x="164" y="68" font-size="15">🫧</text>
+<text x="188" y="68" font-size="11.2" font-weight="800" fill="#ffffff">Puffy face &amp; eyelids</text>
+<text x="164" y="94" font-size="15">📈</text>
+<text x="188" y="94" font-size="11.2" font-weight="800" fill="#ffffff">High blood pressure</text>
+<text x="164" y="120" font-size="15">💧</text>
+<text x="188" y="120" font-size="11.2" font-weight="800" fill="#ffffff">Less urine than usual</text>
+<text x="164" y="146" font-size="15">😴</text>
+<text x="188" y="146" font-size="11.2" font-weight="800" fill="#ffffff">Tired, off food, fever</text>
+<text x="164" y="172" font-size="15">⚖️</text>
+<text x="188" y="172" font-size="11.2" font-weight="800" fill="#ffffff">Sudden weight gain</text>
+<rect x="20" y="200" width="304" height="112" rx="11" fill="rgba(255,59,107,.28)" stroke="#ff3b6b" stroke-width="1.8"/>
+<text x="34" y="224" font-size="12.6" font-weight="900" fill="#ffe49a">⏱️ TIMING: ~1–3 weeks after the skin sores</text>
+<text x="34" y="246" font-size="11" font-weight="800" fill="#ffffff">Antibiotics limit spread to other children but</text>
+<text x="34" y="262" font-size="11" font-weight="800" fill="#ffffff">do not reliably prevent PSGN — so teach the</text>
+<text x="34" y="278" font-size="11" font-weight="800" fill="#ffffff">family what to watch for after the rash heals.</text>
+<text x="34" y="300" font-size="11" font-weight="900" fill="#ffb3c6">Rheumatic fever follows strep THROAT, not skin.</text>
+</g></svg>
+      <div class="mn">🧠 <b>"Throat → heart. Skin → kidney."</b> Strep throat can lead to rheumatic fever; strep <i>skin</i> infection is the one linked to glomerulonephritis.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CARE ================= -->
+<section id="care">
+  <div class="sec-h"><span class="icon">🩺</span><h2>CARE</h2><span class="step">STEP 3 · WHAT YOU DO</span></div>
+  <p class="sec-sub">Treat the skin, and stop it reaching the rest of the class.</p>
+  <div class="grid">
+    <div class="card emerald span2">
+      <h3>✅ Stop the spread — the five teaching points</h3>
+      <svg viewBox="0 0 1020 320" role="img" aria-label="Five numbered teaching cards: keep the child home from school, wash hands before and after contact, wash laundry separately in hot water, keep nails short and filed, and soak off crusts before applying ointment"><defs><marker id="isa" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#a5f3d4"/></marker></defs>
+<rect x="2" y="2" width="1016" height="316" rx="18" fill="rgba(18,184,134,.10)" stroke="#12b886" stroke-width="2" stroke-dasharray="8 7"/>
+<text x="20" y="30" font-size="19" font-weight="900" fill="#a5f3d4">STOP THE SPREAD — the five teaching points, in order</text>
+<text x="20" y="51" font-size="13" font-style="italic" fill="#d8fff0">These are the highest-yield exam answers on this page. Say them in this order and you will not miss one.</text>
+<rect x="20" y="66" width="180" height="236" rx="13" fill="rgba(13,8,26,.5)" stroke="#12b886" stroke-width="1.8"/>
+<circle cx="54" cy="98" r="20" fill="#12b886"/>
+<text x="54" y="106" font-size="21" font-weight="900" fill="#03291c" text-anchor="middle">1</text>
+<text x="136" y="110" font-size="27">🏫</text>
+<text x="110" y="142" font-size="13" font-weight="900" fill="#a5f3d4" text-anchor="middle">NO school or daycare</text>
+<text x="110" y="166" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="middle">Stay home until 24–48 h</text>
+<text x="110" y="180" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="middle">of antibiotic treatment</text>
+<text x="110" y="194" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="middle">and until lesions are</text>
+<text x="110" y="208" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="middle">drying and healing —</text>
+<text x="110" y="222" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="middle">follow the local</text>
+<text x="110" y="236" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="middle">public-health rule.</text>
+<path d="M204 184 L 216 184" stroke="#a5f3d4" stroke-width="4" marker-end="url(#isa)"/>
+<rect x="222" y="66" width="180" height="236" rx="13" fill="rgba(13,8,26,.5)" stroke="#12b886" stroke-width="1.8"/>
+<circle cx="256" cy="98" r="20" fill="#12b886"/>
+<text x="256" y="106" font-size="21" font-weight="900" fill="#03291c" text-anchor="middle">2</text>
+<text x="338" y="110" font-size="27">🧼</text>
+<text x="312" y="142" font-size="13" font-weight="900" fill="#a5f3d4" text-anchor="middle">Wash hands</text>
+<text x="312" y="166" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="middle">Before AND after touching</text>
+<text x="312" y="180" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="middle">the sores, applying</text>
+<text x="312" y="194" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="middle">ointment or changing</text>
+<text x="312" y="208" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="middle">dressings. Everyone in</text>
+<text x="312" y="222" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="middle">the house, every time.</text>
+<path d="M406 184 L 418 184" stroke="#a5f3d4" stroke-width="4" marker-end="url(#isa)"/>
+<rect x="424" y="66" width="180" height="236" rx="13" fill="rgba(13,8,26,.5)" stroke="#12b886" stroke-width="1.8"/>
+<circle cx="458" cy="98" r="20" fill="#12b886"/>
+<text x="458" y="106" font-size="21" font-weight="900" fill="#03291c" text-anchor="middle">3</text>
+<text x="540" y="110" font-size="27">🧺</text>
+<text x="514" y="142" font-size="13" font-weight="900" fill="#a5f3d4" text-anchor="middle">Separate the laundry</text>
+<text x="514" y="166" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="middle">The child's clothes,</text>
+<text x="514" y="180" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="middle">towels and bed linen get</text>
+<text x="514" y="194" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="middle">washed separately, in HOT</text>
+<text x="514" y="208" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="middle">water, and are never</text>
+<text x="514" y="222" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="middle">shared.</text>
+<path d="M608 184 L 620 184" stroke="#a5f3d4" stroke-width="4" marker-end="url(#isa)"/>
+<rect x="626" y="66" width="180" height="236" rx="13" fill="rgba(13,8,26,.5)" stroke="#12b886" stroke-width="1.8"/>
+<circle cx="660" cy="98" r="20" fill="#12b886"/>
+<text x="660" y="106" font-size="21" font-weight="900" fill="#03291c" text-anchor="middle">4</text>
+<text x="742" y="110" font-size="27">💅</text>
+<text x="716" y="142" font-size="13" font-weight="900" fill="#a5f3d4" text-anchor="middle">Short, filed nails</text>
+<text x="716" y="166" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="middle">Cut them short and file</text>
+<text x="716" y="180" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="middle">them smooth. Scratching</text>
+<text x="716" y="194" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="middle">spreads bacteria to new</text>
+<text x="716" y="208" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="middle">skin and drives it</text>
+<text x="716" y="222" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="middle">deeper.</text>
+<path d="M810 184 L 822 184" stroke="#a5f3d4" stroke-width="4" marker-end="url(#isa)"/>
+<rect x="828" y="66" width="180" height="236" rx="13" fill="rgba(13,8,26,.5)" stroke="#12b886" stroke-width="1.8"/>
+<circle cx="862" cy="98" r="20" fill="#12b886"/>
+<text x="862" y="106" font-size="21" font-weight="900" fill="#03291c" text-anchor="middle">5</text>
+<text x="944" y="110" font-size="27">🧽</text>
+<text x="918" y="142" font-size="13" font-weight="900" fill="#a5f3d4" text-anchor="middle">Soak off the crust</text>
+<text x="918" y="166" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="middle">Soften crusts with a</text>
+<text x="918" y="180" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="middle">warm, soapy soak, remove</text>
+<text x="918" y="194" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="middle">gently, then apply the</text>
+<text x="918" y="208" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="middle">prescribed ointment to</text>
+<text x="918" y="222" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="middle">clean skin. Cover</text>
+<text x="918" y="236" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="middle">loosely.</text></svg>
+      <div class="mn">🧠 <b>"School · Soap · Separate · Short nails · Soak."</b> Five S's, in the order you would teach them.</div>
+    </div>
+
+    <div class="card">
+      <h3>💊 Topical or oral? The decision rule</h3>
+      <p><b>TOPICAL</b> — for a <b>few localised lesions</b>: <b>mupirocin</b> ointment applied to the lesions after gently removing crust. (Retapamulin and ozenoxacin are alternatives where available.)</p>
+      <p><b>ORAL</b> — when it is <b>widespread</b>, <b>bullous</b>, <b>ecthyma</b>, involves multiple household members, or has failed topical therapy: a <b>cephalosporin (cephalexin)</b> or an anti-staph penicillin; <b>clindamycin</b> or <b>TMP-SMX / doxycycline</b> if MRSA is suspected.</p>
+      <div class="mn">🧠 <b>"A few = cream. A lot = pill."</b></div>
+    </div>
+
+    <div class="card">
+      <h3>🧽 Crust care — the technique</h3>
+      <ul class="tick">
+        <li><b>Gloves on.</b> Standard + <b>contact precautions</b> for draining lesions</li>
+        <li>Soak with <b>warm soapy water</b> or a saline compress to soften the crust</li>
+        <li><b>Gently</b> lift the softened crust — do not scrub or pick at dry crust</li>
+        <li>Pat dry, then apply the <b>ointment to clean skin</b> — ointment on top of crust does not reach the bacteria</li>
+        <li>Cover loosely with a non-adherent dressing to stop scratching and shedding</li>
+        <li>Dispose of dressings as infectious waste; <b>hand hygiene after removing gloves</b></li>
+      </ul>
+      <div class="mn">🧠 <b>Soften, lift, treat, cover.</b> Ointment on crust is wasted ointment.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🗣️ Family teaching — say it exactly like this</h3>
+      <ul class="tick">
+        <li>"It is <b>very catching</b> — mostly by touch and by shared things."</li>
+        <li>"Keep them <b>home from school/daycare</b> until the treatment has been in for <span class="mono">24–48 h</span> and the sores are drying up."</li>
+        <li>"<b>Wash your hands</b> before and after touching the sores or putting on the cream."</li>
+        <li>"<b>Their own towel, their own bedding</b> — washed separately in hot water."</li>
+        <li>"<b>Nails short and filed</b>, and try to keep the sores <b>covered</b>."</li>
+        <li>"<b>Finish the whole course</b>, even when it looks better."</li>
+        <li>"Come back if the sores <b>spread</b>, get <b>painful</b>, or the child develops <b>fever</b>, <b>puffy eyes</b>, or <b>dark, tea-coloured urine</b>."</li>
+      </ul>
+      <div class="mn">🧠 The last bullet is the PSGN safety-net. Never end impetigo teaching without it.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>❌ Never do these</h3>
+      <ul class="tick">
+        <li class="never">Never let the child share towels, bedding, flannels or clothing.</li>
+        <li class="never">Never scrub or forcibly pick dry crusts — soften them first.</li>
+        <li class="never">Never send the child back to school just because the sores look drier.</li>
+        <li class="never">Never apply ointment on top of a thick crust and call it treated.</li>
+        <li class="never">Never skip hand hygiene between lesion care and any other patient contact.</li>
+      </ul>
+      <div class="mn">🧠 <b>Don't share, don't scrub, don't send back early.</b></div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>📅 What "getting better" looks like</h3>
+      <ul class="tick">
+        <li><b>24–48 h:</b> no new lesions appearing; existing sores start drying</li>
+        <li><b>3–5 days:</b> crusts loosening and falling away, redness fading</li>
+        <li><b>7–10 days:</b> skin healed, usually with <b>no scar</b> (temporary pink or pale patches are normal)</li>
+        <li><b>Not improving in 48 h?</b> — reassess: wrong depth (ecthyma), resistant organism, poor adherence, or an untreated underlying condition such as scabies or eczema</li>
+      </ul>
+      <div class="mn">🧠 <b>"48 hours is the checkpoint."</b> No improvement by then means something else is going on.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TELL APART ================= -->
+<section id="tell">
+  <div class="sec-h"><span class="icon">🔀</span><h2>TELL THEM APART</h2><span class="step">STEP 4 · THE REAL EXAM SKILL</span></div>
+  <p class="sec-sub">Crusty and around the mouth is impetigo. Learn what it is NOT.</p>
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🗺️ Where each one shows up</h3>
+      <svg viewBox="0 0 784 430" role="img" aria-label="Row of body silhouettes shading the typical distribution of cellulitis, impetigo, tinea, shingles and psoriasis"><defs><linearGradient id="idbdy" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3b2a52"/><stop offset=".5" stop-color="#2a1c3e"/><stop offset="1" stop-color="#18102a"/></linearGradient><path id="idbp" d="M60 6 C71 6 79 15 79 27 C79 36 75 43 69 46 L69 53 C88 57 102 66 106 80 L115 142 C116 151 108 156 104 148 L95 104 L93 172 C93 181 89 187 87 200 L83 274 C82 285 73 287 70 278 L64 206 L60 190 L56 206 L50 278 C47 287 38 285 37 274 L33 200 C31 187 27 181 27 172 L25 104 L16 148 C12 156 4 151 5 142 L14 80 C18 66 32 57 51 53 L51 46 C45 43 41 36 41 27 C41 15 49 6 60 6 Z"/></defs>
+<rect x="2" y="2" width="780" height="426" rx="18" fill="rgba(47,107,255,.09)" stroke="#2f6bff" stroke-width="2" stroke-dasharray="8 7"/>
+<text x="20" y="30" font-size="19" font-weight="900" fill="#bcd0ff">WHERE IT SHOWS UP — the real exam skill is telling these apart</text>
+<text x="20" y="51" font-size="13" font-style="italic" fill="#e2e9ff">Same body, five patterns. Distribution narrows the answer before you ever read the description.</text>
+<rect x="20" y="66" width="138" height="348" rx="13" fill="rgba(13,8,26,.42)" stroke="#ff3b6b" stroke-width="1.4"/>
+<text x="89" y="90" font-size="13.5" font-weight="900" fill="#ff3b6b" text-anchor="middle">CELLULITIS</text>
+<g transform="translate(26,100) scale(0.78)">
+<use href="#idbp" fill="url(#idbdy)" stroke="#cbb8ee" stroke-width="2"/>
+<ellipse cx="47" cy="240" rx="17" ry="34" fill="#ff3b6b" opacity=".72"/><ellipse cx="47" cy="240" rx="11" ry="26" fill="#ff8fa6" opacity=".55"/><path d="M40 208 C 44 214 52 216 56 210" fill="none" stroke="#ffe49a" stroke-width="2" stroke-dasharray="4 3"/>
+</g>
+<text x="89" y="372" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="middle">one leg, spreading,</text>
+<text x="89" y="385" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="middle">warm</text>
+<rect x="170" y="66" width="138" height="348" rx="13" fill="rgba(13,8,26,.62)" stroke="#ffc233" stroke-width="3"/>
+<text x="239" y="90" font-size="13.5" font-weight="900" fill="#ffe49a" text-anchor="middle">IMPETIGO</text>
+<g transform="translate(176,100) scale(0.78)">
+<use href="#idbp" fill="url(#idbdy)" stroke="#cbb8ee" stroke-width="2"/>
+<ellipse cx="60" cy="36" rx="13" ry="9" fill="#ffc233" opacity=".9"/><circle cx="10" cy="150" r="7" fill="#ffc233" opacity=".85"/><circle cx="110" cy="150" r="7" fill="#ffc233" opacity=".85"/><circle cx="55" cy="30" r="3" fill="#c8801f"/><circle cx="66" cy="39" r="3" fill="#c8801f"/>
+</g>
+<text x="239" y="372" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="middle">around nose &amp;</text>
+<text x="239" y="385" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="middle">mouth, hands</text>
+<rect x="320" y="66" width="138" height="348" rx="13" fill="rgba(13,8,26,.42)" stroke="#12b886" stroke-width="1.4"/>
+<text x="389" y="90" font-size="13.5" font-weight="900" fill="#12b886" text-anchor="middle">TINEA</text>
+<g transform="translate(326,100) scale(0.78)">
+<use href="#idbp" fill="url(#idbdy)" stroke="#cbb8ee" stroke-width="2"/>
+<circle cx="60" cy="24" r="12" fill="none" stroke="#12b886" stroke-width="4" opacity=".9"/><circle cx="74" cy="100" r="11" fill="none" stroke="#12b886" stroke-width="4"/><circle cx="44" cy="126" r="8" fill="none" stroke="#12b886" stroke-width="3.5"/><ellipse cx="60" cy="168" rx="15" ry="9" fill="#12b886" opacity=".55"/><circle cx="45" cy="283" r="6" fill="#12b886" opacity=".8"/><circle cx="75" cy="283" r="6" fill="#12b886" opacity=".8"/>
+</g>
+<text x="389" y="372" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="middle">scalp, trunk, groin,</text>
+<text x="389" y="385" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="middle">feet, nails</text>
+<rect x="470" y="66" width="138" height="348" rx="13" fill="rgba(13,8,26,.42)" stroke="#2f6bff" stroke-width="1.4"/>
+<text x="539" y="90" font-size="13.5" font-weight="900" fill="#2f6bff" text-anchor="middle">SHINGLES</text>
+<g transform="translate(476,100) scale(0.78)">
+<use href="#idbp" fill="url(#idbdy)" stroke="#cbb8ee" stroke-width="2"/>
+<path d="M62 92 C 78 90 92 100 100 118 L 100 134 C 90 116 76 108 62 110 Z" fill="#2f6bff" opacity=".85"/><path d="M62 92 C 78 90 92 100 100 118" fill="none" stroke="#8fb4ff" stroke-width="2"/><line x1="60" y1="50" x2="60" y2="200" stroke="#ffe49a" stroke-width="2" stroke-dasharray="6 5"/>
+</g>
+<text x="539" y="372" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="middle">ONE band, ONE side,</text>
+<text x="539" y="385" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="middle">stops at midline</text>
+<rect x="620" y="66" width="138" height="348" rx="13" fill="rgba(13,8,26,.42)" stroke="#9d5cff" stroke-width="1.4"/>
+<text x="689" y="90" font-size="13.5" font-weight="900" fill="#9d5cff" text-anchor="middle">PSORIASIS</text>
+<g transform="translate(626,100) scale(0.78)">
+<use href="#idbp" fill="url(#idbdy)" stroke="#cbb8ee" stroke-width="2"/>
+<ellipse cx="60" cy="22" rx="14" ry="9" fill="#9d5cff" opacity=".8"/><circle cx="14" cy="128" r="9" fill="#9d5cff" opacity=".85"/><circle cx="106" cy="128" r="9" fill="#9d5cff" opacity=".85"/><ellipse cx="45" cy="212" rx="10" ry="13" fill="#9d5cff" opacity=".85"/><ellipse cx="75" cy="212" rx="10" ry="13" fill="#9d5cff" opacity=".85"/><ellipse cx="60" cy="176" rx="12" ry="8" fill="#9d5cff" opacity=".7"/>
+</g>
+<text x="689" y="372" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="middle">EXTENSOR: elbows,</text>
+<text x="689" y="385" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="middle">knees, scalp, sacrum</text></svg>
+      <div class="mn">🧠 <b>Around the mouth + golden crust = impetigo.</b> Same body, five patterns — distribution answers the question first.</div>
+    </div>
+
+    <div class="card span2">
+      <h3>📊 The look-alikes</h3>
+      <table>
+        <tr><th class="up">CONDITION</th><th class="lo">HOW IT DIFFERS FROM IMPETIGO</th></tr>
+        <tr><td><b>Cold sore (HSV-1)</b></td><td>A tight <b>cluster of small vesicles</b> on the <b>lip border</b>, preceded by tingling; recurs in the same spot. Impetigo is more scattered, oozier, and crusts golden.</td></tr>
+        <tr><td><b>Cellulitis</b></td><td><b>Painful</b>, hot, swollen, spreading, often <b>febrile</b>, deep. Impetigo is itchy, superficial and crusty in a well child.</td></tr>
+        <tr><td><b>Eczema (atopic dermatitis)</b></td><td>Chronic, <b>dry, itchy, flexural</b>. Watch out: eczema is a common <b>portal of entry</b>, so a child can have both — a suddenly weeping, crusted eczema patch is usually secondarily infected.</td></tr>
+        <tr><td><b>Tinea corporis</b></td><td><b>Ring</b> with a scaly raised edge and a <b>clear centre</b>. Fungal — treat with an antifungal, not an antibiotic.</td></tr>
+        <tr><td><b>Chickenpox / shingles</b></td><td>Vesicles on a <b>red base</b>; chickenpox is widespread with fever, shingles is one <b>dermatome</b>. Viral — antivirals, not antibiotics.</td></tr>
+        <tr><td><b>Scabies</b></td><td>Intense <b>night-time itch</b>, burrows in web spaces, often several family members. Frequently gets secondarily infected with impetigo.</td></tr>
+      </table>
+      <div class="mn">🧠 <b>Golden crust = bacteria. Clustered blisters = virus. A ring = fungus. Night itch in the whole family = mites.</b></div>
+    </div>
+
+    <div class="card topaz">
+      <h3>⭐ NCLEX traps</h3>
+      <ul class="tick">
+        <li>The <b>crusting stage is the MOST contagious</b>, not the least.</li>
+        <li>School exclusion is tied to <b>treatment started + lesions drying</b>, not to how the sores look alone.</li>
+        <li>Teaching must include <b>separate laundry in hot water</b> — a frequently-chosen wrong-if-omitted option.</li>
+        <li>The renal complication follows <b>strep skin</b> infection; <b>rheumatic fever follows strep throat</b>.</li>
+        <li><b>Ointment goes on clean skin</b> after the crust is soaked off.</li>
+        <li>A painful, punched-out ulcer that scars is <b>ecthyma</b> — it needs an <b>oral</b> antibiotic.</li>
+      </ul>
+      <div class="mn">🧠 If the option mentions <b>hot water and separate laundry</b>, look at it hard — it is usually correct.</div>
+    </div>
+
+    <div class="card tealc">
+      <h3>🧠 One-line contrasts</h3>
+      <ul class="tick">
+        <li><b>Impetigo vs cellulitis</b> — crusty &amp; itchy vs hot &amp; painful</li>
+        <li><b>Impetigo vs HSV</b> — golden crust vs grouped vesicles that recur in one spot</li>
+        <li><b>Impetigo vs tinea</b> — crust vs ring with a clear centre</li>
+        <li><b>Non-bullous vs bullous</b> — tiny vesicles vs big floppy blisters</li>
+        <li><b>Impetigo vs ecthyma</b> — heals clean vs punches into the dermis and scars</li>
+      </ul>
+      <div class="mn">🧠 <b>Crust, cluster, ring, ulcer.</b> Four words, four diagnoses.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= RECALL 2 ================= -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc topazbg"><span class="big">🍯 Honey-coloured crust</span>Child · around nose &amp; mouth · itchy.</div>
+    <div class="rc rubybg"><span class="big">🚨 Crusting = most contagious</span>Contact + fomites: towels, linen, toys.</div>
+    <div class="rc citrine"><span class="big">💊 Few = cream · Lots = pill</span>Mupirocin topically; oral for widespread, bullous or ecthyma.</div>
+    <div class="rc tealbg"><span class="big">🏫 5 S's</span>School out · Soap · Separate laundry · Short nails · Soak the crust.</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 8 rapid-fire questions</summary>
+      <div class="qa">Q1: Which organisms cause impetigo? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Staphylococcus aureus and Group A Streptococcus (Streptococcus pyogenes) — alone or together.</div></div>
+      <div class="qa">Q2: Describe the classic lesion and where it appears. <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Itchy red sores that burst and dry into a stuck-on, honey-coloured (golden) crust, classically around the nose and mouth of a young child; also hands and feet.</div></div>
+      <div class="qa">Q3: At which stage is impetigo most contagious? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">When the vesicles rupture and crust — the oozing/crusting stage. A crusted lesion is still shedding bacteria.</div></div>
+      <div class="qa">Q4: List the five home/school teaching points. <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">1. Stay home from school/daycare until treated (about 24–48 hours) and lesions are drying. 2. Wash hands before and after touching the sores. 3. Wash the child's clothes, towels and linen separately in hot water. 4. Keep fingernails short and filed. 5. Gently soak and remove crusts before applying the ointment.</div></div>
+      <div class="qa">Q5: When would you expect an oral antibiotic rather than a topical one? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Widespread lesions, bullous impetigo, ecthyma, several household members affected, or failure of topical treatment. Topical mupirocin is used for a few localised lesions.</div></div>
+      <div class="qa">Q6: Which serious complication follows a streptococcal skin infection, and when? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Post-streptococcal glomerulonephritis, typically 1–3 weeks after the skin infection. Teach families to watch for tea/cola-coloured urine, puffy eyes, reduced urine output, headache and high blood pressure.</div></div>
+      <div class="qa">Q7: A child has a painful, punched-out ulcer with a thick crust on the leg. What is it and what changes? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Ecthyma — impetigo that has extended into the dermis. It is painful, needs an oral antibiotic, and it will scar.</div></div>
+      <div class="qa">Q8: A parent asks whether they can just put the ointment straight over the crust. What do you say? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">No — soften the crust first with a warm soapy soak and gently remove it, then apply the ointment to clean skin, or the medicine will not reach the bacteria. Wash hands before and after, and wear gloves if available.</div></div>
+    </details>
+  </div>
+</section>
+
+
+<footer>
+  <div class="ccc"><span style="background:rgba(0,194,199,.7)">SKIN MODEL</span>→<span style="background:rgba(157,92,255,.7)">PATHO</span>→<span style="background:rgba(47,107,255,.7)">CLUES</span>→<span style="background:rgba(18,184,134,.7)">CARE</span>→<span style="background:rgba(255,194,51,.75);color:#231a02">TELL APART</span></div>
+  <div>NG-209 · Impetigo · Skin &amp; Wound set · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>

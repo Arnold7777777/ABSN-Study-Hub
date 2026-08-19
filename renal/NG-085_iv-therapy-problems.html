@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IV Therapy Problems · NG-085 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+
+/* ---------- page extras (appended — shell rules untouched) ---------- */
+nav a.c0{background:rgba(255,194,51,.75);color:#231a02}
+#map      .sec-h h2{color:#ffe49a} #map .step{background:var(--topaz);color:#231a02}
+#local    .sec-h h2{color:#9ff2ee} #local .step{background:var(--teal);color:#00252b}
+#systemic .sec-h h2{color:#d9c2ff} #systemic .step{background:var(--amethyst)}
+#infect   .sec-h h2{color:#a5f3d4} #infect .step{background:var(--emerald);color:#03291c}
+.trio{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr))}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c0" href="#map">🗺️ The map</a>
+  <a class="c1" href="#local">💪 At the site</a>
+  <a class="c2" href="#systemic">🫀 Whole body</a>
+  <a class="c3" href="#infect">🦠 Infection</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Renal + Fluid · Fundamentals of Nursing</div>
+  <h1>IV Therapy Problems <span class="drop">🚨</span></h1>
+  <p class="sub">Complications of IV therapy — recognize it, then act in the right order</p>
+  <div class="chips">
+    <span class="chip id">NG-085</span>
+    <span class="chip cat">RENAL + FLUID</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede"><b>Every IV is a hole in a vein you are responsible for.</b> Six things go wrong — <i>infiltration, extravasation, phlebitis, air embolism, fluid overload, infection</i> — and for each one the exam wants two things: <b>the sign you noticed first</b> and <b>your very next action</b>.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc tealbg"><span class="big">❄️ Cool · pale · swollen</span><b>INFILTRATION</b> — fluid leaked into tissue. <b>Stop &amp; remove</b>, elevate.</div>
+  <div class="rc rubybg"><span class="big">🔥 Red · hot · cord</span><b>PHLEBITIS</b> — the vein is inflamed. <b>Stop &amp; remove</b>, warm compress.</div>
+  <div class="rc citrine"><span class="big">💊 Burning + blister</span><b>EXTRAVASATION</b> — a vesicant leaked. <b>Stop but LEAVE the catheter in</b>, antidote.</div>
+  <div class="rc topazbg"><span class="big">😰 Sudden dyspnea + chest pain</span><b>AIR EMBOLISM</b> — clamp the line, <b>LEFT side, head DOWN</b>, O₂, call.</div>
+</div>
+
+<!-- ============ THE MAP ============ -->
+<section id="map">
+  <div class="sec-h"><span class="icon">🗺️</span><h2>THE MAP</h2><span class="step">START HERE · WHERE IT GOES WRONG</span></div>
+  <p class="sec-sub">One catheter, one vein — and six different ways the picture can break.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🗺️ One IV site, six complications</h3>
+      <svg viewBox="-10 -10 981 420" role="img" aria-label="Cross section of an arm vein with an IV catheter, labelled with six complications: fluid leaking into tissue is infiltration, a vesicant leaking is extravasation, inflammation of the vein wall is phlebitis, blood leaking under the skin is hematoma, air entering the line is air embolism, and germs entering the hub is infection">
+        <rect x="-6" y="-6" width="973" height="412" rx="18" fill="rgba(13,8,26,.55)" stroke="rgba(255,255,255,.35)" stroke-width="2"/>
+        <text x="28" y="42" font-size="20" font-weight="900" fill="#ffe49a">CROSS-SECTION OF AN IV SITE</text>
+
+        <!-- skin / tissue -->
+        <rect x="34" y="150" width="832" height="180" rx="16" fill="rgba(255,208,189,.20)" stroke="#ffd0bd" stroke-width="2"/>
+        <text x="48" y="176" font-size="14" font-weight="800" fill="#ffd0bd">subcutaneous tissue</text>
+        <!-- vein -->
+        <rect x="34" y="228" width="832" height="52" rx="26" fill="rgba(47,107,255,.55)" stroke="#9ecbff" stroke-width="3"/>
+        <text x="52" y="262" font-size="16" font-weight="900" fill="#dfe9ff">VEIN</text>
+        <!-- catheter -->
+        <rect x="470" y="90" width="26" height="130" rx="8" fill="#e9dcff" transform="rotate(28 483 155)"/>
+        <rect x="500" y="196" width="120" height="20" rx="9" fill="#f0e6ff" transform="rotate(28 560 206)"/>
+        <circle cx="452" cy="86" r="20" fill="#ffc233" stroke="#fff3d1" stroke-width="2"/>
+        <text x="452" y="92" font-size="14" font-weight="900" fill="#2a1f00" text-anchor="middle">hub</text>
+        <text x="392" y="66" font-size="13.5" font-weight="800" fill="#ffe49a" text-anchor="middle">catheter + hub</text>
+        <line x1="530" y1="248" x2="612" y2="248" stroke="#e9dcff" stroke-width="10" stroke-linecap="round"/>
+        <text x="640" y="253" font-size="13" font-weight="800" fill="#e9dcff">tip inside the vein ✅</text>
+
+        <!-- callouts -->
+        <g font-size="13.5" font-weight="800">
+          <!-- 1 infiltration -->
+          <circle cx="150" cy="196" r="17" fill="#00c2c7"/><text x="150" y="202" font-size="15" font-weight="900" fill="#00252b" text-anchor="middle">1</text>
+          <text x="176" y="192" fill="#9ff2ee">INFILTRATION</text>
+          <text x="176" y="212" font-size="12.5" font-weight="600" fill="#d8fff0">non-vesicant fluid into tissue</text>
+          <ellipse cx="150" cy="300" rx="80" ry="24" fill="rgba(0,194,199,.4)" stroke="#9ff2ee" stroke-width="2" stroke-dasharray="6 5"/>
+          <text x="150" y="306" font-size="12.5" font-weight="800" fill="#eafff7" text-anchor="middle">fluid pooling ❄️</text>
+
+          <!-- 2 extravasation -->
+          <circle cx="330" cy="196" r="17" fill="#ff8a3d"/><text x="330" y="202" font-size="15" font-weight="900" fill="#2b1200" text-anchor="middle">2</text>
+          <text x="356" y="192" fill="#ffd0bd">EXTRAVASATION</text>
+          <text x="356" y="212" font-size="12.5" font-weight="600" fill="#ffe3d3">same leak, but a VESICANT 💊</text>
+          <path d="M300 300 l16 -18 l10 14 l14 -12 l-4 22 z" fill="#ff8a3d"/>
+          <text x="352" y="306" font-size="12.5" font-weight="800" fill="#ffd0bd">blisters · tissue death</text>
+
+          <!-- 3 phlebitis -->
+          <circle cx="700" cy="196" r="17" fill="#ff3b6b"/><text x="700" y="202" font-size="15" font-weight="900" fill="#fff" text-anchor="middle">3</text>
+          <text x="726" y="192" fill="#ff9db4">PHLEBITIS</text>
+          <text x="726" y="212" font-size="12.5" font-weight="600" fill="#ffd9e2">vein WALL inflamed 🔥</text>
+          <rect x="660" y="228" width="200" height="52" rx="26" fill="rgba(255,59,107,.5)" stroke="#ff3b6b" stroke-width="4"/>
+          <text x="760" y="260" font-size="12.5" font-weight="900" fill="#ffe3ea" text-anchor="middle">red streak · hard cord</text>
+
+          <!-- 4 hematoma -->
+          <circle cx="560" cy="330" r="17" fill="#c02255"/><text x="560" y="336" font-size="15" font-weight="900" fill="#fff" text-anchor="middle">4</text>
+          <text x="586" y="326" fill="#ff9db4">HEMATOMA</text>
+          <text x="586" y="346" font-size="12.5" font-weight="600" fill="#ffd9e2">blood leaks out — bruise &amp; lump</text>
+
+          <!-- 5 air embolism -->
+          <circle cx="452" cy="40" r="17" fill="#9d5cff"/><text x="452" y="46" font-size="15" font-weight="900" fill="#fff" text-anchor="middle">5</text>
+          <text x="478" y="36" fill="#d9c2ff">AIR EMBOLISM</text>
+          <text x="478" y="56" font-size="12.5" font-weight="600" fill="#e9dcff">air enters the tubing ➜ heart</text>
+          <circle cx="418" cy="118" r="7" fill="none" stroke="#d9c2ff" stroke-width="2.5"/>
+          <circle cx="400" cy="140" r="5" fill="none" stroke="#d9c2ff" stroke-width="2.5"/>
+
+          <!-- 6 infection -->
+          <circle cx="700" cy="88" r="17" fill="#12b886"/><text x="700" y="94" font-size="15" font-weight="900" fill="#03291c" text-anchor="middle">6</text>
+          <text x="726" y="84" fill="#a5f3d4">INFECTION</text>
+          <text x="726" y="104" font-size="12.5" font-weight="600" fill="#d8fff0">germs enter at the hub or site 🦠</text>
+          <text x="666" y="94" font-size="17">🦠</text>
+        </g>
+        <text x="34" y="376" font-size="13.5" font-weight="900" fill="#ffe49a">…plus FLUID OVERLOAD 🫗 — that one is not at the site, it is in the whole circulation.</text>
+      </svg>
+      <div class="mn">🧠 <b>“Out of the vein · in the vein · in the line · in the body.”</b> Sort every IV problem by <i>where</i> it is: fluid <b>out</b> of the vein (infiltration/extravasation), damage <b>in</b> the vein (phlebitis/hematoma), something wrong <b>in the line</b> (air, germs), or too much <b>in the body</b> (overload).</div>
+    </div>
+
+    <div class="card topaz span2">
+      <h3>⭐ The universal first move: <mark>STOP THE INFUSION</mark></h3>
+      <p>Almost every answer choice on this topic starts the same way. What changes afterwards is <b>whether the catheter comes out</b> and <b>how you position the client</b>.</p>
+      <div class="ladder">
+        <div class="rung"><div class="n" style="background:var(--topaz);color:#231a02">S</div><div class="t"><b>STOP</b> the infusion — clamp it. <i>(Fluid overload: slow to a keep-vein-open rate rather than disconnecting, unless ordered otherwise.)</i></div></div>
+        <div class="rung"><div class="n" style="background:var(--topaz);color:#231a02">A</div><div class="t"><b>ASSESS</b> the site and the client — skin temp, color, swelling, pain, blood return, vital signs, lung sounds.</div></div>
+        <div class="rung"><div class="n" style="background:var(--topaz);color:#231a02">V</div><div class="t"><b>VESICANT?</b> If yes — <span class="never">leave the catheter in place</span> and aspirate. If no — discontinue the catheter.</div></div>
+        <div class="rung"><div class="n" style="background:var(--topaz);color:#231a02">E</div><div class="t"><b>ELEVATE / POSITION</b> — elevate the limb; for air embolism it's the whole body: <b>left side, head down</b>.</div></div>
+        <div class="rung"><div class="n" style="background:var(--topaz);color:#231a02">D</div><div class="t"><b>DOCUMENT &amp; report</b> — site appearance, size of swelling, drug/fluid, time, actions, provider notified. Restart in the <b>opposite</b> extremity.</div></div>
+      </div>
+      <div class="mn">🧠 <b>“SAVED”</b> — <b>S</b>top · <b>A</b>ssess · <b>V</b>esicant? · <b>E</b>levate/position · <b>D</b>ocument. <i>You SAVED the limb.</i></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AT THE SITE ============ -->
+<section id="local">
+  <div class="sec-h"><span class="icon">💪</span><h2>AT THE SITE</h2><span class="step">STEP 1 · LOCAL PROBLEMS</span></div>
+  <p class="sec-sub">Everything here is felt with your hand — temperature, swelling and the line of the vein.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>❄️🔥 The two arms you must be able to tell apart</h3>
+      <div class="duo">
+        <svg viewBox="0 0 440 340" role="img" aria-label="Infiltration: the forearm around the IV site is swollen, pale and taut, cool to touch, with the catheter tip outside the vein and no blood return">
+          <rect x="6" y="6" width="428" height="328" rx="16" fill="rgba(0,194,199,.16)" stroke="#00c2c7" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="24" y="44" font-size="21" font-weight="900" fill="#9ff2ee">❄️ INFILTRATION</text>
+          <text x="24" y="68" font-size="14" font-style="italic" fill="#d8fff0">the fluid is beside the vein</text>
+          <!-- arm -->
+          <path d="M60 130 h250 a70 52 0 0 1 0 104 h-250 z" fill="rgba(255,208,189,.35)" stroke="#ffd0bd" stroke-width="2.5"/>
+          <!-- swelling bulge -->
+          <ellipse cx="196" cy="182" rx="86" ry="60" fill="rgba(0,194,199,.45)" stroke="#9ff2ee" stroke-width="3"/>
+          <!-- vein -->
+          <rect x="60" y="172" width="290" height="20" rx="10" fill="rgba(47,107,255,.6)" stroke="#9ecbff" stroke-width="2"/>
+          <!-- catheter out of vein -->
+          <rect x="238" y="120" width="14" height="52" rx="6" fill="#f0e6ff" transform="rotate(24 245 146)"/>
+          <circle cx="222" cy="204" r="6" fill="#9ff2ee"/><circle cx="248" cy="216" r="5" fill="#9ff2ee"/><circle cx="196" cy="220" r="5" fill="#9ff2ee"/>
+          <text x="300" y="118" font-size="12.5" font-weight="800" fill="#9ff2ee">tip has slipped OUT</text>
+          <text x="24" y="272" font-size="15" font-weight="900" fill="#9ff2ee">COOL · PALE · SWOLLEN · TAUT</text>
+          <text x="24" y="296" font-size="13.5" fill="#d8fff0">no blood return · infusion slows or stops</text>
+          <text x="24" y="320" font-size="13.5" fill="#d8fff0">dull ache, tightness — often NOT very painful</text>
+        </svg>
+
+        <svg viewBox="0 0 440 340" role="img" aria-label="Phlebitis: the vein above the IV site is a red hot streak with a hard palpable cord, the skin is warm and tender">
+          <rect x="6" y="6" width="428" height="328" rx="16" fill="rgba(255,59,107,.16)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="24" y="44" font-size="21" font-weight="900" fill="#ff9db4">🔥 PHLEBITIS</text>
+          <text x="24" y="68" font-size="14" font-style="italic" fill="#ffd9e2">the vein itself is inflamed</text>
+          <path d="M60 130 h250 a70 52 0 0 1 0 104 h-250 z" fill="rgba(255,208,189,.35)" stroke="#ffd0bd" stroke-width="2.5"/>
+          <!-- red streak along vein -->
+          <rect x="60" y="166" width="290" height="32" rx="16" fill="rgba(255,59,107,.55)"/>
+          <rect x="60" y="174" width="290" height="16" rx="8" fill="#ff3b6b"/>
+          <!-- cord bumps -->
+          <circle cx="130" cy="182" r="11" fill="#c02255"/><circle cx="190" cy="182" r="11" fill="#c02255"/><circle cx="250" cy="182" r="11" fill="#c02255"/>
+          <rect x="238" y="120" width="14" height="56" rx="6" fill="#f0e6ff" transform="rotate(24 245 148)"/>
+          <text x="296" y="118" font-size="12.5" font-weight="800" fill="#ff9db4">tip still in the vein</text>
+          <text x="60" y="228" font-size="12.5" font-weight="900" fill="#ffe3ea">↑ red streak follows the vein</text>
+          <text x="24" y="272" font-size="15" font-weight="900" fill="#ff9db4">WARM · RED · TENDER · HARD CORD</text>
+          <text x="24" y="296" font-size="13.5" fill="#ffd9e2">painful along the vein · may still have blood return</text>
+          <text x="24" y="320" font-size="13.5" fill="#ffd9e2">with a clot = THROMBOphlebitis</text>
+        </svg>
+      </div>
+      <div class="mn">🧠 <b>“InfilTRATE is cool and TAUT · PhleBITIS BITES and burns.”</b> Put the back of your hand on the site: <b>cold and puffy = infiltration</b>, <b>hot and red = phlebitis</b>. That single touch sorts the two most confused answers on the exam.</div>
+    </div>
+
+    <div class="card tealc">
+      <h3>❄️ INFILTRATION — non-vesicant fluid into the tissue</h3>
+      <p><b>What it is:</b> the catheter tip slips out of (or through) the vein and <b>non-vesicant</b> IV fluid leaks into the surrounding tissue.</p>
+      <p><b>👀 Recognize:</b></p>
+      <ul class="tick">
+        <li>❄️ Skin <b>cool</b> to touch, <b>pale/blanched</b>, <b>tight and shiny</b></li>
+        <li>🎈 <b>Swelling</b> at or above the site; sleeve or ID band feels tight</li>
+        <li>🩸 <b>No blood return</b>; infusion slows, stops or pump alarms</li>
+        <li>😐 Dull ache or burning; <b>leaking</b> around the insertion site</li>
+      </ul>
+      <p><b>🚑 Immediate action:</b></p>
+      <ul class="tick">
+        <li>1️⃣ <b>STOP the infusion</b></li>
+        <li>2️⃣ <b>Discontinue (remove) the catheter</b></li>
+        <li>3️⃣ <b>Elevate</b> the extremity</li>
+        <li>4️⃣ Apply a compress — <b>warm</b> for most isotonic fluids to aid absorption; <b>cool</b> is used for some solutions. <i>Practice varies — follow your facility's policy.</i></li>
+        <li>5️⃣ <b>Restart the IV in the OTHER arm</b>, above nothing that just leaked</li>
+        <li>6️⃣ Measure and document the swelling; monitor circulation, sensation, movement</li>
+      </ul>
+      <div class="mn">🧠 <b>“Infiltration = the fluid took a detour.”</b> Cool, pale, puffy, no blood return — pull it and put it in the other arm.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>💊 EXTRAVASATION — the same leak, but the drug <b>burns</b></h3>
+      <p><b>What it is:</b> a <b>VESICANT</b> (tissue-damaging) drug leaks into the tissue. This is the emergency version of infiltration — it can cause <b>blistering, tissue necrosis, nerve damage and loss of function</b>.</p>
+      <p><b>💊 Classic vesicants:</b> many <b>chemotherapy</b> agents · <b>vasopressors</b> (norepinephrine, dopamine, vasopressin) · <b>concentrated potassium</b> · <b>calcium</b> · <b>promethazine</b> · <b>phenytoin</b> · <b>vancomycin</b> · <b>contrast dye</b> · <b>TPN</b> · <b>D50</b>.</p>
+      <p><b>👀 Recognize:</b> <b>burning or stinging pain</b> out of proportion, redness that turns dusky, <b>blistering</b>, cool/swollen skin, later <b>ulceration and sloughing</b>.</p>
+      <p><b>🚑 Immediate action — the order matters:</b></p>
+      <ul class="tick">
+        <li>1️⃣ <b>STOP the infusion immediately</b></li>
+        <li>2️⃣ <span class="never">DO NOT remove the catheter yet</span> — <b>aspirate</b> residual drug back through it first</li>
+        <li>3️⃣ <b>Notify the provider NOW</b> — ask about an <b>antidote</b>: <b>phentolamine</b> for vasopressor extravasation, <b>hyaluronidase</b> for many others (agent-specific)</li>
+        <li>4️⃣ <b>Mark the border</b> of the affected area, measure it, and photograph per policy</li>
+        <li>5️⃣ <b>Elevate</b> the limb; apply warm or cold per the specific drug protocol</li>
+        <li>6️⃣ Remove the catheter only <i>after</i> the antidote step is complete, then document fully</li>
+      </ul>
+      <div class="mn">🧠 <b>“EXTRA bad = EXTRAvasation. Don't pull the straw before you sip back.”</b> The catheter is your <i>only</i> route to aspirate the drug and instill the antidote — pulling it first throws that away.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🔥 PHLEBITIS — inflammation of the vein wall</h3>
+      <p><b>Three causes:</b> <b>mechanical</b> (catheter too big, poorly secured, joint movement) · <b>chemical</b> (irritating drug, high osmolarity, wrong dilution) · <b>bacterial</b> (contamination — the most dangerous).</p>
+      <p><b>👀 Recognize:</b></p>
+      <ul class="tick">
+        <li>🔥 <b>Redness, warmth, tenderness</b> along the vein</li>
+        <li>➰ <b>Red streak</b> and a <b>palpable, hard, cord-like vein</b></li>
+        <li>🎈 Site swelling; pain with infusion; sometimes low-grade fever</li>
+        <li>🩸 <b>Thrombophlebitis</b> = phlebitis <b>+ a clot</b> — same picture with a firm, painful, immovable vein</li>
+      </ul>
+      <p><b>🚑 Immediate action:</b> <b>stop the infusion → discontinue the catheter → warm moist compress → elevate → restart in the opposite extremity → notify provider and document</b> (grade it on your facility's <span class="mono">0–4</span> phlebitis scale). ❌ <span class="never">Never massage or rub the site</span> — you could dislodge a clot.</p>
+      <div class="mn">🧠 <b>“Hot, red, cord = the vein is scorched.”</b> Infiltration gets a <i>cool</i> arm; phlebitis gets a <i>warm compress</i> on a <i>hot</i> arm — the temperature you <b>find</b> and the temperature you <b>apply</b> are opposites there. Never rub it.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🩸 HEMATOMA &amp; the smaller site problems</h3>
+      <ul class="tick">
+        <li><b>Hematoma</b> — blood leaks out of the vein: <b>ecchymosis, firm lump, tenderness</b>, often after a difficult stick or on removal. <b>Action:</b> remove the catheter, apply <b>firm direct pressure</b> (longer if on anticoagulants), elevate, then ice early / warm later per policy.</li>
+        <li><b>Occlusion / clotted catheter</b> — infusion stops, pump alarms, no blood return. <span class="never">Never forcibly flush a resistant line</span> and <span class="never">never “milk” the tubing</span> — you could push a clot into circulation.</li>
+        <li><b>Venous spasm</b> — sudden cramping pain, sluggish flow, often from cold or irritating fluid. Slow the rate and apply warmth.</li>
+        <li><b>Nerve, tendon or ligament injury</b> — sharp shooting pain, tingling, numbness during insertion. <b>Stop and remove immediately</b>, notify the provider.</li>
+        <li><b>Catheter embolism</b> — a piece shears off. <span class="never">Never reinsert the stylet/needle into the catheter.</span> If suspected: apply a tourniquet high on the extremity, place the client on the <b>left side</b>, notify the provider, anticipate an x-ray.</li>
+      </ul>
+      <div class="mn">🧠 <b>“Never force, never rub, never re-thread.”</b> Three verbs that turn a small IV problem into a big one.</div>
+    </div>
+
+    <div class="card deep span2">
+      <h3>📊 Infiltration vs Extravasation vs Phlebitis — the table to memorize</h3>
+      <table>
+        <tr><th style="width:20%">&nbsp;</th><th class="up">❄️ INFILTRATION</th><th style="color:#ffd0bd;font-weight:900">💊 EXTRAVASATION</th><th class="lo">🔥 PHLEBITIS</th></tr>
+        <tr><td><b>What leaked</b></td><td><b>Non</b>-vesicant fluid</td><td><b>Vesicant</b> drug</td><td>Nothing — the vein is inflamed</td></tr>
+        <tr><td><b>Skin temp</b></td><td><b>COOL</b></td><td>Cool at first</td><td><b>WARM / HOT</b></td></tr>
+        <tr><td><b>Skin color</b></td><td><b>Pale, blanched, shiny</b></td><td>Red → dusky → blistered</td><td><b>Red streak along the vein</b></td></tr>
+        <tr><td><b>Swelling</b></td><td>Yes, taut</td><td>Yes</td><td>Some, plus a hard cord</td></tr>
+        <tr><td><b>Pain</b></td><td>Dull ache</td><td><b>Burning, severe</b></td><td>Tender along the vein</td></tr>
+        <tr><td><b>Blood return</b></td><td><b>Absent</b></td><td>Absent or sluggish</td><td>May be present</td></tr>
+        <tr><td><b>Remove the catheter?</b></td><td><b>Yes</b> — right away</td><td><span class="never">NOT YET</span> — aspirate + antidote first</td><td><b>Yes</b> — right away</td></tr>
+        <tr><td><b>Compress</b></td><td>Warm (or cool) per policy</td><td><b>Drug-specific</b> protocol</td><td><b>Warm, moist</b></td></tr>
+        <tr><td><b>Worst outcome</b></td><td>Compartment syndrome</td><td><b>Necrosis, loss of function</b></td><td>Thrombophlebitis, sepsis</td></tr>
+      </table>
+      <div class="mn">🧠 <b>“Cool = the fluid fell. Hot = the vein is hell. Burning = call, and leave the catheter in the wall.”</b> Three rhymes, three answers.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHOLE BODY ============ -->
+<section id="systemic">
+  <div class="sec-h"><span class="icon">🫀</span><h2>WHOLE BODY</h2><span class="step">STEP 2 · SYSTEMIC EMERGENCIES</span></div>
+  <p class="sec-sub">These do not show up in the arm — they show up in the lungs, the heart and the level of consciousness.</p>
+
+  <div class="grid">
+    <div class="card garnet span2">
+      <h3>🚨 AIR EMBOLISM — sudden dyspnea + chest pain during an infusion</h3>
+      <p><b>What it is:</b> air enters the vascular system through the tubing, a loose connection, or an open central line, travels to the <b>right side of the heart</b>, and forms an <b>air lock</b> that blocks blood from reaching the lungs. <mark>Highest risk: central lines — during insertion, tubing changes and removal.</mark></p>
+      <svg viewBox="0 0 880 330" role="img" aria-label="Left panel: air bubbles travel up the IV tubing into the right side of the heart forming an air lock. Right panel: the client is positioned on the left side with the head of the bed lowered in Trendelenburg so the air is trapped in the right ventricle">
+        <rect x="6" y="6" width="868" height="318" rx="16" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.35)" stroke-width="2"/>
+
+        <!-- panel A: the air lock -->
+        <rect x="24" y="26" width="404" height="278" rx="14" fill="rgba(255,59,107,.16)" stroke="#ff3b6b" stroke-width="2.5" stroke-dasharray="7 6"/>
+        <text x="226" y="58" font-size="17" font-weight="900" fill="#ff9db4" text-anchor="middle">💨 AIR ➜ RIGHT HEART = AIR LOCK</text>
+        <!-- tubing -->
+        <path d="M52 258 C 120 258 120 150 190 150" fill="none" stroke="#e9dcff" stroke-width="10" stroke-linecap="round"/>
+        <g fill="none" stroke="#9ecbff" stroke-width="2.5">
+          <circle cx="80" cy="256" r="7"/><circle cx="112" cy="228" r="6"/><circle cx="126" cy="186" r="7"/><circle cx="158" cy="156" r="6"/>
+        </g>
+        <text x="60" y="288" font-size="12.5" font-weight="800" fill="#dfe9ff">air in the tubing</text>
+        <!-- heart -->
+        <path d="M232 106 c 0 -30 46 -34 46 -4 c 0 -30 46 -26 46 4 c 0 44 -46 74 -46 96 c 0 -22 -46 -52 -46 -96 z" fill="rgba(192,34,85,.65)" stroke="#ffd0bd" stroke-width="3"/>
+        <circle cx="262" cy="130" r="15" fill="rgba(255,255,255,.55)"/>
+        <circle cx="288" cy="152" r="11" fill="rgba(255,255,255,.55)"/>
+        <text x="352" y="120" font-size="13" font-weight="900" fill="#ffe49a">air lock in the</text>
+        <text x="352" y="138" font-size="13" font-weight="900" fill="#ffe49a">right ventricle</text>
+        <text x="226" y="240" font-size="13.5" font-weight="900" fill="#ffe3ea" text-anchor="middle">blood cannot reach the lungs 🫁</text>
+        <text x="226" y="264" font-size="13" font-style="italic" fill="#ffd9e2" text-anchor="middle">sudden dyspnea · chest pain · hypotension</text>
+
+        <!-- panel B: Durant position -->
+        <rect x="452" y="26" width="404" height="278" rx="14" fill="rgba(18,184,134,.16)" stroke="#12b886" stroke-width="2.5" stroke-dasharray="7 6"/>
+        <text x="654" y="58" font-size="17" font-weight="900" fill="#a5f3d4" text-anchor="middle">✅ LEFT SIDE + HEAD DOWN</text>
+        <!-- tilted bed -->
+        <path d="M494 214 L806 160 L806 190 L494 244 Z" fill="rgba(18,184,134,.45)" stroke="#a5f3d4" stroke-width="2.5"/>
+        <rect x="486" y="230" width="12" height="40" rx="5" fill="#a5f3d4"/>
+        <rect x="800" y="176" width="12" height="94" rx="5" fill="#a5f3d4"/>
+        <!-- client lying, head to the left & low -->
+        <circle cx="540" cy="196" r="22" fill="#ffd0bd" stroke="#fff" stroke-width="2"/>
+        <path d="M562 200 C 620 178 690 168 760 158 L 764 182 C 694 192 624 202 566 220 Z" fill="rgba(255,208,189,.7)" stroke="#fff" stroke-width="2"/>
+        <text x="540" y="252" font-size="12.5" font-weight="900" fill="#eafff7" text-anchor="middle">head LOW</text>
+        <text x="760" y="140" font-size="12.5" font-weight="900" fill="#eafff7" text-anchor="middle">feet HIGH</text>
+        <text x="654" y="284" font-size="13.5" font-weight="900" fill="#a5f3d4" text-anchor="middle">Trendelenburg, LEFT lateral — traps the air</text>
+        <text x="654" y="94" font-size="13" font-style="italic" fill="#d8fff0" text-anchor="middle">air floats to the apex of the right ventricle instead of the lungs</text>
+      </svg>
+      <p style="margin-top:8px"><b>👀 Recognize:</b> <b>sudden dyspnea</b> · <b>chest pain</b> · <b>hypotension</b> · <b>tachycardia</b> · anxiety and a sense of doom · cyanosis · lightheadedness, altered LOC · possible churning “mill-wheel” murmur.</p>
+      <p><b>🚑 Immediate action, in order:</b></p>
+      <ul class="tick">
+        <li>1️⃣ <b>CLAMP / occlude the line</b> — stop more air entering</li>
+        <li>2️⃣ <b>Position: LEFT lateral, head DOWN (Trendelenburg)</b> — Durant's maneuver</li>
+        <li>3️⃣ <b>Oxygen</b> — high flow, as ordered</li>
+        <li>4️⃣ <b>Call the provider / rapid response</b> and <b>stay with the client</b></li>
+        <li>5️⃣ Monitor vitals, pulse ox and LOC continuously</li>
+      </ul>
+      <p><b>🛡️ Prevent:</b> prime tubing completely, use <b>Luer-lock</b> connections, keep the system closed, have the client perform the <b>Valsalva maneuver</b> during central line insertion/removal, and apply an <b>occlusive dressing</b> after a central line is pulled.</p>
+      <div class="mn">🧠 <b>“Air goes LEFT and DOWN.”</b> Air floats up — so you turn the client so “up” is the harmless corner of the right ventricle. <i>Left side, head down, oxygen, call.</i></div>
+    </div>
+
+    <div class="card garnet span2">
+      <h3>🚨 FLUID VOLUME OVERLOAD — too much, too fast</h3>
+      <p><b>Who:</b> heart failure, kidney failure, older adults, infants — and anyone whose pump was set too high or whose bag was “caught up.”</p>
+      <svg viewBox="0 0 880 300" role="img" aria-label="Fluid overload picture: distended neck veins, crackles in both lung bases, bounding pulse, weight gain, and the correct nursing response of sitting the client upright in high Fowler's position with oxygen">
+        <rect x="6" y="6" width="868" height="288" rx="16" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.35)" stroke-width="2"/>
+        <text x="28" y="42" font-size="19" font-weight="900" fill="#ff9db4">🫗 SIGNS ➜ 🪑 ACTION</text>
+
+        <!-- body -->
+        <circle cx="150" cy="106" r="34" fill="#ffd0bd" stroke="#fff" stroke-width="2"/>
+        <path d="M112 146 h76 v96 h-76 z" fill="rgba(255,208,189,.55)" stroke="#fff" stroke-width="2"/>
+        <!-- JVD -->
+        <line x1="136" y1="134" x2="130" y2="152" stroke="#2f6bff" stroke-width="7" stroke-linecap="round"/>
+        <line x1="166" y1="134" x2="172" y2="152" stroke="#2f6bff" stroke-width="7" stroke-linecap="round"/>
+        <text x="216" y="120" font-size="13.5" font-weight="900" fill="#9ecbff">🦒 JVD — distended neck veins</text>
+        <!-- lungs -->
+        <path d="M124 168 q-16 32 2 58 q18 8 22 -10 z" fill="rgba(47,107,255,.5)" stroke="#9ecbff" stroke-width="2"/>
+        <path d="M176 168 q16 32 -2 58 q-18 8 -22 -10 z" fill="rgba(47,107,255,.5)" stroke="#9ecbff" stroke-width="2"/>
+        <g stroke="#ffc233" stroke-width="2.5" fill="none">
+          <path d="M116 214 q6 -8 12 0 q6 8 12 0"/><path d="M160 214 q6 -8 12 0 q6 8 12 0"/>
+        </g>
+        <text x="216" y="160" font-size="13.5" font-weight="900" fill="#ffe49a">🫁 CRACKLES · dyspnea · cough</text>
+        <text x="216" y="200" font-size="13.5" font-weight="900" fill="#ff9db4">💓 bounding pulse · BP ↑ · tachycardia</text>
+        <text x="216" y="240" font-size="13.5" font-weight="900" fill="#a5f3d4">⚖️ weight gain — 1 kg = 1 L</text>
+        <text x="216" y="276" font-size="13.5" font-weight="900" fill="#d9c2ff">🦵 dependent edema · ↑CVP · frothy sputum</text>
+
+        <!-- action: high Fowler -->
+        <rect x="600" y="52" width="252" height="216" rx="14" fill="rgba(18,184,134,.2)" stroke="#12b886" stroke-width="2.5" stroke-dasharray="7 6"/>
+        <text x="726" y="82" font-size="16" font-weight="900" fill="#a5f3d4" text-anchor="middle">🪑 HIGH FOWLER'S</text>
+        <path d="M632 226 L700 226 L768 130 L768 226 Z" fill="rgba(18,184,134,.5)" stroke="#a5f3d4" stroke-width="2"/>
+        <rect x="626" y="226" width="180" height="10" rx="5" fill="#a5f3d4"/>
+        <circle cx="748" cy="146" r="16" fill="#ffd0bd" stroke="#fff" stroke-width="2"/>
+        <path d="M744 162 L716 214 L744 214 Z" fill="rgba(255,208,189,.7)" stroke="#fff" stroke-width="2"/>
+        <text x="726" y="256" font-size="12.5" font-weight="900" fill="#eafff7" text-anchor="middle">sit up · O₂ · slow to KVO · call</text>
+        <text x="726" y="106" font-size="12.5" font-style="italic" fill="#d8fff0" text-anchor="middle">60–90° — let the lungs expand</text>
+      </svg>
+      <p style="margin-top:8px"><b>👀 Recognize:</b> <b>crackles</b> in the bases · <b>dyspnea, orthopnea</b> · <b>bounding pulse</b> · <b>↑BP</b> · <b>JVD</b> · dependent/pitting edema · puffy eyelids · ↑CVP · frothy pink sputum (pulmonary edema) · <b>sudden weight gain</b> <span class="mono">1 kg = 1 L</span> · urine output that doesn't match intake.</p>
+      <p><b>🚑 Immediate action:</b></p>
+      <ul class="tick">
+        <li>1️⃣ <b>Slow the infusion to a keep-vein-open (KVO) rate</b> — don't just walk away from the line</li>
+        <li>2️⃣ <b>Sit the client up — HIGH FOWLER'S</b> to ease the work of breathing</li>
+        <li>3️⃣ <b>Oxygen</b> as ordered; pulse oximetry</li>
+        <li>4️⃣ <b>Notify the provider</b>; anticipate a <b>loop diuretic (e.g. furosemide)</b> and repeat labs</li>
+        <li>5️⃣ <b>Strict I&amp;O, daily weight</b>, lung sounds and vitals on a schedule</li>
+      </ul>
+      <p>⚠️ Remember the escalation from the fluids page: FVO → <span class="mono">BP over 180</span> systolic = <b>HTN crisis</b> → <b>risk for CVA</b>.</p>
+      <div class="mn">🧠 <b>“Wet lungs sit UP.”</b> Overload gets <b>high Fowler's</b>; air embolism gets <b>head down on the left</b>. Two emergencies, two opposite positions — <i>practice saying them back to back so you never swap them.</i></div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🚨 SPEED SHOCK — the bolus that went too fast</h3>
+      <p><b>What it is:</b> a drug or fluid enters the circulation faster than the body can handle, flooding the heart and brain with a sudden concentration.</p>
+      <p><b>👀 Recognize:</b> <b>flushed face</b> · <b>pounding headache</b> · <b>tightness in the chest</b> · irregular pulse · dizziness · hypotension progressing to shock and cardiac arrest.</p>
+      <p><b>🚑 Action:</b> <b>stop the drug immediately</b>, keep the line open with a safe fluid at KVO, <b>call the provider / rapid response</b>, monitor vitals continuously, treat symptoms as ordered.</p>
+      <p><b>🛡️ Prevent:</b> <span class="never">Never “catch up” a behind-schedule infusion by opening the roller clamp</span>. Use a pump, know the safe push rate for every IV drug, and dilute as directed.</p>
+      <div class="mn">🧠 <b>“Speed shock = the drug arrived before the body was ready.”</b> Flushed, throbbing head, tight chest — think <i>rate</i> before you think <i>allergy</i>.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🚨 The other systemic ones to name</h3>
+      <ul class="tick">
+        <li><b>Catheter embolism</b> — a sheared catheter fragment travels in the bloodstream. Signs: sudden chest pain, dyspnea, hypotension, weak pulse. <b>Action:</b> tourniquet high on the extremity, <b>left side-lying</b>, notify provider, prepare for x-ray. <span class="never">Never reinsert a needle/stylet into a catheter.</span></li>
+        <li><b>Allergic / anaphylactic reaction</b> — hives, itching, wheeze, swelling of the face and tongue, hypotension. <b>Action:</b> stop the infusion, keep the line with normal saline, call for help, anticipate <b>epinephrine</b>, antihistamines and steroids, protect the airway.</li>
+        <li><b>Electrolyte imbalance</b> from the fluid itself — check sodium and potassium; watch for arrhythmias, muscle cramps, weakness and neuro changes.</li>
+      </ul>
+      <div class="mn">🧠 <b>“Sudden chest pain + dyspnea during IV therapy is never nothing.”</b> Air, catheter fragment, overload or anaphylaxis — stop the line and get help while you sort it out.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INFECTION ============ -->
+<section id="infect">
+  <div class="sec-h"><span class="icon">🦠</span><h2>INFECTION</h2><span class="step">STEP 3 · THE PREVENTABLE ONE</span></div>
+  <p class="sec-sub">Local redness is a problem. A fever with rigors during an infusion is an emergency.</p>
+
+  <div class="grid">
+    <div class="card garnet span2">
+      <h3>🦠 Local site infection ➜ bloodstream infection ➜ sepsis</h3>
+      <svg viewBox="0 0 880 250" role="img" aria-label="Progression diagram: germs enter at the hub or insertion site, cause local redness and purulent drainage, spread into the bloodstream as a catheter related bloodstream infection, then progress to sepsis with fever chills hypotension and rising white count">
+        <rect x="6" y="6" width="868" height="238" rx="16" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.35)" stroke-width="2"/>
+        <rect x="26" y="52" width="190" height="140" rx="14" fill="rgba(18,184,134,.45)" stroke="#a5f3d4" stroke-width="2.5"/>
+        <text x="121" y="88" font-size="26" text-anchor="middle">🦠</text>
+        <text x="121" y="120" font-size="15" font-weight="900" fill="#eafff7" text-anchor="middle">1 · ENTRY</text>
+        <text x="121" y="146" font-size="12.5" fill="#eafff7" text-anchor="middle">hub · insertion site</text>
+        <text x="121" y="166" font-size="12.5" fill="#eafff7" text-anchor="middle">contaminated fluid/tubing</text>
+        <text x="238" y="130" font-size="28" fill="#ffc233">➜</text>
+
+        <rect x="276" y="52" width="190" height="140" rx="14" fill="rgba(255,194,51,.45)" stroke="#fff3d1" stroke-width="2.5"/>
+        <text x="371" y="88" font-size="26" text-anchor="middle">🔴</text>
+        <text x="371" y="120" font-size="15" font-weight="900" fill="#2a1f00" text-anchor="middle">2 · LOCAL</text>
+        <text x="371" y="146" font-size="12.5" font-weight="700" fill="#2a1f00" text-anchor="middle">redness · warmth · pain</text>
+        <text x="371" y="166" font-size="12.5" font-weight="700" fill="#2a1f00" text-anchor="middle">PURULENT drainage · odor</text>
+        <text x="488" y="130" font-size="28" fill="#ffc233">➜</text>
+
+        <rect x="526" y="52" width="150" height="140" rx="14" fill="rgba(255,59,107,.5)" stroke="#ff9db4" stroke-width="2.5"/>
+        <text x="601" y="88" font-size="26" text-anchor="middle">🩸</text>
+        <text x="601" y="120" font-size="15" font-weight="900" fill="#ffe3ea" text-anchor="middle">3 · BLOODSTREAM</text>
+        <text x="601" y="146" font-size="12.5" fill="#ffe3ea" text-anchor="middle">catheter-related</text>
+        <text x="601" y="166" font-size="12.5" fill="#ffe3ea" text-anchor="middle">bloodstream infection</text>
+        <text x="694" y="130" font-size="28" fill="#ffc233">➜</text>
+
+        <rect x="726" y="52" width="128" height="140" rx="14" fill="rgba(192,34,85,.75)" stroke="#ffd0bd" stroke-width="3"/>
+        <text x="790" y="88" font-size="26" text-anchor="middle">🚨</text>
+        <text x="790" y="120" font-size="16" font-weight="900" fill="#fff" text-anchor="middle">4 · SEPSIS</text>
+        <text x="790" y="146" font-size="12.5" fill="#ffe3ea" text-anchor="middle">fever · chills · ↓BP</text>
+        <text x="790" y="166" font-size="12.5" fill="#ffe3ea" text-anchor="middle">↑HR · ↑WBC · ↓LOC</text>
+        <text x="26" y="226" font-size="13.5" font-weight="900" fill="#ffe49a">Every step to the right is harder to fix — which is why step 1 is a nursing job, not a medical one.</text>
+      </svg>
+      <p style="margin-top:8px"><b>👀 Recognize — local:</b> redness, warmth, swelling and <b>purulent drainage</b> at the site, tenderness, foul odor. <b>Systemic:</b> <b>fever and chills/rigors</b> (often starting soon after a flush or infusion), <b>tachycardia</b>, <b>hypotension</b>, malaise, confusion in older adults, <b>↑WBC</b>, positive blood cultures.</p>
+      <p><b>🚑 Immediate action:</b></p>
+      <ul class="tick">
+        <li>1️⃣ <b>Stop the infusion</b> and do not flush the line</li>
+        <li>2️⃣ <b>Assess vital signs</b> — this client can decompensate fast</li>
+        <li>3️⃣ <b>Notify the provider</b>; anticipate <b>blood cultures</b> (peripheral and, if ordered, from the line) <b>before antibiotics</b></li>
+        <li>4️⃣ <b>Culture the site</b>; if the catheter is removed, send the <b>tip for culture</b> if ordered</li>
+        <li>5️⃣ Remove the catheter as ordered and <b>restart in a new site with new tubing and new fluid</b></li>
+        <li>6️⃣ Give <b>antibiotics</b> and fluids as ordered; monitor lactate, urine output and LOC</li>
+      </ul>
+      <div class="mn">🧠 <b>“Cultures before antibiotics.”</b> Once the antibiotic is in, the culture may never tell you what you were fighting. <i>Draw first, hang second — unless the delay would harm the client.</i></div>
+    </div>
+
+    <div class="card emerald span2">
+      <h3>✅ PREVENTION — the part that is entirely in your hands</h3>
+      <div class="duo">
+        <div>
+          <p><b>🧼 Every single time</b></p>
+          <ul class="tick">
+            <li><b>Hand hygiene</b> before and after any contact with the line</li>
+            <li><b>Scrub the hub</b> with alcohol before each access and let it <b>dry</b></li>
+            <li><b>Aseptic technique</b> and skin antisepsis (chlorhexidine-based) at insertion</li>
+            <li>Keep the <b>dressing clean, dry and intact</b>; change it if damp, loose or soiled</li>
+            <li><b>Label</b> tubing and dressings with the date; check the bag for cracks, cloudiness, particles, expiration</li>
+          </ul>
+        </div>
+        <div>
+          <p><b>👀 Every shift &amp; every round</b></p>
+          <ul class="tick">
+            <li><b>Assess the site</b> at least every shift and with every infusion — many facilities require hourly for continuous or vesicant infusions</li>
+            <li><b>Ask the client</b>: “Any burning, pain or tightness?” Discomfort is the earliest sign of all of these</li>
+            <li><b>Remove the line as soon as it is no longer needed</b> — the single biggest infection reducer</li>
+            <li>Change administration sets and rotate sites <b>per facility policy</b> (schedules differ between fluids, lipids and blood)</li>
+            <li>Choose the <b>smallest gauge</b> that does the job, avoid areas of flexion, and <b>secure</b> the catheter well</li>
+          </ul>
+        </div>
+      </div>
+      <p style="margin-top:8px">❌ <span class="never">Never take a blood pressure or draw blood above an active IV site</span>. ❌ <span class="never">Never leave a line in “just in case” once it is no longer indicated.</span></p>
+      <div class="mn">🧠 <b>“Clean hands · Clean hub · Check the site · Cut the line loose.”</b> Four C's, and the last one prevents more infections than the first three combined.</div>
+    </div>
+
+    <div class="card topaz span2">
+      <h3>⭐ Which complication is it? — a 4-question sort</h3>
+      <svg viewBox="0 0 880 300" role="img" aria-label="Sorting flowchart: is the arm cool pale and swollen then infiltration or extravasation if a vesicant; is the arm red hot with a cord then phlebitis; is the client suddenly short of breath then air embolism if abrupt or fluid overload if crackles and weight gain; is there fever and purulent drainage then infection">
+        <rect x="6" y="6" width="868" height="288" rx="16" fill="rgba(13,8,26,.55)" stroke="rgba(255,255,255,.35)" stroke-width="2"/>
+        <rect x="300" y="22" width="280" height="46" rx="14" fill="rgba(255,194,51,.75)" stroke="#fff3d1" stroke-width="2"/>
+        <text x="440" y="52" font-size="17" font-weight="900" fill="#2a1f00" text-anchor="middle">WHAT DID YOU FIND FIRST?</text>
+        <path d="M440 68 L440 92 M112 92 L768 92" stroke="#ffe49a" stroke-width="3"/>
+        <path d="M112 92 L112 112 M328 92 L328 112 M552 92 L552 112 M768 92 L768 112" stroke="#ffe49a" stroke-width="3"/>
+
+        <rect x="26" y="112" width="172" height="72" rx="12" fill="rgba(0,194,199,.5)" stroke="#9ff2ee" stroke-width="2"/>
+        <text x="112" y="140" font-size="13.5" font-weight="900" fill="#00252b" text-anchor="middle">COOL · PALE</text>
+        <text x="112" y="162" font-size="13.5" font-weight="900" fill="#00252b" text-anchor="middle">SWOLLEN arm</text>
+        <text x="112" y="212" font-size="15" font-weight="900" fill="#9ff2ee" text-anchor="middle">INFILTRATION</text>
+        <text x="112" y="236" font-size="12" fill="#d8fff0" text-anchor="middle">vesicant drug?</text>
+        <text x="112" y="256" font-size="13" font-weight="900" fill="#ffd0bd" text-anchor="middle">➜ EXTRAVASATION</text>
+        <text x="112" y="278" font-size="12" font-style="italic" fill="#ffe3d3" text-anchor="middle">leave catheter · antidote</text>
+
+        <rect x="242" y="112" width="172" height="72" rx="12" fill="rgba(255,59,107,.55)" stroke="#ff9db4" stroke-width="2"/>
+        <text x="328" y="140" font-size="13.5" font-weight="900" fill="#ffe3ea" text-anchor="middle">RED · HOT</text>
+        <text x="328" y="162" font-size="13.5" font-weight="900" fill="#ffe3ea" text-anchor="middle">streak / cord</text>
+        <text x="328" y="212" font-size="15" font-weight="900" fill="#ff9db4" text-anchor="middle">PHLEBITIS</text>
+        <text x="328" y="240" font-size="12" font-style="italic" fill="#ffd9e2" text-anchor="middle">d/c · warm moist compress</text>
+        <text x="328" y="262" font-size="12" font-style="italic" fill="#ffd9e2" text-anchor="middle">never massage</text>
+
+        <rect x="466" y="112" width="172" height="72" rx="12" fill="rgba(157,92,255,.6)" stroke="#d9c2ff" stroke-width="2"/>
+        <text x="552" y="140" font-size="13.5" font-weight="900" fill="#f0e6ff" text-anchor="middle">SUDDEN dyspnea</text>
+        <text x="552" y="162" font-size="13.5" font-weight="900" fill="#f0e6ff" text-anchor="middle">+ chest pain</text>
+        <text x="552" y="206" font-size="15" font-weight="900" fill="#d9c2ff" text-anchor="middle">AIR EMBOLISM</text>
+        <text x="552" y="228" font-size="12" font-style="italic" fill="#e9dcff" text-anchor="middle">clamp · LEFT + head down · O₂</text>
+        <text x="552" y="256" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="middle">crackles + weight gain?</text>
+        <text x="552" y="276" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="middle">➜ FLUID OVERLOAD · sit UP</text>
+
+        <rect x="682" y="112" width="172" height="72" rx="12" fill="rgba(18,184,134,.55)" stroke="#a5f3d4" stroke-width="2"/>
+        <text x="768" y="140" font-size="13.5" font-weight="900" fill="#eafff7" text-anchor="middle">FEVER · CHILLS</text>
+        <text x="768" y="162" font-size="13.5" font-weight="900" fill="#eafff7" text-anchor="middle">pus at the site</text>
+        <text x="768" y="212" font-size="15" font-weight="900" fill="#a5f3d4" text-anchor="middle">INFECTION</text>
+        <text x="768" y="240" font-size="12" font-style="italic" fill="#d8fff0" text-anchor="middle">stop · cultures · d/c line</text>
+        <text x="768" y="262" font-size="12" font-style="italic" fill="#d8fff0" text-anchor="middle">antibiotics as ordered</text>
+      </svg>
+      <div class="mn">🧠 <b>“Touch the arm, then look at the whole client.”</b> If the finding is in the <b>limb</b>, it's local. If the finding is in the <b>breathing</b>, it's systemic. If the finding is a <b>fever</b>, it's infection. Three doors, and you already know what's behind each one.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc tealbg"><span class="big">❄️ Cool, pale, no blood return</span><b>Infiltration</b> → stop, <b>remove</b>, elevate, restart other arm.</div>
+    <div class="rc citrine"><span class="big">💊 Vesicant burning</span><b>Extravasation</b> → stop, <b>leave the catheter</b>, aspirate, antidote, call.</div>
+    <div class="rc rubybg"><span class="big">🔥 Red streak &amp; cord</span><b>Phlebitis</b> → stop, remove, <b>warm moist compress</b>, never massage.</div>
+    <div class="rc topazbg"><span class="big">🫁 Two positions</span>Air embolism = <b>LEFT side, head DOWN</b> · Overload = <b>HIGH FOWLER'S</b>.</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 8 rapid-fire questions</summary>
+      <div class="qa">Q1: The IV site is cool, pale, swollen and has no blood return. What is it and what do you do first? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Infiltration. Stop the infusion, discontinue the catheter, elevate the extremity, apply a compress per policy, and restart the IV in the opposite arm. Measure and document the swelling.</div></div>
+      <div class="qa">Q2: A client receiving IV norepinephrine reports severe burning and the site is blistering. What must you NOT do? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Do NOT remove the catheter yet. This is extravasation of a vesicant — stop the infusion, aspirate residual drug through the catheter, notify the provider for an antidote (phentolamine for vasopressors), mark and measure the area, then remove the catheter afterward.</div></div>
+      <div class="qa">Q3: How do you tell infiltration from phlebitis with your hand? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Temperature. Infiltration is COOL, pale and taut. Phlebitis is WARM/hot and red with a streak and a hard, cord-like vein.</div></div>
+      <div class="qa">Q4: Phlebitis is confirmed. Which nursing action is contraindicated? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Massaging or rubbing the site — it can dislodge a clot. Do stop the infusion, remove the catheter, apply a warm moist compress, elevate, restart elsewhere and document.</div></div>
+      <div class="qa">Q5: During a central line dressing change the client becomes suddenly dyspneic, has chest pain and drops her BP. Position? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Air embolism — clamp/occlude the line, place her in LEFT lateral position with the head of bed DOWN (Trendelenburg), give oxygen, call for help and stay with her.</div></div>
+      <div class="qa">Q6: A client in heart failure on IV fluids develops crackles, JVD, a bounding pulse and 2 kg of weight gain. What do you do with the IV? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Fluid overload — slow the infusion to a KVO rate (don't simply disconnect), sit the client up in high Fowler's, give oxygen, notify the provider, anticipate a loop diuretic, and start strict I&amp;O with daily weights. 1 kg = 1 L.</div></div>
+      <div class="qa">Q7: An hour after a peripheral line is flushed, the client spikes a fever with shaking chills and a BP of 84/50. Priority? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Suspect a catheter-related bloodstream infection. Stop the infusion, take vital signs, notify the provider, obtain blood cultures before antibiotics, remove/culture the catheter as ordered, and restart with new site, new tubing and new fluid.</div></div>
+      <div class="qa">Q8: The catheter will not thread. May you reinsert the stylet? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Never. Reinserting the needle can shear the catheter and cause a catheter embolism. If embolism is suspected: tourniquet high on the extremity, place the client on the left side, notify the provider and prepare for an x-ray.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(255,194,51,.75);color:#231a02">MAP</span>→
+    <span style="background:rgba(0,194,199,.7);color:#00252b">AT THE SITE</span>→
+    <span style="background:rgba(157,92,255,.7)">WHOLE BODY</span>→
+    <span style="background:rgba(18,184,134,.7)">INFECTION</span>
+  </div>
+  <div>NG-085 · Source wording retained · ADHD-friendly visual edition v2</div>
+</footer>
+
+</div>
+</body></html>

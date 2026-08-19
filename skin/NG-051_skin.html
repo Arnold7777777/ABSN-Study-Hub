@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Skin · Structure &amp; Function · NG-051 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+
+/* ---- appended for the Skin &amp; Wound batch (batch 14) ---- */
+nav a.c5{background:rgba(0,194,199,.72);color:#00252b}
+nav a.c6{background:rgba(255,138,61,.75);color:#2b1200}
+nav a.c7{background:rgba(192,34,85,.72)}
+#base .sec-h h2{color:#9ff2ee} #base .step{background:var(--teal);color:#00252b}
+#look .sec-h h2{color:#9ff2ee} #look .step{background:var(--teal);color:#00252b}
+#stage .sec-h h2{color:#9ff2ee} #stage .step{background:var(--teal);color:#00252b}
+#heal .sec-h h2{color:#9ff2ee} #heal .step{background:var(--teal);color:#00252b}
+#types .sec-h h2{color:#9ff2ee} #types .step{background:var(--teal);color:#00252b}
+#abcde .sec-h h2{color:#9ff2ee} #abcde .step{background:var(--teal);color:#00252b}
+#compare .sec-h h2{color:#ffd9b8} #compare .step{background:var(--citrine);color:#2b1200}
+#prevent .sec-h h2{color:#ffd9b8} #prevent .step{background:var(--citrine);color:#2b1200}
+#teach .sec-h h2{color:#ffd9b8} #teach .step{background:var(--citrine);color:#2b1200}
+#danger .sec-h h2{color:#ffb3c6} #danger .step{background:var(--garnet)}
+#emerg .sec-h h2{color:#ffb3c6} #emerg .step{background:var(--garnet)}
+.setbar{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin:4px 0 16px;font-size:.82rem}
+.setbar .setlabel{font-weight:900;letter-spacing:.08em;color:#ffe49a;margin-right:2px}
+.setbar a{font-weight:800;padding:4px 11px;border-radius:999px;border:1px solid var(--line);
+  background:rgba(13,8,26,.5);color:#dbe8ff;text-decoration:none}
+.setbar a.cur{background:var(--topaz);color:#231a02;border-color:transparent;cursor:default}
+.legendrow{display:flex;gap:9px;flex-wrap:wrap;margin:11px 0 0;font-size:.84rem;font-weight:800}
+.legendrow span{padding:5px 11px;border-radius:9px;background:rgba(13,8,26,.55);
+  border:1px solid var(--line);display:flex;align-items:center;gap:7px}
+.sw{display:inline-block;width:15px;height:15px;border-radius:4px;border:1px solid rgba(255,255,255,.6)}
+.card a{color:#ffe49a;font-weight:800}
+.card.tealc a,.card.topaz a,.card.citrinec a{color:#0b3a52}
+.xref{margin-top:10px;padding:8px 12px;border-radius:11px;background:rgba(0,194,199,.20);
+  border:1px solid var(--line);font-size:.9rem;font-weight:700}
+.xref .pill{display:inline-block;font-size:.7rem;font-weight:900;letter-spacing:.08em;
+  background:var(--teal);color:#00252b;padding:2px 8px;border-radius:7px;margin-right:7px}
+.card.tealc .xref,.card.topaz .xref,.card.citrinec .xref{background:rgba(255,255,255,.45)}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c5" href="#base">🧬 Layers</a>
+  <a class="c1" href="#cause">🛡️ Functions</a>
+  <a class="c2" href="#clues">🔎 Lesion language</a>
+  <a class="c3" href="#care">🩺 Assess</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Skin &amp; Wound · Integumentary Foundation · Anatomy &amp; Physiology + Fundamentals</div>
+  <div class="setbar"><span class="setlabel">🩹 SKIN &amp; WOUND SET</span>
+  <a class="cur" href="NG-051_skin.html">NG-051 Skin (foundation)</a>
+  <a href="NG-044_pressure-injuries.html">NG-044 Pressure Injuries</a>
+  <a href="NG-080_wound-care.html">NG-080 Wound Care</a>
+  <a href="NG-116_frostbite.html">NG-116 Frostbite</a>
+  <a href="NG-182_eczema-atopic-vs-contact-dermatitis.html">NG-182 Dermatitis</a>
+  <a href="NG-225_psoriasis.html">NG-225 Psoriasis</a>
+  <a href="NG-204_skin-cancer.html">NG-204 Skin Cancer</a></div>
+  <h1>The Skin <span class="drop">🧬</span></h1>
+  <p class="sub">Structure &amp; function — the foundation page for the whole Skin &amp; Wound set</p>
+  <div class="chips">
+    <span class="chip id">NG-051</span>
+    <span class="chip cat">INTEGUMENTARY · FOUNDATION</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede">Skin is not wrapping paper — it is the body's <b>largest organ</b>, about <b>1.5–2 m²</b> of surface and roughly <b>15%</b> of body weight. Every other page in this set (pressure injuries, wound care, frostbite, dermatitis, psoriasis, skin cancer) is a story about <b>which layer got hurt and how deep it went</b>. Learn this cross-section once and the rest becomes depth, not memorisation.</p>
+</header>
+
+<div class="recall">
+  <div class="rc tealbg"><span class="big">3 layers, top → bottom</span>Epidermis · Dermis · Hypodermis (subcutaneous). Then muscle &amp; bone.</div>
+  <div class="rc citrine"><span class="big">🛡️ SHIELD</span>Sensation · Heat control · Immunity · Excretion · Layer (barrier) · D vitamin.</div>
+  <div class="rc rubybg"><span class="big">Depth = severity</span>Epidermis only = heals fast. Past the dermis = <b>no skin appendages left to regrow from</b>.</div>
+  <div class="rc topazbg"><span class="big">Describe, don't diagnose</span>Chart the <b>lesion morphology</b> — flat? raised? fluid? size? — not "rash".</div>
+</div>
+
+<!-- ============================================================ -->
+<section id="base">
+  <div class="sec-h"><span class="icon">🧬</span><h2>THE LAYERS</h2><span class="step">STEP 1 · STRUCTURE</span></div>
+  <p class="sec-sub">One drawing to rule the whole set — memorise this cross-section and every later page is just "how deep did the injury go?"</p>
+  <div class="grid">
+
+    <div class="card tealc span2">
+      <h3>🔬 Master cross-section — full-thickness skin</h3>
+      <svg viewBox="-10 -10 835 680" role="img" aria-label="Detailed cutaway cross-section of full-thickness human skin showing the epidermis with its strata, the wavy dermo-epidermal junction with rete ridges and dermal papillae, the papillary and reticular dermis with collagen bundles, a superficial subpapillary capillary plexus and a deep cutaneous plexus, a hair follicle with bulb and dermal papilla, an arrector pili muscle, a sebaceous gland, an eccrine sweat gland with a spiral duct, a Pacinian corpuscle and Meissner corpuscle, and the hypodermis with fat lobules over muscle">
+        <defs>
+          <linearGradient id="s1epi" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#fff0e0"/><stop offset=".35" stop-color="#ffdcbc"/>
+            <stop offset=".72" stop-color="#f0b78e"/><stop offset="1" stop-color="#d99a72"/>
+          </linearGradient>
+          <linearGradient id="s1der" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#f6aeb6"/><stop offset=".45" stop-color="#e0808f"/><stop offset="1" stop-color="#9d3854"/>
+          </linearGradient>
+          <linearGradient id="s1hyp" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffe6a3"/><stop offset="1" stop-color="#d99b2e"/>
+          </linearGradient>
+          <radialGradient id="s1fat" cx=".34" cy=".3" r=".82">
+            <stop offset="0" stop-color="#fffbe4"/><stop offset=".55" stop-color="#ffdc71"/><stop offset="1" stop-color="#c68d24"/>
+          </radialGradient>
+          <linearGradient id="s1mus" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#c2455f"/><stop offset="1" stop-color="#6f1a30"/>
+          </linearGradient>
+          <linearGradient id="s1hair" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#8a6440"/><stop offset=".5" stop-color="#3f2a16"/><stop offset="1" stop-color="#20140a"/>
+          </linearGradient>
+          <radialGradient id="s1seb" cx=".38" cy=".32" r=".85">
+            <stop offset="0" stop-color="#fffae0"/><stop offset=".6" stop-color="#ffe071"/><stop offset="1" stop-color="#c9a01e"/>
+          </radialGradient>
+          <radialGradient id="s1swt" cx=".38" cy=".32" r=".85">
+            <stop offset="0" stop-color="#d6fffd"/><stop offset=".55" stop-color="#4fd8dc"/><stop offset="1" stop-color="#0a6b70"/>
+          </radialGradient>
+          <marker id="s1ar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#ffe49a"/>
+          </marker>
+        </defs>
+
+        <rect x="-6" y="-6" width="827" height="672" rx="20" fill="rgba(0,194,199,.10)" stroke="#00c2c7" stroke-width="2" stroke-dasharray="8 7"/>
+        <text x="22" y="34" font-size="20" font-weight="900" fill="#0b3f45">FULL-THICKNESS SKIN · vertical cutaway</text>
+        <text x="22" y="56" font-size="13" font-style="italic" fill="#0e5b62">surface at the top · muscle at the bottom · not to scale</text>
+
+        <!-- ambient air / outside world -->
+        <rect x="32" y="66" width="480" height="22" fill="rgba(13,8,26,.20)"/>
+
+        <!-- ===== EPIDERMIS block (painted first, dermis overlaps it below the junction) ===== -->
+        <rect x="32" y="88" width="480" height="100" fill="url(#s1epi)"/>
+        <!-- stratum bands -->
+        <rect x="32" y="88" width="480" height="18" fill="#fff6ec" opacity=".85"/>
+        <rect x="32" y="106" width="480" height="7" fill="#ffe9d2" opacity=".8"/>
+        <rect x="32" y="113" width="480" height="12" fill="#ffd9b4" opacity=".75"/>
+        <rect x="32" y="125" width="480" height="18" fill="#f7bd90" opacity=".7"/>
+        <rect x="32" y="143" width="480" height="45" fill="#e0a173" opacity=".7"/>
+        <!-- corneum flakes -->
+        <g stroke="#c98f63" stroke-width="1.4" stroke-linecap="round" opacity=".85" fill="none">
+          <path d="M40 92 q14 -5 28 0 q14 5 28 0"/><path d="M104 92 q14 -5 28 0 q14 5 28 0"/>
+          <path d="M168 92 q14 -5 28 0 q14 5 28 0"/><path d="M232 92 q14 -5 28 0 q14 5 28 0"/>
+          <path d="M296 92 q14 -5 28 0 q14 5 28 0"/><path d="M360 92 q14 -5 28 0 q14 5 28 0"/>
+          <path d="M424 92 q14 -5 28 0 q14 5 28 0"/><path d="M472 92 q14 -5 28 0"/>
+          <path d="M44 100 q16 -4 32 0 q16 4 32 0"/><path d="M116 100 q16 -4 32 0 q16 4 32 0"/>
+          <path d="M188 100 q16 -4 32 0 q16 4 32 0"/><path d="M260 100 q16 -4 32 0 q16 4 32 0"/>
+          <path d="M332 100 q16 -4 32 0 q16 4 32 0"/><path d="M404 100 q16 -4 32 0 q16 4 32 0"/>
+        </g>
+        <!-- spinosum cell texture -->
+        <g stroke="#c9855a" stroke-width="1" opacity=".55" fill="none">
+          <path d="M50 128 l0 12 M70 132 l0 10 M92 128 l0 12 M114 133 l0 10 M136 128 l0 12 M158 132 l0 10 M180 128 l0 12 M202 133 l0 10 M224 128 l0 12 M246 132 l0 10 M268 128 l0 12 M290 133 l0 10 M312 128 l0 12 M334 132 l0 10 M356 128 l0 12 M378 133 l0 10 M400 128 l0 12 M422 132 l0 10 M444 128 l0 12 M466 132 l0 10 M488 128 l0 12"/>
+        </g>
+        <!-- basal columnar cells -->
+        <g fill="#b9724a" opacity=".55">
+          <rect x="44" y="146" width="8" height="14" rx="3"/><rect x="60" y="148" width="8" height="14" rx="3"/>
+          <rect x="76" y="150" width="8" height="14" rx="3"/><rect x="92" y="150" width="8" height="14" rx="3"/>
+          <rect x="108" y="148" width="8" height="14" rx="3"/><rect x="124" y="146" width="8" height="14" rx="3"/>
+          <rect x="140" y="148" width="8" height="14" rx="3"/><rect x="156" y="150" width="8" height="14" rx="3"/>
+          <rect x="236" y="148" width="8" height="14" rx="3"/><rect x="252" y="150" width="8" height="14" rx="3"/>
+          <rect x="268" y="150" width="8" height="14" rx="3"/><rect x="284" y="148" width="8" height="14" rx="3"/>
+          <rect x="300" y="146" width="8" height="14" rx="3"/><rect x="316" y="148" width="8" height="14" rx="3"/>
+          <rect x="396" y="148" width="8" height="14" rx="3"/><rect x="412" y="150" width="8" height="14" rx="3"/>
+          <rect x="428" y="150" width="8" height="14" rx="3"/><rect x="444" y="148" width="8" height="14" rx="3"/>
+          <rect x="460" y="146" width="8" height="14" rx="3"/><rect x="476" y="148" width="8" height="14" rx="3"/>
+        </g>
+        <!-- melanocyte (dendritic, dark) sitting on the basal layer -->
+        <g>
+          <ellipse cx="358" cy="156" rx="9" ry="7" fill="#4a2c6b"/>
+          <g stroke="#4a2c6b" stroke-width="2" stroke-linecap="round" fill="none">
+            <path d="M352 152 C 344 140 342 130 348 122"/><path d="M358 149 C 358 136 356 128 362 118"/>
+            <path d="M365 152 C 374 142 378 132 376 124"/>
+          </g>
+          <circle cx="348" cy="120" r="2.6" fill="#3a2154"/><circle cx="363" cy="116" r="2.6" fill="#3a2154"/>
+          <circle cx="377" cy="122" r="2.6" fill="#3a2154"/>
+        </g>
+
+        <!-- ===== DERMIS (drawn over the lower epidermis, wavy junction = rete ridges) ===== -->
+        <path d="M32 154 Q52 130 72 154 Q92 178 112 154 Q132 130 152 154 Q172 178 192 154 Q212 130 232 154 Q252 178 272 154 Q292 130 312 154 Q332 178 352 154 Q372 130 392 154 Q412 178 432 154 Q452 130 472 154 Q492 178 512 154 L512 410 L32 410 Z" fill="url(#s1der)"/>
+        <!-- papillary dermis lighter wash -->
+        <path d="M32 154 Q52 130 72 154 Q92 178 112 154 Q132 130 152 154 Q172 178 192 154 Q212 130 232 154 Q252 178 272 154 Q292 130 312 154 Q332 178 352 154 Q372 130 392 154 Q412 178 432 154 Q452 130 472 154 Q492 178 512 154 L512 214 L32 214 Z" fill="#ffc9cf" opacity=".38"/>
+        <!-- collagen bundles (reticular dermis) -->
+        <g stroke="#ffd2d8" stroke-width="2.2" fill="none" opacity=".45" stroke-linecap="round">
+          <path d="M40 238 q30 -12 60 0 q30 12 60 0 q30 -12 60 0 q30 12 60 0 q30 -12 60 0 q30 12 60 0 q30 -12 60 0"/>
+          <path d="M40 264 q26 12 52 0 q26 -12 52 0 q26 12 52 0 q26 -12 52 0 q26 12 52 0 q26 -12 52 0 q26 12 52 0 q26 -12 52 0 q26 12 52 0"/>
+          <path d="M40 292 q34 -14 68 0 q34 14 68 0 q34 -14 68 0 q34 14 68 0 q34 -14 68 0 q34 14 68 0"/>
+          <path d="M40 320 q28 12 56 0 q28 -12 56 0 q28 12 56 0 q28 -12 56 0 q28 12 56 0 q28 -12 56 0 q28 12 56 0 q28 -12 56 0"/>
+          <path d="M40 350 q32 -12 64 0 q32 12 64 0 q32 -12 64 0 q32 12 64 0 q32 -12 64 0 q32 12 64 0 q32 -12 64 0"/>
+          <path d="M40 378 q26 12 52 0 q26 -12 52 0 q26 12 52 0 q26 -12 52 0 q26 12 52 0 q26 -12 52 0 q26 12 52 0 q26 -12 52 0 q26 12 52 0"/>
+        </g>
+        <!-- elastin fibres (thin, springy) -->
+        <g stroke="#ffe8ec" stroke-width="1" fill="none" opacity=".35">
+          <path d="M60 250 q10 -14 20 0 q10 14 20 0 q10 -14 20 0"/>
+          <path d="M250 276 q10 -14 20 0 q10 14 20 0 q10 -14 20 0"/>
+          <path d="M400 336 q10 -14 20 0 q10 14 20 0 q10 -14 20 0"/>
+          <path d="M120 362 q10 -14 20 0 q10 14 20 0 q10 -14 20 0"/>
+        </g>
+
+        <!-- ===== HYPODERMIS ===== -->
+        <rect x="32" y="410" width="480" height="150" fill="url(#s1hyp)"/>
+        <g stroke="#a97a1c" stroke-width="1.6" opacity=".55" fill="none">
+          <path d="M32 452 H512"/><path d="M32 506 H512"/>
+          <path d="M120 410 V560"/><path d="M258 410 V560"/><path d="M396 410 V560"/>
+        </g>
+        <g fill="url(#s1fat)" stroke="#a97a1c" stroke-width="1.2">
+          <circle cx="60" cy="430" r="17"/><circle cx="94" cy="434" r="14"/><circle cx="150" cy="428" r="16"/>
+          <circle cx="184" cy="436" r="13"/><circle cx="290" cy="430" r="17"/><circle cx="324" cy="436" r="13"/>
+          <circle cx="430" cy="430" r="16"/><circle cx="464" cy="436" r="13"/>
+          <circle cx="58" cy="478" r="18"/><circle cx="96" cy="482" r="14"/><circle cx="148" cy="478" r="15"/>
+          <circle cx="286" cy="478" r="18"/><circle cx="322" cy="484" r="13"/><circle cx="434" cy="480" r="15"/>
+          <circle cx="470" cy="484" r="12"/><circle cx="62" cy="530" r="16"/><circle cx="98" cy="534" r="13"/>
+          <circle cx="150" cy="532" r="15"/><circle cx="184" cy="536" r="12"/><circle cx="292" cy="532" r="16"/>
+          <circle cx="330" cy="536" r="12"/><circle cx="436" cy="530" r="16"/><circle cx="472" cy="536" r="12"/>
+        </g>
+
+        <!-- ===== MUSCLE / FASCIA floor ===== -->
+        <rect x="32" y="560" width="480" height="42" fill="url(#s1mus)"/>
+        <g stroke="#ffb0c0" stroke-width="1.4" opacity=".5">
+          <path d="M32 570 H512"/><path d="M32 580 H512"/><path d="M32 590 H512"/>
+        </g>
+        <rect x="32" y="556" width="480" height="6" fill="#f3e2c6" opacity=".85"/>
+
+        <!-- ===== VESSELS ===== -->
+        <!-- deep cutaneous plexus -->
+        <path d="M36 402 C 90 392 130 412 186 402 C 240 392 290 412 344 402 C 396 392 450 412 508 402" fill="none" stroke="#ff3b6b" stroke-width="7" stroke-linecap="round"/>
+        <path d="M36 416 C 92 426 132 406 188 416 C 244 426 292 406 346 416 C 398 426 452 406 508 416" fill="none" stroke="#2f6bff" stroke-width="7" stroke-linecap="round"/>
+        <!-- ascending vessels -->
+        <g fill="none" stroke-linecap="round">
+          <path d="M80 400 C 74 340 84 268 78 196" stroke="#ff3b6b" stroke-width="4"/>
+          <path d="M92 402 C 98 340 88 268 94 196" stroke="#2f6bff" stroke-width="4"/>
+          <path d="M300 400 C 294 340 304 268 298 196" stroke="#ff3b6b" stroke-width="4"/>
+          <path d="M312 402 C 318 340 308 268 314 196" stroke="#2f6bff" stroke-width="4"/>
+        </g>
+        <!-- superficial (subpapillary) plexus -->
+        <path d="M40 192 C 96 184 140 200 196 192 C 252 184 300 200 356 192 C 410 184 456 200 506 192" fill="none" stroke="#ff5c7f" stroke-width="5" stroke-linecap="round"/>
+        <path d="M40 202 C 96 210 140 194 196 202 C 252 210 300 194 356 202 C 410 210 456 194 506 202" fill="none" stroke="#5f8dff" stroke-width="5" stroke-linecap="round"/>
+        <!-- capillary loops into dermal papillae -->
+        <g fill="none" stroke-width="2.6" stroke-linecap="round">
+          <path d="M48 190 C 46 168 50 152 54 144 C 58 152 62 168 60 190" stroke="#ff8fa6"/>
+          <path d="M128 190 C 126 168 130 152 134 144 C 138 152 142 168 140 190" stroke="#ff8fa6"/>
+          <path d="M208 190 C 206 168 210 152 214 144 C 218 152 222 168 220 190" stroke="#ff8fa6"/>
+          <path d="M368 190 C 366 168 370 152 374 144 C 378 152 382 168 380 190" stroke="#ff8fa6"/>
+          <path d="M448 190 C 446 168 450 152 454 144 C 458 152 462 168 460 190" stroke="#ff8fa6"/>
+        </g>
+
+        <!-- ===== HAIR FOLLICLE ===== -->
+        <path d="M151 84 C 165 200 185 330 205 452" fill="none" stroke="#e9bd95" stroke-width="30" stroke-linecap="round"/>
+        <path d="M151 84 C 165 200 185 330 205 452" fill="none" stroke="#cf9166" stroke-width="21" stroke-linecap="round"/>
+        <ellipse cx="207" cy="466" rx="28" ry="25" fill="#e9bd95" stroke="#b8794f" stroke-width="2"/>
+        <ellipse cx="207" cy="470" rx="16" ry="14" fill="#cf9166"/>
+        <path d="M198 482 C 200 468 214 466 218 478 C 212 486 202 488 198 482 Z" fill="#ff6b86" stroke="#c02255" stroke-width="1.4"/>
+        <path d="M151 84 C 165 200 185 330 203 448" fill="none" stroke="url(#s1hair)" stroke-width="9" stroke-linecap="round"/>
+        <path d="M151 86 C 143 58 126 36 104 22" fill="none" stroke="url(#s1hair)" stroke-width="8" stroke-linecap="round"/>
+        <path d="M148 88 C 141 62 126 42 106 28" fill="none" stroke="#a57c50" stroke-width="2" opacity=".7"/>
+        <!-- arrector pili muscle -->
+        <path d="M176 250 C 152 240 126 210 112 176" fill="none" stroke="#b8395c" stroke-width="12" stroke-linecap="round"/>
+        <g stroke="#ffc3d2" stroke-width="1.2" opacity=".7">
+          <path d="M170 244 C 148 232 128 208 116 180"/><path d="M178 254 C 156 244 132 216 118 186"/>
+        </g>
+        <!-- sebaceous gland -->
+        <g stroke="#b58f16" stroke-width="1.6">
+          <ellipse cx="243" cy="222" rx="27" ry="21" fill="url(#s1seb)"/>
+          <ellipse cx="222" cy="246" rx="20" ry="16" fill="url(#s1seb)"/>
+          <ellipse cx="257" cy="252" rx="18" ry="15" fill="url(#s1seb)"/>
+        </g>
+        <path d="M216 234 L188 232" fill="none" stroke="#e0c34a" stroke-width="7" stroke-linecap="round"/>
+        <g fill="#fff3b8" opacity=".8">
+          <circle cx="238" cy="216" r="4"/><circle cx="250" cy="228" r="3.2"/><circle cx="218" cy="248" r="3.5"/><circle cx="258" cy="250" r="3"/>
+        </g>
+
+        <!-- ===== ECCRINE SWEAT GLAND ===== -->
+        <path d="M332 86 C 340 120 322 142 336 172 C 350 202 328 226 342 260 C 356 294 334 322 348 356 C 360 386 344 408 352 430" fill="none" stroke="#2fb4b8" stroke-width="8" stroke-linecap="round"/>
+        <path d="M332 86 C 340 120 322 142 336 172 C 350 202 328 226 342 260 C 356 294 334 322 348 356 C 360 386 344 408 352 430" fill="none" stroke="#bff6f4" stroke-width="3.2" stroke-linecap="round"/>
+        <g fill="none" stroke="#2fb4b8" stroke-width="9" stroke-linecap="round">
+          <path d="M352 430 C 386 428 400 452 388 470 C 376 488 344 490 334 472 C 324 454 340 438 360 442 C 378 446 382 466 368 474"/>
+        </g>
+        <g fill="none" stroke="#bff6f4" stroke-width="3" stroke-linecap="round" opacity=".9">
+          <path d="M352 430 C 386 428 400 452 388 470 C 376 488 344 490 334 472 C 324 454 340 438 360 442 C 378 446 382 466 368 474"/>
+        </g>
+        <circle cx="332" cy="86" r="6" fill="#0e5b62"/>
+        <g fill="#9ff2ee" opacity=".9">
+          <circle cx="330" cy="74" r="4"/><circle cx="342" cy="66" r="3"/><circle cx="322" cy="62" r="2.6"/>
+        </g>
+
+        <!-- ===== SENSORY RECEPTORS ===== -->
+        <!-- Meissner corpuscle in a dermal papilla -->
+        <g>
+          <ellipse cx="294" cy="148" rx="10" ry="15" fill="#ffe49a" stroke="#c99a12" stroke-width="1.6"/>
+          <path d="M288 142 q6 4 12 0 M288 150 q6 4 12 0 M288 158 q6 4 12 0" fill="none" stroke="#8a6a08" stroke-width="1.3"/>
+          <path d="M294 164 C 292 186 286 210 282 236" fill="none" stroke="#ffe49a" stroke-width="2.4"/>
+        </g>
+        <!-- Pacinian corpuscle in hypodermis -->
+        <g>
+          <ellipse cx="420" cy="470" rx="34" ry="27" fill="#e9d7ff" stroke="#9d5cff" stroke-width="2"/>
+          <ellipse cx="420" cy="470" rx="27" ry="21" fill="none" stroke="#9d5cff" stroke-width="1.6"/>
+          <ellipse cx="420" cy="470" rx="20" ry="15" fill="none" stroke="#9d5cff" stroke-width="1.6"/>
+          <ellipse cx="420" cy="470" rx="13" ry="9" fill="none" stroke="#9d5cff" stroke-width="1.6"/>
+          <path d="M454 470 C 476 468 486 456 492 442" fill="none" stroke="#c9a6ff" stroke-width="3.4" stroke-linecap="round"/>
+        </g>
+        <!-- free nerve endings up into epidermis -->
+        <path d="M470 400 C 466 340 474 270 468 214" fill="none" stroke="#ffe49a" stroke-width="3" stroke-linecap="round"/>
+        <g fill="none" stroke="#ffe49a" stroke-width="2" stroke-linecap="round">
+          <path d="M468 214 C 462 190 452 168 446 140"/><path d="M468 214 C 472 190 480 170 486 142"/>
+          <path d="M468 214 C 468 186 466 160 464 134"/>
+        </g>
+
+        <!-- ===== LABELS ===== -->
+        <g font-size="14.5" font-weight="800" fill="#0b3f45">
+          <text x="524" y="104">① EPIDERMIS</text>
+          <text x="524" y="164">② Dermo–epidermal junction</text>
+          <text x="524" y="224">③ Sebaceous gland</text>
+          <text x="524" y="284">④ Arrector pili muscle</text>
+          <text x="524" y="344">⑤ DERMIS</text>
+          <text x="524" y="404">⑥ Deep cutaneous plexus</text>
+          <text x="524" y="464">⑦ Eccrine sweat gland</text>
+          <text x="524" y="524">⑧ HYPODERMIS (subcutaneous)</text>
+          <text x="524" y="584">⑨ Muscle · fascia · bone</text>
+        </g>
+        <g font-size="11.5" fill="#134f56" font-style="italic">
+          <text x="524" y="120">avascular · 4–5 strata · ~28-day turnover</text>
+          <text x="524" y="180">rete ridges — where blisters split</text>
+          <text x="524" y="240">sebum → keeps skin supple, slightly acidic</text>
+          <text x="524" y="300">stands the hair up = goosebumps, traps heat</text>
+          <text x="524" y="360">collagen + elastin, vessels, nerves, glands</text>
+          <text x="524" y="420">arteriole (red) + venule (blue) — the heat radiator</text>
+          <text x="524" y="480">spiral duct to a surface pore → cooling sweat</text>
+          <text x="524" y="540">fat = insulation, cushion, energy store</text>
+          <text x="524" y="600">the floor — Stage 4 injury reaches here</text>
+        </g>
+        <g stroke="#0b3f45" stroke-width="1.4" fill="none" opacity=".75" marker-end="url(#s1ar)">
+          <path d="M520 100 L400 100"/>
+          <path d="M520 160 L300 158"/>
+          <path d="M520 220 L272 224"/>
+          <path d="M520 280 L152 234"/>
+          <path d="M520 340 L420 332"/>
+          <path d="M520 400 L512 404"/>
+          <path d="M520 460 L400 466"/>
+          <path d="M520 520 L200 500"/>
+          <path d="M520 580 L400 580"/>
+        </g>
+        <!-- inline callouts -->
+        <g font-size="12" font-weight="800">
+          <rect x="36" y="14" width="150" height="20" rx="7" fill="rgba(13,8,26,.75)"/>
+          <text x="44" y="29" fill="#ffe49a">hair shaft (dead keratin)</text>
+          <rect x="238" y="120" width="122" height="19" rx="7" fill="rgba(13,8,26,.72)"/>
+          <text x="244" y="134" fill="#ffe49a">Meissner · light touch</text>
+          <rect x="380" y="512" width="150" height="19" rx="7" fill="rgba(13,8,26,.72)"/>
+          <text x="386" y="526" fill="#c9a6ff">Pacinian · deep pressure</text>
+          <rect x="330" y="106" width="122" height="19" rx="7" fill="rgba(13,8,26,.72)"/>
+          <text x="336" y="120" fill="#d9c2ff">melanocyte · pigment</text>
+          <rect x="410" y="152" width="98" height="19" rx="7" fill="rgba(13,8,26,.72)"/>
+          <text x="416" y="166" fill="#ffe49a">free nerve endings</text>
+        </g>
+      </svg>
+      <div class="legendrow" style="color:#00252b">
+        <span><i class="sw" style="background:#ffdcbc"></i>epidermis</span>
+        <span><i class="sw" style="background:#e0808f"></i>dermis</span>
+        <span><i class="sw" style="background:#ffdc71"></i>fat</span>
+        <span><i class="sw" style="background:#ff3b6b"></i>artery</span>
+        <span><i class="sw" style="background:#2f6bff"></i>vein</span>
+        <span><i class="sw" style="background:#ffe49a"></i>nerve</span>
+      </div>
+      <div class="mn">🧠 Read it top to bottom like a <b>sandwich</b>: dry crust (epidermis) → the filling with everything living in it (dermis) → butter (fat) → the plate (muscle &amp; bone). Every wound page in this set asks one question: <b>how far into the sandwich did it go?</b></div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🧬 Epidermis — the barrier, and it has no blood supply</h3>
+      <p><b>Avascular.</b> It is fed by diffusion from the dermis below. That is why a shallow scrape oozes clear fluid instead of bleeding, and why the epidermis alone can regenerate perfectly with no scar.</p>
+      <ul class="tick">
+        <li><b>Keratinocytes</b> — 90%+ of the cells. Born at the bottom, pushed up, flatten, die, flake off. Full turnover <span class="mono">~28 days</span> (faster in psoriasis — see <a href="NG-225_psoriasis.html">NG-225</a>).</li>
+        <li><b>Melanocytes</b> — make melanin, which shields DNA from UV. Everyone has about the same <i>number</i>; skin tone reflects how much pigment they make.</li>
+        <li><b>Langerhans cells</b> — the immune sentinels. They present antigen; they are the reason <i>allergic</i> contact dermatitis exists (<a href="NG-182_eczema-atopic-vs-contact-dermatitis.html">NG-182</a>).</li>
+        <li><b>Merkel cells</b> — light touch / discriminative sensation, sitting on the basal layer.</li>
+      </ul>
+      <div class="mn">🧠 Strata, deep → surface: <b>B</b>asale · <b>S</b>pinosum · <b>G</b>ranulosum · <b>L</b>ucidum · <b>C</b>orneum = <b>"Baby Skin Gets Less Cracked."</b> Lucidum only exists on palms and soles.</div>
+    </div>
+
+    <div class="card deep">
+      <h3>🔬 Zoom: the strata, and the 28-day escalator</h3>
+      <svg viewBox="-10 -10 710 420" role="img" aria-label="Magnified view of the epidermal strata showing basal columnar cells with a melanocyte and Merkel cell, polygonal spinosum cells joined by desmosomes, flattening granulosum cells with keratohyalin granules, a thin lucidum band, and flat anucleate corneocytes shedding at the surface, with an arrow showing 28-day cell migration">
+        <defs>
+          <linearGradient id="s2bg" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#fff6ec"/><stop offset="1" stop-color="#d99a72"/>
+          </linearGradient>
+          <marker id="s2ar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/>
+          </marker>
+        </defs>
+        <rect x="-6" y="-6" width="702" height="412" rx="18" fill="rgba(157,92,255,.10)" stroke="#9d5cff" stroke-width="2" stroke-dasharray="8 7"/>
+        <text x="20" y="30" font-size="18" font-weight="900" fill="#e9dcff">EPIDERMIS · magnified · deep (bottom) → surface (top)</text>
+        <rect x="24" y="46" width="380" height="330" rx="10" fill="url(#s2bg)"/>
+
+        <!-- corneum: flat dead plates, some shedding -->
+        <g fill="#fffaf3" stroke="#cfa584" stroke-width="1.2">
+          <rect x="30" y="52" width="70" height="9" rx="4"/><rect x="106" y="52" width="70" height="9" rx="4"/>
+          <rect x="182" y="52" width="70" height="9" rx="4"/><rect x="258" y="52" width="70" height="9" rx="4"/>
+          <rect x="334" y="52" width="64" height="9" rx="4"/>
+          <rect x="34" y="66" width="70" height="9" rx="4"/><rect x="110" y="66" width="70" height="9" rx="4"/>
+          <rect x="186" y="66" width="70" height="9" rx="4"/><rect x="262" y="66" width="70" height="9" rx="4"/>
+          <rect x="338" y="66" width="58" height="9" rx="4"/>
+          <rect x="30" y="80" width="70" height="9" rx="4"/><rect x="106" y="80" width="70" height="9" rx="4"/>
+          <rect x="182" y="80" width="70" height="9" rx="4"/><rect x="258" y="80" width="70" height="9" rx="4"/>
+          <rect x="334" y="80" width="64" height="9" rx="4"/>
+        </g>
+        <g fill="#fffaf3" stroke="#cfa584" stroke-width="1.2" opacity=".85">
+          <path d="M120 50 l56 -6 l2 8 l-56 6 z"/><path d="M240 46 l50 -8 l3 8 l-50 8 z"/>
+        </g>
+        <!-- lucidum thin clear band -->
+        <rect x="26" y="94" width="376" height="12" fill="#ffeeda" stroke="#d8b295" stroke-width="1"/>
+        <!-- granulosum: flattening cells with dark granules -->
+        <g fill="#ffd9b4" stroke="#c98f63" stroke-width="1.2">
+          <ellipse cx="60" cy="120" rx="28" ry="9"/><ellipse cx="122" cy="120" rx="28" ry="9"/>
+          <ellipse cx="184" cy="120" rx="28" ry="9"/><ellipse cx="246" cy="120" rx="28" ry="9"/>
+          <ellipse cx="308" cy="120" rx="28" ry="9"/><ellipse cx="366" cy="120" rx="26" ry="9"/>
+        </g>
+        <g fill="#7d4a2a">
+          <circle cx="52" cy="119" r="2"/><circle cx="66" cy="122" r="2"/><circle cx="114" cy="119" r="2"/>
+          <circle cx="130" cy="122" r="2"/><circle cx="176" cy="119" r="2"/><circle cx="192" cy="122" r="2"/>
+          <circle cx="240" cy="119" r="2"/><circle cx="254" cy="122" r="2"/><circle cx="300" cy="119" r="2"/>
+          <circle cx="316" cy="122" r="2"/><circle cx="360" cy="121" r="2"/>
+        </g>
+        <!-- spinosum: polygonal cells with desmosome spines -->
+        <g fill="#f7bd90" stroke="#c9855a" stroke-width="1.3">
+          <path d="M40 146 l24 -8 l24 8 l0 26 l-24 8 l-24 -8 z"/>
+          <path d="M92 146 l24 -8 l24 8 l0 26 l-24 8 l-24 -8 z"/>
+          <path d="M144 146 l24 -8 l24 8 l0 26 l-24 8 l-24 -8 z"/>
+          <path d="M196 146 l24 -8 l24 8 l0 26 l-24 8 l-24 -8 z"/>
+          <path d="M248 146 l24 -8 l24 8 l0 26 l-24 8 l-24 -8 z"/>
+          <path d="M300 146 l24 -8 l24 8 l0 26 l-24 8 l-24 -8 z"/>
+          <path d="M352 146 l24 -8 l22 8 l0 26 l-22 8 l-24 -8 z"/>
+          <path d="M66 186 l24 -8 l24 8 l0 26 l-24 8 l-24 -8 z"/>
+          <path d="M118 186 l24 -8 l24 8 l0 26 l-24 8 l-24 -8 z"/>
+          <path d="M170 186 l24 -8 l24 8 l0 26 l-24 8 l-24 -8 z"/>
+          <path d="M222 186 l24 -8 l24 8 l0 26 l-24 8 l-24 -8 z"/>
+          <path d="M274 186 l24 -8 l24 8 l0 26 l-24 8 l-24 -8 z"/>
+          <path d="M326 186 l24 -8 l24 8 l0 26 l-24 8 l-24 -8 z"/>
+        </g>
+        <g fill="#8a5732">
+          <circle cx="64" cy="159" r="4"/><circle cx="116" cy="159" r="4"/><circle cx="168" cy="159" r="4"/>
+          <circle cx="220" cy="159" r="4"/><circle cx="272" cy="159" r="4"/><circle cx="324" cy="159" r="4"/>
+          <circle cx="374" cy="159" r="4"/><circle cx="90" cy="199" r="4"/><circle cx="142" cy="199" r="4"/>
+          <circle cx="194" cy="199" r="4"/><circle cx="246" cy="199" r="4"/><circle cx="298" cy="199" r="4"/>
+          <circle cx="350" cy="199" r="4"/>
+        </g>
+        <!-- basale: columnar cells on wavy junction -->
+        <path d="M24 292 Q64 268 104 292 Q144 316 184 292 Q224 268 264 292 Q304 316 344 292 Q384 268 404 292 L404 376 L24 376 Z" fill="#e0808f"/>
+        <path d="M24 292 Q64 268 104 292 Q144 316 184 292 Q224 268 264 292 Q304 316 344 292 Q384 268 404 292" fill="none" stroke="#a13c58" stroke-width="2.5"/>
+        <g fill="#d99a72" stroke="#a3673f" stroke-width="1.2">
+          <rect x="34" y="252" width="17" height="34" rx="7"/><rect x="56" y="258" width="17" height="30" rx="7"/>
+          <rect x="78" y="262" width="17" height="26" rx="7"/><rect x="100" y="258" width="17" height="30" rx="7"/>
+          <rect x="122" y="264" width="17" height="26" rx="7"/><rect x="144" y="270" width="17" height="24" rx="7"/>
+          <rect x="166" y="264" width="17" height="26" rx="7"/><rect x="188" y="256" width="17" height="30" rx="7"/>
+          <rect x="210" y="252" width="17" height="34" rx="7"/><rect x="232" y="256" width="17" height="30" rx="7"/>
+          <rect x="254" y="262" width="17" height="26" rx="7"/><rect x="276" y="268" width="17" height="24" rx="7"/>
+          <rect x="298" y="264" width="17" height="26" rx="7"/><rect x="320" y="258" width="17" height="30" rx="7"/>
+          <rect x="342" y="252" width="17" height="34" rx="7"/><rect x="364" y="256" width="17" height="30" rx="7"/>
+        </g>
+        <!-- melanocyte -->
+        <ellipse cx="146" cy="286" rx="11" ry="8" fill="#4a2c6b"/>
+        <g stroke="#4a2c6b" stroke-width="2.2" fill="none" stroke-linecap="round">
+          <path d="M140 280 C 132 264 130 250 136 240"/><path d="M148 278 C 148 260 146 248 152 236"/>
+          <path d="M154 281 C 164 268 168 254 166 244"/>
+        </g>
+        <!-- Merkel cell -->
+        <circle cx="266" cy="278" r="8" fill="#ffc233" stroke="#8a6a08" stroke-width="1.4"/>
+        <path d="M266 288 C 264 304 260 318 256 330" fill="none" stroke="#ffc233" stroke-width="2.4"/>
+
+        <!-- migration arrow -->
+        <path d="M414 300 C 440 240 440 140 418 66" fill="none" stroke="#ffc233" stroke-width="5" marker-end="url(#s2ar)"/>
+        <text x="432" y="200" font-size="14" font-weight="900" fill="#ffc233">~28 days</text>
+        <text x="432" y="219" font-size="12" fill="#ffe49a">born → pushed up → dies → sheds</text>
+
+        <!-- right labels -->
+        <g font-size="13.5" font-weight="800" fill="#fff">
+          <text x="432" y="72">Corneum — dead keratin plates</text>
+          <text x="432" y="106">Lucidum — palms &amp; soles only</text>
+          <text x="432" y="128">Granulosum — cells start to die</text>
+          <text x="432" y="164">Spinosum — desmosome "spines"</text>
+          <text x="432" y="290">Basale — the only dividing layer</text>
+        </g>
+        <g font-size="11.5" fill="#e9dcff" font-style="italic">
+          <text x="432" y="88">water-proof brick wall</text>
+          <text x="432" y="144">keratohyalin granules</text>
+          <text x="432" y="180">cells glued together here</text>
+          <text x="432" y="306">+ melanocytes + Merkel cells</text>
+          <text x="432" y="322">destroy this = no regrowth</text>
+        </g>
+        <g fill="#ffe49a" font-size="12" font-weight="800">
+          <text x="432" y="352">🟣 melanocyte  🟡 Merkel cell</text>
+          <text x="432" y="370">wavy line = dermo-epidermal junction</text>
+        </g>
+      </svg>
+      <div class="mn">🧠 The <b>basale is the nursery</b>. If a burn, pressure injury or frostbite kills the basal layer across a whole area, that area cannot re-epithelialise from the surface — it must fill in from the edges or be grafted.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🧬 Dermis — the workshop where everything lives</h3>
+      <p><b>This is the layer with the blood, nerves, glands and follicles.</b> Injuries that reach it hurt, bleed and can scar.</p>
+      <ul class="tick">
+        <li><b>Papillary dermis</b> (thin, upper) — loose tissue + capillary loops that feed the epidermis; contains <b>Meissner corpuscles</b>.</li>
+        <li><b>Reticular dermis</b> (thick, lower) — dense <b>collagen</b> (tensile strength) and <b>elastin</b> (recoil = turgor). Stretch it too fast and you get striae.</li>
+        <li>Holds the <b>appendages</b>: hair follicles, sebaceous glands, sweat glands — the cells that let <i>partial-thickness</i> wounds re-epithelialise from the middle outward.</li>
+        <li>Two vascular plexuses: a <b>deep cutaneous</b> plexus and a <b>superficial subpapillary</b> plexus — the body's heat radiator.</li>
+      </ul>
+      <div class="mn">🧠 <b>Collagen = rope, elastin = rubber band.</b> Ageing loses the rubber band first — that is why the pinch test tents in older adults even when they are well hydrated.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🧬 Hypodermis — fat, insulation, and the drug depot</h3>
+      <ul class="tick">
+        <li><b>Adipose + loose connective tissue.</b> Insulation, shock absorption, energy store, anchors skin to fascia.</li>
+        <li>Thickness varies enormously by site and body habitus — this is exactly why <b>subcutaneous vs intramuscular injection depth</b> is chosen by site and needle length.</li>
+        <li>Thin fat over a <b>bony prominence</b> = the classic pressure injury set-up (<a href="NG-044_pressure-injuries.html">NG-044</a>).</li>
+        <li>Poor perfusion here is why the <b>cachectic, the very old and the very cold</b> injure so fast.</li>
+      </ul>
+      <div class="mn">🧠 Fat is the body's <b>bubble wrap</b>. Take the bubble wrap away (thin, malnourished, elderly) and every bone becomes a pressure point.</div>
+    </div>
+
+    <div class="card topaz span2">
+      <h3>⭐ The appendages — three glands people constantly mix up</h3>
+      <table>
+        <tr><th class="up">Structure</th><th class="up">Empties into</th><th class="up">Secretes</th><th class="lo">Where</th><th class="lo">Clinical hook</th></tr>
+        <tr><td><b>Eccrine sweat gland</b></td><td>Its own pore on the skin surface</td><td>Watery, salty sweat</td><td>Almost everywhere; densest palms, soles, forehead</td><td>The real cooling system — evaporation. Lost fluid + Na⁺ + K⁺</td></tr>
+        <tr><td><b>Apocrine sweat gland</b></td><td>The hair follicle</td><td>Thicker, protein-rich fluid</td><td>Axillae, groin, areolae</td><td>Odourless until skin bacteria digest it → body odour; activates at puberty</td></tr>
+        <tr><td><b>Sebaceous gland</b></td><td>The hair follicle</td><td>Oily <b>sebum</b></td><td>Everywhere except palms &amp; soles; densest face, scalp, back</td><td>Blocked + inflamed = acne. Keeps the surface supple and slightly acidic</td></tr>
+      </table>
+      <p style="margin-top:10px"><b>Acid mantle:</b> sebum + sweat keep the surface pH around <span class="mono">4.5–5.5</span>. That acidity plus normal flora is real antimicrobial defence — which is why harsh soap, repeated scrubbing and incontinence-associated moisture all raise infection risk.</p>
+      <div class="mn">🧠 <b>"Apocrine follows the hair, eccrine goes it alone."</b> Sebaceous also drains into the follicle — so two of the three ride the hair.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section id="cause">
+  <div class="sec-h"><span class="icon">🛡️</span><h2>WHAT SKIN DOES</h2><span class="step">STEP 2 · FUNCTION</span></div>
+  <p class="sec-sub">Six jobs. When you can name them, you can predict exactly what goes wrong when skin is lost.</p>
+  <div class="grid">
+
+    <div class="card deep span2">
+      <h3>🛡️ The six functions, drawn</h3>
+      <svg viewBox="0 0 760 470" role="img" aria-label="Six panel diagram of skin functions, each drawn as a small skin cross-section: barrier repelling microbes and water, temperature regulation by sweating and vasodilation, sensation via nerve receptors, vitamin D synthesis from ultraviolet light, immune surveillance by Langerhans cells, and excretion plus absorption through the skin">
+        <defs>
+          <linearGradient id="s3e" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffeedd"/><stop offset="1" stop-color="#e5a97e"/></linearGradient>
+          <linearGradient id="s3d" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eb96a3"/><stop offset="1" stop-color="#a3405c"/></linearGradient>
+          <linearGradient id="s3f" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe08a"/><stop offset="1" stop-color="#cf9628"/></linearGradient>
+          <radialGradient id="s3sun" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff6c4"/><stop offset="1" stop-color="#ffb830"/></radialGradient>
+        </defs>
+        <rect x="4" y="4" width="752" height="462" rx="18" fill="rgba(255,194,51,.10)" stroke="#ffc233" stroke-width="2" stroke-dasharray="8 7"/>
+        <text x="20" y="30" font-size="18" font-weight="900" fill="#ffe49a">SIX JOBS OF SKIN · each panel is the same cross-section</text>
+
+        <!-- panel template repeated 6x -->
+        <!-- P1 BARRIER -->
+        <g>
+          <rect x="22" y="46" width="230" height="190" rx="12" fill="rgba(13,8,26,.42)" stroke="rgba(255,255,255,.3)"/>
+          <rect x="34" y="150" width="206" height="26" fill="url(#s3e)"/>
+          <rect x="34" y="176" width="206" height="34" fill="url(#s3d)"/>
+          <rect x="34" y="210" width="206" height="16" fill="url(#s3f)"/>
+          <g fill="#12b886" stroke="#0b6b50" stroke-width="1.2">
+            <circle cx="90" cy="120" r="8"/><circle cx="130" cy="106" r="7"/><circle cx="176" cy="122" r="8"/>
+          </g>
+          <g stroke="#ff3b6b" stroke-width="3" fill="none" stroke-linecap="round">
+            <path d="M84 132 C 92 142 100 142 108 134"/><path d="M124 118 C 132 130 142 130 150 120"/>
+            <path d="M170 134 C 178 144 188 144 196 134"/>
+          </g>
+          <g stroke="#00c2c7" stroke-width="2.4" fill="none" stroke-linecap="round">
+            <path d="M56 100 l0 34"/><path d="M56 134 l-6 -8 M56 134 l6 -8"/>
+            <path d="M212 100 l0 34"/><path d="M212 134 l-6 -8 M212 134 l6 -8"/>
+          </g>
+          <text x="34" y="72" font-size="15" font-weight="900" fill="#12b886">① BARRIER</text>
+          <text x="34" y="90" font-size="11.5" fill="#d8fff0">microbes out · water in</text>
+          <text x="34" y="252" font-size="11.5" fill="#ffe49a" font-style="italic">break it = infection + fluid loss</text>
+        </g>
+
+        <!-- P2 TEMPERATURE -->
+        <g>
+          <rect x="264" y="46" width="230" height="190" rx="12" fill="rgba(13,8,26,.42)" stroke="rgba(255,255,255,.3)"/>
+          <rect x="276" y="150" width="206" height="26" fill="url(#s3e)"/>
+          <rect x="276" y="176" width="206" height="34" fill="url(#s3d)"/>
+          <rect x="276" y="210" width="206" height="16" fill="url(#s3f)"/>
+          <path d="M300 196 C 340 186 380 206 460 194" fill="none" stroke="#ff3b6b" stroke-width="8" stroke-linecap="round"/>
+          <path d="M300 196 C 340 186 380 206 460 194" fill="none" stroke="#ff8fa6" stroke-width="3" stroke-linecap="round"/>
+          <path d="M330 150 C 336 162 326 168 332 176" fill="none" stroke="#2fb4b8" stroke-width="5"/>
+          <path d="M410 150 C 416 162 406 168 412 176" fill="none" stroke="#2fb4b8" stroke-width="5"/>
+          <g fill="#9ff2ee"><circle cx="330" cy="138" r="5"/><circle cx="410" cy="136" r="5"/><circle cx="368" cy="126" r="4"/><circle cx="350" cy="114" r="3.4"/></g>
+          <g stroke="#ffc233" stroke-width="2.4" fill="none" stroke-linecap="round">
+            <path d="M292 130 l0 -22"/><path d="M292 108 l-5 8 M292 108 l5 8"/>
+            <path d="M452 130 l0 -22"/><path d="M452 108 l-5 8 M452 108 l5 8"/>
+          </g>
+          <text x="276" y="72" font-size="15" font-weight="900" fill="#00c2c7">② HEAT CONTROL</text>
+          <text x="276" y="90" font-size="11.5" fill="#d8fff0">sweat + vasodilate = lose heat</text>
+          <text x="276" y="252" font-size="11.5" fill="#ffe49a" font-style="italic">vasoconstrict + goosebumps = keep heat</text>
+        </g>
+
+        <!-- P3 SENSATION -->
+        <g>
+          <rect x="506" y="46" width="230" height="190" rx="12" fill="rgba(13,8,26,.42)" stroke="rgba(255,255,255,.3)"/>
+          <rect x="518" y="150" width="206" height="26" fill="url(#s3e)"/>
+          <rect x="518" y="176" width="206" height="34" fill="url(#s3d)"/>
+          <rect x="518" y="210" width="206" height="16" fill="url(#s3f)"/>
+          <g fill="none" stroke="#ffe49a" stroke-width="2.6" stroke-linecap="round">
+            <path d="M560 226 C 556 200 552 176 548 156"/><path d="M620 226 C 622 200 620 176 618 156"/>
+            <path d="M684 226 C 688 200 690 178 692 158"/>
+          </g>
+          <ellipse cx="548" cy="152" rx="8" ry="11" fill="#ffe49a"/>
+          <ellipse cx="618" cy="192" rx="16" ry="12" fill="#e9d7ff" stroke="#9d5cff" stroke-width="1.6"/>
+          <ellipse cx="618" cy="192" rx="10" ry="7" fill="none" stroke="#9d5cff" stroke-width="1.3"/>
+          <g stroke="#ff8a3d" stroke-width="2" fill="none"><path d="M692 158 l-8 -14 M692 158 l2 -16 M692 158 l10 -12"/></g>
+          <text x="518" y="72" font-size="15" font-weight="900" fill="#ffc233">③ SENSATION</text>
+          <text x="518" y="90" font-size="11.5" fill="#ffe8c9">touch · pressure · temp · pain</text>
+          <text x="518" y="110" font-size="11" fill="#fff" opacity=".85">Meissner · Pacinian · free endings</text>
+          <text x="518" y="252" font-size="11.5" fill="#ffe49a" font-style="italic">neuropathy = injury you cannot feel</text>
+        </g>
+
+        <!-- P4 VITAMIN D -->
+        <g>
+          <rect x="22" y="262" width="230" height="190" rx="12" fill="rgba(13,8,26,.42)" stroke="rgba(255,255,255,.3)"/>
+          <rect x="34" y="366" width="206" height="26" fill="url(#s3e)"/>
+          <rect x="34" y="392" width="206" height="34" fill="url(#s3d)"/>
+          <circle cx="70" cy="306" r="20" fill="url(#s3sun)"/>
+          <g stroke="#ffc233" stroke-width="2.6" stroke-linecap="round">
+            <path d="M70 278 v-10"/><path d="M96 288 l8 -7"/><path d="M44 288 l-8 -7"/><path d="M98 322 l9 5"/>
+          </g>
+          <g stroke="#ffe49a" stroke-width="2.4" stroke-linecap="round" opacity=".9">
+            <path d="M84 322 L128 362"/><path d="M96 316 L146 360"/><path d="M104 330 L152 366"/>
+          </g>
+          <circle cx="150" cy="378" r="9" fill="#ffc233" stroke="#8a6a08" stroke-width="1.4"/>
+          <text x="164" y="382" font-size="11.5" font-weight="800" fill="#ffe49a">→ liver → kidney</text>
+          <text x="164" y="398" font-size="11.5" font-weight="800" fill="#ffe49a">→ active vit D</text>
+          <text x="34" y="288" font-size="15" font-weight="900" fill="#ffc233">④ VITAMIN D</text>
+          <text x="34" y="440" font-size="11.5" fill="#ffe49a" font-style="italic">needed to absorb Ca²⁺ → bone strength</text>
+        </g>
+
+        <!-- P5 IMMUNITY -->
+        <g>
+          <rect x="264" y="262" width="230" height="190" rx="12" fill="rgba(13,8,26,.42)" stroke="rgba(255,255,255,.3)"/>
+          <rect x="276" y="366" width="206" height="26" fill="url(#s3e)"/>
+          <rect x="276" y="392" width="206" height="34" fill="url(#s3d)"/>
+          <g>
+            <ellipse cx="360" cy="376" rx="12" ry="9" fill="#9d5cff"/>
+            <g stroke="#9d5cff" stroke-width="2.2" fill="none" stroke-linecap="round">
+              <path d="M350 370 C 342 360 340 352 344 344"/><path d="M362 368 C 362 356 360 348 364 340"/>
+              <path d="M372 372 C 382 362 386 354 384 346"/>
+            </g>
+          </g>
+          <circle cx="330" cy="330" r="8" fill="#12b886" stroke="#0b6b50" stroke-width="1.2"/>
+          <circle cx="404" cy="336" r="7" fill="#12b886" stroke="#0b6b50" stroke-width="1.2"/>
+          <path d="M338 338 L352 358" stroke="#ffe49a" stroke-width="2.4" stroke-linecap="round"/>
+          <path d="M398 344 L376 358" stroke="#ffe49a" stroke-width="2.4" stroke-linecap="round"/>
+          <text x="276" y="288" font-size="15" font-weight="900" fill="#c9a6ff">⑤ IMMUNITY</text>
+          <text x="276" y="306" font-size="11.5" fill="#e9dcff">Langerhans cells catch antigen</text>
+          <text x="276" y="440" font-size="11.5" fill="#ffe49a" font-style="italic">also why allergic contact dermatitis happens</text>
+        </g>
+
+        <!-- P6 EXCRETION / ABSORPTION -->
+        <g>
+          <rect x="506" y="262" width="230" height="190" rx="12" fill="rgba(13,8,26,.42)" stroke="rgba(255,255,255,.3)"/>
+          <rect x="518" y="366" width="206" height="26" fill="url(#s3e)"/>
+          <rect x="518" y="392" width="206" height="34" fill="url(#s3d)"/>
+          <g stroke="#00c2c7" stroke-width="3" fill="none" stroke-linecap="round">
+            <path d="M560 392 L560 330"/><path d="M560 330 l-6 9 M560 330 l6 9"/>
+          </g>
+          <g fill="#9ff2ee"><circle cx="560" cy="318" r="5"/><circle cx="574" cy="306" r="3.6"/></g>
+          <g stroke="#ff8a3d" stroke-width="3" fill="none" stroke-linecap="round">
+            <path d="M672 316 L672 386"/><path d="M672 386 l-6 -9 M672 386 l6 -9"/>
+          </g>
+          <rect x="644" y="296" width="56" height="18" rx="6" fill="rgba(255,138,61,.75)"/>
+          <text x="650" y="309" font-size="11" font-weight="900" fill="#2b1200">patch med</text>
+          <text x="518" y="288" font-size="15" font-weight="900" fill="#00c2c7">⑥ EXCRETE + ABSORB</text>
+          <text x="518" y="306" font-size="11.5" fill="#d8fff0">water · salt · urea out</text>
+          <text x="518" y="440" font-size="11.5" fill="#ffe49a" font-style="italic">absorbs meds — and toxins</text>
+        </g>
+      </svg>
+      <div class="mn">🧠 <b>SHIELD</b> — <b>S</b>ensation · <b>H</b>eat control · <b>I</b>mmunity · <b>E</b>xcretion &amp; absorption · <b>L</b>ayer (barrier) · <b>D</b> vitamin. Skin is a shield; a shield does six jobs.</div>
+    </div>
+
+    <div class="card emerald">
+      <h3>🌡️ Thermoregulation — the two settings</h3>
+      <svg viewBox="0 0 620 300" role="img" aria-label="Side by side comparison of skin in cold and hot conditions: on the cold side dermal arterioles are constricted, the arrector pili muscle contracts to raise the hair, and the skin is pale, while on the hot side arterioles are dilated, sweat glands are active with droplets evaporating, and the skin is flushed">
+        <defs>
+          <linearGradient id="s4c" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e8f2ff"/><stop offset="1" stop-color="#b8c9e0"/></linearGradient>
+          <linearGradient id="s4h" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd9c9"/><stop offset="1" stop-color="#f0907f"/></linearGradient>
+        </defs>
+        <rect x="4" y="4" width="612" height="292" rx="16" fill="rgba(18,184,134,.10)" stroke="#12b886" stroke-width="2" stroke-dasharray="8 7"/>
+        <!-- COLD -->
+        <rect x="20" y="34" width="278" height="244" rx="12" fill="rgba(47,107,255,.16)" stroke="rgba(255,255,255,.3)"/>
+        <text x="34" y="58" font-size="16" font-weight="900" fill="#bcd0ff">❄️ COLD — hold the heat</text>
+        <rect x="34" y="80" width="250" height="30" fill="url(#s4c)"/>
+        <rect x="34" y="110" width="250" height="90" fill="#c98da0"/>
+        <rect x="34" y="200" width="250" height="34" fill="#e6c887"/>
+        <path d="M50 170 C 100 166 150 174 268 168" fill="none" stroke="#c02255" stroke-width="3" stroke-linecap="round"/>
+        <path d="M60 152 C 62 130 70 118 74 80" fill="none" stroke="#c02255" stroke-width="2.5"/>
+        <path d="M140 80 C 150 130 160 150 168 168" fill="none" stroke="#8a5732" stroke-width="6" stroke-linecap="round"/>
+        <path d="M140 82 C 132 60 122 48 108 40" fill="none" stroke="#3f2a16" stroke-width="6" stroke-linecap="round"/>
+        <path d="M160 140 C 146 130 138 112 134 96" fill="none" stroke="#b8395c" stroke-width="9" stroke-linecap="round"/>
+        <circle cx="140" cy="86" r="9" fill="#e8f2ff" stroke="#8aa8cc" stroke-width="1.4"/>
+        <text x="182" y="98" font-size="11.5" font-weight="800" fill="#dbe8ff">goosebump</text>
+        <text x="182" y="132" font-size="11.5" font-weight="800" fill="#ffb3c6">arterioles narrow</text>
+        <text x="34" y="258" font-size="12" fill="#dbe8ff" font-style="italic">pale, cool, shivering · sweat shuts off</text>
+        <!-- HOT -->
+        <rect x="322" y="34" width="278" height="244" rx="12" fill="rgba(255,59,107,.16)" stroke="rgba(255,255,255,.3)"/>
+        <text x="336" y="58" font-size="16" font-weight="900" fill="#ffb3c6">🔥 HOT — dump the heat</text>
+        <rect x="336" y="80" width="250" height="30" fill="url(#s4h)"/>
+        <rect x="336" y="110" width="250" height="90" fill="#e0808f"/>
+        <rect x="336" y="200" width="250" height="34" fill="#e6c887"/>
+        <path d="M352 170 C 402 164 452 178 570 166" fill="none" stroke="#ff3b6b" stroke-width="11" stroke-linecap="round"/>
+        <path d="M352 170 C 402 164 452 178 570 166" fill="none" stroke="#ff8fa6" stroke-width="4" stroke-linecap="round"/>
+        <path d="M368 150 C 372 128 366 116 370 82" fill="none" stroke="#ff3b6b" stroke-width="5"/>
+        <path d="M470 110 C 476 130 464 142 472 166" fill="none" stroke="#2fb4b8" stroke-width="7" stroke-linecap="round"/>
+        <path d="M470 166 C 500 168 508 186 496 194 C 480 202 460 190 466 176" fill="none" stroke="#2fb4b8" stroke-width="7" stroke-linecap="round"/>
+        <g fill="#9ff2ee"><circle cx="470" cy="70" r="5"/><circle cx="486" cy="58" r="4"/><circle cx="452" cy="56" r="3.4"/><circle cx="502" cy="70" r="3"/></g>
+        <text x="386" y="132" font-size="11.5" font-weight="800" fill="#ffe49a">arterioles widen</text>
+        <text x="496" y="140" font-size="11.5" font-weight="800" fill="#9ff2ee">sweat</text>
+        <text x="336" y="258" font-size="12" fill="#ffe8c9" font-style="italic">flushed, warm, diaphoretic · fluid loss</text>
+      </svg>
+      <p style="margin-top:10px">Evaporation of sweat is what actually removes heat — <mark>sweat sitting on the skin does nothing until it evaporates</mark>. Humid air, occlusive dressings and heavy blankets all block it.</p>
+      <div class="mn">🧠 <b>Cold = clamp down. Hot = open up.</b> This one sentence explains pallor in shock, flushing in fever break, and the pale hard skin of frostbite (<a href="NG-116_frostbite.html">NG-116</a>).</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>💥 What is lost when skin is lost</h3>
+      <p>Every complication of a big wound or burn is just a function on this page failing:</p>
+      <ul class="tick">
+        <li><b>Barrier gone</b> → infection, then sepsis.</li>
+        <li><b>Water control gone</b> → evaporative fluid loss, hypovolaemia, hypothermia.</li>
+        <li><b>Protein leaves in exudate</b> → low albumin → more oedema → slower healing.</li>
+        <li><b>Heat control gone</b> → the patient gets cold fast, especially in the OR or in an open wound.</li>
+        <li><b>Sensation gone</b> → repeat injury goes unnoticed (diabetic foot, neuropathy).</li>
+      </ul>
+      <div class="mn">🧠 Skin failing looks a lot like <b>a leaky, unheated house with the front door open</b>: things get in, heat and water get out.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>⚠️ Who has fragile skin — flag these on admission</h3>
+      <div class="no-grid">
+        <div class="no-t hot"><span class="e">👵</span>Older adult<i>thin dermis, less fat</i></div>
+        <div class="no-t hot"><span class="e">🍽️</span>Malnourished<i>low protein, low albumin</i></div>
+        <div class="no-t hot"><span class="e">💧</span>Incontinent<i>moisture macerates</i></div>
+        <div class="no-t hot"><span class="e">🩸</span>Poor perfusion<i>PVD, shock, smoking</i></div>
+        <div class="no-t hot"><span class="e">🍬</span>Diabetes<i>neuropathy + slow healing</i></div>
+        <div class="no-t hot"><span class="e">💊</span>Steroids<i>thin, atrophic skin</i></div>
+        <div class="no-t hot"><span class="e">🛏️</span>Immobile<i>can't offload pressure</i></div>
+        <div class="no-t hot"><span class="e">🧠</span>↓ Sensation<i>won't feel damage</i></div>
+      </div>
+      <div class="mn">🧠 <b>"Thin, wet, starved, still, and can't feel it."</b> Any two of those together and you should already be planning prevention.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section id="clues">
+  <div class="sec-h"><span class="icon">🔎</span><h2>LESION LANGUAGE</h2><span class="step">STEP 3 · DESCRIBE IT</span></div>
+  <p class="sec-sub">"Rash" is not an assessment. These nine words are the vocabulary every derm question is written in.</p>
+  <div class="grid">
+
+    <div class="card deep span2">
+      <h3>🔎 PRIMARY lesions — the first thing the skin does</h3>
+      <svg viewBox="-10 -10 825 440" role="img" aria-label="Eight panel plate of primary skin lesions drawn in cross-section with a surface view: macule, patch, papule, plaque, nodule, vesicle, bulla, pustule and wheal, each showing where in the skin layers the lesion sits">
+        <defs>
+          <linearGradient id="s5e" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff1e2"/><stop offset="1" stop-color="#e8b48b"/></linearGradient>
+          <linearGradient id="s5d" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eb96a3"/><stop offset="1" stop-color="#a3405c"/></linearGradient>
+          <radialGradient id="s5fl" cx=".4" cy=".3" r=".8"><stop offset="0" stop-color="#eafcff"/><stop offset="1" stop-color="#8ed8e6"/></radialGradient>
+          <radialGradient id="s5pus" cx=".4" cy=".3" r=".8"><stop offset="0" stop-color="#fff6c9"/><stop offset="1" stop-color="#e0b83c"/></radialGradient>
+        </defs>
+        <rect x="-6" y="-6" width="817" height="432" rx="18" fill="rgba(47,107,255,.10)" stroke="#2f6bff" stroke-width="2" stroke-dasharray="8 7"/>
+        <text x="20" y="30" font-size="18" font-weight="900" fill="#bcd0ff">PRIMARY LESIONS · cross-section (side view) with the skin surface at the top</text>
+
+        <!-- row 1 -->
+        <g>
+          <rect x="20" y="46" width="180" height="160" rx="10" fill="rgba(13,8,26,.42)" stroke="rgba(255,255,255,.28)"/>
+          <rect x="32" y="120" width="156" height="26" fill="url(#s5e)"/><rect x="32" y="146" width="156" height="48" fill="url(#s5d)"/>
+          <rect x="80" y="120" width="60" height="26" fill="#8c4a6e" opacity=".85"/>
+          <text x="32" y="70" font-size="15" font-weight="900" fill="#9ff2ee">MACULE</text>
+          <text x="32" y="88" font-size="11.5" fill="#fff">flat · colour change only</text>
+          <text x="32" y="104" font-size="11.5" fill="#ffe49a" font-weight="800">&lt; 1 cm · freckle, petechia</text>
+          <text x="32" y="214" font-size="11" fill="#dbe8ff" font-style="italic">&gt; 1 cm = PATCH (vitiligo)</text>
+        </g>
+        <g>
+          <rect x="210" y="46" width="180" height="160" rx="10" fill="rgba(13,8,26,.42)" stroke="rgba(255,255,255,.28)"/>
+          <rect x="222" y="120" width="156" height="26" fill="url(#s5e)"/><rect x="222" y="146" width="156" height="48" fill="url(#s5d)"/>
+          <path d="M272 121 C 278 100 316 100 322 121 Z" fill="#e0a06f" stroke="#a3673f" stroke-width="1.4"/>
+          <text x="222" y="70" font-size="15" font-weight="900" fill="#9ff2ee">PAPULE</text>
+          <text x="222" y="88" font-size="11.5" fill="#fff">solid · raised · you can feel it</text>
+          <text x="222" y="104" font-size="11.5" fill="#ffe49a" font-weight="800">&lt; 1 cm · mole, wart, acne bump</text>
+          <text x="222" y="214" font-size="11" fill="#dbe8ff" font-style="italic">&gt; 1 cm &amp; flat-topped = PLAQUE</text>
+        </g>
+        <g>
+          <rect x="400" y="46" width="180" height="160" rx="10" fill="rgba(13,8,26,.42)" stroke="rgba(255,255,255,.28)"/>
+          <rect x="412" y="120" width="156" height="26" fill="url(#s5e)"/><rect x="412" y="146" width="156" height="48" fill="url(#s5d)"/>
+          <path d="M442 121 C 448 104 532 104 538 121 Z" fill="#e8bb98" stroke="#a3673f" stroke-width="1.4"/>
+          <g stroke="#fff" stroke-width="1.2" opacity=".8"><path d="M452 112 h74 M456 108 h66"/></g>
+          <text x="412" y="70" font-size="15" font-weight="900" fill="#9ff2ee">PLAQUE</text>
+          <text x="412" y="88" font-size="11.5" fill="#fff">raised · flat-topped · broad</text>
+          <text x="412" y="104" font-size="11.5" fill="#ffe49a" font-weight="800">&gt; 1 cm · psoriasis, eczema</text>
+          <text x="412" y="214" font-size="11" fill="#dbe8ff" font-style="italic">think "a plateau, not a hill"</text>
+        </g>
+        <g>
+          <rect x="590" y="46" width="170" height="160" rx="10" fill="rgba(13,8,26,.42)" stroke="rgba(255,255,255,.28)"/>
+          <rect x="602" y="120" width="146" height="26" fill="url(#s5e)"/><rect x="602" y="146" width="146" height="48" fill="url(#s5d)"/>
+          <ellipse cx="675" cy="146" rx="34" ry="26" fill="#c9738c" stroke="#7d2540" stroke-width="1.6"/>
+          <text x="602" y="70" font-size="15" font-weight="900" fill="#9ff2ee">NODULE</text>
+          <text x="602" y="88" font-size="11.5" fill="#fff">solid · DEEPER than a papule</text>
+          <text x="602" y="104" font-size="11.5" fill="#ffe49a" font-weight="800">&gt; 1 cm · lipoma, cyst</text>
+          <text x="602" y="214" font-size="11" fill="#dbe8ff" font-style="italic">felt more than seen</text>
+        </g>
+
+        <!-- row 2 -->
+        <g>
+          <rect x="20" y="226" width="180" height="176" rx="10" fill="rgba(13,8,26,.42)" stroke="rgba(255,255,255,.28)"/>
+          <rect x="32" y="316" width="156" height="26" fill="url(#s5e)"/><rect x="32" y="342" width="156" height="46" fill="url(#s5d)"/>
+          <path d="M84 318 C 88 296 132 296 136 318 Z" fill="url(#s5fl)" stroke="#3f9aa8" stroke-width="1.6"/>
+          <text x="32" y="250" font-size="15" font-weight="900" fill="#9ff2ee">VESICLE</text>
+          <text x="32" y="268" font-size="11.5" fill="#fff">raised · CLEAR fluid</text>
+          <text x="32" y="284" font-size="11.5" fill="#ffe49a" font-weight="800">&lt; 1 cm · herpes, poison ivy</text>
+          <text x="32" y="302" font-size="11" fill="#dbe8ff">&gt; 1 cm = BULLA (burn blister)</text>
+        </g>
+        <g>
+          <rect x="210" y="226" width="180" height="176" rx="10" fill="rgba(13,8,26,.42)" stroke="rgba(255,255,255,.28)"/>
+          <rect x="222" y="316" width="156" height="26" fill="url(#s5e)"/><rect x="222" y="342" width="156" height="46" fill="url(#s5d)"/>
+          <path d="M258 318 C 264 288 336 288 342 318 Z" fill="url(#s5fl)" stroke="#3f9aa8" stroke-width="1.8"/>
+          <text x="222" y="250" font-size="15" font-weight="900" fill="#9ff2ee">BULLA</text>
+          <text x="222" y="268" font-size="11.5" fill="#fff">a big vesicle</text>
+          <text x="222" y="284" font-size="11.5" fill="#ffe49a" font-weight="800">&gt; 1 cm · friction / burn blister</text>
+          <text x="222" y="302" font-size="11" fill="#dbe8ff">splits at the rete ridges</text>
+        </g>
+        <g>
+          <rect x="400" y="226" width="180" height="176" rx="10" fill="rgba(13,8,26,.42)" stroke="rgba(255,255,255,.28)"/>
+          <rect x="412" y="316" width="156" height="26" fill="url(#s5e)"/><rect x="412" y="342" width="156" height="46" fill="url(#s5d)"/>
+          <path d="M464 318 C 470 292 522 292 528 318 Z" fill="url(#s5pus)" stroke="#a8830f" stroke-width="1.6"/>
+          <path d="M470 330 C 476 342 516 342 522 330" fill="#ffe8a8" opacity=".8"/>
+          <circle cx="496" cy="352" r="10" fill="#ff6b86" opacity=".55"/>
+          <text x="412" y="250" font-size="15" font-weight="900" fill="#9ff2ee">PUSTULE</text>
+          <text x="412" y="268" font-size="11.5" fill="#fff">raised · PUS inside</text>
+          <text x="412" y="284" font-size="11.5" fill="#ffe49a" font-weight="800">acne, impetigo, folliculitis</text>
+          <text x="412" y="302" font-size="11" fill="#dbe8ff">pus ≠ always infected (psoriasis)</text>
+        </g>
+        <g>
+          <rect x="590" y="226" width="170" height="176" rx="10" fill="rgba(13,8,26,.42)" stroke="rgba(255,255,255,.28)"/>
+          <rect x="602" y="316" width="146" height="26" fill="url(#s5e)"/><rect x="602" y="342" width="146" height="46" fill="url(#s5d)"/>
+          <path d="M614 318 C 622 300 660 296 676 306 C 694 316 716 300 740 318 Z" fill="#ffc9a8" stroke="#c26a4a" stroke-width="1.6"/>
+          <path d="M620 342 C 660 336 700 348 742 340" fill="none" stroke="#ff6b86" stroke-width="3" opacity=".7"/>
+          <text x="602" y="250" font-size="15" font-weight="900" fill="#9ff2ee">WHEAL</text>
+          <text x="602" y="268" font-size="11.5" fill="#fff">raised · oedema · TRANSIENT</text>
+          <text x="602" y="284" font-size="11.5" fill="#ffe49a" font-weight="800">hives, allergic reaction, TB test</text>
+          <text x="602" y="302" font-size="11" fill="#dbe8ff">itchy · moves &amp; fades in hours</text>
+        </g>
+      </svg>
+      <div class="mn">🧠 Sort by three questions in order: <b>Is it raised? Is there fluid? Is it bigger than 1 cm?</b> Flat → macule/patch. Raised &amp; solid → papule/plaque/nodule. Raised &amp; fluid → vesicle/bulla/pustule. Raised &amp; it disappears → wheal.</div>
+    </div>
+
+    <div class="card deep span2">
+      <h3>🔎 SECONDARY lesions — what happens next (scratching, healing, breaking down)</h3>
+      <svg viewBox="0 0 780 250" role="img" aria-label="Six panel plate of secondary skin lesions in cross-section: scale, crust, excoriation, erosion, ulcer and fissure, with lichenification, showing progressive depth of tissue loss">
+        <defs>
+          <linearGradient id="s6e" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff1e2"/><stop offset="1" stop-color="#e8b48b"/></linearGradient>
+          <linearGradient id="s6d" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eb96a3"/><stop offset="1" stop-color="#a3405c"/></linearGradient>
+        </defs>
+        <rect x="4" y="4" width="772" height="242" rx="18" fill="rgba(255,59,107,.10)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="8 7"/>
+        <text x="20" y="28" font-size="17" font-weight="900" fill="#ffb3c6">SECONDARY LESIONS · depth of loss increases left → right</text>
+
+        <g>
+          <rect x="18" y="42" width="120" height="192" rx="10" fill="rgba(13,8,26,.42)" stroke="rgba(255,255,255,.28)"/>
+          <rect x="28" y="120" width="100" height="24" fill="url(#s6e)"/><rect x="28" y="144" width="100" height="42" fill="url(#s6d)"/>
+          <g fill="#fff8ef" stroke="#c9a37f" stroke-width="1"><path d="M40 120 l24 -8 l3 7 l-24 8 z"/><path d="M70 118 l26 -9 l3 7 l-26 9 z"/><path d="M96 122 l24 -8 l3 7 l-24 8 z"/></g>
+          <text x="28" y="66" font-size="14" font-weight="900" fill="#9ff2ee">SCALE</text>
+          <text x="28" y="84" font-size="11" fill="#fff">flakes of dead</text>
+          <text x="28" y="98" font-size="11" fill="#fff">keratin shedding</text>
+          <text x="28" y="210" font-size="10.5" fill="#ffe49a" font-style="italic">psoriasis, dandruff</text>
+        </g>
+        <g>
+          <rect x="146" y="42" width="120" height="192" rx="10" fill="rgba(13,8,26,.42)" stroke="rgba(255,255,255,.28)"/>
+          <rect x="156" y="120" width="100" height="24" fill="url(#s6e)"/><rect x="156" y="144" width="100" height="42" fill="url(#s6d)"/>
+          <path d="M176 120 C 184 104 226 104 236 120 Z" fill="#a86a2c" stroke="#6b3f12" stroke-width="1.3"/>
+          <g stroke="#6b3f12" stroke-width="1" opacity=".8"><path d="M186 114 l8 6 M204 110 l6 8 M222 113 l6 6"/></g>
+          <text x="156" y="66" font-size="14" font-weight="900" fill="#9ff2ee">CRUST</text>
+          <text x="156" y="84" font-size="11" fill="#fff">dried serum, blood</text>
+          <text x="156" y="98" font-size="11" fill="#fff">or pus = a scab</text>
+          <text x="156" y="210" font-size="10.5" fill="#ffe49a" font-style="italic">impetigo, healing scrape</text>
+        </g>
+        <g>
+          <rect x="274" y="42" width="120" height="192" rx="10" fill="rgba(13,8,26,.42)" stroke="rgba(255,255,255,.28)"/>
+          <rect x="284" y="120" width="100" height="24" fill="url(#s6e)"/><rect x="284" y="144" width="100" height="42" fill="url(#s6d)"/>
+          <g stroke="#c02255" stroke-width="3" stroke-linecap="round"><path d="M298 132 L330 122"/><path d="M310 138 L346 126"/><path d="M326 140 L364 130"/></g>
+          <text x="284" y="66" font-size="14" font-weight="900" fill="#9ff2ee">EXCORIATION</text>
+          <text x="284" y="84" font-size="11" fill="#fff">linear scratch marks</text>
+          <text x="284" y="98" font-size="11" fill="#fff">self-inflicted</text>
+          <text x="284" y="210" font-size="10.5" fill="#ffe49a" font-style="italic">the fingerprint of itch</text>
+        </g>
+        <g>
+          <rect x="402" y="42" width="120" height="192" rx="10" fill="rgba(13,8,26,.42)" stroke="rgba(255,255,255,.28)"/>
+          <rect x="412" y="120" width="100" height="24" fill="url(#s6e)"/><rect x="412" y="144" width="100" height="42" fill="url(#s6d)"/>
+          <path d="M440 120 C 448 138 476 138 484 120 Z" fill="#f6b7c0" stroke="#c02255" stroke-width="1.4"/>
+          <text x="412" y="66" font-size="14" font-weight="900" fill="#9ff2ee">EROSION</text>
+          <text x="412" y="84" font-size="11" fill="#fff">epidermis only lost</text>
+          <text x="412" y="98" font-size="11" fill="#fff">moist, does NOT scar</text>
+          <text x="412" y="210" font-size="10.5" fill="#ffe49a" font-style="italic">a popped vesicle</text>
+        </g>
+        <g>
+          <rect x="530" y="42" width="120" height="192" rx="10" fill="rgba(13,8,26,.42)" stroke="rgba(255,255,255,.28)"/>
+          <rect x="540" y="120" width="100" height="24" fill="url(#s6e)"/><rect x="540" y="144" width="100" height="42" fill="url(#s6d)"/>
+          <path d="M562 120 C 566 168 616 168 620 120 Z" fill="#7d2540" stroke="#4a0f22" stroke-width="1.6"/>
+          <path d="M572 130 C 578 156 606 156 612 130" fill="#c02255" opacity=".7"/>
+          <text x="540" y="66" font-size="14" font-weight="900" fill="#ffb3c6">ULCER</text>
+          <text x="540" y="84" font-size="11" fill="#fff">through epidermis AND</text>
+          <text x="540" y="98" font-size="11" fill="#fff">into dermis → WILL scar</text>
+          <text x="540" y="210" font-size="10.5" fill="#ffe49a" font-style="italic">pressure injury, venous ulcer</text>
+        </g>
+        <g>
+          <rect x="658" y="42" width="104" height="192" rx="10" fill="rgba(13,8,26,.42)" stroke="rgba(255,255,255,.28)"/>
+          <rect x="666" y="120" width="88" height="24" fill="url(#s6e)"/><rect x="666" y="144" width="88" height="42" fill="url(#s6d)"/>
+          <path d="M706 118 L710 118 L713 166 L703 166 Z" fill="#7d2540" stroke="#4a0f22" stroke-width="1.3"/>
+          <text x="666" y="66" font-size="14" font-weight="900" fill="#ffb3c6">FISSURE</text>
+          <text x="666" y="84" font-size="11" fill="#fff">deep linear crack</text>
+          <text x="666" y="98" font-size="11" fill="#fff">dry, painful</text>
+          <text x="666" y="210" font-size="10.5" fill="#ffe49a" font-style="italic">heel, angle of mouth</text>
+        </g>
+      </svg>
+      <p style="margin-top:10px"><b>Also learn:</b> <b>lichenification</b> = thickened, leathery skin with exaggerated skin lines from chronic rubbing (the hallmark of long-standing atopic dermatitis — <a href="NG-182_eczema-atopic-vs-contact-dermatitis.html">NG-182</a>); <b>atrophy</b> = thin, translucent, "cigarette paper" skin (chronic topical steroids); <b>scar</b> = fibrous replacement tissue; <b>keloid</b> = scar that grows past the original wound edges.</p>
+      <div class="mn">🧠 <b>Erosion vs ulcer = the scar question.</b> Erosion stops at the epidermis and heals invisibly. Ulcer breaches the dermis, so it heals with a scar. Same rule underneath pressure-injury staging.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🚨 The blanching test — the one that separates benign from serious</h3>
+      <p><b>Press a red area with your finger, then release.</b></p>
+      <ul class="tick">
+        <li><b>Blanches (turns white, then re-reddens)</b> = blood still inside vessels. Reactive hyperaemia, mild erythema, sunburn.</li>
+        <li><b class="never">Does NOT blanch</b> = blood has leaked <i>outside</i> the vessels, or tissue is already damaged. <mark>Non-blanchable erythema over a bony prominence is a Stage 1 pressure injury</mark> (<a href="NG-044_pressure-injuries.html">NG-044</a>).</li>
+        <li>Non-blanching pinpoint red-purple spots = <b>petechiae</b>; larger flat patches = <b>purpura</b>; a big bruise = <b>ecchymosis</b>. Petechiae + fever is an escalate-now finding.</li>
+      </ul>
+      <div class="mn">🧠 <b>"Blanches = blood behaving. Doesn't blanch = blood escaping."</b></div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>📝 How to describe a lesion so it counts as charting</h3>
+      <p>Use the same six slots every time and you can chart any skin finding:</p>
+      <ul class="tick">
+        <li><b>Type</b> — macule, papule, vesicle, ulcer…</li>
+        <li><b>Size</b> — measure in <span class="mono">cm</span> (length × width × depth), never "the size of a quarter"</li>
+        <li><b>Colour</b> — and whether it blanches</li>
+        <li><b>Location</b> — anatomical landmark, and left/right</li>
+        <li><b>Configuration</b> — linear, annular (ring), grouped/clustered, target/iris, serpiginous</li>
+        <li><b>Distribution</b> — localised vs generalised, <b>flexural</b> (eczema) vs <b>extensor</b> (psoriasis), dermatomal (shingles), sun-exposed</li>
+      </ul>
+      <div class="mn">🧠 Chart it like a police report: <b>what, how big, what colour, where, in what pattern.</b> "Rash to arm" tells the next nurse nothing.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section id="care">
+  <div class="sec-h"><span class="icon">🩺</span><h2>ASSESS &amp; PROTECT</h2><span class="step">STEP 4 · TECHNIQUE</span></div>
+  <p class="sec-sub">Inspection, palpation, and the traps — especially in darker skin and in older adults.</p>
+  <div class="grid">
+
+    <div class="card deep span2">
+      <h3>🩺 Three bedside tests, drawn</h3>
+      <svg viewBox="0 0 760 280" role="img" aria-label="Three bedside skin assessment techniques illustrated: skin turgor pinch test showing normal immediate recoil versus tenting, capillary refill on a fingernail bed showing blanching then colour return, and the blanching test on erythema over a bony prominence showing blanchable versus non-blanchable">
+        <defs>
+          <linearGradient id="s7sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe4cd"/><stop offset="1" stop-color="#d99a72"/></linearGradient>
+          <linearGradient id="s7nail" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd9c9"/><stop offset="1" stop-color="#e8a48e"/></linearGradient>
+        </defs>
+        <rect x="4" y="4" width="752" height="272" rx="16" fill="rgba(0,194,199,.10)" stroke="#00c2c7" stroke-width="2" stroke-dasharray="8 7"/>
+
+        <!-- turgor -->
+        <g>
+          <rect x="18" y="22" width="234" height="238" rx="12" fill="rgba(13,8,26,.42)" stroke="rgba(255,255,255,.28)"/>
+          <text x="30" y="46" font-size="15" font-weight="900" fill="#9ff2ee">① SKIN TURGOR</text>
+          <text x="30" y="63" font-size="11" fill="#fff">pinch over sternum or clavicle</text>
+          <path d="M40 150 C 70 140 90 96 110 96 C 130 96 150 140 180 150 L180 178 C 140 186 80 186 40 178 Z" fill="url(#s7sk)" stroke="#a3673f" stroke-width="1.6"/>
+          <path d="M96 100 C 104 92 116 92 124 100" fill="none" stroke="#a3673f" stroke-width="1.4"/>
+          <text x="196" y="120" font-size="12" font-weight="900" fill="#12b886">snaps</text>
+          <text x="196" y="136" font-size="12" font-weight="900" fill="#12b886">back &lt;2s</text>
+          <text x="30" y="204" font-size="12" font-weight="900" fill="#12b886">NORMAL — immediate recoil</text>
+          <path d="M40 232 C 70 224 88 200 108 198 C 128 196 148 224 180 232 L180 250 C 140 256 80 256 40 250 Z" fill="url(#s7sk)" stroke="#a3673f" stroke-width="1.6" opacity=".95"/>
+          <text x="196" y="234" font-size="12" font-weight="900" fill="#ff8fa6">TENTS</text>
+          <text x="30" y="222" font-size="12" font-weight="900" fill="#ff8fa6">DEHYDRATED — stays tented</text>
+        </g>
+
+        <!-- cap refill -->
+        <g>
+          <rect x="262" y="22" width="234" height="238" rx="12" fill="rgba(13,8,26,.42)" stroke="rgba(255,255,255,.28)"/>
+          <text x="274" y="46" font-size="15" font-weight="900" fill="#9ff2ee">② CAPILLARY REFILL</text>
+          <text x="274" y="63" font-size="11" fill="#fff">press nail bed 5 s, release, count</text>
+          <path d="M290 100 C 300 82 360 82 372 100 L372 156 C 356 172 306 172 290 156 Z" fill="url(#s7sk)" stroke="#a3673f" stroke-width="1.6"/>
+          <path d="M300 96 C 310 84 352 84 362 96 L360 140 C 348 152 314 152 302 140 Z" fill="url(#s7nail)" stroke="#b8795c" stroke-width="1.4"/>
+          <path d="M304 92 C 314 84 348 84 358 92" fill="none" stroke="#fff" stroke-width="2" opacity=".6"/>
+          <ellipse cx="331" cy="116" rx="22" ry="17" fill="#ffffff" opacity=".9"/>
+          <text x="392" y="112" font-size="12" font-weight="900" fill="#fff">press →</text>
+          <text x="392" y="128" font-size="12" font-weight="900" fill="#fff">it blanches</text>
+          <path d="M290 190 C 300 172 360 172 372 190 L372 246 C 356 262 306 262 290 246 Z" fill="url(#s7sk)" stroke="#a3673f" stroke-width="1.6"/>
+          <path d="M300 186 C 310 174 352 174 362 186 L360 230 C 348 242 314 242 302 230 Z" fill="#ff8fa6" stroke="#b8795c" stroke-width="1.4"/>
+          <text x="392" y="204" font-size="13" font-weight="900" fill="#12b886">&lt; 3 seconds</text>
+          <text x="392" y="222" font-size="11.5" fill="#a5f3d4">= adequate perfusion</text>
+          <text x="392" y="242" font-size="11.5" fill="#ffb3c6">&gt; 3 s = poor perfusion,</text>
+          <text x="392" y="256" font-size="11.5" fill="#ffb3c6">cold, shock, PVD</text>
+        </g>
+
+        <!-- blanching -->
+        <g>
+          <rect x="506" y="22" width="236" height="238" rx="12" fill="rgba(13,8,26,.42)" stroke="rgba(255,255,255,.28)"/>
+          <text x="518" y="46" font-size="15" font-weight="900" fill="#9ff2ee">③ BLANCH TEST</text>
+          <text x="518" y="63" font-size="11" fill="#fff">on redness over a bony prominence</text>
+          <rect x="518" y="86" width="212" height="26" fill="url(#s7sk)"/>
+          <rect x="518" y="112" width="212" height="30" fill="#e0808f"/>
+          <ellipse cx="590" cy="92" rx="34" ry="12" fill="#ff8fa6"/>
+          <ellipse cx="590" cy="92" rx="16" ry="8" fill="#fff8f4"/>
+          <text x="634" y="96" font-size="12" font-weight="900" fill="#12b886">turns white</text>
+          <text x="518" y="164" font-size="12.5" font-weight="900" fill="#12b886">BLANCHES → reactive hyperaemia</text>
+          <rect x="518" y="180" width="212" height="26" fill="url(#s7sk)"/>
+          <rect x="518" y="206" width="212" height="30" fill="#e0808f"/>
+          <ellipse cx="590" cy="186" rx="34" ry="12" fill="#c02255"/>
+          <ellipse cx="590" cy="186" rx="16" ry="8" fill="#c02255"/>
+          <text x="634" y="190" font-size="12" font-weight="900" fill="#ff8fa6">stays red</text>
+          <text x="518" y="256" font-size="12.5" font-weight="900" fill="#ff8fa6">DOESN'T BLANCH → Stage 1 injury</text>
+        </g>
+      </svg>
+      <div class="mn">🧠 Three fingers, three answers: <b>pinch</b> = hydration, <b>press the nail</b> = perfusion, <b>press the redness</b> = tissue damage.</div>
+    </div>
+
+    <div class="card topaz">
+      <h3>⭐ Assessing colour change in darker skin — high-yield and often taught badly</h3>
+      <p>Erythema, cyanosis and jaundice can be genuinely hard to see in deeply pigmented skin. <mark>Do not rely on colour alone — palpate and compare.</mark></p>
+      <ul class="tick">
+        <li><b>Compare to the surrounding skin and the same site on the other side.</b></li>
+        <li>Inflammation may look <b>purple, violet, darker brown or ashen</b> rather than pink or red.</li>
+        <li><b>Palpate for the other three signs:</b> warmth or coolness, <b>induration</b> (firmness), boggy/spongy texture, oedema, and pain reported by the patient.</li>
+        <li>Use <b>natural or bright non-fluorescent light</b>; check <b>sclera, conjunctiva, oral mucosa, palms/soles and nail beds</b> for pallor, cyanosis and jaundice.</li>
+        <li>Stage 1 pressure injuries are <b>under-detected</b> in darker skin — this is a known equity gap, so lower your threshold and document what you palpate, not only what you see.</li>
+      </ul>
+      <div class="mn">🧠 <b>"If you can't see it, feel it."</b> Temperature change + induration + pain over a bony prominence is a pressure injury until proven otherwise.</div>
+    </div>
+
+    <div class="card emerald">
+      <h3>✅ The head-to-toe skin check — order and content</h3>
+      <ul class="tick">
+        <li><b>Timing:</b> a full skin assessment on <b>admission (within the first 24 hours per most facility policy)</b>, then per policy and every shift for at-risk patients.</li>
+        <li><b>Look</b> — colour, symmetry, lesions, hygiene, hair distribution, nails (clubbing, spooning, splinter haemorrhages).</li>
+        <li><b>Touch</b> — temperature (back of your hand), moisture, texture, turgor, oedema (press over a bony area, grade pitting).</li>
+        <li><b>Don't skip the hidden places:</b> behind the ears, under breasts and skin folds, between toes, perineum, sacrum, heels, occiput, and <b>under every medical device</b> (tubing, oximeter probe, O₂ tubing, cast edge, cervical collar).</li>
+        <li>Turn the patient — <b>you cannot assess a sacrum you never looked at.</b></li>
+      </ul>
+      <div class="mn">🧠 <b>"Fold it, lift it, flip it."</b> Pressure injuries hide in folds, under devices and on the side you didn't turn them to.</div>
+    </div>
+
+    <div class="card deep span2">
+      <h3>👵 Ageing skin vs young skin — why the same injury is worse at 85</h3>
+      <svg viewBox="-10 -10 787 320" role="img" aria-label="Side by side cross-sections comparing young adult skin with a thick epidermis, deep rete ridges, abundant collagen and a thick fat layer, against aged skin with a thin epidermis, flattened dermo-epidermal junction, sparse fragmented collagen, fewer vessels and thin subcutaneous fat">
+        <defs>
+          <linearGradient id="s8y" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff2e5"/><stop offset="1" stop-color="#e0a97f"/></linearGradient>
+          <linearGradient id="s8o" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6e7dc"/><stop offset="1" stop-color="#cdae99"/></linearGradient>
+        </defs>
+        <rect x="-6" y="-6" width="779" height="312" rx="16" fill="rgba(157,92,255,.10)" stroke="#9d5cff" stroke-width="2" stroke-dasharray="8 7"/>
+        <text x="20" y="30" font-size="17" font-weight="900" fill="#e9dcff">SAME SKIN, 25 YEARS vs 85 YEARS</text>
+
+        <!-- young -->
+        <rect x="18" y="44" width="322" height="238" rx="12" fill="rgba(18,184,134,.14)" stroke="rgba(255,255,255,.28)"/>
+        <text x="32" y="68" font-size="15" font-weight="900" fill="#a5f3d4">YOUNG ADULT</text>
+        <rect x="32" y="82" width="294" height="34" fill="url(#s8y)"/>
+        <path d="M32 116 Q62 96 92 116 Q122 136 152 116 Q182 96 212 116 Q242 136 272 116 Q302 96 326 116 L326 200 L32 200 Z" fill="#e0808f"/>
+        <g stroke="#ffd2d8" stroke-width="2.4" fill="none" opacity=".6">
+          <path d="M40 140 q30 -10 60 0 q30 10 60 0 q30 -10 60 0 q30 10 60 0"/>
+          <path d="M40 162 q26 10 52 0 q26 -10 52 0 q26 10 52 0 q26 -10 52 0 q26 10 52 0"/>
+          <path d="M40 184 q30 -10 60 0 q30 10 60 0 q30 -10 60 0 q30 10 60 0"/>
+        </g>
+        <path d="M40 192 C 100 186 160 198 320 190" fill="none" stroke="#ff3b6b" stroke-width="5" stroke-linecap="round"/>
+        <rect x="32" y="200" width="294" height="52" fill="#ffdc71"/>
+        <g fill="#fff3c4" stroke="#c68d24" stroke-width="1"><circle cx="60" cy="216" r="12"/><circle cx="94" cy="222" r="10"/><circle cx="140" cy="216" r="12"/><circle cx="188" cy="222" r="10"/><circle cx="238" cy="216" r="12"/><circle cx="288" cy="222" r="11"/><circle cx="70" cy="240" r="10"/><circle cx="160" cy="240" r="11"/><circle cx="250" cy="240" r="10"/></g>
+        <text x="32" y="270" font-size="11.5" fill="#d8fff0" font-style="italic">thick epidermis · deep rete ridges · springy collagen · fat padding</text>
+
+        <!-- old -->
+        <rect x="356" y="44" width="326" height="238" rx="12" fill="rgba(255,59,107,.14)" stroke="rgba(255,255,255,.28)"/>
+        <text x="370" y="68" font-size="15" font-weight="900" fill="#ffb3c6">85 YEARS</text>
+        <rect x="370" y="94" width="298" height="18" fill="url(#s8o)"/>
+        <path d="M370 112 Q400 106 430 112 Q460 118 490 112 Q520 106 550 112 Q580 118 610 112 Q640 106 668 112 L668 210 L370 210 Z" fill="#d99aa6"/>
+        <g stroke="#f0d4d8" stroke-width="1.4" fill="none" opacity=".55">
+          <path d="M378 140 q24 -6 48 0"/><path d="M446 146 q20 6 40 0"/><path d="M512 138 q24 -6 48 0"/><path d="M594 148 q22 5 44 0"/>
+          <path d="M382 174 q22 6 44 0"/><path d="M470 178 q24 -6 48 0"/><path d="M566 172 q24 6 48 0"/>
+        </g>
+        <path d="M380 198 C 440 196 500 202 660 198" fill="none" stroke="#c02255" stroke-width="2.4" stroke-linecap="round" opacity=".8"/>
+        <rect x="370" y="210" width="298" height="26" fill="#f0d79a"/>
+        <g fill="#fff3c4" stroke="#c68d24" stroke-width="1"><circle cx="400" cy="222" r="7"/><circle cx="460" cy="224" r="6"/><circle cx="540" cy="222" r="7"/><circle cx="620" cy="224" r="6"/></g>
+        <rect x="370" y="236" width="298" height="16" fill="#c2455f" opacity=".75"/>
+        <g stroke="#ffb3c6" stroke-width="1.5" opacity=".8"><path d="M380 258 h44 M440 262 h34"/></g>
+        <ellipse cx="470" cy="100" rx="26" ry="6" fill="#7d2540" opacity=".7"/>
+        <text x="500" y="88" font-size="11" font-weight="900" fill="#ffb3c6">senile purpura</text>
+        <text x="370" y="270" font-size="11.5" fill="#ffe8c9" font-style="italic">thin · flat junction (shears easily) · dry · fewer vessels · almost no fat</text>
+      </svg>
+      <ul class="tick">
+        <li><b>Flattened dermo-epidermal junction</b> → the layers slide apart with shear; skin tears from tape and transfers.</li>
+        <li><b>Less sebum and fewer sweat glands</b> → dry, itchy skin (xerosis) and poorer heat tolerance.</li>
+        <li><b>Fewer vessels + slower cell turnover</b> → wounds heal more slowly and infect more easily.</li>
+        <li><b>Less fat</b> → bony prominences are barely padded.</li>
+        <li><b>Turgor is unreliable</b> as a hydration measure in older adults — use the <b>sternum or forehead</b>, and confirm with mucous membranes, intake/output and daily weights.</li>
+      </ul>
+      <div class="mn">🧠 Old skin is <b>tissue paper on a wire frame</b>: use silicone/paper tape, lift-don't-drag, and pad the frame.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>📏 Depth language that every later page uses</h3>
+      <ul class="tick">
+        <li><b>Superficial / epidermal</b> — epidermis only. Heals from the basal layer, <b>no scar</b>. (Sunburn, erosion, Stage 1.)</li>
+        <li><b>Partial thickness</b> — epidermis + <b>part of the dermis</b>. Painful (nerves exposed), moist, heals by <b>re-epithelialising from the surviving hair follicles and glands</b>. (Blister, Stage 2, superficial frostbite.)</li>
+        <li><b>Full thickness</b> — through the dermis into fat or deeper. <b>No appendages left</b>, so it must fill in with granulation tissue from the base and edges → <b>scar, contracture, long healing</b>. (Stage 3–4, deep frostbite, deep burns.)</li>
+      </ul>
+      <p><b>Follow the depth story:</b> <a href="NG-044_pressure-injuries.html">NG-044 Pressure Injuries</a> stages exactly this cross-section; <a href="NG-080_wound-care.html">NG-080 Wound Care</a> turns depth into a dressing choice; <a href="NG-116_frostbite.html">NG-116 Frostbite</a> is the cold version of the same depths.</p>
+      <div class="mn">🧠 <b>"Appendages = seeds."</b> If the follicles and glands survive, the wound reseeds itself from the middle. If they are gone, it can only creep in from the edges.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>💊 One derm drug that shows up constantly — isotretinoin</h3>
+      <p>A vitamin A derivative used for <b>severe, nodulocystic acne that failed other therapy.</b></p>
+      <ul class="tick">
+        <li><b class="never">Pregnancy is the absolute priority.</b> It is a potent <b>teratogen</b>. Prescribers and patients enrol in the manufacturer's risk-management programme (iPLEDGE in the US): a negative pregnancy test before starting and before refills, and <b>two forms of contraception</b> used together.</li>
+        <li><b>Report mood changes or suicidal thoughts</b> immediately — psychiatric monitoring is part of the teaching.</li>
+        <li><b>No extra vitamin A supplements</b> (additive toxicity).</li>
+        <li><b>Avoid tetracyclines</b> concurrently — the combination is linked to raised intracranial pressure (report severe headache, visual changes, nausea/vomiting).</li>
+        <li>Expect <b>dry skin, dry eyes and dry lips</b>: lubricating drops, may not tolerate contact lenses, and <b>strict sun protection</b> — the skin burns easily.</li>
+        <li>Monitor <b>lipids and liver enzymes</b>; avoid alcohol.</li>
+      </ul>
+      <div class="mn">🧠 <b>"A" for Acne, "A" for Absolutely no pregnancy.</b> If a question mentions isotretinoin, the answer is almost always about contraception, mood, or sun.</div>
+    </div>
+
+    <div class="card emerald">
+      <h3>✅ Universal skin protection — good for every patient on every page</h3>
+      <ul class="tick">
+        <li><b>Keep it clean and dry</b> — gentle pH-balanced cleanser, pat don't rub, moisturise while skin is still damp.</li>
+        <li><b>Manage moisture</b> — treat incontinence promptly, use a barrier cream/film; moisture-associated damage is <i>not</i> a pressure injury but sets one up.</li>
+        <li><b>Never massage a reddened bony prominence</b> — it damages already-injured microcirculation.</li>
+        <li><b>Reposition and offload</b>, float heels, use lift sheets, minimise head-of-bed elevation to limit shear.</li>
+        <li><b>Feed the skin</b> — adequate protein and calories, and fluids unless restricted. Track <b>albumin/prealbumin</b> (typical adult albumin reference band ≈ <span class="mono">3.5–5.0 g/dL</span>; ranges vary by lab) as a nutrition/inflammation marker.</li>
+        <li><b>Sun protection</b> — broad-spectrum <span class="mono">SPF 30+</span>, reapply every <span class="mono">2 h</span> (<a href="NG-204_skin-cancer.html">NG-204</a>).</li>
+      </ul>
+      <div class="mn">🧠 <b>Clean · Dry · Fed · Moved.</b> Four words that prevent most of what the rest of this set treats.</div>
+    </div>
+
+    <div class="card topaz span2">
+      <h3>🗺️ How this page connects to the rest of the set</h3>
+      <table>
+        <tr><th class="up">Page</th><th class="up">What it adds on top of this cross-section</th></tr>
+        <tr><td><b><a href="NG-044_pressure-injuries.html">NG-044 — Pressure Injuries</a></b></td><td>Redraws this exact cross-section with progressively deeper loss: Stage 1 → 4, plus unstageable and deep tissue injury; risk scoring and prevention</td></tr>
+        <tr><td><b><a href="NG-080_wound-care.html">NG-080 — Wound Care</a></b></td><td>How wounds close (primary/secondary/tertiary intention), the healing phases, dressing choice, drains, dehiscence and evisceration</td></tr>
+        <tr><td><b><a href="NG-116_frostbite.html">NG-116 — Frostbite</a></b></td><td>The same depths, caused by ice crystals and vasoconstriction; rewarming rules</td></tr>
+        <tr><td><b><a href="NG-182_eczema-atopic-vs-contact-dermatitis.html">NG-182 — Dermatitis</a></b></td><td>Uses the lesion vocabulary above: vesicles, weeping, lichenification, flexural vs contact-shaped distribution</td></tr>
+        <tr><td><b><a href="NG-225_psoriasis.html">NG-225 — Psoriasis</a></b></td><td>What happens when the 28-day keratinocyte escalator speeds up to a few days: silvery scaly plaques on extensor surfaces</td></tr>
+        <tr><td><b><a href="NG-204_skin-cancer.html">NG-204 — Skin Cancer</a></b></td><td>What goes wrong in the basal layer (basal cell), the keratinocytes (squamous cell) and the melanocytes (melanoma)</td></tr>
+      </table>
+      <div class="mn">🧠 Learn <i>this</i> page once and the other six stop being separate topics — they are all "which layer, how deep, and why."</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc tealbg"><span class="big">🧬 Epidermis · Dermis · Fat</span>Avascular barrier → workshop → padding.</div>
+    <div class="rc citrine"><span class="big">🛡️ SHIELD</span>Sensation · Heat · Immunity · Excretion · Layer · D vitamin.</div>
+    <div class="rc rubybg"><span class="big">🚨 Non-blanchable = damage</span>Blanches = blood behaving. Doesn't = blood escaping.</div>
+    <div class="rc topazbg"><span class="big">📏 Appendages = seeds</span>Partial thickness reseeds itself. Full thickness must scar in.</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 8 rapid-fire questions</summary>
+      <div class="qa">Q1: Name the epidermal strata from deep to superficial. <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Basale → spinosum → granulosum → lucidum (palms/soles only) → corneum. "Baby Skin Gets Less Cracked."</div></div>
+      <div class="qa">Q2: Why does a shallow abrasion ooze clear fluid rather than bleed? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Because the epidermis is avascular — it has no blood vessels. Serous fluid comes from the dermal capillaries below; you only get frank bleeding once the injury enters the dermis.</div></div>
+      <div class="qa">Q3: A patient has a 2 cm raised, flat-topped, silvery scaly lesion on the elbow. What is the correct lesion word? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">A plaque (raised, flat-topped, greater than 1 cm) with scale. Extensor surface + silvery scale points toward psoriasis.</div></div>
+      <div class="qa">Q4: Difference between an erosion and an ulcer? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">An erosion is loss of epidermis only and heals without a scar. An ulcer extends through the epidermis into the dermis or deeper and heals with a scar.</div></div>
+      <div class="qa">Q5: Your patient has non-blanchable redness over the sacrum. What is it, and what is the one thing you must not do? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">A Stage 1 pressure injury. Do NOT massage the area — massage damages already-compromised microcirculation. Offload the pressure, protect the skin, document, and start prevention.</div></div>
+      <div class="qa">Q6: Why is skin turgor a poor hydration test in an 85-year-old? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Ageing loses elastin and dermal thickness, so skin tents even when the patient is well hydrated. Test over the sternum or forehead and confirm with mucous membranes, intake/output, and daily weights.</div></div>
+      <div class="qa">Q7: How do you assess for early inflammation in deeply pigmented skin? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Do not rely on redness. Compare to surrounding skin and the opposite side in good light, look for purple/violet or darker/ashen change, and palpate for temperature change, induration, boggy texture and oedema — plus ask about pain.</div></div>
+      <div class="qa">Q8: What structures make partial-thickness wounds heal faster than full-thickness wounds? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">The surviving skin appendages — hair follicles and sweat/sebaceous glands — are lined with epithelial cells that spread out to resurface the wound. Full-thickness wounds have lost them, so they must granulate in from the base and edges and will scar.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(0,194,199,.7)">LAYERS</span>→
+    <span style="background:rgba(157,92,255,.7)">FUNCTIONS</span>→
+    <span style="background:rgba(47,107,255,.7)">LESIONS</span>→
+    <span style="background:rgba(18,184,134,.7)">ASSESS</span>
+  </div>
+  <div>NG-051 · Foundation page for the Skin &amp; Wound set · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>

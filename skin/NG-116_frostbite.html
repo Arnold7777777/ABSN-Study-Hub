@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Frostbite · NG-116 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+
+/* ---- appended for the Skin &amp; Wound batch (batch 14) ---- */
+nav a.c5{background:rgba(0,194,199,.72);color:#00252b}
+nav a.c6{background:rgba(255,138,61,.75);color:#2b1200}
+nav a.c7{background:rgba(192,34,85,.72)}
+#base .sec-h h2{color:#9ff2ee} #base .step{background:var(--teal);color:#00252b}
+#look .sec-h h2{color:#9ff2ee} #look .step{background:var(--teal);color:#00252b}
+#stage .sec-h h2{color:#9ff2ee} #stage .step{background:var(--teal);color:#00252b}
+#heal .sec-h h2{color:#9ff2ee} #heal .step{background:var(--teal);color:#00252b}
+#types .sec-h h2{color:#9ff2ee} #types .step{background:var(--teal);color:#00252b}
+#abcde .sec-h h2{color:#9ff2ee} #abcde .step{background:var(--teal);color:#00252b}
+#compare .sec-h h2{color:#ffd9b8} #compare .step{background:var(--citrine);color:#2b1200}
+#prevent .sec-h h2{color:#ffd9b8} #prevent .step{background:var(--citrine);color:#2b1200}
+#teach .sec-h h2{color:#ffd9b8} #teach .step{background:var(--citrine);color:#2b1200}
+#danger .sec-h h2{color:#ffb3c6} #danger .step{background:var(--garnet)}
+#emerg .sec-h h2{color:#ffb3c6} #emerg .step{background:var(--garnet)}
+.setbar{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin:4px 0 16px;font-size:.82rem}
+.setbar .setlabel{font-weight:900;letter-spacing:.08em;color:#ffe49a;margin-right:2px}
+.setbar a{font-weight:800;padding:4px 11px;border-radius:999px;border:1px solid var(--line);
+  background:rgba(13,8,26,.5);color:#dbe8ff;text-decoration:none}
+.setbar a.cur{background:var(--topaz);color:#231a02;border-color:transparent;cursor:default}
+.legendrow{display:flex;gap:9px;flex-wrap:wrap;margin:11px 0 0;font-size:.84rem;font-weight:800}
+.legendrow span{padding:5px 11px;border-radius:9px;background:rgba(13,8,26,.55);
+  border:1px solid var(--line);display:flex;align-items:center;gap:7px}
+.sw{display:inline-block;width:15px;height:15px;border-radius:4px;border:1px solid rgba(255,255,255,.6)}
+.card a{color:#ffe49a;font-weight:800}
+.card.tealc a,.card.topaz a,.card.citrinec a{color:#0b3a52}
+.xref{margin-top:10px;padding:8px 12px;border-radius:11px;background:rgba(0,194,199,.20);
+  border:1px solid var(--line);font-size:.9rem;font-weight:700}
+.xref .pill{display:inline-block;font-size:.7rem;font-weight:900;letter-spacing:.08em;
+  background:var(--teal);color:#00252b;padding:2px 8px;border-radius:7px;margin-right:7px}
+.card.tealc .xref,.card.topaz .xref,.card.citrinec .xref{background:rgba(255,255,255,.45)}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#cause">🧊 Patho</a>
+  <a class="c2" href="#clues">🔎 Depth &amp; clues</a>
+  <a class="c3" href="#care">🔥 Rewarm</a>
+  <a class="c7" href="#danger">⚠️ After &amp; never-do</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Skin &amp; Wound · Cold Injury · Pathophysiology + Fundamentals</div>
+  <div class="setbar"><span class="setlabel">🩹 SKIN &amp; WOUND SET</span>
+  <a href="NG-051_skin.html">NG-051 Skin (foundation)</a>
+  <a href="NG-044_pressure-injuries.html">NG-044 Pressure Injuries</a>
+  <a href="NG-080_wound-care.html">NG-080 Wound Care</a>
+  <a class="cur" href="NG-116_frostbite.html">NG-116 Frostbite</a>
+  <a href="NG-182_eczema-atopic-vs-contact-dermatitis.html">NG-182 Dermatitis</a>
+  <a href="NG-225_psoriasis.html">NG-225 Psoriasis</a>
+  <a href="NG-204_skin-cancer.html">NG-204 Skin Cancer</a></div>
+  <h1>Frostbite <span class="drop">🧊</span></h1>
+  <p class="sub">The <i>local</i> cold injury — tissue that literally freezes</p>
+  <div class="chips">
+    <span class="chip id">NG-116</span>
+    <span class="chip cat">INTEGUMENTARY · EMERGENCY</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede">Frostbite is <b>tissue that actually freezes</b>: ice crystals form in and around the cells while the vessels clamp down, so the part is starved of blood at the same time as it is being torn apart from the inside. <b>Frostbite is the LOCAL injury; <a href="NG-041_hypothermia.html">hypothermia (NG-041)</a> is the SYSTEMIC one</b> — and the two arrive together far more often than not.</p>
+</header>
+
+<div class="recall">
+  <div class="rc tealbg"><span class="big">🧊 Cells become snowballs</span>Ice crystals + vasoconstriction + vascular stasis = frozen, starved tissue.</div>
+  <div class="rc citrine"><span class="big">🔥 Rapid rewarming = PRIORITY</span>Circulating <b>warm water 37–39 °C (about 98.6–102 °F)</b> until the part is pliable and red-purple.</div>
+  <div class="rc rubybg"><span class="big">❌ Never rub. Never dry heat.</span>Rubbing shears the ice crystals through the tissue. Numb skin cannot feel a burn.</div>
+  <div class="rc topazbg"><span class="big">🚫 Don't thaw if it may refreeze</span>Freeze → thaw → <b>refreeze</b> is far more destructive than staying frozen.</div>
+</div>
+
+<!-- ============================================================ -->
+<section id="cause">
+  <div class="sec-h"><span class="icon">🧊</span><h2>WHAT THE COLD ACTUALLY DOES</h2><span class="step">STEP 1 · PATHO</span></div>
+  <p class="sec-sub">Two injuries happening at once: ice inside the tissue, and no blood getting to it.</p>
+  <div class="grid">
+
+    <div class="card deep span2">
+      <h3>🧊 Normal tissue vs frozen tissue — the cutaway</h3>
+      <svg viewBox="0 0 780 400" role="img" aria-label="Side by side skin cross-sections comparing normal warm tissue with open dilated dermal vessels and healthy plump cells against frozen tissue where ice crystals have formed between and inside cells, cells are shrunken and dehydrated, arterioles are constricted and the capillary is packed with sludged red cells and microthrombi, with a pale waxy surface">
+        <defs>
+          <linearGradient id="f1e" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff1e2"/><stop offset="1" stop-color="#e0a97f"/></linearGradient>
+          <linearGradient id="f1ec" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6f2ec"/><stop offset="1" stop-color="#cfc6bb"/></linearGradient>
+          <linearGradient id="f1d" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eb96a3"/><stop offset="1" stop-color="#a3405c"/></linearGradient>
+          <linearGradient id="f1dc" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b6a3c4"/><stop offset="1" stop-color="#5f4a76"/></linearGradient>
+          <linearGradient id="f1f" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe08a"/><stop offset="1" stop-color="#cf9628"/></linearGradient>
+          <linearGradient id="f1fc" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e2dcc0"/><stop offset="1" stop-color="#9c9270"/></linearGradient>
+          <radialGradient id="f1ice" cx=".4" cy=".3" r=".8"><stop offset="0" stop-color="#ffffff"/><stop offset=".6" stop-color="#cdeeff"/><stop offset="1" stop-color="#7fc4e6"/></radialGradient>
+          <marker id="f1ar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#9ff2ee"/></marker>
+        </defs>
+        <rect x="4" y="4" width="772" height="392" rx="18" fill="rgba(47,107,255,.12)" stroke="#2f6bff" stroke-width="2" stroke-dasharray="8 7"/>
+        <text x="20" y="30" font-size="18" font-weight="900" fill="#bcd0ff">SKIN CROSS-SECTION · warm vs frozen</text>
+
+        <!-- normal -->
+        <g>
+          <rect x="18" y="46" width="360" height="336" rx="12" fill="rgba(18,184,134,.14)" stroke="rgba(255,255,255,.3)"/>
+          <text x="32" y="70" font-size="15" font-weight="900" fill="#a5f3d4">WARM &amp; PERFUSED</text>
+          <rect x="32" y="86" width="332" height="26" fill="url(#f1e)"/>
+          <rect x="32" y="112" width="332" height="86" fill="url(#f1d)"/>
+          <rect x="32" y="198" width="332" height="58" fill="url(#f1f)"/>
+          <g fill="#fff3c4" stroke="#c68d24" stroke-width="1"><circle cx="64" cy="218" r="14"/><circle cx="104" cy="228" r="11"/><circle cx="156" cy="218" r="14"/><circle cx="204" cy="228" r="11"/><circle cx="256" cy="218" r="14"/><circle cx="304" cy="228" r="11"/><circle cx="344" cy="220" r="10"/></g>
+          <!-- open vessel with flowing rbcs -->
+          <path d="M44 156 C 110 148 180 168 244 156 C 300 146 340 162 360 156" fill="none" stroke="#c02255" stroke-width="16" stroke-linecap="round"/>
+          <path d="M44 156 C 110 148 180 168 244 156 C 300 146 340 162 360 156" fill="none" stroke="#ff8fa6" stroke-width="10" stroke-linecap="round"/>
+          <g fill="#c02255"><circle cx="72" cy="153" r="5"/><circle cx="118" cy="156" r="5"/><circle cx="168" cy="162" r="5"/><circle cx="222" cy="160" r="5"/><circle cx="276" cy="151" r="5"/><circle cx="322" cy="155" r="5"/></g>
+          <path d="M180 178 L260 178" stroke="#a5f3d4" stroke-width="3" marker-end="url(#f1ar)"/>
+          <text x="180" y="196" font-size="11.5" font-weight="900" fill="#a5f3d4">blood flowing</text>
+          <!-- plump cells -->
+          <g fill="#ffd0d8" stroke="#b8697c" stroke-width="1.4">
+            <circle cx="70" cy="126" r="11"/><circle cx="102" cy="130" r="11"/><circle cx="134" cy="125" r="11"/>
+            <circle cx="166" cy="130" r="11"/><circle cx="198" cy="125" r="11"/><circle cx="230" cy="130" r="11"/>
+            <circle cx="262" cy="125" r="11"/><circle cx="294" cy="130" r="11"/><circle cx="326" cy="125" r="11"/>
+          </g>
+          <text x="32" y="284" font-size="12.5" font-weight="900" fill="#a5f3d4">Plump, hydrated cells · vessels open</text>
+          <text x="32" y="304" font-size="12" fill="#d8fff0">Pink, warm, soft, normal sensation</text>
+          <text x="32" y="330" font-size="12" fill="#fff">Cap refill brisk · pulses present</text>
+          <text x="32" y="356" font-size="12" fill="#fff" font-style="italic">This is what you are trying to get back to.</text>
+        </g>
+
+        <!-- frozen -->
+        <g>
+          <rect x="392" y="46" width="370" height="336" rx="12" fill="rgba(47,107,255,.22)" stroke="rgba(255,255,255,.3)"/>
+          <text x="406" y="70" font-size="15" font-weight="900" fill="#bcd0ff">FROZEN</text>
+          <rect x="406" y="86" width="342" height="26" fill="url(#f1ec)"/>
+          <rect x="406" y="112" width="342" height="86" fill="url(#f1dc)"/>
+          <rect x="406" y="198" width="342" height="58" fill="url(#f1fc)"/>
+          <g fill="#f0ecd8" stroke="#8f8768" stroke-width="1"><circle cx="440" cy="218" r="12"/><circle cx="480" cy="228" r="9"/><circle cx="534" cy="218" r="12"/><circle cx="582" cy="228" r="9"/><circle cx="636" cy="218" r="12"/><circle cx="684" cy="228" r="9"/><circle cx="726" cy="220" r="9"/></g>
+          <!-- ice crystals in tissue -->
+          <g stroke="#dff4ff" stroke-width="2.4" stroke-linecap="round">
+            <path d="M448 140 l0 -18 M448 122 l-6 6 M448 122 l6 6 M439 131 l18 0 M441 126 l14 10 M441 136 l14 -10"/>
+            <path d="M520 156 l0 -18 M520 138 l-6 6 M520 138 l6 6 M511 147 l18 0 M513 142 l14 10 M513 152 l14 -10"/>
+            <path d="M600 132 l0 -18 M600 114 l-6 6 M600 114 l6 6 M591 123 l18 0 M593 118 l14 10 M593 128 l14 -10"/>
+            <path d="M676 158 l0 -18 M676 140 l-6 6 M676 140 l6 6 M667 149 l18 0 M669 144 l14 10 M669 154 l14 -10"/>
+            <path d="M726 128 l0 -14 M726 114 l-5 5 M726 114 l5 5 M719 121 l14 0"/>
+          </g>
+          <!-- shrunken cells -->
+          <g fill="#c4b6d4" stroke="#6b5a86" stroke-width="1.4">
+            <circle cx="470" cy="126" r="7"/><circle cx="496" cy="132" r="6"/><circle cx="548" cy="126" r="7"/>
+            <circle cx="574" cy="132" r="6"/><circle cx="628" cy="126" r="7"/><circle cx="652" cy="132" r="6"/>
+            <circle cx="700" cy="126" r="7"/>
+          </g>
+          <!-- constricted vessel with sludge -->
+          <path d="M418 174 C 480 172 540 178 604 174 C 664 170 706 178 740 174" fill="none" stroke="#3f2144" stroke-width="9" stroke-linecap="round"/>
+          <path d="M418 174 C 480 172 540 178 604 174 C 664 170 706 178 740 174" fill="none" stroke="#7a3c6b" stroke-width="4" stroke-linecap="round"/>
+          <g fill="#4a1030"><circle cx="470" cy="174" r="4"/><circle cx="482" cy="175" r="4"/><circle cx="494" cy="174" r="4"/><circle cx="560" cy="176" r="4"/><circle cx="572" cy="175" r="4"/><circle cx="584" cy="176" r="4"/></g>
+          <text x="418" y="200" font-size="11.5" font-weight="900" fill="#c9a6ff">vessels clamped · cells sludged · microthrombi</text>
+          <text x="406" y="284" font-size="12.5" font-weight="900" fill="#bcd0ff">Ice crystals pull water OUT of the cells</text>
+          <text x="406" y="304" font-size="12" fill="#dbe8ff">→ cells shrivel, membranes tear, electrolytes shift</text>
+          <text x="406" y="326" font-size="12.5" font-weight="900" fill="#ffb3c6">Vasoconstriction → vascular stasis → no oxygen</text>
+          <text x="406" y="348" font-size="12" fill="#ffe8c9">Surface looks white / waxy / mottled and feels hard</text>
+          <text x="406" y="370" font-size="12" fill="#ffe49a" font-style="italic">Then rewarming adds a second hit: reperfusion inflammation</text>
+        </g>
+      </svg>
+      <div class="mn">🧠 <b>"Every cell becomes a little snowball."</b> Two things are killing the tissue: the <b>ice</b> (direct cell damage) and the <b>clamped, sludged vessels</b> (ischaemia). Rewarming fixes the ice — it does not undo the clot.</div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>🧨 The cascade — why the damage keeps going after you warm it</h3>
+      <div class="flow">
+        <div class="fstep">Cold exposure → skin vessels <b>vasoconstrict</b> to protect the core</div>
+        <div class="farrow">▼</div>
+        <div class="fstep">Blood flow to fingers, toes, ears, nose falls → <b>vascular stasis</b></div>
+        <div class="farrow">▼</div>
+        <div class="fstep">Tissue temperature drops below freezing → <b>ice crystals form</b> outside then inside cells</div>
+        <div class="farrow">▼</div>
+        <div class="fstep">Water pulled out of cells → <b>cellular dehydration</b>, electrolyte shifts, membrane rupture</div>
+        <div class="farrow">▼</div>
+        <div class="fstep hot">Rewarming → blood floods back → <b>reperfusion injury</b>: inflammation, oedema, more microthrombi</div>
+        <div class="farrow">▼</div>
+        <div class="fstep hot">Progressive dermal ischaemia over hours to days → blistering, then <b>necrosis / gangrene</b></div>
+      </div>
+      <p style="margin-top:10px"><mark>The final tissue loss is decided as much by the clotting and inflammation after thawing as by the freeze itself</mark> — which is why the appearance on day 1 does not predict the outcome.</p>
+      <div class="mn">🧠 <b>Freeze, then flood.</b> The freeze breaks the cells; the flood (reperfusion) clots the vessels. That is why frostbite keeps declaring itself for weeks.</div>
+    </div>
+
+    <div class="card deep">
+      <h3>📍 Where frostbite happens — the far corners</h3>
+      <svg viewBox="0 0 420 420" role="img" aria-label="Front view body outline with the most common frostbite sites highlighted: ears, nose, cheeks and chin on the face, and the fingers and toes at the ends of the limbs, illustrating that distal and exposed areas freeze first">
+        <defs>
+          <linearGradient id="f2b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe6d2"/><stop offset="1" stop-color="#d9a077"/></linearGradient>
+          <radialGradient id="f2hot" cx=".5" cy=".4" r=".7"><stop offset="0" stop-color="#9fe4ff"/><stop offset="1" stop-color="#2f6bff"/></radialGradient>
+        </defs>
+        <rect x="4" y="4" width="412" height="412" rx="16" fill="rgba(47,107,255,.10)" stroke="#2f6bff" stroke-width="2" stroke-dasharray="8 7"/>
+        <text x="18" y="28" font-size="15" font-weight="900" fill="#bcd0ff">DISTAL + EXPOSED = FIRST TO FREEZE</text>
+        <!-- head -->
+        <ellipse cx="210" cy="80" rx="34" ry="40" fill="url(#f2b)" stroke="#a3673f" stroke-width="2"/>
+        <ellipse cx="176" cy="80" rx="8" ry="12" fill="url(#f2hot)" stroke="#1b47ad" stroke-width="1.6"/>
+        <ellipse cx="244" cy="80" rx="8" ry="12" fill="url(#f2hot)" stroke="#1b47ad" stroke-width="1.6"/>
+        <ellipse cx="210" cy="86" rx="8" ry="9" fill="url(#f2hot)" stroke="#1b47ad" stroke-width="1.6"/>
+        <ellipse cx="188" cy="96" rx="10" ry="7" fill="url(#f2hot)" opacity=".8"/>
+        <ellipse cx="232" cy="96" rx="10" ry="7" fill="url(#f2hot)" opacity=".8"/>
+        <ellipse cx="210" cy="112" rx="10" ry="7" fill="url(#f2hot)" stroke="#1b47ad" stroke-width="1.4"/>
+        <!-- neck + torso -->
+        <path d="M198 116 L222 116 L228 132 L192 132 Z" fill="url(#f2b)" stroke="#a3673f" stroke-width="2"/>
+        <path d="M168 134 C 190 126 230 126 252 134 C 268 142 272 176 268 210 C 264 246 258 268 254 286 L166 286 C 162 268 156 246 152 210 C 148 176 152 142 168 134 Z" fill="url(#f2b)" stroke="#a3673f" stroke-width="2"/>
+        <!-- arms -->
+        <path d="M168 140 C 148 152 134 190 126 232 C 122 254 118 274 116 292 L134 296 C 140 276 146 254 152 232 C 158 204 166 176 176 160 Z" fill="url(#f2b)" stroke="#a3673f" stroke-width="2"/>
+        <path d="M252 140 C 272 152 286 190 294 232 C 298 254 302 274 304 292 L286 296 C 280 276 274 254 268 232 C 262 204 254 176 244 160 Z" fill="url(#f2b)" stroke="#a3673f" stroke-width="2"/>
+        <!-- hands -->
+        <ellipse cx="123" cy="308" rx="16" ry="19" fill="url(#f2hot)" stroke="#1b47ad" stroke-width="2"/>
+        <ellipse cx="297" cy="308" rx="16" ry="19" fill="url(#f2hot)" stroke="#1b47ad" stroke-width="2"/>
+        <g stroke="#1b47ad" stroke-width="2.4" stroke-linecap="round">
+          <path d="M114 322 l-4 12 M122 326 l0 13 M131 322 l4 12"/>
+          <path d="M288 322 l-4 12 M296 326 l0 13 M305 322 l4 12"/>
+        </g>
+        <!-- legs -->
+        <path d="M172 286 C 168 320 168 350 172 380 L196 380 C 198 348 200 318 204 288 Z" fill="url(#f2b)" stroke="#a3673f" stroke-width="2"/>
+        <path d="M248 286 C 252 320 252 350 248 380 L224 380 C 222 348 220 318 216 288 Z" fill="url(#f2b)" stroke="#a3673f" stroke-width="2"/>
+        <path d="M172 380 C 168 392 168 400 172 402 L206 402 C 208 394 200 386 196 380 Z" fill="url(#f2hot)" stroke="#1b47ad" stroke-width="2"/>
+        <path d="M248 380 C 252 392 252 400 248 402 L214 402 C 212 394 220 386 224 380 Z" fill="url(#f2hot)" stroke="#1b47ad" stroke-width="2"/>
+        <!-- labels -->
+        <g font-size="12" font-weight="900" fill="#9fe4ff">
+          <text x="292" y="66">ears</text><text x="266" y="90">nose</text><text x="266" y="116">cheeks · chin</text>
+          <text x="24" y="304">fingers</text><text x="330" y="304">fingers</text>
+          <text x="90" y="400">toes · feet</text><text x="284" y="400">toes · feet</text>
+        </g>
+        <g stroke="#9fe4ff" stroke-width="1.4" opacity=".8">
+          <path d="M288 62 L252 74"/><path d="M264 86 L220 86"/><path d="M264 112 L222 112"/>
+          <path d="M66 300 L106 306"/><path d="M328 300 L314 306"/>
+          <path d="M140 396 L166 394"/><path d="M282 396 L256 394"/>
+        </g>
+      </svg>
+      <div class="mn">🧠 <b>"The body sacrifices the edges to save the middle."</b> Vasoconstriction protects the core and abandons the periphery — so the periphery is what freezes.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>⚠️ Who is at risk</h3>
+      <div class="no-grid">
+        <div class="no-t hot"><span class="e">🍺</span>Alcohol<i>vasodilates + kills judgement</i></div>
+        <div class="no-t hot"><span class="e">🚬</span>Nicotine<i>vasoconstricts</i></div>
+        <div class="no-t hot"><span class="e">🏚️</span>Homelessness<i>prolonged exposure</i></div>
+        <div class="no-t hot"><span class="e">💧</span>Wet clothing<i>heat loss ×25 vs dry</i></div>
+        <div class="no-t hot"><span class="e">🥾</span>Tight boots/gloves<i>constrict flow</i></div>
+        <div class="no-t hot"><span class="e">🌬️</span>Wind chill<i>strips warmth fast</i></div>
+        <div class="no-t hot"><span class="e">🫀</span>PVD / diabetes<i>already poor flow</i></div>
+        <div class="no-t hot"><span class="e">👵👶</span>Very old / very young<i>poor thermoregulation</i></div>
+        <div class="no-t hot"><span class="e">🧠</span>↓ LOC or mental illness<i>can't self-rescue</i></div>
+        <div class="no-t hot"><span class="e">❄️</span>Previous frostbite<i>permanently cold-sensitive</i></div>
+      </div>
+      <div class="mn">🧠 <b>"Wet, windy, drunk, and tight."</b> Four things that turn a cold day into a frostbite injury.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section id="clues">
+  <div class="sec-h"><span class="icon">🔎</span><h2>HOW DEEP? HOW BAD?</h2><span class="step">STEP 2 · CLUES</span></div>
+  <p class="sec-sub">Same depth language as every other wound page — this time the injury came from cold.</p>
+  <div class="grid">
+
+    <div class="card deep span2">
+      <h3>🔎 The depth cutaway — frostnip → 4th degree</h3>
+      <svg viewBox="-10 -10 836 420" role="img" aria-label="Four cross-section panels of a fingertip showing frostbite depth: first degree frostnip with pale numb intact skin and no blisters, second degree superficial frostbite with clear fluid filled blisters in the upper dermis, third degree deep frostbite with blood filled haemorrhagic blisters extending through the dermis into the subcutaneous plexus with blue grey skin, and fourth degree extending into muscle tendon and bone with black mummified tissue">
+        <defs>
+          <linearGradient id="f3e" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff2e6"/><stop offset="1" stop-color="#e0a97f"/></linearGradient>
+          <linearGradient id="f3d" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eb96a3"/><stop offset="1" stop-color="#a3405c"/></linearGradient>
+          <linearGradient id="f3f" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe08a"/><stop offset="1" stop-color="#cf9628"/></linearGradient>
+          <linearGradient id="f3m" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c2455f"/><stop offset="1" stop-color="#7d1f38"/></linearGradient>
+          <radialGradient id="f3bo" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#fffdf2"/><stop offset=".6" stop-color="#efe3c8"/><stop offset="1" stop-color="#c2ab84"/></radialGradient>
+          <radialGradient id="f3cl" cx=".4" cy=".3" r=".8"><stop offset="0" stop-color="#f7ffff"/><stop offset="1" stop-color="#a8dcea"/></radialGradient>
+          <radialGradient id="f3hm" cx=".4" cy=".3" r=".8"><stop offset="0" stop-color="#a3123a"/><stop offset="1" stop-color="#4a0f22"/></radialGradient>
+        </defs>
+        <rect x="-6" y="-6" width="828" height="412" rx="18" fill="rgba(0,194,199,.10)" stroke="#00c2c7" stroke-width="2" stroke-dasharray="8 7"/>
+        <text x="20" y="30" font-size="18" font-weight="900" fill="#9ff2ee">FROSTBITE DEPTH · the deeper it goes, the darker the blister</text>
+
+        <!-- 1st -->
+        <g>
+          <rect x="16" y="46" width="186" height="336" rx="10" fill="rgba(18,184,134,.15)" stroke="rgba(255,255,255,.3)"/>
+          <text x="28" y="70" font-size="15" font-weight="900" fill="#a5f3d4">1st · FROSTNIP</text>
+          <text x="28" y="87" font-size="11" fill="#fff">superficial · no ice in the tissue</text>
+          <rect x="28" y="100" width="160" height="22" fill="#f3ece4"/>
+          <rect x="28" y="122" width="160" height="46" fill="url(#f3d)"/>
+          <rect x="28" y="168" width="160" height="40" fill="url(#f3f)"/>
+          <rect x="28" y="208" width="160" height="22" fill="url(#f3m)"/>
+          <path d="M28 230 C 68 244 148 244 188 230 L188 248 L28 248 Z" fill="url(#f3bo)" stroke="#a28b60" stroke-width="1.2"/>
+          <ellipse cx="108" cy="110" rx="46" ry="8" fill="#ffffff" opacity=".85"/>
+          <ellipse cx="108" cy="110" rx="62" ry="10" fill="none" stroke="#ff8fa6" stroke-width="3" opacity=".7"/>
+          <text x="28" y="278" font-size="11.5" font-weight="900" fill="#a5f3d4">Pale/white centre, red rim</text>
+          <text x="28" y="296" font-size="11" fill="#fff">Numb, tingling, stinging</text>
+          <text x="28" y="312" font-size="11" fill="#fff">Skin still <tspan font-weight="900">soft</tspan> · NO blisters</text>
+          <text x="28" y="336" font-size="11.5" font-weight="900" fill="#ffe49a">Fully reversible</text>
+          <text x="28" y="352" font-size="11" fill="#ffe8c9">No tissue loss expected</text>
+          <text x="28" y="372" font-size="11" fill="#a5f3d4" font-style="italic">Warm it and it recovers</text>
+        </g>
+
+        <!-- 2nd -->
+        <g>
+          <rect x="210" y="46" width="186" height="336" rx="10" fill="rgba(255,194,51,.16)" stroke="rgba(255,255,255,.3)"/>
+          <text x="222" y="70" font-size="15" font-weight="900" fill="#ffe49a">2nd · SUPERFICIAL</text>
+          <text x="222" y="87" font-size="11" fill="#fff">partial thickness</text>
+          <rect x="222" y="100" width="160" height="22" fill="url(#f3e)"/>
+          <rect x="222" y="122" width="160" height="46" fill="url(#f3d)"/>
+          <rect x="222" y="168" width="160" height="40" fill="url(#f3f)"/>
+          <rect x="222" y="208" width="160" height="22" fill="url(#f3m)"/>
+          <path d="M222 230 C 262 244 342 244 382 230 L382 248 L222 248 Z" fill="url(#f3bo)" stroke="#a28b60" stroke-width="1.2"/>
+          <path d="M254 100 C 262 68 342 68 350 100 Z" fill="url(#f3cl)" stroke="#4f9fb5" stroke-width="2"/>
+          <g fill="#ffffff" opacity=".8"><circle cx="284" cy="86" r="4"/><circle cx="316" cy="82" r="4"/></g>
+          <text x="222" y="278" font-size="11.5" font-weight="900" fill="#ffe49a">CLEAR / milky blisters</text>
+          <text x="222" y="294" font-size="11" fill="#fff">form within ~24 h, surrounded</text>
+          <text x="222" y="308" font-size="11" fill="#fff">by redness and swelling</text>
+          <text x="222" y="330" font-size="11" fill="#fff">Skin blue, mottled or <tspan font-weight="900">waxy yellow</tspan></text>
+          <text x="222" y="352" font-size="11.5" font-weight="900" fill="#a5f3d4">Usually heals — good prognosis</text>
+          <text x="222" y="370" font-size="11" fill="#ffe8c9" font-style="italic">may peel; long-term cold sensitivity</text>
+        </g>
+
+        <!-- 3rd -->
+        <g>
+          <rect x="404" y="46" width="186" height="336" rx="10" fill="rgba(255,59,107,.16)" stroke="rgba(255,255,255,.3)"/>
+          <text x="416" y="70" font-size="15" font-weight="900" fill="#ffb3c6">3rd · DEEP</text>
+          <text x="416" y="87" font-size="11" fill="#fff">full thickness skin</text>
+          <rect x="416" y="100" width="160" height="22" fill="#c9b8c4"/>
+          <rect x="416" y="122" width="160" height="46" fill="#8f5a72"/>
+          <rect x="416" y="168" width="160" height="40" fill="url(#f3f)"/>
+          <rect x="416" y="208" width="160" height="22" fill="url(#f3m)"/>
+          <path d="M416 230 C 456 244 536 244 576 230 L576 248 L416 248 Z" fill="url(#f3bo)" stroke="#a28b60" stroke-width="1.2"/>
+          <path d="M446 100 C 454 62 538 62 546 100 Z" fill="url(#f3hm)" stroke="#3a0a18" stroke-width="2"/>
+          <path d="M430 122 C 470 138 520 132 566 124 L566 168 L430 168 Z" fill="#5c3a52" opacity=".8"/>
+          <text x="416" y="278" font-size="11.5" font-weight="900" fill="#ff8fa6">BLOOD-FILLED (haemorrhagic)</text>
+          <text x="416" y="294" font-size="11.5" font-weight="900" fill="#ff8fa6">blisters</text>
+          <text x="416" y="312" font-size="11" fill="#fff">Skin blue-grey, hard, <tspan font-weight="900">waxy white</tspan></text>
+          <text x="416" y="328" font-size="11" fill="#fff">Sensation lost · doesn't blanch</text>
+          <text x="416" y="352" font-size="11.5" font-weight="900" fill="#ffb3c6">Will slough / scar · tissue loss likely</text>
+          <text x="416" y="370" font-size="11" fill="#ffe8c9" font-style="italic">deep plexus is thrombosed</text>
+        </g>
+
+        <!-- 4th -->
+        <g>
+          <rect x="598" y="46" width="176" height="336" rx="10" fill="rgba(192,34,85,.24)" stroke="rgba(255,255,255,.3)"/>
+          <text x="610" y="70" font-size="15" font-weight="900" fill="#ff8fa6">4th · TO THE BONE</text>
+          <text x="610" y="87" font-size="11" fill="#fff">muscle · tendon · bone</text>
+          <rect x="610" y="100" width="152" height="22" fill="#2b1c0c"/>
+          <rect x="610" y="122" width="152" height="46" fill="#3a2412"/>
+          <rect x="610" y="168" width="152" height="40" fill="#4a3320"/>
+          <rect x="610" y="208" width="152" height="22" fill="#5a3a2a"/>
+          <path d="M610 230 C 646 244 726 244 762 230 L762 248 L610 248 Z" fill="#6b5a44" stroke="#3c3125" stroke-width="1.2"/>
+          <g stroke="#0d0803" stroke-width="1.4" opacity=".8"><path d="M624 112 L750 118 M622 140 L752 146 M626 186 L748 192"/></g>
+          <text x="610" y="278" font-size="11.5" font-weight="900" fill="#c9b08a">Black, dry, MUMMIFIED</text>
+          <text x="610" y="294" font-size="11" fill="#fff">Hard as wood · no sensation</text>
+          <text x="610" y="310" font-size="11" fill="#fff">Dry gangrene, then a clear</text>
+          <text x="610" y="324" font-size="11" fill="#fff">line of <tspan font-weight="900">demarcation</tspan></text>
+          <text x="610" y="348" font-size="11.5" font-weight="900" fill="#ff8fa6">Amputation / auto-amputation</text>
+          <text x="610" y="368" font-size="11" fill="#ffe8c9" font-style="italic">but never decided early — see below</text>
+        </g>
+      </svg>
+      <p style="margin-top:10px"><b>You may also see it split simply into two:</b> <b>superficial frostbite</b> (skin blue, mottled or waxy yellow; clear blisters; skin still moves over the tissue below) and <b>deep frostbite</b> (skin white, hard as wood, blood-filled blisters, progressing to gangrene). <mark>The true depth cannot be judged until after rewarming — and often not for days.</mark></p>
+      <div class="mn">🧠 <b>Blister colour = depth.</b> Clear blister = superficial and likely to recover. <b>Blood-filled blister = deep</b> and likely to lose tissue. Exactly the same rule as pressure injuries on <a href="NG-044_pressure-injuries.html">NG-044</a>.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🔎 What you assess — before and after rewarming</h3>
+      <ul class="tick">
+        <li><b>Colour</b> — white / waxy yellow / mottled blue / grey; after thawing, does it turn red-purple (good) or stay pale (bad)?</li>
+        <li><b>Texture</b> — soft and pliable (superficial) vs <b>hard, wooden, non-indentable</b> (deep).</li>
+        <li><b>Sensation</b> — numbness is universal at first; return of sensation and pain after rewarming is a <b>good</b> sign.</li>
+        <li><b>Blisters</b> — present? clear or haemorrhagic? when did they appear?</li>
+        <li><b>Perfusion</b> — capillary refill, pulses (may need Doppler), warmth.</li>
+        <li><b>Oedema</b> — expect it to increase for 24–48 h after thawing; check for tight compartments.</li>
+        <li><b>Core temperature</b> — always. Look for coexisting <a href="NG-041_hypothermia.html">hypothermia</a>.</li>
+      </ul>
+      <div class="xref"><span class="pill">SEE ALSO</span> <a href="NG-051_skin.html">NG-051 Skin</a> — capillary refill, blanching and lesion vocabulary; <a href="NG-080_wound-care.html">NG-080 Wound Care</a> — for the wound that follows.</div>
+      <div class="mn">🧠 <b>Pain returning is progress.</b> A frostbitten part that hurts a lot after rewarming still has living nerve — the frightening one is the part that stays numb.</div>
+    </div>
+
+    <div class="card topaz">
+      <h3>⭐ Frostbite vs hypothermia — local vs systemic</h3>
+      <table>
+        <tr><th class="up">Frostbite (this page)</th><th class="lo"><a href="NG-041_hypothermia.html">Hypothermia (NG-041)</a></th></tr>
+        <tr><td><b>LOCAL</b> tissue freezing</td><td><b>SYSTEMIC</b> drop in core temperature</td></tr>
+        <tr><td>Fingers, toes, ears, nose, cheeks</td><td>The whole body; core temp <span class="mono">&lt; 35 °C (95 °F)</span></td></tr>
+        <tr><td>Threatens the <b>limb</b></td><td>Threatens the <b>life</b> — cold myocardium → V-fib</td></tr>
+        <tr><td>Treat with <b>rapid rewarming of the part</b> in warm water</td><td>Treat with <b>core rewarming</b>, gentle handling, cardiac monitoring</td></tr>
+        <tr><td>Damage keeps declaring itself for weeks</td><td>Danger is immediate — arrhythmia, afterdrop</td></tr>
+      </table>
+      <p style="margin-top:10px"><b class="never">If the patient has both, the core comes first.</b> Stabilise airway, breathing, circulation and core temperature before you commit to rewarming a limb — and handle the patient gently, because a cold heart is an irritable heart.</p>
+      <div class="mn">🧠 <b>"Life before limb."</b> Frostbite loses a finger; hypothermia loses the patient.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section id="care">
+  <div class="sec-h"><span class="icon">🔥</span><h2>REWARMING — THE PRIORITY</h2><span class="step">STEP 3 · CARE</span></div>
+  <p class="sec-sub">One correct method, and a list of tempting wrong ones.</p>
+  <div class="grid">
+
+    <div class="card deep span2">
+      <h3>🔥 Do this / never do that</h3>
+      <svg viewBox="-10 -10 849 400" role="img" aria-label="Rewarming do and do not figure: on the left a hand immersed in a basin of circulating warm water at thirty seven to thirty nine degrees Celsius with a thermometer, marked correct; on the right four crossed out wrong methods, rubbing or massaging the frozen part, holding it near a fire or heater, wrapping in heavy blankets and applying pressure, and walking on thawed frostbitten feet">
+        <defs>
+          <linearGradient id="f4w" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bfeaff"/><stop offset="1" stop-color="#4aa8d8"/></linearGradient>
+          <linearGradient id="f4b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe6d2"/><stop offset="1" stop-color="#d9a077"/></linearGradient>
+          <radialGradient id="f4fire" cx=".5" cy=".8" r=".8"><stop offset="0" stop-color="#fff3b0"/><stop offset=".5" stop-color="#ff8a3d"/><stop offset="1" stop-color="#c02255"/></radialGradient>
+        </defs>
+        <rect x="-6" y="-6" width="841" height="392" rx="18" fill="rgba(18,184,134,.10)" stroke="#12b886" stroke-width="2" stroke-dasharray="8 7"/>
+
+        <!-- DO -->
+        <g>
+          <rect x="16" y="18" width="336" height="344" rx="12" fill="rgba(18,184,134,.18)" stroke="rgba(255,255,255,.32)"/>
+          <text x="30" y="46" font-size="17" font-weight="900" fill="#a5f3d4">✅ DO — rapid rewarming</text>
+          <!-- basin -->
+          <path d="M56 176 L312 176 L292 300 C 288 314 274 320 260 320 L108 320 C 94 320 80 314 76 300 Z" fill="#3a4761" stroke="#8ea0c8" stroke-width="3"/>
+          <path d="M64 190 L304 190 L286 296 C 283 306 272 310 262 310 L106 310 C 96 310 85 306 82 296 Z" fill="url(#f4w)"/>
+          <g stroke="#eafcff" stroke-width="2.4" fill="none" opacity=".8">
+            <path d="M80 214 q22 -10 44 0 q22 10 44 0 q22 -10 44 0 q22 10 44 0 q22 -10 40 0"/>
+            <path d="M88 240 q22 10 44 0 q22 -10 44 0 q22 10 44 0 q22 -10 44 0"/>
+          </g>
+          <!-- swirl arrows for circulating water -->
+          <g stroke="#ffffff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".75">
+            <path d="M120 272 C 140 258 172 258 190 270"/><path d="M190 270 l-10 -8 M190 270 l-2 -12"/>
+            <path d="M256 258 C 236 274 204 276 186 266"/><path d="M186 266 l10 8 M186 266 l3 12"/>
+          </g>
+          <!-- hand -->
+          <path d="M166 108 C 160 138 158 168 160 196 C 162 226 176 244 200 246 C 224 248 240 232 242 206 C 244 176 240 142 234 110 Z" fill="url(#f4b)" stroke="#a3673f" stroke-width="2"/>
+          <g stroke="#a3673f" stroke-width="2" fill="url(#f4b)">
+            <path d="M172 110 C 170 88 172 70 178 62 C 186 68 188 88 188 110 Z"/>
+            <path d="M192 110 C 190 84 192 62 198 54 C 206 60 208 84 208 110 Z"/>
+            <path d="M212 110 C 210 86 212 66 218 58 C 226 64 228 86 228 110 Z"/>
+            <path d="M232 112 C 234 92 240 78 248 76 C 252 86 248 104 244 116 Z"/>
+          </g>
+          <path d="M162 148 C 148 140 138 124 140 110 C 150 108 162 118 168 132 Z" fill="url(#f4b)" stroke="#a3673f" stroke-width="2"/>
+          <!-- thermometer -->
+          <g>
+            <rect x="286" y="120" width="14" height="120" rx="7" fill="#f2f6ff" stroke="#8ea0c8" stroke-width="2"/>
+            <rect x="290" y="160" width="6" height="78" rx="3" fill="#ff3b6b"/>
+            <circle cx="293" cy="248" r="12" fill="#ff3b6b" stroke="#8ea0c8" stroke-width="2"/>
+            <g stroke="#8ea0c8" stroke-width="1.4"><path d="M300 140 h8 M300 160 h8 M300 180 h8 M300 200 h8 M300 220 h8"/></g>
+          </g>
+          <rect x="30" y="60" width="286" height="46" rx="10" fill="rgba(13,8,26,.6)" stroke="#12b886" stroke-width="2"/>
+          <text x="42" y="82" font-size="15" font-weight="900" fill="#a5f3d4">Circulating warm water</text>
+          <text x="42" y="99" font-size="14" font-weight="900" fill="#ffe49a">37–39 °C  (about 98.6–102 °F)</text>
+          <text x="30" y="342" font-size="12" font-weight="900" fill="#fff">Immerse ~20–30 min until the part is <tspan fill="#ffe49a">pliable + red-purple</tspan></text>
+          <text x="30" y="358" font-size="11.5" fill="#d8fff0">Give analgesia first — thawing is intensely painful</text>
+        </g>
+
+        <!-- DON'T -->
+        <g>
+          <rect x="362" y="18" width="400" height="344" rx="12" fill="rgba(255,59,107,.18)" stroke="rgba(255,255,255,.32)"/>
+          <text x="376" y="46" font-size="17" font-weight="900" fill="#ff8fa6">❌ NEVER</text>
+
+          <!-- rub -->
+          <g>
+            <rect x="376" y="60" width="180" height="130" rx="10" fill="rgba(13,8,26,.45)" stroke="rgba(255,255,255,.25)"/>
+            <path d="M418 106 C 412 128 412 148 420 158 C 432 170 452 168 458 154 C 464 138 462 118 458 104 Z" fill="url(#f4b)" stroke="#a3673f" stroke-width="1.8"/>
+            <path d="M472 116 C 486 106 502 112 508 124 C 512 136 500 148 486 146" fill="url(#f4b)" stroke="#a3673f" stroke-width="1.8"/>
+            <g stroke="#ffe49a" stroke-width="2.6" fill="none" stroke-linecap="round"><path d="M462 96 C 480 88 496 92 506 100"/><path d="M462 168 C 480 176 496 172 506 164"/></g>
+            <g stroke="#ff3b6b" stroke-width="6" stroke-linecap="round"><path d="M392 76 L540 174"/><path d="M540 76 L392 174"/></g>
+            <text x="386" y="182" font-size="12" font-weight="900" fill="#ff8fa6">RUB or MASSAGE</text>
+          </g>
+          <!-- fire -->
+          <g>
+            <rect x="568" y="60" width="180" height="130" rx="10" fill="rgba(13,8,26,.45)" stroke="rgba(255,255,255,.25)"/>
+            <path d="M640 158 C 620 142 622 118 636 104 C 636 118 646 122 650 112 C 656 96 648 86 644 80 C 672 88 690 112 686 138 C 683 156 664 168 640 158 Z" fill="url(#f4fire)"/>
+            <path d="M596 150 C 590 160 592 166 598 168 L690 168 C 696 164 696 156 690 150 Z" fill="#5a3a2a"/>
+            <g stroke="#ff3b6b" stroke-width="6" stroke-linecap="round"><path d="M584 76 L732 174"/><path d="M732 76 L584 174"/></g>
+            <text x="578" y="182" font-size="12" font-weight="900" fill="#ff8fa6">DRY HEAT — fire, heater, stove</text>
+          </g>
+          <!-- heavy blanket / pressure -->
+          <g>
+            <rect x="376" y="200" width="180" height="130" rx="10" fill="rgba(13,8,26,.45)" stroke="rgba(255,255,255,.25)"/>
+            <path d="M400 268 C 424 250 490 250 520 268 C 522 288 512 300 496 302 L424 302 C 406 300 398 286 400 268 Z" fill="#5f7099" stroke="#8ea0c8" stroke-width="2"/>
+            <g stroke="#8ea0c8" stroke-width="1.6" opacity=".8"><path d="M414 272 C 440 262 486 262 508 272"/><path d="M410 286 C 438 276 486 276 512 286"/></g>
+            <path d="M440 250 C 436 238 444 230 456 230 C 470 230 478 240 474 252" fill="url(#f4b)" stroke="#a3673f" stroke-width="1.8"/>
+            <g stroke="#ff3b6b" stroke-width="6" stroke-linecap="round"><path d="M392 216 L540 314"/><path d="M540 216 L392 314"/></g>
+            <text x="386" y="322" font-size="12" font-weight="900" fill="#ff8fa6">HEAVY BLANKETS · PRESSURE</text>
+          </g>
+          <!-- walking -->
+          <g>
+            <rect x="568" y="200" width="180" height="130" rx="10" fill="rgba(13,8,26,.45)" stroke="rgba(255,255,255,.25)"/>
+            <ellipse cx="640" cy="228" rx="13" ry="12" fill="url(#f4b)" stroke="#a3673f" stroke-width="1.6"/>
+            <path d="M634 242 C 630 258 632 272 636 282 L652 282 C 656 268 654 254 650 240 Z" fill="url(#f4b)" stroke="#a3673f" stroke-width="1.6"/>
+            <path d="M636 282 C 630 292 622 300 614 304 L622 312 C 634 306 644 296 650 288 Z" fill="url(#f4b)" stroke="#a3673f" stroke-width="1.6"/>
+            <path d="M652 282 C 660 292 670 300 680 304 L674 312 C 662 308 652 298 646 290 Z" fill="url(#f4b)" stroke="#a3673f" stroke-width="1.6"/>
+            <g stroke="#ff3b6b" stroke-width="6" stroke-linecap="round"><path d="M584 216 L732 314"/><path d="M732 216 L584 314"/></g>
+            <text x="578" y="322" font-size="12" font-weight="900" fill="#ff8fa6">WALK on thawed feet</text>
+          </g>
+          <text x="376" y="352" font-size="12" font-weight="900" fill="#ffe49a">…and never thaw a part that could refreeze before you reach care.</text>
+        </g>
+      </svg>
+      <div class="mn">🧠 <b>"Warm water, no rubbing, no fire, no pressure."</b> The frozen part is full of microscopic glass — rubbing drags it through the tissue, and anaesthetic skin cannot tell you it is being burned.</div>
+    </div>
+
+    <div class="card emerald span2">
+      <h3>✅ The rewarming sequence, in order</h3>
+      <div class="ladder">
+        <div class="rung"><div class="n">1</div><div class="t"><b>ABCs and core temperature first</b><br>Get the patient out of the cold. Treat systemic <a href="NG-041_hypothermia.html">hypothermia</a> before or alongside the limb, and handle gently — the cold heart is irritable.</div></div>
+        <div class="arrowdown">▼</div>
+        <div class="rung"><div class="n">2</div><div class="t"><b>Remove wet and constrictive things</b><br>Wet clothing, boots, gloves, <b>rings, watches and jewellery</b> — before the swelling starts. Dry the patient, insulate the rest of the body.</div></div>
+        <div class="arrowdown">▼</div>
+        <div class="rung"><div class="n">3</div><div class="t"><b>Decide: is refreezing possible?</b><br><b class="never">If the part could refreeze before definitive care, do NOT thaw it.</b> Protect and transport frozen. Freeze–thaw–refreeze causes far more tissue loss than staying frozen.</div></div>
+        <div class="arrowdown">▼</div>
+        <div class="rung"><div class="n">4</div><div class="t"><b>Analgesia BEFORE you thaw</b><br>Rewarming is severely painful; opioid analgesia is usually required. Give it first, not after the screaming starts.</div></div>
+        <div class="arrowdown">▼</div>
+        <div class="rung"><div class="n">5</div><div class="t"><b>Rapid rewarming</b><br>Immerse in <b>circulating warm water at <span class="mono">37–39 °C (about 98.6–102 °F)</span></b> — a whirlpool or a basin with gentle agitation — typically <b>20–30 minutes</b>, until the part is soft, pliable and red-purple. Keep the part <b>suspended</b>, not resting on the bottom or sides of the basin. Recheck the water temperature constantly and add warm water away from the limb.</div></div>
+        <div class="arrowdown">▼</div>
+        <div class="rung"><div class="n">6</div><div class="t"><b>After thawing</b><br><b>Elevate</b> the extremity to control oedema. Separate the digits with dry sterile gauze/cotton. Apply <b>loose, bulky, non-adherent</b> dressings. <b>No occlusive or circumferential dressings.</b> Bed rest — no weight-bearing on thawed feet.</div></div>
+        <div class="arrowdown">▼</div>
+        <div class="rung"><div class="n">7</div><div class="t"><b>Ongoing</b><br>Tetanus status, infection surveillance, hydration, stop smoking, keep the part warm, ongoing analgesia. Ibuprofen is commonly used for its anti-prostaglandin effect; thrombolytic therapy exists for selected severe cases at specialist centres within a narrow time window. <b>Follow provider orders and protocol.</b></div></div>
+      </div>
+      <div class="mn">🧠 <b>1 core · 2 strip · 3 refreeze? · 4 pain meds · 5 warm water · 6 elevate &amp; separate · 7 watch.</b> Say the seven and the exam question answers itself.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🚨 The refreezing rule — the highest-yield trap</h3>
+      <p><mark>Do not begin rewarming unless the part can be kept thawed.</mark></p>
+      <svg viewBox="0 0 620 190" role="img" aria-label="Timeline comparing a single freeze followed by controlled rewarming with limited tissue damage against a freeze thaw refreeze cycle which produces far more extensive tissue destruction">
+        <defs>
+          <marker id="f5ar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffe49a"/></marker>
+        </defs>
+        <rect x="4" y="4" width="612" height="182" rx="14" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.3)"/>
+        <text x="18" y="28" font-size="13.5" font-weight="900" fill="#a5f3d4">✅ FREEZE → THAW ONCE</text>
+        <g>
+          <rect x="18" y="38" width="118" height="30" rx="8" fill="rgba(47,107,255,.7)"/><text x="34" y="58" font-size="12" font-weight="900" fill="#fff">frozen ❄️</text>
+          <path d="M140 53 L166 53" stroke="#ffe49a" stroke-width="3" marker-end="url(#f5ar)"/>
+          <rect x="172" y="38" width="140" height="30" rx="8" fill="rgba(18,184,134,.7)"/><text x="184" y="58" font-size="12" font-weight="900" fill="#fff">warm water thaw 🔥</text>
+          <path d="M316 53 L342 53" stroke="#ffe49a" stroke-width="3" marker-end="url(#f5ar)"/>
+          <rect x="348" y="38" width="120" height="30" rx="8" fill="rgba(255,194,51,.75)"/><text x="356" y="58" font-size="12" font-weight="900" fill="#231a02">stays thawed</text>
+          <rect x="480" y="34" width="118" height="38" rx="9" fill="rgba(18,184,134,.35)" stroke="#12b886" stroke-width="2"/>
+          <text x="490" y="50" font-size="11.5" font-weight="900" fill="#a5f3d4">damage limited</text>
+          <text x="490" y="65" font-size="11" fill="#d8fff0">to the first freeze</text>
+        </g>
+        <text x="18" y="104" font-size="13.5" font-weight="900" fill="#ff8fa6">❌ FREEZE → THAW → REFREEZE</text>
+        <g>
+          <rect x="18" y="114" width="88" height="30" rx="8" fill="rgba(47,107,255,.7)"/><text x="30" y="134" font-size="12" font-weight="900" fill="#fff">frozen ❄️</text>
+          <path d="M110 129 L132 129" stroke="#ffe49a" stroke-width="3" marker-end="url(#f5ar)"/>
+          <rect x="138" y="114" width="92" height="30" rx="8" fill="rgba(18,184,134,.7)"/><text x="152" y="134" font-size="12" font-weight="900" fill="#fff">thawed 🔥</text>
+          <path d="M234 129 L256 129" stroke="#ffe49a" stroke-width="3" marker-end="url(#f5ar)"/>
+          <rect x="262" y="114" width="106" height="30" rx="8" fill="rgba(47,107,255,.9)"/><text x="272" y="134" font-size="12" font-weight="900" fill="#fff">REFROZEN ❄️❄️</text>
+          <path d="M372 129 L394 129" stroke="#ff3b6b" stroke-width="3" marker-end="url(#f5ar)"/>
+          <rect x="400" y="108" width="198" height="44" rx="9" fill="rgba(192,34,85,.55)" stroke="#ff3b6b" stroke-width="2"/>
+          <text x="412" y="126" font-size="12.5" font-weight="900" fill="#fff">far MORE tissue destroyed</text>
+          <text x="412" y="143" font-size="11" fill="#ffe8c9">bigger ice crystals · more thrombosis</text>
+        </g>
+        <text x="18" y="174" font-size="11.5" font-style="italic" fill="#ffe49a">If you cannot guarantee the part stays warm, transport it frozen and protected.</text>
+      </svg>
+      <div class="mn">🧠 <b>"Better frozen than half-thawed."</b> A second freeze makes bigger ice crystals in tissue that is already injured.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>💧 Blisters, dressings and the little details</h3>
+      <ul class="tick">
+        <li><b>Dressings:</b> loose, bulky, dry, <b>non-adherent</b>. Place gauze <b>between every finger and toe</b> so they don't macerate against each other.</li>
+        <li><b class="never">No occlusive dressings and nothing circumferential/tight</b> — swelling after thawing can turn a snug wrap into a tourniquet.</li>
+        <li><b>Elevate</b> the part after rewarming; keep the patient on bed rest if the feet are involved.</li>
+        <li><b>Blisters:</b> practice varies. Many protocols debride or aspirate <b>clear</b> blisters and leave <b>haemorrhagic</b> blisters intact; some leave all blisters intact. <b>Follow the provider's order and your facility protocol</b> rather than guessing.</li>
+        <li><b>Handle the part like glass</b> — no pressure, no rubbing, no adhesive tape directly on injured skin.</li>
+        <li><b>Keep the whole patient warm</b> and hydrated; warm oral fluids if fully alert. No alcohol, no smoking.</li>
+      </ul>
+      <div class="mn">🧠 <b>Fluffy, loose, and separated.</b> Picture packing a hand of raw eggs, not bandaging a sprain.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section id="danger">
+  <div class="sec-h"><span class="icon">⚠️</span><h2>AFTER THE THAW</h2><span class="step">STEP 4 · WATCH &amp; TEACH</span></div>
+  <p class="sec-sub">The wound that follows behaves like any other wound — see <a href="NG-080_wound-care.html">NG-080</a> — but the timeline is unusually slow.</p>
+  <div class="grid">
+
+    <div class="card deep span2">
+      <h3>📅 What it looks like over time</h3>
+      <svg viewBox="0 0 760 230" role="img" aria-label="Timeline of frostbite appearance showing the frozen white waxy part on arrival, the red purple swollen painful part after rewarming, blisters appearing within one day, blackening and mummification over one to three weeks, and a clear line of demarcation between living and dead tissue after several weeks to months">
+        <defs>
+          <marker id="f6ar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/></marker>
+        </defs>
+        <rect x="4" y="4" width="752" height="222" rx="16" fill="rgba(255,194,51,.10)" stroke="#ffc233" stroke-width="2" stroke-dasharray="8 7"/>
+        <path d="M24 200 L730 200" stroke="#ffc233" stroke-width="4" marker-end="url(#f6ar)"/>
+        <g>
+          <rect x="20" y="26" width="132" height="150" rx="10" fill="rgba(47,107,255,.35)" stroke="rgba(255,255,255,.3)"/>
+          <path d="M56 74 C 50 100 52 120 62 130 C 78 144 104 138 110 120 C 116 100 112 80 108 68 Z" fill="#f2eee8" stroke="#9c9284" stroke-width="1.8"/>
+          <text x="30" y="48" font-size="12.5" font-weight="900" fill="#dbe8ff">ON ARRIVAL</text>
+          <text x="30" y="160" font-size="11" fill="#fff">white / waxy · hard</text>
+          <text x="30" y="174" font-size="11" fill="#fff">numb</text>
+          <text x="30" y="218" font-size="11" font-weight="900" fill="#ffc233">hour 0</text>
+        </g>
+        <g>
+          <rect x="164" y="26" width="132" height="150" rx="10" fill="rgba(157,92,255,.35)" stroke="rgba(255,255,255,.3)"/>
+          <path d="M200 74 C 194 100 196 120 206 130 C 222 144 248 138 254 120 C 260 100 256 80 252 68 Z" fill="#b0576f" stroke="#7d2540" stroke-width="1.8"/>
+          <text x="174" y="48" font-size="12.5" font-weight="900" fill="#e9d7ff">AFTER REWARMING</text>
+          <text x="174" y="160" font-size="11" fill="#fff">red-purple, swollen</text>
+          <text x="174" y="174" font-size="11" fill="#fff">SEVERE pain (good sign)</text>
+          <text x="174" y="218" font-size="11" font-weight="900" fill="#ffc233">30–60 min</text>
+        </g>
+        <g>
+          <rect x="308" y="26" width="132" height="150" rx="10" fill="rgba(0,194,199,.30)" stroke="rgba(255,255,255,.3)"/>
+          <path d="M344 82 C 338 106 340 124 350 134 C 366 148 392 142 398 124 C 404 104 400 86 396 74 Z" fill="#c9738c" stroke="#7d2540" stroke-width="1.8"/>
+          <ellipse cx="362" cy="86" rx="18" ry="13" fill="#dff6ff" stroke="#4f9fb5" stroke-width="1.6"/>
+          <ellipse cx="388" cy="102" rx="13" ry="10" fill="#7d1030" stroke="#4a0f22" stroke-width="1.6"/>
+          <text x="318" y="48" font-size="12.5" font-weight="900" fill="#9ff2ee">BLISTERS APPEAR</text>
+          <text x="318" y="160" font-size="11" fill="#fff">clear = superficial</text>
+          <text x="318" y="174" font-size="11" fill="#fff">bloody = deep</text>
+          <text x="318" y="218" font-size="11" font-weight="900" fill="#ffc233">6–24 h</text>
+        </g>
+        <g>
+          <rect x="452" y="26" width="132" height="150" rx="10" fill="rgba(192,34,85,.35)" stroke="rgba(255,255,255,.3)"/>
+          <path d="M488 74 C 482 100 484 120 494 130 C 510 144 536 138 542 120 C 548 100 544 80 540 68 Z" fill="#2b1c0c" stroke="#0d0803" stroke-width="1.8"/>
+          <text x="462" y="48" font-size="12.5" font-weight="900" fill="#ff8fa6">BLACKENING</text>
+          <text x="462" y="160" font-size="11" fill="#fff">dry, hard, mummified</text>
+          <text x="462" y="174" font-size="11" fill="#fff">eschar forms</text>
+          <text x="462" y="218" font-size="11" font-weight="900" fill="#ffc233">1–3 weeks</text>
+        </g>
+        <g>
+          <rect x="596" y="26" width="140" height="150" rx="10" fill="rgba(255,138,61,.32)" stroke="rgba(255,255,255,.3)"/>
+          <path d="M632 74 C 626 100 628 120 638 130 C 654 144 680 138 686 120 C 692 100 688 80 684 68 Z" fill="#2b1c0c" stroke="#0d0803" stroke-width="1.8"/>
+          <path d="M626 106 C 650 100 674 102 694 108" fill="none" stroke="#ffe49a" stroke-width="3" stroke-dasharray="6 4"/>
+          <path d="M628 108 C 652 102 676 104 696 110 L694 136 C 674 142 650 144 634 132 Z" fill="#c9738c" opacity=".85"/>
+          <text x="606" y="48" font-size="12.5" font-weight="900" fill="#ffd9b8">DEMARCATION</text>
+          <text x="606" y="160" font-size="11" fill="#fff">clear line between living</text>
+          <text x="606" y="174" font-size="11" fill="#fff">and dead tissue</text>
+          <text x="606" y="218" font-size="11" font-weight="900" fill="#ffc233">weeks → months</text>
+        </g>
+      </svg>
+      <p style="margin-top:10px"><b class="never">Surgery is not rushed.</b> Except for infection or compartment syndrome, amputation decisions wait for a clear line of demarcation — classically summarised as <b>"frostbite in January, amputate in July."</b> Early appearance badly over-predicts tissue loss.</p>
+      <div class="mn">🧠 <b>Frostbite lies on day one.</b> A black finger in week two may still have a viable base — which is why nobody cuts early.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🚨 Complications to watch for</h3>
+      <ul class="tick">
+        <li><b>Infection / cellulitis</b> — the dead tissue is a culture medium. Fever, spreading redness, purulence, worsening pain.</li>
+        <li><b>Compartment syndrome</b> — post-thaw oedema in a closed space. <b>Pain out of proportion</b>, pain on passive stretch, tense compartment, paraesthesia. Escalate immediately; pulselessness is a <i>late</i> sign.</li>
+        <li><b>Gangrene and auto-amputation</b> — dry gangrene mummifies and may separate on its own.</li>
+        <li><b>Rhabdomyolysis and AKI</b> in extensive deep injury.</li>
+        <li><b>Long-term sequelae:</b> permanent cold sensitivity, chronic neuropathic pain, numbness, hyperhidrosis, nail deformity, arthritis, and — in children — <b>growth-plate damage</b>.</li>
+      </ul>
+      <div class="mn">🧠 <b>Pain out of proportion after rewarming ≠ "just frostbite."</b> Think compartment syndrome and escalate.</div>
+    </div>
+
+    <div class="card emerald">
+      <h3>✅ Teach before discharge</h3>
+      <ul class="tick">
+        <li><b>You are now permanently cold-sensitive</b> in that area — dress in layers, cover the ears, nose and hands, and change wet gloves and socks immediately.</li>
+        <li><b>Stop smoking</b> — nicotine constricts the exact vessels the healing tissue depends on. Avoid alcohol in the cold.</li>
+        <li><b>Loose, layered, dry clothing</b>; mittens beat gloves; boots that are not tight.</li>
+        <li><b>Protect the injured part</b> — no direct heat, no soaking without instruction, no picking at blisters or eschar.</li>
+        <li><b>Report:</b> fever, increasing pain, spreading redness, foul drainage, or any new blackening.</li>
+        <li><b>Keep every follow-up.</b> The final extent takes weeks to declare, so appointments are not optional.</li>
+      </ul>
+      <div class="xref"><span class="pill">SEE ALSO</span> <a href="NG-041_hypothermia.html">NG-041 Hypothermia</a> — the systemic cold emergency that often accompanies frostbite.</div>
+      <div class="mn">🧠 <b>"Once frostbitten, always cold-sensitive."</b> Give the patient that sentence and the prevention teaching sticks.</div>
+    </div>
+
+    <div class="card topaz">
+      <h3>🗺️ Where this page sits in the set</h3>
+      <ul class="tick">
+        <li><b><a href="NG-051_skin.html">NG-051 — Skin</a></b>: the layers and the partial- vs full-thickness rule that this page's degrees map onto exactly.</li>
+        <li><b><a href="NG-044_pressure-injuries.html">NG-044 — Pressure Injuries</a></b>: same depth logic, different cause. Blister colour means the same thing on both pages.</li>
+        <li><b><a href="NG-080_wound-care.html">NG-080 — Wound Care</a></b>: how the frostbite wound is dressed, debrided and documented once it declares.</li>
+        <li><b><a href="NG-041_hypothermia.html">NG-041 — Hypothermia</a></b>: the systemic partner. <b>Local vs systemic; limb vs life.</b></li>
+      </ul>
+      <div class="mn">🧠 <b>Cold hurts twice:</b> once to the whole body (NG-041) and once to the corners (this page).</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc tealbg"><span class="big">🧊 Ice + stasis</span>Crystals wreck the cells; vasoconstriction starves them.</div>
+    <div class="rc citrine"><span class="big">🔥 37–39 °C water</span>Circulating warm water, 20–30 min, until pliable and red-purple. Analgesia first.</div>
+    <div class="rc rubybg"><span class="big">❌ No rub · no fire · no pressure</span>And never thaw if it can refreeze.</div>
+    <div class="rc topazbg"><span class="big">🩸 Blister colour = depth</span>Clear = superficial. Blood-filled = deep.</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 9 rapid-fire questions</summary>
+      <div class="qa">Q1: In one sentence, what is happening to the tissue in frostbite? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Ice crystals form in and around the cells, pulling water out and rupturing membranes, while cold-induced vasoconstriction causes vascular stasis and microthrombi, so the tissue is simultaneously frozen and starved of blood.</div></div>
+      <div class="qa">Q2: What is the priority treatment, and at what temperature? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Rapid rewarming by immersing the part in circulating warm water at about 37 to 39 degrees Celsius (about 98.6 to 102 degrees Fahrenheit), typically for 20 to 30 minutes, until the tissue is pliable and red-purple. Give analgesia first — thawing is intensely painful.</div></div>
+      <div class="qa">Q3: A patient with frostbitten feet still has a two-hour walk to shelter in freezing conditions. Do you rewarm now? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">No. Do not thaw a part that could refreeze before definitive care. Freeze–thaw–refreeze produces far more tissue destruction than remaining frozen. Protect the part, keep the patient as warm as possible, and transport.</div></div>
+      <div class="qa">Q4: Name four things you must never do to a frostbitten part. <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Never rub or massage it; never apply dry heat (fire, heater, stove, hot water bottle); never apply pressure, heavy blankets or tight/circumferential or occlusive dressings; and never let the patient walk on thawed frostbitten feet. Also never thaw if refreezing is possible.</div></div>
+      <div class="qa">Q5: Clear blister vs blood-filled blister — what do they tell you? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Clear or milky blisters indicate superficial (partial-thickness) injury with a generally good prognosis. Blood-filled (haemorrhagic) blisters indicate deep injury involving the subdermal vascular plexus, with likely tissue loss.</div></div>
+      <div class="qa">Q6: Your patient has frostbitten hands and a core temperature of 33 °C. What comes first? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">The core. Treat the systemic hypothermia — ABCs, cardiac monitoring, gentle handling, core rewarming — before or alongside rewarming the hands. Life before limb.</div></div>
+      <div class="qa">Q7: What do you do immediately after rewarming? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Elevate the extremity to control oedema, separate the digits with dry sterile gauze, apply loose bulky non-adherent dressings with nothing circumferential or occlusive, keep the patient on bed rest if the feet are involved, continue analgesia, and check tetanus status.</div></div>
+      <div class="qa">Q8: Why isn't amputation decided in the first week? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Because the early appearance badly over-predicts tissue loss. Surgeons wait for a clear line of demarcation between viable and non-viable tissue, which can take weeks to months — "frostbite in January, amputate in July." Exceptions are infection and compartment syndrome, which need urgent surgery.</div></div>
+      <div class="qa">Q9: How is frostbite related to hypothermia? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Frostbite is the LOCAL cold injury — actual freezing of peripheral tissue that threatens the limb. Hypothermia is the SYSTEMIC injury — a core temperature below 35 °C (95 °F) that threatens life through arrhythmia. They frequently occur together, and the core is always the priority.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">PATHO</span>→
+    <span style="background:rgba(47,107,255,.7)">DEPTH</span>→
+    <span style="background:rgba(18,184,134,.7)">REWARM</span>→
+    <span style="background:rgba(192,34,85,.7)">AFTER</span>
+  </div>
+  <div>NG-116 · Skin &amp; Wound set · local partner to NG-041 Hypothermia · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>

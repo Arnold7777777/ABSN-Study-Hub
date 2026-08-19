@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rule of 9's & Parkland Formula · NG-146 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+
+
+/* ---- appended for the BURNS series ---- */
+nav a.c5{background:rgba(0,194,199,.72);color:#00252b}
+nav a.c6{background:rgba(255,138,61,.75);color:#2b1200}
+nav a.c7{background:rgba(192,34,85,.7)}
+#base .sec-h h2{color:#9ff2ee} #base .step{background:var(--teal);color:#00252b}
+#patho .sec-h h2{color:#d9c2ff} #patho .step{background:var(--amethyst)}
+#phases .sec-h h2{color:#ffd9b8} #phases .step{background:var(--citrine);color:#2b1200}
+#labs .sec-h h2{color:#bcd0ff} #labs .step{background:var(--sapphire)}
+#airway .sec-h h2{color:#ffb3c6} #airway .step{background:var(--garnet)}
+#fluids .sec-h h2{color:#a5f3d4} #fluids .step{background:var(--emerald);color:#03291c}
+#wound .sec-h h2{color:#ffd9b8} #wound .step{background:var(--citrine);color:#2b1200}
+#tbsa .sec-h h2{color:#9ff2ee} #tbsa .step{background:var(--teal);color:#00252b}
+#parkland .sec-h h2{color:#a5f3d4} #parkland .step{background:var(--emerald);color:#03291c}
+#traps .sec-h h2{color:#ffb3c6} #traps .step{background:var(--garnet)}
+#rehab .sec-h h2{color:#d9c2ff} #rehab .step{background:var(--amethyst)}
+#position .sec-h h2{color:#bcd0ff} #position .step{background:var(--sapphire)}
+#scar .sec-h h2{color:#ffd9b8} #scar .step{background:var(--citrine);color:#2b1200}
+#life .sec-h h2{color:#a5f3d4} #life .step{background:var(--emerald);color:#03291c}
+#q1 .sec-h h2,#q2 .sec-h h2,#q3 .sec-h h2,#q4 .sec-h h2,#q5 .sec-h h2{color:#ffe49a}
+#q1 .step,#q2 .step,#q3 .step,#q4 .step,#q5 .step{background:var(--topaz);color:#231a02}
+.setbar{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin:4px 0 16px;font-size:.82rem}
+.setbar .setlabel{font-weight:900;letter-spacing:.08em;color:#ffe49a;margin-right:2px}
+.setbar a{font-weight:800;padding:4px 11px;border-radius:999px;border:1px solid var(--line);
+  background:rgba(13,8,26,.5);color:#dbe8ff;text-decoration:none}
+.setbar a.cur{background:var(--topaz);color:#231a02;border-color:transparent;cursor:default}
+.legendrow{display:flex;gap:9px;flex-wrap:wrap;margin:11px 0 0;font-size:.84rem;font-weight:800}
+.legendrow span{padding:5px 11px;border-radius:9px;background:rgba(13,8,26,.55);
+  border:1px solid var(--line);display:flex;align-items:center;gap:7px}
+.sw{display:inline-block;width:15px;height:15px;border-radius:4px;border:1px solid rgba(255,255,255,.6)}
+.calc{background:rgba(13,8,26,.6);border:1px solid var(--line);border-radius:13px;padding:12px 14px;margin:10px 0 0;
+  font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800;font-size:1rem;line-height:1.7}
+.calc .eq{color:#ffe49a;font-size:1.08rem}
+.calc .res{display:block;margin-top:6px;font-size:1.15rem;color:#7df0c6}
+.card.tealc .calc,.card.topaz .calc,.card.citrinec .calc{background:rgba(255,255,255,.5);color:#1a1030;border-color:rgba(0,0,0,.35)}
+.card.tealc .calc .res,.card.topaz .calc .res,.card.citrinec .calc .res{color:#0a6b4e}
+.card.tealc .calc .eq,.card.topaz .calc .eq,.card.citrinec .calc .eq{color:#7a3b00}
+.stem{background:rgba(13,8,26,.62);border:1px solid var(--line);border-left:5px solid var(--topaz);
+  border-radius:13px;padding:12px 14px;margin:0 0 10px;font-size:1rem;line-height:1.55}
+.card.tealc .stem,.card.topaz .stem,.card.citrinec .stem{background:rgba(255,255,255,.5);color:#1a1030}
+.opts{display:grid;gap:8px;margin:10px 0 0}
+.opt{border-radius:11px;padding:10px 13px;font-size:.93rem;line-height:1.45;
+  background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.opt b{display:block;margin-bottom:2px}
+.opt.right{background:rgba(18,184,134,.62);border-color:rgba(255,255,255,.55)}
+.opt.wrong{background:rgba(192,34,85,.5)}
+.card.tealc .opt,.card.topaz .opt,.card.citrinec .opt{color:#fff}
+.pillrow{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 0}
+.pill{font-size:.82rem;font-weight:900;padding:5px 12px;border-radius:999px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.pill.good{background:rgba(18,184,134,.7)}
+.pill.bad{background:rgba(255,59,107,.7)}
+
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c5" href="#tbsa">📐 Rule of 9's</a>
+  <a class="c1" href="#patho">🖐️ Other methods</a>
+  <a class="c3" href="#parkland">🧮 Parkland</a>
+  <a class="c6" href="#phases">⏳ The clock</a>
+  <a class="c2" href="#labs">🎯 Practice</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Integumentary · Burns III — Rule of 9's &amp; Fluid Calculation · Pathophysiology Course</div>
+  <div class="setbar"><span class="setlabel">🔥 BURNS SET</span>
+  <a href="NG-026_burns-types-minor-care.html">NG-026 Types &amp; minor care</a>
+  <a href="NG-027_burns.html">NG-027 Burns basics</a>
+  <a href="NG-107_burns-2-major-patho-signs-treatments.html">NG-107 Major burns · PATHO</a>
+  <a href="NG-123_major-burns.html">NG-123 Major burns · TREAT</a>
+  <a class="cur" href="NG-146_burns-3-rule-of-9s-rehabilitation.html">NG-146 Rule of 9s &amp; Parkland</a>
+  <a href="NG-164_rule-of-9s-rehabilitation-phase.html">NG-164 Rehab phase</a>
+  <a href="NG-177_burns-top-missed-questions.html">NG-177 Top missed Qs</a></div>
+  <h1>Rule of Nines <span class="drop">📐</span></h1>
+  <p class="sub">Burns III · TBSA estimation &amp; the Parkland fluid calculation — the maths page</p>
+  <div class="chips">
+    <span class="chip id">NG-146</span>
+    <span class="chip cat">INTEGUMENTARY · CALCULATION</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede">The <b>Rule of 9's</b> is a fast way to estimate the percentage of the body burned — the <b>Total Body Surface Area (TBSA)</b>. You need that number for one reason: <mark>it is the input to the fluid-resuscitation formula.</mark> Once you have TBSA, the <b>Parkland formula</b> tells you how many millilitres of <b>Lactated Ringer's</b> to give in the <b>first 24 hours</b> — and the <b>urine output</b> tells you whether that number was right.</p>
+</header>
+
+<div class="card citrinec" style="margin:0 0 16px">
+  <h3>🧭 This page vs. its sibling — they are NOT the same page</h3>
+  <p><b>NG-146 (this page) = the NUMBERS.</b> Rule of 9's, the palm rule, Lund–Browder, paediatric proportions, the Parkland formula, the 8-hour/16-hour split, and worked practice problems.</p>
+  <p><b><a href="NG-164_rule-of-9s-rehabilitation-phase.html" style="color:#3d1a00">NG-164 = the REHABILITATION PHASE.</a></b> What happens after the wounds close: contracture prevention, positioning and splinting, pressure garments, water-based lotion, daily exercise, scar maturation, itch, sun protection, nutrition and psychosocial recovery.</p>
+  <p>Both come from the same source infographic, so they share a title — but do not study them as one page. This one is arithmetic; that one is recovery.</p>
+</div>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc tealbg"><span class="big">9️⃣ Everything is 9 or 18</span>Head <b>9</b> · each arm <b>9</b> · front trunk <b>18</b> · back trunk <b>18</b> · each leg <b>18</b> · perineum <b>1</b> = <b>100%</b>.</div>
+  <div class="rc topazbg"><span class="big">🧮 4 × kg × %TBSA</span>Parkland. Total <b>Lactated Ringer's</b> for the <b>first 24 h</b> from the <b>time of injury</b>.</div>
+  <div class="rc citrine"><span class="big">⏳ Half in 8, half in 16</span><b>50%</b> of the total in the first <b>8 hours</b>, the other <b>50%</b> over the next <b>16 hours</b>.</div>
+  <div class="rc rubybg"><span class="big">🚽 The number is a guess</span>Titrate to <b>urine ≥30 mL/hr</b>, BP ≥90 systolic, HR &lt;120. <span class="never">Never chase the formula instead of the patient.</span></div>
+</div>
+
+<!-- ============ RULE OF NINES ============ -->
+<section id="tbsa">
+  <div class="sec-h"><span class="icon">📐</span><h2>THE RULE OF NINES</h2><span class="step">STEP 1 · GET THE PERCENTAGE</span></div>
+  <p class="sec-sub">Divide the adult body into chunks of 9% (plus one 1% chunk). Front and back are counted separately.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🧍 Adult Rule of 9's — anterior &amp; posterior, fully labelled</h3>
+      <p><span class="tip">EXAM TIP</span> <mark>Every region is split front/back.</mark> A whole arm is 9% — but only the <b>front</b> of that arm is <span class="mono">4.5%</span>. That single habit fixes most Rule-of-Nines errors.</p>
+
+      <svg viewBox="0 0 680 640" role="img" aria-label="Adult Rule of Nines diagram with an anterior and a posterior human figure side by side. On the anterior figure the front of the head and neck is four and a half percent, the chest is nine percent, the abdomen is nine percent, the front of each arm is four and a half percent, the perineum is one percent, and the front of each leg is nine percent. On the posterior figure the back of the head is four and a half percent, the upper back is nine percent, the lower back is nine percent, the back of each arm is four and a half percent, and the back of each leg is nine percent. A total of one hundred percent is shown">
+        <defs>
+          <linearGradient id="r1sk" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#ffe3cf"/><stop offset=".55" stop-color="#f2b48c"/><stop offset="1" stop-color="#b9713f"/>
+          </linearGradient>
+          <linearGradient id="r1a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9d5cff"/><stop offset="1" stop-color="#4b1d8f"/></linearGradient>
+          <linearGradient id="r1b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f6bff"/><stop offset="1" stop-color="#12306e"/></linearGradient>
+          <linearGradient id="r1c" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#00c2c7"/><stop offset="1" stop-color="#00565a"/></linearGradient>
+          <linearGradient id="r1d" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#12b886"/><stop offset="1" stop-color="#06503b"/></linearGradient>
+          <linearGradient id="r1e" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffc233"/><stop offset="1" stop-color="#a37500"/></linearGradient>
+          <linearGradient id="r1f" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff8a3d"/><stop offset="1" stop-color="#a3450d"/></linearGradient>
+          <linearGradient id="r1g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff3b6b"/><stop offset="1" stop-color="#8e1636"/></linearGradient>
+        </defs>
+        <rect x="4" y="4" width="672" height="632" rx="20" fill="rgba(0,194,199,.10)" stroke="#00c2c7" stroke-width="2" stroke-dasharray="8 7"/>
+        <text x="24" y="34" font-size="21" font-weight="900" fill="#9ff2ee">RULE OF NINES · ADULT</text>
+        <text x="24" y="56" font-size="13" font-style="italic" fill="#d8fff0">front and back are counted separately — a whole limb is the sum of both</text>
+
+        <!-- ================= ANTERIOR ================= -->
+        <text x="176" y="86" font-size="17" font-weight="900" fill="#fff" text-anchor="middle">ANTERIOR (front)</text>
+
+        <!-- body base silhouette for depth -->
+        <g opacity=".9">
+          <!-- head 4.5 -->
+          <path d="M176 100 C 199 100 214 118 214 143 C 214 170 197 187 176 187 C 155 187 138 170 138 143 C 138 118 153 100 176 100 Z" fill="url(#r1a)" stroke="#fff" stroke-width="2.2"/>
+          <path d="M162 185 L 190 185 L 192 206 L 160 206 Z" fill="url(#r1a)" stroke="#fff" stroke-width="2"/>
+          <!-- face detail -->
+          <ellipse cx="164" cy="138" rx="4" ry="5" fill="#f7f0ff" opacity=".9"/>
+          <ellipse cx="188" cy="138" rx="4" ry="5" fill="#f7f0ff" opacity=".9"/>
+          <path d="M166 164 C 172 170 180 170 186 164" fill="none" stroke="#f7f0ff" stroke-width="2" stroke-linecap="round" opacity=".9"/>
+          <path d="M176 144 L 174 156 L 180 156" fill="none" stroke="#f7f0ff" stroke-width="1.6" stroke-linecap="round" opacity=".7"/>
+
+          <!-- chest 9 -->
+          <path d="M128 210 C 146 200 206 200 224 210 C 230 234 231 268 229 298 L 123 298 C 121 268 122 234 128 210 Z" fill="url(#r1b)" stroke="#fff" stroke-width="2.2"/>
+          <path d="M150 250 C 156 244 164 244 168 250 M184 250 C 190 244 198 244 202 250" fill="none" stroke="#cfe1ff" stroke-width="2" opacity=".6"/>
+          <!-- abdomen 9 -->
+          <path d="M123 298 L 229 298 C 229 332 223 364 216 386 L 136 386 C 129 364 123 332 123 298 Z" fill="url(#r1c)" stroke="#fff" stroke-width="2.2"/>
+          <circle cx="176" cy="336" r="4.5" fill="#00353c" opacity=".8"/>
+          <!-- arms 4.5 each -->
+          <path d="M122 214 C 102 224 94 250 92 282 C 89 320 89 358 93 388 L 119 388 C 117 356 117 320 119 288 C 121 258 126 236 134 222 Z" fill="url(#r1e)" stroke="#fff" stroke-width="2.2"/>
+          <path d="M93 388 C 88 412 88 426 93 436 L 119 436 C 122 424 122 408 119 388 Z" fill="url(#r1e)" stroke="#fff" stroke-width="2"/>
+          <path d="M230 214 C 250 224 258 250 260 282 C 263 320 263 358 259 388 L 233 388 C 235 356 235 320 233 288 C 231 258 226 236 218 222 Z" fill="url(#r1e)" stroke="#fff" stroke-width="2.2"/>
+          <path d="M259 388 C 264 412 264 426 259 436 L 233 436 C 230 424 230 408 233 388 Z" fill="url(#r1e)" stroke="#fff" stroke-width="2"/>
+          <!-- perineum 1 -->
+          <path d="M162 386 L 190 386 L 176 412 Z" fill="url(#r1g)" stroke="#fff" stroke-width="2"/>
+          <!-- legs 9 each -->
+          <path d="M136 388 L 172 388 C 172 440 171 500 170 546 C 169 574 168 592 167 604 L 139 604 C 137 586 134 556 133 522 C 131 476 132 428 136 388 Z" fill="url(#r1d)" stroke="#fff" stroke-width="2.2"/>
+          <path d="M180 388 L 216 388 C 220 428 221 476 219 522 C 218 556 215 586 213 604 L 185 604 C 184 592 183 574 182 546 C 181 500 180 440 180 388 Z" fill="url(#r1d)" stroke="#fff" stroke-width="2.2"/>
+          <path d="M139 604 C 132 614 132 622 140 622 L 168 622 C 170 616 169 610 167 604 Z" fill="url(#r1d)" stroke="#fff" stroke-width="2"/>
+          <path d="M213 604 C 220 614 220 622 212 622 L 184 622 C 182 616 183 610 185 604 Z" fill="url(#r1d)" stroke="#fff" stroke-width="2"/>
+          <!-- knee hints -->
+          <path d="M142 500 C 152 496 162 496 170 500" fill="none" stroke="#d8fff0" stroke-width="1.8" opacity=".5"/>
+          <path d="M182 500 C 190 496 200 496 210 500" fill="none" stroke="#d8fff0" stroke-width="1.8" opacity=".5"/>
+        </g>
+
+        <!-- anterior % labels -->
+        <text x="176" y="150" font-size="17" font-weight="900" fill="#fff" text-anchor="middle" opacity=".0">.</text>
+        <rect x="240" y="126" width="66" height="26" rx="8" fill="rgba(157,92,255,.95)" stroke="#fff" stroke-width="1.4"/>
+        <text x="273" y="145" font-size="15" font-weight="900" fill="#fff" text-anchor="middle">4½%</text>
+        <line x1="240" y1="139" x2="214" y2="139" stroke="#d9c2ff" stroke-width="1.8"/>
+        <text x="176" y="252" font-size="20" font-weight="900" fill="#fff" text-anchor="middle">9%</text>
+        <text x="176" y="272" font-size="11" font-weight="800" fill="#cfe1ff" text-anchor="middle">chest</text>
+        <text x="176" y="344" font-size="20" font-weight="900" fill="#00252b" text-anchor="middle">9%</text>
+        <text x="176" y="362" font-size="11" font-weight="800" fill="#00353c" text-anchor="middle">abdomen</text>
+        <text x="106" y="300" font-size="15" font-weight="900" fill="#231a02" text-anchor="middle">4½%</text>
+        <text x="246" y="300" font-size="15" font-weight="900" fill="#231a02" text-anchor="middle">4½%</text>
+        <text x="152" y="470" font-size="17" font-weight="900" fill="#fff" text-anchor="middle">9%</text>
+        <text x="199" y="470" font-size="17" font-weight="900" fill="#fff" text-anchor="middle">9%</text>
+        <rect x="34" y="398" width="96" height="26" rx="8" fill="rgba(255,59,107,.95)" stroke="#fff" stroke-width="1.4"/>
+        <text x="82" y="417" font-size="13" font-weight="900" fill="#fff" text-anchor="middle">1% perineum</text>
+        <line x1="130" y1="411" x2="164" y2="404" stroke="#ffb3c6" stroke-width="1.8"/>
+
+        <!-- ================= POSTERIOR ================= -->
+        <text x="486" y="86" font-size="17" font-weight="900" fill="#fff" text-anchor="middle">POSTERIOR (back)</text>
+        <g opacity=".9">
+          <path d="M486 100 C 509 100 524 118 524 143 C 524 170 507 187 486 187 C 465 187 448 170 448 143 C 448 118 463 100 486 100 Z" fill="url(#r1a)" stroke="#fff" stroke-width="2.2"/>
+          <path d="M472 185 L 500 185 L 502 206 L 470 206 Z" fill="url(#r1a)" stroke="#fff" stroke-width="2"/>
+          <path d="M462 118 C 474 108 498 108 510 118 C 512 130 508 138 502 140 C 494 128 478 128 470 140 C 464 138 460 130 462 118 Z" fill="#3d1670" opacity=".85"/>
+
+          <path d="M438 210 C 456 200 516 200 534 210 C 540 234 541 268 539 298 L 433 298 C 431 268 432 234 438 210 Z" fill="url(#r1b)" stroke="#fff" stroke-width="2.2"/>
+          <path d="M486 214 L 486 296" stroke="#cfe1ff" stroke-width="2.4" opacity=".55"/>
+          <path d="M456 234 C 466 244 470 262 468 282 M516 234 C 506 244 502 262 504 282" fill="none" stroke="#cfe1ff" stroke-width="2" opacity=".45"/>
+          <path d="M433 298 L 539 298 C 539 332 533 364 526 386 L 446 386 C 439 364 433 332 433 298 Z" fill="url(#r1c)" stroke="#fff" stroke-width="2.2"/>
+          <path d="M486 302 L 486 366" stroke="#00353c" stroke-width="2.2" opacity=".5"/>
+
+          <path d="M432 214 C 412 224 404 250 402 282 C 399 320 399 358 403 388 L 429 388 C 427 356 427 320 429 288 C 431 258 436 236 444 222 Z" fill="url(#r1e)" stroke="#fff" stroke-width="2.2"/>
+          <path d="M403 388 C 398 412 398 426 403 436 L 429 436 C 432 424 432 408 429 388 Z" fill="url(#r1e)" stroke="#fff" stroke-width="2"/>
+          <path d="M540 214 C 560 224 568 250 570 282 C 573 320 573 358 569 388 L 543 388 C 545 356 545 320 543 288 C 541 258 536 236 528 222 Z" fill="url(#r1e)" stroke="#fff" stroke-width="2.2"/>
+          <path d="M569 388 C 574 412 574 426 569 436 L 543 436 C 540 424 540 408 543 388 Z" fill="url(#r1e)" stroke="#fff" stroke-width="2"/>
+
+          <path d="M446 388 L 482 388 C 482 440 481 500 480 546 C 479 574 478 592 477 604 L 449 604 C 447 586 444 556 443 522 C 441 476 442 428 446 388 Z" fill="url(#r1d)" stroke="#fff" stroke-width="2.2"/>
+          <path d="M490 388 L 526 388 C 530 428 531 476 529 522 C 528 556 525 586 523 604 L 495 604 C 494 592 493 574 492 546 C 491 500 490 440 490 388 Z" fill="url(#r1d)" stroke="#fff" stroke-width="2.2"/>
+          <path d="M449 604 C 442 614 442 622 450 622 L 478 622 C 480 616 479 610 477 604 Z" fill="url(#r1d)" stroke="#fff" stroke-width="2"/>
+          <path d="M523 604 C 530 614 530 622 522 622 L 494 622 C 492 616 493 610 495 604 Z" fill="url(#r1d)" stroke="#fff" stroke-width="2"/>
+          <path d="M452 500 C 462 496 472 496 480 500 M492 500 C 500 496 510 496 520 500" fill="none" stroke="#d8fff0" stroke-width="1.8" opacity=".5"/>
+        </g>
+
+        <rect x="552" y="126" width="66" height="26" rx="8" fill="rgba(157,92,255,.95)" stroke="#fff" stroke-width="1.4"/>
+        <text x="585" y="145" font-size="15" font-weight="900" fill="#fff" text-anchor="middle">4½%</text>
+        <line x1="552" y1="139" x2="524" y2="139" stroke="#d9c2ff" stroke-width="1.8"/>
+        <text x="486" y="252" font-size="20" font-weight="900" fill="#fff" text-anchor="middle">9%</text>
+        <text x="486" y="272" font-size="11" font-weight="800" fill="#cfe1ff" text-anchor="middle">upper back</text>
+        <text x="486" y="344" font-size="20" font-weight="900" fill="#00252b" text-anchor="middle">9%</text>
+        <text x="486" y="362" font-size="11" font-weight="800" fill="#00353c" text-anchor="middle">lower back</text>
+        <text x="416" y="300" font-size="15" font-weight="900" fill="#231a02" text-anchor="middle">4½%</text>
+        <text x="556" y="300" font-size="15" font-weight="900" fill="#231a02" text-anchor="middle">4½%</text>
+        <text x="462" y="470" font-size="17" font-weight="900" fill="#fff" text-anchor="middle">9%</text>
+        <text x="509" y="470" font-size="17" font-weight="900" fill="#fff" text-anchor="middle">9%</text>
+
+        <!-- totals panel -->
+        <rect x="292" y="440" width="112" height="196" rx="14" fill="rgba(13,8,26,.75)" stroke="#9ff2ee" stroke-width="1.8"/>
+        <text x="348" y="464" font-size="13" font-weight="900" fill="#9ff2ee" text-anchor="middle">WHOLE-PART</text>
+        <text x="348" y="480" font-size="13" font-weight="900" fill="#9ff2ee" text-anchor="middle">TOTALS</text>
+        <text x="304" y="504" font-size="12" fill="#fff">Head+neck</text><text x="396" y="504" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="end">9%</text>
+        <text x="304" y="524" font-size="12" fill="#fff">Each arm</text><text x="396" y="524" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="end">9%</text>
+        <text x="304" y="544" font-size="12" fill="#fff">Front trunk</text><text x="396" y="544" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="end">18%</text>
+        <text x="304" y="564" font-size="12" fill="#fff">Back trunk</text><text x="396" y="564" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="end">18%</text>
+        <text x="304" y="584" font-size="12" fill="#fff">Each leg</text><text x="396" y="584" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="end">18%</text>
+        <text x="304" y="604" font-size="12" fill="#fff">Perineum</text><text x="396" y="604" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="end">1%</text>
+        <line x1="302" y1="612" x2="396" y2="612" stroke="#9ff2ee" stroke-width="1.5"/>
+        <text x="304" y="630" font-size="13" font-weight="900" fill="#7df0c6">TOTAL</text><text x="396" y="630" font-size="14" font-weight="900" fill="#7df0c6" text-anchor="end">100%</text>
+      </svg>
+
+      <div class="legendrow">
+        <span><i class="sw" style="background:#9d5cff"></i>head &amp; neck</span>
+        <span><i class="sw" style="background:#2f6bff"></i>upper trunk</span>
+        <span><i class="sw" style="background:#00c2c7"></i>lower trunk</span>
+        <span><i class="sw" style="background:#ffc233"></i>arms</span>
+        <span><i class="sw" style="background:#12b886"></i>legs</span>
+        <span><i class="sw" style="background:#ff3b6b"></i>perineum 1%</span>
+      </div>
+      <div class="mn">🧠 <b>“NINE ones: 9 head, 9+9 arms, 18+18 trunk, 18+18 legs, +1 for the perineum.”</b> Add them: 9 + 18 + 36 + 36 + 1 = <b>100</b>. If your total is not 100, you dropped a piece.</div>
+    </div>
+
+    <div class="card topaz span2">
+      <h3>⭐ The three habits that stop Rule-of-Nines mistakes</h3>
+      <div class="no-grid">
+        <div class="no-t hot"><span class="e">↔️</span>FRONT ≠ BACK<i>always ask which side</i></div>
+        <div class="no-t hot"><span class="e">1️⃣</span>ADD THE 1%<i>perineum is easy to forget</i></div>
+        <div class="no-t hot"><span class="e">🚫</span>SKIP 1° BURNS<i>superficial is not counted</i></div>
+        <div class="no-t"><span class="e">🧍</span>WHOLE LIMB?<i>arm 9 · leg 18</i></div>
+        <div class="no-t"><span class="e">➗</span>HALF IT<i>one surface = half the region</i></div>
+        <div class="no-t"><span class="e">✅</span>SUM CHECK<i>can't exceed 100</i></div>
+      </div>
+      <p style="margin-top:12px"><mark>Only <b>partial-thickness (2°) and full-thickness (3°/4°)</b> burns are included in TBSA.</mark> A <b>superficial (1°) sunburn is NOT counted</b> — it does not leak the way deeper burns do, so counting it would over-estimate the fluid.</p>
+      <div class="mn">🧠 <b>“First degree doesn't count.”</b> If the stem says “reddened, painful, no blisters, blanches” — that region contributes <b>0%</b>.</div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>👶 Children are NOT small adults — the proportions change</h3>
+      <p><b>Answer first:</b> a child's <b>head is proportionally much bigger</b> and the <b>legs proportionally smaller</b>. Using the adult chart on an infant badly under-estimates the burn.</p>
+
+      <svg viewBox="-10 -10 770 360" role="img" aria-label="Comparison of body proportions between an infant and an adult for burn surface area estimation. The infant figure has a large head labelled eighteen percent and shorter legs labelled thirteen and a half percent each, while the adult figure has a head of nine percent and legs of eighteen percent each. Arms and trunk are the same in both. A note states that the Lund and Browder chart adjusts percentages by exact age and is the most accurate method">
+        <defs>
+          <linearGradient id="r2h" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9d5cff"/><stop offset="1" stop-color="#4b1d8f"/></linearGradient>
+          <linearGradient id="r2t" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f6bff"/><stop offset="1" stop-color="#12306e"/></linearGradient>
+          <linearGradient id="r2l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#12b886"/><stop offset="1" stop-color="#06503b"/></linearGradient>
+          <linearGradient id="r2ar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffc233"/><stop offset="1" stop-color="#a37500"/></linearGradient>
+        </defs>
+        <rect x="-6" y="-6" width="762" height="352" rx="16" fill="rgba(47,107,255,.12)" stroke="#2f6bff" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="24" y="34" font-size="16" font-weight="900" fill="#bcd0ff">PROPORTIONS SHIFT WITH AGE</text>
+
+        <!-- infant -->
+        <text x="150" y="62" font-size="14" font-weight="900" fill="#d9c2ff" text-anchor="middle">INFANT</text>
+        <circle cx="150" cy="112" r="42" fill="url(#r2h)" stroke="#fff" stroke-width="2.2"/>
+        <ellipse cx="136" cy="106" rx="4.5" ry="5.5" fill="#f7f0ff"/><ellipse cx="164" cy="106" rx="4.5" ry="5.5" fill="#f7f0ff"/>
+        <path d="M138 128 C 146 136 156 136 164 128" fill="none" stroke="#f7f0ff" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M138 152 L 162 152 L 164 166 L 136 166 Z" fill="url(#r2h)" stroke="#fff" stroke-width="1.8"/>
+        <path d="M118 168 C 130 162 170 162 182 168 C 186 194 186 222 184 242 L 116 242 C 114 222 114 194 118 168 Z" fill="url(#r2t)" stroke="#fff" stroke-width="2"/>
+        <path d="M114 172 C 100 180 96 200 96 224 L 112 224 C 112 202 114 186 120 176 Z" fill="url(#r2ar)" stroke="#fff" stroke-width="1.8"/>
+        <path d="M186 172 C 200 180 204 200 204 224 L 188 224 C 188 202 186 186 180 176 Z" fill="url(#r2ar)" stroke="#fff" stroke-width="1.8"/>
+        <path d="M120 244 L 146 244 L 144 300 L 122 300 Z" fill="url(#r2l)" stroke="#fff" stroke-width="2"/>
+        <path d="M154 244 L 180 244 L 178 300 L 156 300 Z" fill="url(#r2l)" stroke="#fff" stroke-width="2"/>
+        <rect x="196" y="96" width="72" height="26" rx="8" fill="rgba(157,92,255,.95)" stroke="#fff" stroke-width="1.4"/>
+        <text x="232" y="115" font-size="15" font-weight="900" fill="#fff" text-anchor="middle">18%</text>
+        <line x1="196" y1="109" x2="190" y2="109" stroke="#d9c2ff" stroke-width="1.8"/>
+        <rect x="196" y="264" width="72" height="26" rx="8" fill="rgba(18,184,134,.95)" stroke="#fff" stroke-width="1.4"/>
+        <text x="232" y="283" font-size="14" font-weight="900" fill="#fff" text-anchor="middle">13½%</text>
+        <line x1="196" y1="277" x2="180" y2="274" stroke="#a5f3d4" stroke-width="1.8"/>
+        <text x="150" y="322" font-size="12" font-style="italic" fill="#efe6ff" text-anchor="middle">big head · short legs</text>
+
+        <!-- adult -->
+        <text x="450" y="62" font-size="14" font-weight="900" fill="#d9c2ff" text-anchor="middle">ADULT</text>
+        <circle cx="450" cy="96" r="26" fill="url(#r2h)" stroke="#fff" stroke-width="2.2"/>
+        <ellipse cx="441" cy="92" rx="3.4" ry="4.4" fill="#f7f0ff"/><ellipse cx="459" cy="92" rx="3.4" ry="4.4" fill="#f7f0ff"/>
+        <path d="M442 108 C 448 113 454 113 459 108" fill="none" stroke="#f7f0ff" stroke-width="2" stroke-linecap="round"/>
+        <path d="M440 120 L 460 120 L 462 134 L 438 134 Z" fill="url(#r2h)" stroke="#fff" stroke-width="1.8"/>
+        <path d="M416 136 C 430 128 470 128 484 136 C 490 166 490 202 488 228 L 412 228 C 410 202 410 166 416 136 Z" fill="url(#r2t)" stroke="#fff" stroke-width="2"/>
+        <path d="M412 140 C 396 150 392 178 392 212 L 408 212 C 408 182 410 158 418 144 Z" fill="url(#r2ar)" stroke="#fff" stroke-width="1.8"/>
+        <path d="M488 140 C 504 150 508 178 508 212 L 492 212 C 492 182 490 158 482 144 Z" fill="url(#r2ar)" stroke="#fff" stroke-width="1.8"/>
+        <path d="M414 230 L 446 230 L 444 306 L 418 306 Z" fill="url(#r2l)" stroke="#fff" stroke-width="2"/>
+        <path d="M454 230 L 486 230 L 482 306 L 456 306 Z" fill="url(#r2l)" stroke="#fff" stroke-width="2"/>
+        <rect x="516" y="84" width="66" height="26" rx="8" fill="rgba(157,92,255,.95)" stroke="#fff" stroke-width="1.4"/>
+        <text x="549" y="103" font-size="15" font-weight="900" fill="#fff" text-anchor="middle">9%</text>
+        <line x1="516" y1="97" x2="476" y2="94" stroke="#d9c2ff" stroke-width="1.8"/>
+        <rect x="516" y="264" width="66" height="26" rx="8" fill="rgba(18,184,134,.95)" stroke="#fff" stroke-width="1.4"/>
+        <text x="549" y="283" font-size="15" font-weight="900" fill="#fff" text-anchor="middle">18%</text>
+        <line x1="516" y1="277" x2="486" y2="274" stroke="#a5f3d4" stroke-width="1.8"/>
+        <text x="450" y="322" font-size="12" font-style="italic" fill="#efe6ff" text-anchor="middle">small head · long legs</text>
+
+        <rect x="596" y="140" width="70" height="140" rx="12" fill="rgba(13,8,26,.7)" stroke="#ffe49a" stroke-width="1.5"/>
+        <text x="631" y="164" font-size="12" font-weight="900" fill="#ffe49a" text-anchor="middle">SAME</text>
+        <text x="631" y="182" font-size="11.5" fill="#fff" text-anchor="middle">arms</text>
+        <text x="631" y="198" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="middle">9% each</text>
+        <text x="631" y="222" font-size="11.5" fill="#fff" text-anchor="middle">front trunk</text>
+        <text x="631" y="238" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="middle">18%</text>
+        <text x="631" y="256" font-size="11.5" fill="#fff" text-anchor="middle">back trunk</text>
+        <text x="631" y="272" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="middle">18%</text>
+      </svg>
+
+      <p style="margin-top:8px">The most accurate method in children is the <b>Lund–Browder chart</b>, which assigns a different percentage to the head and legs for each age band. The paediatric Rule of Nines above is the quick bedside version.</p>
+      <div class="mn">🧠 <b>“Babies are all head.”</b> Head <b>18</b>, each leg <b>13½</b> in the infant. As the child grows, the head loses ~1% per year and the legs gain it back.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OTHER METHODS ============ -->
+<section id="patho">
+  <div class="sec-h"><span class="icon">🖐️</span><h2>THE OTHER TWO METHODS</h2><span class="step">STEP 2 · WHEN 9's WON'T WORK</span></div>
+  <p class="sec-sub">Rule of 9's is fast but blunt. Use the palm rule for scattered burns and Lund–Browder when accuracy matters.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🖐️ The palm (hand) rule — 1% per palm</h3>
+      <p><b>Answer first:</b> <mark>the <i>patient's own</i> palm including the fingers is roughly <span class="mono">1%</span> of their TBSA.</mark> Use it for patchy, scattered or irregular burns that don't fill a whole 9% region.</p>
+
+      <svg viewBox="-10 -10 711 320" role="img" aria-label="Palm rule diagram. A detailed drawing of the patient's own hand with the palm and closed fingers shaded, labelled as approximately one percent of total body surface area. Beside it a torso with several scattered irregular burn patches, each overlaid with a hand outline to show counting: three palm areas on the chest and two on the arm giving five percent total. A warning notes that it must be the patient's hand, not the nurse's">
+        <defs>
+          <linearGradient id="r3h" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#ffe3cf"/><stop offset=".6" stop-color="#f2b48c"/><stop offset="1" stop-color="#b9713f"/>
+          </linearGradient>
+          <linearGradient id="r3burn" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#ff8a3d"/><stop offset=".6" stop-color="#c02255"/><stop offset="1" stop-color="#5e0f24"/>
+          </linearGradient>
+        </defs>
+        <rect x="-6" y="-6" width="703" height="312" rx="16" fill="rgba(255,194,51,.1)" stroke="#ffc233" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="24" y="34" font-size="16" font-weight="900" fill="#ffe49a">PALM RULE · 1% each</text>
+
+        <!-- hand -->
+        <path d="M96 250 C 84 220 82 186 88 158 C 92 138 104 130 114 134 C 122 137 124 148 124 160 L 124 176
+                 C 124 160 122 122 124 104 C 125 92 136 88 142 94 C 148 100 148 116 148 132 L 148 172
+                 C 148 152 148 110 150 96 C 152 84 164 82 170 88 C 176 94 176 110 176 128 L 176 174
+                 C 176 158 178 122 180 110 C 182 98 194 98 199 106 C 204 114 202 132 202 148 L 202 180
+                 C 204 168 208 152 214 146 C 222 138 234 142 234 154 C 234 168 226 196 216 216
+                 C 206 236 194 250 180 256 C 158 264 120 264 96 250 Z"
+              fill="url(#r3h)" stroke="#fff" stroke-width="2.4"/>
+        <path d="M112 216 C 132 208 168 206 196 214" fill="none" stroke="#b9713f" stroke-width="2" opacity=".55"/>
+        <path d="M110 234 C 134 226 168 226 190 234" fill="none" stroke="#b9713f" stroke-width="2" opacity=".5"/>
+        <path d="M124 176 C 140 180 160 180 176 176 M148 172 C 158 176 168 176 176 174" fill="none" stroke="#b9713f" stroke-width="1.8" opacity=".45"/>
+        <rect x="248" y="164" width="128" height="46" rx="11" fill="rgba(255,194,51,.92)" stroke="#fff" stroke-width="1.5"/>
+        <text x="312" y="184" font-size="15" font-weight="900" fill="#231a02" text-anchor="middle">≈ 1% TBSA</text>
+        <text x="312" y="202" font-size="11" font-weight="800" fill="#3a2c00" text-anchor="middle">palm + fingers together</text>
+        <line x1="248" y1="187" x2="228" y2="190" stroke="#ffe49a" stroke-width="2"/>
+        <text x="164" y="286" font-size="12.5" font-weight="900" fill="#ffb3c6" text-anchor="middle">⚠️ the PATIENT's hand — not yours</text>
+
+        <!-- scattered burns torso -->
+        <path d="M456 60 C 480 48 552 48 576 60 C 586 96 588 152 584 196 L 448 196 C 444 152 446 96 456 60 Z" fill="rgba(255,227,207,.22)" stroke="#ffe6d0" stroke-width="2"/>
+        <path d="M444 64 C 424 76 418 110 418 148 L 438 148 C 438 116 440 88 450 74 Z" fill="rgba(255,227,207,.22)" stroke="#ffe6d0" stroke-width="1.8"/>
+        <path d="M588 64 C 608 76 614 110 614 148 L 594 148 C 594 116 592 88 582 74 Z" fill="rgba(255,227,207,.22)" stroke="#ffe6d0" stroke-width="1.8"/>
+        <circle cx="516" cy="36" r="20" fill="rgba(255,227,207,.22)" stroke="#ffe6d0" stroke-width="2"/>
+        <!-- burn patches -->
+        <path d="M470 82 C 486 74 502 82 500 96 C 498 110 478 116 468 106 C 460 98 462 88 470 82 Z" fill="url(#r3burn)" stroke="#ffe49a" stroke-width="1.6"/>
+        <path d="M528 96 C 546 88 562 100 556 114 C 550 128 528 128 522 116 C 518 106 520 100 528 96 Z" fill="url(#r3burn)" stroke="#ffe49a" stroke-width="1.6"/>
+        <path d="M486 132 C 504 126 518 138 512 152 C 506 166 484 164 478 152 C 474 142 478 136 486 132 Z" fill="url(#r3burn)" stroke="#ffe49a" stroke-width="1.6"/>
+        <path d="M424 96 C 438 90 448 100 444 112 C 440 124 424 124 420 114 C 417 106 418 100 424 96 Z" fill="url(#r3burn)" stroke="#ffe49a" stroke-width="1.6"/>
+        <path d="M424 128 C 436 124 446 132 442 144 C 438 156 424 154 420 146 C 417 138 418 132 424 128 Z" fill="url(#r3burn)" stroke="#ffe49a" stroke-width="1.6"/>
+        <text x="484" y="98" font-size="12" font-weight="900" fill="#fff" text-anchor="middle">1</text>
+        <text x="539" y="112" font-size="12" font-weight="900" fill="#fff" text-anchor="middle">1</text>
+        <text x="495" y="150" font-size="12" font-weight="900" fill="#fff" text-anchor="middle">1</text>
+        <text x="432" y="110" font-size="12" font-weight="900" fill="#fff" text-anchor="middle">1</text>
+        <text x="431" y="142" font-size="12" font-weight="900" fill="#fff" text-anchor="middle">1</text>
+        <rect x="440" y="212" width="200" height="34" rx="10" fill="rgba(192,34,85,.75)" stroke="#fff" stroke-width="1.5"/>
+        <text x="540" y="234" font-size="14" font-weight="900" fill="#fff" text-anchor="middle">5 palms = 5% TBSA</text>
+        <text x="540" y="266" font-size="11.5" font-style="italic" fill="#ffd0dc" text-anchor="middle">best for scattered, irregular or small burns</text>
+      </svg>
+
+      <div class="mn">🧠 <b>“One hand, one percent.”</b> Count palms for splash and spatter burns; count nines for whole-region burns.</div>
+    </div>
+
+    <div class="card tealc">
+      <h3>🧾 Lund–Browder — the accurate one</h3>
+      <p>A printed chart that assigns a percentage to <b>each small body segment</b> and adjusts the head/thigh/leg values by <b>exact age band</b>.</p>
+      <ul class="tick">
+        <li><b>Most accurate</b> method, and the standard in burn centres</li>
+        <li>Essential in <b>children</b>, where Rule of 9's is crudest</li>
+        <li>Slower — you shade a diagram and add up small numbers</li>
+        <li>Rule of 9's is the <b>rapid field/ED estimate</b>; Lund–Browder is the <b>definitive</b> one done later</li>
+      </ul>
+      <div class="mn">🧠 <b>“Nines for now, Lund–Browder for later.”</b> Fast first, accurate second.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🚨 The classic errors — check yourself</h3>
+      <ul class="tick">
+        <li>Counting a <b>whole leg (18%)</b> when only the front was burned (<span class="mono">9%</span>)</li>
+        <li>Counting the <b>1° sunburn</b> region into TBSA</li>
+        <li>Forgetting the <b>perineum's 1%</b> when the stem specifically mentions it</li>
+        <li>Using <b>adult</b> percentages on a toddler</li>
+        <li>Adding to more than <span class="mono">100%</span></li>
+        <li>Using the <b>nurse's</b> palm instead of the patient's</li>
+      </ul>
+      <div class="mn">🧠 <b>Read the stem twice: “anterior”, “posterior”, “entire”, “circumferential”.</b> Those four words change the answer.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PARKLAND ============ -->
+<section id="parkland">
+  <div class="sec-h"><span class="icon">🧮</span><h2>THE PARKLAND FORMULA</h2><span class="step">STEP 3 · TURN % INTO mL</span></div>
+  <p class="sec-sub">Three numbers multiplied together. The hard part is not the multiplication — it is knowing what each number means.</p>
+
+  <div class="grid">
+    <div class="card emerald span2">
+      <h3>🧮 4 mL × kg × %TBSA</h3>
+      <p>The commonly taught version of the consensus (Parkland) formula for the <b>first 24 hours</b> after a major burn, given as <b>Lactated Ringer's</b>.</p>
+
+      <svg viewBox="-10 -10 770 360" role="img" aria-label="Parkland formula machine diagram. Three labelled inputs feed into a calculation box: four millilitres as the fixed constant, the patient's body weight in kilograms, and the percentage total body surface area burned. The box outputs the total lactated Ringer's volume for the first twenty four hours, which then splits into two bags: half in the first eight hours and half over the next sixteen hours">
+        <defs>
+          <linearGradient id="r4box" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#12b886"/><stop offset="1" stop-color="#06503b"/></linearGradient>
+          <linearGradient id="r4in1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffc233"/><stop offset="1" stop-color="#a37500"/></linearGradient>
+          <linearGradient id="r4in2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f6bff"/><stop offset="1" stop-color="#12306e"/></linearGradient>
+          <linearGradient id="r4in3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff3b6b"/><stop offset="1" stop-color="#8e1636"/></linearGradient>
+          <linearGradient id="r4bag" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="rgba(255,255,255,.9)"/><stop offset="1" stop-color="rgba(0,194,199,.6)"/>
+          </linearGradient>
+          <marker id="r4ar" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffe49a"/></marker>
+        </defs>
+        <rect x="-6" y="-6" width="762" height="352" rx="16" fill="rgba(18,184,134,.12)" stroke="#12b886" stroke-width="2" stroke-dasharray="7 6"/>
+
+        <!-- inputs -->
+        <rect x="24" y="40" width="136" height="66" rx="12" fill="url(#r4in1)" stroke="#fff" stroke-width="1.8"/>
+        <text x="92" y="66" font-size="21" font-weight="900" fill="#231a02" text-anchor="middle">4 mL</text>
+        <text x="92" y="88" font-size="11.5" font-weight="800" fill="#3a2c00" text-anchor="middle">fixed constant</text>
+        <text x="92" y="101" font-size="10.5" fill="#3a2c00" text-anchor="middle">per kg per %</text>
+
+        <rect x="24" y="118" width="136" height="66" rx="12" fill="url(#r4in2)" stroke="#fff" stroke-width="1.8"/>
+        <text x="92" y="144" font-size="19" font-weight="900" fill="#fff" text-anchor="middle">kg</text>
+        <text x="92" y="164" font-size="11.5" font-weight="800" fill="#dbe8ff" text-anchor="middle">body WEIGHT</text>
+        <text x="92" y="178" font-size="10.5" fill="#dbe8ff" text-anchor="middle">lb ÷ 2.2 = kg</text>
+
+        <rect x="24" y="196" width="136" height="66" rx="12" fill="url(#r4in3)" stroke="#fff" stroke-width="1.8"/>
+        <text x="92" y="222" font-size="19" font-weight="900" fill="#fff" text-anchor="middle">% TBSA</text>
+        <text x="92" y="242" font-size="11.5" font-weight="800" fill="#ffd0dc" text-anchor="middle">2° + 3° only</text>
+        <text x="92" y="256" font-size="10.5" fill="#ffd0dc" text-anchor="middle">from Rule of 9's</text>
+
+        <path d="M164 73 C 190 78 196 130 216 148" fill="none" stroke="#ffe49a" stroke-width="4" marker-end="url(#r4ar)"/>
+        <path d="M164 151 L 214 151" fill="none" stroke="#ffe49a" stroke-width="4" marker-end="url(#r4ar)"/>
+        <path d="M164 229 C 190 224 196 172 216 156" fill="none" stroke="#ffe49a" stroke-width="4" marker-end="url(#r4ar)"/>
+
+        <!-- calc box -->
+        <rect x="226" y="94" width="204" height="118" rx="16" fill="url(#r4box)" stroke="#fff" stroke-width="2.4"/>
+        <text x="328" y="126" font-size="15" font-weight="900" fill="#fff" text-anchor="middle">PARKLAND</text>
+        <text x="328" y="156" font-size="17" font-weight="900" fill="#eafff7" text-anchor="middle">4 × kg × %TBSA</text>
+        <text x="328" y="182" font-size="12" fill="#d8fff0" text-anchor="middle">= total mL of LACTATED</text>
+        <text x="328" y="198" font-size="12" fill="#d8fff0" text-anchor="middle">RINGER'S for 24 h</text>
+        <path d="M434 152 L 470 152" fill="none" stroke="#ffe49a" stroke-width="4" marker-end="url(#r4ar)"/>
+
+        <!-- split bags -->
+        <path d="M494 60 C 490 78 490 128 494 152 C 496 168 510 174 524 174 C 538 174 550 168 552 152 C 556 128 556 78 552 60 Z" fill="url(#r4bag)" stroke="#eafff7" stroke-width="2"/>
+        <rect x="502" y="82" width="44" height="18" rx="5" fill="rgba(13,8,26,.75)"/>
+        <text x="524" y="96" font-size="11" font-weight="900" fill="#9ff2ee" text-anchor="middle">½ TOTAL</text>
+        <text x="524" y="122" font-size="12.5" font-weight="900" fill="#00353c" text-anchor="middle">FIRST</text>
+        <text x="524" y="140" font-size="16" font-weight="900" fill="#00252b" text-anchor="middle">8 HOURS</text>
+        <text x="524" y="158" font-size="10.5" fill="#00353c" text-anchor="middle">from TIME OF INJURY</text>
+
+        <path d="M598 60 C 594 78 594 128 598 152 C 600 168 614 174 628 174 C 642 174 654 168 656 152 C 660 128 660 78 656 60 Z" fill="url(#r4bag)" stroke="#eafff7" stroke-width="2"/>
+        <rect x="606" y="82" width="44" height="18" rx="5" fill="rgba(13,8,26,.75)"/>
+        <text x="628" y="96" font-size="11" font-weight="900" fill="#9ff2ee" text-anchor="middle">½ TOTAL</text>
+        <text x="628" y="122" font-size="12.5" font-weight="900" fill="#00353c" text-anchor="middle">NEXT</text>
+        <text x="628" y="140" font-size="16" font-weight="900" fill="#00252b" text-anchor="middle">16 HOURS</text>
+
+        <!-- bottom bar -->
+        <rect x="226" y="234" width="430" height="88" rx="14" fill="rgba(13,8,26,.7)" stroke="#a5f3d4" stroke-width="1.6"/>
+        <text x="244" y="258" font-size="13.5" font-weight="900" fill="#ffe49a">⚠️ THE NUMBER IS A STARTING ESTIMATE</text>
+        <text x="244" y="278" font-size="12" fill="#d8fff0">Titrate to <tspan font-weight="900">urine output ≥ 30 mL/hr</tspan>, systolic BP ≥ 90, HR &lt; 120.</text>
+        <text x="244" y="296" font-size="12" fill="#d8fff0">Higher volumes are often needed after <tspan font-weight="900">electrical</tspan> or inhalation injury.</text>
+        <text x="244" y="314" font-size="12" fill="#ffb3c6">Practice varies between centres — always follow the prescription and local protocol.</text>
+        <rect x="24" y="274" width="180" height="48" rx="12" fill="rgba(255,194,51,.9)" stroke="#fff" stroke-width="1.4"/>
+        <text x="114" y="294" font-size="12.5" font-weight="900" fill="#231a02" text-anchor="middle">Some texts teach the</text>
+        <text x="114" y="312" font-size="12.5" font-weight="900" fill="#231a02" text-anchor="middle">2 mL/kg/% variant too</text>
+      </svg>
+
+      <div class="calc"><span class="eq">4 mL × body weight (kg) × %TBSA = total LR in the first 24 h</span>
+      <span class="res">→ ½ over the first 8 h · ½ over the next 16 h</span></div>
+      <div class="mn">🧠 <b>“<u>4</u> for the <u>4</u>-alarm fire · half in <u>8</u>.”</b> Four millilitres, weight, burn percent — then cut it in half and put the first half in the first eight hours.</div>
+    </div>
+
+    <div class="card garnet span2" id="phases">
+      <h3>⏳ The clock starts at the TIME OF INJURY — not arrival</h3>
+      <p><mark>This is the highest-yield trap in the whole topic.</mark> If a patient is burned at 08:00 and reaches you at 10:00, you have <b>6 hours left</b> to deliver the <b>first half</b> — so the rate has to be higher, not the same.</p>
+
+      <svg viewBox="-10 -10 711 320" role="img" aria-label="Timeline showing the first twenty four hours of burn fluid resuscitation. The clock starts at the time of injury at eight in the morning. The first eight hour block runs to four in the afternoon and must contain half the total volume. The next sixteen hour block runs to eight the following morning and contains the other half. A second line shows a patient arriving two hours after injury, leaving only six hours to deliver the first half, so the infusion rate must be higher">
+        <defs>
+          <linearGradient id="r5a" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff3b6b"/><stop offset="1" stop-color="#c02255"/></linearGradient>
+          <linearGradient id="r5b" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2f6bff"/><stop offset="1" stop-color="#12306e"/></linearGradient>
+        </defs>
+        <rect x="-6" y="-6" width="703" height="312" rx="16" fill="rgba(192,34,85,.12)" stroke="#c02255" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="24" y="34" font-size="16" font-weight="900" fill="#ffb3c6">THE 24-HOUR CLOCK</text>
+
+        <!-- ideal -->
+        <text x="24" y="66" font-size="13" font-weight="900" fill="#fff">Ideal · IV started immediately</text>
+        <rect x="24" y="76" width="204" height="46" rx="10" fill="url(#r5a)" stroke="#fff" stroke-width="1.6"/>
+        <text x="126" y="96" font-size="13" font-weight="900" fill="#fff" text-anchor="middle">FIRST 8 HOURS</text>
+        <text x="126" y="114" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="middle">½ of the total</text>
+        <rect x="232" y="76" width="408" height="46" rx="10" fill="url(#r5b)" stroke="#fff" stroke-width="1.6"/>
+        <text x="436" y="96" font-size="13" font-weight="900" fill="#fff" text-anchor="middle">NEXT 16 HOURS</text>
+        <text x="436" y="114" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="middle">the other ½ of the total</text>
+        <path d="M24 130 L 640 130" stroke="#fff" stroke-width="2" opacity=".6"/>
+        <path d="M24 126 L 24 138 M228 126 L 228 138 M640 126 L 640 138" stroke="#fff" stroke-width="2.4"/>
+        <text x="24" y="154" font-size="12" font-weight="900" fill="#ffe49a" text-anchor="middle">08:00</text>
+        <text x="24" y="170" font-size="10.5" fill="#ffd0dc" text-anchor="middle">INJURY</text>
+        <text x="228" y="154" font-size="12" font-weight="900" fill="#fff" text-anchor="middle">16:00</text>
+        <text x="640" y="154" font-size="12" font-weight="900" fill="#fff" text-anchor="middle">08:00 next day</text>
+
+        <!-- delayed -->
+        <text x="24" y="204" font-size="13" font-weight="900" fill="#fff">Reality · patient arrives 2 hours later</text>
+        <rect x="24" y="214" width="52" height="46" rx="10" fill="rgba(13,8,26,.7)" stroke="#ffe49a" stroke-width="1.6" stroke-dasharray="5 4"/>
+        <text x="50" y="234" font-size="11" font-weight="900" fill="#ffe49a" text-anchor="middle">2 h</text>
+        <text x="50" y="250" font-size="10" fill="#ffd0dc" text-anchor="middle">LOST</text>
+        <rect x="80" y="214" width="148" height="46" rx="10" fill="url(#r5a)" stroke="#fff" stroke-width="1.6"/>
+        <text x="154" y="234" font-size="12.5" font-weight="900" fill="#fff" text-anchor="middle">only 6 h LEFT</text>
+        <text x="154" y="252" font-size="12" font-weight="900" fill="#ffe49a" text-anchor="middle">still ½ the total</text>
+        <rect x="232" y="214" width="408" height="46" rx="10" fill="url(#r5b)" stroke="#fff" stroke-width="1.6"/>
+        <text x="436" y="240" font-size="12.5" font-weight="900" fill="#fff" text-anchor="middle">NEXT 16 HOURS · the other ½</text>
+        <rect x="24" y="268" width="616" height="22" rx="8" fill="rgba(255,194,51,.9)"/>
+        <text x="332" y="285" font-size="12.5" font-weight="900" fill="#231a02" text-anchor="middle">Same volume, less time = a FASTER rate. Never “restart the clock” on arrival.</text>
+      </svg>
+
+      <div class="mn">🧠 <b>“The burn started the stopwatch, not the ambulance.”</b> Always ask <i>what time did this happen?</i></div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>➗ Turning the total into an hourly rate</h3>
+      <p>Exam questions often want the <b>mL/hr</b>, not just the total. Two divisions:</p>
+      <div class="calc"><span class="eq">first 8 h rate = (total ÷ 2) ÷ 8</span>
+      <span class="eq">next 16 h rate = (total ÷ 2) ÷ 16</span></div>
+      <ul class="tick">
+        <li>The first-8-hour rate is always <b>double</b> the next-16-hour rate</li>
+        <li>If hours have already been lost, divide by the <b>hours remaining</b> in that block</li>
+        <li>Weight in pounds? <b>÷ 2.2</b> to get kilograms first</li>
+      </ul>
+      <div class="mn">🧠 <b>“Front-load it.”</b> The leak is worst early, so the fluid goes in fastest early.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>💧 After the first 24 hours</h3>
+      <p>The capillary leak begins to seal, so the plan changes.</p>
+      <ul class="tick">
+        <li>Crystalloid volume is <b>reduced</b> and titrated down as urine output allows</li>
+        <li><b>Colloid (e.g. albumin)</b> is often added in the <b>second</b> 24 hours in many protocols, once capillaries are less leaky, to hold fluid in the vessels</li>
+        <li>Maintenance fluid (often with dextrose) replaces evaporative loss</li>
+        <li>Electrolytes flip: <b>potassium falls</b>, H&amp;H falls with hemodilution — see <a href="NG-107_burns-2-major-patho-signs-treatments.html" style="color:#3d1a00"><b>NG-107</b></a></li>
+        <li>Watch hard for the swing to <b>fluid overload</b> during diuresis: crackles, JVD, dyspnoea, sudden weight gain</li>
+      </ul>
+      <div class="mn">🧠 <b>“Day 1 fill the tank · Day 2 seal the tank.”</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRACTICE ============ -->
+<section id="labs">
+  <div class="sec-h"><span class="icon">🎯</span><h2>WORKED PRACTICE</h2><span class="step">STEP 4 · DO THE MATHS</span></div>
+  <p class="sec-sub">Cover the answer, work it on paper, then check. Three of these are lifted straight from the classic question banks.</p>
+
+  <div class="grid">
+    <div class="card topaz span2">
+      <h3>🎓 Example 1 — full-thickness burns to ALL posterior surfaces</h3>
+      <div class="stem" style="color:#1a1030">A client has <b>full-thickness burns to all posterior body surfaces</b>. Using the Rule of 9's, calculate the % TBSA affected.</div>
+      <div class="calc"><span class="eq">back of head &amp; neck …… 4.5%</span>
+      <span class="eq">entire back (upper 9 + lower 9) …… 18%</span>
+      <span class="eq">back of both arms (4.5 × 2) …… 9%</span>
+      <span class="eq">back of both legs (9 × 2) …… 18%</span>
+      <span class="res">4.5 + 18 + 9 + 18 = 49.5% TBSA</span></div>
+      <svg viewBox="-10 -10 700 642" role="img" aria-label="A posterior body figure with every posterior region shaded as burned and labelled with its percentage: back of head four and a half percent, upper back nine percent, lower back nine percent, back of each arm four and a half percent, and back of each leg nine percent, with a running total bar underneath adding to forty nine point five percent">
+        <defs>
+          <linearGradient id="r7burn" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#ff8a3d"/><stop offset=".55" stop-color="#c02255"/><stop offset="1" stop-color="#4b0f20"/>
+          </linearGradient>
+        </defs>
+        <rect x="-6" y="-6" width="692" height="634" rx="14" fill="rgba(13,8,26,.55)" stroke="#ffc233" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="24" y="30" font-size="14" font-weight="900" fill="#ffe49a">SHADE EVERY POSTERIOR SURFACE</text>
+        <g transform="translate(56,14) scale(0.35)">
+          <path d="M486 100 C 509 100 524 118 524 143 C 524 170 507 187 486 187 C 465 187 448 170 448 143 C 448 118 463 100 486 100 Z" fill="url(#r7burn)" stroke="#fff" stroke-width="5"/>
+          <path d="M472 185 L 500 185 L 502 206 L 470 206 Z" fill="url(#r7burn)" stroke="#fff" stroke-width="5"/>
+          <path d="M438 210 C 456 200 516 200 534 210 C 540 234 541 268 539 298 L 433 298 C 431 268 432 234 438 210 Z" fill="url(#r7burn)" stroke="#fff" stroke-width="5"/>
+          <path d="M433 298 L 539 298 C 539 332 533 364 526 386 L 446 386 C 439 364 433 332 433 298 Z" fill="url(#r7burn)" stroke="#fff" stroke-width="5"/>
+          <path d="M432 214 C 412 224 404 250 402 282 C 399 320 399 358 403 388 L 429 388 C 427 356 427 320 429 288 C 431 258 436 236 444 222 Z" fill="url(#r7burn)" stroke="#fff" stroke-width="5"/>
+          <path d="M403 388 C 398 412 398 426 403 436 L 429 436 C 432 424 432 408 429 388 Z" fill="url(#r7burn)" stroke="#fff" stroke-width="5"/>
+          <path d="M540 214 C 560 224 568 250 570 282 C 573 320 573 358 569 388 L 543 388 C 545 356 545 320 543 288 C 541 258 536 236 528 222 Z" fill="url(#r7burn)" stroke="#fff" stroke-width="5"/>
+          <path d="M569 388 C 574 412 574 426 569 436 L 543 436 C 540 424 540 408 543 388 Z" fill="url(#r7burn)" stroke="#fff" stroke-width="5"/>
+          <path d="M446 388 L 482 388 C 482 440 481 500 480 546 C 479 574 478 592 477 604 L 449 604 C 447 586 444 556 443 522 C 441 476 442 428 446 388 Z" fill="url(#r7burn)" stroke="#fff" stroke-width="5"/>
+          <path d="M490 388 L 526 388 C 530 428 531 476 529 522 C 528 556 525 586 523 604 L 495 604 C 494 592 493 574 492 546 C 491 500 490 440 490 388 Z" fill="url(#r7burn)" stroke="#fff" stroke-width="5"/>
+          <path d="M449 604 C 442 614 442 622 450 622 L 478 622 C 480 616 479 610 477 604 Z" fill="url(#r7burn)" stroke="#fff" stroke-width="5"/>
+          <path d="M523 604 C 530 614 530 622 522 622 L 494 622 C 492 616 493 610 495 604 Z" fill="url(#r7burn)" stroke="#fff" stroke-width="5"/>
+        </g>
+        <text x="216" y="52" font-size="13" font-weight="900" fill="#ffe49a">back of head &amp; neck</text><text x="416" y="52" font-size="14" font-weight="900" fill="#fff" text-anchor="end">4.5%</text>
+        <text x="216" y="80" font-size="13" font-weight="900" fill="#ffe49a">upper back</text><text x="416" y="80" font-size="14" font-weight="900" fill="#fff" text-anchor="end">9%</text>
+        <text x="216" y="108" font-size="13" font-weight="900" fill="#ffe49a">lower back</text><text x="416" y="108" font-size="14" font-weight="900" fill="#fff" text-anchor="end">9%</text>
+        <text x="216" y="136" font-size="13" font-weight="900" fill="#ffe49a">back of both arms (4.5 × 2)</text><text x="416" y="136" font-size="14" font-weight="900" fill="#fff" text-anchor="end">9%</text>
+        <text x="216" y="164" font-size="13" font-weight="900" fill="#ffe49a">back of both legs (9 × 2)</text><text x="416" y="164" font-size="14" font-weight="900" fill="#fff" text-anchor="end">18%</text>
+        <line x1="216" y1="176" x2="416" y2="176" stroke="#ffe49a" stroke-width="1.8"/>
+        <text x="216" y="200" font-size="15" font-weight="900" fill="#7df0c6">TOTAL</text><text x="416" y="200" font-size="17" font-weight="900" fill="#7df0c6" text-anchor="end">49.5%</text>
+        <rect x="440" y="40" width="212" height="176" rx="12" fill="rgba(192,34,85,.6)" stroke="#ffd0dc" stroke-width="1.5"/>
+        <text x="546" y="66" font-size="13" font-weight="900" fill="#fff" text-anchor="middle">❌ COMMON WRONG ANSWER</text>
+        <text x="546" y="90" font-size="12.5" fill="#ffd0dc" text-anchor="middle">4.5 + 18 + <tspan font-weight="900" fill="#ffe49a">18</tspan> + <tspan font-weight="900" fill="#ffe49a">36</tspan> = 76.5%</text>
+        <text x="546" y="112" font-size="11.5" fill="#ffd0dc" text-anchor="middle">— that used WHOLE arms (9% each)</text>
+        <text x="546" y="128" font-size="11.5" fill="#ffd0dc" text-anchor="middle">and WHOLE legs (18% each).</text>
+        <text x="546" y="156" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="middle">Only the BACK was burned →</text>
+        <text x="546" y="176" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="middle">halve every limb value.</text>
+        <text x="546" y="202" font-size="12" font-style="italic" fill="#fff" text-anchor="middle">The back alone ≈ half the body.</text>
+      </svg>
+
+      <p style="margin-top:8px"><b>Why students miss it:</b> they use whole-limb values (9% per arm, 18% per leg) instead of halving for the posterior surface only.</p>
+      <div class="mn">🧠 <b>“All the back = just under half the body.”</b> <span class="mono">49.5%</span> — remember it as “about 50%.”</div>
+    </div>
+
+    <div class="card topaz span2">
+      <h3>🎓 Example 2 — anterior legs + perineum</h3>
+      <div class="stem" style="color:#1a1030">A client has <b>partial-thickness burns to the anterior legs and the perineum</b>. Calculate the % TBSA.</div>
+      <div class="calc"><span class="eq">front of right leg …… 9%</span>
+      <span class="eq">front of left leg …… 9%</span>
+      <span class="eq">perineum …… 1%</span>
+      <span class="res">9 + 9 + 1 = 19% TBSA</span></div>
+      <p style="margin-top:8px"><b>Why students miss it:</b> they forget the perineum's <span class="mono">1%</span> and answer 18%, or they count whole legs and answer 37%.</p>
+      <div class="mn">🧠 <b>“18 + the little 1.”</b> When the stem says <i>perineum</i>, it is because that 1% is the point of the question.</div>
+    </div>
+
+    <div class="card emerald span2">
+      <h3>🎓 Example 3 — now turn it into millilitres</h3>
+      <div class="stem">The client above weighs <b>100 kg</b> with <b>19% TBSA</b>. Calculate the Lactated Ringer's fluid resuscitation needed.</div>
+      <div class="calc"><span class="eq">4 mL × 100 kg × 19 %TBSA</span>
+      <span class="res">= 7,600 mL in the first 24 hours</span>
+      <span class="eq">½ = 3,800 mL in the first 8 hours → 475 mL/hr</span>
+      <span class="eq">½ = 3,800 mL over the next 16 hours → 237.5 mL/hr</span></div>
+
+      <svg viewBox="0 0 680 190" role="img" aria-label="Bar diagram of the worked fluid calculation. A total bar of seven thousand six hundred millilitres of lactated Ringer's is split into two equal halves of three thousand eight hundred millilitres, the first delivered over eight hours at four hundred and seventy five millilitres per hour and the second over sixteen hours at two hundred and thirty seven point five millilitres per hour">
+        <defs>
+          <linearGradient id="r6a" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff3b6b"/><stop offset="1" stop-color="#c02255"/></linearGradient>
+          <linearGradient id="r6b" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2f6bff"/><stop offset="1" stop-color="#12306e"/></linearGradient>
+        </defs>
+        <rect x="6" y="6" width="668" height="178" rx="14" fill="rgba(13,8,26,.5)" stroke="#12b886" stroke-width="2" stroke-dasharray="7 6"/>
+        <rect x="24" y="28" width="632" height="34" rx="10" fill="rgba(18,184,134,.75)" stroke="#fff" stroke-width="1.5"/>
+        <text x="340" y="51" font-size="15" font-weight="900" fill="#fff" text-anchor="middle">TOTAL 7,600 mL LACTATED RINGER'S · 24 hours</text>
+        <path d="M340 66 L 340 78" stroke="#ffe49a" stroke-width="3"/>
+        <path d="M180 78 L 500 78" stroke="#ffe49a" stroke-width="3"/>
+        <path d="M180 78 L 180 90 M500 78 L 500 90" stroke="#ffe49a" stroke-width="3"/>
+        <rect x="24" y="92" width="312" height="56" rx="10" fill="url(#r6a)" stroke="#fff" stroke-width="1.6"/>
+        <text x="180" y="114" font-size="15" font-weight="900" fill="#fff" text-anchor="middle">3,800 mL in 8 hours</text>
+        <text x="180" y="136" font-size="14" font-weight="900" fill="#ffe49a" text-anchor="middle">= 475 mL/hr</text>
+        <rect x="344" y="92" width="312" height="56" rx="10" fill="url(#r6b)" stroke="#fff" stroke-width="1.6"/>
+        <text x="500" y="114" font-size="15" font-weight="900" fill="#fff" text-anchor="middle">3,800 mL over 16 hours</text>
+        <text x="500" y="136" font-size="14" font-weight="900" fill="#ffe49a" text-anchor="middle">= 237.5 mL/hr</text>
+        <text x="340" y="170" font-size="12.5" font-weight="900" fill="#a5f3d4" text-anchor="middle">Same volume in each half — HALF the time up front, so DOUBLE the rate.</text>
+      </svg>
+
+      <div class="mn">🧠 <b>“Same halves, different speeds.”</b> Equal volumes, but the first one has to go in twice as fast.</div>
+    </div>
+
+    <div class="card deep span2">
+      <h3>🎯 Your turn — three to try</h3>
+      <details>
+        <summary>Practice A · 70 kg adult, burns to the entire front of the trunk and the whole right arm</summary>
+        <div class="qa">TBSA? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Anterior trunk 18% + whole right arm 9% = <b>27% TBSA</b>.</div></div>
+        <div class="qa">Parkland total and first-8-hour rate? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">4 × 70 × 27 = <b>7,560 mL</b> in 24 h. Half = 3,780 mL in the first 8 h → <b>472.5 mL/hr</b>; then 3,780 mL over 16 h → <b>236.25 mL/hr</b>.</div></div>
+      </details>
+      <details>
+        <summary>Practice B · 80 kg adult, burns to the head and neck (all round), anterior trunk, and both anterior legs</summary>
+        <div class="qa">TBSA? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Head and neck all round 9% + anterior trunk 18% + anterior legs 9 + 9 = <b>45% TBSA</b>.</div></div>
+        <div class="qa">Parkland total? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">4 × 80 × 45 = <b>14,400 mL</b> in 24 h. First 8 h: 7,200 mL → <b>900 mL/hr</b>. Next 16 h: 7,200 mL → <b>450 mL/hr</b>. (A burn this size also needs an airway assessment first — head and neck burns.)</div></div>
+      </details>
+      <details>
+        <summary>Practice C · 154 lb adult, posterior trunk and the back of both legs, burned 3 hours before arrival</summary>
+        <div class="qa">Weight in kg and TBSA? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">154 ÷ 2.2 = <b>70 kg</b>. Posterior trunk 18% + posterior legs 9 + 9 = <b>36% TBSA</b>.</div></div>
+        <div class="qa">Total, and the rate for the remainder of the first 8-hour block? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">4 × 70 × 36 = <b>10,080 mL</b> total. Half = 5,040 mL must be in by 8 hours <i>after the injury</i>. Three hours are already gone, so it has to run over the remaining <b>5 hours</b> → 5,040 ÷ 5 = <b>1,008 mL/hr</b>. Then 5,040 mL over the next 16 h → <b>315 mL/hr</b>. Titrate to urine output throughout.</div></div>
+      </details>
+      <div class="mn">🧠 Do these on paper, out loud, three days in a row. Burn maths is the cheapest set of marks in the whole integumentary unit.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc tealbg"><span class="big">9 · 9 · 18 · 18 · 18 · 1</span>Head · each arm · front trunk · back trunk · each leg · perineum = <b>100%</b>.</div>
+    <div class="rc topazbg"><span class="big">🖐️ 1 palm = 1%</span>Patient's palm + fingers. Use it for scattered burns.</div>
+    <div class="rc citrine"><span class="big">🧮 4 × kg × %</span>Parkland total of LR for 24 h. Half in 8 h, half in 16 h, clock from <b>injury</b>.</div>
+    <div class="rc rubybg"><span class="big">🚽 Urine rules the rate</span>≥30 mL/hr, BP ≥90, HR &lt;120. The formula only starts the infusion.</div>
+  </div>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <details>
+        <summary>🎯 Cover &amp; check — 7 rapid-fire questions</summary>
+        <div class="qa">Q1: What percentage is the anterior trunk in an adult? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">18% — chest 9% plus abdomen 9%. The posterior trunk is another 18%.</div></div>
+        <div class="qa">Q2: A whole arm, all the way round? A whole leg? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Arm = 9% (4.5% front + 4.5% back). Leg = 18% (9% front + 9% back).</div></div>
+        <div class="qa">Q3: Is a first-degree sunburn counted in TBSA? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">No. Only partial-thickness and full-thickness burns are counted. Including superficial burns would overestimate the fluid requirement.</div></div>
+        <div class="qa">Q4: What are the infant modifications? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Head 18% (instead of 9%) and each leg about 13.5% (instead of 18%). Arms and trunk are unchanged. The Lund–Browder chart is the accurate age-adjusted method.</div></div>
+        <div class="qa">Q5: State the Parkland formula and the split. <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">4 mL × body weight in kg × %TBSA = total Lactated Ringer's for the first 24 hours. Half in the first 8 hours, the remaining half over the next 16 hours, timed from the moment of injury.</div></div>
+        <div class="qa">Q6: A 60 kg client with 30% TBSA — total volume and first-8-hour rate? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">4 × 60 × 30 = 7,200 mL total. Half = 3,600 mL in the first 8 hours = 450 mL/hr. Then 3,600 mL over 16 hours = 225 mL/hr.</div></div>
+        <div class="qa">Q7: The calculated rate is running but urine output is 15 mL/hr. What now? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">The patient is under-resuscitated. Report it and anticipate an order to increase the Lactated Ringer's. The formula is only an estimate — urine output, blood pressure and heart rate steer the actual rate.</div></div>
+      </details>
+    </div>
+
+    <div class="card emerald span2">
+      <h3>📚 Where to go next</h3>
+      <ul class="tick">
+        <li><b><a href="NG-164_rule-of-9s-rehabilitation-phase.html" style="color:#03291c">NG-164 — Rehabilitation phase</a></b> — this page's sibling: what happens after the wounds close. Positioning, pressure garments, lotion, daily exercise, scars and psychosocial recovery.</li>
+        <li><b><a href="NG-177_burns-top-missed-questions.html" style="color:#03291c">NG-177 — Top missed questions</a></b> — these calculations as exam items with every distractor explained.</li>
+        <li><b><a href="NG-107_burns-2-major-patho-signs-treatments.html" style="color:#03291c">NG-107 — Major burns: pathophysiology</a></b> — why the fluid leaks in the first place.</li>
+        <li><b><a href="NG-123_major-burns.html" style="color:#03291c">NG-123 — Major burns: treatment</a></b> — how the fluid is actually run and titrated.</li>
+      </ul>
+      <div class="mn">🧠 If you can draw the front-and-back figure from memory with the numbers on it, you have already earned the calculation marks.</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(0,194,199,.7)">RULE OF 9s</span>→
+    <span style="background:rgba(157,92,255,.7)">OTHER METHODS</span>→
+    <span style="background:rgba(18,184,134,.7)">PARKLAND</span>→
+    <span style="background:rgba(255,138,61,.7)">THE CLOCK</span>→
+    <span style="background:rgba(47,107,255,.7)">PRACTICE</span>
+  </div>
+  <div>NG-146 · Burns III — Rule of 9's &amp; fluid calculation · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>

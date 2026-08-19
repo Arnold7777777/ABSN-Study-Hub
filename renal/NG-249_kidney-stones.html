@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kidney Stones · NG-249 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+
+/* ===== appended for procedure-arc pages (shell rules above untouched) ===== */
+nav a.c5{background:rgba(255,138,61,.72)}
+nav a.c6{background:rgba(0,194,199,.68);color:#00252b}
+#before .sec-h h2{color:#d9c2ff} #before .step{background:var(--amethyst)}
+#during .sec-h h2{color:#bcd0ff} #during .step{background:var(--sapphire)}
+#after .sec-h h2{color:#a5f3d4} #after .step{background:var(--emerald);color:#03291c}
+#extra .sec-h h2{color:#ffd9b8} #extra .step{background:var(--citrine);color:#2b1200}
+.legend{display:flex;gap:9px;flex-wrap:wrap;margin:10px 0 0;font-size:.84rem;font-weight:800}
+.legend span{display:flex;align-items:center;gap:6px;background:rgba(13,8,26,.5);
+  border:1px solid var(--line);border-radius:999px;padding:4px 11px}
+.legend i{width:13px;height:13px;border-radius:4px;display:inline-block;flex:0 0 13px}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#cause">🪨 The stone</a>
+  <a class="c2" href="#clues">🔎 Clues</a>
+  <a class="c3" href="#before">🧰 Before</a>
+  <a class="c5" href="#during">⚡ During</a>
+  <a class="c6" href="#after">✅ After</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Renal + Fluid · Med-Surg Course</div>
+  <h1>Kidney Stones <span class="drop">🪨</span></h1>
+  <p class="sub">Renal calculi · urolithiasis · lithotripsy &amp; nephrostomy</p>
+  <div class="chips">
+    <span class="chip id">NG-249</span>
+    <span class="chip cat">Renal</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede"><b>Renal calculi = a hard, calcified stone in the renal system</b> — usually made of <b>calcium</b>. The pain is famous: <i>“like a knife in the back,”</i> <b>equivalent to childbirth</b>. Three nursing moves carry the whole topic: <b>relieve the pain</b> 💉, <b>strain ALL the urine</b> 🧺, and <b>flood them with fluid</b> 💧.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">🪨 “LITH” = stone</span>Uro<b>lith</b>iasis · Nephro<b>lith</b>iasis · <b>Lith</b>otripsy — all the same rock.</div>
+  <div class="rc rubybg"><span class="big">🔪 Knife-in-the-back pain</span>Flank pain radiating to the groin, in <b>waves</b>. <b>PRIORITY = relieve pain.</b></div>
+  <div class="rc tealbg"><span class="big">🧺 Strain ALL urine</span>Every void, every time. The stone is the diagnosis.</div>
+  <div class="rc topazbg"><span class="big">💧 3 L/day + WALK</span>Fluids flush it, ambulation moves it. <span class="never">Never bed rest. Never massage.</span></div>
+</div>
+
+<!-- ============ THE STONE ============ -->
+<section id="cause">
+  <div class="sec-h"><span class="icon">🪨</span><h2>THE STONE</h2><span class="step">STEP 1 · WHAT &amp; WHERE</span></div>
+  <p class="sec-sub">Name the stone by where it sits, then learn the four kinds — because the diet changes with the kind.</p>
+
+  <div class="grid">
+    <div class="card tealc span2">
+      <h3>🔤 Say the word — it tells you the location</h3>
+      <table>
+        <tr><th style="width:38%">Word</th><th class="up">Means</th><th class="lo">Where</th></tr>
+        <tr><td><b>Renal calculi</b></td><td>Hard stone calcified in the renal system</td><td>Kidney</td></tr>
+        <tr><td><b>Renal lithiasis</b></td><td><i>Lith</i> = stone</td><td>Stone <b>in the renal</b> (kidney)</td></tr>
+        <tr><td><b>Uro<u>lith</u>iasis</b></td><td>Stone in the <b>urinary system</b></td><td>Anywhere in the tract</td></tr>
+        <tr><td><b>Uretero<u>lith</u>iasis</b></td><td>Stone in the <b>ureter</b></td><td>The tubes connecting the <b>kidney &amp; bladder</b> — <i>where the worst pain comes from</i></td></tr>
+        <tr><td><b>Nephro<u>lith</u>otomy</b></td><td><i>Nephro</i> = kidney · <i>tomy</i> = cut</td><td>Surgery to remove the stone</td></tr>
+      </table>
+      <div class="mn">🧠 <b>Any word with “LITH” = a stone.</b> Think <b>monolith</b> — a giant rock. <i>Lith</i>otripsy = "stone crushing." Learn one root, decode five words.</div>
+    </div>
+
+    <div class="card deep span2">
+      <h3>📍 <mark>Where stones get stuck — the 3 narrow points of the ureter</mark></h3>
+      <p>A stone floating in the kidney can be silent. <b>Pain starts when it enters the ureter</b> and jams at one of three natural narrowings. <b>Where it sticks decides where it hurts.</b></p>
+      <svg viewBox="-10 -10 912 540" role="img" aria-label="Urinary tract diagram showing both kidneys, ureters and bladder with the three narrow points where stones lodge: the ureteropelvic junction, the crossing of the iliac vessels at the pelvic brim, and the ureterovesical junction, each labelled with its pain pattern">
+        <defs>
+          <linearGradient id="ksKid" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#ff8a3d"/><stop offset="1" stop-color="#c02255"/>
+          </linearGradient>
+          <marker id="ksArr" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/>
+          </marker>
+        </defs>
+        <rect x="-6" y="-6" width="904" height="532" rx="20" fill="rgba(13,8,26,.55)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+        <text x="26" y="42" font-size="18" font-weight="900" fill="#fff">THE STONE'S JOURNEY — kidney ➜ ureter ➜ bladder ➜ out</text>
+
+        <!-- left kidney -->
+        <path d="M300 90 C 250 92 224 132 228 176 C 232 220 262 248 300 244 C 288 216 286 122 300 90 Z" fill="url(#ksKid)" stroke="#ffd0bd" stroke-width="3"/>
+        <path d="M296 128 C 276 146 276 190 296 208" fill="none" stroke="#ffe49a" stroke-width="5"/>
+        <text x="150" y="120" font-size="16" font-weight="900" fill="#ffd0bd">KIDNEY</text>
+        <text x="120" y="142" font-size="13" font-style="italic" fill="#ffd9b8">stone forms in the renal pelvis</text>
+        <!-- right kidney -->
+        <path d="M580 90 C 630 92 656 132 652 176 C 648 220 618 248 580 244 C 592 216 594 122 580 90 Z" fill="url(#ksKid)" stroke="#ffd0bd" stroke-width="3" opacity=".55"/>
+
+        <!-- ureters -->
+        <path d="M300 232 C 322 300 330 380 350 430" fill="none" stroke="#9ff2ee" stroke-width="14" stroke-linecap="round"/>
+        <path d="M580 232 C 558 300 550 380 530 430" fill="none" stroke="#9ff2ee" stroke-width="14" stroke-linecap="round" opacity=".5"/>
+        <text x="150" y="300" font-size="16" font-weight="900" fill="#9ff2ee">URETER</text>
+        <text x="118" y="322" font-size="13" font-style="italic" fill="#d8fff0">kidney ➜ bladder tube</text>
+
+        <!-- bladder -->
+        <path d="M356 434 C 396 418 486 418 526 434 C 552 456 546 500 500 502 L382 502 C 336 500 330 456 356 434 Z" fill="rgba(255,194,51,.4)" stroke="#ffe49a" stroke-width="3"/>
+        <text x="404" y="474" font-size="17" font-weight="900" fill="#2a1f00">BLADDER</text>
+
+        <!-- point 1 UPJ -->
+        <circle cx="306" cy="252" r="20" fill="rgba(255,59,107,.55)" stroke="#ff3b6b" stroke-width="3"/>
+        <circle cx="306" cy="252" r="8" fill="#ffe49a" stroke="#2a1f00" stroke-width="2"/>
+        <path d="M330 252 L410 252" stroke="#ffc233" stroke-width="3" marker-end="url(#ksArr)"/>
+        <rect x="418" y="212" width="430" height="76" rx="14" fill="rgba(157,92,255,.42)" stroke="#e9dcff" stroke-width="2"/>
+        <text x="432" y="240" font-size="16" font-weight="900" fill="#fff">1 · UPJ — ureteropelvic junction</text>
+        <text x="432" y="264" font-size="13.5" fill="#f2e9ff">where the kidney narrows into the ureter</text>
+        <text x="432" y="282" font-size="13.5" font-weight="900" fill="#ffc233">PAIN: deep flank / CVA angle 🔪</text>
+
+        <!-- point 2 iliac -->
+        <circle cx="330" cy="352" r="20" fill="rgba(255,59,107,.55)" stroke="#ff3b6b" stroke-width="3"/>
+        <circle cx="330" cy="352" r="8" fill="#ffe49a" stroke="#2a1f00" stroke-width="2"/>
+        <path d="M354 352 L410 352" stroke="#ffc233" stroke-width="3" marker-end="url(#ksArr)"/>
+        <rect x="418" y="312" width="430" height="76" rx="14" fill="rgba(47,107,255,.42)" stroke="#bcd0ff" stroke-width="2"/>
+        <text x="432" y="340" font-size="16" font-weight="900" fill="#fff">2 · Crossing the iliac vessels (pelvic brim)</text>
+        <text x="432" y="364" font-size="13.5" fill="#e6efff">the ureter bends over the pelvic blood vessels</text>
+        <text x="432" y="382" font-size="13.5" font-weight="900" fill="#ffc233">PAIN: flank ➜ lower abdomen &amp; groin</text>
+
+        <!-- point 3 UVJ -->
+        <circle cx="352" cy="430" r="20" fill="rgba(255,59,107,.55)" stroke="#ff3b6b" stroke-width="3"/>
+        <circle cx="352" cy="430" r="8" fill="#ffe49a" stroke="#2a1f00" stroke-width="2"/>
+        <path d="M376 430 L558 430" stroke="#ffc233" stroke-width="3" marker-end="url(#ksArr)"/>
+        <rect x="566" y="404" width="282" height="94" rx="14" fill="rgba(0,194,199,.45)" stroke="#9ff2ee" stroke-width="2"/>
+        <text x="578" y="430" font-size="16" font-weight="900" fill="#00252b">3 · UVJ — ureterovesical junction</text>
+        <text x="578" y="452" font-size="13.5" fill="#00252b">narrowest point — where it enters the bladder</text>
+        <text x="578" y="472" font-size="13.5" font-weight="900" fill="#7a2a00">PAIN: groin / testicle / labia</text>
+        <text x="578" y="490" font-size="13.5" font-weight="900" fill="#7a2a00">+ urgency &amp; frequency</text>
+
+        <text x="26" y="474" font-size="14" font-weight="900" fill="#ff9db4">🚨 A stone that blocks the ureter = OBSTRUCTION ➜ urine backs up ➜ hydronephrosis ➜ kidney damage</text>
+        <text x="26" y="498" font-size="14" font-weight="900" fill="#ffc233">🌡️ Obstruction + FEVER = infected obstructed kidney = urologic EMERGENCY</text>
+      </svg>
+      <div class="mn">🧠 <b>“Three toll booths on the ureter.”</b> 🚧 Top (UPJ) = <i>flank</i>. Middle (iliac crossing) = <i>lower belly</i>. Bottom (UVJ) = <i>groin + gotta go</i>. <b>The lower the stone, the lower the pain.</b></div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>🔬 The FOUR stone types — the type picks the diet</h3>
+      <svg viewBox="0 0 880 340" role="img" aria-label="Four kidney stone types compared: calcium oxalate or phosphate, uric acid, struvite, and cystine, each with its crystal shape, urine pH, cause and dietary restriction">
+        <rect x="4" y="4" width="872" height="332" rx="18" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+
+        <!-- calcium -->
+        <rect x="20" y="24" width="200" height="296" rx="16" fill="rgba(255,194,51,.30)" stroke="#ffc233" stroke-width="2"/>
+        <text x="34" y="54" font-size="17" font-weight="900" fill="#ffc233">CALCIUM</text>
+        <text x="34" y="74" font-size="12.5" font-style="italic" fill="#ffe49a">oxalate or phosphate</text>
+        <path d="M120 118 l34 22 l-14 40 l-40 0 l-14 -40 z" fill="#ffe49a" stroke="#2a1f00" stroke-width="2"/>
+        <text x="34" y="208" font-size="14" font-weight="900" fill="#fff">⭐ MOST COMMON</text>
+        <text x="34" y="232" font-size="13" fill="#ffe49a">Shows on x-ray (radiopaque)</text>
+        <text x="34" y="258" font-size="13.5" font-weight="900" fill="#fff">LIMIT: oxalate foods —</text>
+        <text x="34" y="276" font-size="13" fill="#ffe49a">spinach, rhubarb, beets,</text>
+        <text x="34" y="294" font-size="13" fill="#ffe49a">nuts, chocolate, tea</text>
+        <text x="34" y="314" font-size="12.5" font-weight="900" fill="#a5f3d4">Keep NORMAL dietary calcium</text>
+
+        <!-- uric acid -->
+        <rect x="232" y="24" width="200" height="296" rx="16" fill="rgba(255,138,61,.32)" stroke="#ff8a3d" stroke-width="2"/>
+        <text x="246" y="54" font-size="17" font-weight="900" fill="#ffd9b8">URIC ACID</text>
+        <text x="246" y="74" font-size="12.5" font-style="italic" fill="#ffd9b8">gout · high purine</text>
+        <path d="M332 112 l30 30 l-30 30 l-30 -30 z" fill="#ffd9b8" stroke="#2b1200" stroke-width="2"/>
+        <text x="246" y="208" font-size="14" font-weight="900" fill="#fff">ACIDIC urine (pH low)</text>
+        <text x="246" y="232" font-size="13" fill="#ffd9b8">Radiolucent — NOT on plain x-ray</text>
+        <text x="246" y="258" font-size="13.5" font-weight="900" fill="#fff">LIMIT PURINES:</text>
+        <text x="246" y="276" font-size="13" fill="#ffd9b8">red meat, organ meats,</text>
+        <text x="246" y="294" font-size="13" fill="#ffd9b8">sardines, gravy, BEER 🍺</text>
+        <text x="246" y="314" font-size="12.5" font-weight="900" fill="#a5f3d4">Drug: allopurinol</text>
+
+        <!-- struvite -->
+        <rect x="444" y="24" width="200" height="296" rx="16" fill="rgba(18,184,134,.32)" stroke="#12b886" stroke-width="2"/>
+        <text x="458" y="54" font-size="17" font-weight="900" fill="#a5f3d4">STRUVITE</text>
+        <text x="458" y="74" font-size="12.5" font-style="italic" fill="#d8fff0">the INFECTION stone</text>
+        <rect x="514" y="110" width="62" height="62" fill="#a5f3d4" stroke="#03291c" stroke-width="2"/>
+        <path d="M514 110 l62 62 M576 110 l-62 62" stroke="#03291c" stroke-width="2"/>
+        <text x="458" y="208" font-size="14" font-weight="900" fill="#fff">ALKALINE urine (pH high)</text>
+        <text x="458" y="232" font-size="13" fill="#d8fff0">Follows repeated UTIs</text>
+        <text x="458" y="256" font-size="13" fill="#d8fff0">Grows huge = <tspan font-weight="900">staghorn</tspan></text>
+        <text x="458" y="282" font-size="13.5" font-weight="900" fill="#fff">TREAT THE INFECTION</text>
+        <text x="458" y="302" font-size="13" fill="#d8fff0">antibiotics + remove stone</text>
+
+        <!-- cystine -->
+        <rect x="656" y="24" width="200" height="296" rx="16" fill="rgba(157,92,255,.34)" stroke="#d9c2ff" stroke-width="2"/>
+        <text x="670" y="54" font-size="17" font-weight="900" fill="#e9dcff">CYSTINE</text>
+        <text x="670" y="74" font-size="12.5" font-style="italic" fill="#e9dcff">rare · genetic</text>
+        <path d="M756 108 l30 17 l0 34 l-30 17 l-30 -17 l0 -34 z" fill="#e9dcff" stroke="#241040" stroke-width="2"/>
+        <text x="670" y="208" font-size="14" font-weight="900" fill="#fff">Inherited (cystinuria)</text>
+        <text x="670" y="232" font-size="13" fill="#f2e9ff">Starts in childhood</text>
+        <text x="670" y="256" font-size="13" fill="#f2e9ff">Hexagonal crystals on UA</text>
+        <text x="670" y="284" font-size="13.5" font-weight="900" fill="#fff">HUGE fluid intake</text>
+        <text x="670" y="304" font-size="13" fill="#f2e9ff">day AND night</text>
+      </svg>
+      <p style="margin-top:10px"><b>The trap:</b> people assume a calcium stone means "stop eating calcium." <span class="never">Do NOT slash dietary calcium</span> — low calcium in the gut lets more <b>oxalate</b> get absorbed and can make stones <i>worse</i>. Restrict <b>oxalate</b> and <b>animal protein</b>, keep calcium normal, unless the provider orders otherwise.</p>
+      <div class="mn">🧠 <b>“CUSC”</b> — <b>C</b>alcium · <b>U</b>ric acid · <b>S</b>truvite · <b>C</b>ystine. Say it "cusk." And pH: <b>Uric acid loves ACID; Struvite loves ALKALINE.</b> (U-A and S-A… <i>Uric = Under 5.5, Struvite = Super alkaline.</i>)</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>⚠️ Who gets stones — the risk list</h3>
+      <ul class="tick">
+        <li>💧 <b>Dehydration</b> — the #1 modifiable cause. Concentrated urine crystallizes.</li>
+        <li>🥩 <b>High animal protein &amp; high sodium diet</b></li>
+        <li>🦠 <b>Recurrent UTIs</b> (struvite)</li>
+        <li>🦶 <b>Gout / high purine</b> (uric acid)</li>
+        <li>🦴 <b>Hyperparathyroidism</b> &amp; prolonged <b>immobility</b> — both dump calcium into the blood and urine</li>
+        <li>👨‍👩‍👧 <b>Family history</b> · previous stone (recurrence is common)</li>
+        <li>🌡️ Hot climates &amp; heavy sweating</li>
+      </ul>
+      <div class="mn">🧠 <b>Immobility makes stones.</b> Bones dissolve into the blood when nobody's weight-bearing — that calcium ends up in the urine. It's also why we <b>walk</b> stone clients.</div>
+    </div>
+
+    <div class="card deep">
+      <h3>🧠 The mechanism in 4 beats</h3>
+      <div class="flow">
+        <div class="fstep">💧 <b>Low urine volume</b> / high solute load</div>
+        <div class="farrow">▼</div>
+        <div class="fstep">🧂 Salts <b>supersaturate</b> and crystallize</div>
+        <div class="farrow">▼</div>
+        <div class="fstep">🪨 Crystals clump into a <b>stone</b></div>
+        <div class="farrow">▼</div>
+        <div class="fstep hot">🚧 Stone enters the ureter ➜ <b>obstruction + spasm = COLIC</b></div>
+      </div>
+      <div class="mn">🧠 <b>Think sweet tea.</b> Too much sugar, not enough water = crystals at the bottom of the glass. Kidneys work the same way.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLUES ============ -->
+<section id="clues">
+  <div class="sec-h"><span class="icon">🔎</span><h2>CLUES</h2><span class="step">STEP 2 · SPOT IT</span></div>
+  <p class="sec-sub">Extreme wave-like pain plus blood in the urine — and a fever that changes everything.</p>
+
+  <div class="grid">
+    <div class="card garnet span2">
+      <h3>🔪 <mark>EXTREME PAIN — “like a knife in the back,” equivalent to childbirth</mark></h3>
+      <svg viewBox="-10 -10 971 320" role="img" aria-label="Pain map showing renal colic starting at the flank and costovertebral angle and radiating around the abdomen into the groin, with a wave graph showing pain that comes in intense waves rather than staying steady">
+        <rect x="-6" y="-6" width="963" height="312" rx="18" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+        <!-- torso -->
+        <path d="M110 60 C 60 96 56 200 96 258 L246 258 C 286 200 282 96 232 60 Z" fill="rgba(255,208,189,.20)" stroke="#ffd0bd" stroke-width="2"/>
+        <circle cx="171" cy="40" r="22" fill="rgba(255,208,189,.25)" stroke="#ffd0bd" stroke-width="2"/>
+        <!-- flank hot -->
+        <circle cx="120" cy="120" r="30" fill="rgba(255,59,107,.65)"/>
+        <circle cx="120" cy="120" r="46" fill="none" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="6 5"/>
+        <text x="42" y="96" font-size="14.5" font-weight="900" fill="#ff9db4">FLANK / CVA</text>
+        <!-- radiation path -->
+        <path d="M138 140 C 168 190 176 220 190 244" fill="none" stroke="#ffc233" stroke-width="7" stroke-dasharray="12 8" stroke-linecap="round"/>
+        <circle cx="196" cy="250" r="20" fill="rgba(255,194,51,.7)"/>
+        <text x="216" y="252" font-size="14.5" font-weight="900" fill="#ffc233">➜ GROIN</text>
+        <text x="216" y="272" font-size="12.5" font-style="italic" fill="#ffe49a">testicle / labia</text>
+        <text x="42" y="288" font-size="13.5" font-weight="900" fill="#ffd0bd">Usually UNILATERAL (one side)</text>
+
+        <!-- wave graph -->
+        <rect x="320" y="40" width="530" height="216" rx="16" fill="rgba(192,34,85,.30)" stroke="#ffd9e2" stroke-width="2"/>
+        <text x="338" y="72" font-size="17" font-weight="900" fill="#fff">RENAL COLIC = pain in WAVES</text>
+        <line x1="348" y1="220" x2="828" y2="220" stroke="#ffd9e2" stroke-width="2"/>
+        <line x1="348" y1="220" x2="348" y2="92" stroke="#ffd9e2" stroke-width="2"/>
+        <text x="330" y="96" font-size="12" font-weight="900" fill="#ffd9e2">10</text>
+        <text x="332" y="234" font-size="12" font-weight="900" fill="#ffd9e2">0</text>
+        <path d="M348 214 C 388 100 428 104 468 210 C 508 214 528 206 548 200 C 588 96 628 100 668 208 C 700 214 720 208 740 202 C 780 100 812 108 828 190"
+              fill="none" stroke="#ffc233" stroke-width="6" stroke-linecap="round"/>
+        <text x="348" y="256" font-size="13.5" font-weight="900" fill="#ffe49a">Spikes to unbearable ➜ eases ➜ spikes again (ureter spasms around the stone)</text>
+        <text x="338" y="122" font-size="13.5" font-weight="900" fill="#fff">😖 The client is RESTLESS — pacing, writhing, can't lie still</text>
+        <text x="338" y="146" font-size="13" font-style="italic" fill="#ffd9e2">(Peritonitis is the opposite — those clients lie perfectly still.)</text>
+      </svg>
+      <div class="mn">🧠 <b>“Colic = a stone rolling in a spasming tube.”</b> The waves come from the ureter squeezing around the rock. <b>Restless + writhing = renal colic. Still as a statue = peritonitis.</b> That single contrast answers a lot of questions.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🧪 Urinalysis: <mark>HEMATURIA</mark> <span class="tip">NCLEX TIP</span></h3>
+      <p><b>Answer first:</b> the sharp stone scrapes the ureter lining ➜ <b>blood in the urine</b>. It may be visible (gross) or only on the dipstick/micro.</p>
+      <ul class="tick">
+        <li>🩸 <b>RBCs</b> — the classic finding</li>
+        <li>💎 <b>Crystals</b> — can name the stone type</li>
+        <li>📊 <b>pH</b> — <span class="mono">&lt;5.5</span> acidic hints <b>uric acid</b>; <span class="mono">&gt;7</span> alkaline hints <b>struvite</b> or calcium phosphate</li>
+        <li>🦠 <b>WBCs / bacteria / nitrites</b> = infection on top of the stone</li>
+      </ul>
+      <div class="mn">🧠 <b>Sharp rock, scraped pipe, bloody urine.</b></div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🔎 The rest of the picture</h3>
+      <ul class="tick">
+        <li>🤢 <b>Nausea &amp; vomiting</b>, diaphoresis, pallor — the pain is that severe</li>
+        <li>🚽 <b>Urgency, frequency, dysuria</b> when the stone is low (near the bladder)</li>
+        <li>📉 <b>Oliguria or anuria</b> = obstruction — report immediately</li>
+        <li>🫃 <b>Abdominal distention</b>, decreased bowel sounds (reflex ileus)</li>
+        <li>🌡️ <b>Fever &amp; chills</b> = <span class="never">INFECTION — emergency</span></li>
+      </ul>
+      <div class="mn">🧠 <b>A stone with a fever is a surgical emergency</b> — an obstructed, infected kidney can go to <b>urosepsis</b> fast.</div>
+    </div>
+
+    <div class="card topaz span2">
+      <h3>🖥️ How they find it</h3>
+      <table>
+        <tr><th class="up" style="width:34%">Test</th><th class="lo">What it does</th></tr>
+        <tr><td><b>Non-contrast CT of the abdomen/pelvis</b> ⭐</td><td>The <b>gold standard</b> — sees essentially all stones, including uric acid stones that x-ray misses. No contrast needed.</td></tr>
+        <tr><td><b>KUB x-ray</b></td><td>Kidney-Ureter-Bladder film. Shows <b>radiopaque</b> (calcium, struvite) stones; <b>misses uric acid</b> stones.</td></tr>
+        <tr><td><b>Renal ultrasound</b></td><td>No radiation — preferred in <b>pregnancy</b> and children; shows hydronephrosis.</td></tr>
+        <tr><td><b>Urinalysis + urine culture</b></td><td>Hematuria, crystals, pH, and any infection.</td></tr>
+        <tr><td><b>Stone analysis</b> 🧺</td><td>The strained stone is <b>sent to the lab</b> — that result decides the lifelong diet.</td></tr>
+        <tr><td><b>BUN / creatinine</b></td><td>Checks whether the obstruction is hurting kidney function.</td></tr>
+      </table>
+      <div class="mn">🧠 <b>CT sees everything; x-ray misses uric acid.</b> If the question says "the stone didn't show on x-ray," you're looking at a <b>uric acid</b> stone.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BEFORE ============ -->
+<section id="before">
+  <div class="sec-h"><span class="icon">🧰</span><h2>BEFORE — CONSERVATIVE CARE</h2><span class="step">STEP 3 · PAIN · FLUIDS · STRAIN</span></div>
+  <p class="sec-sub">Most small stones pass on their own. Your job before any procedure is six numbered actions.</p>
+
+  <div class="grid">
+    <div class="card emerald span2">
+      <h3>✅ <mark>Priority intervention for urinary calculi with flank pain = RELIEVING PAIN</mark> <span class="tip">CAUTION</span></h3>
+      <div class="ladder">
+        <div class="rung"><div class="n">1</div><div class="t"><b>💉 Administer analgesics.</b> Pain is the priority. Opioids and/or <b>NSAIDs</b> (e.g. ketorolac) per order — NSAIDs also reduce the ureteral swelling. Give <b>antiemetics</b> for the vomiting. <b>Give it on a schedule, not "as the pain returns."</b></div></div>
+        <div class="rung"><div class="n">2</div><div class="t"><b>💧 Fluid intake <span class="mono">3 L/day</span></b> (oral and/or IV as ordered) — flushes the stone down and dilutes the urine so new ones can't form.</div></div>
+        <div class="rung"><div class="n">3</div><div class="t"><b>🧺 STRAIN ALL URINE</b> for stones. Every void, every time, into the strainer — the stone goes to the lab.</div></div>
+        <div class="rung"><div class="n">4</div><div class="t"><b>🚶 AMBULATION — “walk &amp; move.”</b> Gravity and movement help the stone travel down.</div></div>
+        <div class="rung"><div class="n">5</div><div class="t"><b>🛏️ NOT bed rest.</b> <span class="never">Bed rest is the wrong answer</span> — immobility pulls more calcium out of the bones and makes stones worse.</div></div>
+        <div class="rung"><div class="n">6</div><div class="t"><b>🙅 NEVER massage</b> the flank or abdomen. <span class="never">Never massage.</span></div></div>
+      </div>
+      <div class="mn">🧠 <b>“Pain · Pour · Pan · Pace — no Pillow, no Pressing.”</b> Analgesia, 3 L, strainer, walk — and the two NEVERs: <i>no bed rest, no massage.</i></div>
+    </div>
+
+    <div class="card topaz span2">
+      <h3>🧺 How to strain urine — teach it exactly <span class="tip">NCLEX TIP</span></h3>
+      <svg viewBox="0 0 880 250" role="img" aria-label="Straining urine: the client voids into a strainer placed over a collection container, gravel-like stone fragments are caught in the mesh and sent to the lab for analysis">
+        <rect x="4" y="4" width="872" height="242" rx="16" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+        <text x="26" y="42" font-size="18" font-weight="900" fill="#ffc233">EVERY VOID ➜ THROUGH THE STRAINER ➜ TO THE LAB</text>
+        <!-- strainer -->
+        <path d="M120 92 L300 92 L262 168 L158 168 Z" fill="rgba(0,194,199,.35)" stroke="#9ff2ee" stroke-width="3"/>
+        <g stroke="#9ff2ee" stroke-width="2">
+          <line x1="140" y1="112" x2="282" y2="112"/><line x1="150" y1="132" x2="272" y2="132"/><line x1="160" y1="152" x2="262" y2="152"/>
+          <line x1="160" y1="96" x2="180" y2="164"/><line x1="210" y1="96" x2="210" y2="164"/><line x1="260" y1="96" x2="240" y2="164"/>
+        </g>
+        <g fill="#ffe49a" stroke="#2a1f00" stroke-width="1.5">
+          <circle cx="176" cy="120" r="7"/><circle cx="214" cy="130" r="9"/><circle cx="248" cy="118" r="6"/><circle cx="200" cy="150" r="5"/>
+        </g>
+        <text x="316" y="112" font-size="16" font-weight="900" fill="#9ff2ee">Fine mesh catches</text>
+        <text x="316" y="134" font-size="16" font-weight="900" fill="#9ff2ee">gravel-sized fragments</text>
+        <text x="316" y="160" font-size="13.5" font-style="italic" fill="#d8fff0">may look like coffee grounds or sand</text>
+        <!-- container -->
+        <path d="M158 176 L262 176 L250 226 L170 226 Z" fill="rgba(255,194,51,.35)" stroke="#ffe49a" stroke-width="3"/>
+        <text x="120" y="244" font-size="13.5" font-weight="900" fill="#ffe49a">collection container</text>
+        <!-- lab -->
+        <rect x="640" y="60" width="212" height="150" rx="16" fill="rgba(18,184,134,.34)" stroke="#a5f3d4" stroke-width="2"/>
+        <text x="656" y="92" font-size="17" font-weight="900" fill="#fff">🔬 SEND TO LAB</text>
+        <text x="656" y="120" font-size="13.5" fill="#d8fff0">The stone's chemistry decides</text>
+        <text x="656" y="142" font-size="13.5" fill="#d8fff0">the diet for the rest of</text>
+        <text x="656" y="164" font-size="13.5" fill="#d8fff0">the client's life.</text>
+        <text x="656" y="192" font-size="13.5" font-weight="900" fill="#a5f3d4">Never flush a specimen ❌</text>
+      </svg>
+      <div class="mn">🧠 <b>“No stone, no answer.”</b> If the stone goes down the toilet, nobody ever learns what kind it was — and she can't be taught the right diet.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>💊 Meds that help it pass</h3>
+      <ul class="tick">
+        <li><b>Alpha blockers</b> — e.g. <b>tamsulosin</b> — relax the smooth muscle of the distal ureter so the stone slips through. <b>Teach: orthostatic hypotension</b>, change positions slowly.</li>
+        <li><b>NSAIDs</b> — e.g. <b>ketorolac</b> — pain + swelling. <i>Caution with impaired kidney function.</i></li>
+        <li><b>Opioids</b> — for severe colic per order.</li>
+        <li><b>Antiemetics</b> — the vomiting is part of the picture.</li>
+        <li><b>Allopurinol</b> — lowers uric acid for uric-acid stone formers.</li>
+      </ul>
+      <div class="mn">🧠 <b>“-osin loosens.”</b> Tamsul<b>osin</b> relaxes the ureter — and it drops the blood pressure on standing.</div>
+    </div>
+
+    <div class="card deep">
+      <h3>📋 Pre-procedure prep (any stone procedure)</h3>
+      <ul class="tick">
+        <li>📝 <b>Informed consent</b> signed &amp; on the chart</li>
+        <li>🍽️ <b>NPO</b> per order if sedation/anesthesia is planned</li>
+        <li>🩸 Labs: <b>CBC, coagulation studies, BUN/creatinine</b>; hold anticoagulants per order</li>
+        <li>🦠 <b>Treat UTI first</b> — procedures on an infected tract can trigger sepsis</li>
+        <li>🤰 Pregnancy status; allergy check (contrast, shellfish/iodine as applicable)</li>
+        <li>💬 Teach what to expect afterward — <i>this is where the exam questions live</i></li>
+      </ul>
+      <div class="mn">🧠 <b>Consent · NPO · Labs · No infection.</b> The universal pre-procedure four.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DURING ============ -->
+<section id="during">
+  <div class="sec-h"><span class="icon">⚡</span><h2>DURING — THE PROCEDURES</h2><span class="step">STEP 4 · BREAK IT · GRAB IT · SUCK IT OUT</span></div>
+  <p class="sec-sub">Three ways to get a stone out, ranked from least to most invasive.</p>
+
+  <div class="grid">
+    <div class="card sapphire span2">
+      <h3>⚡ Shockwave lithotripsy (ESWL) — <mark>shock waves break LARGE stones into smaller stones that can be easily passed</mark></h3>
+      <svg viewBox="-10 -10 1002 340" role="img" aria-label="Extracorporeal shock wave lithotripsy: a shock wave generator outside the body focuses sound waves through the flank onto the kidney stone, shattering the large stone into small fragments that pass down the ureter into the urine">
+        <defs>
+          <marker id="lithoArr" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#00c2c7"/>
+          </marker>
+        </defs>
+        <rect x="-6" y="-6" width="994" height="332" rx="18" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+        <text x="26" y="40" font-size="18" font-weight="900" fill="#9ff2ee">EXTRACORPOREAL = “outside the body” — no incision</text>
+        <!-- generator -->
+        <path d="M40 132 L40 236 L110 264 L110 104 Z" fill="rgba(47,107,255,.45)" stroke="#bcd0ff" stroke-width="3"/>
+        <text x="26" y="292" font-size="14.5" font-weight="900" fill="#bcd0ff">SHOCK WAVE</text>
+        <text x="26" y="310" font-size="14.5" font-weight="900" fill="#bcd0ff">GENERATOR</text>
+        <!-- waves -->
+        <g fill="none" stroke="#00c2c7" stroke-width="4">
+          <path d="M124 128 C 168 156 168 212 124 240"/>
+          <path d="M156 122 C 208 156 208 212 156 246"/>
+          <path d="M188 116 C 248 156 248 212 188 252"/>
+        </g>
+        <path d="M216 184 L292 184" stroke="#00c2c7" stroke-width="6" marker-end="url(#lithoArr)"/>
+        <text x="128" y="96" font-size="14" font-weight="900" fill="#9ff2ee">focused sound waves</text>
+        <!-- body/kidney -->
+        <path d="M300 66 C 268 128 268 244 300 300 L470 300 C 500 244 500 128 470 66 Z" fill="rgba(255,208,189,.18)" stroke="#ffd0bd" stroke-width="2"/>
+        <path d="M400 118 C 348 120 322 158 326 200 C 330 242 360 268 400 264 C 386 234 384 148 400 118 Z" fill="rgba(255,138,61,.55)" stroke="#ffd0bd" stroke-width="3"/>
+        <circle cx="366" cy="184" r="21" fill="#ffe49a" stroke="#2a1f00" stroke-width="3"/>
+        <text x="306" y="90" font-size="14" font-weight="900" fill="#ffd0bd">skin &amp; flank — waves pass through</text>
+        <text x="312" y="288" font-size="13.5" font-weight="900" fill="#ffd0bd">KIDNEY with the stone</text>
+        <!-- result -->
+        <path d="M508 184 L580 184" stroke="#ffc233" stroke-width="6"/>
+        <path d="M574 170 L604 184 L574 198 z" fill="#ffc233"/>
+        <rect x="616" y="72" width="236" height="196" rx="16" fill="rgba(18,184,134,.32)" stroke="#a5f3d4" stroke-width="2"/>
+        <text x="632" y="104" font-size="17" font-weight="900" fill="#fff">SHATTERED</text>
+        <g fill="#ffe49a" stroke="#2a1f00" stroke-width="1.5">
+          <circle cx="660" cy="140" r="7"/><circle cx="694" cy="152" r="5"/><circle cx="726" cy="136" r="6"/>
+          <circle cx="676" cy="176" r="5"/><circle cx="716" cy="180" r="7"/><circle cx="752" cy="160" r="4"/>
+          <circle cx="800" cy="146" r="6"/><circle cx="778" cy="182" r="5"/>
+        </g>
+        <text x="632" y="216" font-size="14" font-weight="900" fill="#a5f3d4">Small fragments pass in the urine</text>
+        <text x="632" y="240" font-size="13.5" font-style="italic" fill="#d8fff0">➜ so you STRAIN every void</text>
+        <text x="632" y="260" font-size="13" font-style="italic" fill="#d8fff0">a ureteral stent may be placed to keep the path open</text>
+      </svg>
+      <p style="margin-top:10px"><b>Expected finding after lithotripsy?</b> <mark>Stone fragments in the urine.</mark> That is the goal, not a complication.</p>
+      <div class="mn">🧠 <b>“Litho-TRIP-sy = TRIP the stone and break it.”</b> Big rock in ➜ gravel out. If the stone doesn't break the first time, the procedure can be repeated.</div>
+    </div>
+
+    <div class="card garnet span2">
+      <h3>🪛 Percutaneous nephrolithotomy / nephrolithotripsy (PCNL) — the needle &amp; scope</h3>
+      <p><b>What it is:</b> <i>Also called nephrolithotomy</i> — the HCP <b>sticks a needle &amp; scope into the kidney through the back (flank) to suck out the stones.</b> Used for <b>large</b> or <b>staghorn</b> stones that shock waves can't clear.</p>
+      <svg viewBox="-10 -10 906 391" role="img" aria-label="Percutaneous nephrolithotomy: a scope is passed through a small flank incision directly into the renal pelvis to remove a large staghorn stone, and afterwards a nephrostomy tube drains urine and stone sediment into a bag kept below the kidney">
+        <rect x="-6" y="-6" width="898" height="383" rx="18" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+        <text x="26" y="40" font-size="18" font-weight="900" fill="#ff9db4">PERCUTANEOUS = “through the skin” — small flank incision</text>
+        <!-- back -->
+        <path d="M60 70 C 40 150 40 260 62 330 L240 330 C 224 258 224 148 240 70 Z" fill="rgba(255,208,189,.18)" stroke="#ffd0bd" stroke-width="2"/>
+        <text x="60" y="352" font-size="13.5" font-weight="900" fill="#ffd0bd">client lies PRONE — approach from the back</text>
+        <!-- kidney -->
+        <path d="M270 110 C 210 114 182 160 188 210 C 194 260 230 292 274 288 C 258 252 254 148 270 110 Z" fill="rgba(255,138,61,.5)" stroke="#ffd0bd" stroke-width="3"/>
+        <path d="M264 156 C 238 178 238 224 264 246" fill="none" stroke="#ffe49a" stroke-width="6"/>
+        <text x="196" y="316" font-size="14.5" font-weight="900" fill="#ffd9b8">KIDNEY</text>
+        <!-- staghorn stone -->
+        <path d="M226 176 l24 -8 l14 18 l22 -4 l-6 24 l16 18 l-24 8 l-10 20 l-22 -14 l-22 8 l4 -26 l-16 -16 z" fill="#ffe49a" stroke="#2a1f00" stroke-width="2.5"/>
+        <text x="300" y="182" font-size="14" font-weight="900" fill="#ffe49a">large / STAGHORN stone</text>
+        <!-- scope -->
+        <path d="M60 200 L214 208" stroke="#eafff7" stroke-width="10" stroke-linecap="round"/>
+        <circle cx="72" cy="200" r="13" fill="#12b886" stroke="#eafff7" stroke-width="3"/>
+        <text x="70" y="176" font-size="14" font-weight="900" fill="#a5f3d4">🔦 scope + needle ➜ suction out the stone</text>
+        <!-- nephrostomy -->
+        <path d="M232 240 C 330 300 420 306 470 300" stroke="#00c2c7" stroke-width="10" stroke-linecap="round" fill="none"/>
+        <text x="300" y="264" font-size="15" font-weight="900" fill="#9ff2ee">NEPHROSTOMY TUBE</text>
+        <text x="300" y="284" font-size="12.5" font-style="italic" fill="#d8fff0">temporary — drains urine + loose fragments</text>
+        <!-- bag -->
+        <path d="M482 268 L482 330 Q482 348 516 348 Q550 348 550 330 L550 268 Z" fill="rgba(255,194,51,.45)" stroke="#ffe49a" stroke-width="3"/>
+        <g fill="#ffe49a" stroke="#2a1f00" stroke-width="1.4"><circle cx="500" cy="332" r="5"/><circle cx="518" cy="338" r="4"/><circle cx="534" cy="330" r="5"/></g>
+        <text x="470" y="248" font-size="13.5" font-weight="900" fill="#ffe49a">bag stays BELOW the kidney</text>
+        <text x="470" y="366" font-size="13" font-style="italic" fill="#ffe49a">expect SEDIMENT at the bottom ✅</text>
+        <!-- warning box -->
+        <rect x="592" y="60" width="262" height="272" rx="16" fill="rgba(192,34,85,.42)" stroke="#ffd9e2" stroke-width="2"/>
+        <text x="608" y="92" font-size="17" font-weight="900" fill="#fff">🚨 PRIORITY</text>
+        <text x="608" y="118" font-size="16" font-weight="900" fill="#ffc233">MAINTAIN TUBE PATENCY</text>
+        <text x="608" y="150" font-size="13.5" fill="#fff">The tube CAN clog with stones.</text>
+        <text x="608" y="180" font-size="13.5" font-weight="900" fill="#fff">✅ Irrigate ONLY if ordered,</text>
+        <text x="620" y="200" font-size="13.5" fill="#fff">with STERILE normal saline,</text>
+        <text x="620" y="220" font-size="13.5" fill="#fff">small volume, gentle.</text>
+        <text x="608" y="250" font-size="13.5" font-weight="900" fill="#fff">✅ Keep it free of kinks.</text>
+        <text x="608" y="276" font-size="13.5" font-weight="900" fill="#ff9db4">❌ NEVER clamp the tube.</text>
+        <text x="608" y="302" font-size="13.5" font-weight="900" fill="#ff9db4">❌ Never force against resistance.</text>
+        <text x="608" y="324" font-size="13" font-style="italic" fill="#ffd9e2">🔔 NEW BACK PAIN = it's blocked ➜ report</text>
+      </svg>
+      <div class="mn">🧠 <b>“Percutaneous = punch through the skin.”</b> And the one-line teaching point: <b>teach the client with a new nephrostomy tube to report BACK PAIN to the provider</b> — back pain means urine has nowhere to go. 🔒</div>
+    </div>
+
+    <div class="card tealc">
+      <h3>🎣 Ureteroscopy + stone basket</h3>
+      <p>A thin scope goes <b>up through the urethra and bladder into the ureter</b>. The stone is grabbed with a basket or lasered into fragments — no incision at all.</p>
+      <ul class="tick">
+        <li>A <b>ureteral stent</b> is often left to hold the ureter open</li>
+        <li>Expect <b>flank discomfort, urgency, frequency and pink urine</b> while the stent is in</li>
+        <li>Teach the client to <b>keep the stent removal appointment</b></li>
+      </ul>
+      <div class="mn">🧠 <b>Scope up, basket out.</b> The stent is a temporary drinking straw holding the ureter open.</div>
+    </div>
+
+    <div class="card deep">
+      <h3>🪜 Which procedure, in order of invasiveness</h3>
+      <div class="flow">
+        <div class="fstep">💧 <b>Pass it</b> — fluids, pain control, tamsulosin, strain</div>
+        <div class="farrow">▼</div>
+        <div class="fstep">⚡ <b>ESWL</b> — shock waves from outside, no incision</div>
+        <div class="farrow">▼</div>
+        <div class="fstep">🎣 <b>Ureteroscopy</b> — scope up the natural path, basket/laser</div>
+        <div class="farrow">▼</div>
+        <div class="fstep hot">🪛 <b>PCNL</b> — flank incision into the kidney, for big/staghorn stones</div>
+      </div>
+      <div class="mn">🧠 <b>Least cutting first.</b> Size and location choose the procedure — big stone, bigger approach.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AFTER ============ -->
+<section id="after">
+  <div class="sec-h"><span class="icon">✅</span><h2>AFTER — EDUCATE</h2><span class="step">STEP 5 · NORMAL vs NOT NORMAL</span></div>
+  <p class="sec-sub">This is the single most tested block: what she should expect, and what earns a phone call.</p>
+
+  <div class="grid">
+    <div class="card emerald span2">
+      <h3>🚦 After lithotripsy — <mark>NORMAL vs NOT NORMAL</mark> <span class="tip">ATI</span></h3>
+      <svg viewBox="0 0 880 300" role="img" aria-label="Traffic light comparison after lithotripsy: expected findings are bruising and pain over the flank, blood in the urine for up to twenty four hours and stone fragments in the urine, while fever or chills, inability to urinate, uncontrolled pain and heavy bleeding must be reported">
+        <rect x="4" y="4" width="872" height="292" rx="18" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+        <!-- green side -->
+        <rect x="20" y="26" width="410" height="252" rx="16" fill="rgba(18,184,134,.30)" stroke="#a5f3d4" stroke-width="2"/>
+        <circle cx="58" cy="62" r="18" fill="#12b886"/>
+        <text x="88" y="70" font-size="20" font-weight="900" fill="#a5f3d4">✅ NORMAL — expected</text>
+        <text x="42" y="112" font-size="15.5" font-weight="800" fill="#fff">🟣 Bruising &amp; pain over the flank</text>
+        <text x="42" y="146" font-size="15.5" font-weight="800" fill="#fff">🩸 Blood in the urine up to</text>
+        <text x="66" y="170" font-size="15.5" font-weight="900" fill="#ffc233">24 HOURS</text>
+        <text x="42" y="204" font-size="15.5" font-weight="800" fill="#fff">🪨 STONE FRAGMENTS in the urine</text>
+        <text x="66" y="226" font-size="13" font-style="italic" fill="#d8fff0">this is the expected finding — the goal</text>
+        <text x="42" y="258" font-size="15.5" font-weight="800" fill="#fff">😣 Mild soreness, some nausea</text>
+        <!-- red side -->
+        <rect x="446" y="26" width="410" height="252" rx="16" fill="rgba(192,34,85,.40)" stroke="#ffd9e2" stroke-width="2"/>
+        <circle cx="484" cy="62" r="18" fill="#ff3b6b"/>
+        <text x="514" y="70" font-size="20" font-weight="900" fill="#ff9db4">🚨 NOT NORMAL — report</text>
+        <text x="468" y="112" font-size="15.5" font-weight="900" fill="#fff">🌡️ FEVER or CHILLS</text>
+        <text x="492" y="132" font-size="13" font-style="italic" fill="#ffd9e2">= infection</text>
+        <text x="468" y="166" font-size="15.5" font-weight="900" fill="#fff">🚫 Inability to urinate</text>
+        <text x="468" y="198" font-size="15.5" font-weight="900" fill="#fff">💢 Pain not relieved by analgesics</text>
+        <text x="468" y="230" font-size="15.5" font-weight="900" fill="#fff">🩸 Bleeding past 24 h · bright red</text>
+        <text x="492" y="250" font-size="13" font-style="italic" fill="#ffd9e2">or large clots</text>
+        <text x="468" y="272" font-size="15.5" font-weight="900" fill="#fff">🤢 Persistent vomiting</text>
+      </svg>
+      <div class="mn">🧠 <b>“Bruise &amp; blood = fine. Fever &amp; no flow = phone.”</b> Bruising and a day of pink urine are the receipt for the shock waves. A <b>fever</b> or <b>no urine</b> is never expected.</div>
+    </div>
+
+    <div class="card ruby span2">
+      <h3>🔧 Nephrostomy tube care — <mark>PRIORITY: maintain tube patency</mark> <span class="tip">CAUTION</span></h3>
+      <div class="ladder">
+        <div class="rung"><div class="n">1</div><div class="t"><b>💧 Irrigate ONLY with an order</b>, using <b>STERILE normal saline</b>, small volume, gently. <span class="never">Never force against resistance.</span></div></div>
+        <div class="rung"><div class="n">2</div><div class="t"><b>🔒 <span class="never">NEVER clamp</span> a nephrostomy tube</b> — the kidney has no other way out.</div></div>
+        <div class="rung"><div class="n">3</div><div class="t"><b>🎒 Keep the bag BELOW the level of the kidney</b>; secure the tube so it can't be pulled.</div></div>
+        <div class="rung"><div class="n">4</div><div class="t"><b>👀 Expect SEDIMENT in the bottom of the bag</b> — those are the loose fragments draining out.</div></div>
+        <div class="rung"><div class="n">5</div><div class="t"><b>📞 Teach the client to REPORT BACK PAIN</b> — new back/flank pain means the tube is <b>clogged</b> and urine is backing up. Also report no drainage, fever, or leaking around the site.</div></div>
+        <div class="rung"><div class="n">6</div><div class="t"><b>📏 Record output from the tube SEPARATELY</b> from voided urine.</div></div>
+      </div>
+      <div class="mn">🧠 <b>“Clog ➜ backup ➜ BACK PAIN.”</b> Sediment in the bag is good news; pain in the back is bad news. Same tube, opposite meanings.</div>
+    </div>
+
+    <div class="card citrinec span2">
+      <h3>🍽️ Diet — <mark>restrict animal protein, limit purines</mark></h3>
+      <table>
+        <tr><th class="up" style="width:30%">Rule</th><th class="lo">Details</th></tr>
+        <tr><td><b>Restrict protein</b> 🥩</td><td><b>“Animal meats.”</b> Animal protein makes the urine acidic and raises calcium &amp; uric acid excretion. Key <b>urolithiasis teaching = restriction of animal protein</b>.</td></tr>
+        <tr><td><b>Limit purines</b> 🍺</td><td><b>Red meats, organ meats, beer</b> — plus sardines, anchovies, gravy. Purines break down into <b>uric acid</b>.</td></tr>
+        <tr><td><b>Limit sodium</b> 🧂</td><td>High sodium pushes more calcium into the urine.</td></tr>
+        <tr><td><b>Limit oxalate</b> 🥬</td><td>Spinach, rhubarb, beets, nuts, chocolate, strong tea, sweet potatoes — for <b>calcium oxalate</b> formers.</td></tr>
+        <tr><td><b>Keep calcium NORMAL</b> 🥛</td><td><span class="never">Do not slash dietary calcium</span> unless ordered — low gut calcium = more oxalate absorbed = more stones.</td></tr>
+        <tr><td><b>Fluids <span class="mono">3 L/day</span></b> 💧</td><td>The single most important lifelong habit. Urine should look <b>pale straw</b>. Drink extra in heat and with exercise, and <b>some at night</b>.</td></tr>
+      </table>
+      <div class="mn">🧠 <b>“Meat makes rocks.”</b> 🥩➜🪨 Cut the animal protein, cut the purines, cut the salt — and drink until the urine is <i>almost clear</i>.</div>
+    </div>
+
+    <div class="card deep">
+      <h3>📣 Discharge teaching checklist</h3>
+      <ul class="tick">
+        <li>💧 <b><span class="mono">3 L</span> of fluid a day</b>, mostly water, spread across the day</li>
+        <li>🧺 <b>Keep straining</b> until told to stop — fragments pass for days</li>
+        <li>🚶 <b>Stay active</b>; no bed rest</li>
+        <li>💊 Finish antibiotics; take pain meds before the pain peaks</li>
+        <li>🌡️ Call for <b>fever/chills, no urine output, uncontrolled pain, heavy bleeding</b></li>
+        <li>🔁 <b>Stones recur</b> — keep follow-up appointments and get the stone analyzed</li>
+      </ul>
+      <div class="mn">🧠 <b>Water is the cheapest prescription in this whole chapter.</b></div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🚨 Complications to watch for</h3>
+      <ul class="tick">
+        <li><b>Obstruction ➜ hydronephrosis</b> — urine backs up and swells the kidney; can permanently damage it</li>
+        <li><b>Infection ➜ urosepsis</b> — fever, chills, hypotension, confusion. Emergency.</li>
+        <li><b>Hemorrhage</b> — especially after PCNL; watch VS, Hgb, flank swelling</li>
+        <li><b>Recurrence</b> — very common without a diet &amp; fluid change</li>
+      </ul>
+      <div class="mn">🧠 <b>Blocked + infected = the kidney is on a clock.</b> That combination goes to the OR, not to the med list.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">🪨 LITH = stone</span>Renal calculi = hard calcified stone, <b>usually calcium</b>.</div>
+    <div class="rc rubybg"><span class="big">🔪 Priority = PAIN</span>Flank pain in waves ➜ <b>relieve the pain first</b>. Restless &amp; writhing.</div>
+    <div class="rc tealbg"><span class="big">🧺 Strain · 💧3 L · 🚶Walk</span><span class="never">No bed rest. No massage.</span></div>
+    <div class="rc topazbg"><span class="big">🩸 Hematuria</span>Blood in urine <b>up to 24 h</b> after lithotripsy = normal. <b>Fever = not.</b></div>
+  </div>
+
+  <div class="recall">
+    <div class="rc topazbg"><span class="big">⚡ Lithotripsy</span>Shock waves break BIG stones into small ones. <b>Expect fragments in urine.</b></div>
+    <div class="rc rubybg"><span class="big">🔧 Nephrostomy</span>PRIORITY = <b>patency</b>. Sterile NS if ordered. <b>Never clamp.</b> Report <b>back pain</b>.</div>
+    <div class="rc citrine"><span class="big">🥩 Diet</span><b>Restrict animal protein</b>, limit purines (red/organ meat, beer) &amp; sodium.</div>
+    <div class="rc tealbg"><span class="big">📊 pH clue</span><b>Uric acid = acidic</b> urine &amp; invisible on x-ray. <b>Struvite = alkaline</b> &amp; follows UTIs.</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 7 rapid-fire questions</summary>
+      <div class="qa">Q1: A client arrives with severe right flank pain from urinary calculi. What is the priority intervention? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Relieving the pain — administer the ordered analgesics (opioid and/or NSAID) plus an antiemetic. Then fluids 3 L/day, strain all urine, and ambulate.</div></div>
+      <div class="qa">Q2: What is the expected finding in the urine after lithotripsy? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Stone fragments. Also expected: bruising and pain over the flank, and blood in the urine for up to 24 hours. NOT expected: fever or chills, inability to urinate, uncontrolled pain.</div></div>
+      <div class="qa">Q3: A client has a new nephrostomy tube. What one symptom must they be taught to report? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">BACK PAIN — it means the tube is clogged and urine is backing up in the kidney. Priority for the nurse is maintaining tube patency: irrigate only as ordered with sterile normal saline, never clamp the tube, keep the bag below the kidney. Sediment in the bag is expected.</div></div>
+      <div class="qa">Q4: Which two things should never be part of the stone care plan? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Bed rest (ambulation helps the stone move and prevents calcium loss from bone) and massaging the flank/abdomen. Never massage.</div></div>
+      <div class="qa">Q5: Key urolithiasis diet teaching? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Restriction of animal protein. Also limit purines (red meat, organ meat, beer), limit sodium and oxalate, keep dietary calcium normal, and drink 3 L of fluid daily.</div></div>
+      <div class="qa">Q6: Where do stones typically lodge, and how does pain change with location? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">The three narrow points of the ureter: the ureteropelvic junction (flank/CVA pain), where the ureter crosses the iliac vessels at the pelvic brim (pain into the lower abdomen and groin), and the ureterovesical junction (groin/testicle/labia pain plus urgency and frequency). The lower the stone, the lower the pain.</div></div>
+      <div class="qa">Q7: A stone client spikes a temperature of 102°F with chills. Why does this change everything? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">An obstructed kidney plus infection is a urologic emergency — it can progress to urosepsis. Report immediately; the obstruction usually has to be relieved (stent or nephrostomy) along with antibiotics.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">THE STONE</span>→
+    <span style="background:rgba(47,107,255,.7)">CLUES</span>→
+    <span style="background:rgba(0,194,199,.7);color:#00252b">BEFORE</span>→
+    <span style="background:rgba(255,138,61,.75)">DURING</span>→
+    <span style="background:rgba(18,184,134,.7)">AFTER</span>
+  </div>
+  <div>NG-249 · Educational study aid — verify clinical details &amp; facility policy · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>
