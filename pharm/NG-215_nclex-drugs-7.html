@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NCLEX Drugs 7 · NG-215 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#lineup .sec-h h2{color:#d9c2ff} #lineup .step{background:var(--amethyst)}
+#action .sec-h h2{color:#bcd0ff} #action .step{background:var(--sapphire)}
+#teach  .sec-h h2{color:#a5f3d4} #teach .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+
+/* ===== NCLEX drug-review series additions (appended, not part of base shell) ===== */
+.chip.series{background:rgba(0,194,199,.75);color:#00252b}
+.covgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:9px;margin:14px 0 0}
+.cov-t{background:rgba(13,8,26,.55);border:1px solid var(--line);border-radius:12px;padding:10px 8px;text-align:center;font-weight:800;font-size:.86rem;line-height:1.3}
+.cov-t .e{display:block;font-size:1.6rem;line-height:1.2;margin-bottom:2px}
+.trap{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(255,59,107,.20);border:1px dashed rgba(255,150,180,.65);font-size:.93rem;color:#fff}
+.trap b{color:#ffb3c6}
+.card.tealc .trap,.card.topaz .trap,.card.citrinec .trap{background:rgba(255,59,107,.22);border-color:rgba(192,34,85,.55);color:#3d0014}
+.card.tealc .trap b,.card.topaz .trap b,.card.citrinec .trap b{color:#c02255}
+.tag{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.05em;background:rgba(13,8,26,.55);border:1px solid var(--line);padding:2px 9px;border-radius:999px;vertical-align:2px;margin-left:6px}
+.serieslinks{display:flex;gap:6px;flex-wrap:wrap}
+.serieslinks a{font-size:.78rem;font-weight:800;color:#fff;text-decoration:none;padding:4px 9px;border-radius:8px;background:rgba(255,255,255,.14);border:1px solid var(--line)}
+.serieslinks a.here{background:var(--topaz);color:#231a02;border-color:transparent}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#lineup">🗺️ Lineup</a>
+  <a class="c2" href="#action">⚙️ Action</a>
+  <a class="c3" href="#teach">📋 Teach</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Pharmacology · NCLEX Drug Review Series</div>
+  <h1>NCLEX Drugs 7 <span class="drop">🦠</span></h1>
+  <p class="sub">Penicillins · Sulfonamides · Vancomycin · Tetracyclines · Fluoroquinolones · Carbapenems</p>
+  <div class="chips">
+    <span class="chip id">NG-215</span>
+    <span class="chip cat">PHARM</span>
+    <span class="chip series">Series: NCLEX Drug Review 4 of 5</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede">All-antibiotic installment. Six classes, four different attack sites on the bacteria — <mark>learn the mechanism map once</mark> and every drug in this set slots into one of four buckets. Then layer on the three antibiotics with their own unique black-box safety issue: sulfa, vancomycin, and the "-oxacin" fluoroquinolones.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">💊 Penicillins</span>Beta-lactams — same cross-reactivity family as cephalosporins &amp; carbapenems.</div>
+  <div class="rc rubybg"><span class="big">⚠️ Sulfa allergy</span>Bactrim/Septra AND several non-antibiotic "sulfa" drugs — always ask first.</div>
+  <div class="rc tealbg"><span class="big">🔴 Vancomycin</span>Infuse slowly — Red Man Syndrome. Peak <span class="mono">30–60min</span>, trough <span class="mono">30min before</span> next dose.</div>
+  <div class="rc topazbg"><span class="big">🦵 "-oxacin"</span>Fluoroquinolones = tendon rupture black-box warning.</div>
+</div>
+
+<!-- ============ LINEUP ============ -->
+<section id="lineup">
+  <div class="sec-h"><span class="icon">🗺️</span><h2>LINEUP</h2><span class="step">STEP 1 · WHAT'S IN THIS SET</span></div>
+  <p class="sec-sub">Robo's 3-part study map for every drug on this page: <b>CLASS</b> → <b>ACTION</b> → <b>WATCH</b>.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🧭 This installment covers 6 antibiotic classes</h3>
+      <div class="covgrid">
+        <div class="cov-t"><span class="e">💊</span>Penicillins</div>
+        <div class="cov-t"><span class="e">⚠️</span>Sulfonamides</div>
+        <div class="cov-t"><span class="e">🔴</span>Vancomycin</div>
+        <div class="cov-t"><span class="e">☀️</span>Tetracyclines</div>
+        <div class="cov-t"><span class="e">🦵</span>Fluoroquinolones</div>
+        <div class="cov-t"><span class="e">🛡️</span>Carbapenems</div>
+      </div>
+      <div class="mn">🧠 <b>"PVC-STF"</b> won't spell anything nice, so use: <b>P</b>enicillins hit the wall · <b>V</b>anco hits the wall too, watch the ears/kidneys/skin · <b>C</b>arbapenems are the broad-spectrum big guns · <b>S</b>ulfa blocks folic acid · <b>T</b>etracyclines block ribosomes · <b>F</b>luoroquinolones ("-oxacin") block DNA gyrase.</div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>🏷️ Brand → Generic — memorize the pairs</h3>
+      <table>
+        <tr><th style="width:24%">Class</th><th class="up" style="width:38%">Brand Name(s)</th><th class="lo">Generic Name</th></tr>
+        <tr><td rowspan="5"><b>Penicillin</b></td><td>Amoxil</td><td>Amoxicillin</td></tr>
+        <tr><td>Omnipen</td><td>Ampicillin</td></tr>
+        <tr><td>Unipen</td><td>Nafcillin</td></tr>
+        <tr><td>Pipracil</td><td>Piperacillin</td></tr>
+        <tr><td>Zosyn</td><td>Piperacillin/Tazobactam</td></tr>
+        <tr><td><b>Sulfonamide</b></td><td>Bactrim, Bactrim DS, Septra</td><td>Trimethoprim-Sulfamethoxazole (SMZ-TMP)</td></tr>
+        <tr><td><b>Vancomycin</b></td><td>Vancocin</td><td>Vancomycin HCl</td></tr>
+        <tr><td rowspan="2"><b>Tetracycline</b></td><td>Tetracycline</td><td>Tetracycline</td></tr>
+        <tr><td>Vibramycin</td><td>Doxycycline</td></tr>
+        <tr><td rowspan="2"><b>Fluoro-<br>quinolone</b></td><td>Cipro</td><td>Ciprofloxacin</td></tr>
+        <tr><td>Levaquin</td><td>Levofloxacin</td></tr>
+        <tr><td rowspan="3"><b>Carbapenem</b></td><td>Invanz</td><td>Ertapenem</td></tr>
+        <tr><td>Merrem</td><td>Meropenem</td></tr>
+        <tr><td>Primaxin</td><td>Imipenem <i>(paired with cilastatin)</i></td></tr>
+      </table>
+      <div class="mn">🧠 <b>Suffix clues:</b> <span class="mono">-cillin</span> = penicillin · <span class="mono">-oxacin</span> = fluoroquinolone · <span class="mono">-cycline</span> = tetracycline · <span class="mono">-penem</span> = carbapenem.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ACTION ============ -->
+<section id="action">
+  <div class="sec-h"><span class="icon">⚙️</span><h2>ACTION</h2><span class="step">STEP 2 · CLASS → MECHANISM → TRAP</span></div>
+  <p class="sec-sub">One mechanism map, then one card per class with its own safety trap.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🎯 Where each class attacks the bacteria</h3>
+      <svg viewBox="-10 -10 650 240" role="img" aria-label="Diagram of a bacterial cell showing four antibiotic attack sites: the cell wall targeted by penicillins vancomycin and carbapenems, the ribosome targeted by tetracyclines, the DNA gyrase targeted by fluoroquinolones, and folic acid synthesis targeted by sulfonamides">
+        <rect x="-6" y="-6" width="642" height="232" rx="18" fill="rgba(13,8,26,.5)" stroke="#9d5cff" stroke-width="2" stroke-dasharray="7 6"/>
+        <ellipse cx="300" cy="112" rx="230" ry="88" fill="none" stroke="#ffd0bd" stroke-width="6"/>
+        <text x="300" y="24" font-size="13" font-weight="900" fill="#ffd0bd" text-anchor="middle">Bacterial cell</text>
+        <circle cx="120" cy="60" r="10" fill="#ff3b6b"/>
+        <text x="70" y="45" font-size="12" font-weight="900" fill="#ff9db4">Cell wall</text>
+        <text x="40" y="80" font-size="10.5" fill="#ffd9e2">Penicillins · Vancomycin</text>
+        <text x="40" y="94" font-size="10.5" fill="#ffd9e2">Carbapenems</text>
+        <circle cx="480" cy="60" r="10" fill="#ffc233"/>
+        <text x="470" y="45" font-size="12" font-weight="900" fill="#ffc233" text-anchor="end">Ribosome</text>
+        <text x="530" y="80" font-size="10.5" fill="#ffe9b3">Tetracyclines block</text>
+        <text x="530" y="94" font-size="10.5" fill="#ffe9b3">protein synthesis</text>
+        <circle cx="120" cy="165" r="10" fill="#00c2c7"/>
+        <text x="70" y="185" font-size="12" font-weight="900" fill="#9ff2ee">DNA gyrase</text>
+        <text x="40" y="200" font-size="10.5" fill="#d8fffd">Fluoroquinolones ("-oxacin")</text>
+        <circle cx="480" cy="165" r="10" fill="#12b886"/>
+        <text x="470" y="185" font-size="12" font-weight="900" fill="#7df0c6" text-anchor="end">Folic acid pathway</text>
+        <text x="410" y="200" font-size="10.5" fill="#d8fff0">Sulfonamides block synthesis</text>
+        <text x="300" y="118" font-size="11" fill="#e9dcff" text-anchor="middle">nucleus / DNA</text>
+        <ellipse cx="300" cy="120" rx="40" ry="16" fill="rgba(0,194,199,.35)"/>
+      </svg>
+      <div class="mn">🧠 <b>"Wall, ribosome, DNA, folate"</b> — four targets, four families. If you can name the target, you can guess the class.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>💊 Penicillins <span class="tag">Amoxil · Omnipen · Unipen · Pipracil · Zosyn</span></h3>
+      <p><b>Mechanism:</b> beta-lactam — disrupts bacterial cell wall synthesis, same family as cephalosporins and carbapenems.</p>
+      <p><b>⭐ Key nursing point:</b> assess for a penicillin allergy history before every dose; watch for hives, wheeze, or anaphylaxis, especially with the first dose.</p>
+      <div class="trap">🚨 <b>NCLEX trap:</b> A penicillin allergy raises the same cross-reactivity question with cephalosporins and (less so) carbapenems — verify before substituting.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>⚠️ Sulfonamides <span class="tag">Bactrim · Bactrim DS · Septra · SMZ-TMP</span></h3>
+      <p><b>Mechanism:</b> trimethoprim-sulfamethoxazole blocks two sequential steps of bacterial folic acid synthesis, so bacteria can't make DNA.</p>
+      <p><b>⭐ Key nursing point:</b> the source study sheet lists these as needing <b>caution if sulfa-allergic</b>: erythromycin-sulfisoxazole, sulfasalazine, dapsone, other sulfonamides, and — as commonly taught cross-sensitivity cautions — celecoxib (Celebrex), sumatriptan (Imitrex), furosemide (Lasix), and hydrochlorothiazide (HCTZ). <i>Clinical opinion on how strong this cross-reactivity really is varies</i> — always ask about the specific reaction and follow facility/provider guidance.</p>
+      <svg viewBox="-10 -10 482 150" role="img" aria-label="Diagram of the bacterial folic acid synthesis pathway blocked at two sequential steps by trimethoprim and sulfamethoxazole, preventing the bacteria from making DNA">
+        <rect x="-6" y="-6" width="474" height="142" rx="14" fill="rgba(192,34,85,.18)" stroke="#c02255" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="20" y="26" font-size="12" font-weight="900" fill="#ffb3c6">PABA → folic acid → DNA (bacteria need this to grow)</text>
+        <rect x="24" y="42" width="90" height="26" rx="7" fill="rgba(13,8,26,.5)"/><text x="69" y="59" font-size="10" font-weight="800" fill="#fff" text-anchor="middle">PABA</text>
+        <text x="122" y="60" font-size="14" fill="#ff9db4">✖</text>
+        <text x="132" y="52" font-size="9.5" font-weight="900" fill="#ff9db4">sulfamethoxazole</text>
+        <text x="132" y="64" font-size="9.5" fill="#ffd9e2">blocks step 1</text>
+        <rect x="220" y="42" width="90" height="26" rx="7" fill="rgba(13,8,26,.5)"/><text x="265" y="59" font-size="10" font-weight="800" fill="#fff" text-anchor="middle">folic acid</text>
+        <text x="316" y="60" font-size="14" fill="#ff9db4">✖</text>
+        <text x="316" y="90" font-size="9.5" font-weight="900" fill="#ff9db4">trimethoprim blocks step 2</text>
+        <text x="24" y="106" font-size="11" font-weight="900" fill="#ffc233">Two blocks in sequence = synergistic effect together</text>
+      </svg>
+      <div class="trap">🚨 <b>NCLEX trap:</b> Encourage fluids and sun protection — sulfonamides increase photosensitivity and can crystallize in concentrated urine.</div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>🔴 Vancomycin <span class="tag">Vancocin</span></h3>
+      <p><b>Mechanism:</b> inhibits bacterial cell wall synthesis at a different site than the beta-lactams — often reserved for resistant gram-positive infections (e.g., MRSA).</p>
+      <p><b>⭐ Key nursing point:</b> watch for <b>nephrotoxicity</b>, <b>ototoxicity</b>, and <b>Red Man Syndrome</b> (flushing, itching, hypotension from histamine release with rapid infusion). Draw a <b>peak</b> about 30 minutes to 1 hour after the infusion ends, and a <b>trough</b> about 30 minutes before the next scheduled dose.</p>
+      <svg viewBox="0 0 600 190" role="img" aria-label="Two diagrams side by side: a timeline showing vancomycin peak and trough draw times, and an infusion rate comparison showing slow infusion as safe versus fast infusion triggering Red Man Syndrome">
+        <rect x="6" y="6" width="288" height="178" rx="14" fill="rgba(47,107,255,.16)" stroke="#2f6bff" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="20" y="28" font-size="12.5" font-weight="900" fill="#bcd0ff">Peak &amp; trough timing</text>
+        <line x1="24" y1="90" x2="270" y2="90" stroke="#bcd0ff" stroke-width="3"/>
+        <rect x="24" y="80" width="40" height="20" rx="6" fill="#ffc233"/>
+        <text x="44" y="70" font-size="10.5" font-weight="900" fill="#ffc233" text-anchor="middle">dose ends</text>
+        <circle cx="90" cy="90" r="6" fill="#7df0c6"/>
+        <text x="90" y="115" font-size="10" font-weight="900" fill="#7df0c6" text-anchor="middle">PEAK</text>
+        <text x="90" y="128" font-size="9.5" fill="#d8fff0" text-anchor="middle">30–60 min after</text>
+        <circle cx="250" cy="90" r="6" fill="#ff9db4"/>
+        <text x="250" y="115" font-size="10" font-weight="900" fill="#ff9db4" text-anchor="middle">TROUGH</text>
+        <text x="250" y="128" font-size="9.5" fill="#ffd9e2" text-anchor="middle">30 min before next dose</text>
+        <text x="150" y="160" font-size="10.5" fill="#e9dcff" text-anchor="middle">— next dose —</text>
+
+        <rect x="306" y="6" width="288" height="178" rx="14" fill="rgba(255,59,107,.16)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="320" y="28" font-size="12.5" font-weight="900" fill="#ff9db4">Infusion rate matters</text>
+        <rect x="320" y="46" width="256" height="24" rx="8" fill="rgba(18,184,134,.6)"/>
+        <text x="330" y="63" font-size="11" font-weight="900" fill="#03291c">✅ SLOW infusion (≥60 min) = safe</text>
+        <rect x="320" y="84" width="256" height="24" rx="8" fill="rgba(255,59,107,.7)"/>
+        <text x="330" y="101" font-size="11" font-weight="900" fill="#fff">🚨 FAST infusion = Red Man Syndrome</text>
+        <text x="320" y="130" font-size="10.5" fill="#ffd9e2">flushing · itching · ↓ BP from histamine release</text>
+        <text x="320" y="150" font-size="10.5" fill="#ffd9e2">— slow the rate; usually not a true allergy</text>
+      </svg>
+      <div class="trap">🚨 <b>NCLEX trap:</b> Red Man Syndrome is usually rate-related, not a true drug allergy — the nursing response is to slow the infusion, not necessarily discontinue the drug.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>☀️ Tetracyclines <span class="tag">Tetracycline · Vibramycin (Doxycycline)</span></h3>
+      <p><b>Mechanism:</b> bind bacterial ribosomes and block protein synthesis.</p>
+      <p><b>⭐ Key nursing point:</b> increases photosensitivity — teach sunscreen/protective clothing. Do not take with dairy products, antacids, or iron supplements — calcium, magnesium, aluminum, and iron bind (chelate) the drug and reduce absorption.</p>
+      <div class="trap">🚨 <b>NCLEX trap:</b> Contraindicated in pregnancy and in children under 8 — can permanently discolor developing teeth and affect bone growth.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🦵 Fluoroquinolones <span class="tag">Cipro · Levaquin</span></h3>
+      <p><b>Mechanism:</b> inhibit bacterial DNA gyrase, preventing bacterial DNA replication — name clue: the suffix <span class="mono">-oxacin</span>.</p>
+      <p><b>⭐ Key nursing point:</b> <b>black-box warning for tendon rupture</b> (especially Achilles tendon) — teach patients to report tendon pain/swelling and to stop activity immediately if it occurs; adjust dosage for patients with renal impairment.</p>
+      <svg viewBox="0 0 380 140" role="img" aria-label="Diagram of an Achilles tendon with a warning symbol, illustrating the fluoroquinolone black box warning for tendon rupture">
+        <rect x="6" y="6" width="368" height="128" rx="14" fill="rgba(255,138,61,.16)" stroke="#ff8a3d" stroke-width="2" stroke-dasharray="7 6"/>
+        <path d="M120 20 C 100 60 100 90 130 118" fill="none" stroke="#ffd0bd" stroke-width="14" stroke-linecap="round"/>
+        <text x="20" y="24" font-size="11.5" font-weight="900" fill="#ffd9b8">Achilles tendon</text>
+        <circle cx="112" cy="70" r="14" fill="none" stroke="#ff3b6b" stroke-width="3"/>
+        <text x="112" y="75" font-size="14" font-weight="900" fill="#ff3b6b" text-anchor="middle">!</text>
+        <text x="160" y="55" font-size="12" font-weight="900" fill="#ffb37a">🚨 Black-box warning:</text>
+        <text x="160" y="73" font-size="12" font-weight="900" fill="#ffb37a">tendon rupture</text>
+        <text x="160" y="93" font-size="11" fill="#ffe9d6">Report tendon pain/swelling —</text>
+        <text x="160" y="108" font-size="11" fill="#ffe9d6">stop activity, notify provider</text>
+      </svg>
+      <div class="trap">🚨 <b>NCLEX trap:</b> Tendon rupture risk is higher in older adults and those also taking corticosteroids — a combination worth flagging on a medication reconciliation.</div>
+    </div>
+
+    <div class="card ruby span2">
+      <h3>🛡️ Carbapenems <span class="tag">Invanz · Merrem · Primaxin</span></h3>
+      <p><b>Mechanism:</b> beta-lactams with a very broad spectrum of activity — often reserved for serious or multi-drug-resistant infections when other antibiotics have failed.</p>
+      <p><b>⭐ Key nursing point:</b> assess for beta-lactam allergy history, same as with penicillins/cephalosporins. Imipenem (Primaxin) is paired with cilastatin, which blocks a kidney enzyme that would otherwise break the drug down too quickly.</p>
+      <div class="trap">🚨 <b>NCLEX trap:</b> Because these are often "last resort" drugs, unnecessary or overly broad use contributes to antibiotic resistance — appropriate stewardship is a testable nursing/interprofessional concept.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TEACH ============ -->
+<section id="teach">
+  <div class="sec-h"><span class="icon">📋</span><h2>TEACH</h2><span class="step">STEP 3 · SAFETY &amp; PATIENT TEACHING</span></div>
+  <p class="sec-sub">General antibiotic teaching, plus the three special-case safety rules that stand out on this page.</p>
+
+  <div class="grid">
+    <div class="card emerald">
+      <h3>✅ General antibiotic teaching — all six classes</h3>
+      <ul class="tick">
+        <li>💊 Finish the <b>entire</b> course even if feeling better</li>
+        <li>🕐 Take at evenly spaced intervals to keep blood levels steady</li>
+        <li>🦠 Report diarrhea that is watery or bloody — possible <i>C. difficile</i> superinfection</li>
+        <li>❓ Always confirm allergy history before the first dose</li>
+      </ul>
+    </div>
+
+    <div class="card deep span2">
+      <h3>📊 Three special safety rules on this page — don't mix them up</h3>
+      <table>
+        <tr><th class="up">Drug</th><th class="lo">Unique safety issue</th></tr>
+        <tr><td><b>Vancomycin</b></td><td>Infuse slowly to avoid Red Man Syndrome; monitor peak/trough, renal function, hearing</td></tr>
+        <tr><td><b>Fluoroquinolones ("-oxacin")</b></td><td>Black-box tendon rupture warning, especially Achilles tendon</td></tr>
+        <tr><td><b>Sulfonamides</b></td><td>Photosensitivity, adequate hydration, and caution with the broader sulfa cross-sensitivity list</td></tr>
+      </table>
+      <div class="mn">🧠 <b>"Vanco = ears &amp; rate, Oxacin = tendons, Sulfa = sun."</b> Three antibiotics, three completely different bodies-of-concern.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">💊 Penicillins</span>Beta-lactam — ask about allergy first</div>
+    <div class="rc rubybg"><span class="big">⚠️ Sulfa</span>Photosensitivity, hydration, cross-sensitivity caution</div>
+    <div class="rc tealbg"><span class="big">🔴 Vancomycin</span>Infuse slow — Red Man Syndrome</div>
+    <div class="rc topazbg"><span class="big">🦵 "-oxacin"</span>Tendon rupture black-box warning</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 4 rapid-fire questions</summary>
+      <div class="qa">Q1: What causes Red Man Syndrome, and how does the nurse prevent it? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Histamine release from vancomycin infused too fast — prevent by infusing slowly (typically over 60 minutes or more per protocol).</div></div>
+      <div class="qa">Q2: When should a vancomycin peak level be drawn? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">About 30 minutes to 1 hour after the infusion ends. The trough is drawn about 30 minutes before the next dose.</div></div>
+      <div class="qa">Q3: What is the black-box warning for fluoroquinolones like Cipro and Levaquin? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Tendon rupture, especially of the Achilles tendon — teach patients to report tendon pain/swelling immediately.</div></div>
+      <div class="qa">Q4: What food/supplement interactions reduce tetracycline absorption? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Dairy products, antacids, and iron supplements — the calcium/magnesium/aluminum/iron chelate (bind) the drug.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">LINEUP</span>→
+    <span style="background:rgba(47,107,255,.7)">ACTION</span>→
+    <span style="background:rgba(18,184,134,.7)">TEACH</span>
+  </div>
+  <div class="serieslinks">
+    NCLEX Drug Review series:
+    <a href="NG-043_nclex-drugs-1-updated.html">1 · NG-043</a>
+    <a href="NG-124_nclex-drugs-2.html">2 · NG-124</a>
+    <a href="NG-210_nclex-drugs-6-v2.html">3 · NG-210</a>
+    <a class="here" href="NG-215_nclex-drugs-7.html">4 · NG-215</a>
+    <a href="NG-224_nclex-drugs-8.html">5 · NG-224</a>
+  </div>
+  <div>NG-215 · Source wording retained · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>

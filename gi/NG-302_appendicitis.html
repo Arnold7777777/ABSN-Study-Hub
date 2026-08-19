@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Appendicitis · NG-302 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#cause">🧨 Cause</a>
+  <a class="c2" href="#clues">🔎 Clues</a>
+  <a class="c3" href="#care">🩺 Care</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / GI · Pathophysiology Course</div>
+  <h1>Appendicitis <span class="drop">🚨</span></h1>
+  <p class="sub">The Classic RLQ Surgical Abdomen</p>
+  <div class="chips">
+    <span class="chip id">NG-302</span>
+    <span class="chip cat">GI</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede"><b>Inflammation of the appendix</b>, located in the <b>RLQ (Right Lower Quadrant)</b> of the abdomen. Untreated, it can <b>perforate → peritonitis</b> — a <mark>medical emergency</mark>.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">🎯 Pain migrates</span>Starts at umbilicus → moves to RLQ / McBurney's point.</div>
+  <div class="rc rubybg"><span class="big">🙅 3 NEVERs</span>NO heat · NO laxatives · NO enemas.</div>
+  <div class="rc tealbg"><span class="big">💉 NPO + IV fluids first</span>Pain meds ONLY after the surgeon has seen the client.</div>
+  <div class="rc topazbg"><span class="big">🚨 Sudden pain relief = 🚩</span>Can mean the appendix just ruptured — not that it's "better."</div>
+</div>
+
+<!-- ============ CAUSE ============ -->
+<section id="cause">
+  <div class="sec-h"><span class="icon">🧨</span><h2>CAUSE</h2><span class="step">STEP 1 · A BLOCKED TUBE</span></div>
+  <p class="sec-sub">One obstruction explains the entire cascade — from swelling to rupture.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🧭 Where it lives &amp; the obstruction → perforation cascade</h3>
+      <div class="duo">
+        <svg viewBox="0 0 440 300" role="img" aria-label="Abdominal quadrants diagram showing the appendix in the right lower quadrant and McBurney's point, one third of the way from the anterior superior iliac spine to the umbilicus">
+          <rect x="6" y="6" width="428" height="288" rx="16" fill="rgba(13,8,26,.55)" stroke="var(--line)"/>
+          <line x1="220" y1="20" x2="220" y2="280" stroke="#e9dcff" stroke-width="2" stroke-dasharray="6 5"/>
+          <line x1="20" y1="150" x2="420" y2="150" stroke="#e9dcff" stroke-width="2" stroke-dasharray="6 5"/>
+          <text x="40" y="45" font-size="14" font-weight="800" fill="#d9c2ff">RUQ</text>
+          <text x="360" y="45" font-size="14" font-weight="800" fill="#d9c2ff">LUQ</text>
+          <text x="40" y="270" font-size="14" font-weight="800" fill="#ff9db4">RLQ</text>
+          <text x="350" y="270" font-size="14" font-weight="800" fill="#d9c2ff">LLQ</text>
+          <circle cx="220" cy="150" r="7" fill="#ffc233"/>
+          <text x="228" y="146" font-size="11.5" font-style="italic" fill="#ffe9d2">umbilicus</text>
+          <path d="M220 150 C 200 180 150 190 128 214" fill="none" stroke="#ff3b6b" stroke-width="3" stroke-dasharray="6 5" marker-end="url(#arrAp)"/>
+          <defs><marker id="arrAp" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#ff3b6b"/></marker></defs>
+          <ellipse cx="118" cy="222" rx="20" ry="14" fill="#ff3b6b" stroke="#fff" stroke-width="2"/>
+          <text x="70" y="255" font-size="14" font-weight="900" fill="#ff9db4">📍 McBurney's point</text>
+          <text x="70" y="273" font-size="12" font-style="italic" fill="#ffd9e2">⅓ way, ASIS → umbilicus</text>
+        </svg>
+        <svg viewBox="0 0 440 300" role="img" aria-label="Pathophysiology cascade: fecalith obstructs the appendiceal lumen, leading to inflammation and swelling, then ischemia, then perforation and peritonitis">
+          <rect x="6" y="6" width="428" height="288" rx="16" fill="rgba(255,59,107,.13)" stroke="#ff3b6b" stroke-dasharray="6 5"/>
+          <text x="24" y="38" font-size="17" font-weight="900" fill="#ff9db4">📈 Obstruction → rupture</text>
+          <g font-size="14" font-weight="800">
+            <rect x="24" y="54" width="392" height="38" rx="10" fill="rgba(13,8,26,.5)"/>
+            <text x="36" y="78" fill="#fff">🧱 Fecalith blocks appendiceal lumen</text>
+            <rect x="24" y="102" width="392" height="38" rx="10" fill="rgba(13,8,26,.5)"/>
+            <text x="36" y="126" fill="#fff">🔥 Mucus builds, bacteria grow → inflammation</text>
+            <rect x="24" y="150" width="392" height="38" rx="10" fill="rgba(13,8,26,.5)"/>
+            <text x="36" y="174" fill="#fff">🩸 Swelling compresses blood flow → ischemia</text>
+            <rect x="24" y="198" width="392" height="38" rx="10" fill="#ff3b6b"/>
+            <text x="36" y="222" fill="#fff">💥 Perforation → peritonitis (EMERGENCY)</text>
+          </g>
+          <line x1="220" y1="92" x2="220" y2="102" stroke="#ffb3c6" stroke-width="3"/>
+          <line x1="220" y1="140" x2="220" y2="150" stroke="#ffb3c6" stroke-width="3"/>
+          <line x1="220" y1="188" x2="220" y2="198" stroke="#ffb3c6" stroke-width="3"/>
+          <text x="24" y="264" font-size="13" font-style="italic" fill="#ffd9e2">once ischemic, this moves fast — hours, not days</text>
+        </svg>
+      </div>
+      <div class="mn">🧠 <b>"Blocked pipe, backed-up pressure, blown gasket."</b> Fecalith blocks → pressure builds → tissue dies → the appendix bursts.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🔤 Common trigger</h3>
+      <p>Most often a <b>fecalith</b> (hardened stool) obstructs the appendiceal lumen. Can also be lymphoid tissue swelling, a foreign body, or a tumor.</p>
+      <div class="mn">🧠 <b>Appendicitis = "the left-behind organ that gets clogged."</b> No real digestive job — but it can still get plugged and become dangerous.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>⚠️ Why it's an emergency</h3>
+      <ul class="tick">
+        <li>🚫 The appendix has <b>no room to swell</b> — a rigid tube</li>
+        <li>🩸 Swelling → cuts off its own blood supply → <b>ischemia</b></li>
+        <li>💥 Ischemic tissue <b>ruptures</b> → gut contents spill into the sterile peritoneal cavity</li>
+      </ul>
+      <div class="mn">🧠 A ruptured appendix is a <b>race against the clock</b> — this is why "watch and wait" is never the plan.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLUES ============ -->
+<section id="clues">
+  <div class="sec-h"><span class="icon">🔎</span><h2>CLUES</h2><span class="step">STEP 2 · READ THE PAIN PATTERN</span></div>
+  <p class="sec-sub">Where the pain starts, where it ends up, and what happens when you press and let go.</p>
+
+  <div class="grid">
+    <div class="card sapphire span2">
+      <h3>🎯 The classic pain migration — this IS the exam question</h3>
+      <p><span class="tip">COMMON EXAM QUESTION</span> What's the typical pain presentation? <mark>Pain starts around the umbilicus, then moves to the right lower quadrant</mark> — described as <i>"pain between the right hip area and belly button."</i></p>
+      <div class="flow">
+        <div class="fstep">🔵 Vague, dull pain around the <b>umbilicus (belly button)</b></div>
+        <div class="farrow">▼ hours later</div>
+        <div class="fstep hot">🔴 Sharp, localized pain at <b>McBurney's point (RLQ)</b></div>
+      </div>
+      <div class="mn">🧠 <b>Wrong-answer traps on this question:</b> pain starting in the LUQ, radiating to the shoulder, or "diffuse all over" are distractors — the correct pattern is <b>umbilicus → RLQ</b>.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🚩 Signs &amp; symptoms</h3>
+      <ul class="tick">
+        <li>🌡️ <b>Low-grade fever</b></li>
+        <li>📍 <b>RLQ pain with rebound tenderness</b></li>
+        <li>🤢 Nausea, vomiting, anorexia</li>
+        <li>🪵 <span class="never">Rigid, "board-like" abdomen</span></li>
+        <li>💓 Tachycardia, tachypnea</li>
+      </ul>
+      <svg viewBox="0 0 440 170" role="img" aria-label="Rebound tenderness assessment: pressing gently on the right lower quadrant causes little pain, but releasing the pressure suddenly causes a sharp pain spike">
+        <rect x="6" y="6" width="204" height="158" rx="14" fill="rgba(13,8,26,.5)" stroke="var(--line)"/>
+        <text x="20" y="32" font-size="14" font-weight="900" fill="#e9dcff">1️⃣ Press slowly</text>
+        <ellipse cx="108" cy="100" rx="66" ry="42" fill="#3d5a7a"/>
+        <path d="M108 40 L108 70" stroke="#ffc233" stroke-width="6" stroke-linecap="round" marker-end="url(#dnAr)"/>
+        <defs><marker id="dnAr" viewBox="0 0 10 10" refX="5" refY="8" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 0 L5 10 z" fill="#ffc233"/></marker></defs>
+        <text x="20" y="148" font-size="12.5" font-style="italic" fill="#d8fff0">mild discomfort only</text>
+        <rect x="230" y="6" width="204" height="158" rx="14" fill="rgba(255,59,107,.18)" stroke="#ff3b6b" stroke-width="2"/>
+        <text x="244" y="32" font-size="14" font-weight="900" fill="#ff9db4">2️⃣ Release fast</text>
+        <ellipse cx="332" cy="100" rx="66" ry="42" fill="#3d5a7a"/>
+        <path d="M332 70 L332 40" stroke="#ff3b6b" stroke-width="6" stroke-linecap="round" marker-end="url(#upAr)"/>
+        <defs><marker id="upAr" viewBox="0 0 10 10" refX="5" refY="2" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 10 L10 10 L5 0 z" fill="#ff3b6b"/></marker></defs>
+        <text x="244" y="148" font-size="12.5" font-style="italic" fill="#ffd9e2">sharp pain spike = positive</text>
+      </svg>
+      <div class="mn">🧠 <b>"Rebound tenderness"</b> = pain that spikes when you release the pressure, not when you press it — this is the hallmark peritoneal sign.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🧪 Diagnostics</h3>
+      <ul class="tick">
+        <li>🧪 <b>CBC</b> — leukocytosis (↑ WBC)</li>
+        <li>📷 <b>CT scan</b> — confirms diagnosis</li>
+        <li>📡 <b>Ultrasound</b> — preferred in children &amp; pregnancy</li>
+        <li>⚠️ <b>Minimize repeated palpation</b> — raises perforation risk</li>
+      </ul>
+    </div>
+
+    <div class="card ruby span2">
+      <h3>🚨 Complication: perforation = peritonitis — a medical emergency</h3>
+      <ul class="tick">
+        <li>🌡️ Fever — over <span class="mono">100.3°F</span></li>
+        <li>🤲 Rebound tenderness</li>
+        <li>🪵 <span class="never">"Rigid" or "board-like" abdomen</span></li>
+        <li>📈 Increasing pain, tenderness</li>
+        <li>😰 Restless</li>
+        <li>💓 Fast HR &amp; RR (tachycardia / tachypnea)</li>
+      </ul>
+      <div class="mn">🧠 <b>Sudden, total pain relief after hours of steady RLQ pain is NOT a good sign</b> — it can mean the appendix just ruptured and the pressure released. Report it immediately, don't chart it as "improved."</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CARE ============ -->
+<section id="care">
+  <div class="sec-h"><span class="icon">🩺</span><h2>CARE</h2><span class="step">STEP 3 · PROTECT THE SURGICAL PICTURE</span></div>
+  <p class="sec-sub">Before surgery: don't mask it, don't move it, don't feed it. After surgery: get them up and breathing.</p>
+
+  <div class="grid">
+    <div class="card emerald span2">
+      <h3>💉 Pre-op interventions, in order</h3>
+      <div class="ladder">
+        <div class="rung"><div class="n">1</div><div class="t">🚫 <b>NPO</b> — nothing by mouth, surgery is likely</div></div>
+        <div class="rung"><div class="n">2</div><div class="t">💧 <b>IV normal saline or LR</b> (Lactated Ringer's)</div></div>
+        <div class="rung"><div class="n">3</div><div class="t">💊 <b>Pain meds:</b> IV morphine/hydromorphone — <span class="never">ONLY after the surgeon has assessed the client</span></div></div>
+      </div>
+      <div class="mn">🧠 <b>Why wait on pain meds?</b> Masking the pain and exam findings too early can hide the very signs (rebound tenderness, location, rigidity) the surgeon needs to make the call.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>❌ The 3 NEVERs</h3>
+      <div class="no-grid">
+        <div class="no-t hot"><span class="e">🔥</span>NO heat pad<i>or blanket</i></div>
+        <div class="no-t hot"><span class="e">💊</span>NO laxatives<i>&nbsp;</i></div>
+        <div class="no-t hot"><span class="e">💦</span>NO enemas<i>&nbsp;</i></div>
+      </div>
+      <p style="margin-top:11px">All three can <mark>increase pressure or blood flow to an inflamed appendix</mark> and trigger rupture.</p>
+      <div class="mn">🧠 Constipation care (fiber, fluid, laxatives — see NG-301) is the <span class="never">opposite</span> of what an inflamed appendix needs.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🔪 Surgery: appendectomy</h3>
+      <p>Definitive treatment — surgical removal of the appendix, done <b>urgently</b> once diagnosis is confirmed to prevent rupture.</p>
+      <div class="mn">🧠 <b>Appendectomy = PRIORITY</b> once diagnosed — this is not a "schedule it for next week" surgery.</div>
+    </div>
+
+    <div class="card topaz span2">
+      <h3>🩹 Post-op care</h3>
+      <div class="no-grid">
+        <div class="no-t"><span class="e">🚶</span>Early ambulation<i>&nbsp;</i></div>
+        <div class="no-t"><span class="e">🌬️</span>Deep breathe &amp; cough<i>+ incentive spirometer</i></div>
+        <div class="no-t"><span class="e">🛁</span>Shower ONLY<i>no tub baths</i></div>
+        <div class="no-t"><span class="e">🏋️</span>Avoid heavy lifting<i>&nbsp;</i></div>
+        <div class="no-t hot"><span class="e">👀</span>Report redness/swelling/drainage<i>at incision site</i></div>
+      </div>
+      <p style="margin-top:11px"><b>Prevent pneumonia:</b> assist with early ambulation, deep breathing/coughing, incentive spirometer. <b>Prevent infection:</b> shower-only bathing, monitor incision.</p>
+      <svg viewBox="0 0 440 160" role="img" aria-label="Post-operative care diagram: a client using an incentive spirometer to prevent pneumonia and an incision site being checked for redness, swelling, and drainage to prevent infection">
+        <rect x="6" y="6" width="204" height="148" rx="14" fill="rgba(18,184,134,.16)" stroke="#12b886" stroke-width="2"/>
+        <text x="20" y="30" font-size="14" font-weight="900" fill="#7df0c6">🌬️ Incentive spirometer</text>
+        <rect x="60" y="50" width="30" height="70" rx="6" fill="#3d5a7a"/>
+        <circle cx="75" cy="70" r="8" fill="#7df0c6"/>
+        <circle cx="75" cy="90" r="6" fill="#7df0c6" opacity=".7"/>
+        <path d="M90 70 L140 60" stroke="#e9dcff" stroke-width="4" stroke-linecap="round"/>
+        <text x="20" y="140" font-size="12.5" font-style="italic" fill="#d8fff0">prevents pneumonia</text>
+        <rect x="230" y="6" width="204" height="148" rx="14" fill="rgba(255,194,51,.2)" stroke="#ffc233" stroke-width="2"/>
+        <text x="244" y="30" font-size="14" font-weight="900" fill="#ffc233">👀 Incision check</text>
+        <line x1="300" y1="55" x2="360" y2="55" stroke="#ffd9b8" stroke-width="5" stroke-dasharray="6 4"/>
+        <circle cx="310" cy="55" r="4" fill="#ff3b6b"/>
+        <circle cx="330" cy="55" r="4" fill="#ff3b6b"/>
+        <circle cx="350" cy="55" r="4" fill="#ff3b6b"/>
+        <text x="244" y="140" font-size="12.5" font-style="italic" fill="#ffe9d2">redness · swelling · drainage</text>
+      </svg>
+      <div class="mn">🧠 <b>"Walk, breathe, watch the wound."</b> The three post-op jobs that prevent the two big complications — pneumonia and wound infection.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">🎯 Umbilicus → RLQ</span>the classic pain migration.</div>
+    <div class="rc rubybg"><span class="big">🙅 NO heat, laxatives, enemas</span>all can trigger rupture.</div>
+    <div class="rc tealbg"><span class="big">💉 NPO + IV fluids first</span>pain meds only after surgeon sees them.</div>
+    <div class="rc topazbg"><span class="big">🚨 Sudden relief = 🚩 rupture</span>not improvement — report immediately.</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 4 rapid-fire questions</summary>
+      <div class="qa">Q1: Describe the classic pain pattern of appendicitis. <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Pain starts around the umbilicus, then migrates to the right lower quadrant (McBurney's point).</div></div>
+      <div class="qa">Q2: Name the 3 never-do interventions before an appendicitis diagnosis is confirmed. <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">No heat pad/blanket, no laxatives, no enemas — all can increase pressure or blood flow and trigger rupture.</div></div>
+      <div class="qa">Q3: When can the client receive pain medication? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Only after the surgeon has assessed the client — masking pain too early can hide key exam findings.</div></div>
+      <div class="qa">Q4: A client's RLQ pain suddenly disappears entirely — what should you think? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Possible perforation/rupture, not improvement — report immediately and watch for peritonitis signs (fever, rigid abdomen, tachycardia).</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">CAUSE</span>→
+    <span style="background:rgba(47,107,255,.7)">CLUES</span>→
+    <span style="background:rgba(18,184,134,.7)">CARE</span>
+  </div>
+  <div>NG-302 · Source wording retained · ADHD-friendly visual edition v2</div>
+</footer>
+
+</div>
+</body></html>

@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TPN &amp; Enteral Feeding · NG-298 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#tpn">💉 TPN</a>
+  <a class="c2" href="#enteral">🧃 Enteral</a>
+  <a class="c3" href="#refeed">⚠️ Refeeding</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / GI · Med-Surg Pathophysiology</div>
+  <h1>TPN &amp; Enteral Feeding <span class="drop">🍽️</span></h1>
+  <p class="sub">Two Ways to Feed a Client Who Can't Eat</p>
+  <div class="chips">
+    <span class="chip id">NG-298</span>
+    <span class="chip cat">GI</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede"><b>TPN</b> = complete nutrition <i>through a vein</i>, bypassing the gut entirely. <b>Enteral feeding</b> = nutrition <i>through a tube into a working GI tract</i>. Pick TPN when the gut doesn't work; pick enteral when it does — <mark>"if the gut works, use it."</mark> Both share the same deadly complication if you refeed too fast: <b>refeeding syndrome</b>.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">💉 TPN = IV, no gut</span>Hyperosmolar — central line only, never peripheral.</div>
+  <div class="rc rubybg"><span class="big">🧃 Enteral = tube, gut intact</span>NGT/PEG/G-tube — HOB up 30–45° to prevent aspiration.</div>
+  <div class="rc tealbg"><span class="big">🚫 Never stop TPN abruptly</span>= rebound hypoglycemia. Taper, or hang <span class="mono">D10W</span> if a bag isn't ready.</div>
+  <div class="rc topazbg"><span class="big">⚠️ Refeeding syndrome</span>Malnourished + fed too fast → <span class="mono">↓K⁺ ↓Mg²⁺ ↓PO₄</span> → cardiac arrest risk.</div>
+</div>
+
+<!-- ============ TPN ============ -->
+<section id="tpn">
+  <div class="sec-h"><span class="icon">💉</span><h2>TPN</h2><span class="step">SIDE A · FEEDING THE BLOOD, NOT THE GUT</span></div>
+  <p class="sec-sub">Total Parenteral Nutrition — a bag of complete nutrition that skips digestion entirely.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🩸 What it is &amp; why it needs a central line</h3>
+      <p>TPN delivers <b>the client's entire nutrition</b> — dextrose, amino acids, lipids, electrolytes, vitamins — <mark>straight into the bloodstream</mark>, bypassing normal digestion in the GI tract. Because the solution is <b>very hyperosmolar (thick)</b>, it must run through a <b>large, high-flow central vein</b> so it dilutes quickly instead of damaging a small peripheral vein.</p>
+      <svg viewBox="-10 -10 467 320" role="img" aria-label="Torso diagram showing a central venous catheter inserted through the subclavian or internal jugular vein with the tip resting in the superior vena cava, delivering hyperosmolar TPN solution from an IV bag directly into high blood flow">
+        <rect x="-6" y="-6" width="459" height="312" rx="18" fill="rgba(157,92,255,.14)" stroke="#9d5cff" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="24" y="36" font-size="18" font-weight="900" fill="#d9c2ff">💉 CENTRAL LINE ROUTE</text>
+        <path d="M180 60 C 140 60 110 90 110 130 L 110 260 C 110 278 130 288 160 288 L 300 288 C 330 288 350 278 350 260 L 350 130 C 350 90 320 60 280 60 Z" fill="rgba(255,208,189,.18)" stroke="#ffd0bd" stroke-width="2"/>
+        <circle cx="230" cy="90" r="34" fill="#ffd0bd"/>
+        <text x="196" y="98" font-size="12" font-weight="800" fill="#3d1a00">neck</text>
+        <path d="M210 118 C 200 140 198 170 210 190" fill="none" stroke="#2f6bff" stroke-width="10" stroke-linecap="round"/>
+        <text x="120" y="150" font-size="12.5" font-weight="800" fill="#bcd0ff">Internal jugular /</text>
+        <text x="120" y="166" font-size="12.5" font-weight="800" fill="#bcd0ff">subclavian vein</text>
+        <path d="M210 190 C 220 210 232 224 240 236" fill="none" stroke="#2f6bff" stroke-width="10" stroke-linecap="round"/>
+        <ellipse cx="248" cy="244" rx="16" ry="10" fill="#ff3b6b"/>
+        <text x="266" y="248" font-size="12.5" font-weight="900" fill="#ff9db4">tip in SVC</text>
+        <text x="266" y="264" font-size="11.5" font-style="italic" fill="#ffd9e2">(high blood flow —</text>
+        <text x="266" y="278" font-size="11.5" font-style="italic" fill="#ffd9e2">dilutes hyperosmolar fluid fast)</text>
+        <rect x="30" y="30" width="70" height="90" rx="8" fill="rgba(255,194,51,.6)" stroke="#ffc233"/>
+        <text x="40" y="52" font-size="11" font-weight="900" fill="#2a1f00">TPN</text>
+        <text x="40" y="66" font-size="10" fill="#2a1f00">dextrose</text>
+        <text x="40" y="78" font-size="10" fill="#2a1f00">amino</text>
+        <text x="40" y="90" font-size="10" fill="#2a1f00">acids</text>
+        <text x="40" y="102" font-size="10" fill="#2a1f00">lipids</text>
+        <line x1="100" y1="70" x2="150" y2="90" stroke="#ffc233" stroke-width="3" stroke-dasharray="4 4"/>
+      </svg>
+      <div class="mn">🧠 <b>“TPN is too thick for a thin vein.”</b> Central line only — PICC, subclavian CVC, or internal jugular line, tip ending near the superior vena cava.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🎯 Indications</h3>
+      <ul class="tick">
+        <li>🔥 Severe pancreatitis (bowel rest, NPO)</li>
+        <li>🩹 Crohn's disease flare (NPO to rest the gut)</li>
+        <li>🔥 Severe burns / major trauma — hypercatabolic states</li>
+        <li>🧬 Prolonged bowel obstruction, short bowel syndrome</li>
+        <li>🎗️ Chronic malabsorption, some oncology clients</li>
+      </ul>
+      <div class="mn">🧠 Reach for TPN when the gut is <b>injured, obstructed, or needs total rest</b>.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>⚠️ Administration rules</h3>
+      <ul class="tick">
+        <li><span class="never">Never give IV push or piggyback meds through the TPN line</span></li>
+        <li>⏳ <b>Start and stop slowly</b> — taper, don't abruptly stop</li>
+        <li>🔁 Change bag &amp; tubing <b>every 24 hours</b></li>
+        <li>⚖️ Daily weights, strict I&amp;O</li>
+        <li>🧪 Monitor <b>glucose</b> regularly (often q4–6h)</li>
+      </ul>
+      <div class="mn">🧠 <b>“One line, one job.”</b> The TPN lumen carries TPN only — nothing else shares that line.</div>
+    </div>
+
+    <div class="card ruby span2">
+      <h3>🚨 TPN complications — know the direction of each swing</h3>
+      <table>
+        <tr><th style="width:30%">Complication</th><th class="up">Signs</th><th class="lo">Priority action</th></tr>
+        <tr><td>🍭 <b>Hyperglycemia</b></td><td>Glucose <span class="mono">&gt;180 mg/dL</span>, polyuria, polydipsia, N/V, headache, abd pain</td><td>Monitor glucose, sliding-scale insulin per order</td></tr>
+        <tr><td colspan="3">
+          <svg viewBox="0 0 420 90" role="img" aria-label="Bar scale showing glucose levels from hypoglycemia below normal, through normal range, to hyperglycemia above one hundred eighty milligrams per deciliter">
+            <rect x="4" y="4" width="412" height="82" rx="12" fill="rgba(13,8,26,.4)" stroke="#ffc233" stroke-width="1.5"/>
+            <rect x="18" y="34" width="384" height="18" rx="8" fill="rgba(255,255,255,.15)"/>
+            <rect x="18" y="34" width="90" height="18" rx="8" fill="#2f6bff"/>
+            <rect x="108" y="34" width="130" height="18" fill="#12b886"/>
+            <rect x="238" y="34" width="164" height="18" rx="8" fill="#ff3b6b"/>
+            <text x="24" y="24" font-size="11" font-weight="800" fill="#bcd0ff">hypoglycemia</text>
+            <text x="120" y="24" font-size="11" font-weight="800" fill="#a5f3d4">normal 70–99 mg/dL</text>
+            <text x="248" y="24" font-size="11" font-weight="800" fill="#ff9db4">hyperglycemia &gt;180 mg/dL</text>
+            <text x="18" y="76" font-size="10.5" font-style="italic" fill="#efe6ff">Abrupt TPN stop → crashes left. Fast/over-infusion → climbs right.</text>
+          </svg>
+        </td></tr>
+        <tr><td>🩸 <b>Hypoglycemia</b> (abrupt stop)</td><td>Shaky, sweaty, confused — because the pancreas is still pumping insulin for a sugar load that suddenly stopped</td><td><mark>Hang D10W (10% dextrose in water)</mark> immediately if a new bag isn't ready</td></tr>
+        <tr><td>🦠 <b>Infection</b> (CLABSI)</td><td>Fever, chills, redness at insertion site</td><td>Sterile dressing technique, monitor site, blood cultures if febrile</td></tr>
+        <tr><td>🔥 <b>Stress ulcers</b></td><td>Epigastric pain, occult blood in stool</td><td>Monitor for GI bleed; prophylaxis per order</td></tr>
+      </table>
+      <div class="mn">🧠 <b>Start slow, stop slow.</b> Every TPN complication above traces back to one rule: the pancreas needs time to catch up in both directions.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ENTERAL ============ -->
+<section id="enteral">
+  <div class="sec-h"><span class="icon">🧃</span><h2>ENTERAL</h2><span class="step">SIDE B · FEEDING THE GUT DIRECTLY</span></div>
+  <p class="sec-sub">Tube feeding — used whenever the GI tract still works but the client can't eat by mouth.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🧃 What it is — tube into a working gut</h3>
+      <p>Enteral feeding delivers formula <b>directly into the stomach or small intestine</b> through a tube — the GI tract must be <b>intact and functioning</b>. Common access: <b>NGT</b> (nasogastric, short-term), <b>PEG</b> (percutaneous endoscopic gastrostomy), <b>G-tube</b> or <b>J-tube</b> (jejunostomy, long-term/surgical).</p>
+      <svg viewBox="-10 -10 477 280" role="img" aria-label="Client positioned with head of bed elevated thirty to forty-five degrees, with a feeding tube passing through the nose into the stomach, illustrating aspiration precaution during enteral feeding">
+        <rect x="-6" y="-6" width="469" height="272" rx="18" fill="rgba(0,194,199,.14)" stroke="#00c2c7" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="24" y="34" font-size="17" font-weight="900" fill="#9ff2ee">🛏️ HOB 30–45° during + 30–60 min after feed</text>
+        <path d="M40 210 L 40 150 L 260 90 L 320 90 L 320 210 Z" fill="rgba(157,92,255,.35)" stroke="#d9c2ff" stroke-width="2"/>
+        <ellipse cx="230" cy="110" rx="26" ry="24" fill="#ffd0bd"/>
+        <path d="M204 108 C 190 116 182 132 190 146" fill="none" stroke="#00c2c7" stroke-width="6" stroke-linecap="round"/>
+        <ellipse cx="150" cy="188" rx="46" ry="30" fill="#e8637f" stroke="#ffd0bd" stroke-width="2"/>
+        <path d="M190 146 C 178 160 164 172 152 182" fill="none" stroke="#00c2c7" stroke-width="6" stroke-linecap="round"/>
+        <text x="24" y="238" font-size="13" font-weight="800" fill="#ffd0bd">Stomach</text>
+        <rect x="330" y="60" width="90" height="70" rx="10" fill="rgba(255,194,51,.55)" stroke="#ffc233"/>
+        <text x="340" y="80" font-size="11" font-weight="900" fill="#2a1f00">Formula</text>
+        <text x="340" y="94" font-size="10" fill="#2a1f00">continuous</text>
+        <text x="340" y="106" font-size="10" fill="#2a1f00">pump feed</text>
+      </svg>
+      <div class="mn">🧠 <b>"Gut works → use it."</b> Enteral is always preferred over TPN when the GI tract can absorb nutrients — it's cheaper, safer, and preserves gut mucosa.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>✅ Aspiration precautions</h3>
+      <ul class="tick">
+        <li>🛏️ <b>HOB 30–45°</b> during feeds and <b>30–60 min after</b></li>
+        <li>🔁 <b>Continuous feeding preferred</b> over bolus — especially on mechanical ventilation</li>
+        <li><span class="never">No bolus feeding via NG tube in a mechanically ventilated client</span></li>
+        <li>💧 Check gastric residual volume per protocol</li>
+      </ul>
+      <div class="mn">🧠 <b>"A-A"</b> — <b>A</b>spiration &amp; <b>A</b>irway obstruction are the two big enteral dangers. Elevate the head, keep it that way.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>⚠️ Tube complications</h3>
+      <ul class="tick">
+        <li>📍 <b>Tube displacement/dislodgement</b></li>
+        <li>🎈 Abdominal distention</li>
+        <li>🧱 <b>Clogged tube</b> — flush with water before &amp; after meds/feeds</li>
+        <li>🫁 Aspiration pneumonia</li>
+      </ul>
+      <div class="mn">🧠 <b>Key point:</b> If a PEG tube dislodges and is <mark>less than 7 days old</mark>, the tract isn't mature — <b>notify the HCP who inserted it</b> before attempting to replace it.</div>
+    </div>
+
+    <div class="card topaz span2">
+      <h3>🔀 TPN vs. Enteral — tell them apart fast</h3>
+      <table>
+        <tr><th style="width:24%">&nbsp;</th><th class="up">💉 TPN</th><th class="lo">🧃 Enteral</th></tr>
+        <tr><td><b>Route</b></td><td>IV — central line (PICC, subclavian, internal jugular)</td><td>Tube — NGT, PEG, G-tube, J-tube</td></tr>
+        <tr><td><b>Requires a working gut?</b></td><td><b>No</b> — bypasses the GI tract entirely</td><td><b>Yes</b> — GI tract must be intact/functioning</td></tr>
+        <tr><td><b>Main risk</b></td><td>Infection (CLABSI), hyper/hypoglycemia</td><td>Aspiration, tube displacement/clogging</td></tr>
+        <tr><td><b>Monitoring</b></td><td>Glucose, daily weight, site/dressing, electrolytes</td><td>Tube placement, HOB position, residuals, bowel sounds</td></tr>
+        <tr><td><b>Shared danger</b></td><td colspan="2"><b>Refeeding syndrome</b> — if either is started too fast in a malnourished client</td></tr>
+      </table>
+      <div class="mn">🧠 <b>"If the gut works, use it."</b> Enteral is first-line whenever possible; TPN is the backup when the gut can't be used at all.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REFEEDING ============ -->
+<section id="refeed">
+  <div class="sec-h"><span class="icon">⚠️</span><h2>REFEEDING SYNDROME</h2><span class="step">STEP 3 · THE SHARED KILLER COMPLICATION</span></div>
+  <p class="sec-sub">Too much nutrition, too fast, in a starved body — the electrolytes crash exactly when the heart needs them most.</p>
+
+  <div class="grid">
+    <div class="card ruby span2">
+      <h3>🚨 Mechanism — where the electrolytes actually go</h3>
+      <p>In starvation, the body shifts to fat/protein metabolism and total-body electrolyte stores quietly deplete even while serum levels look normal. Reintroducing carbohydrates too quickly <mark>spikes insulin</mark> — insulin drives glucose, <b>potassium</b>, <b>magnesium</b>, and <b>phosphate</b> all <b>into the cells</b>, and serum levels of these three crash.</p>
+      <svg viewBox="-10 -10 572 280" role="img" aria-label="Diagram of a cell membrane with insulin driving glucose, potassium, magnesium, and phosphate from the bloodstream into the cell, causing dangerously low serum electrolyte levels">
+        <rect x="-6" y="-6" width="564" height="272" rx="18" fill="rgba(255,59,107,.14)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="24" y="34" font-size="17" font-weight="900" fill="#ff9db4">🍬 Carb refeed → insulin surge</text>
+        <rect x="30" y="60" width="150" height="150" rx="14" fill="rgba(157,92,255,.35)" stroke="#d9c2ff" stroke-width="2"/>
+        <text x="46" y="82" font-size="12.5" font-weight="800" fill="#e9dcff">Serum (blood)</text>
+        <text x="46" y="180" font-size="12" fill="#ffd9e2">↓ K⁺  ↓ Mg²⁺  ↓ PO₄</text>
+        <circle cx="270" cy="135" r="60" fill="rgba(18,184,134,.4)" stroke="#12b886" stroke-width="3"/>
+        <text x="238" y="132" font-size="12.5" font-weight="800" fill="#a5f3d4">Cell</text>
+        <text x="222" y="150" font-size="11.5" fill="#d8fff0">K⁺ Mg²⁺ PO₄ ↑</text>
+        <path d="M182 100 L 214 108" stroke="#ffc233" stroke-width="6" marker-end="url(#refArr)"/>
+        <path d="M182 135 L 214 135" stroke="#ffc233" stroke-width="6" marker-end="url(#refArr)"/>
+        <path d="M182 170 L 214 162" stroke="#ffc233" stroke-width="6" marker-end="url(#refArr)"/>
+        <defs><marker id="refArr" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/></marker></defs>
+        <text x="200" y="230" font-size="12.5" font-weight="900" fill="#ffc233">Insulin pushes glucose + electrolytes into the cell</text>
+      </svg>
+      <div class="mn">🧠 <b>"Feed fast, crash hard."</b> The very electrolytes the heart depends on get dragged out of the blood the moment nutrition restarts too quickly.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>⏱️ Who &amp; when</h3>
+      <ul class="tick">
+        <li>🍽️ Anorexia nervosa, chronic alcoholism</li>
+        <li>🚫 Anyone <b>NPO for a prolonged period</b> before feeding starts</li>
+        <li>⏱️ Onset: <b>24–48 hours</b> after starting enteral OR parenteral nutrition</li>
+      </ul>
+      <div class="mn">🧠 <b>Severely malnourished + fed aggressively</b> = the classic refeeding setup.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🧪 The 3 electrolytes to trend (adult reference ranges)</h3>
+      <table>
+        <tr><th>Electrolyte</th><th class="up">Normal range</th></tr>
+        <tr><td>🟣 Phosphate (PO₄)</td><td class="mono">3.0–4.5 mg/dL</td></tr>
+        <tr><td>🟢 Potassium (K⁺)</td><td class="mono">3.5–5.0 mEq/L</td></tr>
+        <tr><td>🔵 Magnesium (Mg²⁺)</td><td class="mono">1.3–2.1 mEq/L</td></tr>
+      </table>
+      <div class="mn">🧠 <b>"PKM"</b> — <b>P</b>hosphate, <b>K</b>alemia, <b>M</b>agnesium — the refeeding trio, all trending <i>down</i> together.</div>
+    </div>
+
+    <div class="card ruby span2">
+      <h3>🚨 Why it kills: cardiac arrhythmia</h3>
+      <div class="flow">
+        <div class="fstep">🍽️ Aggressive refeeding in a malnourished client</div>
+        <div class="farrow">▼</div>
+        <div class="fstep">📉 <b>Hypophosphatemia + hypokalemia + hypomagnesemia</b></div>
+        <div class="farrow">▼</div>
+        <div class="fstep hot">💔 <b>Torsades de Pointes → V-fib → cardiac arrest</b></div>
+      </div>
+      <p style="margin-top:10px">Low magnesium is a classic trigger of Torsades de Pointes (alongside post-MI and hypoxia). <b>Treatment: IV magnesium sulfate.</b></p>
+      <div class="mn">🧠 <b>Prevention beats treatment:</b> start nutrition low and slow, advance gradually over days, correct/replace electrolytes <i>before and during</i> feeding, and give thiamine supplementation for at-risk clients.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">💉 TPN</span>= central line, bypasses gut entirely</div>
+    <div class="rc rubybg"><span class="big">🧃 Enteral</span>= tube feeding, gut must work, HOB up</div>
+    <div class="rc tealbg"><span class="big">🚫 Never stop TPN abruptly</span>= hang D10W if bag delayed</div>
+    <div class="rc topazbg"><span class="big">⚠️ Refeeding syndrome</span>= ↓K⁺ ↓Mg²⁺ ↓PO₄ → Torsades — feed slow</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 4 rapid-fire questions</summary>
+      <div class="qa">Q1: Why must TPN run through a central line and not a peripheral IV? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">TPN is hyperosmolar/very thick — a peripheral vein can't handle it. A central line (PICC, subclavian, internal jugular) ends near the SVC, where high blood flow dilutes it immediately.</div></div>
+      <div class="qa">Q2: TPN bag runs empty and a new one isn't ready. What do you hang? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">10% dextrose in water (D10W) — to prevent rebound hypoglycemia from abruptly stopping the insulin-stimulating TPN solution.</div></div>
+      <div class="qa">Q3: What's the #1 aspiration precaution for enteral feeding? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Keep the head of bed elevated 30–45° during the feed and for 30–60 minutes after; use continuous feeding (not bolus) in mechanically ventilated clients.</div></div>
+      <div class="qa">Q4: A severely malnourished client starts tube feeding and 36 hours later develops a dangerous arrhythmia. What happened, and what electrolytes crashed? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Refeeding syndrome — insulin surge drove potassium, magnesium, and phosphate into the cells. Low magnesium especially can trigger Torsades de Pointes; treat with IV magnesium sulfate.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">TPN</span>→
+    <span style="background:rgba(47,107,255,.7)">ENTERAL</span>→
+    <span style="background:rgba(18,184,134,.7)">REFEEDING</span>
+  </div>
+  <div>NG-298 · GI Nutrition Support · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>

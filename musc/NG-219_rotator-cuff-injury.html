@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rotator Cuff Injury · NG-219 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#cause">🧨 Cause</a>
+  <a class="c2" href="#clues">🔎 Clues</a>
+  <a class="c3" href="#care">🩺 Care</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Musculoskeletal · Med-Surg Course</div>
+  <h1>Rotator Cuff Injury <span class="drop">💪</span></h1>
+  <p class="sub">SITS Muscles · Impingement · Conservative vs. Surgical Repair</p>
+  <div class="chips">
+    <span class="chip id">NG-219</span>
+    <span class="chip cat">Musculoskeletal</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede">The <b>rotator cuff</b> is a team of <b>4 tendons</b> that let the arm lift &amp; rotate at the shoulder. When one is <b>violently stretched or torn</b> — suddenly (a fall) or slowly (years of overhead repetition) — the client gets <mark>shoulder pain with abduction or rotation</mark>. Care runs from <b>RICE</b> to <b>arthroscopic repair</b> depending on how bad the tear is.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">🎯 SITS = the 4 muscles</span>Supraspinatus · Infraspinatus · Teres minor · Subscapularis.</div>
+  <div class="rc rubybg"><span class="big">💥 Pain with abduction/rotation</span>The hallmark symptom — lifting the arm out to the side or twisting it hurts.</div>
+  <div class="rc tealbg"><span class="big">🧊 RICE, with a twist</span>Rest · Ice · Compress · <b>Sling instead of elevate</b> for the shoulder.</div>
+  <div class="rc topazbg"><span class="big">🔬 MRI/X-ray</span>Look for bone spurs or a narrowed space between humerus &amp; acromion.</div>
+</div>
+
+<!-- ============ CAUSE ============ -->
+<section id="cause">
+  <div class="sec-h"><span class="icon">🧨</span><h2>CAUSE</h2><span class="step">STEP 1 · FOUR TENDONS, ONE JOB</span></div>
+  <p class="sec-sub">The rotator cuff stabilizes the shoulder &amp; drives its rotation — tear or stretch any one of its tendons and that motion hurts.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🎯 SITS — the 4 rotator cuff muscles</h3>
+      <svg viewBox="-10 -10 532 340" role="img" aria-label="Diagram of the shoulder joint labeling the four rotator cuff muscles: supraspinatus on top, infraspinatus and teres minor on the back, and subscapularis in front, surrounding the humeral head">
+        <defs>
+          <radialGradient id="humG" cx="50%" cy="40%" r="65%">
+            <stop offset="0" stop-color="#ffe4d2"/><stop offset="1" stop-color="#e8a380"/>
+          </radialGradient>
+        </defs>
+        <rect x="-6" y="-6" width="524" height="332" rx="18" fill="rgba(157,92,255,.14)" stroke="#9d5cff" stroke-width="2" stroke-dasharray="7 6"/>
+        <ellipse cx="230" cy="170" rx="66" ry="60" fill="url(#humG)" stroke="#c98b63" stroke-width="2"/>
+        <rect x="210" y="210" width="40" height="90" rx="16" fill="#ffd0bd"/>
+        <path d="M170 118 C 195 100 265 100 290 118 C 296 128 288 140 275 138 C 250 128 210 128 185 138 C 172 140 164 128 170 118 Z" fill="#ffc233" stroke="#8a5a2e" stroke-width="1.5"/>
+        <text x="150" y="66" font-size="15" font-weight="900" fill="#ffe49a">Supraspinatus</text>
+        <text x="150" y="84" font-size="12" font-style="italic" fill="#fff3d6">top — initiates abduction</text>
+        <path d="M292 128 C 320 140 330 175 312 200 C 300 216 278 214 268 198" fill="#00c2c7" opacity=".85" stroke="#003b42" stroke-width="1.5"/>
+        <text x="330" y="150" font-size="15" font-weight="900" fill="#9ff2ee">Infraspinatus</text>
+        <text x="330" y="168" font-size="12" font-style="italic" fill="#d8fff9">back — external rotation</text>
+        <path d="M285 208 C 308 220 310 240 292 250 C 278 256 262 248 260 234" fill="#2f6bff" opacity=".85" stroke="#0d1a4a" stroke-width="1.5"/>
+        <text x="300" y="270" font-size="15" font-weight="900" fill="#bcd0ff">Teres minor</text>
+        <text x="300" y="288" font-size="12" font-style="italic" fill="#dbe6ff">below infraspinatus — ext. rotation</text>
+        <path d="M170 138 C 145 150 138 180 155 202 C 168 216 188 212 195 196" fill="#ff3b6b" opacity=".85" stroke="#5a0018" stroke-width="1.5"/>
+        <text x="20" y="160" font-size="15" font-weight="900" fill="#ff9db4">Subscapularis</text>
+        <text x="20" y="178" font-size="12" font-style="italic" fill="#ffd9e2">front, against ribs —</text>
+        <text x="20" y="194" font-size="12" font-style="italic" fill="#ffd9e2">internal rotation</text>
+        <text x="20" y="230" font-size="14" font-weight="900" fill="#d9c2ff">Together: stabilize the</text>
+        <text x="20" y="248" font-size="14" font-weight="900" fill="#d9c2ff">humeral head &amp; rotate the arm</text>
+      </svg>
+      <div class="mn">🧠 <b>"SITS"</b> — <b>S</b>upraspinatus (top, starts abduction) · <b>I</b>nfraspinatus (back, rotates out) · <b>T</b>eres minor (back, rotates out) · <b>S</b>ubscapularis (front, rotates in). Picture someone <i>SITS</i>-ting with their arm cradled — that cradle is the cuff.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>💥 Acute cause — sudden &amp; violent</h3>
+      <ul class="tick">
+        <li>🏋️ <b>Lifting something heavy</b> with poor mechanics</li>
+        <li>🤸 <b>Falling on an outstretched arm</b> (FOOSH)</li>
+        <li>A tendon is <b>violently stretched or torn</b> in one moment</li>
+      </ul>
+      <div class="mn">🧠 Sudden pop after a fall or a heavy lift = think <b>acute rotator cuff tear</b> until proven otherwise.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🔁 Chronic cause — years of the same motion</h3>
+      <ul class="tick">
+        <li>⚾ Baseball pitchers</li>
+        <li>🎾 Tennis players</li>
+        <li>🏊 Swimmers</li>
+        <li>🎨 Anyone with repetitive overhead work (painters, mechanics)</li>
+      </ul>
+      <p>Repeating the same overhead motion for <b>years</b> wears the tendon down slowly instead of tearing it all at once.</p>
+      <div class="mn">🧠 <b>"Overhead over and over."</b> If the history is a repetitive overhead sport or job, think chronic, degenerative cuff wear rather than one traumatic event.</div>
+    </div>
+
+    <div class="card citrinec span2">
+      <h3>⚙️ Mechanism: impingement — squeezing the tendon in a tight space</h3>
+      <div class="duo">
+        <svg viewBox="0 0 300 220" role="img" aria-label="Normal shoulder with adequate space between the humeral head and the acromion, tendon gliding freely">
+          <rect x="4" y="4" width="292" height="212" rx="16" fill="rgba(18,184,134,.14)" stroke="#12b886" stroke-width="2" stroke-dasharray="6 5"/>
+          <text x="18" y="30" font-size="14" font-weight="900" fill="#7df0c6">✅ NORMAL SPACE</text>
+          <path d="M50 70 L200 50" stroke="#c98b63" stroke-width="10" stroke-linecap="round"/>
+          <ellipse cx="130" cy="120" rx="60" ry="52" fill="#ffe4d2" stroke="#c98b63" stroke-width="2"/>
+          <path d="M90 80 C 120 66 160 66 180 82" fill="none" stroke="#ffc233" stroke-width="10" stroke-linecap="round"/>
+          <text x="18" y="190" font-size="12.5" font-style="italic" fill="#d8fff0">tendon glides freely under acromion</text>
+        </svg>
+        <svg viewBox="0 0 300 220" role="img" aria-label="Impingement: arm abducted, humeral head rises, narrowing the space and pinching the supraspinatus tendon against the acromion, causing pain">
+          <rect x="4" y="4" width="292" height="212" rx="16" fill="rgba(255,59,107,.14)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="6 5"/>
+          <text x="18" y="30" font-size="14" font-weight="900" fill="#ff9db4">⚠️ IMPINGEMENT</text>
+          <path d="M50 60 L190 42" stroke="#c98b63" stroke-width="10" stroke-linecap="round"/>
+          <ellipse cx="130" cy="122" rx="60" ry="52" fill="#ffe4d2" stroke="#c98b63" stroke-width="2"/>
+          <path d="M92 92 C 120 78 158 78 178 92" fill="none" stroke="#ff3b6b" stroke-width="10" stroke-linecap="round"/>
+          <path d="M120 66 l8 -14 l4 10 l8 -8 l-2 16 z" fill="#ffc233"/>
+          <text x="18" y="190" font-size="12.5" font-style="italic" fill="#ffd9e2">arm raised → tendon pinched &amp; painful</text>
+        </svg>
+      </div>
+      <p style="margin-top:10px">Raising (<b>abducting</b>) the arm narrows the space between the <b>humerus</b> (arm bone) and <b>acromion</b> (tip of the shoulder blade). A worn or inflamed tendon gets pinched in that narrow space — that pinch is <b>impingement</b>, and it's why abduction &amp; rotation hurt the most.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLUES ============ -->
+<section id="clues">
+  <div class="sec-h"><span class="icon">🔎</span><h2>CLUES</h2><span class="step">STEP 2 · SPOT IT</span></div>
+  <p class="sec-sub">One hallmark symptom, plus imaging that looks for the anatomy behind the pain.</p>
+
+  <div class="grid">
+    <div class="card ruby span2">
+      <h3>💥 Hallmark: <mark>shoulder pain with arm abduction or rotation</mark></h3>
+      <svg viewBox="0 0 460 190" role="img" aria-label="Painful arc diagram: an arm raised to the side shows the sixty to one hundred twenty degree zone as most painful during abduction">
+        <rect x="6" y="6" width="448" height="178" rx="16" fill="rgba(255,59,107,.14)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="7 6"/>
+        <path d="M60 160 A120 120 0 0 1 300 160" fill="none" stroke="#eafff7" stroke-width="4"/>
+        <path d="M132 76 A120 120 0 0 1 240 76" fill="none" stroke="#ff3b6b" stroke-width="10" stroke-linecap="round"/>
+        <line x1="180" y1="160" x2="60" y2="160" stroke="#eafff7" stroke-width="6"/>
+        <line x1="180" y1="160" x2="180" y2="45" stroke="#ffc233" stroke-width="6" stroke-dasharray="5 6"/>
+        <text x="18" y="34" font-size="15" font-weight="900" fill="#ff9db4">"PAINFUL ARC"</text>
+        <text x="130" y="60" font-size="14" font-weight="900" fill="#ffe49a">60°–120°</text>
+        <text x="320" y="90" font-size="13" fill="#ffd9e2">most painful zone</text>
+        <text x="320" y="110" font-size="13" fill="#ffd9e2">of abduction</text>
+        <text x="18" y="150" font-size="13" font-style="italic" fill="#ffd9e2">0° arm at side</text>
+      </svg>
+      <ul class="tick" style="margin-top:10px">
+        <li>Pain worsens as the arm is raised out to the side (<b>abduction</b>) or twisted (<b>rotation</b>)</li>
+        <li>Weakness lifting the arm, especially overhead</li>
+        <li>Night pain, often worse lying on the affected shoulder</li>
+      </ul>
+      <div class="mn">🧠 <b>"Reach and it screeches."</b> If raising or rotating the arm is what reproduces the pain, think rotator cuff before anything else in the shoulder differential.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🔬 Diagnostics</h3>
+      <ul class="tick">
+        <li><b>X-ray</b> — can show <b>bone spurs</b></li>
+        <li><b>MRI</b> — best for soft tissue: shows the tendon tear itself &amp; a <b>narrowed acromiohumeral space</b> (the gap between the humerus and the acromion, the bony tip of the shoulder blade)</li>
+      </ul>
+      <div class="mn">🧠 <b>X-ray = bone, MRI = the tendon &amp; the space it's stuck in.</b></div>
+    </div>
+
+    <div class="card tealc">
+      <h3>📊 Acute vs. chronic presentation</h3>
+      <table>
+        <tr><th class="up" style="width:50%">Acute tear</th><th class="lo" style="width:50%">Chronic tear</th></tr>
+        <tr><td>Sudden onset — fall or heavy lift</td><td>Gradual — years of overhead repetition</td></tr>
+        <tr><td>Sharp pain, often a "pop"</td><td>Dull ache that slowly worsens</td></tr>
+        <tr><td>Younger, traumatic mechanism</td><td>Older or repetitive-use athletes/workers</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CARE ============ -->
+<section id="care">
+  <div class="sec-h"><span class="icon">🩺</span><h2>CARE</h2><span class="step">STEP 3 · CONSERVATIVE FIRST, SURGERY IF NEEDED</span></div>
+  <p class="sec-sub">Most rotator cuff injuries start conservative — surgery is reserved for full-thickness tears or failed conservative treatment.</p>
+
+  <div class="grid">
+    <div class="card emerald span2">
+      <h3>🧊 Conservative management: RICE — with one shoulder-specific swap</h3>
+      <table>
+        <tr><th style="width:20%">Letter</th><th>Standard RICE</th><th>Shoulder version</th></tr>
+        <tr><td><b>R</b></td><td>Rest</td><td>Rest — avoid aggravating overhead motion</td></tr>
+        <tr><td><b>I</b></td><td>Ice</td><td>Ice the joint to control pain &amp; inflammation</td></tr>
+        <tr><td><b>C</b></td><td>Compress</td><td>Compression as tolerated</td></tr>
+        <tr><td><b>E</b></td><td>Elevate</td><td><mark>Sling instead of elevate</mark> — a shoulder can't be "elevated" like a limb; immobilize in a sling to rest the joint</td></tr>
+      </table>
+      <div class="mn">🧠 <b>"RICE, but the shoulder gets a sling, not a lift."</b> Every other joint in this series gets elevated above the heart — the shoulder is the exception because there's nowhere higher to elevate it to. Support it in a sling instead.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>💊 Additional conservative measures</h3>
+      <ul class="tick">
+        <li>NSAIDs for pain &amp; inflammation</li>
+        <li>Physical therapy — strengthen the cuff &amp; scapular stabilizers</li>
+        <li>Corticosteroid injection for persistent inflammation</li>
+        <li>Activity modification — avoid the repetitive overhead motion that caused it</li>
+      </ul>
+    </div>
+
+    <div class="card garnet">
+      <h3>🔪 Surgical management</h3>
+      <ul class="tick">
+        <li><b>Arthroscopic rotator cuff repair</b> — for full-thickness tears or when conservative treatment fails</li>
+        <li>Post-op: sling immobilization initially, then <b>gradual, PT-guided</b> range of motion</li>
+        <li>Teach: avoid lifting or reaching overhead until cleared by the surgeon/PT</li>
+      </ul>
+      <div class="mn">🧠 Surgery repairs the torn tendon; it does not fix poor mechanics — PT afterward is what prevents the next tear.</div>
+    </div>
+
+    <div class="card deep span2">
+      <h3>🩹 Post-op / rehab priorities</h3>
+      <div class="ladder">
+        <div class="rung"><div class="n">1</div><div class="t">🧷 <b>Immobilize in sling</b> as prescribed — protects the healing repair</div></div>
+        <div class="rung"><div class="n">2</div><div class="t">🥶 <b>Ice</b> for pain &amp; swelling control</div></div>
+        <div class="rung"><div class="n">3</div><div class="t">🏃‍♀️ <b>Gradual PT-guided motion</b> — passive first, active later, per surgeon protocol</div></div>
+        <div class="rung"><div class="n">4</div><div class="t">❌ <span class="never">No overhead lifting</span> until cleared</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">🎯 SITS</span>Supraspinatus, Infraspinatus, Teres minor, Subscapularis</div>
+    <div class="rc rubybg"><span class="big">💥 Pain w/ abduction/rotation</span>the hallmark symptom</div>
+    <div class="rc tealbg"><span class="big">🧊 RICE + sling</span>rest, ice, compress, sling instead of elevate</div>
+    <div class="rc topazbg"><span class="big">🔬 MRI</span>tendon tear + narrowed acromiohumeral space</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 4 rapid-fire questions</summary>
+      <div class="qa">Q1: Name the 4 rotator cuff muscles. <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Supraspinatus, Infraspinatus, Teres minor, Subscapularis — "SITS."</div></div>
+      <div class="qa">Q2: What is the hallmark symptom of a rotator cuff injury? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Shoulder pain with arm abduction or rotation.</div></div>
+      <div class="qa">Q3: How does RICE change for a shoulder injury? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Rest, ice, and compression stay the same, but a sling is used instead of elevation.</div></div>
+      <div class="qa">Q4: What does impingement mean in this context? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Raising the arm narrows the space between the humerus and the acromion, pinching the tendon (often the supraspinatus) in that space and causing pain.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">CAUSE</span>→
+    <span style="background:rgba(47,107,255,.7)">CLUES</span>→
+    <span style="background:rgba(18,184,134,.7)">CARE</span>
+  </div>
+  <div>NG-219 · Source wording retained · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>

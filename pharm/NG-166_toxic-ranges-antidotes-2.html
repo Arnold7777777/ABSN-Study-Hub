@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Toxic Ranges &amp; Antidotes 2 · NG-166 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+/* ---------- appended for NG-166 ---------- */
+#match .sec-h h2{color:#d9c2ff} #match .step{background:var(--amethyst)}
+#ranges .sec-h h2{color:#bcd0ff} #ranges .step{background:var(--sapphire)}
+#priorities .sec-h h2{color:#a5f3d4} #priorities .step{background:var(--emerald);color:#03291c}
+table.compact td,table.compact th{padding:7px 9px;font-size:.89rem}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#match">🔑 Antidote match</a>
+  <a class="c2" href="#ranges">🧪 Therapeutic ranges</a>
+  <a class="c3" href="#priorities">🩺 Priorities</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Pharmacology · Toxicology Reference</div>
+  <h1>Toxic Ranges <span class="drop">&amp;</span> Antidotes 2</h1>
+  <p class="sub">Look-up card: narrow-window drugs, their antidotes, and their numbers</p>
+  <div class="chips">
+    <span class="chip id">NG-166</span>
+    <span class="chip cat">Pharmacology</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede">Some drugs have a <b>tiny gap</b> between "working" and "toxic" — a <b>narrow therapeutic index</b>. This card pairs the highest-yield drugs with their <b>antidotes</b> and their <b>reference ranges</b>. <mark>Ranges are standard adult values for study purposes only</mark> — always confirm against your facility's lab and current orders before making a clinical decision.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc rubybg"><span class="big">💉 Opioids → Naloxone</span>Mu-receptor antagonist reversal — see the Opioids page.</div>
+  <div class="rc topazbg"><span class="big">🧊 Acetaminophen → Acetylcysteine</span>N-acetylcysteine (NAC) — protects the liver from overdose.</div>
+  <div class="rc citrine"><span class="big">❤️ Digoxin: narrow window</span>Therapeutic <span class="mono">0.5–2.0 ng/mL</span> — check apical pulse before every dose.</div>
+  <div class="rc tealbg"><span class="big">🧪 Draw it right</span>Trough = right before next dose. Peak = after infusion completes.</div>
+</div>
+
+<!-- ============ ANTIDOTE MATCH ============ -->
+<section id="match">
+  <div class="sec-h"><span class="icon">🔑</span><h2>ANTIDOTE MATCH</h2><span class="step">STEP 1 · LOCK &amp; KEY</span></div>
+  <p class="sec-sub">Each overdose has one classic reversal agent — memorize the pairs, not just the list.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🗝️ Common drug ↔ antidote pairs</h3>
+      <svg viewBox="-10 -10 505 320" role="img" aria-label="Lock and key diagram pairing drugs with their antidotes: opioids with naloxone, benzodiazepines with flumazenil, acetaminophen with acetylcysteine, heparin with protamine sulfate, warfarin with vitamin K, and digoxin with digoxin immune fab">
+        <rect x="-6" y="-6" width="497" height="312" rx="16" fill="rgba(13,8,26,.4)"/>
+        <text x="20" y="28" font-size="13" font-weight="900" fill="#efe6ff">🔒 Drug (the lock)</text>
+        <text x="330" y="28" font-size="13" font-weight="900" fill="#efe6ff">🗝️ Antidote (the key)</text>
+
+        <!-- rows -->
+        <g font-size="12.5" font-weight="800">
+          <rect x="18" y="42" width="200" height="30" rx="8" fill="rgba(255,59,107,.35)"/>
+          <text x="28" y="62" fill="#ffd9e2">💊 Opioids</text>
+          <line x1="222" y1="57" x2="298" y2="57" stroke="#a5f3d4" stroke-width="2" stroke-dasharray="4 4"/>
+          <rect x="302" y="42" width="140" height="30" rx="8" fill="rgba(18,184,134,.4)"/>
+          <text x="312" y="62" fill="#eafff7">Naloxone</text>
+
+          <rect x="18" y="80" width="200" height="30" rx="8" fill="rgba(255,59,107,.35)"/>
+          <text x="28" y="100" fill="#ffd9e2">😴 Benzodiazepines</text>
+          <line x1="222" y1="95" x2="298" y2="95" stroke="#a5f3d4" stroke-width="2" stroke-dasharray="4 4"/>
+          <rect x="302" y="80" width="140" height="30" rx="8" fill="rgba(18,184,134,.4)"/>
+          <text x="312" y="100" fill="#eafff7">Flumazenil</text>
+
+          <rect x="18" y="118" width="200" height="30" rx="8" fill="rgba(255,59,107,.35)"/>
+          <text x="28" y="138" fill="#ffd9e2">🧊 Acetaminophen</text>
+          <line x1="222" y1="133" x2="298" y2="133" stroke="#a5f3d4" stroke-width="2" stroke-dasharray="4 4"/>
+          <rect x="302" y="118" width="140" height="30" rx="8" fill="rgba(18,184,134,.4)"/>
+          <text x="312" y="138" fill="#eafff7">Acetylcysteine</text>
+
+          <rect x="18" y="156" width="200" height="30" rx="8" fill="rgba(255,59,107,.35)"/>
+          <text x="28" y="176" fill="#ffd9e2">🩸 Heparin</text>
+          <line x1="222" y1="171" x2="298" y2="171" stroke="#a5f3d4" stroke-width="2" stroke-dasharray="4 4"/>
+          <rect x="302" y="156" width="140" height="30" rx="8" fill="rgba(18,184,134,.4)"/>
+          <text x="312" y="176" fill="#eafff7">Protamine sulfate</text>
+
+          <rect x="18" y="194" width="200" height="30" rx="8" fill="rgba(255,59,107,.35)"/>
+          <text x="28" y="214" fill="#ffd9e2">🌿 Warfarin (Coumadin)</text>
+          <line x1="222" y1="209" x2="298" y2="209" stroke="#a5f3d4" stroke-width="2" stroke-dasharray="4 4"/>
+          <rect x="302" y="194" width="140" height="30" rx="8" fill="rgba(18,184,134,.4)"/>
+          <text x="312" y="214" fill="#eafff7">Vitamin K</text>
+
+          <rect x="18" y="232" width="200" height="30" rx="8" fill="rgba(255,59,107,.35)"/>
+          <text x="28" y="252" fill="#ffd9e2">❤️ Digoxin</text>
+          <line x1="222" y1="247" x2="298" y2="247" stroke="#a5f3d4" stroke-width="2" stroke-dasharray="4 4"/>
+          <rect x="302" y="232" width="140" height="30" rx="8" fill="rgba(18,184,134,.4)"/>
+          <text x="312" y="252" fill="#eafff7">Digoxin immune Fab</text>
+        </g>
+        <text x="20" y="284" font-size="11" font-style="italic" fill="#d8fff0">Digoxin immune Fab = brand names Digibind / DigiFab</text>
+      </svg>
+      <div class="mn">🧠 <b>"Naloxone, flumazeNIL, acetylcysteiNE."</b> Say the drug + antidote pair together, out loud, ten times — this is the fastest way to lock it in.</div>
+    </div>
+
+    <div class="card deep span2">
+      <h3>📋 Full antidote reference table</h3>
+      <table class="compact">
+        <tr><th style="width:30%">Drug / class</th><th class="up">Antidote</th><th class="lo">Notes</th></tr>
+        <tr><td>💊 Opioid analgesics</td><td><b>Naloxone</b></td><td>Mu-receptor antagonist — see NG-257</td></tr>
+        <tr><td>😴 Benzodiazepines</td><td><b>Flumazenil</b></td><td>Can precipitate seizures, especially with chronic use or mixed overdose</td></tr>
+        <tr><td>🧊 Acetaminophen (Tylenol)</td><td><b>Acetylcysteine</b> (N-acetylcysteine, NAC)</td><td>Protects the liver — most effective started early</td></tr>
+        <tr><td>🩸 Heparin</td><td><b>Protamine sulfate</b></td><td>Give slowly — risk of hypotension/anaphylactoid reaction</td></tr>
+        <tr><td>🌿 Warfarin (Coumadin)</td><td><b>Vitamin K</b></td><td>Reversal takes hours; FFP/PCC used when faster reversal is needed</td></tr>
+        <tr><td>❤️ Digoxin</td><td><b>Digoxin immune Fab</b></td><td>Binds &amp; inactivates digoxin directly</td></tr>
+        <tr><td>💗 Beta blockers</td><td><b>Glucagon</b></td><td>Restores HR/contractility independent of the beta receptor</td></tr>
+        <tr><td>🧂 Magnesium sulfate</td><td><b>Calcium gluconate</b></td><td>Watch for loss of deep tendon reflexes &amp; resp. depression before this is needed</td></tr>
+        <tr><td>🧠 Cholinergic crisis / organophosphates</td><td><b>Atropine</b></td><td>Dries secretions, raises HR</td></tr>
+        <tr><td>🩹 Aspirin / salicylates</td><td><b>Sodium bicarbonate</b></td><td>Alkalinizes urine to speed excretion</td></tr>
+        <tr><td>☠️ Cyanide</td><td><b>Sodium thiosulfate</b></td><td>Part of the cyanide antidote kit</td></tr>
+      </table>
+      <div class="mn">🧠 Only memorize what you're confident in — when unsure of a specific pairing, say so out loud rather than guessing on an exam. Guessing on antidotes in real practice can kill.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🔗 Ties to another card in this set</h3>
+      <p>The <b>Acetaminophen (Tylenol)</b> page covers the overdose mechanism (hepatotoxicity) and the full <b>acetylcysteine</b> protocol in depth — this page is the quick-lookup version.</p>
+      <div class="mn">🧠 If a question mentions <b>elevated LFTs after a Tylenol overdose</b>, the answer is almost always acetylcysteine, started as early as possible.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>⚠️ Antidotes aren't risk-free</h3>
+      <ul class="tick">
+        <li><b>Flumazenil</b> can trigger seizures in patients physically dependent on benzodiazepines</li>
+        <li><b>Protamine sulfate</b> given too fast can cause severe hypotension</li>
+        <li><b>Naloxone</b> can precipitate acute opioid withdrawal</li>
+      </ul>
+      <div class="mn">🧠 <b>Every antidote is still a drug.</b> Reversing one problem can create another — monitor closely after any antidote is given.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THERAPEUTIC RANGES ============ -->
+<section id="ranges">
+  <div class="sec-h"><span class="icon">🧪</span><h2>THERAPEUTIC RANGES</h2><span class="step">STEP 2 · NARROW WINDOWS</span></div>
+  <p class="sec-sub">Standard adult reference ranges for drugs where "a little too much" becomes toxic fast — confirm against your facility's lab before acting clinically.</p>
+
+  <div class="grid">
+    <div class="card sapphire span2">
+      <h3>📈 What "narrow therapeutic index" means</h3>
+      <svg viewBox="-10 -10 510 210" role="img" aria-label="Bar scale showing subtherapeutic, therapeutic, and toxic zones for a drug with a narrow therapeutic index, illustrating how a small increase above the therapeutic range can quickly become toxic">
+        <rect x="6" y="6" width="448" height="150" rx="14" fill="rgba(13,8,26,.4)"/>
+        <rect x="30" y="60" width="120" height="34" rx="8" fill="#2f6bff"/>
+        <rect x="150" y="60" width="90" height="34" rx="8" fill="#12b886"/>
+        <rect x="240" y="60" width="180" height="34" rx="8" fill="#ff3b6b"/>
+        <text x="40" y="82" font-size="12.5" font-weight="900" fill="#fff">SUBTHERAPEUTIC</text>
+        <text x="162" y="82" font-size="12.5" font-weight="900" fill="#03291c">THERAPEUTIC</text>
+        <text x="290" y="82" font-size="12.5" font-weight="900" fill="#fff">TOXIC</text>
+        <line x1="150" y1="52" x2="150" y2="102" stroke="#fff" stroke-width="2"/>
+        <line x1="240" y1="52" x2="240" y2="102" stroke="#fff" stroke-width="2"/>
+        <text x="30" y="128" font-size="12" fill="#efe6ff">A narrow window means the therapeutic band is thin — small dose changes,</text>
+        <text x="30" y="146" font-size="12" fill="#efe6ff">missed labs, or renal/hepatic changes can push a level into toxicity fast.</text>
+      </svg>
+      <div class="mn">🧠 <b>Narrow window drugs need blood levels drawn</b> — you cannot judge safety by symptoms alone until toxicity has already started.</div>
+    </div>
+
+    <div class="card deep span2">
+      <h3>📋 Reference range table (standard adult values)</h3>
+      <table class="compact">
+        <tr><th style="width:30%">Drug</th><th class="up">Therapeutic range</th><th class="lo">Class / use</th></tr>
+        <tr><td>❤️ Digoxin</td><td class="mono">0.5–2.0 ng/mL</td><td>Cardiac glycoside — HF, atrial fibrillation</td></tr>
+        <tr><td>🧠 Lithium</td><td class="mono">~0.6–1.2 mEq/L</td><td>Mood stabilizer — bipolar disorder <i>(exact range varies by text/lab &amp; indication — always confirm locally)</i></td></tr>
+        <tr><td>⚡ Phenytoin (Dilantin)</td><td class="mono">10–20 mcg/mL</td><td>Anticonvulsant</td></tr>
+        <tr><td>🫁 Theophylline</td><td class="mono">10–20 mcg/mL</td><td>Bronchodilator — asthma/COPD</td></tr>
+        <tr><td>⚡ Carbamazepine</td><td class="mono">4–12 mcg/mL</td><td>Anticonvulsant / mood stabilizer</td></tr>
+        <tr><td>😴 Phenobarbital</td><td class="mono">15–40 mcg/mL</td><td>Barbiturate anticonvulsant</td></tr>
+        <tr><td>⚡ Valproic acid</td><td class="mono">50–100 mcg/mL</td><td>Anticonvulsant / mood stabilizer</td></tr>
+        <tr><td>🦠 Gentamicin</td><td class="mono">Peak 5–10 · Trough &lt;2 mcg/mL</td><td>Aminoglycoside antibiotic</td></tr>
+        <tr><td>🦠 Tobramycin</td><td class="mono">Peak 5–10 · Trough 0.5–2 mcg/mL</td><td>Aminoglycoside antibiotic</td></tr>
+        <tr><td>🦠 Vancomycin</td><td class="mono">Trough commonly ~10–20 mcg/mL</td><td>Glycopeptide antibiotic — <i>modern dosing often targets trough/AUC only; peaks not routinely drawn; follow facility protocol</i></td></tr>
+      </table>
+      <div class="mn">🧠 These are <b>standard teaching ranges for study purposes</b> — labs, populations, and indications vary. Never use this card alone to make a real dosing decision.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🩸 Peak vs. trough — draw it right</h3>
+      <svg viewBox="-10 -10 503 210" role="img" aria-label="Concentration versus time curve for an IV antibiotic showing the peak level drawn shortly after the infusion ends and the trough level drawn right before the next scheduled dose">
+        <rect x="6" y="6" width="448" height="150" rx="14" fill="rgba(13,8,26,.4)"/>
+        <path d="M30 130 C 70 40 110 30 150 45 C 220 70 300 110 430 128" fill="none" stroke="#ffc233" stroke-width="4"/>
+        <circle cx="150" cy="45" r="6" fill="#ff3b6b"/>
+        <text x="120" y="30" font-size="12" font-weight="900" fill="#ff9db4">PEAK</text>
+        <text x="90" y="150" font-size="10.5" fill="#ffe3ea">drawn after infusion ends</text>
+        <circle cx="420" cy="128" r="6" fill="#2f6bff"/>
+        <text x="360" y="112" font-size="12" font-weight="900" fill="#bcd0ff">TROUGH</text>
+        <text x="330" y="150" font-size="10.5" fill="#dbe8ff">drawn right before next dose</text>
+        <line x1="30" y1="140" x2="440" y2="140" stroke="#fff" stroke-width="1.5"/>
+        <text x="400" y="16" font-size="10.5" fill="#efe6ff">time →</text>
+      </svg>
+      <div class="mn">🧠 <b>"Peak after, trough before."</b> Draw the peak shortly after the dose infuses in; draw the trough right before the very next dose is due.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🚨 What raises toxicity risk for ALL of these</h3>
+      <ul class="tick">
+        <li>Renal impairment — most of these drugs (or active metabolites) are cleared by the kidney</li>
+        <li>Hepatic impairment — slows metabolism of many agents</li>
+        <li>Dehydration and drug interactions that change clearance</li>
+        <li>Missed or mistimed lab draws — a level drawn at the wrong time is misleading</li>
+      </ul>
+      <div class="mn">🧠 Before trusting any level, ask: <b>was it drawn at the right time, in a patient with normal kidney/liver function?</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRIORITIES ============ -->
+<section id="priorities">
+  <div class="sec-h"><span class="icon">🩺</span><h2>NURSING PRIORITIES</h2><span class="step">STEP 3 · CATCH TOXICITY EARLY</span></div>
+  <p class="sec-sub">Know the toxicity signs for the two highest-yield agents — digoxin and lithium — cold.</p>
+
+  <div class="grid">
+    <div class="card ruby span2">
+      <h3>❤️ Digoxin toxicity — assess BEFORE you give it</h3>
+      <svg viewBox="-10 -10 494 240" role="img" aria-label="Body map of digoxin toxicity signs: bradycardia and arrhythmia in the heart, visual disturbances such as blurred vision and yellow-green halos around lights, and gastrointestinal upset with nausea, vomiting, and anorexia">
+        <rect x="6" y="6" width="448" height="200" rx="16" fill="rgba(255,59,107,.14)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="20" y="30" font-size="14.5" font-weight="900" fill="#ff9db4">Classic digoxin toxicity triad</text>
+
+        <text x="40" y="90" font-size="30">❤️</text>
+        <text x="30" y="112" font-size="12" font-weight="900" fill="#ffb3c6">Bradycardia /</text>
+        <text x="30" y="128" font-size="12" font-weight="900" fill="#ffb3c6">arrhythmia</text>
+        <text x="30" y="146" font-size="10.5" fill="#ffe3ea">hold if apical pulse</text>
+        <text x="30" y="160" font-size="10.5" fill="#ffe3ea">&lt; 60 bpm adult — notify HCP</text>
+
+        <text x="195" y="90" font-size="30">👁️</text>
+        <text x="180" y="112" font-size="12" font-weight="900" fill="#ffb3c6">Visual changes</text>
+        <text x="180" y="128" font-size="10.5" fill="#ffe3ea">blurred vision, yellow-green</text>
+        <text x="180" y="144" font-size="10.5" fill="#ffe3ea">"halos" around lights</text>
+
+        <text x="345" y="90" font-size="30">🤢</text>
+        <text x="330" y="112" font-size="12" font-weight="900" fill="#ffb3c6">GI upset</text>
+        <text x="330" y="128" font-size="10.5" fill="#ffe3ea">anorexia, nausea,</text>
+        <text x="330" y="144" font-size="10.5" fill="#ffe3ea">vomiting — often the</text>
+        <text x="330" y="160" font-size="10.5" fill="#ffe3ea">earliest sign</text>
+
+        <text x="20" y="192" font-size="12" font-style="italic" fill="#ffd9e2">Confusion is common in older adults and can be mistaken for other causes.</text>
+      </svg>
+      <p style="margin-top:10px"><mark>Always check the apical pulse for one full minute before giving digoxin</mark> — hold the dose and notify the HCP per facility parameters if it is too low (commonly taught: <span class="mono">&lt;60</span> bpm in adults).</p>
+      <div class="mn">🧠 <b>"Slow heart, weird vision, sick stomach."</b> Any one of the three should make you check a digoxin level before the next dose.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🧠 Lithium toxicity — mild to severe</h3>
+      <ul class="tick">
+        <li><b>Early:</b> GI upset, fine hand tremor</li>
+        <li><b>Worsening:</b> ataxia, slurred speech, confusion</li>
+        <li><b>Severe:</b> seizures, decreased LOC — medical emergency</li>
+      </ul>
+      <p>Adequate <b>sodium and fluid intake</b> matters — dehydration or a low-sodium diet can raise lithium levels toward toxicity.</p>
+      <div class="mn">🧠 <b>Lithium follows salt.</b> Low sodium/dehydration → the body reabsorbs more lithium → level climbs → toxicity risk rises.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>✅ General "narrow window" nursing checklist</h3>
+      <div class="ladder">
+        <div class="rung"><div class="n">1</div><div class="t">🧪 Confirm the level was drawn at the <b>correct time</b> (peak/trough)</div></div>
+        <div class="rung"><div class="n">2</div><div class="t">📋 Compare the result to the <b>current facility reference range</b></div></div>
+        <div class="rung"><div class="n">3</div><div class="t">🩺 Correlate with <b>symptoms</b>, not the number alone</div></div>
+        <div class="rung"><div class="n">4</div><div class="t">📞 Hold the dose &amp; notify the HCP if toxic or symptomatic</div></div>
+      </div>
+      <div class="mn">🧠 <b>Number + symptoms, not number alone.</b> A level can look "in range" and the patient can still be symptomatic if renal/hepatic function changed quickly.</div>
+    </div>
+
+    <div class="card citrinec span2">
+      <h3>⭐ How this page connects to the rest of pharmacology</h3>
+      <p>This is a <b>reference/lookup card</b>, not a stand-alone lesson — pair it with the drug-specific pages in this set (Opioids, Acetaminophen) for the full mechanism and nursing care behind each antidote.</p>
+      <div class="mn">🧠 When you see a toxic level or overdose symptom on an exam, run the same three questions: <b>which drug → which antidote → what's the priority nursing action right now?</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc rubybg"><span class="big">💉 Opioids → Naloxone</span>😴 Benzos → Flumazenil</div>
+    <div class="rc topazbg"><span class="big">🧊 Tylenol → Acetylcysteine</span>🩸 Heparin → Protamine · 🌿 Warfarin → Vitamin K</div>
+    <div class="rc citrine"><span class="big">❤️ Digoxin 0.5–2.0 ng/mL</span>Check apical pulse before every dose</div>
+    <div class="rc tealbg"><span class="big">🧪 Peak after, trough before</span>Draw timing changes what the number means</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 4 rapid-fire questions</summary>
+      <div class="qa">Q1: A patient is found unresponsive with pinpoint pupils and slow, shallow breathing after taking an unknown medication. What antidote do you anticipate? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Naloxone — the classic opioid overdose presentation (respiratory depression + miosis).</div></div>
+      <div class="qa">Q2: What is the antidote for warfarin (Coumadin) toxicity/overdose? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Vitamin K. It takes hours to work, so FFP or prothrombin complex concentrate (PCC) may be used when faster reversal is needed.</div></div>
+      <div class="qa">Q3: Before giving digoxin, what must the nurse assess, and what's the action if it's abnormal? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Apical pulse for one full minute. If it's too low (commonly taught as under 60 bpm in an adult), hold the dose and notify the HCP.</div></div>
+      <div class="qa">Q4: Why does a trough level need to be drawn right before the next dose, not any time during the day? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">The trough is the drug's lowest point in the blood, right before the next dose is due — drawing it at the wrong time gives a falsely high or low result that can lead to an unsafe dosing decision.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">MATCH</span>→
+    <span style="background:rgba(47,107,255,.7)">RANGES</span>→
+    <span style="background:rgba(18,184,134,.7)">PRIORITIES</span>
+  </div>
+  <div>NG-166 · Pharmacology · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>

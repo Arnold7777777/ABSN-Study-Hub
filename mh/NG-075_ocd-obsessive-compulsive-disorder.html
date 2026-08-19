@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OCD · NG-075 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#cause">🔁 Cause</a>
+  <a class="c2" href="#clues">🔎 Clues</a>
+  <a class="c3" href="#care">🩺 Care</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Mental Health · Anxiety-Spectrum Disorders</div>
+  <h1>OCD <span class="drop">🔁</span></h1>
+  <p class="sub">Obsessive-Compulsive Disorder</p>
+  <div class="chips">
+    <span class="chip id">NG-075</span>
+    <span class="chip cat">MENTAL HEALTH</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede">OCD runs on a two-part loop: an <b>obsession</b> (an intrusive, unwanted thought) fires off anxiety, and a <b>compulsion</b> (a ritual behavior) relieves that anxiety — <i>temporarily</i>. That temporary relief is exactly what keeps the loop spinning. The client usually knows the thought or ritual is irrational and it distresses them — that's <b>ego-dystonic</b>, the feature that separates true OCD from OCPD.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">🔁 Obsession → Compulsion</span>Obsession = the intrusive thought. Compulsion = the ritual that relieves the anxiety it causes — for a little while.</div>
+  <div class="rc rubybg"><span class="big">🚫 Never yank the ritual</span>Interrupting a compulsion abruptly spikes anxiety fast. Allow it first, then <i>gradually</i> shorten it.</div>
+  <div class="rc tealbg"><span class="big">💊 SSRIs, higher dose, slower onset</span>Sertraline, fluoxetine, paroxetine, fluvoxamine — OCD doses run higher than depression doses; response can take up to <span class="mono">8–12</span> weeks.</div>
+  <div class="rc topazbg"><span class="big">🪞 OCD ≠ OCPD</span>OCD = unwanted, distressing (ego-dystonic). OCPD = feels correct to the client (ego-syntonic) — rigid perfectionism, no rituals.</div>
+</div>
+
+<!-- ============ CAUSE ============ -->
+<section id="cause">
+  <div class="sec-h"><span class="icon">🔁</span><h2>CAUSE</h2><span class="step">STEP 1 · THE LOOP</span></div>
+  <p class="sec-sub">One loop explains the whole disorder — an unwanted thought creates anxiety, a ritual relieves it, and the relief is what keeps the loop spinning.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🔁 The OCD loop — draw this before anything else</h3>
+      <svg viewBox="-10 -26 780 296" role="img" aria-label="Circular flow diagram of the OCD loop: trigger leads to obsession, which causes an anxiety spike, which leads to a compulsion, which brings temporary relief, which reinforces and repeats the loop">
+        <defs>
+          <marker id="ocdArr" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#ffd9b8"/>
+          </marker>
+        </defs>
+        <rect x="-6" y="-22" width="772" height="288" rx="18" fill="rgba(157,92,255,.14)" stroke="#9d5cff" stroke-width="2" stroke-dasharray="7 6"/>
+        <!-- 5 nodes -->
+        <g font-weight="900" text-anchor="middle">
+          <circle cx="100" cy="70" r="58" fill="rgba(47,107,255,.55)" stroke="#bcd0ff" stroke-width="2.5"/>
+          <text x="100" y="62" font-size="15" fill="#fff">⚡ Trigger</text>
+          <text x="100" y="82" font-size="11.5" font-weight="600" fill="#dbe6ff">(door handle,</text>
+          <text x="100" y="97" font-size="11.5" font-weight="600" fill="#dbe6ff">"unclean" thought)</text>
+
+          <circle cx="270" cy="180" r="58" fill="rgba(192,34,85,.62)" stroke="#ffc2d6" stroke-width="2.5"/>
+          <text x="270" y="172" font-size="15" fill="#fff">💭 Obsession</text>
+          <text x="270" y="192" font-size="11.5" font-weight="600" fill="#ffe1ea">intrusive, unwanted</text>
+          <text x="270" y="207" font-size="11.5" font-weight="600" fill="#ffe1ea">thought / urge</text>
+
+          <circle cx="470" cy="180" r="58" fill="rgba(255,59,107,.65)" stroke="#ffc2d6" stroke-width="2.5"/>
+          <text x="470" y="172" font-size="15" fill="#fff">📈 Anxiety spike</text>
+          <text x="470" y="192" font-size="11.5" font-weight="600" fill="#ffe1ea">tachycardia,</text>
+          <text x="470" y="207" font-size="11.5" font-weight="600" fill="#ffe1ea">dread, dread rising</text>
+
+          <circle cx="640" cy="70" r="58" fill="rgba(0,194,199,.58)" stroke="#c9fff8" stroke-width="2.5"/>
+          <text x="640" y="62" font-size="15" fill="#003b42">🔂 Compulsion</text>
+          <text x="640" y="82" font-size="11.5" font-weight="600" fill="#00434a">wash, check,</text>
+          <text x="640" y="97" font-size="11.5" font-weight="600" fill="#00434a">count, arrange</text>
+
+          <circle cx="380" cy="30" r="46" fill="rgba(18,184,134,.6)" stroke="#c8ffe9" stroke-width="2.5"/>
+          <text x="380" y="24" font-size="13.5" fill="#03291c">✅ Relief</text>
+          <text x="380" y="41" font-size="10.5" font-weight="600" fill="#03291c">temporary</text>
+        </g>
+        <path d="M148 92 Q200 130 222 158" fill="none" stroke="#ffd9b8" stroke-width="4" marker-end="url(#ocdArr)"/>
+        <path d="M328 180 L412 180" fill="none" stroke="#ffd9b8" stroke-width="4" marker-end="url(#ocdArr)"/>
+        <path d="M510 155 Q560 110 592 92" fill="none" stroke="#ffd9b8" stroke-width="4" marker-end="url(#ocdArr)"/>
+        <path d="M604 42 Q500 -6 424 16" fill="none" stroke="#ffd9b8" stroke-width="4" marker-end="url(#ocdArr)"/>
+        <path d="M340 42 Q220 50 132 46" fill="none" stroke="#ffd9b8" stroke-width="4" stroke-dasharray="6 5" marker-end="url(#ocdArr)"/>
+        <text x="380" y="240" font-size="13.5" font-style="italic" fill="#e9dcff" text-anchor="middle">Relief reinforces the ritual — so next time the trigger fires, the loop runs faster, not slower.</text>
+      </svg>
+      <div class="mn">🧠 <b>“Trigger, Think, Terror, Try (the ritual), Temporary calm.”</b> Five T's — and the 5th T rolls right back to the 1st.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🧠 Two definitions — memorize the split</h3>
+      <p><b>Obsessions</b> = recurrent, intrusive, unwanted thoughts, images, or urges that cause marked anxiety (contamination fears, doubt/checking, need for symmetry, taboo/aggressive intrusive thoughts).</p>
+      <p><b>Compulsions</b> = repetitive behaviors or mental acts performed <i>to reduce</i> the anxiety the obsession causes (handwashing, checking locks, counting, ordering/arranging, silent praying or counting).</p>
+      <div class="mn">🧠 <b>Obsession = in the head. Compulsion = in the hands (or the mind's ritual).</b> One creates the itch, the other is the scratch.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🧬 What's happening in the brain</h3>
+      <p>Thought to involve <b>serotonin dysregulation</b> plus an overactive circuit linking the <b>orbitofrontal cortex → anterior cingulate → basal ganglia → thalamus</b> — a “worry circuit” that gets stuck signaling <i>something is wrong</i> even after the ritual is done.</p>
+      <svg viewBox="-61 -10 543 190" role="img" aria-label="Simplified diagram of the cortico-striato-thalamo-cortical loop implicated in OCD, shown as a circular signal path that fails to shut off">
+        <rect x="-57" y="-6" width="535" height="182" rx="14" fill="rgba(13,8,26,.5)" stroke="#ff8a3d" stroke-width="2" stroke-dasharray="6 5"/>
+        <g font-weight="800" text-anchor="middle" font-size="12.5" fill="#3d1a00">
+          <rect x="26" y="26" width="110" height="40" rx="10" fill="#ffd9b8"/><text x="81" y="50">Orbitofrontal cortex</text>
+          <rect x="286" y="26" width="110" height="40" rx="10" fill="#ffd9b8"/><text x="341" y="50">Basal ganglia</text>
+          <rect x="286" y="104" width="110" height="40" rx="10" fill="#ffd9b8"/><text x="341" y="128">Thalamus</text>
+          <rect x="26" y="104" width="110" height="40" rx="10" fill="#ffd9b8"/><text x="81" y="122">Anterior</text><text x="81" y="136">cingulate</text>
+        </g>
+        <path d="M136 46 L286 46" stroke="#ffc233" stroke-width="4" fill="none" marker-end="url(#ocdArr)"/>
+        <path d="M341 66 L341 104" stroke="#ffc233" stroke-width="4" fill="none" marker-end="url(#ocdArr)"/>
+        <path d="M286 124 L136 124" stroke="#ffc233" stroke-width="4" fill="none" marker-end="url(#ocdArr)"/>
+        <path d="M81 104 L81 66" stroke="#ffc233" stroke-width="4" fill="none" marker-end="url(#ocdArr)"/>
+        <text x="210" y="160" font-size="12" font-style="italic" fill="#ffe6d2" text-anchor="middle">the loop keeps re-signaling "danger" — the ritual is the only thing that quiets it, briefly</text>
+      </svg>
+    </div>
+
+    <div class="card garnet span2">
+      <h3>🪞 OCD vs OCPD — the mix-up the exam wants you to make</h3>
+      <table>
+        <tr><th class="up" style="width:34%">Feature</th><th class="up">OCD</th><th class="lo">OCPD (personality disorder)</th></tr>
+        <tr><td><b>Insight</b></td><td><mark>Ego-dystonic</mark> — client knows it's irrational, hates it</td><td>Ego-syntonic — feels correct, "this is just how I am"</td></tr>
+        <tr><td><b>Distress</b></td><td>High — thoughts/rituals are unwanted and exhausting</td><td>Low — the person is comfortable, others are bothered instead</td></tr>
+        <tr><td><b>Presentation</b></td><td>True rituals: washing, checking, counting, ordering</td><td>Perfectionism, rigid rules, need for control, preoccupied with orderliness</td></tr>
+        <tr><td><b>Treatment</b></td><td>SSRIs + Exposure &amp; Response Prevention (ERP) — good response</td><td>Psychotherapy focused on insight/flexibility — meds less central</td></tr>
+      </table>
+      <div class="mn">🧠 <b>“OCD hates it, OCPD loves it.”</b> If the client is distressed by their own behavior, it's OCD. If they think everyone else is the problem, it's OCPD.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLUES ============ -->
+<section id="clues">
+  <div class="sec-h"><span class="icon">🔎</span><h2>CLUES</h2><span class="step">STEP 2 · SPOT IT</span></div>
+  <p class="sec-sub">Watch the ritual categories — and know exactly what happens physically if a ritual gets blocked.</p>
+
+  <div class="grid">
+    <div class="card sapphire span2">
+      <h3>🔂 Common ritual categories</h3>
+      <div class="no-grid">
+        <div class="no-t"><span class="e">🧼</span>Washing<i>hands, showering</i></div>
+        <div class="no-t"><span class="e">🔒</span>Checking<i>locks, stove, iron</i></div>
+        <div class="no-t"><span class="e">🔢</span>Counting<i>steps, objects, words</i></div>
+        <div class="no-t"><span class="e">📐</span>Ordering<i>symmetry, arranging</i></div>
+        <div class="no-t"><span class="e">📦</span>Hoarding<i>can't discard items</i></div>
+        <div class="no-t"><span class="e">🙏</span>Mental rituals<i>silent praying, counting</i></div>
+      </div>
+      <div class="mn">🧠 Every category answers the same job description: <i>quiet the anxiety the obsession just triggered.</i></div>
+    </div>
+
+    <div class="card ruby span2">
+      <h3>🚨 If the ritual gets blocked — same physiology as a panic attack</h3>
+      <svg viewBox="0 0 620 300" role="img" aria-label="Diagram of a human silhouette showing sympathetic nervous system arousal when an OCD ritual is interrupted, with labeled arrows for increased heart rate, sweating, rapid breathing and trembling">
+        <defs>
+          <radialGradient id="ocdGlow" cx="50%" cy="45%" r="60%">
+            <stop offset="0" stop-color="rgba(255,59,107,.55)"/><stop offset="1" stop-color="rgba(255,59,107,0)"/>
+          </radialGradient>
+        </defs>
+        <rect x="4" y="4" width="612" height="292" rx="18" fill="rgba(192,34,85,.16)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="7 6"/>
+        <circle cx="310" cy="150" r="120" fill="url(#ocdGlow)"/>
+        <!-- silhouette -->
+        <circle cx="310" cy="90" r="30" fill="#ffd0bd"/>
+        <path d="M270 250 C260 180 265 140 310 130 C355 140 360 180 350 250 Z" fill="#ffd0bd"/>
+        <text x="310" y="30" font-size="16" font-weight="900" fill="#ff9db4" text-anchor="middle">Trigger: ritual interrupted / contamination fear</text>
+        <!-- callouts -->
+        <g font-weight="800" font-size="13.5">
+          <line x1="340" y1="90" x2="470" y2="55" stroke="#ffc233" stroke-width="2.5"/>
+          <text x="474" y="50" fill="#ffc233">💓 Tachycardia</text>
+          <text x="474" y="68" font-size="11.5" font-weight="600" fill="#ffe3ea">HR climbing fast</text>
+
+          <line x1="345" y1="150" x2="480" y2="150" stroke="#00c2c7" stroke-width="2.5"/>
+          <text x="484" y="146" fill="#7dfff5">💦 Diaphoresis</text>
+          <text x="484" y="164" font-size="11.5" font-weight="600" fill="#ffe3ea">sudden sweating</text>
+
+          <line x1="290" y1="120" x2="150" y2="70" stroke="#9d5cff" stroke-width="2.5"/>
+          <text x="40" y="65" fill="#d9c2ff">🫁 Hyperventilation</text>
+          <text x="60" y="83" font-size="11.5" font-weight="600" fill="#ffe3ea">rapid, shallow breaths</text>
+
+          <line x1="270" y1="220" x2="150" y2="230" stroke="#ff8a3d" stroke-width="2.5"/>
+          <text x="30" y="226" fill="#ffb385">🤲 Trembling</text>
+          <text x="30" y="244" font-size="11.5" font-weight="600" fill="#ffe3ea">shaking hands</text>
+        </g>
+        <text x="310" y="285" font-size="13" font-style="italic" fill="#ffd9e2" text-anchor="middle">Blocking a compulsion doesn't erase the anxiety — it just removes the client's only relief valve.</text>
+      </svg>
+      <div class="mn">🧠 <b>This is why you never yank the ritual.</b> A sudden stop can trigger a full sympathetic surge — remember panic attacks can occur inside OCD too.</div>
+    </div>
+
+    <div class="card topaz">
+      <h3>🚨 5 NCLEX traps on OCD</h3>
+      <ul class="tick">
+        <li><span class="never">Never</span> suddenly deny a ritual, especially early in treatment</li>
+        <li><span class="never">Never</span> make judgmental comments about the ritual</li>
+        <li>✅ <b>Give a time reminder</b> before interrupting ("5 minutes left")</li>
+        <li>✅ <b>Gradually decrease</b> ritual time session by session</li>
+        <li>✅ <b>Give positive feedback</b> for non-ritual coping and group participation</li>
+      </ul>
+      <div class="mn">🧠 <b>“Warn, then Wean.”</b> Warn before the time is up, wean the minutes down slowly.</div>
+    </div>
+
+    <div class="card deep">
+      <h3>⭐ Top-missed NCLEX pattern: what counts as improvement?</h3>
+      <p>The answer is almost never "the ritual works better." Look for <b>alternative coping</b> replacing the ritual — <i>"I used to wash my hands 10 times before opening a door, but for 2 weeks now I can open doors without washing."</i></p>
+      <div class="mn">🧠 If the option describes the client <b>still doing the ritual</b> — even calmly — it is <span class="never">not</span> improvement. Improvement = less ritual, more coping skill.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CARE ============ -->
+<section id="care">
+  <div class="sec-h"><span class="icon">🩺</span><h2>CARE</h2><span class="step">STEP 3 · SHRINK THE RITUAL</span></div>
+  <p class="sec-sub">Support first, then shrink the ritual on a schedule — never yank it away.</p>
+
+  <div class="grid">
+    <div class="card emerald span2">
+      <h3>✅ Nursing priority ladder</h3>
+      <div class="ladder">
+        <div class="rung"><div class="n">1</div><div class="t"><b>Allow time to complete the ritual</b> — especially early in the admission; do not interrupt abruptly</div></div>
+        <div class="rung"><div class="n">2</div><div class="t"><b>Identify triggers</b> that increase the client's anxiety</div></div>
+        <div class="rung"><div class="n">3</div><div class="t"><b>Set limits gradually</b> — decrease ritual time little by little ("5 minutes today, 4 minutes next time")</div></div>
+        <div class="rung"><div class="n">4</div><div class="t"><b>Teach alternative coping</b> — deep breathing, relaxation, exercise/short walk</div></div>
+        <div class="rung"><div class="n">5</div><div class="t"><b>Reinforce non-ritual behavior</b> — positive feedback during group activities and coping attempts</div></div>
+      </div>
+      <svg viewBox="0 0 620 150" role="img" aria-label="Timeline showing a compulsive ritual's allowed duration gradually shrinking over five treatment sessions, from sixty minutes down to ten minutes">
+        <rect x="4" y="4" width="612" height="142" rx="14" fill="rgba(13,8,26,.5)" stroke="#12b886" stroke-width="2" stroke-dasharray="6 5"/>
+        <text x="20" y="30" font-size="14" font-weight="900" fill="#a5f3d4">📉 Gradual taper — same ritual, shrinking window</text>
+        <g font-weight="800" font-size="12.5" text-anchor="middle" fill="#03291c">
+          <rect x="30" y="55" width="90" height="60" rx="8" fill="#ff8a3d"/><text x="75" y="90" fill="#2b1200">60 min</text>
+          <rect x="145" y="65" width="90" height="50" rx="8" fill="#ffc233"/><text x="190" y="95">45 min</text>
+          <rect x="260" y="75" width="90" height="40" rx="8" fill="#a5f3d4"/><text x="305" y="100">30 min</text>
+          <rect x="375" y="85" width="90" height="30" rx="8" fill="#7df0c6"/><text x="420" y="105">20 min</text>
+          <rect x="490" y="95" width="90" height="20" rx="8" fill="#12b886"/><text x="535" y="110" fill="#03291c">10 min</text>
+        </g>
+        <text x="75" y="132" font-size="11" fill="#d8fff0" text-anchor="middle">Day 1</text>
+        <text x="190" y="132" font-size="11" fill="#d8fff0" text-anchor="middle">Day 3</text>
+        <text x="305" y="132" font-size="11" fill="#d8fff0" text-anchor="middle">Day 7</text>
+        <text x="420" y="132" font-size="11" fill="#d8fff0" text-anchor="middle">Day 10</text>
+        <text x="535" y="132" font-size="11" fill="#d8fff0" text-anchor="middle">Day 14</text>
+      </svg>
+      <div class="mn">🧠 <b>“Warn, Wean, Win.”</b> Warn before time's up → wean the minutes down → win with praise for the shorter ritual, not for a longer one.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>⭐ CBT: Exposure &amp; Response Prevention (ERP)</h3>
+      <p><mark>Gold-standard psychotherapy for OCD.</mark> The client is exposed to the trigger (e.g., "unclean" object) and coached to <b>resist</b> the compulsive response, so the brain learns the anxiety falls on its own without the ritual.</p>
+      <p><b>Thought-stopping technique:</b> the client is taught to interrupt an intrusive thought on command (e.g., mentally shouting "stop") and redirect attention.</p>
+      <div class="mn">🧠 <b>ERP = "Expose, then Endure."</b> No ritual allowed during the exposure — that's the whole treatment.</div>
+    </div>
+
+    <div class="card emerald">
+      <h3>💊 Pharmacology: SSRIs first, higher &amp; slower</h3>
+      <table>
+        <tr><th class="up" style="width:46%">Drug</th><th class="lo">Note</th></tr>
+        <tr><td><b>Sertraline</b></td><td>SSRI, FDA-approved for OCD</td></tr>
+        <tr><td><b>Fluoxetine</b></td><td>SSRI, FDA-approved for OCD</td></tr>
+        <tr><td><b>Paroxetine</b></td><td>SSRI, FDA-approved for OCD</td></tr>
+        <tr><td><b>Fluvoxamine</b></td><td>SSRI, FDA-approved specifically for OCD</td></tr>
+        <tr><td><b>Clomipramine</b></td><td>TCA — second-line for treatment-resistant OCD</td></tr>
+      </table>
+      <div class="mn">🧠 <b>Compare to depression dosing:</b> OCD typically needs a <b>higher</b> SSRI dose and a <b>longer</b> trial — response can take <span class="mono">8–12</span> weeks, longer than the usual <span class="mono">4–6</span> weeks for depression.</div>
+    </div>
+
+    <div class="card ruby span2">
+      <h3>🚨 Never do this with an OCD client</h3>
+      <ul class="tick">
+        <li><span class="never">Never</span> criticize, mock, or express frustration about the ritual</li>
+        <li><span class="never">Never</span> suddenly deny or forcibly stop a ritual, especially in the first days of admission</li>
+        <li><span class="never">Never</span> rush the client through the ritual — rushing raises anxiety, it doesn't shorten the behavior</li>
+        <li>✅ Do reinforce every non-ritual coping attempt, no matter how small</li>
+      </ul>
+      <div class="mn">🧠 <b>Priority nursing action in the first days after admission = allow the ritual and build trust.</b> Limit-setting comes later, once the trigger list and coping plan exist.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">🔁 Obsession → Compulsion</span>thought → anxiety → ritual → temporary relief → repeat</div>
+    <div class="rc rubybg"><span class="big">🚫 Never yank the ritual</span>allow it, then gradually shrink the time</div>
+    <div class="rc tealbg"><span class="big">💊 SSRIs</span>higher dose, slower onset than depression — ERP is gold-standard therapy</div>
+    <div class="rc topazbg"><span class="big">🪞 Ego-dystonic</span>= OCD. Ego-syntonic = OCPD</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 4 rapid-fire questions</summary>
+      <div class="qa">Q1: A client with OCD is reorganizing books for the third time. What's the best nursing action? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Gradually limit the time spent on the activity — don't stop it abruptly. The ritual decreases the client's anxiety to a tolerable level.</div></div>
+      <div class="qa">Q2: What is the priority nursing action in the first days after admitting a client with OCD? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Allow time to complete rituals while you build trust and identify triggers — don't confront or deny the ritual suddenly.</div></div>
+      <div class="qa">Q3: Which statement best shows improved coping in a client with OCD? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">"I used to wash door handles 10 times before opening them, but for two weeks now I can open doors without washing." Less ritual + more functioning = improvement.</div></div>
+      <div class="qa">Q4: How is OCD different from OCPD? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">OCD is ego-dystonic — the client is distressed by unwanted thoughts/rituals. OCPD is ego-syntonic — rigid perfectionism the person sees as correct, with no true washing/checking rituals.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">CAUSE</span>→
+    <span style="background:rgba(47,107,255,.7)">CLUES</span>→
+    <span style="background:rgba(18,184,134,.7)">CARE</span>
+  </div>
+  <div>NG-075 · Mental Health batch · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>

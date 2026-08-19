@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gastritis · NG-296 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#cause">🧨 Cause</a>
+  <a class="c2" href="#clues">🔎 Clues</a>
+  <a class="c3" href="#care">🩺 Care</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / GI · Pathophysiology Course</div>
+  <h1>Gastritis <span class="drop">🔥</span></h1>
+  <p class="sub">Inflammation of the stomach lining — PUD's earlier, shallower cousin</p>
+  <div class="chips">
+    <span class="chip id">NG-296</span>
+    <span class="chip cat">GI</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede"><b>Gastritis = inflammation of the gastric mucosa</b> — the same protective-mucus-vs-acid fight taught on the <b>PUD</b> page (NG-295), just shallower: irritated, not yet a hole. See <b>NG-293 Key Terms</b> for hematemesis, epigastric pain &amp; H. pylori.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">🔥 Acute = short &amp; irritated</span>Alcohol, aspirin/NSAIDs, spicy food — inflames but doesn't punch through.</div>
+  <div class="rc rubybg"><span class="big">⏳ Chronic = H. pylori</span>Long-term inflammation → mucosal <b>atrophy</b> over years.</div>
+  <div class="rc tealbg"><span class="big">🎗️ Chronic → cancer risk</span>Atrophic gastritis raises risk for <b>PUD AND gastric cancer</b>.</div>
+  <div class="rc topazbg"><span class="big">🩸 Watch for hematemesis</span>Vomiting blood + epigastric burning = classic acute gastritis flare.</div>
+</div>
+
+<!-- ============ CAUSE ============ -->
+<section id="cause">
+  <div class="sec-h"><span class="icon">🧨</span><h2>CAUSE</h2><span class="step">STEP 1 · IRRITATED, NOT PUNCTURED</span></div>
+  <p class="sec-sub">Same mucosa-vs-acid fight as PUD — the difference is depth. Gastritis stops at "irritated"; PUD goes all the way through.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🧫 The mucosa fight — irritated surface vs. eroded crater</h3>
+      <p><span class="tip">EXAM TIP</span> <mark>Gastritis is diffuse inflammation of the surface</mark>; PUD is a discrete hole. Same attackers, different depth.</p>
+      <div class="duo">
+        <svg viewBox="0 0 440 300" role="img" aria-label="Cross section of the stomach wall in acute gastritis showing diffuse redness and inflammation across the surface of the mucus layer, but no hole through the wall">
+          <defs>
+            <linearGradient id="wallG1" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#ffb8a3"/><stop offset="1" stop-color="#e8637f"/>
+            </linearGradient>
+          </defs>
+          <rect x="6" y="6" width="428" height="288" rx="18" fill="rgba(255,138,61,.16)" stroke="#ff8a3d" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="24" y="42" font-size="20" font-weight="900" fill="#ffcda6">🔥 ACUTE GASTRITIS</text>
+          <text x="24" y="64" font-size="13.5" font-style="italic" fill="#ffe3cf">diffuse surface inflammation</text>
+          <rect x="24" y="90" width="392" height="60" rx="10" fill="url(#wallG1)"/>
+          <rect x="24" y="150" width="392" height="26" rx="8" fill="#ffb3c6" opacity=".85"/>
+          <text x="30" y="168" font-size="12" font-weight="900" fill="#4a0018">mucus layer — reddened &amp; irritated, still whole</text>
+          <rect x="24" y="184" width="392" height="70" rx="10" fill="#ffc233" opacity=".6"/>
+          <text x="30" y="212" font-size="13" font-weight="900" fill="#3d1a00">acid + alcohol + NSAIDs inflaming the surface</text>
+          <text x="30" y="234" font-size="12" font-style="italic" fill="#3d1a00">no crater — irritation only</text>
+          <text x="24" y="278" font-size="14" font-weight="900" fill="#ffcda6">Short-term — heals when trigger stops</text>
+        </svg>
+        <svg viewBox="0 0 440 300" role="img" aria-label="Cross section of the stomach wall in chronic gastritis showing a thinned, atrophied mucus layer from long term H pylori infection, with increased risk for peptic ulcer disease and gastric cancer">
+          <defs>
+            <linearGradient id="wallG2" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#ffb8a3"/><stop offset="1" stop-color="#e8637f"/>
+            </linearGradient>
+          </defs>
+          <rect x="6" y="6" width="428" height="288" rx="18" fill="rgba(255,59,107,.16)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="24" y="42" font-size="20" font-weight="900" fill="#ff9db4">⏳ CHRONIC GASTRITIS</text>
+          <text x="24" y="64" font-size="13.5" font-style="italic" fill="#ffd9e2">long-term H. pylori → mucosal atrophy</text>
+          <rect x="24" y="90" width="392" height="60" rx="10" fill="url(#wallG2)"/>
+          <rect x="24" y="150" width="392" height="14" rx="6" fill="#eafff7" opacity=".7"/>
+          <text x="30" y="160" font-size="10.5" font-weight="900" fill="#00252b">mucus layer thinned (atrophy)</text>
+          <path d="M198 116 q6 8 0 16 q-6 8 0 16" fill="none" stroke="#12b886" stroke-width="3"/>
+          <path d="M212 116 q6 8 0 16 q-6 8 0 16" fill="none" stroke="#12b886" stroke-width="3"/>
+          <text x="176" y="108" font-size="10.5" font-weight="900" fill="#a5f3d4">H. pylori</text>
+          <rect x="24" y="164" width="392" height="90" rx="10" fill="#ffc233" opacity=".7"/>
+          <text x="30" y="192" font-size="13" font-weight="900" fill="#3d1a00">years of low-grade acid exposure</text>
+          <text x="30" y="214" font-size="12" font-style="italic" fill="#3d1a00">wears the lining thin over time</text>
+          <text x="30" y="234" font-size="12" font-weight="900" fill="#5a1020">↑ risk: PUD + gastric cancer</text>
+        </svg>
+      </div>
+      <div class="mn">🧠 <b>"Gastritis is a burn, PUD is a hole."</b> Both live on the same mucosa-vs-acid diagram used on the PUD page — gastritis is the surface losing the fight, PUD is the surface being punched all the way through.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🔤 Say the word — it tells you the disease</h3>
+      <ul class="tick">
+        <li><b>Gastro</b> = stomach 🫙</li>
+        <li><b>-itis</b> = inflammation 🔥</li>
+      </ul>
+      <p style="margin-top:8px"><b>Gastritis</b> = <i>inflammation of the stomach lining</i>. Two flavors: <b>acute</b> (short-term) and <b>chronic</b> (long-term).</p>
+      <div class="mn">🧠 Every "-itis" word in medicine means the same thing: inflammation of whatever comes before it.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>⚡ Acute gastritis — the triggers</h3>
+      <ul class="tick">
+        <li>🍺 <b>Alcohol</b> &amp; spicy food</li>
+        <li>💊 <b>Aspirin</b></li>
+        <li>💊 <b>NSAIDs</b> — <span class="mono">naproxen · indomethacin · ibuprofen</span></li>
+      </ul>
+      <p style="margin-top:8px"><b>Patho:</b> inflammation of the gastric mucosa — reversible once the trigger is removed.</p>
+      <div class="mn">🧠 <b>"AAA-NSAID"</b> — Alcohol, Aspirin, and NSAIDs are the acute triad. Same drug list as PUD's NSAID warning.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>⏳ Chronic gastritis — two types</h3>
+      <table>
+        <tr><th class="up">Type A · Autoimmune</th><th class="lo">Type B · H. pylori</th></tr>
+        <tr><td>Antibodies destroy <b>parietal cells</b> in the fundus/body</td><td><b>H. pylori</b> infection, usually the antrum — most common type</td></tr>
+        <tr><td>Loses intrinsic factor → <b>B12</b> malabsorption → pernicious anemia</td><td>Strongly linked to PUD &amp; gastric cancer</td></tr>
+      </table>
+      <svg viewBox="0 0 420 200" role="img" aria-label="Diagram of the stomach showing Type A autoimmune gastritis affecting the fundus and body versus Type B H pylori gastritis affecting the antrum near the duodenum">
+        <rect x="4" y="4" width="412" height="192" rx="14" fill="rgba(13,8,26,.4)" stroke="rgba(255,255,255,.25)" stroke-width="2"/>
+        <path d="M120 30 C 80 30 54 62 58 100 C 60 128 82 148 112 156 C 150 166 200 160 230 140 C 254 124 260 96 244 76 C 230 58 200 40 168 32 Z" fill="#c02255" stroke="#ffd0bd" stroke-width="2"/>
+        <rect x="150" y="30" width="120" height="46" rx="10" fill="#9d5cff" opacity=".85"/>
+        <text x="156" y="20" font-size="12" font-weight="900" fill="#d9c2ff">Fundus / Body</text>
+        <text x="156" y="58" font-size="11.5" font-weight="900" fill="#fff">TYPE A</text>
+        <text x="156" y="72" font-size="10" font-style="italic" fill="#eee0ff">autoimmune</text>
+        <rect x="220" y="118" width="100" height="42" rx="10" fill="#ff3b6b" opacity=".85"/>
+        <text x="200" y="184" font-size="12" font-weight="900" fill="#ff9db4">Antrum (near duodenum)</text>
+        <text x="228" y="140" font-size="11.5" font-weight="900" fill="#fff">TYPE B</text>
+        <text x="228" y="154" font-size="10" font-style="italic" fill="#ffe3ea">H. pylori</text>
+        <rect x="330" y="120" width="60" height="30" rx="12" fill="#ffd0bd"/>
+        <text x="336" y="140" font-size="9.5" font-weight="900" fill="#5a1020">duodenum</text>
+      </svg>
+      <div class="mn">🧠 <b>"A for Antibody/Anemia, B for Bug."</b> Type A is autoimmune and causes B12-deficiency anemia; Type B is the bacterial one and is far more common.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLUES ============ -->
+<section id="clues">
+  <div class="sec-h"><span class="icon">🔎</span><h2>CLUES</h2><span class="step">STEP 2 · SPOT IT</span></div>
+  <p class="sec-sub">Acute gastritis announces itself; chronic gastritis often stays quiet until complications show up.</p>
+
+  <div class="grid">
+    <div class="card sapphire span2">
+      <h3>🔥 Manifestations — <mark>hematemesis + epigastric burning</mark></h3>
+      <ul class="tick">
+        <li>🤮 <b>Hematemesis</b> — vomiting blood</li>
+        <li>🔥 <b>Epigastric pain</b> ("heartburn") &amp; cramps</li>
+        <li>😐 Chronic gastritis can be <b>vague or asymptomatic</b> — bloating, early satiety, dull dyspepsia</li>
+        <li>😵 Type A (autoimmune) may show <b>B12-deficiency signs</b>: fatigue, glossitis (smooth red tongue), paresthesias</li>
+      </ul>
+      <svg viewBox="0 0 900 150" role="img" aria-label="Flow diagram showing autoimmune destruction of parietal cells leading to loss of intrinsic factor, which prevents vitamin B12 absorption and causes pernicious anemia">
+        <rect x="4" y="4" width="892" height="142" rx="16" fill="rgba(13,8,26,.4)" stroke="rgba(255,255,255,.25)" stroke-width="2"/>
+        <rect x="24" y="46" width="180" height="58" rx="12" fill="#9d5cff"/>
+        <text x="36" y="70" font-size="13" font-weight="900" fill="#fff">Autoimmune attack</text>
+        <text x="36" y="90" font-size="12" font-style="italic" fill="#eee0ff">destroys parietal cells</text>
+        <text x="214" y="82" font-size="18" fill="#eafff7">→</text>
+        <rect x="244" y="46" width="180" height="58" rx="12" fill="#2f6bff"/>
+        <text x="256" y="70" font-size="13" font-weight="900" fill="#fff">↓ Intrinsic factor</text>
+        <text x="256" y="90" font-size="12" font-style="italic" fill="#dce6ff">needed to absorb B12</text>
+        <text x="434" y="82" font-size="18" fill="#eafff7">→</text>
+        <rect x="464" y="46" width="180" height="58" rx="12" fill="#ffc233"/>
+        <text x="476" y="70" font-size="13" font-weight="900" fill="#231a02">B12 malabsorption</text>
+        <text x="476" y="90" font-size="12" font-style="italic" fill="#3d1a00">occurs in the ileum</text>
+        <text x="654" y="82" font-size="18" fill="#eafff7">→</text>
+        <rect x="684" y="46" width="190" height="58" rx="12" fill="#ff3b6b"/>
+        <text x="696" y="70" font-size="13" font-weight="900" fill="#fff">Pernicious anemia</text>
+        <text x="696" y="90" font-size="12" font-style="italic" fill="#ffe3ea">fatigue · glossitis · paresthesias</text>
+      </svg>
+      <div class="mn">🧠 <b>"Loud when acute, quiet when chronic."</b> Acute gastritis often hurts right away; chronic gastritis can hide for years until a complication forces the diagnosis.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🚨 Complications</h3>
+      <div class="flow">
+        <div class="fstep">⏳ Chronic inflammation, untreated</div>
+        <div class="farrow">▼</div>
+        <div class="fstep">🕳️ Mucosal atrophy</div>
+        <div class="farrow">▼</div>
+        <div class="fstep hot">🎗️ ↑ Risk: <b>Peptic Ulcer Disease</b> &amp; <b>Gastric Cancer</b></div>
+      </div>
+      <div class="mn">🧠 Type A chronic gastritis also raises pernicious anemia risk — always check a <b>CBC</b> and <b>B12 level</b> if it's suspected.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🔬 Diagnostics</h3>
+      <ul class="tick">
+        <li><b>EGD with biopsy</b> — confirms inflammation/atrophy, rules out cancer</li>
+        <li><b>H. pylori testing</b> — breath, stool antigen, or biopsy (see NG-293)</li>
+        <li><b>CBC + B12 level</b> — screens for anemia in chronic/autoimmune gastritis</li>
+      </ul>
+      <div class="mn">🧠 <b>EGD = "Every Gut Door"</b> — same three-door scope used across GERD, Hiatal Hernia, and PUD.</div>
+    </div>
+
+    <div class="card garnet span2">
+      <h3>📋 Acute vs. Chronic — tell them apart</h3>
+      <table>
+        <tr><th class="up">Acute Gastritis</th><th class="lo">Chronic Gastritis</th></tr>
+        <tr><td>Short-term inflammation</td><td>Long-term inflammation → atrophy</td></tr>
+        <tr><td>Causes: alcohol, spicy food, aspirin, NSAIDs</td><td>Cause: H. pylori infection (Type B) or autoimmune (Type A)</td></tr>
+        <tr><td>Usually reversible once trigger removed</td><td>Can progress to PUD, gastric cancer, or pernicious anemia (Type A)</td></tr>
+        <tr><td>Presents loudly: hematemesis, epigastric pain</td><td>Often silent or vague until complications appear</td></tr>
+      </table>
+      <div class="mn">🧠 <b>NCLEX trap:</b> "gastritis" alone isn't enough of an answer — know whether the stem is describing acute (reversible, trigger-driven) or chronic (progressive, H. pylori/autoimmune).</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CARE ============ -->
+<section id="care">
+  <div class="sec-h"><span class="icon">🩺</span><h2>CARE</h2><span class="step">STEP 3 · REMOVE THE TRIGGER, HEAL THE LINING</span></div>
+  <p class="sec-sub">Stop what's causing the irritation, calm the acid, and treat H. pylori if it's the driver — same toolkit as PUD.</p>
+
+  <div class="grid">
+    <div class="card emerald span2">
+      <h3>💊 Pharmacology</h3>
+      <table>
+        <tr><th style="width:34%">Class</th><th class="up">Example</th><th class="lo">When used</th></tr>
+        <tr><td><b>Antacids</b> 🧴</td><td>—</td><td>Quick symptom relief</td></tr>
+        <tr><td><b>H2 blockers</b> 🚫</td><td><b>Ranitidine</b><span class="mono"> -tidine</span></td><td>Reduce acid production</td></tr>
+        <tr><td><b>PPIs</b> ⛽</td><td><b>Omeprazole</b><span class="mono"> -prazole</span></td><td>Strongest acid suppression; part of H. pylori therapy</td></tr>
+        <tr><td><b>Antibiotics</b> 💊</td><td>Amoxicillin, Clarithromycin, Metronidazole, Tetracycline + Bismuth</td><td>Eradicate H. pylori (Type B chronic gastritis)</td></tr>
+        <tr><td><b>Vitamin B12</b> 💉</td><td>Cyanocobalamin injections</td><td>Type A autoimmune gastritis with pernicious anemia</td></tr>
+      </table>
+      <div class="mn">🧠 Same acid-reducer ladder as GERD and PUD — the only new addition here is <b>B12 replacement</b> for autoimmune (Type A) chronic gastritis, because oral B12 won't absorb without intrinsic factor.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>❌ AVOID — remove the irritant</h3>
+      <div class="no-grid">
+        <div class="no-t hot"><span class="e">🍺</span>Alcohol<i>&nbsp;</i></div>
+        <div class="no-t hot"><span class="e">💊</span>NSAIDs/aspirin<i>&nbsp;</i></div>
+        <div class="no-t"><span class="e">🌶️</span>Spicy food<i>&nbsp;</i></div>
+        <div class="no-t hot"><span class="e">🚬</span>Smoking<i>&nbsp;</i></div>
+        <div class="no-t hot"><span class="e">☕</span>Caffeine<i>&nbsp;</i></div>
+      </div>
+      <p style="margin-top:11px"><mark>Small, bland meals</mark> during a flare while the mucosa heals.</p>
+      <div class="mn">🧠 Acute gastritis is often self-limited — remove the trigger and the mucosa heals on its own within days.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>👁️ Monitoring priorities</h3>
+      <ul class="tick">
+        <li>🩸 Watch for <b>hematemesis / melena</b> — sign of bleeding, notify HCP</li>
+        <li>🧪 Trend <b>H&amp;H</b> if bleeding is suspected</li>
+        <li>😵 Screen chronic/Type A patients for <b>B12 deficiency</b></li>
+        <li>🔬 Chronic gastritis needs periodic <b>surveillance EGD</b> given cancer risk</li>
+      </ul>
+      <div class="mn">🧠 <b>"Gastritis today, PUD or cancer tomorrow if ignored."</b> That's why chronic gastritis gets monitored long-term, not just treated once.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">🔥 Acute</span>= short-term, reversible — alcohol, aspirin, NSAIDs</div>
+    <div class="rc rubybg"><span class="big">⏳ Chronic</span>= long-term atrophy — H. pylori (Type B) or autoimmune (Type A)</div>
+    <div class="rc tealbg"><span class="big">😵 Type A</span>autoimmune → ↓ intrinsic factor → B12 deficiency</div>
+    <div class="rc topazbg"><span class="big">🎗️ Chronic → risk</span>↑ risk for PUD AND gastric cancer</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 4 rapid-fire questions</summary>
+      <div class="qa">Q1: What's the pathophysiologic difference between gastritis and PUD? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Gastritis is diffuse inflammation of the surface mucosa. PUD is acid eroding all the way through the wall, creating an open sore/hole.</div></div>
+      <div class="qa">Q2: Name the two types of chronic gastritis and their key difference. <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Type A (autoimmune) — destroys parietal cells, causes B12 deficiency/pernicious anemia. Type B (H. pylori) — the more common type, strongly linked to PUD and gastric cancer.</div></div>
+      <div class="qa">Q3: Why can't oral vitamin B12 fix a Type A gastritis patient's deficiency? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">The autoimmune destruction of parietal cells wipes out intrinsic factor, which B12 needs for absorption in the ileum — so B12 must be given by injection.</div></div>
+      <div class="qa">Q4: What are the two long-term complications chronic gastritis raises the risk of? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Peptic ulcer disease and gastric cancer.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">CAUSE</span>→
+    <span style="background:rgba(47,107,255,.7)">CLUES</span>→
+    <span style="background:rgba(18,184,134,.7)">CARE</span>
+  </div>
+  <div>NG-296 · Source wording retained · ADHD-friendly visual edition v2</div>
+</footer>
+
+</div>
+</body></html>

@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fracture · NG-056 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+/* ---------- appended extras for MSK batch ---------- */
+.seriesnav{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}
+.seriesnav a{font-size:.82rem;font-weight:800;color:#fff;text-decoration:none;
+  padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:rgba(13,8,26,.5)}
+.seriesnav a.here{background:rgba(255,194,51,.75);color:#231a02;border-color:transparent}
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:12px 0 0}
+.pcell{border:1px solid var(--line);border-radius:10px;padding:8px 4px;text-align:center;font-size:.82rem;font-weight:800;background:rgba(13,8,26,.5)}
+</style></head>
+<body>
+<div class="wrap">
+
+<div class="seriesnav">
+  <span class="pcell" style="padding:6px 12px;background:rgba(255,194,51,.75);color:#231a02;border-radius:999px;border:none">🦴 Fracture &amp; Trauma Care series:</span>
+  <a class="here" href="#">1 · Fracture</a>
+  <a href="NG-058_bucks-traction-postoperative-care.html">2 · Buck's Traction &amp; Post-Op</a>
+  <a href="NG-061_fat-embolism-osteomyelitis.html">3 · Fat Embolism &amp; Osteomyelitis</a>
+  <a href="NG-063_cast-care.html">4 · Cast Care</a>
+</div>
+
+<nav>
+  <a class="c1" href="#cause">🦴 Types</a>
+  <a class="c2" href="#clues">🖐️ Assess</a>
+  <a class="c3" href="#care">🩺 Care</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Musculoskeletal · Fracture &amp; Trauma Care Series · Page 1 of 4</div>
+  <h1>Fracture <span class="drop">🦴</span></h1>
+  <p class="sub">Bone Breaks, Neurovascular Checks &amp; Emergency Stabilization</p>
+  <div class="chips">
+    <span class="chip id">NG-056</span>
+    <span class="chip cat">Musculoskeletal</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede">A <b>fracture</b> is any break in the continuity of a bone — from a hairline crack to a shattered shaft. The nurse's job isn't the x-ray, it's <b>everything around the bone</b>: is the skin open, is the limb still getting blood flow and nerve signal, and is there a life threat (pelvic bleed, spinal shock, skull fracture) hiding behind the obvious injury? This page builds the <mark>6 P's</mark> — the neurovascular assessment used on every single page in this series.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">🦴 Open vs closed</span>Skin broken = <b>open/compound</b> = infection risk + check tetanus status.</div>
+  <div class="rc rubybg"><span class="big">🖐️ The 6 P's</span>Pain · Pallor · Pulselessness · Paresthesia · Paralysis · Poikilothermia — neurovascular compromise.</div>
+  <div class="rc tealbg"><span class="big">🩸 Pelvic fracture</span><b>Hypotension + tachycardia + hematuria</b> = internal bleeding → report NOW.</div>
+  <div class="rc topazbg"><span class="big">🚨 Splint before you move</span>Immobilize the joint <b>above &amp; below</b> the break first — always.</div>
+</div>
+
+<!-- ============ TYPES (cause) ============ -->
+<section id="cause">
+  <div class="sec-h"><span class="icon">🦴</span><h2>TYPES</h2><span class="step">STEP 1 · NAME THE BREAK</span></div>
+  <p class="sec-sub">Every fracture question starts by naming what kind of break it is — the name usually tells you the risk.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🩻 Six fracture patterns you must recognize on sight</h3>
+      <svg viewBox="-10 -10 953 480" role="img" aria-label="Six illustrated fracture patterns: closed, open compound, greenstick, spiral, oblique, and comminuted or compression fracture, each shown as a labeled bone diagram">
+        <rect x="-6" y="-6" width="945" height="472" rx="18" fill="rgba(13,8,26,.35)" stroke="rgba(255,255,255,.25)" stroke-width="1.5"/>
+        <!-- helper macro via repeated groups -->
+        <!-- Panel 1: Closed -->
+        <g>
+          <rect x="20" y="20" width="280" height="190" rx="14" fill="rgba(18,184,134,.16)" stroke="#12b886" stroke-width="2" stroke-dasharray="6 5"/>
+          <text x="36" y="46" font-size="17" font-weight="900" fill="#7df0c6">✅ CLOSED</text>
+          <rect x="60" y="90" width="180" height="34" rx="17" fill="#ffe3d1"/>
+          <circle cx="60" cy="107" r="20" fill="#ffe3d1"/><circle cx="240" cy="107" r="20" fill="#ffe3d1"/>
+          <path d="M148 88 L136 124" stroke="#ffc233" stroke-width="4"/>
+          <path d="M40 150 Q150 190 260 150" fill="none" stroke="#ff9f86" stroke-width="10" stroke-linecap="round" opacity=".55"/>
+          <text x="36" y="182" font-size="13.5" fill="#d8fff0">skin intact — bone cracks under it</text>
+        </g>
+        <!-- Panel 2: Open -->
+        <g>
+          <rect x="310" y="20" width="280" height="190" rx="14" fill="rgba(255,59,107,.16)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="6 5"/>
+          <text x="326" y="46" font-size="17" font-weight="900" fill="#ff9db4">🚨 OPEN “compound”</text>
+          <rect x="350" y="95" width="90" height="30" rx="15" fill="#ffe3d1"/>
+          <rect x="470" y="88" width="90" height="30" rx="15" fill="#ffe3d1" transform="rotate(18 515 103)"/>
+          <path d="M440 110 l16 -30 l10 34 z" fill="#ffe3d1"/>
+          <path d="M448 96 C 452 74 470 66 486 70" fill="none" stroke="#ff3b6b" stroke-width="5" stroke-linecap="round"/>
+          <circle cx="452" cy="86" r="6" fill="#ff3b6b"/>
+          <text x="326" y="182" font-size="13.5" fill="#ffd9e2">bone pierces skin — high infection risk</text>
+        </g>
+        <!-- Panel 3: Greenstick -->
+        <g>
+          <rect x="600" y="20" width="280" height="190" rx="14" fill="rgba(255,194,51,.16)" stroke="#ffc233" stroke-width="2" stroke-dasharray="6 5"/>
+          <text x="616" y="46" font-size="17" font-weight="900" fill="#ffe49a">🌱 GREENSTICK</text>
+          <path d="M630 110 Q 760 60 870 108" fill="none" stroke="#ffe3d1" stroke-width="32" stroke-linecap="round"/>
+          <path d="M745 82 l10 18 l-16 4 z" fill="#ffc233"/>
+          <text x="616" y="182" font-size="13.5" fill="#fff0c2">bends &amp; partly cracks — pediatric bone</text>
+        </g>
+        <!-- Panel 4: Spiral -->
+        <g>
+          <rect x="20" y="240" width="280" height="200" rx="14" fill="rgba(47,107,255,.16)" stroke="#2f6bff" stroke-width="2" stroke-dasharray="6 5"/>
+          <text x="36" y="266" font-size="17" font-weight="900" fill="#bcd0ff">🌀 SPIRAL</text>
+          <rect x="60" y="310" width="180" height="34" rx="17" fill="#ffe3d1"/>
+          <circle cx="60" cy="327" r="20" fill="#ffe3d1"/><circle cx="240" cy="327" r="20" fill="#ffe3d1"/>
+          <path d="M100 296 Q135 327 100 358 M170 296 Q205 327 170 358" fill="none" stroke="#2f6bff" stroke-width="5"/>
+          <text x="36" y="404" font-size="13.5" fill="#dbe6ff">twisting force — suspect abuse if in a child</text>
+        </g>
+        <!-- Panel 5: Oblique -->
+        <g>
+          <rect x="310" y="240" width="280" height="200" rx="14" fill="rgba(157,92,255,.18)" stroke="#9d5cff" stroke-width="2" stroke-dasharray="6 5"/>
+          <text x="326" y="266" font-size="17" font-weight="900" fill="#d9c2ff">📐 OBLIQUE</text>
+          <rect x="350" y="310" width="180" height="34" rx="17" fill="#ffe3d1"/>
+          <circle cx="350" cy="327" r="20" fill="#ffe3d1"/><circle cx="530" cy="327" r="20" fill="#ffe3d1"/>
+          <path d="M420 296 L460 358" stroke="#9d5cff" stroke-width="5"/>
+          <text x="326" y="404" font-size="13.5" fill="#ece2ff">diagonal break line across the shaft</text>
+        </g>
+        <!-- Panel 6: Comminuted / Compression -->
+        <g>
+          <rect x="600" y="240" width="280" height="200" rx="14" fill="rgba(192,34,85,.18)" stroke="#c02255" stroke-width="2" stroke-dasharray="6 5"/>
+          <text x="616" y="266" font-size="17" font-weight="900" fill="#ffb3c6">💥 COMMINUTED / COMPRESSION</text>
+          <rect x="640" y="310" width="180" height="34" rx="17" fill="#ffe3d1"/>
+          <circle cx="640" cy="327" r="20" fill="#ffe3d1"/><circle cx="820" cy="327" r="20" fill="#ffe3d1"/>
+          <path d="M700 296 L690 358 M725 292 L715 360 M750 296 L742 358" stroke="#c02255" stroke-width="4"/>
+          <text x="616" y="404" font-size="13.5" fill="#ffd9e2">shattered into &gt;2 pieces, or crushed/impacted</text>
+        </g>
+      </svg>
+      <div class="mn">🧠 <b>“COGS-C”</b> — <b>C</b>losed · <b>O</b>pen · <b>G</b>reenstick · <b>S</b>piral · oblique(<b>C</b>ut diagonal) · <b>C</b>omminuted/compression. Whatever the name — always ask <i>“is the skin open?”</i> first, because that changes everything about infection risk.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🚪 Closed vs Open — the one question that changes care</h3>
+      <table>
+        <tr><th class="up">Closed</th><th class="lo">Open “compound”</th></tr>
+        <tr><td>Skin <b>intact</b> — bone does <b>not</b> break the skin surface</td>
+            <td>Skin surface <b>broken</b> — bone visible or was exposed</td></tr>
+        <tr><td>Lower infection risk</td><td><b>High infection risk</b> — ask about last <mark>tetanus vaccine</mark></td></tr>
+        <tr><td>Cover, splint, x-ray</td><td>Sterile dressing, <span class="never">never push the bone back in</span>, IV antibiotics often started</td></tr>
+      </table>
+      <div class="mn">🧠 <b>HESI trap:</b> open leg fracture → the nurse should ask <i>“when was your last tetanus shot?”</i> — broken skin + soil/debris exposure = tetanus risk.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>⚠️ Risk factors — what sets a fracture up</h3>
+      <ul class="tick">
+        <li>🛏️ <b>Prolonged bed rest</b> — disuse osteoporosis, muscle atrophy &amp; loss of tone</li>
+        <li>🦴 <b>Osteoporosis</b> — weak, porous bone (see the Osteoporosis page in this library)</li>
+        <li>💊 <b>Steroids “-sone”</b> — prednisone, dexamethasone, hydrocortisone, fludrocortisone — long-term use thins bone</li>
+        <li>💥 <b>Trauma</b> — falls, MVC, sports</li>
+      </ul>
+      <div class="mn">🧠 <b>Kaplan SATA:</b> long-term bed rest effect the nurse should worry about most → <b>loss of muscle tone and disuse atrophy</b> (select-all-that-apply style question).</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ASSESS (clues) ============ -->
+<section id="clues">
+  <div class="sec-h"><span class="icon">🖐️</span><h2>ASSESS</h2><span class="step">STEP 2 · THE 6 P's</span></div>
+  <p class="sec-sub">This is the neurovascular check you will run on <b>every</b> injured or casted limb — memorize it here, it repeats on every page in this series.</p>
+
+  <div class="grid">
+    <div class="card sapphire span2">
+      <h3>🖐️ THE 6 P's — neurovascular assessment of an injured limb</h3>
+      <svg viewBox="-10 -10 978 380" role="img" aria-label="Diagram of a limb with six labeled neurovascular checks: pain, pallor, pulselessness, paresthesia, paralysis, and poikilothermia or temperature change">
+        <rect x="-6" y="-6" width="970" height="372" rx="18" fill="rgba(13,8,26,.4)" stroke="rgba(255,255,255,.25)" stroke-width="1.5"/>
+        <rect x="360" y="40" width="60" height="280" rx="28" fill="#ffe3d1"/>
+        <circle cx="390" cy="52" r="26" fill="#ffe3d1"/>
+        <rect x="372" y="150" width="36" height="10" fill="#ff3b6b" opacity=".7"/>
+        <text x="330" y="345" font-size="14" font-weight="800" fill="#dbe6ff" text-anchor="middle">injured limb</text>
+
+        <!-- 6 callouts around -->
+        <g font-size="14.5" font-weight="800">
+          <circle cx="150" cy="70" r="8" fill="#ff3b6b"/><line x1="150" y1="70" x2="365" y2="90" stroke="#ff3b6b" stroke-width="2"/>
+          <text x="30" y="55" fill="#ff9db4" font-size="18" font-weight="900">1. PAIN</text>
+          <text x="30" y="76" fill="#ffd9e2" font-size="12.5" font-style="italic">unrelieved, increasing, worse w/ passive stretch</text>
+
+          <circle cx="150" cy="150" r="8" fill="#ffc233"/><line x1="150" y1="150" x2="365" y2="150" stroke="#ffc233" stroke-width="2"/>
+          <text x="30" y="135" fill="#ffe49a" font-size="18" font-weight="900">2. PALLOR</text>
+          <text x="30" y="156" fill="#fff0c2" font-size="12.5" font-style="italic">pale or dusky skin distal to injury</text>
+
+          <circle cx="150" cy="230" r="8" fill="#00c2c7"/><line x1="150" y1="230" x2="365" y2="210" stroke="#00c2c7" stroke-width="2"/>
+          <text x="30" y="215" fill="#9ff2ee" font-size="18" font-weight="900">3. PULSELESSNESS</text>
+          <text x="30" y="236" fill="#d8fff9" font-size="12.5" font-style="italic">weak or absent distal pulse — late, ominous sign</text>
+
+          <circle cx="630" cy="70" r="8" fill="#9d5cff"/><line x1="630" y1="70" x2="418" y2="90" stroke="#9d5cff" stroke-width="2"/>
+          <text x="640" y="55" fill="#d9c2ff" font-size="18" font-weight="900">4. PARESTHESIA</text>
+          <text x="640" y="76" fill="#ece2ff" font-size="12.5" font-style="italic">tingling, burning, numbness — early sign</text>
+
+          <circle cx="630" cy="150" r="8" fill="#2f6bff"/><line x1="630" y1="150" x2="418" y2="150" stroke="#2f6bff" stroke-width="2"/>
+          <text x="640" y="135" fill="#bcd0ff" font-size="18" font-weight="900">5. PARALYSIS</text>
+          <text x="640" y="156" fill="#dbe6ff" font-size="12.5" font-style="italic">can't move fingers/toes — late, ominous sign</text>
+
+          <circle cx="630" cy="230" r="8" fill="#ff8a3d"/><line x1="630" y1="230" x2="418" y2="210" stroke="#ff8a3d" stroke-width="2"/>
+          <text x="640" y="215" fill="#ffd9b8" font-size="18" font-weight="900">6. POIKILOTHERMIA</text>
+          <text x="640" y="236" fill="#ffe9d9" font-size="12.5" font-style="italic">limb feels cold/cool to the touch</text>
+        </g>
+        <text x="450" y="300" text-anchor="middle" font-size="15" font-weight="900" fill="#a5f3d4">= P.M.S.C. shortcut: Pulses · Movement · Sensation · Color/temp</text>
+      </svg>
+      <div class="mn">🧠 <b>“Early vs late.”</b> <b>Paresthesia</b> (tingling) shows up <i>first</i> — that's your window to intervene. <b>Pulselessness</b> and <b>paralysis</b> are <i>late</i> signs — by the time you see those, tissue damage may already be underway. Never wait for all 6 P's — <mark>one abnormal P = notify the HCP</mark>.</div>
+    </div>
+
+    <div class="card ruby span2">
+      <h3>🩸 Pelvic fracture — the priority finding you must catch</h3>
+      <div class="flow">
+        <div class="fstep">💥 Pelvic fracture — large vessels run right through the pelvis</div>
+        <div class="farrow">▼</div>
+        <div class="fstep">🩸 Internal bleeding into the pelvic cavity (can be liters, hidden)</div>
+        <div class="farrow">▼</div>
+        <div class="fstep hot">🚨 <b>Hypotension + Tachycardia + Hematuria</b> — report to HCP immediately</div>
+      </div>
+      <p style="margin-top:10px">Also watch for: <b>crepitus</b> (grating sensation/sound of bone ends rubbing) and <b>muscle spasm</b> around the fracture site.</p>
+      <div class="mn">🧠 <b>Saunders trap:</b> "Which is the most serious finding for a pelvic fracture?" → <b>hypotension, tachycardia, and hematuria</b> — signs of hemorrhagic shock and bladder/urethral injury, not just local pain.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🦵 Hip fracture — the classic exam picture</h3>
+      <svg viewBox="-10 -10 660 340" role="img" aria-label="Comparison diagram of a normal leg versus a fractured hip, showing the affected leg appears shorter with the foot externally rotated, plus bruising and muscle spasm near the hip">
+        <rect x="-6" y="-6" width="652" height="332" rx="18" fill="rgba(13,8,26,.35)" stroke="rgba(255,255,255,.25)" stroke-width="1.5"/>
+        <!-- Panel A: Normal -->
+        <g transform="translate(30,20)">
+          <rect x="0" y="0" width="270" height="300" rx="14" fill="rgba(18,184,134,.14)" stroke="#12b886" stroke-width="2" stroke-dasharray="6 5"/>
+          <text x="14" y="26" font-size="15" font-weight="900" fill="#7df0c6">✅ NORMAL</text>
+          <ellipse cx="135" cy="55" rx="55" ry="22" fill="#ffe3d1"/>
+          <rect x="118" y="70" width="34" height="140" rx="16" fill="#ffe3d1"/>
+          <circle cx="135" cy="215" r="18" fill="#ffe3d1"/>
+          <rect x="120" y="225" width="30" height="50" rx="14" fill="#ffe3d1"/>
+          <rect x="95" y="270" width="80" height="16" rx="8" fill="#ffe3d1"/>
+          <line x1="10" y1="286" x2="260" y2="286" stroke="rgba(255,255,255,.4)" stroke-width="1.5" stroke-dasharray="3 4"/>
+          <text x="14" y="292" font-size="11" fill="#d8fff0">leg full length, foot points forward</text>
+        </g>
+        <!-- Panel B: Fractured -->
+        <g transform="translate(340,20)">
+          <rect x="0" y="0" width="270" height="300" rx="14" fill="rgba(192,34,85,.18)" stroke="#c02255" stroke-width="2" stroke-dasharray="6 5"/>
+          <text x="14" y="26" font-size="15" font-weight="900" fill="#ffb3c6">🚨 FRACTURED HIP</text>
+          <ellipse cx="135" cy="55" rx="55" ry="22" fill="#ffe3d1"/>
+          <ellipse cx="102" cy="90" rx="20" ry="14" fill="#9d5cff" opacity=".65"/>
+          <path d="M70 75 q10 10 0 20 M78 68 q10 10 0 20" stroke="#ff3b6b" stroke-width="2.5" fill="none" opacity=".8"/>
+          <rect x="118" y="70" width="34" height="110" rx="16" fill="#ffe3d1"/>
+          <path d="M112 138 L124 128 L134 144 L146 130 L158 138" stroke="#c02255" stroke-width="3" fill="none"/>
+          <circle cx="135" cy="195" r="18" fill="#ffe3d1"/>
+          <rect x="120" y="205" width="30" height="45" rx="14" fill="#ffe3d1"/>
+          <g transform="rotate(65 135 250)"><rect x="95" y="242" width="80" height="16" rx="8" fill="#ffe3d1"/></g>
+          <line x1="10" y1="286" x2="260" y2="286" stroke="rgba(255,255,255,.4)" stroke-width="1.5" stroke-dasharray="3 4"/>
+          <path d="M175 250 v36" stroke="#ffc233" stroke-width="2"/>
+          <path d="M175 250 l-5 8 l10 0 z" fill="#ffc233"/>
+          <text x="185" y="272" font-size="11" font-weight="800" fill="#ffe49a">① shorter</text>
+          <text x="180" y="230" font-size="11" font-weight="800" fill="#ffe49a">② foot rotated out</text>
+          <text x="14" y="98" font-size="10.5" font-weight="800" fill="#ece2ff">③ ecchymosis</text>
+          <text x="14" y="292" font-size="11" fill="#ffd9e2">④ spasm near hip · leg looks shorter</text>
+        </g>
+      </svg>
+      <ul class="tick">
+        <li>📏 <b>Shortening</b> of the affected leg</li>
+        <li>🔄 Affected leg often <b>externally rotated</b></li>
+        <li>😖 <b>Muscle spasm</b> around the hip</li>
+        <li>🟣 <b>Ecchymosis</b> (bruising) over thigh/hip</li>
+        <li>⚡ <b>Groin &amp; hip pain</b> that worsens with weight bearing</li>
+      </ul>
+      <div class="mn">🧠 Hip fracture = <b>“short &amp; turned out.”</b> A leg that looks shorter and rotated outward, in an older adult who fell, is a hip fracture until proven otherwise.</div>
+    </div>
+
+    <div class="card deep">
+      <h3>🧠 Skull, spine &amp; mandible — trauma above the neck</h3>
+      <p><b>Basilar skull fracture:</b> clear fluid from nose/ear (<b>CSF rhinorrhea/otorrhea</b>) — <span class="never">never suction or pack the nose</span>, test for a "halo" ring on gauze.</p>
+      <p><b>Spinal fracture at T6 or higher → neurogenic shock:</b> <span class="mono">hypotension</span> + <span class="mono">bradycardia</span> + skin that stays <b>pink &amp; dry</b> (loss of sympathetic tone, not hypovolemia).</p>
+      <p><b>Mandibular fracture:</b> bleeding/drooling from the mouth → <b>suction the mouth</b>, protect the airway first.</p>
+      <div class="mn">🧠 <b>“Bradycardia + hypotension + warm dry skin”</b> = neurogenic shock, NOT hypovolemic shock (which is tachycardic, cool, clammy). Easy to mix up on an exam.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CARE ============ -->
+<section id="care">
+  <div class="sec-h"><span class="icon">🩺</span><h2>CARE</h2><span class="step">STEP 3 · STABILIZE FIRST</span></div>
+  <p class="sec-sub">Immobilize before you move anything — then reassess the 6 P's before and after every intervention.</p>
+
+  <div class="grid">
+    <div class="card emerald span2">
+      <h3>🚑 Emergency stabilization — in order</h3>
+      <div class="ladder">
+        <div class="rung"><div class="n">1</div><div class="t"><b>ABCs first</b> — treat life threats (airway, breathing, hemorrhage) before the limb itself</div></div>
+        <div class="rung"><div class="n">2</div><div class="t"><b>Assess the 6 P's</b> distal to the injury before touching it</div></div>
+        <div class="rung"><div class="n">3</div><div class="t"><b>Splint the joint above AND below</b> the fracture before any movement</div></div>
+        <div class="rung"><div class="n">4</div><div class="t"><b>Reassess the 6 P's</b> immediately after splinting — a tight splint can cause the exact injury it prevents</div></div>
+        <div class="rung"><div class="n">5</div><div class="t"><b>Elevate &amp; ice</b> the limb to reduce swelling</div></div>
+      </div>
+      <div class="mn">🧠 <b>“Check, splint, check again.”</b> Neurovascular status is assessed <i>before AND after</i> every splint, cast, or traction device is applied — that repeated check is the single most tested nursing action in this whole unit.</div>
+    </div>
+
+    <div class="card deep span2">
+      <h3>⏳ Fracture healing timeline — what's happening under the cast</h3>
+      <svg viewBox="-10 -10 970 250" role="img" aria-label="Timeline of four fracture healing stages: hematoma formation in the first days, soft fibrocartilage callus over the first two weeks, hard bony callus by two to six weeks, and remodeling back to normal bone shape over months to years">
+        <rect x="-6" y="-6" width="962" height="242" rx="18" fill="rgba(13,8,26,.35)" stroke="rgba(255,255,255,.25)" stroke-width="1.5"/>
+        <!-- Stage 1: Hematoma -->
+        <g>
+          <rect x="10" y="10" width="225" height="210" rx="14" fill="rgba(255,59,107,.16)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="6 5"/>
+          <text x="26" y="34" font-size="15" font-weight="900" fill="#ff9db4">🩸 HEMATOMA</text>
+          <text x="26" y="52" font-size="12.5" font-style="italic" fill="#ffd9e2">0–3 days</text>
+          <rect x="30" y="110" width="70" height="24" rx="12" fill="#ffe3d1"/>
+          <rect x="160" y="110" width="70" height="24" rx="12" fill="#ffe3d1"/>
+          <ellipse cx="130" cy="122" rx="32" ry="20" fill="#ff3b6b" opacity=".85"/>
+          <text x="26" y="185" font-size="11.5" fill="#ffd9e2">blood clot seals the</text>
+          <text x="26" y="200" font-size="11.5" fill="#ffd9e2">break — inflammation begins</text>
+        </g>
+        <text x="238" y="128" font-size="16" fill="#e9dcff">▶</text>
+        <!-- Stage 2: Soft callus -->
+        <g>
+          <rect x="245" y="10" width="225" height="210" rx="14" fill="rgba(255,194,51,.16)" stroke="#ffc233" stroke-width="2" stroke-dasharray="6 5"/>
+          <text x="261" y="34" font-size="15" font-weight="900" fill="#ffe49a">🧬 SOFT CALLUS</text>
+          <text x="261" y="52" font-size="12.5" font-style="italic" fill="#fff0c2">3 days – 2 wks</text>
+          <rect x="265" y="110" width="70" height="24" rx="12" fill="#ffe3d1"/>
+          <rect x="395" y="110" width="70" height="24" rx="12" fill="#ffe3d1"/>
+          <ellipse cx="365" cy="122" rx="55" ry="30" fill="#ffc233" opacity=".55" stroke="#ffc233" stroke-width="2" stroke-dasharray="3 3"/>
+          <text x="261" y="185" font-size="11.5" fill="#fff0c2">fibrocartilage bridges the</text>
+          <text x="261" y="200" font-size="11.5" fill="#fff0c2">gap — fragile, don't stress it</text>
+        </g>
+        <text x="473" y="128" font-size="16" fill="#e9dcff">▶</text>
+        <!-- Stage 3: Hard callus -->
+        <g>
+          <rect x="480" y="10" width="225" height="210" rx="14" fill="rgba(47,107,255,.16)" stroke="#2f6bff" stroke-width="2" stroke-dasharray="6 5"/>
+          <text x="496" y="34" font-size="15" font-weight="900" fill="#bcd0ff">🦴 HARD CALLUS</text>
+          <text x="496" y="52" font-size="12.5" font-style="italic" fill="#dbe6ff">2 – 6 wks</text>
+          <rect x="500" y="110" width="70" height="24" rx="12" fill="#ffe3d1"/>
+          <rect x="630" y="110" width="70" height="24" rx="12" fill="#ffe3d1"/>
+          <rect x="530" y="100" width="120" height="44" rx="20" fill="#2f6bff" opacity=".8"/>
+          <text x="496" y="185" font-size="11.5" fill="#dbe6ff">callus calcifies into true</text>
+          <text x="496" y="200" font-size="11.5" fill="#dbe6ff">bone — x-ray shows healing</text>
+        </g>
+        <text x="708" y="128" font-size="16" fill="#e9dcff">▶</text>
+        <!-- Stage 4: Remodeling -->
+        <g>
+          <rect x="715" y="10" width="225" height="210" rx="14" fill="rgba(18,184,134,.16)" stroke="#12b886" stroke-width="2" stroke-dasharray="6 5"/>
+          <text x="731" y="34" font-size="15" font-weight="900" fill="#7df0c6">🔁 REMODELING</text>
+          <text x="731" y="52" font-size="12.5" font-style="italic" fill="#d8fff0">months – 2 yrs</text>
+          <rect x="735" y="110" width="200" height="24" rx="12" fill="#ffe3d1" stroke="#12b886" stroke-width="2"/>
+          <line x1="760" y1="114" x2="760" y2="130" stroke="#12b886" stroke-width="1.5" opacity=".6"/>
+          <line x1="800" y1="114" x2="800" y2="130" stroke="#12b886" stroke-width="1.5" opacity=".6"/>
+          <line x1="840" y1="114" x2="840" y2="130" stroke="#12b886" stroke-width="1.5" opacity=".6"/>
+          <line x1="880" y1="114" x2="880" y2="130" stroke="#12b886" stroke-width="1.5" opacity=".6"/>
+          <line x1="920" y1="114" x2="920" y2="130" stroke="#12b886" stroke-width="1.5" opacity=".6"/>
+          <text x="731" y="185" font-size="11.5" fill="#d8fff0">bone reshapes to its original</text>
+          <text x="731" y="200" font-size="11.5" fill="#d8fff0">contour — full strength returns</text>
+        </g>
+      </svg>
+      <div class="mn">🧠 <b>“Clot → Soft → Hard → Remodel.”</b> A soft callus (week 1–2) will bend or re-break under stress — that's exactly why a fresh cast means <b>no weight-bearing yet</b>, even though the limb is immobilized. Full remodeling can take up to two years.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🚨 Open fracture — do this, never that</h3>
+      <ul class="tick">
+        <li>✅ Cover exposed bone with a <b>sterile dressing</b></li>
+        <li>✅ Immobilize/splint as-is</li>
+        <li>✅ Confirm <b>tetanus</b> vaccination status</li>
+        <li>❌ <span class="never">Never push exposed bone back under the skin</span></li>
+        <li>❌ <span class="never">Never irrigate or clean the wound aggressively in the field</span></li>
+      </ul>
+      <div class="mn">🧠 <b>Cover it, don't cover it up.</b> The bone stays where it is — the HCP reduces it in a controlled, sterile setting.</div>
+    </div>
+
+    <div class="card topaz">
+      <h3>🧊 Pain, swelling &amp; the compartment syndrome watch</h3>
+      <p>Fracture pain classically includes <b>bruising, swelling, muscle spasm, and crepitus</b> (grating). Elevate the limb, apply ice, and treat pain proactively.</p>
+      <p><mark>Pain that keeps climbing despite analgesia — especially with passive stretch — is not "just a bad fracture."</mark> It is the first sign of <b>compartment syndrome</b>, covered in full on the Cast Care page in this series.</p>
+      <div class="mn">🧠 If pain doesn't match the picture — always think <b>compartment syndrome</b>, not "needs more pain meds."</div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>➡️ Where this story goes next</h3>
+      <p>Fracture care doesn't stop at the ED. This series follows the same patient forward:</p>
+      <div class="pgrid">
+        <div class="pcell">🛏️ <b>NG-058</b> Buck's Traction &amp; postoperative musculoskeletal care</div>
+        <div class="pcell">🫁 <b>NG-061</b> Fat embolism &amp; osteomyelitis — the two big fracture complications</div>
+        <div class="pcell">🦿 <b>NG-063</b> Cast care — teaching the 6 P's back to the patient at home</div>
+      </div>
+      <div class="mn">🧠 The 6 P's you learned above are the exact same checklist used for traction pin sites, casted limbs, and post-op neurovascular checks — one skill, reused everywhere in orthopedics.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">🦴 Open = tetanus check</span>closed = skin intact, open = skin broken + infection risk</div>
+    <div class="rc rubybg"><span class="big">🖐️ 6 P's</span>Pain · Pallor · Pulselessness · Paresthesia · Paralysis · Poikilothermia</div>
+    <div class="rc tealbg"><span class="big">🩸 Pelvic fx priority</span>hypotension + tachycardia + hematuria = internal bleed</div>
+    <div class="rc topazbg"><span class="big">🚨 Splint first</span>joint above &amp; below, reassess 6 P's before/after</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 4 rapid-fire questions</summary>
+      <div class="qa">Q1: What's the difference between a closed and an open fracture? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Closed: skin intact. Open/compound: bone breaks through the skin — high infection risk, check tetanus status, never push the bone back in.</div></div>
+      <div class="qa">Q2: Name all 6 P's of neurovascular assessment. <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Pain, Pallor, Pulselessness, Paresthesia, Paralysis, Poikilothermia (temperature). Paresthesia is early; pulselessness and paralysis are late/ominous.</div></div>
+      <div class="qa">Q3: A client with a pelvic fracture is hypotensive, tachycardic, and has hematuria. What's happening? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Internal bleeding from the pelvic fracture — report immediately, this is the most serious finding to catch.</div></div>
+      <div class="qa">Q4: When do you assess the 6 P's on a splinted or casted limb? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Before AND after applying any splint, cast, or traction device — and regularly afterward.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">TYPES</span>→
+    <span style="background:rgba(47,107,255,.7)">ASSESS</span>→
+    <span style="background:rgba(18,184,134,.7)">CARE</span>
+  </div>
+  <div>NG-056 · Fracture &amp; Trauma Care series 1 of 4 · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>

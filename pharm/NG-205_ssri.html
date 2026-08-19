@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SSRI · NG-205 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#does .sec-h h2{color:#d9c2ff} #does .step{background:var(--amethyst)}
+#watch .sec-h h2{color:#bcd0ff} #watch .step{background:var(--sapphire)}
+#teach  .sec-h h2{color:#a5f3d4} #teach .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+/* ---------- extra: ladder position note chip (appended, not overriding shell rules) ---------- */
+.ladderNote{display:inline-block;font-size:.78rem;font-weight:800;padding:3px 10px;border-radius:8px;
+  background:rgba(255,255,255,.18);border:1px solid var(--line);margin-top:8px}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#does">🧠 What it does</a>
+  <a class="c2" href="#watch">🔎 Watch for</a>
+  <a class="c3" href="#teach">🩺 Teach</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Psych-Mental Health Pharmacology · Antidepressant Ladder — Rung 1 of 3</div>
+  <h1>SSRI <span class="drop">🧠</span></h1>
+  <p class="sub">Selective Serotonin Reuptake Inhibitor — the first-line antidepressant</p>
+  <div class="chips">
+    <span class="chip id">NG-205</span>
+    <span class="chip cat">PSYCH PHARM</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede"><b>Blocks the pump that vacuums serotonin back out of the synapse</b>, so more serotonin stays available to bind receptors. <i>Selectively</i> — unlike older classes, it leaves norepinephrine &amp; dopamine reuptake mostly alone, which is exactly why SSRIs are gentler and sit at the <b>bottom of the antidepressant ladder</b> — tried first, before SNRIs, TCAs, or MAOIs.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">🥇 First-line agent</span>Safest, best-tolerated antidepressant class — this is where treatment usually starts.</div>
+  <div class="rc rubybg"><span class="big">🚨 Serotonin syndrome</span>Agitation, hyperthermia, clonus/hyperreflexia, diaphoresis, tremor — combining serotonergic drugs is the trigger.</div>
+  <div class="rc tealbg"><span class="big">⏱️ 4–6 weeks to work</span>Don't call it a failure early — <span class="mono">slow onset, slow taper</span>.</div>
+  <div class="rc topazbg"><span class="big">⚠️ Black box warning</span>↑ suicidality in children, adolescents &amp; young adults under <span class="mono">25</span> — worst in the first weeks.</div>
+</div>
+
+<!-- ============ WHAT IT DOES ============ -->
+<section id="does">
+  <div class="sec-h"><span class="icon">🧠</span><h2>WHAT IT DOES</h2><span class="step">STEP 1 · THE MECHANISM</span></div>
+  <p class="sec-sub">One pump, blocked selectively — serotonin floods the synapse instead of getting vacuumed back up.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🔬 Block the reuptake pump → serotonin stays in the gap</h3>
+      <p><span class="tip">MOA</span> Normally, a <b>reuptake pump (transporter)</b> on the presynaptic neuron sucks leftover serotonin back inside after it fires, ending the signal. <mark>SSRIs selectively block that pump</mark> — serotonin can't be reabsorbed, so it lingers in the synaptic cleft and keeps stimulating postsynaptic receptors.</p>
+      <div class="duo">
+        <svg viewBox="-10 -10 462 320" role="img" aria-label="Normal synapse: serotonin released, then pumped back into the presynaptic neuron by the reuptake transporter, ending the signal">
+          <rect x="-6" y="-6" width="454" height="312" rx="18" fill="rgba(18,184,134,.14)" stroke="#12b886" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="24" y="40" font-size="20" font-weight="900" fill="#7df0c6">🔁 NORMAL REUPTAKE</text>
+          <text x="24" y="62" font-size="14" font-style="italic" fill="#d8fff0">signal ends fast</text>
+          <rect x="30" y="80" width="380" height="50" rx="14" fill="#9d5cff" opacity=".55"/>
+          <text x="46" y="111" font-size="14" font-weight="800" fill="#fff">Presynaptic neuron</text>
+          <rect x="30" y="200" width="380" height="50" rx="14" fill="#2f6bff" opacity=".55"/>
+          <text x="46" y="231" font-size="14" font-weight="800" fill="#fff">Postsynaptic neuron</text>
+          <rect x="150" y="130" width="34" height="34" rx="8" fill="#ffc233"/>
+          <text x="127" y="153" font-size="12" font-weight="900" fill="#231a02" transform="rotate(0)"></text>
+          <text x="196" y="153" font-size="13" font-weight="800" fill="#ffe49a">pump</text>
+          <circle cx="220" cy="150" r="5" fill="#ffc233"/>
+          <circle cx="250" cy="165" r="5" fill="#ffc233"/>
+          <circle cx="200" cy="175" r="5" fill="#ffc233"/>
+          <path d="M220 150 L167 145" stroke="#ffc233" stroke-width="2" marker-end="url(#arrN1)"/>
+          <path d="M250 165 L184 148" stroke="#ffc233" stroke-width="2" marker-end="url(#arrN1)"/>
+          <defs><marker id="arrN1" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#ffc233"/></marker></defs>
+          <text x="24" y="270" font-size="15" font-weight="900" fill="#7df0c6">Serotonin reabsorbed = signal off</text>
+        </svg>
+        <svg viewBox="-10 -10 487 320" role="img" aria-label="With an SSRI: the reuptake pump is blocked, so serotonin accumulates in the synaptic cleft and keeps binding postsynaptic receptors">
+          <rect x="-6" y="-6" width="479" height="312" rx="18" fill="rgba(255,59,107,.15)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="24" y="40" font-size="20" font-weight="900" fill="#ff9db4">💊 SSRI ON BOARD</text>
+          <text x="24" y="62" font-size="14" font-style="italic" fill="#ffd9e2">pump blocked — serotonin lingers</text>
+          <rect x="30" y="80" width="380" height="50" rx="14" fill="#9d5cff" opacity=".55"/>
+          <text x="46" y="111" font-size="14" font-weight="800" fill="#fff">Presynaptic neuron</text>
+          <rect x="30" y="200" width="380" height="50" rx="14" fill="#2f6bff" opacity=".55"/>
+          <text x="46" y="231" font-size="14" font-weight="800" fill="#fff">Postsynaptic neuron</text>
+          <rect x="150" y="130" width="34" height="34" rx="8" fill="#666"/>
+          <line x1="150" y1="130" x2="184" y2="164" stroke="#ff3b6b" stroke-width="4"/>
+          <line x1="184" y1="130" x2="150" y2="164" stroke="#ff3b6b" stroke-width="4"/>
+          <circle cx="215" cy="150" r="5" fill="#ffc233"/>
+          <circle cx="245" cy="165" r="5" fill="#ffc233"/>
+          <circle cx="200" cy="175" r="5" fill="#ffc233"/>
+          <circle cx="265" cy="145" r="5" fill="#ffc233"/>
+          <circle cx="230" cy="185" r="5" fill="#ffc233"/>
+          <circle cx="195" cy="195" r="5" fill="#ffc233"/>
+          <text x="196" y="153" font-size="12" font-weight="900" fill="#ff9db4">BLOCKED</text>
+          <text x="24" y="270" font-size="15" font-weight="900" fill="#ff9db4">More serotonin binds receptors = stronger signal</text>
+        </svg>
+      </div>
+      <div class="mn">🧠 <b>“SSRI = the pump gets a boot.”</b> No reuptake in → serotonin stays out in the synapse, longer &amp; stronger. <i>Selective</i> because norepinephrine and dopamine pumps are left alone — that selectivity is what makes SSRIs gentler than TCAs or MAOIs.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🔤 Say the name — it's the mechanism</h3>
+      <ul class="tick">
+        <li><b>Selective</b> = targets serotonin, mostly leaves NE/dopamine alone</li>
+        <li><b>Serotonin</b> = the neurotransmitter affected</li>
+        <li><b>Reuptake</b> = the neuron sucking the chemical back in</li>
+        <li><b>Inhibitor</b> = blocks that process</li>
+      </ul>
+      <div class="mn">🧠 <b>Inhibits the RE-uptake</b> → keeps MORE serotonin around → serotonin levels are <b>increased</b> in the synapse.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>💊 Know the names — the "-ine/-am" family</h3>
+      <ul class="tick">
+        <li><b>Sertraline</b></li>
+        <li><b>Escitalopram</b> &amp; <b>Citalopram</b></li>
+        <li><b>Paroxetine</b></li>
+        <li><b>Fluoxetine</b></li>
+      </ul>
+      <div class="mn">🧠 Most end in <span class="mono">-ine</span> or <span class="mono">-(cit)alopram</span> — build a personal flash list, since suffix alone isn't 100% reliable across classes.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🎯 Indications</h3>
+      <ul class="tick">
+        <li>😔 <b>Depression</b> — first-line</li>
+        <li>😰 <b>Anxiety</b> disorders</li>
+        <li>🎗️ <b>PTSD</b></li>
+        <li>🌀 OCD &amp; panic disorder (common off-label/expanded use)</li>
+      </ul>
+      <div class="mn">🧠 <b>“SSRI = Start Simple, Relatively safe, Indication-flexible.”</b> One class, four psych diagnoses.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WATCH FOR ============ -->
+<section id="watch">
+  <div class="sec-h"><span class="icon">🔎</span><h2>WATCH FOR</h2><span class="step">STEP 2 · SAFETY</span></div>
+  <p class="sec-sub">Three things this class is tested on hardest: serotonin syndrome, the black box warning, and never stopping cold-turkey.</p>
+
+  <div class="grid">
+    <div class="card ruby span2">
+      <h3>🚨 Serotonin syndrome — the shared danger across <i>every</i> antidepressant class</h3>
+      <p>Happens when serotonin activity gets too high — usually from <b>combining</b> two serotonergic drugs (SSRI + MAOI, SSRI + triptan, SSRI + tramadol, SSRI + St. John's wort). <mark>Same 5 symptoms every time — memorize this list once, it repeats on SNRI/TCA and MAOI pages too:</mark></p>
+      <svg viewBox="-10 -10 518 280" role="img" aria-label="Body diagram showing the five signs of serotonin syndrome: agitation at the head, hyperthermia and diaphoresis on the torso, tremor in the hands, and clonus or hyperreflexia in the legs">
+        <rect x="-6" y="-6" width="510" height="272" rx="16" fill="rgba(255,59,107,.14)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="7 6"/>
+        <circle cx="120" cy="60" r="26" fill="#ffd0bd"/>
+        <rect x="104" y="86" width="32" height="70" rx="14" fill="#ffd0bd"/>
+        <rect x="90" y="150" width="14" height="60" rx="6" fill="#ffd0bd"/>
+        <rect x="136" y="150" width="14" height="60" rx="6" fill="#ffd0bd"/>
+        <line x1="80" y1="100" x2="60" y2="130" stroke="#ffd0bd" stroke-width="10" stroke-linecap="round"/>
+        <line x1="160" y1="100" x2="180" y2="130" stroke="#ffd0bd" stroke-width="10" stroke-linecap="round"/>
+        <path d="M55 122 l10 16 l10 -16" stroke="#ffc233" stroke-width="3" fill="none"/>
+        <path d="M175 122 l10 16 l10 -16" stroke="#ffc233" stroke-width="3" fill="none"/>
+        <text x="30" y="30" font-size="14" font-weight="900" fill="#ff9db4">😵 Agitation</text>
+        <line x1="30" y1="34" x2="106" y2="52" stroke="#ff9db4" stroke-width="1.5"/>
+        <text x="196" y="70" font-size="14" font-weight="900" fill="#ffc233">🌡️ Hyperthermia</text>
+        <line x1="192" y1="66" x2="146" y2="72" stroke="#ffc233" stroke-width="1.5"/>
+        <text x="196" y="112" font-size="14" font-weight="900" fill="#7df0c6">💦 Diaphoresis</text>
+        <line x1="192" y1="108" x2="136" y2="112" stroke="#7df0c6" stroke-width="1.5"/>
+        <text x="196" y="140" font-size="14" font-weight="900" fill="#bcd0ff">🤲 Tremor</text>
+        <line x1="192" y1="136" x2="70" y2="122" stroke="#bcd0ff" stroke-width="1.5"/>
+        <text x="196" y="180" font-size="14" font-weight="900" fill="#ff9db4">🦵 Clonus / hyperreflexia</text>
+        <line x1="192" y1="176" x2="146" y2="180" stroke="#ff9db4" stroke-width="1.5"/>
+        <text x="24" y="236" font-size="13.5" font-style="italic" fill="#ffd9e2">Agitation · Hyperthermia · Clonus/hyperreflexia · Diaphoresis · Tremor</text>
+      </svg>
+      <div class="mn">🧠 <b>“A HOT DAT.”</b> <b>A</b>gitation · <b>HOT</b> = hyperthermia · <b>D</b>iaphoresis · <b>A</b>gitation-driven <b>T</b>remor + clonus. A patient who looks <i>hot, shaky, and sweaty with jumpy reflexes</i> after adding a second serotonergic drug = serotonin syndrome until proven otherwise.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>⚠️ Black box warning — suicidality</h3>
+      <p><span class="never">Increased risk of suicidal thinking and behavior</span> in <b>children, adolescents, and young adults up to age 24–25</b> — highest risk is the <b>first few weeks</b> of therapy or right after a <b>dose change</b>.</p>
+      <p>🚨 <b>ASSESS FIRST</b> if the patient says <i>"this medication isn't working after 2 weeks"</i> — check for worsening hopelessness, despair, suicidal thoughts, or self-harm before anything else.</p>
+      <div class="mn">🧠 <b>Young + new + increasing dose = watch closest.</b> The warning isn't "SSRIs cause suicide" — it's a monitoring mandate in the vulnerable window before the antidepressant effect kicks in.</div>
+    </div>
+
+    <div class="card topaz">
+      <h3>💊 Common side effects — NCLEX traps live here</h3>
+      <table>
+        <tr><th style="width:40%">Effect</th><th>Trap to avoid</th></tr>
+        <tr><td>🛌 <b>Insomnia</b></td><td><mark>NOT sedation</mark> — don't get tricked into expecting drowsiness</td></tr>
+        <tr><td>💔 <b>Sexual dysfunction</b></td><td>Common reason patients self-stop — ask about it, don't assume they'll volunteer it</td></tr>
+        <tr><td>⚖️ <b>Weight gain</b></td><td>Can appear over months, not days</td></tr>
+        <tr><td>🤢 <b>GI upset / nausea</b></td><td>Usually improves after the first 1–2 weeks</td></tr>
+      </table>
+      <div class="mn">🧠 <b>“SSRIs keep you UP, not down.”</b> Insomnia is the classic wrong-answer trap — students assume any psych med = sedating.</div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>🪜 Where SSRIs sit on the antidepressant ladder</h3>
+      <p class="sec-sub" style="margin:0 0 8px">Same ladder appears on the SNRI/TCA and MAOI pages — side-effect burden and safety-margin risk climb as you go up.</p>
+      <svg viewBox="-10 -10 487 320" role="img" aria-label="Antidepressant treatment ladder from bottom to top: SSRI first line highlighted, then SNRI, then TCA, then MAOI last line, with increasing side effect burden going up">
+        <rect x="-6" y="-6" width="479" height="312" rx="16" fill="rgba(13,8,26,.35)" stroke="rgba(255,255,255,.25)" stroke-width="1.5"/>
+        <text x="330" y="26" font-size="12" font-weight="800" fill="#ffd9e2" text-anchor="middle">↑ more side effects</text>
+        <rect x="30" y="232" width="380" height="46" rx="10" fill="#12b886" stroke="#eafff7" stroke-width="3"/>
+        <text x="46" y="261" font-size="17" font-weight="900" fill="#03291c">SSRI — 1st line ⭐ YOU ARE HERE</text>
+        <rect x="30" y="178" width="380" height="42" rx="10" fill="#2f6bff" opacity=".75"/>
+        <text x="46" y="204" font-size="16" font-weight="900" fill="#fff">SNRI — dual mechanism, also for pain</text>
+        <rect x="30" y="128" width="380" height="42" rx="10" fill="#ff8a3d" opacity=".78"/>
+        <text x="46" y="154" font-size="16" font-weight="900" fill="#2b1200">TCA — older, anticholinergic, cardiotoxic in OD</text>
+        <rect x="30" y="78" width="380" height="42" rx="10" fill="#c02255" opacity=".85"/>
+        <text x="46" y="104" font-size="16" font-weight="900" fill="#fff">MAOI — last line, tyramine risk, strict washout</text>
+        <path d="M20 268 L20 90" stroke="#a5f3d4" stroke-width="3" marker-end="url(#arrLad)"/>
+        <defs><marker id="arrLad" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#a5f3d4"/></marker></defs>
+      </svg>
+      <span class="ladderNote">🥇 This page = Rung 1 · see NG-187 (SNRI vs TCA) and NG-154 (MAOI) for the rest of the ladder</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TEACH ============ -->
+<section id="teach">
+  <div class="sec-h"><span class="icon">🩺</span><h2>TEACH</h2><span class="step">STEP 3 · PATIENT EDUCATION</span></div>
+  <p class="sec-sub">Slow to start, slow to stop — the two teaching points that prevent the most calls back to the clinic.</p>
+
+  <div class="grid">
+    <div class="card emerald span2">
+      <h3>✅ The teaching ladder</h3>
+      <div class="ladder">
+        <div class="rung"><div class="n">1</div><div class="t">⏱️ <b>Full effect takes 4–6 weeks</b> — don't judge it a failure early</div></div>
+        <div class="rung"><div class="n">2</div><div class="t">🚫 <span class="never">Never stop abruptly</span> — taper under provider guidance</div></div>
+        <div class="rung"><div class="n">3</div><div class="t">💬 <b>Report</b> worsening mood, hopelessness, or self-harm thoughts right away</div></div>
+        <div class="rung"><div class="n">4</div><div class="t">💔 <b>Sexual side effects</b> — tell your provider, don't just quit the med</div></div>
+      </div>
+      <svg viewBox="0 0 440 150" role="img" aria-label="Timeline showing SSRI onset takes four to six weeks before full effect, with no benefit assumed in the first two weeks" style="margin-top:10px">
+        <rect x="6" y="6" width="428" height="138" rx="14" fill="rgba(13,8,26,.4)" stroke="rgba(255,255,255,.25)"/>
+        <line x1="30" y1="90" x2="410" y2="90" stroke="#a5f3d4" stroke-width="4"/>
+        <circle cx="30" cy="90" r="7" fill="#ff3b6b"/><text x="16" y="118" font-size="13" fill="#ffd9e2">Day 0</text>
+        <circle cx="150" cy="90" r="7" fill="#ffc233"/><text x="118" y="118" font-size="13" fill="#ffe49a">Week 2 — too early</text>
+        <circle cx="290" cy="90" r="7" fill="#7df0c6"/><text x="252" y="118" font-size="13" fill="#d8fff0">Week 4–6</text>
+        <circle cx="410" cy="90" r="7" fill="#7df0c6"/><text x="360" y="118" font-size="13" fill="#d8fff0">Full effect</text>
+        <text x="30" y="40" font-size="15" font-weight="900" fill="#ffe49a">"Not working after 2 weeks"</text>
+        <text x="30" y="60" font-size="13" font-style="italic" fill="#efe6ff">→ assess safety first, it's simply too early</text>
+      </svg>
+      <div class="mn">🧠 <b>“Slow onset, slow taper.”</b> Everything about this class moves on a weeks-long timeline in both directions — starting and stopping.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>⚠️ Discontinuation syndrome</h3>
+      <p>Stopping abruptly can cause <b>dizziness, flu-like symptoms, irritability, "brain zaps," and rebound anxiety</b> within days.</p>
+      <div class="mn">🧠 <b class="never">Never stop cold turkey.</b> Always taper — the prescriber writes the schedule down.</div>
+    </div>
+
+    <div class="card tealc">
+      <h3>🧪 NCLEX traps to flag</h3>
+      <ul class="tick">
+        <li>Insomnia is expected — <b>not</b> sedation</li>
+        <li>"Not working" at 2 weeks is <b>expected</b>, not a failed trial — but still assess for suicidality</li>
+        <li>SSRI ≠ SNRI ≠ TCA ≠ MAOI — know which page's side effects belong to which class</li>
+      </ul>
+      <div class="mn">🧠 See <b>NG-187</b> (SNRI vs. TCA) and <b>NG-154</b> (MAOI) to keep the four antidepressant classes from blurring together.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">🧠 Block the pump</span>= more serotonin stays in the synapse</div>
+    <div class="rc rubybg"><span class="big">🚨 Serotonin syndrome</span>= agitation, hyperthermia, clonus/hyperreflexia, diaphoresis, tremor</div>
+    <div class="rc tealbg"><span class="big">⏱️ 4–6 weeks</span>= true onset, never judge it early</div>
+    <div class="rc topazbg"><span class="big">🚫 Never stop abruptly</span>= taper, always</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 4 rapid-fire questions</summary>
+      <div class="qa">Q1: What does SSRI block, and what does that do to serotonin levels? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Blocks the presynaptic serotonin reuptake pump — serotonin stays in the synapse longer, so levels of available serotonin increase.</div></div>
+      <div class="qa">Q2: A patient on sertraline says "this isn't working, it's been 2 weeks." What do you assess first? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Assess for worsening hopelessness, despair, suicidal thoughts, or self-harm — the black box warning window — before reassuring them about onset time.</div></div>
+      <div class="qa">Q3: Name the 5 signs of serotonin syndrome. <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Agitation, hyperthermia, clonus/hyperreflexia, diaphoresis, tremor.</div></div>
+      <div class="qa">Q4: True or false — SSRIs commonly cause sedation. <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">False — they commonly cause insomnia, not sedation. This is a classic NCLEX trap.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">DOES</span>→
+    <span style="background:rgba(47,107,255,.7)">WATCH</span>→
+    <span style="background:rgba(18,184,134,.7)">TEACH</span>
+  </div>
+  <div>NG-205 · Antidepressant ladder 1 of 3 (see NG-187, NG-154) · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>

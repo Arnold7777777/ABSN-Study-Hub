@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pancrelipase — Enzymes · NG-217 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#does">⚙️ What it does</a>
+  <a class="c2" href="#watch">👀 Watch for</a>
+  <a class="c3" href="#teach">🗣️ Teach</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / GI Pharmacology · Enzyme Replacement</div>
+  <h1>Pancrelipase <span class="drop">🧪🥞</span></h1>
+  <p class="sub">Pancreatic Enzyme Replacement Therapy (PERT)</p>
+  <div class="chips">
+    <span class="chip id">NG-217</span>
+    <span class="chip cat">GI Pharmacology</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede"><b>Replaces the digestive enzymes</b> a damaged pancreas can no longer make — lipase, protease, amylase — so a client with <b>chronic pancreatitis</b> (see NG-159) or <b>cystic fibrosis</b> can actually digest fat, protein, and carbs. The whole drug lives or dies on <b>one rule</b>: take it <mark>WITH every meal &amp; snack</mark>.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">⏱️ WITH food, every time</span>Not before, not after — or the drug does nothing.</div>
+  <div class="rc rubybg"><span class="big">💊 Swallow whole</span>Never crush/chew enteric-coated beads — destroys the coating.</div>
+  <div class="rc tealbg"><span class="big">💩 Fewer fatty stools = working</span>Reduction in steatorrhea is the expected outcome.</div>
+  <div class="rc topazbg"><span class="big">🐷 Pork-derived</span>Contraindicated with pork/pork-protein allergy.</div>
+</div>
+
+<!-- ============ WHAT IT DOES ============ -->
+<section id="does">
+  <div class="sec-h"><span class="icon">⚙️</span><h2>WHAT IT DOES</h2><span class="step">STEP 1 · REPLACE THE ENZYMES</span></div>
+  <p class="sec-sub">Same three enzymes the healthy pancreas makes — given from a capsule instead.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🥞 Indication — when the pancreas can't do its own job</h3>
+      <p>Given for <b>pancreatic exocrine insufficiency</b>: <b>chronic pancreatitis</b>, <b>cystic fibrosis</b>, or after <b>pancreatectomy/pancreatic cancer</b> — situations where the gland is too damaged or missing to secrete its own digestive enzymes.</p>
+      <svg viewBox="-10 -10 528 280" role="img" aria-label="Diagram of the gastrointestinal tract showing a pancrelipase capsule opening in the small intestine and releasing lipase, protease, and amylase to digest fat, protein, and carbohydrate">
+        <rect x="-6" y="-6" width="520" height="272" rx="16" fill="rgba(47,107,255,.16)" stroke="#2f6bff" stroke-width="2" stroke-dasharray="7 6"/>
+        <ellipse cx="120" cy="100" rx="70" ry="55" fill="#e8637f" stroke="#ffd0bd" stroke-width="2"/>
+        <text x="80" y="105" font-size="14" font-weight="900" fill="#ffe3ea">Stomach</text>
+        <path d="M180 120 C 230 140 260 150 300 150 C 340 150 370 170 390 200" fill="none" stroke="#ffd0bd" stroke-width="26" stroke-linecap="round"/>
+        <text x="230" y="128" font-size="13" font-weight="800" fill="#d9c2ff">Small intestine</text>
+        <circle cx="300" cy="150" r="20" fill="#ffc233" stroke="#fff" stroke-width="2"/>
+        <text x="288" y="156" font-size="12" font-weight="900" fill="#2a1f00">Rx</text>
+        <path d="M300 170 L300 190" stroke="#ffc233" stroke-width="4" marker-end="url(#arrEz)"/>
+        <defs><marker id="arrEz" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/></marker></defs>
+        <rect x="250" y="196" width="220" height="56" rx="10" fill="rgba(13,8,26,.55)"/>
+        <text x="262" y="216" font-size="13" fill="#7df0c6" font-weight="900">Lipase → digests FAT</text>
+        <text x="262" y="234" font-size="13" fill="#ff9db4" font-weight="900">Protease → digests PROTEIN</text>
+        <text x="262" y="252" font-size="13" fill="#9ff2ee" font-weight="900">Amylase → digests CARBS</text>
+        <text x="20" y="30" font-size="15" font-weight="900" fill="#bcd0ff">Capsule releases enzymes right where digestion happens</text>
+      </svg>
+      <div class="mn">🧠 <b>All three enzyme names end in <span class="mono">-ASE</span></b> — that's your clue it's an enzyme: lip<b>ase</b>, prote<b>ase</b>, amyl<b>ase</b>.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>⚗️ Mechanism of action</h3>
+      <p>Exogenous <b>lipase, protease, and amylase</b> (from pork pancreas) mix with food in the small intestine and break down <b>fat, protein, and carbohydrate</b> — the same job the client's own damaged pancreas can no longer do.</p>
+      <div class="mn">🧠 <b>“Borrowed enzymes, borrowed digestion.”</b> The drug doesn't fix the pancreas — it substitutes for it, meal by meal, forever.</div>
+    </div>
+
+    <div class="card tealc">
+      <h3>🔗 Ties directly to Pancreatitis (NG-159)</h3>
+      <p>Chronic pancreatitis scars &amp; fibroses the gland until it can't secrete enough of its own enzymes → <b>malabsorption</b> of fat/protein/carbs → weight loss &amp; <b>steatorrhea</b>. Pancrelipase is the lifelong fix.</p>
+      <div class="mn">🧠 Also used in <b>cystic fibrosis</b> — thick mucus plugs the pancreatic duct the same way it plugs the lungs, so enzymes never reach the gut.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WATCH FOR ============ -->
+<section id="watch">
+  <div class="sec-h"><span class="icon">👀</span><h2>WATCH FOR</h2><span class="step">STEP 2 · OUTCOMES &amp; REACTIONS</span></div>
+  <p class="sec-sub">One expected outcome to confirm it's working, and the reactions that mean stop and reassess.</p>
+
+  <div class="grid">
+    <div class="card emerald span2">
+      <h3>✅ Expected therapeutic outcome — <mark>reduction in fatty stools</mark></h3>
+      <div class="duo">
+        <svg viewBox="0 0 420 200" role="img" aria-label="Before treatment: steatorrhea, pale greasy floating foul smelling stool indicating malabsorption of fat">
+          <rect x="4" y="4" width="412" height="192" rx="14" fill="rgba(255,59,107,.16)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="20" y="34" font-size="16" font-weight="900" fill="#ff9db4">❌ BEFORE — steatorrhea</text>
+          <ellipse cx="120" cy="120" rx="70" ry="24" fill="#ffe08a" opacity=".85"/>
+          <ellipse cx="120" cy="100" rx="50" ry="16" fill="#ffe08a" opacity=".7"/>
+          <circle cx="70" cy="110" r="4" fill="#fff" opacity=".7"/><circle cx="150" cy="128" r="3" fill="#fff" opacity=".7"/>
+          <text x="220" y="90" font-size="13.5" fill="#ffd9e2">🌊 floats (fat = buoyant)</text>
+          <text x="220" y="112" font-size="13.5" fill="#ffd9e2">👃 foul smelling</text>
+          <text x="220" y="134" font-size="13.5" fill="#ffd9e2">🎨 pale, greasy, bulky</text>
+          <text x="220" y="156" font-size="13.5" fill="#ffd9e2">= undigested fat</text>
+        </svg>
+        <svg viewBox="0 0 420 200" role="img" aria-label="After treatment: formed, normal colored stool showing that enzyme replacement is working">
+          <rect x="4" y="4" width="412" height="192" rx="14" fill="rgba(18,184,134,.16)" stroke="#12b886" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="20" y="34" font-size="16" font-weight="900" fill="#7df0c6">✅ AFTER — therapeutic</text>
+          <rect x="80" y="96" width="120" height="30" rx="15" fill="#8a5a2e"/>
+          <rect x="80" y="128" width="110" height="26" rx="13" fill="#8a5a2e"/>
+          <text x="220" y="90" font-size="13.5" fill="#d8fff0">🚫 no longer floats</text>
+          <text x="220" y="112" font-size="13.5" fill="#d8fff0">✅ formed, normal odor</text>
+          <text x="220" y="134" font-size="13.5" fill="#d8fff0">⚖️ weight gain improves</text>
+          <text x="220" y="156" font-size="13.5" fill="#7df0c6">= fat IS being digested</text>
+        </svg>
+      </div>
+      <div class="mn">🧠 <b>HESI/Kaplan trap:</b> <i>“Reduction in fatty stools is an expected outcome”</i> is TRUE — that's the goal, not an adverse effect.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>⚠️ Adverse reactions</h3>
+      <ul class="tick">
+        <li>🤢 GI upset — nausea, abdominal cramping</li>
+        <li>🩸 Hyperuricemia at very high doses</li>
+        <li>🫁 <b>Fibrosing colonopathy</b> — rare, linked to very high doses in children with CF</li>
+        <li>🐷 Allergic reaction — it's pork-derived; caution with pork allergy</li>
+      </ul>
+      <div class="mn">🧠 <b>“Pig, pork, pancrelipase.”</b> Three P's — remember the pork origin when screening allergies.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🔁 Interactions</h3>
+      <ul class="tick">
+        <li>🧂 <b>Antacids</b> can alter the pH needed for enteric coating to release properly</li>
+        <li>🩸 May decrease absorption of <b>oral iron</b> supplements</li>
+      </ul>
+      <div class="mn">🧠 Give with a <b>cold beverage</b>, not a hot one — heat can break down the enzymes before they even reach the gut.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TEACH ============ -->
+<section id="teach">
+  <div class="sec-h"><span class="icon">🗣️</span><h2>TEACH</h2><span class="step">STEP 3 · MAKE IT WORK EVERY TIME</span></div>
+  <p class="sec-sub">Timing and swallowing technique are the whole test question here.</p>
+
+  <div class="grid">
+    <div class="card sapphire span2">
+      <h3>⏱️ Timing — <mark>WITH the meal, not before, not after</mark></h3>
+      <svg viewBox="-10 -10 599 220" role="img" aria-label="Clock and plate diagram showing pancrelipase must be taken with the first bite of food, not before the meal and not after the meal">
+        <rect x="-6" y="-6" width="591" height="212" rx="14" fill="rgba(13,8,26,.5)" stroke="var(--line)"/>
+        <circle cx="90" cy="100" r="60" fill="none" stroke="#ff3b6b" stroke-width="4" stroke-dasharray="8 6"/>
+        <text x="52" y="45" font-size="13" font-weight="900" fill="#ff9db4">❌ NOT before</text>
+        <circle cx="220" cy="100" r="60" fill="rgba(18,184,134,.35)" stroke="#12b886" stroke-width="4"/>
+        <text x="176" y="45" font-size="13" font-weight="900" fill="#7df0c6">✅ WITH first bite</text>
+        <text x="196" y="105" font-size="22" font-weight="900" fill="#eafff7">💊🍽️</text>
+        <circle cx="350" cy="100" r="60" fill="none" stroke="#ff3b6b" stroke-width="4" stroke-dasharray="8 6"/>
+        <text x="312" y="45" font-size="13" font-weight="900" fill="#ff9db4">❌ NOT after</text>
+        <text x="30" y="180" font-size="13" font-style="italic" fill="#efe6ff">Every meal AND every snack — no exceptions, or the enzymes never mix with food.</text>
+      </svg>
+      <div class="mn">🧠 <b>“No food, no dose — with food, right now.”</b> The single most-tested fact on this drug is the timing rule.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>💊 Capsule handling — <span class="never">swallow whole, do not crush or chew</span></h3>
+      <p>Enteric-coated beads protect the enzymes from stomach acid until they reach the intestine. Crushing/chewing destroys the coating <i>and</i> lets active enzymes irritate/digest the oral mucosa.</p>
+      <div class="mn">🧠 If the client can't swallow capsules: open &amp; <b>sprinkle beads on a small amount of soft, acidic food</b> (like applesauce) and swallow <b>immediately without chewing</b> — never mix into the whole meal or a hot/alkaline food.</div>
+    </div>
+
+    <div class="card emerald">
+      <h3>✅ Teaching checklist</h3>
+      <ul class="tick">
+        <li>💊 Take <b>with every meal &amp; snack</b>, not before/after</li>
+        <li>🥤 Swallow whole with a cold beverage</li>
+        <li>🚫 <span class="never">Never crush or chew</span> enteric-coated capsules/beads</li>
+        <li>🧼 Wipe mouth after taking to prevent mucosal irritation</li>
+        <li>💩 Report if fatty, floating, foul stools continue — dose may need adjusting</li>
+        <li>💧 Maintain good hydration</li>
+      </ul>
+      <div class="mn">🧠 <b>“ENZYME”</b> — <b>E</b>very meal/snack · <b>N</b>ever crush · <b>Z</b>ero skipped doses · <b>Y</b>ou swallow whole · <b>M</b>ix beads only in soft acidic food if needed · <b>E</b>xpect less fatty stool.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">⏱️ WITH food, every time</span>Not before, not after.</div>
+    <div class="rc rubybg"><span class="big">💊 Swallow whole</span>never crush/chew enteric-coated beads</div>
+    <div class="rc tealbg"><span class="big">💩 Less fatty stool</span>= drug is working</div>
+    <div class="rc topazbg"><span class="big">🥞 Ties to chronic pancreatitis &amp; CF</span>gland can't make its own enzymes</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 4 rapid-fire questions</summary>
+      <div class="qa">Q1: When should pancrelipase be taken relative to meals? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">With every meal and snack — not before, not after — or it won't mix with food to digest it.</div></div>
+      <div class="qa">Q2: What expected outcome tells you the drug is working? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">A reduction in fatty, floating, foul-smelling stools (steatorrhea) and improved weight gain.</div></div>
+      <div class="qa">Q3: A client can't swallow the capsule whole — what's the safe alternative? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Open the capsule and sprinkle the beads on a small amount of soft, acidic food (e.g. applesauce), then swallow immediately without chewing — never crush or chew the enteric-coated beads.</div></div>
+      <div class="qa">Q4: What two conditions from this GI batch make pancrelipase necessary? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Chronic pancreatitis and cystic fibrosis — both leave the pancreas unable to secrete enough of its own digestive enzymes.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">DOES</span>→
+    <span style="background:rgba(47,107,255,.7)">WATCH</span>→
+    <span style="background:rgba(18,184,134,.7)">TEACH</span>
+  </div>
+  <div>NG-217 · GI batch · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gout · NG-200 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+/* ---------- appended extras for MSK batch ---------- */
+.nq{margin-top:10px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.55);
+  border:1px solid rgba(255,255,255,.35);font-size:.9rem;line-height:1.45}
+.nq .src{display:inline-block;font-size:.7rem;font-weight:900;letter-spacing:.08em;
+  background:var(--sapphire);color:#fff;padding:2px 8px;border-radius:7px;margin-bottom:5px}
+.nq .ans{color:var(--topaz);font-weight:800;margin-top:4px}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#cause">🔬 Cause</a>
+  <a class="c2" href="#clues">🔎 Clues</a>
+  <a class="c3" href="#care">🩺 Care</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Musculoskeletal · Med-Surg Course</div>
+  <h1>Gout <span class="drop">🦶</span></h1>
+  <p class="sub">Crystal Arthropathy — Uric Acid, Not Autoimmune</p>
+  <div class="chips">
+    <span class="chip id">NG-200</span>
+    <span class="chip cat">Musculoskeletal</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede"><b>Gout is a crystal arthropathy</b> — <b>uric acid accumulates</b> and crystallizes inside a joint, triggering intense pain and inflammation. <mark>This is NOT an autoimmune disease</mark> — nothing is attacking "self" tissue like in rheumatoid arthritis (see NG-163); it's a <b>metabolic/chemistry problem</b> where a waste product builds up until it precipitates out as sharp crystals. Classic first attack: the <b>big toe</b>.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">🔬 Crystals, not antibodies</span>Uric acid crystallizes in the joint — a chemistry problem, not an immune attack.</div>
+  <div class="rc rubybg"><span class="big">🦶 Podagra = big toe</span>First metatarsophalangeal (MTP) joint, red, hot, swollen — the classic first attack.</div>
+  <div class="rc tealbg"><span class="big">🧪 Serum uric acid</span>The lab the provider orders to confirm — elevated in gout.</div>
+  <div class="rc topazbg"><span class="big">⚔️ Treat vs prevent</span>Colchicine/NSAIDs = the flare NOW. Allopurinol = prevention long-term.</div>
+</div>
+
+<!-- ============ CAUSE ============ -->
+<section id="cause">
+  <div class="sec-h"><span class="icon">🔬</span><h2>CAUSE</h2><span class="step">STEP 1 · THE CRYSTAL, NOT THE IMMUNE SYSTEM</span></div>
+  <p class="sec-sub">Uric acid is a normal waste product — gout happens when there's too much of it to stay dissolved.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🧬 Pathophysiology — uric acid crystallizes inside the joint</h3>
+      <p><mark>Uric acid accumulation causes pain &amp; inflammation in the joints</mark>, which leads to destruction and — over time — arthritis (bone-on-bone pain from loss of cartilage). Uric acid is the breakdown product of <b>purines</b> (found in many foods and normal cell turnover). When more uric acid is made than the kidneys can clear — or the kidneys simply can't clear enough — it builds up in the blood (<b>hyperuricemia</b>) and precipitates into sharp, needle-shaped <b>monosodium urate crystals</b> inside a joint space.</p>
+      <svg viewBox="0 0 900 320" role="img" aria-label="Diagram of a joint with needle shaped uric acid crystals deposited in the joint space, surrounded by inflammatory cells, causing swelling and eventual cartilage destruction">
+        <rect x="4" y="4" width="892" height="312" rx="18" fill="rgba(13,8,26,.4)" stroke="rgba(255,255,255,.25)" stroke-width="1.5"/>
+        <rect x="80" y="110" width="150" height="110" rx="20" fill="#ffe3d1"/>
+        <rect x="560" y="110" width="150" height="110" rx="20" fill="#ffe3d1"/>
+        <path d="M230 130 C 320 110 470 110 560 130 C 580 165 580 195 560 220 C 470 240 320 240 230 220 C 210 195 210 165 230 130 Z" fill="#ff3b6b" opacity=".38"/>
+        <text x="300" y="90" font-size="16" font-weight="900" fill="#ff9db4">🔥 inflamed joint capsule</text>
+        <!-- crystal needles -->
+        <g stroke="#eafcff" stroke-width="3" stroke-linecap="round">
+          <line x1="300" y1="150" x2="330" y2="180"/><line x1="320" y1="145" x2="355" y2="165"/>
+          <line x1="360" y1="180" x2="392" y2="150"/><line x1="400" y1="190" x2="430" y2="165"/>
+          <line x1="440" y1="150" x2="470" y2="180"/><line x1="480" y1="185" x2="510" y2="155"/>
+          <line x1="330" y1="200" x2="360" y2="215"/><line x1="420" y1="205" x2="452" y2="218"/>
+        </g>
+        <text x="290" y="270" font-size="14" font-weight="900" fill="#eafcff">🔷 monosodium urate crystals</text>
+        <!-- neutrophils -->
+        <circle cx="270" cy="170" r="9" fill="#ffc233"/><circle cx="520" cy="200" r="9" fill="#ffc233"/><circle cx="480" cy="130" r="9" fill="#ffc233"/>
+        <text x="300" y="30" font-size="14" font-style="italic" fill="#ffe49a">neutrophils rush in → the actual pain &amp; swelling</text>
+      </svg>
+      <div class="mn">🧠 <b>"Sharp crystals, not soldiers gone rogue."</b> RA (NG-163) is the immune system attacking the synovium; gout is a chemical waste product turning into literal glass-like shards inside the joint. Different mechanism, similar-looking joint pain — don't mix them up on an exam.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>⚠️ Causes &amp; risk factors — dietary triggers</h3>
+      <p>High-<b>purine</b> foods and alcohol raise uric acid production or block its excretion:</p>
+      <div class="no-grid">
+        <div class="no-t hot"><span class="e">🍗</span>Meats<i>chicken, steak, liver</i></div>
+        <div class="no-t hot"><span class="e">🦐</span>Seafood<i>crab, lobster, shrimp</i></div>
+        <div class="no-t hot"><span class="e">🍷</span>Alcohol<i>wine, beer, liquor</i></div>
+        <div class="no-t"><span class="e">⚖️</span>Obesity<i>higher uric acid load</i></div>
+        <div class="no-t"><span class="e">🩸</span>Diuretics<i>↓ uric acid excretion</i></div>
+        <div class="no-t"><span class="e">🧬</span>Family history<i>genetic tendency</i></div>
+      </div>
+      <div class="mn">🧠 <b>"MSA"</b> — <b>M</b>eats · <b>S</b>eafood · <b>A</b>lcohol — the three trigger categories the source graphic leads with. Say it fast: "gout hates MSA."</div>
+    </div>
+
+    <div class="card tealc">
+      <h3>⚔️ Gout vs Rheumatoid Arthritis — mechanism matters</h3>
+      <table>
+        <tr><th class="up">Gout</th><th class="lo">Rheumatoid Arthritis (NG-163)</th></tr>
+        <tr><td>Crystal arthropathy — <b>not</b> autoimmune</td><td><b>Autoimmune</b> attack on the synovium</td></tr>
+        <tr><td>Usually <b>one joint</b> at first — big toe</td><td><b>Symmetric</b>, multiple small joints</td></tr>
+        <tr><td>Diet/metabolism-driven</td><td>Immune-driven, systemic (skin, eyes, lungs)</td></tr>
+      </table>
+      <div class="mn">🧠 If the stem says "one red hot toe" → think gout. If it says "both hands, same joints, stiff over an hour" → think RA.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLUES ============ -->
+<section id="clues">
+  <div class="sec-h"><span class="icon">🔎</span><h2>CLUES</h2><span class="step">STEP 2 · SPOT THE ATTACK</span></div>
+  <p class="sec-sub">One joint, sudden and severe, with a lab test that confirms what's already obvious at the bedside.</p>
+
+  <div class="grid">
+    <div class="card ruby span2">
+      <h3>🦶 Podagra — the classic first attack</h3>
+      <svg viewBox="0 0 900 300" role="img" aria-label="Diagram of a foot with the big toe's first metatarsophalangeal joint red, swollen, shiny, and inflamed, labeled as podagra, the classic first presentation of gout">
+        <rect x="4" y="4" width="892" height="292" rx="18" fill="rgba(255,59,107,.14)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="7 6"/>
+        <ellipse cx="420" cy="180" rx="180" ry="70" fill="#ffe3d1"/>
+        <circle cx="240" cy="150" r="46" fill="#ff3b6b"/>
+        <circle cx="290" cy="120" r="16" fill="#ffe3d1"/><circle cx="330" cy="110" r="14" fill="#ffe3d1"/>
+        <circle cx="365" cy="106" r="13" fill="#ffe3d1"/><circle cx="398" cy="108" r="12" fill="#ffe3d1"/>
+        <text x="120" y="70" font-size="20" font-weight="900" fill="#ff9db4">🚨 PODAGRA</text>
+        <text x="120" y="94" font-size="14" font-style="italic" fill="#ffd9e2">first MTP joint — the big toe</text>
+        <text x="120" y="250" font-size="15" font-weight="900" fill="#ffb3c6">Appearance: red · hot · swollen</text>
+        <text x="120" y="272" font-size="15" font-weight="900" fill="#ffb3c6">shiny, tight skin · exquisitely tender</text>
+        <text x="580" y="150" font-size="14" font-weight="800" fill="#ffd9e2">Sudden onset — often</text>
+        <text x="580" y="172" font-size="14" font-weight="800" fill="#ffd9e2">wakes the patient at night</text>
+      </svg>
+      <div class="nq"><span class="src">KAPLAN</span> A client experiences an acute bout of gouty arthritis. The nurse expects the client's affected foot to have which appearance?<div class="ans">Answer: red — the joint is red, hot, swollen, and exquisitely tender.</div></div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🧪 Diagnostics — confirm with labs</h3>
+      <svg viewBox="-10 -10 567 190" role="img" aria-label="Bar scale showing serum uric acid level elevated above the normal adult reference range in a client with gout">
+        <rect x="-6" y="-6" width="559" height="182" rx="16" fill="rgba(13,8,26,.5)" stroke="#2f6bff" stroke-width="2"/>
+        <text x="20" y="30" font-size="13" font-weight="900" fill="#bcd0ff">Normal ── high</text>
+        <text x="20" y="58" font-size="13" font-weight="800" fill="#fff">Uric acid</text>
+        <rect x="130" y="46" width="260" height="16" rx="8" fill="rgba(255,255,255,.15)"/>
+        <rect x="130" y="46" width="190" height="16" rx="8" fill="#ff3b6b"/>
+        <text x="20" y="90" font-size="12" font-style="italic" fill="#d8fff0">Adult reference range (varies by lab): ~3.4–7.0 mg/dL (male), ~2.4–6.0 mg/dL (female)</text>
+        <text x="20" y="112" font-size="12" font-style="italic" fill="#d8fff0">Crystals tend to form once levels exceed roughly 6.8 mg/dL</text>
+        <text x="20" y="140" font-size="12.5" font-weight="800" fill="#a5f3d4">Joint fluid aspiration may also show needle-shaped urate crystals</text>
+      </svg>
+      <div class="nq"><span class="src">HESI</span> Pain and swelling of the right great toe — which test will the nurse expect the provider to order?<div class="ans">Answer: serum uric acid levels.</div></div>
+    </div>
+
+    <div class="card garnet">
+      <h3>⏳ Acute vs chronic (tophaceous) gout</h3>
+      <div class="duo">
+        <svg viewBox="-10 -10 347 210" role="img" aria-label="Acute gout: a single red inflamed big toe joint">
+          <rect x="-6" y="-6" width="339" height="202" rx="14" fill="rgba(255,59,107,.15)" stroke="#ff3b6b" stroke-width="2"/>
+          <text x="20" y="30" font-size="15" font-weight="900" fill="#ff9db4">⚡ ACUTE</text>
+          <circle cx="150" cy="110" r="42" fill="#ff3b6b"/>
+          <text x="20" y="164" font-size="12.5" font-style="italic" fill="#ffd9e2">one joint, sudden, severe</text>
+        </svg>
+        <svg viewBox="-10 -10 347 210" role="img" aria-label="Chronic tophaceous gout: multiple joints affected with visible chalky white tophi deposits under the skin near joints and the ear">
+          <rect x="-6" y="-6" width="339" height="202" rx="14" fill="rgba(192,34,85,.18)" stroke="#c02255" stroke-width="2"/>
+          <text x="20" y="30" font-size="15" font-weight="900" fill="#ffb3c6">🕰️ CHRONIC — tophi</text>
+          <circle cx="90" cy="110" r="26" fill="#ff8a3d"/>
+          <circle cx="170" cy="100" r="20" fill="#ff8a3d"/>
+          <circle cx="220" cy="130" r="16" fill="#fff5e6"/>
+          <text x="20" y="164" font-size="12.5" font-style="italic" fill="#ffe3d1">tophi = chalky urate deposits — joints, ear pinna</text>
+        </svg>
+      </div>
+      <div class="mn">🧠 <b>Tophi are visible, palpable proof</b> that uric acid has been too high for too long — untreated chronic gout, not just "another flare."</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CARE ============ -->
+<section id="care">
+  <div class="sec-h"><span class="icon">🩺</span><h2>CARE</h2><span class="step">STEP 3 · TREAT THE FLARE, PREVENT THE NEXT ONE</span></div>
+  <p class="sec-sub">Two completely different jobs: calm today's attack, and lower uric acid so there isn't a next one.</p>
+
+  <div class="grid">
+    <div class="card emerald span2">
+      <h3>⚔️ Big key difference — treat vs prevent</h3>
+      <table>
+        <tr><th class="up">Colchicine / NSAIDs</th><th class="lo">Allopurinol (see NG-188)</th></tr>
+        <tr><td>Treats the <b>acute attack</b> happening right now</td><td><b>Prevents</b> future attacks — long-term urate-lowering</td></tr>
+        <tr><td>Anti-inflammatory action, fast relief</td><td>Xanthine oxidase inhibitor — lowers uric acid production</td></tr>
+        <tr><td>Not for daily long-term prevention</td><td><span class="never">Never start during an active flare</span> — can prolong it</td></tr>
+      </table>
+      <div class="mn">🧠 <b>"Colchicine puts out today's fire; allopurinol stops tomorrow's."</b> For the full allopurinol dosing, the Stevens-Johnson rash warning, and drug interactions, see the Uric Acid Inhibitors page (NG-188) — this page keeps it to the one distinction gout questions actually test.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>💊 Acute attack management</h3>
+      <ul class="tick">
+        <li>💊 <b>NSAIDs</b> or <b>colchicine</b> for pain/inflammation</li>
+        <li>🧊 Rest and immobilize the joint; ice may help</li>
+        <li>⬆️ Elevate the affected limb</li>
+        <li>🚱 Avoid alcohol and high-purine foods during the flare</li>
+      </ul>
+      <div class="mn">🧠 A red-hot, exquisitely tender toe is not the time to "walk it off" — rest and immobilize first.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🥗 Prevent Gout — long-term teaching</h3>
+      <ul class="tick">
+        <li>⚖️ <b>Lose weight</b> — achieve/maintain a healthy weight</li>
+        <li>🚫 <b>Avoid high-purine foods</b> — meats, alcohol, seafood</li>
+        <li>💧 <b>Increase fluid intake</b></li>
+        <li>📋 <b>Monitor fluid I&amp;O</b></li>
+      </ul>
+      <div class="nq"><span class="src">HESI</span> Which interventions should the nurse implement for a patient with gout? (Select all that apply)<div class="ans">Answer: increase fluid intake; document intake &amp; output; observe for medication side effects.</div></div>
+    </div>
+
+    <div class="card ruby span2">
+      <h3>🚨 Fluids matter for a specific reason</h3>
+      <p>Increasing fluid intake and monitoring I&amp;O isn't just general good advice — as uric acid levels drop (whether from diet change or starting urate-lowering therapy), <mark>diluting the urine helps prevent uric acid from crystallizing into kidney stones</mark> while levels are shifting.</p>
+      <div class="mn">🧠 <b>"Flush while you lower."</b> Any time uric acid is actively being reduced, hydration protects the kidneys from a second crystal problem — this time in the urinary tract instead of the joint.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">🔬 Crystal, not autoimmune</span>uric acid crystals deposit in the joint — unlike RA's immune attack</div>
+    <div class="rc rubybg"><span class="big">🦶 Podagra</span>red, hot, swollen first MTP joint — classic first attack</div>
+    <div class="rc tealbg"><span class="big">🧪 Serum uric acid</span>the confirming lab, elevated in gout</div>
+    <div class="rc topazbg"><span class="big">⚔️ Colchicine now, allopurinol later</span>treat the flare vs prevent the next one</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 4 rapid-fire questions</summary>
+      <div class="qa">Q1: Is gout an autoimmune disease? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">No — gout is a crystal arthropathy caused by uric acid crystal deposition. RA (NG-163) is the autoimmune joint disease, driven by the immune system attacking the synovium.</div></div>
+      <div class="qa">Q2: What is podagra and what does it look like? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Gout affecting the first metatarsophalangeal (big toe) joint — the classic first attack. The foot appears red, hot, swollen, and exquisitely tender.</div></div>
+      <div class="qa">Q3: What lab confirms gout, and what foods should be avoided? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Serum uric acid level. Avoid high-purine foods: meats (chicken, steak, liver), seafood (crab, lobster, shrimp), and alcohol (wine, beer, liquor).</div></div>
+      <div class="qa">Q4: What's the difference between colchicine and allopurinol? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Colchicine (with NSAIDs) treats an acute gout attack. Allopurinol is a xanthine oxidase inhibitor used long-term to prevent future attacks — it should not be started during an active flare.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">CAUSE</span>→
+    <span style="background:rgba(47,107,255,.7)">CLUES</span>→
+    <span style="background:rgba(18,184,134,.7)">CARE</span>
+  </div>
+  <div>NG-200 · Musculoskeletal · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>

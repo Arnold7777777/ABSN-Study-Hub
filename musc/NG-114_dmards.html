@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DMARDs · NG-114 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+/* ---- page-added rules (DMARDs custom section ids) ---- */
+#action .sec-h h2{color:#d9c2ff} #action .step{background:var(--amethyst)}
+#watch .sec-h h2{color:#ffb3c6} #watch .step{background:var(--ruby)}
+#teach .sec-h h2{color:#a5f3d4} #teach .step{background:var(--emerald);color:#03291c}
+.pillrow{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 0}
+.pill{font-size:.82rem;font-weight:900;padding:5px 11px;border-radius:999px;background:rgba(13,8,26,.55);border:1px solid var(--line)}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#action">⚙️ Action</a>
+  <a class="c2" href="#watch">🚨 Watch For</a>
+  <a class="c3" href="#teach">🗣️ Teach</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Musculoskeletal · Pharmacology Course</div>
+  <h1>DMARDs <span class="drop">🦾</span></h1>
+  <p class="sub">Disease-Modifying Antirheumatic Drugs</p>
+  <div class="chips">
+    <span class="chip id">NG-114</span>
+    <span class="chip cat">Musculoskeletal · Group D</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede"><b>The drug class that actually SLOWS the disease</b> — not just the pain. Used mainly for <b>rheumatoid arthritis (RA)</b>, DMARDs work by <b>suppressing the immune system</b> so it stops attacking the joints. <mark>Prototype = methotrexate</mark>, dosed <b>ONCE WEEKLY</b> — never daily.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">🦠 Immunosuppressants</span>DMARDs turn the immune system DOWN — that's how they help RA and how they cause infection risk.</div>
+  <div class="rc rubybg"><span class="big">🚨 WEEKLY not daily</span>Methotrexate is dosed <span class="mono">once a week</span>. Daily dosing is a fatal medication error.</div>
+  <div class="rc tealbg"><span class="big">🍊 Folic acid</span>Given WITH methotrexate to cut GI/liver side effects — does not block the RA benefit.</div>
+  <div class="rc topazbg"><span class="big">🩻 TB screen first</span>Biologic DMARDs (the <span class="mono">-mab</span>/<span class="mono">-cept</span> drugs) need a TB test before starting.</div>
+</div>
+
+<!-- ============ ACTION ============ -->
+<section id="action">
+  <div class="sec-h"><span class="icon">⚙️</span><h2>ACTION</h2><span class="step">STEP 1 · HOW IT WORKS</span></div>
+  <p class="sec-sub">DMARDs don't just numb pain — they turn down the immune attack that is destroying the joint.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🎯 Why DMARDs get added — pain relievers alone aren't enough</h3>
+      <p>When RA pain and immobility <b>can no longer be controlled</b> by NSAIDs and other anti-inflammatories alone, DMARDs are added. They have <mark>immunosuppressive properties that decrease the body's immune response</mark> — the immune attack on the synovium is exactly what's destroying the joint, so dialing it down protects the joint from further damage.</p>
+      <div class="duo">
+        <svg viewBox="0 0 440 300" role="img" aria-label="Without DMARD: immune cells swarm and attack the joint synovium, causing ongoing inflammation and joint destruction">
+          <rect x="6" y="6" width="428" height="288" rx="18" fill="rgba(255,59,107,.16)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="22" y="40" font-size="20" font-weight="900" fill="#ff9db4">🔥 NO DMARD</text>
+          <text x="22" y="62" font-size="14" font-style="italic" fill="#ffd9e2">immune system attacks the joint</text>
+          <ellipse cx="220" cy="190" rx="120" ry="70" fill="rgba(255,208,189,.25)" stroke="#ffd0bd" stroke-width="2"/>
+          <text x="220" y="194" font-size="14" font-weight="800" fill="#ffd0bd" text-anchor="middle">synovium (joint lining)</text>
+          <circle cx="150" cy="150" r="12" fill="#ff3b6b"/><circle cx="290" cy="150" r="12" fill="#ff3b6b"/>
+          <circle cx="180" cy="230" r="12" fill="#ff3b6b"/><circle cx="260" cy="230" r="12" fill="#ff3b6b"/>
+          <circle cx="220" cy="150" r="12" fill="#ff3b6b"/><circle cx="220" cy="230" r="12" fill="#ff3b6b"/>
+          <text x="22" y="270" font-size="15" font-weight="900" fill="#ff9db4">= immune cells swarming, unchecked</text>
+        </svg>
+        <svg viewBox="0 0 440 300" role="img" aria-label="With DMARD: immune cells are suppressed and fewer attack the synovium, protecting the joint from further destruction">
+          <rect x="6" y="6" width="428" height="288" rx="18" fill="rgba(18,184,134,.16)" stroke="#12b886" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="22" y="40" font-size="20" font-weight="900" fill="#7df0c6">✅ WITH DMARD</text>
+          <text x="22" y="62" font-size="14" font-style="italic" fill="#d8fff0">immune response suppressed</text>
+          <ellipse cx="220" cy="190" rx="120" ry="70" fill="rgba(255,208,189,.25)" stroke="#ffd0bd" stroke-width="2"/>
+          <text x="220" y="194" font-size="14" font-weight="800" fill="#ffd0bd" text-anchor="middle">synovium (joint lining)</text>
+          <circle cx="150" cy="150" r="8" fill="#12b886" opacity=".5"/>
+          <circle cx="290" cy="230" r="8" fill="#12b886" opacity=".5"/>
+          <text x="22" y="270" font-size="15" font-weight="900" fill="#7df0c6">= immune attack dialed down, joint spared</text>
+        </svg>
+      </div>
+      <div class="mn">🧠 <b>"DMARDs Modify the Disease."</b> NSAIDs and steroids only treat the <i>symptom</i> (pain/swelling) — DMARDs are the only class that actually slows joint destruction.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>💊 Prototype: <b>Methotrexate</b> — folate antagonist</h3>
+      <p>Blocks an enzyme in the folate pathway, which shuts down rapidly dividing cells — including the overactive immune cells attacking the joint. At the <b>low weekly RA dose</b> it's immunosuppressive/anti-inflammatory (very different from the high daily doses used in chemotherapy).</p>
+      <div class="mn">🧠 Methotrexate = <b>"Mother of DMARDs."</b> It's the first-line, most-prescribed DMARD and the one every other drug on this page gets compared to.</div>
+    </div>
+
+    <div class="card tealc">
+      <h3>🧬 Biologic DMARDs — the <span class="mono">-mab</span> / <span class="mono">-cept</span> drugs</h3>
+      <table>
+        <tr><th>Generic (trade)</th><th>Dose</th></tr>
+        <tr><td><b>Adalimumab</b> (Humira)</td><td><span class="mono">40 mg</span> subQ every other week</td></tr>
+        <tr><td><b>Etanercept</b> (Enbrel)</td><td><span class="mono">25 mg</span> subQ twice weekly <i>or</i> <span class="mono">50 mg</span> subQ weekly</td></tr>
+      </table>
+      <p style="margin-top:8px">Both are <b>TNF-alpha inhibitors</b> — they block a specific inflammatory messenger instead of suppressing the whole immune system broadly.</p>
+      <div class="mn">🧠 <span class="mono">-mab</span> = <b>m</b>onoclonal <b>a</b>nti<b>b</b>ody. <span class="mono">-cept</span> = re<b>cept</b>or fusion protein (etanercept). Both end in a decoy that soaks up TNF-alpha before it can inflame the joint.</div>
+    </div>
+
+    <div class="card citrinec span2">
+      <h3>🦟 Other DMARDs worth knowing</h3>
+      <ul class="tick">
+        <li><b>Hydroxychloroquine</b> (Plaquenil) — antimalarial repurposed for RA, typically <span class="mono">~400–600 mg/day</span> orally to start with lower maintenance dosing (weight-based limits apply); requires baseline &amp; periodic <b>eye exams</b> (retinal toxicity).</li>
+        <li><b>Sulfasalazine</b> — a sulfa-based DMARD used for <b>both RA and inflammatory bowel disease</b>; see the Sulfasalazine page (GI batch, NG-175) for full dosing/monitoring — same drug, two different disease uses.</li>
+        <li><b>Anakinra</b> (Kineret) — an IL-1 blocker; <span class="never">do NOT combine</span> with etanercept, adalimumab, or infliximab — combining biologics stacks infection risk without added benefit.</li>
+      </ul>
+      <div class="mn">🧠 <b>"Sulfasalazine wears two hats"</b> — one for the gut (IBD) and one for the joints (RA). Same molecule, same sulfa-drug adverse profile either way.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WATCH FOR ============ -->
+<section id="watch">
+  <div class="sec-h"><span class="icon">🚨</span><h2>WATCH FOR</h2><span class="step">STEP 2 · SAFETY</span></div>
+  <p class="sec-sub">Immunosuppression is the whole point — and the whole danger. Labs, contraindications, and the drug interaction that raises toxicity.</p>
+
+  <div class="grid">
+    <div class="card ruby span2">
+      <h3>🚨 <mark>Biggest NCLEX trap: WEEKLY, not daily</mark></h3>
+      <p>Methotrexate for RA is prescribed <b>once weekly</b>, on the <b>same day every week</b>. Accidental <b>daily</b> dosing is a real, dangerous, and sometimes fatal medication error — it causes severe bone marrow suppression, GI ulceration, and liver injury.</p>
+      <svg viewBox="-10 -10 599 230" role="img" aria-label="Weekly calendar showing methotrexate taken correctly once a week on the same day, versus a crossed-out row showing incorrect daily dosing">
+        <rect x="-6" y="-6" width="591" height="222" rx="16" fill="rgba(13,8,26,.55)" stroke="#ffc233" stroke-width="2"/>
+        <text x="20" y="34" font-size="16" font-weight="900" fill="#a5f3d4">✅ CORRECT — same day, once a week</text>
+        <g font-size="13" font-weight="800" fill="#d8fff0">
+          <rect x="20" y="46" width="50" height="34" rx="6" fill="rgba(18,184,134,.4)"/><text x="30" y="67">Mon</text>
+          <rect x="76" y="46" width="50" height="34" rx="6" fill="#12b886"/><text x="90" y="67" fill="#03291c">TUE 💊</text>
+          <rect x="132" y="46" width="50" height="34" rx="6" fill="rgba(18,184,134,.4)"/><text x="145" y="67">Wed</text>
+          <rect x="188" y="46" width="50" height="34" rx="6" fill="rgba(18,184,134,.4)"/><text x="200" y="67">Thu</text>
+          <rect x="244" y="46" width="50" height="34" rx="6" fill="rgba(18,184,134,.4)"/><text x="257" y="67">Fri</text>
+          <rect x="300" y="46" width="50" height="34" rx="6" fill="rgba(18,184,134,.4)"/><text x="313" y="67">Sat</text>
+          <rect x="356" y="46" width="50" height="34" rx="6" fill="rgba(18,184,134,.4)"/><text x="368" y="67">Sun</text>
+        </g>
+        <text x="20" y="112" font-size="16" font-weight="900" fill="#ff9db4">❌ WRONG — daily dosing = toxic</text>
+        <g font-size="13" font-weight="800" fill="#ffd9e2">
+          <rect x="20" y="124" width="50" height="34" rx="6" fill="#ff3b6b"/><text x="30" y="145">Mon 💊</text>
+          <rect x="76" y="124" width="50" height="34" rx="6" fill="#ff3b6b"/><text x="90" y="145">Tue 💊</text>
+          <rect x="132" y="124" width="50" height="34" rx="6" fill="#ff3b6b"/><text x="145" y="145">Wed 💊</text>
+          <rect x="188" y="124" width="50" height="34" rx="6" fill="#ff3b6b"/><text x="200" y="145">Thu 💊</text>
+          <rect x="244" y="124" width="50" height="34" rx="6" fill="#ff3b6b"/><text x="257" y="145">Fri 💊</text>
+          <rect x="300" y="124" width="50" height="34" rx="6" fill="#ff3b6b"/><text x="313" y="145">Sat 💊</text>
+          <rect x="356" y="124" width="50" height="34" rx="6" fill="#ff3b6b"/><text x="368" y="145">Sun 💊</text>
+        </g>
+        <text x="20" y="188" font-size="14" font-style="italic" fill="#ffc233">Teach: mark a calendar or set a weekly reminder for the SAME day every week.</text>
+      </svg>
+      <div class="mn">🧠 <b>"Methotrexate Monday."</b> Pick one day, say it out loud, put it on the calendar — one dose, seven days apart, every time.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🧪 Labs to monitor</h3>
+      <ul class="tick">
+        <li><b>CBC</b> — bone marrow suppression → pancytopenia (low WBC, RBC, platelets)</li>
+        <li><b>LFTs</b> (AST/ALT) — hepatotoxicity; avoid alcohol</li>
+        <li><b>Renal function</b> — methotrexate is renally cleared; reduced clearance = higher toxicity</li>
+      </ul>
+      <div class="mn">🧠 <b>"CLR"</b> — <b>C</b>BC, <b>L</b>iver, <b>R</b>enal — the 3 labs that make methotrexate safe or dangerous.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>⚠️ Contraindications</h3>
+      <ul class="tick">
+        <li>Renal insufficiency, liver disease, alcohol abuse, pancytopenia, or folate deficiency → avoid <b>methotrexate</b></li>
+        <li>Congestive heart failure or neurologic demyelinating disease → avoid <b>etanercept, adalimumab, infliximab</b></li>
+        <li><b>Pregnancy</b> — methotrexate is teratogenic; effective contraception required during therapy and for a prescriber-specified period after the last dose (references vary — commonly at least one ovulatory cycle up to <span class="mono">6 months</span> for females and <span class="mono">3 months</span> for males)</li>
+      </ul>
+      <div class="mn">🧠 Methotrexate is <span class="never">absolutely contraindicated in pregnancy</span> — it's an abortifacient at higher doses and teratogenic at any dose.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>💥 Drug interaction that raises toxicity</h3>
+      <p><b>Sulfa antibiotics + methotrexate</b> = increased risk of <b>methotrexate toxicity</b>. Both compete for renal clearance and both affect folate metabolism — the combination compounds bone marrow suppression.</p>
+      <div class="mn">🧠 <b>"Sulfa stacks the toxicity."</b> Always ask about antibiotic allergies/current prescriptions before a methotrexate dose.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🦠 Adverse reactions</h3>
+      <ul class="tick">
+        <li>Nausea, <b>stomatitis</b> (mouth sores)</li>
+        <li>Alopecia (hair loss)</li>
+        <li>Sulfasalazine: GI upset, rash/photosensitivity, mild pancytopenia (retinal/ocular toxicity belongs to <b>hydroxychloroquine</b>, not sulfasalazine)</li>
+      </ul>
+      <div class="mn">🧠 A sore mouth on methotrexate isn't "just an ulcer" — it's an early toxicity sign. Report it.</div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>🩻 Before starting a biologic: screen first</h3>
+      <div class="flow">
+        <div class="fstep">1️⃣ TB screening — PPD skin test or quantiferon-gold, plus chest X-ray</div>
+        <div class="farrow">▼</div>
+        <div class="fstep">2️⃣ Hepatitis B screening</div>
+        <div class="farrow">▼</div>
+        <div class="fstep hot">3️⃣ Only if negative → start the biologic DMARD</div>
+      </div>
+      <p style="margin-top:10px">Biologics suppress the immune system's ability to keep latent TB contained — starting one in an undiagnosed latent-TB patient can reactivate active disease. <span class="never">Live vaccines are avoided</span> while on any DMARD that suppresses immunity.</p>
+      <div class="mn">🧠 <b>"No jab, no mab."</b> Screen for TB and hep B before the first biologic dose — and hold live vaccines the whole time the patient is on it.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TEACH ============ -->
+<section id="teach">
+  <div class="sec-h"><span class="icon">🗣️</span><h2>TEACH</h2><span class="step">STEP 3 · PATIENT EDUCATION</span></div>
+  <p class="sec-sub">What she needs to hear before she leaves the room — dosing, folic acid, injections, and when to call.</p>
+
+  <div class="grid">
+    <div class="card emerald span2">
+      <h3>🍊 Folic acid supplementation — why it's given WITH methotrexate</h3>
+      <svg viewBox="-10 -10 680 210" role="img" aria-label="Diagram showing methotrexate blocking the folate pathway, with folic acid supplementation replacing the folate needed for healthy cells while methotrexate still suppresses the overactive immune cells">
+        <rect x="-6" y="-6" width="672" height="202" rx="16" fill="rgba(13,8,26,.5)" stroke="#12b886" stroke-width="2"/>
+        <text x="20" y="34" font-size="15" font-weight="900" fill="#a5f3d4">Methotrexate blocks the folate pathway</text>
+        <rect x="20" y="50" width="130" height="40" rx="10" fill="rgba(255,59,107,.55)"/>
+        <text x="34" y="75" font-size="13" font-weight="800" fill="#fff">Folate needed by</text>
+        <text x="34" y="90" font-size="13" font-weight="800" fill="#fff" transform="translate(0,-3)">healthy cells (GI, liver)</text>
+        <path d="M156 70 L214 70" stroke="#ff3b6b" stroke-width="5" marker-end="url(#arrDM)"/>
+        <defs><marker id="arrDM" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ff3b6b"/></marker></defs>
+        <rect x="220" y="50" width="200" height="40" rx="10" fill="rgba(13,8,26,.65)"/>
+        <text x="234" y="75" font-size="13" font-weight="800" fill="#ffc233">✅ Folic acid supplement refills it</text>
+        <rect x="20" y="112" width="400" height="40" rx="10" fill="rgba(18,184,134,.5)"/>
+        <text x="34" y="137" font-size="13.5" font-weight="800" fill="#03291c">Overactive immune cells stay suppressed — folic acid doesn't undo the RA benefit</text>
+        <text x="20" y="176" font-size="13" font-style="italic" fill="#d8fff0">Result: fewer GI/mouth/liver side effects, same disease-modifying effect.</text>
+      </svg>
+      <div class="mn">🧠 <b>"Folic acid protects the bystanders, not the target."</b> It rescues normal fast-growing cells (gut lining, hair, marrow) from methotrexate's side effects without rescuing the overactive immune cells causing RA.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>💉 Self-injection teaching (biologics)</h3>
+      <ul class="tick">
+        <li>Teach proper injection technique and <b>site rotation</b></li>
+        <li>Have the patient <b>demonstrate</b> the technique before it becomes self-administered</li>
+        <li>Report redness, pain, or swelling at the injection site</li>
+        <li>Teach safe <b>disposal</b> (sharps container)</li>
+      </ul>
+      <div class="mn">🧠 <b>Return demonstration before discharge</b> — never assume verbal teaching alone is enough for a subQ self-injection.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>📞 Call the provider immediately if...</h3>
+      <div class="no-grid">
+        <div class="no-t hot"><span class="e">👄</span>Mouth sores</div>
+        <div class="no-t hot"><span class="e">💧</span>Diarrhea</div>
+        <div class="no-t hot"><span class="e">🌡️</span>Fever</div>
+        <div class="no-t hot"><span class="e">🗣️</span>Sore throat</div>
+        <div class="no-t hot"><span class="e">🩸</span>Easy bruising</div>
+        <div class="no-t hot"><span class="e">🌸</span>Rash / itching</div>
+        <div class="no-t hot"><span class="e">🤢</span>N/V</div>
+      </div>
+      <p style="margin-top:10px"><i>Any of these can signal bone marrow suppression, infection, or hepatotoxicity — never "wait and see" on methotrexate.</i></p>
+      <div class="mn">🧠 <b>"No problem is too minor."</b> Even a cold or an open sore can become life-threatening on an immunosuppressant — that instruction line is on the exam.</div>
+    </div>
+
+    <div class="card emerald span2">
+      <h3>🗣️ The full teaching bundle</h3>
+      <div class="pillrow">
+        <span class="pill">🍊 Take folic acid as ordered</span>
+        <span class="pill">📅 Same day, once weekly</span>
+        <span class="pill">🚫 No alcohol</span>
+        <span class="pill">💊 Ask HCP before ANY OTC drug/supplement</span>
+        <span class="pill">🤰 Effective contraception during + after (per prescriber)</span>
+        <span class="pill">🩺 Report infection s/s immediately</span>
+        <span class="pill">💉 Rotate injection sites</span>
+        <span class="pill">🏃 Continue diet, exercise, PT as prescribed</span>
+      </div>
+      <p style="margin-top:12px">Treatment for RA is never "just the drug" — explain that management includes drug therapy <i>plus</i> diet, exercise, activity modification, and periodic physical therapy.</p>
+      <div class="mn">🧠 <b>"DMARDs don't work alone."</b> The drug slows the disease; diet, exercise, and PT protect the function that's left.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">🦠 DMARDs suppress immunity</span>= they slow the disease, not just the pain</div>
+    <div class="rc rubybg"><span class="big">🚨 Weekly, never daily</span>methotrexate dosing error = life-threatening</div>
+    <div class="rc tealbg"><span class="big">🍊 Folic acid</span>reduces side effects, keeps the RA benefit</div>
+    <div class="rc topazbg"><span class="big">🩻 TB + hep B screen</span>before any biologic (-mab/-cept) drug</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 4 rapid-fire questions</summary>
+      <div class="qa">Q1: How often is methotrexate dosed for RA? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Once weekly, same day every week — NOT daily. Daily dosing is a dangerous medication error.</div></div>
+      <div class="qa">Q2: Why is folic acid given with methotrexate? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">To reduce GI, mouth, and liver side effects from folate depletion — it doesn't block methotrexate's immunosuppressive/anti-RA effect.</div></div>
+      <div class="qa">Q3: What must be screened before starting a biologic DMARD (e.g., adalimumab, etanercept)? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">TB (PPD/quantiferon + chest X-ray) and hepatitis B — biologics can reactivate latent infections.</div></div>
+      <div class="qa">Q4: What drug interaction increases methotrexate toxicity? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Sulfa antibiotics — they compete for renal clearance and compound bone marrow suppression.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">ACTION</span>→
+    <span style="background:rgba(255,59,107,.7)">WATCH FOR</span>→
+    <span style="background:rgba(18,184,134,.7)">TEACH</span>
+  </div>
+  <div>NG-114 · Musculoskeletal Group D · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>

@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Peptic Ulcer Disease · NG-295 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+/* ---- appended for this page: SATA quiz option list ---- */
+.sata{margin:8px 0 0;padding:0;list-style:none}
+.sata li{margin:0 0 6px;padding:8px 10px;border-radius:10px;background:rgba(13,8,26,.45);border:1px solid var(--line)}
+.sata li.yes{border-color:#12b886;background:rgba(18,184,134,.28)}
+.sata li.no{border-color:#ff3b6b;background:rgba(255,59,107,.22)}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#cause">🧨 Cause</a>
+  <a class="c2" href="#clues">🔎 Clues</a>
+  <a class="c3" href="#care">🩺 Care</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / GI · Pathophysiology Course</div>
+  <h1>Peptic Ulcer Disease <span class="drop">🕳️</span></h1>
+  <p class="sub">PUD — when acid finally wins and eats a hole through the wall</p>
+  <div class="chips">
+    <span class="chip id">NG-295</span>
+    <span class="chip cat">GI</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede"><b>Gastric acid erodes the GI lining</b> and creates an <i>open sore — a hole</i> — in the stomach or duodenum (rarely the esophagus). Same acid-vs-mucus fight as <b>Gastritis</b> (NG-296), just deeper — see <b>NG-293 Key Terms</b> for dyspepsia, hematemesis &amp; melena.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">🕳️ Mucus loses the fight</span>PUD = acid eats all the way <b>through</b> the protective mucus + wall.</div>
+  <div class="rc rubybg"><span class="big">🍽️ Gastric hurts WITH food</span>Duodenal hurts <b>2–3 hrs AFTER</b> food &amp; at night — opposite timing.</div>
+  <div class="rc tealbg"><span class="big">🦠 H. pylori + NSAIDs</span>The two biggest causes — both strip away the protective barrier.</div>
+  <div class="rc topazbg"><span class="big">🚨 Board-like abdomen</span>Perforation → peritonitis/sepsis = PRIORITY, report to HCP.</div>
+</div>
+
+<!-- ============ CAUSE ============ -->
+<section id="cause">
+  <div class="sec-h"><span class="icon">🧨</span><h2>CAUSE</h2><span class="step">STEP 1 · MUCUS LOSES</span></div>
+  <p class="sec-sub">Normally the stomach protects itself from its own acid — PUD is what happens when that protection fails.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🧫 The mucosa fight — protection vs. attack</h3>
+      <p><span class="tip">EXAM TIP</span> <mark>Every risk factor either strips the mucus/bicarbonate layer or increases the acid attacking it</mark>.</p>
+      <div class="duo">
+        <svg viewBox="0 0 440 300" role="img" aria-label="Cross section of healthy stomach mucosa showing an intact protective mucus and bicarbonate layer holding acid safely away from the stomach wall">
+          <defs>
+            <linearGradient id="wallOK" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#ffb8a3"/><stop offset="1" stop-color="#e8637f"/>
+            </linearGradient>
+          </defs>
+          <rect x="6" y="6" width="428" height="288" rx="18" fill="rgba(18,184,134,.14)" stroke="#12b886" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="24" y="42" font-size="20" font-weight="900" fill="#7df0c6">✅ INTACT MUCOSA</text>
+          <text x="24" y="64" font-size="13.5" font-style="italic" fill="#d8fff0">mucus + bicarbonate hold the line</text>
+          <rect x="24" y="90" width="392" height="60" rx="10" fill="url(#wallOK)"/>
+          <rect x="24" y="150" width="392" height="26" rx="8" fill="#eafff7"/>
+          <text x="30" y="168" font-size="12.5" font-weight="900" fill="#00252b">protective mucus + bicarbonate layer</text>
+          <rect x="24" y="184" width="392" height="70" rx="10" fill="#ffc233" opacity=".55"/>
+          <text x="30" y="212" font-size="13" font-weight="900" fill="#3d1a00">gastric acid (HCl) — buffered, contained</text>
+          <text x="30" y="234" font-size="12" font-style="italic" fill="#3d1a00">stays above the mucus line</text>
+          <text x="24" y="278" font-size="14" font-weight="900" fill="#7df0c6">Wall stays smooth — no ulcer</text>
+        </svg>
+        <svg viewBox="0 0 440 300" role="img" aria-label="Cross section of an ulcer showing the mucus layer breached by H pylori bacteria and NSAID injury, with acid eroding a crater through the stomach wall">
+          <defs>
+            <linearGradient id="wallBad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#ffb8a3"/><stop offset="1" stop-color="#e8637f"/>
+            </linearGradient>
+          </defs>
+          <rect x="6" y="6" width="428" height="288" rx="18" fill="rgba(255,59,107,.16)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="24" y="42" font-size="20" font-weight="900" fill="#ff9db4">🕳️ BREACHED = ULCER</text>
+          <text x="24" y="64" font-size="13.5" font-style="italic" fill="#ffd9e2">H. pylori + NSAIDs strip the mucus</text>
+          <rect x="24" y="90" width="392" height="60" rx="10" fill="url(#wallBad)"/>
+          <path d="M170 150 C 176 176 200 190 224 190 C 248 190 268 176 270 150 Z" fill="#5a1020"/>
+          <rect x="24" y="150" width="140" height="26" rx="8" fill="#eafff7"/>
+          <rect x="276" y="150" width="140" height="26" rx="8" fill="#eafff7"/>
+          <text x="30" y="168" font-size="11.5" font-weight="900" fill="#00252b">mucus intact here</text>
+          <path d="M198 116 q6 8 0 16 q-6 8 0 16" fill="none" stroke="#12b886" stroke-width="3"/>
+          <path d="M212 116 q6 8 0 16 q-6 8 0 16" fill="none" stroke="#12b886" stroke-width="3"/>
+          <text x="184" y="108" font-size="10.5" font-weight="900" fill="#a5f3d4">H. pylori</text>
+          <rect x="24" y="184" width="392" height="70" rx="10" fill="#ffc233" opacity=".7"/>
+          <text x="30" y="212" font-size="13" font-weight="900" fill="#3d1a00">gastric acid pours into the gap</text>
+          <text x="30" y="234" font-size="12" font-style="italic" fill="#3d1a00">erodes a crater — the "ulcer"</text>
+          <text x="24" y="280" font-size="14" font-weight="900" fill="#ff9db4">Hole punched through the wall</text>
+        </svg>
+      </div>
+      <div class="mn">🧠 <b>"No mucus, no protection."</b> This exact crater picture is the same mental model used on the Gastritis page — Gastritis is the mucosa getting irritated, PUD is the acid finishing the job and punching all the way through.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>⚠️ Causes &amp; risks — top 3</h3>
+      <ul class="tick">
+        <li>🦠 <b>1. H. pylori bacteria</b> — burrows into the mucus layer</li>
+        <li>💊 <b>2. NSAIDs</b> — <span class="mono">naproxen · indomethacin · ibuprofen</span> — block protective prostaglandins</li>
+        <li>😰 <b>3. Stress</b> — prolongs the ulcer, delays healing</li>
+      </ul>
+      <div class="mn">🧠 <b>"Bug, drug, and a bad mood."</b> H. pylori (bug), NSAIDs (drug), stress (mood) — the three-way cause of nearly every PUD case tested.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🚑 Stress ulcers — the fast-onset kind</h3>
+      <p>Occur within <b>hours</b> of a traumatic event — linked to low blood flow/perfusion to the GI tract, called <b>mucosal ischemia</b>.</p>
+      <ul class="tick">
+        <li>🔥 <b>Curling's ulcer</b> — after severe <b>burns</b></li>
+        <li>🧠 <b>Cushing's ulcer</b> — after <b>head injury</b> / increased ICP</li>
+      </ul>
+      <svg viewBox="-10 -10 451 180" role="img" aria-label="Diagram showing Curling's ulcer caused by severe burns and Cushing's ulcer caused by head injury or increased intracranial pressure, both leading to stress ulcers via mucosal ischemia">
+        <rect x="-6" y="-6" width="443" height="172" rx="14" fill="rgba(13,8,26,.4)" stroke="rgba(255,255,255,.25)" stroke-width="2"/>
+        <text x="16" y="28" font-size="12.5" font-weight="900" fill="#ff9db4">🔥 Burns → Curling's</text>
+        <path d="M20 40 L60 40 L60 70 L20 70 Z" fill="#ff8a3d" opacity=".7"/>
+        <path d="M30 46 q6 8 0 16 q-6 8 0 16" fill="none" stroke="#ffc233" stroke-width="3"/>
+        <path d="M46 46 q6 8 0 16 q-6 8 0 16" fill="none" stroke="#ffc233" stroke-width="3"/>
+        <path d="M64 55 L120 55" stroke="#ff3b6b" stroke-width="3" stroke-dasharray="5 4" marker-end="url(#arrS1)"/>
+        <text x="16" y="94" font-size="12.5" font-weight="900" fill="#a5f3d4">🧠 Head injury → Cushing's</text>
+        <ellipse cx="40" cy="118" rx="20" ry="16" fill="#9d5cff"/>
+        <path d="M64 118 L120 118" stroke="#ff3b6b" stroke-width="3" stroke-dasharray="5 4" marker-end="url(#arrS2)"/>
+        <defs>
+          <marker id="arrS1" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ff3b6b"/></marker>
+          <marker id="arrS2" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ff3b6b"/></marker>
+        </defs>
+        <ellipse cx="200" cy="80" rx="70" ry="56" fill="#c02255"/>
+        <path d="M180 66 C 176 84 190 96 210 92 C 226 88 230 70 216 62 Z" fill="#5a1020"/>
+        <text x="160" y="30" font-size="12.5" font-weight="900" fill="#ffb3c6">Stomach — mucosal ischemia</text>
+        <text x="288" y="60" font-size="11.5" font-style="italic" fill="#efe6ff">low blood flow</text>
+        <text x="288" y="78" font-size="11.5" font-style="italic" fill="#efe6ff">to the gastric wall</text>
+        <text x="288" y="100" font-size="12.5" font-weight="900" fill="#ffc233">= ulcer within hours</text>
+      </svg>
+      <div class="mn">🧠 <b>"Curling = Cooked skin, Cushing = Cranium."</b> Curling's follows burns; Cushing's follows a brain injury. Both are ICU emergencies — patients often get prophylactic acid reducers for exactly this reason.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLUES ============ -->
+<section id="clues">
+  <div class="sec-h"><span class="icon">🔎</span><h2>CLUES</h2><span class="step">STEP 2 · TIME THE PAIN</span></div>
+  <p class="sec-sub">Gastric and duodenal ulcers hurt on opposite schedules — that timing is the highest-yield fact on this whole page.</p>
+
+  <div class="grid">
+    <div class="card sapphire span2">
+      <h3>🍽️ Gastric vs. Duodenal — <mark>opposite pain timing</mark></h3>
+      <table>
+        <tr><th class="up">Gastric ulcer (stomach)</th><th class="lo">Duodenal ulcer (duodenum)</th></tr>
+        <tr><td>Pain <b>increases WITH food</b> — <span class="mono">30–60 min</span> after meals</td><td>Pain <b>decreases WITH food</b>, returns <span class="mono">2–3 hrs</span> later — worse at <b>night</b></td></tr>
+        <tr><td>Weight <b>LOSS</b> — patients avoid eating</td><td>Weight <b>GAIN</b> — patients eat to relieve pain</td></tr>
+        <tr><td>More likely to <b>vomit blood</b> — hematemesis</td><td>More likely <b>melena</b> — dark tarry stool</td></tr>
+      </table>
+      <svg viewBox="0 0 900 210" role="img" aria-label="Diagram comparing gastric ulcer pain that worsens thirty to sixty minutes after eating with weight loss, against duodenal ulcer pain that improves with food then returns two to three hours later and worse at night with weight gain">
+        <rect x="4" y="4" width="892" height="202" rx="16" fill="rgba(13,8,26,.4)" stroke="rgba(255,255,255,.25)" stroke-width="2"/>
+        <ellipse cx="140" cy="90" rx="90" ry="60" fill="#c02255"/>
+        <text x="80" y="42" font-size="15" font-weight="900" fill="#ffb3c6">Gastric ulcer (stomach)</text>
+        <circle cx="110" cy="90" r="26" fill="none" stroke="#ffc233" stroke-width="3"/>
+        <line x1="110" y1="90" x2="110" y2="72" stroke="#ffc233" stroke-width="3" stroke-linecap="round"/>
+        <line x1="110" y1="90" x2="124" y2="98" stroke="#ffc233" stroke-width="3" stroke-linecap="round"/>
+        <text x="152" y="82" font-size="12.5" font-weight="900" fill="#ffe3a8">Pain ↑ WITH food</text>
+        <text x="152" y="100" font-size="11.5" font-style="italic" fill="#ffe3a8">30–60 min after eating</text>
+        <text x="80" y="140" font-size="13" font-weight="900" fill="#fff2e6">📉 weight LOSS</text>
+        <rect x="330" y="30" width="70" height="46" rx="14" fill="#ff3b6b"/>
+        <text x="420" y="42" font-size="15" font-weight="900" fill="#ff9db4">Duodenal ulcer (duodenum)</text>
+        <circle cx="365" cy="120" r="26" fill="none" stroke="#12b886" stroke-width="3"/>
+        <line x1="365" y1="120" x2="365" y2="102" stroke="#12b886" stroke-width="3" stroke-linecap="round"/>
+        <line x1="365" y1="120" x2="378" y2="130" stroke="#12b886" stroke-width="3" stroke-linecap="round"/>
+        <text x="420" y="112" font-size="12.5" font-weight="900" fill="#a5f3d4">Pain ↓ WITH food</text>
+        <text x="420" y="130" font-size="11.5" font-style="italic" fill="#a5f3d4">then returns 2–3 hrs later</text>
+        <text x="420" y="148" font-size="11.5" font-style="italic" fill="#a5f3d4">worse at 🌙 night</text>
+        <text x="420" y="172" font-size="13" font-weight="900" fill="#fff2e6">📈 weight GAIN</text>
+        <line x1="700" y1="20" x2="700" y2="190" stroke="rgba(255,255,255,.25)" stroke-width="2" stroke-dasharray="6 5"/>
+        <text x="716" y="60" font-size="13" font-weight="900" fill="#ff9db4">🤮 Hematemesis</text>
+        <text x="716" y="80" font-size="11.5" font-style="italic" fill="#ffd9e2">more common — gastric</text>
+        <text x="716" y="120" font-size="13" font-weight="900" fill="#a5f3d4">💩 Melena</text>
+        <text x="716" y="140" font-size="11.5" font-style="italic" fill="#d8fff9">more common — duodenal</text>
+      </svg>
+      <div class="mn">🧠 <b>"Gastric = Grief with food, Duodenal = Delight then Delayed pain."</b> If eating makes it worse, blame the stomach. If eating helps but the pain sneaks back a couple hours later (especially at night), blame the duodenum.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🩸 Hemorrhage — recognize it fast</h3>
+      <ul class="tick">
+        <li>🤮 <b>Hematemesis</b> — vomiting blood</li>
+        <li>💩 <b>Melena</b> — black, tarry stool</li>
+        <li>📉 Dropping H&amp;H, tachycardia, hypotension</li>
+      </ul>
+      <div class="mn">🧠 <span class="never">Report black tarry stools to the HCP</span> — every time, no exceptions.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🚨 Perforation → <b>Peritonitis &amp; Sepsis</b> — PRIORITY</h3>
+      <ul class="tick">
+        <li>🌡️ <b>Fever</b> over <span class="mono">100.3°F</span></li>
+        <li>🤲 <b>Rebound tenderness</b></li>
+        <li>🪵 <span class="never">"Rigid" / "board-like" abdomen</span></li>
+        <li>📈 Increasing pain · 😰 restless · 💓 tachycardia/tachypnea</li>
+      </ul>
+      <div class="mn">🧠 <b>"BOARD"</b> — same word set from NG-293/GERD. A board belly = report to the HCP now.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🚧 Gastric outlet obstruction</h3>
+      <p>Chronic scarring/swelling near the pylorus blocks emptying → <b>early satiety, bloating, nonbilious vomiting</b> of undigested food.</p>
+      <div class="mn">🧠 Think of it as the ulcer's scar tissue becoming a <i>speed bump</i> the stomach can no longer empty over.</div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>🔬 Diagnostics: scope &amp; swallow</h3>
+      <table>
+        <tr><th class="up">Test</th><th class="lo">Client education</th></tr>
+        <tr><td><b>EGD</b> — Esophagogastroduodenoscopy</td><td><b>NPO 8 hrs</b> before · no smoking beforehand</td></tr>
+        <tr><td><b>Upper GI series</b> with barium contrast</td><td>During: abdominal cramping expected. After: <b>chalky white stool</b> — increase fluids to flush the contrast; may need a mild laxative.</td></tr>
+      </table>
+      <div class="mn">🧠 <b>EGD = "Every Gut Door"</b> — Esophagus → Gastro → Duodenum, same scope taught on the GERD page.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CARE ============ -->
+<section id="care">
+  <div class="sec-h"><span class="icon">🩺</span><h2>CARE</h2><span class="step">STEP 3 · KILL THE BUG, CALM THE ACID</span></div>
+  <p class="sec-sub">Treat the cause (H. pylori), reduce the acid, protect the mucosa — and teach what to never take again.</p>
+
+  <div class="grid">
+    <div class="card emerald span2">
+      <h3>💊 Antibiotics — eradicate H. pylori</h3>
+      <p>Standard therapy combines <b>2 antibiotics + a PPI</b> (triple therapy) or adds bismuth (quadruple therapy):</p>
+      <div class="no-grid">
+        <div class="no-t"><span class="e">💊</span>Amoxicillin</div>
+        <div class="no-t"><span class="e">💊</span>Clarithromycin</div>
+        <div class="no-t"><span class="e">💊</span>Tetracycline</div>
+        <div class="no-t"><span class="e">💊</span>Metronidazole</div>
+        <div class="no-t"><span class="e">🩷</span>Bismuth<i>(Pepto-Bismol)</i></div>
+      </div>
+      <div class="mn">🧠 <b>NCLEX trap:</b> a PPI alone will calm symptoms but will <span class="never">NOT cure PUD</span> if H. pylori is present — the antibiotics are what actually eradicate the cause.</div>
+    </div>
+
+    <div class="card emerald">
+      <h3>💊 Acid reducers — 3 tiers</h3>
+      <table>
+        <tr><th style="width:34%">Class</th><th class="up">Example</th><th class="lo">Name clue</th></tr>
+        <tr><td><b>Antacids</b> 🧴</td><td>—</td><td><i>"ANT-acid" = against acid</i></td></tr>
+        <tr><td><b>H2 blockers</b> 🚫</td><td><b>Ranitidine</b></td><td><span class="mono">-tidine</span></td></tr>
+        <tr><td><b>PPIs</b> ⛽</td><td><b>Omeprazole</b></td><td><span class="mono">-prazole</span></td></tr>
+      </table>
+      <div class="mn">🧠 Same "TIDY the acid, PRAZOLE the pump" mnemonic from GERD (NG-036) — this ladder repeats across every acid-related GI page.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🛡️ Mucosal protectants</h3>
+      <ul class="tick">
+        <li>💊 <b>Sucralfate</b> — coats &amp; sticks to the ulcer crater; give on an <b>empty stomach</b>, separate from antacids by ~30 min</li>
+        <li>💊 <b>Misoprostol</b> — prostaglandin analog; protects mucosa + reduces acid</li>
+        <li>⚠️ <span class="never">Misoprostol is contraindicated in pregnancy</span> — it can induce uterine contractions/abortion</li>
+      </ul>
+      <div class="mn">🧠 <b>"Sucralfate = a bandage. Misoprostol = a baby's biggest NO."</b> Always confirm pregnancy status before starting misoprostol.</div>
+    </div>
+
+    <div class="card ruby span2">
+      <h3>❌ AVOID — the ulcer-friendly triggers</h3>
+      <div class="no-grid">
+        <div class="no-t hot"><span class="e">💊</span>NSAIDs<i>naproxen, ibuprofen, indomethacin</i></div>
+        <div class="no-t hot"><span class="e">☕</span>Caffeine<i>coffee, soda, tea</i></div>
+        <div class="no-t hot"><span class="e">🍺</span>Alcohol<i>&nbsp;</i></div>
+        <div class="no-t hot"><span class="e">🚬</span>Cigarettes<i>tobacco</i></div>
+        <div class="no-t"><span class="e">🌶️</span>Spicy foods<i>&nbsp;</i></div>
+        <div class="no-t"><span class="e">🥓</span>Fatty / fried foods<i>&nbsp;</i></div>
+        <div class="no-t"><span class="e">🍋</span>Acidic foods<i>&nbsp;</i></div>
+        <div class="no-t"><span class="e">😰</span>Unmanaged stress<i>prolongs the ulcer</i></div>
+      </div>
+      <div class="mn">🧠 <b>"NCAAS"</b> — <b>N</b>SAIDs · <b>C</b>affeine · <b>A</b>lcohol · <b>A</b>cidic/spicy/fried foods · <b>S</b>tress. Cut all five and the mucosa finally gets a chance to heal.</div>
+    </div>
+
+    <div class="card topaz span2">
+      <h3>🎯 Common NCLEX question — Select All That Apply</h3>
+      <p><i>"The nurse is educating the client on peptic ulcer prevention. Which statements show correct understanding?"</i></p>
+      <ul class="sata">
+        <li class="yes">✅ "I will not drink beer at the party this weekend."</li>
+        <li class="yes">✅ "I will avoid using naproxen."</li>
+        <li class="yes">✅ "I should avoid drinking excess coffee or soda."</li>
+        <li class="yes">✅ "I will start smoking cessation."</li>
+        <li class="no">❌ "I will avoid spicy foods, but fried chicken is okay." <i>— fried food is also a trigger; this statement is INCORRECT.</i></li>
+      </ul>
+      <div class="mn">🧠 Watch for the <b>half-right</b> answer choice — it avoids one trigger but keeps another. SATA questions punish partial understanding.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">🕳️ PUD</span>= acid erodes ALL THE WAY through the mucosa</div>
+    <div class="rc rubybg"><span class="big">🍽️ Gastric hurts WITH food</span>Duodenal hurts 2-3 hrs later &amp; at night</div>
+    <div class="rc tealbg"><span class="big">🦠 H. pylori</span>needs antibiotics — a PPI alone won't cure it</div>
+    <div class="rc topazbg"><span class="big">🪵 Board-like belly</span>= perforation/peritonitis → report to HCP</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 4 rapid-fire questions</summary>
+      <div class="qa">Q1: A patient's pain worsens 30-60 minutes after eating and they've lost weight. Gastric or duodenal ulcer? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Gastric ulcer — pain increases with food, patients often lose weight from avoiding meals.</div></div>
+      <div class="qa">Q2: Why won't a PPI alone cure PUD caused by H. pylori? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">A PPI only reduces acid — it doesn't kill the bacteria. Eradication requires antibiotics (e.g., amoxicillin + clarithromycin) combined with a PPI, or a bismuth-based quadruple regimen.</div></div>
+      <div class="qa">Q3: Which drug used for PUD is contraindicated in pregnancy, and why? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Misoprostol — a prostaglandin analog that can trigger uterine contractions and abortion.</div></div>
+      <div class="qa">Q4: What's the difference between Curling's and Cushing's stress ulcers? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Curling's ulcer follows severe burns; Cushing's ulcer follows head injury/increased ICP. Both develop within hours due to mucosal ischemia.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">CAUSE</span>→
+    <span style="background:rgba(47,107,255,.7)">CLUES</span>→
+    <span style="background:rgba(18,184,134,.7)">CARE</span>
+  </div>
+  <div>NG-295 · Source wording retained · ADHD-friendly visual edition v2</div>
+</footer>
+
+</div>
+</body></html>

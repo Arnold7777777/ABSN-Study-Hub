@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cholecystitis · NG-179 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+/* ---------- appended extras (GI batch) ---------- */
+.redflag{border:2px solid var(--ruby);box-shadow:0 0 0 4px rgba(255,59,107,.18),0 8px 26px rgba(0,0,0,.45)}
+.redflag h3{font-size:1.25rem}
+.quadrants{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:4px;width:100%;aspect-ratio:1.5;border:2px solid var(--line);border-radius:10px;overflow:hidden}
+.quad{display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.8rem;text-align:center;padding:6px}
+.quad.ruq{background:rgba(255,59,107,.55)}
+.quad.luq{background:rgba(13,8,26,.4)}
+.quad.rlq{background:rgba(13,8,26,.4)}
+.quad.llq{background:rgba(13,8,26,.4)}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#cause">🧨 Cause</a>
+  <a class="c2" href="#clues">🔎 Clues</a>
+  <a class="c3" href="#care">🩺 Care</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / GI · Pathophysiology Course</div>
+  <h1>Cholecystitis <span class="drop">🫘</span></h1>
+  <p class="sub">Gallbladder Inflammation — Biliary Colic vs. Acute Attack</p>
+  <div class="chips">
+    <span class="chip id">NG-179</span>
+    <span class="chip cat">GI</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede"><b>Inflammation of the gallbladder</b> — typically caused by <b>gallstones (cholelithiasis)</b> that block the cystic duct, so bile backs up and inflames the gallbladder wall. Classic picture: <mark>RUQ pain that radiates to the right shoulder</mark>, worse after a fatty meal, plus a positive <b>Murphy's sign</b>.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">📍 RUQ → right shoulder</span>The signature pain pattern of gallbladder disease.</div>
+  <div class="rc rubybg"><span class="big">🚨 Fever + chills + tachycardia</span>= acute cholecystitis, not just colic — notify HCP.</div>
+  <div class="rc tealbg"><span class="big">🖐️ Positive Murphy's sign</span>Pain + inspiratory arrest on RUQ palpation.</div>
+  <div class="rc topazbg"><span class="big">🥓 Fatty food = trigger</span>Low-fat diet before &amp; after — always NPO during an acute attack.</div>
+</div>
+
+<!-- ============ CAUSE ============ -->
+<section id="cause">
+  <div class="sec-h"><span class="icon">🧨</span><h2>CAUSE</h2><span class="step">STEP 1 · THE BLOCKED DUCT</span></div>
+  <p class="sec-sub">One blocked duct explains the whole disease — bile with nowhere to go inflames the gallbladder wall.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🫘 Gallstones block the cystic duct → bile backs up → inflammation</h3>
+      <p><span class="tip">DEFINITION</span> <mark>Inflammation of the gallbladder</mark>, typically caused by <b>gallstones (cholelithiasis)</b> that block the ducts leading out of the gallbladder, causing a backup of bile.</p>
+      <svg viewBox="0 0 440 260" role="img" aria-label="Diagram of the liver, gallbladder and cystic duct. A gallstone blocks the cystic duct, bile backs up into the inflamed gallbladder shown in red">
+        <rect x="6" y="6" width="428" height="248" rx="18" fill="rgba(13,8,26,.35)" stroke="var(--line)" stroke-width="2"/>
+        <path d="M40 40 C 120 20 220 30 260 60 C 280 76 260 96 220 96 C 160 96 90 90 50 76 Z" fill="#a5522f" stroke="#ffd0bd" stroke-width="2"/>
+        <text x="50" y="52" font-size="14" font-weight="900" fill="#ffd9b8">Liver</text>
+        <path d="M170 96 C 172 130 172 150 178 168" stroke="#12b886" stroke-width="10" fill="none" stroke-linecap="round"/>
+        <text x="184" y="130" font-size="12.5" fill="#a5f3d4">cystic duct</text>
+        <circle cx="176" cy="160" r="9" fill="#fff" stroke="#231a02" stroke-width="2"/>
+        <text x="192" y="164" font-size="12.5" font-weight="900" fill="#ffc233">← gallstone blocking</text>
+        <ellipse cx="170" cy="205" rx="52" ry="40" fill="#ff3b6b" stroke="#ffb3c6" stroke-width="3"/>
+        <text x="132" y="212" font-size="13" font-weight="900" fill="#fff">Gallbladder</text>
+        <text x="132" y="230" font-size="11.5" font-style="italic" fill="#ffe3ea">inflamed, bile backed up</text>
+        <path d="M260 80 C 300 90 320 130 300 170" stroke="#a5522f" stroke-width="10" fill="none" stroke-linecap="round"/>
+        <text x="300" y="90" font-size="12.5" fill="#ffd9b8">common bile duct</text>
+      </svg>
+      <div class="mn">🧠 <b>"Stone in the road = bile with nowhere to go."</b> The gallstone plugs the cystic duct — bile can't drain, pressure builds, the wall inflames.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>⚠️ Risk factors — the classic "4 F's" (expanded)</h3>
+      <ul class="tick">
+        <li>🥓 <b>High-fat diet</b></li>
+        <li>⚖️ <b>Obesity</b></li>
+        <li>🎂 <b>Age over 40</b></li>
+        <li>♀️ Female sex &amp; history of pregnancy (estrogen raises cholesterol saturation in bile)</li>
+      </ul>
+      <div class="mn">🧠 <b>"Fat, Forty, Female, Fertile"</b> — the classic 4 F's for gallstone risk. Not every client fits the mnemonic, but it's a fast recall trigger.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>📍 Where the pain lives</h3>
+      <div class="quadrants" aria-label="Abdominal quadrant diagram showing right upper quadrant highlighted as the site of gallbladder pain">
+        <div class="quad ruq">RUQ<br>🫘 gallbladder pain</div>
+        <div class="quad luq">LUQ</div>
+        <div class="quad rlq">RLQ</div>
+        <div class="quad llq">LLQ</div>
+      </div>
+      <p style="margin-top:8px">Pain classically <b>radiates to the right shoulder / scapula</b> — referred pain from the phrenic nerve.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLUES ============ -->
+<section id="clues">
+  <div class="sec-h"><span class="icon">🔎</span><h2>CLUES</h2><span class="step">STEP 2 · COLIC VS. ACUTE ATTACK</span></div>
+  <p class="sec-sub">Biliary colic is the stone moving; acute cholecystitis is the gallbladder actually inflamed and infected.</p>
+
+  <div class="grid">
+    <div class="card sapphire span2">
+      <h3>⚖️ Biliary colic vs. acute cholecystitis</h3>
+      <table>
+        <tr><th style="width:34%">Feature</th><th class="up">🌗 Biliary colic</th><th class="lo">🔥 Acute cholecystitis</th></tr>
+        <tr><td><b>Cause</b></td><td>Stone temporarily blocks the duct, then passes/repositions</td><td>Stone stays lodged — persistent obstruction &amp; inflammation, often with infection</td></tr>
+        <tr><td><b>Pain pattern</b></td><td>Comes and goes, often after a fatty meal, resolves within a few hours</td><td>Constant, severe RUQ pain that doesn't resolve on its own</td></tr>
+        <tr><td><b>Fever</b></td><td>Usually absent</td><td>Present — fever with chills</td></tr>
+        <tr><td><b>Murphy's sign</b></td><td>Usually negative</td><td><b>Positive</b> — pain + sudden inspiratory arrest on RUQ palpation</td></tr>
+      </table>
+      <svg viewBox="-10 -10 516 190" role="img" aria-label="Pain intensity over time graph comparing biliary colic, which spikes and resolves within a few hours, to acute cholecystitis, which stays constantly high with fever">
+        <rect x="-6" y="-6" width="508" height="182" rx="14" fill="rgba(13,8,26,.35)" stroke="var(--line)" stroke-width="2"/>
+        <line x1="40" y1="140" x2="410" y2="140" stroke="#e9dcff" stroke-width="2"/>
+        <line x1="40" y1="140" x2="40" y2="24" stroke="#e9dcff" stroke-width="2"/>
+        <text x="4" y="20" font-size="12.5" fill="#dbe6ff">pain</text>
+        <text x="360" y="156" font-size="12.5" fill="#dbe6ff">time</text>
+        <path d="M40 130 C 90 60 120 60 150 130 C 200 132 230 132 260 132" fill="none" stroke="#ffc233" stroke-width="4"/>
+        <text x="60" y="52" font-size="12.5" font-weight="900" fill="#ffc233">biliary colic — spikes, resolves</text>
+        <path d="M260 132 C 300 50 350 40 410 40" fill="none" stroke="#ff3b6b" stroke-width="4"/>
+        <text x="270" y="30" font-size="12.5" font-weight="900" fill="#ff9db4">acute cholecystitis — stays high</text>
+      </svg>
+      <div class="mn">🧠 <b>"Colic comes and goes; cholecystitis stays and grows."</b> If the pain is constant, feverish, and the belly guards on exam — that's the acute attack, not simple colic.</div>
+    </div>
+
+    <div class="card topaz">
+      <h3>⭐ Highly tested signs &amp; symptoms</h3>
+      <ul class="tick">
+        <li>📍 <b>RUQ pain</b> "radiates to the right shoulder"</li>
+        <li>🌡️ <b>Fever with chills</b></li>
+        <li>💓 <b>Tachycardia</b></li>
+        <li>🖐️ <b>Positive Murphy's sign</b></li>
+        <li>🥓 Pain worse after a <b>high-fat meal</b> — fat triggers cholecystokinin release, gallbladder contracts against the blockage</li>
+      </ul>
+    </div>
+
+    <div class="card ruby redflag">
+      <h3>🚨 RED FLAG — call the provider now</h3>
+      <p>These suggest complication (perforation, empyema, ascending cholangitis):</p>
+      <div class="no-grid">
+        <div class="no-t hot"><span class="e">🌡️</span>High fever, rigors<i>&nbsp;</i></div>
+        <div class="no-t hot"><span class="e">💛</span>Jaundice<i>bile duct involvement</i></div>
+        <div class="no-t hot"><span class="e">💓</span>Marked tachycardia<i>&nbsp;</i></div>
+        <div class="no-t hot"><span class="e">🪵</span>Rigid abdomen<i>peritonitis</i></div>
+      </div>
+      <div class="mn">🧠 Fever + jaundice + RUQ pain together = think <b>Charcot's triad</b> (ascending cholangitis) — an emergency, not routine colic.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🖐️ Murphy's sign — how it's tested</h3>
+      <p>Examiner presses on the RUQ and asks the client to take a deep breath. <mark>Pain + sudden stop of inspiration</mark> = positive sign — the inflamed gallbladder drops onto the examiner's fingers on inhalation.</p>
+      <svg viewBox="0 0 320 160" role="img" aria-label="Diagram of a hand palpating the right upper quadrant while the diaphragm pushes the inflamed gallbladder down onto the examiner's fingers during inspiration, causing pain and a sudden stop in breathing">
+        <rect x="4" y="4" width="312" height="152" rx="14" fill="rgba(13,8,26,.35)" stroke="var(--line)" stroke-width="2"/>
+        <ellipse cx="160" cy="100" rx="90" ry="46" fill="#ffd0bd" opacity=".5"/>
+        <ellipse cx="130" cy="102" rx="26" ry="20" fill="#ff3b6b"/>
+        <text x="96" y="106" font-size="10.5" font-weight="900" fill="#fff">GB</text>
+        <path d="M60 60 q100 -20 200 0" stroke="#a5f3d4" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <text x="70" y="48" font-size="11.5" fill="#a5f3d4">diaphragm pushes down on inhale</text>
+        <path d="M110 130 q20 -30 40 -22 q10 -26 30 -14 q6 -14 20 -6" fill="none" stroke="#ffe3ea" stroke-width="6" stroke-linecap="round"/>
+        <text x="90" y="150" font-size="11" fill="#ffd9e2">examiner's fingers on RUQ</text>
+      </svg>
+      <div class="mn">🧠 <b>"Murphy's law — you get caught mid-breath."</b> A positive sign literally stops the breath.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CARE ============ -->
+<section id="care">
+  <div class="sec-h"><span class="icon">🩺</span><h2>CARE</h2><span class="step">STEP 3 · REST THE GALLBLADDER, THEN REMOVE IT</span></div>
+  <p class="sec-sub">NPO during the attack, low fat always, and surgery is the definitive fix.</p>
+
+  <div class="grid">
+    <div class="card emerald span2">
+      <h3>✅ Priority intervention — treatment</h3>
+      <div class="ladder">
+        <div class="rung"><div class="n">1</div><div class="t"><b>NPO status</b> — nothing by mouth; eating triggers more pain &amp; complications</div></div>
+        <div class="rung"><div class="n">2</div><div class="t">IV fluids, pain control, antiemetics as ordered</div></div>
+        <div class="rung"><div class="n">3</div><div class="t">Antibiotics if infection suspected</div></div>
+        <div class="rung"><div class="n">4</div><div class="t">Monitor for surgical vs. non-surgical management</div></div>
+      </div>
+      <div class="mn">🧠 <b>NPO first, always.</b> Any fat or food makes the gallbladder contract against a blocked duct — that's exactly what you don't want.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🔨 Lithotripsy vs. surgery</h3>
+      <ul class="tick">
+        <li>💥 <b>Lithotripsy</b> — shock waves break up stones; used when stones are small enough</li>
+        <li>🔪 <b>Cholecystectomy</b> — surgical removal of the gallbladder, done when stones are too large or disease is recurrent/severe</li>
+      </ul>
+      <svg viewBox="0 0 380 150" role="img" aria-label="Decision diagram: small stones treated with lithotripsy shock waves, large or recurrent stones treated with cholecystectomy removal of the gallbladder">
+        <rect x="4" y="4" width="372" height="142" rx="14" fill="rgba(13,8,26,.35)" stroke="var(--line)" stroke-width="2"/>
+        <circle cx="70" cy="50" r="14" fill="#fff"/>
+        <text x="30" y="80" font-size="11.5" fill="#e9dcff">small stone</text>
+        <path d="M92 50 L150 50" stroke="#ffc233" stroke-width="3" marker-end="url(#lArr)"/>
+        <defs><marker id="lArr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#ffc233"/></marker></defs>
+        <text x="160" y="46" font-size="12.5" font-weight="900" fill="#ffc233">💥 lithotripsy</text>
+        <text x="160" y="64" font-size="11" fill="#ffe6c9">shock waves shatter it</text>
+
+        <ellipse cx="70" cy="112" rx="20" ry="14" fill="#fff"/>
+        <text x="20" y="140" font-size="11.5" fill="#e9dcff">large / recurrent</text>
+        <path d="M100 112 L150 112" stroke="#ff3b6b" stroke-width="3" marker-end="url(#lArr2)"/>
+        <defs><marker id="lArr2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#ff3b6b"/></marker></defs>
+        <text x="160" y="108" font-size="12.5" font-weight="900" fill="#ff9db4">🔪 cholecystectomy</text>
+        <text x="160" y="126" font-size="11" fill="#ffd9e2">gallbladder removed</text>
+      </svg>
+      <div class="mn">🧠 <b>Lithotripsy shatters; cholecystectomy removes.</b> If the stone's too big to shatter, the whole organ comes out.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🏥 Post-op cholecystectomy care</h3>
+      <ul class="tick">
+        <li>🚶 Assist with <b>early ambulation</b> — prevents pneumonia</li>
+        <li>🫁 <b>Deep breathe &amp; cough</b> — priority teaching for an <b>open</b> cholecystectomy (bigger incision, higher pneumonia risk)</li>
+        <li>🚿 <b>No baths — shower only</b>, protects the incision</li>
+        <li>🔴 <b>Report redness/swelling</b> at incision sites to the surgeon</li>
+      </ul>
+      <div class="mn">🧠 <span class="tip">KAPLAN QUESTION</span> Priority action for a client scheduled for an <b>open cholecystectomy</b>? <mark>Demonstrate ways to deep breathe and cough.</mark> A bigger incision near the diaphragm = higher risk of shallow breathing &amp; pneumonia post-op.</div>
+    </div>
+
+    <div class="card citrinec span2">
+      <h3>🎓 Discharge teaching — HESI-style questions</h3>
+      <p><span class="tip">HESI QUESTION</span> Following a <b>laparoscopic cholecystectomy</b>, which instructions would the nurse include? <i>Select all that apply.</i></p>
+      <ul class="tick">
+        <li>✅ May take a shower</li>
+        <li>✅ Wait about <span class="mono">1 week</span> after surgery before returning to work (varies with procedure &amp; provider order)</li>
+        <li>✅ Lose weight if overweight</li>
+        <li>✅ Avoid fatty, fried foods</li>
+      </ul>
+      <p style="margin-top:10px"><span class="tip">HESI QUESTION</span> A nurse caring for a patient who recently had the gallbladder removed knows the patient will have difficulty digesting large amounts of which nutrient? <mark>Fats</mark> — bile helps emulsify fat, and without a gallbladder to concentrate/store bile, fat digestion is less efficient.</p>
+      <div class="mn">🧠 <b>No gallbladder = go low-fat, forever-ish.</b> Bile still drips from the liver, but there's no reservoir to release a big bolus when a fatty meal hits.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">📍 RUQ → right shoulder</span>Classic pain radiation pattern</div>
+    <div class="rc rubybg"><span class="big">🖐️ Positive Murphy's sign</span>Pain + inspiratory arrest</div>
+    <div class="rc tealbg"><span class="big">🥓 Fatty food = trigger</span>Low-fat diet, NPO during acute attack</div>
+    <div class="rc topazbg"><span class="big">🫁 Deep breathe &amp; cough</span>Priority teaching after open cholecystectomy</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 4 rapid-fire questions</summary>
+      <div class="qa">Q1: Where does gallbladder pain classically radiate? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">RUQ pain radiating to the right shoulder/scapula.</div></div>
+      <div class="qa">Q2: What's the difference between biliary colic and acute cholecystitis? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Biliary colic is intermittent pain as a stone temporarily blocks/moves, usually without fever. Acute cholecystitis is constant pain with fever, chills, and a positive Murphy's sign — the duct stays blocked and the gallbladder becomes inflamed/infected.</div></div>
+      <div class="qa">Q3: What's the priority teaching for a client scheduled for an open cholecystectomy? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Demonstrate deep breathing and coughing — reduces pneumonia risk from the upper abdominal incision.</div></div>
+      <div class="qa">Q4: What nutrient will a post-cholecystectomy client have trouble digesting in large amounts? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Fats — teach a low-fat diet since there's no gallbladder reservoir to release a bile bolus for a fatty meal.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">CAUSE</span>→
+    <span style="background:rgba(47,107,255,.7)">CLUES</span>→
+    <span style="background:rgba(18,184,134,.7)">CARE</span>
+  </div>
+  <div>NG-179 · Cholecystitis · ADHD-friendly visual edition (rebuild)</div>
+</footer>
+
+</div>
+</body></html>

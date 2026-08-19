@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Abuse &amp; Neglect · NG-139 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#cause">🧩 Forms</a>
+  <a class="c2" href="#clues">🔎 Recognize</a>
+  <a class="c3" href="#care">🛡️ Respond</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Mental Health · Psychiatric Care Course</div>
+  <h1>Abuse &amp; Neglect <span class="drop">🛡️</span></h1>
+  <p class="sub">Recognition · Mandatory Reporting · Safety Planning</p>
+  <div class="chips">
+    <span class="chip id">NG-139</span>
+    <span class="chip cat">Mental Health</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede">Nurses are <b>mandated reporters</b>. This page covers recognition of physical, emotional, sexual, financial abuse and neglect across <b>child, elder, and intimate-partner</b> contexts, plus the objective documentation and safety-planning steps that follow — <mark>clinical and factual, not graphic</mark>.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">🧩 5 forms</span>Physical · emotional · sexual · financial · neglect.</div>
+  <div class="rc rubybg"><span class="big">🚪 IPV priority action</span>Separate the partner — interview &amp; examine <b>privately</b>.</div>
+  <div class="rc tealbg"><span class="big">📣 Mandated reporter</span>Nurses <span class="never">must</span> report suspected abuse — not optional.</div>
+  <div class="rc topazbg"><span class="big">📈 Highest danger</span>Risk of harm rises when the victim moves toward independence/leaving.</div>
+</div>
+
+<!-- ============ CAUSE ============ -->
+<section id="cause">
+  <div class="sec-h"><span class="icon">🧩</span><h2>FORMS</h2><span class="step">STEP 1 · NAME THE TYPE</span></div>
+  <p class="sec-sub">Abuse is not only physical — and it happens across every age group in different patterns.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🧩 5 forms of abuse/neglect</h3>
+      <svg viewBox="0 0 900 240" role="img" aria-label="Five forms of abuse diagram: physical, emotional or psychological, sexual, financial, and neglect, each shown as a labeled icon panel">
+        <rect x="4" y="4" width="892" height="232" rx="16" fill="rgba(13,8,26,.4)" stroke="rgba(255,255,255,.25)" stroke-width="1.5"/>
+        <g>
+          <rect x="26" y="30" width="156" height="180" rx="14" fill="rgba(255,59,107,.55)" stroke="#ffe3ea" stroke-width="1.5"/>
+          <text x="104" y="72" font-size="28" text-anchor="middle">🤕</text>
+          <text x="104" y="106" font-size="13" font-weight="900" fill="#fff" text-anchor="middle">Physical</text>
+          <text x="104" y="140" font-size="10.5" fill="#ffe3ea" text-anchor="middle">bruising, injuries,</text>
+          <text x="104" y="154" font-size="10.5" fill="#ffe3ea" text-anchor="middle">unexplained trauma</text>
+        </g>
+        <g>
+          <rect x="196" y="30" width="156" height="180" rx="14" fill="rgba(157,92,255,.55)" stroke="#efe6ff" stroke-width="1.5"/>
+          <text x="274" y="72" font-size="28" text-anchor="middle">💬</text>
+          <text x="274" y="106" font-size="13" font-weight="900" fill="#fff" text-anchor="middle">Emotional</text>
+          <text x="274" y="140" font-size="10.5" fill="#efe6ff" text-anchor="middle">threats, humiliation,</text>
+          <text x="274" y="154" font-size="10.5" fill="#efe6ff" text-anchor="middle">isolation, control</text>
+        </g>
+        <g>
+          <rect x="366" y="30" width="156" height="180" rx="14" fill="rgba(192,34,85,.55)" stroke="#ffe3ea" stroke-width="1.5"/>
+          <text x="444" y="72" font-size="28" text-anchor="middle">🚫</text>
+          <text x="444" y="106" font-size="13" font-weight="900" fill="#fff" text-anchor="middle">Sexual</text>
+          <text x="444" y="140" font-size="10.5" fill="#ffe3ea" text-anchor="middle">any non-consensual</text>
+          <text x="444" y="154" font-size="10.5" fill="#ffe3ea" text-anchor="middle">sexual contact</text>
+        </g>
+        <g>
+          <rect x="536" y="30" width="156" height="180" rx="14" fill="rgba(255,194,51,.6)" stroke="#3d1a00" stroke-width="1.5"/>
+          <text x="614" y="72" font-size="28" text-anchor="middle">💳</text>
+          <text x="614" y="106" font-size="13" font-weight="900" fill="#231a02" text-anchor="middle">Financial</text>
+          <text x="614" y="140" font-size="10.5" fill="#3d1a00" text-anchor="middle">controlling funds,</text>
+          <text x="614" y="154" font-size="10.5" fill="#3d1a00" text-anchor="middle">stealing income/benefits</text>
+        </g>
+        <g>
+          <rect x="706" y="30" width="166" height="180" rx="14" fill="rgba(0,194,199,.6)" stroke="#00252b" stroke-width="1.5"/>
+          <text x="789" y="72" font-size="28" text-anchor="middle">🧴</text>
+          <text x="789" y="106" font-size="13" font-weight="900" fill="#00252b" text-anchor="middle">Neglect</text>
+          <text x="789" y="140" font-size="10.5" fill="#00393f" text-anchor="middle">failure to meet basic</text>
+          <text x="789" y="154" font-size="10.5" fill="#00393f" text-anchor="middle">physical/emotional needs</text>
+        </g>
+      </svg>
+      <div class="mn">🧠 <b>"PESFN"</b> — say it like "pieces-fin": <b>P</b>hysical · <b>E</b>motional · <b>S</b>exual · <b>F</b>inancial · <b>N</b>eglect. Every abuse question is really asking "which piece is missing?"</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>👵 Elder neglect — definition</h3>
+      <p>A form of abuse that happens when the <b>caregiver fails to provide for the needs</b> of the elderly client — either <b>emotionally, physically, or socially</b>.</p>
+      <div class="mn">🧠 Neglect is a <i>failure to act</i>, not a direct act — that's what separates it from active physical/emotional abuse in documentation.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>💔 Intimate partner violence (IPV) — key word definition</h3>
+      <p><b>Intimate partner violence</b> is domestic violence or abusive behavior inflicted by one partner against the other — <b>physically, emotionally, verbally, sexually, or financially.</b></p>
+      <ul class="tick">
+        <li>Abusive partner traits: <b>extreme jealousy &amp; possessiveness</b></li>
+        <li><mark>Abuse gets more intense during pregnancy</mark></li>
+      </ul>
+      <div class="mn">🧠 <b>Pregnancy is a documented high-risk window</b> for IPV escalation — screen every pregnant client privately, every visit.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLUES ============ -->
+<section id="clues">
+  <div class="sec-h"><span class="icon">🔎</span><h2>RECOGNIZE</h2><span class="step">STEP 2 · SPOT THE PATTERN</span></div>
+  <p class="sec-sub">Signs cluster differently by population — know the elder-neglect picture and the IPV screening questions cold.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>👵 Elder neglect — what the nurse observes</h3>
+      <svg viewBox="0 0 900 300" role="img" aria-label="Body diagram of an elderly client with labeled signs of neglect: missing or broken glasses and hearing aids, poor eye contact when talking with caregiver, poor oral hygiene and soiled clothing, pressure ulcers, weight loss dehydration and malnutrition, and expired medications">
+        <rect x="4" y="4" width="892" height="292" rx="16" fill="rgba(13,8,26,.4)" stroke="rgba(255,255,255,.25)" stroke-width="1.5"/>
+        <ellipse cx="450" cy="150" rx="60" ry="120" fill="rgba(47,107,255,.35)" stroke="#bcd0ff" stroke-width="2"/>
+        <circle cx="450" cy="66" r="34" fill="rgba(47,107,255,.5)" stroke="#bcd0ff" stroke-width="2"/>
+        <text x="450" y="75" font-size="24" text-anchor="middle">🧓</text>
+
+        <line x1="416" y1="66" x2="230" y2="40" stroke="#ffc233" stroke-width="1.5"/>
+        <text x="30" y="36" font-size="12" font-weight="800" fill="#ffc233">Missing/broken glasses,</text>
+        <text x="30" y="50" font-size="12" font-weight="800" fill="#ffc233">hearing aids</text>
+
+        <line x1="420" y1="80" x2="230" y2="90" stroke="#ff9db4" stroke-width="1.5"/>
+        <text x="30" y="86" font-size="12" font-weight="800" fill="#ff9db4">Poor eye contact with</text>
+        <text x="30" y="100" font-size="12" font-weight="800" fill="#ff9db4">caregiver present</text>
+
+        <line x1="418" y1="110" x2="230" y2="140" stroke="#a5f3d4" stroke-width="1.5"/>
+        <text x="30" y="136" font-size="12" font-weight="800" fill="#a5f3d4">Poor oral hygiene,</text>
+        <text x="30" y="150" font-size="12" font-weight="800" fill="#a5f3d4">soiled clothing</text>
+
+        <line x1="484" y1="66" x2="660" y2="40" stroke="#ffd9b8" stroke-width="1.5"/>
+        <text x="668" y="36" font-size="12" font-weight="800" fill="#ffd9b8">Expired medications</text>
+
+        <line x1="486" y1="140" x2="660" y2="120" stroke="#ff9db4" stroke-width="1.5"/>
+        <text x="668" y="106" font-size="12" font-weight="800" fill="#ff9db4">Pressure ulcers</text>
+
+        <line x1="486" y1="190" x2="660" y2="190" stroke="#9ff2ee" stroke-width="1.5"/>
+        <text x="668" y="176" font-size="12" font-weight="800" fill="#9ff2ee">Weight loss, dehydration,</text>
+        <text x="668" y="190" font-size="12" font-weight="800" fill="#9ff2ee">malnutrition</text>
+
+        <line x1="420" y1="240" x2="230" y2="240" stroke="#efe6ff" stroke-width="1.5"/>
+        <text x="30" y="226" font-size="12" font-weight="800" fill="#efe6ff">Broken assistive devices</text>
+        <text x="30" y="240" font-size="12" font-weight="800" fill="#efe6ff">(wheelchair, walker)</text>
+      </svg>
+      <div class="mn">🧠 <b>Assessment case:</b> a 79-year-old weighs 93 lbs, wears old dirty clothes, and is admitted with pneumonia. The comment that suggests <i>significant abuse risk</i>: <i>"Our family is poor, so my daughter gets my monthly retirement and Social Security checks."</i> → <mark>financial exploitation as part of neglect</mark>.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🩹 Caregiver Role Strain (CRS) — a risk factor to assess, not blame</h3>
+      <ul class="tick">
+        <li>Assess stressors &amp; unmet needs of the <b>caregiver</b></li>
+        <li>Ask about the <b>nature &amp; requirements</b> of providing daily care</li>
+      </ul>
+      <div class="mn">🧠 Neglect isn't always malicious — an overwhelmed, unsupported caregiver is a <i>known risk factor</i>. Assessing CRS is prevention, not accusation.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🚪 IPV — priority action &amp; screening questions</h3>
+      <p><span class="tip">PRIORITY</span> <b>Have the partner leave the room</b> to speak with and examine the client in <b>private</b>.</p>
+      <ul class="tick">
+        <li>"Is anyone hurting you?"</li>
+        <li>"When you and your spouse disagree, what happens?"</li>
+        <li>"Has your spouse ever threatened you verbally or with violence?"</li>
+      </ul>
+      <div class="mn">🧠 <b>Bruises in various stages of healing</b> on assessment = ask these three direct, private questions — never in front of the suspected abuser.</div>
+    </div>
+
+    <div class="card citrinec span2">
+      <h3>⚠️ Why victims stay — and when danger peaks</h3>
+      <ul class="tick">
+        <li>Financial dependence</li>
+        <li>Fear of harm (to self, children, pets)</li>
+        <li>Child custody concerns</li>
+        <li>Religious or cultural beliefs</li>
+      </ul>
+      <p style="margin-top:8px"><mark>Abuse is expected to worsen when the victim moves toward independence from the abuser</mark> — leaving is statistically the most dangerous point in an abusive relationship.</p>
+      <svg viewBox="0 0 900 210" role="img" aria-label="Line graph showing danger level over the course of an abusive relationship, staying moderate to high during the relationship and spiking sharply at the point the victim attempts to leave or gain independence from the abuser">
+        <rect x="4" y="4" width="892" height="202" rx="16" fill="rgba(13,8,26,.35)" stroke="rgba(255,255,255,.25)" stroke-width="1.5"/>
+        <line x1="60" y1="170" x2="860" y2="170" stroke="rgba(255,255,255,.4)" stroke-width="2"/>
+        <line x1="60" y1="30" x2="60" y2="170" stroke="rgba(255,255,255,.4)" stroke-width="2"/>
+        <text x="20" y="32" font-size="11" fill="#efe6ff" font-weight="800">danger</text>
+        <text x="700" y="188" font-size="11" fill="#efe6ff" font-weight="800">time in relationship →</text>
+        <path d="M60 140 C 220 130, 380 120, 520 118 C 600 116, 640 108, 660 60 C 670 40, 690 90, 720 140 C 760 165, 810 168, 860 168" fill="none" stroke="#ff3b6b" stroke-width="5"/>
+        <line x1="660" y1="30" x2="660" y2="170" stroke="#ff3b6b" stroke-width="1.5" stroke-dasharray="5 5"/>
+        <text x="660" y="24" font-size="12.5" font-weight="900" fill="#ff9db4" text-anchor="middle">Leaving / seeking independence</text>
+        <text x="660" y="192" font-size="11" font-weight="800" fill="#ff9db4" text-anchor="middle">= highest-risk point</text>
+      </svg>
+      <div class="mn">🧠 <b>Never judge "why don't they just leave."</b> The nurse's job is safety planning for whenever the client is ready — not pressuring them to leave on the nurse's timeline.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CARE ============ -->
+<section id="care">
+  <div class="sec-h"><span class="icon">🛡️</span><h2>RESPOND</h2><span class="step">STEP 3 · REPORT, DOCUMENT, PLAN SAFETY</span></div>
+  <p class="sec-sub">Reporting is mandatory; documentation and safety planning are the nurse's core interventions.</p>
+
+  <div class="grid">
+    <div class="card ruby span2">
+      <h3>📣 Mandatory reporting — a nurse's legal duty</h3>
+      <div class="ladder">
+        <div class="rung"><div class="n">1</div><div class="t">🚨 <b>Ensure immediate safety</b> — treat injuries, separate client from suspected abuser for the interview</div></div>
+        <div class="rung"><div class="n">2</div><div class="t">📞 <b>Report per state law &amp; facility policy</b> — nurses are <span class="never">mandated reporters</span> for suspected child abuse/neglect and elder abuse in every U.S. state; reporting is not optional and does not require the client's/family's consent</div></div>
+        <div class="rung"><div class="n">3</div><div class="t">📝 <b>Document objectively</b> — direct quotes, measured/described findings, no personal conclusions</div></div>
+        <div class="rung"><div class="n">4</div><div class="t">🧷 <b>Preserve evidence</b> if applicable per facility protocol</div></div>
+        <div class="rung"><div class="n">5</div><div class="t">🏠 <b>Safety-plan &amp; connect to resources</b> before discharge</div></div>
+      </div>
+      <svg viewBox="0 0 900 190" role="img" aria-label="Workflow diagram of the mandatory reporting process: suspect abuse or neglect, interview the client privately, document findings objectively, report to the appropriate authority such as Child Protective Services or Adult Protective Services, and connect the client to a safety plan and resources" style="margin-top:12px">
+        <rect x="4" y="4" width="892" height="182" rx="16" fill="rgba(13,8,26,.35)" stroke="rgba(255,255,255,.25)" stroke-width="1.5"/>
+        <g font-size="12" font-weight="800" text-anchor="middle">
+          <rect x="24" y="55" width="150" height="80" rx="12" fill="rgba(255,59,107,.6)" stroke="#ffe3ea"/>
+          <text x="99" y="90" font-size="22">🚩</text><text x="99" y="118" fill="#fff">Suspect</text>
+          <path d="M180 95 L214 95" stroke="#ffc233" stroke-width="5" marker-end="url(#repA)"/>
+
+          <rect x="218" y="55" width="150" height="80" rx="12" fill="rgba(47,107,255,.6)" stroke="#bcd0ff"/>
+          <text x="293" y="90" font-size="22">🗣️</text><text x="293" y="118" fill="#fff">Interview privately</text>
+          <path d="M374 95 L408 95" stroke="#ffc233" stroke-width="5" marker-end="url(#repA)"/>
+
+          <rect x="412" y="55" width="150" height="80" rx="12" fill="rgba(157,92,255,.6)" stroke="#efe6ff"/>
+          <text x="487" y="90" font-size="22">📝</text><text x="487" y="118" fill="#fff">Document objectively</text>
+          <path d="M568 95 L602 95" stroke="#ffc233" stroke-width="5" marker-end="url(#repA)"/>
+
+          <rect x="606" y="55" width="140" height="80" rx="12" fill="rgba(255,194,51,.65)" stroke="#3d1a00"/>
+          <text x="676" y="90" font-size="22">📞</text><text x="676" y="118" fill="#231a02">Report (CPS/APS)</text>
+          <path d="M752 95 L786 95" stroke="#ffc233" stroke-width="5" marker-end="url(#repA)"/>
+
+          <rect x="790" y="55" width="86" height="80" rx="12" fill="rgba(18,184,134,.65)" stroke="#eafff7"/>
+          <text x="833" y="90" font-size="22">🏠</text><text x="833" y="118" fill="#03291c">Safety plan</text>
+        </g>
+        <defs><marker id="repA" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/></marker></defs>
+      </svg>
+      <div class="mn">🧠 <b>Reporting suspicion is enough</b> — the nurse does not have to prove abuse occurred to make a report; "reasonable suspicion" triggers the mandatory-reporting duty.</div>
+    </div>
+
+    <div class="card emerald">
+      <h3>✅ Interventions for the victim</h3>
+      <ul class="tick">
+        <li>Assure the victim they are <b>not alone</b></li>
+        <li><b>Preserve physical evidence</b>, if applicable</li>
+        <li>Convey <b>concern &amp; respect</b> — nonjudgmental attitude</li>
+        <li><b>Affirm the client did not deserve or cause the abuse</b></li>
+        <li>Help identify <b>triggers</b> and destructive patterns; learn alternative responses (psychotherapy/talk therapy)</li>
+        <li>Develop a <b>safety plan</b> — local shelter contact information</li>
+      </ul>
+      <div class="mn">🧠 <b>Priority action before discharge home:</b> provide contact information for the local shelter.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>📝 Documentation — how, not just what</h3>
+      <ul class="tick">
+        <li>Use the client's <b>own words in direct quotes</b></li>
+        <li>Describe findings objectively (size, location, color) — avoid concluding "abuse" in the chart; describe, don't diagnose intent</li>
+        <li>Use a body map/diagram where available</li>
+        <li>Note <b>who was present</b> during the exam and interview</li>
+        <li>Avoid leading questions; ask open-ended questions in private</li>
+      </ul>
+      <div class="mn">🧠 <b>Objective ≠ vague.</b> "3 cm bruise, left forearm, purple-yellow" is objective. "Client was clearly beaten" is not — that's a conclusion, not a finding.</div>
+    </div>
+
+    <div class="card citrinec span2">
+      <h3>🎓 Client teaching that shows understanding</h3>
+      <p>A client experiencing IPV states: <i>"I should try to identify issues that increased my partner's stress level."</i></p>
+      <p><mark>This statement needs correction</mark> — it reflects internalized responsibility for the abuser's behavior. Effective teaching redirects the client toward recognizing that <b>the abuse is not their responsibility to prevent or manage</b>, and toward safety planning instead.</p>
+      <div class="mn">🧠 A common NCLEX trap: a statement that <i>sounds</i> like insight ("I'll manage their stress") can actually indicate the client still blames themselves — watch for self-blame language disguised as a coping plan.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">🧩 5 forms</span>Physical · emotional · sexual · financial · neglect</div>
+    <div class="rc rubybg"><span class="big">🚪 IPV</span>Interview privately, away from the partner</div>
+    <div class="rc tealbg"><span class="big">📣 Mandated reporter</span>Suspicion is enough — report per policy/law</div>
+    <div class="rc topazbg"><span class="big">🏠 Before discharge</span>Give local shelter contact info</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 4 rapid-fire questions</summary>
+      <div class="qa">Q1: A 79-year-old weighs 93 lbs, wears dirty clothes, and says a family member controls her retirement checks. What's the concern? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Elder neglect with financial exploitation — a caregiver failing to meet physical/financial needs.</div></div>
+      <div class="qa">Q2: A client has bruises in various stages of healing. What must the nurse ask? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">"Is anyone hurting you?" / "What happens when you and your spouse disagree?" / "Has your spouse ever threatened you verbally or with violence?" — asked in private.</div></div>
+      <div class="qa">Q3: When is IPV danger expected to be highest? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">When the victim moves toward independence from the abuser (e.g., leaving the relationship).</div></div>
+      <div class="qa">Q4: What is the nurse's priority action before an IPV victim returns home? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Provide contact information for the local shelter as part of a safety plan.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">FORMS</span>→
+    <span style="background:rgba(47,107,255,.7)">RECOGNIZE</span>→
+    <span style="background:rgba(18,184,134,.7)">RESPOND</span>
+  </div>
+  <div>NG-139 · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>
