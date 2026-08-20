@@ -1,61 +1,56 @@
 =====================================================================
- RENDERING FIX  -  4 files, all top level
+ 16 PAEDIATRIC PAGES  -  10 folders, one upload
 =====================================================================
 
-THE PROBLEM YOU SAW
+  Paediatric GI emergencies     Growth, Development & Erikson
+  Sickle Cell & Haemophilia     Croup vs Epiglottitis
+  Childhood Rashes              Congenital Heart Defects
+  Hydrocephalus & Spina Bifida  Nephrotic vs Glomerulonephritis
+  Paediatric Asthma & CF        Immunisations
+  Paediatric Musculoskeletal    Childhood Cancers
+  Otitis Media, Eyes & Ears     Poisoning & Lead
+  Type 1 Diabetes in Children   Cleft Lip/Palate, PKU & Screening
 
-  Coloured blocks with nothing inside them on nur258.
+  Between them these clear a large block of the empty cards on
+  nur235 - the Erikson charts, developmental milestones, play types,
+  ASD/VSD/PDA, Wilms, hemophilia, asthma, CF, epiglottitis,
+  glomerulonephritis, immunisation dates, lead poisoning, PKU,
+  cleft lip and palate, and the eye conditions.
 
-WHAT WAS CAUSING IT
-
-  I had put a "frosted glass" blur effect on every card I added.
-  With all modules open your page was asking Chrome to blur 186
-  separate layers at once - 110 of those were mine.
-
-  On some graphics drivers Chrome gives up on that and paints the
-  coloured box but never paints the text inside it. That is exactly
-  what your screenshots showed: the first card fine, later ones empty.
-
-  It rendered perfectly on my machine, which is why it took me three
-  attempts to find. Sorry about that.
-
-THE FIX
-
-  Blur removed from every style block I added. The cards are now
-  slightly more solid instead (72% instead of 60%), so the text is
-  just as readable. The page looks essentially the same.
-
-  Your page is back to the 76 blurred layers your original design
-  used - none of them mine.
+  All built with no blur, so they cannot hit the rendering problem.
 
 =====================================================================
- UPLOAD  -  4 loose files, no folders
+ HOW TO UPLOAD
 =====================================================================
 
   1. Right-click the zip > "Extract All" > "Extract"
   2. Go to  https://github.com/arnold7777777/ABSN-Study-Hub
   3. "Add file"  >  "Upload files"
-  4. Drag in these FOUR files:
+  4. Drag in ALL TEN folders at once:
 
-         nur234.html
-         nur235.html
-         nur258.html
-         absn-ng.css
+       cardio   core   endo   gi   more
+       musc     neuro  renal  resp skin
 
-     Do NOT drag READ_ME.txt.
-  5. Commit changes.
+     (drag the folders themselves, not their contents)
+  5. Check the list says 16 files, then "Commit changes"
+
+  Only 16 files - well under your 99 limit. Nothing else is needed;
+  absn-ng.css is already on your site.
 
 =====================================================================
- THEN CHECK
+ CHECK
 =====================================================================
 
-  https://arnold7777777.github.io/ABSN-Study-Hub/nur258.html
+  https://arnold7777777.github.io/ABSN-Study-Hub/resp/NG-350_croup-vs-epiglottitis.html
 
-  Ctrl+Shift+R, open Module 10 (Oncologic Disorders).
+  Ctrl+Shift+R. You should see a red/green comparison table and a
+  red card saying "put NOTHING in the child's mouth".
 
-  You should see: a purple "The one idea" card, a table with three
-  rows about fast-dividing tissue, then a red card with a big
-  "ANC < 500" in it.
+=====================================================================
+ WHERE THINGS STAND
+=====================================================================
 
-  If any block is STILL empty, it is not the blur and I need you to
-  try one private window (Ctrl+Shift+N) so we can rule out extensions.
+  Infographics   52 of 112 written
+  Still to write ~60 pages, mostly the rest of paediatrics
+  Then           335 blank ATI template rows
+  Then           NGN quiz questions
