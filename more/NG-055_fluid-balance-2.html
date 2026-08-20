@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fluid Balance II · NG-055 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+
+/* ---- appended for the gap-fill batch ---- */
+nav a.c5{background:rgba(0,194,199,.72);color:#00252b}
+nav a.c6{background:rgba(255,138,61,.75);color:#2b1200}
+nav a.c7{background:rgba(192,34,85,.72)}
+nav a.c8{background:rgba(255,255,255,.22)}
+.setbar{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin:4px 0 16px;font-size:.82rem}
+.setbar .setlabel{font-weight:900;letter-spacing:.08em;color:#ffe49a;margin-right:2px}
+.setbar a{font-weight:800;padding:4px 11px;border-radius:999px;border:1px solid var(--line);
+  background:rgba(13,8,26,.5);color:#dbe8ff;text-decoration:none}
+.setbar a.cur{background:var(--topaz);color:#231a02;border-color:transparent;cursor:default}
+.card a,.lede a,footer a,.sec-sub a{color:#ffe49a;font-weight:800}
+.card.tealc a,.card.topaz a,.card.citrinec a{color:#0b3a52}
+.xref{margin-top:10px;padding:8px 12px;border-radius:11px;background:rgba(0,194,199,.20);
+  border:1px solid var(--line);font-size:.9rem;font-weight:700}
+.xref .pill{display:inline-block;font-size:.7rem;font-weight:900;letter-spacing:.08em;
+  background:var(--teal);color:#00252b;padding:2px 8px;border-radius:7px;margin-right:7px}
+.card.tealc .xref,.card.topaz .xref,.card.citrinec .xref{background:rgba(255,255,255,.45)}
+.legendrow{display:flex;gap:9px;flex-wrap:wrap;margin:11px 0 0;font-size:.84rem;font-weight:800}
+.legendrow span{padding:5px 11px;border-radius:9px;background:rgba(13,8,26,.55);
+  border:1px solid var(--line);display:flex;align-items:center;gap:7px}
+.sw{display:inline-block;width:15px;height:15px;border-radius:4px;border:1px solid rgba(255,255,255,.6)}
+.mirror{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));margin:10px 0 0}
+.mrow{border-radius:12px;padding:10px 13px;background:rgba(13,8,26,.52);border:1px solid var(--line);font-size:.92rem}
+.mrow b{display:block;font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;opacity:.85;margin-bottom:3px}
+.mrow.hi{background:rgba(255,59,107,.30)} .mrow.lo{background:rgba(0,194,199,.28)}
+.card.tealc .mrow,.card.topaz .mrow,.card.citrinec .mrow{background:rgba(255,255,255,.42);color:#1a1030}
+.bigq{font-size:1.5rem;font-weight:900;line-height:1.2;margin:2px 0 6px}
+.tblwrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:2px 0}
+.stepnum{display:grid;gap:9px;margin:10px 0 0}
+.snrow{display:flex;gap:12px;align-items:flex-start;border-radius:13px;padding:11px 13px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.snrow .k{flex:0 0 40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;
+  font-size:1.15rem;font-weight:900;background:var(--topaz);color:#231a02}
+.snrow .v{font-size:.94rem;line-height:1.45}
+.snrow .v b{display:block;font-size:1rem}
+.card.tealc .snrow,.card.topaz .snrow,.card.citrinec .snrow{background:rgba(255,255,255,.42);color:#1a1030}
+.ccc{flex-wrap:wrap}
+.sec-h{flex-wrap:wrap}
+.sec-h h2,h1,.rc,.card h3{overflow-wrap:anywhere}
+@media(max-width:700px){table{font-size:.85rem}th,td{padding:7px 6px}}
+
+#shift .sec-h h2{color:#9ff2ee} #shift .step{background:var(--teal);color:#00252b}
+#lose .sec-h h2{color:#ffb3c6} #lose .step{background:var(--garnet)}
+#third .sec-h h2{color:#ffd9b8} #third .step{background:var(--citrine);color:#2b1200}
+#comp .sec-h h2{color:#a5f3d4} #comp .step{background:var(--emerald);color:#03291c}
+.setbar{margin-bottom:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c5" href="#shift">💧 Where water moves</a>
+  <a class="c7" href="#lose">🕳️ How it is lost</a>
+  <a class="c6" href="#third">🎈 Third spacing</a>
+  <a class="c3" href="#comp">🛡️ Compensation</a>
+  <a class="c4" href="#recall2">⚡ Recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Renal &amp; Fluid · Pathophysiology</div>
+  <div class="setbar"><span class="setlabel">💧 FLUID BALANCE SET</span>
+  <a href="../renal/NG-054_fluid-balance.html">I · NG-054 Compartments &amp; controls</a>
+  <a class="cur" href="NG-055_fluid-balance-2.html">II · NG-055 Losses &amp; shifts</a>
+  <a href="NG-059_fluid-balance-3.html">III · NG-059 Measure &amp; monitor</a>
+  </div>
+  <h1>Fluid Balance II <span class="drop">💧</span></h1>
+  <p class="sub">WHY the water leaves, and WHERE it goes when it does</p>
+  <div class="chips">
+    <span class="chip id">NG-055</span>
+    <span class="chip cat">RENAL + FLUID · PATHO</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede"><b>What this page covers, and what it doesn't.</b>
+  <a href="../renal/NG-054_fluid-balance.html">NG-054 (Fluid Balance I)</a> gave you the three compartments and the
+  hormones that run them. <b>This page is the mechanism page</b>: the four pressures that decide which compartment
+  water sits in, every route water leaves the body, the three big “drains” (DI, DKA, diuretics), third spacing, and
+  how the body compensates while it happens.
+  <a href="NG-059_fluid-balance-3.html">NG-059 (Fluid Balance III)</a> is next: how you <i>measure and monitor</i> all
+  of it at the bedside. For the finished clinical pictures see
+  <a href="../renal/NG-191_fluid-volume-deficit.html">NG-191 · FVD</a>,
+  <a href="../renal/NG-169_fluid-balance-fluid-overload.html">NG-169 · FVO</a> and
+  <a href="../renal/NG-207_signs-symptoms-fvo-vs-fvd.html">NG-207 · FVO vs FVD side by side</a>.</p>
+</header>
+
+<div class="recall">
+  <div class="rc tealbg"><span class="big">💧 3 rooms</span>ICF <b>2/3</b> · ECF <b>1/3</b> (interstitial ~15% + plasma ~5% of body weight).</div>
+  <div class="rc citrine"><span class="big">⚖️ 2 forces</span>Hydrostatic <b>PUSHES water out</b>. Albumin <b>PULLS water in</b>. Everything else is detail.</div>
+  <div class="rc rubybg"><span class="big">🕳️ 3 D's</span><b>D</b>iabetes Insipidus · <b>D</b>KA · <b>D</b>iuretics — all three drain the tank through the kidney.</div>
+  <div class="rc topazbg"><span class="big">🛡️ Compensation lies</span>Pulse rises FIRST. A normal BP does <b>not</b> mean a normal volume.</div>
+</div>
+
+<section id="shift">
+  <div class="sec-h"><span class="icon">💧</span><h2>WHERE WATER MOVES, AND WHY</h2><span class="step">STEP 1 · MECHANISM</span></div>
+  <p class="sec-sub">Water never moves “because”. It moves because something pushed it or something pulled it.</p>
+  <div class="grid">
+
+    <div class="card tealc span2">
+      <h3>🗺️ The three rooms, drawn to scale</h3>
+      <svg viewBox="0 0 980 560" role="img" aria-label="Cross-section of tissue showing the three fluid compartments: fluid inside a capillary (intravascular), fluid in the gel between the cells (interstitial) and fluid inside the cells (intracellular), with a bar showing that total body water is about 60 percent of body weight, two thirds of it inside the cells."><defs>
+<filter id="c1dr" x="-30%" y="-30%" width="170%" height="170%"><feGaussianBlur in="SourceAlpha" stdDeviation="5"/>
+<feOffset dy="5" result="o"/><feFlood flood-color="#000" flood-opacity=".55"/><feComposite in2="o" operator="in" result="sh"/>
+<feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<filter id="c1sf" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5"/></filter>
+<filter id="c1gl" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="3" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<radialGradient id="c1cell" cx=".36" cy=".28" r=".92" fx=".28" fy=".2">
+<stop offset="0" stop-color="#cfe4ff"/><stop offset=".22" stop-color="#7fa8f5"/>
+<stop offset=".55" stop-color="#3d63c4"/><stop offset=".82" stop-color="#1e3272"/>
+<stop offset="1" stop-color="#0d1738"/></radialGradient>
+<radialGradient id="c1rbc" cx=".36" cy=".3" r=".9" fx=".28" fy=".22">
+<stop offset="0" stop-color="#ffb9c6"/><stop offset=".25" stop-color="#f2607f"/>
+<stop offset=".6" stop-color="#c0203f"/><stop offset=".88" stop-color="#7c0f26"/>
+<stop offset="1" stop-color="#4a0616"/></radialGradient>
+<linearGradient id="c1art" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff8ea3"/>
+<stop offset=".35" stop-color="#d92a52"/><stop offset=".72" stop-color="#a4467f"/>
+<stop offset="1" stop-color="#2f6bff"/></linearGradient>
+<linearGradient id="c1pl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe9a8"/>
+<stop offset=".5" stop-color="#f0c04c"/><stop offset="1" stop-color="#9c6c10"/></linearGradient>
+<radialGradient id="c1isf" cx=".5" cy=".4" r=".8"><stop offset="0" stop-color="#1a6f74"/>
+<stop offset=".6" stop-color="#0e4a52"/><stop offset="1" stop-color="#062a31"/></radialGradient>
+<marker id="c1a" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#ffe49a"/></marker>
+<marker id="c1ag" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#a5f3d4"/></marker>
+<marker id="c1ar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#ff8fa8"/></marker>
+</defs><rect x="4" y="4" width="972" height="552" rx="20" fill="rgba(0,0,0,.22)" stroke="#ffc233" stroke-width="2" stroke-dasharray="8 7" opacity=".9"/><text x="26" y="36" font-size="19" font-weight="900" fill="#ffe9b8" text-anchor="start">THE THREE ROOMS &#183; tissue cross-section</text><text x="26" y="57" font-size="13" font-weight="700" fill="#ffd9a0" text-anchor="start" font-style="italic">Water moves between these rooms constantly. Only the blue room has a blood pressure.</text><rect x="26" y="74" width="620" height="330" rx="18" fill="url(#c1isf)" stroke="rgba(255,255,255,.28)" stroke-width="1.6"/><clipPath id="c1clip"><rect x="26" y="74" width="620" height="330" rx="18"/></clipPath><g clip-path="url(#c1clip)"><path d="M30 84 q18 6 36 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(0 30 84)"/><path d="M83 181 q19 5 37 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(37 83 181)"/><path d="M136 278 q20 4 38 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(74 136 278)"/><path d="M189 375 q21 3 39 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(111 189 375)"/><path d="M242 160 q22 2 40 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(148 242 160)"/><path d="M295 257 q23 1 41 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(5 295 257)"/><path d="M348 354 q24 0 42 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(42 348 354)"/><path d="M401 139 q25 6 43 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(79 401 139)"/><path d="M454 236 q26 5 44 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(116 454 236)"/><path d="M507 333 q18 4 45 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(153 507 333)"/><path d="M560 118 q19 3 46 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(10 560 118)"/><path d="M613 215 q20 2 47 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(47 613 215)"/><path d="M56 312 q21 1 48 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(84 56 312)"/><path d="M109 97 q22 0 36 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(121 109 97)"/><path d="M162 194 q23 6 37 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(158 162 194)"/><path d="M215 291 q24 5 38 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(15 215 291)"/><path d="M268 388 q25 4 39 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(52 268 388)"/><path d="M321 173 q26 3 40 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(89 321 173)"/><path d="M374 270 q18 2 41 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(126 374 270)"/><path d="M427 367 q19 1 42 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(163 427 367)"/><path d="M480 152 q20 0 43 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(20 480 152)"/><path d="M533 249 q21 6 44 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(57 533 249)"/><path d="M586 346 q22 5 45 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(94 586 346)"/><path d="M639 131 q23 4 46 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(131 639 131)"/><path d="M82 228 q24 3 47 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(168 82 228)"/><path d="M135 325 q25 2 48 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(25 135 325)"/><path d="M188 110 q26 1 36 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(62 188 110)"/><path d="M241 207 q18 0 37 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(99 241 207)"/><path d="M294 304 q19 6 38 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(136 294 304)"/><path d="M347 89 q20 5 39 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(173 347 89)"/><path d="M400 186 q21 4 40 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(30 400 186)"/><path d="M453 283 q22 3 41 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(67 453 283)"/><path d="M506 380 q23 2 42 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(104 506 380)"/><path d="M559 165 q24 1 43 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(141 559 165)"/><path d="M612 262 q25 0 44 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(178 612 262)"/><path d="M55 359 q26 6 45 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(35 55 359)"/><path d="M108 144 q18 5 46 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(72 108 144)"/><path d="M161 241 q19 4 47 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(109 161 241)"/><path d="M214 338 q20 3 48 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(146 214 338)"/><path d="M267 123 q21 2 36 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(3 267 123)"/><path d="M320 220 q22 1 37 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(40 320 220)"/><path d="M373 317 q23 0 38 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(77 373 317)"/><path d="M426 102 q24 6 39 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(114 426 102)"/><path d="M479 199 q25 5 40 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(151 479 199)"/><path d="M532 296 q26 4 41 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(8 532 296)"/><path d="M585 393 q18 3 42 2" fill="none" stroke="#5fd6d9" stroke-width="1.1" stroke-opacity=".26" transform="rotate(45 585 393)"/><g filter="url(#c1dr)"><path d="M170.6 148.0 Q170.6 148.0 164.7 161.8 Q158.8 175.7 146.6 184.3 Q134.4 193.0 119.8 192.0 Q105.3 190.9 88.6 190.8 Q71.8 190.7 66.0 176.3 Q60.2 162.0 61.9 148.5 Q63.5 134.9 70.6 123.3 Q77.8 111.7 90.7 102.8 Q103.6 94.0 119.1 98.2 Q134.6 102.5 143.0 113.6 Q151.5 124.7 161.1 136.3 Z" fill="url(#c1cell)" stroke="#0b1430" stroke-width="2.2"/><path d="M170.6 148.0 Q170.6 148.0 164.7 161.8 Q158.8 175.7 146.6 184.3 Q134.4 193.0 119.8 192.0 Q105.3 190.9 88.6 190.8 Q71.8 190.7 66.0 176.3 Q60.2 162.0 61.9 148.5 Q63.5 134.9 70.6 123.3 Q77.8 111.7 90.7 102.8 Q103.6 94.0 119.1 98.2 Q134.6 102.5 143.0 113.6 Q151.5 124.7 161.1 136.3 Z" fill="none" stroke="#bcd0ff" stroke-width="1" stroke-opacity=".45"/><ellipse cx="116.3" cy="145.3" rx="18.4" ry="15.7" fill="#10204f" stroke="#8fb0ff" stroke-width="1.4" stroke-opacity=".6"/><ellipse cx="142.8" cy="159.6" rx="7.0" ry="3.8" transform="rotate(23 142.8 159.6)" fill="#5f86d8" opacity=".55"/><ellipse cx="98.1" cy="175.0" rx="7.0" ry="3.8" transform="rotate(114 98.1 175.0)" fill="#5f86d8" opacity=".55"/><ellipse cx="82.0" cy="134.9" rx="7.0" ry="3.8" transform="rotate(205 82.0 134.9)" fill="#5f86d8" opacity=".55"/><ellipse cx="127.7" cy="121.8" rx="7.0" ry="3.8" transform="rotate(296 127.7 121.8)" fill="#5f86d8" opacity=".55"/><ellipse cx="93.6" cy="125.3" rx="17.3" ry="10.8" fill="#ffffff" opacity=".16" filter="url(#c1sf)"/></g><g filter="url(#c1dr)"><path d="M281.0 132.0 Q281.0 132.0 276.5 143.8 Q272.0 155.6 260.7 161.3 Q249.3 166.9 237.4 170.0 Q225.6 173.2 211.7 170.7 Q197.8 168.3 194.7 155.6 Q191.5 142.9 190.4 131.7 Q189.3 120.5 195.6 110.3 Q201.9 100.1 213.3 92.4 Q224.6 84.7 236.6 91.6 Q248.6 98.5 259.5 103.9 Q270.4 109.3 275.7 120.7 Z" fill="url(#c1cell)" stroke="#0b1430" stroke-width="2.2"/><path d="M281.0 132.0 Q281.0 132.0 276.5 143.8 Q272.0 155.6 260.7 161.3 Q249.3 166.9 237.4 170.0 Q225.6 173.2 211.7 170.7 Q197.8 168.3 194.7 155.6 Q191.5 142.9 190.4 131.7 Q189.3 120.5 195.6 110.3 Q201.9 100.1 213.3 92.4 Q224.6 84.7 236.6 91.6 Q248.6 98.5 259.5 103.9 Q270.4 109.3 275.7 120.7 Z" fill="none" stroke="#bcd0ff" stroke-width="1" stroke-opacity=".45"/><ellipse cx="235.7" cy="129.7" rx="15.6" ry="13.3" fill="#10204f" stroke="#8fb0ff" stroke-width="1.4" stroke-opacity=".6"/><ellipse cx="242.3" cy="155.6" rx="6.0" ry="3.2" transform="rotate(68 242.3 155.6)" fill="#5f86d8" opacity=".55"/><ellipse cx="205.1" cy="140.5" rx="6.0" ry="3.2" transform="rotate(160 205.1 140.5)" fill="#5f86d8" opacity=".55"/><ellipse cx="223.2" cy="107.9" rx="6.0" ry="3.2" transform="rotate(251 223.2 107.9)" fill="#5f86d8" opacity=".55"/><ellipse cx="259.4" cy="124.9" rx="6.0" ry="3.2" transform="rotate(342 259.4 124.9)" fill="#5f86d8" opacity=".55"/><ellipse cx="216.4" cy="112.7" rx="14.7" ry="9.2" fill="#ffffff" opacity=".16" filter="url(#c1sf)"/></g><g filter="url(#c1dr)"><path d="M405.7 152.0 Q405.7 152.0 400.9 165.0 Q396.0 178.0 383.4 183.9 Q370.7 189.7 357.2 197.5 Q343.7 205.3 330.5 197.0 Q317.4 188.7 311.4 176.6 Q305.5 164.6 304.7 151.8 Q303.9 139.0 309.4 125.8 Q314.9 112.6 329.7 108.0 Q344.4 103.4 357.5 109.0 Q370.6 114.6 384.9 119.3 Q399.2 124.1 402.5 138.0 Z" fill="url(#c1cell)" stroke="#0b1430" stroke-width="2.2"/><path d="M405.7 152.0 Q405.7 152.0 400.9 165.0 Q396.0 178.0 383.4 183.9 Q370.7 189.7 357.2 197.5 Q343.7 205.3 330.5 197.0 Q317.4 188.7 311.4 176.6 Q305.5 164.6 304.7 151.8 Q303.9 139.0 309.4 125.8 Q314.9 112.6 329.7 108.0 Q344.4 103.4 357.5 109.0 Q370.6 114.6 384.9 119.3 Q399.2 124.1 402.5 138.0 Z" fill="none" stroke="#bcd0ff" stroke-width="1" stroke-opacity=".45"/><ellipse cx="356.2" cy="149.4" rx="17.7" ry="15.1" fill="#10204f" stroke="#8fb0ff" stroke-width="1.4" stroke-opacity=".6"/><ellipse cx="338.6" cy="178.0" rx="6.8" ry="3.6" transform="rotate(114 338.6 178.0)" fill="#5f86d8" opacity=".55"/><ellipse cx="323.1" cy="139.3" rx="6.8" ry="3.6" transform="rotate(205 323.1 139.3)" fill="#5f86d8" opacity=".55"/><ellipse cx="367.1" cy="126.7" rx="6.8" ry="3.6" transform="rotate(296 367.1 126.7)" fill="#5f86d8" opacity=".55"/><ellipse cx="380.0" cy="166.1" rx="6.8" ry="3.6" transform="rotate(388 380.0 166.1)" fill="#5f86d8" opacity=".55"/><ellipse cx="334.3" cy="130.2" rx="16.6" ry="10.4" fill="#ffffff" opacity=".16" filter="url(#c1sf)"/></g><g filter="url(#c1dr)"><path d="M517.7 130.0 Q517.7 130.0 512.9 141.3 Q508.1 152.5 497.8 158.8 Q487.4 165.1 475.9 165.9 Q464.3 166.6 450.5 166.0 Q436.7 165.4 433.4 153.1 Q430.1 140.8 429.8 129.9 Q429.6 119.1 435.8 109.6 Q441.9 100.2 452.4 92.5 Q462.9 84.8 475.0 90.3 Q487.0 95.8 495.6 102.8 Q504.3 109.7 511.0 119.9 Z" fill="url(#c1cell)" stroke="#0b1430" stroke-width="2.2"/><path d="M517.7 130.0 Q517.7 130.0 512.9 141.3 Q508.1 152.5 497.8 158.8 Q487.4 165.1 475.9 165.9 Q464.3 166.6 450.5 166.0 Q436.7 165.4 433.4 153.1 Q430.1 140.8 429.8 129.9 Q429.6 119.1 435.8 109.6 Q441.9 100.2 452.4 92.5 Q462.9 84.8 475.0 90.3 Q487.0 95.8 495.6 102.8 Q504.3 109.7 511.0 119.9 Z" fill="none" stroke="#bcd0ff" stroke-width="1" stroke-opacity=".45"/><ellipse cx="473.5" cy="127.8" rx="15.0" ry="12.8" fill="#10204f" stroke="#8fb0ff" stroke-width="1.4" stroke-opacity=".6"/><ellipse cx="489.0" cy="147.4" rx="5.7" ry="3.1" transform="rotate(46 489.0 147.4)" fill="#5f86d8" opacity=".55"/><ellipse cx="449.9" cy="146.3" rx="5.7" ry="3.1" transform="rotate(137 449.9 146.3)" fill="#5f86d8" opacity=".55"/><ellipse cx="452.2" cy="111.7" rx="5.7" ry="3.1" transform="rotate(228 452.2 111.7)" fill="#5f86d8" opacity=".55"/><ellipse cx="491.2" cy="114.7" rx="5.7" ry="3.1" transform="rotate(319 491.2 114.7)" fill="#5f86d8" opacity=".55"/><ellipse cx="455.0" cy="111.5" rx="14.1" ry="8.8" fill="#ffffff" opacity=".16" filter="url(#c1sf)"/></g><g filter="url(#c1dr)"><path d="M615.6 168.0 Q615.6 168.0 609.8 179.2 Q604.0 190.5 594.3 197.9 Q584.5 205.3 571.3 211.9 Q558.1 218.4 547.3 208.9 Q536.5 199.3 529.1 189.6 Q521.7 180.0 521.4 167.9 Q521.0 155.8 525.7 143.0 Q530.3 130.1 545.1 129.1 Q559.8 128.2 572.3 129.1 Q584.8 130.1 597.2 136.2 Q609.5 142.3 612.6 155.1 Z" fill="url(#c1cell)" stroke="#0b1430" stroke-width="2.2"/><path d="M615.6 168.0 Q615.6 168.0 609.8 179.2 Q604.0 190.5 594.3 197.9 Q584.5 205.3 571.3 211.9 Q558.1 218.4 547.3 208.9 Q536.5 199.3 529.1 189.6 Q521.7 180.0 521.4 167.9 Q521.0 155.8 525.7 143.0 Q530.3 130.1 545.1 129.1 Q559.8 128.2 572.3 129.1 Q584.8 130.1 597.2 136.2 Q609.5 142.3 612.6 155.1 Z" fill="none" stroke="#bcd0ff" stroke-width="1" stroke-opacity=".45"/><ellipse cx="569.8" cy="165.6" rx="16.3" ry="13.9" fill="#10204f" stroke="#8fb0ff" stroke-width="1.4" stroke-opacity=".6"/><ellipse cx="540.5" cy="181.6" rx="6.2" ry="3.4" transform="rotate(148 540.5 181.6)" fill="#5f86d8" opacity=".55"/><ellipse cx="551.4" cy="145.0" rx="6.2" ry="3.4" transform="rotate(239 551.4 145.0)" fill="#5f86d8" opacity=".55"/><ellipse cx="592.4" cy="155.7" rx="6.2" ry="3.4" transform="rotate(331 592.4 155.7)" fill="#5f86d8" opacity=".55"/><ellipse cx="579.1" cy="191.7" rx="6.2" ry="3.4" transform="rotate(422 579.1 191.7)" fill="#5f86d8" opacity=".55"/><ellipse cx="549.7" cy="147.8" rx="15.4" ry="9.6" fill="#ffffff" opacity=".16" filter="url(#c1sf)"/></g><g filter="url(#c1dr)"><path d="M155.7 316.0 Q155.7 316.0 151.2 328.6 Q146.6 341.2 134.3 346.7 Q122.0 352.2 109.0 359.4 Q96.1 366.6 83.1 359.3 Q70.2 351.9 64.9 340.0 Q59.5 328.0 58.6 315.8 Q57.7 303.5 63.2 291.0 Q68.7 278.6 82.6 273.5 Q96.6 268.4 109.1 274.4 Q121.7 280.3 135.5 284.8 Q149.2 289.3 152.5 302.6 Z" fill="url(#c1cell)" stroke="#0b1430" stroke-width="2.2"/><path d="M155.7 316.0 Q155.7 316.0 151.2 328.6 Q146.6 341.2 134.3 346.7 Q122.0 352.2 109.0 359.4 Q96.1 366.6 83.1 359.3 Q70.2 351.9 64.9 340.0 Q59.5 328.0 58.6 315.8 Q57.7 303.5 63.2 291.0 Q68.7 278.6 82.6 273.5 Q96.6 268.4 109.1 274.4 Q121.7 280.3 135.5 284.8 Q149.2 289.3 152.5 302.6 Z" fill="none" stroke="#bcd0ff" stroke-width="1" stroke-opacity=".45"/><ellipse cx="108.0" cy="313.5" rx="17.0" ry="14.5" fill="#10204f" stroke="#8fb0ff" stroke-width="1.4" stroke-opacity=".6"/><ellipse cx="94.0" cy="342.0" rx="6.5" ry="3.5" transform="rotate(108 94.0 342.0)" fill="#5f86d8" opacity=".55"/><ellipse cx="75.0" cy="306.4" rx="6.5" ry="3.5" transform="rotate(200 75.0 306.4)" fill="#5f86d8" opacity=".55"/><ellipse cx="115.7" cy="290.5" rx="6.5" ry="3.5" transform="rotate(291 115.7 290.5)" fill="#5f86d8" opacity=".55"/><ellipse cx="132.3" cy="327.1" rx="6.5" ry="3.5" transform="rotate(382 132.3 327.1)" fill="#5f86d8" opacity=".55"/><ellipse cx="87.0" cy="295.0" rx="16.0" ry="10.0" fill="#ffffff" opacity=".16" filter="url(#c1sf)"/></g><g filter="url(#c1dr)"><path d="M282.0 344.0 Q282.0 344.0 276.9 355.8 Q271.8 367.5 261.2 374.6 Q250.7 381.6 238.4 381.4 Q226.2 381.2 211.7 381.0 Q197.3 380.8 193.2 368.2 Q189.2 355.6 189.7 344.1 Q190.2 332.7 196.5 322.9 Q202.8 313.0 213.7 305.1 Q224.7 297.2 237.6 302.0 Q250.5 306.7 258.6 315.1 Q266.6 323.5 274.3 333.8 Z" fill="url(#c1cell)" stroke="#0b1430" stroke-width="2.2"/><path d="M282.0 344.0 Q282.0 344.0 276.9 355.8 Q271.8 367.5 261.2 374.6 Q250.7 381.6 238.4 381.4 Q226.2 381.2 211.7 381.0 Q197.3 380.8 193.2 368.2 Q189.2 355.6 189.7 344.1 Q190.2 332.7 196.5 322.9 Q202.8 313.0 213.7 305.1 Q224.7 297.2 237.6 302.0 Q250.5 306.7 258.6 315.1 Q266.6 323.5 274.3 333.8 Z" fill="none" stroke="#bcd0ff" stroke-width="1" stroke-opacity=".45"/><ellipse cx="235.7" cy="341.7" rx="15.6" ry="13.3" fill="#10204f" stroke="#8fb0ff" stroke-width="1.4" stroke-opacity=".6"/><ellipse cx="255.5" cy="358.3" rx="6.0" ry="3.2" transform="rotate(34 255.5 358.3)" fill="#5f86d8" opacity=".55"/><ellipse cx="215.2" cy="364.5" rx="6.0" ry="3.2" transform="rotate(125 215.2 364.5)" fill="#5f86d8" opacity=".55"/><ellipse cx="209.4" cy="328.5" rx="6.0" ry="3.2" transform="rotate(217 209.4 328.5)" fill="#5f86d8" opacity=".55"/><ellipse cx="250.1" cy="324.4" rx="6.0" ry="3.2" transform="rotate(308 250.1 324.4)" fill="#5f86d8" opacity=".55"/><ellipse cx="216.4" cy="324.7" rx="14.7" ry="9.2" fill="#ffffff" opacity=".16" filter="url(#c1sf)"/></g><g filter="url(#c1dr)"><path d="M409.7 330.0 Q409.7 330.0 403.9 342.5 Q398.2 355.0 386.8 362.1 Q375.4 369.2 361.4 376.9 Q347.5 384.7 335.4 374.7 Q323.4 364.6 315.9 353.7 Q308.5 342.8 308.1 329.9 Q307.7 316.9 312.7 303.1 Q317.7 289.3 333.3 287.2 Q349.0 285.1 362.3 287.7 Q375.7 290.4 389.5 296.2 Q403.4 302.0 406.5 316.0 Z" fill="url(#c1cell)" stroke="#0b1430" stroke-width="2.2"/><path d="M409.7 330.0 Q409.7 330.0 403.9 342.5 Q398.2 355.0 386.8 362.1 Q375.4 369.2 361.4 376.9 Q347.5 384.7 335.4 374.7 Q323.4 364.6 315.9 353.7 Q308.5 342.8 308.1 329.9 Q307.7 316.9 312.7 303.1 Q317.7 289.3 333.3 287.2 Q349.0 285.1 362.3 287.7 Q375.7 290.4 389.5 296.2 Q403.4 302.0 406.5 316.0 Z" fill="none" stroke="#bcd0ff" stroke-width="1" stroke-opacity=".45"/><ellipse cx="360.2" cy="327.4" rx="17.7" ry="15.1" fill="#10204f" stroke="#8fb0ff" stroke-width="1.4" stroke-opacity=".6"/><ellipse cx="332.2" cy="349.3" rx="6.8" ry="3.6" transform="rotate(137 332.2 349.3)" fill="#5f86d8" opacity=".55"/><ellipse cx="334.9" cy="308.4" rx="6.8" ry="3.6" transform="rotate(228 334.9 308.4)" fill="#5f86d8" opacity=".55"/><ellipse cx="381.0" cy="311.9" rx="6.8" ry="3.6" transform="rotate(319 381.0 311.9)" fill="#5f86d8" opacity=".55"/><ellipse cx="375.6" cy="352.7" rx="6.8" ry="3.6" transform="rotate(410 375.6 352.7)" fill="#5f86d8" opacity=".55"/><ellipse cx="338.3" cy="308.2" rx="16.6" ry="10.4" fill="#ffffff" opacity=".16" filter="url(#c1sf)"/></g><g filter="url(#c1dr)"><path d="M520.4 344.0 Q520.4 344.0 516.3 355.3 Q512.2 366.6 501.2 371.6 Q490.2 376.6 478.9 380.8 Q467.6 385.0 454.8 381.5 Q442.0 378.0 438.7 366.2 Q435.4 354.4 434.2 343.7 Q433.1 332.9 438.9 322.9 Q444.7 312.9 455.8 306.1 Q467.0 299.3 478.3 306.0 Q489.6 312.7 500.7 317.1 Q511.8 321.6 516.1 332.8 Z" fill="url(#c1cell)" stroke="#0b1430" stroke-width="2.2"/><path d="M520.4 344.0 Q520.4 344.0 516.3 355.3 Q512.2 366.6 501.2 371.6 Q490.2 376.6 478.9 380.8 Q467.6 385.0 454.8 381.5 Q442.0 378.0 438.7 366.2 Q435.4 354.4 434.2 343.7 Q433.1 332.9 438.9 322.9 Q444.7 312.9 455.8 306.1 Q467.0 299.3 478.3 306.0 Q489.6 312.7 500.7 317.1 Q511.8 321.6 516.1 332.8 Z" fill="none" stroke="#bcd0ff" stroke-width="1" stroke-opacity=".45"/><ellipse cx="477.5" cy="341.8" rx="15.0" ry="12.8" fill="#10204f" stroke="#8fb0ff" stroke-width="1.4" stroke-opacity=".6"/><ellipse cx="478.6" cy="367.8" rx="5.7" ry="3.1" transform="rotate(80 478.6 367.8)" fill="#5f86d8" opacity=".55"/><ellipse cx="447.0" cy="347.4" rx="5.7" ry="3.1" transform="rotate(171 447.0 347.4)" fill="#5f86d8" opacity=".55"/><ellipse cx="470.9" cy="320.0" rx="5.7" ry="3.1" transform="rotate(262 470.9 320.0)" fill="#5f86d8" opacity=".55"/><ellipse cx="501.2" cy="342.0" rx="5.7" ry="3.1" transform="rotate(353 501.2 342.0)" fill="#5f86d8" opacity=".55"/><ellipse cx="459.0" cy="325.5" rx="14.1" ry="8.8" fill="#ffffff" opacity=".16" filter="url(#c1sf)"/></g><g filter="url(#c1dr)"><path d="M623.7 316.0 Q623.7 316.0 618.7 328.3 Q613.8 340.7 603.0 348.7 Q592.2 356.6 579.1 355.3 Q566.1 353.9 551.6 353.5 Q537.1 353.1 530.7 341.0 Q524.4 328.9 526.9 316.7 Q529.4 304.5 535.5 294.1 Q541.5 283.7 553.1 276.3 Q564.7 269.0 578.7 271.5 Q592.8 274.0 599.6 284.8 Q606.4 295.7 615.0 305.8 Z" fill="url(#c1cell)" stroke="#0b1430" stroke-width="2.2"/><path d="M623.7 316.0 Q623.7 316.0 618.7 328.3 Q613.8 340.7 603.0 348.7 Q592.2 356.6 579.1 355.3 Q566.1 353.9 551.6 353.5 Q537.1 353.1 530.7 341.0 Q524.4 328.9 526.9 316.7 Q529.4 304.5 535.5 294.1 Q541.5 283.7 553.1 276.3 Q564.7 269.0 578.7 271.5 Q592.8 274.0 599.6 284.8 Q606.4 295.7 615.0 305.8 Z" fill="none" stroke="#bcd0ff" stroke-width="1" stroke-opacity=".45"/><ellipse cx="575.8" cy="313.6" rx="16.3" ry="13.9" fill="#10204f" stroke="#8fb0ff" stroke-width="1.4" stroke-opacity=".6"/><ellipse cx="601.2" cy="321.2" rx="6.2" ry="3.4" transform="rotate(11 601.2 321.2)" fill="#5f86d8" opacity=".55"/><ellipse cx="565.2" cy="341.7" rx="6.2" ry="3.4" transform="rotate(103 565.2 341.7)" fill="#5f86d8" opacity=".55"/><ellipse cx="543.2" cy="309.3" rx="6.2" ry="3.4" transform="rotate(194 543.2 309.3)" fill="#5f86d8" opacity=".55"/><ellipse cx="580.4" cy="290.7" rx="6.2" ry="3.4" transform="rotate(285 580.4 290.7)" fill="#5f86d8" opacity=".55"/><ellipse cx="555.7" cy="295.8" rx="15.4" ry="9.6" fill="#ffffff" opacity=".16" filter="url(#c1sf)"/></g><path d="M10 246 C120 226 200 268 300 244 C400 220 470 262 560 240 C610 228 640 240 668 236" fill="none" stroke="#0b1430" stroke-width="46" stroke-linecap="round"/><path d="M10 246 C120 226 200 268 300 244 C400 220 470 262 560 240 C610 228 640 240 668 236" fill="none" stroke="url(#c1art)" stroke-width="40" stroke-linecap="round"/><path d="M10 232 C120 212 200 254 300 230 C400 206 470 248 560 226 C610 214 640 226 668 222" fill="none" stroke="#ffffff" stroke-width="5" stroke-opacity=".18" stroke-linecap="round"/><ellipse cx="72" cy="242" rx="15" ry="12.299999999999999" fill="url(#c1rbc)" stroke="#4a0616" stroke-width="1.6"/><ellipse cx="72" cy="242" rx="6.9" ry="5.3999999999999995" fill="#8c1730" opacity=".75"/><ellipse cx="66.6" cy="236.6" rx="4.5" ry="2.6999999999999997" fill="#fff" opacity=".28" filter="url(#c1sf)"/><ellipse cx="172" cy="244" rx="14" ry="11.479999999999999" fill="url(#c1rbc)" stroke="#4a0616" stroke-width="1.6"/><ellipse cx="172" cy="244" rx="6.44" ry="5.04" fill="#8c1730" opacity=".75"/><ellipse cx="166.96" cy="238.96" rx="4.2" ry="2.52" fill="#fff" opacity=".28" filter="url(#c1sf)"/><ellipse cx="268" cy="246" rx="15" ry="12.299999999999999" fill="url(#c1rbc)" stroke="#4a0616" stroke-width="1.6"/><ellipse cx="268" cy="246" rx="6.9" ry="5.3999999999999995" fill="#8c1730" opacity=".75"/><ellipse cx="262.6" cy="240.6" rx="4.5" ry="2.6999999999999997" fill="#fff" opacity=".28" filter="url(#c1sf)"/><ellipse cx="372" cy="232" rx="14" ry="11.479999999999999" fill="url(#c1rbc)" stroke="#4a0616" stroke-width="1.6"/><ellipse cx="372" cy="232" rx="6.44" ry="5.04" fill="#8c1730" opacity=".75"/><ellipse cx="366.96" cy="226.96" rx="4.2" ry="2.52" fill="#fff" opacity=".28" filter="url(#c1sf)"/><ellipse cx="470" cy="244" rx="15" ry="12.299999999999999" fill="url(#c1rbc)" stroke="#4a0616" stroke-width="1.6"/><ellipse cx="470" cy="244" rx="6.9" ry="5.3999999999999995" fill="#8c1730" opacity=".75"/><ellipse cx="464.6" cy="238.6" rx="4.5" ry="2.6999999999999997" fill="#fff" opacity=".28" filter="url(#c1sf)"/><ellipse cx="566" cy="234" rx="14" ry="11.479999999999999" fill="url(#c1rbc)" stroke="#4a0616" stroke-width="1.6"/><ellipse cx="566" cy="234" rx="6.44" ry="5.04" fill="#8c1730" opacity=".75"/><ellipse cx="560.96" cy="228.96" rx="4.2" ry="2.52" fill="#fff" opacity=".28" filter="url(#c1sf)"/><path d="M150 224 L150 190" stroke="#a5f3d4" stroke-width="3.4" marker-end="url(#c1ag)" fill="none"/><path d="M420 262 L420 296" stroke="#a5f3d4" stroke-width="3.4" marker-end="url(#c1ag)" fill="none"/><path d="M300 300 L300 268" stroke="#ffe49a" stroke-width="3.4" marker-end="url(#c1a)" fill="none"/><path d="M232 178 L232 208" stroke="#ffe49a" stroke-width="3" marker-end="url(#c1a)" fill="none" opacity=".9"/><text x="44" y="214" font-size="11.5" font-weight="900" fill="#ffd7e0" text-anchor="start">arterial end</text><text x="636" y="208" font-size="11.5" font-weight="900" fill="#bcd0ff" text-anchor="end">venous end</text></g><path d="M646 240 L682 244" stroke="rgba(255,255,255,.55)" stroke-width="1.3" fill="none"/><circle cx="646" cy="240" r="4" fill="#fff"/><rect x="690" y="220" width="268" height="54" rx="9" fill="rgba(6,4,14,.80)" stroke="rgba(255,255,255,.34)" stroke-width="1"/><text x="704" y="242" font-size="14" font-weight="900" fill="#ffb3c6" text-anchor="start">① INTRAVASCULAR</text><text x="702" y="260" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="start">plasma in the vessels &#183; ~5% of body weight</text><path d="M600 100 L682 124" stroke="rgba(255,255,255,.55)" stroke-width="1.3" fill="none"/><circle cx="600" cy="100" r="4" fill="#fff"/><rect x="690" y="100" width="268" height="54" rx="9" fill="rgba(6,4,14,.80)" stroke="rgba(255,255,255,.34)" stroke-width="1"/><text x="704" y="122" font-size="14" font-weight="900" fill="#9ff2ee" text-anchor="start">② INTERSTITIAL</text><text x="702" y="140" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="start">gel around the cells &#183; ~15% of body weight</text><path d="M596 330 L682 344" stroke="rgba(255,255,255,.55)" stroke-width="1.3" fill="none"/><circle cx="596" cy="330" r="4" fill="#fff"/><rect x="690" y="320" width="268" height="54" rx="9" fill="rgba(6,4,14,.80)" stroke="rgba(255,255,255,.34)" stroke-width="1"/><text x="704" y="342" font-size="14" font-weight="900" fill="#bcd0ff" text-anchor="start">③ INTRACELLULAR</text><text x="702" y="360" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="start">inside the cells &#183; ~40% of body weight</text><text x="26" y="442" font-size="15" font-weight="900" fill="#ffe49a" text-anchor="start">TOTAL BODY WATER &#8776; 60% of adult body weight</text><rect x="26" y="456" width="700" height="40" rx="10" fill="rgba(13,8,26,.6)" stroke="rgba(255,255,255,.3)"/><rect x="26.0" y="456" width="466.7" height="40" rx="8" fill="rgba(47,107,255,.72)" stroke="rgba(255,255,255,.35)"/><text x="259.3333333333333" y="481" font-size="12.5" font-weight="900" fill="#eaf1ff" text-anchor="middle">INTRACELLULAR &#183; 2/3</text><rect x="492.7" y="456" width="175.0" height="40" rx="8" fill="rgba(0,194,199,.66)" stroke="rgba(255,255,255,.35)"/><text x="580.1666666666666" y="481" font-size="12.5" font-weight="900" fill="#00252b" text-anchor="middle">INTERSTITIAL</text><rect x="667.7" y="456" width="58.3" height="40" rx="8" fill="rgba(255,59,107,.72)" stroke="rgba(255,255,255,.35)"/><text x="696.8333333333333" y="481" font-size="12.5" font-weight="900" fill="#fff" text-anchor="middle">PLASMA</text><path d="M26 512 L493 512" stroke="#bcd0ff" stroke-width="2.4" fill="none"/><text x="259.33333333333337" y="530" font-size="12" font-weight="900" fill="#bcd0ff" text-anchor="middle">ICF &#8776; 40% of body weight</text><path d="M493 512 L726 512" stroke="#9ff2ee" stroke-width="2.4" fill="none"/><text x="609.3333333333334" y="530" font-size="12" font-weight="900" fill="#9ff2ee" text-anchor="middle">ECF &#8776; 20% of body weight</text><rect x="746" y="430" width="206" height="110" rx="9" fill="rgba(6,4,14,.80)" stroke="rgba(255,255,255,.34)" stroke-width="1"/><text x="760" y="452" font-size="11.5" font-weight="900" fill="#ffe49a" text-anchor="start" letter-spacing="0.10em">ARROW KEY</text><path d="M762 470 L800 470" stroke="#a5f3d4" stroke-width="3.4" marker-end="url(#c1ag)" fill="none"/><text x="812" y="474" font-size="11.5" font-weight="800" fill="#a5f3d4" text-anchor="start">out of the vessel</text><path d="M762 498 L800 498" stroke="#ffe49a" stroke-width="3.4" marker-end="url(#c1a)" fill="none"/><text x="812" y="502" font-size="11.5" font-weight="800" fill="#ffe49a" text-anchor="start">back into the vessel</text><text x="760" y="528" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="start">Water crosses; sodium does not.</text></svg>
+      <p style="margin-top:10px">Total body water is roughly <span class="mono">60%</span> of adult body weight —
+      less in older adults and in people with more body fat, more in infants.</p>
+      <div class="mn">🧠 <b>“Two thirds in, one third out.”</b> Two thirds of your water is INSIDE cells.
+      Only about <span class="mono">1/12</span> of it is in the bloodstream — which is why small losses hit the BP hard.</div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>⚖️ The tug-of-war — the four Starling forces</h3>
+      <svg viewBox="0 0 980 640" role="img" aria-label="A capillary drawn from the arterial end to the venous end with the four Starling pressures as arrows: capillary hydrostatic pressure pushing water out, plasma oncotic pressure from albumin pulling water in, and the lymphatic vessel collecting the leftover. A second smaller panel shows what happens when albumin is low."><defs>
+<filter id="stdr" x="-30%" y="-30%" width="170%" height="170%"><feGaussianBlur in="SourceAlpha" stdDeviation="5"/>
+<feOffset dy="5" result="o"/><feFlood flood-color="#000" flood-opacity=".55"/><feComposite in2="o" operator="in" result="sh"/>
+<feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<filter id="stsf" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5"/></filter>
+<filter id="stgl" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="3" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<radialGradient id="stcell" cx=".36" cy=".28" r=".92" fx=".28" fy=".2">
+<stop offset="0" stop-color="#cfe4ff"/><stop offset=".22" stop-color="#7fa8f5"/>
+<stop offset=".55" stop-color="#3d63c4"/><stop offset=".82" stop-color="#1e3272"/>
+<stop offset="1" stop-color="#0d1738"/></radialGradient>
+<radialGradient id="strbc" cx=".36" cy=".3" r=".9" fx=".28" fy=".22">
+<stop offset="0" stop-color="#ffb9c6"/><stop offset=".25" stop-color="#f2607f"/>
+<stop offset=".6" stop-color="#c0203f"/><stop offset=".88" stop-color="#7c0f26"/>
+<stop offset="1" stop-color="#4a0616"/></radialGradient>
+<linearGradient id="start" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff8ea3"/>
+<stop offset=".35" stop-color="#d92a52"/><stop offset=".72" stop-color="#a4467f"/>
+<stop offset="1" stop-color="#2f6bff"/></linearGradient>
+<linearGradient id="stpl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe9a8"/>
+<stop offset=".5" stop-color="#f0c04c"/><stop offset="1" stop-color="#9c6c10"/></linearGradient>
+<radialGradient id="stisf" cx=".5" cy=".4" r=".8"><stop offset="0" stop-color="#1a6f74"/>
+<stop offset=".6" stop-color="#0e4a52"/><stop offset="1" stop-color="#062a31"/></radialGradient>
+<marker id="sta" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#ffe49a"/></marker>
+<marker id="stag" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#a5f3d4"/></marker>
+<marker id="star" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#ff8fa8"/></marker>
+</defs><rect x="4" y="4" width="972" height="632" rx="20" fill="rgba(0,0,0,.22)" stroke="#ffc233" stroke-width="2" stroke-dasharray="8 7" opacity=".9"/><text x="26" y="34" font-size="19" font-weight="900" fill="#ffe9b8" text-anchor="start">THE TUG-OF-WAR AT THE CAPILLARY</text><text x="26" y="55" font-size="13" font-weight="700" fill="#ffd9a0" text-anchor="start" font-style="italic">Two forces decide where water sits: pressure PUSHING it out, protein PULLING it back.</text><g transform="translate(0,10)"><rect x="26" y="78" width="700" height="300" rx="16" fill="rgba(0,60,66,.35)" stroke="rgba(255,255,255,.22)"/><text x="42" y="100" font-size="13" font-weight="900" fill="#a5f3d4" text-anchor="start">NORMAL</text><path d="M40 214 C170 196 300 232 430 210 C540 192 640 214 712 206" fill="none" stroke="#08111f" stroke-width="52" stroke-linecap="round"/><path d="M40 214 C170 196 300 232 430 210 C540 192 640 214 712 206" fill="none" stroke="url(#start)" stroke-width="46" stroke-linecap="round"/><path d="M40 200 C170 182 300 218 430 196 C540 178 640 200 712 192" fill="none" stroke="#fff" stroke-width="5" stroke-opacity=".18" stroke-linecap="round"/><ellipse cx="96" cy="210" rx="13" ry="10.66" fill="url(#strbc)" stroke="#4a0616" stroke-width="1.6"/><ellipse cx="96" cy="210" rx="5.98" ry="4.68" fill="#8c1730" opacity=".75"/><ellipse cx="91.32" cy="205.32" rx="3.9" ry="2.34" fill="#fff" opacity=".28" filter="url(#stsf)"/><ellipse cx="176" cy="214" rx="13" ry="10.66" fill="url(#strbc)" stroke="#4a0616" stroke-width="1.6"/><ellipse cx="176" cy="214" rx="5.98" ry="4.68" fill="#8c1730" opacity=".75"/><ellipse cx="171.32" cy="209.32" rx="3.9" ry="2.34" fill="#fff" opacity=".28" filter="url(#stsf)"/><ellipse cx="262" cy="220" rx="13" ry="10.66" fill="url(#strbc)" stroke="#4a0616" stroke-width="1.6"/><ellipse cx="262" cy="220" rx="5.98" ry="4.68" fill="#8c1730" opacity=".75"/><ellipse cx="257.32" cy="215.32" rx="3.9" ry="2.34" fill="#fff" opacity=".28" filter="url(#stsf)"/><ellipse cx="352" cy="218" rx="13" ry="10.66" fill="url(#strbc)" stroke="#4a0616" stroke-width="1.6"/><ellipse cx="352" cy="218" rx="5.98" ry="4.68" fill="#8c1730" opacity=".75"/><ellipse cx="347.32" cy="213.32" rx="3.9" ry="2.34" fill="#fff" opacity=".28" filter="url(#stsf)"/><ellipse cx="440" cy="208" rx="13" ry="10.66" fill="url(#strbc)" stroke="#4a0616" stroke-width="1.6"/><ellipse cx="440" cy="208" rx="5.98" ry="4.68" fill="#8c1730" opacity=".75"/><ellipse cx="435.32" cy="203.32" rx="3.9" ry="2.34" fill="#fff" opacity=".28" filter="url(#stsf)"/><ellipse cx="530" cy="198" rx="13" ry="10.66" fill="url(#strbc)" stroke="#4a0616" stroke-width="1.6"/><ellipse cx="530" cy="198" rx="5.98" ry="4.68" fill="#8c1730" opacity=".75"/><ellipse cx="525.32" cy="193.32" rx="3.9" ry="2.34" fill="#fff" opacity=".28" filter="url(#stsf)"/><ellipse cx="622" cy="204" rx="13" ry="10.66" fill="url(#strbc)" stroke="#4a0616" stroke-width="1.6"/><ellipse cx="622" cy="204" rx="5.98" ry="4.68" fill="#8c1730" opacity=".75"/><ellipse cx="617.32" cy="199.32" rx="3.9" ry="2.34" fill="#fff" opacity=".28" filter="url(#stsf)"/><ellipse cx="694" cy="203" rx="13" ry="10.66" fill="url(#strbc)" stroke="#4a0616" stroke-width="1.6"/><ellipse cx="694" cy="203" rx="5.98" ry="4.68" fill="#8c1730" opacity=".75"/><ellipse cx="689.32" cy="198.32" rx="3.9" ry="2.34" fill="#fff" opacity=".28" filter="url(#stsf)"/><circle cx="130" cy="226" r="8" fill="url(#stpl)" stroke="#6b4a08" stroke-width="1.4"/><circle cx="127.5" cy="223.5" r="2.6" fill="#fff" opacity=".5"/><circle cx="216" cy="206" r="8" fill="url(#stpl)" stroke="#6b4a08" stroke-width="1.4"/><circle cx="213.5" cy="203.5" r="2.6" fill="#fff" opacity=".5"/><circle cx="306" cy="232" r="8" fill="url(#stpl)" stroke="#6b4a08" stroke-width="1.4"/><circle cx="303.5" cy="229.5" r="2.6" fill="#fff" opacity=".5"/><circle cx="398" cy="204" r="8" fill="url(#stpl)" stroke="#6b4a08" stroke-width="1.4"/><circle cx="395.5" cy="201.5" r="2.6" fill="#fff" opacity=".5"/><circle cx="486" cy="214" r="8" fill="url(#stpl)" stroke="#6b4a08" stroke-width="1.4"/><circle cx="483.5" cy="211.5" r="2.6" fill="#fff" opacity=".5"/><circle cx="576" cy="194" r="8" fill="url(#stpl)" stroke="#6b4a08" stroke-width="1.4"/><circle cx="573.5" cy="191.5" r="2.6" fill="#fff" opacity=".5"/><circle cx="658" cy="210" r="8" fill="url(#stpl)" stroke="#6b4a08" stroke-width="1.4"/><circle cx="655.5" cy="207.5" r="2.6" fill="#fff" opacity=".5"/><path d="M96 190 L96 144" stroke="#ff8fa8" stroke-width="4" fill="none" marker-end="url(#star)"/><path d="M96 238 L96 284" stroke="#ff8fa8" stroke-width="4" fill="none" marker-end="url(#star)"/><path d="M168 190 L168 150" stroke="#ff8fa8" stroke-width="4" fill="none" marker-end="url(#star)"/><path d="M168 238 L168 278" stroke="#ff8fa8" stroke-width="4" fill="none" marker-end="url(#star)"/><path d="M240 190 L240 157" stroke="#ff8fa8" stroke-width="4" fill="none" marker-end="url(#star)"/><path d="M240 238 L240 271" stroke="#ff8fa8" stroke-width="4" fill="none" marker-end="url(#star)"/><path d="M312 190 L312 164" stroke="#ff8fa8" stroke-width="4" fill="none" marker-end="url(#star)"/><path d="M312 238 L312 264" stroke="#ff8fa8" stroke-width="4" fill="none" marker-end="url(#star)"/><path d="M470 146 L470 176" stroke="#ffe49a" stroke-width="4" fill="none" marker-end="url(#sta)"/><path d="M470 258 L470 228" stroke="#ffe49a" stroke-width="4" fill="none" marker-end="url(#sta)"/><path d="M546 140 L546 176" stroke="#ffe49a" stroke-width="4" fill="none" marker-end="url(#sta)"/><path d="M546 264 L546 228" stroke="#ffe49a" stroke-width="4" fill="none" marker-end="url(#sta)"/><path d="M622 134 L622 176" stroke="#ffe49a" stroke-width="4" fill="none" marker-end="url(#sta)"/><path d="M622 270 L622 228" stroke="#ffe49a" stroke-width="4" fill="none" marker-end="url(#sta)"/><path d="M694 130 L694 176" stroke="#ffe49a" stroke-width="4" fill="none" marker-end="url(#sta)"/><path d="M694 274 L694 228" stroke="#ffe49a" stroke-width="4" fill="none" marker-end="url(#sta)"/><text x="200" y="118" font-size="13" font-weight="900" fill="#ff9db4" text-anchor="middle">PUSH OUT &#8212; capillary hydrostatic pressure</text><text x="200" y="136" font-size="11.5" font-weight="800" fill="#ffd7e0" text-anchor="middle">(the blood pressure inside the tube)</text><text x="582" y="118" font-size="13" font-weight="900" fill="#ffe49a" text-anchor="middle">PULL IN &#8212; plasma oncotic pressure</text><text x="582" y="136" font-size="11.5" font-weight="800" fill="#ffe49a" text-anchor="middle">(ALBUMIN, the water magnet)</text><text x="200" y="306" font-size="12.5" font-weight="900" fill="#ff9db4" text-anchor="middle">net FILTRATION at the arterial end</text><text x="582" y="306" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="middle">net REABSORPTION at the venous end</text><path d="M90 346 C220 358 350 350 452 340" fill="none" stroke="#12b886" stroke-width="13" stroke-linecap="round" opacity=".9"/><path d="M90 346 C220 358 350 350 452 340" fill="none" stroke="#a5f3d4" stroke-width="3" stroke-dasharray="2 12" stroke-linecap="round"/><path d="M452 328 L482 340 L452 352 Z" fill="#a5f3d4"/><text x="494" y="345" font-size="12" font-weight="900" fill="#a5f3d4" text-anchor="start">LYMPH drains the leftover fluid</text></g><rect x="26" y="404" width="700" height="212" rx="16" fill="rgba(255,59,107,.16)" stroke="rgba(255,255,255,.24)"/><text x="42" y="428" font-size="13.5" font-weight="900" fill="#ff9db4" text-anchor="start">LOW ALBUMIN &#8212; the magnet is gone</text><path d="M40 522 C180 508 320 538 460 518 C560 504 650 522 712 514" fill="none" stroke="#08111f" stroke-width="48" stroke-linecap="round"/><path d="M40 522 C180 508 320 538 460 518 C560 504 650 522 712 514" fill="none" stroke="url(#start)" stroke-width="42" stroke-linecap="round"/><ellipse cx="110" cy="518" rx="12" ry="9.84" fill="url(#strbc)" stroke="#4a0616" stroke-width="1.6"/><ellipse cx="110" cy="518" rx="5.5200000000000005" ry="4.32" fill="#8c1730" opacity=".75"/><ellipse cx="105.68" cy="513.68" rx="3.5999999999999996" ry="2.16" fill="#fff" opacity=".28" filter="url(#stsf)"/><ellipse cx="230" cy="528" rx="12" ry="9.84" fill="url(#strbc)" stroke="#4a0616" stroke-width="1.6"/><ellipse cx="230" cy="528" rx="5.5200000000000005" ry="4.32" fill="#8c1730" opacity=".75"/><ellipse cx="225.68" cy="523.68" rx="3.5999999999999996" ry="2.16" fill="#fff" opacity=".28" filter="url(#stsf)"/><ellipse cx="350" cy="530" rx="12" ry="9.84" fill="url(#strbc)" stroke="#4a0616" stroke-width="1.6"/><ellipse cx="350" cy="530" rx="5.5200000000000005" ry="4.32" fill="#8c1730" opacity=".75"/><ellipse cx="345.68" cy="525.68" rx="3.5999999999999996" ry="2.16" fill="#fff" opacity=".28" filter="url(#stsf)"/><ellipse cx="470" cy="516" rx="12" ry="9.84" fill="url(#strbc)" stroke="#4a0616" stroke-width="1.6"/><ellipse cx="470" cy="516" rx="5.5200000000000005" ry="4.32" fill="#8c1730" opacity=".75"/><ellipse cx="465.68" cy="511.68" rx="3.5999999999999996" ry="2.16" fill="#fff" opacity=".28" filter="url(#stsf)"/><ellipse cx="590" cy="510" rx="12" ry="9.84" fill="url(#strbc)" stroke="#4a0616" stroke-width="1.6"/><ellipse cx="590" cy="510" rx="5.5200000000000005" ry="4.32" fill="#8c1730" opacity=".75"/><ellipse cx="585.68" cy="505.68" rx="3.5999999999999996" ry="2.16" fill="#fff" opacity=".28" filter="url(#stsf)"/><ellipse cx="694" cy="512" rx="12" ry="9.84" fill="url(#strbc)" stroke="#4a0616" stroke-width="1.6"/><ellipse cx="694" cy="512" rx="5.5200000000000005" ry="4.32" fill="#8c1730" opacity=".75"/><ellipse cx="689.68" cy="507.68" rx="3.5999999999999996" ry="2.16" fill="#fff" opacity=".28" filter="url(#stsf)"/><circle cx="300" cy="522" r="8" fill="url(#stpl)" stroke="#6b4a08" stroke-width="1.4"/><circle cx="560" cy="512" r="8" fill="url(#stpl)" stroke="#6b4a08" stroke-width="1.4"/><path d="M110 496 L110 462" stroke="#ff8fa8" stroke-width="4.4" fill="none" marker-end="url(#star)"/><path d="M110 546 L110 580" stroke="#ff8fa8" stroke-width="4.4" fill="none" marker-end="url(#star)"/><path d="M200 496 L200 462" stroke="#ff8fa8" stroke-width="4.4" fill="none" marker-end="url(#star)"/><path d="M200 546 L200 580" stroke="#ff8fa8" stroke-width="4.4" fill="none" marker-end="url(#star)"/><path d="M290 496 L290 462" stroke="#ff8fa8" stroke-width="4.4" fill="none" marker-end="url(#star)"/><path d="M290 546 L290 580" stroke="#ff8fa8" stroke-width="4.4" fill="none" marker-end="url(#star)"/><path d="M380 496 L380 462" stroke="#ff8fa8" stroke-width="4.4" fill="none" marker-end="url(#star)"/><path d="M380 546 L380 580" stroke="#ff8fa8" stroke-width="4.4" fill="none" marker-end="url(#star)"/><path d="M470 496 L470 462" stroke="#ff8fa8" stroke-width="4.4" fill="none" marker-end="url(#star)"/><path d="M470 546 L470 580" stroke="#ff8fa8" stroke-width="4.4" fill="none" marker-end="url(#star)"/><path d="M560 496 L560 462" stroke="#ff8fa8" stroke-width="4.4" fill="none" marker-end="url(#star)"/><path d="M560 546 L560 580" stroke="#ff8fa8" stroke-width="4.4" fill="none" marker-end="url(#star)"/><path d="M650 496 L650 462" stroke="#ff8fa8" stroke-width="4.4" fill="none" marker-end="url(#star)"/><path d="M650 546 L650 580" stroke="#ff8fa8" stroke-width="4.4" fill="none" marker-end="url(#star)"/><text x="380" y="452" font-size="13" font-weight="900" fill="#ffd7e0" text-anchor="middle">almost nothing pulls the water back &#8594; it stays in the tissue = OEDEMA</text><text x="380" y="606" font-size="12" font-weight="900" fill="#ffe49a" text-anchor="middle">only a couple of albumin molecules left in the plasma</text><rect x="744" y="88" width="208" height="290" rx="9" fill="rgba(6,4,14,.80)" stroke="rgba(255,255,255,.34)" stroke-width="1"/><text x="758" y="112" font-size="12" font-weight="900" fill="#ffe49a" text-anchor="start" letter-spacing="0.09em">THE FOUR FORCES</text><rect x="758" y="126" width="10" height="10" rx="2" fill="#ff9db4"/><text x="776" y="135" font-size="11.5" font-weight="800" fill="#ffffff" text-anchor="start">Capillary hydrostatic</text><text x="776" y="151" font-size="11.5" font-weight="900" fill="#ff9db4" text-anchor="start">pushes water OUT</text><rect x="758" y="174" width="10" height="10" rx="2" fill="#ffe49a"/><text x="776" y="183" font-size="11.5" font-weight="800" fill="#ffffff" text-anchor="start">Plasma oncotic (albumin)</text><text x="776" y="199" font-size="11.5" font-weight="900" fill="#ffe49a" text-anchor="start">pulls water IN</text><rect x="758" y="222" width="10" height="10" rx="2" fill="#9ff2ee"/><text x="776" y="231" font-size="11.5" font-weight="800" fill="#ffffff" text-anchor="start">Interstitial hydrostatic</text><text x="776" y="247" font-size="11.5" font-weight="900" fill="#9ff2ee" text-anchor="start">pushes water back IN</text><rect x="758" y="270" width="10" height="10" rx="2" fill="#d9c2ff"/><text x="776" y="279" font-size="11.5" font-weight="800" fill="#ffffff" text-anchor="start">Interstitial oncotic</text><text x="776" y="295" font-size="11.5" font-weight="900" fill="#d9c2ff" text-anchor="start">pulls water OUT</text><text x="758" y="348" font-size="11" font-weight="800" fill="#a5f3d4" text-anchor="start">The first two do most of the work.</text><rect x="744" y="404" width="208" height="212" rx="9" fill="rgba(6,4,14,.80)" stroke="rgba(255,255,255,.34)" stroke-width="1"/><text x="758" y="428" font-size="12" font-weight="900" fill="#ffe49a" text-anchor="start" letter-spacing="0.09em">OEDEMA HAPPENS WHEN</text><circle cx="766" cy="454" r="5" fill="#ff8fa8"/><text x="780" y="459" font-size="12" font-weight="800" fill="#ffd7e0" text-anchor="start">&#8593; hydrostatic pressure</text><circle cx="766" cy="486" r="5" fill="#ff8fa8"/><text x="780" y="491" font-size="12" font-weight="800" fill="#ffd7e0" text-anchor="start">&#8595; albumin (oncotic pull)</text><circle cx="766" cy="518" r="5" fill="#ff8fa8"/><text x="780" y="523" font-size="12" font-weight="800" fill="#ffd7e0" text-anchor="start">&#8593; capillary permeability</text><circle cx="766" cy="550" r="5" fill="#ff8fa8"/><text x="780" y="555" font-size="12" font-weight="800" fill="#ffd7e0" text-anchor="start">&#8595; lymph drainage</text><text x="758" y="598" font-size="11.5" font-weight="900" fill="#a5f3d4" text-anchor="start">Albumin (typical) 3.5&#8211;5.0 g/dL</text></svg>
+      <p style="margin-top:10px">At the arterial end, <b>pressure wins</b> and fluid filters out to feed the tissue.
+      At the venous end, <b>albumin wins</b> and most of it is pulled back. Whatever is left over is collected by the
+      <b>lymphatics</b>. Break any part of that and you get oedema.</p>
+      <div class="mn">🧠 <b>“Push out, pull back, mop up.”</b> Hydrostatic pushes · oncotic pulls · lymph mops.</div>
+    </div>
+
+    <div class="card deep">
+      <h3>⭐ Hydrostatic vs oncotic in one line each</h3>
+      <div class="mirror">
+        <div class="mrow hi"><b>Hydrostatic pressure</b>The <b>push</b> of fluid against a wall. In a capillary it is basically the blood pressure. High hydrostatic pressure = fluid squeezed OUT into the tissue.</div>
+        <div class="mrow lo"><b>Oncotic (colloid) pressure</b>The <b>pull</b> of large proteins — mainly <b>albumin</b> — that cannot leave the vessel. It drags water back in behind it.</div>
+      </div>
+      <p style="margin-top:9px">Heart failure and venous obstruction raise hydrostatic pressure. Liver failure,
+      nephrotic syndrome and malnutrition drop albumin. <mark>Both end in oedema, for opposite reasons.</mark></p>
+      <div class="mn">🧠 <b>“Hydro = hose. Onco = sponge.”</b> A hose sprays water out; a sponge sucks it back.</div>
+    </div>
+
+    <div class="card topaz">
+      <h3>🚪 Four ways things cross a membrane</h3>
+      <div class="tblwrap"><table>
+        <tr><th class="lo">PROCESS</th><th class="up">WHAT MOVES</th><th class="up">DRIVEN BY</th></tr>
+        <tr><td><b>Osmosis</b></td><td><b>WATER</b> only</td><td>Concentration of particles — water goes to the saltier side</td></tr>
+        <tr><td><b>Diffusion</b></td><td>Solutes</td><td>High concentration → low concentration</td></tr>
+        <tr><td><b>Filtration</b></td><td>Water + solutes together</td><td>Hydrostatic PRESSURE (higher → lower)</td></tr>
+        <tr><td><b>Active transport</b></td><td>Solutes, uphill</td><td>ATP — e.g. the sodium–potassium pump</td></tr>
+      </table></div>
+      <p><b>Only osmosis moves water on its own.</b> That is why sodium controls where water sits: water chases sodium.</p>
+      <div class="mn">🧠 <b>“Where sodium goes, water follows.”</b> Sodium is the ECF's water magnet.</div>
+    </div>
+
+    <div class="card garnet span2">
+      <h3>🧫 Tonicity — what a solution DOES to a cell</h3>
+      <svg viewBox="0 0 980 440" role="img" aria-label="Three beakers each holding a red blood cell: in an isotonic solution the cell keeps its normal biconcave shape, in a hypotonic solution water rushes in and the cell swells and bursts, in a hypertonic solution water is pulled out and the cell shrivels."><defs>
+<filter id="tndr" x="-30%" y="-30%" width="170%" height="170%"><feGaussianBlur in="SourceAlpha" stdDeviation="5"/>
+<feOffset dy="5" result="o"/><feFlood flood-color="#000" flood-opacity=".55"/><feComposite in2="o" operator="in" result="sh"/>
+<feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<filter id="tnsf" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5"/></filter>
+<filter id="tngl" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="3" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<radialGradient id="tncell" cx=".36" cy=".28" r=".92" fx=".28" fy=".2">
+<stop offset="0" stop-color="#cfe4ff"/><stop offset=".22" stop-color="#7fa8f5"/>
+<stop offset=".55" stop-color="#3d63c4"/><stop offset=".82" stop-color="#1e3272"/>
+<stop offset="1" stop-color="#0d1738"/></radialGradient>
+<radialGradient id="tnrbc" cx=".36" cy=".3" r=".9" fx=".28" fy=".22">
+<stop offset="0" stop-color="#ffb9c6"/><stop offset=".25" stop-color="#f2607f"/>
+<stop offset=".6" stop-color="#c0203f"/><stop offset=".88" stop-color="#7c0f26"/>
+<stop offset="1" stop-color="#4a0616"/></radialGradient>
+<linearGradient id="tnart" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff8ea3"/>
+<stop offset=".35" stop-color="#d92a52"/><stop offset=".72" stop-color="#a4467f"/>
+<stop offset="1" stop-color="#2f6bff"/></linearGradient>
+<linearGradient id="tnpl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe9a8"/>
+<stop offset=".5" stop-color="#f0c04c"/><stop offset="1" stop-color="#9c6c10"/></linearGradient>
+<radialGradient id="tnisf" cx=".5" cy=".4" r=".8"><stop offset="0" stop-color="#1a6f74"/>
+<stop offset=".6" stop-color="#0e4a52"/><stop offset="1" stop-color="#062a31"/></radialGradient>
+<marker id="tna" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#ffe49a"/></marker>
+<marker id="tnag" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#a5f3d4"/></marker>
+<marker id="tnar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#ff8fa8"/></marker>
+</defs><rect x="4" y="4" width="972" height="432" rx="20" fill="rgba(0,0,0,.22)" stroke="#ffc233" stroke-width="2" stroke-dasharray="8 7" opacity=".9"/><text x="26" y="34" font-size="19" font-weight="900" fill="#ffe9b8" text-anchor="start">TONICITY &#183; what a solution DOES to a cell</text><text x="26" y="55" font-size="13" font-weight="700" fill="#ffd9a0" text-anchor="start" font-style="italic">Water always moves TOWARDS the saltier side. Watch the cell, not the bag.</text><rect x="30" y="76" width="284" height="300" rx="16" fill="rgba(18,184,134,.20)" stroke="rgba(255,255,255,.26)" stroke-width="1.2"/><text x="172" y="102" font-size="16" font-weight="900" fill="#a5f3d4" text-anchor="middle">ISOTONIC</text><text x="172" y="122" font-size="11.5" font-weight="800" fill="#ffffff" text-anchor="middle">same particle concentration</text><path d="M72 136 L72 306 Q72 330 96 330 L248 330 Q272 330 272 306 L272 136" fill="rgba(10,26,40,.55)" stroke="rgba(255,255,255,.5)" stroke-width="2.6"/><path d="M76 170 L268 170" stroke="#9ff2ee" stroke-width="2" stroke-opacity=".6"/><ellipse cx="106" cy="232" rx="14" ry="52" fill="#fff" opacity=".08" filter="url(#tnsf)"/><circle cx="88" cy="182" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="125" cy="235" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="162" cy="288" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="199" cy="277" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="236" cy="270" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="105" cy="199" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="142" cy="312" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="179" cy="305" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="216" cy="294" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="253" cy="287" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="122" cy="216" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="159" cy="329" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="196" cy="258" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="233" cy="251" r="4.6" fill="#ffe49a" opacity=".9"/><g filter="url(#tndr)"><ellipse cx="172.0" cy="239.0" rx="40" ry="32.8" fill="url(#tnrbc)" stroke="#4a0616" stroke-width="1.6"/><ellipse cx="172.0" cy="239.0" rx="18.400000000000002" ry="14.399999999999999" fill="#8c1730" opacity=".75"/><ellipse cx="157.6" cy="224.6" rx="12.0" ry="7.199999999999999" fill="#fff" opacity=".28" filter="url(#tnsf)"/></g><circle cx="192.0" cy="239.0" r="3.4" fill="#ffe9a8" opacity=".75"/><circle cx="161.9" cy="252.8" r="3.4" fill="#ffe9a8" opacity=".75"/><circle cx="162.2" cy="225.1" r="3.4" fill="#ffe9a8" opacity=".75"/><circle cx="192.0" cy="239.3" r="3.4" fill="#ffe9a8" opacity=".75"/><circle cx="161.6" cy="252.7" r="3.4" fill="#ffe9a8" opacity=".75"/><circle cx="162.5" cy="224.9" r="3.4" fill="#ffe9a8" opacity=".75"/><circle cx="192.0" cy="239.5" r="3.4" fill="#ffe9a8" opacity=".75"/><circle cx="161.3" cy="252.5" r="3.4" fill="#ffe9a8" opacity=".75"/><circle cx="162.8" cy="224.8" r="3.4" fill="#ffe9a8" opacity=".75"/><circle cx="192.0" cy="239.8" r="3.4" fill="#ffe9a8" opacity=".75"/><circle cx="161.0" cy="252.4" r="3.4" fill="#ffe9a8" opacity=".75"/><circle cx="163.1" cy="224.7" r="3.4" fill="#ffe9a8" opacity=".75"/><circle cx="192.0" cy="240.1" r="3.4" fill="#ffe9a8" opacity=".75"/><circle cx="160.8" cy="252.2" r="3.4" fill="#ffe9a8" opacity=".75"/><text x="172" y="352" font-size="12" font-weight="900" fill="#a5f3d4" text-anchor="middle">cell stays the same</text><rect x="348" y="76" width="284" height="300" rx="16" fill="rgba(47,107,255,.22)" stroke="rgba(255,255,255,.26)" stroke-width="1.2"/><text x="490" y="102" font-size="16" font-weight="900" fill="#bcd0ff" text-anchor="middle">HYPOTONIC</text><text x="490" y="122" font-size="11.5" font-weight="800" fill="#ffffff" text-anchor="middle">fewer particles outside</text><path d="M390 136 L390 306 Q390 330 414 330 L566 330 Q590 330 590 306 L590 136" fill="rgba(10,26,40,.55)" stroke="rgba(255,255,255,.5)" stroke-width="2.6"/><path d="M394 170 L586 170" stroke="#9ff2ee" stroke-width="2" stroke-opacity=".6"/><ellipse cx="424" cy="232" rx="14" ry="52" fill="#fff" opacity=".08" filter="url(#tnsf)"/><circle cx="406" cy="182" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="443" cy="235" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="480" cy="288" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="517" cy="277" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="554" cy="270" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="423" cy="199" r="4.6" fill="#ffe49a" opacity=".9"/><g filter="url(#tndr)"><circle cx="490.0" cy="239.0" r="49.6" fill="url(#tnrbc)" stroke="#4a0616" stroke-width="1.6"/><circle cx="490.0" cy="239.0" r="49.6" fill="none" stroke="#ffd7e0" stroke-width="1.6" stroke-dasharray="5 5" opacity=".8"/><ellipse cx="474.0" cy="221.0" rx="14.399999999999999" ry="8.8" fill="#fff" opacity=".3" filter="url(#tnsf)"/><path d="M542.0 239.0 l12.0 0.0" stroke="#ff8fa8" stroke-width="2.4" stroke-linecap="round"/><path d="M522.3 279.7 l7.5 9.4" stroke="#ff8fa8" stroke-width="2.4" stroke-linecap="round"/><path d="M478.2 289.6 l-2.7 11.7" stroke="#ff8fa8" stroke-width="2.4" stroke-linecap="round"/><path d="M443.0 261.2 l-10.8 5.1" stroke="#ff8fa8" stroke-width="2.4" stroke-linecap="round"/><path d="M443.4 216.0 l-10.8 -5.3" stroke="#ff8fa8" stroke-width="2.4" stroke-linecap="round"/><path d="M479.0 188.2 l-2.5 -11.7" stroke="#ff8fa8" stroke-width="2.4" stroke-linecap="round"/><path d="M523.0 198.8 l7.6 -9.3" stroke="#ff8fa8" stroke-width="2.4" stroke-linecap="round"/></g><circle cx="510.0" cy="239.0" r="3.4" fill="#ffe9a8" opacity=".75"/><circle cx="479.9" cy="252.8" r="3.4" fill="#ffe9a8" opacity=".75"/><circle cx="480.2" cy="225.1" r="3.4" fill="#ffe9a8" opacity=".75"/><circle cx="510.0" cy="239.3" r="3.4" fill="#ffe9a8" opacity=".75"/><circle cx="479.6" cy="252.7" r="3.4" fill="#ffe9a8" opacity=".75"/><circle cx="480.5" cy="224.9" r="3.4" fill="#ffe9a8" opacity=".75"/><circle cx="510.0" cy="239.5" r="3.4" fill="#ffe9a8" opacity=".75"/><circle cx="479.3" cy="252.5" r="3.4" fill="#ffe9a8" opacity=".75"/><circle cx="480.8" cy="224.8" r="3.4" fill="#ffe9a8" opacity=".75"/><circle cx="510.0" cy="239.8" r="3.4" fill="#ffe9a8" opacity=".75"/><circle cx="479.0" cy="252.4" r="3.4" fill="#ffe9a8" opacity=".75"/><circle cx="481.1" cy="224.7" r="3.4" fill="#ffe9a8" opacity=".75"/><circle cx="510.0" cy="240.1" r="3.4" fill="#ffe9a8" opacity=".75"/><circle cx="478.8" cy="252.2" r="3.4" fill="#ffe9a8" opacity=".75"/><circle cx="481.4" cy="224.6" r="3.4" fill="#ffe9a8" opacity=".75"/><circle cx="509.9" cy="240.3" r="3.4" fill="#ffe9a8" opacity=".75"/><circle cx="478.5" cy="252.1" r="3.4" fill="#ffe9a8" opacity=".75"/><circle cx="481.7" cy="224.4" r="3.4" fill="#ffe9a8" opacity=".75"/><circle cx="509.9" cy="240.6" r="3.4" fill="#ffe9a8" opacity=".75"/><circle cx="478.2" cy="251.9" r="3.4" fill="#ffe9a8" opacity=".75"/><circle cx="482.0" cy="224.3" r="3.4" fill="#ffe9a8" opacity=".75"/><circle cx="509.9" cy="240.9" r="3.4" fill="#ffe9a8" opacity=".75"/><path d="M564.0 239.0 L544.0 239.0" stroke="#7de3ff" stroke-width="3.4" marker-end="url(#tna)" fill="none"/><path d="M526.8 292.8 L516.9 278.9" stroke="#7de3ff" stroke-width="3.4" marker-end="url(#tna)" fill="none"/><path d="M452.6 292.5 L462.7 278.7" stroke="#7de3ff" stroke-width="3.4" marker-end="url(#tna)" fill="none"/><path d="M416.0 238.5 L436.0 238.6" stroke="#7de3ff" stroke-width="3.4" marker-end="url(#tna)" fill="none"/><path d="M453.7 185.0 L463.5 198.9" stroke="#7de3ff" stroke-width="3.4" marker-end="url(#tna)" fill="none"/><path d="M527.9 185.7 L517.7 199.5" stroke="#7de3ff" stroke-width="3.4" marker-end="url(#tna)" fill="none"/><text x="490" y="352" font-size="12" font-weight="900" fill="#bcd0ff" text-anchor="middle">water rushes IN &#8594; cell swells &amp; can burst</text><rect x="666" y="76" width="284" height="300" rx="16" fill="rgba(255,59,107,.20)" stroke="rgba(255,255,255,.26)" stroke-width="1.2"/><text x="808" y="102" font-size="16" font-weight="900" fill="#ff9db4" text-anchor="middle">HYPERTONIC</text><text x="808" y="122" font-size="11.5" font-weight="800" fill="#ffffff" text-anchor="middle">more particles outside</text><path d="M708 136 L708 306 Q708 330 732 330 L884 330 Q908 330 908 306 L908 136" fill="rgba(10,26,40,.55)" stroke="rgba(255,255,255,.5)" stroke-width="2.6"/><path d="M712 170 L904 170" stroke="#9ff2ee" stroke-width="2" stroke-opacity=".6"/><ellipse cx="742" cy="232" rx="14" ry="52" fill="#fff" opacity=".08" filter="url(#tnsf)"/><circle cx="724" cy="182" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="761" cy="235" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="798" cy="288" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="835" cy="277" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="872" cy="270" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="741" cy="199" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="778" cy="312" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="815" cy="305" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="852" cy="294" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="889" cy="287" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="758" cy="216" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="795" cy="329" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="832" cy="258" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="869" cy="251" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="738" cy="304" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="775" cy="293" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="812" cy="286" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="849" cy="275" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="886" cy="268" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="755" cy="197" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="792" cy="310" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="829" cy="303" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="866" cy="232" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="735" cy="285" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="772" cy="274" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="809" cy="327" r="4.6" fill="#ffe49a" opacity=".9"/><g filter="url(#tndr)"><path d="M846.4 239.0 L834.6 251.0 L829.8 266.2 L811.6 264.7 L794.4 269.9 L785.5 256.2 L770.7 246.9 L778.8 232.8 L779.3 217.1 L797.3 214.8 L812.6 206.2 L825.1 217.7 L842.0 223.7 Z" fill="url(#tnrbc)" stroke="#4a0616" stroke-width="1.6"/><ellipse cx="797.6" cy="227.0" rx="8.8" ry="5.2" fill="#fff" opacity=".22" filter="url(#tnsf)"/></g><circle cx="828.0" cy="239.0" r="3.4" fill="#ffe9a8" opacity=".75"/><circle cx="797.9" cy="252.8" r="3.4" fill="#ffe9a8" opacity=".75"/><circle cx="798.2" cy="225.1" r="3.4" fill="#ffe9a8" opacity=".75"/><circle cx="828.0" cy="239.3" r="3.4" fill="#ffe9a8" opacity=".75"/><circle cx="797.6" cy="252.7" r="3.4" fill="#ffe9a8" opacity=".75"/><circle cx="798.5" cy="224.9" r="3.4" fill="#ffe9a8" opacity=".75"/><path d="M852.0 239.0 L880.0 239.0" stroke="#ff8fa8" stroke-width="3.4" marker-end="url(#tnar)" fill="none"/><path d="M829.9 272.0 L843.8 291.0" stroke="#ff8fa8" stroke-width="3.4" marker-end="url(#tnar)" fill="none"/><path d="M785.8 271.8 L771.7 290.8" stroke="#ff8fa8" stroke-width="3.4" marker-end="url(#tnar)" fill="none"/><path d="M764.0 238.7 L736.0 238.5" stroke="#ff8fa8" stroke-width="3.4" marker-end="url(#tnar)" fill="none"/><path d="M786.4 205.9 L772.7 186.7" stroke="#ff8fa8" stroke-width="3.4" marker-end="url(#tnar)" fill="none"/><path d="M830.5 206.4 L844.9 187.5" stroke="#ff8fa8" stroke-width="3.4" marker-end="url(#tnar)" fill="none"/><text x="808" y="352" font-size="12" font-weight="900" fill="#ff9db4" text-anchor="middle">water is pulled OUT &#8594; cell shrivels</text><text x="30" y="400" font-size="12.5" font-weight="800" fill="#ffe49a" text-anchor="start">&#9679; yellow dots = dissolved particles (mostly sodium). The cell membrane lets WATER through, not sodium.</text><text x="30" y="420" font-size="12.5" font-weight="800" fill="#a5f3d4" text-anchor="start">So water moves to wherever the yellow dots are more crowded.</text></svg>
+      <div class="xref"><span class="pill">DRUG PAGE</span> For which IV bag is which, see
+      <a href="../renal/NG-213_isotonic-hypotonic-hypertonic.html">NG-213</a> and
+      <a href="../renal/NG-120_iv-solutions-hyper-hypo-isotonic.html">NG-120 · IV solutions</a>.</div>
+      <div class="mn">🧠 <b>“HypO = O for swOllen. HypER = shrivEled.”</b> Hypotonic swells the cell; hypertonic shrivels it.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🅰️ Albumin is the whole story of oncotic pressure</h3>
+      <p>Typical adult albumin is <span class="mono">3.5–5.0 g/dL</span> (varies by lab). It is made in the
+      <b>liver</b>, and it is too big to slip out of a healthy capillary — so it stays in the plasma and holds water
+      there like a magnet.</p>
+      <ul class="tick">
+        <li><b>Liver failure</b> → cannot make it.</li>
+        <li><b>Nephrotic syndrome</b> → loses it into the urine.</li>
+        <li><b>Severe burns</b> → leaks it out of damaged capillaries.</li>
+        <li><b>Malnutrition</b> → no protein to build it from.</li>
+      </ul>
+      <p>All four end with the same picture: <b>oedema everywhere and an empty circulation at the same time.</b></p>
+      <div class="mn">🧠 <b>“No albumin, no magnet, no water in the pipes.”</b></div>
+    </div>
+
+    <div class="card emerald">
+      <h3>🧪 Osmolality — the one number for “thick or thin?”</h3>
+      <p>Serum osmolality measures how <b>crowded</b> the blood is with particles. Typical adult reference is about
+      <span class="mono">275–295 mOsm/kg</span>, and it varies by lab.</p>
+      <div class="mirror">
+        <div class="mrow hi"><b>HIGH osmolality</b>Blood is concentrated → the patient is <b>dry</b>, or the sodium/glucose is high.</div>
+        <div class="mrow lo"><b>LOW osmolality</b>Blood is dilute → too much water, or the sodium is low.</div>
+      </div>
+      <p style="margin-top:9px">Sodium is the biggest single driver, which is why a quick mental estimate of
+      osmolality is roughly <b>double the sodium</b> plus a small contribution from glucose and urea.</p>
+      <div class="mn">🧠 <b>“Osmolality follows sodium.”</b> Sodium up → osmolality up → thirst and ADH switch on.</div>
+    </div>
+
+  </div>
+</section>
+
+<section id="lose">
+  <div class="sec-h"><span class="icon">🕳️</span><h2>EVERY WAY FLUID IS LOST</h2><span class="step">STEP 2 · CAUSE</span></div>
+  <p class="sec-sub">Four big buckets: out of the gut, out of the kidney, out of the skin, out of the vessels.</p>
+  <div class="grid">
+
+    <div class="card deep span2">
+      <h3>🗺️ The map of losses — sensible and insensible</h3>
+      <svg viewBox="0 0 980 650" role="img" aria-label="A human figure with labelled arrows showing every route fluid leaves the body: vomiting from the stomach, diarrhoea from the bowel, urine from the kidneys and bladder, sweat and burns from the skin, water vapour from the lungs, and bleeding from a wound, with typical daily volumes for the normal routes."><defs>
+<filter id="lsdr" x="-30%" y="-30%" width="170%" height="170%"><feGaussianBlur in="SourceAlpha" stdDeviation="5"/>
+<feOffset dy="5" result="o"/><feFlood flood-color="#000" flood-opacity=".55"/><feComposite in2="o" operator="in" result="sh"/>
+<feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<filter id="lssf" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5"/></filter>
+<filter id="lsgl" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="3" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<radialGradient id="lscell" cx=".36" cy=".28" r=".92" fx=".28" fy=".2">
+<stop offset="0" stop-color="#cfe4ff"/><stop offset=".22" stop-color="#7fa8f5"/>
+<stop offset=".55" stop-color="#3d63c4"/><stop offset=".82" stop-color="#1e3272"/>
+<stop offset="1" stop-color="#0d1738"/></radialGradient>
+<radialGradient id="lsrbc" cx=".36" cy=".3" r=".9" fx=".28" fy=".22">
+<stop offset="0" stop-color="#ffb9c6"/><stop offset=".25" stop-color="#f2607f"/>
+<stop offset=".6" stop-color="#c0203f"/><stop offset=".88" stop-color="#7c0f26"/>
+<stop offset="1" stop-color="#4a0616"/></radialGradient>
+<linearGradient id="lsart" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff8ea3"/>
+<stop offset=".35" stop-color="#d92a52"/><stop offset=".72" stop-color="#a4467f"/>
+<stop offset="1" stop-color="#2f6bff"/></linearGradient>
+<linearGradient id="lspl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe9a8"/>
+<stop offset=".5" stop-color="#f0c04c"/><stop offset="1" stop-color="#9c6c10"/></linearGradient>
+<radialGradient id="lsisf" cx=".5" cy=".4" r=".8"><stop offset="0" stop-color="#1a6f74"/>
+<stop offset=".6" stop-color="#0e4a52"/><stop offset="1" stop-color="#062a31"/></radialGradient>
+<marker id="lsa" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#ffe49a"/></marker>
+<marker id="lsag" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#a5f3d4"/></marker>
+<marker id="lsar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#ff8fa8"/></marker>
+</defs><rect x="4" y="4" width="972" height="642" rx="20" fill="rgba(0,0,0,.22)" stroke="#ffc233" stroke-width="2" stroke-dasharray="8 7" opacity=".9"/><text x="26" y="34" font-size="19" font-weight="900" fill="#ffe9b8" text-anchor="start">EVERY WAY WATER LEAVES &#183; sensible and insensible</text><text x="26" y="55" font-size="13" font-weight="700" fill="#ffd9a0" text-anchor="start" font-style="italic">You can measure the blue routes. You cannot measure the orange ones &#8212; and they never stop.</text><g transform="translate(490,74) scale(0.68) translate(-490,-74)"><g filter="url(#lsdr)"><path d="M460 394 C452 474 450 514 452 566" fill="none" stroke="#e0a074" stroke-width="40" stroke-linecap="round"/><path d="M520 394 C528 474 530 514 528 566" fill="none" stroke="#e0a074" stroke-width="40" stroke-linecap="round"/><path d="M432 224 C398 284 394 334 402 386" fill="none" stroke="#e0a074" stroke-width="28" stroke-linecap="round"/><path d="M548 224 C582 284 586 334 578 386" fill="none" stroke="#e0a074" stroke-width="28" stroke-linecap="round"/><path d="M434 220 C426 270 438 324 442 374 C444 404 536 404 538 374 C542 324 554 270 546 220 C520 200 460 200 434 220 Z" fill="#e0a074" stroke="#7a4423" stroke-width="1.6"/><rect x="477" y="170" width="26" height="40" rx="8" fill="#e0a074"/><ellipse cx="490" cy="134" rx="31" ry="38" fill="#e0a074" stroke="#7a4423" stroke-width="1.6"/><ellipse cx="479" cy="118" rx="15" ry="11" fill="#fff" opacity=".18" filter="url(#lssf)"/></g><g opacity=".92"><path d="M470 214 C452 216 442 246 444 276 C446 300 456 312 468 306 C476 300 476 250 474 216 Z" fill="#d47a94" stroke="#7d1f3c" stroke-width="1.4" opacity=".9"/><path d="M510 214 C528 216 538 246 536 276 C534 300 524 312 512 306 C504 300 504 250 506 216 Z" fill="#d47a94" stroke="#7d1f3c" stroke-width="1.4" opacity=".9"/><path d="M498 316 C520 314 534 330 530 350 C526 370 502 378 488 366 C476 356 478 322 498 316 Z" fill="#e08a4a" stroke="#8a4a12" stroke-width="1.4"/><path d="M462 380 C500 372 522 396 500 404 C476 412 460 396 486 390 C512 384 522 408 494 416 C468 424 456 408 480 402" fill="none" stroke="#c98a5a" stroke-width="9" stroke-linecap="round"/><path d="M456 352 C446 350 442 362 444 374 C446 386 456 390 460 382 C464 372 464 354 456 352 Z" fill="#8d1c38" stroke="#4d0a1c" stroke-width="1.3"/><path d="M524 352 C534 350 538 362 536 374 C534 386 524 390 520 382 C516 372 516 354 524 352 Z" fill="#8d1c38" stroke="#4d0a1c" stroke-width="1.3"/><ellipse cx="490" cy="424" rx="18" ry="14" fill="#f0c04c" stroke="#7d6110" stroke-width="1.4"/><path d="M424 300 l-16 -8 M424 300 l-16 8 M424 300 l-20 0" stroke="#ff3b6b" stroke-width="5" stroke-linecap="round"/></g></g><rect x="54" y="180" width="246" height="54" rx="9" fill="rgba(6,4,14,.80)" stroke="rgba(255,255,255,.34)" stroke-width="1"/><text x="67" y="200" font-size="13" font-weight="900" fill="#ff8a3d" text-anchor="start">🫁 LUNGS</text><text x="67" y="218" font-size="11" font-weight="800" fill="#ffffff" text-anchor="start">water vapour &#183; ~300&#8211;400 mL/day</text><path d="M464.2 193.7 L300 208" stroke="#ff8a3d" stroke-width="2.6" fill="none" opacity=".85"/><circle cx="464.2" cy="193.7" r="4.5" fill="#ff8a3d"/><rect x="54" y="264" width="246" height="54" rx="9" fill="rgba(6,4,14,.80)" stroke="rgba(255,255,255,.34)" stroke-width="1"/><text x="67" y="284" font-size="13" font-weight="900" fill="#ff8fa8" text-anchor="start">🤮 VOMITING</text><text x="67" y="302" font-size="11" font-weight="800" fill="#ffffff" text-anchor="start">stomach acid + potassium out</text><path d="M495.4 248.1 L300 292" stroke="#ff8fa8" stroke-width="2.6" fill="none" opacity=".85"/><circle cx="495.4" cy="248.1" r="4.5" fill="#ff8fa8"/><rect x="54" y="348" width="246" height="54" rx="9" fill="rgba(6,4,14,.80)" stroke="rgba(255,255,255,.34)" stroke-width="1"/><text x="67" y="368" font-size="13" font-weight="900" fill="#ff8fa8" text-anchor="start">💩 DIARRHOEA</text><text x="67" y="386" font-size="11" font-weight="800" fill="#ffffff" text-anchor="start">bicarbonate + potassium out</text><path d="M483.2 295.7 L300 376" stroke="#ff8fa8" stroke-width="2.6" fill="none" opacity=".85"/><circle cx="483.2" cy="295.7" r="4.5" fill="#ff8fa8"/><rect x="54" y="432" width="246" height="54" rx="9" fill="rgba(6,4,14,.80)" stroke="rgba(255,255,255,.34)" stroke-width="1"/><text x="67" y="452" font-size="13" font-weight="900" fill="#ff3b6b" text-anchor="start">🩸 BLEEDING / DRAINS</text><text x="67" y="470" font-size="11" font-weight="800" fill="#ffffff" text-anchor="start">whole blood, not just water</text><path d="M445.1 227.7 L300 460" stroke="#ff3b6b" stroke-width="2.6" fill="none" opacity=".85"/><circle cx="445.1" cy="227.7" r="4.5" fill="#ff3b6b"/><rect x="690" y="180" width="246" height="54" rx="9" fill="rgba(6,4,14,.80)" stroke="rgba(255,255,255,.34)" stroke-width="1"/><text x="703" y="200" font-size="13" font-weight="900" fill="#ff8a3d" text-anchor="start">💧 SKIN</text><text x="703" y="218" font-size="11" font-weight="800" fill="#ffffff" text-anchor="start">insensible + sweat &#183; ~500&#8211;600 mL/day</text><path d="M528.1 185.5 L690 208" stroke="#ff8a3d" stroke-width="2.6" fill="none" opacity=".85"/><circle cx="528.1" cy="185.5" r="4.5" fill="#ff8a3d"/><rect x="690" y="288" width="246" height="54" rx="9" fill="rgba(6,4,14,.80)" stroke="rgba(255,255,255,.34)" stroke-width="1"/><text x="703" y="308" font-size="13" font-weight="900" fill="#ff8a3d" text-anchor="start">🔥 BURNS</text><text x="703" y="326" font-size="11" font-weight="800" fill="#ffffff" text-anchor="start">no skin barrier &#8594; massive, fast losses</text><path d="M518.6 241.3 L690 316" stroke="#ff8a3d" stroke-width="2.6" fill="none" opacity=".85"/><circle cx="518.6" cy="241.3" r="4.5" fill="#ff8a3d"/><rect x="690" y="396" width="246" height="54" rx="9" fill="rgba(6,4,14,.80)" stroke="rgba(255,255,255,.34)" stroke-width="1"/><text x="703" y="416" font-size="13" font-weight="900" fill="#7de3ff" text-anchor="start">🚽 KIDNEYS</text><text x="703" y="434" font-size="11" font-weight="800" fill="#ffffff" text-anchor="start">urine &#183; ~1500 mL/day (the big one)</text><path d="M519.9 273.9 L690 424" stroke="#7de3ff" stroke-width="2.6" fill="none" opacity=".85"/><circle cx="519.9" cy="273.9" r="4.5" fill="#7de3ff"/><rect x="26" y="522" width="926" height="104" rx="9" fill="rgba(6,4,14,.80)" stroke="rgba(255,255,255,.34)" stroke-width="1"/><text x="44" y="546" font-size="13" font-weight="900" fill="#ffe49a" text-anchor="start">A NORMAL ADULT DAY &#8212; roughly 2500 mL in, 2500 mL out (varies with size, diet and climate)</text><rect x="44" y="562" width="206" height="46" rx="10" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.22)"/><text x="56" y="582" font-size="11.5" font-weight="800" fill="#ffffff" text-anchor="start">Urine</text><text x="56" y="600" font-size="14" font-weight="900" fill="#7de3ff" text-anchor="start">~1500 mL</text><rect x="276" y="562" width="206" height="46" rx="10" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.22)"/><text x="288" y="582" font-size="11.5" font-weight="800" fill="#ffffff" text-anchor="start">Skin (insensible + sweat)</text><text x="288" y="600" font-size="14" font-weight="900" fill="#ff8a3d" text-anchor="start">~500&#8211;600 mL</text><rect x="508" y="562" width="206" height="46" rx="10" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.22)"/><text x="520" y="582" font-size="11.5" font-weight="800" fill="#ffffff" text-anchor="start">Lungs (vapour)</text><text x="520" y="600" font-size="14" font-weight="900" fill="#ff8a3d" text-anchor="start">~300&#8211;400 mL</text><rect x="740" y="562" width="206" height="46" rx="10" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.22)"/><text x="752" y="582" font-size="11.5" font-weight="800" fill="#ffffff" text-anchor="start">Faeces</text><text x="752" y="600" font-size="14" font-weight="900" fill="#a5f3d4" text-anchor="start">~100&#8211;200 mL</text><text x="26" y="508" font-size="12.5" font-weight="800" fill="#ffd9a0" text-anchor="start">&#9888; Fever, tachypnoea, sweating, open wounds and burns all raise the INSENSIBLE losses you never see on the I&amp;O sheet.</text></svg>
+      <div class="mn">🧠 <b>“Sensible = you can measure it. Insensible = you can't.”</b> Sweat you can see is sensible;
+      the water vapour leaving your lungs and skin all day is not.</div>
+    </div>
+
+    <div class="card topaz span2">
+      <h3>⭐ THE TOP 4 CAUSES — the four boxes to memorise</h3>
+      <div class="no-grid">
+        <div class="no-t hot"><span class="e">🤮</span>VOMITING &amp; DIARRHOEA<i>the most common of all</i></div>
+        <div class="no-t hot"><span class="e">🚽</span>THE 3 D's<i>DI · DKA · Diuretics</i></div>
+        <div class="no-t hot"><span class="e">🔥</span>SEVERE BURNS<i>no skin = no barrier</i></div>
+        <div class="no-t hot"><span class="e">🌡️</span>HOT &amp; SWEATING<i>fever, heat stroke, thyroid crisis</i></div>
+      </div>
+      <p style="margin-top:10px">Every one of these is <b>isotonic</b> loss to start with — whole fluid goes out, water
+      and electrolytes together — so the <b>sodium can look completely normal</b> in a patient who is badly dry.</p>
+      <div class="mn">🧠 <b>“Gut · kidney · skin · heat.”</b> Four boxes. If you can list them you have the exam question.</div>
+    </div>
+
+    <div class="card garnet span2">
+      <h3>🚽 THE 3 D's — where each one drains the tank</h3>
+      <svg viewBox="0 0 980 630" role="img" aria-label="A nephron drawn from the glomerulus through the proximal tubule, loop of Henle, distal tubule and collecting duct, with three highlighted sites: diabetic ketoacidosis causing osmotic diuresis in the proximal tubule, diuretics blocking sodium reabsorption in the loop and distal tubule, and diabetes insipidus leaving the collecting duct unable to reabsorb water."><defs>
+<filter id="nfdr" x="-30%" y="-30%" width="170%" height="170%"><feGaussianBlur in="SourceAlpha" stdDeviation="5"/>
+<feOffset dy="5" result="o"/><feFlood flood-color="#000" flood-opacity=".55"/><feComposite in2="o" operator="in" result="sh"/>
+<feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<filter id="nfsf" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5"/></filter>
+<filter id="nfgl" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="3" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<radialGradient id="nfcell" cx=".36" cy=".28" r=".92" fx=".28" fy=".2">
+<stop offset="0" stop-color="#cfe4ff"/><stop offset=".22" stop-color="#7fa8f5"/>
+<stop offset=".55" stop-color="#3d63c4"/><stop offset=".82" stop-color="#1e3272"/>
+<stop offset="1" stop-color="#0d1738"/></radialGradient>
+<radialGradient id="nfrbc" cx=".36" cy=".3" r=".9" fx=".28" fy=".22">
+<stop offset="0" stop-color="#ffb9c6"/><stop offset=".25" stop-color="#f2607f"/>
+<stop offset=".6" stop-color="#c0203f"/><stop offset=".88" stop-color="#7c0f26"/>
+<stop offset="1" stop-color="#4a0616"/></radialGradient>
+<linearGradient id="nfart" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff8ea3"/>
+<stop offset=".35" stop-color="#d92a52"/><stop offset=".72" stop-color="#a4467f"/>
+<stop offset="1" stop-color="#2f6bff"/></linearGradient>
+<linearGradient id="nfpl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe9a8"/>
+<stop offset=".5" stop-color="#f0c04c"/><stop offset="1" stop-color="#9c6c10"/></linearGradient>
+<radialGradient id="nfisf" cx=".5" cy=".4" r=".8"><stop offset="0" stop-color="#1a6f74"/>
+<stop offset=".6" stop-color="#0e4a52"/><stop offset="1" stop-color="#062a31"/></radialGradient>
+<marker id="nfa" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#ffe49a"/></marker>
+<marker id="nfag" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#a5f3d4"/></marker>
+<marker id="nfar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#ff8fa8"/></marker>
+</defs><rect x="4" y="4" width="972" height="622" rx="20" fill="rgba(0,0,0,.22)" stroke="#ffc233" stroke-width="2" stroke-dasharray="8 7" opacity=".9"/><text x="26" y="34" font-size="19" font-weight="900" fill="#ffe9b8" text-anchor="start">THE 3 D&#8217;s &#183; where each one drains the tank</text><text x="26" y="55" font-size="13" font-weight="700" fill="#ffd9a0" text-anchor="start" font-style="italic">One nephron, three leaks. Same result: urine pouring out faster than it should.</text><g transform="translate(0,10)"><g filter="url(#nfdr)"><path d="M126 126 C96 118 74 142 78 172 C82 204 112 222 146 214 L146 126 Z" fill="rgba(0,60,66,.55)" stroke="#9ff2ee" stroke-width="2.6"/><path d="M112 170 q18.0 -20.0 26.3 11.2 q-14.0 16.0 -6.0 4" fill="none" stroke="#d92a52" stroke-width="6" stroke-linecap="round" opacity=".92"/><path d="M112 170 q11.2 -7.5 5.1 10.4 q-8.7 16.0 -6.0 4" fill="none" stroke="#d92a52" stroke-width="6" stroke-linecap="round" opacity=".92"/><path d="M112 170 q-4.1 -4.4 -20.0 1.7 q3.2 16.0 -6.0 4" fill="none" stroke="#d92a52" stroke-width="6" stroke-linecap="round" opacity=".92"/><path d="M112 170 q-16.3 -13.2 -29.9 -8.3 q12.7 16.0 -6.0 4" fill="none" stroke="#d92a52" stroke-width="6" stroke-linecap="round" opacity=".92"/><path d="M112 170 q-16.1 -27.1 -17.2 -12.0 q12.6 16.0 -6.0 4" fill="none" stroke="#d92a52" stroke-width="6" stroke-linecap="round" opacity=".92"/><path d="M112 170 q-3.8 -35.6 8.5 -6.6 q3.0 16.0 -6.0 4" fill="none" stroke="#d92a52" stroke-width="6" stroke-linecap="round" opacity=".92"/><path d="M112 170 q11.4 -32.4 27.8 3.7 q-8.9 16.0 -6.0 4" fill="none" stroke="#d92a52" stroke-width="6" stroke-linecap="round" opacity=".92"/><path d="M60 150 L92 158" stroke="#d92a52" stroke-width="9" stroke-linecap="round"/><path d="M60 194 L92 186" stroke="#2f6bff" stroke-width="8" stroke-linecap="round"/></g><text x="52" y="140" font-size="10.5" font-weight="800" fill="#ffb3c6" text-anchor="end">afferent</text><text x="52" y="200" font-size="10.5" font-weight="800" fill="#bcd0ff" text-anchor="end">efferent</text><text x="112" y="246" font-size="12" font-weight="900" fill="#9ff2ee" text-anchor="middle">GLOMERULUS</text><text x="112" y="262" font-size="10.5" font-weight="800" fill="#ffffff" text-anchor="middle">filters ~180 L/day</text><path d="M146 170 C182 154 206 178 192 198 C178 218 212 234 234 216 C254 200 276 214 268 236 C260 258 284 266 296 252 L302 270 C306 316 308 358 310 396 C312 424 340 436 358 420 C372 406 372 372 370 344 C366 300 362 268 360 240 C358 214 384 198 404 210 C424 222 418 246 400 252 C382 258 392 278 412 274 C434 270 448 252 470 256 C494 260 508 278 510 300 C512 340 512 380 512 410 L512 470" fill="none" stroke="#3a1f10" stroke-width="30" stroke-linecap="round"/><path d="M146 170 C182 154 206 178 192 198 C178 218 212 234 234 216 C254 200 276 214 268 236 C260 258 284 266 296 252 L302 270 C306 316 308 358 310 396 C312 424 340 436 358 420 C372 406 372 372 370 344 C366 300 362 268 360 240 C358 214 384 198 404 210 C424 222 418 246 400 252 C382 258 392 278 412 274 C434 270 448 252 470 256 C494 260 508 278 510 300 C512 340 512 380 512 410 L512 470" fill="none" stroke="#e8b06a" stroke-width="24" stroke-linecap="round"/><path d="M146 170 C182 154 206 178 192 198 C178 218 212 234 234 216 C254 200 276 214 268 236 C260 258 284 266 296 252 L302 270 C306 316 308 358 310 396 C312 424 340 436 358 420 C372 406 372 372 370 344 C366 300 362 268 360 240 C358 214 384 198 404 210 C424 222 418 246 400 252 C382 258 392 278 412 274 C434 270 448 252 470 256 C494 260 508 278 510 300 C512 340 512 380 512 410 L512 470" fill="none" stroke="#fff3d8" stroke-width="7" stroke-opacity=".35" stroke-linecap="round"/><path d="M170 146 C230 138 262 186 250 226 C238 266 262 300 268 340" fill="none" stroke="#d92a52" stroke-width="6" stroke-opacity=".5" stroke-linecap="round"/><path d="M420 176 C468 186 486 216 470 244 C452 274 470 316 478 350" fill="none" stroke="#d92a52" stroke-width="6" stroke-opacity=".5" stroke-linecap="round"/><text x="224" y="132" font-size="11.5" font-weight="900" fill="#ffe49a" text-anchor="middle">PROXIMAL TUBULE</text><path d="M252 194 L262 210" stroke="rgba(255,255,255,.5)" stroke-width="1.2"/><text x="276" y="404" font-size="11.5" font-weight="900" fill="#a5f3d4" text-anchor="end">LOOP OF HENLE</text><path d="M284 400 L302 396" stroke="rgba(255,255,255,.5)" stroke-width="1.2"/><text x="432" y="176" font-size="11.5" font-weight="900" fill="#bcd0ff" text-anchor="middle">DISTAL TUBULE</text><path d="M432 184 L420 206" stroke="rgba(255,255,255,.5)" stroke-width="1.2"/><text x="548" y="428" font-size="11.5" font-weight="900" fill="#d9c2ff" text-anchor="start">COLLECTING DUCT</text><path d="M540 424 L524 420" stroke="rgba(255,255,255,.5)" stroke-width="1.2"/><path d="M496 486 L528 486 L528 500 L496 500 Z" fill="#f0c04c" opacity=".9"/><text x="536" y="498" font-size="12" font-weight="900" fill="#ffe49a" text-anchor="start">&#8594; urine</text><rect x="660" y="84" width="292" height="94" rx="9" fill="rgba(6,4,14,.80)" stroke="rgba(255,255,255,.34)" stroke-width="1"/><text x="674" y="110" font-size="14.5" font-weight="900" fill="#ff8fa8" text-anchor="start">D &#183; DKA</text><text x="674" y="134" font-size="11" font-weight="800" fill="#ffffff" text-anchor="start">sugar spills into the filtrate and drags water out</text><text x="674" y="158" font-size="11.5" font-weight="900" fill="#ff8fa8" text-anchor="start">osmotic diuresis</text><path d="M250 224 L652 130" stroke="#ff8fa8" stroke-width="2.4" fill="none" opacity=".8"/><circle cx="250" cy="224" r="9" fill="none" stroke="#ff8fa8" stroke-width="3"/><rect x="660" y="196" width="292" height="94" rx="9" fill="rgba(6,4,14,.80)" stroke="rgba(255,255,255,.34)" stroke-width="1"/><text x="674" y="222" font-size="14.5" font-weight="900" fill="#ffe49a" text-anchor="start">D &#183; DIURETICS</text><text x="674" y="246" font-size="11" font-weight="800" fill="#ffffff" text-anchor="start">block sodium reabsorption; water follows it out</text><text x="674" y="270" font-size="11.5" font-weight="900" fill="#ffe49a" text-anchor="start">loop &amp; thiazide sites</text><path d="M366 336 L652 242" stroke="#ffe49a" stroke-width="2.4" fill="none" opacity=".8"/><circle cx="366" cy="336" r="9" fill="none" stroke="#ffe49a" stroke-width="3"/><rect x="660" y="308" width="292" height="94" rx="9" fill="rgba(6,4,14,.80)" stroke="rgba(255,255,255,.34)" stroke-width="1"/><text x="674" y="334" font-size="14.5" font-weight="900" fill="#9ff2ee" text-anchor="start">D &#183; DIABETES INSIPIDUS</text><text x="674" y="358" font-size="11" font-weight="800" fill="#ffffff" text-anchor="start">no ADH &#8594; the duct cannot pull water back</text><text x="674" y="382" font-size="11.5" font-weight="900" fill="#9ff2ee" text-anchor="start">huge volumes of very DILUTE urine</text><path d="M512 380 L652 354" stroke="#9ff2ee" stroke-width="2.4" fill="none" opacity=".8"/><circle cx="512" cy="380" r="9" fill="none" stroke="#9ff2ee" stroke-width="3"/></g><rect x="26" y="534" width="926" height="84" rx="9" fill="rgba(6,4,14,.80)" stroke="rgba(255,255,255,.34)" stroke-width="1"/><text x="44" y="560" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="start">MEMORY: DI = &#8220;Dry Inside&#8221; &#183; DKA = &#8220;D for Dry&#8221; &#183; diuretics end in &#8220;-ide&#8221; = the body is dried</text><text x="44" y="583" font-size="12" font-weight="800" fill="#ffffff" text-anchor="start">All three lose water FASTER than sodium, so the patient ends up dry AND hypernatraemic.</text><text x="44" y="605" font-size="11.5" font-weight="900" fill="#a5f3d4" text-anchor="start">Sodium (typical adult) 135&#8211;145 mEq/L &#183; potassium 3.5&#8211;5.0 mEq/L</text></svg>
+      <div class="mn">🧠 <b>DI = “Dry Inside.” DKA = “D for Dry.” Diuretics end in “-ide” = the body is dr-ied.</b></div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>💧 D #1 — Diabetes insipidus</h3>
+      <p><b>Not diabetes mellitus.</b> There is no sugar problem here at all — the problem is <b>no ADH</b>
+      (or kidneys that cannot respond to it).</p>
+      <ul class="tick">
+        <li>The collecting duct cannot pull water back → <b>litres of very dilute urine</b>.</li>
+        <li>Urine specific gravity is <b>LOW</b> (dilute); serum sodium and osmolality climb.</li>
+        <li>The patient is desperately thirsty and cannot keep up.</li>
+      </ul>
+      <div class="mn">🧠 <b>“DI = Dilute In the toilet, Dry Inside.”</b> Opposite of SIADH, which holds water in.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🍬 D #2 — DKA and osmotic diuresis</h3>
+      <p>Blood glucose climbs so high that sugar spills into the filtrate. Sugar is an <b>osmotic particle</b>, so it
+      drags water out with it into the urine.</p>
+      <ul class="tick">
+        <li>Classic story: <b>polyuria, polydipsia, polyphagia</b> — peeing, drinking, eating.</li>
+        <li><b>Kussmaul respirations</b> (deep and fast) blow off acid — and add to the insensible water loss.</li>
+        <li>Often triggered by an <b>infection</b>, which adds fever and more losses on top.</li>
+      </ul>
+      <p>The patient loses water, sodium <i>and</i> potassium at the same time, so the potassium picture is a trap:
+      total body potassium is <b>low</b> even when the first lab looks normal or high.</p>
+      <div class="mn">🧠 <b>“Sugar is a sponge in the urine.”</b> It carries water out of the body with it.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>💊 D #3 — Diuretics</h3>
+      <p>These are the losses <b>we cause on purpose</b> — and the ones we most often overshoot.</p>
+      <ul class="tick">
+        <li><b>Loop diuretics</b> (e.g. furosemide) act on the loop of Henle. Strongest effect; potassium is wasted.</li>
+        <li><b>Thiazides</b> (e.g. hydrochlorothiazide) act on the distal tubule. Gentler; potassium also wasted.</li>
+        <li><b>Potassium-sparing</b> agents lose water without losing potassium — the risk flips to <b>hyper</b>kalaemia.</li>
+      </ul>
+      <p class="never">Never give a scheduled diuretic without checking the potassium, the blood pressure and yesterday's weight.</p>
+      <div class="xref"><span class="pill">DRUG PAGES</span>
+      <a href="../renal/NG-113_diuretics-loop.html">Loop</a> ·
+      <a href="../renal/NG-198_diuretics-thiazides.html">Thiazide</a> ·
+      <a href="../renal/NG-181_diuretics-potassium-sparing.html">K-sparing</a> ·
+      <a href="../renal/NG-150_diuretics-osmotic.html">Osmotic</a></div>
+      <div class="mn">🧠 <b>Potassium 3.5–5.0 mEq/L.</b> Loops and thiazides push it DOWN; sparing agents push it UP.</div>
+    </div>
+
+    <div class="card emerald">
+      <h3>🤮 The gut losses — and what goes with the water</h3>
+      <div class="tblwrap"><table>
+        <tr><th class="lo">ROUTE</th><th class="up">ALSO LOSES</th><th class="up">ACID–BASE RESULT</th></tr>
+        <tr><td><b>Vomiting / NG suction</b></td><td>Hydrogen ions (acid), chloride, potassium</td><td>Metabolic <b>ALKALOSIS</b></td></tr>
+        <tr><td><b>Diarrhoea</b></td><td>Bicarbonate (base), potassium</td><td>Metabolic <b>ACIDOSIS</b></td></tr>
+        <tr><td><b>Fistula / drains / ostomy</b></td><td>Depends on the site; often large volumes</td><td>Variable — measure it</td></tr>
+      </table></div>
+      <p><b>Both</b> ends lose potassium. Any patient with prolonged vomiting or diarrhoea is a hypokalaemia risk.</p>
+      <div class="mn">🧠 <b>“Vomit up = pH up. Diarrhoea down = pH down.”</b> The direction the fluid leaves matches the pH.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🔥 Burns — the fastest fluid loss in nursing</h3>
+      <p>Burnt skin is no longer a barrier, and the injured capillaries leak <b>plasma and albumin</b>, not just water.</p>
+      <ul class="tick">
+        <li>Losses are largest in the <b>first 24–48 hours</b>, then the fluid starts to shift back.</li>
+        <li>Fluid resuscitation is calculated by formula against <b>body weight and % body surface area burnt</b> —
+        follow the ordered protocol; do not estimate.</li>
+        <li><b>Urine output</b> is the main bedside measure of whether resuscitation is working.</li>
+      </ul>
+      <div class="mn">🧠 <b>“No skin, no lid.”</b> Water evaporates straight off a burn, hour after hour.</div>
+    </div>
+
+    <div class="card deep">
+      <h3>➕ The losses the source sheets forget</h3>
+      <ul class="tick">
+        <li><b>Haemorrhage</b> — losing whole blood, so haemoglobin and haematocrit fall instead of rising.</li>
+        <li><b>NPO / no access to water</b> — a confused, sedated, aphasic or restrained patient cannot ask for a drink.</li>
+        <li><b>Fever &amp; tachypnoea</b> — every degree of fever and every fast breath adds insensible loss.</li>
+        <li><b>Bowel prep and contrast studies</b> — a scheduled, predictable, preventable deficit.</li>
+        <li><b>Wound drains, chest tubes, paracentesis</b> — measured, but easy to leave off the total.</li>
+        <li><b>Hyperventilation and mouth-breathing</b> on high-flow oxygen dries mucous membranes fast.</li>
+      </ul>
+      <div class="mn">🧠 <b>“Who can't ask for water?”</b> Ask that on every shift — it prevents more deficits than any drug.</div>
+    </div>
+
+    <div class="card topaz span2">
+      <h3>🧭 Not all dry is the same — the tonicity of the loss</h3>
+      <svg viewBox="0 0 980 490" role="img" aria-label="Three compartment bar charts comparing isotonic dehydration where water and sodium are lost together, hypertonic dehydration where more water than sodium is lost so cells shrink, and hypotonic dehydration where more sodium than water is lost so cells swell."><defs>
+<filter id="ltdr" x="-30%" y="-30%" width="170%" height="170%"><feGaussianBlur in="SourceAlpha" stdDeviation="5"/>
+<feOffset dy="5" result="o"/><feFlood flood-color="#000" flood-opacity=".55"/><feComposite in2="o" operator="in" result="sh"/>
+<feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<filter id="ltsf" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5"/></filter>
+<filter id="ltgl" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="3" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<radialGradient id="ltcell" cx=".36" cy=".28" r=".92" fx=".28" fy=".2">
+<stop offset="0" stop-color="#cfe4ff"/><stop offset=".22" stop-color="#7fa8f5"/>
+<stop offset=".55" stop-color="#3d63c4"/><stop offset=".82" stop-color="#1e3272"/>
+<stop offset="1" stop-color="#0d1738"/></radialGradient>
+<radialGradient id="ltrbc" cx=".36" cy=".3" r=".9" fx=".28" fy=".22">
+<stop offset="0" stop-color="#ffb9c6"/><stop offset=".25" stop-color="#f2607f"/>
+<stop offset=".6" stop-color="#c0203f"/><stop offset=".88" stop-color="#7c0f26"/>
+<stop offset="1" stop-color="#4a0616"/></radialGradient>
+<linearGradient id="ltart" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff8ea3"/>
+<stop offset=".35" stop-color="#d92a52"/><stop offset=".72" stop-color="#a4467f"/>
+<stop offset="1" stop-color="#2f6bff"/></linearGradient>
+<linearGradient id="ltpl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe9a8"/>
+<stop offset=".5" stop-color="#f0c04c"/><stop offset="1" stop-color="#9c6c10"/></linearGradient>
+<radialGradient id="ltisf" cx=".5" cy=".4" r=".8"><stop offset="0" stop-color="#1a6f74"/>
+<stop offset=".6" stop-color="#0e4a52"/><stop offset="1" stop-color="#062a31"/></radialGradient>
+<marker id="lta" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#ffe49a"/></marker>
+<marker id="ltag" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#a5f3d4"/></marker>
+<marker id="ltar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#ff8fa8"/></marker>
+</defs><rect x="4" y="4" width="972" height="482" rx="20" fill="rgba(0,0,0,.22)" stroke="#ffc233" stroke-width="2" stroke-dasharray="8 7" opacity=".9"/><text x="26" y="34" font-size="19" font-weight="900" fill="#ffe9b8" text-anchor="start">NOT ALL DRY IS THE SAME &#183; three flavours of fluid loss</text><text x="26" y="55" font-size="13" font-weight="700" fill="#ffd9a0" text-anchor="start" font-style="italic">What matters is the RATIO of water lost to sodium lost &#8212; that decides where the cells end up.</text><rect x="30" y="76" width="284" height="330" rx="16" fill="rgba(13,8,26,.55)" stroke="rgba(255,255,255,.26)"/><text x="172" y="102" font-size="16" font-weight="900" fill="#a5f3d4" text-anchor="middle">ISOTONIC</text><text x="172" y="122" font-size="11.5" font-weight="800" fill="#ffffff" text-anchor="middle">water and sodium lost TOGETHER</text><text x="60" y="141" font-size="10.5" font-weight="800" fill="#ffffff" text-anchor="start">ECF &#183; the pipes</text><text x="284" y="141" font-size="10.5" font-weight="900" fill="#00c2c7" text-anchor="end">reduced</text><rect x="60" y="148" width="224" height="30" rx="8" fill="rgba(255,255,255,.10)" stroke="rgba(255,255,255,.25)"/><rect x="60" y="148" width="116" height="30" rx="8" fill="#00c2c7" opacity=".88"/><path d="M221 145 L221 181" stroke="#ffe49a" stroke-width="2" stroke-dasharray="4 4"/><text x="60" y="203" font-size="10.5" font-weight="800" fill="#ffffff" text-anchor="start">ICF &#183; the cells</text><text x="284" y="203" font-size="10.5" font-weight="900" fill="#2f6bff" text-anchor="end">unchanged</text><rect x="60" y="210" width="224" height="30" rx="8" fill="rgba(255,255,255,.10)" stroke="rgba(255,255,255,.25)"/><rect x="60" y="210" width="175" height="30" rx="8" fill="#2f6bff" opacity=".88"/><path d="M235 207 L235 243" stroke="#ffe49a" stroke-width="2" stroke-dasharray="4 4"/><text x="60" y="290" font-size="10" font-weight="800" fill="#ffe49a" text-anchor="start">&#124; dashed line = normal volume</text><rect x="60" y="300" width="224" height="30" rx="8" fill="rgba(255,194,51,.28)" stroke="rgba(255,255,255,.28)"/><text x="172.0" y="320" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="middle">Na 135&#8211;145 &#183; NORMAL</text><text x="172" y="352" font-size="11.5" font-weight="900" fill="#a5f3d4" text-anchor="middle">cells stay the SAME size</text><text x="172" y="372" font-size="10.5" font-weight="800" fill="#ffffff" text-anchor="middle">haemorrhage, vomiting, diarrhoea, burns</text><rect x="348" y="76" width="284" height="330" rx="16" fill="rgba(13,8,26,.55)" stroke="rgba(255,255,255,.26)"/><text x="490" y="102" font-size="16" font-weight="900" fill="#ff9db4" text-anchor="middle">HYPERTONIC</text><text x="490" y="122" font-size="11.5" font-weight="800" fill="#ffffff" text-anchor="middle">more WATER lost than sodium</text><text x="378" y="141" font-size="10.5" font-weight="800" fill="#ffffff" text-anchor="start">ECF &#183; the pipes</text><text x="602" y="141" font-size="10.5" font-weight="900" fill="#00c2c7" text-anchor="end">reduced</text><rect x="378" y="148" width="224" height="30" rx="8" fill="rgba(255,255,255,.10)" stroke="rgba(255,255,255,.25)"/><rect x="378" y="148" width="99" height="30" rx="8" fill="#00c2c7" opacity=".88"/><path d="M539 145 L539 181" stroke="#ffe49a" stroke-width="2" stroke-dasharray="4 4"/><text x="378" y="203" font-size="10.5" font-weight="800" fill="#ffffff" text-anchor="start">ICF &#183; the cells</text><text x="602" y="203" font-size="10.5" font-weight="900" fill="#2f6bff" text-anchor="end">SHRUNKEN</text><rect x="378" y="210" width="224" height="30" rx="8" fill="rgba(255,255,255,.10)" stroke="rgba(255,255,255,.25)"/><rect x="378" y="210" width="116" height="30" rx="8" fill="#2f6bff" opacity=".88"/><path d="M553 207 L553 243" stroke="#ffe49a" stroke-width="2" stroke-dasharray="4 4"/><text x="378" y="290" font-size="10" font-weight="800" fill="#ffe49a" text-anchor="start">&#124; dashed line = normal volume</text><rect x="378" y="300" width="224" height="30" rx="8" fill="rgba(255,194,51,.28)" stroke="rgba(255,255,255,.28)"/><text x="490.0" y="320" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="middle">Na &#62;145 &#183; HIGH</text><text x="490" y="352" font-size="11.5" font-weight="900" fill="#ff9db4" text-anchor="middle">water leaves the cells &#8594; cells SHRINK</text><text x="490" y="372" font-size="10.5" font-weight="800" fill="#ffffff" text-anchor="middle">fever, DI, osmotic diuresis, no water</text><text x="490" y="387" font-size="10.5" font-weight="800" fill="#ffffff" text-anchor="middle">intake</text><rect x="666" y="76" width="284" height="330" rx="16" fill="rgba(13,8,26,.55)" stroke="rgba(255,255,255,.26)"/><text x="808" y="102" font-size="16" font-weight="900" fill="#7de3ff" text-anchor="middle">HYPOTONIC</text><text x="808" y="122" font-size="11.5" font-weight="800" fill="#ffffff" text-anchor="middle">more SODIUM lost than water</text><text x="696" y="141" font-size="10.5" font-weight="800" fill="#ffffff" text-anchor="start">ECF &#183; the pipes</text><text x="920" y="141" font-size="10.5" font-weight="900" fill="#00c2c7" text-anchor="end">reduced most</text><rect x="696" y="148" width="224" height="30" rx="8" fill="rgba(255,255,255,.10)" stroke="rgba(255,255,255,.25)"/><rect x="696" y="148" width="76" height="30" rx="8" fill="#00c2c7" opacity=".88"/><path d="M857 145 L857 181" stroke="#ffe49a" stroke-width="2" stroke-dasharray="4 4"/><text x="696" y="203" font-size="10.5" font-weight="800" fill="#ffffff" text-anchor="start">ICF &#183; the cells</text><text x="920" y="203" font-size="10.5" font-weight="900" fill="#2f6bff" text-anchor="end">SWOLLEN</text><rect x="696" y="210" width="224" height="30" rx="8" fill="rgba(255,255,255,.10)" stroke="rgba(255,255,255,.25)"/><rect x="696" y="210" width="215" height="30" rx="8" fill="#2f6bff" opacity=".88"/><path d="M871 207 L871 243" stroke="#ffe49a" stroke-width="2" stroke-dasharray="4 4"/><text x="696" y="290" font-size="10" font-weight="800" fill="#ffe49a" text-anchor="start">&#124; dashed line = normal volume</text><rect x="696" y="300" width="224" height="30" rx="8" fill="rgba(255,194,51,.28)" stroke="rgba(255,255,255,.28)"/><text x="808.0" y="320" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="middle">Na &#60;135 &#183; LOW</text><text x="808" y="352" font-size="11.5" font-weight="900" fill="#7de3ff" text-anchor="middle">water enters the cells &#8594; cells SWELL</text><text x="808" y="372" font-size="10.5" font-weight="800" fill="#ffffff" text-anchor="middle">over-use of diuretics, replacing losses</text><text x="808" y="387" font-size="10.5" font-weight="800" fill="#ffffff" text-anchor="middle">with plain water</text><text x="26" y="436" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="start">&#9733; ISOTONIC is by far the most common: whole fluid goes out &#8212; blood, vomit, diarrhoea, burn exudate.</text><text x="26" y="460" font-size="12.5" font-weight="800" fill="#ffffff" text-anchor="start">So the sodium reads NORMAL while the patient is clearly dry &#8212; you can never rule out FVD on a normal sodium alone.</text></svg>
+      <div class="mn">🧠 <b>Isotonic = the pipes empty, the cells are fine. Hypertonic = the cells shrink.
+      Hypotonic = the cells swell.</b> Only the last two put the BRAIN at risk.</div>
+    </div>
+
+  </div>
+</section>
+
+<section id="third">
+  <div class="sec-h"><span class="icon">🎈</span><h2>THIRD SPACING — THE FLUID YOU CAN'T FIND</h2><span class="step">STEP 3 · THE TRAP</span></div>
+  <p class="sec-sub">The fluid is still in the body. It is just in a compartment that does nothing useful.</p>
+  <div class="grid">
+
+    <div class="card citrinec span2">
+      <h3>🎈 Where the fluid actually goes</h3>
+      <svg viewBox="0 0 980 520" role="img" aria-label="Two abdominal cross-sections side by side. On the left a normal abdomen with a full blood vessel. On the right the same abdomen with litres of fluid pooled in the peritoneal cavity as ascites while the blood vessel has collapsed, showing that body weight rises while circulating volume falls."><defs>
+<filter id="thdr" x="-30%" y="-30%" width="170%" height="170%"><feGaussianBlur in="SourceAlpha" stdDeviation="5"/>
+<feOffset dy="5" result="o"/><feFlood flood-color="#000" flood-opacity=".55"/><feComposite in2="o" operator="in" result="sh"/>
+<feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<filter id="thsf" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5"/></filter>
+<filter id="thgl" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="3" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<radialGradient id="thcell" cx=".36" cy=".28" r=".92" fx=".28" fy=".2">
+<stop offset="0" stop-color="#cfe4ff"/><stop offset=".22" stop-color="#7fa8f5"/>
+<stop offset=".55" stop-color="#3d63c4"/><stop offset=".82" stop-color="#1e3272"/>
+<stop offset="1" stop-color="#0d1738"/></radialGradient>
+<radialGradient id="thrbc" cx=".36" cy=".3" r=".9" fx=".28" fy=".22">
+<stop offset="0" stop-color="#ffb9c6"/><stop offset=".25" stop-color="#f2607f"/>
+<stop offset=".6" stop-color="#c0203f"/><stop offset=".88" stop-color="#7c0f26"/>
+<stop offset="1" stop-color="#4a0616"/></radialGradient>
+<linearGradient id="thart" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff8ea3"/>
+<stop offset=".35" stop-color="#d92a52"/><stop offset=".72" stop-color="#a4467f"/>
+<stop offset="1" stop-color="#2f6bff"/></linearGradient>
+<linearGradient id="thpl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe9a8"/>
+<stop offset=".5" stop-color="#f0c04c"/><stop offset="1" stop-color="#9c6c10"/></linearGradient>
+<radialGradient id="thisf" cx=".5" cy=".4" r=".8"><stop offset="0" stop-color="#1a6f74"/>
+<stop offset=".6" stop-color="#0e4a52"/><stop offset="1" stop-color="#062a31"/></radialGradient>
+<marker id="tha" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#ffe49a"/></marker>
+<marker id="thag" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#a5f3d4"/></marker>
+<marker id="thar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#ff8fa8"/></marker>
+</defs><rect x="4" y="4" width="972" height="512" rx="20" fill="rgba(0,0,0,.22)" stroke="#ffc233" stroke-width="2" stroke-dasharray="8 7" opacity=".9"/><text x="26" y="34" font-size="19" font-weight="900" fill="#ffe9b8" text-anchor="start">THIRD SPACING &#183; the fluid you cannot use</text><text x="26" y="55" font-size="13" font-weight="700" fill="#ffd9a0" text-anchor="start" font-style="italic">Abdominal cross-section. The water is still inside the patient &#8212; just not in the pipes.</text><rect x="30" y="74" width="450" height="330" rx="16" fill="rgba(18,184,134,.16)" stroke="rgba(255,255,255,.26)"/><text x="255" y="104" font-size="15" font-weight="900" fill="#a5f3d4" text-anchor="middle">NORMAL</text><g filter="url(#thdr)"><ellipse cx="255" cy="262" rx="150" ry="96" fill="#e0a074" stroke="#7a4423" stroke-width="2.4"/></g><ellipse cx="255" cy="262" rx="134" ry="82" fill="#f3c99c" opacity=".55"/><ellipse cx="255" cy="262" rx="124" ry="72" fill="rgba(24,16,44,.75)" stroke="#7a4423" stroke-width="1.6"/><circle cx="177" cy="226" r="21" fill="#c98a5a" stroke="#7a4423" stroke-width="1.6" opacity="1"/><circle cx="171" cy="220" r="7" fill="#fff" opacity=".14"/><circle cx="217" cy="252" r="21" fill="#c98a5a" stroke="#7a4423" stroke-width="1.6" opacity="1"/><circle cx="211" cy="246" r="7" fill="#fff" opacity=".14"/><circle cx="257" cy="226" r="21" fill="#c98a5a" stroke="#7a4423" stroke-width="1.6" opacity="1"/><circle cx="251" cy="220" r="7" fill="#fff" opacity=".14"/><circle cx="297" cy="252" r="21" fill="#c98a5a" stroke="#7a4423" stroke-width="1.6" opacity="1"/><circle cx="291" cy="246" r="7" fill="#fff" opacity=".14"/><circle cx="337" cy="226" r="21" fill="#c98a5a" stroke="#7a4423" stroke-width="1.6" opacity="1"/><circle cx="331" cy="220" r="7" fill="#fff" opacity=".14"/><ellipse cx="255" cy="324" rx="26" ry="20" fill="#e6e0d0" stroke="#8a8270" stroke-width="1.6"/><circle cx="221" cy="318" r="15" fill="#c0203f" stroke="#4a0616" stroke-width="1.6"/><circle cx="289" cy="318" r="13" fill="#2f6bff" stroke="#12306f" stroke-width="1.6"/><text x="221" y="380" font-size="11" font-weight="900" fill="#ffb3c6" text-anchor="middle">aorta</text><text x="289" y="380" font-size="11" font-weight="900" fill="#bcd0ff" text-anchor="middle">IVC</text><text x="255" y="388" font-size="12.5" font-weight="900" fill="#a5f3d4" text-anchor="middle">fluid stays in the vessels where it works</text><rect x="500" y="74" width="450" height="330" rx="16" fill="rgba(255,59,107,.16)" stroke="rgba(255,255,255,.26)"/><text x="725" y="104" font-size="15" font-weight="900" fill="#ff9db4" text-anchor="middle">THIRD SPACED &#183; ASCITES</text><g filter="url(#thdr)"><ellipse cx="725" cy="262" rx="176" ry="112" fill="#e0a074" stroke="#7a4423" stroke-width="2.4"/></g><ellipse cx="725" cy="262" rx="160" ry="98" fill="#f3c99c" opacity=".55"/><ellipse cx="725" cy="262" rx="150" ry="88" fill="rgba(0,140,150,.85)" stroke="#7a4423" stroke-width="1.6"/><ellipse cx="595" cy="206" rx="9" ry="6" fill="#9ff2ee" opacity=".35"/><ellipse cx="656" cy="249" rx="9" ry="6" fill="#9ff2ee" opacity=".35"/><ellipse cx="717" cy="292" rx="9" ry="6" fill="#9ff2ee" opacity=".35"/><ellipse cx="778" cy="223" rx="9" ry="6" fill="#9ff2ee" opacity=".35"/><ellipse cx="839" cy="266" rx="9" ry="6" fill="#9ff2ee" opacity=".35"/><ellipse cx="640" cy="309" rx="9" ry="6" fill="#9ff2ee" opacity=".35"/><ellipse cx="701" cy="240" rx="9" ry="6" fill="#9ff2ee" opacity=".35"/><ellipse cx="762" cy="283" rx="9" ry="6" fill="#9ff2ee" opacity=".35"/><ellipse cx="823" cy="214" rx="9" ry="6" fill="#9ff2ee" opacity=".35"/><ellipse cx="624" cy="257" rx="9" ry="6" fill="#9ff2ee" opacity=".35"/><ellipse cx="685" cy="300" rx="9" ry="6" fill="#9ff2ee" opacity=".35"/><ellipse cx="746" cy="231" rx="9" ry="6" fill="#9ff2ee" opacity=".35"/><ellipse cx="807" cy="274" rx="9" ry="6" fill="#9ff2ee" opacity=".35"/><ellipse cx="608" cy="317" rx="9" ry="6" fill="#9ff2ee" opacity=".35"/><ellipse cx="669" cy="248" rx="9" ry="6" fill="#9ff2ee" opacity=".35"/><ellipse cx="730" cy="291" rx="9" ry="6" fill="#9ff2ee" opacity=".35"/><ellipse cx="791" cy="222" rx="9" ry="6" fill="#9ff2ee" opacity=".35"/><ellipse cx="852" cy="265" rx="9" ry="6" fill="#9ff2ee" opacity=".35"/><ellipse cx="653" cy="308" rx="9" ry="6" fill="#9ff2ee" opacity=".35"/><ellipse cx="714" cy="239" rx="9" ry="6" fill="#9ff2ee" opacity=".35"/><ellipse cx="775" cy="282" rx="9" ry="6" fill="#9ff2ee" opacity=".35"/><ellipse cx="836" cy="213" rx="9" ry="6" fill="#9ff2ee" opacity=".35"/><ellipse cx="637" cy="256" rx="9" ry="6" fill="#9ff2ee" opacity=".35"/><ellipse cx="698" cy="299" rx="9" ry="6" fill="#9ff2ee" opacity=".35"/><circle cx="647" cy="226" r="21" fill="#c98a5a" stroke="#7a4423" stroke-width="1.6" opacity="0.75"/><circle cx="641" cy="220" r="7" fill="#fff" opacity=".14"/><circle cx="687" cy="252" r="21" fill="#c98a5a" stroke="#7a4423" stroke-width="1.6" opacity="0.75"/><circle cx="681" cy="246" r="7" fill="#fff" opacity=".14"/><circle cx="727" cy="226" r="21" fill="#c98a5a" stroke="#7a4423" stroke-width="1.6" opacity="0.75"/><circle cx="721" cy="220" r="7" fill="#fff" opacity=".14"/><circle cx="767" cy="252" r="21" fill="#c98a5a" stroke="#7a4423" stroke-width="1.6" opacity="0.75"/><circle cx="761" cy="246" r="7" fill="#fff" opacity=".14"/><circle cx="807" cy="226" r="21" fill="#c98a5a" stroke="#7a4423" stroke-width="1.6" opacity="0.75"/><circle cx="801" cy="220" r="7" fill="#fff" opacity=".14"/><ellipse cx="725" cy="324" rx="26" ry="20" fill="#e6e0d0" stroke="#8a8270" stroke-width="1.6"/><circle cx="691" cy="318" r="8" fill="#c0203f" stroke="#4a0616" stroke-width="1.6"/><circle cx="759" cy="318" r="6" fill="#2f6bff" stroke="#12306f" stroke-width="1.6"/><text x="691" y="396" font-size="11" font-weight="900" fill="#ffb3c6" text-anchor="middle">aorta</text><text x="759" y="396" font-size="11" font-weight="900" fill="#bcd0ff" text-anchor="middle">IVC</text><text x="725" y="126" font-size="12" font-weight="900" fill="#9ff2ee" text-anchor="middle">LITRES of fluid in the peritoneal cavity</text><path d="M691 296 L691 306" stroke="#ff8fa8" stroke-width="3" fill="none" marker-end="url(#thar)"/><text x="725" y="388" font-size="12.5" font-weight="900" fill="#ff9db4" text-anchor="middle">belly UP &#183; circulating volume DOWN</text><rect x="26" y="424" width="216" height="72" rx="12" fill="rgba(13,8,26,.62)" stroke="rgba(255,255,255,.28)"/><text x="40" y="452" font-size="14" font-weight="900" fill="#ffe49a" text-anchor="start">&#8593; WEIGHT</text><text x="40" y="476" font-size="11" font-weight="800" fill="#ffffff" text-anchor="start">the fluid still weighs the same</text><rect x="260" y="424" width="216" height="72" rx="12" fill="rgba(13,8,26,.62)" stroke="rgba(255,255,255,.28)"/><text x="274" y="452" font-size="14" font-weight="900" fill="#ff9db4" text-anchor="start">&#8595; BLOOD PRESSURE</text><text x="274" y="476" font-size="11" font-weight="800" fill="#ffffff" text-anchor="start">the pipes are underfilled</text><rect x="494" y="424" width="216" height="72" rx="12" fill="rgba(13,8,26,.62)" stroke="rgba(255,255,255,.28)"/><text x="508" y="452" font-size="14" font-weight="900" fill="#ff9db4" text-anchor="start">&#8593; HEART RATE</text><text x="508" y="476" font-size="11" font-weight="800" fill="#ffffff" text-anchor="start">compensating for the low volume</text><rect x="728" y="424" width="216" height="72" rx="12" fill="rgba(13,8,26,.62)" stroke="rgba(255,255,255,.28)"/><text x="742" y="452" font-size="14" font-weight="900" fill="#7de3ff" text-anchor="start">&#8595; URINE OUTPUT</text><text x="742" y="476" font-size="11" font-weight="800" fill="#ffffff" text-anchor="start">kidneys see low flow and hold on</text></svg>
+      <div class="mn">🧠 <b>“Heavy but empty.”</b> The scale goes UP while the blood pressure goes DOWN.
+      That combination is the signature of third spacing.</div>
+    </div>
+
+    <div class="card deep">
+      <h3>🏷️ What counts as a “third space”</h3>
+      <p>The first space is <b>intracellular</b>. The second is <b>intravascular</b>. Anywhere else the fluid
+      collects is a third space:</p>
+      <ul class="tick">
+        <li><b>Peritoneal cavity</b> → ascites (liver failure, cancer, heart failure)</li>
+        <li><b>Pleural space</b> → pleural effusion</li>
+        <li><b>Interstitium</b> → generalised oedema / anasarca</li>
+        <li><b>Bowel lumen</b> → ileus and obstruction (litres can sit in a paralysed gut)</li>
+        <li><b>Injured tissue</b> → burns, crush injury, big surgical fields, pancreatitis</li>
+      </ul>
+      <div class="mn">🧠 <b>“First cell, second vessel, third nowhere useful.”</b></div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🚨 Why it is dangerous</h3>
+      <p>Third-spaced fluid <b>does not circulate</b>. So the patient can be:</p>
+      <ul class="tick">
+        <li><b>Fluid-overloaded on the outside</b> — swollen, heavy, tight skin, a big belly.</li>
+        <li><b>Fluid-depleted on the inside</b> — tachycardic, hypotensive, oliguric, poorly perfused.</li>
+      </ul>
+      <p>Give a diuretic to “treat the swelling” and you pull the little volume they have left out of the pipes.
+      <span class="never">Never assume visible swelling means the circulation is full.</span></p>
+      <div class="mn">🧠 <b>“Swollen ≠ full.”</b> Check the pulse, the BP and the urine output before you judge volume.</div>
+    </div>
+
+    <div class="card emerald">
+      <h3>⏳ It happens in two phases — and the second one is the trap</h3>
+      <div class="stepnum">
+        <div class="snrow"><div class="k">1</div><div class="v"><b>LOSS phase.</b> Fluid shifts out of the vessels into the third space. The patient looks <b>dry</b> inside: fast pulse, low BP, low urine output — while gaining weight.</div></div>
+        <div class="snrow"><div class="k">2</div><div class="v"><b>MOBILISATION phase.</b> Days later the fluid shifts back into the circulation. Now the risk flips to <b>fluid OVERLOAD</b> — crackles, bounding pulses, rising BP, big diuresis.</div></div>
+      </div>
+      <p style="margin-top:8px">The IV fluids that were exactly right in phase 1 can drown the patient in phase 2.
+      <mark>Watch daily weights and lung sounds across both phases.</mark></p>
+      <div class="mn">🧠 <b>“Out, then back.”</b> Fluid that left the pipes always tries to come home.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🧪 What the labs do in third spacing</h3>
+      <ul class="tick">
+        <li><b>Haematocrit rises</b> — plasma left the vessel but the red cells didn't, so the blood is concentrated.</li>
+        <li><b>BUN rises</b> out of proportion to creatinine — a classic pre-renal pattern.</li>
+        <li><b>Albumin is often low</b> — and low albumin is frequently what caused the shift in the first place.</li>
+        <li><b>Sodium is unreliable</b> — it depends on what was lost with the water.</li>
+      </ul>
+      <div class="mn">🧠 <b>“Concentrated blood, empty patient.”</b> High Hct + low BP = the fluid is somewhere else.</div>
+    </div>
+
+    <div class="card tealc">
+      <h3>✅ What the nurse actually does</h3>
+      <ul class="tick">
+        <li><b>Daily weight</b>, same scale, same time, same clothing — the single best measure.</li>
+        <li><b>Abdominal girth</b> daily, marked at the same spot, if ascites is present.</li>
+        <li><b>Strict I&amp;O</b>, including drains and ostomy output.</li>
+        <li><b>Vital signs and urine output trends</b> — these tell you about the circulation, not the swelling.</li>
+        <li><b>Skin care</b> — oedematous skin tears and breaks down fast.</li>
+      </ul>
+      <div class="xref"><span class="pill">NEXT PAGE</span> Exactly how to do each of these, with the numbers:
+      <a href="NG-059_fluid-balance-3.html">NG-059 · Fluid Balance III</a>.</div>
+      <div class="mn">🧠 <b>Weight is water.</b> <span class="mono">1 kg = 1 L</span>. The scale never lies about fluid.</div>
+    </div>
+
+  </div>
+</section>
+
+<section id="comp">
+  <div class="sec-h"><span class="icon">🛡️</span><h2>HOW THE BODY FIGHTS BACK</h2><span class="step">STEP 4 · COMPENSATION</span></div>
+  <p class="sec-sub">Compensation is why a dry patient can look fine — and why they crash without warning.</p>
+  <div class="grid">
+
+    <div class="card emerald span2">
+      <h3>🛡️ Four compensations, in order of speed</h3>
+      <svg viewBox="0 0 980 560" role="img" aria-label="A compensation circuit: baroreceptors in the carotid and aortic arch sense low pressure, the heart speeds up and vessels clamp down, the kidney releases renin starting the RAAS cascade and aldosterone saves salt, the pituitary releases ADH so the kidney saves water, and the thirst centre in the brain switches on."><defs>
+<filter id="cpdr" x="-30%" y="-30%" width="170%" height="170%"><feGaussianBlur in="SourceAlpha" stdDeviation="5"/>
+<feOffset dy="5" result="o"/><feFlood flood-color="#000" flood-opacity=".55"/><feComposite in2="o" operator="in" result="sh"/>
+<feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<filter id="cpsf" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5"/></filter>
+<filter id="cpgl" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="3" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<radialGradient id="cpcell" cx=".36" cy=".28" r=".92" fx=".28" fy=".2">
+<stop offset="0" stop-color="#cfe4ff"/><stop offset=".22" stop-color="#7fa8f5"/>
+<stop offset=".55" stop-color="#3d63c4"/><stop offset=".82" stop-color="#1e3272"/>
+<stop offset="1" stop-color="#0d1738"/></radialGradient>
+<radialGradient id="cprbc" cx=".36" cy=".3" r=".9" fx=".28" fy=".22">
+<stop offset="0" stop-color="#ffb9c6"/><stop offset=".25" stop-color="#f2607f"/>
+<stop offset=".6" stop-color="#c0203f"/><stop offset=".88" stop-color="#7c0f26"/>
+<stop offset="1" stop-color="#4a0616"/></radialGradient>
+<linearGradient id="cpart" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff8ea3"/>
+<stop offset=".35" stop-color="#d92a52"/><stop offset=".72" stop-color="#a4467f"/>
+<stop offset="1" stop-color="#2f6bff"/></linearGradient>
+<linearGradient id="cppl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe9a8"/>
+<stop offset=".5" stop-color="#f0c04c"/><stop offset="1" stop-color="#9c6c10"/></linearGradient>
+<radialGradient id="cpisf" cx=".5" cy=".4" r=".8"><stop offset="0" stop-color="#1a6f74"/>
+<stop offset=".6" stop-color="#0e4a52"/><stop offset="1" stop-color="#062a31"/></radialGradient>
+<marker id="cpa" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#ffe49a"/></marker>
+<marker id="cpag" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#a5f3d4"/></marker>
+<marker id="cpar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#ff8fa8"/></marker>
+</defs><rect x="4" y="4" width="972" height="552" rx="20" fill="rgba(0,0,0,.22)" stroke="#ffc233" stroke-width="2" stroke-dasharray="8 7" opacity=".9"/><text x="26" y="34" font-size="19" font-weight="900" fill="#ffe9b8" text-anchor="start">THE BODY FIGHTS BACK &#183; four compensations, in seconds to hours</text><text x="26" y="55" font-size="13" font-weight="700" fill="#ffd9a0" text-anchor="start" font-style="italic">This is why a dry patient can look normal &#8212; right up until they don&#8217;t.</text><rect x="26" y="76" width="926" height="44" rx="12" fill="rgba(255,59,107,.45)" stroke="rgba(255,255,255,.35)"/><text x="490" y="105" font-size="16" font-weight="900" fill="#ffffff" text-anchor="middle">TRIGGER: circulating volume &#8595; &#8594; blood pressure &#8595; &#8594; baroreceptors fire</text><rect x="26" y="146" width="216" height="250" rx="15" fill="rgba(13,8,26,.62)" stroke="rgba(255,255,255,.28)" stroke-width="1.2"/><rect x="26" y="146" width="216" height="8" rx="4" fill="#ff8fa8"/><circle cx="56" cy="186" r="18" fill="#ff8fa8"/><text x="56" y="193" font-size="17" font-weight="900" fill="#140a20" text-anchor="middle">1</text><text x="84" y="192" font-size="11" font-weight="900" fill="#ff8fa8" text-anchor="start">FAST &#183; seconds</text><text x="42" y="232" font-size="14" font-weight="900" fill="#ffffff" text-anchor="start">&#9829; HEART SPEEDS UP</text><text x="42" y="254" font-size="11.5" font-weight="900" fill="#ff8fa8" text-anchor="start">tachycardia + squeeze on the vessels</text><g transform="translate(104,272) scale(.9)"><path d="M30 12 C18 -4 -4 2 0 24 C4 46 24 58 30 66 C36 58 56 46 60 24 C64 2 42 -4 30 12 Z" fill="#c0203f" stroke="#4a0616" stroke-width="2"/><path d="M14 34 L24 34 L28 22 L34 46 L38 34 L48 34" fill="none" stroke="#ffd7e0" stroke-width="3" stroke-linecap="round"/></g><text x="42" y="356" font-size="10.5" font-weight="800" fill="#ffffff" text-anchor="start">The earliest sign of fluid loss is</text><text x="42" y="372" font-size="10.5" font-weight="800" fill="#ffffff" text-anchor="start">a rising pulse, not a falling BP.</text><path d="M246 270 L256 270" stroke="#ffe49a" stroke-width="3" fill="none" marker-end="url(#cpa)"/><rect x="260" y="146" width="216" height="250" rx="15" fill="rgba(13,8,26,.62)" stroke="rgba(255,255,255,.28)" stroke-width="1.2"/><rect x="260" y="146" width="216" height="8" rx="4" fill="#9ff2ee"/><circle cx="290" cy="186" r="18" fill="#9ff2ee"/><text x="290" y="193" font-size="17" font-weight="900" fill="#140a20" text-anchor="middle">2</text><text x="318" y="192" font-size="11" font-weight="900" fill="#9ff2ee" text-anchor="start">MINUTES</text><text x="276" y="232" font-size="14" font-weight="900" fill="#ffffff" text-anchor="start">&#128167; ADH RELEASED</text><text x="276" y="254" font-size="11.5" font-weight="900" fill="#9ff2ee" text-anchor="start">pituitary &#8594; kidney holds WATER</text><g transform="translate(340,272)"><ellipse cx="26" cy="18" rx="24" ry="18" fill="#e0a074" stroke="#7a4423" stroke-width="1.6"/><circle cx="26" cy="34" r="10" fill="#ffe49a" stroke="#8a6a10" stroke-width="1.6"/><path d="M26 46 C20 56 20 66 26 66 C32 66 32 56 26 46 Z" fill="#7de3ff"/></g><text x="276" y="356" font-size="10.5" font-weight="800" fill="#ffffff" text-anchor="start">Urine gets small, dark and</text><text x="276" y="372" font-size="10.5" font-weight="800" fill="#ffffff" text-anchor="start">concentrated. Specific gravity</text><text x="276" y="388" font-size="10.5" font-weight="800" fill="#ffffff" text-anchor="start">climbs.</text><path d="M480 270 L490 270" stroke="#ffe49a" stroke-width="3" fill="none" marker-end="url(#cpa)"/><rect x="494" y="146" width="216" height="250" rx="15" fill="rgba(13,8,26,.62)" stroke="rgba(255,255,255,.28)" stroke-width="1.2"/><rect x="494" y="146" width="216" height="8" rx="4" fill="#ffe49a"/><circle cx="524" cy="186" r="18" fill="#ffe49a"/><text x="524" y="193" font-size="17" font-weight="900" fill="#140a20" text-anchor="middle">3</text><text x="552" y="192" font-size="11" font-weight="900" fill="#ffe49a" text-anchor="start">MINUTES&#8211;HOURS</text><text x="510" y="232" font-size="14" font-weight="900" fill="#ffffff" text-anchor="start">&#129474; RAAS &#8594; ALDOSTERONE</text><text x="510" y="254" font-size="11.5" font-weight="900" fill="#ffe49a" text-anchor="start">kidney holds SALT (and water follows)</text><g transform="translate(568,272)"><path d="M22 8 C6 6 0 26 4 46 C8 64 26 70 32 58 C38 44 38 10 22 8 Z" fill="#8d1c38" stroke="#4d0a1c" stroke-width="1.8"/><path d="M44 2 C34 -2 22 4 24 12 C26 20 44 16 44 2 Z" fill="#f0c04c" stroke="#7d6110" stroke-width="1.5"/><path d="M32 34 L52 34" stroke="#ffe49a" stroke-width="3" stroke-linecap="round"/></g><text x="510" y="356" font-size="10.5" font-weight="800" fill="#ffffff" text-anchor="start">Renin &#8594; angiotensin &#8594;</text><text x="510" y="372" font-size="10.5" font-weight="800" fill="#ffffff" text-anchor="start">aldosterone. Also raises BP</text><text x="510" y="388" font-size="10.5" font-weight="800" fill="#ffffff" text-anchor="start">directly.</text><path d="M714 270 L724 270" stroke="#ffe49a" stroke-width="3" fill="none" marker-end="url(#cpa)"/><rect x="728" y="146" width="216" height="250" rx="15" fill="rgba(13,8,26,.62)" stroke="rgba(255,255,255,.28)" stroke-width="1.2"/><rect x="728" y="146" width="216" height="8" rx="4" fill="#d9c2ff"/><circle cx="758" cy="186" r="18" fill="#d9c2ff"/><text x="758" y="193" font-size="17" font-weight="900" fill="#140a20" text-anchor="middle">4</text><text x="786" y="192" font-size="11" font-weight="900" fill="#d9c2ff" text-anchor="start">HOURS</text><text x="744" y="232" font-size="14" font-weight="900" fill="#ffffff" text-anchor="start">&#129380; THIRST SWITCHES ON</text><text x="744" y="254" font-size="11.5" font-weight="900" fill="#d9c2ff" text-anchor="start">hypothalamus demands a drink</text><g transform="translate(804,272)"><path d="M12 22 C4 8 24 -4 36 6 C50 -2 62 12 54 26 C60 38 48 52 34 46 C22 54 6 42 12 22 Z" fill="#d9c2ff" stroke="#5a34a0" stroke-width="1.8"/><path d="M22 62 C22 52 34 46 34 46 C34 46 46 52 46 62 C46 70 22 70 22 62 Z" fill="#7de3ff" opacity=".85"/></g><text x="744" y="356" font-size="10.5" font-weight="800" fill="#ffffff" text-anchor="start">Unreliable in the elderly, the</text><text x="744" y="372" font-size="10.5" font-weight="800" fill="#ffffff" text-anchor="start">confused and anyone who is NPO.</text><rect x="26" y="414" width="926" height="52" rx="12" fill="rgba(192,34,85,.55)" stroke="rgba(255,255,255,.4)"/><text x="490" y="446" font-size="16" font-weight="900" fill="#ffffff" text-anchor="middle">&#9888; WHEN COMPENSATION FAILS &#8594; blood pressure finally drops &#8594; HYPOVOLAEMIC SHOCK</text><text x="26" y="494" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="start">So a NORMAL blood pressure does not mean a normal volume &#8212; look at the pulse, urine output and weight trend.</text><text x="26" y="518" font-size="12.5" font-weight="800" fill="#ffffff" text-anchor="start">Compensation is weakest in infants, in older adults, and in anyone on a beta-blocker (their heart cannot speed up to help).</text><text x="26" y="540" font-size="12" font-weight="900" fill="#9ff2ee" text-anchor="start">Full detail on the hormones: see NG-054 Fluid Balance I.</text></svg>
+      <div class="mn">🧠 <b>“Beat · Hold · Salt · Sip.”</b> Heart beats faster → ADH holds water → aldosterone holds salt → thirst says sip.</div>
+    </div>
+
+    <div class="card topaz">
+      <h3>⭐ The order the vital signs change</h3>
+      <div class="ladder">
+        <div class="rung"><div class="n">1</div><div class="t"><b>Heart rate rises.</b> Earliest and most sensitive. A resting pulse that climbed 20 beats overnight is a fluid problem until proven otherwise.</div></div>
+        <div class="arrowdown">▼</div>
+        <div class="rung"><div class="n">2</div><div class="t"><b>Urine output falls.</b> The kidney holds on. Watch for output under <span class="mono">30 mL/hr</span>.</div></div>
+        <div class="arrowdown">▼</div>
+        <div class="rung"><div class="n">3</div><div class="t"><b>Orthostatic changes appear.</b> Dizzy on standing, BP drops when upright, pulse jumps.</div></div>
+        <div class="arrowdown">▼</div>
+        <div class="rung"><div class="n">4</div><div class="t"><b>Resting blood pressure falls.</b> LAST. By the time the BP is low, a lot of volume is already gone.</div></div>
+      </div>
+      <div class="mn">🧠 <b>“The pulse warns; the pressure confirms.”</b> Waiting for a low BP is waiting too long.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🚨 Who cannot compensate</h3>
+      <ul class="tick">
+        <li><b>Infants and small children</b> — huge surface area for their size, high water turnover, small reserves. They dry out in hours, not days.</li>
+        <li><b>Older adults</b> — less total body water, blunted thirst, reduced ability to concentrate urine, often on diuretics.</li>
+        <li><b>Anyone on a beta-blocker</b> — the heart <b>cannot speed up</b>, so your earliest warning sign is missing.</li>
+        <li><b>Confused, sedated, aphasic or restrained patients</b> — cannot report thirst.</li>
+        <li><b>Patients with kidney disease</b> — cannot fine-tune water and sodium at all.</li>
+      </ul>
+      <div class="mn">🧠 <b>“Very young, very old, beta-blocked.”</b> Three groups whose compensation you cannot trust.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>📉 Why compensation makes the labs confusing</h3>
+      <p>Holding on to water and salt <b>changes the numbers you are using to assess the patient</b>:</p>
+      <ul class="tick">
+        <li>ADH holds water → urine gets small, dark, <b>concentrated</b> (specific gravity climbs).</li>
+        <li>Aldosterone holds sodium → serum sodium can look <b>normal</b> despite a real deficit.</li>
+        <li>Reduced kidney flow → <b>BUN rises faster than creatinine</b>, a pre-renal pattern.</li>
+        <li>Plasma volume shrinks → <b>haematocrit rises</b>, which looks like a healthy blood count but is not.</li>
+      </ul>
+      <div class="mn">🧠 <b>“Dry blood reads HIGH.”</b> Concentrated plasma exaggerates every value in it.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🚨 When compensation fails — hypovolaemic shock</h3>
+      <p>Once the compensations run out, perfusion collapses:</p>
+      <ul class="tick">
+        <li><b>Hypotension</b> that no longer responds to position changes.</li>
+        <li><b>Weak, thready, very fast pulse</b>; cool, pale, clammy, mottled skin.</li>
+        <li><b>Urine output under <span class="mono">30 mL/hr</span></b>, then none.</li>
+        <li><b>Altered mental status</b> — restlessness first, then confusion and lethargy.</li>
+        <li><b>Rapid shallow breathing</b> as the body tries to compensate for acidosis.</li>
+      </ul>
+      <p class="never">Never treat new restlessness in a fluid-depleted patient as anxiety — treat it as poor cerebral perfusion until proven otherwise.</p>
+      <div class="xref"><span class="pill">GO DEEPER</span> <a href="../cardio/NG-050_shock.html">NG-050 · Shock</a></div>
+      <div class="mn">🧠 <b>Restless comes before unconscious.</b> Early hypoxia and hypoperfusion look like agitation.</div>
+    </div>
+
+    <div class="card deep">
+      <h3>🧾 Putting the whole page together</h3>
+      <div class="flow">
+        <div class="fstep">Something makes fluid leave (gut · kidney · skin · vessel)</div>
+        <div class="farrow">▼</div>
+        <div class="fstep">Plasma volume falls — the pipes are underfilled</div>
+        <div class="farrow">▼</div>
+        <div class="fstep">Starling forces shift · fluid may third space instead of returning</div>
+        <div class="farrow">▼</div>
+        <div class="fstep">Compensation switches on: HR ↑, ADH, aldosterone, thirst</div>
+        <div class="farrow">▼</div>
+        <div class="fstep hot">Compensation fails → hypotension → hypovolaemic shock</div>
+      </div>
+      <div class="mn">🧠 Read this cascade once a day for three days and you will never have to memorise a symptom list again —
+      you will be able to <b>predict</b> them.</div>
+    </div>
+
+  </div>
+</section>
+
+<div class="recall" id="recall2">
+  <div class="rc tealbg"><span class="big">⚖️ Two forces</span>Hydrostatic <b>pushes out</b> · albumin <b>pulls in</b> · lymph mops up. Break any one → oedema.</div>
+  <div class="rc rubybg"><span class="big">🕳️ Four buckets</span>GUT (vomit/diarrhoea) · KIDNEY (3 D's) · SKIN (burns/fever/sweat) · VESSEL (bleeding).</div>
+  <div class="rc citrine"><span class="big">🎈 Third spacing</span>Weight <b>UP</b>, circulation <b>DOWN</b>. Swollen does not mean full. Watch for the mobilisation phase.</div>
+  <div class="rc topazbg"><span class="big">🛡️ Compensation</span>Pulse rises first, BP falls LAST. Very young, very old and beta-blocked cannot compensate.</div>
+</div>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(0,194,199,.7);color:#00252b">MOVE</span>→
+    <span style="background:rgba(192,34,85,.7)">LOSE</span>→
+    <span style="background:rgba(255,138,61,.75);color:#2b1200">THIRD SPACE</span>→
+    <span style="background:rgba(18,184,134,.7)">COMPENSATE</span>
+  </div>
+  <div>NG-055 · Fluid Balance II of III · <a href="../renal/NG-054_fluid-balance.html" style="color:#ffe49a">NG-054</a> ·
+  <a href="NG-059_fluid-balance-3.html" style="color:#ffe49a">NG-059</a> · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>

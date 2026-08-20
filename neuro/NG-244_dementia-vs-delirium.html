@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dementia vs Delirium · NG-244 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+
+
+/* ---- appended for the Neuro batch (batch 16) ---- */
+nav a.c5{background:rgba(0,194,199,.72);color:#00252b}
+nav a.c6{background:rgba(255,138,61,.75);color:#2b1200}
+nav a.c7{background:rgba(192,34,85,.72)}
+#map .sec-h h2{color:#d9c2ff} #map .step{background:var(--amethyst)}
+#wiring .sec-h h2{color:#9ff2ee} #wiring .step{background:var(--teal);color:#00252b}
+#assess .sec-h h2{color:#bcd0ff} #assess .step{background:var(--sapphire)}
+#diseases .sec-h h2{color:#a5f3d4} #diseases .step{background:var(--emerald);color:#03291c}
+#patho .sec-h h2{color:#d9c2ff} #patho .step{background:var(--amethyst)}
+#stages .sec-h h2{color:#bcd0ff} #stages .step{background:var(--sapphire)}
+#safety .sec-h h2{color:#ffb3c6} #safety .step{background:var(--garnet)}
+#talk  .sec-h h2{color:#ffd9b8} #talk .step{background:var(--citrine);color:#2b1200}
+#drugs .sec-h h2{color:#a5f3d4} #drugs .step{background:var(--emerald);color:#03291c}
+#onset .sec-h h2{color:#d9c2ff} #onset .step{background:var(--amethyst)}
+#delirium .sec-h h2{color:#ffb3c6} #delirium .step{background:var(--garnet)}
+#dementia .sec-h h2{color:#bcd0ff} #dementia .step{background:var(--sapphire)}
+#tell .sec-h h2{color:#a5f3d4} #tell .step{background:var(--emerald);color:#03291c}
+#signs .sec-h h2{color:#bcd0ff} #signs .step{background:var(--sapphire)}
+#risk .sec-h h2{color:#ffb3c6} #risk .step{background:var(--garnet)}
+#care .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+#triggers .sec-h h2{color:#ffb3c6} #triggers .step{background:var(--garnet)}
+#treat .sec-h h2{color:#a5f3d4} #treat .step{background:var(--emerald);color:#03291c}
+#teach .sec-h h2{color:#ffd9b8} #teach .step{background:var(--citrine);color:#2b1200}
+#compare .sec-h h2{color:#9ff2ee} #compare .step{background:var(--teal);color:#00252b}
+.setbar{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin:4px 0 16px;font-size:.82rem}
+.setbar .setlabel{font-weight:900;letter-spacing:.08em;color:#ffe49a;margin-right:2px}
+.setbar a{font-weight:800;padding:4px 11px;border-radius:999px;border:1px solid var(--line);
+  background:rgba(13,8,26,.5);color:#dbe8ff;text-decoration:none}
+.setbar a.cur{background:var(--topaz);color:#231a02;border-color:transparent;cursor:default}
+.legendrow{display:flex;gap:9px;flex-wrap:wrap;margin:11px 0 0;font-size:.84rem;font-weight:800}
+.legendrow span{padding:5px 11px;border-radius:9px;background:rgba(13,8,26,.55);
+  border:1px solid var(--line);display:flex;align-items:center;gap:7px}
+.sw{display:inline-block;width:15px;height:15px;border-radius:4px;border:1px solid rgba(255,255,255,.6)}
+.card a{color:#ffe49a;font-weight:800}
+.card.tealc a,.card.topaz a,.card.citrinec a{color:#0b3a52}
+.xref{margin-top:10px;padding:8px 12px;border-radius:11px;background:rgba(0,194,199,.20);
+  border:1px solid var(--line);font-size:.9rem;font-weight:700}
+.xref .pill{display:inline-block;font-size:.7rem;font-weight:900;letter-spacing:.08em;
+  background:var(--teal);color:#00252b;padding:2px 8px;border-radius:7px;margin-right:7px}
+.card.tealc .xref,.card.topaz .xref,.card.citrinec .xref{background:rgba(255,255,255,.45)}
+.mirror{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));margin:10px 0 0}
+.mrow{border-radius:12px;padding:10px 13px;background:rgba(13,8,26,.52);border:1px solid var(--line);font-size:.92rem}
+.mrow b{display:block;font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;opacity:.85;margin-bottom:3px}
+.mrow.hi{background:rgba(255,59,107,.30)} .mrow.lo{background:rgba(0,194,199,.28)}
+.card.tealc .mrow,.card.topaz .mrow,.card.citrinec .mrow{background:rgba(255,255,255,.42);color:#1a1030}
+.bigq{font-size:1.5rem;font-weight:900;line-height:1.2;margin:2px 0 6px}
+.tblwrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:2px 0}
+.ccc{flex-wrap:wrap}
+@media(max-width:700px){table{font-size:.85rem}th,td{padding:7px 6px}}
+.sec-h{flex-wrap:wrap}
+.sec-h h2,h1,.rc,.card h3{overflow-wrap:anywhere}
+.figcap{margin:9px 0 0;font-size:.85rem;line-height:1.45;color:#efe6ff;font-style:italic;opacity:.95}
+.card.tealc .figcap,.card.topaz .figcap,.card.citrinec .figcap{color:#241a05}
+.keyrow{display:flex;gap:8px;flex-wrap:wrap;margin:9px 0 0;font-size:.82rem;font-weight:800}
+.keyrow b{padding:4px 10px;border-radius:8px;background:rgba(13,8,26,.55);border:1px solid var(--line);font-weight:800}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#onset">⏱️ Onset</a>
+  <a class="c7" href="#delirium">🔍 Delirium</a>
+  <a class="c2" href="#dementia">🧠 Dementia</a>
+  <a class="c3" href="#tell">⚖️ Tell them apart</a>
+  <a class="c4" href="#recall2">⚡ Recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Neuro · The high-yield comparison · Med-Surg</div>
+  <div class="setbar"><span class="setlabel">🧠 NEURO SET</span>
+  <a href="NG-255_neuro-overview.html">NG-255 Neuro Overview</a>
+  <a href="NG-069_alzheimers.html">NG-069 Alzheimer's</a>
+  <a class="cur" href="NG-244_dementia-vs-delirium.html">NG-244 Dementia vs Delirium</a>
+  <a href="NG-258_parkinsons.html">NG-258 Parkinson's</a>
+  <a href="NG-253_multiple-sclerosis.html">NG-253 MS</a>
+  <a href="NG-245_guillain-barre.html">NG-245 Guillain-Barré</a>
+  </div>
+  <h1>Dementia <span class="drop">vs</span> Delirium</h1>
+  <p class="sub">Gradual and permanent · vs · SUDDEN, fluctuating and REVERSIBLE</p>
+  <div class="chips">
+    <span class="chip id">NG-244</span>
+    <span class="chip cat">NEURO · COMPARISON</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede">This is one of the highest-yield comparisons in the whole of med-surg, and it is a
+  <b>patient-safety</b> question, not a trivia question. <b>Delirium is an acute medical emergency with a
+  cause you can find and fix</b> — infection (especially a <b>UTI</b> in an older adult), hypoxia, drugs,
+  electrolytes, pain. <b>Dementia is slow, structural and permanent.</b> The trap the exam sets, and the
+  one that hurts real patients, is the <b>sudden change in a person who already has dementia</b>: that gets
+  worked up as <b>delirium</b> — it is never “just the dementia getting worse”.</p>
+</header>
+
+<div class="recall">
+  <div class="rc rubybg"><span class="big">⚡ DELIRIUM = SUDDEN</span>Hours to days · <b>fluctuates</b> ·
+    attention is impaired · <b>REVERSIBLE</b> if you find the cause.</div>
+  <div class="rc tealbg"><span class="big">🐌 DEMENTIA = GRADUAL</span>Months to years · steady · attention
+    intact early · <b>irreversible</b>.</div>
+  <div class="rc citrine"><span class="big">🦠 THINK UTI FIRST</span>New confusion in an older adult →
+    infection until proven otherwise. Fever may be <b>absent</b>.</div>
+  <div class="rc topazbg"><span class="big">🚨 PRIORITY ACTION</span><b>ASSESS THE CLIENT.</b> Vitals,
+    SpO₂, glucose, urine, med review — before you sedate, restrain or reassure anyone.</div>
+</div>
+
+<section id="onset">
+  <div class="sec-h"><span class="icon">⏱️</span><h2>ONSET AND COURSE</h2><span class="step">STEP 1</span></div>
+  <p class="sec-sub">When did it start, and does it fluctuate? These two questions answer most exam items.</p>
+  <div class="grid">
+<div class="card deep span2"><svg viewBox="0 0 1240 830" role="img" aria-label="Three stacked graphs of cognitive function against time. The first shows dementia as a smooth blue line sloping slowly downward for months to years and never returning. The second shows delirium as a red line that is normal, then drops abruptly and zig-zags wildly up and down before climbing back to normal once the cause is treated. The third shows a slow blue dementia decline with a sudden red zig-zag drop on top of it, which recovers back to the dementia line but not to normal."><defs><filter id="otdrop" x="-35%" y="-35%" width="180%" height="180%"><feGaussianBlur in="SourceAlpha" stdDeviation="4"/><feOffset dx="0" dy="5" result="o"/><feFlood flood-color="#000" flood-opacity=".45"/><feComposite in2="o" operator="in" result="sh"/><feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/></feMerge></filter><filter id="otsoft" x="-45%" y="-45%" width="190%" height="190%"><feGaussianBlur stdDeviation="3"/></filter><filter id="otglow" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><marker id="otar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffe49a"/></marker><marker id="otrar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ff6b8f"/></marker></defs><text x="24" y="34" font-size="19" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">FIGURE 1 · ONSET AND COURSE — the single best way to tell them apart</text><text x="24" y="52" font-size="12.5" font-weight="700" fill="#dcd2f2" opacity=".95" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Cognitive function on the vertical axis, time on the horizontal · read the panels ① → ③</text><rect x="24" y="66" width="1192" height="208" rx="14" fill="rgba(47,107,255,.12)" stroke="#2f6bff" stroke-width="1.6"/><text x="40" y="92" font-size="15.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">① DEMENTIA — gradual, over MONTHS TO YEARS · never returns to baseline</text><path d="M 150 106 L 150 238 L 1130 238" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="2.4"/><text x="138" y="118" font-size="11" font-weight="800" fill="#dcd2f2" opacity="1" text-anchor="end"  font-family="Segoe UI,Roboto,system-ui,sans-serif">NORMAL</text><text x="138" y="238" font-size="11" font-weight="800" fill="#dcd2f2" opacity="1" text-anchor="end"  font-family="Segoe UI,Roboto,system-ui,sans-serif">SEVERE</text><text x="138" y="224" font-size="10" font-weight="700" fill="#dcd2f2" opacity="1" text-anchor="end"  font-family="Segoe UI,Roboto,system-ui,sans-serif">impair.</text><text x="1130" y="260" font-size="11.5" font-weight="800" fill="#dcd2f2" opacity="1" text-anchor="end"  font-family="Segoe UI,Roboto,system-ui,sans-serif">TIME  →  months to years</text><path d="M 150 110 L 1130 110" stroke="#12b886" stroke-width="1.8" stroke-dasharray="7 6" stroke-opacity=".6"/><path d="M 150 116 C 420 140 700 182 1130 230" fill="none" stroke="#2f6bff" stroke-width="6" stroke-linecap="round" filter="url(#otglow)"/><rect x="422" y="138" width="185" height="31" rx="8" fill="#0d081a" fill-opacity=".82" stroke="rgba(255,255,255,.34)"/><text x="430" y="152" font-size="12.5" font-weight="900" fill="#bcd0ff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Slow, steady, downhill</text><rect x="895" y="200" width="113" height="31" rx="8" fill="#0d081a" fill-opacity=".82" stroke="rgba(255,255,255,.34)"/><text x="1000" y="214" font-size="12.5" font-weight="900" fill="#bcd0ff" opacity="1" text-anchor="end"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Irreversible</text><rect x="24" y="296" width="1192" height="236" rx="14" fill="rgba(255,59,107,.12)" stroke="#ff3b6b" stroke-width="1.6"/><text x="40" y="322" font-size="15.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">② DELIRIUM — SUDDEN (hours to days) · FLUCTUATES · returns to baseline once the cause is fixed</text><path d="M 150 340 L 150 492 L 1130 492" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="2.4"/><text x="138" y="352" font-size="11" font-weight="800" fill="#dcd2f2" opacity="1" text-anchor="end"  font-family="Segoe UI,Roboto,system-ui,sans-serif">NORMAL</text><text x="138" y="492" font-size="11" font-weight="800" fill="#dcd2f2" opacity="1" text-anchor="end"  font-family="Segoe UI,Roboto,system-ui,sans-serif">SEVERE</text><text x="138" y="478" font-size="10" font-weight="700" fill="#dcd2f2" opacity="1" text-anchor="end"  font-family="Segoe UI,Roboto,system-ui,sans-serif">impair.</text><text x="1130" y="514" font-size="11.5" font-weight="800" fill="#dcd2f2" opacity="1" text-anchor="end"  font-family="Segoe UI,Roboto,system-ui,sans-serif">TIME  →  hours to days</text><path d="M 150 344 L 1130 344" stroke="#12b886" stroke-width="1.8" stroke-dasharray="7 6" stroke-opacity=".6"/><path d="M 150 350 L 300 352 L 340 474 L 402 386 L 464 474 L 526 386 L 588 474 L 650 386 L 712 474 L 774 386 L 836 474 L 898 386 L 940 400 L 1000 374 L 1070 354 L 1130 350" fill="none" stroke="#ff3b6b" stroke-width="5.5" stroke-linejoin="round" stroke-linecap="round" filter="url(#otglow)"/><path d="M 316 336 L 316 498" stroke="#ffc233" stroke-width="2.6" stroke-dasharray="8 6"/><rect x="314" y="354" width="185" height="47" rx="8" fill="#0d081a" fill-opacity=".82" stroke="rgba(255,255,255,.34)"/><text x="322" y="368" font-size="12.5" font-weight="900" fill="#ffc233" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">ABRUPT onset — you can</text><text x="322" y="385" font-size="11.7" font-weight="700" fill="#efe9ff" opacity=".97" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">often name the DAY</text><rect x="381" y="458" width="358" height="47" rx="8" fill="#0d081a" fill-opacity=".82" stroke="rgba(255,255,255,.34)"/><text x="560" y="472" font-size="12.5" font-weight="900" fill="#ffb3c6" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">FLUCTUATES: lucid one hour, confused the next.</text><text x="560" y="489" font-size="11.7" font-weight="700" fill="#efe9ff" opacity=".97" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Typically worse at night.</text><path d="M 940 436 L 1060 374" fill="none" stroke="#12b886" stroke-width="3.4" marker-end="url(#otar)" stroke-dasharray="7 5"/><rect x="990" y="442" width="148" height="47" rx="8" fill="#0d081a" fill-opacity=".82" stroke="rgba(255,255,255,.34)"/><text x="1130" y="456" font-size="12.5" font-weight="900" fill="#7dffd0" opacity="1" text-anchor="end"  font-family="Segoe UI,Roboto,system-ui,sans-serif">CAUSE TREATED</text><text x="1130" y="473" font-size="11.7" font-weight="700" fill="#efe9ff" opacity=".97" text-anchor="end"  font-family="Segoe UI,Roboto,system-ui,sans-serif">→ back to baseline</text><rect x="24" y="554" width="1192" height="244" rx="14" fill="rgba(255,194,51,.12)" stroke="#ffc233" stroke-width="1.6"/><text x="40" y="580" font-size="15.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">③ THE TRAP — DELIRIUM on top of DEMENTIA · a sudden change in someone with dementia is NOT “just the dementia”</text><path d="M 150 604 L 150 752 L 1130 752" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="2.4"/><text x="138" y="616" font-size="11" font-weight="800" fill="#dcd2f2" opacity="1" text-anchor="end"  font-family="Segoe UI,Roboto,system-ui,sans-serif">NORMAL</text><text x="138" y="752" font-size="11" font-weight="800" fill="#dcd2f2" opacity="1" text-anchor="end"  font-family="Segoe UI,Roboto,system-ui,sans-serif">SEVERE</text><text x="138" y="738" font-size="10" font-weight="700" fill="#dcd2f2" opacity="1" text-anchor="end"  font-family="Segoe UI,Roboto,system-ui,sans-serif">impair.</text><text x="1130" y="774" font-size="11.5" font-weight="800" fill="#dcd2f2" opacity="1" text-anchor="end"  font-family="Segoe UI,Roboto,system-ui,sans-serif">TIME  →</text><path d="M 150 608 L 1130 608" stroke="#12b886" stroke-width="1.8" stroke-dasharray="7 6" stroke-opacity=".6"/><path d="M 150 630 C 360 644 560 658 700 666" fill="none" stroke="#2f6bff" stroke-width="5" stroke-linecap="round"/><path d="M 700 666 L 740 736 L 790 686 L 840 742 L 890 694 L 940 738 L 1000 700 L 1060 684 L 1130 680" fill="none" stroke="#ff3b6b" stroke-width="5.5" stroke-linejoin="round" filter="url(#otglow)"/><path d="M 150 630 C 360 644 700 666 1130 700" fill="none" stroke="#2f6bff" stroke-width="4" stroke-opacity=".45" stroke-dasharray="9 7"/><circle cx="700" cy="666" r="10" fill="#ffc233" stroke="#0d081a" stroke-width="2"/><rect x="242" y="612" width="235" height="31" rx="8" fill="#0d081a" fill-opacity=".82" stroke="rgba(255,255,255,.34)"/><text x="250" y="626" font-size="12.5" font-weight="900" fill="#bcd0ff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Known dementia — slow decline</text><rect x="606" y="758" width="188" height="47" rx="8" fill="#0d081a" fill-opacity=".82" stroke="rgba(255,255,255,.34)"/><text x="700" y="772" font-size="12.5" font-weight="900" fill="#ffc233" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">SUDDEN worsening today</text><text x="700" y="789" font-size="11.7" font-weight="700" fill="#efe9ff" opacity=".97" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">→ work it up as DELIRIUM</text><rect x="882" y="720" width="256" height="63" rx="8" fill="#0d081a" fill-opacity=".82" stroke="rgba(255,255,255,.34)"/><text x="1130" y="734" font-size="12.5" font-weight="900" fill="#7dffd0" opacity="1" text-anchor="end"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Treat the cause and they come</text><text x="1130" y="751" font-size="11.7" font-weight="700" fill="#efe9ff" opacity=".97" text-anchor="end"  font-family="Segoe UI,Roboto,system-ui,sans-serif">back — to their dementia baseline,</text><text x="1130" y="767" font-size="11.7" font-weight="700" fill="#efe9ff" opacity=".97" text-anchor="end"  font-family="Segoe UI,Roboto,system-ui,sans-serif">not to “normal”</text><rect x="1000" y="96" width="190" height="70" rx="9" fill="#0d081a" fill-opacity=".80" stroke="rgba(255,255,255,.34)"/><text x="1011" y="113" font-size="11.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">LINE COLOUR</text><rect x="1011" y="119.5" width="13" height="13" rx="3.5" fill="#2f6bff" stroke="rgba(255,255,255,.6)"/><text x="1032" y="130" font-size="12" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">dementia</text><rect x="1011" y="139.5" width="13" height="13" rx="3.5" fill="#ff3b6b" stroke="rgba(255,255,255,.6)"/><text x="1032" y="150" font-size="12" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">delirium</text></svg><p class="figcap">If a family member can tell you the DAY it started, you are looking at delirium. If nobody can name a day and it has been creeping for a year, you are looking at dementia.</p></div>
+  <div class="card deep span2">
+    <h3>⭐ THE comparison table — learn this row by row</h3>
+    <div class="tblwrap"><table>
+      <tr><th></th><th class="up">DELIRIUM</th><th class="lo">DEMENTIA</th></tr>
+      <tr><td><b>Onset</b></td><td><b>ACUTE</b> — hours to days. You can often name the day.</td>
+        <td><b>GRADUAL</b> — months to years. Nobody can name a day.</td></tr>
+      <tr><td><b>Course</b></td><td><b>FLUCTUATES</b> hour to hour · lucid intervals · worse at night</td>
+        <td><b>Steady</b> and slowly progressive</td></tr>
+      <tr><td><b>Attention</b></td><td><b>IMPAIRED — this is the core feature.</b> Cannot hold a thread.</td>
+        <td><b>Intact</b> until late</td></tr>
+      <tr><td><b>Level of consciousness</b></td><td><b>ALTERED</b> — drowsy or hyper-alert</td>
+        <td><b>Normal</b> — alert until late stages</td></tr>
+      <tr><td><b>Duration</b></td><td>Hours to days, sometimes weeks</td><td>Years, until death</td></tr>
+      <tr><td><b>Hallucinations</b></td><td><b>Common</b>, often visual and frightening</td>
+        <td>Uncommon until late</td></tr>
+      <tr><td><b>Speech</b></td><td>Rambling, incoherent, jumps around</td>
+        <td>Word-finding difficulty, then loss of vocabulary</td></tr>
+      <tr><td><b>Sleep–wake cycle</b></td><td><b>Disrupted / reversed</b></td><td>Fragmented but recognisable</td></tr>
+      <tr><td><b>Cause</b></td><td><b>An identifiable physiological insult</b> — go and find it</td>
+        <td>Structural brain disease (Alzheimer's, vascular, Lewy body, frontotemporal)</td></tr>
+      <tr><td><b>Reversible?</b></td><td><b>YES</b> — treat the cause</td><td><b>NO</b></td></tr>
+      <tr><td><b>Priority action</b></td><td><mark>ASSESS THE CLIENT and find the cause</mark></td>
+        <td>Safety, routine, redirection, caregiver support</td></tr>
+    </table></div>
+    <div class="mn">🧠 <b>De-L-irium = Limited and Lasts a Little while.</b>
+    <b>De-M-entia = daMage, and it's perManent.</b></div>
+  </div>
+<div class="card deep span2"><svg viewBox="-72 -89 1322 839" role="img" aria-label="Two bedside panels. On the left a calm older adult with dementia in a speech bubble asking what year it is but staying engaged, with a table of features: attention intact, onset over months, stable course, normal alertness, hallucinations uncommon, not reversible. On the right an older adult with delirium, eyes wide and mouth open, seeing bugs on the wall and pulling at an IV, with the mirror table: attention impaired, onset over hours, fluctuating course, altered alertness, common hallucinations, reversible if the cause is treated."><defs><filter id="tpdrop" x="-35%" y="-35%" width="180%" height="180%"><feGaussianBlur in="SourceAlpha" stdDeviation="4"/><feOffset dx="0" dy="5" result="o"/><feFlood flood-color="#000" flood-opacity=".45"/><feComposite in2="o" operator="in" result="sh"/><feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/></feMerge></filter><filter id="tpsoft" x="-45%" y="-45%" width="190%" height="190%"><feGaussianBlur stdDeviation="3"/></filter><linearGradient id="tpsk" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe6d0"/><stop offset=".4" stop-color="#f4c39d"/><stop offset="1" stop-color="#a06f46"/></linearGradient><linearGradient id="tpgown" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#cfe6ff"/><stop offset=".4" stop-color="#89b4e0"/><stop offset="1" stop-color="#2f5680"/></linearGradient></defs><text x="24" y="34" font-size="19" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">FIGURE 4 · THE SAME SIX QUESTIONS, ASKED OF BOTH PATIENTS</text><text x="24" y="52" font-size="12.5" font-weight="700" fill="#dcd2f2" opacity=".95" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Read the rows straight across ① ↔ ② · ATTENTION and ONSET are the two that decide it</text><rect x="24" y="66" width="584" height="640" rx="14" fill="rgba(47,107,255,.12)" stroke="#2f6bff" stroke-width="1.6"/><text x="40" y="92" font-size="15.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">① DEMENTIA at the bedside</text><text x="40" y="110" font-size="11.8" font-weight="700" fill="#dcd2f2" opacity=".95" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Months of gradual change</text><rect x="632" y="66" width="584" height="640" rx="14" fill="rgba(255,59,107,.12)" stroke="#ff3b6b" stroke-width="1.6"/><text x="648" y="92" font-size="15.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">② DELIRIUM at the bedside</text><text x="648" y="110" font-size="11.8" font-weight="700" fill="#dcd2f2" opacity=".95" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">It started yesterday</text><g transform="translate(200,300) scale(1.15)"><path d="M -62 108 C -58 40 -30 8 0 8 C 30 8 58 40 62 108 Z" fill="url(#tpgown)" stroke="rgba(0,0,0,.45)" stroke-width="2.4" filter="url(#tpdrop)"/><ellipse cx="0" cy="-34" rx="40" ry="44" fill="url(#tpsk)" stroke="#8a5a3a" stroke-width="2.4"/><path d="M -40 -50 C -28 -88 28 -88 40 -50 C 26 -68 -26 -68 -40 -50 Z" fill="#c9c2bb"/><circle cx="-14" cy="-36" r="6" fill="#fff"/><circle cx="-14" cy="-36" r="3" fill="#2b1c12"/><circle cx="14" cy="-36" r="6" fill="#fff"/><circle cx="14" cy="-36" r="3" fill="#2b1c12"/><path d="M -11 -14 q 11 8 22 0" fill="none" stroke="#8a4a4a" stroke-width="2.8" stroke-linecap="round"/></g><g transform="translate(808,300) scale(1.15)"><path d="M -62 108 C -58 40 -30 8 0 8 C 30 8 58 40 62 108 Z" fill="url(#tpgown)" stroke="rgba(0,0,0,.45)" stroke-width="2.4" filter="url(#tpdrop)"/><ellipse cx="0" cy="-34" rx="40" ry="44" fill="url(#tpsk)" stroke="#8a5a3a" stroke-width="2.4"/><path d="M -40 -50 C -28 -88 28 -88 40 -50 C 26 -68 -26 -68 -40 -50 Z" fill="#c9c2bb"/><path d="M -22 -40 l 16 6 M 6 -34 l 16 -6" stroke="#3a2418" stroke-width="3.4" stroke-linecap="round"/><circle cx="-14" cy="-32" r="5" fill="#fff"/><circle cx="-14" cy="-32" r="2.6" fill="#2b1c12"/><circle cx="14" cy="-32" r="5" fill="#fff"/><circle cx="14" cy="-32" r="2.6" fill="#2b1c12"/><ellipse cx="0" cy="-12" rx="9" ry="11" fill="#5c2a2a"/></g><rect x="292" y="190" width="296" height="130" rx="16" fill="#2f6bff" fill-opacity=".18" stroke="#2f6bff" stroke-width="2.2"/><path d="M 292 255.0 l -18 12 l 18 14 Z" fill="#2f6bff" fill-opacity=".3" stroke="#2f6bff" stroke-width="2"/><text x="310" y="220" font-size="13" font-weight="700" fill="#ffffff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">“Is it 1962? Where's</text><text x="310" y="244" font-size="13" font-weight="700" fill="#ffffff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Mother?” — but says it</text><text x="310" y="268" font-size="13" font-weight="700" fill="#ffffff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">calmly, and stays with you</text><text x="310" y="292" font-size="13" font-weight="700" fill="#ffffff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">through the conversation.</text><rect x="900" y="190" width="300" height="130" rx="16" fill="#ff3b6b" fill-opacity=".18" stroke="#ff3b6b" stroke-width="2.2"/><path d="M 900 255.0 l -18 12 l 18 14 Z" fill="#ff3b6b" fill-opacity=".3" stroke="#ff3b6b" stroke-width="2"/><text x="918" y="220" font-size="13" font-weight="700" fill="#ffffff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">“There are bugs on the</text><text x="918" y="244" font-size="13" font-weight="700" fill="#ffffff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">wall!” — pulling at the IV,</text><text x="918" y="268" font-size="13" font-weight="700" fill="#ffffff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">cannot finish a sentence,</text><text x="918" y="292" font-size="13" font-weight="700" fill="#ffffff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">drifts off mid-answer.</text><rect x="48" y="412" width="536" height="38" rx="10" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.2)"/><text x="62" y="437" font-size="12.5" font-weight="900" fill="#2f6bff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">👁️ ATTENTION</text><text x="234" y="437" font-size="12" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">INTACT early — can hold a conversation</text><rect x="48" y="456" width="536" height="38" rx="10" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.2)"/><text x="62" y="481" font-size="12.5" font-weight="900" fill="#2f6bff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">⏱️ ONSET</text><text x="234" y="481" font-size="12" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Months to years · nobody can name the day</text><rect x="48" y="500" width="536" height="38" rx="10" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.2)"/><text x="62" y="525" font-size="12.5" font-weight="900" fill="#2f6bff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">🌊 COURSE</text><text x="234" y="525" font-size="12" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Stable through the day, slowly worse over months</text><rect x="48" y="544" width="536" height="38" rx="10" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.2)"/><text x="62" y="569" font-size="12.5" font-weight="900" fill="#2f6bff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">😴 ALERTNESS</text><text x="234" y="569" font-size="12" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Normal — awake and alert</text><rect x="48" y="588" width="536" height="38" rx="10" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.2)"/><text x="62" y="613" font-size="12.5" font-weight="900" fill="#2f6bff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">👻 HALLUCINATIONS</text><text x="234" y="613" font-size="12" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Uncommon until late</text><rect x="48" y="632" width="536" height="38" rx="10" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.2)"/><text x="62" y="657" font-size="12.5" font-weight="900" fill="#2f6bff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">🔁 REVERSIBLE?</text><text x="234" y="657" font-size="12" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">NO — this is permanent damage</text><rect x="656" y="412" width="536" height="38" rx="10" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.2)"/><text x="670" y="437" font-size="12.5" font-weight="900" fill="#ff3b6b" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">👁️ ATTENTION</text><text x="842" y="437" font-size="12" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">IMPAIRED — this is the core feature</text><rect x="656" y="456" width="536" height="38" rx="10" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.2)"/><text x="670" y="481" font-size="12.5" font-weight="900" fill="#ff3b6b" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">⏱️ ONSET</text><text x="842" y="481" font-size="12" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Hours to days · family can name the day</text><rect x="656" y="500" width="536" height="38" rx="10" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.2)"/><text x="670" y="525" font-size="12.5" font-weight="900" fill="#ff3b6b" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">🌊 COURSE</text><text x="842" y="525" font-size="12" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">FLUCTUATES hour to hour · worse at night</text><rect x="656" y="544" width="536" height="38" rx="10" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.2)"/><text x="670" y="569" font-size="12.5" font-weight="900" fill="#ff3b6b" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">😴 ALERTNESS</text><text x="842" y="569" font-size="12" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Altered — drowsy OR hypervigilant</text><rect x="656" y="588" width="536" height="38" rx="10" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.2)"/><text x="670" y="613" font-size="12.5" font-weight="900" fill="#ff3b6b" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">👻 HALLUCINATIONS</text><text x="842" y="613" font-size="12" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Common — often visual, often frightening</text><rect x="656" y="632" width="536" height="38" rx="10" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.2)"/><text x="670" y="657" font-size="12.5" font-weight="900" fill="#ff3b6b" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">🔁 REVERSIBLE?</text><text x="842" y="657" font-size="12" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">YES — if you find and treat the cause</text></svg><p class="figcap">Two questions do most of the work: “When did this start?” and “Can they hold their attention on me?” Everything else is confirmation.</p></div>
+  <div class="card topaz">
+    <h3>⭐ How to actually test attention in 30 seconds</h3>
+    <ul class="tick">
+      <li>“Say the <b>months of the year backwards</b>, starting with December.”</li>
+      <li>“Say the <b>days of the week backwards</b>.”</li>
+      <li>Digit span: repeat 5 numbers forwards, 3 backwards.</li>
+      <li>Watch for: losing the thread mid-sentence, being distracted by anything that moves, needing the
+        question repeated.</li>
+    </ul>
+    <p><b>Inattention is the single most useful bedside finding for delirium.</b> A person with early
+    dementia can usually still stay with you; a delirious person cannot.</p>
+    <div class="mn">🧠 <b>Delirium can't pay attention. Dementia can't remember.</b></div>
+  </div>
+
+  </div>
+</section><section id="delirium">
+  <div class="sec-h"><span class="icon">🔍</span><h2>DELIRIUM — FIND THE CAUSE</h2><span class="step">STEP 2</span></div>
+  <p class="sec-sub">Delirium is a symptom of something else. Your job is to go and find the something else.</p>
+  <div class="grid">
+<div class="card deep span2"><svg viewBox="0 0 1240 810" role="img" aria-label="A wheel diagram. In the centre a drawn older adult with question marks around their head, labelled acute confusion. Six arrows radiate out to cause boxes: infection, highlighted as the number one cause and naming urinary tract infection; hypoxia; drugs; electrolytes; pain; and environment. Each box lists specific examples."><defs><filter id="cwdrop" x="-35%" y="-35%" width="180%" height="180%"><feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dx="0" dy="6" result="o"/><feFlood flood-color="#000" flood-opacity=".5"/><feComposite in2="o" operator="in" result="sh"/><feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/></feMerge></filter><filter id="cwsoft" x="-45%" y="-45%" width="190%" height="190%"><feGaussianBlur stdDeviation="4"/></filter><filter id="cwglow" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><marker id="cwar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffe49a"/></marker><radialGradient id="cwsk" cx=".5" cy=".5" r=".7"><stop offset="0" stop-color="#ffe6d0"/><stop offset=".4" stop-color="#f4c39d"/><stop offset="1" stop-color="#a06f46"/></radialGradient></defs><text x="24" y="34" font-size="19" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">FIGURE 2 · DELIRIUM ALWAYS HAS A CAUSE — go and find it</text><text x="24" y="52" font-size="12.5" font-weight="700" fill="#dcd2f2" opacity=".95" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Radial diagram · the centre is the patient, each arrow points OUT to something you can test for and treat</text><circle cx="620" cy="396" r="132" fill="rgba(13,8,26,.65)" stroke="rgba(255,255,255,.35)" stroke-width="2.4" filter="url(#cwdrop)"/><path d="M 564 488 C 568 426 594 400 620 400 C 646 400 672 426 676 488 Z" fill="#a074e0" stroke="#452a75" stroke-width="2.4"/><ellipse cx="620" cy="364" rx="38" ry="42" fill="url(#cwsk)" stroke="#8a5a3a" stroke-width="2.4"/><path d="M 582 348 C 594 312 646 312 658 348 C 644 330 596 330 582 348 Z" fill="#c9c2bb"/><path d="M 601 360 l 12 0 M 627 360 l 12 0" stroke="#3a2418" stroke-width="3.2" stroke-linecap="round"/><path d="M 609 382 q 11 -8 22 0" fill="none" stroke="#8a4a4a" stroke-width="2.8" stroke-linecap="round"/><text x="562" y="300" font-size="22" font-weight="900" fill="#ffc233" opacity=".9" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">?</text><text x="596" y="288" font-size="28" font-weight="900" fill="#ffc233" opacity=".9" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">?</text><text x="638" y="288" font-size="22" font-weight="900" fill="#ffc233" opacity=".9" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">?</text><text x="674" y="300" font-size="28" font-weight="900" fill="#ffc233" opacity=".9" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">?</text><rect x="546" y="538" width="148" height="31" rx="8" fill="#0d081a" fill-opacity=".82" stroke="rgba(255,255,255,.34)"/><text x="620" y="552" font-size="14" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">ACUTE CONFUSION</text><path d="M 620 282 L 620 204" stroke="#ff3b6b" stroke-width="3.4" stroke-opacity=".8" marker-end="url(#cwar)"/><rect x="455" y="112" width="330" height="96" rx="14" fill="#ff3b6b" fill-opacity=".30" stroke="#ff3b6b" stroke-width="3.2"/><text x="475" y="146" font-size="15" font-weight="900" fill="#ff3b6b" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">🦠  INFECTION</text><text x="475" y="168" font-size="11.6" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">UTI (most common in older adults) ·</text><text x="475" y="185" font-size="11.6" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">pneumonia · sepsis</text><rect x="689" y="99" width="96" height="24" rx="9" fill="#ff3b6b"/><text x="737" y="116" font-size="11.5" font-weight="900" fill="#fff" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">#1 CAUSE</text><path d="M 734 339 L 797 300" stroke="#2f6bff" stroke-width="3.4" stroke-opacity=".8" marker-end="url(#cwar)"/><rect x="715" y="230" width="330" height="96" rx="14" fill="#2f6bff" fill-opacity=".16" stroke="#2f6bff" stroke-width="2.2"/><text x="735" y="264" font-size="15" font-weight="900" fill="#2f6bff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">🫁  HYPOXIA</text><text x="735" y="286" font-size="11.6" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Low SpO₂ · pneumonia · heart failure ·</text><text x="735" y="303" font-size="11.6" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">PE</text><path d="M 734 453 L 797 492" stroke="#9d5cff" stroke-width="3.4" stroke-opacity=".8" marker-end="url(#cwar)"/><rect x="715" y="466" width="330" height="96" rx="14" fill="#9d5cff" fill-opacity=".16" stroke="#9d5cff" stroke-width="2.2"/><text x="735" y="500" font-size="15" font-weight="900" fill="#9d5cff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">💊  DRUGS</text><text x="735" y="522" font-size="11.6" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Opioids · benzodiazepines ·</text><text x="735" y="539" font-size="11.6" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">anticholinergics · polypharmacy ·</text><text x="735" y="556" font-size="11.6" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">alcohol withdrawal</text><path d="M 620 510 L 620 588" stroke="#00c2c7" stroke-width="3.4" stroke-opacity=".8" marker-end="url(#cwar)"/><rect x="455" y="584" width="330" height="96" rx="14" fill="#00c2c7" fill-opacity=".16" stroke="#00c2c7" stroke-width="2.2"/><text x="475" y="618" font-size="15" font-weight="900" fill="#00c2c7" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">🧂  ELECTROLYTES</text><text x="475" y="640" font-size="11.6" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Low sodium · low or high glucose ·</text><text x="475" y="657" font-size="11.6" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">dehydration · uraemia</text><path d="M 506 453 L 443 492" stroke="#ff8a3d" stroke-width="3.4" stroke-opacity=".8" marker-end="url(#cwar)"/><rect x="195" y="466" width="330" height="96" rx="14" fill="#ff8a3d" fill-opacity=".16" stroke="#ff8a3d" stroke-width="2.2"/><text x="215" y="500" font-size="15" font-weight="900" fill="#ff8a3d" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">😖  PAIN</text><text x="215" y="522" font-size="11.6" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Untreated pain · a full bladder ·</text><text x="215" y="539" font-size="11.6" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">constipation</text><path d="M 506 339 L 443 300" stroke="#ffc233" stroke-width="3.4" stroke-opacity=".8" marker-end="url(#cwar)"/><rect x="195" y="230" width="330" height="96" rx="14" fill="#ffc233" fill-opacity=".16" stroke="#ffc233" stroke-width="2.2"/><text x="215" y="264" font-size="15" font-weight="900" fill="#ffc233" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">🛏️  ENVIRONMENT</text><text x="215" y="286" font-size="11.6" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">New room · no glasses or hearing aids ·</text><text x="215" y="303" font-size="11.6" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">no sleep · no daylight · restraints</text><rect x="14" y="760" width="1213" height="31" rx="8" fill="#0d081a" fill-opacity=".82" stroke="rgba(255,255,255,.34)"/><text x="620" y="774" font-size="12.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">DELIRIUM  =  Drugs · Electrolytes · Lack of drugs (withdrawal) · Infection · Reduced sensory input · Intracranial · Urinary/faecal retention · Myocardial + pulmonary</text></svg><p class="figcap">Every arrow points to something you can measure or review in the next twenty minutes. Delirium without a cause simply means the cause has not been found yet.</p></div>
+  <div class="card garnet span2">
+    <h3>🚨 The single highest-yield trap on this whole page</h3>
+    <p class="bigq">A resident with known dementia is suddenly much more confused today.</p>
+    <p><mark>Work it up as DELIRIUM. Do NOT chart “dementia worsening”.</mark> Dementia does not change
+    overnight. A sudden change on top of dementia is an <b>acute medical problem</b> — most often a
+    <b>urinary tract infection</b>, pneumonia, dehydration, a new medication, urinary retention,
+    constipation or uncontrolled pain.</p>
+    <p>People with dementia are the group at <b>highest</b> risk of developing delirium — and the group in
+    whom it is missed most often, because everyone assumes the confusion is baseline.</p>
+    <div class="mn">🧠 <b>“Sudden = search.”</b> Sudden change in an older adult means go looking, every time.</div>
+  </div>
+<div class="card deep span2"><svg viewBox="0 0 1240 790" role="img" aria-label="Two panels. On the left a younger adult's inflamed bladder with yellow bacteria inside and the classic urinary tract infection signs listed: fever, burning, frequency, cloudy urine and normal thinking. On the right the same inflamed bladder in an older adult, with a red dashed arrow running up to a glowing brain surrounded by question marks, and a list showing that new confusion may be the only sign and that fever may be absent."><defs><filter id="utdrop" x="-35%" y="-35%" width="180%" height="180%"><feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dx="0" dy="6" result="o"/><feFlood flood-color="#000" flood-opacity=".5"/><feComposite in2="o" operator="in" result="sh"/><feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/></feMerge></filter><filter id="utsoft" x="-45%" y="-45%" width="190%" height="190%"><feGaussianBlur stdDeviation="3"/></filter><filter id="utglow" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><marker id="utar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffe49a"/></marker><marker id="utrar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ff6b8f"/></marker><radialGradient id="utbl" cx=".38" cy=".3" r=".7"><stop offset="0" stop-color="#ffe9c9"/><stop offset=".28" stop-color="#f7c98a"/><stop offset=".6" stop-color="#d8964a"/><stop offset="1" stop-color="#7a4d14"/></radialGradient><radialGradient id="utbrain" cx=".38" cy=".3" r=".7"><stop offset="0" stop-color="#fff2f3"/><stop offset=".3" stop-color="#efc9cf"/><stop offset=".65" stop-color="#c99bab"/><stop offset="1" stop-color="#7a4d58"/></radialGradient><linearGradient id="utur" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff6cf"/><stop offset=".5" stop-color="#ffd97a"/><stop offset="1" stop-color="#b58a1c"/></linearGradient></defs><text x="24" y="34" font-size="19" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">FIGURE 3 · UTI IN AN OLDER ADULT — confusion may be the ONLY symptom</text><text x="24" y="52" font-size="12.5" font-weight="700" fill="#dcd2f2" opacity=".95" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Read LEFT (what the textbook says) → RIGHT (what actually happens in the frail older adult)</text><rect x="24" y="66" width="584" height="640" rx="14" fill="rgba(18,184,134,.10)" stroke="#12b886" stroke-width="1.6"/><text x="40" y="92" font-size="15.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">① UNDER 65 with a UTI</text><text x="40" y="110" font-size="11.8" font-weight="700" fill="#dcd2f2" opacity=".95" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">The textbook picture</text><rect x="632" y="66" width="584" height="640" rx="14" fill="rgba(255,59,107,.12)" stroke="#ff3b6b" stroke-width="1.6"/><text x="648" y="92" font-size="15.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">② OLDER ADULT with a UTI</text><text x="648" y="110" font-size="11.8" font-weight="700" fill="#dcd2f2" opacity=".95" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">The picture that gets missed</text><path d="M 240 260 C 222 208 218 188 224 160" fill="none" stroke="#c8a24a" stroke-width="15" stroke-linecap="round"/><path d="M 240 260 C 222 208 218 188 224 160" fill="none" stroke="#ffe9ad" stroke-width="7" stroke-linecap="round"/><path d="M 392 260 C 410 208 414 188 408 160" fill="none" stroke="#c8a24a" stroke-width="15" stroke-linecap="round"/><path d="M 392 260 C 410 208 414 188 408 160" fill="none" stroke="#ffe9ad" stroke-width="7" stroke-linecap="round"/><path d="M 316 238 C 384 238 418 294 414 342 C 410 390 372 420 316 420 C 260 420 222 390 218 342 C 214 294 248 238 316 238 Z" fill="url(#utbl)" stroke="#6b4210" stroke-width="3" filter="url(#utdrop)"/><path d="M 316 418 L 316 476" stroke="#c8a24a" stroke-width="18" stroke-linecap="round"/><path d="M 316 418 L 316 474" stroke="#ffe9ad" stroke-width="8" stroke-linecap="round"/><ellipse cx="276" cy="276" rx="42" ry="17" fill="#fff" fill-opacity=".26" filter="url(#utsoft)"/><path d="M 252 368 q 16 -14 32 0" fill="none" stroke="#8a5c14" stroke-opacity=".4" stroke-width="2.4"/><path d="M 288 368 q 16 -14 32 0" fill="none" stroke="#8a5c14" stroke-opacity=".4" stroke-width="2.4"/><path d="M 324 368 q 16 -14 32 0" fill="none" stroke="#8a5c14" stroke-opacity=".4" stroke-width="2.4"/><path d="M 360 368 q 16 -14 32 0" fill="none" stroke="#8a5c14" stroke-opacity=".4" stroke-width="2.4"/><path d="M 316 250 C 374 250 404 300 400 340 C 396 378 364 404 316 404 C 268 404 236 378 232 340 C 228 300 258 250 316 250 Z" fill="#ff3b6b" fill-opacity=".38"/><ellipse cx="342" cy="316" rx="9" ry="5.5" fill="#ffe14d" stroke="#8a5c14" stroke-width="1.4" transform="rotate(0 342 316)"/><ellipse cx="353" cy="340" rx="9" ry="5.5" fill="#ffe14d" stroke="#8a5c14" stroke-width="1.4" transform="rotate(36 353 340)"/><ellipse cx="336" cy="371" rx="9" ry="5.5" fill="#ffe14d" stroke="#8a5c14" stroke-width="1.4" transform="rotate(72 336 371)"/><ellipse cx="308" cy="337" rx="9" ry="5.5" fill="#ffe14d" stroke="#8a5c14" stroke-width="1.4" transform="rotate(108 308 337)"/><ellipse cx="279" cy="339" rx="9" ry="5.5" fill="#ffe14d" stroke="#8a5c14" stroke-width="1.4" transform="rotate(144 279 339)"/><ellipse cx="250" cy="316" rx="9" ry="5.5" fill="#ffe14d" stroke="#8a5c14" stroke-width="1.4" transform="rotate(180 250 316)"/><ellipse cx="295" cy="303" rx="9" ry="5.5" fill="#ffe14d" stroke="#8a5c14" stroke-width="1.4" transform="rotate(216 295 303)"/><ellipse cx="302" cy="278" rx="9" ry="5.5" fill="#ffe14d" stroke="#8a5c14" stroke-width="1.4" transform="rotate(252 302 278)"/><ellipse cx="337" cy="261" rx="9" ry="5.5" fill="#ffe14d" stroke="#8a5c14" stroke-width="1.4" transform="rotate(288 337 261)"/><ellipse cx="337" cy="303" rx="9" ry="5.5" fill="#ffe14d" stroke="#8a5c14" stroke-width="1.4" transform="rotate(324 337 303)"/><path d="M 804 284 C 786 232 782 212 788 184" fill="none" stroke="#c8a24a" stroke-width="15" stroke-linecap="round"/><path d="M 804 284 C 786 232 782 212 788 184" fill="none" stroke="#ffe9ad" stroke-width="7" stroke-linecap="round"/><path d="M 956 284 C 974 232 978 212 972 184" fill="none" stroke="#c8a24a" stroke-width="15" stroke-linecap="round"/><path d="M 956 284 C 974 232 978 212 972 184" fill="none" stroke="#ffe9ad" stroke-width="7" stroke-linecap="round"/><path d="M 880 262 C 948 262 982 318 978 366 C 974 414 936 444 880 444 C 824 444 786 414 782 366 C 778 318 812 262 880 262 Z" fill="url(#utbl)" stroke="#6b4210" stroke-width="3" filter="url(#utdrop)"/><path d="M 880 442 L 880 500" stroke="#c8a24a" stroke-width="18" stroke-linecap="round"/><path d="M 880 442 L 880 498" stroke="#ffe9ad" stroke-width="8" stroke-linecap="round"/><ellipse cx="840" cy="300" rx="42" ry="17" fill="#fff" fill-opacity=".26" filter="url(#utsoft)"/><path d="M 816 392 q 16 -14 32 0" fill="none" stroke="#8a5c14" stroke-opacity=".4" stroke-width="2.4"/><path d="M 852 392 q 16 -14 32 0" fill="none" stroke="#8a5c14" stroke-opacity=".4" stroke-width="2.4"/><path d="M 888 392 q 16 -14 32 0" fill="none" stroke="#8a5c14" stroke-opacity=".4" stroke-width="2.4"/><path d="M 924 392 q 16 -14 32 0" fill="none" stroke="#8a5c14" stroke-opacity=".4" stroke-width="2.4"/><path d="M 880 274 C 938 274 968 324 964 364 C 960 402 928 428 880 428 C 832 428 800 402 796 364 C 792 324 822 274 880 274 Z" fill="#ff3b6b" fill-opacity=".38"/><ellipse cx="906" cy="340" rx="9" ry="5.5" fill="#ffe14d" stroke="#8a5c14" stroke-width="1.4" transform="rotate(0 906 340)"/><ellipse cx="917" cy="364" rx="9" ry="5.5" fill="#ffe14d" stroke="#8a5c14" stroke-width="1.4" transform="rotate(36 917 364)"/><ellipse cx="900" cy="395" rx="9" ry="5.5" fill="#ffe14d" stroke="#8a5c14" stroke-width="1.4" transform="rotate(72 900 395)"/><ellipse cx="872" cy="361" rx="9" ry="5.5" fill="#ffe14d" stroke="#8a5c14" stroke-width="1.4" transform="rotate(108 872 361)"/><ellipse cx="843" cy="363" rx="9" ry="5.5" fill="#ffe14d" stroke="#8a5c14" stroke-width="1.4" transform="rotate(144 843 363)"/><ellipse cx="814" cy="340" rx="9" ry="5.5" fill="#ffe14d" stroke="#8a5c14" stroke-width="1.4" transform="rotate(180 814 340)"/><ellipse cx="859" cy="327" rx="9" ry="5.5" fill="#ffe14d" stroke="#8a5c14" stroke-width="1.4" transform="rotate(216 859 327)"/><ellipse cx="866" cy="302" rx="9" ry="5.5" fill="#ffe14d" stroke="#8a5c14" stroke-width="1.4" transform="rotate(252 866 302)"/><ellipse cx="901" cy="285" rx="9" ry="5.5" fill="#ffe14d" stroke="#8a5c14" stroke-width="1.4" transform="rotate(288 901 285)"/><ellipse cx="901" cy="327" rx="9" ry="5.5" fill="#ffe14d" stroke="#8a5c14" stroke-width="1.4" transform="rotate(324 901 327)"/><path d="M 1084 154 C 1134 154 1166 186 1164 220 C 1162 254 1130 272 1084 272 C 1038 272 1006 254 1004 220 C 1002 186 1034 154 1084 154 Z" fill="url(#utbrain)" stroke="#7a4d58" stroke-width="2.6" filter="url(#utglow)"/><path d="M 1022 178 C 1060 168 1108 168 1146 178" fill="none" stroke="#7a4d58" stroke-opacity=".45" stroke-width="2.4"/><path d="M 1022 202 C 1060 192 1108 192 1146 202" fill="none" stroke="#7a4d58" stroke-opacity=".45" stroke-width="2.4"/><path d="M 1022 226 C 1060 216 1108 216 1146 226" fill="none" stroke="#7a4d58" stroke-opacity=".45" stroke-width="2.4"/><path d="M 1022 250 C 1060 240 1108 240 1146 250" fill="none" stroke="#7a4d58" stroke-opacity=".45" stroke-width="2.4"/><text x="1014" y="136" font-size="24" font-weight="900" fill="#ffc233" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">?</text><text x="1048" y="118" font-size="24" font-weight="900" fill="#ffc233" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">?</text><text x="1118" y="136" font-size="24" font-weight="900" fill="#ffc233" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">?</text><text x="1152" y="118" font-size="24" font-weight="900" fill="#ffc233" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">?</text><path d="M 966 292 C 1006 264 1020 250 1032 240" fill="none" stroke="#ff3b6b" stroke-width="5" marker-end="url(#utar)" stroke-dasharray="9 6"/><rect x="919" y="319" width="163" height="21" rx="6" fill="#0d081a" fill-opacity=".78" stroke="rgba(255,255,255,.30)"/><text x="1000" y="330" font-size="12" font-weight="800" fill="#ffb3c6" text-anchor="middle" font-family="Segoe UI,Roboto,system-ui,sans-serif">confusion, not burning</text><text x="64" y="476" font-size="14.5" font-weight="800" fill="#a5f3d4" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">🔥 Fever</text><text x="64" y="514" font-size="14.5" font-weight="800" fill="#a5f3d4" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">🚻 Burning · urgency · frequency</text><text x="64" y="552" font-size="14.5" font-weight="800" fill="#a5f3d4" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">🩸 Cloudy or bloody urine</text><text x="64" y="590" font-size="14.5" font-weight="800" fill="#a5f3d4" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">😖 Suprapubic or flank pain</text><text x="64" y="628" font-size="14.5" font-weight="800" fill="#a5f3d4" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">🧠 Thinking stays NORMAL</text><text x="668" y="476" font-size="14.5" font-weight="800" fill="#ffb3c6" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">🧠 NEW CONFUSION — often the ONLY sign</text><text x="668" y="514" font-size="14.5" font-weight="800" fill="#ffb3c6" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">😴 Sudden lethargy, or new agitation</text><text x="668" y="552" font-size="14.5" font-weight="800" fill="#ffb3c6" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">🤕 A new fall · “gone off their legs”</text><text x="668" y="590" font-size="14.5" font-weight="800" fill="#ffb3c6" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">🍽️ Poor appetite · new incontinence</text><text x="668" y="628" font-size="14.5" font-weight="800" fill="#ffb3c6" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">🌡️ Fever may be ABSENT or low-grade</text><rect x="149" y="736" width="943" height="31" rx="8" fill="#0d081a" fill-opacity=".82" stroke="rgba(255,255,255,.34)"/><text x="620" y="750" font-size="13.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Any older adult with SUDDEN confusion gets: vital signs · SpO₂ · blood glucose · a urine sample · a medication review.</text></svg><p class="figcap">In frail older adults the immune and inflammatory response is blunted, so the classic burning and fever may never appear — the brain complains before the bladder does.</p></div><div class="card deep span2"><svg viewBox="0 0 1240 580" role="img" aria-label="Five drawn bedside devices in a row with a caption card under each: a glass thermometer reading 101.4 Fahrenheit, a pulse oximeter on a finger reading 88 percent, a glucometer reading 54 milligrams per decilitre, a sodium scale with the normal band 135 to 145 and a red marker at 123, and a cup of cloudy urine with a dipstick."><defs><filter id="nbdrop" x="-35%" y="-35%" width="180%" height="180%"><feGaussianBlur in="SourceAlpha" stdDeviation="4"/><feOffset dx="0" dy="5" result="o"/><feFlood flood-color="#000" flood-opacity=".45"/><feComposite in2="o" operator="in" result="sh"/><feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/></feMerge></filter><filter id="nbsoft" x="-45%" y="-45%" width="190%" height="190%"><feGaussianBlur stdDeviation="3"/></filter><filter id="nbglow" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><linearGradient id="nbglass" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ffffff"/><stop offset=".35" stop-color="#e2edf5"/><stop offset=".7" stop-color="#a8bccd"/><stop offset="1" stop-color="#5d7285"/></linearGradient><linearGradient id="nbdev" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4a5568"/><stop offset=".4" stop-color="#2d3646"/><stop offset="1" stop-color="#161c28"/></linearGradient><linearGradient id="nburine" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff2a8"/><stop offset=".5" stop-color="#e0bf3d"/><stop offset="1" stop-color="#9a7d12"/></linearGradient></defs><text x="24" y="34" font-size="19" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">FIGURE 5 · SUDDEN CONFUSION? — these are the numbers you go and get</text><text x="24" y="52" font-size="12.5" font-weight="700" fill="#dcd2f2" opacity=".95" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Read LEFT → RIGHT · every one of these is a reversible cause you can find in minutes</text><rect x="112" y="150" width="26" height="200" rx="13" fill="url(#nbglass)" stroke="#48566a" stroke-width="2.4" filter="url(#nbdrop)"/><circle cx="125" cy="360" r="24" fill="#ff3b6b" stroke="#8c0f30" stroke-width="2.6"/><rect x="119" y="236" width="12" height="116" fill="#ff3b6b"/><path d="M 138 170 l 12 0" stroke="#cfd8e3" stroke-width="2"/><path d="M 138 192 l 12 0" stroke="#cfd8e3" stroke-width="2"/><path d="M 138 214 l 12 0" stroke="#cfd8e3" stroke-width="2"/><path d="M 138 236 l 12 0" stroke="#cfd8e3" stroke-width="2"/><path d="M 138 258 l 12 0" stroke="#cfd8e3" stroke-width="2"/><path d="M 138 280 l 12 0" stroke="#cfd8e3" stroke-width="2"/><path d="M 138 302 l 12 0" stroke="#cfd8e3" stroke-width="2"/><path d="M 138 324 l 12 0" stroke="#cfd8e3" stroke-width="2"/><rect x="152" y="219" width="75" height="23" rx="6" fill="#0d081a" fill-opacity=".78" stroke="rgba(255,255,255,.30)"/><text x="190" y="232" font-size="14" font-weight="800" fill="#ffb3c6" text-anchor="middle" font-family="Segoe UI,Roboto,system-ui,sans-serif">101.4 °F</text><path d="M 336 342 C 336 268 356 240 380 240 C 404 240 420 268 420 342 Z" fill="#f4c39d" stroke="#8a5a3a" stroke-width="2.6" filter="url(#nbdrop)"/><path d="M 348 252 C 356 246 404 246 410 252 C 412 268 410 276 406 282 L 350 282 C 346 276 346 266 348 252 Z" fill="#ffd9c6" stroke="#a06f46" stroke-width="2"/><rect x="322" y="176" width="120" height="86" rx="14" fill="url(#nbdev)" stroke="#0d1220" stroke-width="2.6" filter="url(#nbdrop)"/><rect x="336" y="190" width="92" height="58" rx="8" fill="#04161c"/><text x="382" y="232" font-size="30" font-weight="900" fill="#ff6b8f" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">88%</text><rect x="566" y="176" width="112" height="186" rx="18" fill="url(#nbdev)" stroke="#0d1220" stroke-width="2.6" filter="url(#nbdrop)"/><rect x="582" y="196" width="80" height="66" rx="8" fill="#04161c"/><text x="622" y="244" font-size="32" font-weight="900" fill="#7dffd0" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">54</text><text x="622" y="286" font-size="12" font-weight="800" fill="#9fb0c2" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">mg/dL</text><circle cx="592" cy="312" r="9" fill="#3b4658" stroke="#111722" stroke-width="1.6"/><circle cx="622" cy="312" r="9" fill="#3b4658" stroke="#111722" stroke-width="1.6"/><circle cx="652" cy="312" r="9" fill="#3b4658" stroke="#111722" stroke-width="1.6"/><circle cx="592" cy="338" r="9" fill="#3b4658" stroke="#111722" stroke-width="1.6"/><circle cx="622" cy="338" r="9" fill="#3b4658" stroke="#111722" stroke-width="1.6"/><circle cx="652" cy="338" r="9" fill="#3b4658" stroke="#111722" stroke-width="1.6"/><rect x="608" y="150" width="28" height="30" rx="4" fill="#e8eef5" stroke="#7d8b9c" stroke-width="2"/><rect x="770" y="240" width="180" height="30" rx="15" fill="#1a1030" stroke="rgba(255,255,255,.3)" stroke-width="2"/><rect x="836" y="240" width="52" height="30" rx="6" fill="#12b886" fill-opacity=".7"/><text x="862" y="261" font-size="11.5" font-weight="900" fill="#03291c" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">135–145</text><path d="M 790 232 L 790 200" stroke="#ff3b6b" stroke-width="4"/><circle cx="790" cy="255" r="10" fill="#ff3b6b" stroke="#fff" stroke-opacity=".6" stroke-width="2" filter="url(#nbglow)"/><rect x="757" y="178" width="65" height="22" rx="6" fill="#0d081a" fill-opacity=".78" stroke="rgba(255,255,255,.30)"/><text x="790" y="190" font-size="13.5" font-weight="800" fill="#ffb3c6" text-anchor="middle" font-family="Segoe UI,Roboto,system-ui,sans-serif">Na⁺ 123</text><text x="770" y="296" font-size="11.5" font-weight="900" fill="#ff6b8f" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">LOW</text><text x="950" y="296" font-size="11.5" font-weight="900" fill="#ff6b8f" opacity="1" text-anchor="end"  font-family="Segoe UI,Roboto,system-ui,sans-serif">HIGH</text><path d="M 1046 200 L 1134 200 L 1122 356 L 1058 356 Z" fill="url(#nbglass)" fill-opacity=".35" stroke="#8fa3b5" stroke-width="2.6" filter="url(#nbdrop)"/><path d="M 1056 250 L 1126 250 L 1118 352 L 1062 352 Z" fill="url(#nburine)" fill-opacity=".85"/><circle cx="1068" cy="280" r="4.5" fill="#fffbe0" fill-opacity=".7"/><circle cx="1090" cy="280" r="4.5" fill="#fffbe0" fill-opacity=".7"/><circle cx="1112" cy="280" r="4.5" fill="#fffbe0" fill-opacity=".7"/><circle cx="1068" cy="304" r="4.5" fill="#fffbe0" fill-opacity=".7"/><circle cx="1090" cy="304" r="4.5" fill="#fffbe0" fill-opacity=".7"/><circle cx="1112" cy="304" r="4.5" fill="#fffbe0" fill-opacity=".7"/><circle cx="1068" cy="328" r="4.5" fill="#fffbe0" fill-opacity=".7"/><circle cx="1090" cy="328" r="4.5" fill="#fffbe0" fill-opacity=".7"/><circle cx="1112" cy="328" r="4.5" fill="#fffbe0" fill-opacity=".7"/><rect x="1146" y="188" width="16" height="150" rx="4" fill="#f2ead8" stroke="#a2957a" stroke-width="1.8"/><rect x="1146" y="202" width="16" height="16" fill="#ff3b6b"/><rect x="1146" y="226" width="16" height="16" fill="#ffc233"/><rect x="1146" y="250" width="16" height="16" fill="#12b886"/><rect x="1146" y="274" width="16" height="16" fill="#9d5cff"/><rect x="1040" y="171" width="101" height="21" rx="6" fill="#0d081a" fill-opacity=".78" stroke="rgba(255,255,255,.30)"/><text x="1090" y="182" font-size="12" font-weight="800" fill="#ffe49a" text-anchor="middle" font-family="Segoe UI,Roboto,system-ui,sans-serif">cloudy · foul</text><rect x="36" y="396" width="232" height="146" rx="14" fill="#ff3b6b" fill-opacity=".14" stroke="#ff3b6b" stroke-width="2.2"/><text x="152" y="426" font-size="13.5" font-weight="900" fill="#ff3b6b" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">🌡️  TEMPERATURE</text><text x="152" y="452" font-size="11.8" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Any temp over</text><text x="152" y="473" font-size="11.8" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">100.3 °F / 38 °C</text><text x="152" y="494" font-size="11.8" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">— and remember fever</text><text x="152" y="515" font-size="11.8" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">may be ABSENT</text><rect x="276" y="396" width="232" height="146" rx="14" fill="#2f6bff" fill-opacity=".14" stroke="#2f6bff" stroke-width="2.2"/><text x="392" y="426" font-size="13.5" font-weight="900" fill="#2f6bff" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">🫁  OXYGEN (SpO₂)</text><text x="392" y="452" font-size="11.8" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Below 92% (or below</text><text x="392" y="473" font-size="11.8" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">the patient's usual)</text><text x="392" y="494" font-size="11.8" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">= hypoxia until</text><text x="392" y="515" font-size="11.8" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">proven otherwise</text><rect x="504" y="396" width="232" height="146" rx="14" fill="#12b886" fill-opacity=".14" stroke="#12b886" stroke-width="2.2"/><text x="620" y="426" font-size="13.5" font-weight="900" fill="#12b886" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">🩸  BLOOD GLUCOSE</text><text x="620" y="452" font-size="11.8" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Typical adult fasting</text><text x="620" y="473" font-size="11.8" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">70–110 mg/dL</text><text x="620" y="494" font-size="11.8" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Low glucose causes</text><text x="620" y="515" font-size="11.8" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">confusion FAST</text><rect x="744" y="396" width="232" height="146" rx="14" fill="#00c2c7" fill-opacity=".14" stroke="#00c2c7" stroke-width="2.2"/><text x="860" y="426" font-size="13.5" font-weight="900" fill="#00c2c7" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">🧂  SERUM SODIUM</text><text x="860" y="452" font-size="11.8" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Typical adult 135–145 mEq/L</text><text x="860" y="473" font-size="11.8" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Low sodium is a</text><text x="860" y="494" font-size="11.8" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">classic, easily-missed</text><text x="860" y="515" font-size="11.8" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">cause</text><rect x="974" y="396" width="232" height="146" rx="14" fill="#ffc233" fill-opacity=".14" stroke="#ffc233" stroke-width="2.2"/><text x="1090" y="426" font-size="13.5" font-weight="900" fill="#ffc233" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">🧫  URINE</text><text x="1090" y="452" font-size="11.8" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Culture + urinalysis.</text><text x="1090" y="473" font-size="11.8" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Positive nitrites or</text><text x="1090" y="494" font-size="11.8" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">leukocytes with new</text><text x="1090" y="515" font-size="11.8" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">confusion = treat</text></svg><p class="figcap">This is the exam's favourite “select all that apply”: which findings could be causing this delirium? Temperature, SpO₂, glucose, sodium and a positive urine culture are all yes. The ranges shown are typical adult reference ranges and vary between laboratories.</p></div>
+  <div class="card sapphire">
+    <h3>🧪 The lab and vital-sign values worth memorising</h3>
+    <ul class="tick">
+      <li><b>Temperature</b> — a documented fever over <span class="mono">100.3 °F (38 °C)</span> plus new
+        confusion is infection until proven otherwise. <b>In older adults fever may be absent.</b></li>
+      <li><b>SpO₂</b> — under <span class="mono">92%</span> (or a drop from the patient's normal) = hypoxia.
+        Hypoxia makes people confused before it makes them breathless.</li>
+      <li><b>Blood glucose</b> — typical adult fasting reference range <span class="mono">70–110 mg/dL</span>. Hypoglycaemia causes
+        confusion within minutes and is fixed within minutes.</li>
+      <li><b>Serum sodium</b> — typical adult reference range <span class="mono">135–145 mEq/L</span>. A sodium of
+        <span class="mono">123</span> is a classic, easily-missed cause.</li>
+      <li><b>Urinalysis + culture</b> — positive nitrites/leukocyte esterase with new confusion.</li>
+      <li><b>Reference ranges vary between laboratories</b> — these are typical adult values; always use the range your facility reports.</li>
+    </ul>
+    <div class="mn">🧠 The classic select-all: <b>positive urine culture with 101 °F · sodium 123 · SpO₂ 82%</b>
+    are all causes. <b>Glucose 120</b> is not low enough to explain the confusion — it is the distractor.</div>
+  </div>
+<div class="card deep span2"><svg viewBox="0 0 1240 700" role="img" aria-label="Two panels showing the two faces of delirium. On the left a hyperactive patient sitting up in bed with arms raised, eyes wide, pulling at an intravenous line. On the right a hypoactive patient lying flat and quiet with eyes closed and z's floating above, labelled as more common and most often missed. Bullet lists under each describe the behaviour."><defs><filter id="sbdrop" x="-35%" y="-35%" width="180%" height="180%"><feGaussianBlur in="SourceAlpha" stdDeviation="4"/><feOffset dx="0" dy="5" result="o"/><feFlood flood-color="#000" flood-opacity=".45"/><feComposite in2="o" operator="in" result="sh"/><feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/></feMerge></filter><filter id="sbsoft" x="-45%" y="-45%" width="190%" height="190%"><feGaussianBlur stdDeviation="3"/></filter><linearGradient id="sbsk" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe6d0"/><stop offset=".4" stop-color="#f4c39d"/><stop offset="1" stop-color="#a06f46"/></linearGradient><linearGradient id="sbbed" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6f7f96"/><stop offset=".5" stop-color="#42506a"/><stop offset="1" stop-color="#1e2634"/></linearGradient><linearGradient id="sbgown" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#cfe6ff"/><stop offset=".4" stop-color="#89b4e0"/><stop offset="1" stop-color="#2f5680"/></linearGradient></defs><text x="24" y="34" font-size="19" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">FIGURE 6 · THE TWO FACES OF DELIRIUM — and the one that gets missed</text><text x="24" y="52" font-size="12.5" font-weight="700" fill="#dcd2f2" opacity=".95" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Both patients are delirious · read LEFT (loud) → RIGHT (quiet) · the quiet one is more common and does worse</text><rect x="24" y="66" width="584" height="546" rx="14" fill="rgba(255,59,107,.12)" stroke="#ff3b6b" stroke-width="1.6"/><text x="40" y="92" font-size="15.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">① HYPERACTIVE delirium</text><text x="40" y="110" font-size="11.8" font-weight="700" fill="#dcd2f2" opacity=".95" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">The one everybody notices</text><rect x="632" y="66" width="584" height="546" rx="14" fill="rgba(47,107,255,.12)" stroke="#2f6bff" stroke-width="1.6"/><text x="648" y="92" font-size="15.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">② HYPOACTIVE delirium</text><text x="648" y="110" font-size="11.8" font-weight="700" fill="#dcd2f2" opacity=".95" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">MORE COMMON · most often MISSED</text><rect x="96" y="340" width="440" height="34" rx="10" fill="url(#sbbed)" stroke="#141b28" stroke-width="2.4"/><rect x="86" y="244" width="20" height="130" rx="6" fill="url(#sbbed)" stroke="#141b28" stroke-width="2.2"/><rect x="526" y="280" width="20" height="94" rx="6" fill="url(#sbbed)" stroke="#141b28" stroke-width="2.2"/><rect x="100" y="374" width="12" height="42" fill="#2a3242"/><rect x="520" y="374" width="12" height="42" fill="#2a3242"/><path d="M 256 340 C 260 270 290 240 322 240 C 356 240 378 276 382 340 Z" fill="url(#sbgown)" stroke="#1c3f5e" stroke-width="2.4"/><ellipse cx="322" cy="202" rx="38" ry="42" fill="url(#sbsk)" stroke="#8a5a3a" stroke-width="2.4"/><path d="M 284 188 C 296 148 350 148 360 188 C 346 168 298 168 284 188 Z" fill="#c9c2bb"/><circle cx="308" cy="198" r="7" fill="#fff"/><circle cx="308" cy="198" r="3.4" fill="#2b1c12"/><circle cx="336" cy="198" r="7" fill="#fff"/><circle cx="336" cy="198" r="3.4" fill="#2b1c12"/><ellipse cx="322" cy="224" rx="10" ry="12" fill="#5c2a2a"/><path d="M 262 264 L 198 200 L 212 142" fill="none" stroke="url(#sbsk)" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/><path d="M 370 264 L 434 200 L 420 142" fill="none" stroke="url(#sbsk)" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/><path d="M 212 140 C 166 180 140 250 130 320" fill="none" stroke="#9ff2ee" stroke-width="5" stroke-linecap="round"/><rect x="102" y="115" width="128" height="21" rx="6" fill="#0d081a" fill-opacity=".78" stroke="rgba(255,255,255,.30)"/><text x="166" y="126" font-size="12" font-weight="800" fill="#ffb3c6" text-anchor="middle" font-family="Segoe UI,Roboto,system-ui,sans-serif">pulling at the IV</text><rect x="704" y="340" width="440" height="34" rx="10" fill="url(#sbbed)" stroke="#141b28" stroke-width="2.4"/><rect x="694" y="244" width="20" height="130" rx="6" fill="url(#sbbed)" stroke="#141b28" stroke-width="2.2"/><rect x="1134" y="280" width="20" height="94" rx="6" fill="url(#sbbed)" stroke="#141b28" stroke-width="2.2"/><rect x="708" y="374" width="12" height="42" fill="#2a3242"/><rect x="1128" y="374" width="12" height="42" fill="#2a3242"/><rect x="748" y="294" width="352" height="46" rx="20" fill="url(#sbgown)" stroke="#1c3f5e" stroke-width="2.4"/><ellipse cx="734" cy="312" rx="42" ry="34" fill="url(#sbsk)" stroke="#8a5a3a" stroke-width="2.4"/><path d="M 708 288 C 718 266 756 268 768 292 C 752 280 720 278 708 288 Z" fill="#c9c2bb"/><path d="M 714 312 q 8 7 16 0 M 738 312 q 8 7 16 0" fill="none" stroke="#3a2418" stroke-width="3" stroke-linecap="round"/><path d="M 726 332 l 18 0" stroke="#8a4a4a" stroke-width="2.8" stroke-linecap="round"/><rect x="790" y="270" width="264" height="26" rx="12" fill="#e8eef5" fill-opacity=".2"/><text x="688" y="258" font-size="16" font-weight="900" fill="#bcd0ff" opacity=".8" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">z</text><text x="710" y="236" font-size="22" font-weight="900" fill="#bcd0ff" opacity=".8" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">z</text><text x="732" y="214" font-size="28" font-weight="900" fill="#bcd0ff" opacity=".8" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">z</text><rect x="824" y="233" width="280" height="21" rx="6" fill="#0d081a" fill-opacity=".78" stroke="rgba(255,255,255,.30)"/><text x="964" y="244" font-size="12" font-weight="800" fill="#bcd0ff" text-anchor="middle" font-family="Segoe UI,Roboto,system-ui,sans-serif">quiet · withdrawn · “no trouble at all”</text><circle cx="64" cy="443" r="5.4" fill="#ff3b6b"/><text x="82" y="448" font-size="13" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Agitated, restless, shouting</text><circle cx="64" cy="473" r="5.4" fill="#ff3b6b"/><text x="82" y="478" font-size="13" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Pulls at IVs, lines and dressings</text><circle cx="64" cy="503" r="5.4" fill="#ff3b6b"/><text x="82" y="508" font-size="13" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Tries to climb out of bed</text><circle cx="64" cy="533" r="5.4" fill="#ff3b6b"/><text x="82" y="538" font-size="13" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Hallucinations and paranoia</text><circle cx="64" cy="563" r="5.4" fill="#ff3b6b"/><text x="82" y="568" font-size="13" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Gets noticed — and often gets sedated</text><circle cx="672" cy="443" r="5.4" fill="#2f6bff"/><text x="690" y="448" font-size="13" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Quiet, sleepy, slow to answer</text><circle cx="672" cy="473" r="5.4" fill="#2f6bff"/><text x="690" y="478" font-size="13" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Withdrawn, apathetic, does not eat</text><circle cx="672" cy="503" r="5.4" fill="#2f6bff"/><text x="690" y="508" font-size="13" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Looks like depression or “just tired”</text><circle cx="672" cy="533" r="5.4" fill="#2f6bff"/><text x="690" y="538" font-size="13" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Still INATTENTIVE — test it, don't assume</text><circle cx="672" cy="563" r="5.4" fill="#2f6bff"/><text x="690" y="568" font-size="13" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Missed most often · WORSE outcomes</text><rect x="121" y="640" width="997" height="31" rx="8" fill="#0d081a" fill-opacity=".82" stroke="rgba(255,255,255,.34)"/><text x="620" y="654" font-size="13.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">A quiet patient is not automatically a settled patient. Test attention: “Say the months of the year backwards from December.”</text></svg><p class="figcap">Hypoactive delirium is the more common form and the one nobody calls about, because a quiet patient makes no noise. It carries a worse prognosis than the agitated form.</p></div>
+  <div class="card ruby">
+    <h3>🚨 Priority action — in order</h3>
+    <div class="ladder">
+      <div class="rung"><div class="n" style="background:var(--garnet)">1</div>
+        <div class="t"><b>ASSESS THE CLIENT.</b> Airway, breathing, circulation, vital signs, SpO₂, glucose,
+        pain, bladder, last bowel movement, level of consciousness</div></div>
+      <div class="arrowdown">↓</div>
+      <div class="rung"><div class="n" style="background:var(--citrine);color:#2b1200">2</div>
+        <div class="t"><b>Review the medications</b> — what is new, what was stopped, what was given in the
+        last 24 hours</div></div>
+      <div class="arrowdown">↓</div>
+      <div class="rung"><div class="n" style="background:var(--topaz);color:#231a02">3</div>
+        <div class="t"><b>Get the specimens</b> — urinalysis and culture, bloods, and notify the provider</div></div>
+      <div class="arrowdown">↓</div>
+      <div class="rung"><div class="n">4</div>
+        <div class="t"><b>Treat the cause</b> and support the patient while it resolves</div></div>
+    </div>
+    <p class="never">Never sedate or restrain a newly confused patient <b>before</b> assessing them.
+    Sedation removes your ability to monitor the very thing you are worried about, and restraints make
+    delirium worse.</p>
+    <div class="mn">🧠 If an option starts with “assess”, “obtain vital signs” or “check the client”, it is
+    almost always the answer.</div>
+  </div>
+  <div class="card emerald">
+    <h3>✅ Non-drug management of delirium — do all of this</h3>
+    <ul class="tick">
+      <li><b>Give the senses back</b>: glasses ON, hearing aids IN, dentures in. Sensory deprivation feeds
+        delirium.</li>
+      <li><b>Re-orient gently and often</b> — clock, calendar, name badge, say what day it is. (This IS
+        appropriate in delirium; it is <b>not</b> appropriate in advanced dementia.)</li>
+      <li><b>Protect sleep</b>: lights on and curtains open by day, dark and quiet at night, cluster care so
+        you are not waking them hourly.</li>
+      <li><b>Mobilise early</b> and get them out of bed; treat pain, constipation and retention.</li>
+      <li><b>Hydration and nutrition</b>; remove unnecessary lines and catheters (they are both a cause and
+        a hazard).</li>
+      <li><b>Familiar faces</b> — encourage family to stay; keep staff consistent.</li>
+    </ul>
+    <div class="mn">🧠 <b>Glasses · hearing aids · clock · daylight · pain · pee · poo.</b> The delirium
+    checklist.</div>
+  </div>
+
+  </div>
+</section><section id="dementia">
+  <div class="sec-h"><span class="icon">🧠</span><h2>DEMENTIA — LIVE WITH IT SAFELY</h2><span class="step">STEP 3</span></div>
+  <p class="sec-sub">Irreversible damage. Care is about safety, routine and how you speak.</p>
+  <div class="grid">
+
+  <div class="card sapphire">
+    <h3>🧠 Dementia is an umbrella, not a diagnosis</h3>
+    <ul class="tick">
+      <li><b>Alzheimer's disease</b> — the most common (≈60–80%). Memory first. Plaques and tangles.
+        <a href="NG-069_alzheimers.html">Full page here</a>.</li>
+      <li><b>Vascular dementia</b> — from strokes or small-vessel disease. Often <b>step-wise</b> decline
+        rather than smooth.</li>
+      <li><b>Lewy body dementia</b> — visual hallucinations, fluctuating cognition and parkinsonism.
+        <b>Extremely sensitive to antipsychotics.</b></li>
+      <li><b>Frontotemporal dementia</b> — personality and behaviour change first, memory later, often
+        younger onset.</li>
+      <li><b>Parkinson's disease dementia</b> — see <a href="NG-258_parkinsons.html">NG-258</a>.</li>
+      <li>Also: Huntington's disease and traumatic brain injury cause irreversible brain damage.</li>
+    </ul>
+    <div class="mn">🧠 <b>DeMentia = DaMage.</b> Many roads, one destination.</div>
+  </div>
+  <div class="card citrinec">
+    <h3>💬 Managing the person with dementia — distraction, not correction</h3>
+    <p>In <b>end-stage</b> dementia there is too much damage for the person to hold on to reality. Insisting
+    on reality only produces anxiety and aggression, so interventions revolve around <b>distraction</b>.</p>
+    <ol class="tick">
+      <li><b>1. Acknowledge and discuss the feeling</b> — “You're worried about him.”</li>
+      <li><b>2. Redirect with a new activity</b> — a crossword, folding towels, photographs, a walk.</li>
+      <li><b>3. Do NOT present reality or rationalise.</b></li>
+    </ol>
+    <p>Encourage them to talk about the “mixed-up” feelings; place personal items and photographs at the
+    bedside; provide a manual activity so a restraint is never needed.</p>
+    <div class="xref"><span class="pill">SAME 3 STEPS</span>
+      <a href="NG-069_alzheimers.html">NG-069 Alzheimer's</a> — drawn out in full there.</div>
+  </div>
+  <div class="card topaz">
+    <h3>⭐ Re-orient or redirect? The rule that decides</h3>
+    <div class="mirror">
+      <div class="mrow hi"><b>DELIRIUM → RE-ORIENT</b>The confusion is temporary and the brain can take the
+        information in. Clock, calendar, “It's Tuesday morning, you're in hospital, I'm your nurse.”</div>
+      <div class="mrow lo"><b>ADVANCED DEMENTIA → REDIRECT</b>The brain cannot store the correction.
+        Repeating reality just re-inflicts the loss. Acknowledge the feeling and change the activity.</div>
+    </div>
+    <div class="mn">🧠 <b>Delirium: bring them BACK. Dementia: take them SOMEWHERE ELSE.</b></div>
+  </div>
+  <div class="card deep">
+    <h3>🧪 What both have in common</h3>
+    <ul class="tick">
+      <li>Both raise the risk of <b>falls</b>, <b>aspiration</b>, dehydration and pressure injury.</li>
+      <li>Both need a <b>calm, familiar, well-lit</b> environment and a predictable routine.</li>
+      <li>Both are made worse by restraints, tethers (catheters, telemetry leads, IV poles), interrupted
+        sleep and untreated pain.</li>
+      <li>Both need the <b>family involved</b> — they are your best source of what “normal” looks like.</li>
+      <li>Neither is a reason to talk to the patient like a child.</li>
+    </ul>
+    <div class="mn">🧠 <b>Ask the family: “Is this how they usually are?”</b> That one question separates
+    baseline from acute change better than any tool.</div>
+  </div>
+
+  <div class="card topaz">
+    <h3>⭐ CAM — the 4-step delirium screen</h3>
+    <p>The <b>Confusion Assessment Method</b> needs <b>1 AND 2</b>, plus <b>3 OR 4</b>:</p>
+    <ol class="tick">
+      <li><b>1 · Acute onset and fluctuating course</b> — is this a change from baseline, and does it come
+        and go?</li>
+      <li><b>2 · Inattention</b> — cannot hold a thread, easily distracted.</li>
+      <li><b>3 · Disorganised thinking</b> — rambling, illogical, jumping between ideas.</li>
+      <li><b>4 · Altered level of consciousness</b> — anything other than alert (drowsy, stuporous, or
+        hypervigilant).</li>
+    </ol>
+    <div class="mn">🧠 <b>1 and 2, plus 3 or 4.</b> Attention is compulsory — you cannot have delirium with
+    normal attention.</div>
+  </div>
+  <div class="card sapphire">
+    <h3>🧪 Who is set up for delirium before anything even happens</h3>
+    <div class="mirror">
+      <div class="mrow"><b>PREDISPOSING (the loaded gun)</b>Age over 65 · existing dementia or cognitive
+        impairment · poor vision or hearing · frailty and immobility · polypharmacy · dehydration ·
+        previous delirium · alcohol use</div>
+      <div class="mrow hi"><b>PRECIPITATING (the trigger)</b>Infection · surgery and anaesthesia · a new
+        drug · hypoxia · pain · dehydration · retention or constipation · a new environment · sleep
+        deprivation · restraints</div>
+    </div>
+    <p>The more loaded the gun, the smaller the trigger needed. A frail 88-year-old can become delirious
+    from constipation alone.</p>
+    <div class="mn">🧠 <b>Loaded gun + small trigger.</b> That is why the frailest patients look the sickest
+    from the smallest problems.</div>
+  </div>
+  <div class="card citrinec">
+    <h3>🏥 Post-operative delirium — expect it and prevent it</h3>
+    <ul class="tick">
+      <li>Very common in older adults after <b>hip fracture</b> and after cardiac surgery.</li>
+      <li>Usual culprits: <b>anaesthetic and opioid load, pain, hypoxia, blood loss and anaemia,
+        electrolyte shifts, urinary retention, a new environment and disrupted sleep</b>.</li>
+      <li><b>Treat pain properly.</b> Under-treated pain causes more delirium than well-managed opioids do —
+        but avoid the high-risk drugs (benzodiazepines, anticholinergics, meperidine).</li>
+      <li>Get them <b>up and moving early</b>, remove the catheter as soon as possible, restore the
+        glasses and hearing aids in recovery.</li>
+      <li>Screen every shift with CAM in high-risk patients.</li>
+    </ul>
+    <div class="mn">🧠 <b>Pain, pee, pills, pO₂.</b> Four Ps behind most post-op confusion.</div>
+  </div>
+  <div class="card emerald">
+    <h3>✅ Prevention beats treatment — the non-drug bundle</h3>
+    <ul class="tick">
+      <li><b>Orientation</b>: clock, calendar, familiar objects, staff who introduce themselves each time.</li>
+      <li><b>Sensory</b>: glasses on, hearing aids in and working, adequate lighting.</li>
+      <li><b>Sleep</b>: dark and quiet at night, no unnecessary observations, no caffeine in the evening.</li>
+      <li><b>Mobility</b>: out of bed, walking every day, physiotherapy.</li>
+      <li><b>Hydration and nutrition</b>: fluids in reach, help with meals, dentures in.</li>
+      <li><b>De-tether</b>: remove catheters, telemetry and IV lines as soon as they are not needed.</li>
+    </ul>
+    <p>These measures reduce the incidence of delirium — they are not just comfort measures.</p>
+    <div class="mn">🧠 <b>Sight · Sound · Sleep · Steps · Sips.</b> Five Ss and delirium halves.</div>
+  </div>
+  <div class="card deep">
+    <h3>💊 Medication is the LAST resort in delirium</h3>
+    <ul class="tick">
+      <li>First: find and treat the cause, and use every non-drug measure.</li>
+      <li>Medication is only for <b>severe agitation that puts the patient or others at risk</b> — never for
+        the convenience of staff.</li>
+      <li>If used: <b>lowest dose, shortest time</b>, and reassess constantly.</li>
+      <li><b>Benzodiazepines usually make delirium worse</b> — the exception is delirium from
+        <b>alcohol or benzodiazepine withdrawal</b>, where they are the treatment.</li>
+      <li>Antipsychotics carry an increased mortality risk in older adults with dementia; if a person may
+        have <b>Lewy body dementia</b>, they can cause a severe reaction.</li>
+      <li>Review every drug on the chart: which one started this?</li>
+    </ul>
+    <p class="never">Never treat agitation with sedation before you have assessed for a cause.</p>
+    <div class="mn">🧠 <b>Sedation hides the very thing you are trying to find.</b></div>
+  </div>
+  <div class="card garnet span2">
+    <h3>🚨 Depression — the third one in the differential</h3>
+    <div class="tblwrap"><table>
+      <tr><th></th><th class="up">DELIRIUM</th><th class="lo">DEMENTIA</th><th class="lo">DEPRESSION</th></tr>
+      <tr><td><b>Onset</b></td><td>Hours–days</td><td>Months–years</td><td>Weeks–months</td></tr>
+      <tr><td><b>Attention</b></td><td>Impaired</td><td>Intact early</td><td>Usually intact, poor effort</td></tr>
+      <tr><td><b>Memory complaint</b></td><td>Cannot register anything</td>
+        <td><b>Denies or hides</b> the problem</td><td><b>Complains loudly</b> about memory</td></tr>
+      <tr><td><b>Answers</b></td><td>Rambling, incoherent</td><td>Confabulates, near-misses</td>
+        <td><b>“I don't know”</b> — gives up quickly</td></tr>
+      <tr><td><b>Mood</b></td><td>Fluctuates with the delirium</td><td>Variable, often flat</td>
+        <td>Persistently low, anhedonia</td></tr>
+      <tr><td><b>Reversible?</b></td><td>Yes</td><td>No</td><td><b>Yes — it is treatable</b></td></tr>
+    </table></div>
+    <p><b>Pseudodementia</b> is depression in an older adult that looks like dementia. It is worth catching,
+    because unlike dementia it gets better with treatment.</p>
+    <div class="mn">🧠 <b>Dementia hides the deficit. Depression advertises it. Delirium can't even
+    engage with the question.</b></div>
+  </div>
+
+  </div>
+</section>
+<section id="tell">
+  <div class="sec-h"><span class="icon">⚖️</span><h2>TELL THEM APART IN 10 SECONDS</h2><span class="step">STEP 4</span></div>
+  <p class="sec-sub">If you remember nothing else on this page, remember these four lines.</p>
+  <div class="grid">
+    <div class="card topaz span2">
+      <h3>⭐ The four-question sort</h3>
+      <div class="mirror">
+        <div class="mrow"><b>1 · When did it start?</b>Hours/days = <b>delirium</b>. Months/years =
+          <b>dementia</b>.</div>
+        <div class="mrow"><b>2 · Does it come and go?</b>Fluctuating = <b>delirium</b>. Steady =
+          <b>dementia</b>.</div>
+        <div class="mrow"><b>3 · Can they pay attention?</b>No = <b>delirium</b>. Yes (early) =
+          <b>dementia</b>.</div>
+        <div class="mrow"><b>4 · Is there a cause you can test for?</b>Almost always with <b>delirium</b>.
+          Go and test for it.</div>
+      </div>
+      <div class="mn">🧠 <b>WHEN · WAVY · WATCHING · WHY.</b> Four Ws and you have the answer.</div>
+    </div>
+    <div class="card emerald">
+      <h3>✅ Documentation that protects the patient</h3>
+      <p><b>Weak:</b> “Patient confused as usual.”</p>
+      <p><b>Strong:</b> “Baseline per daughter: oriented to person and place, walks to the bathroom alone.
+      Today: not oriented to place, cannot say the months backwards, drowsy, temp
+      <span class="mono">100.8 °F</span>, urine cloudy. Provider notified 1420, urinalysis sent.”</p>
+      <div class="mn">🧠 <b>Always chart the BASELINE next to today.</b> A change is only visible against
+      something.</div>
+    </div>
+    <div class="card ruby">
+      <h3>❌ Answers that are always wrong here</h3>
+      <ul class="tick">
+        <li>❌ “Apply restraints so the client doesn't pull the IV.”</li>
+        <li>❌ “Administer the PRN sedative first, then assess.”</li>
+        <li>❌ “Document that the dementia is worsening.”</li>
+        <li>❌ “Reassure the family this is normal for her age.”</li>
+        <li>❌ “Wait and reassess at the end of the shift.”</li>
+      </ul>
+      <p class="never">Confusion is never “normal for age”.</p>
+      <div class="mn">🧠 <b>Assess before you sedate. Always.</b></div>
+    </div>
+  </div>
+</section>
+
+<div class="recall" id="recall2">
+  <div class="rc rubybg"><span class="big">⚡ SUDDEN = DELIRIUM</span>Hours to days, fluctuating,
+    inattentive, altered alertness. Find the cause and it reverses.</div>
+  <div class="rc tealbg"><span class="big">🐌 GRADUAL = DEMENTIA</span>Months to years, steady, attention
+    intact early, alert. Irreversible damage.</div>
+  <div class="rc citrine"><span class="big">🦠 UTI · HYPOXIA · DRUGS</span>Plus electrolytes, glucose, pain,
+    retention, constipation, withdrawal. Fever may be ABSENT in the older adult.</div>
+  <div class="rc topazbg"><span class="big">🚨 ASSESS FIRST</span>Vitals · SpO₂ · glucose · urine · med
+    review. <b>Never sedate or restrain before assessing.</b></div>
+  <div class="rc rubybg"><span class="big">🪤 THE TRAP</span>Sudden change in someone <b>with</b> dementia =
+    work it up as delirium. Never chart “dementia worsening”.</div>
+  <div class="rc topazbg"><span class="big">🧭 ORIENT vs REDIRECT</span>Delirium → re-orient (they can take
+    it in). Advanced dementia → acknowledge the feeling and redirect.</div>
+</div>
+
+<footer>
+  <div class="ccc"><span style="background:rgba(157,92,255,.6)">NG-244</span>
+    <span style="background:rgba(192,34,85,.7)">NEURO · COMPARISON</span>
+    <span style="background:var(--topaz);color:#2a1f00">Nursing Field Notes</span></div>
+  <div>Study aid only · always follow your facility protocol and your instructor.</div>
+</footer>
+
+</div>
+</body></html>

@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Seizures · NG-226 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+
+/* ---- appended for the Neuro batch (batch 16) ---- */
+nav a.c5{background:rgba(0,194,199,.72);color:#00252b}
+nav a.c6{background:rgba(255,138,61,.75);color:#2b1200}
+nav a.c7{background:rgba(192,34,85,.72)}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+#bleeds .sec-h h2{color:#ffb3c6} #bleeds .step{background:var(--garnet)}
+#icp   .sec-h h2{color:#ffb3c6} #icp .step{background:var(--garnet)}
+#dx    .sec-h h2{color:#9ff2ee} #dx .step{background:var(--teal);color:#00252b}
+#teach .sec-h h2{color:#ffd9b8} #teach .step{background:var(--citrine);color:#2b1200}
+#during .sec-h h2{color:#ffb3c6} #during .step{background:var(--garnet)}
+#after .sec-h h2{color:#a5f3d4} #after .step{background:var(--emerald);color:#03291c}
+#meds  .sec-h h2{color:#ffd9b8} #meds .step{background:var(--citrine);color:#2b1200}
+#types .sec-h h2{color:#9ff2ee} #types .step{background:var(--teal);color:#00252b}
+#stages .sec-h h2{color:#ffd9b8} #stages .step{background:var(--citrine);color:#2b1200}
+#tell  .sec-h h2{color:#d9c2ff} #tell .step{background:var(--amethyst)}
+#compare .sec-h h2{color:#d9c2ff} #compare .step{background:var(--amethyst)}
+.setbar{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin:4px 0 16px;font-size:.82rem}
+.setbar .setlabel{font-weight:900;letter-spacing:.08em;color:#ffe49a;margin-right:2px}
+.setbar a{font-weight:800;padding:4px 11px;border-radius:999px;border:1px solid var(--line);
+  background:rgba(13,8,26,.5);color:#dbe8ff;text-decoration:none}
+.setbar a.cur{background:var(--topaz);color:#231a02;border-color:transparent;cursor:default}
+.legendrow{display:flex;gap:9px;flex-wrap:wrap;margin:11px 0 0;font-size:.84rem;font-weight:800}
+.legendrow span{padding:5px 11px;border-radius:9px;background:rgba(13,8,26,.55);
+  border:1px solid var(--line);display:flex;align-items:center;gap:7px}
+.sw{display:inline-block;width:15px;height:15px;border-radius:4px;border:1px solid rgba(255,255,255,.6)}
+.card a{color:#ffe49a;font-weight:800}
+.card.tealc a,.card.topaz a,.card.citrinec a{color:#0b3a52}
+.xref{margin-top:10px;padding:8px 12px;border-radius:11px;background:rgba(0,194,199,.20);
+  border:1px solid var(--line);font-size:.9rem;font-weight:700}
+.xref .pill{display:inline-block;font-size:.7rem;font-weight:900;letter-spacing:.08em;
+  background:var(--teal);color:#00252b;padding:2px 8px;border-radius:7px;margin-right:7px}
+.card.tealc .xref,.card.topaz .xref,.card.citrinec .xref{background:rgba(255,255,255,.45)}
+.mirror{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));margin:10px 0 0}
+.mrow{border-radius:12px;padding:10px 13px;background:rgba(13,8,26,.52);border:1px solid var(--line);font-size:.92rem}
+.mrow b{display:block;font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;opacity:.85;margin-bottom:3px}
+.mrow.hi{background:rgba(255,59,107,.30)} .mrow.lo{background:rgba(0,194,199,.28)}
+.card.tealc .mrow,.card.topaz .mrow,.card.citrinec .mrow{background:rgba(255,255,255,.42);color:#1a1030}
+.bigq{font-size:1.5rem;font-weight:900;line-height:1.2;margin:2px 0 6px}
+.tblwrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:2px 0}
+.ccc{flex-wrap:wrap}
+@media(max-width:700px){table{font-size:.85rem}th,td{padding:7px 6px}}
+.sec-h{flex-wrap:wrap}
+.sec-h h2,h1,.rc,.card h3{overflow-wrap:anywhere}
+.figcap{margin:8px 0 0;font-size:.86rem;font-style:italic;opacity:.92}
+.steps{display:grid;gap:8px;margin:10px 0 0}
+.stp{display:flex;gap:11px;align-items:flex-start;background:rgba(13,8,26,.5);
+  border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:.93rem}
+.stp .k{flex:0 0 30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;
+  font-weight:900;background:var(--topaz);color:#231a02}
+.card.tealc .stp,.card.topaz .stp,.card.citrinec .stp{background:rgba(255,255,255,.42);color:#1a1030}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#types">⚡ Types &amp; phases</a>
+  <a class="c3" href="#during">🩺 DURING a seizure</a>
+  <a class="c7" href="#status">🚨 Status epilepticus</a>
+  <a class="c2" href="#after">🛏️ After &amp; precautions</a>
+  <a class="c6" href="#meds">💊 Drugs &amp; EEG</a>
+  <a class="c4" href="#recall2">⚡ Recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Neuro · Seizure Disorders · Med-Surg</div>
+  <div class="setbar"><span class="setlabel">🧠 NEURO SET</span>
+  <a href="NG-255_neuro-overview.html">NG-255 Neuro overview + GCS</a>
+  <a href="NG-247_head-injury.html">NG-247 Head injury</a>
+  <a href="NG-252_meningitis.html">NG-252 Meningitis</a>
+  <a class="cur" href="NG-226_seizures.html">NG-226 Seizures</a>
+  <a href="NG-158_neurogenic-shock.html">NG-158 Neurogenic shock</a>
+  </div>
+
+  <h1>Seizures <span class="drop">⚡</span></h1>
+  <p class="sub">Safety during · precautions before · drugs after</p>
+  <div class="chips">
+    <span class="chip id">NG-226</span>
+    <span class="chip cat">NEURO · SEIZURES</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede">A seizure is a <b>sudden, uncontrolled burst of electrical activity in the brain</b>. Most stop
+  on their own in under two minutes — so <mark>almost nothing you are tested on is about stopping it</mark>. It
+  is about <b>keeping the airway open and the patient uninjured while it runs</b>, and knowing the exact minute
+  it stops being a seizure and becomes <b>status epilepticus</b>.</p>
+</header>
+
+<div class="recall">
+  <div class="rc rubybg"><span class="big">🔄 SIDE-LYING first</span>Turn them on their side, pad the head, <b>time it</b>, and stay. Airway is the whole priority.</div>
+  <div class="rc topazbg"><span class="big">❌ The three NEVERS</span><b>Never</b> put anything in the mouth · <b>never</b> restrain · <b>never</b> leave them alone.</div>
+  <div class="rc citrine"><span class="big">⏱️ 5 minutes = STATUS</span>One seizure ≥ <span class="mono">5 min</span>, or repeats without waking in between. Airway → then a <b>benzodiazepine</b> to stop it.</div>
+  <div class="rc tealbg"><span class="big">💊 Never stop them abruptly</span>Suddenly stopping an antiseizure drug is a classic cause of <b>status epilepticus</b>.</div>
+</div>
+
+<section id="types">
+  <div class="sec-h"><span class="icon">⚡</span><h2>TYPES &amp; PHASES</h2><span class="step">STEP 1 · CLASSIFY</span></div>
+  <p class="sec-sub">Two questions sort every seizure: how much of the brain is involved, and what stage are we watching right now.</p>
+  <div class="grid">
+
+    <div class="card deep span2">
+      <h3>🧠 Generalised vs focal — how much brain is involved</h3>
+      <svg viewBox="-42 -16 1058 654" role="img" aria-label="Two brains seen from above with the front at the top. On the left a generalised seizure, with abnormal electrical activity shaded across BOTH hemispheres and a chaotic electroencephalogram trace beneath. On the right a focal seizure, with the abnormal activity confined to one small area of one hemisphere and a trace that is abnormal on only one channel">
+<defs>
+  <linearGradient id="tybone" x1="0" y1="0" x2="0.3" y2="1">
+    <stop offset="0" stop-color="#fff3d6"/><stop offset=".22" stop-color="#f2dfae"/>
+    <stop offset=".55" stop-color="#d8bd85"/><stop offset=".8" stop-color="#b39a63"/>
+    <stop offset="1" stop-color="#8d7748"/>
+  </linearGradient>
+  <linearGradient id="tydip" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#e6c98f"/><stop offset=".5" stop-color="#c8a86a"/>
+    <stop offset="1" stop-color="#9c8149"/>
+  </linearGradient>
+  <radialGradient id="tybrain" cx=".38" cy=".3" r=".85" fx=".3" fy=".22">
+    <stop offset="0" stop-color="#f6cfe0"/><stop offset=".25" stop-color="#e6a9c6"/>
+    <stop offset=".55" stop-color="#c98bb0"/><stop offset=".8" stop-color="#a06a92"/>
+    <stop offset="1" stop-color="#6d4468"/>
+  </radialGradient>
+  <radialGradient id="tycbl" cx=".4" cy=".3" r=".8">
+    <stop offset="0" stop-color="#d59ec0"/><stop offset=".55" stop-color="#9c5f8d"/>
+    <stop offset="1" stop-color="#5c3355"/>
+  </radialGradient>
+  <linearGradient id="tycsf" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#b6fbfa"/><stop offset=".45" stop-color="#4fdede"/>
+    <stop offset="1" stop-color="#00909a"/>
+  </linearGradient>
+  <linearGradient id="tyblood" x1="0" y1="0" x2="0.4" y2="1">
+    <stop offset="0" stop-color="#ff8098"/><stop offset=".3" stop-color="#ff3b6b"/>
+    <stop offset=".7" stop-color="#c02255"/><stop offset="1" stop-color="#71092f"/>
+  </linearGradient>
+  <linearGradient id="tyven" x1="0" y1="0" x2="0.4" y2="1">
+    <stop offset="0" stop-color="#7f9dff"/><stop offset=".45" stop-color="#3a5fd0"/>
+    <stop offset="1" stop-color="#1b2a6b"/>
+  </linearGradient>
+  <filter id="tysh" x="-35%" y="-35%" width="180%" height="180%">
+    <feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dx="0" dy="6" result="o"/>
+    <feFlood flood-color="#000" flood-opacity=".55"/><feComposite in2="o" operator="in" result="s"/>
+    <feMerge><feMergeNode in="s"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="tysoft" x="-40%" y="-40%" width="180%" height="180%">
+    <feGaussianBlur stdDeviation="7"/>
+  </filter>
+  <marker id="tyar" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="6.5" markerHeight="6.5" orient="auto">
+    <path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/>
+  </marker>
+  <marker id="tyarr" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="6.5" markerHeight="6.5" orient="auto">
+    <path d="M1 1 L11 6 L1 11 z" fill="#ff3b6b"/>
+  </marker>
+  <marker id="tyarw" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+    <path d="M1 1 L11 6 L1 11 z" fill="#ffffff"/>
+  </marker>
+</defs><rect x="0" y="0" width="1000" height="58" rx="12" fill="rgba(9,5,20,.78)" stroke="rgba(255,255,255,.35)" stroke-width="1"/><text x="16" y="26" font-size="21" font-weight="900" fill="#ffc233">GENERALISED vs FOCAL — how much of the brain is involved?</text><text x="16" y="47" font-size="14" font-style="italic" fill="#d9e7ff">Brain seen from ABOVE · front of the head at the TOP · orange shading = abnormal electrical activity</text><rect x="6" y="70" width="490" height="552" rx="16" fill="rgba(13,8,26,.5)" stroke="#ff3b6b" stroke-width="2.6"/><text x="24" y="100" font-size="19" font-weight="900" fill="#ff3b6b">GENERALISED</text><text x="24" y="121" font-size="13.4" font-weight="800" fill="#fff">BOTH hemispheres from the start</text><g transform="translate(96,138)"><path d="M 146,20 C 80,22 58,80 62,150 C 66,226 96,268 146,270 Z" fill="url(#tybrain)" stroke="#6b3d63" stroke-width="2.4"/><path d="M 154,20 C 220,22 242,80 238,150 C 234,226 204,268 154,270 Z" fill="url(#tybrain)" stroke="#6b3d63" stroke-width="2.4"/><path d="M 142,36 q -26,5 -52,8 q -20,-0 -28,-3" stroke="#7a4770" stroke-width="2.4" fill="none" opacity=".55" stroke-linecap="round"/><path d="M 142,62 q -26,-8 -52,5 q -20,-0 -28,3" stroke="#7a4770" stroke-width="2.4" fill="none" opacity=".55" stroke-linecap="round"/><path d="M 142,88 q -26,-2 -52,7 q -20,-4 -28,4" stroke="#7a4770" stroke-width="2.4" fill="none" opacity=".55" stroke-linecap="round"/><path d="M 142,114 q -26,4 -52,2 q -20,1 -28,2" stroke="#7a4770" stroke-width="2.4" fill="none" opacity=".55" stroke-linecap="round"/><path d="M 142,140 q -26,-5 -52,4 q -20,5 -28,-3" stroke="#7a4770" stroke-width="2.4" fill="none" opacity=".55" stroke-linecap="round"/><path d="M 142,166 q -26,5 -52,6 q -20,6 -28,-2" stroke="#7a4770" stroke-width="2.4" fill="none" opacity=".55" stroke-linecap="round"/><path d="M 142,192 q -26,-7 -52,7 q -20,5 -28,-1" stroke="#7a4770" stroke-width="2.4" fill="none" opacity=".55" stroke-linecap="round"/><path d="M 142,218 q -26,-6 -52,-1 q -20,2 -28,-3" stroke="#7a4770" stroke-width="2.4" fill="none" opacity=".55" stroke-linecap="round"/><path d="M 142,244 q -26,7 -52,4 q -20,-5 -28,2" stroke="#7a4770" stroke-width="2.4" fill="none" opacity=".55" stroke-linecap="round"/><path d="M 158,36 q 26,-2 52,9 q 20,7 28,0" stroke="#7a4770" stroke-width="2.4" fill="none" opacity=".55" stroke-linecap="round"/><path d="M 158,62 q 26,2 52,6 q 20,5 28,6" stroke="#7a4770" stroke-width="2.4" fill="none" opacity=".55" stroke-linecap="round"/><path d="M 158,88 q 26,-8 52,1 q 20,2 28,-2" stroke="#7a4770" stroke-width="2.4" fill="none" opacity=".55" stroke-linecap="round"/><path d="M 158,114 q 26,1 52,-3 q 20,6 28,0" stroke="#7a4770" stroke-width="2.4" fill="none" opacity=".55" stroke-linecap="round"/><path d="M 158,140 q 26,-6 52,5 q 20,-3 28,-4" stroke="#7a4770" stroke-width="2.4" fill="none" opacity=".55" stroke-linecap="round"/><path d="M 158,166 q 26,-0 52,-2 q 20,-5 28,4" stroke="#7a4770" stroke-width="2.4" fill="none" opacity=".55" stroke-linecap="round"/><path d="M 158,192 q 26,3 52,-4 q 20,4 28,-6" stroke="#7a4770" stroke-width="2.4" fill="none" opacity=".55" stroke-linecap="round"/><path d="M 158,218 q 26,-3 52,9 q 20,2 28,-2" stroke="#7a4770" stroke-width="2.4" fill="none" opacity=".55" stroke-linecap="round"/><path d="M 158,244 q 26,-2 52,1 q 20,-6 28,6" stroke="#7a4770" stroke-width="2.4" fill="none" opacity=".55" stroke-linecap="round"/><path d="M 150,20 L 150,270" stroke="#4a2447" stroke-width="4" stroke-linecap="round"/><path d="M 146,20 C 80,22 58,80 62,150 C 66,226 96,268 146,270 Z" fill="#ff8a3d" opacity=".55"/><path d="M 154,20 C 220,22 242,80 238,150 C 234,226 204,268 154,270 Z" fill="#ff8a3d" opacity=".55"/><circle cx="187" cy="165" r="4.2" fill="#ffe49a" opacity=".9"/><circle cx="84" cy="217" r="2.7" fill="#ffe49a" opacity=".9"/><circle cx="225" cy="132" r="4.0" fill="#ffe49a" opacity=".9"/><circle cx="182" cy="108" r="4.5" fill="#ffe49a" opacity=".9"/><circle cx="163" cy="82" r="3.4" fill="#ffe49a" opacity=".9"/><circle cx="139" cy="93" r="2.3" fill="#ffe49a" opacity=".9"/><circle cx="149" cy="107" r="3.5" fill="#ffe49a" opacity=".9"/><circle cx="154" cy="118" r="2.1" fill="#ffe49a" opacity=".9"/><circle cx="187" cy="198" r="3.1" fill="#ffe49a" opacity=".9"/><circle cx="148" cy="206" r="4.8" fill="#ffe49a" opacity=".9"/><circle cx="149" cy="201" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="129" cy="120" r="3.4" fill="#ffe49a" opacity=".9"/><circle cx="132" cy="149" r="3.1" fill="#ffe49a" opacity=".9"/><circle cx="126" cy="239" r="3.0" fill="#ffe49a" opacity=".9"/><circle cx="106" cy="48" r="4.8" fill="#ffe49a" opacity=".9"/><circle cx="112" cy="200" r="3.0" fill="#ffe49a" opacity=".9"/><circle cx="114" cy="184" r="4.4" fill="#ffe49a" opacity=".9"/><circle cx="177" cy="130" r="2.0" fill="#ffe49a" opacity=".9"/><circle cx="139" cy="151" r="2.1" fill="#ffe49a" opacity=".9"/><circle cx="152" cy="124" r="4.2" fill="#ffe49a" opacity=".9"/><circle cx="99" cy="232" r="4.6" fill="#ffe49a" opacity=".9"/><circle cx="170" cy="158" r="4.8" fill="#ffe49a" opacity=".9"/><circle cx="120" cy="109" r="4.3" fill="#ffe49a" opacity=".9"/><circle cx="167" cy="87" r="3.4" fill="#ffe49a" opacity=".9"/><circle cx="178" cy="175" r="2.4" fill="#ffe49a" opacity=".9"/><circle cx="112" cy="92" r="2.4" fill="#ffe49a" opacity=".9"/><text x="150" y="10" font-size="12" font-weight="900" fill="#ffd9b8" text-anchor="middle">FRONT</text><text x="150" y="290" font-size="12" font-weight="900" fill="#ffd9b8" text-anchor="middle">BACK</text></g><g transform="translate(62,448)"><path d="M 0,18 q 6,-16 12,0 q 7,20 14,0 q 4,-20 9,0 q 4,14 9,0 q 4,-28 7,0 q 6,14 12,0 q 7,-16 14,0 q 7,14 14,0 q 6,-28 12,0 q 6,-16 12,0 q 7,14 14,0 q 4,-20 9,0 q 4,-20 9,0 q 4,-16 9,0 q 4,20 9,0 q 7,20 14,0 q 7,14 14,0 q 7,-20 14,0 q 7,-28 14,0 q 4,-16 7,0 q 4,-24 9,0 q 7,-16 14,0 q 4,-16 7,0 q 7,-20 14,0 q 4,-20 7,0 q 7,-28 14,0 q 4,14 7,0 q 7,14 14,0 q 6,14 12,0 q 4,20 9,0 q 6,20 12,0 q 4,-20 7,0 q 4,14 9,0 q 6,-20 12,0 q 4,-20 7,0 q 4,20 9,0 q 7,-24 14,0 " fill="none" stroke="#ff3b6b" stroke-width="2.2" stroke-linecap="round"/><text x="-10" y="22" font-size="11" font-weight="900" fill="#cfd8e4" text-anchor="end">ch1</text><path d="M 0,56 q 7,-20 14,0 q 4,-24 7,0 q 7,-24 14,0 q 4,-16 9,0 q 7,20 14,0 q 4,-28 9,0 q 4,-24 9,0 q 4,-28 7,0 q 4,14 7,0 q 6,14 12,0 q 4,-24 7,0 q 4,-24 9,0 q 4,-24 9,0 q 7,-16 14,0 q 4,20 7,0 q 4,-16 9,0 q 4,20 7,0 q 6,20 12,0 q 7,-28 14,0 q 7,-28 14,0 q 4,-20 9,0 q 4,14 7,0 q 6,-28 12,0 q 7,20 14,0 q 4,20 7,0 q 4,14 7,0 q 7,-24 14,0 q 4,14 7,0 q 7,-24 14,0 q 6,14 12,0 q 4,-24 7,0 q 4,-28 7,0 q 4,-20 7,0 q 4,14 7,0 q 7,-20 14,0 q 4,-24 9,0 q 4,-20 9,0 q 4,20 7,0 q 7,-20 14,0 q 4,20 7,0 " fill="none" stroke="#ff3b6b" stroke-width="2.2" stroke-linecap="round"/><text x="-10" y="60" font-size="11" font-weight="900" fill="#cfd8e4" text-anchor="end">ch2</text><path d="M 0,94 q 4,-16 7,0 q 4,-16 7,0 q 4,20 7,0 q 7,20 14,0 q 4,-24 9,0 q 6,14 12,0 q 6,20 12,0 q 4,-20 7,0 q 4,-16 7,0 q 7,-16 14,0 q 4,-20 9,0 q 4,-24 7,0 q 6,20 12,0 q 6,-28 12,0 q 4,-24 7,0 q 6,-20 12,0 q 7,14 14,0 q 6,20 12,0 q 4,-24 9,0 q 6,14 12,0 q 6,20 12,0 q 4,20 7,0 q 4,-20 9,0 q 4,14 7,0 q 6,14 12,0 q 4,-28 7,0 q 4,14 7,0 q 4,-28 7,0 q 7,-20 14,0 q 7,20 14,0 q 7,14 14,0 q 7,-24 14,0 q 6,-16 12,0 q 7,-24 14,0 q 7,14 14,0 q 6,14 12,0 q 7,-24 14,0 " fill="none" stroke="#ff3b6b" stroke-width="2.2" stroke-linecap="round"/><text x="-10" y="98" font-size="11" font-weight="900" fill="#cfd8e4" text-anchor="end">ch3</text><path d="M 0,132 q 4,-20 7,0 q 4,14 7,0 q 4,-16 9,0 q 4,14 7,0 q 6,-24 12,0 q 4,-24 9,0 q 6,-20 12,0 q 4,-28 9,0 q 7,-24 14,0 q 4,-20 9,0 q 4,-16 7,0 q 4,-16 9,0 q 7,14 14,0 q 4,-24 9,0 q 6,20 12,0 q 7,20 14,0 q 4,-24 7,0 q 6,-16 12,0 q 4,-24 9,0 q 6,-16 12,0 q 6,20 12,0 q 7,-24 14,0 q 7,-20 14,0 q 4,-24 7,0 q 4,-16 7,0 q 7,14 14,0 q 7,-24 14,0 q 4,20 9,0 q 6,-24 12,0 q 4,-24 9,0 q 4,-24 9,0 q 4,-28 9,0 q 4,-20 9,0 q 7,14 14,0 q 6,20 12,0 q 4,20 9,0 q 7,20 14,0 q 7,-20 14,0 " fill="none" stroke="#ff3b6b" stroke-width="2.2" stroke-linecap="round"/><text x="-10" y="136" font-size="11" font-weight="900" fill="#cfd8e4" text-anchor="end">ch4</text></g><text x="24" y="404" font-size="0" fill="none"> </text><text x="24" y="404" font-size="0" fill="none"> </text><rect x="24" y="596" width="0" height="0" rx="7" fill="rgba(9,5,20,.78)" stroke="rgba(255,255,255,.35)" stroke-width="1"/><rect x="510" y="70" width="490" height="552" rx="16" fill="rgba(13,8,26,.5)" stroke="#ffc233" stroke-width="2.6"/><text x="528" y="100" font-size="19" font-weight="900" fill="#ffc233">FOCAL</text><text x="528" y="121" font-size="13.4" font-weight="800" fill="#fff">ONE area of ONE hemisphere</text><g transform="translate(600,138)"><path d="M 146,20 C 80,22 58,80 62,150 C 66,226 96,268 146,270 Z" fill="url(#tybrain)" stroke="#6b3d63" stroke-width="2.4"/><path d="M 154,20 C 220,22 242,80 238,150 C 234,226 204,268 154,270 Z" fill="url(#tybrain)" stroke="#6b3d63" stroke-width="2.4"/><path d="M 142,36 q -26,5 -52,8 q -20,-0 -28,-3" stroke="#7a4770" stroke-width="2.4" fill="none" opacity=".55" stroke-linecap="round"/><path d="M 142,62 q -26,-8 -52,5 q -20,-0 -28,3" stroke="#7a4770" stroke-width="2.4" fill="none" opacity=".55" stroke-linecap="round"/><path d="M 142,88 q -26,-2 -52,7 q -20,-4 -28,4" stroke="#7a4770" stroke-width="2.4" fill="none" opacity=".55" stroke-linecap="round"/><path d="M 142,114 q -26,4 -52,2 q -20,1 -28,2" stroke="#7a4770" stroke-width="2.4" fill="none" opacity=".55" stroke-linecap="round"/><path d="M 142,140 q -26,-5 -52,4 q -20,5 -28,-3" stroke="#7a4770" stroke-width="2.4" fill="none" opacity=".55" stroke-linecap="round"/><path d="M 142,166 q -26,5 -52,6 q -20,6 -28,-2" stroke="#7a4770" stroke-width="2.4" fill="none" opacity=".55" stroke-linecap="round"/><path d="M 142,192 q -26,-7 -52,7 q -20,5 -28,-1" stroke="#7a4770" stroke-width="2.4" fill="none" opacity=".55" stroke-linecap="round"/><path d="M 142,218 q -26,-6 -52,-1 q -20,2 -28,-3" stroke="#7a4770" stroke-width="2.4" fill="none" opacity=".55" stroke-linecap="round"/><path d="M 142,244 q -26,7 -52,4 q -20,-5 -28,2" stroke="#7a4770" stroke-width="2.4" fill="none" opacity=".55" stroke-linecap="round"/><path d="M 158,36 q 26,-2 52,9 q 20,7 28,0" stroke="#7a4770" stroke-width="2.4" fill="none" opacity=".55" stroke-linecap="round"/><path d="M 158,62 q 26,2 52,6 q 20,5 28,6" stroke="#7a4770" stroke-width="2.4" fill="none" opacity=".55" stroke-linecap="round"/><path d="M 158,88 q 26,-8 52,1 q 20,2 28,-2" stroke="#7a4770" stroke-width="2.4" fill="none" opacity=".55" stroke-linecap="round"/><path d="M 158,114 q 26,1 52,-3 q 20,6 28,0" stroke="#7a4770" stroke-width="2.4" fill="none" opacity=".55" stroke-linecap="round"/><path d="M 158,140 q 26,-6 52,5 q 20,-3 28,-4" stroke="#7a4770" stroke-width="2.4" fill="none" opacity=".55" stroke-linecap="round"/><path d="M 158,166 q 26,-0 52,-2 q 20,-5 28,4" stroke="#7a4770" stroke-width="2.4" fill="none" opacity=".55" stroke-linecap="round"/><path d="M 158,192 q 26,3 52,-4 q 20,4 28,-6" stroke="#7a4770" stroke-width="2.4" fill="none" opacity=".55" stroke-linecap="round"/><path d="M 158,218 q 26,-3 52,9 q 20,2 28,-2" stroke="#7a4770" stroke-width="2.4" fill="none" opacity=".55" stroke-linecap="round"/><path d="M 158,244 q 26,-2 52,1 q 20,-6 28,6" stroke="#7a4770" stroke-width="2.4" fill="none" opacity=".55" stroke-linecap="round"/><path d="M 150,20 L 150,270" stroke="#4a2447" stroke-width="4" stroke-linecap="round"/><ellipse cx="212" cy="88" rx="46" ry="38" fill="#ff8a3d" opacity=".7"/><ellipse cx="212" cy="88" rx="26" ry="20" fill="#ffe49a" opacity=".8"/><circle cx="231" cy="93" r="3.5" fill="#fff" opacity=".9"/><circle cx="179" cy="108" r="2.5" fill="#fff" opacity=".9"/><circle cx="250" cy="84" r="3.3" fill="#fff" opacity=".9"/><circle cx="228" cy="77" r="3.7" fill="#fff" opacity=".9"/><circle cx="219" cy="70" r="2.9" fill="#fff" opacity=".9"/><circle cx="207" cy="73" r="2.2" fill="#fff" opacity=".9"/><circle cx="212" cy="77" r="3.0" fill="#fff" opacity=".9"/><circle cx="214" cy="80" r="2.0" fill="#fff" opacity=".9"/><circle cx="231" cy="103" r="2.7" fill="#fff" opacity=".9"/><circle cx="211" cy="105" r="3.9" fill="#fff" opacity=".9"/><text x="150" y="10" font-size="12" font-weight="900" fill="#ffd9b8" text-anchor="middle">FRONT</text><text x="150" y="290" font-size="12" font-weight="900" fill="#ffd9b8" text-anchor="middle">BACK</text></g><g transform="translate(566,448)"><path d="M 0,18 q 9,4 18,0 q 7,5 14,0 q 6,4 12,0 q 7,-6 14,0 q 7,4 14,0 q 9,4 18,0 q 9,-6 18,0 q 9,5 18,0 q 9,5 18,0 q 9,4 18,0 q 9,-6 18,0 q 7,4 14,0 q 6,-4 12,0 q 9,5 18,0 q 6,5 12,0 q 6,-6 12,0 q 7,-4 14,0 q 9,-6 18,0 q 7,5 14,0 q 9,-6 18,0 q 6,4 12,0 q 9,-6 18,0 q 6,4 12,0 q 6,4 12,0 q 6,-6 12,0 q 9,-6 18,0 " fill="none" stroke="#12b886" stroke-width="2.2" stroke-linecap="round"/><text x="-10" y="22" font-size="11" font-weight="900" fill="#cfd8e4" text-anchor="end">ch1</text><path d="M 0,56 q 6,-20 12,0 q 7,-16 14,0 q 7,-20 14,0 q 4,20 7,0 q 6,-28 12,0 q 4,-16 9,0 q 4,14 7,0 q 4,-20 7,0 q 7,-20 14,0 q 6,14 12,0 q 6,20 12,0 q 4,20 7,0 q 4,14 9,0 q 6,14 12,0 q 6,20 12,0 q 4,-24 7,0 q 6,20 12,0 q 4,20 9,0 q 4,-28 7,0 q 4,-28 7,0 q 7,-20 14,0 q 7,-16 14,0 q 6,-24 12,0 q 4,-20 9,0 q 6,-16 12,0 q 4,20 9,0 q 7,-24 14,0 q 6,20 12,0 q 7,14 14,0 q 6,-16 12,0 q 7,-28 14,0 q 7,-28 14,0 q 4,-24 9,0 q 4,20 9,0 q 4,-24 9,0 q 4,-20 9,0 q 4,14 7,0 " fill="none" stroke="#ff3b6b" stroke-width="2.2" stroke-linecap="round"/><text x="-10" y="60" font-size="11" font-weight="900" fill="#cfd8e4" text-anchor="end">ch2</text><path d="M 0,94 q 6,4 12,0 q 6,5 12,0 q 6,4 12,0 q 7,-6 14,0 q 7,-6 14,0 q 9,-4 18,0 q 6,-6 12,0 q 9,-4 18,0 q 9,-4 18,0 q 6,-6 12,0 q 7,5 14,0 q 6,-6 12,0 q 6,-6 12,0 q 7,4 14,0 q 9,-4 18,0 q 7,5 14,0 q 7,-6 14,0 q 9,4 18,0 q 7,5 14,0 q 7,5 14,0 q 6,-6 12,0 q 6,5 12,0 q 6,4 12,0 q 6,5 12,0 q 6,-6 12,0 q 6,5 12,0 q 9,5 18,0 q 7,5 14,0 q 7,-6 14,0 " fill="none" stroke="#12b886" stroke-width="2.2" stroke-linecap="round"/><text x="-10" y="98" font-size="11" font-weight="900" fill="#cfd8e4" text-anchor="end">ch3</text><path d="M 0,132 q 9,-6 18,0 q 7,-6 14,0 q 6,4 12,0 q 6,-6 12,0 q 6,-6 12,0 q 9,-4 18,0 q 6,-6 12,0 q 6,4 12,0 q 9,4 18,0 q 6,5 12,0 q 7,4 14,0 q 6,-4 12,0 q 7,-4 14,0 q 9,-4 18,0 q 6,4 12,0 q 7,-4 14,0 q 6,5 12,0 q 6,-4 12,0 q 6,-4 12,0 q 6,-4 12,0 q 9,-4 18,0 q 7,-6 14,0 q 9,5 18,0 q 6,5 12,0 q 7,-4 14,0 q 9,-4 18,0 q 6,5 12,0 q 6,-4 12,0 q 6,-4 12,0 " fill="none" stroke="#12b886" stroke-width="2.2" stroke-linecap="round"/><text x="-10" y="136" font-size="11" font-weight="900" fill="#cfd8e4" text-anchor="end">ch4</text></g><text x="528" y="404" font-size="0" fill="none"> </text><text x="528" y="404" font-size="0" fill="none"> </text><rect x="528" y="596" width="0" height="0" rx="7" fill="rgba(9,5,20,.78)" stroke="rgba(255,255,255,.35)" stroke-width="1"/><rect x="24" y="392" width="454" height="44" rx="9" fill="rgba(9,5,20,.78)" stroke="rgba(255,255,255,.35)" stroke-width="1"/><text x="251" y="412" font-size="12.6" font-weight="900" fill="#ff3b6b" text-anchor="middle">Consciousness is LOST from the start</text><text x="251" y="429" font-size="12" font-weight="800" fill="#fff" text-anchor="middle">Tonic–clonic · absence · myoclonic · atonic</text><rect x="528" y="392" width="454" height="44" rx="9" fill="rgba(9,5,20,.78)" stroke="rgba(255,255,255,.35)" stroke-width="1"/><text x="755" y="412" font-size="12.6" font-weight="900" fill="#ffc233" text-anchor="middle">May stay AWARE, or awareness is impaired</text><text x="755" y="429" font-size="12" font-weight="800" fill="#fff" text-anchor="middle">Symptoms match the lobe · can spread</text></svg>
+      <div class="mn">🧠 <b>GENERALised = the whole GENERAL area. FOCAL = one FOCUS.</b> If consciousness is lost from the very start, think generalised.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🌍 The generalised types</h3>
+      <ul class="tick">
+        <li><b>Tonic–clonic</b> (“grand mal”) — stiffen then jerk, loss of consciousness. The one everyone pictures.</li>
+        <li><b>Absence</b> (“petit mal”) — brief blank staring, often in children; mistaken for daydreaming or inattention.</li>
+        <li><b>Myoclonic</b> — sudden brief jerks of a limb or the whole body.</li>
+        <li><b>Atonic</b> (“drop attack”) — all tone lost, the patient falls. <b>Helmets are a real intervention.</b></li>
+        <li><b>Tonic</b> or <b>clonic</b> alone — stiffening only, or jerking only.</li>
+      </ul>
+      <div class="mn">🧠 <b>Absence seizures look like a child ignoring you.</b> A teacher’s report of “stares off, then carries on mid-sentence” is the classic stem.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>📍 The focal types</h3>
+      <ul class="tick">
+        <li><b>Focal AWARE</b> (old name: simple partial) — patient stays awake and can remember it. Symptoms match the lobe: jerking of one hand, a strange smell, tingling.</li>
+        <li><b>Focal with IMPAIRED AWARENESS</b> (old: complex partial) — altered awareness, staring, and <b>automatisms</b>: lip smacking, picking at clothes, fumbling.</li>
+        <li><b>Focal to bilateral tonic–clonic</b> — starts in one place and spreads to the whole brain.</li>
+      </ul>
+      <div class="mn">🧠 <b>Automatisms = the body on autopilot.</b> Lip smacking and clothes picking during a staring spell is focal, not absence.</div>
+    </div>
+
+    <div class="card deep span2">
+      <h3>⏱️ The phases — prodrome → aura → tonic → clonic → postictal</h3>
+      <svg viewBox="-6 -6 1012 500" role="img" aria-label="A left to right timeline of a generalised tonic clonic seizure in five stages: prodrome hours before, aura seconds before, the tonic phase with the body rigid and extended, the clonic phase with rhythmic jerking, and the postictal phase with the patient deeply asleep and confused. Each stage shows a figure and a typical duration">
+<defs>
+  <linearGradient id="phbone" x1="0" y1="0" x2="0.3" y2="1">
+    <stop offset="0" stop-color="#fff3d6"/><stop offset=".22" stop-color="#f2dfae"/>
+    <stop offset=".55" stop-color="#d8bd85"/><stop offset=".8" stop-color="#b39a63"/>
+    <stop offset="1" stop-color="#8d7748"/>
+  </linearGradient>
+  <linearGradient id="phdip" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#e6c98f"/><stop offset=".5" stop-color="#c8a86a"/>
+    <stop offset="1" stop-color="#9c8149"/>
+  </linearGradient>
+  <radialGradient id="phbrain" cx=".38" cy=".3" r=".85" fx=".3" fy=".22">
+    <stop offset="0" stop-color="#f6cfe0"/><stop offset=".25" stop-color="#e6a9c6"/>
+    <stop offset=".55" stop-color="#c98bb0"/><stop offset=".8" stop-color="#a06a92"/>
+    <stop offset="1" stop-color="#6d4468"/>
+  </radialGradient>
+  <radialGradient id="phcbl" cx=".4" cy=".3" r=".8">
+    <stop offset="0" stop-color="#d59ec0"/><stop offset=".55" stop-color="#9c5f8d"/>
+    <stop offset="1" stop-color="#5c3355"/>
+  </radialGradient>
+  <linearGradient id="phcsf" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#b6fbfa"/><stop offset=".45" stop-color="#4fdede"/>
+    <stop offset="1" stop-color="#00909a"/>
+  </linearGradient>
+  <linearGradient id="phblood" x1="0" y1="0" x2="0.4" y2="1">
+    <stop offset="0" stop-color="#ff8098"/><stop offset=".3" stop-color="#ff3b6b"/>
+    <stop offset=".7" stop-color="#c02255"/><stop offset="1" stop-color="#71092f"/>
+  </linearGradient>
+  <linearGradient id="phven" x1="0" y1="0" x2="0.4" y2="1">
+    <stop offset="0" stop-color="#7f9dff"/><stop offset=".45" stop-color="#3a5fd0"/>
+    <stop offset="1" stop-color="#1b2a6b"/>
+  </linearGradient>
+  <filter id="phsh" x="-35%" y="-35%" width="180%" height="180%">
+    <feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dx="0" dy="6" result="o"/>
+    <feFlood flood-color="#000" flood-opacity=".55"/><feComposite in2="o" operator="in" result="s"/>
+    <feMerge><feMergeNode in="s"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="phsoft" x="-40%" y="-40%" width="180%" height="180%">
+    <feGaussianBlur stdDeviation="7"/>
+  </filter>
+  <marker id="phar" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="6.5" markerHeight="6.5" orient="auto">
+    <path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/>
+  </marker>
+  <marker id="pharr" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="6.5" markerHeight="6.5" orient="auto">
+    <path d="M1 1 L11 6 L1 11 z" fill="#ff3b6b"/>
+  </marker>
+  <marker id="pharw" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+    <path d="M1 1 L11 6 L1 11 z" fill="#ffffff"/>
+  </marker>
+</defs><rect x="0" y="0" width="1000" height="58" rx="12" fill="rgba(9,5,20,.78)" stroke="rgba(255,255,255,.35)" stroke-width="1"/><text x="16" y="26" font-size="21" font-weight="900" fill="#ffc233">THE PHASES OF A TONIC–CLONIC SEIZURE — left to right in time</text><text x="16" y="47" font-size="14" font-style="italic" fill="#d9e7ff">Front view of the patient at each stage · the bar under each panel is its typical duration</text><rect x="6" y="70" width="192" height="330" rx="14" fill="rgba(13,8,26,.5)" stroke="#9d5cff" stroke-width="2.4"/><text x="18" y="96" font-size="14" font-weight="900" fill="#9d5cff">1 · PRODROME</text><ellipse cx="102.0" cy="150" rx="26" ry="30" fill="#f0b48a" stroke="#8a4d2c" stroke-width="2.2"/><path d="M 76.0,136 C 86,116 118,116 128.0,136 C 115,128 89,128 76.0,136 Z" fill="#3a2c14"/><circle cx="93" cy="146.88" r="3" fill="#2a1a10"/><circle cx="111" cy="146.88" r="3" fill="#2a1a10"/><path d="M 94,163.0 q 8,5 16,0" stroke="#8a4d2c" stroke-width="2" fill="none"/><path d="M 72.0,188 L 132.0,188 L 128.0,254 L 76.0,254 Z" fill="#9d5cff" fill-opacity=".85" stroke="#3a1a6b" stroke-width="2"/><path d="M 72.0,192 L 54.0,240 M 132.0,192 L 150.0,240" stroke="#9d5cff" stroke-width="10" stroke-linecap="round" opacity=".9"/><path d="M 86.0,254 L 84.0,312 M 118.0,254 L 120.0,312" stroke="#9d5cff" stroke-width="12" stroke-linecap="round" opacity=".9"/><text x="102.0" y="126" font-size="13" font-weight="900" fill="#d9c2ff" text-anchor="middle">“I feel off”</text><rect x="18" y="334" width="168" height="26" rx="8" fill="#9d5cff" fill-opacity=".3" stroke="#9d5cff" stroke-width="1.8"/><text x="102.0" y="352" font-size="13" font-weight="900" fill="#9d5cff" text-anchor="middle">hours – days</text><rect x="6" y="406" width="192" height="86" rx="10" fill="rgba(9,5,20,.78)" stroke="rgba(255,255,255,.35)" stroke-width="1"/><text x="16" y="424" font-size="10.8" font-weight="800" fill="#fff">Mood change, irritability,</text><text x="16" y="440" font-size="10.8" font-weight="800" fill="#fff">headache. The patient may</text><text x="16" y="456" font-size="10.8" font-weight="800" fill="#fff">just say “I feel off.”</text><path d="M 199,235 L 203,235" stroke="#ffc233" stroke-width="0"/><rect x="204" y="70" width="192" height="330" rx="14" fill="rgba(13,8,26,.5)" stroke="#00c2c7" stroke-width="2.4"/><text x="216" y="96" font-size="14" font-weight="900" fill="#00c2c7">2 · AURA</text><ellipse cx="300.0" cy="150" rx="26" ry="30" fill="#f0b48a" stroke="#8a4d2c" stroke-width="2.2"/><path d="M 274.0,136 C 284,116 316,116 326.0,136 C 313,128 287,128 274.0,136 Z" fill="#3a2c14"/><circle cx="291" cy="146.88" r="3" fill="#2a1a10"/><circle cx="309" cy="146.88" r="3" fill="#2a1a10"/><path d="M 292,163.0 q 8,5 16,0" stroke="#8a4d2c" stroke-width="2" fill="none"/><path d="M 270.0,188 L 330.0,188 L 326.0,254 L 274.0,254 Z" fill="#00c2c7" fill-opacity=".85" stroke="#00373b" stroke-width="2"/><path d="M 270.0,192 L 252.0,240 M 330.0,192 L 348.0,240" stroke="#00c2c7" stroke-width="10" stroke-linecap="round" opacity=".9"/><path d="M 284.0,254 L 282.0,312 M 316.0,254 L 318.0,312" stroke="#00c2c7" stroke-width="12" stroke-linecap="round" opacity=".9"/><path d="M 330.0,140 q 8,-10 0,-18" stroke="#9ff2ee" stroke-width="2.4" fill="none"/><path d="M 336.0,130 q 8,-10 0,-18" stroke="#9ff2ee" stroke-width="2.4" fill="none"/><path d="M 342.0,120 q 8,-10 0,-18" stroke="#9ff2ee" stroke-width="2.4" fill="none"/><text x="300.0" y="126" font-size="12.4" font-weight="900" fill="#9ff2ee" text-anchor="middle">“I smell oranges”</text><rect x="216" y="334" width="168" height="26" rx="8" fill="#00c2c7" fill-opacity=".3" stroke="#00c2c7" stroke-width="1.8"/><text x="300.0" y="352" font-size="13" font-weight="900" fill="#00c2c7" text-anchor="middle">seconds</text><rect x="204" y="406" width="192" height="86" rx="10" fill="rgba(9,5,20,.78)" stroke="rgba(255,255,255,.35)" stroke-width="1"/><text x="214" y="424" font-size="10.8" font-weight="800" fill="#fff">A warning sensation — a</text><text x="214" y="440" font-size="10.8" font-weight="800" fill="#fff">smell, a taste, a rising</text><text x="214" y="456" font-size="10.8" font-weight="800" fill="#fff">feeling, déjà vu, a visual</text><text x="214" y="472" font-size="10.8" font-weight="800" fill="#fff">change.</text><path d="M 397,235 L 401,235" stroke="#ffc233" stroke-width="0"/><rect x="402" y="70" width="192" height="330" rx="14" fill="rgba(13,8,26,.5)" stroke="#ff3b6b" stroke-width="2.4"/><text x="414" y="96" font-size="14" font-weight="900" fill="#ff3b6b">3 · TONIC</text><ellipse cx="498.0" cy="150" rx="26" ry="30" fill="#dcb8c4" stroke="#8a4d2c" stroke-width="2.2"/><path d="M 472.0,136 C 482,116 514,116 524.0,136 C 511,128 485,128 472.0,136 Z" fill="#3a2c14"/><circle cx="489" cy="146.88" r="3" fill="#2a1a10"/><circle cx="507" cy="146.88" r="3" fill="#2a1a10"/><rect x="489" y="160" width="19" height="7" rx="3" fill="#7d2b3c" stroke="#8a4d2c" stroke-width="1.6"/><path d="M 470.0,188 L 526.0,188 L 522.0,256 L 474.0,256 Z" fill="#ff3b6b" fill-opacity=".85" stroke="#5c0a26" stroke-width="2"/><path d="M 470.0,194 L 454.0,254 M 526.0,194 L 542.0,254" stroke="#ff3b6b" stroke-width="11" stroke-linecap="round"/><path d="M 484.0,256 L 484.0,318 M 512.0,256 L 512.0,318" stroke="#ff3b6b" stroke-width="13" stroke-linecap="round"/><text x="498.0" y="126" font-size="12.4" font-weight="900" fill="#ffb3c6" text-anchor="middle">RIGID · extended</text><rect x="414" y="334" width="168" height="26" rx="8" fill="#ff3b6b" fill-opacity=".3" stroke="#ff3b6b" stroke-width="1.8"/><text x="498.0" y="352" font-size="13" font-weight="900" fill="#ff3b6b" text-anchor="middle">10–20 sec</text><rect x="402" y="406" width="192" height="86" rx="10" fill="rgba(9,5,20,.78)" stroke="rgba(255,255,255,.35)" stroke-width="1"/><text x="412" y="424" font-size="10.8" font-weight="800" fill="#fff">Body goes RIGID and</text><text x="412" y="440" font-size="10.8" font-weight="800" fill="#fff">extended. Air forced past</text><text x="412" y="456" font-size="10.8" font-weight="800" fill="#fff">the cords = a cry.</text><text x="412" y="472" font-size="10.8" font-weight="800" fill="#fff">Cyanosis. Jaw clenched.</text><path d="M 595,235 L 599,235" stroke="#ffc233" stroke-width="0"/><rect x="600" y="70" width="192" height="330" rx="14" fill="rgba(13,8,26,.5)" stroke="#ff8a3d" stroke-width="2.4"/><text x="612" y="96" font-size="14" font-weight="900" fill="#ff8a3d">4 · CLONIC</text><ellipse cx="696.0" cy="150" rx="26" ry="30" fill="#f0b48a" stroke="#8a4d2c" stroke-width="2.2"/><path d="M 670.0,136 C 680,116 712,116 722.0,136 C 709,128 683,128 670.0,136 Z" fill="#3a2c14"/><circle cx="687" cy="146.88" r="3" fill="#2a1a10"/><circle cx="705" cy="146.88" r="3" fill="#2a1a10"/><ellipse cx="696.0" cy="163.0" rx="8" ry="6" fill="#7d2b3c" stroke="#8a4d2c" stroke-width="1.6"/><path d="M 668.0,188 L 724.0,188 L 720.0,256 L 672.0,256 Z" fill="#ff8a3d" fill-opacity=".85" stroke="#6b2d00" stroke-width="2"/><g transform="rotate(-26 668.0 194)"><path d="M 668.0,194 L 650.0,252" stroke="#ff8a3d" stroke-width="11" stroke-linecap="round"/></g><g transform="rotate(22 724.0 194)"><path d="M 724.0,194 L 742.0,252" stroke="#ff8a3d" stroke-width="11" stroke-linecap="round"/></g><g transform="rotate(-14 682.0 256)"><path d="M 682.0,256 L 682.0,318" stroke="#ff8a3d" stroke-width="13" stroke-linecap="round"/></g><g transform="rotate(12 710.0 256)"><path d="M 710.0,256 L 710.0,318" stroke="#ff8a3d" stroke-width="13" stroke-linecap="round"/></g><path d="M 638.0,176 q -10,-8 -4,-18 M 754.0,176 q 10,-8 4,-18" stroke="#ffe49a" stroke-width="2.4" fill="none"/><path d="M 644.0,180 q -10,-8 -4,-18 M 748.0,180 q 10,-8 4,-18" stroke="#ffe49a" stroke-width="2.4" fill="none"/><path d="M 650.0,184 q -10,-8 -4,-18 M 742.0,184 q 10,-8 4,-18" stroke="#ffe49a" stroke-width="2.4" fill="none"/><text x="696.0" y="126" font-size="12.4" font-weight="900" fill="#ffd9b8" text-anchor="middle">JERKING</text><rect x="612" y="334" width="168" height="26" rx="8" fill="#ff8a3d" fill-opacity=".3" stroke="#ff8a3d" stroke-width="1.8"/><text x="696.0" y="352" font-size="13" font-weight="900" fill="#ff8a3d" text-anchor="middle">30–60 sec</text><rect x="600" y="406" width="192" height="86" rx="10" fill="rgba(9,5,20,.78)" stroke="rgba(255,255,255,.35)" stroke-width="1"/><text x="610" y="424" font-size="10.8" font-weight="800" fill="#fff">Rhythmic JERKING of all</text><text x="610" y="440" font-size="10.8" font-weight="800" fill="#fff">limbs. Frothing, tongue</text><text x="610" y="456" font-size="10.8" font-weight="800" fill="#fff">biting, incontinence.</text><path d="M 793,235 L 797,235" stroke="#ffc233" stroke-width="0"/><rect x="798" y="70" width="192" height="330" rx="14" fill="rgba(13,8,26,.5)" stroke="#12b886" stroke-width="2.4"/><text x="810" y="96" font-size="14" font-weight="900" fill="#12b886">5 · POSTICTAL</text><rect x="814" y="252" width="160" height="12" rx="5" fill="#cfd8e4"/><ellipse cx="848.0" cy="232" rx="24" ry="27" fill="#f0b48a" stroke="#8a4d2c" stroke-width="2.2"/><path d="M 824.0,219 C 834,201 862,201 872.0,219 C 860,212 836,212 824.0,219 Z" fill="#3a2c14"/><path d="M 835,229.12 q 5,4 11,0 M 851,229.12 q 5,4 11,0" stroke="#8a4d2c" stroke-width="2.2" fill="none"/><path d="M 841,244.0 q 7,5 14,0" stroke="#8a4d2c" stroke-width="2" fill="none"/><path d="M 870.0,210 L 946.0,212 L 946.0,252 L 870.0,252 Z" fill="#12b886" fill-opacity=".85" stroke="#04382a" stroke-width="2"/><path d="M 946.0,218 L 970.0,220 L 970.0,252 L 946.0,252 Z" fill="#12b886" fill-opacity=".85" stroke="#04382a" stroke-width="2"/><text x="842.0" y="184" font-size="14" font-weight="900" fill="#a5f3d4">z</text><text x="858.0" y="164" font-size="18" font-weight="900" fill="#a5f3d4">z</text><text x="874.0" y="144" font-size="22" font-weight="900" fill="#a5f3d4">z</text><text x="894.0" y="292" font-size="12.4" font-weight="900" fill="#a5f3d4" text-anchor="middle">deep sleep · confused</text><rect x="810" y="334" width="168" height="26" rx="8" fill="#12b886" fill-opacity=".3" stroke="#12b886" stroke-width="1.8"/><text x="894.0" y="352" font-size="13" font-weight="900" fill="#12b886" text-anchor="middle">min – hours</text><rect x="798" y="406" width="192" height="86" rx="10" fill="rgba(9,5,20,.78)" stroke="rgba(255,255,255,.35)" stroke-width="1"/><text x="808" y="424" font-size="10.8" font-weight="800" fill="#fff">Deep sleep, confusion,</text><text x="808" y="440" font-size="10.8" font-weight="800" fill="#fff">headache, muscle soreness.</text><text x="808" y="456" font-size="10.8" font-weight="800" fill="#fff">No memory of the event.</text></svg>
+      <div class="mn">🧠 <b>“PATCH-P”:</b> Prodrome, Aura, Tonic, Clonic, then Postictal. The whole convulsion is usually under two minutes; the postictal phase is the long part.</div>
+    </div>
+
+    <div class="card topaz">
+      <h3>⭐ The AURA is a warning, not a symptom to fix</h3>
+      <p>An aura is an <b>unusual sensation immediately before the seizure</b> — a smell, a taste, a rising
+      feeling in the stomach, a flash of light, déjà vu.</p>
+      <p>Classic stem: the client says <i>“I smell oranges and there aren’t any on my tray.”</i> The best
+      response is <mark>“Have you experienced this sensation before?”</mark> — you are establishing whether this
+      is their usual aura, because if it is, <b>a seizure is about to happen and you have seconds to make them
+      safe</b>.</p>
+      <div class="mn">🧠 <b>An aura is a free warning.</b> Teach patients that when they feel theirs, they should sit or lie down immediately.</div>
+    </div>
+
+    <div class="card tealc">
+      <h3>🧨 What triggers seizures</h3>
+      <ul class="tick">
+        <li><b>Missed or abruptly stopped antiseizure medication</b> — the number one cause</li>
+        <li><b>Fever</b> (febrile seizures in young children)</li>
+        <li><b>Head injury</b>, stroke, brain tumour, meningitis</li>
+        <li><b>Metabolic</b>: hypoglycaemia, <b>hyponatraemia</b>, hypocalcaemia, hypoxia</li>
+        <li><b>Alcohol or benzodiazepine withdrawal</b>; stimulant overdose</li>
+        <li><b>Sleep deprivation</b>, extreme stress, flashing lights in photosensitive epilepsy</li>
+        <li><b>Eclampsia</b> in pregnancy</li>
+      </ul>
+      <div class="xref"><span class="pill">SEE ALSO</span> <a href="NG-252_meningitis.html">NG-252 · Meningitis</a> and <a href="NG-247_head-injury.html">NG-247 · Head Injury</a> — both cause seizures and both are on your differential.</div>
+      <div class="mn">🧠 <b>Check the glucose and the sodium.</b> Two cheap labs explain a surprising number of first seizures.</div>
+    </div>
+
+
+    <div class="card deep">
+      <h3>🎭 Not every “seizure” is a seizure</h3>
+      <p>Events that look like seizures but are not epileptic: <b>syncope</b> (brief jerks after fainting),
+      <b>psychogenic non-epileptic events</b>, breath-holding spells in toddlers, migraine aura, and
+      <b>transient ischaemic attacks</b>.</p>
+      <p>Clues that point away from a true seizure include a gradual onset, eyes held tightly closed, side-to-side
+      head shaking, very long duration with normal oxygen saturation, and <b>no postictal confusion</b>.</p>
+      <p>Treat the patient safely either way — the diagnosis is made on video EEG, not at the bedside.</p>
+      <div class="mn">🧠 <b>No postictal phase is the biggest clue.</b> A real tonic–clonic seizure leaves the patient wrecked afterwards.</div>
+    </div>
+    <div class="card garnet">
+      <h3>⚠️ “Seizure” vs “epilepsy”</h3>
+      <p>A <b>seizure</b> is a single event — anyone’s brain can have one under enough provocation.</p>
+      <p><b>Epilepsy</b> is a chronic disorder of <b>recurrent unprovoked seizures</b>. A febrile seizure or a
+      seizure from hypoglycaemia is not epilepsy.</p>
+      <div class="mn">🧠 <b>One provoked seizure ≠ epilepsy.</b> Fix the provocation first.</div>
+    </div>
+
+  </div>
+</section>
+
+<section id="during">
+  <div class="sec-h"><span class="icon">🩺</span><h2>DURING THE SEIZURE</h2><span class="step">STEP 2 · DO</span></div>
+  <p class="sec-sub">This is the highest-yield section on the page. If you learn one thing here, learn the order — and the three nevers.</p>
+  <div class="grid">
+
+    <div class="card deep span2">
+      <h3>✅ The bedside picture</h3>
+      <svg viewBox="-22 -16 1038 580" role="img" aria-label="A bedside scene during a seizure. The patient has been turned onto their side with a pillow under the head, the side rails are up and padded, the bed is low and flat, hazards have been moved away, and the nurse is at the bedside timing the seizure with a watch while oxygen and suction hang ready on the wall. Numbered captions list the actions in order">
+<defs>
+  <linearGradient id="dgbone" x1="0" y1="0" x2="0.3" y2="1">
+    <stop offset="0" stop-color="#fff3d6"/><stop offset=".22" stop-color="#f2dfae"/>
+    <stop offset=".55" stop-color="#d8bd85"/><stop offset=".8" stop-color="#b39a63"/>
+    <stop offset="1" stop-color="#8d7748"/>
+  </linearGradient>
+  <linearGradient id="dgdip" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#e6c98f"/><stop offset=".5" stop-color="#c8a86a"/>
+    <stop offset="1" stop-color="#9c8149"/>
+  </linearGradient>
+  <radialGradient id="dgbrain" cx=".38" cy=".3" r=".85" fx=".3" fy=".22">
+    <stop offset="0" stop-color="#f6cfe0"/><stop offset=".25" stop-color="#e6a9c6"/>
+    <stop offset=".55" stop-color="#c98bb0"/><stop offset=".8" stop-color="#a06a92"/>
+    <stop offset="1" stop-color="#6d4468"/>
+  </radialGradient>
+  <radialGradient id="dgcbl" cx=".4" cy=".3" r=".8">
+    <stop offset="0" stop-color="#d59ec0"/><stop offset=".55" stop-color="#9c5f8d"/>
+    <stop offset="1" stop-color="#5c3355"/>
+  </radialGradient>
+  <linearGradient id="dgcsf" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#b6fbfa"/><stop offset=".45" stop-color="#4fdede"/>
+    <stop offset="1" stop-color="#00909a"/>
+  </linearGradient>
+  <linearGradient id="dgblood" x1="0" y1="0" x2="0.4" y2="1">
+    <stop offset="0" stop-color="#ff8098"/><stop offset=".3" stop-color="#ff3b6b"/>
+    <stop offset=".7" stop-color="#c02255"/><stop offset="1" stop-color="#71092f"/>
+  </linearGradient>
+  <linearGradient id="dgven" x1="0" y1="0" x2="0.4" y2="1">
+    <stop offset="0" stop-color="#7f9dff"/><stop offset=".45" stop-color="#3a5fd0"/>
+    <stop offset="1" stop-color="#1b2a6b"/>
+  </linearGradient>
+  <filter id="dgsh" x="-35%" y="-35%" width="180%" height="180%">
+    <feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dx="0" dy="6" result="o"/>
+    <feFlood flood-color="#000" flood-opacity=".55"/><feComposite in2="o" operator="in" result="s"/>
+    <feMerge><feMergeNode in="s"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="dgsoft" x="-40%" y="-40%" width="180%" height="180%">
+    <feGaussianBlur stdDeviation="7"/>
+  </filter>
+  <marker id="dgar" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="6.5" markerHeight="6.5" orient="auto">
+    <path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/>
+  </marker>
+  <marker id="dgarr" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="6.5" markerHeight="6.5" orient="auto">
+    <path d="M1 1 L11 6 L1 11 z" fill="#ff3b6b"/>
+  </marker>
+  <marker id="dgarw" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+    <path d="M1 1 L11 6 L1 11 z" fill="#ffffff"/>
+  </marker>
+</defs><rect x="0" y="0" width="1000" height="58" rx="12" fill="rgba(9,5,20,.78)" stroke="rgba(255,255,255,.35)" stroke-width="1"/><text x="16" y="26" font-size="21" font-weight="900" fill="#ffc233">DURING THE SEIZURE — what you actually do, in order</text><text x="16" y="47" font-size="14" font-style="italic" fill="#d9e7ff">Bedside scene, side view · numbers 1–6 match the captions underneath</text><rect x="6" y="70" width="994" height="330" rx="16" fill="rgba(13,8,26,.5)" stroke="#12b886" stroke-width="2.6"/><rect x="20" y="82" width="962" height="150" rx="10" fill="rgba(47,107,255,.10)" stroke="#2f6bff" stroke-width="1.6" stroke-dasharray="8 6"/><g transform="translate(60,96)"><rect x="0" y="0" width="52" height="112" rx="10" fill="#0e5c63" stroke="#9ff2ee" stroke-width="2.4"/><circle cx="26" cy="26" r="12" fill="#9ff2ee"/><rect x="20" y="44" width="12" height="56" rx="5" fill="#9ff2ee" opacity=".6"/><text x="26" y="128" font-size="12.6" font-weight="900" fill="#9ff2ee" text-anchor="middle">SUCTION</text></g><g transform="translate(136,96)"><rect x="0" y="0" width="52" height="112" rx="10" fill="#12563f" stroke="#a5f3d4" stroke-width="2.4"/><circle cx="26" cy="26" r="12" fill="#a5f3d4"/><rect x="20" y="44" width="12" height="56" rx="5" fill="#a5f3d4" opacity=".6"/><text x="26" y="128" font-size="12.6" font-weight="900" fill="#a5f3d4" text-anchor="middle">OXYGEN</text></g><g transform="translate(236,150)"><rect x="0" y="112" width="440" height="16" rx="7" fill="#7c8798"/><rect x="24" y="128" width="16" height="40" rx="4" fill="#5b6675"/><rect x="400" y="128" width="16" height="40" rx="4" fill="#5b6675"/><rect x="8" y="94" width="424" height="20" rx="9" fill="#cfd8e4"/><path d="M 34,92 C 22,74 40,58 66,60 L 104,70 L 96,94 Z" fill="#e8eef6" stroke="#9fb0c4" stroke-width="1.8"/><path d="M 104,94 L 104,58 C 130,48 210,46 244,54 L 252,94 Z" fill="#9d5cff" fill-opacity=".85" stroke="#3a1a6b" stroke-width="2.2"/><path d="M 244,54 C 286,48 330,60 356,78 L 350,94 L 250,94 Z" fill="#9d5cff" fill-opacity=".75" stroke="#3a1a6b" stroke-width="2.2"/><ellipse cx="70" cy="70" rx="32" ry="27" fill="#f0b48a" stroke="#8a4d2c" stroke-width="2.2" transform="rotate(12 70 70)"/><path d="M 44,54 C 54,36 100,42 104,62 C 90,50 56,48 44,54 Z" fill="#3a2c14"/><path d="M 50,68 q 8,7 15,1" stroke="#8a4d2c" stroke-width="2" fill="none"/><ellipse cx="46" cy="84" rx="7" ry="5" fill="#7d2b3c" stroke="#8a4d2c" stroke-width="1.4"/><circle cx="38" cy="90" r="3.4" fill="#cfe9f5" opacity="0.9"/><circle cx="31" cy="96" r="2.8" fill="#cfe9f5" opacity="0.7"/><circle cx="24" cy="102" r="2.2" fill="#cfe9f5" opacity="0.5"/><rect x="86" y="34" width="120" height="18" rx="9" fill="#ffc233" opacity=".9"/><rect x="86" y="34" width="120" height="18" rx="9" fill="none" stroke="#8a6a12" stroke-width="1.6"/><rect x="92" y="52" width="10" height="44" rx="4" fill="#9aa6b6"/><rect x="190" y="52" width="10" height="44" rx="4" fill="#9aa6b6"/><rect x="300" y="34" width="120" height="18" rx="9" fill="#ffc233" opacity=".9"/><rect x="300" y="34" width="120" height="18" rx="9" fill="none" stroke="#8a6a12" stroke-width="1.6"/><rect x="306" y="52" width="10" height="44" rx="4" fill="#9aa6b6"/><rect x="404" y="52" width="10" height="44" rx="4" fill="#9aa6b6"/></g><g transform="translate(760,116)"><path d="M 10,196 C 12,144 40,122 68,118 L 112,118 C 140,122 168,144 170,196 Z" fill="#12b886" fill-opacity=".85" stroke="#04382a" stroke-width="2.2"/><ellipse cx="90" cy="84" rx="34" ry="39" fill="#f0b48a" stroke="#8a4d2c" stroke-width="2.2"/><path d="M 56,65 C 70,40 110,40 124,65 C 107,55 73,55 56,65 Z" fill="#3a2c14"/><circle cx="79" cy="79.92" r="4" fill="#2a1a10"/><circle cx="101" cy="79.92" r="4" fill="#2a1a10"/><path d="M 80,101.0 q 10,7 20,0" stroke="#8a4d2c" stroke-width="2" fill="none"/><path d="M 44,140 C 20,152 8,166 6,182" stroke="#12b886" stroke-width="14" stroke-linecap="round"/><circle cx="6" cy="186" r="18" fill="#e8eef6" stroke="#5b6675" stroke-width="2.4"/><path d="M 6,186 L 6,176 M 6,186 L 13,190" stroke="#0b0812" stroke-width="2.4" stroke-linecap="round"/><text x="90" y="216" font-size="13.4" font-weight="900" fill="#a5f3d4" text-anchor="middle">STAY · TIME IT</text></g><circle cx="430" cy="216" r="16" fill="#ffc233" stroke="#231a02" stroke-width="2"/><text x="430" y="222" font-size="17" font-weight="900" fill="#231a02" text-anchor="middle">1</text><circle cx="286" cy="258" r="16" fill="#ffc233" stroke="#231a02" stroke-width="2"/><text x="286" y="264" font-size="17" font-weight="900" fill="#231a02" text-anchor="middle">2</text><circle cx="596" cy="192" r="16" fill="#ffc233" stroke="#231a02" stroke-width="2"/><text x="596" y="198" font-size="17" font-weight="900" fill="#231a02" text-anchor="middle">3</text><circle cx="112" cy="150" r="16" fill="#ffc233" stroke="#231a02" stroke-width="2"/><text x="112" y="156" font-size="17" font-weight="900" fill="#231a02" text-anchor="middle">4</text><circle cx="860" cy="288" r="16" fill="#ffc233" stroke="#231a02" stroke-width="2"/><text x="860" y="294" font-size="17" font-weight="900" fill="#231a02" text-anchor="middle">5</text><circle cx="372" cy="232" r="16" fill="#ffc233" stroke="#231a02" stroke-width="2"/><text x="372" y="238" font-size="17" font-weight="900" fill="#231a02" text-anchor="middle">6</text><rect x="6" y="414" width="322" height="56" rx="12" fill="rgba(9,5,20,.72)" stroke="#12b886" stroke-width="2"/><circle cx="36" cy="442" r="16" fill="#ffc233"/><text x="36" y="448" font-size="16" font-weight="900" fill="#231a02" text-anchor="middle">1</text><text x="62" y="438" font-size="12.2" font-weight="800" fill="#fff">Turn them to the SIDE — lets saliva</text><text x="62" y="456" font-size="12.2" font-weight="800" fill="#fff">and vomit drain out</text><rect x="338" y="414" width="322" height="56" rx="12" fill="rgba(9,5,20,.72)" stroke="#12b886" stroke-width="2"/><circle cx="368" cy="442" r="16" fill="#ffc233"/><text x="368" y="448" font-size="16" font-weight="900" fill="#231a02" text-anchor="middle">2</text><text x="394" y="438" font-size="12.2" font-weight="800" fill="#fff">Pillow / padding under the HEAD,</text><text x="394" y="456" font-size="12.2" font-weight="800" fill="#fff">nothing hard nearby</text><rect x="670" y="414" width="322" height="56" rx="12" fill="rgba(9,5,20,.72)" stroke="#12b886" stroke-width="2"/><circle cx="700" cy="442" r="16" fill="#ffc233"/><text x="700" y="448" font-size="16" font-weight="900" fill="#231a02" text-anchor="middle">3</text><text x="726" y="438" font-size="12.2" font-weight="800" fill="#fff">Side rails UP and padded · bed LOW</text><text x="726" y="456" font-size="12.2" font-weight="800" fill="#fff">and flat</text><rect x="6" y="480" width="322" height="56" rx="12" fill="rgba(9,5,20,.72)" stroke="#12b886" stroke-width="2"/><circle cx="36" cy="508" r="16" fill="#ffc233"/><text x="36" y="514" font-size="16" font-weight="900" fill="#231a02" text-anchor="middle">4</text><text x="62" y="504" font-size="12.2" font-weight="800" fill="#fff">Oxygen and SUCTION ready at the</text><text x="62" y="522" font-size="12.2" font-weight="800" fill="#fff">bedside</text><rect x="338" y="480" width="322" height="56" rx="12" fill="rgba(9,5,20,.72)" stroke="#12b886" stroke-width="2"/><circle cx="368" cy="508" r="16" fill="#ffc233"/><text x="368" y="514" font-size="16" font-weight="900" fill="#231a02" text-anchor="middle">5</text><text x="394" y="504" font-size="12.2" font-weight="800" fill="#fff">STAY with them · call for help ·</text><text x="394" y="522" font-size="12.2" font-weight="800" fill="#fff">TIME the seizure</text><rect x="670" y="480" width="322" height="56" rx="12" fill="rgba(9,5,20,.72)" stroke="#12b886" stroke-width="2"/><circle cx="700" cy="508" r="16" fill="#ffc233"/><text x="700" y="514" font-size="16" font-weight="900" fill="#231a02" text-anchor="middle">6</text><text x="726" y="504" font-size="12.2" font-weight="800" fill="#fff">Loosen tight clothing at the neck</text><text x="726" y="522" font-size="12.2" font-weight="800" fill="#fff">and chest</text></svg>
+      <div class="mn">🧠 <b>“SIDE · PAD · TIME · STAY.”</b> Four words that answer most “what does the nurse do first” questions about an active seizure.</div>
+    </div>
+
+    <div class="card emerald">
+      <h3>✅ Priority order at the bedside</h3>
+      <div class="steps">
+        <div class="stp"><span class="k">1</span><div><b>AIRWAY — turn the patient onto their SIDE.</b> Gravity drains saliva, blood and vomit away from the airway. This is the single most important action.</div></div>
+        <div class="stp"><span class="k">2</span><div><b>Protect the head</b> — pillow, folded blanket, or your hands. Move furniture and hard objects away.</div></div>
+        <div class="stp"><span class="k">3</span><div><b>Call for help and STAY.</b> Use the call bell rather than leaving the room.</div></div>
+        <div class="stp"><span class="k">4</span><div><b>TIME it.</b> Note the exact start time — the treatment changes at <span class="mono">5 minutes</span>.</div></div>
+        <div class="stp"><span class="k">5</span><div><b>Loosen restrictive clothing</b> at the neck and chest.</div></div>
+        <div class="stp"><span class="k">6</span><div><b>Prepare for suction and oxygen</b>; lower the bed and raise the padded rails if the patient is in bed.</div></div>
+        <div class="stp"><span class="k">7</span><div><b>Observe and remember the details</b> — you are the only witness.</div></div>
+      </div>
+      <div class="mn">🧠 <b>Airway beats everything.</b> If “turn the client to the side” is an option during an active seizure, it is almost always the answer.</div>
+    </div>
+
+    <div class="card garnet span2">
+      <h3>❌ THE THREE NEVERS</h3>
+      <svg viewBox="-6 -6 1012 430" role="img" aria-label="Three crossed out panels showing what never to do during a seizure: never put anything into the mouth, shown as a tongue blade struck through; never restrain or hold the limbs down, shown as hands gripping an arm struck through; and never leave the patient alone, shown as a nurse walking away struck through">
+<defs>
+  <linearGradient id="nvbone" x1="0" y1="0" x2="0.3" y2="1">
+    <stop offset="0" stop-color="#fff3d6"/><stop offset=".22" stop-color="#f2dfae"/>
+    <stop offset=".55" stop-color="#d8bd85"/><stop offset=".8" stop-color="#b39a63"/>
+    <stop offset="1" stop-color="#8d7748"/>
+  </linearGradient>
+  <linearGradient id="nvdip" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#e6c98f"/><stop offset=".5" stop-color="#c8a86a"/>
+    <stop offset="1" stop-color="#9c8149"/>
+  </linearGradient>
+  <radialGradient id="nvbrain" cx=".38" cy=".3" r=".85" fx=".3" fy=".22">
+    <stop offset="0" stop-color="#f6cfe0"/><stop offset=".25" stop-color="#e6a9c6"/>
+    <stop offset=".55" stop-color="#c98bb0"/><stop offset=".8" stop-color="#a06a92"/>
+    <stop offset="1" stop-color="#6d4468"/>
+  </radialGradient>
+  <radialGradient id="nvcbl" cx=".4" cy=".3" r=".8">
+    <stop offset="0" stop-color="#d59ec0"/><stop offset=".55" stop-color="#9c5f8d"/>
+    <stop offset="1" stop-color="#5c3355"/>
+  </radialGradient>
+  <linearGradient id="nvcsf" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#b6fbfa"/><stop offset=".45" stop-color="#4fdede"/>
+    <stop offset="1" stop-color="#00909a"/>
+  </linearGradient>
+  <linearGradient id="nvblood" x1="0" y1="0" x2="0.4" y2="1">
+    <stop offset="0" stop-color="#ff8098"/><stop offset=".3" stop-color="#ff3b6b"/>
+    <stop offset=".7" stop-color="#c02255"/><stop offset="1" stop-color="#71092f"/>
+  </linearGradient>
+  <linearGradient id="nvven" x1="0" y1="0" x2="0.4" y2="1">
+    <stop offset="0" stop-color="#7f9dff"/><stop offset=".45" stop-color="#3a5fd0"/>
+    <stop offset="1" stop-color="#1b2a6b"/>
+  </linearGradient>
+  <filter id="nvsh" x="-35%" y="-35%" width="180%" height="180%">
+    <feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dx="0" dy="6" result="o"/>
+    <feFlood flood-color="#000" flood-opacity=".55"/><feComposite in2="o" operator="in" result="s"/>
+    <feMerge><feMergeNode in="s"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="nvsoft" x="-40%" y="-40%" width="180%" height="180%">
+    <feGaussianBlur stdDeviation="7"/>
+  </filter>
+  <marker id="nvar" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="6.5" markerHeight="6.5" orient="auto">
+    <path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/>
+  </marker>
+  <marker id="nvarr" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="6.5" markerHeight="6.5" orient="auto">
+    <path d="M1 1 L11 6 L1 11 z" fill="#ff3b6b"/>
+  </marker>
+  <marker id="nvarw" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+    <path d="M1 1 L11 6 L1 11 z" fill="#ffffff"/>
+  </marker>
+</defs><rect x="0" y="0" width="1000" height="58" rx="12" fill="rgba(9,5,20,.78)" stroke="rgba(255,255,255,.35)" stroke-width="1"/><text x="16" y="26" font-size="21" font-weight="900" fill="#ff8098">❌ THE THREE NEVERS — these are the wrong answers on every exam</text><text x="16" y="47" font-size="14" font-style="italic" fill="#d9e7ff">Each panel shows the action struck through in red · the caption says why</text><rect x="6" y="70" width="322" height="350" rx="16" fill="rgba(192,34,85,.16)" stroke="#ff3b6b" stroke-width="2.6"/><g transform="translate(22,92)"><ellipse cx="120" cy="86" rx="52" ry="59" fill="#f0b48a" stroke="#8a4d2c" stroke-width="2.2"/><path d="M 68,57 C 89,18 151,18 172,57 C 146,42 94,42 68,57 Z" fill="#3a2c14"/><circle cx="103" cy="79.76" r="6" fill="#2a1a10"/><circle cx="137" cy="79.76" r="6" fill="#2a1a10"/><ellipse cx="120" cy="112.0" rx="16" ry="11" fill="#7d2b3c" stroke="#8a4d2c" stroke-width="1.6"/><rect x="106" y="72" width="140" height="16" rx="6" fill="#e8d9a8" stroke="#8a6a12" stroke-width="2" transform="rotate(-12 106 80)"/><circle cx="150" cy="120" r="112" fill="none" stroke="#ff3b6b" stroke-width="12" opacity=".85"/><path d="M 71,41 L 229,199" stroke="#ff3b6b" stroke-width="12" stroke-linecap="round" opacity=".85"/></g><rect x="22" y="292" width="290" height="116" rx="10" fill="rgba(110,6,36,.82)" stroke="rgba(255,255,255,.35)" stroke-width="1"/><text x="167" y="314" font-size="13.2" font-weight="900" fill="#ffd9e2" text-anchor="middle">NEVER put ANYTHING in the</text><text x="167" y="332" font-size="13.2" font-weight="900" fill="#ffd9e2" text-anchor="middle">mouth</text><text x="167" y="354" font-size="11.4" font-weight="800" fill="#fff" text-anchor="middle">They cannot “swallow their tongue.” You</text><text x="167" y="371" font-size="11.4" font-weight="800" fill="#fff" text-anchor="middle">will break teeth, cause aspiration, or be</text><text x="167" y="388" font-size="11.4" font-weight="800" fill="#fff" text-anchor="middle">bitten.</text><rect x="342" y="70" width="322" height="350" rx="16" fill="rgba(192,34,85,.16)" stroke="#ff3b6b" stroke-width="2.6"/><g transform="translate(358,92)"><path d="M 34,140 C 90,118 160,104 236,100 L 240,132 C 166,136 96,150 42,170 Z" fill="#f0b48a" stroke="#8a4d2c" stroke-width="2.2"/><path d="M 236,100 C 262,96 276,110 272,126 C 268,140 248,142 240,132 Z" fill="#f0b48a" stroke="#8a4d2c" stroke-width="2.2"/><path d="M 250,104 L 268,100 M 254,112 L 274,110 M 256,122 L 272,124" stroke="#8a4d2c" stroke-width="1.8"/><g transform="rotate(-14 84 120)"><rect x="50" y="114" width="68" height="46" rx="18" fill="#c8875f" stroke="#6b3a1c" stroke-width="2.2"/><path d="M 54,122 L 54,98 M 70,118 L 70,92 M 86,118 L 86,92 M 102,122 L 102,98" stroke="#c8875f" stroke-width="13" stroke-linecap="round"/><path d="M 54,122 L 54,98 M 70,118 L 70,92 M 86,118 L 86,92 M 102,122 L 102,98" stroke="#6b3a1c" stroke-width="1.6" fill="none" opacity=".55"/></g><g transform="rotate(-10 168 104)"><rect x="134" y="98" width="68" height="46" rx="18" fill="#c8875f" stroke="#6b3a1c" stroke-width="2.2"/><path d="M 138,106 L 138,82 M 154,102 L 154,76 M 170,102 L 170,76 M 186,106 L 186,82" stroke="#c8875f" stroke-width="13" stroke-linecap="round"/><path d="M 138,106 L 138,82 M 154,102 L 154,76 M 170,102 L 170,76 M 186,106 L 186,82" stroke="#6b3a1c" stroke-width="1.6" fill="none" opacity=".55"/></g><circle cx="150" cy="120" r="112" fill="none" stroke="#ff3b6b" stroke-width="12" opacity=".85"/><path d="M 71,41 L 229,199" stroke="#ff3b6b" stroke-width="12" stroke-linecap="round" opacity=".85"/></g><rect x="358" y="292" width="290" height="116" rx="10" fill="rgba(110,6,36,.82)" stroke="rgba(255,255,255,.35)" stroke-width="1"/><text x="503" y="314" font-size="13.2" font-weight="900" fill="#ffd9e2" text-anchor="middle">NEVER restrain or hold them</text><text x="503" y="332" font-size="13.2" font-weight="900" fill="#ffd9e2" text-anchor="middle">down</text><text x="503" y="354" font-size="11.4" font-weight="800" fill="#fff" text-anchor="middle">Forcing a convulsing limb causes fractures</text><text x="503" y="371" font-size="11.4" font-weight="800" fill="#fff" text-anchor="middle">and dislocations. Guide, do not grip.</text><rect x="678" y="70" width="322" height="350" rx="16" fill="rgba(192,34,85,.16)" stroke="#ff3b6b" stroke-width="2.6"/><g transform="translate(694,92)"><ellipse cx="96" cy="72" rx="30" ry="34" fill="#f0b48a" stroke="#8a4d2c" stroke-width="2.2"/><path d="M 66,56 C 78,33 114,33 126,56 C 111,46 81,46 66,56 Z" fill="#3a2c14"/><circle cx="86" cy="68.4" r="3" fill="#2a1a10"/><circle cx="106" cy="68.4" r="3" fill="#2a1a10"/><path d="M 87,87.0 q 9,6 18,0" stroke="#8a4d2c" stroke-width="2" fill="none"/><path d="M 66,108 L 126,108 L 120,178 L 72,178 Z" fill="#12b886" fill-opacity=".85" stroke="#04382a" stroke-width="2"/><path d="M 72,178 L 60,232 M 120,178 L 134,232" stroke="#12b886" stroke-width="13" stroke-linecap="round"/><path d="M 150,120 L 232,120" stroke="#ffc233" stroke-width="6" marker-end="url(#nvar)"/><circle cx="150" cy="120" r="112" fill="none" stroke="#ff3b6b" stroke-width="12" opacity=".85"/><path d="M 71,41 L 229,199" stroke="#ff3b6b" stroke-width="12" stroke-linecap="round" opacity=".85"/></g><rect x="694" y="292" width="290" height="116" rx="10" fill="rgba(110,6,36,.82)" stroke="rgba(255,255,255,.35)" stroke-width="1"/><text x="839" y="314" font-size="13.2" font-weight="900" fill="#ffd9e2" text-anchor="middle">NEVER leave them alone</text><text x="839" y="354" font-size="11.4" font-weight="800" fill="#fff" text-anchor="middle">Stay. Use the call bell. You are the</text><text x="839" y="371" font-size="11.4" font-weight="800" fill="#fff" text-anchor="middle">airway, the timer and the witness.</text></svg>
+      <p class="never">Never insert anything into the mouth · never restrain or hold down the limbs · never leave the patient alone.</p>
+      <p>People cannot swallow their tongue. Forcing an object between clenched teeth breaks teeth, damages the
+      airway and gets you bitten. Holding a convulsing limb causes fractures and dislocations — <b>guide</b>
+      movements away from hazards instead of gripping.</p>
+      <div class="mn">🧠 <b>“Nothing in, nobody holds, nobody leaves.”</b></div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>👀 What to observe — you are the witness</h3>
+      <p>The chart is the diagnostic test. Record:</p>
+      <ul class="tick">
+        <li><b>Time started and time stopped</b> — exact, not “a few minutes”</li>
+        <li><b>What the patient was doing</b> immediately before; any aura reported</li>
+        <li><b>Where it started</b> and whether it spread (focal → generalised)</li>
+        <li><b>Which body parts</b> moved, and whether movement was symmetrical</li>
+        <li><b>Eye deviation, pupil size</b>, head turning</li>
+        <li><b>Colour</b> — cyanosis, apnoea</li>
+        <li><b>Incontinence</b> of urine or stool; tongue or cheek biting</li>
+        <li><b>Level of consciousness</b> during and after; duration of the postictal phase</li>
+      </ul>
+      <div class="mn">🧠 <b>“Where it starts tells you where the lesion is.”</b> That is why “which side jerked first” matters more than it sounds.</div>
+    </div>
+
+    <div class="card topaz">
+      <h3>⭐ If the seizure happens out of bed</h3>
+      <ul class="tick">
+        <li><b>Ease them to the floor</b> — do not try to lift or move them onto the bed</li>
+        <li><b>Something soft under the head</b>; clear the area</li>
+        <li><b>Roll onto the side</b> as soon as the jerking allows</li>
+        <li><b>Nothing under the head that could obstruct breathing</b> — a thin pillow or folded clothing, not a bulky cushion</li>
+        <li>Stay, time it, and get help</li>
+      </ul>
+      <div class="mn">🧠 <b>Down, soft, side, stay.</b> Same four moves, wherever they are.</div>
+    </div>
+
+  </div>
+</section>
+
+<section id="status">
+  <div class="sec-h"><span class="icon">🚨</span><h2>STATUS EPILEPTICUS</h2><span class="step">STEP 3 · EMERGENCY</span></div>
+  <p class="sec-sub">A seizure that will not stop is a medical emergency — the brain is burning oxygen it cannot replace.</p>
+  <div class="grid">
+
+    <div class="card deep span2">
+      <h3>🚨 The definition and the escalation ladder</h3>
+      <svg viewBox="-128 -128 1207 698" role="img" aria-label="A clock face marking five minutes, next to an escalation ladder for status epilepticus: at zero minutes secure the airway and give oxygen and check glucose, at five minutes the seizure is status epilepticus and a benzodiazepine is given, at ten to twenty minutes a second line antiseizure drug is loaded, and beyond that the patient goes to intensive care for anaesthetic infusion">
+<defs>
+  <linearGradient id="stbone" x1="0" y1="0" x2="0.3" y2="1">
+    <stop offset="0" stop-color="#fff3d6"/><stop offset=".22" stop-color="#f2dfae"/>
+    <stop offset=".55" stop-color="#d8bd85"/><stop offset=".8" stop-color="#b39a63"/>
+    <stop offset="1" stop-color="#8d7748"/>
+  </linearGradient>
+  <linearGradient id="stdip" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#e6c98f"/><stop offset=".5" stop-color="#c8a86a"/>
+    <stop offset="1" stop-color="#9c8149"/>
+  </linearGradient>
+  <radialGradient id="stbrain" cx=".38" cy=".3" r=".85" fx=".3" fy=".22">
+    <stop offset="0" stop-color="#f6cfe0"/><stop offset=".25" stop-color="#e6a9c6"/>
+    <stop offset=".55" stop-color="#c98bb0"/><stop offset=".8" stop-color="#a06a92"/>
+    <stop offset="1" stop-color="#6d4468"/>
+  </radialGradient>
+  <radialGradient id="stcbl" cx=".4" cy=".3" r=".8">
+    <stop offset="0" stop-color="#d59ec0"/><stop offset=".55" stop-color="#9c5f8d"/>
+    <stop offset="1" stop-color="#5c3355"/>
+  </radialGradient>
+  <linearGradient id="stcsf" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#b6fbfa"/><stop offset=".45" stop-color="#4fdede"/>
+    <stop offset="1" stop-color="#00909a"/>
+  </linearGradient>
+  <linearGradient id="stblood" x1="0" y1="0" x2="0.4" y2="1">
+    <stop offset="0" stop-color="#ff8098"/><stop offset=".3" stop-color="#ff3b6b"/>
+    <stop offset=".7" stop-color="#c02255"/><stop offset="1" stop-color="#71092f"/>
+  </linearGradient>
+  <linearGradient id="stven" x1="0" y1="0" x2="0.4" y2="1">
+    <stop offset="0" stop-color="#7f9dff"/><stop offset=".45" stop-color="#3a5fd0"/>
+    <stop offset="1" stop-color="#1b2a6b"/>
+  </linearGradient>
+  <filter id="stsh" x="-35%" y="-35%" width="180%" height="180%">
+    <feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dx="0" dy="6" result="o"/>
+    <feFlood flood-color="#000" flood-opacity=".55"/><feComposite in2="o" operator="in" result="s"/>
+    <feMerge><feMergeNode in="s"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="stsoft" x="-40%" y="-40%" width="180%" height="180%">
+    <feGaussianBlur stdDeviation="7"/>
+  </filter>
+  <marker id="star" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="6.5" markerHeight="6.5" orient="auto">
+    <path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/>
+  </marker>
+  <marker id="starr" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="6.5" markerHeight="6.5" orient="auto">
+    <path d="M1 1 L11 6 L1 11 z" fill="#ff3b6b"/>
+  </marker>
+  <marker id="starw" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+    <path d="M1 1 L11 6 L1 11 z" fill="#ffffff"/>
+  </marker>
+</defs><rect x="0" y="0" width="1000" height="58" rx="12" fill="rgba(9,5,20,.78)" stroke="rgba(255,255,255,.35)" stroke-width="1"/><text x="16" y="26" font-size="21" font-weight="900" fill="#ff8098">🚨 STATUS EPILEPTICUS — the seizure that will not stop</text><text x="16" y="47" font-size="14" font-style="italic" fill="#d9e7ff">Left: the definition on a clock face · Right: the escalation ladder, read top to bottom</text><rect x="6" y="70" width="330" height="470" rx="16" fill="rgba(192,34,85,.16)" stroke="#ff3b6b" stroke-width="2.6"/><g transform="translate(171,236)"><circle cx="0" cy="0" r="118" fill="#0d0819" stroke="#cfd8e4" stroke-width="6"/><path d="M 0,0 L 0,-108 A 108 108 0 0 1 102,-35 Z" fill="#ff3b6b" opacity=".55"/><line x1="0" y1="-96" x2="0" y2="-108" stroke="#cfd8e4" stroke-width="4"/><line x1="48" y1="-83" x2="54" y2="-94" stroke="#cfd8e4" stroke-width="2"/><line x1="83" y1="-48" x2="94" y2="-54" stroke="#cfd8e4" stroke-width="2"/><line x1="96" y1="-0" x2="108" y2="-0" stroke="#cfd8e4" stroke-width="4"/><line x1="83" y1="48" x2="94" y2="54" stroke="#cfd8e4" stroke-width="2"/><line x1="48" y1="83" x2="54" y2="94" stroke="#cfd8e4" stroke-width="2"/><line x1="0" y1="96" x2="0" y2="108" stroke="#cfd8e4" stroke-width="4"/><line x1="-48" y1="83" x2="-54" y2="94" stroke="#cfd8e4" stroke-width="2"/><line x1="-83" y1="48" x2="-94" y2="54" stroke="#cfd8e4" stroke-width="2"/><line x1="-96" y1="0" x2="-108" y2="0" stroke="#cfd8e4" stroke-width="4"/><line x1="-83" y1="-48" x2="-94" y2="-54" stroke="#cfd8e4" stroke-width="2"/><line x1="-48" y1="-83" x2="-54" y2="-94" stroke="#cfd8e4" stroke-width="2"/><line x1="0" y1="0" x2="0" y2="-84" stroke="#fff" stroke-width="5" stroke-linecap="round"/><line x1="0" y1="0" x2="88" y2="-30" stroke="#ff3b6b" stroke-width="5" stroke-linecap="round"/><circle cx="0" cy="0" r="8" fill="#ffc233"/><text x="0" y="52" font-size="30" font-weight="900" fill="#ff8098" text-anchor="middle">5 MIN</text></g><rect x="22" y="410" width="298" height="110" rx="10" fill="rgba(110,6,36,.82)" stroke="rgba(255,255,255,.35)" stroke-width="1"/><text x="171" y="436" font-size="13.4" font-weight="900" fill="#ffd9e2" text-anchor="middle">IT IS STATUS EPILEPTICUS IF:</text><text x="171" y="460" font-size="12.4" font-weight="800" fill="#fff" text-anchor="middle">one seizure lasting 5 minutes or more, OR</text><text x="171" y="480" font-size="12.4" font-weight="800" fill="#fff" text-anchor="middle">repeated seizures over ~30 minutes without</text><text x="171" y="500" font-size="12.4" font-weight="800" fill="#fff" text-anchor="middle">returning to baseline in between.</text><rect x="346" y="70" width="654" height="470" rx="16" fill="rgba(13,8,26,.5)" stroke="#ffc233" stroke-width="2.6"/><rect x="366" y="110" width="614" height="64" rx="12" fill="#12b886" fill-opacity=".22" stroke="#12b886" stroke-width="2.2"/><rect x="366" y="110" width="104" height="64" rx="12" fill="#12b886" fill-opacity=".55"/><text x="418" y="148" font-size="14" font-weight="900" fill="#fff" text-anchor="middle">0 min</text><text x="486" y="136" font-size="14.6" font-weight="900" fill="#12b886">AIRWAY · OXYGEN · position</text><text x="486" y="158" font-size="12.4" font-weight="800" fill="#fff">Side-lying, suction ready, high-flow O₂, pulse oximetry.</text><path d="M 673,174 L 673,184" stroke="#12b886" stroke-width="4" marker-end="url(#star)"/><rect x="366" y="186" width="614" height="64" rx="12" fill="#00c2c7" fill-opacity=".22" stroke="#00c2c7" stroke-width="2.2"/><rect x="366" y="186" width="104" height="64" rx="12" fill="#00c2c7" fill-opacity=".55"/><text x="418" y="224" font-size="14" font-weight="900" fill="#fff" text-anchor="middle">0 min</text><text x="486" y="212" font-size="14.6" font-weight="900" fill="#00c2c7">IV ACCESS · CHECK GLUCOSE</text><text x="486" y="234" font-size="12.4" font-weight="800" fill="#fff">Hypoglycaemia mimics and prolongs seizures. Draw labs.</text><path d="M 673,250 L 673,260" stroke="#00c2c7" stroke-width="4" marker-end="url(#star)"/><rect x="366" y="262" width="614" height="64" rx="12" fill="#ff3b6b" fill-opacity=".22" stroke="#ff3b6b" stroke-width="2.2"/><rect x="366" y="262" width="104" height="64" rx="12" fill="#ff3b6b" fill-opacity=".55"/><text x="418" y="300" font-size="14" font-weight="900" fill="#fff" text-anchor="middle">5 min</text><text x="486" y="288" font-size="14.6" font-weight="900" fill="#ff3b6b">BENZODIAZEPINE — stop the seizure</text><text x="486" y="310" font-size="12.4" font-weight="800" fill="#fff">IV lorazepam (Ativan) or diazepam (Valium); rectal or IM route if no IV.</text><path d="M 673,326 L 673,336" stroke="#ff3b6b" stroke-width="4" marker-end="url(#star)"/><rect x="366" y="338" width="614" height="64" rx="12" fill="#ff8a3d" fill-opacity=".22" stroke="#ff8a3d" stroke-width="2.2"/><rect x="366" y="338" width="104" height="64" rx="12" fill="#ff8a3d" fill-opacity=".55"/><text x="418" y="376" font-size="14" font-weight="900" fill="#fff" text-anchor="middle">10–20 min</text><text x="486" y="364" font-size="14.6" font-weight="900" fill="#ff8a3d">SECOND-LINE antiseizure drug</text><text x="486" y="386" font-size="12.4" font-weight="800" fill="#fff">A loading dose of a longer-acting drug — fosphenytoin, levetiracetam or valproate.</text><path d="M 673,402 L 673,412" stroke="#ff8a3d" stroke-width="4" marker-end="url(#star)"/><rect x="366" y="414" width="614" height="64" rx="12" fill="#9d5cff" fill-opacity=".22" stroke="#9d5cff" stroke-width="2.2"/><rect x="366" y="414" width="104" height="64" rx="12" fill="#9d5cff" fill-opacity=".55"/><text x="418" y="452" font-size="14" font-weight="900" fill="#fff" text-anchor="middle">> 20–40 min</text><text x="486" y="440" font-size="14.6" font-weight="900" fill="#9d5cff">REFRACTORY → ICU</text><text x="486" y="462" font-size="12.4" font-weight="800" fill="#fff">Continuous anaesthetic infusion, intubation, continuous EEG.</text><text x="673" y="522" font-size="13.4" font-weight="900" fill="#ffe49a" text-anchor="middle">Airway and breathing first — then the #1 priority is to STOP THE SEIZURE.</text></svg>
+      <div class="mn">🧠 <b>“Five and it’s alive.”</b> Five minutes of continuous seizure and it will not stop on its own — it needs a drug.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>💊 The #1 drug: a benzodiazepine</h3>
+      <p>After the airway and breathing are secured, the priority is to <mark>STOP the seizure</mark>. The
+      first-line agents are benzodiazepines:</p>
+      <ul class="tick">
+        <li><b>Lorazepam</b> (brand: Ativan) — IV</li>
+        <li><b>Diazepam</b> (brand: Valium) — IV or <b>rectal gel</b> when there is no IV access</li>
+        <li><b>Midazolam</b> — intramuscular or intranasal when there is no IV access</li>
+      </ul>
+      <p><b>Watch for the side effects:</b> respiratory depression, hypotension and sedation. Have a bag-valve
+      mask and monitoring in place before you push.</p>
+      <div class="mn">💊 <b>Benzos BREAK the seizure but they also SLOW the breathing.</b> Never give one without the airway equipment at the bedside.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>⚠️ Why it is dangerous</h3>
+      <ul class="tick">
+        <li><b>Hypoxia</b> — the patient is not ventilating effectively while convulsing</li>
+        <li><b>Hyperthermia</b> from sustained muscle activity</li>
+        <li><b>Lactic acidosis</b>, rhabdomyolysis and acute kidney injury</li>
+        <li><b>Aspiration</b></li>
+        <li><b>Permanent neuronal injury</b> — neurons die from the metabolic demand</li>
+        <li>Fractures and dislocations from the convulsion itself</li>
+      </ul>
+      <div class="mn">🧠 <b>The brain is running a sprint it cannot stop.</b> Every extra minute costs neurons.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🧪 Look for the cause while you treat</h3>
+      <ul class="tick">
+        <li><b>Blood glucose</b> — checked immediately; hypoglycaemia both mimics and prolongs seizures</li>
+        <li><b>Electrolytes</b> — sodium, calcium, magnesium</li>
+        <li><b>Antiseizure drug levels</b> — a subtherapeutic phenytoin level often explains the whole event</li>
+        <li><b>Toxicology</b>, alcohol withdrawal history</li>
+        <li><b>Oxygen saturation and capnography</b></li>
+        <li><b>CT head</b> once stable if the cause is unclear</li>
+      </ul>
+      <div class="mn">🧠 <b>“Did they take their medication?”</b> is the most productive question in the room.</div>
+    </div>
+
+    <div class="card topaz span2">
+      <h3>⭐ The most common cause of status is an abrupt medication stop</h3>
+      <p class="never">Never stop an antiseizure medication abruptly — not for a procedure, not because the patient feels better, not because they ran out.</p>
+      <p>Doses are <b>tapered over weeks</b> under a provider’s direction. Teach patients to:</p>
+      <ul class="tick">
+        <li>Refill <b>before</b> running out and never skip doses</li>
+        <li>Carry a medical alert ID</li>
+        <li>Tell every prescriber and dentist what they take</li>
+        <li>Call the provider rather than stopping if side effects appear</li>
+      </ul>
+      <div class="mn">🧠 <b>“Stopping suddenly is how a controlled epileptic ends up intubated.”</b> Say it exactly like that and you will never miss the question.</div>
+    </div>
+
+  </div>
+</section>
+
+<section id="after">
+  <div class="sec-h"><span class="icon">🛏️</span><h2>AFTER THE SEIZURE &amp; PRECAUTIONS</h2><span class="step">STEP 4 · RECOVER</span></div>
+  <p class="sec-sub">The postictal patient is confused, exhausted and at risk. And the padding should have been up long before any of this.</p>
+  <div class="grid">
+
+    <div class="card emerald">
+      <h3>✅ Postictal care</h3>
+      <div class="steps">
+        <div class="stp"><span class="k">1</span><div><b>Keep them side-lying</b> and <b>suction as needed</b> — secretions are the airway risk now.</div></div>
+        <div class="stp"><span class="k">2</span><div><b>Assess LOC, neuro status and vital signs</b>; check oxygen saturation and give oxygen as needed.</div></div>
+        <div class="stp"><span class="k">3</span><div><b>Check for injuries</b> — head, tongue, shoulders, hips; check for incontinence and provide hygiene privately.</div></div>
+        <div class="stp"><span class="k">4</span><div><b>Reorient calmly and repeatedly.</b> They will not remember the seizure and may be frightened or combative.</div></div>
+        <div class="stp"><span class="k">5</span><div><b>Let them sleep.</b> Deep postictal sleep is normal — keep the rails up and the bed low.</div></div>
+        <div class="stp"><span class="k">6</span><div><b>Document everything</b> and notify the provider.</div></div>
+      </div>
+      <div class="mn">🧠 <b>Postictal confusion is expected. Postictal FOCAL WEAKNESS is not</b> — a lasting one-sided weakness (Todd’s paralysis) needs reporting.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>😴 What the postictal phase looks like</h3>
+      <ul class="tick">
+        <li><b>Deep sleep</b>, difficult to rouse — minutes to hours</li>
+        <li><b>Confusion and disorientation</b>, sometimes agitation</li>
+        <li><b>Headache</b> and generalised muscle soreness</li>
+        <li><b>No memory</b> of the event at all</li>
+        <li>Possible temporary weakness on one side</li>
+      </ul>
+      <p>Document this phase by name: <i>“documented as the <b>postictal</b> phase.”</i></p>
+      <div class="mn">🧠 <b>“Post-ictal” = after the ictus (the seizure itself).</b> Ictal = during, interictal = between.</div>
+    </div>
+
+
+    <div class="card tealc">
+      <h3>📝 How to document it</h3>
+      <p>Write it so someone who was not there can classify the seizure:</p>
+      <p><i>“At <span class="mono">1412</span> client reported an odd smell, then had
+      tonic–clonic activity beginning in the right arm and spreading to all four limbs (focal onset, becoming bilateral). Eyes deviated left.
+      Cyanosis noted. Turned to left side, airway maintained, O₂ <span class="mono">2 L</span> nasal cannula
+      applied, side rails padded and up. Activity stopped at <span class="mono">1413:40</span>
+      (<span class="mono">100 seconds</span>). Incontinent of urine. Postictal, deeply asleep, rousable to
+      voice at <span class="mono">1425</span>, oriented to person only. Vital signs …. Provider notified.”</i></p>
+      <div class="mn">🧠 <b>Onset · spread · duration · airway · postictal.</b> Five elements and the note writes itself.</div>
+    </div>
+    <div class="card deep span2">
+      <h3>🛏️ Seizure precautions — set up BEFORE anything happens</h3>
+      <svg viewBox="-16 -78 1032 542" role="img" aria-label="A prepared bedside for seizure precautions: the bed is in the lowest position with all side rails up and padded, oxygen and suction are set up and tested on the wall, intravenous access is in place, the call bell is within reach, and the floor around the bed is clear of hard objects. Each feature is labelled with a leader line">
+<defs>
+  <linearGradient id="pcbone" x1="0" y1="0" x2="0.3" y2="1">
+    <stop offset="0" stop-color="#fff3d6"/><stop offset=".22" stop-color="#f2dfae"/>
+    <stop offset=".55" stop-color="#d8bd85"/><stop offset=".8" stop-color="#b39a63"/>
+    <stop offset="1" stop-color="#8d7748"/>
+  </linearGradient>
+  <linearGradient id="pcdip" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#e6c98f"/><stop offset=".5" stop-color="#c8a86a"/>
+    <stop offset="1" stop-color="#9c8149"/>
+  </linearGradient>
+  <radialGradient id="pcbrain" cx=".38" cy=".3" r=".85" fx=".3" fy=".22">
+    <stop offset="0" stop-color="#f6cfe0"/><stop offset=".25" stop-color="#e6a9c6"/>
+    <stop offset=".55" stop-color="#c98bb0"/><stop offset=".8" stop-color="#a06a92"/>
+    <stop offset="1" stop-color="#6d4468"/>
+  </radialGradient>
+  <radialGradient id="pccbl" cx=".4" cy=".3" r=".8">
+    <stop offset="0" stop-color="#d59ec0"/><stop offset=".55" stop-color="#9c5f8d"/>
+    <stop offset="1" stop-color="#5c3355"/>
+  </radialGradient>
+  <linearGradient id="pccsf" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#b6fbfa"/><stop offset=".45" stop-color="#4fdede"/>
+    <stop offset="1" stop-color="#00909a"/>
+  </linearGradient>
+  <linearGradient id="pcblood" x1="0" y1="0" x2="0.4" y2="1">
+    <stop offset="0" stop-color="#ff8098"/><stop offset=".3" stop-color="#ff3b6b"/>
+    <stop offset=".7" stop-color="#c02255"/><stop offset="1" stop-color="#71092f"/>
+  </linearGradient>
+  <linearGradient id="pcven" x1="0" y1="0" x2="0.4" y2="1">
+    <stop offset="0" stop-color="#7f9dff"/><stop offset=".45" stop-color="#3a5fd0"/>
+    <stop offset="1" stop-color="#1b2a6b"/>
+  </linearGradient>
+  <filter id="pcsh" x="-35%" y="-35%" width="180%" height="180%">
+    <feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dx="0" dy="6" result="o"/>
+    <feFlood flood-color="#000" flood-opacity=".55"/><feComposite in2="o" operator="in" result="s"/>
+    <feMerge><feMergeNode in="s"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="pcsoft" x="-40%" y="-40%" width="180%" height="180%">
+    <feGaussianBlur stdDeviation="7"/>
+  </filter>
+  <marker id="pcar" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="6.5" markerHeight="6.5" orient="auto">
+    <path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/>
+  </marker>
+  <marker id="pcarr" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="6.5" markerHeight="6.5" orient="auto">
+    <path d="M1 1 L11 6 L1 11 z" fill="#ff3b6b"/>
+  </marker>
+  <marker id="pcarw" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+    <path d="M1 1 L11 6 L1 11 z" fill="#ffffff"/>
+  </marker>
+</defs><rect x="0" y="0" width="1000" height="58" rx="12" fill="rgba(9,5,20,.78)" stroke="rgba(255,255,255,.35)" stroke-width="1"/><text x="16" y="26" font-size="21" font-weight="900" fill="#ffc233">SEIZURE PRECAUTIONS — what the room looks like BEFORE anything happens</text><text x="16" y="47" font-size="14" font-style="italic" fill="#d9e7ff">Side view of the prepared bed space · set this up on admission, not when the seizure starts</text><rect x="6" y="70" width="994" height="316" rx="16" fill="rgba(18,184,134,.12)" stroke="#12b886" stroke-width="2.6"/><g transform="translate(50,96)"><rect x="0" y="0" width="58" height="120" rx="10" fill="#0e5c63" stroke="#9ff2ee" stroke-width="2.4"/><circle cx="29" cy="28" r="13" fill="#9ff2ee"/><rect x="22" y="48" width="14" height="60" rx="6" fill="#9ff2ee" opacity=".55"/><path d="M 58,64 C 84,64 92,88 92,110" stroke="#9ff2ee" stroke-width="5" fill="none"/><rect x="82" y="108" width="22" height="34" rx="6" fill="#cfd8e4" stroke="#5b6675" stroke-width="1.8"/><text x="29" y="140" font-size="12.6" font-weight="900" fill="#9ff2ee" text-anchor="middle">SUCTION</text><rect x="124" y="0" width="58" height="120" rx="10" fill="#12563f" stroke="#a5f3d4" stroke-width="2.4"/><circle cx="153" cy="28" r="13" fill="#a5f3d4"/><rect x="146" y="48" width="14" height="60" rx="6" fill="#a5f3d4" opacity=".55"/><path d="M 182,64 C 208,64 214,88 214,112" stroke="#a5f3d4" stroke-width="5" fill="none"/><path d="M 202,110 C 216,102 232,110 228,124 C 224,136 206,138 200,126 Z" fill="#cfd8e4" stroke="#5b6675" stroke-width="1.8"/><text x="153" y="140" font-size="12.6" font-weight="900" fill="#a5f3d4" text-anchor="middle">OXYGEN</text></g><g transform="translate(330,150)"><rect x="0" y="126" width="440" height="16" rx="7" fill="#7c8798"/><rect x="26" y="142" width="16" height="26" rx="4" fill="#5b6675"/><rect x="398" y="142" width="16" height="26" rx="4" fill="#5b6675"/><rect x="8" y="108" width="424" height="20" rx="9" fill="#cfd8e4"/><path d="M 30,106 C 18,88 38,72 64,74 L 102,84 L 94,108 Z" fill="#e8eef6" stroke="#9fb0c4" stroke-width="1.8"/><path d="M 104,108 L 104,72 C 140,62 300,60 344,70 L 352,108 Z" fill="#9d5cff" fill-opacity=".8" stroke="#3a1a6b" stroke-width="2.2"/><ellipse cx="70" cy="84" rx="30" ry="26" fill="#f0b48a" stroke="#8a4d2c" stroke-width="2.2"/><path d="M 44,70 C 54,52 100,58 104,76 C 90,64 56,62 44,70 Z" fill="#3a2c14"/><circle cx="56" cy="82" r="3" fill="#2a1a10"/><rect x="100" y="42" width="130" height="20" rx="10" fill="#ffc233"/><rect x="100" y="42" width="130" height="20" rx="10" fill="none" stroke="#8a6a12" stroke-width="1.8"/><rect x="108" y="62" width="11" height="48" rx="5" fill="#9aa6b6"/><rect x="211" y="62" width="11" height="48" rx="5" fill="#9aa6b6"/><rect x="292" y="42" width="130" height="20" rx="10" fill="#ffc233"/><rect x="292" y="42" width="130" height="20" rx="10" fill="none" stroke="#8a6a12" stroke-width="1.8"/><rect x="300" y="62" width="11" height="48" rx="5" fill="#9aa6b6"/><rect x="403" y="62" width="11" height="48" rx="5" fill="#9aa6b6"/><rect x="392" y="-64" width="8" height="192" rx="4" fill="#9aa6b6"/><path d="M 372,-56 C 372,-72 420,-72 420,-56 L 414,10 C 412,22 380,22 378,10 Z" fill="#cfe9f5" stroke="#5b6675" stroke-width="2" opacity=".9"/><path d="M 396,22 C 396,50 368,62 348,76" stroke="#cfd8e4" stroke-width="3" fill="none"/><circle cx="348" cy="76" r="5" fill="#ff8098"/><path d="M 232,110 C 240,128 236,150 224,158" stroke="#cfd8e4" stroke-width="3" fill="none"/><rect x="204" y="156" width="40" height="22" rx="7" fill="#ff8a3d" stroke="#6b2d00" stroke-width="2"/><circle cx="224" cy="167" r="6" fill="#fff"/></g><path d="M 633.6 116 L 478 190" stroke="#ffc233" stroke-width="1.6" stroke-opacity=".85" fill="none" stroke-linecap="round"/><circle cx="478" cy="190" r="3.4" fill="#ffc233"/><rect x="436" y="104" width="198" height="25" rx="7" fill="rgba(9,5,20,.85)" stroke="#ffc233" stroke-width="1.6"/><text x="535" y="121" font-size="12" font-weight="900" fill="#ffc233" text-anchor="middle">Side rails UP and PADDED</text><path d="M 800.0 116 L 742 132" stroke="#ff8098" stroke-width="1.6" stroke-opacity=".85" fill="none" stroke-linecap="round"/><circle cx="742" cy="132" r="3.4" fill="#ff8098"/><rect x="800" y="104" width="168" height="25" rx="7" fill="rgba(9,5,20,.85)" stroke="#ff8098" stroke-width="1.6"/><text x="884" y="121" font-size="12" font-weight="900" fill="#ff8098" text-anchor="middle">IV access maintained</text><path d="M 755.6 328 L 806 290" stroke="#12b886" stroke-width="1.6" stroke-opacity=".85" fill="none" stroke-linecap="round"/><circle cx="806" cy="290" r="3.4" fill="#12b886"/><rect x="756" y="316" width="212" height="25" rx="7" fill="rgba(9,5,20,.85)" stroke="#12b886" stroke-width="1.6"/><text x="862" y="333" font-size="12" font-weight="900" fill="#12b886" text-anchor="middle">Bed in the LOWEST position</text><path d="M 293.6 312 L 80 220" stroke="#00c2c7" stroke-width="1.6" stroke-opacity=".85" fill="none" stroke-linecap="round"/><circle cx="80" cy="220" r="3.4" fill="#00c2c7"/><path d="M 293.6 312 L 204 220" stroke="#00c2c7" stroke-width="1.6" stroke-opacity=".85" fill="none" stroke-linecap="round"/><circle cx="204" cy="220" r="3.4" fill="#00c2c7"/><rect x="22" y="300" width="272" height="25" rx="7" fill="rgba(9,5,20,.85)" stroke="#00c2c7" stroke-width="1.6"/><text x="158" y="317" font-size="12" font-weight="900" fill="#00c2c7" text-anchor="middle">Suction + oxygen set up and tested</text><path d="M 427.2 356 L 566 326" stroke="#ff8a3d" stroke-width="1.6" stroke-opacity=".85" fill="none" stroke-linecap="round"/><circle cx="566" cy="326" r="3.4" fill="#ff8a3d"/><rect x="427" y="344" width="183" height="25" rx="7" fill="rgba(9,5,20,.85)" stroke="#ff8a3d" stroke-width="1.6"/><text x="519" y="361" font-size="12" font-weight="900" fill="#ff8a3d" text-anchor="middle">Call bell within reach</text><path d="M 160.4 356 L 360 330" stroke="#9d5cff" stroke-width="1.6" stroke-opacity=".85" fill="none" stroke-linecap="round"/><circle cx="360" cy="330" r="3.4" fill="#9d5cff"/><rect x="22" y="344" width="138" height="25" rx="7" fill="rgba(9,5,20,.85)" stroke="#9d5cff" stroke-width="1.6"/><text x="91" y="361" font-size="12" font-weight="900" fill="#9d5cff" text-anchor="middle">Floor kept clear</text><rect x="6" y="396" width="994" height="58" rx="12" fill="rgba(9,5,20,.78)" stroke="rgba(255,255,255,.35)" stroke-width="1"/><text x="22" y="418" font-size="13" font-weight="900" fill="#ffc233">ALSO:</text><text x="90" y="418" font-size="12.6" font-weight="800" fill="#fff">no oral temperatures · supervise showers · nothing hot or glass at the bedside · know where the rescue benzodiazepine is.</text><text x="22" y="442" font-size="12.6" font-weight="800" fill="#d9e7ff">Padding and rails do not stop a seizure — they stop the injury. Set them up the moment seizure risk is identified.</text></svg>
+      <div class="mn">🧠 <b>“Low bed, up rails, suction &amp; O₂, clear floor.”</b> If a stem asks what you set up for a new admission with a seizure history, that is the list.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>⚠️ Everyday safety teaching</h3>
+      <ul class="tick">
+        <li><b>Showers, not baths</b> — a seizure in a bath is a drowning risk</li>
+        <li><b>Never swim alone</b>; supervision at all times in water</li>
+        <li><b>No driving</b> until the legally required seizure-free interval is met — and clearance comes from the <b>provider</b>, not the nurse</li>
+        <li>Avoid working at heights, with open flame, or with dangerous machinery</li>
+        <li>Avoid known triggers: sleep deprivation, alcohol, flashing lights if photosensitive</li>
+        <li><b>Medical alert bracelet</b> at all times</li>
+        <li>Teach family what to do — and what never to do — during a seizure</li>
+      </ul>
+      <div class="mn">🧠 <b>Water and heights are the two killers.</b> The seizure itself rarely is.</div>
+    </div>
+
+
+    <div class="card citrinec">
+      <h3>👨‍👩‍👧 Teach the family — and when to call 911</h3>
+      <ul class="tick">
+        <li><b>Stay calm, time it, protect the head, turn them on their side</b></li>
+        <li><b>Nothing in the mouth, no restraints, do not leave them</b></li>
+        <li>Move furniture away; take glasses off; loosen anything tight at the neck</li>
+        <li>Stay with them until they are fully awake and oriented</li>
+      </ul>
+      <p><b>Call emergency services if:</b> the seizure lasts <span class="mono">&gt; 5 minutes</span> · a second
+      seizure follows without recovery · the patient does not wake up · breathing is difficult · it happened in
+      water · they are injured, pregnant, or diabetic · it is their <b>first</b> seizure.</p>
+      <div class="mn">🧠 <b>Five minutes, second seizure, doesn’t wake up, in water, first ever.</b> Any one of those = call.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🤰 Pregnancy and antiseizure drugs</h3>
+      <p>Several antiseizure medications are <b>teratogenic</b> — <b>valproic acid</b> in particular carries a high
+      risk of <b>neural tube defects</b> and is generally avoided in people who could become pregnant.
+      Carbamazepine also carries risk.</p>
+      <p>Teach that a pregnancy must be <b>planned with the prescriber</b>, that <b>folic acid</b> supplementation is
+      routinely recommended, and that <mark>the medication is never stopped without medical advice</mark> — an
+      uncontrolled seizure is dangerous for both mother and fetus.</p>
+      <div class="mn">💊 <b>“Val is bad for the belly.”</b> Valproate + pregnancy is the classic exam pairing.</div>
+    </div>
+
+    <div class="card emerald">
+      <h3>✅ When drugs are not enough</h3>
+      <ul class="tick">
+        <li><b>Ketogenic diet</b> — high fat, very low carbohydrate; used mainly in refractory paediatric epilepsy and requires dietitian supervision</li>
+        <li><b>Vagus nerve stimulator</b> — an implanted device; the patient can swipe a magnet over it when an aura starts</li>
+        <li><b>Responsive neurostimulation / deep brain stimulation</b></li>
+        <li><b>Epilepsy surgery</b> — resection of a well-localised focus after video EEG mapping</li>
+      </ul>
+      <div class="mn">🧠 <b>Refractory = two appropriate drugs failed.</b> That is the point at which these options get considered.</div>
+    </div>
+    <div class="card tealc">
+      <h3>🧊 A note on febrile seizures</h3>
+      <p>Common in children roughly <span class="mono">6 months – 5 years</span>, triggered by a rapid rise in
+      temperature. Most are brief, generalised and <b>do not cause brain damage</b>.</p>
+      <p>Teach parents: control fever with antipyretics as directed, keep the child safe and side-lying during
+      the event, and <b>do not use ice baths or alcohol rubs</b> — rapid cooling causes shivering, which raises
+      the temperature again.</p>
+      <div class="mn">🧠 <b>Reassure, don’t over-treat.</b> Most children with febrile seizures never develop epilepsy.</div>
+    </div>
+
+  </div>
+</section>
+
+<section id="meds">
+  <div class="sec-h"><span class="icon">💊</span><h2>DRUGS &amp; DIAGNOSTICS</h2><span class="step">STEP 5 · TREAT</span></div>
+  <p class="sec-sub">Know the names, the one big monitoring point for each, and the rule that applies to every single one of them.</p>
+  <div class="grid">
+
+    <div class="card garnet span2">
+      <h3>🚨 The rule that applies to every antiseizure drug</h3>
+      <p class="bigq">Never stop an antiseizure medication abruptly.</p>
+      <p>Abrupt withdrawal precipitates <b>status epilepticus</b>. Doses are tapered slowly. This is true of
+      <b>all</b> of them, and it is the most commonly tested single fact about the class.</p>
+      <div class="mn">💊 <b>One rule, every drug.</b> If an answer option says “stop the medication,” it is wrong unless a provider ordered a taper.</div>
+    </div>
+
+    <div class="card deep span2">
+      <h3>💊 The drugs by name</h3>
+      <div class="tblwrap"><table>
+        <tr><th class="up">Drug</th><th class="lo">The thing you monitor / teach</th></tr>
+        <tr><td><b>Phenytoin</b> (Dilantin)</td><td>Therapeutic level commonly cited as <span class="mono">10–20 mcg/mL</span> (a typical adult range that varies by lab); <b>hold and report above 20</b>. <b>Gingival hyperplasia</b> — meticulous oral care and dental visits. Nystagmus is an early toxicity sign. IV: mix with <b>normal saline only</b> (precipitates in dextrose) and infuse slowly.</td></tr>
+        <tr><td><b>Fosphenytoin</b></td><td>A prodrug of phenytoin used IV/IM in emergencies; fewer infusion-site problems, still monitor cardiac rhythm and blood pressure.</td></tr>
+        <tr><td><b>Levetiracetam</b> (Keppra)</td><td>Well tolerated; watch for <b>mood and behaviour changes</b> — irritability, agitation, depression. <b>Driving permission comes from the provider.</b></td></tr>
+        <tr><td><b>Carbamazepine</b> (Tegretol)</td><td>Blood dyscrasias (agranulocytosis, aplastic anaemia), <b>Stevens–Johnson syndrome</b>, hyponatraemia, many interactions. Report sore throat, fever, bruising or rash.</td></tr>
+        <tr><td><b>Valproic acid / divalproex</b></td><td><b>Hepatotoxicity</b> and pancreatitis; thrombocytopenia; <b>teratogenic — neural tube defects</b>. Monitor LFTs, ammonia, platelets.</td></tr>
+        <tr><td><b>Lamotrigine</b></td><td><b>Serious rash / Stevens–Johnson syndrome</b> — titrate slowly and report <b>any</b> rash immediately.</td></tr>
+        <tr><td><b>Phenobarbital</b></td><td>Sedation, respiratory depression, dependence; strong enzyme inducer.</td></tr>
+        <tr><td><b>Lorazepam · diazepam · midazolam</b></td><td><b>Rescue</b> drugs for an active seizure or status. Respiratory depression, hypotension, sedation.</td></tr>
+      </table></div>
+      <div class="xref"><span class="pill">DEEP DIVE</span> Carbamazepine and valproic acid have a whole comparison page: <a href="../pharm/NG-241_carbamazepine-vs-valproic-acid.html">NG-241 · Carbamazepine vs Valproic Acid</a>.</div>
+      <div class="mn">💊 <b>PHENytoin = PHEN-cy gums.</b> Levetiracetam = “Keppra makes you kranky.” Valproate = “Val hurts the liVer.” Lamotrigine = “Lamo-RASH-gine.”</div>
+    </div>
+
+    <div class="card deep span2">
+      <h3>🧪 Phenytoin level — the number you must recognise</h3>
+      <svg viewBox="-6 -6 1012 400" role="img" aria-label="A horizontal scale of phenytoin serum concentration in micrograms per millilitre, divided into a sub therapeutic zone below ten, a therapeutic green zone from ten to twenty, and a toxic red zone above twenty, with a marker at twenty two labelled hold the dose and notify the provider, and a list of early toxicity signs">
+<defs>
+  <linearGradient id="lvbone" x1="0" y1="0" x2="0.3" y2="1">
+    <stop offset="0" stop-color="#fff3d6"/><stop offset=".22" stop-color="#f2dfae"/>
+    <stop offset=".55" stop-color="#d8bd85"/><stop offset=".8" stop-color="#b39a63"/>
+    <stop offset="1" stop-color="#8d7748"/>
+  </linearGradient>
+  <linearGradient id="lvdip" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#e6c98f"/><stop offset=".5" stop-color="#c8a86a"/>
+    <stop offset="1" stop-color="#9c8149"/>
+  </linearGradient>
+  <radialGradient id="lvbrain" cx=".38" cy=".3" r=".85" fx=".3" fy=".22">
+    <stop offset="0" stop-color="#f6cfe0"/><stop offset=".25" stop-color="#e6a9c6"/>
+    <stop offset=".55" stop-color="#c98bb0"/><stop offset=".8" stop-color="#a06a92"/>
+    <stop offset="1" stop-color="#6d4468"/>
+  </radialGradient>
+  <radialGradient id="lvcbl" cx=".4" cy=".3" r=".8">
+    <stop offset="0" stop-color="#d59ec0"/><stop offset=".55" stop-color="#9c5f8d"/>
+    <stop offset="1" stop-color="#5c3355"/>
+  </radialGradient>
+  <linearGradient id="lvcsf" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#b6fbfa"/><stop offset=".45" stop-color="#4fdede"/>
+    <stop offset="1" stop-color="#00909a"/>
+  </linearGradient>
+  <linearGradient id="lvblood" x1="0" y1="0" x2="0.4" y2="1">
+    <stop offset="0" stop-color="#ff8098"/><stop offset=".3" stop-color="#ff3b6b"/>
+    <stop offset=".7" stop-color="#c02255"/><stop offset="1" stop-color="#71092f"/>
+  </linearGradient>
+  <linearGradient id="lvven" x1="0" y1="0" x2="0.4" y2="1">
+    <stop offset="0" stop-color="#7f9dff"/><stop offset=".45" stop-color="#3a5fd0"/>
+    <stop offset="1" stop-color="#1b2a6b"/>
+  </linearGradient>
+  <filter id="lvsh" x="-35%" y="-35%" width="180%" height="180%">
+    <feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dx="0" dy="6" result="o"/>
+    <feFlood flood-color="#000" flood-opacity=".55"/><feComposite in2="o" operator="in" result="s"/>
+    <feMerge><feMergeNode in="s"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="lvsoft" x="-40%" y="-40%" width="180%" height="180%">
+    <feGaussianBlur stdDeviation="7"/>
+  </filter>
+  <marker id="lvar" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="6.5" markerHeight="6.5" orient="auto">
+    <path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/>
+  </marker>
+  <marker id="lvarr" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="6.5" markerHeight="6.5" orient="auto">
+    <path d="M1 1 L11 6 L1 11 z" fill="#ff3b6b"/>
+  </marker>
+  <marker id="lvarw" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+    <path d="M1 1 L11 6 L1 11 z" fill="#ffffff"/>
+  </marker>
+</defs><rect x="0" y="0" width="1000" height="58" rx="12" fill="rgba(9,5,20,.78)" stroke="rgba(255,255,255,.35)" stroke-width="1"/><text x="16" y="26" font-size="21" font-weight="900" fill="#ffc233">PHENYTOIN LEVEL — the number you must recognise</text><text x="16" y="47" font-size="14" font-style="italic" fill="#d9e7ff">Serum concentration scale (micrograms per mL) · left = too little, right = toxic · commonly cited range — varies by lab</text><rect x="70" y="140" width="290" height="64" fill="#2f6bff" fill-opacity=".55" stroke="#2f6bff" stroke-width="2.4"/><text x="215" y="168" font-size="14.5" font-weight="900" fill="#fff" text-anchor="middle">SUB-THERAPEUTIC</text><text x="215" y="190" font-size="12.4" font-weight="800" fill="#fff" text-anchor="middle">seizures not controlled</text><rect x="360" y="140" width="290" height="64" fill="#12b886" fill-opacity=".55" stroke="#12b886" stroke-width="2.4"/><text x="505" y="168" font-size="14.5" font-weight="900" fill="#fff" text-anchor="middle">THERAPEUTIC</text><text x="505" y="190" font-size="12.4" font-weight="800" fill="#fff" text-anchor="middle">10–20 mcg/mL</text><rect x="650" y="140" width="290" height="64" fill="#ff3b6b" fill-opacity=".55" stroke="#ff3b6b" stroke-width="2.4"/><text x="795" y="168" font-size="14.5" font-weight="900" fill="#fff" text-anchor="middle">TOXIC</text><text x="795" y="190" font-size="12.4" font-weight="800" fill="#fff" text-anchor="middle">hold the dose · notify</text><line x1="70" y1="204" x2="70" y2="214" stroke="#fff" stroke-width="2"/><text x="70" y="232" font-size="12.4" font-weight="900" fill="#fff" text-anchor="middle">0</text><line x1="215" y1="204" x2="215" y2="214" stroke="#fff" stroke-width="2"/><text x="215" y="232" font-size="12.4" font-weight="900" fill="#fff" text-anchor="middle">5</text><line x1="360" y1="204" x2="360" y2="214" stroke="#fff" stroke-width="2"/><text x="360" y="232" font-size="12.4" font-weight="900" fill="#fff" text-anchor="middle">10</text><line x1="505" y1="204" x2="505" y2="214" stroke="#fff" stroke-width="2"/><text x="505" y="232" font-size="12.4" font-weight="900" fill="#fff" text-anchor="middle">15</text><line x1="650" y1="204" x2="650" y2="214" stroke="#fff" stroke-width="2"/><text x="650" y="232" font-size="12.4" font-weight="900" fill="#fff" text-anchor="middle">20</text><line x1="795" y1="204" x2="795" y2="214" stroke="#fff" stroke-width="2"/><text x="795" y="232" font-size="12.4" font-weight="900" fill="#fff" text-anchor="middle">25</text><line x1="940" y1="204" x2="940" y2="214" stroke="#fff" stroke-width="2"/><text x="940" y="232" font-size="12.4" font-weight="900" fill="#fff" text-anchor="middle">30</text><text x="505" y="254" font-size="13" font-weight="900" fill="#d9e7ff" text-anchor="middle">serum phenytoin (mcg/mL)</text><path d="M 708,100 L 708,134" stroke="#ffc233" stroke-width="4" marker-end="url(#lvar)"/><rect x="558.0" y="48" width="300" height="52" rx="9" fill="rgba(110,6,36,.86)" stroke="rgba(255,255,255,.35)" stroke-width="1"/><text x="708" y="70" font-size="14" font-weight="900" fill="#ffd9e2" text-anchor="middle">Level 22 mcg/mL →</text><text x="708" y="90" font-size="13" font-weight="900" fill="#ffd9e2" text-anchor="middle">HOLD the dose and notify the provider</text><rect x="70" y="268" width="420" height="110" rx="10" fill="rgba(9,5,20,.78)" stroke="rgba(255,255,255,.35)" stroke-width="1"/><text x="86" y="292" font-size="14" font-weight="900" fill="#ffe49a">EARLY SIGNS OF TOXICITY</text><text x="86" y="316" font-size="12.8" font-weight="800" fill="#fff">• NYSTAGMUS — often the first thing you see</text><text x="86" y="340" font-size="12.8" font-weight="800" fill="#fff">• Ataxia, slurred speech, unsteady gait</text><text x="86" y="364" font-size="12.8" font-weight="800" fill="#fff">• Drowsiness, confusion, double vision</text><rect x="520" y="268" width="420" height="110" rx="10" fill="rgba(9,5,20,.78)" stroke="rgba(255,255,255,.35)" stroke-width="1"/><text x="536" y="292" font-size="14" font-weight="900" fill="#a5f3d4">LONG-TERM / GIVING IT</text><text x="536" y="316" font-size="12.8" font-weight="800" fill="#fff">• GINGIVAL HYPERPLASIA — meticulous oral care</text><text x="536" y="340" font-size="12.8" font-weight="800" fill="#fff">• IV: mix with SALINE, never dextrose; give slowly</text><text x="536" y="364" font-size="12.8" font-weight="800" fill="#fff">• Hirsutism, rash; many drug interactions</text></svg>
+      <p>A reported level of <span class="mono">22 mcg/mL</span> means <b>hold the dose and notify the
+      provider</b>. Do not give it and document later.</p>
+      <p class="figcap"><span class="mono">10–20 mcg/mL</span> is the <b>commonly cited</b> therapeutic range for total serum phenytoin; it is a typical adult reference range and <b>varies by laboratory</b> (and free/unbound levels use a different range) — always check the range reported with your patient’s result.</p>
+      <div class="mn">🧠 <b>10 to 20 is fine. Over 20 you’re done.</b></div>
+    </div>
+
+    <div class="card deep span2">
+      <h3>📈 EEG and imaging</h3>
+      <svg viewBox="-6 -6 1012 470" role="img" aria-label="Left: a head seen from the side with electroencephalogram electrodes stuck to the scalp and wires running to a recorder. Right: the printed trace with normal background rhythm and a burst of spike and wave discharges, plus a checklist of how to prepare a patient for the test">
+<defs>
+  <linearGradient id="egbone" x1="0" y1="0" x2="0.3" y2="1">
+    <stop offset="0" stop-color="#fff3d6"/><stop offset=".22" stop-color="#f2dfae"/>
+    <stop offset=".55" stop-color="#d8bd85"/><stop offset=".8" stop-color="#b39a63"/>
+    <stop offset="1" stop-color="#8d7748"/>
+  </linearGradient>
+  <linearGradient id="egdip" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#e6c98f"/><stop offset=".5" stop-color="#c8a86a"/>
+    <stop offset="1" stop-color="#9c8149"/>
+  </linearGradient>
+  <radialGradient id="egbrain" cx=".38" cy=".3" r=".85" fx=".3" fy=".22">
+    <stop offset="0" stop-color="#f6cfe0"/><stop offset=".25" stop-color="#e6a9c6"/>
+    <stop offset=".55" stop-color="#c98bb0"/><stop offset=".8" stop-color="#a06a92"/>
+    <stop offset="1" stop-color="#6d4468"/>
+  </radialGradient>
+  <radialGradient id="egcbl" cx=".4" cy=".3" r=".8">
+    <stop offset="0" stop-color="#d59ec0"/><stop offset=".55" stop-color="#9c5f8d"/>
+    <stop offset="1" stop-color="#5c3355"/>
+  </radialGradient>
+  <linearGradient id="egcsf" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#b6fbfa"/><stop offset=".45" stop-color="#4fdede"/>
+    <stop offset="1" stop-color="#00909a"/>
+  </linearGradient>
+  <linearGradient id="egblood" x1="0" y1="0" x2="0.4" y2="1">
+    <stop offset="0" stop-color="#ff8098"/><stop offset=".3" stop-color="#ff3b6b"/>
+    <stop offset=".7" stop-color="#c02255"/><stop offset="1" stop-color="#71092f"/>
+  </linearGradient>
+  <linearGradient id="egven" x1="0" y1="0" x2="0.4" y2="1">
+    <stop offset="0" stop-color="#7f9dff"/><stop offset=".45" stop-color="#3a5fd0"/>
+    <stop offset="1" stop-color="#1b2a6b"/>
+  </linearGradient>
+  <filter id="egsh" x="-35%" y="-35%" width="180%" height="180%">
+    <feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dx="0" dy="6" result="o"/>
+    <feFlood flood-color="#000" flood-opacity=".55"/><feComposite in2="o" operator="in" result="s"/>
+    <feMerge><feMergeNode in="s"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="egsoft" x="-40%" y="-40%" width="180%" height="180%">
+    <feGaussianBlur stdDeviation="7"/>
+  </filter>
+  <marker id="egar" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="6.5" markerHeight="6.5" orient="auto">
+    <path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/>
+  </marker>
+  <marker id="egarr" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="6.5" markerHeight="6.5" orient="auto">
+    <path d="M1 1 L11 6 L1 11 z" fill="#ff3b6b"/>
+  </marker>
+  <marker id="egarw" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+    <path d="M1 1 L11 6 L1 11 z" fill="#ffffff"/>
+  </marker>
+</defs><rect x="0" y="0" width="1000" height="58" rx="12" fill="rgba(9,5,20,.78)" stroke="rgba(255,255,255,.35)" stroke-width="1"/><text x="16" y="26" font-size="21" font-weight="900" fill="#ffc233">EEG — reading the electrical activity of the “EGG head”</text><text x="16" y="47" font-size="14" font-style="italic" fill="#d9e7ff">Left: electrode placement, side view · Right: what the trace shows and how you prep the patient</text><rect x="6" y="70" width="380" height="380" rx="16" fill="rgba(13,8,26,.5)" stroke="#9d5cff" stroke-width="2.4"/><g transform="translate(48,110)"><path d="M 40,150 C 26,88 70,32 136,32 C 202,32 246,80 240,146 C 236,196 210,232 172,244 L 96,244 C 62,232 44,198 40,150 Z" fill="#f0b48a" stroke="#8a4d2c" stroke-width="2.6" filter="url(#egsh)"/><path d="M 40,110 C 52,42 224,42 240,116 C 214,72 68,70 40,110 Z" fill="#3a2c14"/><path d="M 44,152 C 24,140 16,176 32,188 C 42,196 54,188 54,174" fill="#f0b48a" stroke="#8a4d2c" stroke-width="2.2"/><circle cx="52" cy="176" r="4" fill="#3a2416"/><path d="M 40,150 C 32,158 22,162 20,170 C 18,178 28,180 34,180" stroke="#8a4d2c" stroke-width="2" fill="none"/><circle cx="70" cy="96" r="9" fill="#cfd8e4" stroke="#5b6675" stroke-width="2"/><circle cx="70" cy="96" r="4" fill="#9d5cff"/><path d="M 70,96 C 110,86 130,136 300,250" stroke="#9d5cff" stroke-width="1.6" fill="none" opacity=".65"/><circle cx="104" cy="64" r="9" fill="#cfd8e4" stroke="#5b6675" stroke-width="2"/><circle cx="104" cy="64" r="4" fill="#9d5cff"/><path d="M 104,64 C 144,54 164,104 300,250" stroke="#9d5cff" stroke-width="1.6" fill="none" opacity=".65"/><circle cx="150" cy="52" r="9" fill="#cfd8e4" stroke="#5b6675" stroke-width="2"/><circle cx="150" cy="52" r="4" fill="#9d5cff"/><path d="M 150,52 C 190,42 210,92 300,250" stroke="#9d5cff" stroke-width="1.6" fill="none" opacity=".65"/><circle cx="196" cy="64" r="9" fill="#cfd8e4" stroke="#5b6675" stroke-width="2"/><circle cx="196" cy="64" r="4" fill="#9d5cff"/><path d="M 196,64 C 236,54 256,104 300,250" stroke="#9d5cff" stroke-width="1.6" fill="none" opacity=".65"/><circle cx="226" cy="100" r="9" fill="#cfd8e4" stroke="#5b6675" stroke-width="2"/><circle cx="226" cy="100" r="4" fill="#9d5cff"/><path d="M 226,100 C 266,90 286,140 300,250" stroke="#9d5cff" stroke-width="1.6" fill="none" opacity=".65"/><circle cx="232" cy="146" r="9" fill="#cfd8e4" stroke="#5b6675" stroke-width="2"/><circle cx="232" cy="146" r="4" fill="#9d5cff"/><path d="M 232,146 C 272,136 292,186 300,250" stroke="#9d5cff" stroke-width="1.6" fill="none" opacity=".65"/><circle cx="214" cy="186" r="9" fill="#cfd8e4" stroke="#5b6675" stroke-width="2"/><circle cx="214" cy="186" r="4" fill="#9d5cff"/><path d="M 214,186 C 254,176 274,226 300,250" stroke="#9d5cff" stroke-width="1.6" fill="none" opacity=".65"/><circle cx="96" cy="132" r="9" fill="#cfd8e4" stroke="#5b6675" stroke-width="2"/><circle cx="96" cy="132" r="4" fill="#9d5cff"/><path d="M 96,132 C 136,122 156,172 300,250" stroke="#9d5cff" stroke-width="1.6" fill="none" opacity=".65"/><circle cx="150" cy="110" r="9" fill="#cfd8e4" stroke="#5b6675" stroke-width="2"/><circle cx="150" cy="110" r="4" fill="#9d5cff"/><path d="M 150,110 C 190,100 210,150 300,250" stroke="#9d5cff" stroke-width="1.6" fill="none" opacity=".65"/><circle cx="196" cy="132" r="9" fill="#cfd8e4" stroke="#5b6675" stroke-width="2"/><circle cx="196" cy="132" r="4" fill="#9d5cff"/><path d="M 196,132 C 236,122 256,172 300,250" stroke="#9d5cff" stroke-width="1.6" fill="none" opacity=".65"/><circle cx="88" cy="186" r="9" fill="#cfd8e4" stroke="#5b6675" stroke-width="2"/><circle cx="88" cy="186" r="4" fill="#9d5cff"/><path d="M 88,186 C 128,176 148,226 300,250" stroke="#9d5cff" stroke-width="1.6" fill="none" opacity=".65"/><circle cx="150" cy="168" r="9" fill="#cfd8e4" stroke="#5b6675" stroke-width="2"/><circle cx="150" cy="168" r="4" fill="#9d5cff"/><path d="M 150,168 C 190,158 210,208 300,250" stroke="#9d5cff" stroke-width="1.6" fill="none" opacity=".65"/><circle cx="206" cy="220" r="9" fill="#cfd8e4" stroke="#5b6675" stroke-width="2"/><circle cx="206" cy="220" r="4" fill="#9d5cff"/><path d="M 206,220 C 246,210 266,260 300,250" stroke="#9d5cff" stroke-width="1.6" fill="none" opacity=".65"/><rect x="248" y="248" width="86" height="56" rx="9" fill="#241a3a" stroke="#9d5cff" stroke-width="2.4"/><path d="M 258,278 q 6,-14 12,0 t 12,0 t 12,0 t 12,0" stroke="#a5f3d4" stroke-width="2" fill="none"/><text x="291" y="322" font-size="12.4" font-weight="900" fill="#d9c2ff" text-anchor="middle">recorder</text><text x="140" y="322" font-size="12.4" font-weight="900" fill="#d9c2ff" text-anchor="middle">sticky scalp electrodes</text></g><rect x="396" y="70" width="604" height="180" rx="16" fill="rgba(13,8,26,.5)" stroke="#00c2c7" stroke-width="2.4"/><text x="414" y="96" font-size="15" font-weight="900" fill="#9ff2ee">THE TRACE</text><path d="M 414,126 q 6,5 13,0 q 10,-7 19,0 q 10,-7 19,0 q 10,6 19,0 q 8,6 15,0 q 10,-7 19,0 q 10,-7 19,0 q 6,6 13,0 q 6,-7 13,0 q 10,6 19,0 q 6,5 13,0 q 10,-7 19,0 q 8,-7 15,0 q 6,-7 13,0 q 10,-7 19,0 q 10,5 19,0 q 6,-7 13,0 q 10,5 19,0 q 3,22 6,0 q 4,26 9,0 q 3,26 6,0 q 4,26 9,0 q 4,-34 7,0 q 3,22 6,0 q 4,-30 7,0 q 4,-34 7,0 q 3,-34 6,0 q 3,22 6,0 q 4,26 9,0 q 3,-34 6,0 q 3,22 6,0 q 3,22 6,0 q 4,-30 9,0 q 3,26 6,0 q 4,22 9,0 q 10,5 19,0 q 8,-5 15,0 q 6,6 13,0 q 8,-7 15,0 q 10,6 19,0 q 6,6 13,0 q 10,-7 19,0 q 10,-7 19,0 " fill="none" stroke="#9ff2ee" stroke-width="2" stroke-linecap="round"/><path d="M 414,164 q 6,6 13,0 q 8,5 15,0 q 8,5 15,0 q 6,5 13,0 q 10,5 19,0 q 6,-5 13,0 q 10,-5 19,0 q 6,-5 13,0 q 10,-7 19,0 q 6,5 13,0 q 10,5 19,0 q 10,-7 19,0 q 6,-5 13,0 q 6,5 13,0 q 10,6 19,0 q 10,-5 19,0 q 8,-5 15,0 q 10,-5 19,0 q 4,-30 7,0 q 3,26 6,0 q 4,26 7,0 q 4,-34 7,0 q 4,-30 7,0 q 4,-30 9,0 q 4,-30 9,0 q 4,26 9,0 q 3,-30 6,0 q 4,26 9,0 q 4,-34 7,0 q 4,26 7,0 q 3,-34 6,0 q 3,26 6,0 q 3,-34 6,0 q 4,-34 9,0 q 4,-34 9,0 q 4,22 7,0 q 10,-7 19,0 q 10,6 19,0 q 8,6 15,0 q 8,-5 15,0 q 6,-5 13,0 q 6,5 13,0 q 8,6 15,0 q 8,5 15,0 q 8,6 15,0 " fill="none" stroke="#9ff2ee" stroke-width="2" stroke-linecap="round"/><path d="M 414,202 q 6,-7 13,0 q 10,5 19,0 q 6,6 13,0 q 6,5 13,0 q 8,6 15,0 q 10,-7 19,0 q 6,-5 13,0 q 8,6 15,0 q 8,-5 15,0 q 8,5 15,0 q 8,-5 15,0 q 10,-7 19,0 q 6,-5 13,0 q 10,5 19,0 q 8,-5 15,0 q 6,-7 13,0 q 6,-7 13,0 q 6,5 13,0 q 8,6 15,0 q 10,-7 19,0 q 4,26 9,0 q 4,-30 7,0 q 3,22 6,0 q 4,26 9,0 q 3,-30 6,0 q 4,22 9,0 q 4,22 7,0 q 3,-34 6,0 q 4,22 9,0 q 4,-30 7,0 q 4,26 9,0 q 4,26 9,0 q 4,22 7,0 q 3,-34 6,0 q 4,-30 9,0 q 6,-5 13,0 q 6,6 13,0 q 8,5 15,0 q 8,-7 15,0 q 8,5 15,0 q 6,5 13,0 q 10,5 19,0 q 6,-5 13,0 q 10,-5 19,0 " fill="none" stroke="#9ff2ee" stroke-width="2" stroke-linecap="round"/><rect x="698" y="102" width="134" height="130" rx="8" fill="rgba(255,59,107,.16)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="6 5"/><text x="765" y="248" font-size="12.4" font-weight="900" fill="#ff8098" text-anchor="middle">spike-and-wave burst</text><text x="500" y="248" font-size="12.4" font-weight="900" fill="#a5f3d4" text-anchor="middle">normal background</text><rect x="396" y="262" width="604" height="188" rx="16" fill="rgba(255,194,51,.12)" stroke="#ffc233" stroke-width="2.4"/><text x="414" y="290" font-size="15" font-weight="900" fill="#ffe49a">PREPARING THE PATIENT</text><text x="416" y="318" font-size="14" font-weight="900" fill="#fff">✅</text><text x="446" y="318" font-size="12.6" font-weight="800" fill="#fff">WASH the hair before and after — gel and oils stop electrodes sticking</text><text x="416" y="345" font-size="14" font-weight="900" fill="#fff">❌</text><text x="446" y="345" font-size="12.6" font-weight="800" fill="#fff">NO caffeine or stimulants for 12–24 h (tea, coffee, cola, energy drinks)</text><text x="416" y="372" font-size="14" font-weight="900" fill="#fff">😴</text><text x="446" y="372" font-size="12.6" font-weight="800" fill="#fff">SLEEP DEPRIVATION is often requested — it makes abnormal activity show</text><text x="416" y="399" font-size="14" font-weight="900" fill="#fff">🍽️</text><text x="446" y="399" font-size="12.6" font-weight="800" fill="#fff">EAT beforehand — the patient is NOT kept NPO; low glucose alters it</text><text x="416" y="426" font-size="14" font-weight="900" fill="#fff">💊</text><text x="446" y="426" font-size="12.6" font-weight="800" fill="#fff">Antiseizure medication may be held — only on a provider’s order</text></svg>
+      <div class="mn">🧠 <b>EEG = the EGG head (Electrical activity of the brain). ECG = C for Cardiac.</b> Two letters apart, two completely different tests.</div>
+    </div>
+
+    <div class="card tealc">
+      <h3>🖼️ The other diagnostics</h3>
+      <ul class="tick">
+        <li><b>CT head</b> — first-line after a new seizure to exclude bleed, tumour or trauma</li>
+        <li><b>MRI</b> — better for structural lesions and mesial temporal sclerosis</li>
+        <li><b>Blood glucose, electrolytes, calcium, magnesium</b></li>
+        <li><b>Antiseizure drug levels</b> and a toxicology screen</li>
+        <li><b>Lumbar puncture</b> if infection is suspected</li>
+      </ul>
+      <div class="mn">🧠 <b>A first seizure in an adult always earns imaging.</b> The seizure is a symptom, not the diagnosis.</div>
+    </div>
+
+    <div class="card topaz span2">
+      <h3>🎯 NCLEX traps on this topic</h3>
+      <div class="tblwrap"><table>
+        <tr><th class="up">The stem says…</th><th class="lo">The answer is…</th></tr>
+        <tr><td>“Client is actively seizing — first action?”</td><td><b>Turn the client to the side</b> (airway)</td></tr>
+        <tr><td>“Which action does the nurse take during a seizure?”</td><td><b>Protect the head / clear the area</b> — never insert anything, never restrain</td></tr>
+        <tr><td>“I smell oranges and there aren’t any on my tray”</td><td><b>“Have you experienced this sensation before?”</b> — that is an aura</td></tr>
+        <tr><td>“Deep sleep and confusion after the event — documented as?”</td><td><b>The postictal phase</b></td></tr>
+        <tr><td>“Seizure has lasted 6 minutes”</td><td><b>Status epilepticus</b> — airway, then IV/rectal benzodiazepine</td></tr>
+        <tr><td>“Phenytoin level is <span class="mono">22 mcg/mL</span>”</td><td><b>Hold the dose and notify the provider</b></td></tr>
+        <tr><td>“Preparing for an EEG — which instruction?”</td><td><b>No caffeine for 12–24 h · wash the hair · eat beforehand</b> (not NPO)</td></tr>
+        <tr><td>“Client on levetiracetam asks about driving”</td><td><b>Driving permission must come from the provider</b></td></tr>
+        <tr><td>“Client feels better and wants to stop the medication”</td><td><b>Never stop abruptly</b> — it causes status epilepticus</td></tr>
+        <tr><td>“Safe bathing for a client with epilepsy?”</td><td><b>Take showers rather than baths</b></td></tr>
+      </table></div>
+      <div class="mn">🧠 <b>Side · protect · time · never stop the drug.</b> That covers most of the exam’s seizure questions.</div>
+    </div>
+
+  </div>
+</section>
+
+<div class="recall" id="recall2">
+  <div class="rc rubybg"><span class="big">🔄 DURING = airway</span><b>Side-lying · pad the head · time it · stay.</b> Suction and oxygen ready. Loosen tight clothing.</div>
+  <div class="rc topazbg"><span class="big">❌ Three NEVERS</span><b>Nothing in the mouth · no restraints · never leave them.</b> These are always the wrong-answer distractors.</div>
+  <div class="rc citrine"><span class="big">⏱️ 5 min = STATUS</span>Airway and breathing first, then the <b>#1 priority is to STOP the seizure</b> — IV or rectal benzodiazepine (lorazepam, diazepam).</div>
+  <div class="rc tealbg"><span class="big">💊 Never stop abruptly</span>Phenytoin therapeutic <span class="mono">10–20</span>, hold above <span class="mono">20</span>; gum care. Keppra = mood changes + provider clears driving.</div>
+</div>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(0,194,199,.72)">TYPES</span>→
+    <span style="background:rgba(18,184,134,.7)">DURING</span>→
+    <span style="background:rgba(192,34,85,.7)">STATUS</span>→
+    <span style="background:rgba(47,107,255,.7)">AFTER</span>→
+    <span style="background:rgba(255,138,61,.75)">DRUGS</span>
+  </div>
+  <div>NG-226 · Neuro set: NG-255 overview · NG-247 head injury · NG-252 meningitis · NG-158 neurogenic shock</div>
+</footer>
+
+</div>
+</body></html>

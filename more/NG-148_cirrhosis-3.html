@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cirrhosis 3 · NG-148 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+
+/* ---- appended for the gap-fill batch ---- */
+nav a.c5{background:rgba(0,194,199,.72);color:#00252b}
+nav a.c6{background:rgba(255,138,61,.75);color:#2b1200}
+nav a.c7{background:rgba(192,34,85,.72)}
+nav a.c8{background:rgba(255,255,255,.22)}
+.setbar{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin:4px 0 16px;font-size:.82rem}
+.setbar .setlabel{font-weight:900;letter-spacing:.08em;color:#ffe49a;margin-right:2px}
+.setbar a{font-weight:800;padding:4px 11px;border-radius:999px;border:1px solid var(--line);
+  background:rgba(13,8,26,.5);color:#dbe8ff;text-decoration:none}
+.setbar a.cur{background:var(--topaz);color:#231a02;border-color:transparent;cursor:default}
+.card a,.lede a,footer a,.sec-sub a{color:#ffe49a;font-weight:800}
+.card.tealc a,.card.topaz a,.card.citrinec a{color:#0b3a52}
+.xref{margin-top:10px;padding:8px 12px;border-radius:11px;background:rgba(0,194,199,.20);
+  border:1px solid var(--line);font-size:.9rem;font-weight:700}
+.xref .pill{display:inline-block;font-size:.7rem;font-weight:900;letter-spacing:.08em;
+  background:var(--teal);color:#00252b;padding:2px 8px;border-radius:7px;margin-right:7px}
+.card.tealc .xref,.card.topaz .xref,.card.citrinec .xref{background:rgba(255,255,255,.45)}
+.legendrow{display:flex;gap:9px;flex-wrap:wrap;margin:11px 0 0;font-size:.84rem;font-weight:800}
+.legendrow span{padding:5px 11px;border-radius:9px;background:rgba(13,8,26,.55);
+  border:1px solid var(--line);display:flex;align-items:center;gap:7px}
+.sw{display:inline-block;width:15px;height:15px;border-radius:4px;border:1px solid rgba(255,255,255,.6)}
+.mirror{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));margin:10px 0 0}
+.mrow{border-radius:12px;padding:10px 13px;background:rgba(13,8,26,.52);border:1px solid var(--line);font-size:.92rem}
+.mrow b{display:block;font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;opacity:.85;margin-bottom:3px}
+.mrow.hi{background:rgba(255,59,107,.30)} .mrow.lo{background:rgba(0,194,199,.28)}
+.card.tealc .mrow,.card.topaz .mrow,.card.citrinec .mrow{background:rgba(255,255,255,.42);color:#1a1030}
+.bigq{font-size:1.5rem;font-weight:900;line-height:1.2;margin:2px 0 6px}
+.tblwrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:2px 0}
+.stepnum{display:grid;gap:9px;margin:10px 0 0}
+.snrow{display:flex;gap:12px;align-items:flex-start;border-radius:13px;padding:11px 13px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.snrow .k{flex:0 0 40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;
+  font-size:1.15rem;font-weight:900;background:var(--topaz);color:#231a02}
+.snrow .v{font-size:.94rem;line-height:1.45}
+.snrow .v b{display:block;font-size:1rem}
+.card.tealc .snrow,.card.topaz .snrow,.card.citrinec .snrow{background:rgba(255,255,255,.42);color:#1a1030}
+.ccc{flex-wrap:wrap}
+.sec-h{flex-wrap:wrap}
+.sec-h h2,h1,.rc,.card h3{overflow-wrap:anywhere}
+@media(max-width:700px){table{font-size:.85rem}th,td{padding:7px 6px}}
+
+#dx .sec-h h2{color:#bcd0ff} #dx .step{background:var(--sapphire)}
+#drugs .sec-h h2{color:#d9c2ff} #drugs .step{background:var(--amethyst)}
+#diet .sec-h h2{color:#a5f3d4} #diet .step{background:var(--emerald);color:#03291c}
+#safety .sec-h h2{color:#ffb3c6} #safety .step{background:var(--garnet)}
+#teach .sec-h h2{color:#ffd9b8} #teach .step{background:var(--citrine);color:#2b1200}
+nav a.c9{background:rgba(255,59,107,.7)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c2" href="#dx">🔬 Procedures</a>
+  <a class="c1" href="#drugs">💊 Drugs</a>
+  <a class="c3" href="#diet">🍽️ Diet</a>
+  <a class="c9" href="#safety">🩸 Safety</a>
+  <a class="c6" href="#teach">🎓 Teaching</a>
+  <a class="c4" href="#recall2">⚡ Recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / GI · Hepatic · Med-Surg</div>
+  <div class="setbar"><span class="setlabel">🫀 CIRRHOSIS SET</span>
+  <a href="../gi/NG-029_cirrhosis-1.html">I · NG-029 Patho &amp; the liver's jobs</a>
+  <a href="NG-109_cirrhosis-2.html">II · NG-109 The complications</a>
+  <a class="cur" href="NG-148_cirrhosis-3.html">III · NG-148 Nursing care &amp; drugs</a>
+  </div>
+  <h1>Cirrhosis III <span class="drop">💊</span></h1>
+  <p class="sub">What the nurse actually DOES — procedures, drugs, diet, safety, teaching</p>
+  <div class="chips">
+    <span class="chip id">NG-148</span>
+    <span class="chip cat">GI · HEPATIC · NURSING CARE</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede"><b>What this page covers, and what it doesn't.</b>
+  <a href="../gi/NG-029_cirrhosis-1.html">NG-029</a> is the pathophysiology.
+  <a href="NG-109_cirrhosis-2.html">NG-109</a> is the complications and the labs.
+  <b>This page is the care page</b>: paracentesis and liver biopsy step by step, the drug map, the diet and fluid
+  rules, bleeding and itching precautions, and exactly what you teach before discharge. Nothing here cures cirrhosis
+  — <mark>every intervention on this page treats a complication or prevents the next one.</mark></p>
+</header>
+
+<div class="recall">
+  <div class="rc tealbg"><span class="big">🔬 Paracentesis</span>FIRST: <b>empty the bladder</b>. Then vitals, weight &amp; girth, then high Fowler's.</div>
+  <div class="rc citrine"><span class="big">🩻 Liver biopsy</span>After: lie on the <b>RIGHT side</b> — your own weight is the pressure dressing.</div>
+  <div class="rc topazbg"><span class="big">💊 Lactulose</span>Goal <b>2–3 soft stools/day</b>. Loses ammonia — and loses <b>potassium</b>.</div>
+  <div class="rc rubybg"><span class="big">🩸 Bleed precautions</span>Soft toothbrush · electric razor · <b>no NG tube · no straining</b>.</div>
+</div>
+
+<section id="dx">
+  <div class="sec-h"><span class="icon">🔬</span><h2>PROCEDURES — BEFORE, DURING, AFTER</h2><span class="step">STEP 1 · DIAGNOSTICS</span></div>
+  <p class="sec-sub">Two procedures, two positions, and both of them are exam questions about what the nurse does FIRST.</p>
+  <div class="grid">
+
+    <div class="card sapphire span2">
+      <h3>💉 Paracentesis — draining the ascites</h3>
+      <svg viewBox="0 0 980 620" role="img" aria-label="A patient sitting upright in high Fowler position for a paracentesis, with the needle entering the lower abdomen below the umbilicus and fluid draining into a collection bottle. Beside it a numbered checklist of what the nurse does before, during and after."><defs>
+<filter id="pcdr" x="-30%" y="-30%" width="170%" height="170%"><feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+<feOffset dy="6" result="o"/><feFlood flood-color="#000" flood-opacity=".6"/><feComposite in2="o" operator="in" result="sh"/>
+<feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<filter id="pcsf" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="6"/></filter>
+<filter id="pcgl" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="3.4" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<radialGradient id="pcliv" cx=".34" cy=".26" r=".95" fx=".26" fy=".18">
+<stop offset="0" stop-color="#c96a5a"/><stop offset=".2" stop-color="#a83d3c"/>
+<stop offset=".5" stop-color="#7e2029"/><stop offset=".8" stop-color="#54101c"/>
+<stop offset="1" stop-color="#2e0710"/></radialGradient>
+<radialGradient id="pclivS" cx=".34" cy=".26" r=".95" fx=".26" fy=".18">
+<stop offset="0" stop-color="#d9a06a"/><stop offset=".22" stop-color="#b4713c"/>
+<stop offset=".55" stop-color="#7d4520"/><stop offset=".85" stop-color="#4c2611"/>
+<stop offset="1" stop-color="#2a1408"/></radialGradient>
+<radialGradient id="pcnod" cx=".38" cy=".3" r=".9" fx=".3" fy=".22">
+<stop offset="0" stop-color="#e0b070"/><stop offset=".45" stop-color="#b57a34"/>
+<stop offset=".85" stop-color="#6d4416"/><stop offset="1" stop-color="#3d2409"/></radialGradient>
+<radialGradient id="pclob" cx=".4" cy=".32" r=".9">
+<stop offset="0" stop-color="#c96a5a"/><stop offset=".55" stop-color="#8e2a30"/>
+<stop offset="1" stop-color="#4d0f18"/></radialGradient>
+<linearGradient id="pcvein" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7fa8f5"/>
+<stop offset=".45" stop-color="#2f6bff"/><stop offset="1" stop-color="#12306f"/></linearGradient>
+<linearGradient id="pcart" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff8ea3"/>
+<stop offset=".45" stop-color="#d92a52"/><stop offset="1" stop-color="#6d0f26"/></linearGradient>
+<linearGradient id="pcbile" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9f27a"/>
+<stop offset=".5" stop-color="#8ab52a"/><stop offset="1" stop-color="#4a6410"/></linearGradient>
+<linearGradient id="pcfib" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3e2c0"/>
+<stop offset=".5" stop-color="#cbb187"/><stop offset="1" stop-color="#8d7248"/></linearGradient>
+<marker id="pca" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#ffe49a"/></marker>
+<marker id="pcar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="16" markerHeight="16" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#ff5f7f"/></marker>
+<marker id="pcab" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#7fa8f5"/></marker>
+</defs><rect x="4" y="4" width="972" height="612" rx="20" fill="rgba(0,0,0,.22)" stroke="#ffc233" stroke-width="2" stroke-dasharray="8 7" opacity=".9"/><text x="26" y="34" font-size="19" font-weight="900" fill="#ffe9b8" text-anchor="start">PARACENTESIS &#183; draining the ascites</text><text x="26" y="55" font-size="12.5" font-weight="700" fill="#ffd9a0" text-anchor="start" font-style="italic">A needle into the peritoneal cavity to take fluid off. Nursing owns everything either side of it.</text><rect x="26" y="76" width="470" height="470" rx="16" fill="rgba(0,60,66,.28)" stroke="rgba(255,255,255,.24)"/><g transform="translate(70,110)" filter="url(#pcdr)"><path d="M40 340 L330 340 L330 356 L40 356 Z" fill="#2b2340" stroke="#6b5f8c" stroke-width="1.6"/><path d="M40 100 L40 344 L62 344 L62 100 Z" fill="#3b3157" stroke="#6b5f8c" stroke-width="1.6"/><path d="M150 300 C214 292 268 296 300 306" fill="none" stroke="#e0a074" stroke-width="44" stroke-linecap="round"/><path d="M74 116 C70 176 76 236 90 276 C104 314 176 322 200 296 C222 272 214 200 198 152 C186 116 156 96 122 98 C100 100 80 104 74 116 Z" fill="#e0a074" stroke="#7a4423" stroke-width="2.4"/><path d="M186 156 C230 172 244 236 220 282 C202 314 154 320 132 300 C160 276 176 216 186 156 Z" fill="#eab389" stroke="#7a4423" stroke-width="1.8"/><path d="M150 200 C196 208 216 250 202 286 C190 314 152 314 138 292 C152 268 152 232 150 200 Z" fill="rgba(0,150,158,.85)" stroke="#0a6e74" stroke-width="1.6"/><ellipse cx="158" cy="224" rx="7" ry="4.5" fill="#9ff2ee" opacity=".35"/><ellipse cx="181" cy="255" rx="7" ry="4.5" fill="#9ff2ee" opacity=".35"/><ellipse cx="204" cy="286" rx="7" ry="4.5" fill="#9ff2ee" opacity=".35"/><ellipse cx="177" cy="241" rx="7" ry="4.5" fill="#9ff2ee" opacity=".35"/><ellipse cx="200" cy="272" rx="7" ry="4.5" fill="#9ff2ee" opacity=".35"/><ellipse cx="173" cy="227" rx="7" ry="4.5" fill="#9ff2ee" opacity=".35"/><ellipse cx="196" cy="258" rx="7" ry="4.5" fill="#9ff2ee" opacity=".35"/><ellipse cx="169" cy="289" rx="7" ry="4.5" fill="#9ff2ee" opacity=".35"/><ellipse cx="192" cy="244" rx="7" ry="4.5" fill="#9ff2ee" opacity=".35"/><circle cx="104" cy="66" r="34" fill="#e6a97c" stroke="#7a4423" stroke-width="2.4"/><path d="M104 96 L110 118" stroke="#e6a97c" stroke-width="20" stroke-linecap="round"/><path d="M96 150 C64 190 60 244 76 282" fill="none" stroke="#d2946a" stroke-width="22" stroke-linecap="round"/><path d="M226 258 L318 226" stroke="#cfd8e6" stroke-width="6" stroke-linecap="round"/><path d="M312 220 L344 208 L350 224 L318 236 Z" fill="#8fa0bb" stroke="#4a5468" stroke-width="1.6"/><path d="M348 218 C382 216 396 250 384 292" fill="none" stroke="#cfd8e6" stroke-width="7" stroke-linecap="round"/><rect x="352" y="288" width="70" height="90" rx="10" fill="rgba(10,26,40,.6)" stroke="rgba(255,255,255,.55)" stroke-width="2.4"/><rect x="356" y="322" width="62" height="52" rx="8" fill="#e0a01c" opacity=".85"/></g><text x="48" y="116" font-size="12.5" font-weight="900" fill="#a5f3d4" text-anchor="start">HIGH FOWLER&#8217;S POSITION</text><text x="48" y="134" font-size="10.5" font-weight="800" fill="#ffffff" text-anchor="start">sitting upright, feet supported</text><path d="M336 372 L300 356" stroke="rgba(255,255,255,.6)" stroke-width="1.3" fill="none"/><text x="342" y="368" font-size="11" font-weight="900" fill="#ffe49a" text-anchor="start">needle below the umbilicus,</text><text x="342" y="384" font-size="11" font-weight="900" fill="#ffe49a" text-anchor="start">away from the bladder</text><text x="466" y="500" font-size="11" font-weight="900" fill="#9ff2ee" text-anchor="end">drainage bottle &#8212; measure</text><text x="466" y="516" font-size="11" font-weight="900" fill="#9ff2ee" text-anchor="end">and describe the fluid</text><text x="48" y="534" font-size="11.5" font-weight="900" fill="#a5f3d4" text-anchor="start">Upright position pools the fluid low and floats the bowel up out of the way.</text><rect x="512" y="76" width="440" height="470" rx="16" fill="rgba(13,8,26,.55)" stroke="rgba(255,255,255,.26)"/><text x="532" y="104" font-size="13" font-weight="900" fill="#ffe49a" text-anchor="start" letter-spacing="0.07em">NURSING SEQUENCE</text><rect x="528" y="120" width="408" height="66" rx="12" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.2)"/><circle cx="558" cy="153" r="18" fill="#ff8fa8"/><text x="558" y="160" font-size="16" font-weight="900" fill="#140a20" text-anchor="middle">1</text><text x="588" y="148" font-size="13" font-weight="900" fill="#ff8fa8" text-anchor="start">EMPTY THE BLADDER</text><text x="588" y="166" font-size="10.4" font-weight="800" fill="#ffffff" text-anchor="start">First action, every time &#8212; a full bladder</text><text x="588" y="181" font-size="10.4" font-weight="800" fill="#ffffff" text-anchor="start">is right in the needle path.</text><rect x="528" y="192" width="408" height="66" rx="12" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.2)"/><circle cx="558" cy="225" r="18" fill="#ffe49a"/><text x="558" y="232" font-size="16" font-weight="900" fill="#140a20" text-anchor="middle">2</text><text x="588" y="220" font-size="13" font-weight="900" fill="#ffe49a" text-anchor="start">BASELINE VITAL SIGNS</text><text x="588" y="238" font-size="10.4" font-weight="800" fill="#ffffff" text-anchor="start">You need something to compare the post-procedure</text><text x="588" y="253" font-size="10.4" font-weight="800" fill="#ffffff" text-anchor="start">set against.</text><rect x="528" y="264" width="408" height="66" rx="12" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.2)"/><circle cx="558" cy="297" r="18" fill="#ffe49a"/><text x="558" y="304" font-size="16" font-weight="900" fill="#140a20" text-anchor="middle">3</text><text x="588" y="292" font-size="13" font-weight="900" fill="#ffe49a" text-anchor="start">WEIGH &amp; MEASURE GIRTH</text><text x="588" y="310" font-size="10.4" font-weight="800" fill="#ffffff" text-anchor="start">Mark the spot on the abdomen so it is measured</text><text x="588" y="325" font-size="10.4" font-weight="800" fill="#ffffff" text-anchor="start">in the same place afterwards.</text><rect x="528" y="336" width="408" height="66" rx="12" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.2)"/><circle cx="558" cy="369" r="18" fill="#a5f3d4"/><text x="558" y="376" font-size="16" font-weight="900" fill="#140a20" text-anchor="middle">4</text><text x="588" y="364" font-size="13" font-weight="900" fill="#a5f3d4" text-anchor="start">HIGH FOWLER&#8217;S / upright</text><text x="588" y="382" font-size="10.4" font-weight="800" fill="#ffffff" text-anchor="start">Consent, time-out and sterile set-up are done</text><text x="588" y="397" font-size="10.4" font-weight="800" fill="#ffffff" text-anchor="start">with the patient sitting up.</text><rect x="528" y="408" width="408" height="66" rx="12" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.2)"/><circle cx="558" cy="441" r="18" fill="#9ff2ee"/><text x="558" y="448" font-size="16" font-weight="900" fill="#140a20" text-anchor="middle">5</text><text x="588" y="436" font-size="13" font-weight="900" fill="#9ff2ee" text-anchor="start">DURING &#8212; watch the patient</text><text x="588" y="454" font-size="10.4" font-weight="800" fill="#ffffff" text-anchor="start">Vital signs, colour, dizziness. Removing several</text><text x="588" y="469" font-size="10.4" font-weight="800" fill="#ffffff" text-anchor="start">litres fast can drop the blood pressure.</text><rect x="528" y="480" width="408" height="66" rx="12" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.2)"/><circle cx="558" cy="513" r="18" fill="#d9c2ff"/><text x="558" y="520" font-size="16" font-weight="900" fill="#140a20" text-anchor="middle">6</text><text x="588" y="508" font-size="13" font-weight="900" fill="#d9c2ff" text-anchor="start">AFTER &#8212; measure everything</text><text x="588" y="526" font-size="10.4" font-weight="800" fill="#ffffff" text-anchor="start">Vital signs, weight, girth, dressing for</text><text x="588" y="541" font-size="10.4" font-weight="800" fill="#ffffff" text-anchor="start">leakage, amount and description of fluid.</text><rect x="26" y="560" width="926" height="52" rx="12" fill="rgba(255,59,107,.35)" stroke="rgba(255,255,255,.3)"/><text x="44" y="582" font-size="12" font-weight="900" fill="#ffd7e0" text-anchor="start">&#9888; AFTER: hypotension and tachycardia from the sudden volume shift &#183; leakage at the site &#183; signs of infection &#183; rising temperature.</text><text x="44" y="602" font-size="12" font-weight="900" fill="#ffe49a" text-anchor="start">&#9733; The classic exam answer for &#8220;what does the nurse do FIRST?&#8221; is HAVE THE PATIENT EMPTY THEIR BLADDER.</text></svg>
+      <div class="mn">🧠 <b>“Bladder, Baseline, Belly, Bolt upright.”</b>
+      Empty bladder → baseline vitals → weight and girth → high Fowler's.</div>
+    </div>
+
+    <div class="card citrinec span2">
+      <h3>🩻 Liver biopsy — and the position that gets tested</h3>
+      <svg viewBox="0 0 980 460" role="img" aria-label="Liver biopsy. Before the procedure the patient lies supine with the right arm behind the head and holds their breath on exhalation. After the procedure the patient lies on the RIGHT side so their body weight presses on the biopsy site to stop bleeding."><defs>
+<filter id="bxdr" x="-30%" y="-30%" width="170%" height="170%"><feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+<feOffset dy="6" result="o"/><feFlood flood-color="#000" flood-opacity=".6"/><feComposite in2="o" operator="in" result="sh"/>
+<feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<filter id="bxsf" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="6"/></filter>
+<filter id="bxgl" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="3.4" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<radialGradient id="bxliv" cx=".34" cy=".26" r=".95" fx=".26" fy=".18">
+<stop offset="0" stop-color="#c96a5a"/><stop offset=".2" stop-color="#a83d3c"/>
+<stop offset=".5" stop-color="#7e2029"/><stop offset=".8" stop-color="#54101c"/>
+<stop offset="1" stop-color="#2e0710"/></radialGradient>
+<radialGradient id="bxlivS" cx=".34" cy=".26" r=".95" fx=".26" fy=".18">
+<stop offset="0" stop-color="#d9a06a"/><stop offset=".22" stop-color="#b4713c"/>
+<stop offset=".55" stop-color="#7d4520"/><stop offset=".85" stop-color="#4c2611"/>
+<stop offset="1" stop-color="#2a1408"/></radialGradient>
+<radialGradient id="bxnod" cx=".38" cy=".3" r=".9" fx=".3" fy=".22">
+<stop offset="0" stop-color="#e0b070"/><stop offset=".45" stop-color="#b57a34"/>
+<stop offset=".85" stop-color="#6d4416"/><stop offset="1" stop-color="#3d2409"/></radialGradient>
+<radialGradient id="bxlob" cx=".4" cy=".32" r=".9">
+<stop offset="0" stop-color="#c96a5a"/><stop offset=".55" stop-color="#8e2a30"/>
+<stop offset="1" stop-color="#4d0f18"/></radialGradient>
+<linearGradient id="bxvein" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7fa8f5"/>
+<stop offset=".45" stop-color="#2f6bff"/><stop offset="1" stop-color="#12306f"/></linearGradient>
+<linearGradient id="bxart" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff8ea3"/>
+<stop offset=".45" stop-color="#d92a52"/><stop offset="1" stop-color="#6d0f26"/></linearGradient>
+<linearGradient id="bxbile" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9f27a"/>
+<stop offset=".5" stop-color="#8ab52a"/><stop offset="1" stop-color="#4a6410"/></linearGradient>
+<linearGradient id="bxfib" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3e2c0"/>
+<stop offset=".5" stop-color="#cbb187"/><stop offset="1" stop-color="#8d7248"/></linearGradient>
+<marker id="bxa" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#ffe49a"/></marker>
+<marker id="bxar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="16" markerHeight="16" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#ff5f7f"/></marker>
+<marker id="bxab" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#7fa8f5"/></marker>
+</defs><rect x="4" y="4" width="972" height="452" rx="20" fill="rgba(0,0,0,.22)" stroke="#ffc233" stroke-width="2" stroke-dasharray="8 7" opacity=".9"/><text x="26" y="34" font-size="19" font-weight="900" fill="#ffe9b8" text-anchor="start">LIVER BIOPSY &#183; the position is the exam question</text><text x="26" y="55" font-size="12.5" font-weight="700" fill="#ffd9a0" text-anchor="start" font-style="italic">The liver is full of blood, and this patient cannot clot. Everything about the aftercare is bleeding control.</text><rect x="26" y="76" width="452" height="284" rx="16" fill="rgba(47,107,255,.16)" stroke="rgba(255,255,255,.26)"/><text x="46" y="104" font-size="13" font-weight="900" fill="#bcd0ff" text-anchor="start">DURING &#183; supine, right arm behind the head</text><g transform="translate(70,130)" filter="url(#bxdr)"><rect x="0" y="118" width="330" height="14" rx="7" fill="#2b2340" stroke="#6b5f8c" stroke-width="1.4"/><rect x="70" y="74" width="180" height="46" rx="20" fill="#e0a074" stroke="#7a4423" stroke-width="2"/><rect x="248" y="82" width="72" height="30" rx="14" fill="#e0a074" stroke="#7a4423" stroke-width="2"/><circle cx="46" cy="96" r="24" fill="#e6a97c" stroke="#7a4423" stroke-width="2"/><path d="M56 76 C46 50 26 44 12 52" fill="none" stroke="#e0a074" stroke-width="17" stroke-linecap="round"/><g transform="translate(96,80) scale(.22)"><clipPath id="bxclip1"><path d="M14 80 C10 42 48 18 100 12 C166 4 240 4 302 12 C356 19 402 32 411 50 C419 66 402 80 380 88 C344 101 300 110 268 114 C256 136 236 160 202 172 C156 188 92 180 54 154 C26 134 16 106 14 80 Z"/></clipPath><path d="M14 80 C10 42 48 18 100 12 C166 4 240 4 302 12 C356 19 402 32 411 50 C419 66 402 80 380 88 C344 101 300 110 268 114 C256 136 236 160 202 172 C156 188 92 180 54 154 C26 134 16 106 14 80 Z" fill="url(#bxlivS)" stroke="#2a0710" stroke-width="2.8"/><g clip-path="url(#bxclip1)"><circle cx="395" cy="92" r="8" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="58" cy="144" r="15" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="216" cy="16" r="10" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="315" cy="152" r="14" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="17" cy="79" r="11" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="354" cy="52" r="14" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="154" cy="162" r="13" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="117" cy="29" r="12" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="366" cy="116" r="14" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="40" cy="119" r="11" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="271" cy="29" r="15" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="252" cy="156" r="9" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="54" cy="59" r="15" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="361" cy="77" r="9" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="108" cy="146" r="15" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="177" cy="29" r="11" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="322" cy="132" r="14" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="45" cy="96" r="12" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="307" cy="48" r="13" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="196" cy="152" r="13" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="103" cy="47" r="12" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="345" cy="99" r="14" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="84" cy="126" r="10" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="228" cy="36" r="15" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="272" cy="140" r="8" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="69" cy="77" r="15" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="321" cy="68" r="10" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="152" cy="141" r="15" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="153" cy="44" r="11" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="315" cy="114" r="14" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="80" cy="106" r="13" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="263" cy="50" r="13" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="224" cy="139" r="14" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="104" cy="64" r="11" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="315" cy="87" r="15" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="126" cy="126" r="9" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="197" cy="47" r="15" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="276" cy="123" r="8" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="93" cy="90" r="15" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="281" cy="66" r="10" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="186" cy="132" r="14" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="144" cy="59" r="12" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="295" cy="101" r="13" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="117" cy="111" r="13" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="229" cy="57" r="12" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="238" cy="125" r="14" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="119" cy="78" r="10" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="281" cy="80" r="15" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="161" cy="122" r="9" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="179" cy="61" r="15" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="266" cy="109" r="9" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="125" cy="97" r="15" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="245" cy="68" r="11" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="206" cy="121" r="14" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="149" cy="73" r="12" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="267" cy="92" r="13" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="152" cy="110" r="14" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="205" cy="67" r="11" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="237" cy="111" r="15" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="143" cy="88" r="10" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="247" cy="80" r="15" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="187" cy="113" r="8" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="176" cy="74" r="15" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="246" cy="99" r="10" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="157" cy="99" r="14" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="218" cy="76" r="12" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="213" cy="108" r="13" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="166" cy="84" r="13" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="236" cy="89" r="12" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="180" cy="104" r="14" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="195" cy="79" r="11" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="223" cy="100" r="15" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="172" cy="93" r="9" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="218" cy="85" r="15" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="199" cy="101" r="9" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="186" cy="86" r="15" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="218" cy="93" r="11" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="187" cy="96" r="14" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/></g><path d="M298 12 C294 48 288 82 272 112" fill="none" stroke="#f3e2c0" stroke-width="8" stroke-opacity=".6"/><path d="M298 12 C294 48 288 82 272 112" fill="none" stroke="#8d7248" stroke-width="2.2" stroke-opacity=".75"/><path d="M150 168 C136 176 132 204 148 212 C164 220 180 206 176 190 C172 176 162 164 150 168 Z" fill="url(#bxbile)" stroke="#3d5209" stroke-width="2"/></g><path d="M150 40 L150 78" stroke="#cfd8e6" stroke-width="5" stroke-linecap="round"/><rect x="140" y="24" width="20" height="20" rx="5" fill="#8fa0bb" stroke="#4a5468" stroke-width="1.4"/></g><text x="46" y="306" font-size="11.5" font-weight="800" fill="#ffffff" text-anchor="start">&#8226; Right arm above the head to open the rib spaces.</text><text x="46" y="326" font-size="11.5" font-weight="800" fill="#ffffff" text-anchor="start">&#8226; Patient EXHALES and holds still &#8212; a moving diaphragm moves the liver.</text><text x="46" y="346" font-size="11.5" font-weight="900" fill="#ffe49a" text-anchor="start">&#8226; Coagulation studies and platelets are checked BEFORE the needle goes in.</text><rect x="500" y="76" width="452" height="284" rx="16" fill="rgba(18,184,134,.18)" stroke="rgba(255,255,255,.26)"/><text x="520" y="104" font-size="13" font-weight="900" fill="#a5f3d4" text-anchor="start">AFTER &#183; lie on the RIGHT side</text><g transform="translate(544,130)" filter="url(#bxdr)"><rect x="0" y="118" width="330" height="14" rx="7" fill="#2b2340" stroke="#6b5f8c" stroke-width="1.4"/><rect x="70" y="70" width="180" height="50" rx="22" fill="#e0a074" stroke="#7a4423" stroke-width="2"/><rect x="248" y="80" width="72" height="34" rx="16" fill="#e0a074" stroke="#7a4423" stroke-width="2"/><circle cx="46" cy="94" r="24" fill="#e6a97c" stroke="#7a4423" stroke-width="2"/><g transform="translate(96,86) scale(.22)"><clipPath id="bxclip2"><path d="M14 80 C10 42 48 18 100 12 C166 4 240 4 302 12 C356 19 402 32 411 50 C419 66 402 80 380 88 C344 101 300 110 268 114 C256 136 236 160 202 172 C156 188 92 180 54 154 C26 134 16 106 14 80 Z"/></clipPath><path d="M14 80 C10 42 48 18 100 12 C166 4 240 4 302 12 C356 19 402 32 411 50 C419 66 402 80 380 88 C344 101 300 110 268 114 C256 136 236 160 202 172 C156 188 92 180 54 154 C26 134 16 106 14 80 Z" fill="url(#bxlivS)" stroke="#2a0710" stroke-width="2.8"/><g clip-path="url(#bxclip2)"><circle cx="395" cy="92" r="8" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="58" cy="144" r="15" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="216" cy="16" r="10" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="315" cy="152" r="14" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="17" cy="79" r="11" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="354" cy="52" r="14" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="154" cy="162" r="13" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="117" cy="29" r="12" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="366" cy="116" r="14" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="40" cy="119" r="11" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="271" cy="29" r="15" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="252" cy="156" r="9" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="54" cy="59" r="15" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="361" cy="77" r="9" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="108" cy="146" r="15" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="177" cy="29" r="11" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="322" cy="132" r="14" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="45" cy="96" r="12" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="307" cy="48" r="13" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="196" cy="152" r="13" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="103" cy="47" r="12" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="345" cy="99" r="14" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="84" cy="126" r="10" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="228" cy="36" r="15" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="272" cy="140" r="8" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="69" cy="77" r="15" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="321" cy="68" r="10" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="152" cy="141" r="15" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="153" cy="44" r="11" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="315" cy="114" r="14" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="80" cy="106" r="13" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="263" cy="50" r="13" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="224" cy="139" r="14" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="104" cy="64" r="11" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="315" cy="87" r="15" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="126" cy="126" r="9" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="197" cy="47" r="15" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="276" cy="123" r="8" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="93" cy="90" r="15" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="281" cy="66" r="10" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="186" cy="132" r="14" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="144" cy="59" r="12" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="295" cy="101" r="13" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="117" cy="111" r="13" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="229" cy="57" r="12" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="238" cy="125" r="14" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="119" cy="78" r="10" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="281" cy="80" r="15" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="161" cy="122" r="9" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="179" cy="61" r="15" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="266" cy="109" r="9" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="125" cy="97" r="15" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="245" cy="68" r="11" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="206" cy="121" r="14" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="149" cy="73" r="12" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="267" cy="92" r="13" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="152" cy="110" r="14" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="205" cy="67" r="11" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="237" cy="111" r="15" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="143" cy="88" r="10" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="247" cy="80" r="15" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="187" cy="113" r="8" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="176" cy="74" r="15" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="246" cy="99" r="10" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="157" cy="99" r="14" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="218" cy="76" r="12" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="213" cy="108" r="13" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="166" cy="84" r="13" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="236" cy="89" r="12" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="180" cy="104" r="14" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="195" cy="79" r="11" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="223" cy="100" r="15" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="172" cy="93" r="9" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="218" cy="85" r="15" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="199" cy="101" r="9" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="186" cy="86" r="15" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="218" cy="93" r="11" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/><circle cx="187" cy="96" r="14" fill="url(#bxnod)" stroke="#f3e2c0" stroke-width="1.9" stroke-opacity=".7"/></g><path d="M298 12 C294 48 288 82 272 112" fill="none" stroke="#f3e2c0" stroke-width="8" stroke-opacity=".6"/><path d="M298 12 C294 48 288 82 272 112" fill="none" stroke="#8d7248" stroke-width="2.2" stroke-opacity=".75"/><path d="M150 168 C136 176 132 204 148 212 C164 220 180 206 176 190 C172 176 162 164 150 168 Z" fill="url(#bxbile)" stroke="#3d5209" stroke-width="2"/></g><rect x="112" y="108" width="60" height="12" rx="6" fill="#ffe49a" stroke="#8a6a10" stroke-width="1.4"/><path d="M124 126 L124 146" stroke="#12b886" stroke-width="4" stroke-linecap="round" marker-end="url(#bxa)"/><path d="M138 126 L138 146" stroke="#12b886" stroke-width="4" stroke-linecap="round" marker-end="url(#bxa)"/><path d="M152 126 L152 146" stroke="#12b886" stroke-width="4" stroke-linecap="round" marker-end="url(#bxa)"/><path d="M166 126 L166 146" stroke="#12b886" stroke-width="4" stroke-linecap="round" marker-end="url(#bxa)"/></g><text x="520" y="306" font-size="11.5" font-weight="800" fill="#ffffff" text-anchor="start">&#8226; Body weight presses the biopsy site against the bed.</text><text x="520" y="326" font-size="11.5" font-weight="800" fill="#ffffff" text-anchor="start">&#8226; Bed rest for the ordered period, then activity restrictions.</text><text x="520" y="346" font-size="11.5" font-weight="900" fill="#ffe49a" text-anchor="start">&#8226; Vital signs on a set schedule; watch for a falling BP and rising pulse.</text><rect x="26" y="372" width="926" height="70" rx="12" fill="rgba(192,34,85,.5)" stroke="rgba(255,255,255,.35)"/><text x="44" y="396" font-size="12.5" font-weight="900" fill="#ffffff" text-anchor="start">&#128680; POST-BIOPSY WARNING SIGNS: rising pulse, falling blood pressure, abdominal or right-shoulder pain, rigid abdomen, dizziness.</text><text x="44" y="416" font-size="11.5" font-weight="900" fill="#ffd7e0" text-anchor="start">Right-shoulder pain is referred pain from blood irritating the diaphragm &#8212; take it seriously.</text><text x="44" y="434" font-size="11.5" font-weight="900" fill="#ffe49a" text-anchor="start">&#9733; Memory: &#8220;bIopsy &#8594; RIGHT side.&#8221; Lie on the side the liver is on, so your own weight becomes the pressure dressing.</text></svg>
+      <div class="mn">🧠 <b>“bIopsy → RIGHT side.”</b> The liver is on the right, so you lie on the right and let
+      your own body weight hold the pressure.</div>
+    </div>
+
+    <div class="card emerald">
+      <h3>✅ Paracentesis — the FIRST action, and why</h3>
+      <p class="bigq">“Which action should the nurse take first?”</p>
+      <p><b>Have the patient empty their bladder.</b> The needle goes into the lower abdomen, and a full bladder sits
+      right in that path. Puncturing it is exactly the complication the step prevents.</p>
+      <p>Then, in order: <b>baseline vital signs → weight and abdominal girth (mark the spot) → position upright →
+      consent and sterile set-up.</b></p>
+      <div class="mn">🧠 <b>Bladder before needle.</b> Every time, no exceptions.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🚨 After a paracentesis — what you are watching for</h3>
+      <ul class="tick">
+        <li><b>Hypotension and tachycardia</b> — taking litres off fast shifts volume out of the circulation.</li>
+        <li><b>Leakage at the puncture site</b> — apply a dry sterile dressing and monitor it.</li>
+        <li><b>Signs of infection or bowel injury</b> — fever, worsening abdominal pain, rigid abdomen.</li>
+        <li><b>Re-measure</b> weight and girth and compare with the pre-procedure figures.</li>
+        <li><b>Record the fluid</b> — amount, colour and clarity. Cloudy fluid suggests infection.</li>
+      </ul>
+      <p><b>IV albumin is often ordered after a large-volume tap</b> to keep the circulation from collapsing.</p>
+      <div class="mn">🧠 <b>Take fluid off → pressure can drop.</b> Vital signs before AND after, always.</div>
+    </div>
+
+    <div class="card tealc">
+      <h3>🧪 The other tests you will see ordered</h3>
+      <div class="tblwrap"><table>
+        <tr><th class="lo">TEST</th><th class="up">WHAT IT ANSWERS</th></tr>
+        <tr><td><b>Liver function panel</b></td><td>ALT, AST, bilirubin, albumin — damage and function</td></tr>
+        <tr><td><b>Coagulation panel</b></td><td>PT, PTT, INR, platelets — can this patient clot?</td></tr>
+        <tr><td><b>Serum ammonia</b></td><td>Supports hepatic encephalopathy; trend it</td></tr>
+        <tr><td><b>Abdominal ultrasound</b></td><td>Liver texture and size, ascites, portal flow, spleen size</td></tr>
+        <tr><td><b>Upper endoscopy</b></td><td>Looks directly at varices — and can band them</td></tr>
+        <tr><td><b>Ascitic fluid analysis</b></td><td>Cell count and culture — is this SBP?</td></tr>
+      </table></div>
+      <div class="mn">🧠 <b>Coagulation studies come BEFORE any invasive procedure</b> in a liver patient.</div>
+    </div>
+
+    <div class="card deep">
+      <h3>⚠️ Before ANY invasive procedure here</h3>
+      <ul class="tick">
+        <li>Check <b>PT, PTT, INR and platelets</b> — and report abnormal results before the procedure starts.</li>
+        <li>Confirm <b>consent</b> and a valid time-out.</li>
+        <li>Establish <b>IV access</b> and know where the blood products are.</li>
+        <li>Take <b>baseline vital signs</b> — you cannot detect a change without them.</li>
+        <li>Anticipate that <b>bleeding will be the complication</b>, not infection.</li>
+      </ul>
+      <div class="mn">🧠 <b>Every hole you make in this patient is a hole that keeps bleeding.</b></div>
+    </div>
+
+  </div>
+</section>
+
+<section id="drugs">
+  <div class="sec-h"><span class="icon">💊</span><h2>THE DRUG MAP</h2><span class="step">STEP 2 · PHARMACOLOGY</span></div>
+  <p class="sec-sub">Match the drug to the complication it treats, and the monitoring writes itself.</p>
+  <div class="grid">
+
+    <div class="card amethyst span2" style="background:rgba(157,92,255,.60)">
+      <h3>🗺️ Which drug for which problem</h3>
+      <svg viewBox="0 0 980 560" role="img" aria-label="A map matching each complication of cirrhosis to the drug group used for it: lactulose and non-absorbed antibiotics for encephalopathy, spironolactone and loop diuretics plus intravenous albumin for ascites, non-selective beta blockers for varices, vitamin K and blood products for bleeding, and antibiotics for spontaneous bacterial peritonitis."><defs>
+<filter id="mddr" x="-30%" y="-30%" width="170%" height="170%"><feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+<feOffset dy="6" result="o"/><feFlood flood-color="#000" flood-opacity=".6"/><feComposite in2="o" operator="in" result="sh"/>
+<feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<filter id="mdsf" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="6"/></filter>
+<filter id="mdgl" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="3.4" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<radialGradient id="mdliv" cx=".34" cy=".26" r=".95" fx=".26" fy=".18">
+<stop offset="0" stop-color="#c96a5a"/><stop offset=".2" stop-color="#a83d3c"/>
+<stop offset=".5" stop-color="#7e2029"/><stop offset=".8" stop-color="#54101c"/>
+<stop offset="1" stop-color="#2e0710"/></radialGradient>
+<radialGradient id="mdlivS" cx=".34" cy=".26" r=".95" fx=".26" fy=".18">
+<stop offset="0" stop-color="#d9a06a"/><stop offset=".22" stop-color="#b4713c"/>
+<stop offset=".55" stop-color="#7d4520"/><stop offset=".85" stop-color="#4c2611"/>
+<stop offset="1" stop-color="#2a1408"/></radialGradient>
+<radialGradient id="mdnod" cx=".38" cy=".3" r=".9" fx=".3" fy=".22">
+<stop offset="0" stop-color="#e0b070"/><stop offset=".45" stop-color="#b57a34"/>
+<stop offset=".85" stop-color="#6d4416"/><stop offset="1" stop-color="#3d2409"/></radialGradient>
+<radialGradient id="mdlob" cx=".4" cy=".32" r=".9">
+<stop offset="0" stop-color="#c96a5a"/><stop offset=".55" stop-color="#8e2a30"/>
+<stop offset="1" stop-color="#4d0f18"/></radialGradient>
+<linearGradient id="mdvein" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7fa8f5"/>
+<stop offset=".45" stop-color="#2f6bff"/><stop offset="1" stop-color="#12306f"/></linearGradient>
+<linearGradient id="mdart" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff8ea3"/>
+<stop offset=".45" stop-color="#d92a52"/><stop offset="1" stop-color="#6d0f26"/></linearGradient>
+<linearGradient id="mdbile" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9f27a"/>
+<stop offset=".5" stop-color="#8ab52a"/><stop offset="1" stop-color="#4a6410"/></linearGradient>
+<linearGradient id="mdfib" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3e2c0"/>
+<stop offset=".5" stop-color="#cbb187"/><stop offset="1" stop-color="#8d7248"/></linearGradient>
+<marker id="mda" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#ffe49a"/></marker>
+<marker id="mdar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="16" markerHeight="16" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#ff5f7f"/></marker>
+<marker id="mdab" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#7fa8f5"/></marker>
+</defs><rect x="4" y="4" width="972" height="552" rx="20" fill="rgba(0,0,0,.22)" stroke="#ffc233" stroke-width="2" stroke-dasharray="8 7" opacity=".9"/><text x="26" y="34" font-size="19" font-weight="900" fill="#ffe9b8" text-anchor="start">WHICH DRUG FOR WHICH PROBLEM</text><text x="26" y="55" font-size="12.5" font-weight="700" fill="#ffd9a0" text-anchor="start" font-style="italic">Nothing here cures cirrhosis. Every drug on this page treats one COMPLICATION of it.</text><rect x="26" y="80" width="926" height="80" rx="14" fill="rgba(13,8,26,.6)" stroke="rgba(255,255,255,.26)"/><rect x="26" y="80" width="9" height="80" rx="4" fill="#9d5cff"/><text x="52" y="128" font-size="24" font-weight="900" fill="#ffe9b8" text-anchor="start">🧠</text><text x="92" y="108" font-size="13.5" font-weight="900" fill="#9d5cff" text-anchor="start">HEPATIC ENCEPHALOPATHY</text><text x="92" y="130" font-size="12" font-weight="900" fill="#ffffff" text-anchor="start">Lactulose &#183; non-absorbed antibiotics (e.g. rifaximin, neomycin)</text><text x="92" y="148" font-size="10.6" font-weight="800" fill="#e9dcff" text-anchor="start">Traps and removes ammonia &#183; reduces the gut bacteria that make it</text><rect x="588" y="96" width="352" height="48" rx="11" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.2)"/><text x="602" y="114" font-size="9.5" font-weight="900" fill="#ffe49a" text-anchor="start" letter-spacing="0.09em">NURSE WATCHES</text><text x="602" y="132" font-size="10.4" font-weight="800" fill="#ffffff" text-anchor="start">Goal 2&#8211;3 soft stools/day &#183; watch potassium &#183; track mental status</text><rect x="26" y="168" width="926" height="80" rx="14" fill="rgba(13,8,26,.6)" stroke="rgba(255,255,255,.26)"/><rect x="26" y="168" width="9" height="80" rx="4" fill="#00c2c7"/><text x="52" y="216" font-size="24" font-weight="900" fill="#ffe9b8" text-anchor="start">🎈</text><text x="92" y="196" font-size="13.5" font-weight="900" fill="#00c2c7" text-anchor="start">ASCITES &amp; OEDEMA</text><text x="92" y="218" font-size="12" font-weight="900" fill="#ffffff" text-anchor="start">Aldosterone antagonist (spironolactone) &#177; a loop diuretic &#183; IV albumin</text><text x="92" y="236" font-size="10.6" font-weight="800" fill="#e9dcff" text-anchor="start">Removes retained salt and water &#183; albumin pulls fluid back into the vessels</text><rect x="588" y="184" width="352" height="48" rx="11" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.2)"/><text x="602" y="202" font-size="9.5" font-weight="900" fill="#ffe49a" text-anchor="start" letter-spacing="0.09em">NURSE WATCHES</text><text x="602" y="220" font-size="10.4" font-weight="800" fill="#ffffff" text-anchor="start">Daily weight, girth, I&amp;O &#183; potassium both directions &#183; BP</text><rect x="26" y="256" width="926" height="80" rx="14" fill="rgba(13,8,26,.6)" stroke="rgba(255,255,255,.26)"/><rect x="26" y="256" width="9" height="80" rx="4" fill="#ff3b6b"/><text x="52" y="304" font-size="24" font-weight="900" fill="#ffe9b8" text-anchor="start">🩸</text><text x="92" y="284" font-size="13.5" font-weight="900" fill="#ff3b6b" text-anchor="start">VARICES (prevention)</text><text x="92" y="306" font-size="12" font-weight="900" fill="#ffffff" text-anchor="start">Non-selective beta blocker, as prescribed</text><text x="92" y="324" font-size="10.6" font-weight="800" fill="#e9dcff" text-anchor="start">Lowers portal pressure so the varices are less likely to rupture</text><rect x="588" y="272" width="352" height="48" rx="11" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.2)"/><text x="602" y="290" font-size="9.5" font-weight="900" fill="#ffe49a" text-anchor="start" letter-spacing="0.09em">NURSE WATCHES</text><text x="602" y="308" font-size="10.4" font-weight="800" fill="#ffffff" text-anchor="start">Check HR and BP before giving; follow the hold parameters</text><rect x="26" y="344" width="926" height="80" rx="14" fill="rgba(13,8,26,.6)" stroke="rgba(255,255,255,.26)"/><rect x="26" y="344" width="9" height="80" rx="4" fill="#ffc233"/><text x="52" y="392" font-size="24" font-weight="900" fill="#ffe9b8" text-anchor="start">🩹</text><text x="92" y="372" font-size="13.5" font-weight="900" fill="#ffc233" text-anchor="start">COAGULOPATHY</text><text x="92" y="394" font-size="12" font-weight="900" fill="#ffffff" text-anchor="start">Vitamin K &#183; blood products as ordered</text><text x="92" y="412" font-size="10.6" font-weight="800" fill="#e9dcff" text-anchor="start">The liver needs vitamin K to activate clotting factors</text><rect x="588" y="360" width="352" height="48" rx="11" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.2)"/><text x="602" y="378" font-size="9.5" font-weight="900" fill="#ffe49a" text-anchor="start" letter-spacing="0.09em">NURSE WATCHES</text><text x="602" y="396" font-size="10.4" font-weight="800" fill="#ffffff" text-anchor="start">Monitor PT, PTT, INR and platelets &#183; full bleed precautions</text><rect x="26" y="432" width="926" height="80" rx="14" fill="rgba(13,8,26,.6)" stroke="rgba(255,255,255,.26)"/><rect x="26" y="432" width="9" height="80" rx="4" fill="#ff8a3d"/><text x="52" y="480" font-size="24" font-weight="900" fill="#ffe9b8" text-anchor="start">🦠</text><text x="92" y="460" font-size="13.5" font-weight="900" fill="#ff8a3d" text-anchor="start">SPONTANEOUS BACTERIAL PERITONITIS</text><text x="92" y="482" font-size="12" font-weight="900" fill="#ffffff" text-anchor="start">Antibiotics per culture and protocol</text><text x="92" y="500" font-size="10.6" font-weight="800" fill="#e9dcff" text-anchor="start">Ascitic fluid becomes infected without any obvious source</text><rect x="588" y="448" width="352" height="48" rx="11" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.2)"/><text x="602" y="466" font-size="9.5" font-weight="900" fill="#ffe49a" text-anchor="start" letter-spacing="0.09em">NURSE WATCHES</text><text x="602" y="484" font-size="10.4" font-weight="800" fill="#ffffff" text-anchor="start">Fever, belly pain or new confusion &#8594; report at once</text><rect x="26" y="524" width="926" height="0.1" rx="4" fill="none"/><text x="26" y="534" font-size="12" font-weight="800" fill="#ffd9a0" text-anchor="start">&#9888; Doses and hold parameters vary by patient and by facility &#8212; always follow the written order and your unit&#8217;s policy.</text></svg>
+      <div class="mn">🧠 Never memorise a cirrhosis drug on its own — memorise it attached to the
+      <b>complication</b> it exists to fix.</div>
+    </div>
+
+    <div class="card topaz span2">
+      <h3>💩 Lactulose — the most tested drug on this page</h3>
+      <svg viewBox="0 0 980 480" role="img" aria-label="How lactulose works: it is not absorbed, so it reaches the colon, acidifies it, traps ammonia in the bowel as ammonium and pulls water in, so the ammonia leaves in soft stools. A warning panel shows that the diarrhoea also loses potassium."><defs>
+<filter id="lxdr" x="-30%" y="-30%" width="170%" height="170%"><feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+<feOffset dy="6" result="o"/><feFlood flood-color="#000" flood-opacity=".6"/><feComposite in2="o" operator="in" result="sh"/>
+<feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<filter id="lxsf" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="6"/></filter>
+<filter id="lxgl" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="3.4" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<radialGradient id="lxliv" cx=".34" cy=".26" r=".95" fx=".26" fy=".18">
+<stop offset="0" stop-color="#c96a5a"/><stop offset=".2" stop-color="#a83d3c"/>
+<stop offset=".5" stop-color="#7e2029"/><stop offset=".8" stop-color="#54101c"/>
+<stop offset="1" stop-color="#2e0710"/></radialGradient>
+<radialGradient id="lxlivS" cx=".34" cy=".26" r=".95" fx=".26" fy=".18">
+<stop offset="0" stop-color="#d9a06a"/><stop offset=".22" stop-color="#b4713c"/>
+<stop offset=".55" stop-color="#7d4520"/><stop offset=".85" stop-color="#4c2611"/>
+<stop offset="1" stop-color="#2a1408"/></radialGradient>
+<radialGradient id="lxnod" cx=".38" cy=".3" r=".9" fx=".3" fy=".22">
+<stop offset="0" stop-color="#e0b070"/><stop offset=".45" stop-color="#b57a34"/>
+<stop offset=".85" stop-color="#6d4416"/><stop offset="1" stop-color="#3d2409"/></radialGradient>
+<radialGradient id="lxlob" cx=".4" cy=".32" r=".9">
+<stop offset="0" stop-color="#c96a5a"/><stop offset=".55" stop-color="#8e2a30"/>
+<stop offset="1" stop-color="#4d0f18"/></radialGradient>
+<linearGradient id="lxvein" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7fa8f5"/>
+<stop offset=".45" stop-color="#2f6bff"/><stop offset="1" stop-color="#12306f"/></linearGradient>
+<linearGradient id="lxart" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff8ea3"/>
+<stop offset=".45" stop-color="#d92a52"/><stop offset="1" stop-color="#6d0f26"/></linearGradient>
+<linearGradient id="lxbile" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9f27a"/>
+<stop offset=".5" stop-color="#8ab52a"/><stop offset="1" stop-color="#4a6410"/></linearGradient>
+<linearGradient id="lxfib" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3e2c0"/>
+<stop offset=".5" stop-color="#cbb187"/><stop offset="1" stop-color="#8d7248"/></linearGradient>
+<marker id="lxa" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#ffe49a"/></marker>
+<marker id="lxar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="16" markerHeight="16" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#ff5f7f"/></marker>
+<marker id="lxab" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#7fa8f5"/></marker>
+</defs><rect x="4" y="4" width="972" height="472" rx="20" fill="rgba(0,0,0,.22)" stroke="#ffc233" stroke-width="2" stroke-dasharray="8 7" opacity=".9"/><text x="26" y="34" font-size="19" font-weight="900" fill="#ffe9b8" text-anchor="start">LACTULOSE &#183; how it pulls ammonia out of the body</text><text x="26" y="55" font-size="12.5" font-weight="700" fill="#ffd9a0" text-anchor="start" font-style="italic">It is not really a laxative for constipation here &#8212; the stools ARE the treatment.</text><rect x="26" y="80" width="216" height="170" rx="14" fill="rgba(13,8,26,.6)" stroke="rgba(255,255,255,.26)"/><rect x="26" y="80" width="216" height="8" rx="4" fill="#ffe49a"/><circle cx="60" cy="122" r="19" fill="#ffe49a"/><text x="60" y="129" font-size="17" font-weight="900" fill="#140a20" text-anchor="middle">1</text><text x="88" y="128" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="start">SWALLOWED</text><text x="42" y="162" font-size="11" font-weight="800" fill="#ffffff" text-anchor="start">Lactulose is a sugar the</text><text x="42" y="179" font-size="11" font-weight="800" fill="#ffffff" text-anchor="start">small bowel cannot absorb,</text><text x="42" y="196" font-size="11" font-weight="800" fill="#ffffff" text-anchor="start">so all of it reaches the</text><text x="42" y="213" font-size="11" font-weight="800" fill="#ffffff" text-anchor="start">colon.</text><path d="M246 165 L258 165" stroke="#ffe49a" stroke-width="3" fill="none" marker-end="url(#lxa)"/><rect x="262" y="80" width="216" height="170" rx="14" fill="rgba(13,8,26,.6)" stroke="rgba(255,255,255,.26)"/><rect x="262" y="80" width="216" height="8" rx="4" fill="#ff8a3d"/><circle cx="296" cy="122" r="19" fill="#ff8a3d"/><text x="296" y="129" font-size="17" font-weight="900" fill="#140a20" text-anchor="middle">2</text><text x="324" y="128" font-size="12.5" font-weight="900" fill="#ff8a3d" text-anchor="start">ACIDIFIES THE COLON</text><text x="278" y="162" font-size="11" font-weight="800" fill="#ffffff" text-anchor="start">Bacteria ferment it, which</text><text x="278" y="179" font-size="11" font-weight="800" fill="#ffffff" text-anchor="start">drops the pH inside the</text><text x="278" y="196" font-size="11" font-weight="800" fill="#ffffff" text-anchor="start">bowel.</text><path d="M482 165 L494 165" stroke="#ffe49a" stroke-width="3" fill="none" marker-end="url(#lxa)"/><rect x="498" y="80" width="216" height="170" rx="14" fill="rgba(13,8,26,.6)" stroke="rgba(255,255,255,.26)"/><rect x="498" y="80" width="216" height="8" rx="4" fill="#9d5cff"/><circle cx="532" cy="122" r="19" fill="#9d5cff"/><text x="532" y="129" font-size="17" font-weight="900" fill="#140a20" text-anchor="middle">3</text><text x="560" y="128" font-size="12.5" font-weight="900" fill="#9d5cff" text-anchor="start">TRAPS THE AMMONIA</text><text x="514" y="162" font-size="11" font-weight="800" fill="#ffffff" text-anchor="start">Acid converts NH&#8323;</text><text x="514" y="179" font-size="11" font-weight="800" fill="#ffffff" text-anchor="start">into ammonium, which</text><text x="514" y="196" font-size="11" font-weight="800" fill="#ffffff" text-anchor="start">cannot cross back into the</text><text x="514" y="213" font-size="11" font-weight="800" fill="#ffffff" text-anchor="start">blood.</text><path d="M718 165 L730 165" stroke="#ffe49a" stroke-width="3" fill="none" marker-end="url(#lxa)"/><rect x="734" y="80" width="216" height="170" rx="14" fill="rgba(13,8,26,.6)" stroke="rgba(255,255,255,.26)"/><rect x="734" y="80" width="216" height="8" rx="4" fill="#12b886"/><circle cx="768" cy="122" r="19" fill="#12b886"/><text x="768" y="129" font-size="17" font-weight="900" fill="#140a20" text-anchor="middle">4</text><text x="796" y="128" font-size="12.5" font-weight="900" fill="#12b886" text-anchor="start">FLUSHES IT OUT</text><text x="750" y="162" font-size="11" font-weight="800" fill="#ffffff" text-anchor="start">It also draws water in, so</text><text x="750" y="179" font-size="11" font-weight="800" fill="#ffffff" text-anchor="start">the trapped ammonia leaves</text><text x="750" y="196" font-size="11" font-weight="800" fill="#ffffff" text-anchor="start">in soft stools.</text><rect x="26" y="268" width="452" height="126" rx="14" fill="rgba(18,184,134,.28)" stroke="rgba(255,255,255,.3)"/><text x="44" y="296" font-size="14" font-weight="900" fill="#a5f3d4" text-anchor="start">&#9989; THE GOAL</text><text x="44" y="322" font-size="11.5" font-weight="800" fill="#ffffff" text-anchor="start">Two to three SOFT stools a day. That is the dose end-point</text><text x="44" y="340" font-size="11.5" font-weight="800" fill="#ffffff" text-anchor="start">the team titrates to &#8212; not a fixed number of millilitres.</text><text x="44" y="366" font-size="11.5" font-weight="900" fill="#a5f3d4" text-anchor="start">Improving mental status and a falling ammonia = it is working.</text><rect x="500" y="268" width="452" height="126" rx="14" fill="rgba(255,59,107,.28)" stroke="rgba(255,255,255,.3)"/><text x="518" y="296" font-size="14" font-weight="900" fill="#ff9db4" text-anchor="start">&#9888; THE CATCH &#8212; POTASSIUM</text><text x="518" y="322" font-size="11.5" font-weight="800" fill="#ffffff" text-anchor="start">Every loose stool takes potassium with it.</text><text x="518" y="340" font-size="11.5" font-weight="800" fill="#ffffff" text-anchor="start">Watch for HYPOKALAEMIA (potassium 3.5&#8211;5.0 mEq/L):</text><text x="518" y="366" font-size="11.5" font-weight="900" fill="#ff9db4" text-anchor="start">muscle weakness, cramps, fatigue, cardiac irregularity.</text><rect x="26" y="406" width="926" height="52" rx="12" fill="rgba(255,194,51,.24)" stroke="rgba(255,255,255,.3)"/><text x="44" y="428" font-size="12" font-weight="900" fill="#ffe49a" text-anchor="start">&#10060; NEVER hold lactulose because the patient is &#8220;having too many stools&#8221; without telling the provider &#8212; the stools are the therapy.</text><text x="44" y="448" font-size="11.5" font-weight="800" fill="#ffffff" text-anchor="start">&#9733; Non-absorbed antibiotics (rifaximin, neomycin) may be added to reduce the ammonia-producing gut bacteria. Follow the order.</text></svg>
+      <div class="xref"><span class="pill">DRUG PAGE</span>
+      <a href="../renal/NG-122_lactulose-sodium-polystyrene-sulfonate.html">NG-122 · Lactulose &amp; sodium polystyrene sulfonate</a></div>
+      <div class="mn">🧠 <b>“Lose the ammonia · Loose bowels · Lose potassium.”</b> Three L's, one drug.</div>
+    </div>
+
+    <div class="card citrinec span2">
+      <h3>🅰️ IV albumin — the one students get wrong</h3>
+      <svg viewBox="0 0 980 440" role="img" aria-label="An intravenous albumin infusion pulling fluid from the tissues back into the blood vessel, with a monitoring panel showing that blood pressure and pulse must be checked because the circulating volume rises quickly."><defs>
+<filter id="abdr" x="-30%" y="-30%" width="170%" height="170%"><feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+<feOffset dy="6" result="o"/><feFlood flood-color="#000" flood-opacity=".6"/><feComposite in2="o" operator="in" result="sh"/>
+<feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<filter id="absf" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="6"/></filter>
+<filter id="abgl" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="3.4" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<radialGradient id="abliv" cx=".34" cy=".26" r=".95" fx=".26" fy=".18">
+<stop offset="0" stop-color="#c96a5a"/><stop offset=".2" stop-color="#a83d3c"/>
+<stop offset=".5" stop-color="#7e2029"/><stop offset=".8" stop-color="#54101c"/>
+<stop offset="1" stop-color="#2e0710"/></radialGradient>
+<radialGradient id="ablivS" cx=".34" cy=".26" r=".95" fx=".26" fy=".18">
+<stop offset="0" stop-color="#d9a06a"/><stop offset=".22" stop-color="#b4713c"/>
+<stop offset=".55" stop-color="#7d4520"/><stop offset=".85" stop-color="#4c2611"/>
+<stop offset="1" stop-color="#2a1408"/></radialGradient>
+<radialGradient id="abnod" cx=".38" cy=".3" r=".9" fx=".3" fy=".22">
+<stop offset="0" stop-color="#e0b070"/><stop offset=".45" stop-color="#b57a34"/>
+<stop offset=".85" stop-color="#6d4416"/><stop offset="1" stop-color="#3d2409"/></radialGradient>
+<radialGradient id="ablob" cx=".4" cy=".32" r=".9">
+<stop offset="0" stop-color="#c96a5a"/><stop offset=".55" stop-color="#8e2a30"/>
+<stop offset="1" stop-color="#4d0f18"/></radialGradient>
+<linearGradient id="abvein" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7fa8f5"/>
+<stop offset=".45" stop-color="#2f6bff"/><stop offset="1" stop-color="#12306f"/></linearGradient>
+<linearGradient id="abart" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff8ea3"/>
+<stop offset=".45" stop-color="#d92a52"/><stop offset="1" stop-color="#6d0f26"/></linearGradient>
+<linearGradient id="abbile" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9f27a"/>
+<stop offset=".5" stop-color="#8ab52a"/><stop offset="1" stop-color="#4a6410"/></linearGradient>
+<linearGradient id="abfib" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3e2c0"/>
+<stop offset=".5" stop-color="#cbb187"/><stop offset="1" stop-color="#8d7248"/></linearGradient>
+<marker id="aba" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#ffe49a"/></marker>
+<marker id="abar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="16" markerHeight="16" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#ff5f7f"/></marker>
+<marker id="abab" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#7fa8f5"/></marker>
+</defs><rect x="4" y="4" width="972" height="432" rx="20" fill="rgba(0,0,0,.22)" stroke="#ffc233" stroke-width="2" stroke-dasharray="8 7" opacity=".9"/><text x="26" y="34" font-size="19" font-weight="900" fill="#ffe9b8" text-anchor="start">IV ALBUMIN &#183; putting the magnet back</text><text x="26" y="55" font-size="12.5" font-weight="700" fill="#ffd9a0" text-anchor="start" font-style="italic">Albumin is given to pull third-spaced fluid back into the vessels where it can be used.</text><rect x="26" y="76" width="560" height="292" rx="16" fill="rgba(255,194,51,.14)" stroke="rgba(255,255,255,.26)"/><g filter="url(#abdr)"><path d="M70 108 L150 108 L156 132 L156 236 C156 250 146 258 132 258 L88 258 C74 258 64 250 64 236 L64 132 Z" fill="rgba(240,192,76,.85)" stroke="rgba(255,255,255,.6)" stroke-width="2.4"/><rect x="98" y="94" width="24" height="16" rx="5" fill="#8fa0bb"/></g><text x="110" y="190" font-size="14" font-weight="900" fill="#3a2a00" text-anchor="middle">ALBUMIN</text><text x="110" y="278" font-size="11.5" font-weight="900" fill="#ffe49a" text-anchor="middle">IV infusion</text><path d="M110 258 C110 300 150 316 196 316" fill="none" stroke="#cfd8e6" stroke-width="6" stroke-linecap="round"/><path d="M200 316 C280 300 380 330 470 314 C510 306 540 314 560 310" fill="none" stroke="#08111f" stroke-width="48" stroke-linecap="round"/><path d="M200 316 C280 300 380 330 470 314 C510 306 540 314 560 310" fill="none" stroke="url(#abart)" stroke-width="42" stroke-linecap="round"/><ellipse cx="238" cy="308" rx="13" ry="11" fill="#c0203f" stroke="#4a0616" stroke-width="1.6"/><ellipse cx="234" cy="304" rx="4" ry="3" fill="#fff" opacity=".4"/><ellipse cx="292" cy="318" rx="13" ry="11" fill="#c0203f" stroke="#4a0616" stroke-width="1.6"/><ellipse cx="288" cy="314" rx="4" ry="3" fill="#fff" opacity=".4"/><ellipse cx="348" cy="308" rx="13" ry="11" fill="#c0203f" stroke="#4a0616" stroke-width="1.6"/><ellipse cx="344" cy="304" rx="4" ry="3" fill="#fff" opacity=".4"/><ellipse cx="404" cy="318" rx="13" ry="11" fill="#c0203f" stroke="#4a0616" stroke-width="1.6"/><ellipse cx="400" cy="314" rx="4" ry="3" fill="#fff" opacity=".4"/><ellipse cx="460" cy="308" rx="13" ry="11" fill="#c0203f" stroke="#4a0616" stroke-width="1.6"/><ellipse cx="456" cy="304" rx="4" ry="3" fill="#fff" opacity=".4"/><ellipse cx="516" cy="318" rx="13" ry="11" fill="#c0203f" stroke="#4a0616" stroke-width="1.6"/><ellipse cx="512" cy="314" rx="4" ry="3" fill="#fff" opacity=".4"/><circle cx="264" cy="330" r="8" fill="url(#abbile)" stroke="#6b4a08" stroke-width="1.4"/><circle cx="320" cy="330" r="8" fill="url(#abbile)" stroke="#6b4a08" stroke-width="1.4"/><circle cx="376" cy="330" r="8" fill="url(#abbile)" stroke="#6b4a08" stroke-width="1.4"/><circle cx="432" cy="330" r="8" fill="url(#abbile)" stroke="#6b4a08" stroke-width="1.4"/><circle cx="488" cy="330" r="8" fill="url(#abbile)" stroke="#6b4a08" stroke-width="1.4"/><path d="M250 246 L250 288" stroke="#7de3ff" stroke-width="5" fill="none" marker-end="url(#aba)"/><circle cx="250" cy="232" r="9" fill="#7de3ff" opacity=".75"/><path d="M310 246 L310 288" stroke="#7de3ff" stroke-width="5" fill="none" marker-end="url(#aba)"/><circle cx="310" cy="232" r="9" fill="#7de3ff" opacity=".75"/><path d="M370 246 L370 288" stroke="#7de3ff" stroke-width="5" fill="none" marker-end="url(#aba)"/><circle cx="370" cy="232" r="9" fill="#7de3ff" opacity=".75"/><path d="M430 246 L430 288" stroke="#7de3ff" stroke-width="5" fill="none" marker-end="url(#aba)"/><circle cx="430" cy="232" r="9" fill="#7de3ff" opacity=".75"/><path d="M490 246 L490 288" stroke="#7de3ff" stroke-width="5" fill="none" marker-end="url(#aba)"/><circle cx="490" cy="232" r="9" fill="#7de3ff" opacity=".75"/><text x="370" y="214" font-size="12.5" font-weight="900" fill="#7de3ff" text-anchor="middle">third-spaced water pulled BACK into the vessel</text><text x="370" y="360" font-size="12" font-weight="900" fill="#ffe49a" text-anchor="middle">circulating volume rises &#8594; blood pressure rises</text><rect x="606" y="76" width="346" height="292" rx="16" fill="rgba(13,8,26,.6)" stroke="rgba(255,255,255,.26)"/><text x="626" y="104" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="start" letter-spacing="0.06em">WHAT THE NURSE WATCHES</text><rect x="622" y="118" width="314" height="44" rx="10" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.2)"/><text x="638" y="146" font-size="17" font-weight="900" fill="#ffe9b8" text-anchor="start">🩺</text><text x="666" y="138" font-size="11.5" font-weight="900" fill="#ff8fa8" text-anchor="start">BLOOD PRESSURE &amp; PULSE</text><text x="666" y="154" font-size="10.4" font-weight="800" fill="#ffffff" text-anchor="start">before, during and after &#8212; volume is added fast</text><rect x="622" y="168" width="314" height="44" rx="10" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.2)"/><text x="638" y="196" font-size="17" font-weight="900" fill="#ffe9b8" text-anchor="start">💓</text><text x="666" y="188" font-size="11.5" font-weight="900" fill="#ffe49a" text-anchor="start">BOUNDING PULSES</text><text x="666" y="204" font-size="10.4" font-weight="800" fill="#ffffff" text-anchor="start">a sign the vascular space is filling up</text><rect x="622" y="218" width="314" height="44" rx="10" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.2)"/><text x="638" y="246" font-size="17" font-weight="900" fill="#ffe9b8" text-anchor="start">🫁</text><text x="666" y="238" font-size="11.5" font-weight="900" fill="#9ff2ee" text-anchor="start">LUNG SOUNDS</text><text x="666" y="254" font-size="10.4" font-weight="800" fill="#ffffff" text-anchor="start">new crackles = you have overshot into overload</text><rect x="622" y="268" width="314" height="44" rx="10" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.2)"/><text x="638" y="296" font-size="17" font-weight="900" fill="#ffe9b8" text-anchor="start">⚖️</text><text x="666" y="288" font-size="11.5" font-weight="900" fill="#a5f3d4" text-anchor="start">WEIGHT &amp; GIRTH</text><text x="666" y="304" font-size="10.4" font-weight="800" fill="#ffffff" text-anchor="start">the point is less ascites, not more</text><rect x="622" y="318" width="314" height="44" rx="10" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.2)"/><text x="638" y="346" font-size="17" font-weight="900" fill="#ffe9b8" text-anchor="start">🧪</text><text x="666" y="338" font-size="11.5" font-weight="900" fill="#d9c2ff" text-anchor="start">SERUM ALBUMIN</text><text x="666" y="354" font-size="10.4" font-weight="800" fill="#ffffff" text-anchor="start">back toward 3.5&#8211;5.0 g/dL = it worked</text><rect x="26" y="380" width="926" height="46" rx="12" fill="rgba(255,59,107,.32)" stroke="rgba(255,255,255,.3)"/><text x="44" y="408" font-size="12" font-weight="900" fill="#ffd7e0" text-anchor="start">&#9888; Students get this wrong: albumin RAISES the BP. A rising BP with bounding pulses means it is working &#8212; but watch for overload.</text></svg>
+      <div class="mn">🧠 <b>Albumin RAISES the blood pressure.</b> Bounding pulses and a rising BP mean it is working
+      — not that something has gone wrong. Keep listening to the lungs anyway.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>💧 Diuretics in cirrhosis</h3>
+      <p>An <b>aldosterone antagonist</b> (spironolactone) is the usual first choice, because aldosterone excess is
+      one of the three drivers of ascites. A <b>loop diuretic</b> is often added.</p>
+      <div class="mirror">
+        <div class="mrow lo"><b>Aldosterone antagonist</b>Potassium-SPARING → watch for <b>HYPER</b>kalaemia.</div>
+        <div class="mrow hi"><b>Loop diuretic</b>Potassium-WASTING → watch for <b>HYPO</b>kalaemia.</div>
+      </div>
+      <p style="margin-top:9px">Together they can partly balance each other, but the potassium still has to be
+      checked. Potassium reference <span class="mono">3.5–5.0 mEq/L</span>.</p>
+      <ul class="tick">
+        <li>Monitor daily weight, girth, I&amp;O, blood pressure and electrolytes.</li>
+        <li><b>Diuresing too fast can trigger encephalopathy</b> through dehydration and electrolyte shifts.</li>
+      </ul>
+      <div class="xref"><span class="pill">DRUG PAGES</span>
+      <a href="../renal/NG-181_diuretics-potassium-sparing.html">K-sparing</a> ·
+      <a href="../renal/NG-113_diuretics-loop.html">Loop</a></div>
+      <div class="mn">🧠 <b>Spironolactone SAVES potassium; furosemide FLUSHES it.</b> Two opposite risks in one order set.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>❌ Drugs to be very careful with</h3>
+      <ul class="tick">
+        <li><b>Sedatives, benzodiazepines and opioids</b> — the failing liver cannot clear them, so they accumulate
+        and can precipitate encephalopathy.</li>
+        <li><b>Paracetamol / acetaminophen</b> — hepatotoxic; only under provider direction, and never with alcohol.</li>
+        <li><b>NSAIDs and aspirin</b> — bleeding risk on top of an existing coagulopathy, and they worsen kidney
+        function and fluid retention.</li>
+        <li><b>Any hepatically metabolised drug</b> may need a dose adjustment. Doses are individualised — follow the order.</li>
+      </ul>
+      <p class="never">Never give an over-the-counter analgesic to a cirrhotic patient without checking with the provider.</p>
+      <div class="mn">🧠 <b>“A broken filter cannot filter drugs either.”</b></div>
+    </div>
+
+    <div class="card emerald">
+      <h3>🩹 Vitamin K and blood products</h3>
+      <p>The liver needs <b>vitamin K</b> to activate several clotting factors, so it may be given to try to improve
+      the PT/INR. It does not work if there are no liver cells left to use it.</p>
+      <ul class="tick">
+        <li><b>Fresh frozen plasma</b> replaces clotting factors when bleeding or before a procedure.</li>
+        <li><b>Platelets</b> are given for severe thrombocytopenia with bleeding.</li>
+        <li><b>Packed red cells</b> for significant blood loss.</li>
+        <li>All blood products follow your facility's transfusion policy, with the required checks and monitoring.</li>
+      </ul>
+      <div class="mn">🧠 <b>Vitamin K is the ingredient; the liver is the kitchen.</b> No kitchen, no clotting factors.</div>
+    </div>
+
+  </div>
+</section>
+
+<section id="diet">
+  <div class="sec-h"><span class="icon">🍽️</span><h2>DIET &amp; FLUID</h2><span class="step">STEP 3 · NUTRITION</span></div>
+  <p class="sec-sub">Low sodium, controlled fluid, adequate calories, and absolutely no alcohol.</p>
+  <div class="grid">
+
+    <div class="card emerald span2">
+      <h3>🍽️ The cirrhosis plate</h3>
+      <svg viewBox="0 0 980 500" role="img" aria-label="A dinner plate divided into what a person with cirrhosis should eat, with side panels for low sodium, fluid restriction, protein, no alcohol and small frequent meals."><defs>
+<filter id="dtdr" x="-30%" y="-30%" width="170%" height="170%"><feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+<feOffset dy="6" result="o"/><feFlood flood-color="#000" flood-opacity=".6"/><feComposite in2="o" operator="in" result="sh"/>
+<feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<filter id="dtsf" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="6"/></filter>
+<filter id="dtgl" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="3.4" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<radialGradient id="dtliv" cx=".34" cy=".26" r=".95" fx=".26" fy=".18">
+<stop offset="0" stop-color="#c96a5a"/><stop offset=".2" stop-color="#a83d3c"/>
+<stop offset=".5" stop-color="#7e2029"/><stop offset=".8" stop-color="#54101c"/>
+<stop offset="1" stop-color="#2e0710"/></radialGradient>
+<radialGradient id="dtlivS" cx=".34" cy=".26" r=".95" fx=".26" fy=".18">
+<stop offset="0" stop-color="#d9a06a"/><stop offset=".22" stop-color="#b4713c"/>
+<stop offset=".55" stop-color="#7d4520"/><stop offset=".85" stop-color="#4c2611"/>
+<stop offset="1" stop-color="#2a1408"/></radialGradient>
+<radialGradient id="dtnod" cx=".38" cy=".3" r=".9" fx=".3" fy=".22">
+<stop offset="0" stop-color="#e0b070"/><stop offset=".45" stop-color="#b57a34"/>
+<stop offset=".85" stop-color="#6d4416"/><stop offset="1" stop-color="#3d2409"/></radialGradient>
+<radialGradient id="dtlob" cx=".4" cy=".32" r=".9">
+<stop offset="0" stop-color="#c96a5a"/><stop offset=".55" stop-color="#8e2a30"/>
+<stop offset="1" stop-color="#4d0f18"/></radialGradient>
+<linearGradient id="dtvein" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7fa8f5"/>
+<stop offset=".45" stop-color="#2f6bff"/><stop offset="1" stop-color="#12306f"/></linearGradient>
+<linearGradient id="dtart" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff8ea3"/>
+<stop offset=".45" stop-color="#d92a52"/><stop offset="1" stop-color="#6d0f26"/></linearGradient>
+<linearGradient id="dtbile" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9f27a"/>
+<stop offset=".5" stop-color="#8ab52a"/><stop offset="1" stop-color="#4a6410"/></linearGradient>
+<linearGradient id="dtfib" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3e2c0"/>
+<stop offset=".5" stop-color="#cbb187"/><stop offset="1" stop-color="#8d7248"/></linearGradient>
+<marker id="dta" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#ffe49a"/></marker>
+<marker id="dtar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="16" markerHeight="16" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#ff5f7f"/></marker>
+<marker id="dtab" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#7fa8f5"/></marker>
+</defs><rect x="4" y="4" width="972" height="492" rx="20" fill="rgba(0,0,0,.22)" stroke="#ffc233" stroke-width="2" stroke-dasharray="8 7" opacity=".9"/><text x="26" y="34" font-size="19" font-weight="900" fill="#ffe9b8" text-anchor="start">THE CIRRHOSIS PLATE &#183; diet and fluid</text><text x="26" y="55" font-size="12.5" font-weight="700" fill="#ffd9a0" text-anchor="start" font-style="italic">Every rule here is aimed at one of three things: less swelling, less ammonia, no more liver damage.</text><g filter="url(#dtdr)"><circle cx="190" cy="250" r="128" fill="#eef2f7" stroke="#9aa7bb" stroke-width="3"/><circle cx="190" cy="250" r="106" fill="#dfe6ef" stroke="#9aa7bb" stroke-width="2"/></g><path d="M190 250 L292 250 A102 102 0 0 1 139 338 Z" fill="#8ab52a" opacity=".9" stroke="#5c4a2a" stroke-width="1.6"/><text x="218.0" y="298.4974226119286" font-size="11.5" font-weight="900" fill="#1a1030" text-anchor="middle">VEGETABLES</text><path d="M190 250 L139 338 A102 102 0 0 1 139 162 Z" fill="#e08a4a" opacity=".9" stroke="#5c4a2a" stroke-width="1.6"/><text x="134.0" y="250.0" font-size="11.5" font-weight="900" fill="#1a1030" text-anchor="middle">STARCH</text><path d="M190 250 L139 162 A102 102 0 0 1 292 250 Z" fill="#c96a5a" opacity=".9" stroke="#5c4a2a" stroke-width="1.6"/><text x="218.0" y="201.50257738807144" font-size="11.5" font-weight="900" fill="#1a1030" text-anchor="middle">PROTEIN</text><text x="190" y="408" font-size="12" font-weight="900" fill="#a5f3d4" text-anchor="middle">Small, frequent meals &#183; a bedtime snack</text><text x="190" y="426" font-size="11" font-weight="800" fill="#ffffff" text-anchor="middle">keeps energy up when the liver cannot store it</text><rect x="360" y="82" width="592" height="90" rx="14" fill="rgba(255,194,51,.20)" stroke="rgba(255,255,255,.26)"/><text x="378" y="122" font-size="22" font-weight="900" fill="#ffe9b8" text-anchor="start">🧂</text><text x="414" y="112" font-size="13.5" font-weight="900" fill="#ffe49a" text-anchor="start">LOW SODIUM</text><text x="414" y="132" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="start">The single most important dietary change. Less salt &#8594; less water held</text><text x="414" y="147" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="start">&#8594; less ascites and oedema. No salt shaker, and read labels.</text><rect x="360" y="180" width="592" height="90" rx="14" fill="rgba(0,194,199,.18)" stroke="rgba(255,255,255,.26)"/><text x="378" y="220" font-size="22" font-weight="900" fill="#ffe9b8" text-anchor="start">💧</text><text x="414" y="210" font-size="13.5" font-weight="900" fill="#9ff2ee" text-anchor="start">FLUID RESTRICTION</text><text x="414" y="230" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="start">Ordered when the sodium is low or the ascites is severe. Follow the exact</text><text x="414" y="245" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="start">amount ordered and spread it across the day.</text><rect x="360" y="278" width="592" height="90" rx="14" fill="rgba(18,184,134,.18)" stroke="rgba(255,255,255,.26)"/><text x="378" y="318" font-size="22" font-weight="900" fill="#ffe9b8" text-anchor="start">🥚</text><text x="414" y="308" font-size="13.5" font-weight="900" fill="#a5f3d4" text-anchor="start">PROTEIN — ask, do not assume</text><text x="414" y="328" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="start">Protein makes ammonia, so it used to be restricted routinely. Current</text><text x="414" y="343" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="start">practice usually keeps protein ADEQUATE because these patients are</text><text x="414" y="358" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="start">malnourished, and restricts it only when encephalopathy demands it. Follow</text><rect x="360" y="376" width="592" height="90" rx="14" fill="rgba(255,59,107,.20)" stroke="rgba(255,255,255,.26)"/><text x="378" y="416" font-size="22" font-weight="900" fill="#ffe9b8" text-anchor="start">🚫</text><text x="414" y="406" font-size="13.5" font-weight="900" fill="#ff8fa8" text-anchor="start">NO ALCOHOL — ever</text><text x="414" y="426" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="start">Absolute. Any amount keeps damaging what is left of the liver. Also avoid</text><text x="414" y="441" font-size="10.6" font-weight="800" fill="#ffffff" text-anchor="start">paracetamol and other hepatotoxic drugs unless a provider has cleared them.</text><text x="26" y="482" font-size="12" font-weight="900" fill="#ffe49a" text-anchor="start">&#9733; Oral care BEFORE meals improves appetite &#8212; that is the classic exam answer for preventing malnutrition in cirrhosis.</text></svg>
+      <div class="mn">🧠 <b>“Low sodium, Low swelling.”</b> Salt holds water; water becomes ascites.</div>
+    </div>
+
+    <div class="card topaz">
+      <h3>🧂 Sodium — the practical teaching</h3>
+      <ul class="tick">
+        <li><b>No salt shaker</b> at the table and none added in cooking.</li>
+        <li><b>Read labels</b> — the sodium is mostly hidden in processed food, not in the shaker.</li>
+        <li>Worst offenders: <b>canned soup, deli meat, bacon, cheese, tinned vegetables, sauces, takeaway,
+        salted snacks</b>.</li>
+        <li>Use <b>herbs, lemon, garlic and pepper</b> for flavour instead.</li>
+        <li>Check with the provider before using a <b>salt substitute</b> — many are potassium chloride, which
+        matters if the patient is on a potassium-sparing diuretic.</li>
+      </ul>
+      <div class="mn">🧠 <b>“The salt is in the box, not the shaker.”</b> Labels beat willpower.</div>
+    </div>
+
+    <div class="card tealc">
+      <h3>🥚 Protein — say “ask the provider”, not “restrict it”</h3>
+      <p>Protein is broken down into ammonia, so older teaching restricted it in everyone with cirrhosis. Current
+      practice is more nuanced:</p>
+      <ul class="tick">
+        <li>These patients are usually <b>malnourished and losing muscle</b>, and muscle actually helps clear ammonia.</li>
+        <li>So protein is generally kept <b>adequate</b>, and restricted only in specific situations.</li>
+        <li><b>In active hepatic encephalopathy</b>, a dietary consult to <b>limit protein</b> is a classic exam answer
+        — and remains part of the picture on many exams.</li>
+      </ul>
+      <p>Safest position for the nurse: <b>follow the ordered diet and get a dietitian involved.</b></p>
+      <div class="mn">🧠 <b>If the question says “encephalopathy → limit which ingredient?”, the answer is PROTEIN.</b>
+      In real practice, ask the dietitian.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>💧 Fluid restriction — how to make it bearable</h3>
+      <ul class="tick">
+        <li><b>Spread the allowance across the day</b> and save some for the evening.</li>
+        <li><b>Use small cups</b> — the same volume feels like more.</li>
+        <li><b>Ice chips</b> count as roughly half their volume; frozen fruit pieces last longer.</li>
+        <li><b>Frequent mouth care</b> and sugar-free hard sweets or gum for dry mouth.</li>
+        <li><b>Avoid salty food</b> — it makes the thirst much worse.</li>
+        <li>Include everything liquid: soup, jelly, ice cream, IV medications.</li>
+      </ul>
+      <div class="mn">🧠 <b>Thirst is driven by SALT.</b> Cutting sodium is what makes a fluid restriction tolerable.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🍽️ Preventing malnutrition</h3>
+      <ul class="tick">
+        <li><b>Oral care BEFORE meals</b> — this is the classic exam answer for improving intake.</li>
+        <li><b>Small, frequent meals</b> — a full ascitic abdomen makes large meals impossible.</li>
+        <li><b>A bedtime snack</b> helps, because a cirrhotic liver has poor glycogen stores overnight.</li>
+        <li><b>Supplements and vitamins</b> as ordered — thiamine and folate are commonly needed, especially with
+        alcohol-related disease.</li>
+        <li><b>Weigh regularly</b>, but remember that ascites hides real weight loss.</li>
+      </ul>
+      <div class="mn">🧠 <b>Big belly, wasting muscles.</b> The scale can look stable while the patient is starving.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🚫 Alcohol — the absolute rule</h3>
+      <p>Complete abstinence, permanently, whatever the original cause of the cirrhosis was. There is no safe amount
+      for a liver that is already scarred.</p>
+      <ul class="tick">
+        <li>Offer <b>referral to a support programme</b> rather than a lecture.</li>
+        <li>Watch for <b>alcohol withdrawal</b> in a newly admitted patient — it can start within hours and is
+        dangerous in someone who is already confused.</li>
+        <li>Check <b>mouthwashes, cough syrups and tonics</b> for alcohol content.</li>
+      </ul>
+      <div class="mn">🧠 <b>Scar tissue never comes back.</b> Stopping alcohol protects the liver cells that are left.</div>
+    </div>
+
+  </div>
+</section>
+
+<section id="safety">
+  <div class="sec-h"><span class="icon">🩸</span><h2>SAFETY — BLEEDING, ITCHING, FALLING</h2><span class="step">STEP 4 · PROTECT</span></div>
+  <p class="sec-sub">This patient cannot clot, cannot stop scratching, and may not be thinking clearly.</p>
+  <div class="grid">
+
+    <div class="card garnet span2">
+      <h3>🩸 Bleeding precautions — the do / do-not board</h3>
+      <svg viewBox="0 0 980 480" role="img" aria-label="A do and do not board for bleeding precautions in cirrhosis: use a soft toothbrush and an electric razor, avoid straining and nasogastric tubes, and watch for hidden bleeding in the stool, urine and gums."><defs>
+<filter id="bldr" x="-30%" y="-30%" width="170%" height="170%"><feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+<feOffset dy="6" result="o"/><feFlood flood-color="#000" flood-opacity=".6"/><feComposite in2="o" operator="in" result="sh"/>
+<feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<filter id="blsf" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="6"/></filter>
+<filter id="blgl" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="3.4" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<radialGradient id="blliv" cx=".34" cy=".26" r=".95" fx=".26" fy=".18">
+<stop offset="0" stop-color="#c96a5a"/><stop offset=".2" stop-color="#a83d3c"/>
+<stop offset=".5" stop-color="#7e2029"/><stop offset=".8" stop-color="#54101c"/>
+<stop offset="1" stop-color="#2e0710"/></radialGradient>
+<radialGradient id="bllivS" cx=".34" cy=".26" r=".95" fx=".26" fy=".18">
+<stop offset="0" stop-color="#d9a06a"/><stop offset=".22" stop-color="#b4713c"/>
+<stop offset=".55" stop-color="#7d4520"/><stop offset=".85" stop-color="#4c2611"/>
+<stop offset="1" stop-color="#2a1408"/></radialGradient>
+<radialGradient id="blnod" cx=".38" cy=".3" r=".9" fx=".3" fy=".22">
+<stop offset="0" stop-color="#e0b070"/><stop offset=".45" stop-color="#b57a34"/>
+<stop offset=".85" stop-color="#6d4416"/><stop offset="1" stop-color="#3d2409"/></radialGradient>
+<radialGradient id="bllob" cx=".4" cy=".32" r=".9">
+<stop offset="0" stop-color="#c96a5a"/><stop offset=".55" stop-color="#8e2a30"/>
+<stop offset="1" stop-color="#4d0f18"/></radialGradient>
+<linearGradient id="blvein" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7fa8f5"/>
+<stop offset=".45" stop-color="#2f6bff"/><stop offset="1" stop-color="#12306f"/></linearGradient>
+<linearGradient id="blart" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff8ea3"/>
+<stop offset=".45" stop-color="#d92a52"/><stop offset="1" stop-color="#6d0f26"/></linearGradient>
+<linearGradient id="blbile" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9f27a"/>
+<stop offset=".5" stop-color="#8ab52a"/><stop offset="1" stop-color="#4a6410"/></linearGradient>
+<linearGradient id="blfib" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3e2c0"/>
+<stop offset=".5" stop-color="#cbb187"/><stop offset="1" stop-color="#8d7248"/></linearGradient>
+<marker id="bla" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#ffe49a"/></marker>
+<marker id="blar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="16" markerHeight="16" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#ff5f7f"/></marker>
+<marker id="blab" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#7fa8f5"/></marker>
+</defs><rect x="4" y="4" width="972" height="472" rx="20" fill="rgba(0,0,0,.22)" stroke="#ffc233" stroke-width="2" stroke-dasharray="8 7" opacity=".9"/><text x="26" y="34" font-size="19" font-weight="900" fill="#ffe9b8" text-anchor="start">BLEED PRECAUTIONS &#183; this patient cannot clot</text><text x="26" y="55" font-size="12.5" font-weight="700" fill="#ffd9a0" text-anchor="start" font-style="italic">No clotting factors, no vitamin K activation, and a big spleen eating the platelets. Everything bleeds.</text><rect x="26" y="76" width="452" height="322" rx="16" fill="rgba(18,184,134,.18)" stroke="rgba(255,255,255,.26)"/><text x="46" y="106" font-size="16" font-weight="900" fill="#a5f3d4" text-anchor="start">&#9989; DO</text><rect x="42" y="118" width="420" height="50" rx="11" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.2)"/><text x="60" y="151" font-size="19" font-weight="900" fill="#ffe9b8" text-anchor="start">🪥</text><text x="94" y="140" font-size="12.5" font-weight="900" fill="#a5f3d4" text-anchor="start">SOFT toothbrush</text><text x="94" y="157" font-size="10.4" font-weight="800" fill="#ffffff" text-anchor="start">or gentle oral sponges &#8212; gums bleed easily</text><rect x="42" y="174" width="420" height="50" rx="11" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.2)"/><text x="60" y="207" font-size="19" font-weight="900" fill="#ffe9b8" text-anchor="start">🪒</text><text x="94" y="196" font-size="12.5" font-weight="900" fill="#a5f3d4" text-anchor="start">ELECTRIC razor only</text><text x="94" y="213" font-size="10.4" font-weight="800" fill="#ffffff" text-anchor="start">never a blade</text><rect x="42" y="230" width="420" height="50" rx="11" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.2)"/><text x="60" y="263" font-size="19" font-weight="900" fill="#ffe9b8" text-anchor="start">🧻</text><text x="94" y="252" font-size="12.5" font-weight="900" fill="#a5f3d4" text-anchor="start">STOOL SOFTENERS as ordered</text><text x="94" y="269" font-size="10.4" font-weight="800" fill="#ffffff" text-anchor="start">so no straining is needed</text><rect x="42" y="286" width="420" height="50" rx="11" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.2)"/><text x="60" y="319" font-size="19" font-weight="900" fill="#ffe9b8" text-anchor="start">🤲</text><text x="94" y="308" font-size="12.5" font-weight="900" fill="#a5f3d4" text-anchor="start">Gentle handling</text><text x="94" y="325" font-size="10.4" font-weight="800" fill="#ffffff" text-anchor="start">hold pressure longer after any needle stick</text><rect x="42" y="342" width="420" height="50" rx="11" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.2)"/><text x="60" y="375" font-size="19" font-weight="900" fill="#ffe9b8" text-anchor="start">👀</text><text x="94" y="364" font-size="12.5" font-weight="900" fill="#a5f3d4" text-anchor="start">Inspect daily</text><text x="94" y="381" font-size="10.4" font-weight="800" fill="#ffffff" text-anchor="start">gums, nose, skin, injection sites, stool, urine, emesis</text><rect x="500" y="76" width="452" height="322" rx="16" fill="rgba(255,59,107,.18)" stroke="rgba(255,255,255,.26)"/><text x="520" y="106" font-size="16" font-weight="900" fill="#ff8fa8" text-anchor="start">&#10060; DO NOT</text><rect x="516" y="118" width="420" height="50" rx="11" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.2)"/><text x="534" y="151" font-size="19" font-weight="900" fill="#ffe9b8" text-anchor="start">🚫</text><text x="568" y="140" font-size="12.5" font-weight="900" fill="#ff8fa8" text-anchor="start">NO new nasogastric tube</text><text x="568" y="157" font-size="10.4" font-weight="800" fill="#ffffff" text-anchor="start">a tube passed blindly can tear a varix wide open</text><rect x="516" y="174" width="420" height="50" rx="11" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.2)"/><text x="534" y="207" font-size="19" font-weight="900" fill="#ffe9b8" text-anchor="start">🚫</text><text x="568" y="196" font-size="12.5" font-weight="900" fill="#ff8fa8" text-anchor="start">NO straining or bearing down</text><text x="568" y="213" font-size="10.4" font-weight="800" fill="#ffffff" text-anchor="start">the Valsalva manoeuvre spikes the pressure in the varices</text><rect x="516" y="230" width="420" height="50" rx="11" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.2)"/><text x="534" y="263" font-size="19" font-weight="900" fill="#ffe9b8" text-anchor="start">🚫</text><text x="568" y="252" font-size="12.5" font-weight="900" fill="#ff8fa8" text-anchor="start">NO blades, hard brushes, flossing</text><text x="568" y="269" font-size="10.4" font-weight="800" fill="#ffffff" text-anchor="start">or rectal temperatures and suppositories</text><rect x="516" y="286" width="420" height="50" rx="11" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.2)"/><text x="534" y="319" font-size="19" font-weight="900" fill="#ffe9b8" text-anchor="start">🚫</text><text x="568" y="308" font-size="12.5" font-weight="900" fill="#ff8fa8" text-anchor="start">NO aspirin or NSAIDs</text><text x="568" y="325" font-size="10.4" font-weight="800" fill="#ffffff" text-anchor="start">unless a provider specifically orders them</text><rect x="516" y="342" width="420" height="50" rx="11" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.2)"/><text x="534" y="375" font-size="19" font-weight="900" fill="#ffe9b8" text-anchor="start">🚫</text><text x="568" y="364" font-size="12.5" font-weight="900" fill="#ff8fa8" text-anchor="start">NO IM injections if avoidable</text><text x="568" y="381" font-size="10.4" font-weight="800" fill="#ffffff" text-anchor="start">use the smallest gauge, and hold pressure</text><rect x="26" y="410" width="926" height="52" rx="12" fill="rgba(192,34,85,.5)" stroke="rgba(255,255,255,.35)"/><text x="44" y="434" font-size="12.5" font-weight="900" fill="#ffffff" text-anchor="start">&#128680; HIDDEN BLEEDING: black tarry stool &#183; coffee-ground emesis &#183; blood in the urine &#183; a falling haematocrit &#183; new confusion.</text><text x="44" y="454" font-size="11.5" font-weight="900" fill="#ffd7e0" text-anchor="start">A GI bleed in a cirrhotic patient also DUMPS PROTEIN into the gut &#8212; so it can trigger hepatic encephalopathy as well as shock.</text></svg>
+      <div class="mn">🧠 <b>“Soft brush, electric razor, no tube, no push.”</b> Four things, and they cover most of
+      the questions on this topic.</div>
+    </div>
+
+    <div class="card tealc span2">
+      <h3>🖐️ Pruritus — caring for the itch</h3>
+      <svg viewBox="0 0 980 400" role="img" aria-label="Four cards of skin care for the itching caused by bile salts: cool moist cloths, moisturiser on unbroken skin, long sleeves and cotton gloves, and short fingernails."><defs>
+<filter id="prdr" x="-30%" y="-30%" width="170%" height="170%"><feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+<feOffset dy="6" result="o"/><feFlood flood-color="#000" flood-opacity=".6"/><feComposite in2="o" operator="in" result="sh"/>
+<feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<filter id="prsf" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="6"/></filter>
+<filter id="prgl" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="3.4" result="b"/>
+<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<radialGradient id="prliv" cx=".34" cy=".26" r=".95" fx=".26" fy=".18">
+<stop offset="0" stop-color="#c96a5a"/><stop offset=".2" stop-color="#a83d3c"/>
+<stop offset=".5" stop-color="#7e2029"/><stop offset=".8" stop-color="#54101c"/>
+<stop offset="1" stop-color="#2e0710"/></radialGradient>
+<radialGradient id="prlivS" cx=".34" cy=".26" r=".95" fx=".26" fy=".18">
+<stop offset="0" stop-color="#d9a06a"/><stop offset=".22" stop-color="#b4713c"/>
+<stop offset=".55" stop-color="#7d4520"/><stop offset=".85" stop-color="#4c2611"/>
+<stop offset="1" stop-color="#2a1408"/></radialGradient>
+<radialGradient id="prnod" cx=".38" cy=".3" r=".9" fx=".3" fy=".22">
+<stop offset="0" stop-color="#e0b070"/><stop offset=".45" stop-color="#b57a34"/>
+<stop offset=".85" stop-color="#6d4416"/><stop offset="1" stop-color="#3d2409"/></radialGradient>
+<radialGradient id="prlob" cx=".4" cy=".32" r=".9">
+<stop offset="0" stop-color="#c96a5a"/><stop offset=".55" stop-color="#8e2a30"/>
+<stop offset="1" stop-color="#4d0f18"/></radialGradient>
+<linearGradient id="prvein" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7fa8f5"/>
+<stop offset=".45" stop-color="#2f6bff"/><stop offset="1" stop-color="#12306f"/></linearGradient>
+<linearGradient id="prart" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff8ea3"/>
+<stop offset=".45" stop-color="#d92a52"/><stop offset="1" stop-color="#6d0f26"/></linearGradient>
+<linearGradient id="prbile" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9f27a"/>
+<stop offset=".5" stop-color="#8ab52a"/><stop offset="1" stop-color="#4a6410"/></linearGradient>
+<linearGradient id="prfib" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3e2c0"/>
+<stop offset=".5" stop-color="#cbb187"/><stop offset="1" stop-color="#8d7248"/></linearGradient>
+<marker id="pra" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#ffe49a"/></marker>
+<marker id="prar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="16" markerHeight="16" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#ff5f7f"/></marker>
+<marker id="prab" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="15" markerHeight="15" markerUnits="userSpaceOnUse" orient="auto">
+<path d="M1 1 L11 6 L1 11 z" fill="#7fa8f5"/></marker>
+</defs><rect x="4" y="4" width="972" height="392" rx="20" fill="rgba(0,0,0,.22)" stroke="#ffc233" stroke-width="2" stroke-dasharray="8 7" opacity=".9"/><text x="26" y="34" font-size="19" font-weight="900" fill="#ffe9b8" text-anchor="start">PRURITUS &#183; the itch that keeps them awake</text><text x="26" y="55" font-size="12.5" font-weight="700" fill="#ffd9a0" text-anchor="start" font-style="italic">Bile salts deposit in the skin. Scratching breaks skin that cannot heal and cannot clot.</text><rect x="26" y="80" width="456" height="104" rx="14" fill="rgba(13,8,26,.6)" stroke="rgba(255,255,255,.26)"/><rect x="26" y="80" width="456" height="8" rx="4" fill="#9ff2ee"/><text x="48" y="136" font-size="26" font-weight="900" fill="#ffe9b8" text-anchor="start">🧊</text><text x="92" y="122" font-size="13.5" font-weight="900" fill="#9ff2ee" text-anchor="start">1 &#183; COOL, MOIST CLOTHS</text><text x="92" y="142" font-size="11" font-weight="800" fill="#ffffff" text-anchor="start">Apply to the itchy areas. Cool water only &#8212;</text><text x="92" y="158" font-size="11" font-weight="800" fill="#ffffff" text-anchor="start">heat makes the itch worse.</text><rect x="496" y="80" width="456" height="104" rx="14" fill="rgba(13,8,26,.6)" stroke="rgba(255,255,255,.26)"/><rect x="496" y="80" width="456" height="8" rx="4" fill="#a5f3d4"/><text x="518" y="136" font-size="26" font-weight="900" fill="#ffe9b8" text-anchor="start">🧴</text><text x="562" y="122" font-size="13.5" font-weight="900" fill="#a5f3d4" text-anchor="start">2 &#183; MOISTURISER</text><text x="562" y="142" font-size="11" font-weight="800" fill="#ffffff" text-anchor="start">Fragrance-free emollient over UNBROKEN skin. Never</text><text x="562" y="158" font-size="11" font-weight="800" fill="#ffffff" text-anchor="start">rub it into an open area.</text><rect x="26" y="196" width="456" height="104" rx="14" fill="rgba(13,8,26,.6)" stroke="rgba(255,255,255,.26)"/><rect x="26" y="196" width="456" height="8" rx="4" fill="#ffe49a"/><text x="48" y="252" font-size="26" font-weight="900" fill="#ffe9b8" text-anchor="start">🧤</text><text x="92" y="238" font-size="13.5" font-weight="900" fill="#ffe49a" text-anchor="start">3 &#183; COVER UP</text><text x="92" y="258" font-size="11" font-weight="800" fill="#ffffff" text-anchor="start">Long sleeves and soft cotton gloves, especially</text><text x="92" y="274" font-size="11" font-weight="800" fill="#ffffff" text-anchor="start">overnight when scratching is unconscious.</text><rect x="496" y="196" width="456" height="104" rx="14" fill="rgba(13,8,26,.6)" stroke="rgba(255,255,255,.26)"/><rect x="496" y="196" width="456" height="8" rx="4" fill="#ff8fa8"/><text x="518" y="252" font-size="26" font-weight="900" fill="#ffe9b8" text-anchor="start">✂️</text><text x="562" y="238" font-size="13.5" font-weight="900" fill="#ff8fa8" text-anchor="start">4 &#183; SHORT NAILS</text><text x="562" y="258" font-size="11" font-weight="800" fill="#ffffff" text-anchor="start">Trim them short and smooth. Short nails do far less</text><text x="562" y="274" font-size="11" font-weight="800" fill="#ffffff" text-anchor="start">damage when the patient does scratch.</text><rect x="26" y="316" width="926" height="66" rx="12" fill="rgba(0,194,199,.22)" stroke="rgba(255,255,255,.3)"/><text x="44" y="340" font-size="12" font-weight="900" fill="#9ff2ee" text-anchor="start">&#10060; AVOID hot water, harsh soap, alcohol-based lotions, rough towels and tight clothing &#8212; all of them make the itch worse.</text><text x="44" y="362" font-size="12" font-weight="800" fill="#ffffff" text-anchor="start">&#9733; Also inspect for skin breakdown at every turn: oedematous, jaundiced, poorly nourished skin tears easily and heals slowly.</text></svg>
+      <div class="mn">🧠 <b>“Cool · cream · cover · clip.”</b> Cool cloth, moisturiser, gloves and sleeves,
+      short nails.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🚨 Recognising a GI bleed early</h3>
+      <ul class="tick">
+        <li><b>Vital signs first</b>: a rising pulse and falling blood pressure often come before visible blood.</li>
+        <li><b>Check stools</b> for melaena and test as ordered; note any bright red rectal bleeding.</li>
+        <li><b>Check emesis</b> for coffee-ground appearance.</li>
+        <li><b>Falling haematocrit and haemoglobin.</b></li>
+        <li><b>New confusion</b> — because the blood in the gut is a large protein load that raises ammonia.</li>
+      </ul>
+      <p class="never">Never dismiss new confusion in a cirrhotic patient as “just their baseline”.</p>
+      <div class="xref"><span class="pill">GO DEEPER</span> <a href="../gi/NG-304_gi-bleed.html">NG-304 · GI bleed</a></div>
+      <div class="mn">🧠 <b>A GI bleed here causes TWO emergencies:</b> shock, and encephalopathy.</div>
+    </div>
+
+    <div class="card emerald">
+      <h3>🛡️ Falls and confusion</h3>
+      <ul class="tick">
+        <li><b>Fall precautions</b> — bed low and locked, call bell in reach, non-slip footwear, frequent rounding.</li>
+        <li>A confused patient who falls now has a <b>bleeding risk plus a head injury risk</b>.</li>
+        <li><b>Reorient calmly</b>, keep the room consistent and involve family who know the baseline.</li>
+        <li><b>Aspiration precautions</b> if the patient is lethargic — sit them up, assess swallowing.</li>
+        <li>Document mental status in <b>the same words each shift</b> so changes are obvious.</li>
+      </ul>
+      <div class="mn">🧠 <b>Confusion + no clotting = every fall is a bleed.</b></div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🛏️ Skin and positioning</h3>
+      <ul class="tick">
+        <li><b>Reposition regularly</b>; oedematous, jaundiced skin over a distended abdomen breaks down fast.</li>
+        <li><b>Semi- to high Fowler's</b> for breathing when there is ascites.</li>
+        <li><b>Elevate oedematous legs</b> when sitting; avoid tight clothing and tight stockings unless ordered.</li>
+        <li><b>Inspect pressure areas, the sacrum and any weeping skin</b> at every turn.</li>
+        <li>Handle gently — bruising is easy and skin tears easily.</li>
+      </ul>
+      <div class="mn">🧠 <b>Sit up to breathe; turn often to protect the skin.</b></div>
+    </div>
+
+    <div class="card deep">
+      <h3>🎓 The classic questions, answered</h3>
+      <div class="qa"><b>Q.</b> Cirrhosis with suspected gastroesophageal varices — which order would the nurse question?
+        <div class="a" style="display:block">▸ <b>New nasogastric tube insertion.</b> A blindly passed tube can rupture a varix.</div></div>
+      <div class="qa"><b>Q.</b> Portal hypertension, ascites and varices — which teaching is correct?
+        <div class="a" style="display:block">▸ <b>Avoid straining when having a bowel movement.</b> Valsalva raises the pressure in the varices.</div></div>
+      <div class="qa"><b>Q.</b> Highest priority for a patient with RUPTURED varices?
+        <div class="a" style="display:block">▸ <b>Protecting the airway.</b> Blood is pouring in above the airway.</div></div>
+      <div class="qa"><b>Q.</b> The patient is vomiting and the nurse notes haematemesis. Which action first?
+        <div class="a" style="display:block">▸ <b>Place the patient in the side-lying position</b> so the blood drains out rather than being aspirated.</div></div>
+      <div class="qa"><b>Q.</b> Nurse assisting with a paracentesis — which action first?
+        <div class="a" style="display:block">▸ <b>Have the patient empty their bladder.</b></div></div>
+      <div class="qa"><b>Q.</b> Which intervention prevents malnutrition in severe cirrhosis?
+        <div class="a" style="display:block">▸ <b>Provide oral care before meals.</b></div></div>
+      <div class="qa"><b>Q.</b> Which lab does the nurse monitor closely on lactulose?
+        <div class="a" style="display:block">▸ <b>Potassium</b> — the stools cause losses. Reference <span class="mono">3.5–5.0 mEq/L</span>.</div></div>
+      <div class="qa"><b>Q.</b> After a liver biopsy, in which position should the patient be placed?
+        <div class="a" style="display:block">▸ <b>On the RIGHT side</b>, to apply pressure to the biopsy site.</div></div>
+      <div class="mn">🧠 Eight questions, four verbs: <b>question the order · protect the airway · empty the bladder ·
+      lie on the right.</b></div>
+    </div>
+
+  </div>
+</section>
+
+<section id="teach">
+  <div class="sec-h"><span class="icon">🎓</span><h2>TEACHING BEFORE DISCHARGE</h2><span class="step">STEP 5 · TEACH</span></div>
+  <p class="sec-sub">Cirrhosis is managed at home. What the patient can recognise is what keeps them alive.</p>
+  <div class="grid">
+
+    <div class="card citrinec">
+      <h3>📞 Call the provider for any of these</h3>
+      <ul class="tick">
+        <li><b>Vomiting blood</b> or vomit that looks like coffee grounds — call emergency services.</li>
+        <li><b>Black, tarry or bloody stools.</b></li>
+        <li><b>New confusion, unusual sleepiness, day–night reversal, or a hand tremor/flap</b> — often reported by
+        family before the patient notices.</li>
+        <li><b>Rapid weight gain</b> — more than 2–3 lb in a day or 5 lb in a week — or a belly that suddenly grows.</li>
+        <li><b>Fever, or new abdominal pain and tenderness.</b></li>
+        <li><b>Shortness of breath</b>, or breathlessness lying flat.</li>
+        <li><b>Bruising or bleeding that will not stop.</b></li>
+      </ul>
+      <div class="mn">🧠 <b>Blood · Brain · Belly · Breathing.</b> Teach those four words to the family too.</div>
+    </div>
+
+    <div class="card emerald">
+      <h3>🏠 Daily home routine</h3>
+      <div class="stepnum">
+        <div class="snrow"><div class="k">⚖️</div><div class="v"><b>Weigh every morning</b> — same scale, same time, after the toilet, before breakfast. Write it down.</div></div>
+        <div class="snrow"><div class="k">🧂</div><div class="v"><b>Stick to the sodium limit</b> and read every label.</div></div>
+        <div class="snrow"><div class="k">💧</div><div class="v"><b>Keep to the fluid allowance</b> if one has been ordered, spread across the day.</div></div>
+        <div class="snrow"><div class="k">💊</div><div class="v"><b>Take the medicines exactly as prescribed</b> — including the lactulose, even when the stools are inconvenient.</div></div>
+        <div class="snrow"><div class="k">🚫</div><div class="v"><b>No alcohol</b>, and no over-the-counter medicines without checking first.</div></div>
+      </div>
+      <div class="mn">🧠 <b>The bathroom scale is the home monitor.</b> A written weight chart is the single most useful
+      thing a patient can bring to a clinic visit.</div>
+    </div>
+
+    <div class="card topaz">
+      <h3>👨‍👩‍👧 Teach the FAMILY too</h3>
+      <p>A patient with even mild encephalopathy may not recognise their own confusion. The family is your early
+      warning system.</p>
+      <ul class="tick">
+        <li>Show them <b>how to test for asterixis</b> — arms out, hands back.</li>
+        <li>Teach them the <b>orientation questions</b> to ask.</li>
+        <li>Explain that <b>sleeping all day and being awake all night</b> is a warning sign, not just a habit.</li>
+        <li>Show them what <b>melaena</b> looks like.</li>
+        <li>Make sure someone else knows the <b>medication list</b>.</li>
+      </ul>
+      <div class="mn">🧠 <b>“Not like himself” is assessment data.</b> Take it seriously every time.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🛡️ Preventing the next complication</h3>
+      <div class="tblwrap"><table>
+        <tr><th class="lo">COMPLICATION</th><th class="up">WHAT PREVENTS IT AT HOME</th></tr>
+        <tr><td>Ascites returning</td><td>Low sodium, fluid limit, diuretics as prescribed, daily weight</td></tr>
+        <tr><td>Variceal bleed</td><td>Beta blocker as prescribed, no straining, no alcohol, no NSAIDs</td></tr>
+        <tr><td>Encephalopathy</td><td>Lactulose to 2–3 soft stools a day, avoid constipation, treat infections early</td></tr>
+        <tr><td>Infection / SBP</td><td>Report fever or belly pain immediately; keep vaccinations up to date as advised</td></tr>
+        <tr><td>Bleeding injury</td><td>Soft brush, electric razor, no contact sports, careful with knives and tools</td></tr>
+        <tr><td>Skin breakdown</td><td>Moisturise, short nails, report open areas early</td></tr>
+      </table></div>
+      <div class="mn">🧠 <b>Every home instruction maps back to one complication.</b> If a patient asks “why?”, name it.</div>
+    </div>
+
+    <div class="card deep span2">
+      <h3>🧾 The three pages in one line each</h3>
+      <div class="flow">
+        <div class="fstep">NG-029 — the liver scars, and its four jobs fail</div>
+        <div class="farrow">▼</div>
+        <div class="fstep">NG-109 — the pressure backs up: ascites, varices, ammonia, bleeding</div>
+        <div class="farrow">▼</div>
+        <div class="fstep hot">NG-148 — what the nurse does about all of it</div>
+      </div>
+      <p style="margin-top:10px">Related pages:
+      <a href="../gi/NG-304_gi-bleed.html">NG-304 · GI bleed</a> ·
+      <a href="../renal/NG-122_lactulose-sodium-polystyrene-sulfonate.html">NG-122 · Lactulose</a> ·
+      <a href="../resp/NG-153_labs-wbc-coagulation-panel.html">NG-153 · Coagulation panel</a> ·
+      <a href="../renal/NG-088_potassium-sodium-chloride.html">NG-088 · Potassium &amp; sodium</a> ·
+      <a href="../renal/NG-059_fluid-balance-3.html">NG-059 · Fluid monitoring</a></p>
+      <div class="mn">🧠 <b>Patho → complications → care.</b> If you can tell that story out loud, you know cirrhosis.</div>
+    </div>
+
+  </div>
+</section>
+
+<div class="recall" id="recall2">
+  <div class="rc tealbg"><span class="big">🔬 Two positions</span>Paracentesis = <b>high Fowler's</b>, bladder empty FIRST. Post-biopsy = <b>RIGHT side</b>.</div>
+  <div class="rc topazbg"><span class="big">💊 Lactulose</span><b>2–3 soft stools/day.</b> Lose the ammonia · loose bowels · lose potassium. Never hold it without asking.</div>
+  <div class="rc citrine"><span class="big">🍽️ Diet</span><b>Low sodium</b> · fluid limit if ordered · oral care before meals · small frequent meals · <b>NO alcohol</b>.</div>
+  <div class="rc rubybg"><span class="big">🩸 Safety</span>Soft toothbrush · electric razor · <b>no NG tube · no straining</b> · watch stools, gums and mental status.</div>
+</div>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(47,107,255,.7)">PROCEDURES</span>→
+    <span style="background:rgba(157,92,255,.7)">DRUGS</span>→
+    <span style="background:rgba(18,184,134,.7)">DIET</span>→
+    <span style="background:rgba(192,34,85,.7)">SAFETY</span>→
+    <span style="background:rgba(255,138,61,.75);color:#2b1200">TEACH</span>
+  </div>
+  <div>NG-148 · Cirrhosis III of III · <a href="../gi/NG-029_cirrhosis-1.html">NG-029</a> ·
+  <a href="NG-109_cirrhosis-2.html">NG-109</a> · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>

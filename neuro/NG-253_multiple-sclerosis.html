@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Multiple Sclerosis · NG-253 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+
+
+/* ---- appended for the Neuro batch (batch 16) ---- */
+nav a.c5{background:rgba(0,194,199,.72);color:#00252b}
+nav a.c6{background:rgba(255,138,61,.75);color:#2b1200}
+nav a.c7{background:rgba(192,34,85,.72)}
+#map .sec-h h2{color:#d9c2ff} #map .step{background:var(--amethyst)}
+#wiring .sec-h h2{color:#9ff2ee} #wiring .step{background:var(--teal);color:#00252b}
+#assess .sec-h h2{color:#bcd0ff} #assess .step{background:var(--sapphire)}
+#diseases .sec-h h2{color:#a5f3d4} #diseases .step{background:var(--emerald);color:#03291c}
+#patho .sec-h h2{color:#d9c2ff} #patho .step{background:var(--amethyst)}
+#stages .sec-h h2{color:#bcd0ff} #stages .step{background:var(--sapphire)}
+#safety .sec-h h2{color:#ffb3c6} #safety .step{background:var(--garnet)}
+#talk  .sec-h h2{color:#ffd9b8} #talk .step{background:var(--citrine);color:#2b1200}
+#drugs .sec-h h2{color:#a5f3d4} #drugs .step{background:var(--emerald);color:#03291c}
+#onset .sec-h h2{color:#d9c2ff} #onset .step{background:var(--amethyst)}
+#delirium .sec-h h2{color:#ffb3c6} #delirium .step{background:var(--garnet)}
+#dementia .sec-h h2{color:#bcd0ff} #dementia .step{background:var(--sapphire)}
+#tell .sec-h h2{color:#a5f3d4} #tell .step{background:var(--emerald);color:#03291c}
+#signs .sec-h h2{color:#bcd0ff} #signs .step{background:var(--sapphire)}
+#risk .sec-h h2{color:#ffb3c6} #risk .step{background:var(--garnet)}
+#care .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+#triggers .sec-h h2{color:#ffb3c6} #triggers .step{background:var(--garnet)}
+#treat .sec-h h2{color:#a5f3d4} #treat .step{background:var(--emerald);color:#03291c}
+#teach .sec-h h2{color:#ffd9b8} #teach .step{background:var(--citrine);color:#2b1200}
+#compare .sec-h h2{color:#9ff2ee} #compare .step{background:var(--teal);color:#00252b}
+.setbar{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin:4px 0 16px;font-size:.82rem}
+.setbar .setlabel{font-weight:900;letter-spacing:.08em;color:#ffe49a;margin-right:2px}
+.setbar a{font-weight:800;padding:4px 11px;border-radius:999px;border:1px solid var(--line);
+  background:rgba(13,8,26,.5);color:#dbe8ff;text-decoration:none}
+.setbar a.cur{background:var(--topaz);color:#231a02;border-color:transparent;cursor:default}
+.legendrow{display:flex;gap:9px;flex-wrap:wrap;margin:11px 0 0;font-size:.84rem;font-weight:800}
+.legendrow span{padding:5px 11px;border-radius:9px;background:rgba(13,8,26,.55);
+  border:1px solid var(--line);display:flex;align-items:center;gap:7px}
+.sw{display:inline-block;width:15px;height:15px;border-radius:4px;border:1px solid rgba(255,255,255,.6)}
+.card a{color:#ffe49a;font-weight:800}
+.card.tealc a,.card.topaz a,.card.citrinec a{color:#0b3a52}
+.xref{margin-top:10px;padding:8px 12px;border-radius:11px;background:rgba(0,194,199,.20);
+  border:1px solid var(--line);font-size:.9rem;font-weight:700}
+.xref .pill{display:inline-block;font-size:.7rem;font-weight:900;letter-spacing:.08em;
+  background:var(--teal);color:#00252b;padding:2px 8px;border-radius:7px;margin-right:7px}
+.card.tealc .xref,.card.topaz .xref,.card.citrinec .xref{background:rgba(255,255,255,.45)}
+.mirror{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));margin:10px 0 0}
+.mrow{border-radius:12px;padding:10px 13px;background:rgba(13,8,26,.52);border:1px solid var(--line);font-size:.92rem}
+.mrow b{display:block;font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;opacity:.85;margin-bottom:3px}
+.mrow.hi{background:rgba(255,59,107,.30)} .mrow.lo{background:rgba(0,194,199,.28)}
+.card.tealc .mrow,.card.topaz .mrow,.card.citrinec .mrow{background:rgba(255,255,255,.42);color:#1a1030}
+.bigq{font-size:1.5rem;font-weight:900;line-height:1.2;margin:2px 0 6px}
+.tblwrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:2px 0}
+.ccc{flex-wrap:wrap}
+@media(max-width:700px){table{font-size:.85rem}th,td{padding:7px 6px}}
+.sec-h{flex-wrap:wrap}
+.sec-h h2,h1,.rc,.card h3{overflow-wrap:anywhere}
+.figcap{margin:9px 0 0;font-size:.85rem;line-height:1.45;color:#efe6ff;font-style:italic;opacity:.95}
+.card.tealc .figcap,.card.topaz .figcap,.card.citrinec .figcap{color:#241a05}
+.keyrow{display:flex;gap:8px;flex-wrap:wrap;margin:9px 0 0;font-size:.82rem;font-weight:800}
+.keyrow b{padding:4px 10px;border-radius:8px;background:rgba(13,8,26,.55);border:1px solid var(--line);font-weight:800}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#patho">🧬 Demyelination</a>
+  <a class="c2" href="#signs">👁️ Signs</a>
+  <a class="c7" href="#triggers">🔥 4 S triggers</a>
+  <a class="c3" href="#treat">💊 Treat</a>
+  <a class="c5" href="#compare">⚖️ MS vs GBS</a>
+  <a class="c4" href="#recall2">⚡ Recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Neuro · Autoimmune · Med-Surg</div>
+  <div class="setbar"><span class="setlabel">🧠 NEURO SET</span>
+  <a href="NG-255_neuro-overview.html">NG-255 Neuro Overview</a>
+  <a href="NG-069_alzheimers.html">NG-069 Alzheimer's</a>
+  <a href="NG-244_dementia-vs-delirium.html">NG-244 Dementia vs Delirium</a>
+  <a href="NG-258_parkinsons.html">NG-258 Parkinson's</a>
+  <a class="cur" href="NG-253_multiple-sclerosis.html">NG-253 MS</a>
+  <a href="NG-245_guillain-barre.html">NG-245 Guillain-Barré</a>
+  </div>
+  <h1>Multiple Sclerosis <span class="drop">⚡</span></h1>
+  <p class="sub">MS = Myelin Sheath destruction · Muscle Spasm &amp; Stiffness · Stay cool</p>
+  <div class="chips">
+    <span class="chip id">NG-253</span>
+    <span class="chip cat">NEURO · AUTOIMMUNE</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede">MS is an <b>autoimmune</b> disease in which the body attacks the <b>myelin sheaths of its
+  own CNS white matter</b> — brain, spinal cord and optic nerve. Where the myelin is stripped, a hardened
+  scar (a <b>sclerotic plaque</b>) forms and the nerve can no longer conduct properly. Because plaques land
+  in <b>scattered, unpredictable places</b>, no two patients look the same — which is exactly why the
+  classic pattern is <b>relapsing–remitting</b>. Two teaching points carry most of the marks:
+  <b>avoid overheating</b>, and <b>balance exercise with rest</b>. For the underlying neuron and myelin,
+  see <a href="NG-255_neuro-overview.html">NG-255 Neuro Overview</a>.</p>
+</header>
+
+<div class="recall">
+  <div class="rc citrine"><span class="big">🧬 MYELIN, CNS ONLY</span>Autoimmune attack on CNS white matter.
+    Plaques in brain, cord and optic nerve. <b>Not</b> peripheral nerves.</div>
+  <div class="rc tealbg"><span class="big">📉 RELAPSE → REMIT</span>About 85% start relapsing–remitting.
+    Attack, then partial recovery. Damage accumulates.</div>
+  <div class="rc rubybg"><span class="big">🔥 AVOID HEAT</span>Hot tubs, saunas, hot baths, sunbathing,
+    fever. Heat blocks conduction and symptoms flare. <b>Rest in air conditioning.</b></div>
+  <div class="rc topazbg"><span class="big">⚖️ EXERCISE + REST</span>Balance the two. Fatigue is the #1
+    reported symptom — but never do all the ADLs for them.</div>
+</div>
+
+<section id="patho">
+  <div class="sec-h"><span class="icon">🧬</span><h2>WHAT MS DOES</h2><span class="step">CAUSE</span></div>
+  <p class="sec-sub">An autoimmune attack on CNS myelin leaves scattered scars — and the scars decide the symptoms.</p>
+  <div class="grid">
+<div class="card deep span2"><svg viewBox="0 0 1240 720" role="img" aria-label="Two long axons drawn one above the other. The top axon is fully wrapped in purple myelin segments with yellow arcs showing the impulse jumping quickly from node to node and arriving in about one millisecond. The bottom axon has two segments stripped bare and replaced by grey hardened plaques, with red spiky immune cells attacking the myelin; the impulse is shown blocked at one plaque and slowed at the next."><defs><filter id="mydrop" x="-35%" y="-35%" width="180%" height="180%"><feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dx="0" dy="6" result="o"/><feFlood flood-color="#000" flood-opacity=".5"/><feComposite in2="o" operator="in" result="sh"/><feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/></feMerge></filter><filter id="mysoft" x="-45%" y="-45%" width="190%" height="190%"><feGaussianBlur stdDeviation="3.5"/></filter><filter id="myglow" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><marker id="myar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffe49a"/></marker><marker id="myrar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ff6b8f"/></marker><linearGradient id="myax" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe9b5"/><stop offset=".3" stop-color="#f5c66e"/><stop offset=".6" stop-color="#d69b36"/><stop offset="1" stop-color="#8c5f14"/></linearGradient><linearGradient id="mymye" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3e6ff"/><stop offset=".18" stop-color="#d7bcff"/><stop offset=".48" stop-color="#b38cf5"/><stop offset=".78" stop-color="#7d4fd1"/><stop offset="1" stop-color="#4b2a8a"/></linearGradient><linearGradient id="myscar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e6ebf0"/><stop offset=".4" stop-color="#b3bfcc"/><stop offset="1" stop-color="#6a7686"/></linearGradient></defs><text x="24" y="34" font-size="19" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">FIGURE 1 · MYELIN, AND WHAT MS DOES TO IT</text><text x="24" y="52" font-size="12.5" font-weight="700" fill="#dcd2f2" opacity=".95" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Hugely magnified · read TOP (healthy) → BOTTOM (MS) · this same picture explains Guillain-Barré, in peripheral nerves</text><rect x="24" y="66" width="1192" height="240" rx="14" fill="rgba(18,184,134,.10)" stroke="#12b886" stroke-width="1.6"/><text x="40" y="92" font-size="15.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">① HEALTHY MYELINATED AXON</text><text x="40" y="110" font-size="11.8" font-weight="700" fill="#dcd2f2" opacity=".95" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Signal jumps node to node — fast and reliable</text><path d="M 120 210 L 1120 210" stroke="#6d4710" stroke-width="20" stroke-opacity=".3" transform="translate(0,4)"/><path d="M 120 210 L 1120 210" stroke="url(#myax)" stroke-width="18" stroke-linecap="round"/><rect x="150" y="180" width="118" height="60" rx="26" fill="url(#mymye)" stroke="#3c2170" stroke-width="2.6" stroke-opacity=".85" filter="url(#mydrop)"/><path d="M 170 184 C 177 204 177 216 170 236" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 189 184 C 196 204 196 216 189 236" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 209 184 C 216 204 216 216 209 236" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 229 184 C 236 204 236 216 229 236" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 248 184 C 255 204 255 216 248 236" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><ellipse cx="209" cy="190" rx="38" ry="8" fill="#fff" fill-opacity=".26" filter="url(#mysoft)"/><rect x="288" y="180" width="118" height="60" rx="26" fill="url(#mymye)" stroke="#3c2170" stroke-width="2.6" stroke-opacity=".85" filter="url(#mydrop)"/><path d="M 308 184 C 315 204 315 216 308 236" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 327 184 C 334 204 334 216 327 236" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 347 184 C 354 204 354 216 347 236" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 367 184 C 374 204 374 216 367 236" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 386 184 C 393 204 393 216 386 236" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><ellipse cx="347" cy="190" rx="38" ry="8" fill="#fff" fill-opacity=".26" filter="url(#mysoft)"/><rect x="426" y="180" width="118" height="60" rx="26" fill="url(#mymye)" stroke="#3c2170" stroke-width="2.6" stroke-opacity=".85" filter="url(#mydrop)"/><path d="M 446 184 C 453 204 453 216 446 236" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 465 184 C 472 204 472 216 465 236" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 485 184 C 492 204 492 216 485 236" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 505 184 C 512 204 512 216 505 236" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 524 184 C 531 204 531 216 524 236" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><ellipse cx="485" cy="190" rx="38" ry="8" fill="#fff" fill-opacity=".26" filter="url(#mysoft)"/><rect x="564" y="180" width="118" height="60" rx="26" fill="url(#mymye)" stroke="#3c2170" stroke-width="2.6" stroke-opacity=".85" filter="url(#mydrop)"/><path d="M 584 184 C 591 204 591 216 584 236" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 603 184 C 610 204 610 216 603 236" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 623 184 C 630 204 630 216 623 236" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 643 184 C 650 204 650 216 643 236" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 662 184 C 669 204 669 216 662 236" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><ellipse cx="623" cy="190" rx="38" ry="8" fill="#fff" fill-opacity=".26" filter="url(#mysoft)"/><rect x="702" y="180" width="118" height="60" rx="26" fill="url(#mymye)" stroke="#3c2170" stroke-width="2.6" stroke-opacity=".85" filter="url(#mydrop)"/><path d="M 722 184 C 729 204 729 216 722 236" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 741 184 C 748 204 748 216 741 236" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 761 184 C 768 204 768 216 761 236" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 781 184 C 788 204 788 216 781 236" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 800 184 C 807 204 807 216 800 236" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><ellipse cx="761" cy="190" rx="38" ry="8" fill="#fff" fill-opacity=".26" filter="url(#mysoft)"/><rect x="840" y="180" width="118" height="60" rx="26" fill="url(#mymye)" stroke="#3c2170" stroke-width="2.6" stroke-opacity=".85" filter="url(#mydrop)"/><path d="M 860 184 C 867 204 867 216 860 236" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 879 184 C 886 204 886 216 879 236" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 899 184 C 906 204 906 216 899 236" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 919 184 C 926 204 926 216 919 236" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 938 184 C 945 204 945 216 938 236" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><ellipse cx="899" cy="190" rx="38" ry="8" fill="#fff" fill-opacity=".26" filter="url(#mysoft)"/><rect x="978" y="180" width="118" height="60" rx="26" fill="url(#mymye)" stroke="#3c2170" stroke-width="2.6" stroke-opacity=".85" filter="url(#mydrop)"/><path d="M 998 184 C 1005 204 1005 216 998 236" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 1017 184 C 1024 204 1024 216 1017 236" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 1037 184 C 1044 204 1044 216 1037 236" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 1057 184 C 1064 204 1064 216 1057 236" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 1076 184 C 1083 204 1083 216 1076 236" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><ellipse cx="1037" cy="190" rx="38" ry="8" fill="#fff" fill-opacity=".26" filter="url(#mysoft)"/><path d="M 258 168 Q 327.0 122 396 168" fill="none" stroke="#ffc233" stroke-width="3.6" stroke-linecap="round" marker-end="url(#myar)" filter="url(#myglow)"/><path d="M 396 168 Q 465.0 122 534 168" fill="none" stroke="#ffc233" stroke-width="3.6" stroke-linecap="round" marker-end="url(#myar)" filter="url(#myglow)"/><path d="M 534 168 Q 603.0 122 672 168" fill="none" stroke="#ffc233" stroke-width="3.6" stroke-linecap="round" marker-end="url(#myar)" filter="url(#myglow)"/><path d="M 672 168 Q 741.0 122 810 168" fill="none" stroke="#ffc233" stroke-width="3.6" stroke-linecap="round" marker-end="url(#myar)" filter="url(#myglow)"/><path d="M 810 168 Q 879.0 122 948 168" fill="none" stroke="#ffc233" stroke-width="3.6" stroke-linecap="round" marker-end="url(#myar)" filter="url(#myglow)"/><path d="M 948 168 Q 1017.0 122 1086 168" fill="none" stroke="#ffc233" stroke-width="3.6" stroke-linecap="round" marker-end="url(#myar)" filter="url(#myglow)"/><rect x="989" y="256" width="131" height="22" rx="6" fill="#0d081a" fill-opacity=".78" stroke="rgba(255,255,255,.30)"/><text x="1120" y="268" font-size="13" font-weight="800" fill="#7dffd0" text-anchor="end" font-family="Segoe UI,Roboto,system-ui,sans-serif">arrives in ~1 ms</text><rect x="135" y="256" width="146" height="22" rx="6" fill="#0d081a" fill-opacity=".78" stroke="rgba(255,255,255,.30)"/><text x="140" y="268" font-size="13" font-weight="800" fill="#f0eaff" text-anchor="start" font-family="Segoe UI,Roboto,system-ui,sans-serif">signal starts here</text><rect x="24" y="336" width="1192" height="300" rx="14" fill="rgba(255,59,107,.12)" stroke="#ff3b6b" stroke-width="1.6"/><text x="40" y="362" font-size="15.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">② DEMYELINATED AXON IN MS</text><text x="40" y="380" font-size="11.8" font-weight="700" fill="#dcd2f2" opacity=".95" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Immune cells strip the myelin and leave a hardened plaque (“sclerosis”)</text><path d="M 120 492 L 1120 492" stroke="#6d4710" stroke-width="20" stroke-opacity=".3" transform="translate(0,4)"/><path d="M 120 492 L 1120 492" stroke="url(#myax)" stroke-width="18" stroke-linecap="round"/><rect x="150" y="462" width="118" height="60" rx="26" fill="url(#mymye)" stroke="#3c2170" stroke-width="2.6" stroke-opacity=".85" filter="url(#mydrop)"/><path d="M 170 466 C 177 486 177 498 170 518" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 189 466 C 196 486 196 498 189 518" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 209 466 C 216 486 216 498 209 518" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 229 466 C 236 486 236 498 229 518" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 248 466 C 255 486 255 498 248 518" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><ellipse cx="209" cy="472" rx="38" ry="8" fill="#fff" fill-opacity=".26" filter="url(#mysoft)"/><rect x="288" y="462" width="118" height="60" rx="26" fill="url(#mymye)" stroke="#3c2170" stroke-width="2.6" stroke-opacity=".85" filter="url(#mydrop)"/><path d="M 308 466 C 315 486 315 498 308 518" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 327 466 C 334 486 334 498 327 518" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 347 466 C 354 486 354 498 347 518" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 367 466 C 374 486 374 498 367 518" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 386 466 C 393 486 393 498 386 518" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><ellipse cx="347" cy="472" rx="38" ry="8" fill="#fff" fill-opacity=".26" filter="url(#mysoft)"/><path d="M 426 466 C 456 452 516 452 544 466 C 552 486 552 498 544 518 C 516 532 456 532 426 518 C 418 498 418 486 426 466 Z" fill="url(#myscar)" fill-opacity=".55" stroke="#7d8b9c" stroke-width="2.4" stroke-dasharray="7 5"/><path d="M 442 472 q 8 20 0 40" fill="none" stroke="#8fa0b2" stroke-opacity=".7" stroke-width="2.4"/><path d="M 464 472 q 8 20 0 40" fill="none" stroke="#8fa0b2" stroke-opacity=".7" stroke-width="2.4"/><path d="M 486 472 q 8 20 0 40" fill="none" stroke="#8fa0b2" stroke-opacity=".7" stroke-width="2.4"/><path d="M 508 472 q 8 20 0 40" fill="none" stroke="#8fa0b2" stroke-opacity=".7" stroke-width="2.4"/><path d="M 530 472 q 8 20 0 40" fill="none" stroke="#8fa0b2" stroke-opacity=".7" stroke-width="2.4"/><rect x="564" y="474" width="118" height="36" rx="14" fill="url(#mymye)" stroke="#3c2170" stroke-width="2.6" stroke-opacity=".85" filter="url(#mydrop)"/><path d="M 584 478 C 591 486 591 498 584 506" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 603 478 C 610 486 610 498 603 506" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 623 478 C 630 486 630 498 623 506" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 643 478 C 650 486 650 498 643 506" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 662 478 C 669 486 669 498 662 506" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><ellipse cx="623" cy="484" rx="38" ry="8" fill="#fff" fill-opacity=".26" filter="url(#mysoft)"/><path d="M 702 466 C 732 452 792 452 820 466 C 828 486 828 498 820 518 C 792 532 732 532 702 518 C 694 498 694 486 702 466 Z" fill="url(#myscar)" fill-opacity=".55" stroke="#7d8b9c" stroke-width="2.4" stroke-dasharray="7 5"/><path d="M 718 472 q 8 20 0 40" fill="none" stroke="#8fa0b2" stroke-opacity=".7" stroke-width="2.4"/><path d="M 740 472 q 8 20 0 40" fill="none" stroke="#8fa0b2" stroke-opacity=".7" stroke-width="2.4"/><path d="M 762 472 q 8 20 0 40" fill="none" stroke="#8fa0b2" stroke-opacity=".7" stroke-width="2.4"/><path d="M 784 472 q 8 20 0 40" fill="none" stroke="#8fa0b2" stroke-opacity=".7" stroke-width="2.4"/><path d="M 806 472 q 8 20 0 40" fill="none" stroke="#8fa0b2" stroke-opacity=".7" stroke-width="2.4"/><rect x="840" y="462" width="118" height="60" rx="26" fill="url(#mymye)" stroke="#3c2170" stroke-width="2.6" stroke-opacity=".85" filter="url(#mydrop)"/><path d="M 860 466 C 867 486 867 498 860 518" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 879 466 C 886 486 886 498 879 518" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 899 466 C 906 486 906 498 899 518" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 919 466 C 926 486 926 498 919 518" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 938 466 C 945 486 945 498 938 518" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><ellipse cx="899" cy="472" rx="38" ry="8" fill="#fff" fill-opacity=".26" filter="url(#mysoft)"/><rect x="978" y="462" width="118" height="60" rx="26" fill="url(#mymye)" stroke="#3c2170" stroke-width="2.6" stroke-opacity=".85" filter="url(#mydrop)"/><path d="M 998 466 C 1005 486 1005 498 998 518" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 1017 466 C 1024 486 1024 498 1017 518" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 1037 466 C 1044 486 1044 498 1037 518" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 1057 466 C 1064 486 1064 498 1057 518" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><path d="M 1076 466 C 1083 486 1083 498 1076 518" fill="none" stroke="#2f1a5c" stroke-opacity=".38" stroke-width="2"/><ellipse cx="1037" cy="472" rx="38" ry="8" fill="#fff" fill-opacity=".26" filter="url(#mysoft)"/><circle cx="452" cy="424" r="21" fill="#ff3b6b" fill-opacity=".85" stroke="#7d0a2c" stroke-width="2.4"/><path d="M 472 424 l 8 0" stroke="#ff8aa4" stroke-width="3" stroke-linecap="round"/><path d="M 464 440 l 5 6" stroke="#ff8aa4" stroke-width="3" stroke-linecap="round"/><path d="M 447 443 l -2 8" stroke="#ff8aa4" stroke-width="3" stroke-linecap="round"/><path d="M 434 433 l -7 3" stroke="#ff8aa4" stroke-width="3" stroke-linecap="round"/><path d="M 434 415 l -7 -4" stroke="#ff8aa4" stroke-width="3" stroke-linecap="round"/><path d="M 448 404 l -2 -8" stroke="#ff8aa4" stroke-width="3" stroke-linecap="round"/><path d="M 465 409 l 5 -6" stroke="#ff8aa4" stroke-width="3" stroke-linecap="round"/><circle cx="452" cy="424" r="9" fill="#7d0a2c"/><circle cx="500" cy="566" r="21" fill="#ff3b6b" fill-opacity=".85" stroke="#7d0a2c" stroke-width="2.4"/><path d="M 520 566 l 8 0" stroke="#ff8aa4" stroke-width="3" stroke-linecap="round"/><path d="M 512 582 l 5 6" stroke="#ff8aa4" stroke-width="3" stroke-linecap="round"/><path d="M 495 585 l -2 8" stroke="#ff8aa4" stroke-width="3" stroke-linecap="round"/><path d="M 482 575 l -7 3" stroke="#ff8aa4" stroke-width="3" stroke-linecap="round"/><path d="M 482 557 l -7 -4" stroke="#ff8aa4" stroke-width="3" stroke-linecap="round"/><path d="M 496 546 l -2 -8" stroke="#ff8aa4" stroke-width="3" stroke-linecap="round"/><path d="M 513 551 l 5 -6" stroke="#ff8aa4" stroke-width="3" stroke-linecap="round"/><circle cx="500" cy="566" r="9" fill="#7d0a2c"/><circle cx="740" cy="420" r="21" fill="#ff3b6b" fill-opacity=".85" stroke="#7d0a2c" stroke-width="2.4"/><path d="M 760 420 l 8 0" stroke="#ff8aa4" stroke-width="3" stroke-linecap="round"/><path d="M 752 436 l 5 6" stroke="#ff8aa4" stroke-width="3" stroke-linecap="round"/><path d="M 735 439 l -2 8" stroke="#ff8aa4" stroke-width="3" stroke-linecap="round"/><path d="M 722 429 l -7 3" stroke="#ff8aa4" stroke-width="3" stroke-linecap="round"/><path d="M 722 411 l -7 -4" stroke="#ff8aa4" stroke-width="3" stroke-linecap="round"/><path d="M 736 400 l -2 -8" stroke="#ff8aa4" stroke-width="3" stroke-linecap="round"/><path d="M 753 405 l 5 -6" stroke="#ff8aa4" stroke-width="3" stroke-linecap="round"/><circle cx="740" cy="420" r="9" fill="#7d0a2c"/><circle cx="782" cy="566" r="21" fill="#ff3b6b" fill-opacity=".85" stroke="#7d0a2c" stroke-width="2.4"/><path d="M 802 566 l 8 0" stroke="#ff8aa4" stroke-width="3" stroke-linecap="round"/><path d="M 794 582 l 5 6" stroke="#ff8aa4" stroke-width="3" stroke-linecap="round"/><path d="M 777 585 l -2 8" stroke="#ff8aa4" stroke-width="3" stroke-linecap="round"/><path d="M 764 575 l -7 3" stroke="#ff8aa4" stroke-width="3" stroke-linecap="round"/><path d="M 764 557 l -7 -4" stroke="#ff8aa4" stroke-width="3" stroke-linecap="round"/><path d="M 778 546 l -2 -8" stroke="#ff8aa4" stroke-width="3" stroke-linecap="round"/><path d="M 795 551 l 5 -6" stroke="#ff8aa4" stroke-width="3" stroke-linecap="round"/><circle cx="782" cy="566" r="9" fill="#7d0a2c"/><circle cx="592" cy="414" r="21" fill="#ff3b6b" fill-opacity=".85" stroke="#7d0a2c" stroke-width="2.4"/><path d="M 612 414 l 8 0" stroke="#ff8aa4" stroke-width="3" stroke-linecap="round"/><path d="M 604 430 l 5 6" stroke="#ff8aa4" stroke-width="3" stroke-linecap="round"/><path d="M 587 433 l -2 8" stroke="#ff8aa4" stroke-width="3" stroke-linecap="round"/><path d="M 574 423 l -7 3" stroke="#ff8aa4" stroke-width="3" stroke-linecap="round"/><path d="M 574 405 l -7 -4" stroke="#ff8aa4" stroke-width="3" stroke-linecap="round"/><path d="M 588 394 l -2 -8" stroke="#ff8aa4" stroke-width="3" stroke-linecap="round"/><path d="M 605 399 l 5 -6" stroke="#ff8aa4" stroke-width="3" stroke-linecap="round"/><circle cx="592" cy="414" r="9" fill="#7d0a2c"/><path d="M 452 470 L 452 447" stroke="#ff6b8f" stroke-width="3" marker-end="url(#myrar)"/><path d="M 740 470 L 740 445" stroke="#ff6b8f" stroke-width="3" marker-end="url(#myrar)"/><path d="M 500 520 L 500 543" stroke="#ff6b8f" stroke-width="3" marker-end="url(#myrar)"/><path d="M 782 520 L 782 543" stroke="#ff6b8f" stroke-width="3" marker-end="url(#myrar)"/><path d="M 258 448 Q 328 404 398 448" fill="none" stroke="#ffc233" stroke-width="3.6" stroke-linecap="round" marker-end="url(#myar)"/><path d="M 400 452 L 560 452" fill="none" stroke="#ff3b6b" stroke-width="5" stroke-dasharray="10 8"/><path d="M 476 424 L 508 480 M 508 424 L 476 480" stroke="#ff3b6b" stroke-width="7" stroke-linecap="round"/><rect x="460" y="392" width="63" height="22" rx="6" fill="#0d081a" fill-opacity=".78" stroke="rgba(255,255,255,.30)"/><text x="492" y="404" font-size="13" font-weight="800" fill="#ffb3c6" text-anchor="middle" font-family="Segoe UI,Roboto,system-ui,sans-serif">BLOCKED</text><path d="M 664 448 Q 720 420 776 452" fill="none" stroke="#ffc233" stroke-width="3" stroke-dasharray="8 6" stroke-linecap="round" marker-end="url(#myar)"/><rect x="937" y="594" width="183" height="22" rx="6" fill="#0d081a" fill-opacity=".78" stroke="rgba(255,255,255,.30)"/><text x="1120" y="606" font-size="13" font-weight="800" fill="#ffb3c6" text-anchor="end" font-family="Segoe UI,Roboto,system-ui,sans-serif">arrives LATE — or never</text><path d="M 444 546 L 240 592 L 60 606" fill="none" stroke="#ffe49a" stroke-width="1.5" stroke-opacity=".9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="444" cy="546" r="4" fill="#ffe49a" stroke="#0d081a" stroke-width="1.2"/><rect x="52" y="592" width="282" height="63" rx="8" fill="#0d081a" fill-opacity=".82" stroke="rgba(255,255,255,.34)"/><rect x="62" y="595" width="12" height="12" rx="3" fill="#b3bfcc" stroke="rgba(255,255,255,.7)"/><text x="80" y="606" font-size="13.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">SCLEROTIC PLAQUE</text><text x="80" y="623" font-size="11.7" font-weight="700" fill="#efe9ff" opacity=".97" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Hardened scar where the myelin was.</text><text x="80" y="639" font-size="11.7" font-weight="700" fill="#efe9ff" opacity=".97" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">“Multiple sclerosis” = many scars.</text><path d="M 592 414 L 640 640 L 700 660" fill="none" stroke="#ffe49a" stroke-width="1.5" stroke-opacity=".9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="592" cy="414" r="4" fill="#ffe49a" stroke="#0d081a" stroke-width="1.2"/><rect x="692" y="646" width="280" height="63" rx="8" fill="#0d081a" fill-opacity=".82" stroke="rgba(255,255,255,.34)"/><rect x="702" y="649" width="12" height="12" rx="3" fill="#ff3b6b" stroke="rgba(255,255,255,.7)"/><text x="720" y="660" font-size="13.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">IMMUNE CELLS ATTACK THE MYELIN</text><text x="720" y="677" font-size="11.7" font-weight="700" fill="#efe9ff" opacity=".97" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">This is an AUTOIMMUNE disease —</text><text x="720" y="693" font-size="11.7" font-weight="700" fill="#efe9ff" opacity=".97" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">the body attacks its own myelin</text></svg><p class="figcap">Draw this once and you have understood MS, Guillain-Barré and half of what myelin does. The difference between the two diseases is only WHERE the same lesion happens.</p></div>
+  <div class="card tealc">
+    <h3>🧪 Definition in one sentence</h3>
+    <p><b>Multiple sclerosis</b> is a chronic autoimmune disease in which the immune system destroys the
+    myelin sheaths of the <b>central</b> nervous system, leaving scattered sclerotic plaques that slow or
+    block nerve conduction.</p>
+    <p>“Multiple” = many lesions, <b>separated in space and in time</b>. “Sclerosis” = the hardened scar.</p>
+    <div class="mn">🧠 <b>MS</b> = <b>M</b>yelin <b>S</b>heath destruction · <b>M</b>uscle <b>S</b>pasm and
+    <b>S</b>tiffness · <b>M</b>ellow out and <b>S</b>tay cool.</div>
+  </div>
+<div class="card deep span2"><svg viewBox="-10 -10 1262 780" role="img" aria-label="A midsagittal view of the brain with the corpus callosum and lateral ventricle drawn, the brainstem and cerebellum below it and the spinal cord continuing down, plus an eye connected by the optic nerve. Pale grey oval plaques with dashed outlines are scattered around the ventricles, along the optic nerve, in the cerebellum and down the spinal cord, each labelled with the symptoms it produces."><defs><filter id="pmdrop" x="-35%" y="-35%" width="180%" height="180%"><feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dx="0" dy="6" result="o"/><feFlood flood-color="#000" flood-opacity=".5"/><feComposite in2="o" operator="in" result="sh"/><feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/></feMerge></filter><filter id="pmsoft" x="-45%" y="-45%" width="190%" height="190%"><feGaussianBlur stdDeviation="4"/></filter><filter id="pmglow" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><marker id="pmar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffe49a"/></marker><radialGradient id="pmbr" cx=".38" cy=".28" r=".7"><stop offset="0" stop-color="#fff2f3"/><stop offset=".22" stop-color="#f2d2d7"/><stop offset=".52" stop-color="#d9adb4"/><stop offset=".8" stop-color="#a97b85"/><stop offset="1" stop-color="#6f4650"/></radialGradient><linearGradient id="pmcord" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fffaf2"/><stop offset=".35" stop-color="#eddcc8"/><stop offset=".7" stop-color="#c4ab92"/><stop offset="1" stop-color="#7b6a58"/></linearGradient><radialGradient id="pmplq" cx=".5" cy=".5" r=".7"><stop offset="0" stop-color="#ffffff"/><stop offset=".4" stop-color="#dbe6f2"/><stop offset=".75" stop-color="#93a8c0"/><stop offset="1" stop-color="#54657c"/></radialGradient><linearGradient id="pmon" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff2cf"/><stop offset=".5" stop-color="#f0c56e"/><stop offset="1" stop-color="#9a6f14"/></linearGradient></defs><text x="24" y="34" font-size="19" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">FIGURE 2 · WHERE THE PLAQUES SIT — and what each site does to the patient</text><text x="24" y="52" font-size="12.5" font-weight="700" fill="#dcd2f2" opacity=".95" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Midsagittal (side-on, cut down the middle) view · plaques scattered in CNS WHITE MATTER only</text><path d="M 204 348 C 190 240 260 144 380 124 C 510 102 636 170 664 278 C 688 370 636 448 548 470 C 500 482 460 480 426 476 C 370 490 300 470 254 434 C 218 404 204 376 204 348 Z" fill="url(#pmbr)" stroke="#6f4650" stroke-width="3" filter="url(#pmdrop)"/><path d="M 268 162 C 340 140 520 144 606 162" fill="none" stroke="#5b3038" stroke-opacity=".28" stroke-width="3"/><path d="M 256 196 C 340 174 520 178 616 196" fill="none" stroke="#5b3038" stroke-opacity=".28" stroke-width="3"/><path d="M 244 230 C 340 208 520 212 626 230" fill="none" stroke="#5b3038" stroke-opacity=".28" stroke-width="3"/><path d="M 232 264 C 340 242 520 246 636 264" fill="none" stroke="#5b3038" stroke-opacity=".28" stroke-width="3"/><path d="M 220 298 C 340 276 520 280 646 298" fill="none" stroke="#5b3038" stroke-opacity=".28" stroke-width="3"/><path d="M 232 332 C 340 310 520 314 636 332" fill="none" stroke="#5b3038" stroke-opacity=".28" stroke-width="3"/><path d="M 244 366 C 340 344 520 348 626 366" fill="none" stroke="#5b3038" stroke-opacity=".28" stroke-width="3"/><path d="M 256 400 C 340 378 520 382 616 400" fill="none" stroke="#5b3038" stroke-opacity=".28" stroke-width="3"/><path d="M 268 434 C 340 412 520 416 606 434" fill="none" stroke="#5b3038" stroke-opacity=".28" stroke-width="3"/><path d="M 300 346 C 330 292 460 274 548 314 C 500 296 350 314 324 360 Z" fill="#f7e6d6" stroke="#9a7a62" stroke-width="2.4"/><path d="M 332 370 C 370 334 470 324 536 352 C 480 370 390 392 332 370 Z" fill="#6fc9e8" fill-opacity=".65" stroke="#1c5e7a" stroke-width="2.2"/><rect x="371" y="350" width="119" height="20" rx="6" fill="#0d081a" fill-opacity=".78" stroke="rgba(255,255,255,.30)"/><text x="430" y="360" font-size="11" font-weight="800" fill="#dff4ff" text-anchor="middle" font-family="Segoe UI,Roboto,system-ui,sans-serif">lateral ventricle</text><path d="M 426 476 C 434 530 436 580 434 630 L 492 630 C 494 580 492 526 486 472 Z" fill="#e8c188" stroke="#6d4710" stroke-width="2.6"/><path d="M 496 438 C 560 426 626 456 632 508 C 636 552 580 578 520 566 C 486 558 474 526 480 490 Z" fill="#7fd4d8" stroke="#0a4c55" stroke-width="2.6"/><path d="M 484 470 C 540 456 590 460 630 482" fill="none" stroke="#0b4d55" stroke-opacity=".5" stroke-width="2.4"/><path d="M 484 496 C 540 482 590 486 630 508" fill="none" stroke="#0b4d55" stroke-opacity=".5" stroke-width="2.4"/><path d="M 484 522 C 540 508 590 512 630 534" fill="none" stroke="#0b4d55" stroke-opacity=".5" stroke-width="2.4"/><path d="M 484 548 C 540 534 590 538 630 560" fill="none" stroke="#0b4d55" stroke-opacity=".5" stroke-width="2.4"/><rect x="551" y="536" width="74" height="20" rx="6" fill="#0d081a" fill-opacity=".78" stroke="rgba(255,255,255,.30)"/><text x="588" y="546" font-size="11" font-weight="800" fill="#d6fdfd" text-anchor="middle" font-family="Segoe UI,Roboto,system-ui,sans-serif">cerebellum</text><path d="M 434 630 L 434 730 C 434 750 492 750 492 730 L 492 630 Z" fill="url(#pmcord)" stroke="#7b6a58" stroke-width="2.6"/><path d="M 434 648 L 492 648" stroke="#a08a70" stroke-opacity=".5" stroke-width="2"/><path d="M 434 672 L 492 672" stroke="#a08a70" stroke-opacity=".5" stroke-width="2"/><path d="M 434 696 L 492 696" stroke="#a08a70" stroke-opacity=".5" stroke-width="2"/><path d="M 434 720 L 492 720" stroke="#a08a70" stroke-opacity=".5" stroke-width="2"/><path d="M 250 394 C 190 382 140 370 106 360" fill="none" stroke="url(#pmon)" stroke-width="18" stroke-linecap="round"/><circle cx="68" cy="354" r="44" fill="#f6f0ea" stroke="#8a7a6a" stroke-width="2.6"/><circle cx="54" cy="352" r="21" fill="#4aa8d8" stroke="#123a55" stroke-width="2.4"/><circle cx="54" cy="352" r="10" fill="#05070d"/><circle cx="360" cy="324" r="20" fill="url(#pmplq)" stroke="#54657c" stroke-width="2.2" stroke-dasharray="5 4" filter="url(#pmglow)"/><circle cx="502" cy="308" r="17" fill="url(#pmplq)" stroke="#54657c" stroke-width="2.2" stroke-dasharray="5 4" filter="url(#pmglow)"/><circle cx="400" cy="384" r="15" fill="url(#pmplq)" stroke="#54657c" stroke-width="2.2" stroke-dasharray="5 4" filter="url(#pmglow)"/><circle cx="536" cy="370" r="14" fill="url(#pmplq)" stroke="#54657c" stroke-width="2.2" stroke-dasharray="5 4" filter="url(#pmglow)"/><circle cx="310" cy="270" r="16" fill="url(#pmplq)" stroke="#54657c" stroke-width="2.2" stroke-dasharray="5 4" filter="url(#pmglow)"/><circle cx="570" cy="260" r="15" fill="url(#pmplq)" stroke="#54657c" stroke-width="2.2" stroke-dasharray="5 4" filter="url(#pmglow)"/><circle cx="460" cy="520" r="15" fill="url(#pmplq)" stroke="#54657c" stroke-width="2.2" stroke-dasharray="5 4" filter="url(#pmglow)"/><circle cx="462" cy="666" r="16" fill="url(#pmplq)" stroke="#54657c" stroke-width="2.2" stroke-dasharray="5 4" filter="url(#pmglow)"/><circle cx="462" cy="716" r="14" fill="url(#pmplq)" stroke="#54657c" stroke-width="2.2" stroke-dasharray="5 4" filter="url(#pmglow)"/><circle cx="190" cy="378" r="15" fill="url(#pmplq)" stroke="#54657c" stroke-width="2.2" stroke-dasharray="5 4" filter="url(#pmglow)"/><circle cx="550" cy="498" r="13" fill="url(#pmplq)" stroke="#54657c" stroke-width="2.2" stroke-dasharray="5 4" filter="url(#pmglow)"/><path d="M 360 324 L 760 160 L 900 130" fill="none" stroke="#ffe49a" stroke-width="1.5" stroke-opacity=".9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="360" cy="324" r="4" fill="#ffe49a" stroke="#0d081a" stroke-width="1.2"/><rect x="892" y="116" width="350" height="79" rx="8" fill="#0d081a" fill-opacity=".82" stroke="rgba(255,255,255,.34)"/><rect x="902" y="119" width="12" height="12" rx="3" fill="#dbe6f2" stroke="rgba(255,255,255,.7)"/><text x="920" y="130" font-size="13.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">PERIVENTRICULAR PLAQUES</text><text x="920" y="147" font-size="11.7" font-weight="700" fill="#efe9ff" opacity=".97" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">The classic MRI finding: bright oval</text><text x="920" y="163" font-size="11.7" font-weight="700" fill="#efe9ff" opacity=".97" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">lesions hugging the ventricles.</text><text x="920" y="179" font-size="11.7" font-weight="700" fill="#efe9ff" opacity=".97" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">HESI: “3–4 mm sclerotic brain plaques on MRI”</text><path d="M 190 378 L 700 300 L 900 300" fill="none" stroke="#ffe49a" stroke-width="1.5" stroke-opacity=".9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="190" cy="378" r="4" fill="#ffe49a" stroke="#0d081a" stroke-width="1.2"/><rect x="892" y="286" width="309" height="63" rx="8" fill="#0d081a" fill-opacity=".82" stroke="rgba(255,255,255,.34)"/><rect x="902" y="289" width="12" height="12" rx="3" fill="#f0c56e" stroke="rgba(255,255,255,.7)"/><text x="920" y="300" font-size="13.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">OPTIC NERVE PLAQUE</text><text x="920" y="317" font-size="11.7" font-weight="700" fill="#efe9ff" opacity=".97" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">→ OPTIC NEURITIS. Often the very first</text><text x="920" y="333" font-size="11.7" font-weight="700" fill="#efe9ff" opacity=".97" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">attack: painful vision loss in ONE eye.</text><path d="M 462 716 L 720 470 L 900 470" fill="none" stroke="#ffe49a" stroke-width="1.5" stroke-opacity=".9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="462" cy="716" r="4" fill="#ffe49a" stroke="#0d081a" stroke-width="1.2"/><rect x="892" y="456" width="343" height="63" rx="8" fill="#0d081a" fill-opacity=".82" stroke="rgba(255,255,255,.34)"/><rect x="902" y="459" width="12" height="12" rx="3" fill="#dbe6f2" stroke="rgba(255,255,255,.7)"/><text x="920" y="470" font-size="13.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">SPINAL CORD PLAQUES</text><text x="920" y="487" font-size="11.7" font-weight="700" fill="#efe9ff" opacity=".97" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">→ weakness, spasticity, numbness,</text><text x="920" y="503" font-size="11.7" font-weight="700" fill="#efe9ff" opacity=".97" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">bladder and bowel problems, Lhermitte's sign</text><path d="M 550 498 L 740 620 L 900 640" fill="none" stroke="#ffe49a" stroke-width="1.5" stroke-opacity=".9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="550" cy="498" r="4" fill="#ffe49a" stroke="#0d081a" stroke-width="1.2"/><rect x="892" y="626" width="289" height="63" rx="8" fill="#0d081a" fill-opacity=".82" stroke="rgba(255,255,255,.34)"/><rect x="902" y="629" width="12" height="12" rx="3" fill="#d6fdfd" stroke="rgba(255,255,255,.7)"/><text x="920" y="640" font-size="13.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">CEREBELLAR / BRAINSTEM PLAQUES</text><text x="920" y="657" font-size="11.7" font-weight="700" fill="#efe9ff" opacity=".97" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">→ intention tremor, ataxia, vertigo,</text><text x="920" y="673" font-size="11.7" font-weight="700" fill="#efe9ff" opacity=".97" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">slurred scanning speech, DIPLOPIA</text><rect x="60" y="640" width="330" height="50" rx="9" fill="#0d081a" fill-opacity=".80" stroke="rgba(255,255,255,.34)"/><text x="71" y="657" font-size="11.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">KEY</text><rect x="71" y="663.5" width="13" height="13" rx="3.5" fill="url(#pmplq)" stroke="rgba(255,255,255,.6)"/><text x="92" y="674" font-size="12" font-weight="700" fill="#f0eaff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">sclerotic plaque (demyelinated scar)</text></svg><p class="figcap">Because plaques land anywhere in CNS white matter, the symptom list looks random. It isn't — each symptom maps to a place. Find the place and the symptom makes sense.</p></div>
+  <div class="card citrinec">
+    <h3>⚠️ Who gets it, and what sets it off</h3>
+    <ul class="tick">
+      <li><b>Female</b> more common — roughly 2–3 times more often than males.</li>
+      <li>Usually diagnosed between about <b>20 and 40</b> years old — a young adult disease.</li>
+      <li>More common further from the equator; associated with <b>vitamin D deficiency</b>.</li>
+      <li>Preceding <b>viral infection</b> is a recognised association.</li>
+      <li>Genetic susceptibility — a family history raises the risk but does not determine it.</li>
+      <li>Smoking increases both risk and rate of progression.</li>
+    </ul>
+    <div class="mn">🧠 <b>Young woman, temperate climate, low vitamin D, odd neuro symptoms that come and
+    go.</b> That is the classic stem.</div>
+  </div>
+  <div class="card deep">
+    <h3>🧪 Diagnostics — what confirms it</h3>
+    <ul class="tick">
+      <li><b>MRI (with contrast) of brain and spinal cord</b> — the key test. Shows
+        <span class="mono">3–4 mm</span> sclerotic plaques, classically hugging the ventricles. Contrast
+        enhancement suggests an <b>active</b> lesion.</li>
+      <li><b>Lumbar puncture</b> — CSF shows <b>elevated gamma globulin / oligoclonal bands</b> and raised
+        IgG. Written in some question banks as “high levels of antibodies in CSF”.</li>
+      <li><b>Evoked potentials</b> — measure how long a signal takes to travel; slowed conduction supports
+        demyelination, especially visual evoked potentials in optic neuritis.</li>
+      <li>There is <b>no single blood test</b>. Diagnosis needs lesions separated in <b>space and time</b>.</li>
+    </ul>
+    <div class="mn">🧠 <b>MRI shows the plaques · LP shows the antibodies · evoked potentials show the
+    delay.</b></div>
+  </div>
+<div class="card deep span2"><svg viewBox="0 0 1240 850" role="img" aria-label="Three stacked graphs of disability against time. The first, relapsing-remitting MS, shows a line that drops sharply at each relapse then climbs back most of the way. The second, secondary progressive MS, starts the same but after a marked point the line simply slopes downward. The third, primary progressive MS, is a single smooth downward slope from the beginning."><defs><filter id="csdrop" x="-35%" y="-35%" width="180%" height="180%"><feGaussianBlur in="SourceAlpha" stdDeviation="4"/><feOffset dx="0" dy="5" result="o"/><feFlood flood-color="#000" flood-opacity=".45"/><feComposite in2="o" operator="in" result="sh"/><feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/></feMerge></filter><filter id="cssoft" x="-45%" y="-45%" width="190%" height="190%"><feGaussianBlur stdDeviation="3"/></filter><filter id="csglow" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><marker id="csar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffe49a"/></marker></defs><text x="24" y="34" font-size="19" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">FIGURE 4 · THE THREE PATTERNS OF MS</text><text x="24" y="52" font-size="12.5" font-weight="700" fill="#dcd2f2" opacity=".95" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Disability on the vertical axis, years on the horizontal · read the panels ① → ③</text><rect x="24" y="66" width="1192" height="218" rx="14" fill="rgba(0,194,199,.12)" stroke="#00c2c7" stroke-width="1.6"/><text x="40" y="92" font-size="15.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">① RELAPSING–REMITTING MS (RRMS) — about 85% of people at diagnosis</text><text x="40" y="110" font-size="11.8" font-weight="700" fill="#dcd2f2" opacity=".95" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Attacks (relapses), then partial or complete recovery (remission)</text><path d="M 150 112 L 150 240 L 1140 240" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="2.4"/><text x="138" y="124" font-size="11" font-weight="800" fill="#dcd2f2" opacity="1" text-anchor="end"  font-family="Segoe UI,Roboto,system-ui,sans-serif">NORMAL</text><text x="138" y="240" font-size="11" font-weight="800" fill="#dcd2f2" opacity="1" text-anchor="end"  font-family="Segoe UI,Roboto,system-ui,sans-serif">DISABLED</text><path d="M 150 118 L 1140 118" stroke="#12b886" stroke-width="1.8" stroke-dasharray="7 6" stroke-opacity=".55"/><text x="1140" y="264" font-size="11.5" font-weight="800" fill="#dcd2f2" opacity="1" text-anchor="end"  font-family="Segoe UI,Roboto,system-ui,sans-serif">TIME → years</text><path d="M 150 118 L 260 120 L 306 192 L 356 184 L 440 126 L 520 124 L 566 202 L 616 194 L 700 136 L 780 128 L 826 212 L 876 204 L 960 146 L 1140 152" fill="none" stroke="#00c2c7" stroke-width="5" stroke-linejoin="round" filter="url(#csglow)"/><circle cx="310" cy="192" r="8" fill="#ff3b6b" stroke="#0d081a" stroke-width="2"/><circle cx="570" cy="202" r="8" fill="#ff3b6b" stroke="#0d081a" stroke-width="2"/><circle cx="830" cy="212" r="8" fill="#ff3b6b" stroke="#0d081a" stroke-width="2"/><rect x="280" y="217" width="59" height="21" rx="6" fill="#0d081a" fill-opacity=".78" stroke="rgba(255,255,255,.30)"/><text x="310" y="228" font-size="12" font-weight="800" fill="#ffb3c6" text-anchor="middle" font-family="Segoe UI,Roboto,system-ui,sans-serif">RELAPSE</text><rect x="663" y="121" width="73" height="21" rx="6" fill="#0d081a" fill-opacity=".78" stroke="rgba(255,255,255,.30)"/><text x="700" y="132" font-size="12" font-weight="800" fill="#9ff2ee" text-anchor="middle" font-family="Segoe UI,Roboto,system-ui,sans-serif">remission</text><rect x="24" y="306" width="1192" height="218" rx="14" fill="rgba(255,194,51,.12)" stroke="#ffc233" stroke-width="1.6"/><text x="40" y="332" font-size="15.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">② SECONDARY PROGRESSIVE MS — what RRMS often becomes after 10–20 years</text><text x="40" y="350" font-size="11.8" font-weight="700" fill="#dcd2f2" opacity=".95" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Relapses fade, but the disability now creeps up steadily between them</text><path d="M 150 352 L 150 480 L 1140 480" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="2.4"/><text x="138" y="364" font-size="11" font-weight="800" fill="#dcd2f2" opacity="1" text-anchor="end"  font-family="Segoe UI,Roboto,system-ui,sans-serif">NORMAL</text><text x="138" y="480" font-size="11" font-weight="800" fill="#dcd2f2" opacity="1" text-anchor="end"  font-family="Segoe UI,Roboto,system-ui,sans-serif">DISABLED</text><path d="M 150 358 L 1140 358" stroke="#12b886" stroke-width="1.8" stroke-dasharray="7 6" stroke-opacity=".55"/><text x="1140" y="504" font-size="11.5" font-weight="800" fill="#dcd2f2" opacity="1" text-anchor="end"  font-family="Segoe UI,Roboto,system-ui,sans-serif">TIME → years</text><path d="M 150 358 L 240 362 L 280 420 L 330 410 L 400 374 L 450 368 L 490 432 L 540 422 L 610 388 C 800 402 950 438 1140 470" fill="none" stroke="#ffc233" stroke-width="5" stroke-linejoin="round" filter="url(#csglow)"/><path d="M 780 348 L 780 486" stroke="#ffe49a" stroke-width="2.4" stroke-dasharray="8 6"/><rect x="784" y="370" width="229" height="47" rx="8" fill="#0d081a" fill-opacity=".82" stroke="rgba(255,255,255,.34)"/><text x="792" y="384" font-size="12.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">From here on it just gets</text><text x="792" y="401" font-size="11.7" font-weight="700" fill="#efe9ff" opacity=".97" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">steadily worse, relapse or not</text><rect x="24" y="546" width="1192" height="218" rx="14" fill="rgba(255,59,107,.12)" stroke="#ff3b6b" stroke-width="1.6"/><text x="40" y="572" font-size="15.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">③ PRIMARY PROGRESSIVE MS — about 10–15%</text><text x="40" y="590" font-size="11.8" font-weight="700" fill="#dcd2f2" opacity=".95" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">No relapses and no remissions. Steady decline from the very start.</text><path d="M 150 592 L 150 720 L 1140 720" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="2.4"/><text x="138" y="604" font-size="11" font-weight="800" fill="#dcd2f2" opacity="1" text-anchor="end"  font-family="Segoe UI,Roboto,system-ui,sans-serif">NORMAL</text><text x="138" y="720" font-size="11" font-weight="800" fill="#dcd2f2" opacity="1" text-anchor="end"  font-family="Segoe UI,Roboto,system-ui,sans-serif">DISABLED</text><path d="M 150 598 L 1140 598" stroke="#12b886" stroke-width="1.8" stroke-dasharray="7 6" stroke-opacity=".55"/><text x="1140" y="744" font-size="11.5" font-weight="800" fill="#dcd2f2" opacity="1" text-anchor="end"  font-family="Segoe UI,Roboto,system-ui,sans-serif">TIME → years</text><path d="M 150 598 C 420 626 760 672 1140 712" fill="none" stroke="#ff3b6b" stroke-width="5" stroke-linecap="round" filter="url(#csglow)"/><rect x="552" y="622" width="192" height="31" rx="8" fill="#0d081a" fill-opacity=".82" stroke="rgba(255,255,255,.34)"/><text x="560" y="636" font-size="12.5" font-weight="900" fill="#ffb3c6" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">No good days to bank on</text><rect x="277" y="776" width="686" height="47" rx="8" fill="#0d081a" fill-opacity=".82" stroke="rgba(255,255,255,.34)"/><text x="620" y="790" font-size="13.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">A true RELAPSE lasts more than 24 hours and happens WITHOUT a fever.</text><text x="620" y="807" font-size="11.7" font-weight="700" fill="#efe9ff" opacity=".97" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">A brief worsening WITH a fever or overheating is a PSEUDO-relapse — cool the patient and it lifts.</text></svg><p class="figcap">The pattern matters for teaching: a person with relapsing–remitting disease needs to know what a real relapse looks like, and that heat-related worsening is not one.</p></div>
+  </div>
+</section><section id="signs">
+  <div class="sec-h"><span class="icon">👁️</span><h2>WHAT THE PATIENT NOTICES</h2><span class="step">CLUES</span></div>
+  <p class="sec-sub">Vision, spasticity, sensation, balance, bladder — grouped by where the plaque is.</p>
+  <div class="grid">
+<div class="card deep span2"><svg viewBox="0 0 1240 730" role="img" aria-label="On the left, a horizontal cross-section of the eye showing the cornea, lens, vitreous, retina and the optic nerve leaving at the back, with a red inflamed swollen segment of that nerve full of immune cells. On the right, two views of the same outdoor scene: a normal one, and one seen through an eye with optic neuritis in which a dark blur covers the centre of the field and the whole image is dimmed."><defs><filter id="ondrop" x="-35%" y="-35%" width="180%" height="180%"><feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dx="0" dy="6" result="o"/><feFlood flood-color="#000" flood-opacity=".5"/><feComposite in2="o" operator="in" result="sh"/><feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/></feMerge></filter><filter id="onsoft" x="-45%" y="-45%" width="190%" height="190%"><feGaussianBlur stdDeviation="4"/></filter><filter id="onglow" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><marker id="onar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffe49a"/></marker><radialGradient id="onvit" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#f2fbff"/><stop offset=".5" stop-color="#d9ecf7"/><stop offset="1" stop-color="#a8c2d4"/></radialGradient><radialGradient id="onlens" cx=".35" cy=".3" r=".7"><stop offset="0" stop-color="#ffffff"/><stop offset=".45" stop-color="#dff0fa"/><stop offset="1" stop-color="#8fb4c9"/></radialGradient><linearGradient id="onnrv" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff3d4"/><stop offset=".45" stop-color="#f0c56e"/><stop offset="1" stop-color="#9a6f14"/></linearGradient><linearGradient id="onret" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ffb9a8"/><stop offset=".5" stop-color="#e07a63"/><stop offset="1" stop-color="#8c3020"/></linearGradient></defs><text x="24" y="34" font-size="19" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">FIGURE 3 · OPTIC NEURITIS — the attack that often comes first</text><text x="24" y="52" font-size="12.5" font-weight="700" fill="#dcd2f2" opacity=".95" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Left: cross-section, seen from above · Right: what the patient actually experiences</text><rect x="24" y="66" width="660" height="560" rx="14" fill="rgba(13,8,26,.42)" stroke="rgba(255,255,255,.28)" stroke-width="1.6"/><text x="40" y="92" font-size="15.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">① THE OPTIC NERVE, INFLAMED</text><text x="40" y="110" font-size="11.8" font-weight="700" fill="#dcd2f2" opacity=".95" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Horizontal cross-section through the left eye, seen from above</text><circle cx="350" cy="320" r="150" fill="#f6f2ec" stroke="#8a7a6a" stroke-width="4" filter="url(#ondrop)"/><circle cx="350" cy="320" r="138" fill="url(#onvit)"/><circle cx="350" cy="320" r="140" fill="none" stroke="url(#onret)" stroke-width="11" stroke-opacity=".9"/><path d="M 208 256 C 160 286 160 354 208 384" fill="#e8f6ff" fill-opacity=".8" stroke="#8fb4c9" stroke-width="3"/><ellipse cx="220" cy="320" rx="18" ry="46" fill="url(#onlens)" stroke="#6f93a8" stroke-width="2.6"/><path d="M 206 276 L 222 242" stroke="#4aa8d8" stroke-width="12" stroke-linecap="round"/><path d="M 206 364 L 222 398" stroke="#4aa8d8" stroke-width="12" stroke-linecap="round"/><path d="M 484 338 C 570 360 650 376 730 384" fill="none" stroke="url(#onnrv)" stroke-width="42" stroke-linecap="round" filter="url(#ondrop)"/><path d="M 484 338 C 570 360 650 376 730 384" fill="none" stroke="#c9922f" stroke-width="14" stroke-linecap="round" stroke-opacity=".8"/><path d="M 534 350 C 578 362 612 370 640 374" fill="none" stroke="#ff3b6b" stroke-width="52" stroke-linecap="round" stroke-opacity=".55" filter="url(#onglow)"/><circle cx="558" cy="344" r="9" fill="#ff3b6b" fill-opacity=".9" stroke="#7d0a2c" stroke-width="1.6"/><circle cx="575" cy="370" r="9" fill="#ff3b6b" fill-opacity=".9" stroke="#7d0a2c" stroke-width="1.6"/><circle cx="592" cy="344" r="9" fill="#ff3b6b" fill-opacity=".9" stroke="#7d0a2c" stroke-width="1.6"/><circle cx="609" cy="370" r="9" fill="#ff3b6b" fill-opacity=".9" stroke="#7d0a2c" stroke-width="1.6"/><circle cx="626" cy="344" r="9" fill="#ff3b6b" fill-opacity=".9" stroke="#7d0a2c" stroke-width="1.6"/><circle cx="643" cy="370" r="9" fill="#ff3b6b" fill-opacity=".9" stroke="#7d0a2c" stroke-width="1.6"/><circle cx="490" cy="336" r="16" fill="#f0c56e" stroke="#9a6f14" stroke-width="2.6"/><rect x="708" y="66" width="508" height="560" rx="14" fill="rgba(13,8,26,.42)" stroke="rgba(255,255,255,.28)" stroke-width="1.6"/><text x="724" y="92" font-size="15.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">② WHAT THE PATIENT SEES</text><text x="724" y="110" font-size="11.8" font-weight="700" fill="#dcd2f2" opacity=".95" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Same scene, affected eye only</text><rect x="756" y="130" width="412" height="180" rx="14" fill="#1a2b3f" stroke="#12b886" stroke-width="2.4"/><circle cx="850" cy="180" r="26" fill="#ffc233"/><path d="M 756 260 C 850 210 950 270 1060 226 C 1110 206 1150 230 1168 244 L 1168 310 L 756 310 Z" fill="#2a6b52"/><rect x="990" y="210" width="16" height="80" fill="#6b421f"/><circle cx="998" cy="192" r="40" fill="#3f8f68"/><text x="962" y="338" font-size="13.5" font-weight="900" fill="#12b886" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Normal eye</text><rect x="756" y="380" width="412" height="180" rx="14" fill="#1a2b3f" stroke="#ff3b6b" stroke-width="2.4"/><circle cx="850" cy="430" r="26" fill="#ffc233"/><path d="M 756 510 C 850 460 950 520 1060 476 C 1110 456 1150 480 1168 494 L 1168 560 L 756 560 Z" fill="#2a6b52"/><rect x="990" y="460" width="16" height="80" fill="#6b421f"/><circle cx="998" cy="442" r="40" fill="#3f8f68"/><clipPath id="onsc"><rect x="756" y="380" width="412" height="180" rx="14"/></clipPath><g clip-path="url(#onsc)"><circle cx="962" cy="470" r="96" fill="#3a3a3a" fill-opacity=".92" filter="url(#onsoft)"/></g><rect x="756" y="380" width="412" height="180" rx="14" fill="#000" fill-opacity=".35"/><rect x="903" y="462" width="119" height="22" rx="6" fill="#0d081a" fill-opacity=".78" stroke="rgba(255,255,255,.30)"/><text x="962" y="474" font-size="12.5" font-weight="800" fill="#ffb3c6" text-anchor="middle" font-family="Segoe UI,Roboto,system-ui,sans-serif">CENTRAL SCOTOMA</text><text x="962" y="588" font-size="13.5" font-weight="900" fill="#ff3b6b" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Eye with optic neuritis</text><rect x="341" y="650" width="558" height="63" rx="8" fill="#0d081a" fill-opacity=".82" stroke="rgba(255,255,255,.34)"/><text x="620" y="664" font-size="13.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Optic neuritis is often the FIRST attack of MS</text><text x="620" y="681" font-size="11.7" font-weight="700" fill="#efe9ff" opacity=".97" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Painful vision loss in ONE eye, worse on eye movement, with washed-out colours.</text><text x="620" y="697" font-size="11.7" font-weight="700" fill="#efe9ff" opacity=".97" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">It usually recovers — but not always completely.</text><path d="M 590 366 L 250 530 L 60 566" fill="none" stroke="#ffe49a" stroke-width="1.5" stroke-opacity=".9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="590" cy="366" r="4" fill="#ffe49a" stroke="#0d081a" stroke-width="1.2"/><rect x="52" y="552" width="323" height="63" rx="8" fill="#0d081a" fill-opacity=".82" stroke="rgba(255,255,255,.34)"/><rect x="62" y="555" width="12" height="12" rx="3" fill="#ff6b8f" stroke="rgba(255,255,255,.7)"/><text x="80" y="566" font-size="13.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">INFLAMED, DEMYELINATED OPTIC NERVE</text><text x="80" y="583" font-size="11.7" font-weight="700" fill="#efe9ff" opacity=".97" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Swelling + demyelination inside a nerve</text><text x="80" y="599" font-size="11.7" font-weight="700" fill="#efe9ff" opacity=".97" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">that cannot expand → PAIN ON EYE MOVEMENT</text><path d="M 350 182 L 160 170 L 60 150" fill="none" stroke="#ffe49a" stroke-width="1.5" stroke-opacity=".9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="350" cy="182" r="4" fill="#ffe49a" stroke="#0d081a" stroke-width="1.2"/><rect x="52" y="136" width="94" height="31" rx="8" fill="#0d081a" fill-opacity=".82" stroke="rgba(255,255,255,.34)"/><rect x="62" y="139" width="12" height="12" rx="3" fill="#e07a63" stroke="rgba(255,255,255,.7)"/><text x="80" y="150" font-size="13.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Retina</text><path d="M 220 320 L 150 250 L 60 236" fill="none" stroke="#ffe49a" stroke-width="1.5" stroke-opacity=".9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="220" cy="320" r="4" fill="#ffe49a" stroke="#0d081a" stroke-width="1.2"/><rect x="52" y="222" width="78" height="31" rx="8" fill="#0d081a" fill-opacity=".82" stroke="rgba(255,255,255,.34)"/><rect x="62" y="225" width="12" height="12" rx="3" fill="#8fb4c9" stroke="rgba(255,255,255,.7)"/><text x="80" y="236" font-size="13.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Lens</text><path d="M 490 336 L 170 440 L 60 452" fill="none" stroke="#ffe49a" stroke-width="1.5" stroke-opacity=".9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="490" cy="336" r="4" fill="#ffe49a" stroke="#0d081a" stroke-width="1.2"/><rect x="52" y="438" width="125" height="31" rx="8" fill="#0d081a" fill-opacity=".82" stroke="rgba(255,255,255,.34)"/><rect x="62" y="441" width="12" height="12" rx="3" fill="#f0c56e" stroke="rgba(255,255,255,.7)"/><text x="80" y="452" font-size="13.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Optic disc</text></svg><p class="figcap">Painful monocular vision loss in a young adult is optic neuritis until proven otherwise, and optic neuritis is very often the first sign of MS.</p></div>
+  <div class="card sapphire span2">
+    <h3>👁️ The symptom list — grouped so it stops feeling random</h3>
+    <div class="tblwrap"><table>
+      <tr><th class="up">Group</th><th class="lo">What the patient reports</th><th class="lo">Why</th></tr>
+      <tr><td><b>Visual</b></td><td><b>Optic neuritis</b> — painful vision loss in one eye, washed-out
+        colours · <b>diplopia</b> (double vision) · nystagmus · blurred vision</td>
+        <td>Plaques on the optic nerve and in the brainstem eye-movement pathways</td></tr>
+      <tr><td><b>Motor</b></td><td><b>Muscle spasticity and stiffness</b> · weakness · painful spasms ·
+        foot drop · fatigue that is out of proportion to activity</td>
+        <td>Plaques in the motor tracts of the brain and cord</td></tr>
+      <tr><td><b>Sensory</b></td><td>Numbness, tingling, burning, “tight band” sensations ·
+        <b>Lhermitte's sign</b> — an electric shock down the spine when the neck is flexed</td>
+        <td>Plaques in the sensory tracts, especially the cervical cord</td></tr>
+      <tr><td><b>Cerebellar</b></td><td><b>Intention tremor</b>, ataxia, wide-based gait, vertigo,
+        <b>scanning</b> (slow, slurred, sing-song) speech</td><td>Plaques in the cerebellum and its pathways</td></tr>
+      <tr><td><b>Bladder / bowel</b></td><td><b>Urgency, frequency, retention, incontinence</b> · constipation ·
+        sexual dysfunction</td><td>Plaques in the cord pathways to bladder and bowel</td></tr>
+      <tr><td><b>Cognitive / mood</b></td><td>Slowed processing, poor short-term memory, depression,
+        emotional lability</td><td>Plaques in cerebral white matter</td></tr>
+    </table></div>
+    <p><mark>FATIGUE is the single most commonly reported symptom</mark> — and the one most often
+    dismissed.</p>
+    <div class="mn">🧠 <b>Charcot's triad</b> for MS: nystagmus, intention tremor, scanning speech.
+    Not everyone has it, but it is a classic exam three.</div>
+  </div>
+
+  <div class="card tealc">
+    <h3>🧪 Two named signs you will be asked to recognise</h3>
+    <div class="mirror">
+      <div class="mrow"><b>LHERMITTE'S SIGN</b>An electric-shock sensation running down the spine and into
+        the limbs when the neck is <b>flexed</b>. Comes from a plaque in the cervical cord. Startling, but
+        not dangerous.</div>
+      <div class="mrow"><b>UHTHOFF'S PHENOMENON</b>Symptoms worsen when the body <b>overheats</b> —
+        exercise, a hot bath, a fever — and settle again on cooling. It is a temporary conduction block,
+        NOT a new attack.</div>
+    </div>
+    <div class="mn">🧠 <b>L</b>hermitte = <b>L</b>ightning down the spine when you <b>L</b>ook down.
+    <b>U</b>hthoff = <b>U</b>p goes the temperature, <b>U</b>p go the symptoms.</div>
+  </div>
+  <div class="card citrinec">
+    <h3>😴 Fatigue — the #1 symptom, and how to actually manage it</h3>
+    <p>MS fatigue is not ordinary tiredness. It is out of proportion to activity, worse in the afternoon,
+    worse in heat, and it is <b>invisible</b> — which is why patients get accused of laziness.</p>
+    <ul class="tick">
+      <li><b>Plan the day around it</b>: hardest tasks in the morning; scheduled rests <b>before</b>
+        exhaustion, not after.</li>
+      <li>Energy conservation: sit to work, slide don't lift, batch errands, use a shower chair, delegate.</li>
+      <li>Keep <b>cool</b> — heat and fatigue amplify each other.</li>
+      <li>Treat the things that make it worse: poor sleep, depression, anaemia, hypothyroidism, pain,
+        night-time bladder waking.</li>
+      <li>Regular, moderate, cool-environment exercise reduces fatigue over time even though it feels
+        counter-intuitive.</li>
+    </ul>
+    <div class="mn">🧠 <b>Rest is a treatment, not a failure.</b> Schedule it like a medication.</div>
+  </div>
+  <div class="card garnet">
+    <h3>🚨 Relapse or pseudo-relapse? — check the temperature first</h3>
+    <div class="mirror">
+      <div class="mrow hi"><b>TRUE RELAPSE</b>New or worsened symptoms lasting <b>more than 24 hours</b>,
+        <b>without</b> fever or infection, at least 30 days after the last attack. Treated with a short
+        course of high-dose corticosteroids.</div>
+      <div class="mrow lo"><b>PSEUDO-RELAPSE</b>Old symptoms flaring because of <b>fever, infection, heat,
+        stress, pain or exhaustion</b>. Treat the cause, cool the patient down — steroids are NOT the
+        answer.</div>
+    </div>
+    <p>So the first questions on a “my MS is flaring” call are: <b>do you have a temperature, any burning
+    when you pass urine, and have you been hot?</b></p>
+    <div class="mn">🧠 <b>Fever first.</b> A hot MS patient is not necessarily a relapsing one.</div>
+  </div>
+  <div class="card emerald">
+    <h3>✅ Nutrition and the boring things that matter</h3>
+    <ul class="tick">
+      <li><b>Vitamin D</b> — deficiency is associated with MS risk and activity; supplementation is commonly
+        recommended. Check the level rather than guessing.</li>
+      <li><b>High-fibre diet and adequate fluids</b> for the constipation that comes with reduced mobility
+        and bladder-drug side effects.</li>
+      <li>Adequate <b>calcium and vitamin D</b> matter even more if the patient has had repeated steroid
+        courses (bone loss) and is less mobile.</li>
+      <li>If swallowing is affected: soft or thickened textures, upright to eat, speech-pathology referral.</li>
+      <li>Watch weight in both directions — fatigue can cut intake, reduced mobility can add weight.</li>
+      <li>No diet cures MS. Be ready to talk honestly about the ones sold online.</li>
+    </ul>
+    <div class="mn">🧠 <b>Vitamin D, fibre, fluids, upright to eat.</b></div>
+  </div>
+  <div class="card garnet">
+    <h3>🚨 Bladder problems are a real complication, not a nuisance</h3>
+    <ul class="tick">
+      <li><b>Urinary retention</b> → recurrent <b>UTIs</b> → and infection is itself a relapse trigger.
+        A vicious circle.</li>
+      <li>Teach a <b>timed voiding schedule</b>; teach <b>intermittent self-catheterisation</b> if there is
+        significant residual volume.</li>
+      <li>Adequate fluids — restricting fluid to reduce urgency makes UTIs and constipation worse.</li>
+      <li>Report new urinary symptoms early; treat infection promptly.</li>
+    </ul>
+    <div class="mn">🧠 <b>Retention → infection → relapse.</b> Break the circle at retention.</div>
+  </div>
+  <div class="card ruby">
+    <h3>⚠️ Safety consequences of the symptoms</h3>
+    <ul class="tick">
+      <li><b>Falls</b> — from spasticity, ataxia, foot drop, fatigue and visual loss.</li>
+      <li><b>Burns and injury</b> — numb areas cannot feel a hot bath, a hot water bottle or a pressure
+        point. Teach the patient to <b>test water temperature with a thermometer or an unaffected part</b>.</li>
+      <li><b>Aspiration</b> if brainstem plaques cause dysphagia.</li>
+      <li><b>Pressure injury</b> where sensation and mobility are both reduced.</li>
+      <li><b>Driving</b> — visual and reaction-time changes must be discussed honestly.</li>
+    </ul>
+    <div class="mn">🧠 <b>If they can't feel it, they can't protect it.</b></div>
+  </div>
+
+  </div>
+</section><section id="triggers">
+  <div class="sec-h"><span class="icon">🔥</span><h2>TRIGGERS AND DAILY LIFE</h2><span class="step">CARE 1</span></div>
+  <p class="sec-sub">The 4 S's, the heat rule, and how to balance exercise with rest.</p>
+  <div class="grid">
+<div class="card deep span2"><svg viewBox="0 0 1240 760" role="img" aria-label="On the left a drawn thermometer with a rising red column, labelled with the things that raise core temperature: fever, hot baths, saunas and hard exercise. In the middle a demyelinated axon drawn twice: at normal temperature the signal squeezes past the bare patch, and at slightly raised temperature it is blocked by a red cross. Underneath, a green panel of six cooling teaching points."><defs><filter id="htdrop" x="-35%" y="-35%" width="180%" height="180%"><feGaussianBlur in="SourceAlpha" stdDeviation="4"/><feOffset dx="0" dy="5" result="o"/><feFlood flood-color="#000" flood-opacity=".45"/><feComposite in2="o" operator="in" result="sh"/><feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/></feMerge></filter><filter id="htsoft" x="-45%" y="-45%" width="190%" height="190%"><feGaussianBlur stdDeviation="4"/></filter><filter id="htglow" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><marker id="htar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffe49a"/></marker><linearGradient id="htglass" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ffffff"/><stop offset=".35" stop-color="#e2edf5"/><stop offset=".7" stop-color="#a8bccd"/><stop offset="1" stop-color="#5d7285"/></linearGradient><linearGradient id="htmerc" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff8aa4"/><stop offset=".5" stop-color="#ff3b6b"/><stop offset="1" stop-color="#8c0f30"/></linearGradient><linearGradient id="htmye" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3e6ff"/><stop offset=".3" stop-color="#c8a6f7"/><stop offset=".7" stop-color="#8a5ad8"/><stop offset="1" stop-color="#4b2a8a"/></linearGradient></defs><text x="24" y="34" font-size="19" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">FIGURE 5 · HEAT SENSITIVITY — the teaching point that gets tested most</text><text x="24" y="52" font-size="12.5" font-weight="700" fill="#dcd2f2" opacity=".95" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Read LEFT (what heats them up) → MIDDLE (why it matters) → RIGHT/BOTTOM (what you teach)</text><rect x="24" y="66" width="380" height="620" rx="14" fill="rgba(255,59,107,.12)" stroke="#ff3b6b" stroke-width="1.6"/><text x="40" y="92" font-size="15.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">① HEAT RISES</text><rect x="180" y="140" width="46" height="400" rx="23" fill="url(#htglass)" stroke="#48566a" stroke-width="3" filter="url(#htdrop)"/><circle cx="203" cy="566" r="44" fill="url(#htmerc)" stroke="#8c0f30" stroke-width="3"/><rect x="191" y="200" width="24" height="360" fill="url(#htmerc)"/><path d="M 226 180 l 20 0" stroke="#cfd8e3" stroke-width="2.4"/><path d="M 226 218 l 20 0" stroke="#cfd8e3" stroke-width="2.4"/><path d="M 226 256 l 20 0" stroke="#cfd8e3" stroke-width="2.4"/><path d="M 226 294 l 20 0" stroke="#cfd8e3" stroke-width="2.4"/><path d="M 226 332 l 20 0" stroke="#cfd8e3" stroke-width="2.4"/><path d="M 226 370 l 20 0" stroke="#cfd8e3" stroke-width="2.4"/><path d="M 226 408 l 20 0" stroke="#cfd8e3" stroke-width="2.4"/><path d="M 226 446 l 20 0" stroke="#cfd8e3" stroke-width="2.4"/><path d="M 226 484 l 20 0" stroke="#cfd8e3" stroke-width="2.4"/><path d="M 226 522 l 20 0" stroke="#cfd8e3" stroke-width="2.4"/><circle cx="164" cy="214" r="7" fill="#ff3b6b"/><path d="M 156 214 L 148 214" stroke="#ff3b6b" stroke-width="2"/><text x="144" y="219" font-size="12.5" font-weight="800" fill="#ff3b6b" opacity="1" text-anchor="end"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Fever</text><circle cx="164" cy="300" r="7" fill="#ff8a3d"/><path d="M 156 300 L 148 300" stroke="#ff8a3d" stroke-width="2"/><text x="144" y="305" font-size="12.5" font-weight="800" fill="#ff8a3d" opacity="1" text-anchor="end"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Hot bath / hot tub</text><circle cx="164" cy="386" r="7" fill="#ffc233"/><path d="M 156 386 L 148 386" stroke="#ffc233" stroke-width="2"/><text x="144" y="391" font-size="12.5" font-weight="800" fill="#ffc233" opacity="1" text-anchor="end"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Sauna · sunbathing</text><circle cx="164" cy="470" r="7" fill="#ffc233"/><path d="M 156 470 L 148 470" stroke="#ffc233" stroke-width="2"/><text x="144" y="475" font-size="12.5" font-weight="800" fill="#ffc233" opacity="1" text-anchor="end"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Hard exercise</text><text x="214" y="632" font-size="12" font-weight="800" fill="#ffb3c6" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Any rise in core temperature</text><text x="214" y="652" font-size="12" font-weight="800" fill="#ffb3c6" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">can trigger symptoms</text><rect x="428" y="66" width="788" height="380" rx="14" fill="rgba(13,8,26,.42)" stroke="rgba(255,255,255,.28)" stroke-width="1.6"/><text x="444" y="92" font-size="15.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">② WHY HEAT MATTERS — the demyelinated axon can only just conduct</text><text x="444" y="110" font-size="11.8" font-weight="700" fill="#dcd2f2" opacity=".95" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">A tiny rise in temperature is enough to tip it from “just working” to “not working”</text><path d="M 470 228 L 1150 228" stroke="#c9922f" stroke-width="16" stroke-linecap="round"/><rect x="500" y="202" width="120" height="52" rx="22" fill="url(#htmye)" stroke="#3c2170" stroke-width="2.4"/><rect x="665" y="202" width="120" height="52" rx="22" fill="url(#htmye)" stroke="#3c2170" stroke-width="2.4"/><path d="M 830 206 L 950 206 L 950 250 L 830 250 Z" fill="#b3bfcc" fill-opacity=".5" stroke="#7d8b9c" stroke-width="2.2" stroke-dasharray="6 4"/><rect x="995" y="202" width="120" height="52" rx="22" fill="url(#htmye)" stroke="#3c2170" stroke-width="2.4"/><path d="M 480 188 L 1140 188" stroke="#12b886" stroke-width="4" marker-end="url(#htar)" stroke-dasharray="0"/><rect x="465" y="274" width="126" height="22" rx="6" fill="#0d081a" fill-opacity=".78" stroke="rgba(255,255,255,.30)"/><text x="470" y="286" font-size="12.5" font-weight="800" fill="#12b886" text-anchor="start" font-family="Segoe UI,Roboto,system-ui,sans-serif">37.0 °C — normal</text><rect x="974" y="274" width="176" height="22" rx="6" fill="#0d081a" fill-opacity=".78" stroke="rgba(255,255,255,.30)"/><text x="1150" y="286" font-size="12.5" font-weight="800" fill="#12b886" text-anchor="end" font-family="Segoe UI,Roboto,system-ui,sans-serif">signal SQUEEZES through</text><path d="M 470 352 L 1150 352" stroke="#c9922f" stroke-width="16" stroke-linecap="round"/><rect x="500" y="326" width="120" height="52" rx="22" fill="url(#htmye)" stroke="#3c2170" stroke-width="2.4"/><rect x="665" y="326" width="120" height="52" rx="22" fill="url(#htmye)" stroke="#3c2170" stroke-width="2.4"/><path d="M 830 330 L 950 330 L 950 374 L 830 374 Z" fill="#b3bfcc" fill-opacity=".5" stroke="#7d8b9c" stroke-width="2.2" stroke-dasharray="6 4"/><rect x="995" y="326" width="120" height="52" rx="22" fill="url(#htmye)" stroke="#3c2170" stroke-width="2.4"/><path d="M 480 312 L 812 312" stroke="#ffc233" stroke-width="4" marker-end="url(#htar)"/><path d="M 812 294 L 852 336 M 852 294 L 812 336" stroke="#ff3b6b" stroke-width="7" stroke-linecap="round"/><rect x="465" y="398" width="219" height="22" rx="6" fill="#0d081a" fill-opacity=".78" stroke="rgba(255,255,255,.30)"/><text x="470" y="410" font-size="12.5" font-weight="800" fill="#ff3b6b" text-anchor="start" font-family="Segoe UI,Roboto,system-ui,sans-serif">37.6 °C — slightly overheated</text><rect x="1017" y="398" width="133" height="22" rx="6" fill="#0d081a" fill-opacity=".78" stroke="rgba(255,255,255,.30)"/><text x="1150" y="410" font-size="12.5" font-weight="800" fill="#ff3b6b" text-anchor="end" font-family="Segoe UI,Roboto,system-ui,sans-serif">conduction BLOCKS</text><rect x="428" y="470" width="788" height="216" rx="14" fill="rgba(18,184,134,.12)" stroke="#12b886" stroke-width="1.6"/><text x="444" y="496" font-size="15.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">③ WHAT YOU TEACH</text><text x="460" y="536" font-size="13" font-weight="800" fill="#f0eaff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">❄️  Rest in AIR-CONDITIONED surroundings</text><text x="846" y="536" font-size="13" font-weight="800" fill="#f0eaff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">🚿  Cool showers, not hot baths</text><text x="460" y="582" font-size="13" font-weight="800" fill="#f0eaff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">🚫  NO hot tubs, saunas, steam rooms, sunbathing</text><text x="846" y="582" font-size="13" font-weight="800" fill="#f0eaff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">🧊  Cooling vest, neck wrap, cold drinks</text><text x="460" y="628" font-size="13" font-weight="800" fill="#f0eaff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">🏃  Exercise — but in a cool room, and rest between</text><text x="846" y="628" font-size="13" font-weight="800" fill="#f0eaff" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">🌡️  Treat any fever early and aggressively</text><rect x="68" y="706" width="1103" height="31" rx="8" fill="#0d081a" fill-opacity=".82" stroke="rgba(255,255,255,.34)"/><text x="620" y="720" font-size="13" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="middle"  font-family="Segoe UI,Roboto,system-ui,sans-serif">This is Uhthoff's phenomenon: heat does not cause a new attack, it temporarily unmasks the damage that is already there. Cool down and it lifts.</text></svg><p class="figcap">Two exam items live in this figure: “preparing to place a client with MS in a bathtub with hot water” is the WRONG action, and “rest in air-conditioned surroundings” is the RIGHT one.</p></div>
+  <div class="card garnet span2">
+    <h3>🔥 AVOID the 4 S's — the flare-up triggers</h3>
+    <div class="no-grid">
+      <div class="no-t hot"><span class="e">😰</span>STRESS<i>emotional stress, surgery, injury,
+        over-exertion</i></div>
+      <div class="no-t hot"><span class="e">🤒</span>SICKNESS<i>any infection or sepsis — treat early,
+        stay up to date with vaccines</i></div>
+      <div class="no-t hot"><span class="e">🚬</span>SMOKING<i>raises risk and speeds progression — refer
+        for cessation</i></div>
+      <div class="no-t hot"><span class="e">🌡️</span>SUN &amp; HEAT<i>hot tubs, hot baths, saunas,
+        sunbathing, fever</i></div>
+    </div>
+    <div class="mn">🧠 <b>The 4 S's = Stress · Sickness · Smoking · Sun.</b> Avoid all four and relapses
+    are less frequent.</div>
+  </div>
+  <div class="card emerald">
+    <h3>✅ Balance exercise with rest — in that order</h3>
+    <ol class="tick">
+      <li><b>1. Self-care ADLs</b> — the patient does them, with more time and adaptive equipment.</li>
+      <li><b>2. Gait training</b>, then a cane, then a walker, and a wheelchair only when walking is unsafe.</li>
+      <li><b>3. Exercise in a COOL room</b>, in short bouts, with rest between. Swimming in a cool pool is
+        ideal — it cools and supports at the same time.</li>
+      <li><b>4. Plan the day around the fatigue</b>: do the important things when energy is highest, and
+        schedule rest <b>before</b> exhaustion, not after.</li>
+    </ol>
+    <p class="never">Never do all the ADLs for the client. <b>Promote independence — that is the rule for
+    every neuro patient.</b></p>
+    <div class="mn">🧠 <b>Pace, don't push. Rest before you're wrecked.</b></div>
+  </div>
+  <div class="card citrinec">
+    <h3>🏠 Living-well teaching</h3>
+    <ul class="tick">
+      <li>Cooling vest, neck wrap, fans, cold drinks; keep the house cool; shop and exercise early in the day.</li>
+      <li>Energy conservation: sit to work, slide rather than lift, batch tasks, use a shower chair.</li>
+      <li><b>Test bath water with a thermometer</b> — numb skin cannot warn you.</li>
+      <li>Bowel routine: fluids, fibre, a set toileting time.</li>
+      <li>Eye patch (alternate eyes) for troublesome diplopia; scan the room by turning the head.</li>
+      <li>Support group, counselling, and a frank conversation about depression — it is common and treatable.</li>
+      <li>Pregnancy: relapses often <b>decrease</b> during pregnancy and increase in the months after —
+        plan with the neurologist, and remember several MS drugs are <b>not safe in pregnancy</b>.</li>
+    </ul>
+    <div class="mn">🧠 <b>Cool · Conserve · Check the water · Contact people.</b></div>
+  </div>
+
+  </div>
+</section><section id="treat">
+  <div class="sec-h"><span class="icon">💊</span><h2>DRUGS</h2><span class="step">CARE 2</span></div>
+  <p class="sec-sub">Steroids for relapses, disease-modifiers for the long game, muscle relaxants for spasticity.</p>
+  <div class="grid">
+
+  <div class="card deep span2">
+    <h3>💊 The drug groups — what each one is for</h3>
+    <div class="tblwrap"><table>
+      <tr><th class="up">Drug / class</th><th class="lo">Purpose</th><th class="lo">Key nursing points</th></tr>
+      <tr><td><b>Corticosteroids</b><br>methylprednisolone · prednisone</td>
+        <td><b>Acute relapse only</b> — reduce inflammation and shorten the attack</td>
+        <td>Short courses. Watch blood glucose, blood pressure, mood, insomnia, infection risk. Do not stop
+          a longer course abruptly.</td></tr>
+      <tr><td><b>Interferon beta</b></td><td>Disease-modifying — reduces relapse frequency</td>
+        <td><b>Flu-like symptoms</b> after injection are very common — give at bedtime, pre-treat as ordered.
+          Monitor liver function and blood counts. Injection-site reactions — rotate sites.</td></tr>
+      <tr><td><b>Glatiramer acetate</b></td><td>Disease-modifying</td>
+        <td>Injection-site reactions; occasional transient flushing/chest tightness after a dose</td></tr>
+      <tr><td><b>Immunosuppressants</b><br>e.g. cyclosporine, mitoxantrone</td>
+        <td>Suppress the autoimmune attack</td>
+        <td><mark>Report any sign of infection or bleeding.</mark> Avoid crowds and live vaccines.
+          <b>Not for pregnant clients.</b> Monitor blood counts and renal function; mitoxantrone is
+          cardiotoxic and has a lifetime dose limit.</td></tr>
+      <tr><td><b>IVIG</b></td><td>Immune modulation — the antibodies act as a decoy so the immune system
+        attacks them instead</td><td>Infusion reactions, headache, fluid overload; monitor renal function</td></tr>
+      <tr><td><b>Baclofen · tizanidine</b></td><td>Muscle relaxants for <b>spasticity</b></td>
+        <td>Drowsiness, dizziness, weakness. <b>Never stop baclofen abruptly</b> — abrupt withdrawal can
+          cause rebound spasticity, fever and seizures. Fall risk.</td></tr>
+      <tr><td><b>Anticholinergics</b> for bladder · <b>stool softeners</b> · <b>amantadine/modafinil</b> for fatigue ·
+        antidepressants</td><td>Symptom management</td>
+        <td>Watch for retention with bladder anticholinergics — it can make things worse</td></tr>
+    </table></div>
+    <div class="mn">🧠 <b>INterferon INterferes</b> with the body attacking itself. <b>CycloSPARINE spares</b>
+    the body from attacking itself. <b>IVIG</b> is the decoy the immune system attacks <b>instead</b>.</div>
+  </div>
+  <div class="card garnet">
+    <h3>🚨 Immunosuppression — the teaching that saves a life</h3>
+    <ul class="tick">
+      <li><b>Report any sign of infection immediately</b>: fever, sore throat, cough, burning on urination,
+        a wound that looks angry.</li>
+      <li><b>Report any sign of bleeding</b>: bruising, petechiae, bleeding gums, black stools.</li>
+      <li>Avoid crowds and anyone with an infection; meticulous hand hygiene.</li>
+      <li><b>No live vaccines</b>; check with the team before any immunisation.</li>
+      <li><b>Not for pregnant clients</b> — discuss contraception before starting.</li>
+      <li>Monitor CBC, liver and renal function as ordered.</li>
+    </ul>
+    <div class="mn">🧠 <b>Suppressed immunity: an infection can arrive without a fever and get big fast.</b></div>
+  </div>
+  <div class="card emerald">
+    <h3>✅ Managing spasticity without drugs</h3>
+    <ul class="tick">
+      <li><b>Daily stretching and range-of-motion</b> — the single most effective measure.</li>
+      <li>Regular position changes; avoid triggers (a full bladder, constipation, pressure injury, tight
+        clothing all worsen spasticity).</li>
+      <li>Warmth for comfort — but <b>warm, not hot</b>. A warm pack is fine; a hot bath is not.</li>
+      <li>Splints and braces for foot drop; a proper wheelchair and seating assessment.</li>
+      <li>Physical therapy is a long-term partnership, not a one-off referral.</li>
+    </ul>
+    <div class="mn">🧠 <b>A spasm that is suddenly worse usually has a cause: bladder, bowel, skin or
+    infection.</b> Check those before increasing the dose.</div>
+  </div>
+
+  </div>
+</section><section id="compare">
+  <div class="sec-h"><span class="icon">⚖️</span><h2>MS vs GUILLAIN-BARRÉ</h2><span class="step">TELL THEM APART</span></div>
+  <p class="sec-sub">Same lesion, different address. This comparison is worth learning cold.</p>
+  <div class="grid">
+<div class="card deep span2"><svg viewBox="0 0 1240 1180" role="img" aria-label="Two body silhouettes side by side. On the left, multiple sclerosis, the brain and spinal cord glow orange while the peripheral nerves are pale. On the right, Guillain-Barré syndrome, the brain and cord are pale while the peripheral nerves branching into the arms and legs glow teal, with a dashed red arrow running from the feet upward marked ascending. Underneath, an eight-row comparison table."><defs><filter id="mgdrop" x="-35%" y="-35%" width="180%" height="180%"><feGaussianBlur in="SourceAlpha" stdDeviation="4"/><feOffset dx="0" dy="5" result="o"/><feFlood flood-color="#000" flood-opacity=".45"/><feComposite in2="o" operator="in" result="sh"/><feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/></feMerge></filter><filter id="mgsoft" x="-45%" y="-45%" width="190%" height="190%"><feGaussianBlur stdDeviation="4"/></filter><filter id="mgglow" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><marker id="mgar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffe49a"/></marker><marker id="mgrar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ff6b8f"/></marker><linearGradient id="mgbod" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3a2b52"/><stop offset=".5" stop-color="#2a1f3f"/><stop offset="1" stop-color="#1a1230"/></linearGradient><radialGradient id="mgcns" cx=".5" cy=".5" r=".7"><stop offset="0" stop-color="#fff0b8"/><stop offset=".3" stop-color="#ffd166"/><stop offset=".65" stop-color="#ff8a3d"/><stop offset="1" stop-color="#a33f06"/></radialGradient><linearGradient id="mgpns" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9ff2ee"/><stop offset=".5" stop-color="#00c2c7"/><stop offset="1" stop-color="#0a6a72"/></linearGradient></defs><text x="24" y="34" font-size="19" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">FIGURE 6 · MS vs GUILLAIN-BARRÉ — same lesion, opposite address</text><text x="24" y="52" font-size="12.5" font-weight="700" fill="#dcd2f2" opacity=".95" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Both strip myelin · MS in the CENTRAL nervous system, GBS in the PERIPHERAL nervous system</text><rect x="24" y="66" width="584" height="700" rx="14" fill="rgba(255,138,61,.12)" stroke="#ff8a3d" stroke-width="1.6"/><text x="40" y="92" font-size="15.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">① MULTIPLE SCLEROSIS</text><text x="40" y="110" font-size="11.8" font-weight="700" fill="#dcd2f2" opacity=".95" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">CNS demyelination — brain, spinal cord, optic nerve</text><rect x="632" y="66" width="584" height="700" rx="14" fill="rgba(0,194,199,.12)" stroke="#00c2c7" stroke-width="1.6"/><text x="648" y="92" font-size="15.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">② GUILLAIN-BARRÉ SYNDROME</text><text x="648" y="110" font-size="11.8" font-weight="700" fill="#dcd2f2" opacity=".95" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">PNS demyelination — peripheral nerves</text><g transform="translate(-116,66)"><path d="M 362 210 C 320 250 304 322 298 400 C 296 430 296 446 297 458" fill="none" stroke="url(#mgbod)" stroke-width="44" stroke-linecap="round"/><path d="M 400 388 C 384 452 377 522 374 588" fill="none" stroke="url(#mgbod)" stroke-width="56" stroke-linecap="round"/><path d="M 502 210 C 544 250 560 322 566 400 C 568 430 568 446 567 458" fill="none" stroke="url(#mgbod)" stroke-width="44" stroke-linecap="round"/><path d="M 464 388 C 480 452 487 522 490 588" fill="none" stroke="url(#mgbod)" stroke-width="56" stroke-linecap="round"/><path d="M 410 152 C 408 168 402 174 390 178 C 354 190 336 212 332 248 C 326 294 330 348 340 392 C 348 424 356 438 364 448 L 500 448 C 508 438 516 424 524 392 C 534 348 538 294 532 248 C 528 212 510 190 474 178 C 462 174 456 168 454 152 Z" fill="url(#mgbod)" stroke="rgba(255,255,255,.28)" stroke-width="2" filter="url(#mgdrop)"/><ellipse cx="432" cy="120" rx="42" ry="48" fill="url(#mgbod)" stroke="rgba(255,255,255,.28)" stroke-width="2"/><ellipse cx="432" cy="112" rx="30" ry="34" fill="url(#mgcns)" stroke="rgba(0,0,0,.4)" stroke-width="2"/><path d="M 422 146 L 422 356 C 422 368 428 374 432 378 C 436 374 442 368 442 356 L 442 146 Z" fill="url(#mgcns)" stroke="rgba(0,0,0,.4)" stroke-width="1.8"/><path d="M 422 200 C 366 214 328 268 312 344 C 302 392 299 430 298 452" fill="none" stroke="rgba(255,255,255,.16)" stroke-width="7" stroke-linecap="round"/><path d="M 422 356 C 398 424 382 512 375 592" fill="none" stroke="rgba(255,255,255,.16)" stroke-width="7" stroke-linecap="round"/><path d="M 408 418 l -22 12" stroke="rgba(255,255,255,.16)" stroke-width="3.6" stroke-linecap="round"/><path d="M 398 464 l -22 12" stroke="rgba(255,255,255,.16)" stroke-width="3.6" stroke-linecap="round"/><path d="M 388 510 l -22 12" stroke="rgba(255,255,255,.16)" stroke-width="3.6" stroke-linecap="round"/><path d="M 378 556 l -22 12" stroke="rgba(255,255,255,.16)" stroke-width="3.6" stroke-linecap="round"/><path d="M 442 200 C 498 214 536 268 552 344 C 562 392 565 430 566 452" fill="none" stroke="rgba(255,255,255,.16)" stroke-width="7" stroke-linecap="round"/><path d="M 442 356 C 466 424 482 512 489 592" fill="none" stroke="rgba(255,255,255,.16)" stroke-width="7" stroke-linecap="round"/><path d="M 456 418 l 22 12" stroke="rgba(255,255,255,.16)" stroke-width="3.6" stroke-linecap="round"/><path d="M 466 464 l 22 12" stroke="rgba(255,255,255,.16)" stroke-width="3.6" stroke-linecap="round"/><path d="M 476 510 l 22 12" stroke="rgba(255,255,255,.16)" stroke-width="3.6" stroke-linecap="round"/><path d="M 486 556 l 22 12" stroke="rgba(255,255,255,.16)" stroke-width="3.6" stroke-linecap="round"/></g><g transform="translate(492,66)"><path d="M 362 210 C 320 250 304 322 298 400 C 296 430 296 446 297 458" fill="none" stroke="url(#mgbod)" stroke-width="44" stroke-linecap="round"/><path d="M 400 388 C 384 452 377 522 374 588" fill="none" stroke="url(#mgbod)" stroke-width="56" stroke-linecap="round"/><path d="M 502 210 C 544 250 560 322 566 400 C 568 430 568 446 567 458" fill="none" stroke="url(#mgbod)" stroke-width="44" stroke-linecap="round"/><path d="M 464 388 C 480 452 487 522 490 588" fill="none" stroke="url(#mgbod)" stroke-width="56" stroke-linecap="round"/><path d="M 410 152 C 408 168 402 174 390 178 C 354 190 336 212 332 248 C 326 294 330 348 340 392 C 348 424 356 438 364 448 L 500 448 C 508 438 516 424 524 392 C 534 348 538 294 532 248 C 528 212 510 190 474 178 C 462 174 456 168 454 152 Z" fill="url(#mgbod)" stroke="rgba(255,255,255,.28)" stroke-width="2" filter="url(#mgdrop)"/><ellipse cx="432" cy="120" rx="42" ry="48" fill="url(#mgbod)" stroke="rgba(255,255,255,.28)" stroke-width="2"/><ellipse cx="432" cy="112" rx="30" ry="34" fill="rgba(255,255,255,.16)" stroke="rgba(0,0,0,.4)" stroke-width="2"/><path d="M 422 146 L 422 356 C 422 368 428 374 432 378 C 436 374 442 368 442 356 L 442 146 Z" fill="rgba(255,255,255,.16)" stroke="rgba(0,0,0,.4)" stroke-width="1.8"/><path d="M 422 200 C 366 214 328 268 312 344 C 302 392 299 430 298 452" fill="none" stroke="url(#mgpns)" stroke-width="7" stroke-linecap="round"/><path d="M 422 356 C 398 424 382 512 375 592" fill="none" stroke="url(#mgpns)" stroke-width="7" stroke-linecap="round"/><path d="M 408 418 l -22 12" stroke="url(#mgpns)" stroke-width="3.6" stroke-linecap="round"/><path d="M 398 464 l -22 12" stroke="url(#mgpns)" stroke-width="3.6" stroke-linecap="round"/><path d="M 388 510 l -22 12" stroke="url(#mgpns)" stroke-width="3.6" stroke-linecap="round"/><path d="M 378 556 l -22 12" stroke="url(#mgpns)" stroke-width="3.6" stroke-linecap="round"/><path d="M 442 200 C 498 214 536 268 552 344 C 562 392 565 430 566 452" fill="none" stroke="url(#mgpns)" stroke-width="7" stroke-linecap="round"/><path d="M 442 356 C 466 424 482 512 489 592" fill="none" stroke="url(#mgpns)" stroke-width="7" stroke-linecap="round"/><path d="M 456 418 l 22 12" stroke="url(#mgpns)" stroke-width="3.6" stroke-linecap="round"/><path d="M 466 464 l 22 12" stroke="url(#mgpns)" stroke-width="3.6" stroke-linecap="round"/><path d="M 476 510 l 22 12" stroke="url(#mgpns)" stroke-width="3.6" stroke-linecap="round"/><path d="M 486 556 l 22 12" stroke="url(#mgpns)" stroke-width="3.6" stroke-linecap="round"/></g><path d="M 1088 700 L 1088 260" stroke="#ff3b6b" stroke-width="6" marker-end="url(#mgrar)" stroke-dasharray="12 8"/><rect x="1050" y="724" width="76" height="22" rx="6" fill="#0d081a" fill-opacity=".78" stroke="rgba(255,255,255,.30)"/><text x="1088" y="736" font-size="12.5" font-weight="800" fill="#ffb3c6" text-anchor="middle" font-family="Segoe UI,Roboto,system-ui,sans-serif">ASCENDING</text><rect x="24" y="786" width="1192" height="38" rx="10" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.2)"/><text x="44" y="812" font-size="12.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Where</text><text x="240" y="812" font-size="12.5" font-weight="700" fill="#ffd9b8" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">CNS — brain, cord, optic nerve</text><text x="730" y="812" font-size="12.5" font-weight="700" fill="#9ff2ee" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">PNS — peripheral nerves and roots</text><rect x="24" y="830" width="1192" height="38" rx="10" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.2)"/><text x="44" y="856" font-size="12.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Myelin made by</text><text x="240" y="856" font-size="12.5" font-weight="700" fill="#ffd9b8" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Oligodendrocytes (poor repair)</text><text x="730" y="856" font-size="12.5" font-weight="700" fill="#9ff2ee" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Schwann cells (good repair)</text><rect x="24" y="874" width="1192" height="38" rx="10" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.2)"/><text x="44" y="900" font-size="12.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Onset</text><text x="240" y="900" font-size="12.5" font-weight="700" fill="#ffd9b8" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Attacks over days, then remission</text><text x="730" y="900" font-size="12.5" font-weight="700" fill="#9ff2ee" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Days to ~2 weeks, often after an infection</text><rect x="24" y="918" width="1192" height="38" rx="10" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.2)"/><text x="44" y="944" font-size="12.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Pattern</text><text x="240" y="944" font-size="12.5" font-weight="700" fill="#ffd9b8" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Scattered, unpredictable “multiple” sites</text><text x="730" y="944" font-size="12.5" font-weight="700" fill="#9ff2ee" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">SYMMETRICAL, ASCENDING from the legs up</text><rect x="24" y="962" width="1192" height="38" rx="10" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.2)"/><text x="44" y="988" font-size="12.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Reflexes</text><text x="240" y="988" font-size="12.5" font-weight="700" fill="#ffd9b8" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Usually INCREASED (spastic)</text><text x="730" y="988" font-size="12.5" font-weight="700" fill="#9ff2ee" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">ABSENT (areflexia)</text><rect x="24" y="1006" width="1192" height="38" rx="10" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.2)"/><text x="44" y="1032" font-size="12.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">The killer</text><text x="240" y="1032" font-size="12.5" font-weight="700" fill="#ffd9b8" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Complications of disability</text><text x="730" y="1032" font-size="12.5" font-weight="700" fill="#9ff2ee" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">RESPIRATORY FAILURE — watch the diaphragm</text><rect x="24" y="1050" width="1192" height="38" rx="10" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.2)"/><text x="44" y="1076" font-size="12.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Course</text><text x="240" y="1076" font-size="12.5" font-weight="700" fill="#ffd9b8" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Lifelong, relapsing or progressive</text><text x="730" y="1076" font-size="12.5" font-weight="700" fill="#9ff2ee" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Usually RECOVERS over weeks to months</text><rect x="24" y="1094" width="1192" height="38" rx="10" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.2)"/><text x="44" y="1120" font-size="12.5" font-weight="900" fill="#ffe49a" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">Cure?</text><text x="240" y="1120" font-size="12.5" font-weight="700" fill="#ffd9b8" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">No cure — modify the course</text><text x="730" y="1120" font-size="12.5" font-weight="700" fill="#9ff2ee" opacity="1" text-anchor="start"  font-family="Segoe UI,Roboto,system-ui,sans-serif">No cure — support until it resolves</text></svg><p class="figcap">One is central and lifelong; the other is peripheral and usually recovers. The single most dangerous difference: in Guillain-Barré the paralysis climbs toward the diaphragm.</p></div>
+  <div class="card topaz">
+    <h3>⭐ How to tell them apart in one line each</h3>
+    <div class="mirror">
+      <div class="mrow lo"><b>MS</b>Young adult · CNS · scattered, <b>unpredictable</b> lesions · vision
+        problems and spasticity · relapses and remissions over decades · reflexes <b>up</b>.</div>
+      <div class="mrow hi"><b>GUILLAIN-BARRÉ</b>Any age, often after a GI or respiratory infection · PNS ·
+        <b>symmetrical ASCENDING</b> paralysis from the legs up · reflexes <b>absent</b> · watch the
+        <b>respiratory muscles</b> · usually recovers.</div>
+    </div>
+    <div class="xref"><span class="pill">FULL PAGE</span>
+      <a href="NG-245_guillain-barre.html">NG-245 Guillain-Barré syndrome</a></div>
+    <div class="mn">🧠 <b>MS = Multiple Scattered.</b> <b>GB = Ground up, Barré.</b> Paralysis climbs from
+    the ground up.</div>
+  </div>
+  <div class="card ruby">
+    <h3>❌ The answers that are wrong on MS questions</h3>
+    <ul class="tick">
+      <li>❌ <b>“Preparing to place a client with MS in a bathtub with hot water.”</b> — the classic wrong
+        nursing action.</li>
+      <li>❌ “Complete all the client's ADLs so she can conserve energy.”</li>
+      <li>❌ “A hot pack will loosen the spasticity.”</li>
+      <li>❌ “Stay on strict bed rest during a relapse.”</li>
+      <li>❌ “The interferon will cure the disease.”</li>
+      <li>✅ <b>“Rest in air-conditioned surroundings.”</b> · ✅ “Balance exercise with rest.” ·
+        ✅ “Report any sign of infection or bleeding.”</li>
+    </ul>
+    <div class="mn">🧠 Anything with <b>hot water, total care, or cure</b> is wrong.</div>
+  </div>
+  <div class="card sapphire">
+    <h3>🧠 Where MS sits among the other neuro diseases</h3>
+    <ul class="tick">
+      <li><b>CNS</b> — MS, <a href="NG-258_parkinsons.html">Parkinson's</a>,
+        <a href="NG-069_alzheimers.html">Alzheimer's</a>, Huntington's.</li>
+      <li><b>PNS</b> — <a href="NG-245_guillain-barre.html">Guillain-Barré</a>, myasthenia gravis.</li>
+      <li><b>Both</b> — ALS (upper and lower motor neurons).</li>
+      <li>Common thread: <b>no drug cures any of them.</b> We slow progression and manage symptoms.</li>
+      <li>Common care: <b>promote independence</b>, prevent falls, protect the airway, support the caregiver.</li>
+    </ul>
+    <div class="xref"><span class="pill">START HERE</span>
+      <a href="NG-255_neuro-overview.html">NG-255 Neuro Overview</a> — the anatomy behind all of them.</div>
+    <div class="mn">🧠 <b>“Is it CNS or PNS?”</b> answers half of every neuro question on the paper.</div>
+  </div>
+
+  </div>
+</section>
+<div class="recall" id="recall2">
+  <div class="rc citrine"><span class="big">🧬 CNS MYELIN</span>Autoimmune demyelination of brain, cord and
+    optic nerve. Sclerotic plaques on MRI; raised gamma globulin in CSF.</div>
+  <div class="rc tealbg"><span class="big">👁️ FIRST SIGNS</span>Optic neuritis · diplopia · numbness ·
+    spasticity · <b>fatigue</b> · bladder urgency. Scattered and unpredictable.</div>
+  <div class="rc rubybg"><span class="big">🔥 NO HOT WATER</span>Hot tub, hot bath, sauna, sunbathing and
+    fever all worsen symptoms. <b>Rest in air-conditioned surroundings.</b></div>
+  <div class="rc topazbg"><span class="big">🧠 AVOID THE 4 S's</span>Stress · Sickness · Smoking · Sun.
+    They trigger flare-ups.</div>
+  <div class="rc citrine"><span class="big">💊 REPORT INFECTION</span>On immunosuppressants: report any
+    infection or bleeding. Not for pregnant clients. No live vaccines.</div>
+  <div class="rc topazbg"><span class="big">🚶 DO WITH, NOT FOR</span>Self-care ADLs → gait training →
+    cane → walker → wheelchair last. Balance exercise with rest.</div>
+</div>
+
+<footer>
+  <div class="ccc"><span style="background:rgba(157,92,255,.6)">NG-253</span>
+    <span style="background:rgba(192,34,85,.7)">NEURO · AUTOIMMUNE</span>
+    <span style="background:var(--topaz);color:#2a1f00">Nursing Field Notes</span></div>
+  <div>Study aid only · always follow your facility protocol and your instructor.</div>
+</footer>
+
+</div>
+</body></html>

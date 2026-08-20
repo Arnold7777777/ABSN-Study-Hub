@@ -1,0 +1,1550 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ABG Compensation Answers · NG-173 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+
+
+/* ---- appended for the Respiratory + Labs batch (batch 17) ---- */
+nav a.c5{background:rgba(0,194,199,.72);color:#00252b}
+nav a.c6{background:rgba(255,138,61,.75);color:#2b1200}
+nav a.c7{background:rgba(192,34,85,.72)}
+#method .sec-h h2{color:#d9c2ff} #method .step{background:var(--amethyst)}
+#steps .sec-h h2{color:#d9c2ff} #steps .step{background:var(--amethyst)}
+#organs .sec-h h2{color:#9ff2ee} #organs .step{background:var(--teal);color:#00252b}
+#practice .sec-h h2{color:#bcd0ff} #practice .step{background:var(--sapphire)}
+#cases .sec-h h2{color:#bcd0ff} #cases .step{background:var(--sapphire)}
+#compensate .sec-h h2{color:#9ff2ee} #compensate .step{background:var(--teal);color:#00252b}
+#answers .sec-h h2{color:#a5f3d4} #answers .step{background:var(--emerald);color:#03291c}
+#why .sec-h h2{color:#ffd9b8} #why .step{background:var(--citrine);color:#2b1200}
+#traps17 .sec-h h2{color:#ffb3c6} #traps17 .step{background:var(--garnet)}
+#mechanics .sec-h h2{color:#d9c2ff} #mechanics .step{background:var(--amethyst)}
+#pressure .sec-h h2{color:#bcd0ff} #pressure .step{background:var(--sapphire)}
+#exchange .sec-h h2{color:#9ff2ee} #exchange .step{background:var(--teal);color:#00252b}
+#factors .sec-h h2{color:#ffd9b8} #factors .step{background:var(--citrine);color:#2b1200}
+#vocab .sec-h h2{color:#d9c2ff} #vocab .step{background:var(--amethyst)}
+#patterns .sec-h h2{color:#bcd0ff} #patterns .step{background:var(--sapphire)}
+#listen .sec-h h2{color:#9ff2ee} #listen .step{background:var(--teal);color:#00252b}
+#sounds .sec-h h2{color:#ffb3c6} #sounds .step{background:var(--garnet)}
+#care17 .sec-h h2{color:#a5f3d4} #care17 .step{background:var(--emerald);color:#03291c}
+#drill .sec-h h2{color:#ffd9b8} #drill .step{background:var(--citrine);color:#2b1200}
+
+.setbar{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin:4px 0 16px;font-size:.82rem}
+.setbar .setlabel{font-weight:900;letter-spacing:.08em;color:#ffe49a;margin-right:2px}
+.setbar a{font-weight:800;padding:4px 11px;border-radius:999px;border:1px solid var(--line);
+  background:rgba(13,8,26,.5);color:#dbe8ff;text-decoration:none}
+.setbar a.cur{background:var(--topaz);color:#231a02;border-color:transparent;cursor:default}
+footer a{color:var(--topaz);font-weight:800;text-decoration:none}
+footer a:hover{text-decoration:underline}
+.legendrow{display:flex;gap:9px;flex-wrap:wrap;margin:11px 0 0;font-size:.84rem;font-weight:800}
+.legendrow span{padding:5px 11px;border-radius:9px;background:rgba(13,8,26,.55);
+  border:1px solid var(--line);display:flex;align-items:center;gap:7px}
+.card.tealc .legendrow span,.card.topaz .legendrow span,.card.citrinec .legendrow span{
+  background:rgba(255,255,255,.5);color:#1a1030}
+.sw{display:inline-block;width:15px;height:15px;border-radius:4px;border:1px solid rgba(255,255,255,.6)}
+.card a{color:#ffe49a;font-weight:800}
+.lede a{color:var(--topaz);font-weight:800}
+.sec-sub a{color:var(--topaz);font-weight:800}
+.card.tealc a,.card.topaz a,.card.citrinec a{color:#0b3a52}
+.xref{margin-top:10px;padding:8px 12px;border-radius:11px;background:rgba(0,194,199,.20);
+  border:1px solid var(--line);font-size:.9rem;font-weight:700}
+.xref .pill{display:inline-block;font-size:.7rem;font-weight:900;letter-spacing:.08em;
+  background:var(--teal);color:#00252b;padding:2px 8px;border-radius:7px;margin-right:7px}
+.card.tealc .xref,.card.topaz .xref,.card.citrinec .xref{background:rgba(255,255,255,.45)}
+.mirror{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));margin:10px 0 0}
+.mrow{border-radius:12px;padding:10px 13px;background:rgba(13,8,26,.52);border:1px solid var(--line);font-size:.92rem}
+.mrow b{display:block;font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;opacity:.85;margin-bottom:3px}
+.mrow.hi{background:rgba(255,59,107,.30)} .mrow.lo{background:rgba(0,194,199,.28)}
+.card.tealc .mrow,.card.topaz .mrow,.card.citrinec .mrow{background:rgba(255,255,255,.42);color:#1a1030}
+.bigq{font-size:1.5rem;font-weight:900;line-height:1.2;margin:2px 0 6px}
+.tblwrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:2px 0}
+.ccc{flex-wrap:wrap}
+@media(max-width:700px){table{font-size:.85rem}th,td{padding:7px 6px}}
+.sec-h{flex-wrap:wrap}
+.sec-h h2,h1,.rc,.card h3{overflow-wrap:anywhere}
+.figcap{margin:9px 0 0;font-size:.85rem;line-height:1.45;color:#efe6ff;font-style:italic;opacity:.95}
+.card.tealc .figcap,.card.topaz .figcap,.card.citrinec .figcap{color:#241a05}
+.keyrow{display:flex;gap:8px;flex-wrap:wrap;margin:9px 0 0;font-size:.82rem;font-weight:800}
+.keyrow b{padding:4px 10px;border-radius:8px;background:rgba(13,8,26,.55);border:1px solid var(--line);font-weight:800}
+
+/* ---- ABG + respiratory components (batch 17) ---- */
+.abgrow{display:flex;gap:9px;flex-wrap:wrap;margin:8px 0 4px}
+.abgv{flex:1 1 130px;border-radius:13px;padding:9px 12px;background:rgba(13,8,26,.58);
+  border:1px solid var(--line);text-align:center;line-height:1.25}
+.abgv b{display:block;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;opacity:.88}
+.abgv span{display:block;font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;
+  font-weight:900;font-size:1.5rem;margin-top:2px}
+.abgv i{display:block;font-size:.74rem;font-style:normal;font-weight:800;opacity:.92;margin-top:2px}
+.abgv.acid{background:rgba(192,34,85,.55);border-color:rgba(255,160,185,.75)}
+.abgv.base{background:rgba(47,107,255,.5);border-color:rgba(170,200,255,.75)}
+.abgv.norm{background:rgba(18,184,134,.5);border-color:rgba(150,245,210,.75)}
+.card.tealc .abgv,.card.topaz .abgv,.card.citrinec .abgv{background:rgba(255,255,255,.5);color:#1a1030}
+.card.tealc .abgv.acid,.card.topaz .abgv.acid,.card.citrinec .abgv.acid{background:rgba(192,34,85,.55);color:#fff}
+.card.tealc .abgv.base,.card.topaz .abgv.base,.card.citrinec .abgv.base{background:rgba(47,107,255,.5);color:#fff}
+.card.tealc .abgv.norm,.card.topaz .abgv.norm,.card.citrinec .abgv.norm{background:rgba(18,184,134,.5);color:#03291c}
+
+.stepl{display:grid;gap:10px;margin:10px 0 0}
+.stepb{display:flex;gap:13px;align-items:flex-start;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.stepb .sn{flex:0 0 40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+  font-size:1.25rem;font-weight:900;background:var(--topaz);color:#2a1f00;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.stepb .st{font-size:.95rem;line-height:1.45}
+.stepb .st b{font-size:1.02rem}
+.card.tealc .stepb,.card.topaz .stepb,.card.citrinec .stepb{background:rgba(255,255,255,.45);color:#1a1030}
+
+.ansbox{margin:11px 0 0;border-radius:13px;border:1px dashed rgba(255,255,255,.55);
+  background:rgba(13,8,26,.55);padding:11px 14px}
+.ansbox summary{cursor:pointer;font-weight:900;font-size:.96rem;color:var(--topaz);list-style:none}
+.ansbox summary::-webkit-details-marker{display:none}
+.ansbox summary::before{content:"\25B6  "}
+.ansbox[open] summary::before{content:"\25BC  "}
+.ansbox[open] summary{margin-bottom:9px}
+.card.tealc .ansbox,.card.topaz .ansbox,.card.citrinec .ansbox{background:rgba(255,255,255,.55);color:#1a1030}
+.card.tealc .ansbox summary,.card.topaz .ansbox summary,.card.citrinec .ansbox summary{color:#7a2bd0}
+.verdict{display:inline-block;font-weight:900;font-size:1.05rem;padding:6px 13px;border-radius:10px;
+  background:var(--emerald);color:#03291c;margin:2px 0 7px}
+.verdict.bad{background:var(--ruby);color:#fff}
+.verdict.warn{background:var(--topaz);color:#2a1f00}
+.verdict.cool{background:var(--sapphire);color:#fff}
+.termgrid{display:grid;gap:9px;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));margin:10px 0 0}
+.term{border-radius:13px;padding:10px 12px;background:rgba(13,8,26,.55);border:1px solid var(--line);
+  font-size:.9rem;line-height:1.42}
+.term b{display:block;font-size:1rem;color:var(--topaz);margin-bottom:2px}
+.card.tealc .term,.card.topaz .term,.card.citrinec .term{background:rgba(255,255,255,.5);color:#1a1030}
+.card.tealc .term b,.card.topaz .term b,.card.citrinec .term b{color:#7a2bd0}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#answers">✅ The four answers</a>
+  <a class="c5" href="#why">🗺️ Where they come from</a>
+  <a class="c2" href="#traps17">🚨 The harder cases</a>
+  <a class="c6" href="#drill">🎯 Final drill</a>
+  <a class="c4" href="#recall2">⚡ Recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Respiratory + Labs · <b>ABG SERIES 3 OF 3</b> · Pathophysiology</div>
+  <div class="setbar"><span class="setlabel">🫁 RESPIRATORY + LABS SET</span>
+  <a href="NG-092_abg-answers.html">NG-092 ABG · The Method</a>
+  <a href="NG-138_abg-compensation-questions.html">NG-138 ABG · Compensation Practice</a>
+  <a class="cur" href="NG-173_abg-compensation-answers.html">NG-173 ABG · Answer Key</a>
+  <a href="NG-132_anatomy-of-breathing.html">NG-132 Anatomy of Breathing</a>
+  <a href="NG-170_key-terms-lung-sound-locations.html">NG-170 Key Terms &amp; Lung Sounds</a>
+  </div>
+  <h1>ABG Compensation Answers <span class="drop">✅</span></h1>
+  <p class="sub">All four gases, the route each one takes through the decision tree — and what they mean for the patient</p>
+  <div class="chips">
+    <span class="chip id">NG-173</span>
+    <span class="chip cat">LABS · ACID–BASE</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede">This is the answer key — but not a list of answers. Each of the four gases from
+  <a href="NG-138_abg-compensation-questions.html">NG-138</a> is drawn as a <b>lit-up route through the
+  decision tree</b>, so you can see exactly where the reasoning turned. Then: where each disorder comes from,
+  what to do about it, the mixed-disorder trap, and the oxygenation half of the gas that everyone forgets.
+  The method is on <a href="NG-092_abg-answers.html">NG-092</a>.</p>
+</header>
+
+<div class="recall">
+  <div class="rc rubybg"><span class="big">1️⃣ 7.32 · 55 · 42</span>Respiratory acidosis, <b>PARTIALLY</b> compensated.
+    All three numbers abnormal.</div>
+  <div class="rc citrine"><span class="big">2️⃣ 7.55 · 49 · 35</span>Metabolic alkalosis, <b>PARTIALLY</b> compensated.
+    The high CO₂ is the rescue, not the cause.</div>
+  <div class="rc tealbg"><span class="big">3️⃣ 7.37 · 52 · 32</span>Respiratory acidosis, <b>FULLY</b> compensated.
+    Normal pH on the acid side of 7.40.</div>
+  <div class="rc topazbg"><span class="big">4️⃣ 7.43 · 43 · 33</span>Metabolic alkalosis, <b>FULLY</b> compensated.
+    Normal pH on the alkaline side of 7.40.</div>
+</div>
+
+<section id="answers">
+  <div class="sec-h"><span class="icon">✅</span><h2>PART 1 · THE FOUR ANSWERS</h2><span class="step">EVERY TURN SHOWN</span></div>
+  <p class="sec-sub">Follow the gold route with your finger. Where it lights up is where you had to make a decision.
+  All reference values on this page (pH 7.35–7.45, PaCO₂ 35–45 mmHg, HCO₃⁻ 22–26 mEq/L) are <b>typical adult
+  ranges and vary by lab</b> — read the range printed on your own report.</p>
+  <div class="grid">
+
+  <div class="card deep span2">
+    <h3>🧭 First, the trick that unlocks questions 3 and 4</h3>
+    <svg viewBox="0 0 1240 590" role="img" aria-label="A magnified ruler of the normal pH window from 7.33 to 7.47, with the normal band 7.35 to 7.45 filled green and a bold dividing line at 7.40. The half of the window below 7.40 is tinted red and labelled: a fully compensated gas landing here started as an acidosis. The half above 7.40 is tinted blue and labelled: a fully compensated gas landing here started as an alkalosis. Question three, pH 7.37, is pinned on the red half and question four, pH 7.43, is pinned on the blue half.">
+<defs>
+<filter id="rldrop" x="-40%" y="-40%" width="185%" height="185%">
+  <feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dx="0" dy="6" result="o"/>
+  <feFlood flood-color="#000" flood-opacity=".55"/><feComposite in2="o" operator="in" result="sh"/>
+  <feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<filter id="rlsoft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7"/></filter>
+<linearGradient id="rlacid" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#ff9db6"/><stop offset=".18" stop-color="#ff617f"/>
+  <stop offset=".55" stop-color="#e02b56"/><stop offset=".85" stop-color="#a3123c"/>
+  <stop offset="1" stop-color="#6d0526"/></linearGradient>
+<linearGradient id="rlbase" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#a9c6ff"/><stop offset=".18" stop-color="#6b95ff"/>
+  <stop offset=".55" stop-color="#2f6bff"/><stop offset=".85" stop-color="#1a3fa8"/>
+  <stop offset="1" stop-color="#0d2160"/></linearGradient>
+<linearGradient id="rlnorm" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#b8f7e0"/><stop offset=".18" stop-color="#5fe0b4"/>
+  <stop offset=".55" stop-color="#12b886"/><stop offset=".85" stop-color="#0a7d5b"/>
+  <stop offset="1" stop-color="#044234"/></linearGradient>
+<linearGradient id="rlgloss" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#ffffff" stop-opacity=".42"/>
+  <stop offset=".45" stop-color="#ffffff" stop-opacity=".07"/>
+  <stop offset="1" stop-color="#000000" stop-opacity=".25"/></linearGradient>
+</defs>
+<rect x="0" y="0" width="1240" height="590" rx="20" fill="#0d0820" opacity=".55"/>
+<text x="28" y="42" font-size="25" font-weight="900" fill="#ffe49a" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">THE 7.40 TRICK — naming a gas whose pH is normal</text>
+<text x="28" y="68" font-size="14.5" font-weight="700" fill="#cbe4ff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">Magnified view of the normal window only (7.35–7.45) · the rest of the scale is off-screen</text>
+<rect x="110" y="150" width="1020" height="92" rx="12" fill="rgba(18,184,134,.28)" stroke="rgba(150,245,210,.7)" stroke-width="2"/>
+<rect x="255.7" y="150" width="364.3" height="92" fill="rgba(192,34,85,.55)"/>
+<rect x="620.0" y="150" width="364.3" height="92" fill="rgba(47,107,255,.55)"/>
+<rect x="110" y="150" width="1020" height="92" rx="12" fill="url(#rlgloss)"/>
+<rect x="110" y="150" width="1020" height="92" rx="12" fill="none" stroke="rgba(255,255,255,.6)" stroke-width="1.8"/>
+<line x1="620.0" y1="122" x2="620.0" y2="270" stroke="#ffc233" stroke-width="5"/>
+<text x="620.0000000000033" y="112" font-size="17" font-weight="900" fill="#ffc233" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">7.40 — the true midpoint</text>
+<line x1="255.7" y1="150" x2="255.7" y2="256" stroke="#d6fff0" stroke-width="2.4"/>
+<text x="255.71428571428294" y="276" font-size="15" font-weight="900" fill="#d6fff0" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">7.35</text>
+<line x1="984.3" y1="150" x2="984.3" y2="256" stroke="#d6fff0" stroke-width="2.4"/>
+<text x="984.2857142857171" y="276" font-size="15" font-weight="900" fill="#d6fff0" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">7.45</text>
+<text x="437.8571428571431" y="182" font-size="20" font-weight="900" fill="#fff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">ACIDIC HALF</text>
+<text x="437.8571428571431" y="206" font-size="13" font-weight="800" fill="#ffd3dd" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">a compensated gas landing here</text>
+<text x="437.8571428571431" y="224" font-size="13.5" font-weight="900" fill="#ffd3dd" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">started as an ACIDOSIS</text>
+<text x="802.1428571428602" y="182" font-size="20" font-weight="900" fill="#fff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">ALKALINE HALF</text>
+<text x="802.1428571428602" y="206" font-size="13" font-weight="800" fill="#bcd0ff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">a compensated gas landing here</text>
+<text x="802.1428571428602" y="224" font-size="13.5" font-weight="900" fill="#bcd0ff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">started as an ALKALOSIS</text>
+<line x1="401.4" y1="242" x2="401.4" y2="314" stroke="#c02255" stroke-width="2.4" stroke-dasharray="5 4"/>
+<circle cx="401.4" cy="314" r="12" fill="#c02255" stroke="#fff" stroke-width="2.6"/>
+<rect x="301.4" y="334" width="200" height="32" rx="9" fill="#c02255" stroke="rgba(255,255,255,.6)"/>
+<text x="401.42857142857235" y="356" font-size="16" font-weight="900" fill="#fff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">Q3 · pH 7.37</text>
+<text x="401.42857142857235" y="386" font-size="13" font-weight="800" fill="#efe6ff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">PaCO₂ 52 (acid) → respiratory acidosis, fully compensated</text>
+<line x1="838.6" y1="242" x2="838.6" y2="402" stroke="#2f6bff" stroke-width="2.4" stroke-dasharray="5 4"/>
+<circle cx="838.6" cy="402" r="12" fill="#2f6bff" stroke="#fff" stroke-width="2.6"/>
+<rect x="738.6" y="422" width="200" height="32" rx="9" fill="#2f6bff" stroke="rgba(255,255,255,.6)"/>
+<text x="838.5714285714276" y="444" font-size="16" font-weight="900" fill="#fff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">Q4 · pH 7.43</text>
+<text x="838.5714285714276" y="474" font-size="13" font-weight="800" fill="#efe6ff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">HCO₃⁻ 33 (base) → metabolic alkalosis, fully compensated</text>
+<rect x="110" y="496" width="1020" height="62" rx="13" fill="rgba(255,194,51,.18)" stroke="rgba(255,194,51,.7)" stroke-width="1.6"/>
+<text x="132" y="522" font-size="16" font-weight="900" fill="#ffe49a" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">⭐ Rule —</text>
+<text x="228" y="522" font-size="14.5" font-weight="800" fill="#fff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">compensation drags the pH TOWARD 7.40 and stops — it never crosses to the other side.</text>
+<text x="228" y="544" font-size="14.5" font-weight="800" fill="#fff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">So whichever half the pH landed in tells you what the original disorder must have been.</text>
+</svg>
+    <p class="figcap">Two of the four gases come back with a <b>normal</b> pH. The half of the normal window the
+    pH lands in tells you what the original disorder was, because compensation never overshoots 7.40.</p>
+    <div class="mn">🧠 <b>Below 7.40 it was an acidosis. Above 7.40 it was an alkalosis.</b></div>
+  </div>
+
+  <div class="card deep span2">
+    <h3>1️⃣ Question 1 — pH 7.32 · PaCO₂ 55 · HCO₃⁻ 42</h3>
+    <svg viewBox="-10 -10 1400 660" role="img" aria-label="The three-step decision path filled in for question 1, an arterial blood gas with a pH of 7.32, a PaCO2 of 55 and a bicarbonate of 42. Column one is step one, the pH; column two is step two, which partner matches the pH; column three is step three, how far compensation has got; column four is the answer. In each column the option that applies to this gas is highlighted in full colour with a tick, the options that do not apply are dimmed, and a gold route line joins the chosen boxes across to the answer: RESPIRATORY ACIDOSIS|PARTIALLY COMPENSATED.">
+<defs>
+<filter id="p1drop" x="-40%" y="-40%" width="185%" height="185%">
+  <feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dx="0" dy="6" result="o"/>
+  <feFlood flood-color="#000" flood-opacity=".55"/><feComposite in2="o" operator="in" result="sh"/>
+  <feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<filter id="p1soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7"/></filter>
+<linearGradient id="p1acid" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#ff9db6"/><stop offset=".18" stop-color="#ff617f"/>
+  <stop offset=".55" stop-color="#e02b56"/><stop offset=".85" stop-color="#a3123c"/>
+  <stop offset="1" stop-color="#6d0526"/></linearGradient>
+<linearGradient id="p1base" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#a9c6ff"/><stop offset=".18" stop-color="#6b95ff"/>
+  <stop offset=".55" stop-color="#2f6bff"/><stop offset=".85" stop-color="#1a3fa8"/>
+  <stop offset="1" stop-color="#0d2160"/></linearGradient>
+<linearGradient id="p1norm" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#b8f7e0"/><stop offset=".18" stop-color="#5fe0b4"/>
+  <stop offset=".55" stop-color="#12b886"/><stop offset=".85" stop-color="#0a7d5b"/>
+  <stop offset="1" stop-color="#044234"/></linearGradient>
+<linearGradient id="p1gloss" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#ffffff" stop-opacity=".42"/>
+  <stop offset=".45" stop-color="#ffffff" stop-opacity=".07"/>
+  <stop offset="1" stop-color="#000000" stop-opacity=".25"/></linearGradient>
+
+<marker id="p1ar" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+  <path d="M 0 1 L 11 6 L 0 11 z" fill="#ffc233"/></marker></defs>
+<rect x="-6" y="-6" width="1392" height="652" rx="20" fill="#0d0820" opacity=".55"/>
+<text x="28" y="40" font-size="24" font-weight="900" fill="#ffe49a" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">QUESTION 1 — the decision path, filled in</text>
+<text x="28" y="66" font-size="15" font-weight="800" fill="#cbe4ff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">pH 7.32   ·   PaCO₂ 55 mmHg   ·   HCO₃⁻ 42 mEq/L   —   read left to right</text>
+<rect x="846" y="14" width="366" height="62" rx="12" fill="rgba(6,4,16,.78)" stroke="rgba(255,255,255,.34)" stroke-width="1"/>
+<text x="862" y="33" font-size="11.5" font-weight="900" fill="#ffe49a" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">KEY</text>
+<rect x="898" y="23" width="20" height="12" rx="3" fill="#ffc233"/>
+<text x="926" y="33" font-size="12" font-weight="800" fill="#ffe49a" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">✓ bright = the route this gas took</text>
+<rect x="862" y="46" width="20" height="12" rx="3" fill="#5c5470"/>
+<text x="890" y="56" font-size="12" font-weight="800" fill="#c9bede" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">dim = the options it did not take</text>
+<rect x="30" y="100" width="262" height="46" rx="11" fill="rgba(157,92,255,.5)" stroke="rgba(226,213,255,.7)" stroke-width="1.4"/>
+<text x="161.0" y="119" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">STEP 1</text>
+<text x="161.0" y="137" font-size="13" font-weight="900" fill="#ffffff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">WHICH WAY IS THE pH?</text>
+<rect x="336" y="100" width="262" height="46" rx="11" fill="rgba(157,92,255,.5)" stroke="rgba(226,213,255,.7)" stroke-width="1.4"/>
+<text x="467.0" y="119" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">STEP 2</text>
+<text x="467.0" y="137" font-size="13" font-weight="900" fill="#ffffff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">WHICH PARTNER MATCHES?</text>
+<rect x="642" y="100" width="262" height="46" rx="11" fill="rgba(157,92,255,.5)" stroke="rgba(226,213,255,.7)" stroke-width="1.4"/>
+<text x="773.0" y="119" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">STEP 3</text>
+<text x="773.0" y="137" font-size="13" font-weight="900" fill="#ffffff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">HOW FAR DID THE RESCUE GET?</text>
+<rect x="948" y="100" width="262" height="46" rx="11" fill="rgba(157,92,255,.5)" stroke="rgba(226,213,255,.7)" stroke-width="1.4"/>
+<text x="1079.0" y="130" font-size="15" font-weight="900" fill="#ffe49a" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">THE ANSWER</text>
+<g filter="url(#p1drop)"><rect x="30" y="166" width="262" height="94" rx="12" fill="#c02255" opacity="1" stroke="#ffc233" stroke-width="3"/></g>
+<text x="161.0" y="196" font-size="16" font-weight="900" fill="#fff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">ACIDOSIS</text>
+<text x="161.0" y="218" font-size="12.5" font-weight="800" fill="#fff" text-anchor="middle" opacity="0.95" font-family="Segoe UI,Roboto,system-ui,sans-serif">pH < 7.35</text>
+<circle cx="56" cy="236" r="13" fill="#ffc233" stroke="#2a1f00" stroke-width="1.6"/>
+<text x="56" y="241" font-size="15" font-weight="900" fill="#2a1f00" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">✓</text>
+<text x="78" y="241" font-size="12.5" font-weight="800" fill="#fff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">pH 7.32 — below 7.35</text>
+<g><rect x="30" y="268" width="262" height="94" rx="12" fill="#3b3550" opacity="0.38" stroke="rgba(255,255,255,.25)" stroke-width="1.2"/></g>
+<text x="161.0" y="298" font-size="14.5" font-weight="900" fill="#b9aed2" text-anchor="middle" opacity="0.75" font-family="Segoe UI,Roboto,system-ui,sans-serif">NORMAL pH</text>
+<text x="161.0" y="320" font-size="12.5" font-weight="800" fill="#b9aed2" text-anchor="middle" opacity="0.6" font-family="Segoe UI,Roboto,system-ui,sans-serif">7.35 – 7.45</text>
+<g><rect x="30" y="370" width="262" height="94" rx="12" fill="#3b3550" opacity="0.38" stroke="rgba(255,255,255,.25)" stroke-width="1.2"/></g>
+<text x="161.0" y="400" font-size="14.5" font-weight="900" fill="#b9aed2" text-anchor="middle" opacity="0.75" font-family="Segoe UI,Roboto,system-ui,sans-serif">ALKALOSIS</text>
+<text x="161.0" y="422" font-size="12.5" font-weight="800" fill="#b9aed2" text-anchor="middle" opacity="0.6" font-family="Segoe UI,Roboto,system-ui,sans-serif">pH > 7.45</text>
+<g filter="url(#p1drop)"><rect x="336" y="190" width="262" height="106" rx="12" fill="#ff8a3d" opacity="1" stroke="#ffc233" stroke-width="3"/></g>
+<text x="467.0" y="220" font-size="16" font-weight="900" fill="#fff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">RESPIRATORY</text>
+<text x="467.0" y="242" font-size="12.5" font-weight="800" fill="#fff" text-anchor="middle" opacity="0.95" font-family="Segoe UI,Roboto,system-ui,sans-serif">PaCO₂ matches the pH</text>
+<circle cx="362" cy="272" r="13" fill="#ffc233" stroke="#2a1f00" stroke-width="1.6"/>
+<text x="362" y="277" font-size="15" font-weight="900" fill="#2a1f00" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">✓</text>
+<text x="384" y="277" font-size="12.5" font-weight="800" fill="#fff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">PaCO₂ 55 — high = acid</text>
+<g><rect x="336" y="314" width="262" height="106" rx="12" fill="#3b3550" opacity="0.38" stroke="rgba(255,255,255,.25)" stroke-width="1.2"/></g>
+<text x="467.0" y="344" font-size="14.5" font-weight="900" fill="#b9aed2" text-anchor="middle" opacity="0.75" font-family="Segoe UI,Roboto,system-ui,sans-serif">METABOLIC</text>
+<text x="467.0" y="366" font-size="12.5" font-weight="800" fill="#b9aed2" text-anchor="middle" opacity="0.6" font-family="Segoe UI,Roboto,system-ui,sans-serif">HCO₃⁻ matches the pH</text>
+<g><rect x="642" y="166" width="262" height="94" rx="12" fill="#3b3550" opacity="0.38" stroke="rgba(255,255,255,.25)" stroke-width="1.2"/></g>
+<text x="773.0" y="196" font-size="14.5" font-weight="900" fill="#b9aed2" text-anchor="middle" opacity="0.75" font-family="Segoe UI,Roboto,system-ui,sans-serif">UNCOMPENSATED</text>
+<text x="773.0" y="218" font-size="12.5" font-weight="800" fill="#b9aed2" text-anchor="middle" opacity="0.6" font-family="Segoe UI,Roboto,system-ui,sans-serif">rescuer still normal</text>
+<g filter="url(#p1drop)"><rect x="642" y="268" width="262" height="94" rx="12" fill="#ffc233" opacity="1" stroke="#ffc233" stroke-width="3"/></g>
+<text x="773.0" y="298" font-size="16" font-weight="900" fill="#2a1f00" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">PARTIALLY COMP.</text>
+<text x="773.0" y="320" font-size="12.5" font-weight="800" fill="#2a1f00" text-anchor="middle" opacity="0.95" font-family="Segoe UI,Roboto,system-ui,sans-serif">pH still out of range</text>
+<circle cx="668" cy="338" r="13" fill="#ffc233" stroke="#2a1f00" stroke-width="1.6"/>
+<text x="668" y="343" font-size="15" font-weight="900" fill="#2a1f00" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">✓</text>
+<text x="690" y="343" font-size="12.5" font-weight="800" fill="#2a1f00" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">pH is still 7.32</text>
+<g><rect x="642" y="370" width="262" height="94" rx="12" fill="#3b3550" opacity="0.38" stroke="rgba(255,255,255,.25)" stroke-width="1.2"/></g>
+<text x="773.0" y="400" font-size="14.5" font-weight="900" fill="#b9aed2" text-anchor="middle" opacity="0.75" font-family="Segoe UI,Roboto,system-ui,sans-serif">FULLY COMPENSATED</text>
+<text x="773.0" y="422" font-size="12.5" font-weight="800" fill="#b9aed2" text-anchor="middle" opacity="0.6" font-family="Segoe UI,Roboto,system-ui,sans-serif">pH back in range</text>
+<path d="M 292 213.0 C 314.0 213.0 314.0 243.0 330 243.0" stroke="#ffc233" stroke-width="4.5" fill="none" marker-end="url(#p1ar)"/>
+<path d="M 598 243.0 C 620.0 243.0 620.0 315.0 636 315.0" stroke="#ffc233" stroke-width="4.5" fill="none" marker-end="url(#p1ar)"/>
+<g filter="url(#p1drop)"><rect x="948" y="249.0" width="262" height="132" rx="14" fill="#c02255" stroke="#ffc233" stroke-width="3"/></g>
+<text x="1079.0" y="291.0" font-size="17" font-weight="900" fill="#fff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">RESPIRATORY ACIDOSIS</text>
+<text x="1079.0" y="315.0" font-size="17" font-weight="900" fill="#fff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">PARTIALLY COMPENSATED</text>
+<text x="1079.0" y="349.0" font-size="12.5" font-weight="800" fill="#ffe49a" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">all three values abnormal</text>
+<path d="M 904 315.0 C 926.0 315.0 926.0 315.0 942 315.0" stroke="#ffc233" stroke-width="4.5" fill="none" marker-end="url(#p1ar)"/>
+<rect x="30" y="488" width="1180" height="130" rx="14" fill="rgba(6,4,16,.66)" stroke="rgba(255,255,255,.34)" stroke-width="1"/>
+<text x="52" y="516" font-size="14" font-weight="900" fill="#ffe49a" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">WHY — in one line per step</text>
+<text x="52" y="544" font-size="14" font-weight="700" fill="#efe6ff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">Step 1 · pH 7.32 is below 7.35 → acidosis.</text>
+<text x="52" y="568" font-size="14" font-weight="700" fill="#efe6ff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">Step 2 · PaCO₂ 55 is above 45, and a high CO₂ is acidic — it agrees with the pH, so the lungs are the culprit.</text>
+<text x="52" y="592" font-size="14" font-weight="700" fill="#efe6ff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">Step 3 · HCO₃⁻ 42 is far above 26 (base), so the kidneys ARE rescuing — but the pH has not made it back inside 7.35–7.45.</text>
+</svg>
+    <p class="figcap">Three abnormal numbers is the signature of <b>partial</b> compensation: the culprit is out
+    of range, the rescuer is out of range, and the pH still hasn't made it home.</p>
+    <p><span class="verdict bad">Respiratory acidosis · partially compensated</span></p>
+    <div class="mn">🧠 The dramatic HCO₃⁻ of 42 is the <b>rescuer</b>, not the problem. It argues with the pH.</div>
+  </div>
+
+  <div class="card garnet">
+    <h3>🩺 Question 1 — the patient behind the numbers</h3>
+    <p><b>A CO₂ retainer who is losing ground.</b> The kidneys have had days to bank bicarbonate (HCO₃⁻ 42 is a
+    long-term adaptation), but the CO₂ has now climbed faster than they can keep up.</p>
+    <ul class="tick">
+      <li>Think <b>COPD with an acute exacerbation on top of chronic retention</b>, or a chronic retainer who has
+        been over-sedated.</li>
+      <li>Watch for <b>drowsiness, confusion, headache, flushed skin, asterixis</b> — CO₂ narcosis.</li>
+      <li>Priorities: <b>improve ventilation</b> — position upright, treat the reversible cause (bronchospasm,
+        secretions, infection, sedation), escalate for possible <b>non-invasive ventilation</b>.</li>
+      <li class="never">Never assume a sleepy CO₂ retainer is “settled for the night.”</li>
+    </ul>
+    <div class="mn">🧠 <b>Partial compensation + a deteriorating patient = the rescue is losing. Escalate.</b></div>
+  </div>
+
+  <div class="card deep span2">
+    <h3>2️⃣ Question 2 — pH 7.55 · PaCO₂ 49 · HCO₃⁻ 35</h3>
+    <svg viewBox="-10 -10 1400 660" role="img" aria-label="The three-step decision path filled in for question 2, an arterial blood gas with a pH of 7.55, a PaCO2 of 49 and a bicarbonate of 35. Column one is step one, the pH; column two is step two, which partner matches the pH; column three is step three, how far compensation has got; column four is the answer. In each column the option that applies to this gas is highlighted in full colour with a tick, the options that do not apply are dimmed, and a gold route line joins the chosen boxes across to the answer: METABOLIC ALKALOSIS|PARTIALLY COMPENSATED.">
+<defs>
+<filter id="p2drop" x="-40%" y="-40%" width="185%" height="185%">
+  <feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dx="0" dy="6" result="o"/>
+  <feFlood flood-color="#000" flood-opacity=".55"/><feComposite in2="o" operator="in" result="sh"/>
+  <feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<filter id="p2soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7"/></filter>
+<linearGradient id="p2acid" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#ff9db6"/><stop offset=".18" stop-color="#ff617f"/>
+  <stop offset=".55" stop-color="#e02b56"/><stop offset=".85" stop-color="#a3123c"/>
+  <stop offset="1" stop-color="#6d0526"/></linearGradient>
+<linearGradient id="p2base" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#a9c6ff"/><stop offset=".18" stop-color="#6b95ff"/>
+  <stop offset=".55" stop-color="#2f6bff"/><stop offset=".85" stop-color="#1a3fa8"/>
+  <stop offset="1" stop-color="#0d2160"/></linearGradient>
+<linearGradient id="p2norm" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#b8f7e0"/><stop offset=".18" stop-color="#5fe0b4"/>
+  <stop offset=".55" stop-color="#12b886"/><stop offset=".85" stop-color="#0a7d5b"/>
+  <stop offset="1" stop-color="#044234"/></linearGradient>
+<linearGradient id="p2gloss" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#ffffff" stop-opacity=".42"/>
+  <stop offset=".45" stop-color="#ffffff" stop-opacity=".07"/>
+  <stop offset="1" stop-color="#000000" stop-opacity=".25"/></linearGradient>
+
+<marker id="p2ar" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+  <path d="M 0 1 L 11 6 L 0 11 z" fill="#ffc233"/></marker></defs>
+<rect x="-6" y="-6" width="1392" height="652" rx="20" fill="#0d0820" opacity=".55"/>
+<text x="28" y="40" font-size="24" font-weight="900" fill="#ffe49a" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">QUESTION 2 — the decision path, filled in</text>
+<text x="28" y="66" font-size="15" font-weight="800" fill="#cbe4ff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">pH 7.55   ·   PaCO₂ 49 mmHg   ·   HCO₃⁻ 35 mEq/L   —   read left to right</text>
+<rect x="846" y="14" width="366" height="62" rx="12" fill="rgba(6,4,16,.78)" stroke="rgba(255,255,255,.34)" stroke-width="1"/>
+<text x="862" y="33" font-size="11.5" font-weight="900" fill="#ffe49a" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">KEY</text>
+<rect x="898" y="23" width="20" height="12" rx="3" fill="#ffc233"/>
+<text x="926" y="33" font-size="12" font-weight="800" fill="#ffe49a" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">✓ bright = the route this gas took</text>
+<rect x="862" y="46" width="20" height="12" rx="3" fill="#5c5470"/>
+<text x="890" y="56" font-size="12" font-weight="800" fill="#c9bede" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">dim = the options it did not take</text>
+<rect x="30" y="100" width="262" height="46" rx="11" fill="rgba(157,92,255,.5)" stroke="rgba(226,213,255,.7)" stroke-width="1.4"/>
+<text x="161.0" y="119" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">STEP 1</text>
+<text x="161.0" y="137" font-size="13" font-weight="900" fill="#ffffff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">WHICH WAY IS THE pH?</text>
+<rect x="336" y="100" width="262" height="46" rx="11" fill="rgba(157,92,255,.5)" stroke="rgba(226,213,255,.7)" stroke-width="1.4"/>
+<text x="467.0" y="119" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">STEP 2</text>
+<text x="467.0" y="137" font-size="13" font-weight="900" fill="#ffffff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">WHICH PARTNER MATCHES?</text>
+<rect x="642" y="100" width="262" height="46" rx="11" fill="rgba(157,92,255,.5)" stroke="rgba(226,213,255,.7)" stroke-width="1.4"/>
+<text x="773.0" y="119" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">STEP 3</text>
+<text x="773.0" y="137" font-size="13" font-weight="900" fill="#ffffff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">HOW FAR DID THE RESCUE GET?</text>
+<rect x="948" y="100" width="262" height="46" rx="11" fill="rgba(157,92,255,.5)" stroke="rgba(226,213,255,.7)" stroke-width="1.4"/>
+<text x="1079.0" y="130" font-size="15" font-weight="900" fill="#ffe49a" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">THE ANSWER</text>
+<g><rect x="30" y="166" width="262" height="94" rx="12" fill="#3b3550" opacity="0.38" stroke="rgba(255,255,255,.25)" stroke-width="1.2"/></g>
+<text x="161.0" y="196" font-size="14.5" font-weight="900" fill="#b9aed2" text-anchor="middle" opacity="0.75" font-family="Segoe UI,Roboto,system-ui,sans-serif">ACIDOSIS</text>
+<text x="161.0" y="218" font-size="12.5" font-weight="800" fill="#b9aed2" text-anchor="middle" opacity="0.6" font-family="Segoe UI,Roboto,system-ui,sans-serif">pH < 7.35</text>
+<g><rect x="30" y="268" width="262" height="94" rx="12" fill="#3b3550" opacity="0.38" stroke="rgba(255,255,255,.25)" stroke-width="1.2"/></g>
+<text x="161.0" y="298" font-size="14.5" font-weight="900" fill="#b9aed2" text-anchor="middle" opacity="0.75" font-family="Segoe UI,Roboto,system-ui,sans-serif">NORMAL pH</text>
+<text x="161.0" y="320" font-size="12.5" font-weight="800" fill="#b9aed2" text-anchor="middle" opacity="0.6" font-family="Segoe UI,Roboto,system-ui,sans-serif">7.35 – 7.45</text>
+<g filter="url(#p2drop)"><rect x="30" y="370" width="262" height="94" rx="12" fill="#2f6bff" opacity="1" stroke="#ffc233" stroke-width="3"/></g>
+<text x="161.0" y="400" font-size="16" font-weight="900" fill="#fff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">ALKALOSIS</text>
+<text x="161.0" y="422" font-size="12.5" font-weight="800" fill="#fff" text-anchor="middle" opacity="0.95" font-family="Segoe UI,Roboto,system-ui,sans-serif">pH > 7.45</text>
+<circle cx="56" cy="440" r="13" fill="#ffc233" stroke="#2a1f00" stroke-width="1.6"/>
+<text x="56" y="445" font-size="15" font-weight="900" fill="#2a1f00" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">✓</text>
+<text x="78" y="445" font-size="12.5" font-weight="800" fill="#fff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">pH 7.55 — above 7.45</text>
+<g><rect x="336" y="190" width="262" height="106" rx="12" fill="#3b3550" opacity="0.38" stroke="rgba(255,255,255,.25)" stroke-width="1.2"/></g>
+<text x="467.0" y="220" font-size="14.5" font-weight="900" fill="#b9aed2" text-anchor="middle" opacity="0.75" font-family="Segoe UI,Roboto,system-ui,sans-serif">RESPIRATORY</text>
+<text x="467.0" y="242" font-size="12.5" font-weight="800" fill="#b9aed2" text-anchor="middle" opacity="0.6" font-family="Segoe UI,Roboto,system-ui,sans-serif">PaCO₂ matches the pH</text>
+<g filter="url(#p2drop)"><rect x="336" y="314" width="262" height="106" rx="12" fill="#00c2c7" opacity="1" stroke="#ffc233" stroke-width="3"/></g>
+<text x="467.0" y="344" font-size="16" font-weight="900" fill="#03291c" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">METABOLIC</text>
+<text x="467.0" y="366" font-size="12.5" font-weight="800" fill="#03291c" text-anchor="middle" opacity="0.95" font-family="Segoe UI,Roboto,system-ui,sans-serif">HCO₃⁻ matches the pH</text>
+<circle cx="362" cy="396" r="13" fill="#ffc233" stroke="#2a1f00" stroke-width="1.6"/>
+<text x="362" y="401" font-size="15" font-weight="900" fill="#2a1f00" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">✓</text>
+<text x="384" y="401" font-size="12.5" font-weight="800" fill="#03291c" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">HCO₃⁻ 35 — high = base</text>
+<g><rect x="642" y="166" width="262" height="94" rx="12" fill="#3b3550" opacity="0.38" stroke="rgba(255,255,255,.25)" stroke-width="1.2"/></g>
+<text x="773.0" y="196" font-size="14.5" font-weight="900" fill="#b9aed2" text-anchor="middle" opacity="0.75" font-family="Segoe UI,Roboto,system-ui,sans-serif">UNCOMPENSATED</text>
+<text x="773.0" y="218" font-size="12.5" font-weight="800" fill="#b9aed2" text-anchor="middle" opacity="0.6" font-family="Segoe UI,Roboto,system-ui,sans-serif">rescuer still normal</text>
+<g filter="url(#p2drop)"><rect x="642" y="268" width="262" height="94" rx="12" fill="#ffc233" opacity="1" stroke="#ffc233" stroke-width="3"/></g>
+<text x="773.0" y="298" font-size="16" font-weight="900" fill="#2a1f00" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">PARTIALLY COMP.</text>
+<text x="773.0" y="320" font-size="12.5" font-weight="800" fill="#2a1f00" text-anchor="middle" opacity="0.95" font-family="Segoe UI,Roboto,system-ui,sans-serif">pH still out of range</text>
+<circle cx="668" cy="338" r="13" fill="#ffc233" stroke="#2a1f00" stroke-width="1.6"/>
+<text x="668" y="343" font-size="15" font-weight="900" fill="#2a1f00" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">✓</text>
+<text x="690" y="343" font-size="12.5" font-weight="800" fill="#2a1f00" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">pH is still 7.55</text>
+<g><rect x="642" y="370" width="262" height="94" rx="12" fill="#3b3550" opacity="0.38" stroke="rgba(255,255,255,.25)" stroke-width="1.2"/></g>
+<text x="773.0" y="400" font-size="14.5" font-weight="900" fill="#b9aed2" text-anchor="middle" opacity="0.75" font-family="Segoe UI,Roboto,system-ui,sans-serif">FULLY COMPENSATED</text>
+<text x="773.0" y="422" font-size="12.5" font-weight="800" fill="#b9aed2" text-anchor="middle" opacity="0.6" font-family="Segoe UI,Roboto,system-ui,sans-serif">pH back in range</text>
+<path d="M 292 417.0 C 314.0 417.0 314.0 367.0 330 367.0" stroke="#ffc233" stroke-width="4.5" fill="none" marker-end="url(#p2ar)"/>
+<path d="M 598 367.0 C 620.0 367.0 620.0 315.0 636 315.0" stroke="#ffc233" stroke-width="4.5" fill="none" marker-end="url(#p2ar)"/>
+<g filter="url(#p2drop)"><rect x="948" y="249.0" width="262" height="132" rx="14" fill="#1a3fa8" stroke="#ffc233" stroke-width="3"/></g>
+<text x="1079.0" y="291.0" font-size="17" font-weight="900" fill="#fff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">METABOLIC ALKALOSIS</text>
+<text x="1079.0" y="315.0" font-size="17" font-weight="900" fill="#fff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">PARTIALLY COMPENSATED</text>
+<text x="1079.0" y="349.0" font-size="12.5" font-weight="800" fill="#ffe49a" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">all three values abnormal</text>
+<path d="M 904 315.0 C 926.0 315.0 926.0 315.0 942 315.0" stroke="#ffc233" stroke-width="4.5" fill="none" marker-end="url(#p2ar)"/>
+<rect x="30" y="488" width="1180" height="130" rx="14" fill="rgba(6,4,16,.66)" stroke="rgba(255,255,255,.34)" stroke-width="1"/>
+<text x="52" y="516" font-size="14" font-weight="900" fill="#ffe49a" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">WHY — in one line per step</text>
+<text x="52" y="544" font-size="14" font-weight="700" fill="#efe6ff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">Step 1 · pH 7.55 is above 7.45 → alkalosis.</text>
+<text x="52" y="568" font-size="14" font-weight="700" fill="#efe6ff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">Step 2 · PaCO₂ 49 is high, which is ACID — the wrong direction, so no match. HCO₃⁻ 35 is high, which is BASE — that agrees, so the kidneys / metabolism are the culprit.</text>
+<text x="52" y="592" font-size="14" font-weight="700" fill="#efe6ff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">Step 3 · That high CO₂ is the lungs hypoventilating on purpose to hold acid in — a rescue — but the pH is still far outside the range.</text>
+</svg>
+    <p class="figcap">The step-2 turn is the whole question here. The first abnormal partner you meet (PaCO₂ 49)
+    is <b>not</b> the culprit — it points the wrong way.</p>
+    <p><span class="verdict cool">Metabolic alkalosis · partially compensated</span></p>
+    <div class="mn">🧠 <b>Don't grab the first abnormal number. Grab the one that AGREES with the pH.</b></div>
+  </div>
+
+  <div class="card sapphire">
+    <h3>🩺 Question 2 — the patient behind the numbers</h3>
+    <p><b>Base gained, or acid lost.</b> Something has been taking hydrogen ions out of this patient.</p>
+    <ul class="tick">
+      <li>Classic causes: <b>protracted vomiting</b>, <b>nasogastric suction</b>, over-use of antacids or
+        bicarbonate, <b>loop and thiazide diuretics</b>, hypokalaemia.</li>
+      <li>Expect the alkalosis picture: <b>tingling, muscle cramps, twitchiness, tetany, arrhythmias</b> —
+        alkalosis lowers ionised calcium and drives potassium into cells.</li>
+      <li>Priorities: <b>stop the loss</b> (antiemetics, review the NG suction and diuretics), replace fluid and
+        electrolytes as prescribed, and <b>check potassium, chloride and calcium</b>.</li>
+      <li>The high CO₂ is deliberate hypoventilation. Do not “correct” it — it is the only help this patient has.</li>
+    </ul>
+    <div class="mn">🧠 <b>Vomit and suction throw acid away.</b> What's left behind is base.</div>
+  </div>
+
+  <div class="card deep span2">
+    <h3>3️⃣ Question 3 — pH 7.37 · PaCO₂ 52 · HCO₃⁻ 32</h3>
+    <svg viewBox="0 0 1240 640" role="img" aria-label="The three-step decision path filled in for question 3, an arterial blood gas with a pH of 7.37, a PaCO2 of 52 and a bicarbonate of 32. Column one is step one, the pH; column two is step two, which partner matches the pH; column three is step three, how far compensation has got; column four is the answer. In each column the option that applies to this gas is highlighted in full colour with a tick, the options that do not apply are dimmed, and a gold route line joins the chosen boxes across to the answer: RESPIRATORY ACIDOSIS|FULLY COMPENSATED.">
+<defs>
+<filter id="p3drop" x="-40%" y="-40%" width="185%" height="185%">
+  <feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dx="0" dy="6" result="o"/>
+  <feFlood flood-color="#000" flood-opacity=".55"/><feComposite in2="o" operator="in" result="sh"/>
+  <feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<filter id="p3soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7"/></filter>
+<linearGradient id="p3acid" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#ff9db6"/><stop offset=".18" stop-color="#ff617f"/>
+  <stop offset=".55" stop-color="#e02b56"/><stop offset=".85" stop-color="#a3123c"/>
+  <stop offset="1" stop-color="#6d0526"/></linearGradient>
+<linearGradient id="p3base" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#a9c6ff"/><stop offset=".18" stop-color="#6b95ff"/>
+  <stop offset=".55" stop-color="#2f6bff"/><stop offset=".85" stop-color="#1a3fa8"/>
+  <stop offset="1" stop-color="#0d2160"/></linearGradient>
+<linearGradient id="p3norm" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#b8f7e0"/><stop offset=".18" stop-color="#5fe0b4"/>
+  <stop offset=".55" stop-color="#12b886"/><stop offset=".85" stop-color="#0a7d5b"/>
+  <stop offset="1" stop-color="#044234"/></linearGradient>
+<linearGradient id="p3gloss" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#ffffff" stop-opacity=".42"/>
+  <stop offset=".45" stop-color="#ffffff" stop-opacity=".07"/>
+  <stop offset="1" stop-color="#000000" stop-opacity=".25"/></linearGradient>
+
+<marker id="p3ar" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+  <path d="M 0 1 L 11 6 L 0 11 z" fill="#ffc233"/></marker></defs>
+<rect x="0" y="0" width="1240" height="640" rx="20" fill="#0d0820" opacity=".55"/>
+<text x="28" y="40" font-size="24" font-weight="900" fill="#ffe49a" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">QUESTION 3 — the decision path, filled in</text>
+<text x="28" y="66" font-size="15" font-weight="800" fill="#cbe4ff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">pH 7.37   ·   PaCO₂ 52 mmHg   ·   HCO₃⁻ 32 mEq/L   —   read left to right</text>
+<rect x="846" y="14" width="366" height="62" rx="12" fill="rgba(6,4,16,.78)" stroke="rgba(255,255,255,.34)" stroke-width="1"/>
+<text x="862" y="33" font-size="11.5" font-weight="900" fill="#ffe49a" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">KEY</text>
+<rect x="898" y="23" width="20" height="12" rx="3" fill="#ffc233"/>
+<text x="926" y="33" font-size="12" font-weight="800" fill="#ffe49a" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">✓ bright = the route this gas took</text>
+<rect x="862" y="46" width="20" height="12" rx="3" fill="#5c5470"/>
+<text x="890" y="56" font-size="12" font-weight="800" fill="#c9bede" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">dim = the options it did not take</text>
+<rect x="30" y="100" width="262" height="46" rx="11" fill="rgba(157,92,255,.5)" stroke="rgba(226,213,255,.7)" stroke-width="1.4"/>
+<text x="161.0" y="119" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">STEP 1</text>
+<text x="161.0" y="137" font-size="13" font-weight="900" fill="#ffffff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">WHICH WAY IS THE pH?</text>
+<rect x="336" y="100" width="262" height="46" rx="11" fill="rgba(157,92,255,.5)" stroke="rgba(226,213,255,.7)" stroke-width="1.4"/>
+<text x="467.0" y="119" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">STEP 2</text>
+<text x="467.0" y="137" font-size="13" font-weight="900" fill="#ffffff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">WHICH PARTNER MATCHES?</text>
+<rect x="642" y="100" width="262" height="46" rx="11" fill="rgba(157,92,255,.5)" stroke="rgba(226,213,255,.7)" stroke-width="1.4"/>
+<text x="773.0" y="119" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">STEP 3</text>
+<text x="773.0" y="137" font-size="13" font-weight="900" fill="#ffffff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">HOW FAR DID THE RESCUE GET?</text>
+<rect x="948" y="100" width="262" height="46" rx="11" fill="rgba(157,92,255,.5)" stroke="rgba(226,213,255,.7)" stroke-width="1.4"/>
+<text x="1079.0" y="130" font-size="15" font-weight="900" fill="#ffe49a" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">THE ANSWER</text>
+<g><rect x="30" y="166" width="262" height="94" rx="12" fill="#3b3550" opacity="0.38" stroke="rgba(255,255,255,.25)" stroke-width="1.2"/></g>
+<text x="161.0" y="196" font-size="14.5" font-weight="900" fill="#b9aed2" text-anchor="middle" opacity="0.75" font-family="Segoe UI,Roboto,system-ui,sans-serif">ACIDOSIS</text>
+<text x="161.0" y="218" font-size="12.5" font-weight="800" fill="#b9aed2" text-anchor="middle" opacity="0.6" font-family="Segoe UI,Roboto,system-ui,sans-serif">pH < 7.35</text>
+<g filter="url(#p3drop)"><rect x="30" y="268" width="262" height="94" rx="12" fill="#12b886" opacity="1" stroke="#ffc233" stroke-width="3"/></g>
+<text x="161.0" y="298" font-size="16" font-weight="900" fill="#03291c" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">NORMAL pH</text>
+<text x="161.0" y="320" font-size="12.5" font-weight="800" fill="#03291c" text-anchor="middle" opacity="0.95" font-family="Segoe UI,Roboto,system-ui,sans-serif">7.35 – 7.45</text>
+<circle cx="56" cy="338" r="13" fill="#ffc233" stroke="#2a1f00" stroke-width="1.6"/>
+<text x="56" y="343" font-size="15" font-weight="900" fill="#2a1f00" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">✓</text>
+<text x="78" y="343" font-size="12.5" font-weight="800" fill="#03291c" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">pH 7.37 — normal, acid side</text>
+<g><rect x="30" y="370" width="262" height="94" rx="12" fill="#3b3550" opacity="0.38" stroke="rgba(255,255,255,.25)" stroke-width="1.2"/></g>
+<text x="161.0" y="400" font-size="14.5" font-weight="900" fill="#b9aed2" text-anchor="middle" opacity="0.75" font-family="Segoe UI,Roboto,system-ui,sans-serif">ALKALOSIS</text>
+<text x="161.0" y="422" font-size="12.5" font-weight="800" fill="#b9aed2" text-anchor="middle" opacity="0.6" font-family="Segoe UI,Roboto,system-ui,sans-serif">pH > 7.45</text>
+<g filter="url(#p3drop)"><rect x="336" y="190" width="262" height="106" rx="12" fill="#ff8a3d" opacity="1" stroke="#ffc233" stroke-width="3"/></g>
+<text x="467.0" y="220" font-size="16" font-weight="900" fill="#fff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">RESPIRATORY</text>
+<text x="467.0" y="242" font-size="12.5" font-weight="800" fill="#fff" text-anchor="middle" opacity="0.95" font-family="Segoe UI,Roboto,system-ui,sans-serif">PaCO₂ matches the pH</text>
+<circle cx="362" cy="272" r="13" fill="#ffc233" stroke="#2a1f00" stroke-width="1.6"/>
+<text x="362" y="277" font-size="15" font-weight="900" fill="#2a1f00" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">✓</text>
+<text x="384" y="277" font-size="12.5" font-weight="800" fill="#fff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">PaCO₂ 52 — high = acid</text>
+<g><rect x="336" y="314" width="262" height="106" rx="12" fill="#3b3550" opacity="0.38" stroke="rgba(255,255,255,.25)" stroke-width="1.2"/></g>
+<text x="467.0" y="344" font-size="14.5" font-weight="900" fill="#b9aed2" text-anchor="middle" opacity="0.75" font-family="Segoe UI,Roboto,system-ui,sans-serif">METABOLIC</text>
+<text x="467.0" y="366" font-size="12.5" font-weight="800" fill="#b9aed2" text-anchor="middle" opacity="0.6" font-family="Segoe UI,Roboto,system-ui,sans-serif">HCO₃⁻ matches the pH</text>
+<g><rect x="642" y="166" width="262" height="94" rx="12" fill="#3b3550" opacity="0.38" stroke="rgba(255,255,255,.25)" stroke-width="1.2"/></g>
+<text x="773.0" y="196" font-size="14.5" font-weight="900" fill="#b9aed2" text-anchor="middle" opacity="0.75" font-family="Segoe UI,Roboto,system-ui,sans-serif">UNCOMPENSATED</text>
+<text x="773.0" y="218" font-size="12.5" font-weight="800" fill="#b9aed2" text-anchor="middle" opacity="0.6" font-family="Segoe UI,Roboto,system-ui,sans-serif">rescuer still normal</text>
+<g><rect x="642" y="268" width="262" height="94" rx="12" fill="#3b3550" opacity="0.38" stroke="rgba(255,255,255,.25)" stroke-width="1.2"/></g>
+<text x="773.0" y="298" font-size="14.5" font-weight="900" fill="#b9aed2" text-anchor="middle" opacity="0.75" font-family="Segoe UI,Roboto,system-ui,sans-serif">PARTIALLY COMP.</text>
+<text x="773.0" y="320" font-size="12.5" font-weight="800" fill="#b9aed2" text-anchor="middle" opacity="0.6" font-family="Segoe UI,Roboto,system-ui,sans-serif">pH still out of range</text>
+<g filter="url(#p3drop)"><rect x="642" y="370" width="262" height="94" rx="12" fill="#12b886" opacity="1" stroke="#ffc233" stroke-width="3"/></g>
+<text x="773.0" y="400" font-size="16" font-weight="900" fill="#03291c" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">FULLY COMPENSATED</text>
+<text x="773.0" y="422" font-size="12.5" font-weight="800" fill="#03291c" text-anchor="middle" opacity="0.95" font-family="Segoe UI,Roboto,system-ui,sans-serif">pH back in range</text>
+<circle cx="668" cy="440" r="13" fill="#ffc233" stroke="#2a1f00" stroke-width="1.6"/>
+<text x="668" y="445" font-size="15" font-weight="900" fill="#2a1f00" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">✓</text>
+<text x="690" y="445" font-size="12.5" font-weight="800" fill="#03291c" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">pH is back in range</text>
+<path d="M 292 315.0 C 314.0 315.0 314.0 243.0 330 243.0" stroke="#ffc233" stroke-width="4.5" fill="none" marker-end="url(#p3ar)"/>
+<path d="M 598 243.0 C 620.0 243.0 620.0 417.0 636 417.0" stroke="#ffc233" stroke-width="4.5" fill="none" marker-end="url(#p3ar)"/>
+<g filter="url(#p3drop)"><rect x="948" y="330" width="262" height="132" rx="14" fill="#c02255" stroke="#ffc233" stroke-width="3"/></g>
+<text x="1079.0" y="372" font-size="17" font-weight="900" fill="#fff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">RESPIRATORY ACIDOSIS</text>
+<text x="1079.0" y="396" font-size="17" font-weight="900" fill="#fff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">FULLY COMPENSATED</text>
+<text x="1079.0" y="430" font-size="12.5" font-weight="800" fill="#ffe49a" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">the chronic COPD gas</text>
+<path d="M 904 417.0 C 926.0 417.0 926.0 396 942 396" stroke="#ffc233" stroke-width="4.5" fill="none" marker-end="url(#p3ar)"/>
+<rect x="30" y="488" width="1180" height="130" rx="14" fill="rgba(6,4,16,.66)" stroke="rgba(255,255,255,.34)" stroke-width="1"/>
+<text x="52" y="516" font-size="14" font-weight="900" fill="#ffe49a" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">WHY — in one line per step</text>
+<text x="52" y="544" font-size="14" font-weight="700" fill="#efe6ff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">Step 1 · pH 7.37 is inside 7.35–7.45, but BOTH partners are abnormal — so keep going. 7.37 is on the acid side of 7.40, so this began as an acidosis.</text>
+<text x="52" y="568" font-size="14" font-weight="700" fill="#efe6ff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">Step 2 · PaCO₂ 52 is high = acid, which agrees with “acidosis” → respiratory. HCO₃⁻ 32 is high = base, the opposite way → that is the rescuer.</text>
+<text x="52" y="592" font-size="14" font-weight="700" fill="#efe6ff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">Step 3 · The pH is back inside the normal range, so the rescue finished the job → fully compensated.</text>
+</svg>
+    <p class="figcap">The step-1 box that lights up is <b>NORMAL pH</b> — and the route keeps going anyway.
+    That is the entire lesson of this question.</p>
+    <p><span class="verdict">Respiratory acidosis · fully compensated</span></p>
+    <div class="mn">🧠 <b>Normal pH + two abnormal partners = fully compensated, never “normal”.</b></div>
+  </div>
+
+  <div class="card tealc">
+    <h3>🩺 Question 3 — the patient behind the numbers</h3>
+    <p><b>This is the textbook chronic COPD gas.</b> The kidneys have had days to bank bicarbonate and have
+    bought back a normal pH.</p>
+    <ul class="tick">
+      <li>Very likely the patient's <b>baseline</b>. Compare with previous gases before you treat it as new.</li>
+      <li>The patient can look and feel <b>completely well</b> with these numbers.</li>
+      <li>Priorities: treat the <b>underlying disease</b>, not the printout. Keep an eye on their usual
+        oxygen target — check the plan for that individual patient.</li>
+      <li>What matters clinically is the <b>trend</b>: a rising CO₂ with a falling pH from this baseline is
+        an acute-on-chronic deterioration.</li>
+    </ul>
+    <div class="mn">🧠 <b>Fully compensated respiratory acidosis = old. Take a history, not fright.</b></div>
+  </div>
+
+  <div class="card deep span2">
+    <h3>4️⃣ Question 4 — pH 7.43 · PaCO₂ 43 · HCO₃⁻ 33</h3>
+    <svg viewBox="0 0 1240 640" role="img" aria-label="The three-step decision path filled in for question 4, an arterial blood gas with a pH of 7.43, a PaCO2 of 43 and a bicarbonate of 33. Column one is step one, the pH; column two is step two, which partner matches the pH; column three is step three, how far compensation has got; column four is the answer. In each column the option that applies to this gas is highlighted in full colour with a tick, the options that do not apply are dimmed, and a gold route line joins the chosen boxes across to the answer: METABOLIC ALKALOSIS|FULLY COMPENSATED.">
+<defs>
+<filter id="p4drop" x="-40%" y="-40%" width="185%" height="185%">
+  <feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dx="0" dy="6" result="o"/>
+  <feFlood flood-color="#000" flood-opacity=".55"/><feComposite in2="o" operator="in" result="sh"/>
+  <feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<filter id="p4soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7"/></filter>
+<linearGradient id="p4acid" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#ff9db6"/><stop offset=".18" stop-color="#ff617f"/>
+  <stop offset=".55" stop-color="#e02b56"/><stop offset=".85" stop-color="#a3123c"/>
+  <stop offset="1" stop-color="#6d0526"/></linearGradient>
+<linearGradient id="p4base" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#a9c6ff"/><stop offset=".18" stop-color="#6b95ff"/>
+  <stop offset=".55" stop-color="#2f6bff"/><stop offset=".85" stop-color="#1a3fa8"/>
+  <stop offset="1" stop-color="#0d2160"/></linearGradient>
+<linearGradient id="p4norm" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#b8f7e0"/><stop offset=".18" stop-color="#5fe0b4"/>
+  <stop offset=".55" stop-color="#12b886"/><stop offset=".85" stop-color="#0a7d5b"/>
+  <stop offset="1" stop-color="#044234"/></linearGradient>
+<linearGradient id="p4gloss" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#ffffff" stop-opacity=".42"/>
+  <stop offset=".45" stop-color="#ffffff" stop-opacity=".07"/>
+  <stop offset="1" stop-color="#000000" stop-opacity=".25"/></linearGradient>
+
+<marker id="p4ar" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+  <path d="M 0 1 L 11 6 L 0 11 z" fill="#ffc233"/></marker></defs>
+<rect x="0" y="0" width="1240" height="640" rx="20" fill="#0d0820" opacity=".55"/>
+<text x="28" y="40" font-size="24" font-weight="900" fill="#ffe49a" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">QUESTION 4 — the decision path, filled in</text>
+<text x="28" y="66" font-size="15" font-weight="800" fill="#cbe4ff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">pH 7.43   ·   PaCO₂ 43 mmHg   ·   HCO₃⁻ 33 mEq/L   —   read left to right</text>
+<rect x="846" y="14" width="366" height="62" rx="12" fill="rgba(6,4,16,.78)" stroke="rgba(255,255,255,.34)" stroke-width="1"/>
+<text x="862" y="33" font-size="11.5" font-weight="900" fill="#ffe49a" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">KEY</text>
+<rect x="898" y="23" width="20" height="12" rx="3" fill="#ffc233"/>
+<text x="926" y="33" font-size="12" font-weight="800" fill="#ffe49a" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">✓ bright = the route this gas took</text>
+<rect x="862" y="46" width="20" height="12" rx="3" fill="#5c5470"/>
+<text x="890" y="56" font-size="12" font-weight="800" fill="#c9bede" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">dim = the options it did not take</text>
+<rect x="30" y="100" width="262" height="46" rx="11" fill="rgba(157,92,255,.5)" stroke="rgba(226,213,255,.7)" stroke-width="1.4"/>
+<text x="161.0" y="119" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">STEP 1</text>
+<text x="161.0" y="137" font-size="13" font-weight="900" fill="#ffffff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">WHICH WAY IS THE pH?</text>
+<rect x="336" y="100" width="262" height="46" rx="11" fill="rgba(157,92,255,.5)" stroke="rgba(226,213,255,.7)" stroke-width="1.4"/>
+<text x="467.0" y="119" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">STEP 2</text>
+<text x="467.0" y="137" font-size="13" font-weight="900" fill="#ffffff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">WHICH PARTNER MATCHES?</text>
+<rect x="642" y="100" width="262" height="46" rx="11" fill="rgba(157,92,255,.5)" stroke="rgba(226,213,255,.7)" stroke-width="1.4"/>
+<text x="773.0" y="119" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">STEP 3</text>
+<text x="773.0" y="137" font-size="13" font-weight="900" fill="#ffffff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">HOW FAR DID THE RESCUE GET?</text>
+<rect x="948" y="100" width="262" height="46" rx="11" fill="rgba(157,92,255,.5)" stroke="rgba(226,213,255,.7)" stroke-width="1.4"/>
+<text x="1079.0" y="130" font-size="15" font-weight="900" fill="#ffe49a" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">THE ANSWER</text>
+<g><rect x="30" y="166" width="262" height="94" rx="12" fill="#3b3550" opacity="0.38" stroke="rgba(255,255,255,.25)" stroke-width="1.2"/></g>
+<text x="161.0" y="196" font-size="14.5" font-weight="900" fill="#b9aed2" text-anchor="middle" opacity="0.75" font-family="Segoe UI,Roboto,system-ui,sans-serif">ACIDOSIS</text>
+<text x="161.0" y="218" font-size="12.5" font-weight="800" fill="#b9aed2" text-anchor="middle" opacity="0.6" font-family="Segoe UI,Roboto,system-ui,sans-serif">pH < 7.35</text>
+<g filter="url(#p4drop)"><rect x="30" y="268" width="262" height="94" rx="12" fill="#12b886" opacity="1" stroke="#ffc233" stroke-width="3"/></g>
+<text x="161.0" y="298" font-size="16" font-weight="900" fill="#03291c" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">NORMAL pH</text>
+<text x="161.0" y="320" font-size="12.5" font-weight="800" fill="#03291c" text-anchor="middle" opacity="0.95" font-family="Segoe UI,Roboto,system-ui,sans-serif">7.35 – 7.45</text>
+<circle cx="56" cy="338" r="13" fill="#ffc233" stroke="#2a1f00" stroke-width="1.6"/>
+<text x="56" y="343" font-size="15" font-weight="900" fill="#2a1f00" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">✓</text>
+<text x="78" y="343" font-size="12.5" font-weight="800" fill="#03291c" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">pH 7.43 — normal, base side</text>
+<g><rect x="30" y="370" width="262" height="94" rx="12" fill="#3b3550" opacity="0.38" stroke="rgba(255,255,255,.25)" stroke-width="1.2"/></g>
+<text x="161.0" y="400" font-size="14.5" font-weight="900" fill="#b9aed2" text-anchor="middle" opacity="0.75" font-family="Segoe UI,Roboto,system-ui,sans-serif">ALKALOSIS</text>
+<text x="161.0" y="422" font-size="12.5" font-weight="800" fill="#b9aed2" text-anchor="middle" opacity="0.6" font-family="Segoe UI,Roboto,system-ui,sans-serif">pH > 7.45</text>
+<g><rect x="336" y="190" width="262" height="106" rx="12" fill="#3b3550" opacity="0.38" stroke="rgba(255,255,255,.25)" stroke-width="1.2"/></g>
+<text x="467.0" y="220" font-size="14.5" font-weight="900" fill="#b9aed2" text-anchor="middle" opacity="0.75" font-family="Segoe UI,Roboto,system-ui,sans-serif">RESPIRATORY</text>
+<text x="467.0" y="242" font-size="12.5" font-weight="800" fill="#b9aed2" text-anchor="middle" opacity="0.6" font-family="Segoe UI,Roboto,system-ui,sans-serif">PaCO₂ matches the pH</text>
+<g filter="url(#p4drop)"><rect x="336" y="314" width="262" height="106" rx="12" fill="#00c2c7" opacity="1" stroke="#ffc233" stroke-width="3"/></g>
+<text x="467.0" y="344" font-size="16" font-weight="900" fill="#03291c" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">METABOLIC</text>
+<text x="467.0" y="366" font-size="12.5" font-weight="800" fill="#03291c" text-anchor="middle" opacity="0.95" font-family="Segoe UI,Roboto,system-ui,sans-serif">HCO₃⁻ matches the pH</text>
+<circle cx="362" cy="396" r="13" fill="#ffc233" stroke="#2a1f00" stroke-width="1.6"/>
+<text x="362" y="401" font-size="15" font-weight="900" fill="#2a1f00" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">✓</text>
+<text x="384" y="401" font-size="12.5" font-weight="800" fill="#03291c" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">HCO₃⁻ 33 — high = base</text>
+<g><rect x="642" y="166" width="262" height="94" rx="12" fill="#3b3550" opacity="0.38" stroke="rgba(255,255,255,.25)" stroke-width="1.2"/></g>
+<text x="773.0" y="196" font-size="14.5" font-weight="900" fill="#b9aed2" text-anchor="middle" opacity="0.75" font-family="Segoe UI,Roboto,system-ui,sans-serif">UNCOMPENSATED</text>
+<text x="773.0" y="218" font-size="12.5" font-weight="800" fill="#b9aed2" text-anchor="middle" opacity="0.6" font-family="Segoe UI,Roboto,system-ui,sans-serif">rescuer still normal</text>
+<g><rect x="642" y="268" width="262" height="94" rx="12" fill="#3b3550" opacity="0.38" stroke="rgba(255,255,255,.25)" stroke-width="1.2"/></g>
+<text x="773.0" y="298" font-size="14.5" font-weight="900" fill="#b9aed2" text-anchor="middle" opacity="0.75" font-family="Segoe UI,Roboto,system-ui,sans-serif">PARTIALLY COMP.</text>
+<text x="773.0" y="320" font-size="12.5" font-weight="800" fill="#b9aed2" text-anchor="middle" opacity="0.6" font-family="Segoe UI,Roboto,system-ui,sans-serif">pH still out of range</text>
+<g filter="url(#p4drop)"><rect x="642" y="370" width="262" height="94" rx="12" fill="#12b886" opacity="1" stroke="#ffc233" stroke-width="3"/></g>
+<text x="773.0" y="400" font-size="16" font-weight="900" fill="#03291c" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">FULLY COMPENSATED</text>
+<text x="773.0" y="422" font-size="12.5" font-weight="800" fill="#03291c" text-anchor="middle" opacity="0.95" font-family="Segoe UI,Roboto,system-ui,sans-serif">pH back in range</text>
+<circle cx="668" cy="440" r="13" fill="#ffc233" stroke="#2a1f00" stroke-width="1.6"/>
+<text x="668" y="445" font-size="15" font-weight="900" fill="#2a1f00" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">✓</text>
+<text x="690" y="445" font-size="12.5" font-weight="800" fill="#03291c" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">pH is back in range</text>
+<path d="M 292 315.0 C 314.0 315.0 314.0 367.0 330 367.0" stroke="#ffc233" stroke-width="4.5" fill="none" marker-end="url(#p4ar)"/>
+<path d="M 598 367.0 C 620.0 367.0 620.0 417.0 636 417.0" stroke="#ffc233" stroke-width="4.5" fill="none" marker-end="url(#p4ar)"/>
+<g filter="url(#p4drop)"><rect x="948" y="330" width="262" height="132" rx="14" fill="#1a3fa8" stroke="#ffc233" stroke-width="3"/></g>
+<text x="1079.0" y="372" font-size="17" font-weight="900" fill="#fff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">METABOLIC ALKALOSIS</text>
+<text x="1079.0" y="396" font-size="17" font-weight="900" fill="#fff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">FULLY COMPENSATED</text>
+<text x="1079.0" y="430" font-size="12.5" font-weight="800" fill="#ffe49a" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">judge the state by the pH</text>
+<path d="M 904 417.0 C 926.0 417.0 926.0 396 942 396" stroke="#ffc233" stroke-width="4.5" fill="none" marker-end="url(#p4ar)"/>
+<rect x="30" y="488" width="1180" height="130" rx="14" fill="rgba(6,4,16,.66)" stroke="rgba(255,255,255,.34)" stroke-width="1"/>
+<text x="52" y="516" font-size="14" font-weight="900" fill="#ffe49a" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">WHY — in one line per step</text>
+<text x="52" y="544" font-size="14" font-weight="700" fill="#efe6ff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">Step 1 · pH 7.43 is inside 7.35–7.45 but sits on the ALKALINE side of 7.40 — so this began as an alkalosis.</text>
+<text x="52" y="568" font-size="14" font-weight="700" fill="#efe6ff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">Step 2 · HCO₃⁻ 33 is above 26 = base, which agrees → metabolic alkalosis. PaCO₂ 43 is still (just) inside 35–45.</text>
+<text x="52" y="592" font-size="14" font-weight="700" fill="#efe6ff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">Step 3 · By the rule the question sheet teaches — full compensation means a fully normal pH — this one is fully compensated.</text>
+</svg>
+    <p class="figcap">Only one partner is frankly abnormal here. The pH is normal, so the state is judged by the
+    pH — and the side of 7.40 names the disorder.</p>
+    <p><span class="verdict cool">Metabolic alkalosis · fully compensated</span></p>
+    <div class="mn">🧠 <b>7.41–7.45 with a high HCO₃⁻ = a compensated metabolic alkalosis.</b></div>
+  </div>
+
+  <div class="card citrinec">
+    <h3>⚠️ Question 4 — the honest nuance</h3>
+    <p>The compensating PaCO₂ of <span class="mono">43</span> is sitting at the very <b>top of normal</b>. The
+    lungs are hypoventilating a little, but not enough to push the number out of range.</p>
+    <ul class="tick">
+      <li>By the rule this course teaches — <b>full compensation = a fully normal pH</b> — the answer is
+        <b>fully compensated</b>.</li>
+      <li>Some references would describe the respiratory response here as <b>incomplete</b>, because the CO₂ has
+        not moved as far as expected. Both descriptions are talking about the same gas.</li>
+      <li>If you are ever unsure on an exam, say what you see: <i>“normal pH on the alkaline side of 7.40 with a
+        high bicarbonate — a compensated metabolic alkalosis.”</i></li>
+    </ul>
+    <div class="mn">🧠 <b>Describe the gas, then name it.</b> Description never loses marks.</div>
+  </div>
+
+  <div class="card topaz span2">
+    <h3>📋 All four answers on one line each</h3>
+    <div class="tblwrap"><table>
+      <tr><th class="up">Q</th><th class="lo">pH</th><th class="lo">PaCO₂</th><th class="lo">HCO₃⁻</th>
+        <th class="lo">Primary problem</th><th class="lo">Compensation</th></tr>
+      <tr><td><b>1</b></td><td class="mono">7.32 ↓</td><td class="mono">55 ↑ acid</td><td class="mono">42 ↑ base</td>
+        <td><b>Respiratory acidosis</b></td><td>Partial</td></tr>
+      <tr><td><b>2</b></td><td class="mono">7.55 ↑</td><td class="mono">49 ↑ acid</td><td class="mono">35 ↑ base</td>
+        <td><b>Metabolic alkalosis</b></td><td>Partial</td></tr>
+      <tr><td><b>3</b></td><td class="mono">7.37 (n)</td><td class="mono">52 ↑ acid</td><td class="mono">32 ↑ base</td>
+        <td><b>Respiratory acidosis</b></td><td>Full</td></tr>
+      <tr><td><b>4</b></td><td class="mono">7.43 (n)</td><td class="mono">43 (n)</td><td class="mono">33 ↑ base</td>
+        <td><b>Metabolic alkalosis</b></td><td>Full</td></tr>
+    </table></div>
+    <p><mark>In every one of the four, the culprit is the partner that agrees with the pH.</mark></p>
+    <div class="mn">🧠 Two respiratory, two metabolic · two partial, two full. The set covers the whole grid.</div>
+  </div>
+
+  </div>
+</section>
+
+<section id="why">
+  <div class="sec-h"><span class="icon">🗺️</span><h2>PART 2 · WHERE THEY COME FROM</h2><span class="step">CAUSES + WHAT YOU DO</span></div>
+  <p class="sec-sub">Naming the gas is half the job. The other half is knowing which organ to go and look at.</p>
+  <div class="grid">
+
+  <div class="card deep span2">
+    <h3>🗺️ The cause map — organs on the left, causes on the right</h3>
+    <svg viewBox="0 0 1240 1000" role="img" aria-label="A cause map. On the left is an anterior view of the trunk with the organs that start acid-base problems drawn and given numbered badges: one, the lungs; two, the stomach; three, the pancreas; four, the two kidneys; five, the small and large intestine; six, the working muscle and tissue of the body wall. On the right, four colour-coded panels list the causes of respiratory acidosis, respiratory alkalosis, metabolic acidosis and metabolic alkalosis, each cause tagged with the number of the organ it comes from.">
+<defs>
+<filter id="cmdrop" x="-40%" y="-40%" width="185%" height="185%">
+  <feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dx="0" dy="6" result="o"/>
+  <feFlood flood-color="#000" flood-opacity=".55"/><feComposite in2="o" operator="in" result="sh"/>
+  <feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<filter id="cmsoft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7"/></filter>
+<linearGradient id="cmacid" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#ff9db6"/><stop offset=".18" stop-color="#ff617f"/>
+  <stop offset=".55" stop-color="#e02b56"/><stop offset=".85" stop-color="#a3123c"/>
+  <stop offset="1" stop-color="#6d0526"/></linearGradient>
+<linearGradient id="cmbase" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#a9c6ff"/><stop offset=".18" stop-color="#6b95ff"/>
+  <stop offset=".55" stop-color="#2f6bff"/><stop offset=".85" stop-color="#1a3fa8"/>
+  <stop offset="1" stop-color="#0d2160"/></linearGradient>
+<linearGradient id="cmnorm" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#b8f7e0"/><stop offset=".18" stop-color="#5fe0b4"/>
+  <stop offset=".55" stop-color="#12b886"/><stop offset=".85" stop-color="#0a7d5b"/>
+  <stop offset="1" stop-color="#044234"/></linearGradient>
+<linearGradient id="cmgloss" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#ffffff" stop-opacity=".42"/>
+  <stop offset=".45" stop-color="#ffffff" stop-opacity=".07"/>
+  <stop offset="1" stop-color="#000000" stop-opacity=".25"/></linearGradient>
+
+<radialGradient id="cmlu" cx=".38" cy=".24" r=".95">
+  <stop offset="0" stop-color="#ffe8ee"/><stop offset=".18" stop-color="#ffc0ce"/>
+  <stop offset=".46" stop-color="#f2869f"/><stop offset="1" stop-color="#63203b"/></radialGradient>
+<radialGradient id="cmst" cx=".34" cy=".26" r=".95">
+  <stop offset="0" stop-color="#ffefd4"/><stop offset=".22" stop-color="#ffd28c"/>
+  <stop offset=".58" stop-color="#dfa043"/><stop offset="1" stop-color="#6e4a10"/></radialGradient>
+<radialGradient id="cmki" cx=".34" cy=".24" r="1">
+  <stop offset="0" stop-color="#ffe3ce"/><stop offset=".2" stop-color="#ffb384"/>
+  <stop offset=".52" stop-color="#e2783c"/><stop offset="1" stop-color="#4e1f09"/></radialGradient>
+<radialGradient id="cmgu" cx=".4" cy=".3" r=".9">
+  <stop offset="0" stop-color="#ffd9c9"/><stop offset=".3" stop-color="#f0a58a"/>
+  <stop offset=".7" stop-color="#b96348"/><stop offset="1" stop-color="#5e2a1c"/></radialGradient>
+<linearGradient id="cmmu" x1="0" y1="0" x2="1" y2="0">
+  <stop offset="0" stop-color="#ff9db6"/><stop offset=".5" stop-color="#c9425f"/>
+  <stop offset="1" stop-color="#6d1f31"/></linearGradient>
+</defs>
+<rect x="0" y="0" width="1240" height="1000" rx="20" fill="#0d0820" opacity=".55"/>
+<text x="28" y="42" font-size="26" font-weight="900" fill="#ffe49a" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">WHERE EACH DISORDER COMES FROM</text>
+<text x="28" y="68" font-size="14.5" font-weight="700" fill="#cbe4ff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">LEFT: anterior view of the trunk, organs numbered  ·  RIGHT: the causes, tagged with those numbers</text>
+<path d="M 288 110 L 348 110 C 358 138 398 152 448 168 C 506 188 532 236 536 316 C 544 470 540 660 518 790 C 506 866 472 906 426 918 L 210 918 C 164 906 130 866 118 790 C 96 660 92 470 100 316 C 104 236 130 188 188 168 C 238 152 278 138 288 110 Z" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.24)" stroke-width="2"/>
+<text x="318" y="952" font-size="12.5" font-weight="700" fill="#cbb8ff" text-anchor="middle" opacity="0.9" font-family="Segoe UI,Roboto,system-ui,sans-serif">anterior view · skin and ribs removed</text>
+<path d="M 112 560 C 104 660 110 750 124 800 L 152 792 C 138 742 132 656 140 566 Z" fill="url(#cmmu)" opacity=".85" stroke="rgba(255,200,210,.5)" stroke-width="1.4"/>
+<path d="M 116 578 L 146 575" stroke="rgba(255,220,230,.45)" stroke-width="2"/>
+<path d="M 116 603 L 146 600" stroke="rgba(255,220,230,.45)" stroke-width="2"/>
+<path d="M 116 628 L 146 625" stroke="rgba(255,220,230,.45)" stroke-width="2"/>
+<path d="M 116 653 L 146 650" stroke="rgba(255,220,230,.45)" stroke-width="2"/>
+<path d="M 116 678 L 146 675" stroke="rgba(255,220,230,.45)" stroke-width="2"/>
+<path d="M 116 703 L 146 700" stroke="rgba(255,220,230,.45)" stroke-width="2"/>
+<path d="M 116 728 L 146 725" stroke="rgba(255,220,230,.45)" stroke-width="2"/>
+<path d="M 116 753 L 146 750" stroke="rgba(255,220,230,.45)" stroke-width="2"/>
+<path d="M 116 778 L 146 775" stroke="rgba(255,220,230,.45)" stroke-width="2"/>
+<path d="M 284 214 C 214 210 166 254 156 324 C 144 402 150 464 172 502 C 192 534 228 538 246 510 L 268 252 C 272 226 274 214 284 214 Z" fill="url(#cmlu)" stroke="rgba(255,220,230,.6)" stroke-width="2"/>
+<path d="M 352 214 C 422 210 470 254 480 324 C 492 402 486 464 464 502 C 444 534 408 538 390 510 L 368 252 C 364 226 362 214 352 214 Z" fill="url(#cmlu)" stroke="rgba(255,220,230,.6)" stroke-width="2"/>
+<path d="M 318 128 L 318 220" stroke="#c4dced" stroke-width="16" stroke-linecap="round"/>
+<path d="M 318 220 L 276 252 M 318 220 L 360 252" stroke="#c4dced" stroke-width="12" stroke-linecap="round"/>
+<path d="M 278 636 C 314 626 360 640 384 656 C 364 674 320 668 278 658 Z" fill="#d6b24a" stroke="rgba(255,240,190,.6)" stroke-width="1.8"/>
+<path d="M 336 556 C 364 546 406 558 422 592 C 438 626 422 664 384 672 C 346 680 314 656 312 622 C 310 596 320 566 336 556 Z" fill="url(#cmst)" stroke="rgba(255,235,200,.6)" stroke-width="2"/>
+<path d="M 324 586 C 356 578 388 588 412 602" stroke="rgba(120,80,10,.35)" stroke-width="2" fill="none"/>
+<path d="M 328 602 C 356 594 388 604 412 616" stroke="rgba(120,80,10,.35)" stroke-width="2" fill="none"/>
+<path d="M 332 618 C 356 610 388 620 412 630" stroke="rgba(120,80,10,.35)" stroke-width="2" fill="none"/>
+<path d="M 336 634 C 356 626 388 636 412 644" stroke="rgba(120,80,10,.35)" stroke-width="2" fill="none"/>
+<path d="M 200 568 C 238 568 252 594 252 616 C 252 642 236 666 200 666 C 176 666 168 648 176 625 C 181 612 181 608 176 596 C 168 579 176 568 200 568 Z" fill="url(#cmki)" stroke="rgba(255,220,190,.65)" stroke-width="2"/>
+<path d="M 178 612 C 198 601 206 627 181 629 Z" fill="#ffeadb" opacity=".55"/>
+<path d="M 178 625 C 166 658 172 684 182 708" stroke="#ffcaa6" stroke-width="6" fill="none" stroke-linecap="round"/>
+<path d="M 490 522 C 452 522 438 548 438 570 C 438 596 454 620 490 620 C 514 620 522 602 514 579 C 509 566 509 562 514 550 C 522 533 514 522 490 522 Z" fill="url(#cmki)" stroke="rgba(255,220,190,.65)" stroke-width="2"/>
+<path d="M 512 566 C 492 555 484 581 509 583 Z" fill="#ffeadb" opacity=".55"/>
+<path d="M 512 579 C 524 612 518 638 508 662" stroke="#ffcaa6" stroke-width="6" fill="none" stroke-linecap="round"/>
+<path d="M 182 760 C 178 716 210 700 262 700 L 374 700 C 430 700 460 718 458 764 C 456 812 442 848 398 862 C 348 878 284 878 234 862 C 192 848 185 806 182 760 Z" fill="none" stroke="url(#cmgu)" stroke-width="26" stroke-linejoin="round"/>
+<circle cx="456" cy="782" r="7" fill="none" stroke="rgba(90,40,26,.45)" stroke-width="2.4"/>
+<circle cx="445" cy="816" r="7" fill="none" stroke="rgba(90,40,26,.45)" stroke-width="2.4"/>
+<circle cx="416" cy="844" r="7" fill="none" stroke="rgba(90,40,26,.45)" stroke-width="2.4"/>
+<circle cx="371" cy="863" r="7" fill="none" stroke="rgba(90,40,26,.45)" stroke-width="2.4"/>
+<circle cx="318" cy="870" r="7" fill="none" stroke="rgba(90,40,26,.45)" stroke-width="2.4"/>
+<circle cx="265" cy="863" r="7" fill="none" stroke="rgba(90,40,26,.45)" stroke-width="2.4"/>
+<circle cx="220" cy="844" r="7" fill="none" stroke="rgba(90,40,26,.45)" stroke-width="2.4"/>
+<circle cx="191" cy="816" r="7" fill="none" stroke="rgba(90,40,26,.45)" stroke-width="2.4"/>
+<circle cx="180" cy="782" r="7" fill="none" stroke="rgba(90,40,26,.45)" stroke-width="2.4"/>
+<circle cx="190" cy="748" r="7" fill="none" stroke="rgba(90,40,26,.45)" stroke-width="2.4"/>
+<circle cx="220" cy="720" r="7" fill="none" stroke="rgba(90,40,26,.45)" stroke-width="2.4"/>
+<circle cx="265" cy="701" r="7" fill="none" stroke="rgba(90,40,26,.45)" stroke-width="2.4"/>
+<circle cx="318" cy="694" r="7" fill="none" stroke="rgba(90,40,26,.45)" stroke-width="2.4"/>
+<circle cx="371" cy="701" r="7" fill="none" stroke="rgba(90,40,26,.45)" stroke-width="2.4"/>
+<circle cx="416" cy="720" r="7" fill="none" stroke="rgba(90,40,26,.45)" stroke-width="2.4"/>
+<circle cx="445" cy="748" r="7" fill="none" stroke="rgba(90,40,26,.45)" stroke-width="2.4"/>
+<path d="M 230 790 C 243 758 243 826 256 794" stroke="url(#cmgu)" stroke-width="15" fill="none" stroke-linecap="round"/>
+<path d="M 256 790 C 269 758 269 826 282 794" stroke="url(#cmgu)" stroke-width="15" fill="none" stroke-linecap="round"/>
+<path d="M 282 790 C 295 758 295 826 308 794" stroke="url(#cmgu)" stroke-width="15" fill="none" stroke-linecap="round"/>
+<path d="M 308 790 C 321 758 321 826 334 794" stroke="url(#cmgu)" stroke-width="15" fill="none" stroke-linecap="round"/>
+<path d="M 334 790 C 347 758 347 826 360 794" stroke="url(#cmgu)" stroke-width="15" fill="none" stroke-linecap="round"/>
+<path d="M 360 790 C 373 758 373 826 386 794" stroke="url(#cmgu)" stroke-width="15" fill="none" stroke-linecap="round"/>
+<path d="M 386 790 C 399 758 399 826 412 794" stroke="url(#cmgu)" stroke-width="15" fill="none" stroke-linecap="round"/>
+<line x1="128" y1="300" x2="188" y2="322" stroke="#ffe49a" stroke-width="1.6"/>
+<circle cx="188" cy="322" r="4" fill="#ffe49a"/>
+<circle cx="128" cy="300" r="16" fill="#ffc233" stroke="#2a1f00" stroke-width="2"/>
+<text x="128" y="306" font-size="17" font-weight="900" fill="#2a1f00" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">1</text>
+<text x="128" y="332" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">lungs</text>
+<line x1="514" y1="690" x2="394" y2="644" stroke="#ffe49a" stroke-width="1.6"/>
+<circle cx="394" cy="644" r="4" fill="#ffe49a"/>
+<circle cx="514" cy="690" r="16" fill="#ffc233" stroke="#2a1f00" stroke-width="2"/>
+<text x="514" y="696" font-size="17" font-weight="900" fill="#2a1f00" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">2</text>
+<text x="514" y="722" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">stomach</text>
+<line x1="514" y1="790" x2="348" y2="652" stroke="#ffe49a" stroke-width="1.6"/>
+<circle cx="348" cy="652" r="4" fill="#ffe49a"/>
+<circle cx="514" cy="790" r="16" fill="#ffc233" stroke="#2a1f00" stroke-width="2"/>
+<text x="514" y="796" font-size="17" font-weight="900" fill="#2a1f00" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">3</text>
+<text x="514" y="822" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">pancreas</text>
+<line x1="126" y1="560" x2="186" y2="600" stroke="#ffe49a" stroke-width="1.6"/>
+<circle cx="186" cy="600" r="4" fill="#ffe49a"/>
+<circle cx="126" cy="560" r="16" fill="#ffc233" stroke="#2a1f00" stroke-width="2"/>
+<text x="126" y="566" font-size="17" font-weight="900" fill="#2a1f00" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">4</text>
+<text x="126" y="592" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">kidneys</text>
+<line x1="514" y1="890" x2="428" y2="830" stroke="#ffe49a" stroke-width="1.6"/>
+<circle cx="428" cy="830" r="4" fill="#ffe49a"/>
+<circle cx="514" cy="890" r="16" fill="#ffc233" stroke="#2a1f00" stroke-width="2"/>
+<text x="514" y="896" font-size="17" font-weight="900" fill="#2a1f00" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">5</text>
+<text x="514" y="922" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">intestine</text>
+<line x1="128" y1="700" x2="128" y2="680" stroke="#ffe49a" stroke-width="1.6"/>
+<circle cx="128" cy="680" r="4" fill="#ffe49a"/>
+<circle cx="128" cy="700" r="16" fill="#ffc233" stroke="#2a1f00" stroke-width="2"/>
+<text x="128" y="706" font-size="17" font-weight="900" fill="#2a1f00" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">6</text>
+<text x="128" y="732" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">muscle</text>
+<g filter="url(#cmdrop)"><rect x="664" y="108" width="548" height="173" rx="14" fill="rgba(192,34,85,.94)" stroke="rgba(255,255,255,.6)" stroke-width="2"/></g>
+<text x="682" y="135" font-size="17" font-weight="900" fill="#fff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">RESPIRATORY ACIDOSIS</text>
+<text x="682" y="155" font-size="13" font-weight="800" fill="#ffe49a" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">CO₂ ↑ — not breathing enough</text>
+<circle cx="690" cy="174" r="9" fill="#ffc233" stroke="#2a1f00" stroke-width="1.4"/>
+<text x="690" y="178" font-size="11.5" font-weight="900" fill="#2a1f00" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">1</text>
+<text x="708" y="178" font-size="13" font-weight="700" fill="#ffffff" text-anchor="start" opacity="0.97" font-family="Segoe UI,Roboto,system-ui,sans-serif">COPD, asthma attack, airway obstruction</text>
+<circle cx="690" cy="195" r="9" fill="#ffc233" stroke="#2a1f00" stroke-width="1.4"/>
+<text x="690" y="199" font-size="11.5" font-weight="900" fill="#2a1f00" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">1</text>
+<text x="708" y="199" font-size="13" font-weight="700" fill="#ffffff" text-anchor="start" opacity="0.97" font-family="Segoe UI,Roboto,system-ui,sans-serif">pneumonia, atelectasis, chest trauma</text>
+<circle cx="690" cy="216" r="9" fill="#ffc233" stroke="#2a1f00" stroke-width="1.4"/>
+<text x="690" y="220" font-size="11.5" font-weight="900" fill="#2a1f00" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">1</text>
+<text x="708" y="220" font-size="13" font-weight="700" fill="#ffffff" text-anchor="start" opacity="0.97" font-family="Segoe UI,Roboto,system-ui,sans-serif">opioids, sedatives, anaesthesia (they slow the drive)</text>
+<circle cx="690" cy="237" r="9" fill="#ffc233" stroke="#2a1f00" stroke-width="1.4"/>
+<text x="690" y="241" font-size="11.5" font-weight="900" fill="#2a1f00" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">1</text>
+<text x="708" y="241" font-size="13" font-weight="700" fill="#ffffff" text-anchor="start" opacity="0.97" font-family="Segoe UI,Roboto,system-ui,sans-serif">neuromuscular weakness — Guillain-Barré, myasthenia</text>
+<circle cx="690" cy="258" r="9" fill="#ffc233" stroke="#2a1f00" stroke-width="1.4"/>
+<text x="690" y="262" font-size="11.5" font-weight="900" fill="#2a1f00" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">1</text>
+<text x="708" y="262" font-size="13" font-weight="700" fill="#ffffff" text-anchor="start" opacity="0.97" font-family="Segoe UI,Roboto,system-ui,sans-serif">head injury depressing the brainstem</text>
+<g filter="url(#cmdrop)"><rect x="664" y="318" width="548" height="152" rx="14" fill="rgba(47,107,255,.94)" stroke="rgba(255,255,255,.6)" stroke-width="2"/></g>
+<text x="682" y="345" font-size="17" font-weight="900" fill="#fff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">RESPIRATORY ALKALOSIS</text>
+<text x="682" y="365" font-size="13" font-weight="800" fill="#ffe49a" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">CO₂ ↓ — breathing too much</text>
+<circle cx="690" cy="384" r="9" fill="#ffc233" stroke="#2a1f00" stroke-width="1.4"/>
+<text x="690" y="388" font-size="11.5" font-weight="900" fill="#2a1f00" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">1</text>
+<text x="708" y="388" font-size="13" font-weight="700" fill="#ffffff" text-anchor="start" opacity="0.97" font-family="Segoe UI,Roboto,system-ui,sans-serif">anxiety or panic, pain, fever</text>
+<circle cx="690" cy="405" r="9" fill="#ffc233" stroke="#2a1f00" stroke-width="1.4"/>
+<text x="690" y="409" font-size="11.5" font-weight="900" fill="#2a1f00" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">1</text>
+<text x="708" y="409" font-size="13" font-weight="700" fill="#ffffff" text-anchor="start" opacity="0.97" font-family="Segoe UI,Roboto,system-ui,sans-serif">early sepsis, pulmonary embolism</text>
+<circle cx="690" cy="426" r="9" fill="#ffc233" stroke="#2a1f00" stroke-width="1.4"/>
+<text x="690" y="430" font-size="11.5" font-weight="900" fill="#2a1f00" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">1</text>
+<text x="708" y="430" font-size="13" font-weight="700" fill="#ffffff" text-anchor="start" opacity="0.97" font-family="Segoe UI,Roboto,system-ui,sans-serif">hypoxia of any cause, high altitude</text>
+<circle cx="690" cy="447" r="9" fill="#ffc233" stroke="#2a1f00" stroke-width="1.4"/>
+<text x="690" y="451" font-size="11.5" font-weight="900" fill="#2a1f00" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">1</text>
+<text x="708" y="451" font-size="13" font-weight="700" fill="#ffffff" text-anchor="start" opacity="0.97" font-family="Segoe UI,Roboto,system-ui,sans-serif">over-set mechanical ventilation</text>
+<g filter="url(#cmdrop)"><rect x="664" y="508" width="548" height="173" rx="14" fill="rgba(163,18,60,.94)" stroke="rgba(255,255,255,.6)" stroke-width="2"/></g>
+<text x="682" y="535" font-size="17" font-weight="900" fill="#fff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">METABOLIC ACIDOSIS</text>
+<text x="682" y="555" font-size="13" font-weight="800" fill="#ffe49a" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">HCO₃⁻ ↓ — acid gained or base lost</text>
+<circle cx="690" cy="574" r="9" fill="#ffc233" stroke="#2a1f00" stroke-width="1.4"/>
+<text x="690" y="578" font-size="11.5" font-weight="900" fill="#2a1f00" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">3</text>
+<text x="708" y="578" font-size="13" font-weight="700" fill="#ffffff" text-anchor="start" opacity="0.97" font-family="Segoe UI,Roboto,system-ui,sans-serif">diabetic ketoacidosis — ketoacids build up</text>
+<circle cx="690" cy="595" r="9" fill="#ffc233" stroke="#2a1f00" stroke-width="1.4"/>
+<text x="690" y="599" font-size="11.5" font-weight="900" fill="#2a1f00" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">6</text>
+<text x="708" y="599" font-size="13" font-weight="700" fill="#ffffff" text-anchor="start" opacity="0.97" font-family="Segoe UI,Roboto,system-ui,sans-serif">lactic acidosis — shock, sepsis, cardiac arrest</text>
+<circle cx="690" cy="616" r="9" fill="#ffc233" stroke="#2a1f00" stroke-width="1.4"/>
+<text x="690" y="620" font-size="11.5" font-weight="900" fill="#2a1f00" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">4</text>
+<text x="708" y="620" font-size="13" font-weight="700" fill="#ffffff" text-anchor="start" opacity="0.97" font-family="Segoe UI,Roboto,system-ui,sans-serif">kidney failure — acid cannot be excreted</text>
+<circle cx="690" cy="637" r="9" fill="#ffc233" stroke="#2a1f00" stroke-width="1.4"/>
+<text x="690" y="641" font-size="11.5" font-weight="900" fill="#2a1f00" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">5</text>
+<text x="708" y="641" font-size="13" font-weight="700" fill="#ffffff" text-anchor="start" opacity="0.97" font-family="Segoe UI,Roboto,system-ui,sans-serif">severe or prolonged diarrhoea — bicarbonate poured out</text>
+<text x="690" y="662" font-size="13" font-weight="900" fill="#fff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">•</text>
+<text x="708" y="662" font-size="13" font-weight="700" fill="#ffffff" text-anchor="start" opacity="0.97" font-family="Segoe UI,Roboto,system-ui,sans-serif">certain poisonings (salicylates, toxic alcohols)</text>
+<g filter="url(#cmdrop)"><rect x="664" y="718" width="548" height="173" rx="14" fill="rgba(26,63,168,.94)" stroke="rgba(255,255,255,.6)" stroke-width="2"/></g>
+<text x="682" y="745" font-size="17" font-weight="900" fill="#fff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">METABOLIC ALKALOSIS</text>
+<text x="682" y="765" font-size="13" font-weight="800" fill="#ffe49a" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">HCO₃⁻ ↑ — base gained or acid lost</text>
+<circle cx="690" cy="784" r="9" fill="#ffc233" stroke="#2a1f00" stroke-width="1.4"/>
+<text x="690" y="788" font-size="11.5" font-weight="900" fill="#2a1f00" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">2</text>
+<text x="708" y="788" font-size="13" font-weight="700" fill="#ffffff" text-anchor="start" opacity="0.97" font-family="Segoe UI,Roboto,system-ui,sans-serif">vomiting — stomach acid thrown away</text>
+<circle cx="690" cy="805" r="9" fill="#ffc233" stroke="#2a1f00" stroke-width="1.4"/>
+<text x="690" y="809" font-size="11.5" font-weight="900" fill="#2a1f00" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">2</text>
+<text x="708" y="809" font-size="13" font-weight="700" fill="#ffffff" text-anchor="start" opacity="0.97" font-family="Segoe UI,Roboto,system-ui,sans-serif">nasogastric suction — the same loss, by tube</text>
+<circle cx="690" cy="826" r="9" fill="#ffc233" stroke="#2a1f00" stroke-width="1.4"/>
+<text x="690" y="830" font-size="11.5" font-weight="900" fill="#2a1f00" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">2</text>
+<text x="708" y="830" font-size="13" font-weight="700" fill="#ffffff" text-anchor="start" opacity="0.97" font-family="Segoe UI,Roboto,system-ui,sans-serif">excess antacids or bicarbonate</text>
+<circle cx="690" cy="847" r="9" fill="#ffc233" stroke="#2a1f00" stroke-width="1.4"/>
+<text x="690" y="851" font-size="11.5" font-weight="900" fill="#2a1f00" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">4</text>
+<text x="708" y="851" font-size="13" font-weight="700" fill="#ffffff" text-anchor="start" opacity="0.97" font-family="Segoe UI,Roboto,system-ui,sans-serif">loop and thiazide diuretics</text>
+<circle cx="690" cy="868" r="9" fill="#ffc233" stroke="#2a1f00" stroke-width="1.4"/>
+<text x="690" y="872" font-size="11.5" font-weight="900" fill="#2a1f00" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">4</text>
+<text x="708" y="872" font-size="13" font-weight="700" fill="#ffffff" text-anchor="start" opacity="0.97" font-family="Segoe UI,Roboto,system-ui,sans-serif">hypokalaemia</text>
+<rect x="664" y="916" width="548" height="66" rx="13" fill="rgba(255,194,51,.2)" stroke="rgba(255,194,51,.75)" stroke-width="1.6"/>
+<text x="686" y="942" font-size="15" font-weight="900" fill="#ffe49a" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">🧠 One sorting question:</text>
+<text x="686" y="964" font-size="13.5" font-weight="800" fill="#fff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">“Breathing problem, or chemistry problem?” Breathing → respiratory.</text>
+</svg>
+    <p class="figcap">Every acid–base disorder starts somewhere physical. Match the number on the cause to the
+    numbered organ on the body.</p>
+    <div class="xref"><span class="pill">SEE ALSO</span> Airway and alveolar anatomy is drawn in full on
+      <b><a href="../essentials/NG-004_anatomy-of-the-lungs.html">NG-004 Anatomy of the Lungs</a></b>;
+      the mechanics of the breath itself are on
+      <b><a href="NG-132_anatomy-of-breathing.html">NG-132 Anatomy of Breathing</a></b>.</div>
+    <div class="mn">🧠 <b>“Breathing problem or chemistry problem?”</b> One question sorts almost every case.</div>
+  </div>
+
+  <div class="card garnet">
+    <h3>🚨 Respiratory acidosis — what you actually do</h3>
+    <p><b>Answer first: make them ventilate.</b> This is a CO₂ problem, not simply an oxygen problem.</p>
+    <ul class="tick">
+      <li>Sit upright, wake them, coach <b>deep breathing</b> and coughing, incentive spirometer.</li>
+      <li>Clear the airway — suction secretions, treat bronchospasm as prescribed.</li>
+      <li>Treat pain so they can take a full breath; review <b>sedation and opioids</b>.</li>
+      <li>Escalate early for <b>non-invasive ventilation</b> if the CO₂ is climbing and the patient is tiring.</li>
+      <li>Monitor level of consciousness — <b>a falling LOC with a rising CO₂ is an emergency</b>.</li>
+    </ul>
+    <div class="mn">🧠 <b>Move air, not just oxygen.</b></div>
+  </div>
+
+  <div class="card sapphire">
+    <h3>💨 Respiratory alkalosis — what you actually do</h3>
+    <p><b>Answer first: find out why they are breathing so hard.</b></p>
+    <ul class="tick">
+      <li>Rule out the dangerous causes first — <b>hypoxia, pulmonary embolism, sepsis, pain, fever</b> — before
+        you call it anxiety.</li>
+      <li>If it is anxiety: stay with them, coach slow breathing, reduce stimulation.</li>
+      <li>If they are ventilated: the settings may be doing it — report the gas.</li>
+      <li>Expect and manage the symptoms: <b>tingling, dizziness, carpopedal spasm</b>.</li>
+    </ul>
+    <div class="mn">🧠 <b>Hyperventilation is a symptom.</b> Treat the reason, not the rate.</div>
+  </div>
+
+  <div class="card ruby">
+    <h3>🚨 Metabolic acidosis — what you actually do</h3>
+    <ul class="tick">
+      <li><b>Find the acid.</b> Blood glucose and ketones (DKA), lactate and perfusion (shock, sepsis),
+        renal function, and a stool history (diarrhoea).</li>
+      <li>Restore <b>perfusion</b> — fluids as prescribed; a poorly perfused patient keeps making lactate.</li>
+      <li>Insulin and fluids for DKA per protocol; replace ongoing GI losses.</li>
+      <li><b>Watch the potassium and the cardiac monitor</b> — acidosis drives K⁺ out of cells, and correcting
+        the acidosis drives it back in.</li>
+      <li>Leave the <b>Kussmaul breathing</b> alone. It is the only compensation they have.</li>
+    </ul>
+    <div class="mn">🧠 <b>Perfuse, treat the cause, watch the K⁺.</b></div>
+  </div>
+
+  <div class="card tealc">
+    <h3>🤢 Metabolic alkalosis — what you actually do</h3>
+    <ul class="tick">
+      <li><b>Stop the loss:</b> antiemetics as prescribed, review nasogastric suction, review diuretics and
+        antacid use.</li>
+      <li>Replace <b>fluid and electrolytes</b> as prescribed — this is very often a volume and chloride problem.</li>
+      <li><b>Correct the potassium.</b> Hypokalaemia both causes and maintains a metabolic alkalosis.</li>
+      <li>Monitor for <b>tetany, cramps and arrhythmias</b>; keep the patient on a monitor if the potassium is low.</li>
+    </ul>
+    <div class="mn">🧠 <b>Vomiting is not just fluid loss — it is acid loss.</b></div>
+  </div>
+
+  <div class="card citrinec">
+    <h3>🧠 The pattern that names most cases before you see a gas</h3>
+    <div class="tblwrap"><table>
+      <tr><th class="up">The story</th><th class="lo">Predict this gas</th></tr>
+      <tr><td>Post-op, sleepy, had opioids</td><td>Respiratory acidosis</td></tr>
+      <tr><td>Panicking, tingling fingers, fast deep breaths</td><td>Respiratory alkalosis</td></tr>
+      <tr><td>New diabetic, thirsty, fruity breath, deep sighing breathing</td><td>Metabolic acidosis (DKA)</td></tr>
+      <tr><td>Vomiting for three days, or on continuous NG suction</td><td>Metabolic alkalosis</td></tr>
+      <tr><td>Long-standing COPD, comfortable, normal pH</td><td>Fully compensated respiratory acidosis</td></tr>
+      <tr><td>Profound shock or a cardiac arrest</td><td>Mixed acidosis (respiratory + metabolic)</td></tr>
+    </table></div>
+    <div class="mn">🧠 <b>Read the story before you read the numbers.</b> The gas usually confirms what you already suspected.</div>
+  </div>
+
+  </div>
+</section>
+
+<section id="traps17">
+  <div class="sec-h"><span class="icon">🚨</span><h2>PART 3 · THE HARDER CASES</h2><span class="step">MIXED, EXPECTED, OXYGEN</span></div>
+  <p class="sec-sub">Three things that turn an easy ABG question into a hard one.</p>
+  <div class="grid">
+
+  <div class="card deep span2">
+    <h3>🚨 Compensated vs mixed — the two-second check</h3>
+    <svg viewBox="0 0 1240 700" role="img" aria-label="Two panels compared. The left panel, headed compensated, shows a gas in which the PaCO2 arrow points to the acid side and the bicarbonate arrow points to the base side — opposite sides, so one value is rescuing the other and the pH is being defended. The right panel, headed mixed or combined, shows a gas in which both the PaCO2 arrow and the bicarbonate arrow point to the acid side — the same side, so nothing is rescuing anything and the pH collapses. Example values are given under each panel.">
+<defs>
+<filter id="mxdrop" x="-40%" y="-40%" width="185%" height="185%">
+  <feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dx="0" dy="6" result="o"/>
+  <feFlood flood-color="#000" flood-opacity=".55"/><feComposite in2="o" operator="in" result="sh"/>
+  <feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<filter id="mxsoft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7"/></filter>
+<linearGradient id="mxacid" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#ff9db6"/><stop offset=".18" stop-color="#ff617f"/>
+  <stop offset=".55" stop-color="#e02b56"/><stop offset=".85" stop-color="#a3123c"/>
+  <stop offset="1" stop-color="#6d0526"/></linearGradient>
+<linearGradient id="mxbase" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#a9c6ff"/><stop offset=".18" stop-color="#6b95ff"/>
+  <stop offset=".55" stop-color="#2f6bff"/><stop offset=".85" stop-color="#1a3fa8"/>
+  <stop offset="1" stop-color="#0d2160"/></linearGradient>
+<linearGradient id="mxnorm" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#b8f7e0"/><stop offset=".18" stop-color="#5fe0b4"/>
+  <stop offset=".55" stop-color="#12b886"/><stop offset=".85" stop-color="#0a7d5b"/>
+  <stop offset="1" stop-color="#044234"/></linearGradient>
+<linearGradient id="mxgloss" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#ffffff" stop-opacity=".42"/>
+  <stop offset=".45" stop-color="#ffffff" stop-opacity=".07"/>
+  <stop offset="1" stop-color="#000000" stop-opacity=".25"/></linearGradient>
+
+<marker id="mxar" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+  <path d="M 0 1 L 11 6 L 0 11 z" fill="#ffe49a"/></marker></defs>
+<rect x="0" y="0" width="1240" height="700" rx="20" fill="#0d0820" opacity=".55"/>
+<text x="28" y="42" font-size="25" font-weight="900" fill="#ffe49a" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">COMPENSATED  vs  MIXED — read the two partner arrows</text>
+<text x="28" y="68" font-size="14.5" font-weight="700" fill="#cbe4ff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">Schematic · look only at where PaCO₂ and HCO₃⁻ sit, acid side or base side</text>
+<g filter="url(#mxdrop)"><rect x="28" y="100" width="576" height="474" rx="18" fill="rgba(6,4,16,.62)" stroke="rgba(150,245,210,.75)" stroke-width="2.4"/></g>
+<rect x="28" y="100" width="576" height="58" rx="18" fill="rgba(18,184,134,.9)"/>
+<rect x="28" y="126" width="576" height="32" fill="rgba(18,184,134,.9)"/>
+<text x="316" y="128" font-size="22" font-weight="900" fill="#fff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">COMPENSATED</text>
+<text x="316" y="150" font-size="13.5" font-weight="800" fill="#ffe49a" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">the two partners sit on OPPOSITE sides</text>
+<text x="68" y="198" font-size="16" font-weight="900" fill="#ffe49a" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">PaCO₂</text>
+<rect x="68" y="210" width="248.0" height="48" rx="9" fill="#c02255" opacity=".85"/>
+<rect x="316.0" y="210" width="248.0" height="48" rx="9" fill="#2f6bff" opacity=".85"/>
+<rect x="68" y="210" width="496" height="48" rx="9" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
+<text x="192.0" y="240" font-size="15" font-weight="900" fill="#fff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">ACID SIDE</text>
+<text x="440.0" y="240" font-size="15" font-weight="900" fill="#fff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">BASE SIDE</text>
+<path d="M 192.0 206 l -16 -22 l 32 0 z" fill="#ffc233" stroke="#2a1f00" stroke-width="1.4"/>
+<circle cx="192.0" cy="210" r="6" fill="#ffc233" stroke="#2a1f00" stroke-width="1.8"/>
+<text x="192.0" y="282" font-size="15" font-weight="900" fill="#ffe49a" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">PaCO₂ 55 — high, acid</text>
+<text x="68" y="328" font-size="16" font-weight="900" fill="#ffe49a" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">HCO₃⁻</text>
+<rect x="68" y="340" width="248.0" height="48" rx="9" fill="#c02255" opacity=".85"/>
+<rect x="316.0" y="340" width="248.0" height="48" rx="9" fill="#2f6bff" opacity=".85"/>
+<rect x="68" y="340" width="496" height="48" rx="9" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
+<text x="192.0" y="370" font-size="15" font-weight="900" fill="#fff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">ACID SIDE</text>
+<text x="440.0" y="370" font-size="15" font-weight="900" fill="#fff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">BASE SIDE</text>
+<path d="M 440.0 336 l -16 -22 l 32 0 z" fill="#ffc233" stroke="#2a1f00" stroke-width="1.4"/>
+<circle cx="440.0" cy="340" r="6" fill="#ffc233" stroke="#2a1f00" stroke-width="1.8"/>
+<text x="440.0" y="412" font-size="15" font-weight="900" fill="#ffe49a" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">HCO₃⁻ 34 — high, base</text>
+<rect x="68" y="482" width="496" height="46" rx="12" fill="#12b886" stroke="rgba(255,255,255,.6)" stroke-width="1.6"/>
+<text x="316" y="512" font-size="18" font-weight="900" fill="#03291c" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">One is rescuing the other → the pH is defended</text>
+<text x="316" y="550" font-size="13" font-weight="700" fill="#efe6ff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">Example: pH 7.36 · PaCO₂ 55 · HCO₃⁻ 34</text>
+<g filter="url(#mxdrop)"><rect x="636" y="100" width="576" height="474" rx="18" fill="rgba(6,4,16,.62)" stroke="rgba(255,170,195,.75)" stroke-width="2.4"/></g>
+<rect x="636" y="100" width="576" height="58" rx="18" fill="rgba(192,34,85,.94)"/>
+<rect x="636" y="126" width="576" height="32" fill="rgba(192,34,85,.94)"/>
+<text x="924" y="128" font-size="22" font-weight="900" fill="#fff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">MIXED / COMBINED</text>
+<text x="924" y="150" font-size="13.5" font-weight="800" fill="#ffe49a" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">the two partners sit on the SAME side</text>
+<text x="676" y="198" font-size="16" font-weight="900" fill="#ffe49a" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">PaCO₂</text>
+<rect x="676" y="210" width="248.0" height="48" rx="9" fill="#c02255" opacity=".85"/>
+<rect x="924.0" y="210" width="248.0" height="48" rx="9" fill="#2f6bff" opacity=".85"/>
+<rect x="676" y="210" width="496" height="48" rx="9" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
+<text x="800.0" y="240" font-size="15" font-weight="900" fill="#fff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">ACID SIDE</text>
+<text x="1048.0" y="240" font-size="15" font-weight="900" fill="#fff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">BASE SIDE</text>
+<path d="M 800.0 206 l -16 -22 l 32 0 z" fill="#ffc233" stroke="#2a1f00" stroke-width="1.4"/>
+<circle cx="800.0" cy="210" r="6" fill="#ffc233" stroke="#2a1f00" stroke-width="1.8"/>
+<text x="800.0" y="282" font-size="15" font-weight="900" fill="#ffe49a" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">PaCO₂ 60 — high, acid</text>
+<text x="676" y="328" font-size="16" font-weight="900" fill="#ffe49a" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">HCO₃⁻</text>
+<rect x="676" y="340" width="248.0" height="48" rx="9" fill="#c02255" opacity=".85"/>
+<rect x="924.0" y="340" width="248.0" height="48" rx="9" fill="#2f6bff" opacity=".85"/>
+<rect x="676" y="340" width="496" height="48" rx="9" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
+<text x="800.0" y="370" font-size="15" font-weight="900" fill="#fff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">ACID SIDE</text>
+<text x="1048.0" y="370" font-size="15" font-weight="900" fill="#fff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">BASE SIDE</text>
+<path d="M 800.0 336 l -16 -22 l 32 0 z" fill="#ffc233" stroke="#2a1f00" stroke-width="1.4"/>
+<circle cx="800.0" cy="340" r="6" fill="#ffc233" stroke="#2a1f00" stroke-width="1.8"/>
+<text x="800.0" y="412" font-size="15" font-weight="900" fill="#ffe49a" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">HCO₃⁻ 14 — low, ALSO acid</text>
+<rect x="676" y="482" width="496" height="46" rx="12" fill="#ff3b6b" stroke="rgba(255,255,255,.6)" stroke-width="1.6"/>
+<text x="924" y="512" font-size="18" font-weight="900" fill="#fff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">Nobody is rescuing — the pH collapses</text>
+<text x="924" y="550" font-size="13" font-weight="700" fill="#efe6ff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">Example: pH 7.10 · PaCO₂ 60 · HCO₃⁻ 14</text>
+<text x="924" y="569" font-size="13" font-weight="700" fill="#efe6ff" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">Cardiac arrest, severe sepsis, opioid overdose in shock</text>
+<rect x="28" y="600" width="1184" height="78" rx="14" fill="rgba(255,194,51,.2)" stroke="rgba(255,194,51,.75)" stroke-width="1.6"/>
+<text x="50" y="628" font-size="16" font-weight="900" fill="#ffe49a" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">⭐ The two-second check —</text>
+<text x="288" y="628" font-size="14.5" font-weight="800" fill="#fff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">put a finger on PaCO₂ and a finger on HCO₃⁻. Opposite sides = compensation.</text>
+<text x="288" y="652" font-size="14.5" font-weight="800" fill="#fff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">Same side = a mixed disorder, and the patient is in real trouble. Escalate, do not chart and wait.</text>
+</svg>
+    <p class="figcap">Put a finger on PaCO₂ and a finger on HCO₃⁻. Opposite sides means someone is rescuing.
+    Same side means nobody is, and the pH falls off a cliff.</p>
+    <div class="mn">🧠 <b>Opposite = rescue. Same = disaster.</b></div>
+  </div>
+
+  <div class="card ruby">
+    <h3>🚨 Mixed disorders — when to worry</h3>
+    <ul class="tick">
+      <li>Both partners abnormal in the <b>same</b> acid–base direction = a <b>combined</b> disorder.</li>
+      <li>The commonest one you will meet: <b>cardiac arrest</b> — the patient is not ventilating (CO₂ up)
+        <i>and</i> is not perfusing (lactate up, HCO₃⁻ down).</li>
+      <li>Also seen in <b>severe sepsis</b>, in <b>opioid overdose with shock</b>, and in a patient with COPD who
+        develops a severe metabolic acidosis.</li>
+      <li>Recognise it by the <b>severity of the pH</b> — mixed disorders produce the most extreme pH values you
+        will ever see.</li>
+    </ul>
+    <p class="never">Never label a mixed picture “partially compensated”. Nothing is compensating.</p>
+    <div class="mn">🧠 <b>Two problems pushing the same way = a resuscitation, not a lab result.</b></div>
+  </div>
+
+  <div class="card topaz">
+    <h3>⭐ “Is the compensation about right?”</h3>
+    <p>You are not usually asked to calculate this at this stage, but the reasoning is worth having.</p>
+    <ul class="tick">
+      <li>Compensation should be in the <b>right direction</b> and <b>roughly proportional</b> to the problem.</li>
+      <li>A large primary problem with only a tiny partner change suggests the rescuing organ <b>cannot</b>
+        respond — for example, kidneys that are failing, or lungs too weak to hyperventilate.</li>
+      <li>Compensation in the <b>wrong</b> direction is not compensation at all — it is a second disorder.</li>
+      <li>If your course teaches specific expected-compensation formulas, use theirs; they vary between texts.</li>
+    </ul>
+    <div class="mn">🧠 <b>Right direction, sensible size.</b> Anything else means a second problem.</div>
+  </div>
+
+  <div class="card deep span2">
+    <h3>🫁 The oxygenation half of the gas — the bit everyone forgets</h3>
+    <svg viewBox="-65 -10 1315 800" role="img" aria-label="The oxyhaemoglobin dissociation curve. The horizontal axis is PaO2 in millimetres of mercury from zero to one hundred and ten; the vertical axis is oxygen saturation as a percentage. The solid curve is S-shaped: it climbs steeply up to a PaO2 of about sixty, where saturation is roughly ninety per cent, then flattens. The flat top from PaO2 eighty to one hundred, saturation ninety-five to one hundred per cent, is shaded green and labelled the safe plateau. The steep part below PaO2 sixty is shaded red and labelled the cliff, because small further falls in PaO2 cause large falls in saturation. Two dashed curves show a right shift, which unloads more oxygen to the tissues, and a left shift, which holds oxygen on to the haemoglobin, with the causes of each listed in a panel on the right.">
+<defs>
+<filter id="oxdrop" x="-40%" y="-40%" width="185%" height="185%">
+  <feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dx="0" dy="6" result="o"/>
+  <feFlood flood-color="#000" flood-opacity=".55"/><feComposite in2="o" operator="in" result="sh"/>
+  <feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<filter id="oxsoft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7"/></filter>
+<linearGradient id="oxacid" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#ff9db6"/><stop offset=".18" stop-color="#ff617f"/>
+  <stop offset=".55" stop-color="#e02b56"/><stop offset=".85" stop-color="#a3123c"/>
+  <stop offset="1" stop-color="#6d0526"/></linearGradient>
+<linearGradient id="oxbase" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#a9c6ff"/><stop offset=".18" stop-color="#6b95ff"/>
+  <stop offset=".55" stop-color="#2f6bff"/><stop offset=".85" stop-color="#1a3fa8"/>
+  <stop offset="1" stop-color="#0d2160"/></linearGradient>
+<linearGradient id="oxnorm" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#b8f7e0"/><stop offset=".18" stop-color="#5fe0b4"/>
+  <stop offset=".55" stop-color="#12b886"/><stop offset=".85" stop-color="#0a7d5b"/>
+  <stop offset="1" stop-color="#044234"/></linearGradient>
+<linearGradient id="oxgloss" x1="0" y1="0" x2="0" y2="1">
+  <stop offset="0" stop-color="#ffffff" stop-opacity=".42"/>
+  <stop offset=".45" stop-color="#ffffff" stop-opacity=".07"/>
+  <stop offset="1" stop-color="#000000" stop-opacity=".25"/></linearGradient>
+</defs>
+<rect x="-61" y="-6" width="1307" height="792" rx="20" fill="#0d0820" opacity=".55"/>
+<text x="28" y="42" font-size="25" font-weight="900" fill="#ffe49a" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">THE OTHER HALF OF THE GAS — oxygenation</text>
+<text x="28" y="68" font-size="14" font-weight="700" fill="#cbe4ff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">Oxyhaemoglobin dissociation curve · PaO₂ against SaO₂ · typical adult, varies with age and altitude</text>
+<rect x="695.5" y="150.0" width="136.4" height="20.5" fill="rgba(18,184,134,.35)" stroke="rgba(150,245,210,.8)" stroke-width="1.6"/>
+<rect x="150" y="191.0" width="409.1" height="369.0" fill="rgba(192,34,85,.28)" stroke="rgba(255,160,185,.6)" stroke-width="1.4"/>
+<line x1="150" y1="560" x2="930" y2="560" stroke="rgba(255,255,255,.6)" stroke-width="2"/>
+<line x1="150" y1="560" x2="150" y2="130" stroke="rgba(255,255,255,.6)" stroke-width="2"/>
+<line x1="150.0" y1="560" x2="150.0" y2="567" stroke="rgba(255,255,255,.5)" stroke-width="1.3"/>
+<text x="150.0" y="586" font-size="12.5" font-weight="800" fill="#dcd2f5" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">0</text>
+<line x1="218.2" y1="560" x2="218.2" y2="567" stroke="rgba(255,255,255,.5)" stroke-width="1.3"/>
+<line x1="286.4" y1="560" x2="286.4" y2="567" stroke="rgba(255,255,255,.5)" stroke-width="1.3"/>
+<text x="286.3636363636364" y="586" font-size="12.5" font-weight="800" fill="#dcd2f5" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">20</text>
+<line x1="354.5" y1="560" x2="354.5" y2="567" stroke="rgba(255,255,255,.5)" stroke-width="1.3"/>
+<line x1="422.7" y1="560" x2="422.7" y2="567" stroke="rgba(255,255,255,.5)" stroke-width="1.3"/>
+<text x="422.72727272727275" y="586" font-size="12.5" font-weight="800" fill="#dcd2f5" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">40</text>
+<line x1="490.9" y1="560" x2="490.9" y2="567" stroke="rgba(255,255,255,.5)" stroke-width="1.3"/>
+<line x1="559.1" y1="560" x2="559.1" y2="567" stroke="rgba(255,255,255,.5)" stroke-width="1.3"/>
+<text x="559.090909090909" y="586" font-size="12.5" font-weight="800" fill="#dcd2f5" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">60</text>
+<line x1="627.3" y1="560" x2="627.3" y2="567" stroke="rgba(255,255,255,.5)" stroke-width="1.3"/>
+<line x1="695.5" y1="560" x2="695.5" y2="567" stroke="rgba(255,255,255,.5)" stroke-width="1.3"/>
+<text x="695.4545454545455" y="586" font-size="12.5" font-weight="800" fill="#dcd2f5" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">80</text>
+<line x1="763.6" y1="560" x2="763.6" y2="567" stroke="rgba(255,255,255,.5)" stroke-width="1.3"/>
+<line x1="831.8" y1="560" x2="831.8" y2="567" stroke="rgba(255,255,255,.5)" stroke-width="1.3"/>
+<text x="831.8181818181818" y="586" font-size="12.5" font-weight="800" fill="#dcd2f5" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">100</text>
+<line x1="900.0" y1="560" x2="900.0" y2="567" stroke="rgba(255,255,255,.5)" stroke-width="1.3"/>
+<line x1="143" y1="560.0" x2="930" y2="560.0" stroke="rgba(255,255,255,.14)" stroke-width="1"/>
+<text x="136" y="565.0" font-size="12.5" font-weight="800" fill="#dcd2f5" text-anchor="end" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">0%</text>
+<line x1="143" y1="478.0" x2="930" y2="478.0" stroke="rgba(255,255,255,.14)" stroke-width="1"/>
+<text x="136" y="483.0" font-size="12.5" font-weight="800" fill="#dcd2f5" text-anchor="end" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">20%</text>
+<line x1="143" y1="396.0" x2="930" y2="396.0" stroke="rgba(255,255,255,.14)" stroke-width="1"/>
+<text x="136" y="401.0" font-size="12.5" font-weight="800" fill="#dcd2f5" text-anchor="end" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">40%</text>
+<line x1="143" y1="314.0" x2="930" y2="314.0" stroke="rgba(255,255,255,.14)" stroke-width="1"/>
+<text x="136" y="319.0" font-size="12.5" font-weight="800" fill="#dcd2f5" text-anchor="end" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">60%</text>
+<line x1="143" y1="232.0" x2="930" y2="232.0" stroke="rgba(255,255,255,.14)" stroke-width="1"/>
+<text x="136" y="237.0" font-size="12.5" font-weight="800" fill="#dcd2f5" text-anchor="end" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">80%</text>
+<line x1="143" y1="150.0" x2="930" y2="150.0" stroke="rgba(255,255,255,.14)" stroke-width="1"/>
+<text x="136" y="155.0" font-size="12.5" font-weight="800" fill="#dcd2f5" text-anchor="end" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">100%</text>
+<text x="525.0" y="612" font-size="15" font-weight="900" fill="#ffe49a" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">PaO₂  (mmHg)</text>
+<text x="136" y="104" font-size="13" font-weight="900" fill="#ffe49a" text-anchor="end" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">SaO₂ — oxygen saturation</text>
+<text x="136" y="122" font-size="13" font-weight="900" fill="#ffe49a" text-anchor="end" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">of haemoglobin</text>
+<path d="M 150.0 560.0 L 163.6 559.9 L 177.3 559.0 L 190.9 556.8 L 204.5 553.0 L 218.2 547.1 L 231.8 538.9 L 245.5 528.4 L 259.1 515.7 L 272.7 500.9 L 286.4 484.3 L 300.0 466.5 L 313.6 447.7 L 327.3 428.6 L 340.9 409.4 L 354.5 390.6 L 368.2 372.4 L 381.8 355.0 L 395.5 338.6 L 409.1 323.3 L 422.7 309.1 L 436.4 296.1 L 450.0 284.1 L 463.6 273.1 L 477.3 263.1 L 490.9 253.9 L 504.5 245.7 L 518.2 238.1 L 531.8 231.3 L 545.5 225.1 L 559.1 219.4 L 572.7 214.3 L 586.4 209.6 L 600.0 205.4 L 613.6 201.5 L 627.3 197.9 L 640.9 194.7 L 654.5 191.7 L 668.2 189.0 L 681.8 186.5 L 695.5 184.2 L 709.1 182.1 L 722.7 180.2 L 736.4 178.4 L 750.0 176.7 L 763.6 175.2 L 777.3 173.8 L 790.9 172.5 L 804.5 171.3 L 818.2 170.1 L 831.8 169.1 L 845.5 168.1 L 859.1 167.2 L 872.7 166.3 L 886.4 165.5 L 900.0 164.8" stroke="#ff8a3d" stroke-width="3.4" fill="none" stroke-dasharray="9 6" opacity=".85"/>
+<path d="M 150.0 560.0 L 163.6 559.4 L 177.3 555.5 L 190.9 546.4 L 204.5 530.7 L 218.2 508.5 L 231.8 480.8 L 245.5 449.6 L 259.1 417.0 L 272.7 385.0 L 286.4 355.0 L 300.0 327.8 L 313.6 303.8 L 327.3 282.9 L 340.9 265.0 L 354.5 249.7 L 368.2 236.7 L 381.8 225.7 L 395.5 216.3 L 409.1 208.3 L 422.7 201.5 L 436.4 195.6 L 450.0 190.6 L 463.6 186.3 L 477.3 182.5 L 490.9 179.3 L 504.5 176.4 L 518.2 173.9 L 531.8 171.7 L 545.5 169.8 L 559.1 168.1 L 572.7 166.6 L 586.4 165.2 L 600.0 164.0 L 613.6 162.9 L 627.3 161.9 L 640.9 161.0 L 654.5 160.3 L 668.2 159.5 L 681.8 158.9 L 695.5 158.3 L 709.1 157.7 L 722.7 157.2 L 736.4 156.8 L 750.0 156.4 L 763.6 156.0 L 777.3 155.6 L 790.9 155.3 L 804.5 155.0 L 818.2 154.7 L 831.8 154.5 L 845.5 154.2 L 859.1 154.0 L 872.7 153.8 L 886.4 153.6 L 900.0 153.4" stroke="#9ff2ee" stroke-width="3.4" fill="none" stroke-dasharray="9 6" opacity=".85"/>
+<path d="M 150.0 560.0 L 163.6 559.7 L 177.3 558.0 L 190.9 553.8 L 204.5 546.3 L 218.2 535.1 L 231.8 520.2 L 245.5 501.7 L 259.1 480.4 L 272.7 457.1 L 286.4 432.8 L 300.0 408.2 L 313.6 384.3 L 327.3 361.5 L 340.9 340.3 L 354.5 320.8 L 368.2 303.1 L 381.8 287.2 L 395.5 273.0 L 409.1 260.4 L 422.7 249.2 L 436.4 239.3 L 450.0 230.5 L 463.6 222.8 L 477.3 215.9 L 490.9 209.8 L 504.5 204.4 L 518.2 199.6 L 531.8 195.4 L 545.5 191.5 L 559.1 188.1 L 572.7 185.1 L 586.4 182.3 L 600.0 179.8 L 613.6 177.6 L 627.3 175.6 L 640.9 173.8 L 654.5 172.1 L 668.2 170.6 L 681.8 169.2 L 695.5 168.0 L 709.1 166.8 L 722.7 165.8 L 736.4 164.8 L 750.0 163.9 L 763.6 163.1 L 777.3 162.3 L 790.9 161.6 L 804.5 161.0 L 818.2 160.4 L 831.8 159.8 L 845.5 159.3 L 859.1 158.8 L 872.7 158.4 L 886.4 157.9 L 900.0 157.6" stroke="#ffc233" stroke-width="6" fill="none" stroke-linecap="round"/>
+<circle cx="559.1" cy="188.9" r="10" fill="#ff3b6b" stroke="#fff" stroke-width="2.6"/>
+<line x1="559.1" y1="188.9" x2="559.1" y2="560" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="5 4"/>
+<line x1="150" y1="188.9" x2="559.1" y2="188.9" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="5 4"/>
+<text x="579.5454545454545" y="289.4" font-size="15" font-weight="900" fill="#ff8fa8" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">PaO₂ 60  ≈  SaO₂ 90%</text>
+<text x="579.5454545454545" y="322.20000000000005" font-size="13" font-weight="800" fill="#ffb3c6" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">the edge of the cliff — below this,</text>
+<text x="579.5454545454545" y="355.0" font-size="13" font-weight="800" fill="#ffb3c6" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">saturation falls fast</text>
+<text x="763.6363636363636" y="120.0" font-size="14" font-weight="900" fill="#a5f3d4" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">SAFE PLATEAU</text>
+<text x="763.6363636363636" y="136.0" font-size="12" font-weight="800" fill="#a5f3d4" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">PaO₂ 80–100 · SaO₂ 95–100%</text>
+<text x="681.8181818181819" y="240.2" font-size="12.5" font-weight="900" fill="#ffb98a" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">right shift ▶</text>
+<text x="238.63636363636363" y="215.60000000000002" font-size="12.5" font-weight="900" fill="#9ff2ee" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">◀ left shift</text>
+<text x="340.9090909090909" y="437.0" font-size="16" font-weight="900" fill="#ffb3c6" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">THE STEEP PART</text>
+<text x="340.9090909090909" y="469.8" font-size="12" font-weight="800" fill="#ffd3dd" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">below PaO₂ 60 a small extra drop</text>
+<text x="340.9090909090909" y="502.6" font-size="12" font-weight="800" fill="#ffd3dd" text-anchor="middle" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">costs a LOT of saturation</text>
+<rect x="944" y="150" width="268" height="264" rx="14" fill="rgba(6,4,16,.7)" stroke="rgba(255,255,255,.34)" stroke-width="1"/>
+<text x="964" y="178" font-size="13.5" font-weight="900" fill="#ffe49a" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">WHY THE CURVE SHIFTS</text>
+<line x1="964" y1="196" x2="1044" y2="196" stroke="#ff8a3d" stroke-width="4" stroke-dasharray="9 6"/>
+<text x="1054" y="201" font-size="13.5" font-weight="900" fill="#ffb98a" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">RIGHT shift</text>
+<text x="964" y="222" font-size="12.5" font-weight="800" fill="#ffd9b8" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">Hb lets GO of O₂ more easily</text>
+<text x="964" y="244" font-size="12.5" font-weight="700" fill="#efe6ff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">• ↑ CO₂</text>
+<text x="964" y="263" font-size="12.5" font-weight="700" fill="#efe6ff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">• ↑ H⁺ (acidosis)</text>
+<text x="964" y="282" font-size="12.5" font-weight="700" fill="#efe6ff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">• ↑ temperature</text>
+<text x="964" y="301" font-size="12.5" font-weight="700" fill="#efe6ff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">• ↑ 2,3-DPG</text>
+<line x1="964" y1="336" x2="1044" y2="336" stroke="#9ff2ee" stroke-width="4" stroke-dasharray="9 6"/>
+<text x="1054" y="341" font-size="13.5" font-weight="900" fill="#9ff2ee" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">LEFT shift</text>
+<text x="964" y="362" font-size="12.5" font-weight="800" fill="#c6fbf9" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">Hb HOLDS ON to O₂</text>
+<text x="964" y="384" font-size="12.5" font-weight="700" fill="#efe6ff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">• the opposite of all four above</text>
+<text x="964" y="403" font-size="12.5" font-weight="700" fill="#efe6ff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">• (alkalosis, cold, low CO₂)</text>
+<rect x="944" y="430" width="268" height="132" rx="14" fill="rgba(255,194,51,.18)" stroke="rgba(255,194,51,.7)" stroke-width="1.6"/>
+<text x="964" y="458" font-size="13.5" font-weight="900" fill="#ffe49a" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">🧠 MEMORY HOOK</text>
+<text x="964" y="482" font-size="12.5" font-weight="800" fill="#fff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">Hard-working muscle is hot,</text>
+<text x="964" y="501" font-size="12.5" font-weight="800" fill="#fff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">acidic and full of CO₂ — so the</text>
+<text x="964" y="520" font-size="12.5" font-weight="800" fill="#fff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">curve shifts RIGHT exactly where</text>
+<text x="964" y="539" font-size="12.5" font-weight="800" fill="#fff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">oxygen is needed most.</text>
+<rect x="150" y="618" width="1062" height="140" rx="14" fill="rgba(6,4,16,.66)" stroke="rgba(255,255,255,.34)" stroke-width="1"/>
+<text x="172" y="646" font-size="15" font-weight="900" fill="#ffe49a" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">READING THE OXYGEN NUMBERS</text>
+<text x="172" y="674" font-size="13.5" font-weight="700" fill="#efe6ff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">• PaO₂ 80–100 mmHg and SaO₂ 95–100% are typical adult reference values — they vary with age and altitude.</text>
+<text x="172" y="696" font-size="13.5" font-weight="700" fill="#efe6ff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">• The acid–base answer and the oxygenation answer are SEPARATE questions — answer both.</text>
+<text x="172" y="718" font-size="13.2" font-weight="700" fill="#efe6ff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">• Because of the plateau, saturation barely changes between PaO₂ 80 and 100 — but below 60 it falls off a cliff.</text>
+<text x="172" y="740" font-size="13.5" font-weight="700" fill="#efe6ff" text-anchor="start" opacity="1" font-family="Segoe UI,Roboto,system-ui,sans-serif">• Always record what oxygen the patient was on. A “normal” PaO₂ on 15 L/min is not reassuring.</text>
+</svg>
+    <p class="figcap">Acid–base and oxygenation are two separate questions on the same printout. The flat top of
+    the curve is why a saturation of 95% and one of 99% are almost the same thing — and why 88% is not.</p>
+    <div class="xref"><span class="pill">SEE ALSO</span> Hypoxia, oxygen delivery devices and target
+      saturations are covered on <b>NG-006 Hypoxia &amp; O₂ Devices</b>.</div>
+    <div class="mn">🧠 <b>60 and 90 travel together</b> — PaO₂ 60 mmHg ≈ SaO₂ 90%, and that is the edge.</div>
+  </div>
+
+  <div class="card emerald">
+    <h3>✅ Hypoxaemia vs hypoxia — not the same word</h3>
+    <ul class="tick">
+      <li><b>Hypoxaemia</b> = low oxygen <b>in the blood</b> — that is what PaO₂ and SaO₂ measure.</li>
+      <li><b>Hypoxia</b> = not enough oxygen <b>reaching the tissues</b>. You can be hypoxic with a normal PaO₂
+        (severe anaemia, shock, carbon monoxide poisoning, cyanide).</li>
+      <li>So a normal-looking oxygen number does <b>not</b> prove the tissues are being oxygenated.</li>
+      <li>The earliest clinical sign of hypoxia is usually <b>restlessness and anxiety</b> — long before cyanosis.</li>
+    </ul>
+    <div class="mn">🧠 <b>-aemia is in the blood. Hypoxia is in the cells.</b></div>
+  </div>
+
+  <div class="card garnet">
+    <h3>⚠️ Things that make an ABG lie</h3>
+    <ul class="tick">
+      <li><b>Air bubbles</b> left in the syringe — they change the gas values.</li>
+      <li><b>Delay</b> in getting the sample to the lab — follow local policy on transport and icing.</li>
+      <li><b>Venous blood</b> drawn by mistake — the picture looks falsely acidotic with a high CO₂.</li>
+      <li><b>No record of the oxygen the patient was on</b> — the PaO₂ becomes uninterpretable.</li>
+      <li>Comparing to the wrong baseline — a chronic retainer's “abnormal” gas may be their normal.</li>
+    </ul>
+    <div class="mn">🧠 <b>No bubbles · straight to the lab · write down the FiO₂.</b></div>
+  </div>
+
+  </div>
+</section>
+
+<section id="drill">
+  <div class="sec-h"><span class="icon">🎯</span><h2>PART 4 · FINAL DRILL</h2><span class="step">PROVE IT</span></div>
+  <p class="sec-sub">If you can do these ten without the tree, you can do them in an exam.</p>
+  <div class="grid">
+
+  <div class="card deep span2">
+    <h3>🎯 Ten gases — cover, answer, check</h3>
+    <details class="ansbox"><summary>1 · pH 7.28 · PaCO₂ 58 · HCO₃⁻ 25</summary>
+      pH acid · CO₂ high = acid (match, lungs) · HCO₃⁻ normal.
+      <b>Respiratory acidosis, uncompensated.</b></details>
+    <details class="ansbox"><summary>2 · pH 7.52 · PaCO₂ 28 · HCO₃⁻ 23</summary>
+      pH base · CO₂ low = base (match, lungs) · HCO₃⁻ normal.
+      <b>Respiratory alkalosis, uncompensated.</b></details>
+    <details class="ansbox"><summary>3 · pH 7.30 · PaCO₂ 30 · HCO₃⁻ 16</summary>
+      pH acid · CO₂ low = base (no match) · HCO₃⁻ low = acid (match, metabolic). The low CO₂ is the lungs
+      helping. pH still abnormal. <b>Metabolic acidosis, partially compensated.</b></details>
+    <details class="ansbox"><summary>4 · pH 7.38 · PaCO₂ 60 · HCO₃⁻ 35</summary>
+      pH normal on the acid side of 7.40 · CO₂ high = acid (match) · HCO₃⁻ high = the rescuer.
+      <b>Respiratory acidosis, fully compensated</b> — the chronic COPD picture.</details>
+    <details class="ansbox"><summary>5 · pH 7.48 · PaCO₂ 42 · HCO₃⁻ 32</summary>
+      pH base · CO₂ normal · HCO₃⁻ high = base (match, metabolic).
+      <b>Metabolic alkalosis, uncompensated.</b></details>
+    <details class="ansbox"><summary>6 · pH 7.12 · PaCO₂ 62 · HCO₃⁻ 15</summary>
+      pH severely acid · CO₂ high = acid <b>and</b> HCO₃⁻ low = acid. Both partners on the same side.
+      <b>Mixed (combined) respiratory and metabolic acidosis</b> — a resuscitation picture.</details>
+    <details class="ansbox"><summary>7 · pH 7.41 · PaCO₂ 30 · HCO₃⁻ 19</summary>
+      pH normal on the alkaline side of 7.40 · CO₂ low = base (match) · HCO₃⁻ low = the kidneys dumping base
+      to help. <b>Respiratory alkalosis, fully compensated</b> — think chronic hyperventilation or altitude.</details>
+    <details class="ansbox"><summary>8 · pH 7.20 · PaCO₂ 38 · HCO₃⁻ 12 in a new diabetic</summary>
+      pH acid · CO₂ normal · HCO₃⁻ very low = acid (match, metabolic).
+      <b>Metabolic acidosis, uncompensated</b> — consistent with DKA. Expect Kussmaul respirations to start
+      and the CO₂ to fall on the next gas.</details>
+    <details class="ansbox"><summary>9 · pH 7.34 · PaCO₂ 50 · HCO₃⁻ 30 · PaO₂ 55 on room air</summary>
+      Acid–base: pH acid · CO₂ high = acid (match) · HCO₃⁻ high = rescuer, pH still low →
+      <b>respiratory acidosis, partially compensated.</b> Separately, <b>PaO₂ 55 is hypoxaemia</b> — below the
+      60 mmHg cliff. Both problems need reporting.</details>
+    <details class="ansbox"><summary>10 · pH 7.40 · PaCO₂ 40 · HCO₃⁻ 24</summary>
+      Everything inside its reference range. <b>A genuinely normal ABG.</b></details>
+  </div>
+
+  <div class="card topaz">
+    <h3>⭐ The 30-second script for any ABG</h3>
+    <div class="stepl">
+      <div class="stepb"><div class="sn">1</div><div class="st">“The pH is <i>___</i> — that's an
+        <b>acidosis / alkalosis</b> (or normal, on the ___ side of 7.40).”</div></div>
+      <div class="stepb"><div class="sn">2</div><div class="st">“The <i>___</i> agrees with it, so this is
+        <b>respiratory / metabolic</b>.”</div></div>
+      <div class="stepb"><div class="sn">3</div><div class="st">“The <i>___</i> has moved the other way, so it is
+        <b>uncompensated / partially / fully</b> compensated.”</div></div>
+      <div class="stepb"><div class="sn">4</div><div class="st">“Oxygenation: PaO₂ <i>___</i> on <i>___</i>
+        oxygen — that's adequate / hypoxaemic.”</div></div>
+    </div>
+    <div class="mn">🧠 Four sentences. Say them in that order and you cannot leave anything out.</div>
+  </div>
+
+  <div class="card emerald">
+    <h3>✅ What to hand over, every time</h3>
+    <ul class="tick">
+      <li>The <b>values</b> and the <b>oxygen</b> they were on.</li>
+      <li>The <b>name</b> of the disorder and the compensation state.</li>
+      <li>Whether it is <b>new or their baseline</b> — quote the previous gas if there is one.</li>
+      <li>What the <b>patient</b> looks like: level of consciousness, work of breathing, observations.</li>
+      <li>What you have <b>already done</b> and what you are asking for.</li>
+    </ul>
+    <div class="mn">🧠 <b>Numbers · name · trend · patient · ask.</b></div>
+  </div>
+
+  
+<div class="card deep span2">
+  <h3>🔗 The ABG series — all three pages, in order</h3>
+  <div class="tblwrap"><table>
+    <tr><th class="up">Page</th><th class="lo">What it gives you</th></tr>
+    <tr><td><b><a href="NG-092_abg-answers.html">NG-092 · ABG Answers (1 of 3)</a></b></td>
+      <td>THE METHOD — the 3-step read, ROME, the decision tree, the pH scale, which organ fixes
+      what, and three fully worked <i>uncompensated</i> gases.</td></tr>
+    <tr><td><b><a href="NG-138_abg-compensation-questions.html">NG-138 · Compensation Questions (2 of 3)</a></b></td>
+      <td>PRACTICE — what compensation actually is, uncompensated vs partial vs full, and four
+      compensation gases plotted for you to answer before you peek.</td></tr>
+    <tr><td><b><a href="NG-173_abg-compensation-answers.html">NG-173 · Compensation Answers (3 of 3)</a></b></td>
+      <td>ANSWER KEY — the filled-in decision path for all four gases, plus the causes of each
+      disorder, the expected-compensation check, oxygenation, and the traps.</td></tr>
+  </table></div>
+  <div class="mn">🧠 <b>Method → Practice → Key.</b> Do them in that order and the fourth ABG stops being scary.</div>
+</div>
+
+  </div>
+</section>
+
+<div class="recall" id="recall2">
+  <div class="rc rubybg"><span class="big">✅ Q1 &amp; Q2 = PARTIAL</span>All three numbers abnormal.
+    <span class="mono">7.32/55/42</span> resp acidosis · <span class="mono">7.55/49/35</span> metabolic alkalosis.</div>
+  <div class="rc tealbg"><span class="big">✅ Q3 &amp; Q4 = FULL</span>pH normal, partner(s) abnormal.
+    <span class="mono">7.37/52/32</span> resp acidosis · <span class="mono">7.43/43/33</span> metabolic alkalosis.</div>
+  <div class="rc topazbg"><span class="big">🧭 THE 7.40 TRICK</span>Normal pH? Below <span class="mono">7.40</span>
+    it was an <b>acidosis</b>; above it was an <b>alkalosis</b>. Compensation never overshoots.</div>
+  <div class="rc citrine"><span class="big">🔍 CULPRIT vs RESCUER</span>The culprit <b>agrees</b> with the pH.
+    The rescuer <b>argues</b> with it. Name the culprit, never the rescuer.</div>
+  <div class="rc rubybg"><span class="big">🚨 SAME SIDE = MIXED</span>Both partners acid, or both base?
+    That is a combined disorder — arrest, severe sepsis, shock. Escalate.</div>
+  <div class="rc topazbg"><span class="big">🫁 DON'T FORGET THE O₂</span>PaO₂ <span class="mono">80–100</span> ·
+    SaO₂ <span class="mono">95–100%</span> (typical adult, varies by lab). <b>PaO₂ 60 ≈ SaO₂ 90% — the cliff edge.</b></div>
+</div>
+
+<footer>
+  <div class="ccc"><span style="background:rgba(157,92,255,.6)">NG-173</span>
+    <span style="background:rgba(192,34,85,.7)">LABS · ACID–BASE · ABG SERIES 3 OF 3</span>
+    <span style="background:var(--topaz);color:#2a1f00">Nursing Field Notes</span></div>
+  <div><b>ABG series:</b> <a href="NG-092_abg-answers.html">NG-092 · The Method (1 of 3)</a> &nbsp;·&nbsp; <a href="NG-138_abg-compensation-questions.html">NG-138 · Compensation Practice (2 of 3)</a> &nbsp;·&nbsp; <a href="NG-173_abg-compensation-answers.html">NG-173 · Answer Key (3 of 3)</a></div>
+  <div>Study aid only · always follow your facility protocol and your instructor.</div>
+</footer>
+
+</div>
+</body></html>

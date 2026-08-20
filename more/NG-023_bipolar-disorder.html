@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bipolar Disorder · NG-023 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(157,92,255,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(47,107,255,.32), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+nav a.c5{background:rgba(0,194,199,.65);color:#00252b}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 10px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--ruby);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(157,92,255,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(47,107,255,.6);border:1px solid var(--line)}
+.lede{max-width:620px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--ruby);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#cycles .sec-h h2{color:#9beef0} #cycles .step{background:var(--teal);color:#00252b}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900;flex-wrap:wrap}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#cause">🧨 Cause</a>
+  <a class="c5" href="#cycles">🌊 Cycles</a>
+  <a class="c2" href="#clues">🔎 Clues</a>
+  <a class="c3" href="#care">🩺 Care</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Mental Health · “Psychiatric Care”</div>
+  <h1>Bipolar Disorder <span class="drop">🎭</span></h1>
+  <div class="chips">
+    <span class="chip id">NG-023</span>
+    <span class="chip cat">MENTAL HEALTH</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede"><b>A mood disorder with cycling periods of lows with Depression followed by highs with Acute Mania.</b> <i>Two extremes, one client — the swing itself is the disease.</i></p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">🎭 Lows ↔ Highs</span>Depression cycles with Acute Mania around a mood baseline.</div>
+  <div class="rc tealbg"><span class="big">🧬 Genetics = 10x</span>Family member with bipolar → <span class="mono">10x</span> more likely to have it.</div>
+  <div class="rc rubybg"><span class="big">💊 SSRIs → mania</span>SSRIs (antidepressants) can trigger a manic episode.</div>
+  <div class="rc topazbg"><span class="big">🔁 4 in 12 months</span>Four+ mood episodes in a 12-month period = Rapid cycling.</div>
+</div>
+
+<!-- ============ CAUSE ============ -->
+<section id="cause">
+  <div class="sec-h"><span class="icon">🧨</span><h2>CAUSE</h2><span class="step">STEP 1 · WHAT &amp; WHY</span></div>
+  <p class="sec-sub">Pathophysiology: one mood, two runaway directions — and what pushes the wave into motion.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🌊 The mood wave — one client, two extremes</h3>
+      <svg viewBox="0 0 860 430" role="img" aria-label="Mood wave diagram: depression trough below the baseline with low mood, low energy and motivation and high suicide risk; acute mania peak above the baseline with high energy, hyperactivity, elevated mood and aggression">
+        <!-- baseline -->
+        <line x1="20" y1="218" x2="840" y2="218" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="24" y="205" font-size="12.5" font-weight="900" letter-spacing="1" fill="#cfd8ff">BASELINE — balanced mood</text>
+
+        <!-- depression segment -->
+        <path d="M 40 218 C 110 218, 140 345, 250 345 C 360 345, 380 218, 435 218" fill="none" stroke="#6ea8ff" stroke-width="7" stroke-linecap="round"/>
+        <!-- mania segment -->
+        <path d="M 435 218 C 490 218, 520 85, 610 85 C 700 85, 770 218, 822 218" fill="none" stroke="#ffc233" stroke-width="7" stroke-linecap="round"/>
+
+        <!-- markers -->
+        <circle cx="250" cy="345" r="10" fill="#ff3b6b" stroke="#fff" stroke-width="2.5"/>
+        <circle cx="610" cy="85" r="10" fill="#ffc233" stroke="#fff" stroke-width="2.5"/>
+
+        <!-- cycling label -->
+        <text x="308" y="130" font-size="15" font-weight="900" fill="#e9dcff">🔁 cycling periods</text>
+        <text x="308" y="151" font-size="13" font-style="italic" fill="#cfd8ff">lows ↔ highs, on repeat</text>
+
+        <!-- MANIA callout (top-left) -->
+        <g>
+          <text x="30" y="42" font-size="21" font-weight="900" fill="#ffc233">ACUTE MANIA 🔥</text>
+          <text x="30" y="68" font-size="15" fill="#fff">• <tspan font-weight="900">High energy</tspan> &amp; hyperactivity</text>
+          <text x="30" y="91" font-size="15" fill="#fff">• <tspan font-weight="900">Elevated mood</tspan> — euphoric</text>
+          <text x="30" y="114" font-size="15" fill="#ffb3c6">• Even <tspan font-weight="900">aggression with violence</tspan> ⚠️</text>
+          <line x1="300" y1="52" x2="597" y2="79" stroke="#ffc233" stroke-width="2"/>
+        </g>
+
+        <!-- DEPRESSION callout (bottom-right) -->
+        <g>
+          <text x="470" y="334" font-size="21" font-weight="900" fill="#8fb8ff">DEPRESSION 🌧️</text>
+          <text x="470" y="360" font-size="15" fill="#fff">• <tspan font-weight="900">Low mood</tspan></text>
+          <text x="600" y="360" font-size="15" fill="#fff">• <tspan font-weight="900">Low energy</tspan> &amp; motivation</text>
+          <rect x="466" y="376" width="252" height="28" rx="8" fill="#ff3b6b"/>
+          <text x="479" y="396" font-size="14.5" font-weight="900" fill="#fff">🚨 HIGH RISK FOR SUICIDE</text>
+          <line x1="262" y1="348" x2="462" y2="336" stroke="#6ea8ff" stroke-width="2"/>
+        </g>
+
+        <!-- legend -->
+        <text x="24" y="422" font-size="13" font-style="italic" fill="#cfd8ff">– – dashed line = balanced mood · the illness swings both ways around it</text>
+      </svg>
+    </div>
+
+    <div class="card">
+      <h3>🧬 Genetics — the big player</h3>
+      <p><b>The cause is unknown</b>, but genetics plays a big part: having a family member with bipolar makes clients <mark>10x more likely</mark> to have it.</p>
+      <div class="mn">🧠 <b>One relative = 10x.</b> Bipolar runs in the family line — a single affected family member multiplies the risk tenfold.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>💊 SSRIs — the mood launcher ⚠️</h3>
+      <p><b>SSRIs (antidepressants) can trigger a manic episode.</b></p>
+      <p><i>The drug that lifts the low can overshoot the baseline and fire the client into a high.</i></p>
+      <div class="mn">🧠 <b>Slingshot rule:</b> pull a low mood up with an <b>SSRI</b> and it can <i>slingshot</i> straight past baseline into <b>mania</b>.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CYCLES ============ -->
+<section id="cycles">
+  <div class="sec-h"><span class="icon">🌊</span><h2>CYCLES</h2><span class="step">STEP 2 · READ THE WAVE</span></div>
+  <p class="sec-sub">Types of bipolar disorders — each type is just a different wave pattern.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>📈 Four swing patterns — one glance each</h3>
+      <svg viewBox="0 0 860 400" role="img" aria-label="Four wave patterns: Bipolar 1 with one big manic spike, Bipolar 2 with two milder hypomania humps, Cyclothymia with gentle ripples over two years, Rapid cycling with four episodes in twelve months">
+        <!-- row 1 · Bipolar 1 -->
+        <text x="20" y="50" font-size="17" font-weight="900" fill="#ffc233">BIPOLAR 1</text>
+        <text x="20" y="70" font-size="12.5" font-style="italic" fill="#ffe2a1">the BIG one</text>
+        <line x1="205" y1="55" x2="515" y2="55" stroke="rgba(255,255,255,.35)" stroke-dasharray="5 5"/>
+        <path d="M 205 55 L 295 55 C 318 55, 324 12, 352 12 C 380 12, 386 55, 409 55 L 515 55" fill="none" stroke="#ffc233" stroke-width="5" stroke-linecap="round"/>
+        <text x="540" y="46" font-size="13.5" fill="#fff"><tspan font-weight="900" class="mono">1</tspan> episode of mania lasting <tspan font-weight="900">over 1 week</tspan></text>
+        <text x="540" y="66" font-size="13.5" fill="#fff">— or need for <tspan font-weight="900">hospitalization</tspan> 🏥</text>
+
+        <!-- row 2 · Bipolar 2 -->
+        <text x="20" y="140" font-size="17" font-weight="900" fill="#ffb27d">BIPOLAR 2</text>
+        <text x="20" y="160" font-size="12.5" font-style="italic" fill="#ffd6ba">milder highs</text>
+        <line x1="205" y1="145" x2="515" y2="145" stroke="rgba(255,255,255,.35)" stroke-dasharray="5 5"/>
+        <path d="M 205 145 C 226 145, 231 116, 257 116 C 283 116, 288 145, 309 145 C 332 145, 337 114, 379 114 C 421 114, 436 145, 460 145 L 515 145" fill="none" stroke="#ff8a3d" stroke-width="5" stroke-linecap="round"/>
+        <text x="540" y="136" font-size="13.5" fill="#fff"><tspan font-weight="900" class="mono">2</tspan> episodes of milder high — <tspan font-weight="900">hypomania</tspan></text>
+        <text x="540" y="156" font-size="13.5" fill="#fff">which can <tspan font-weight="900">last longer</tspan> ⏳</text>
+
+        <!-- row 3 · Cyclothymia -->
+        <text x="20" y="230" font-size="17" font-weight="900" fill="#7df3e6">CYCLOTHYMIA</text>
+        <text x="20" y="250" font-size="12.5" font-style="italic" fill="#c8fff5">gentle ripples</text>
+        <line x1="205" y1="235" x2="515" y2="235" stroke="rgba(255,255,255,.35)" stroke-dasharray="5 5"/>
+        <path d="M 205 235 C 218 235, 220 221, 236 221 C 252 221, 254 249, 270 249 C 286 249, 288 221, 304 221 C 320 221, 322 249, 338 249 C 354 249, 356 221, 372 221 C 388 221, 390 249, 406 249 C 422 249, 424 221, 440 221 C 456 221, 458 249, 474 249 C 490 249, 492 235, 515 235" fill="none" stroke="#00c2c7" stroke-width="5" stroke-linecap="round"/>
+        <text x="540" y="226" font-size="13.5" fill="#fff"><tspan font-weight="900">Milder lows &amp; milder highs</tspan> cycling</text>
+        <text x="540" y="246" font-size="13.5" fill="#fff">over a period of <tspan font-weight="900" class="mono">2 years</tspan> 📆</text>
+
+        <!-- row 4 · Rapid cycling -->
+        <text x="20" y="320" font-size="17" font-weight="900" fill="#ff8fa9">RAPID CYCLING</text>
+        <text x="20" y="340" font-size="12.5" font-style="italic" fill="#ffd0da">4 in 12 months</text>
+        <line x1="205" y1="325" x2="515" y2="325" stroke="rgba(255,255,255,.35)" stroke-dasharray="5 5"/>
+        <path d="M 205 325 C 216 325, 219 291, 236 291 C 253 291, 257 359, 274 359 C 291 359, 295 291, 312 291 C 329 291, 333 359, 350 359 C 367 359, 371 291, 388 291 C 405 291, 409 359, 426 359 C 443 359, 447 291, 464 291 C 481 291, 486 325, 515 325" fill="none" stroke="#ff3b6b" stroke-width="5" stroke-linecap="round"/>
+        <text x="540" y="316" font-size="13.5" fill="#fff"><tspan font-weight="900" class="mono">4</tspan> episodes of <tspan font-weight="900">depression &amp; mania</tspan></text>
+        <text x="540" y="336" font-size="13.5" fill="#fff">within a <tspan font-weight="900" class="mono">12-month</tspan> period ⚡</text>
+        <rect x="540" y="348" width="130" height="22" rx="7" fill="#ffc233"/>
+        <text x="550" y="364" font-size="12" font-weight="900" fill="#2a1f00">HESI + ATI FAVE</text>
+      </svg>
+    </div>
+
+    <div class="card topaz">
+      <h3>🔢 The numbers trick — types by digits</h3>
+      <ul class="tick">
+        <li><b>Bipolar 1</b> — <span class="mono">1</span> episode of mania that lasts <b>over 1 week</b> or need for <b>hospitalization</b></li>
+        <li><b>Bipolar 2</b> — <span class="mono">2</span> episodes of milder high <b>hypomania</b>, which can last longer</li>
+        <li><b>Cyclothymia</b> — milder lows &amp; milder highs cycling over a period of <span class="mono">2 years</span></li>
+        <li><b>Rapid Cycling</b> — <mark>4 episodes of depression &amp; mania within a 12 month period</mark></li>
+      </ul>
+      <div class="mn">🧠 <b>Count the waves:</b> <b>1</b> BIG week · <b>2</b> mild highs · <b>2</b> mellow years · <b>4</b>-in-<b>12</b> fast. <i>The number in the name sizes the wave.</i></div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>📝 Test banks love rapid cycling</h3>
+      <p><span class="tip">HESI Q</span> “Four or more mood episodes in a 12-month period, the patient is said to be…” → <b>Rapid cycling</b></p>
+      <p><span class="tip">ATI Q</span> “Five acute manic episodes in one year” → <b>Rapid cycling</b></p>
+      <p><i>4 is the floor — 5 in a year still counts.</i></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLUES ============ -->
+<section id="clues">
+  <div class="sec-h"><span class="icon">🔎</span><h2>CLUES</h2><span class="step">STEP 3 · SPOT THE PHASE</span></div>
+  <p class="sec-sub">Name the phase first — everything the client says, wears, and does is a clue.</p>
+
+  <div class="grid">
+    <div class="card sapphire span2">
+      <h3>⚖️ Depression vs Acute Mania — the seesaw</h3>
+      <table>
+        <tr><th style="width:22%"></th><th class="lo">🌧️ DEPRESSION</th><th class="up">🔥 ACUTE MANIA</th></tr>
+        <tr><td><b>Mood</b> 🎭</td>
+            <td><b>Declined mood</b>, low mood</td>
+            <td><b>Elevated mood</b> — euphoric, “More energy + Maniac”</td></tr>
+        <tr><td><b>Energy</b> 🔋</td>
+            <td><b>Low energy &amp; motivation</b></td>
+            <td><b>High energy</b>, hyperactivity</td></tr>
+        <tr><td><b>Danger</b> 🚨</td>
+            <td><span class="never">High risk for suicide</span></td>
+            <td>Even <b>aggression with violence</b></td></tr>
+      </table>
+      <div class="mn">🧠 MEMORY TRICK (source): <b>D</b>epression = <b>D</b>eclined mood · <b>M</b>ania = <b>M</b>ore energy + <b>M</b>aniac.</div>
+    </div>
+
+    <div class="card deep span2">
+      <h3>🔥 Acute mania — the <span style="color:var(--topaz)">M·A·N·I·A</span> acrostic <i>(source mnemonic)</i></h3>
+      <div class="ladder">
+        <div class="rung"><div class="n" style="background:var(--topaz)">M</div><div class="t"><b>More energy &amp; Mood Swings</b> — euphoric energy, impulsive, <b>grandiosity</b><br><i>hallucinations &amp; delusions of grandeur</i></div></div>
+        <div class="rung"><div class="n" style="background:var(--topaz)">A</div><div class="t"><b>Agitation</b> — ✅ <b>set limits</b> &amp; structured environment</div></div>
+        <div class="rung"><div class="n" style="background:var(--topaz)">N</div><div class="t"><b>Non-stop talking &amp; <mark>Flight of ideas</mark></b> — colorful bizarre clothing choices 🌈</div></div>
+        <div class="rung"><div class="n" style="background:var(--topaz)">I</div><div class="t"><b>Insomnia</b> — “Cannot sleep for days” 🌙</div></div>
+        <div class="rung"><div class="n" style="background:var(--topaz)">A</div><div class="t"><b>Attention span POOR</b> — easily distracted = ✅ <b>reduce stimuli</b></div></div>
+      </div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🎯 Exam radar — what they pick for “manic phase”</h3>
+      <p><span class="tip">HESI Q</span> Select all that apply:</p>
+      <ul class="tick">
+        <li>The client is <b>quickly angered</b> 😠</li>
+        <li><b>Flight of ideas</b></li>
+        <li>Going <b>rapidly from one activity to another</b></li>
+        <li><b>Colorful &amp; outlandish clothing</b> 🌈</li>
+      </ul>
+      <p style="margin-top:8px"><span class="tip">ATI Q</span> Symptoms with manic behavior:</p>
+      <ul class="tick">
+        <li><b>More talkative</b> than usual 🗣️</li>
+        <li><b>Easily distracted</b></li>
+        <li><b>Intense need for activity</b></li>
+      </ul>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🛍️ Kaplan spotlight — the shopping spree</h3>
+      <p><span class="tip">KAPLAN Q</span> Acute manic phase — client says: <b>“I just bought myself a home computer and a large screen TV for the family.”</b> Most accurate interpretation?</p>
+      <ul class="tick">
+        <li><b>Mood disturbance and judgement that is poor at this time</b> ✅</li>
+        <li>Expect <b>hyperactivity &amp; irritable</b></li>
+      </ul>
+      <div class="mn">🧠 <b>Big buys = broken brakes.</b> <i>Impulsive spending is grandiosity + poor judgement</i> — not generosity.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CARE ============ -->
+<section id="care">
+  <div class="sec-h"><span class="icon">🩺</span><h2>CARE</h2><span class="step">STEP 4 · KEEP THEM SAFE</span></div>
+  <p class="sec-sub">Safety first in both directions — the low can end a life, the high can burn one out.</p>
+
+  <div class="grid">
+    <div class="card ruby">
+      <h3>🚨 The low: suicide watch</h3>
+      <p>During depression: clients have <b>low mood, low energy, &amp; motivation</b> &amp; <mark>high risk for suicide</mark>.</p>
+      <p><i>The phase with no energy is the phase that can turn deadly — stay vigilant.</i></p>
+    </div>
+
+    <div class="card ruby">
+      <h3>🚨 The high: running on empty</h3>
+      <p><span class="tip">SAUNDERS Q</span> Assessment finding that <span class="never">requires immediate intervention</span>?</p>
+      <ul class="tick">
+        <li><b>Nonstop physical activity and poor nutritional intake</b> ✅ <i>— burning fuel the body never takes in</i></li>
+        <li>Constant delusions</li>
+      </ul>
+      <div class="mn">🧠 <b>Engine redlined, tank empty.</b> Nonstop motion + no food = the mania emergency.</div>
+    </div>
+
+    <div class="card emerald span2">
+      <h3>✅ Make the environment do the work</h3>
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:10px">
+        <div class="qa">😠 <b>Agitation</b> → <b>Set limits</b> &amp; a <b>structured environment</b> 🧱</div>
+        <div class="qa">🎈 <b>Easily distracted</b> (attention span POOR) → <b>Reduce stimuli</b> 🔇</div>
+      </div>
+      <div class="mn">🧠 <b>The 3 S’s of mania care:</b> <b>S</b>et limits · <b>S</b>tructure · <b>S</b>lash the stimuli.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">🎭 Depression ↔ Acute Mania</span>cycling lows &amp; highs around baseline</div>
+    <div class="rc tealbg"><span class="big">🔁 4 episodes / 12 months</span>= Rapid cycling</div>
+    <div class="rc rubybg"><span class="big">🚨 Depression phase</span>= high risk for suicide</div>
+    <div class="rc topazbg"><span class="big">💊 SSRIs</span>can trigger a manic episode</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 4 rapid-fire questions</summary>
+      <div class="qa">Q1: A client’s parent has bipolar disorder. How much more likely is the client to have it? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">10x more likely — genetics plays a big part (the cause itself is unknown).</div></div>
+      <div class="qa">Q2: Four or more mood episodes in a 12-month period — what is this called? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Rapid cycling (HESI &amp; ATI favorite — 5 manic episodes in a year counts too).</div></div>
+      <div class="qa">Q3: In acute mania, the client announces: “I just bought a home computer and a large screen TV.” Best interpretation? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Mood disturbance and judgement that is poor at this time — with hyperactivity &amp; irritability (Kaplan).</div></div>
+      <div class="qa">Q4: Which antidepressant class can flip a bipolar client into mania? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">SSRIs — the slingshot: lifting the low can launch a manic episode.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">CAUSE</span>→
+    <span style="background:rgba(0,194,199,.7);color:#00252b">CYCLES</span>→
+    <span style="background:rgba(47,107,255,.7)">CLUES</span>→
+    <span style="background:rgba(18,184,134,.7)">CARE</span>
+  </div>
+  <div>NG-023 · Source wording retained · ADHD-friendly visual edition v2</div>
+</footer>
+
+</div>
+</body></html>

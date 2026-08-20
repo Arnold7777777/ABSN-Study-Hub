@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ABG Compensation Answers II · NG-193 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+
+/* ===== ABG series additions (appended, not part of base shell) ===== */
+.chip.series{background:rgba(0,194,199,.75);color:#00252b}
+#method .sec-h h2{color:#d9c2ff} #method .step{background:var(--amethyst)}
+#work   .sec-h h2{color:#bcd0ff} #work .step{background:var(--sapphire)}
+#hard   .sec-h h2{color:#ffb3c6} #hard .step{background:var(--garnet)}
+#care   .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+nav a.c5{background:rgba(0,194,199,.72);color:#00252b}
+nav a.c6{background:rgba(255,138,61,.75);color:#2b1200}
+nav a.c7{background:rgba(192,34,85,.72)}
+.setbar{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin:4px 0 16px;font-size:.82rem}
+.setbar .setlabel{font-weight:900;letter-spacing:.08em;color:#ffe49a;margin-right:2px}
+.setbar a{font-weight:800;padding:4px 11px;border-radius:999px;border:1px solid var(--line);
+  background:rgba(13,8,26,.5);color:#dbe8ff;text-decoration:none}
+.setbar a.cur{background:var(--topaz);color:#231a02;border-color:transparent;cursor:default}
+.serieslinks{display:flex;gap:6px;flex-wrap:wrap}
+.serieslinks a{font-size:.78rem;font-weight:800;color:#fff;text-decoration:none;padding:4px 9px;border-radius:8px;background:rgba(255,255,255,.14);border:1px solid var(--line)}
+.serieslinks a.here{background:var(--topaz);color:#231a02;border-color:transparent}
+.legendrow{display:flex;gap:9px;flex-wrap:wrap;margin:11px 0 0;font-size:.84rem;font-weight:800}
+.legendrow span{padding:5px 11px;border-radius:9px;background:rgba(13,8,26,.55);
+  border:1px solid var(--line);display:flex;align-items:center;gap:7px}
+.sw{display:inline-block;width:15px;height:15px;border-radius:4px;border:1px solid rgba(255,255,255,.6)}
+.card a{color:#ffe49a;font-weight:800}
+.card.tealc a,.card.topaz a,.card.citrinec a{color:#0b3a52}
+.tblwrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:2px 0}
+.ccc{flex-wrap:wrap}
+.sec-h{flex-wrap:wrap}
+.sec-h h2,h1,.rc,.card h3{overflow-wrap:anywhere}
+.gasbar{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,116px),1fr));gap:8px;margin:8px 0 0}
+.gv{border-radius:12px;padding:9px 8px;text-align:center;background:rgba(13,8,26,.55);border:1px solid var(--line);line-height:1.25}
+.gv b{display:block;font-size:.7rem;letter-spacing:.09em;text-transform:uppercase;opacity:.88}
+.gv .n{display:block;font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-size:1.24rem;font-weight:900}
+.gv .f{display:block;font-size:.75rem;font-weight:800;margin-top:2px}
+.gv.hi{background:rgba(255,59,107,.34)} .gv.lo{background:rgba(0,194,199,.30)} .gv.ok{background:rgba(18,184,134,.30)}
+.card.tealc .gv,.card.topaz .gv,.card.citrinec .gv{background:rgba(255,255,255,.45);color:#1a1030}
+.steps{counter-reset:s;margin:10px 0 0;display:grid;gap:8px}
+.st{position:relative;padding:10px 13px 10px 46px;border-radius:12px;background:rgba(13,8,26,.5);border:1px solid var(--line);font-size:.93rem;line-height:1.45}
+.st::before{counter-increment:s;content:counter(s);position:absolute;left:10px;top:9px;width:26px;height:26px;border-radius:50%;
+  background:var(--topaz);color:#231a02;font-weight:900;display:flex;align-items:center;justify-content:center;font-size:.9rem}
+.card.tealc .st,.card.topaz .st,.card.citrinec .st{background:rgba(255,255,255,.42);color:#1a1030}
+.verdict{margin-top:11px;padding:11px 14px;border-radius:13px;font-weight:900;font-size:1.02rem;line-height:1.35;
+  background:rgba(255,194,51,.30);border:2px solid var(--topaz)}
+.verdict .vl{display:block;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;opacity:.9;margin-bottom:3px}
+.card.tealc .verdict,.card.topaz .verdict,.card.citrinec .verdict{background:rgba(255,255,255,.55);color:#231a02}
+@media(max-width:700px){table{font-size:.85rem}th,td{padding:7px 6px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#method">🧭 The method</a>
+  <a class="c2" href="#work">🧮 Worked gases</a>
+  <a class="c7" href="#hard">🔥 The hard ones</a>
+  <a class="c3" href="#care">🩺 So what?</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Respiratory · Acid–Base · Pathophysiology</div>
+  <div class="setbar"><span class="setlabel">🫁 ABG SERIES</span>
+    <a href="../resp/NG-092_abg-answers.html">1 · The method</a>
+    <a href="../resp/NG-138_abg-compensation-questions.html">2 · Practice gases</a>
+    <a href="../resp/NG-173_abg-compensation-answers.html">3 · Worked answers I</a>
+    <a class="cur" href="NG-193_abg-compensation-answers-2.html">4 · Worked answers II</a>
+  </div>
+  <h1>ABG Compensation<br>Answers II <span class="drop">🧪</span></h1>
+  <p class="sub">Set 2 — the harder gases: normal pH, partial compensation, and the mixed disorders</p>
+  <div class="chips">
+    <span class="chip id">NG-193</span>
+    <span class="chip cat">RESPIRATORY · ACID-BASE</span>
+    <span class="chip series">ABG Series 4 of 4</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede">Set 1 gave you gases where the pH told you the answer. This set does not. Here the pH is often <b>normal</b> — and a normal pH does <b>not</b> mean a normal patient. It usually means the body has already <b>fixed</b> the problem, and your job is to work out <i>which</i> system caused it and <i>which</i> one did the fixing. <mark>When the pH is inside the range, the tie-breaker is 7.40.</mark> Above it, base is winning. Below it, acid is winning.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc topazbg"><span class="big">📏 Ranges</span>pH <span class="mono">7.35–7.45</span> · PaCO₂ <span class="mono">35–45</span> · HCO₃⁻ <span class="mono">22–26</span> · PaO₂ <span class="mono">80–100</span> <i>(typical adult; labs vary)</i></div>
+  <div class="rc citrine"><span class="big">🧠 ROME</span><b>R</b>espiratory <b>O</b>pposite · <b>M</b>etabolic <b>E</b>qual. pH and CO₂ move opposite ways; pH and HCO₃⁻ move the same way.</div>
+  <div class="rc tealbg"><span class="big">⚖️ Normal pH tie-break</span>Compare to <b>7.40</b>. Below = acid is winning. Above = base is winning.</div>
+  <div class="rc rubybg"><span class="big">🔀 Both abnormal, same direction</span>That is a <b>mixed</b> disorder — nobody is compensating.</div>
+</div>
+
+<!-- ============ METHOD ============ -->
+<section id="method">
+  <div class="sec-h"><span class="icon">🧭</span><h2>THE METHOD — FIVE STEPS, EVERY TIME</h2><span class="step">STEP 1 · TOOL</span></div>
+  <p class="sec-sub">Same five steps for every gas on this page. Do them in order and never skip step 4.</p>
+  <div class="grid">
+
+    <div class="card topaz span2">
+      <h3>📏 The reference values you are comparing against</h3>
+      <div class="gasbar">
+        <div class="gv ok"><b>pH</b><span class="n">7.35–7.45</span><span class="f">7.40 = midpoint</span></div>
+        <div class="gv ok"><b>PaCO₂</b><span class="n">35–45</span><span class="f">mmHg · the LUNG value</span></div>
+        <div class="gv ok"><b>HCO₃⁻</b><span class="n">22–26</span><span class="f">mEq/L · the KIDNEY value</span></div>
+        <div class="gv ok"><b>PaO₂</b><span class="n">80–100</span><span class="f">mmHg · oxygenation only</span></div>
+      </div>
+      <div class="trap">⚠️ These are <b>typical adult reference ranges and they vary between laboratories</b>, with altitude, and with age. Always classify against the range printed on the report you are holding.</div>
+      <div class="mn">🧠 <b>CO₂ is an acid; HCO₃⁻ is a base.</b> High CO₂ pushes pH down. High HCO₃⁻ pushes pH up. Everything on this page follows from those two sentences.</div>
+    </div>
+
+    <div class="card deep span2">
+      <h3>🪜 The five steps</h3>
+      <div class="steps">
+        <div class="st"><b>Look at the pH.</b> Below <span class="mono">7.35</span> = acidemia. Above <span class="mono">7.45</span> = alkalemia. Inside the range = normal — <i>but keep reading</i>.</div>
+        <div class="st"><b>Look at the PaCO₂ — the respiratory arm.</b> Above <span class="mono">45</span> = acid. Below <span class="mono">35</span> = base. Inside = normal.</div>
+        <div class="st"><b>Look at the HCO₃⁻ — the metabolic arm.</b> Below <span class="mono">22</span> = acid. Above <span class="mono">26</span> = base. Inside = normal.</div>
+        <div class="st"><b>Match.</b> Which arm points the same way the pH does? That arm is the <b>primary problem</b>. If the pH is normal, compare it to <span class="mono">7.40</span> to decide which side it leans. If <b>both</b> arms point the same way as each other, it is a <b>mixed</b> disorder.</div>
+        <div class="st"><b>Name the compensation.</b> Other arm normal ⇒ <b>uncompensated</b>. Other arm abnormal but pH still outside the range ⇒ <b>partially compensated</b>. pH back inside the range ⇒ <b>fully compensated</b>.</div>
+      </div>
+      <div class="mn">🧠 <b>Steps 1–3 are just reading. Step 4 is the thinking. Step 5 is the label.</b> Students lose marks by jumping from step 1 to step 5.</div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>📉 The pH ruler — with the compensation zones marked</h3>
+      <svg viewBox="-14 -14 900 470" role="img" aria-label="A pH ruler from 6.9 to 7.7. A red band on the left is acidemia below 7.35, a narrow green band in the centre is the normal range 7.35 to 7.45 split at 7.40, and a blue band on the right is alkalemia above 7.45. Six out-of-range gases from this page are pinned above the ruler. Below, the narrow normal band is magnified into a wide inset showing the four gases whose pH is normal, spread out either side of the 7.40 tie-breaker line.">
+        <defs>
+          <linearGradient id="p1bar" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#7a0d28"/><stop offset=".22" stop-color="#c02255"/><stop offset=".45" stop-color="#ff3b6b"/><stop offset=".56" stop-color="#12b886"/><stop offset=".6" stop-color="#a5f3d4"/><stop offset=".64" stop-color="#12b886"/><stop offset=".76" stop-color="#2f6bff"/><stop offset="1" stop-color="#122c7a"/>
+          </linearGradient>
+          <linearGradient id="p1zoom" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#ff3b6b"/><stop offset=".45" stop-color="#12b886"/><stop offset=".55" stop-color="#12b886"/><stop offset="1" stop-color="#2f6bff"/>
+          </linearGradient>
+          <filter id="p1sh" x="-30%" y="-30%" width="170%" height="170%"><feGaussianBlur in="SourceAlpha" stdDeviation="4"/><feOffset dx="0" dy="5" result="o"/><feFlood flood-color="#000" flood-opacity=".5"/><feComposite in2="o" operator="in" result="sh"/><feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+        <rect x="-10" y="-10" width="892" height="462" rx="20" fill="rgba(0,0,0,.24)" stroke="#00c2c7" stroke-width="2" stroke-dasharray="8 7"/>
+        <text x="22" y="30" font-size="19" font-weight="900" fill="#eafcff">THE pH RULER</text>
+        <text x="22" y="51" font-size="13" font-weight="700" font-style="italic" fill="#bfe9ec">the whole normal range is only 0.10 pH units wide — that green sliver is what the body defends</text>
+
+        <g font-size="11" font-weight="900" fill="#ffe49a" text-anchor="middle">
+          <text x="196" y="80">Gas 9 · 7.04</text>
+          <text x="372" y="80">Gas 5 · 7.22</text>
+          <text x="411" y="104">Gas 3 · 7.26</text>
+          <text x="616" y="104">Gas 6 · 7.47</text>
+          <text x="674" y="80">Gas 4 · 7.53</text>
+          <text x="800" y="80">Gas 10 · 7.55</text>
+        </g>
+        <g stroke="#ffc233" stroke-width="1.8" fill="none">
+          <path d="M196 88 L196 176"/><path d="M372 88 L372 176"/><path d="M411 112 L411 176"/>
+          <path d="M616 112 L616 176"/><path d="M674 88 L674 176"/><path d="M770 76 L700 152 L694 176"/>
+        </g>
+        <g fill="#ffc233" stroke="#231a02" stroke-width="1.4">
+          <circle cx="196" cy="178" r="6"/><circle cx="372" cy="178" r="6"/><circle cx="411" cy="178" r="6"/>
+          <circle cx="616" cy="178" r="6"/><circle cx="674" cy="178" r="6"/><circle cx="694" cy="178" r="6"/>
+        </g>
+
+        <rect x="60" y="178" width="780" height="52" rx="10" fill="url(#p1bar)" stroke="rgba(255,255,255,.5)" stroke-width="1.4" filter="url(#p1sh)"/>
+        <g stroke="#fff" stroke-width="2.4"><line x1="498.75" y1="170" x2="498.75" y2="238"/><line x1="596.25" y1="170" x2="596.25" y2="238"/></g>
+        <g font-size="12.5" font-weight="900" fill="#fff">
+          <text x="60" y="256" text-anchor="start" class="mono">6.90</text>
+          <text x="498.75" y="256" text-anchor="middle" class="mono">7.35</text>
+          <text x="596.25" y="256" text-anchor="middle" class="mono">7.45</text>
+          <text x="840" y="256" text-anchor="end" class="mono">7.70</text>
+        </g>
+        <text x="270" y="211" font-size="15" font-weight="900" fill="#fff" text-anchor="middle">ACIDEMIA · pH below 7.35</text>
+        <text x="726" y="211" font-size="15" font-weight="900" fill="#fff" text-anchor="middle">ALKALEMIA · pH above 7.45</text>
+        <text x="547.5" y="146" font-size="12.5" font-weight="900" fill="#a5f3d4" text-anchor="middle">NORMAL</text>
+        <path d="M 498.75 154 L 596.25 154" stroke="#a5f3d4" stroke-width="2.4"/>
+
+        <!-- zoom trapezoid -->
+        <path d="M 498.75 232 L 596.25 232 L 760 296 L 200 296 Z" fill="rgba(18,184,134,.16)" stroke="#a5f3d4" stroke-width="1.6" stroke-dasharray="6 5"/>
+        <text x="480" y="316" font-size="12" font-weight="900" fill="#a5f3d4" text-anchor="middle">ZOOM · the normal band magnified — four of the eleven gases live in here</text>
+
+        <rect x="200" y="342" width="560" height="42" rx="9" fill="url(#p1zoom)" stroke="rgba(255,255,255,.5)" stroke-width="1.4"/>
+        <line x1="480" y1="336" x2="480" y2="390" stroke="#231a02" stroke-width="3.4" stroke-dasharray="6 4"/>
+        <g font-size="12" font-weight="900" fill="#fff" class="mono">
+          <text x="200" y="404" text-anchor="middle">7.35</text><text x="480" y="404" text-anchor="middle" fill="#ffe49a">7.40</text><text x="760" y="404" text-anchor="middle">7.45</text>
+        </g>
+        <text x="336" y="334" font-size="12" font-weight="900" fill="#ffb3c6" text-anchor="middle">acid-leaning half</text>
+        <text x="622" y="334" font-size="12" font-weight="900" fill="#bcd0ff" text-anchor="middle">base-leaning half</text>
+        <g fill="#a5f3d4" stroke="#03291c" stroke-width="1.4">
+          <circle cx="312" cy="363" r="8"/><circle cx="424" cy="363" r="8"/><circle cx="592" cy="363" r="8"/><circle cx="648" cy="363" r="8"/>
+        </g>
+        <g stroke="#a5f3d4" stroke-width="1.6" fill="none">
+          <path d="M312 386 L312 416"/><path d="M424 386 L424 438"/><path d="M592 386 L592 416"/><path d="M648 386 L648 438"/>
+        </g>
+        <g font-size="11.5" font-weight="900" fill="#a5f3d4" text-anchor="middle">
+          <text x="312" y="430">Gas 1 &amp; 8 · 7.37</text>
+          <text x="424" y="452">Gas 11 · 7.39</text>
+          <text x="592" y="430">Gas 7 · 7.42</text>
+          <text x="648" y="452">Gas 2 · 7.43</text>
+        </g>
+        <g font-size="11.5" font-weight="900">
+          <circle cx="34" cy="330" r="7" fill="#ffc233"/><text x="48" y="335" fill="#ffe49a">pH outside the range</text>
+          <circle cx="34" cy="356" r="7" fill="#a5f3d4"/><text x="48" y="361" fill="#a5f3d4">pH inside the range</text>
+          <text x="24" y="416" fill="#eafcff" font-size="11">Gas 1 and Gas 8 share a pH</text>
+          <text x="24" y="432" fill="#eafcff" font-size="11">and have opposite causes —</text>
+          <text x="24" y="448" fill="#eafcff" font-size="11">pH alone never finishes the job.</text>
+        </g>
+      </svg>
+      <div class="mn">🧠 <b>Gas 1 and Gas 8 sit on the exact same pH (7.37) but have opposite primary problems.</b> The pH alone can never finish the job.</div>
+    </div>
+
+    <div class="card deep span2">
+      <h3>🌳 The decision tree — trace it with your finger</h3>
+      <svg viewBox="-14 -14 900 560" role="img" aria-label="A decision tree for arterial blood gas interpretation. The top node asks whether the pH is below 7.35, above 7.45 or inside the range. The acidemia branch asks whether the carbon dioxide is high, giving respiratory acidosis, or the bicarbonate is low, giving metabolic acidosis, or both, giving mixed acidosis. The alkalemia branch asks whether the carbon dioxide is low, giving respiratory alkalosis, or the bicarbonate is high, giving metabolic alkalosis, or both, giving mixed alkalosis. The normal pH branch asks whether both other values are normal, meaning a normal gas, or whether the pH is below or above 7.40, deciding which arm is the primary problem in a fully compensated picture. A final row decides uncompensated, partially compensated or fully compensated.">
+        <defs>
+          <marker id="p2ar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="7.5" markerHeight="7.5" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffe49a"/></marker>
+        </defs>
+        <rect x="-10" y="-10" width="892" height="552" rx="20" fill="rgba(0,0,0,.24)" stroke="#9d5cff" stroke-width="2" stroke-dasharray="8 7"/>
+        <text x="22" y="30" font-size="19" font-weight="900" fill="#e9dcff">ABG DECISION TREE</text>
+        <text x="22" y="51" font-size="13" font-weight="700" font-style="italic" fill="#c9b3ff">start at the top · follow one arrow at a time · finish at a gold box</text>
+
+        <rect x="316" y="66" width="252" height="52" rx="14" fill="rgba(255,194,51,.9)" stroke="#231a02" stroke-width="2"/>
+        <text x="442" y="90" font-size="14" font-weight="900" fill="#231a02" text-anchor="middle">START · look at the pH</text>
+        <text x="442" y="108" font-size="11.5" font-weight="800" fill="#3d2c00" text-anchor="middle">normal range 7.35 – 7.45</text>
+
+        <path d="M 340 118 C 250 138 180 150 150 162" stroke="#ffe49a" stroke-width="2.6" fill="none" marker-end="url(#p2ar)"/>
+        <path d="M 442 120 L 442 162" stroke="#ffe49a" stroke-width="2.6" fill="none" marker-end="url(#p2ar)"/>
+        <path d="M 544 118 C 634 138 704 150 734 162" stroke="#ffe49a" stroke-width="2.6" fill="none" marker-end="url(#p2ar)"/>
+
+        <rect x="30" y="170" width="240" height="44" rx="12" fill="rgba(255,59,107,.7)" stroke="#ffb3c6" stroke-width="1.6"/>
+        <text x="150" y="198" font-size="13.5" font-weight="900" fill="#fff" text-anchor="middle">pH &lt; 7.35 · ACIDEMIA</text>
+        <rect x="322" y="170" width="240" height="44" rx="12" fill="rgba(18,184,134,.7)" stroke="#a5f3d4" stroke-width="1.6"/>
+        <text x="442" y="198" font-size="13.5" font-weight="900" fill="#03291c" text-anchor="middle">pH 7.35 – 7.45 · NORMAL</text>
+        <rect x="614" y="170" width="240" height="44" rx="12" fill="rgba(47,107,255,.75)" stroke="#bcd0ff" stroke-width="1.6"/>
+        <text x="734" y="198" font-size="13.5" font-weight="900" fill="#fff" text-anchor="middle">pH &gt; 7.45 · ALKALEMIA</text>
+
+        <!-- acid branch -->
+        <path d="M 90 216 L 90 250" stroke="#ffb3c6" stroke-width="2.4" fill="none" marker-end="url(#p2ar)"/>
+        <path d="M 210 216 L 210 250" stroke="#ffb3c6" stroke-width="2.4" fill="none" marker-end="url(#p2ar)"/>
+        <rect x="20" y="256" width="140" height="66" rx="12" fill="rgba(13,8,26,.6)" stroke="#ffb3c6" stroke-width="1.4"/>
+        <text x="90" y="278" font-size="12" font-weight="900" fill="#ffb3c6" text-anchor="middle">CO₂ HIGH?</text>
+        <text x="90" y="296" font-size="11" font-weight="800" fill="#ffe6ee" text-anchor="middle">(&gt; 45 · acid)</text>
+        <text x="90" y="314" font-size="11" font-weight="800" fill="#ffe6ee" text-anchor="middle">the lungs did it</text>
+        <rect x="170" y="256" width="140" height="66" rx="12" fill="rgba(13,8,26,.6)" stroke="#ffb3c6" stroke-width="1.4"/>
+        <text x="240" y="278" font-size="12" font-weight="900" fill="#ffb3c6" text-anchor="middle">HCO₃⁻ LOW?</text>
+        <text x="240" y="296" font-size="11" font-weight="800" fill="#ffe6ee" text-anchor="middle">(&lt; 22 · acid)</text>
+        <text x="240" y="314" font-size="11" font-weight="800" fill="#ffe6ee" text-anchor="middle">the kidneys / metabolism did it</text>
+        <path d="M 90 324 L 90 358" stroke="#ffb3c6" stroke-width="2.4" fill="none" marker-end="url(#p2ar)"/>
+        <path d="M 240 324 L 240 358" stroke="#ffb3c6" stroke-width="2.4" fill="none" marker-end="url(#p2ar)"/>
+        <rect x="14" y="364" width="152" height="46" rx="12" fill="rgba(255,194,51,.9)"/>
+        <text x="90" y="384" font-size="12" font-weight="900" fill="#231a02" text-anchor="middle">RESPIRATORY</text>
+        <text x="90" y="400" font-size="12" font-weight="900" fill="#231a02" text-anchor="middle">ACIDOSIS</text>
+        <rect x="164" y="364" width="152" height="46" rx="12" fill="rgba(255,194,51,.9)"/>
+        <text x="240" y="384" font-size="12" font-weight="900" fill="#231a02" text-anchor="middle">METABOLIC</text>
+        <text x="240" y="400" font-size="12" font-weight="900" fill="#231a02" text-anchor="middle">ACIDOSIS</text>
+        <rect x="14" y="418" width="302" height="34" rx="10" fill="rgba(192,34,85,.7)" stroke="#ffb3c6" stroke-width="1.4"/>
+        <text x="165" y="440" font-size="11.5" font-weight="900" fill="#fff" text-anchor="middle">BOTH acid ⇒ MIXED ACIDOSIS (Gas 9)</text>
+
+        <!-- normal branch -->
+        <path d="M 442 216 L 442 250" stroke="#a5f3d4" stroke-width="2.4" fill="none" marker-end="url(#p2ar)"/>
+        <rect x="332" y="256" width="220" height="66" rx="12" fill="rgba(13,8,26,.6)" stroke="#a5f3d4" stroke-width="1.4"/>
+        <text x="442" y="278" font-size="12" font-weight="900" fill="#a5f3d4" text-anchor="middle">Are CO₂ AND HCO₃⁻ both normal?</text>
+        <text x="442" y="298" font-size="11" font-weight="800" fill="#eafff6" text-anchor="middle">YES ⇒ acid–base status is normal</text>
+        <text x="442" y="316" font-size="11" font-weight="800" fill="#eafff6" text-anchor="middle">NO ⇒ compare the pH to 7.40</text>
+        <path d="M 382 324 L 382 358" stroke="#a5f3d4" stroke-width="2.4" fill="none" marker-end="url(#p2ar)"/>
+        <path d="M 502 324 L 502 358" stroke="#a5f3d4" stroke-width="2.4" fill="none" marker-end="url(#p2ar)"/>
+        <rect x="326" y="364" width="118" height="46" rx="12" fill="rgba(255,59,107,.65)" stroke="#ffb3c6" stroke-width="1.4"/>
+        <text x="385" y="384" font-size="11.5" font-weight="900" fill="#fff" text-anchor="middle">pH &lt; 7.40</text>
+        <text x="385" y="400" font-size="11" font-weight="800" fill="#ffe6ee" text-anchor="middle">acid arm is primary</text>
+        <rect x="450" y="364" width="118" height="46" rx="12" fill="rgba(47,107,255,.7)" stroke="#bcd0ff" stroke-width="1.4"/>
+        <text x="509" y="384" font-size="11.5" font-weight="900" fill="#fff" text-anchor="middle">pH &gt; 7.40</text>
+        <text x="509" y="400" font-size="11" font-weight="800" fill="#e2ebff" text-anchor="middle">base arm is primary</text>
+        <rect x="326" y="418" width="242" height="34" rx="10" fill="rgba(255,194,51,.9)"/>
+        <text x="447" y="440" font-size="11.5" font-weight="900" fill="#231a02" text-anchor="middle">…and the pH is normal ⇒ FULLY COMPENSATED</text>
+
+        <!-- alkali branch -->
+        <path d="M 674 216 L 674 250" stroke="#bcd0ff" stroke-width="2.4" fill="none" marker-end="url(#p2ar)"/>
+        <path d="M 794 216 L 794 250" stroke="#bcd0ff" stroke-width="2.4" fill="none" marker-end="url(#p2ar)"/>
+        <rect x="604" y="256" width="140" height="66" rx="12" fill="rgba(13,8,26,.6)" stroke="#bcd0ff" stroke-width="1.4"/>
+        <text x="674" y="278" font-size="12" font-weight="900" fill="#bcd0ff" text-anchor="middle">CO₂ LOW?</text>
+        <text x="674" y="296" font-size="11" font-weight="800" fill="#e2ebff" text-anchor="middle">(&lt; 35 · base)</text>
+        <text x="674" y="314" font-size="11" font-weight="800" fill="#e2ebff" text-anchor="middle">blowing it off</text>
+        <rect x="754" y="256" width="114" height="66" rx="12" fill="rgba(13,8,26,.6)" stroke="#bcd0ff" stroke-width="1.4"/>
+        <text x="811" y="278" font-size="12" font-weight="900" fill="#bcd0ff" text-anchor="middle">HCO₃⁻ HIGH?</text>
+        <text x="811" y="296" font-size="11" font-weight="800" fill="#e2ebff" text-anchor="middle">(&gt; 26 · base)</text>
+        <text x="811" y="314" font-size="11" font-weight="800" fill="#e2ebff" text-anchor="middle">too much base</text>
+        <path d="M 674 324 L 674 358" stroke="#bcd0ff" stroke-width="2.4" fill="none" marker-end="url(#p2ar)"/>
+        <path d="M 811 324 L 811 358" stroke="#bcd0ff" stroke-width="2.4" fill="none" marker-end="url(#p2ar)"/>
+        <rect x="598" y="364" width="152" height="46" rx="12" fill="rgba(255,194,51,.9)"/>
+        <text x="674" y="384" font-size="12" font-weight="900" fill="#231a02" text-anchor="middle">RESPIRATORY</text>
+        <text x="674" y="400" font-size="12" font-weight="900" fill="#231a02" text-anchor="middle">ALKALOSIS</text>
+        <rect x="736" y="364" width="132" height="46" rx="12" fill="rgba(255,194,51,.9)"/>
+        <text x="802" y="384" font-size="12" font-weight="900" fill="#231a02" text-anchor="middle">METABOLIC</text>
+        <text x="802" y="400" font-size="12" font-weight="900" fill="#231a02" text-anchor="middle">ALKALOSIS</text>
+        <rect x="598" y="418" width="270" height="34" rx="10" fill="rgba(47,107,255,.75)" stroke="#bcd0ff" stroke-width="1.4"/>
+        <text x="733" y="440" font-size="11.5" font-weight="900" fill="#fff" text-anchor="middle">BOTH base ⇒ MIXED ALKALOSIS (Gas 10)</text>
+
+        <!-- final compensation row -->
+        <rect x="30" y="470" width="838" height="58" rx="14" fill="rgba(13,8,26,.6)" stroke="#ffe49a" stroke-width="1.6"/>
+        <text x="46" y="492" font-size="13" font-weight="900" fill="#ffe49a">LAST STEP · name the compensation</text>
+        <g font-size="12" font-weight="900">
+          <rect x="310" y="480" width="176" height="34" rx="10" fill="rgba(255,59,107,.55)"/><text x="398" y="502" fill="#fff" text-anchor="middle" font-size="11.5">other arm normal ⇒ NONE</text>
+          <rect x="496" y="480" width="196" height="34" rx="10" fill="rgba(255,138,61,.7)"/><text x="594" y="502" fill="#2b1200" text-anchor="middle" font-size="11.5">pH still abnormal ⇒ PARTIAL</text>
+          <rect x="700" y="480" width="156" height="34" rx="10" fill="rgba(18,184,134,.75)"/><text x="778" y="502" fill="#03291c" text-anchor="middle" font-size="11.5">pH normal ⇒ FULL</text>
+        </g>
+      </svg>
+    </div>
+
+    <div class="card tealc span2">
+      <h3>🪢 Why "who's winning the tug of war?" actually works</h3>
+      <svg viewBox="-14 -14 900 400" role="img" aria-label="A tug of war illustration. On the left a pair of lungs pulls a rope labelled carbon dioxide, the acid side. On the right a pair of kidneys pulls the rope labelled bicarbonate, the base side. A marker on the rope shows where the pH ends up. When the lungs pull harder the marker moves to the acid side of 7.40 even if it stays inside the normal band, which identifies the respiratory arm as the primary problem.">
+        <defs>
+          <filter id="p3sh" x="-30%" y="-30%" width="170%" height="170%"><feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dx="0" dy="6" result="o"/><feFlood flood-color="#000" flood-opacity=".5"/><feComposite in2="o" operator="in" result="sh"/><feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <radialGradient id="p3lng" cx=".35" cy=".26" r=".95"><stop offset="0" stop-color="#ffd7e2"/><stop offset=".25" stop-color="#f2a4b8"/><stop offset=".6" stop-color="#cf6a86"/><stop offset=".88" stop-color="#8e3252"/><stop offset="1" stop-color="#571c33"/></radialGradient>
+          <radialGradient id="p3kid" cx=".34" cy=".26" r=".95"><stop offset="0" stop-color="#c9e6ff"/><stop offset=".2" stop-color="#88b6f0"/><stop offset=".5" stop-color="#4a7fd6"/><stop offset=".8" stop-color="#26478f"/><stop offset="1" stop-color="#12234d"/></radialGradient>
+        </defs>
+        <rect x="-10" y="-10" width="892" height="392" rx="20" fill="rgba(0,0,0,.24)" stroke="#ffc233" stroke-width="2" stroke-dasharray="8 7"/>
+        <text x="22" y="30" font-size="19" font-weight="900" fill="#ffe49a">THE TUG OF WAR</text>
+        <text x="22" y="51" font-size="13" font-weight="700" font-style="italic" fill="#ffd9b8">lungs hold the acid end · kidneys hold the base end · the knot is the pH</text>
+
+        <!-- lungs -->
+        <g transform="translate(58,120)" filter="url(#p3sh)">
+          <path d="M 60 6 C 24 22 6 74 8 122 C 10 160 26 178 48 172 C 70 166 84 132 88 92 C 92 52 86 18 76 8 C 70 2 66 3 60 6 Z" fill="url(#p3lng)" stroke="#571c33" stroke-width="2"/>
+          <path d="M 148 6 C 184 22 202 74 200 122 C 198 160 182 178 160 172 C 138 166 124 132 120 92 C 116 52 122 18 132 8 C 138 2 142 3 148 6 Z" fill="url(#p3lng)" stroke="#571c33" stroke-width="2"/>
+          <path d="M 104 -12 L 104 44 M 104 44 C 96 56 88 62 78 68 M 104 44 C 112 56 120 62 130 68" fill="none" stroke="#e8eaf2" stroke-width="8" stroke-linecap="round"/>
+          <g fill="none" stroke="#ff9ab4" stroke-width="1.6" stroke-opacity=".45">
+            <path d="M70 60 C56 78 48 104 46 130"/><path d="M74 66 C66 88 62 112 62 138"/><path d="M78 72 C76 96 78 120 82 142"/>
+            <path d="M138 60 C152 78 160 104 162 130"/><path d="M134 66 C142 88 146 112 146 138"/><path d="M130 72 C132 96 130 120 126 142"/>
+          </g>
+          <g fill="#ffd7e2" opacity=".45"><circle cx="52" cy="112" r="6"/><circle cx="64" cy="130" r="5"/><circle cx="44" cy="134" r="4.6"/><circle cx="156" cy="112" r="6"/><circle cx="144" cy="130" r="5"/><circle cx="164" cy="134" r="4.6"/></g>
+        </g>
+        <text x="162" y="322" font-size="15" font-weight="900" fill="#ffb3c6" text-anchor="middle">LUNGS</text>
+        <text x="162" y="342" font-size="12.5" font-weight="800" fill="#ffe6ee" text-anchor="middle">pull with CO₂ — the ACID end</text>
+        <text x="162" y="360" font-size="12" font-weight="800" fill="#ffcf9a" text-anchor="middle">fast: minutes</text>
+
+        <!-- kidneys -->
+        <g transform="translate(658,124)" filter="url(#p3sh)">
+          <path d="M 78 8 C 122 2 156 34 158 82 C 160 132 132 176 88 184 C 60 189 40 172 34 146 C 24 104 30 44 52 20 C 60 11 68 9 78 8 Z" fill="url(#p3kid)" stroke="#12234d" stroke-width="2.2"/>
+          <path d="M 78 8 C 122 2 156 34 158 82" fill="none" stroke="#e8f2ff" stroke-width="3" stroke-opacity=".35" stroke-linecap="round"/>
+          <path d="M 44 96 C 62 78 78 78 92 92 C 104 104 104 118 92 128 C 76 140 56 130 46 114 C 42 106 42 100 44 96 Z" fill="#0d1830" opacity=".85"/>
+          <g fill="none" stroke="#bcd8ff" stroke-width="2" stroke-opacity=".4" stroke-linecap="round">
+            <path d="M96 96 C118 82 138 74 152 70"/><path d="M98 106 C120 100 142 96 156 94"/><path d="M96 118 C118 122 138 130 150 140"/><path d="M88 130 C104 146 118 158 128 170"/><path d="M74 86 C84 66 92 48 98 30"/>
+          </g>
+          <path d="M 92 118 C 108 134 120 154 128 176" fill="none" stroke="#ffe49a" stroke-width="5" stroke-linecap="round" opacity=".8"/>
+        </g>
+        <text x="754" y="330" font-size="15" font-weight="900" fill="#bcd0ff" text-anchor="middle">KIDNEYS</text>
+        <text x="754" y="350" font-size="12.5" font-weight="800" fill="#e2ebff" text-anchor="middle">pull with HCO₃⁻ — the BASE end</text>
+        <text x="754" y="368" font-size="12" font-weight="800" fill="#ffcf9a" text-anchor="middle">slow: hours to days</text>
+
+        <!-- rope -->
+        <path d="M 262 196 C 340 176 560 176 660 196" fill="none" stroke="#d9b483" stroke-width="14" stroke-linecap="round"/>
+        <path d="M 262 196 C 340 176 560 176 660 196" fill="none" stroke="#8a6a3d" stroke-width="4" stroke-dasharray="10 12" stroke-linecap="round"/>
+        <rect x="380" y="150" width="164" height="30" rx="10" fill="rgba(13,8,26,.65)" stroke="#a5f3d4" stroke-width="1.6"/>
+        <text x="462" y="171" font-size="12.5" font-weight="900" fill="#a5f3d4" text-anchor="middle">normal band 7.35–7.45</text>
+        <line x1="462" y1="182" x2="462" y2="212" stroke="#a5f3d4" stroke-width="2" stroke-dasharray="4 4"/>
+        <text x="462" y="228" font-size="11.5" font-weight="900" fill="#a5f3d4" text-anchor="middle">7.40 = centre line</text>
+        <!-- knot pulled to acid side -->
+        <circle cx="418" cy="184" r="16" fill="#ffc233" stroke="#231a02" stroke-width="2.4"/>
+        <text x="418" y="189" font-size="11" font-weight="900" fill="#231a02" text-anchor="middle">pH</text>
+        <path d="M 404 184 L 356 184" stroke="#ff3b6b" stroke-width="4" marker-end="url(#p2ar)"/>
+        <text x="418" y="252" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="middle">Knot is left of centre ⇒ ACID is winning</text>
+        <text x="418" y="272" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="middle">⇒ the acid value is the PRIMARY problem</text>
+        <text x="418" y="292" font-size="11.5" font-weight="800" fill="#ffd9b8" text-anchor="middle">(even though the knot is still inside the green band)</text>
+      </svg>
+      <div class="mn">🧠 <b>Compensation never overshoots.</b> The body pulls the pH back toward 7.40 but does not drag it past. That is precisely why the side of 7.40 identifies the culprit.</div>
+    </div>
+
+
+    <div class="card citrinec span2">
+      <h3>🧭 ROME, drawn — and the right way round</h3>
+      <svg viewBox="-14 -14 900 340" role="img" aria-label="Two panels illustrating ROME. The respiratory panel shows a lung icon with paired arrows pointing in opposite directions: when carbon dioxide rises the pH falls, and when carbon dioxide falls the pH rises. The metabolic panel shows a kidney icon with paired arrows pointing the same way: when bicarbonate rises the pH rises, and when bicarbonate falls the pH falls.">
+        <defs>
+          <marker id="p5up" viewBox="0 0 12 12" refX="6" refY="2" markerWidth="8" markerHeight="8" orient="auto"><path d="M1 11 L6 1 L11 11 z" fill="#a5f3d4"/></marker>
+          <marker id="p5dn" viewBox="0 0 12 12" refX="6" refY="10" markerWidth="8" markerHeight="8" orient="auto"><path d="M1 1 L6 11 L11 1 z" fill="#ffb3c6"/></marker>
+          <radialGradient id="p5lg" cx=".35" cy=".26" r=".95"><stop offset="0" stop-color="#ffd7e2"/><stop offset=".3" stop-color="#f2a4b8"/><stop offset=".7" stop-color="#cf6a86"/><stop offset="1" stop-color="#6c2f47"/></radialGradient>
+          <radialGradient id="p5kd" cx=".34" cy=".26" r=".95"><stop offset="0" stop-color="#c9e6ff"/><stop offset=".3" stop-color="#88b6f0"/><stop offset=".7" stop-color="#3f6fc4"/><stop offset="1" stop-color="#16274f"/></radialGradient>
+        </defs>
+        <rect x="-10" y="-10" width="892" height="332" rx="20" fill="rgba(0,0,0,.24)" stroke="#ffc233" stroke-width="2" stroke-dasharray="8 7"/>
+        <text x="22" y="30" font-size="19" font-weight="900" fill="#ffe49a">ROME · Respiratory Opposite · Metabolic Equal</text>
+        <text x="22" y="51" font-size="13" font-weight="700" font-style="italic" fill="#ffd9b8">each arrow shows which way that value moves — read the pair together</text>
+
+        <g transform="translate(24,72)">
+          <rect x="0" y="0" width="410" height="230" rx="14" fill="rgba(255,59,107,.18)" stroke="#ffb3c6" stroke-width="1.6"/>
+          <text x="205" y="28" font-size="15" font-weight="900" fill="#ffb3c6" text-anchor="middle">RESPIRATORY = OPPOSITE</text>
+          <g transform="translate(58,66)">
+            <path d="M 30 6 C 14 16 4 48 6 78 C 8 100 18 110 30 106 C 42 102 50 82 52 58 C 54 34 50 14 44 8 C 40 4 34 4 30 6 Z" fill="url(#p5lg)" stroke="#6c2f47" stroke-width="1.6"/>
+            <path d="M 82 6 C 98 16 108 48 106 78 C 104 100 94 110 82 106 C 70 102 62 82 60 58 C 58 34 62 14 68 8 C 72 4 78 4 82 6 Z" fill="url(#p5lg)" stroke="#6c2f47" stroke-width="1.6"/>
+            <path d="M 56 -8 L 56 24 M 56 24 C 50 32 46 36 40 40 M 56 24 C 62 32 66 36 72 40" fill="none" stroke="#e8eaf2" stroke-width="5" stroke-linecap="round"/>
+          </g>
+          <g font-size="13.5" font-weight="900">
+            <text x="196" y="92" fill="#fff">PaCO₂</text>
+            <line x1="256" y1="98" x2="256" y2="62" stroke="#ffb3c6" stroke-width="4" marker-end="url(#p5up)"/>
+            <text x="286" y="92" fill="#fff">⇒ pH</text>
+            <line x1="356" y1="62" x2="356" y2="98" stroke="#ffb3c6" stroke-width="4" marker-end="url(#p5dn)"/>
+            <text x="196" y="164" fill="#fff">PaCO₂</text>
+            <line x1="256" y1="134" x2="256" y2="170" stroke="#a5f3d4" stroke-width="4" marker-end="url(#p5dn)"/>
+            <text x="286" y="164" fill="#fff">⇒ pH</text>
+            <line x1="356" y1="170" x2="356" y2="134" stroke="#a5f3d4" stroke-width="4" marker-end="url(#p5up)"/>
+          </g>
+          <text x="205" y="204" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="middle">the arrows point in OPPOSITE directions</text>
+          <text x="205" y="222" font-size="11.5" font-weight="800" fill="#ffe6ee" text-anchor="middle">CO₂ is an acid — more of it means a lower pH</text>
+        </g>
+
+        <g transform="translate(452,72)">
+          <rect x="0" y="0" width="410" height="230" rx="14" fill="rgba(47,107,255,.20)" stroke="#bcd0ff" stroke-width="1.6"/>
+          <text x="205" y="28" font-size="15" font-weight="900" fill="#bcd0ff" text-anchor="middle">METABOLIC = EQUAL</text>
+          <g transform="translate(52,58)">
+            <path d="M 46 4 C 74 0 96 22 98 52 C 100 84 82 112 54 118 C 36 121 24 110 20 94 C 14 66 18 28 32 12 C 38 6 40 5 46 4 Z" fill="url(#p5kd)" stroke="#16274f" stroke-width="1.8"/>
+            <path d="M 26 62 C 38 50 48 50 58 60 C 66 68 66 78 58 84 C 48 92 34 86 28 74 C 26 70 25 66 26 62 Z" fill="#0d1830" opacity=".85"/>
+            <g fill="none" stroke="#bcd8ff" stroke-width="1.6" stroke-opacity=".4"><path d="M60 62 C74 52 88 46 96 44"/><path d="M60 76 C74 80 86 88 94 96"/></g>
+          </g>
+          <g font-size="13.5" font-weight="900">
+            <text x="188" y="92" fill="#fff">HCO₃⁻</text>
+            <line x1="256" y1="98" x2="256" y2="62" stroke="#a5f3d4" stroke-width="4" marker-end="url(#p5up)"/>
+            <text x="286" y="92" fill="#fff">⇒ pH</text>
+            <line x1="356" y1="98" x2="356" y2="62" stroke="#a5f3d4" stroke-width="4" marker-end="url(#p5up)"/>
+            <text x="188" y="164" fill="#fff">HCO₃⁻</text>
+            <line x1="256" y1="134" x2="256" y2="170" stroke="#ffb3c6" stroke-width="4" marker-end="url(#p5dn)"/>
+            <text x="286" y="164" fill="#fff">⇒ pH</text>
+            <line x1="356" y1="134" x2="356" y2="170" stroke="#ffb3c6" stroke-width="4" marker-end="url(#p5dn)"/>
+          </g>
+          <text x="205" y="204" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="middle">the arrows point in the SAME direction</text>
+          <text x="205" y="222" font-size="11.5" font-weight="800" fill="#e2ebff" text-anchor="middle">HCO₃⁻ is a base — more of it means a higher pH</text>
+        </g>
+      </svg>
+      <div class="trap">⚠️ <b>Check you have ROME the right way round.</b> Respiratory = <b>O</b>pposite (pH and CO₂ disagree). Metabolic = <b>E</b>qual (pH and HCO₃⁻ agree). Getting these swapped flips every answer on the page.</div>
+    </div>
+
+    <div class="card emerald">
+      <h3>✅ Write it down in this order, every single time</h3>
+      <ul class="tick">
+        <li>1️⃣ pH: <b>low / normal / high</b> — and if normal, <b>above or below 7.40</b>.</li>
+        <li>2️⃣ CO₂: <b>acid / normal / base</b>.</li>
+        <li>3️⃣ HCO₃⁻: <b>acid / normal / base</b>.</li>
+        <li>4️⃣ Primary: the arm that agrees with the pH direction.</li>
+        <li>5️⃣ Compensation: none / partial / full.</li>
+        <li>6️⃣ Then — separately — the <b>PaO₂</b>.</li>
+      </ul>
+      <div class="mn">🧠 Six lines on scrap paper beats trying to hold it all in your head under exam pressure.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>❌ The four mistakes that cost the most marks</h3>
+      <ul class="tick">
+        <li>❌ Stopping at "pH is normal, so this gas is normal."</li>
+        <li>❌ Forgetting to compare a normal pH to <b>7.40</b>.</li>
+        <li>❌ Calling a mixed disorder "partially compensated."</li>
+        <li>❌ Never looking at the <b>PaO₂</b>.</li>
+      </ul>
+      <div class="trap">⚠️ Three of those four appear somewhere in the eleven gases below. They are deliberate.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WORKED GASES ============ -->
+<section id="work">
+  <div class="sec-h"><span class="icon">🧮</span><h2>WORKED GASES — SET 2</h2><span class="step">STEP 2 · PRACTISE</span></div>
+  <p class="sec-sub">Cover the verdict, work the five steps yourself, then uncover. Every answer here was derived from the numbers, not copied.</p>
+  <div class="grid">
+
+    <div class="card sapphire span2">
+      <h3>🧪 Gas 1 <span class="tag">from the source sheet · Question 3</span></h3>
+      <div class="gasbar">
+        <div class="gv ok"><b>pH</b><span class="n">7.37</span><span class="f">normal — acid side</span></div>
+        <div class="gv hi"><b>PaCO₂</b><span class="n">52</span><span class="f">HIGH = acid</span></div>
+        <div class="gv hi"><b>HCO₃⁻</b><span class="n">32</span><span class="f">HIGH = base</span></div>
+        <div class="gv ok"><b>PaO₂</b><span class="n">78</span><span class="f">borderline low</span></div>
+      </div>
+      <div class="steps">
+        <div class="st"><b>pH 7.37</b> sits inside <span class="mono">7.35–7.45</span> ⇒ no acidemia or alkalemia is being reported. Keep going.</div>
+        <div class="st"><b>PaCO₂ 52</b> is above <span class="mono">45</span> ⇒ the respiratory arm is <b>acidic</b>.</div>
+        <div class="st"><b>HCO₃⁻ 32</b> is above <span class="mono">26</span> ⇒ the metabolic arm is <b>alkalotic</b>.</div>
+        <div class="st">Both arms are abnormal and pointing <b>opposite</b> ways, so one is the problem and the other is the fix. The pH is <span class="mono">7.37</span>, which is <b>below 7.40</b> ⇒ acid is winning ⇒ the <b>acid value (PaCO₂)</b> is the primary. ROME check: respiratory <b>opposite</b> — CO₂ up while pH drifts down. ✓</div>
+        <div class="st">The pH has made it all the way back inside the normal range ⇒ <b>fully compensated</b>. The raised HCO₃⁻ is the kidneys' work.</div>
+      </div>
+      <div class="verdict"><span class="vl">Answer</span>Respiratory acidosis — <b>fully compensated</b></div>
+      <div class="mn">🧠 Typical patient: a long-standing CO₂ retainer whose kidneys have had weeks to build up bicarbonate. Chronic, not acute.</div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>🧪 Gas 2 <span class="tag">from the source sheet · Question 4</span></h3>
+      <div class="gasbar">
+        <div class="gv ok"><b>pH</b><span class="n">7.43</span><span class="f">normal — base side</span></div>
+        <div class="gv ok"><b>PaCO₂</b><span class="n">43</span><span class="f">normal (top end)</span></div>
+        <div class="gv hi"><b>HCO₃⁻</b><span class="n">33</span><span class="f">HIGH = base</span></div>
+        <div class="gv ok"><b>PaO₂</b><span class="n">92</span><span class="f">normal</span></div>
+      </div>
+      <div class="steps">
+        <div class="st"><b>pH 7.43</b> is inside the range ⇒ no acidemia or alkalemia reported.</div>
+        <div class="st"><b>PaCO₂ 43</b> is inside <span class="mono">35–45</span> ⇒ the respiratory arm is <b>normal</b>.</div>
+        <div class="st"><b>HCO₃⁻ 33</b> is above <span class="mono">26</span> ⇒ the metabolic arm is <b>alkalotic</b>.</div>
+        <div class="st">Only one arm is abnormal, so it must be the primary. The pH is <span class="mono">7.43</span>, <b>above 7.40</b> ⇒ base is winning, which matches the raised bicarbonate. ROME check: metabolic <b>equal</b> — HCO₃⁻ up, pH up. ✓ ⇒ <b>metabolic alkalosis</b>.</div>
+        <div class="st">The pH is inside the normal range ⇒ by the standard rule this is <b>fully compensated</b>. Note that PaCO₂ 43 sits at the <i>top</i> of normal — exactly the direction respiratory compensation moves (hypoventilating to hold CO₂ in) — but it has not yet left the range, so the compensation is early or minimal.</div>
+      </div>
+      <div class="verdict"><span class="vl">Answer</span>Metabolic alkalosis — <b>fully compensated</b> (pH restored to normal)</div>
+      <div class="trap">⚠️ <b>Be ready for either wording.</b> Some texts call this "fully compensated" because the pH is normal; others say "compensation is minimal" because the PaCO₂ is still inside its range. The <b>primary disorder — metabolic alkalosis — is not in dispute</b>, and that is what the question is really testing.</div>
+    </div>
+
+    <div class="card deep span2">
+      <h3>🔍 A note on the numbers, so nothing surprises you later</h3>
+      <p>On a real analyser the three values are <b>mathematically linked</b> — pH, PaCO₂ and HCO₃⁻ always hang together, because the bicarbonate is calculated from the other two. Teaching sheets often round each number independently, so a practice trio can be a little "off" from a physiologically exact gas.</p>
+      <p>That does not change anything you do. <b>The classification method is what is being tested</b>, and it gives the same answer either way. Gases 3 to 11 below have been checked to hang together properly.</p>
+      <div class="mn">🧠 If a real gas ever looks internally impossible, question the sample (venous? air bubble? delay?) rather than your method.</div>
+    </div>
+
+    <div class="card garnet span2">
+      <h3>🧪 Gas 3 <span class="tag">COPD exacerbation</span></h3>
+      <div class="gasbar">
+        <div class="gv hi"><b>pH</b><span class="n">7.26</span><span class="f">LOW = acidemia</span></div>
+        <div class="gv hi"><b>PaCO₂</b><span class="n">62</span><span class="f">HIGH = acid</span></div>
+        <div class="gv hi"><b>HCO₃⁻</b><span class="n">27</span><span class="f">slightly HIGH = base</span></div>
+        <div class="gv lo"><b>PaO₂</b><span class="n">52</span><span class="f">LOW = hypoxemia</span></div>
+      </div>
+      <div class="steps">
+        <div class="st"><b>pH 7.26</b> is below <span class="mono">7.35</span> ⇒ <b>acidemia</b>. The pH itself already names the direction.</div>
+        <div class="st"><b>PaCO₂ 62</b> is well above <span class="mono">45</span> ⇒ respiratory arm is <b>acidic</b> — it points the same way as the pH.</div>
+        <div class="st"><b>HCO₃⁻ 27</b> is just above <span class="mono">26</span> ⇒ metabolic arm is mildly <b>alkalotic</b> — the opposite way.</div>
+        <div class="st">The arm that matches the pH is the respiratory one ⇒ <b>respiratory acidosis</b>. ROME: CO₂ up, pH down — opposite. ✓ The mildly raised bicarbonate is the kidneys trying to help.</div>
+        <div class="st">Compensation has <b>started</b> (HCO₃⁻ has left its range) but the <b>pH is still abnormal</b> ⇒ <b>partially compensated</b>.</div>
+      </div>
+      <div class="verdict"><span class="vl">Answer</span>Respiratory acidosis — <b>partially compensated</b>, with hypoxemia</div>
+      <div class="trap">⚠️ The <span class="mono">PaO₂ 52</span> is a separate problem and, clinically, often the more urgent one. <span class="never">Never report an ABG without looking at the oxygen.</span></div>
+    </div>
+
+    <div class="card garnet span2">
+      <h3>🧪 Gas 4 <span class="tag">acute anxiety / panic, rapid deep breathing</span></h3>
+      <div class="gasbar">
+        <div class="gv hi"><b>pH</b><span class="n">7.53</span><span class="f">HIGH = alkalemia</span></div>
+        <div class="gv lo"><b>PaCO₂</b><span class="n">30</span><span class="f">LOW = base</span></div>
+        <div class="gv ok"><b>HCO₃⁻</b><span class="n">24</span><span class="f">normal</span></div>
+        <div class="gv ok"><b>PaO₂</b><span class="n">101</span><span class="f">normal / high-normal</span></div>
+      </div>
+      <div class="steps">
+        <div class="st"><b>pH 7.53</b> is above <span class="mono">7.45</span> ⇒ <b>alkalemia</b>.</div>
+        <div class="st"><b>PaCO₂ 30</b> is below <span class="mono">35</span> ⇒ respiratory arm is <b>basic</b> (CO₂ has been blown off).</div>
+        <div class="st"><b>HCO₃⁻ 24</b> is inside <span class="mono">22–26</span> ⇒ metabolic arm is <b>normal</b>.</div>
+        <div class="st">Only the respiratory arm is abnormal and it points the same way as the pH ⇒ <b>respiratory alkalosis</b>. ROME: CO₂ down, pH up — opposite. ✓</div>
+        <div class="st">The metabolic arm has not moved at all ⇒ <b>uncompensated</b>. This makes sense: renal compensation takes <b>hours to days</b>, and this problem is minutes old.</div>
+      </div>
+      <div class="verdict"><span class="vl">Answer</span>Respiratory alkalosis — <b>uncompensated</b></div>
+      <div class="mn">🧠 <b>Uncompensated usually means acute.</b> A completely normal partner value is a clock: the problem has not been going on long enough for the kidneys to respond.</div>
+    </div>
+
+    <div class="card garnet span2">
+      <h3>🧪 Gas 5 <span class="tag">diabetic ketoacidosis</span></h3>
+      <div class="gasbar">
+        <div class="gv hi"><b>pH</b><span class="n">7.22</span><span class="f">LOW = acidemia</span></div>
+        <div class="gv lo"><b>PaCO₂</b><span class="n">20</span><span class="f">LOW = base</span></div>
+        <div class="gv lo"><b>HCO₃⁻</b><span class="n">8</span><span class="f">VERY LOW = acid</span></div>
+        <div class="gv ok"><b>PaO₂</b><span class="n">100</span><span class="f">normal</span></div>
+      </div>
+      <div class="steps">
+        <div class="st"><b>pH 7.22</b> is below <span class="mono">7.35</span> ⇒ <b>acidemia</b>, and a marked one.</div>
+        <div class="st"><b>PaCO₂ 20</b> is below <span class="mono">35</span> ⇒ respiratory arm is <b>basic</b> — the opposite direction to the pH, so it is not the cause.</div>
+        <div class="st"><b>HCO₃⁻ 8</b> is far below <span class="mono">22</span> ⇒ metabolic arm is strongly <b>acidic</b> — same direction as the pH.</div>
+        <div class="st">The metabolic arm matches ⇒ <b>metabolic acidosis</b>. ROME: metabolic <b>equal</b> — HCO₃⁻ down, pH down. ✓ The very low CO₂ is the lungs compensating by hyperventilating (this is what <b>Kussmaul respirations</b> look like on paper).</div>
+        <div class="st">Compensation is vigorous but the pH is still well outside the range ⇒ <b>partially compensated</b>.</div>
+      </div>
+      <div class="verdict"><span class="vl">Answer</span>Metabolic acidosis — <b>partially compensated</b></div>
+      <div class="trap">⚠️ Do not read the low CO₂ as "the patient is breathing too fast, slow them down." That deep rapid breathing is the only thing keeping the pH as high as 7.22. <span class="never">Treat the cause, not the respiratory rate.</span></div>
+    </div>
+
+    <div class="card garnet span2">
+      <h3>🧪 Gas 6 <span class="tag">three days of vomiting / continuous NG suction</span></h3>
+      <div class="gasbar">
+        <div class="gv hi"><b>pH</b><span class="n">7.47</span><span class="f">HIGH = alkalemia</span></div>
+        <div class="gv hi"><b>PaCO₂</b><span class="n">48</span><span class="f">HIGH = acid</span></div>
+        <div class="gv hi"><b>HCO₃⁻</b><span class="n">34</span><span class="f">HIGH = base</span></div>
+        <div class="gv ok"><b>PaO₂</b><span class="n">86</span><span class="f">normal</span></div>
+      </div>
+      <div class="steps">
+        <div class="st"><b>pH 7.47</b> is above <span class="mono">7.45</span> ⇒ <b>alkalemia</b>.</div>
+        <div class="st"><b>PaCO₂ 48</b> is above <span class="mono">45</span> ⇒ respiratory arm is <b>acidic</b> — the opposite direction to the pH.</div>
+        <div class="st"><b>HCO₃⁻ 34</b> is above <span class="mono">26</span> ⇒ metabolic arm is <b>basic</b> — the same direction as the pH.</div>
+        <div class="st">Metabolic arm matches ⇒ <b>metabolic alkalosis</b> (hydrogen ion and chloride lost in the vomit). ROME: metabolic equal — HCO₃⁻ up, pH up. ✓ The raised CO₂ is the lungs hypoventilating on purpose to hold acid in.</div>
+        <div class="st">The other arm has clearly moved but the pH is <b>still outside</b> the range ⇒ <b>partially compensated</b>.</div>
+      </div>
+      <div class="verdict"><span class="vl">Answer</span>Metabolic alkalosis — <b>partially compensated</b></div>
+      <div class="mn">🧠 <b>Respiratory compensation for a metabolic alkalosis is limited</b> — the patient still has to breathe. That is why full compensation here is uncommon.</div>
+    </div>
+
+    <div class="card emerald span2">
+      <h3>🧪 Gas 7 <span class="tag">long-standing hyperventilation (e.g. chronic hypoxic drive)</span></h3>
+      <div class="gasbar">
+        <div class="gv ok"><b>pH</b><span class="n">7.42</span><span class="f">normal — base side</span></div>
+        <div class="gv lo"><b>PaCO₂</b><span class="n">30</span><span class="f">LOW = base</span></div>
+        <div class="gv lo"><b>HCO₃⁻</b><span class="n">19</span><span class="f">LOW = acid</span></div>
+        <div class="gv ok"><b>PaO₂</b><span class="n">96</span><span class="f">normal</span></div>
+      </div>
+      <div class="steps">
+        <div class="st"><b>pH 7.42</b> is inside the range ⇒ no acidemia or alkalemia reported. This is where students stop too early.</div>
+        <div class="st"><b>PaCO₂ 30</b> is below <span class="mono">35</span> ⇒ respiratory arm is <b>basic</b>.</div>
+        <div class="st"><b>HCO₃⁻ 19</b> is below <span class="mono">22</span> ⇒ metabolic arm is <b>acidic</b>.</div>
+        <div class="st">Both arms abnormal, opposite directions. Tie-break on <span class="mono">7.40</span>: the pH is <span class="mono">7.42</span>, <b>above</b> it ⇒ <b>base is winning</b> ⇒ the base value (the low CO₂) is primary ⇒ <b>respiratory alkalosis</b>. ROME: CO₂ down, pH drifting up — opposite. ✓</div>
+        <div class="st">pH is back inside the range ⇒ <b>fully compensated</b>. The low bicarbonate is the kidneys excreting base to match.</div>
+      </div>
+      <div class="verdict"><span class="vl">Answer</span>Respiratory alkalosis — <b>fully compensated</b></div>
+      <div class="mn">🧠 <b>Only 0.02 pH units decided this.</b> Nothing else in medicine turns on such a small number — which is exactly why you write down whether the pH is above or below 7.40 before you do anything else.</div>
+    </div>
+
+    <div class="card emerald span2">
+      <h3>🧪 Gas 8 <span class="tag">chronic kidney disease</span></h3>
+      <div class="gasbar">
+        <div class="gv ok"><b>pH</b><span class="n">7.37</span><span class="f">normal — acid side</span></div>
+        <div class="gv lo"><b>PaCO₂</b><span class="n">32</span><span class="f">LOW = base</span></div>
+        <div class="gv lo"><b>HCO₃⁻</b><span class="n">18</span><span class="f">LOW = acid</span></div>
+        <div class="gv ok"><b>PaO₂</b><span class="n">92</span><span class="f">normal</span></div>
+      </div>
+      <div class="steps">
+        <div class="st"><b>pH 7.37</b> is inside the range — <b>the same pH as Gas 1</b>, and the answer will be completely different.</div>
+        <div class="st"><b>PaCO₂ 32</b> is below <span class="mono">35</span> ⇒ respiratory arm is <b>basic</b>.</div>
+        <div class="st"><b>HCO₃⁻ 18</b> is below <span class="mono">22</span> ⇒ metabolic arm is <b>acidic</b>.</div>
+        <div class="st">Both abnormal, opposite ways. Tie-break: pH <span class="mono">7.37</span> is <b>below 7.40</b> ⇒ acid is winning ⇒ the acid value is primary. Here the acid value is the <b>bicarbonate</b>, not the CO₂ ⇒ <b>metabolic acidosis</b>. ROME: metabolic equal — HCO₃⁻ down, pH down. ✓ The low CO₂ is respiratory compensation.</div>
+        <div class="st">pH is inside the range ⇒ <b>fully compensated</b>.</div>
+      </div>
+      <div class="verdict"><span class="vl">Answer</span>Metabolic acidosis — <b>fully compensated</b></div>
+      <div class="trap">⚠️ <b>Compare Gas 1 and Gas 8 side by side.</b> Identical pH of 7.37. In Gas 1 the acid value was the CO₂, so it was respiratory. Here the acid value is the bicarbonate, so it is metabolic. <span class="never">The pH never tells you which arm — it only tells you which direction.</span></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ HARD ONES ============ -->
+<section id="hard">
+  <div class="sec-h"><span class="icon">🔥</span><h2>THE HARD ONES — MIXED &amp; TRICKY</h2><span class="step">STEP 3 · LEVEL UP</span></div>
+  <p class="sec-sub">When both arms point the same way, nobody is compensating — and that is its own diagnosis.</p>
+  <div class="grid">
+
+    <div class="card ruby span2">
+      <h3>🧪 Gas 9 <span class="tag">cardiac arrest / prolonged shock</span></h3>
+      <div class="gasbar">
+        <div class="gv hi"><b>pH</b><span class="n">7.04</span><span class="f">VERY LOW = acidemia</span></div>
+        <div class="gv hi"><b>PaCO₂</b><span class="n">58</span><span class="f">HIGH = acid</span></div>
+        <div class="gv lo"><b>HCO₃⁻</b><span class="n">15</span><span class="f">LOW = acid</span></div>
+        <div class="gv lo"><b>PaO₂</b><span class="n">42</span><span class="f">SEVERELY LOW</span></div>
+      </div>
+      <div class="steps">
+        <div class="st"><b>pH 7.04</b> ⇒ profound <b>acidemia</b>.</div>
+        <div class="st"><b>PaCO₂ 58</b> is high ⇒ respiratory arm is <b>acidic</b>.</div>
+        <div class="st"><b>HCO₃⁻ 15</b> is low ⇒ metabolic arm is <b>acidic</b> too.</div>
+        <div class="st"><b>Both arms point the same way as the pH.</b> There is no "other arm" left to be the compensator — both systems are contributing ⇒ this is a <b>mixed (combined) acidosis</b>. Ventilation has failed <i>and</i> tissue hypoperfusion is generating lactic acid.</div>
+        <div class="st">Compensation is <b>absent by definition</b>: a mixed disorder has no compensating arm. Do not label it partial or full.</div>
+      </div>
+      <div class="verdict"><span class="vl">Answer</span>Mixed (combined) respiratory <b>and</b> metabolic acidosis — no compensation possible</div>
+      <div class="trap">⚠️ <b>This is the sickest gas on the page.</b> Severe acidemia depresses myocardial contractility and blunts the response to catecholamines. It is an airway, breathing and circulation emergency, not a calculation exercise.</div>
+    </div>
+
+    <div class="card ruby span2">
+      <h3>🧪 Gas 10 <span class="tag">vomiting plus over-ventilation</span></h3>
+      <div class="gasbar">
+        <div class="gv hi"><b>pH</b><span class="n">7.55</span><span class="f">HIGH = alkalemia</span></div>
+        <div class="gv lo"><b>PaCO₂</b><span class="n">33</span><span class="f">LOW = base</span></div>
+        <div class="gv hi"><b>HCO₃⁻</b><span class="n">28</span><span class="f">HIGH = base</span></div>
+        <div class="gv ok"><b>PaO₂</b><span class="n">97</span><span class="f">normal</span></div>
+      </div>
+      <div class="steps">
+        <div class="st"><b>pH 7.55</b> ⇒ marked <b>alkalemia</b>.</div>
+        <div class="st"><b>PaCO₂ 33</b> is below <span class="mono">35</span> ⇒ respiratory arm is <b>basic</b>.</div>
+        <div class="st"><b>HCO₃⁻ 28</b> is above <span class="mono">26</span> ⇒ metabolic arm is <b>basic</b> as well.</div>
+        <div class="st">Both arms are pushing the pH the <b>same</b> way ⇒ <b>mixed (combined) alkalosis</b>. In practice: acid lost from the stomach <i>and</i> CO₂ blown off — for example a ventilated post-operative patient on continuous NG suction.</div>
+        <div class="st">No compensating arm exists ⇒ <b>compensation absent</b>.</div>
+      </div>
+      <div class="verdict"><span class="vl">Answer</span>Mixed (combined) respiratory <b>and</b> metabolic alkalosis</div>
+      <div class="mn">🧠 <b>Mixed disorders produce the most extreme pH values</b>, because nothing is pulling the other way. An unusually far-out pH should make you check for two problems, not one.</div>
+    </div>
+
+    <div class="card tealc span2">
+      <h3>🧪 Gas 11 <span class="tag">the distractor</span></h3>
+      <div class="gasbar">
+        <div class="gv ok"><b>pH</b><span class="n">7.39</span><span class="f">normal</span></div>
+        <div class="gv ok"><b>PaCO₂</b><span class="n">41</span><span class="f">normal</span></div>
+        <div class="gv ok"><b>HCO₃⁻</b><span class="n">24</span><span class="f">normal</span></div>
+        <div class="gv lo"><b>PaO₂</b><span class="n">66</span><span class="f">LOW = hypoxemia</span></div>
+      </div>
+      <div class="steps">
+        <div class="st"><b>pH 7.39</b> inside the range.</div>
+        <div class="st"><b>PaCO₂ 41</b> inside <span class="mono">35–45</span> ⇒ respiratory arm normal.</div>
+        <div class="st"><b>HCO₃⁻ 24</b> inside <span class="mono">22–26</span> ⇒ metabolic arm normal.</div>
+        <div class="st">Nothing is abnormal and nothing is compensating ⇒ the <b>acid–base status is normal</b>. There is nothing to compensate for, so no compensation label applies.</div>
+        <div class="st">But look at the fourth number: <b>PaO₂ 66</b> is well below <span class="mono">80</span> ⇒ <b>hypoxemia</b>. This patient has a real, treatable problem that the acid–base analysis completely missed.</div>
+      </div>
+      <div class="verdict"><span class="vl">Answer</span>Normal acid–base status <b>with hypoxemia</b></div>
+      <div class="trap">⚠️ <b>Acid–base and oxygenation are two separate questions on one report.</b> Answer both, every time.</div>
+    </div>
+
+    <div class="card deep span2">
+      <h3>🗺️ All eleven gases on one plot</h3>
+      <svg viewBox="-14 -14 900 500" role="img" aria-label="A scatter plot with carbon dioxide on the horizontal axis and bicarbonate on the vertical axis. A green rectangle in the middle marks the region where both values are normal. The four corners are labelled: high carbon dioxide with high bicarbonate is compensated respiratory acidosis or metabolic alkalosis; high carbon dioxide with low bicarbonate is mixed acidosis; low carbon dioxide with low bicarbonate is compensated respiratory alkalosis or metabolic acidosis; low carbon dioxide with high bicarbonate is mixed alkalosis. The eleven gases from this page are plotted as labelled dots.">
+        <rect x="-10" y="-10" width="892" height="492" rx="20" fill="rgba(0,0,0,.26)" stroke="#00c2c7" stroke-width="2" stroke-dasharray="8 7"/>
+        <text x="22" y="30" font-size="19" font-weight="900" fill="#eafcff">CO₂ vs HCO₃⁻ · the four corners</text>
+        <text x="22" y="51" font-size="12.5" font-weight="700" font-style="italic" fill="#bfe9ec">same direction on both axes = MIXED · opposite directions = one is compensating for the other</text>
+
+        <!-- quadrant shading: x 90..830 for CO2 15..70 ; y 440..90 for HCO3 5..40 -->
+        <rect x="90" y="90" width="740" height="350" rx="10" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.3)"/>
+        <!-- normal box: CO2 35-45 -> x = 90 + (v-15)/55*740 ; HCO3 22-26 -> y = 440 - (v-5)/35*350 -->
+        <rect x="359" y="230" width="135" height="40" fill="rgba(18,184,134,.35)" stroke="#a5f3d4" stroke-width="2"/>
+        <text x="426" y="222" font-size="11.5" font-weight="900" fill="#a5f3d4" text-anchor="middle">both values normal</text>
+        <g stroke="rgba(255,255,255,.35)" stroke-dasharray="5 5" stroke-width="1.4">
+          <line x1="359" y1="90" x2="359" y2="440"/><line x1="494" y1="90" x2="494" y2="440"/>
+          <line x1="90" y1="270" x2="830" y2="270"/><line x1="90" y1="230" x2="830" y2="230"/>
+        </g>
+        <text x="460" y="472" font-size="13" font-weight="900" fill="#bfe9ec" text-anchor="middle">PaCO₂ (mmHg) →</text>
+        <g font-size="11" font-weight="800" fill="#cfe6ea" text-anchor="middle">
+          <text x="90" y="458">15</text><text x="359" y="458">35</text><text x="494" y="458">45</text><text x="830" y="458">70</text>
+        </g>
+        <text x="34" y="270" font-size="13" font-weight="900" fill="#bfe9ec" transform="rotate(-90 34 270)" text-anchor="middle">HCO₃⁻ (mEq/L) →</text>
+        <g font-size="11" font-weight="800" fill="#cfe6ea" text-anchor="end">
+          <text x="82" y="444">5</text><text x="82" y="274">22</text><text x="82" y="234">26</text><text x="82" y="96">40</text>
+        </g>
+
+        <g font-size="11.5" font-weight="900">
+          <text x="106" y="116" fill="#bcd0ff">LOW CO₂ · HIGH HCO₃⁻</text>
+          <text x="106" y="134" fill="#e2ebff" font-size="11">both base ⇒ MIXED ALKALOSIS</text>
+          <text x="814" y="116" fill="#ffb3c6" text-anchor="end">HIGH CO₂ · HIGH HCO₃⁻</text>
+          <text x="814" y="134" fill="#ffe6ee" font-size="11" text-anchor="end">compensated resp. acidosis</text>
+          <text x="814" y="150" fill="#ffe6ee" font-size="11" text-anchor="end">or metabolic alkalosis</text>
+          <text x="200" y="410" fill="#a5f3d4">LOW CO₂ · LOW HCO₃⁻</text>
+          <text x="200" y="428" fill="#eafff6" font-size="11">compensated resp. alkalosis or metabolic acidosis</text>
+          <text x="814" y="410" fill="#ff8fa4" text-anchor="end">HIGH CO₂ · LOW HCO₃⁻</text>
+          <text x="814" y="428" fill="#ffe6ee" font-size="11" text-anchor="end">both acid ⇒ MIXED ACIDOSIS</text>
+        </g>
+
+        <!-- points -->
+        <g stroke="#231a02" stroke-width="1.4">
+          <circle cx="588" cy="170" r="9" fill="#ffc233"/>
+          <circle cx="467" cy="160" r="9" fill="#ffc233"/>
+          <circle cx="722" cy="220" r="9" fill="#ff3b6b"/>
+          <circle cx="292" cy="250" r="9" fill="#2f6bff"/>
+          <circle cx="157" cy="410" r="9" fill="#ff3b6b"/>
+          <circle cx="534" cy="150" r="9" fill="#ff3b6b"/>
+          <circle cx="292" cy="300" r="9" fill="#12b886"/>
+          <circle cx="319" cy="310" r="9" fill="#12b886"/>
+          <circle cx="668" cy="340" r="9" fill="#c02255"/>
+          <circle cx="332" cy="210" r="9" fill="#c02255"/>
+          <circle cx="440" cy="250" r="9" fill="#00c2c7"/>
+        </g>
+        <g font-size="11" font-weight="900" fill="#fff">
+          <text x="602" y="175">1</text><text x="452" y="152" text-anchor="end">2</text><text x="736" y="225">3</text>
+          <text x="274" y="247" text-anchor="end">4</text><text x="171" y="415">5</text><text x="548" y="146">6</text>
+          <text x="278" y="304" text-anchor="end">7</text><text x="333" y="330">8</text>
+          <text x="682" y="345">9</text><text x="346" y="205">10</text><text x="454" y="255">11</text>
+        </g>
+        <g font-size="11" font-weight="900">
+          <circle cx="112" cy="176" r="7" fill="#ffc233"/><text x="126" y="181" fill="#ffe49a">fully compensated</text>
+          <circle cx="112" cy="200" r="7" fill="#ff3b6b"/><text x="126" y="205" fill="#ffe6ee">partially compensated</text>
+          <circle cx="112" cy="224" r="7" fill="#2f6bff"/><text x="126" y="229" fill="#e2ebff">uncompensated</text>
+          <circle cx="112" cy="248" r="7" fill="#c02255"/><text x="126" y="253" fill="#ffb3c6">mixed</text>
+          <circle cx="112" cy="272" r="7" fill="#12b886"/><text x="126" y="277" fill="#a5f3d4">fully compensated (metabolic-side lean)</text>
+          <circle cx="112" cy="296" r="7" fill="#00c2c7"/><text x="126" y="301" fill="#9ff2ee">normal acid–base</text>
+        </g>
+      </svg>
+      <div class="mn">🧠 <b>Diagonal = compensation. Same corner = mixed.</b> If a point sits top-right or bottom-left, one system is helping the other. If it sits top-left or bottom-right, both systems are pushing the same way and nobody is helping.</div>
+    </div>
+
+    <div class="card topaz span2">
+      <h3>📊 The three compensation states, side by side</h3>
+      <svg viewBox="-14 -14 900 300" role="img" aria-label="Three panels comparing compensation states. In the uncompensated panel the pH sits outside the normal band and only one arm has moved. In the partially compensated panel the pH is still outside the band but both arms have moved. In the fully compensated panel the pH is back inside the band and both arms are still abnormal.">
+        <rect x="-10" y="-10" width="892" height="292" rx="20" fill="rgba(0,0,0,.24)" stroke="#ffc233" stroke-width="2" stroke-dasharray="8 7"/>
+        <text x="22" y="30" font-size="19" font-weight="900" fill="#ffe49a">UNCOMPENSATED → PARTIAL → FULL</text>
+        <text x="22" y="51" font-size="12.5" font-weight="700" font-style="italic" fill="#ffd9b8">green band = normal pH · gold pin = where the pH is · the two chips under each panel are the two arms</text>
+        <g>
+          <g transform="translate(24,72)">
+            <rect x="0" y="0" width="270" height="192" rx="14" fill="rgba(47,107,255,.20)" stroke="#bcd0ff" stroke-width="1.5"/>
+            <text x="135" y="26" font-size="13.5" font-weight="900" fill="#bcd0ff" text-anchor="middle">UNCOMPENSATED</text>
+            <rect x="24" y="46" width="222" height="22" rx="8" fill="rgba(255,255,255,.15)"/>
+            <rect x="112" y="46" width="46" height="22" rx="8" fill="#12b886"/>
+            <circle cx="52" cy="57" r="9" fill="#ffc233" stroke="#231a02" stroke-width="1.6"/>
+            <text x="135" y="90" font-size="11.5" font-weight="800" fill="#e2ebff" text-anchor="middle">pH outside the band</text>
+            <rect x="24" y="106" width="104" height="30" rx="9" fill="rgba(255,59,107,.7)"/><text x="76" y="126" font-size="11" font-weight="900" fill="#fff" text-anchor="middle">problem arm</text>
+            <rect x="142" y="106" width="104" height="30" rx="9" fill="rgba(18,184,134,.7)"/><text x="194" y="126" font-size="11" font-weight="900" fill="#03291c" text-anchor="middle">other arm NORMAL</text>
+            <text x="135" y="162" font-size="11.5" font-weight="900" fill="#ffe49a" text-anchor="middle">nobody has started helping</text>
+            <text x="135" y="180" font-size="11" font-weight="800" fill="#e2ebff" text-anchor="middle">usually means ACUTE (Gas 4)</text>
+          </g>
+          <g transform="translate(306,72)">
+            <rect x="0" y="0" width="270" height="192" rx="14" fill="rgba(255,138,61,.20)" stroke="#ffd9b8" stroke-width="1.5"/>
+            <text x="135" y="26" font-size="13.5" font-weight="900" fill="#ffd9b8" text-anchor="middle">PARTIALLY COMPENSATED</text>
+            <rect x="24" y="46" width="222" height="22" rx="8" fill="rgba(255,255,255,.15)"/>
+            <rect x="112" y="46" width="46" height="22" rx="8" fill="#12b886"/>
+            <circle cx="90" cy="57" r="9" fill="#ffc233" stroke="#231a02" stroke-width="1.6"/>
+            <path d="M 56 78 L 86 78" stroke="#ffc233" stroke-width="3"/>
+            <text x="135" y="90" font-size="11.5" font-weight="800" fill="#ffe6d6" text-anchor="middle">pH moving back, still outside</text>
+            <rect x="24" y="106" width="104" height="30" rx="9" fill="rgba(255,59,107,.7)"/><text x="76" y="126" font-size="11" font-weight="900" fill="#fff" text-anchor="middle">problem arm</text>
+            <rect x="142" y="106" width="104" height="30" rx="9" fill="rgba(255,138,61,.85)"/><text x="194" y="126" font-size="11" font-weight="900" fill="#2b1200" text-anchor="middle">other arm MOVED</text>
+            <text x="135" y="162" font-size="11.5" font-weight="900" fill="#ffe49a" text-anchor="middle">help has started, not finished</text>
+            <text x="135" y="180" font-size="11" font-weight="800" fill="#ffe6d6" text-anchor="middle">Gases 3, 5, 6</text>
+          </g>
+          <g transform="translate(588,72)">
+            <rect x="0" y="0" width="270" height="192" rx="14" fill="rgba(18,184,134,.20)" stroke="#a5f3d4" stroke-width="1.5"/>
+            <text x="135" y="26" font-size="13.5" font-weight="900" fill="#a5f3d4" text-anchor="middle">FULLY COMPENSATED</text>
+            <rect x="24" y="46" width="222" height="22" rx="8" fill="rgba(255,255,255,.15)"/>
+            <rect x="112" y="46" width="46" height="22" rx="8" fill="#12b886"/>
+            <circle cx="126" cy="57" r="9" fill="#ffc233" stroke="#231a02" stroke-width="1.6"/>
+            <path d="M 92 78 L 122 78" stroke="#ffc233" stroke-width="3"/>
+            <text x="135" y="90" font-size="11.5" font-weight="800" fill="#eafff6" text-anchor="middle">pH back inside the band</text>
+            <rect x="24" y="106" width="104" height="30" rx="9" fill="rgba(255,59,107,.7)"/><text x="76" y="126" font-size="11" font-weight="900" fill="#fff" text-anchor="middle">problem arm</text>
+            <rect x="142" y="106" width="104" height="30" rx="9" fill="rgba(255,138,61,.85)"/><text x="194" y="126" font-size="11" font-weight="900" fill="#2b1200" text-anchor="middle">other arm MOVED</text>
+            <text x="135" y="162" font-size="11.5" font-weight="900" fill="#ffe49a" text-anchor="middle">both still abnormal — pH fixed</text>
+            <text x="135" y="180" font-size="11" font-weight="800" fill="#eafff6" text-anchor="middle">Gases 1, 2, 7, 8</text>
+          </g>
+        </g>
+      </svg>
+      <div class="mn">🧠 <b>"Full" does not mean "better."</b> A fully compensated gas often means the disorder has been present for a long time. The patient is stable, not cured.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ CARE ============ -->
+<section id="care">
+  <div class="sec-h"><span class="icon">🩺</span><h2>SO WHAT? — WHAT THE GAS MEANS FOR THE PATIENT</h2><span class="step">STEP 4 · ACT</span></div>
+  <p class="sec-sub">Naming the disorder is half the answer. The other half is which system to look at and how fast.</p>
+  <div class="grid">
+
+    <div class="card sapphire span2">
+      <h3>🫁🫘 Who fixes what, and how fast</h3>
+      <svg viewBox="-14 -14 900 450" role="img" aria-label="Left panel: a cutaway alveolus wrapped in a capillary showing carbon dioxide diffusing from blood into the air sac and being exhaled, labelled the lungs, response in minutes. Right panel: a cutaway kidney tubule with a cell reabsorbing bicarbonate into the blood and secreting hydrogen ions into the urine, labelled the kidneys, response over hours to days. A timeline bar underneath compares the two response times.">
+        <defs>
+          <filter id="p4sh" x="-30%" y="-30%" width="170%" height="170%"><feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dx="0" dy="6" result="o"/><feFlood flood-color="#000" flood-opacity=".5"/><feComposite in2="o" operator="in" result="sh"/><feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <radialGradient id="p4alv" cx=".36" cy=".28" r=".95" fx=".3" fy=".22"><stop offset="0" stop-color="#fff2f6"/><stop offset=".2" stop-color="#ffd7e2"/><stop offset=".55" stop-color="#f0a8bd"/><stop offset=".85" stop-color="#b06381"/><stop offset="1" stop-color="#6c2f47"/></radialGradient>
+          <linearGradient id="p4cap" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5b8cff"/><stop offset=".5" stop-color="#2f6bff"/><stop offset="1" stop-color="#e0304f"/></linearGradient>
+          <linearGradient id="p4tub" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe1b0"/><stop offset=".3" stop-color="#f0b673"/><stop offset=".7" stop-color="#b57436"/><stop offset="1" stop-color="#6b3d13"/></linearGradient>
+          <marker id="p4ar" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="7.5" markerHeight="7.5" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffe49a"/></marker>
+        </defs>
+        <rect x="-10" y="-10" width="892" height="442" rx="20" fill="rgba(0,0,0,.24)" stroke="#2f6bff" stroke-width="2" stroke-dasharray="8 7"/>
+        <text x="22" y="30" font-size="19" font-weight="900" fill="#dbe8ff">THE TWO COMPENSATORS</text>
+        <text x="22" y="51" font-size="13" font-weight="700" font-style="italic" fill="#a8c4ff">left: alveolus with its capillary, cutaway &nbsp;·&nbsp; right: kidney tubule cell, cutaway</text>
+
+        <!-- alveolus -->
+        <g transform="translate(180,190)" filter="url(#p4sh)">
+          <circle cx="0" cy="0" r="104" fill="url(#p4alv)" stroke="#6c2f47" stroke-width="2.4"/>
+          <circle cx="0" cy="0" r="86" fill="#2a1420" opacity=".55"/>
+          <g fill="url(#p4alv)" opacity=".9" stroke="#6c2f47" stroke-width="1.4">
+            <circle cx="-96" cy="-58" r="34"/><circle cx="92" cy="-64" r="30"/><circle cx="-84" cy="70" r="28"/><circle cx="96" cy="62" r="32"/>
+          </g>
+          <path d="M -120 -104 C -80 -128 -30 -132 0 -110" fill="none" stroke="#e8eaf2" stroke-width="12" stroke-linecap="round"/>
+          <path d="M -104 -60 C -60 -30 -20 -6 26 6 C 74 20 104 46 118 76" fill="none" stroke="url(#p4cap)" stroke-width="15" stroke-linecap="round" opacity=".95"/>
+          <g fill="#ff8fa4" stroke="#8d132c" stroke-width="1"><ellipse cx="-56" cy="-32" rx="11" ry="7" transform="rotate(30 -56 -32)"/><ellipse cx="-8" cy="-2" rx="11" ry="7" transform="rotate(20 -8 -2)"/><ellipse cx="52" cy="20" rx="11" ry="7" transform="rotate(35 52 20)"/><ellipse cx="98" cy="56" rx="11" ry="7" transform="rotate(45 98 56)"/></g>
+          <g fill="#9d5cff" stroke="#3a1179" stroke-width="1"><circle cx="-30" cy="-20" r="7"/><circle cx="16" cy="4" r="7"/><circle cx="66" cy="34" r="7"/></g>
+          <path d="M -30 -28 L -34 -62" stroke="#ffc233" stroke-width="3" marker-end="url(#p4ar)"/>
+          <path d="M 16 -4 L 8 -44" stroke="#ffc233" stroke-width="3" marker-end="url(#p4ar)"/>
+          <text x="0" y="-6" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="middle">CO₂ crosses into</text>
+          <text x="0" y="12" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="middle">the air sac …</text>
+          <text x="0" y="34" font-size="12" font-weight="800" fill="#ffd7e2" text-anchor="middle">… and is exhaled</text>
+        </g>
+        <text x="180" y="326" font-size="14.5" font-weight="900" fill="#ffb3c6" text-anchor="middle">LUNGS — the fast compensator</text>
+        <text x="180" y="346" font-size="12" font-weight="800" fill="#ffe6ee" text-anchor="middle">breathe faster/deeper ⇒ CO₂ falls ⇒ pH rises</text>
+        <text x="180" y="364" font-size="12" font-weight="800" fill="#ffe6ee" text-anchor="middle">breathe slower/shallower ⇒ CO₂ rises ⇒ pH falls</text>
+        <g fill="#9d5cff" stroke="#3a1179" stroke-width="1"><circle cx="330" cy="88" r="7"/></g>
+        <text x="344" y="93" font-size="11.5" font-weight="900" fill="#c9b3ff">= CO₂ molecule</text>
+
+        <!-- kidney tubule -->
+        <g transform="translate(470,96)" filter="url(#p4sh)">
+          <rect x="0" y="0" width="60" height="220" rx="10" fill="#1d1220" stroke="#6b3d13" stroke-width="1.6"/>
+          <text x="30" y="-8" font-size="11.5" font-weight="900" fill="#bfe9ec" text-anchor="middle">tubule lumen</text>
+          <text x="30" y="240" font-size="11" font-weight="800" fill="#bfe9ec" text-anchor="middle">(urine)</text>
+          <rect x="60" y="0" width="120" height="220" fill="url(#p4tub)" stroke="#6b3d13" stroke-width="1.8"/>
+          <g stroke="#ffd39a" stroke-width="2" stroke-opacity=".35" fill="none">
+            <path d="M64 8 L64 212"/><path d="M176 8 L176 212"/>
+          </g>
+          <ellipse cx="120" cy="110" rx="30" ry="42" fill="#8f533a" stroke="#4f2a1c" stroke-width="1.6"/>
+          <text x="120" y="106" font-size="11" font-weight="900" fill="#ffe0c8" text-anchor="middle">tubule</text>
+          <text x="120" y="122" font-size="11" font-weight="900" fill="#ffe0c8" text-anchor="middle">cell</text>
+          <g stroke="#ffd0b8" stroke-width="2.2" stroke-linecap="round" opacity=".8">
+            <path d="M60 18 L48 12"/><path d="M60 34 L48 28"/><path d="M60 50 L48 44"/><path d="M60 66 L48 60"/><path d="M60 82 L48 76"/>
+          </g>
+          <rect x="180" y="0" width="70" height="220" rx="10" fill="rgba(47,107,255,.35)" stroke="#bcd0ff" stroke-width="1.4"/>
+          <text x="215" y="-8" font-size="11.5" font-weight="900" fill="#bcd0ff" text-anchor="middle">blood</text>
+          <path d="M 150 76 L 208 62" stroke="#12b886" stroke-width="4" marker-end="url(#p4ar)"/>
+          <text x="262" y="60" font-size="11.5" font-weight="900" fill="#a5f3d4">HCO₃⁻ reabsorbed</text>
+          <text x="262" y="76" font-size="11" font-weight="800" fill="#eafff6">(base kept in the body)</text>
+          <path d="M 90 152 L 52 168" stroke="#ff3b6b" stroke-width="4" marker-end="url(#p4ar)"/>
+          <text x="46" y="196" font-size="11.5" font-weight="900" fill="#ffb3c6" text-anchor="end">H⁺ secreted</text>
+          <text x="46" y="212" font-size="11" font-weight="800" fill="#ffe6ee" text-anchor="end">(acid leaves in urine)</text>
+        </g>
+        <text x="616" y="352" font-size="14.5" font-weight="900" fill="#bcd0ff" text-anchor="middle">KIDNEYS — the slow compensator</text>
+        <text x="616" y="372" font-size="12" font-weight="800" fill="#e2ebff" text-anchor="middle">keep or dump bicarbonate · excrete or retain acid</text>
+
+        <!-- timeline -->
+        <rect x="24" y="386" width="836" height="34" rx="10" fill="rgba(13,8,26,.55)" stroke="#ffe49a" stroke-width="1.4"/>
+        <text x="40" y="408" font-size="12" font-weight="900" fill="#ffe49a">SPEED:</text>
+        <rect x="108" y="392" width="150" height="22" rx="8" fill="rgba(255,59,107,.75)"/><text x="183" y="408" font-size="11.5" font-weight="900" fill="#fff" text-anchor="middle">lungs: minutes</text>
+        <rect x="270" y="392" width="400" height="22" rx="8" fill="rgba(47,107,255,.75)"/><text x="470" y="408" font-size="11.5" font-weight="900" fill="#fff" text-anchor="middle">kidneys: hours to days</text>
+        <text x="686" y="408" font-size="11" font-weight="800" fill="#ffd9b8">⇒ full compensation = chronic</text>
+      </svg>
+      <div class="mn">🧠 <b>Speed is a diagnostic clue.</b> A fully compensated respiratory problem has been there for days. An uncompensated one started today.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🫁 Respiratory acidosis — what you actually do</h3>
+      <p><b>The problem is ventilation.</b> CO₂ is not being blown off.</p>
+      <ul class="tick">
+        <li>🛏️ Position upright; encourage deep breathing and effective coughing.</li>
+        <li>🫧 Look for the cause: airway obstruction, sedation/opioids, atelectasis, pneumonia, COPD exacerbation, chest-wall or neuromuscular weakness.</li>
+        <li>📈 Monitor level of consciousness — rising CO₂ makes patients drowsy and confused before they arrest.</li>
+        <li>🆘 Escalate for non-invasive or invasive ventilatory support when the pH keeps falling.</li>
+      </ul>
+      <div class="trap">⚠️ In a chronic CO₂ retainer, oxygen is titrated carefully to the target the team sets — <span class="never">never simply turn it up to maximum</span> without reassessing ventilation.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🌬️ Respiratory alkalosis — what you actually do</h3>
+      <p><b>The problem is over-ventilation.</b> CO₂ is being blown off faster than it is made.</p>
+      <ul class="tick">
+        <li>🧘 Coach slow, controlled breathing; stay with the patient; reduce stimulation.</li>
+        <li>🔎 Rule out the dangerous causes before calling it anxiety: <b>hypoxemia, pain, fever, sepsis, pulmonary embolism, salicylate toxicity</b>, and over-set ventilator rates.</li>
+        <li>🖐️ Expect tingling around the mouth and in the fingers, light-headedness, carpopedal spasm.</li>
+      </ul>
+      <div class="mn">🧠 <b>Hyperventilation is a symptom.</b> Ask what the body is trying to fix before you try to slow it down.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🧪 Metabolic acidosis — what you actually do</h3>
+      <p><b>Acid is being made or base is being lost.</b></p>
+      <ul class="tick">
+        <li>🍬 Think <b>DKA</b>, lactic acidosis from shock or hypoxia, kidney failure, severe diarrhoea (bicarbonate lost in stool), some poisonings.</li>
+        <li>💨 <b>Kussmaul respirations</b> — deep, rapid, sighing breaths — are compensation, not distress to be suppressed.</li>
+        <li>🧪 Check potassium: acidosis tends to shift potassium out of cells, so the serum value can look normal or high while total body potassium is low.</li>
+        <li>💧 Treat the cause — fluids, insulin, perfusion, dialysis as indicated.</li>
+      </ul>
+    </div>
+
+    <div class="card tealc">
+      <h3>🤮 Metabolic alkalosis — what you actually do</h3>
+      <p><b>Acid is being lost or base is being gained.</b></p>
+      <ul class="tick">
+        <li>🤢 Think <b>vomiting, prolonged NG suction</b>, excessive diuretic use, potassium depletion, excessive alkali intake.</li>
+        <li>🧪 Watch potassium, chloride, magnesium and volume status — these usually need correcting for the alkalosis to resolve.</li>
+        <li>😖 Expect tingling, muscle twitching, tremor, tetany, and confusion in severe cases.</li>
+        <li>🫁 Compensation is limited: the patient cannot hypoventilate indefinitely.</li>
+      </ul>
+    </div>
+
+    <div class="card emerald span2">
+      <h3>✅ Getting the sample right — the part that ruins gases</h3>
+      <ul class="tick">
+        <li>🩸 Arterial sample, drawn per policy; apply firm pressure afterwards for the time your facility specifies, and longer if the patient is anticoagulated.</li>
+        <li>🫧 <b>Expel air bubbles immediately</b> — trapped air changes the PaO₂ and PaCO₂.</li>
+        <li>⏱️ Send it <b>straight away</b>; delay allows continued cell metabolism and shifts the values.</li>
+        <li>📝 Document the <b>oxygen delivery and flow rate</b> at the moment of sampling — a PaO₂ means nothing without it.</li>
+        <li>🖐️ Check circulation to the hand before and after a radial puncture, per policy.</li>
+      </ul>
+      <div class="trap">⚠️ A venous sample interpreted as arterial will look like a respiratory acidosis that is not there. If the gas does not fit the patient in front of you, question the sample.</div>
+    </div>
+
+
+    <div class="card deep span2">
+      <h3>🧍 What acidosis and alkalosis look like at the bedside</h3>
+      <svg viewBox="-14 -14 900 505" role="img" aria-label="Two human figures. The left figure is labelled acidosis with call-outs for drowsiness and confusion, deep rapid Kussmaul breathing, warm flushed skin with weakness, and potassium shifting out of cells. The right figure is labelled alkalosis with call-outs for light-headedness and anxiety, tingling around the mouth, tingling fingers with twitching tremor and tetany, and potassium shifting into cells.">
+        <defs>
+          <filter id="p6sh" x="-30%" y="-30%" width="170%" height="170%"><feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dx="0" dy="6" result="o"/><feFlood flood-color="#000" flood-opacity=".45"/><feComposite in2="o" operator="in" result="sh"/><feMerge><feMergeNode in="sh"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <linearGradient id="p6a" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffd9c8"/><stop offset=".35" stop-color="#f0a88c"/><stop offset=".75" stop-color="#c46a52"/><stop offset="1" stop-color="#7d3728"/></linearGradient>
+          <linearGradient id="p6b" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e6f0ff"/><stop offset=".35" stop-color="#c3d6f5"/><stop offset=".75" stop-color="#8fa8cf"/><stop offset="1" stop-color="#4f6488"/></linearGradient>
+        </defs>
+        <rect x="-10" y="-10" width="892" height="497" rx="20" fill="rgba(0,0,0,.24)" stroke="#9d5cff" stroke-width="2" stroke-dasharray="8 7"/>
+        <text x="22" y="30" font-size="19" font-weight="900" fill="#e9dcff">CLINICAL PICTURE · acidosis vs alkalosis</text>
+        <text x="22" y="51" font-size="13" font-weight="700" font-style="italic" fill="#c9b3ff">anterior view · the signs overlap, so always confirm with the gas</text>
+
+        <g transform="translate(236,86)" filter="url(#p6sh)">
+          <ellipse cx="46" cy="38" rx="31" ry="38" fill="url(#p6a)" stroke="#7d3728" stroke-width="1.8"/>
+          <path d="M 34 72 C 36 84 36 90 30 96 C 50 106 44 106 62 96 C 56 90 56 84 58 72 Z" fill="url(#p6a)" stroke="#7d3728" stroke-width="1.6"/>
+          <path d="M 30 96 C -4 108 -16 138 -18 174 C -20 210 -16 240 -12 264 L 6 264 C 6 232 8 202 14 184 C 12 230 10 276 12 314 C 14 344 16 366 18 384 L 38 384 C 40 354 42 322 46 292 C 50 322 52 354 54 384 L 74 384 C 76 366 78 344 80 314 C 82 276 80 230 78 184 C 84 202 86 232 86 264 L 104 264 C 108 240 112 210 110 174 C 108 138 96 108 62 96 C 56 104 36 104 30 96 Z" fill="url(#p6a)" stroke="#7d3728" stroke-width="1.8"/>
+          <g fill="none" stroke="#8d4030" stroke-width="1.6" opacity=".5"><path d="M 24 140 C 30 176 34 212 36 244 M 68 140 C 62 176 58 212 56 244"/></g>
+          <path d="M 22 150 C 40 138 52 138 70 150" fill="none" stroke="#ff3b6b" stroke-width="4" stroke-linecap="round"/>
+          <path d="M 18 168 C 40 152 52 152 74 168" fill="none" stroke="#ff3b6b" stroke-width="4" stroke-linecap="round" opacity=".7"/>
+        </g>
+        <text x="282" y="72" font-size="16" font-weight="900" fill="#ffb3c6" text-anchor="middle">ACIDOSIS</text>
+        <g stroke-width="1.4" stroke="#ffb3c6">
+          <line x1="252" y1="124" x2="196" y2="112"/><line x1="282" y1="234" x2="196" y2="214"/>
+          <line x1="298" y1="306" x2="196" y2="304"/><line x1="286" y1="398" x2="196" y2="392"/>
+        </g>
+        <g fill="#ffb3c6"><circle cx="252" cy="124" r="4"/><circle cx="282" cy="234" r="4"/><circle cx="298" cy="306" r="4"/><circle cx="286" cy="398" r="4"/></g>
+        <g text-anchor="end">
+          <text x="190" y="108" fill="#ffb3c6" font-size="12.5" font-weight="900">Drowsy, confused</text>
+          <text x="190" y="124" fill="#ffe6ee" font-size="11" font-weight="800">headache · CNS depression</text>
+          <text x="190" y="210" fill="#ffb3c6" font-size="12.5" font-weight="900">Kussmaul breathing</text>
+          <text x="190" y="226" fill="#ffe6ee" font-size="10.5" font-weight="800">deep, rapid — compensation</text>
+          <text x="190" y="300" fill="#ffb3c6" font-size="12.5" font-weight="900">Warm, flushed skin</text>
+          <text x="190" y="316" fill="#ffe6ee" font-size="11" font-weight="800">weakness, fatigue, nausea</text>
+          <text x="190" y="388" fill="#ffb3c6" font-size="12.5" font-weight="900">K⁺ shifts OUT of cells</text>
+          <text x="190" y="404" fill="#ffe6ee" font-size="10.5" font-weight="800">serum K⁺ may read high</text>
+        </g>
+
+        <g transform="translate(560,86)" filter="url(#p6sh)">
+          <ellipse cx="46" cy="38" rx="31" ry="38" fill="url(#p6b)" stroke="#4f6488" stroke-width="1.8"/>
+          <path d="M 34 72 C 36 84 36 90 30 96 C 50 106 44 106 62 96 C 56 90 56 84 58 72 Z" fill="url(#p6b)" stroke="#4f6488" stroke-width="1.6"/>
+          <path d="M 30 96 C -4 108 -16 138 -18 174 C -20 210 -16 240 -12 264 L 6 264 C 6 232 8 202 14 184 C 12 230 10 276 12 314 C 14 344 16 366 18 384 L 38 384 C 40 354 42 322 46 292 C 50 322 52 354 54 384 L 74 384 C 76 366 78 344 80 314 C 82 276 80 230 78 184 C 84 202 86 232 86 264 L 104 264 C 108 240 112 210 110 174 C 108 138 96 108 62 96 C 56 104 36 104 30 96 Z" fill="url(#p6b)" stroke="#4f6488" stroke-width="1.8"/>
+          <g fill="none" stroke="#00c2c7" stroke-width="2.6" stroke-linecap="round">
+            <path d="M 40 60 C 44 64 50 64 54 60"/>
+            <path d="M -14 268 C -8 272 -2 272 4 268"/><path d="M 92 268 C 98 272 104 272 110 268"/>
+          </g>
+          <g fill="#00c2c7" opacity=".85"><circle cx="-16" cy="258" r="4"/><circle cx="-8" cy="264" r="3.4"/><circle cx="104" cy="258" r="4"/><circle cx="96" cy="264" r="3.4"/><circle cx="40" cy="52" r="3.4"/><circle cx="54" cy="52" r="3.4"/></g>
+        </g>
+        <text x="606" y="72" font-size="16" font-weight="900" fill="#9ff2ee" text-anchor="middle">ALKALOSIS</text>
+        <g stroke-width="1.4" stroke="#9ff2ee">
+          <line x1="626" y1="124" x2="684" y2="112"/><line x1="612" y1="146" x2="684" y2="186"/>
+          <line x1="556" y1="352" x2="684" y2="286"/><line x1="640" y1="398" x2="684" y2="386"/>
+        </g>
+        <g fill="#9ff2ee"><circle cx="626" cy="124" r="4"/><circle cx="612" cy="146" r="4"/><circle cx="556" cy="352" r="4"/><circle cx="640" cy="398" r="4"/></g>
+        <g>
+          <text x="690" y="108" fill="#9ff2ee" font-size="12.5" font-weight="900">Light-headed, anxious</text>
+          <text x="690" y="124" fill="#eafcff" font-size="10.5" font-weight="800">confusion · irritability</text>
+          <text x="690" y="182" fill="#9ff2ee" font-size="12.5" font-weight="900">Tingling round the mouth</text>
+          <text x="690" y="198" fill="#eafcff" font-size="11" font-weight="800">a very early, very typical sign</text>
+          <text x="690" y="282" fill="#9ff2ee" font-size="12.5" font-weight="900">Tingling fingers, twitching</text>
+          <text x="690" y="298" fill="#eafcff" font-size="10.5" font-weight="800">tremor, tetany, spasm</text>
+          <text x="690" y="382" fill="#9ff2ee" font-size="12.5" font-weight="900">K⁺ shifts INTO cells</text>
+          <text x="690" y="398" fill="#eafcff" font-size="10.5" font-weight="800">serum K⁺ may fall</text>
+        </g>
+        <text x="440" y="478" font-size="12.5" font-weight="900" fill="#ffe49a" text-anchor="middle">Acidosis sedates. Alkalosis excites. Both move potassium — check the level and the rhythm.</text>
+      </svg>
+      <div class="mn">🧠 <b>"Down and drowsy, up and twitchy."</b> A falling pH depresses the nervous system; a rising pH makes it irritable.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc topazbg"><span class="big">🧠 ROME</span><b>R</b>espiratory <b>O</b>pposite · <b>M</b>etabolic <b>E</b>qual</div>
+    <div class="rc tealbg"><span class="big">⚖️ Normal pH?</span>Compare to <b>7.40</b>. Below = acid winning. Above = base winning.</div>
+    <div class="rc citrine"><span class="big">🕰️ Speed</span>Lungs compensate in minutes. Kidneys take hours to days.</div>
+    <div class="rc rubybg"><span class="big">🔀 Same direction = MIXED</span>Both arms acid, or both base ⇒ two problems, no compensator.</div>
+  </div>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>📋 The answer key for this set — cover it and rebuild it</h3>
+      <div class="tblwrap">
+      <table>
+        <tr><th class="up">Gas</th><th class="lo">pH / CO₂ / HCO₃⁻</th><th class="lo">Primary disorder</th><th class="lo">Compensation</th></tr>
+        <tr><td><b>1</b></td><td class="mono">7.37 / 52 / 32</td><td>Respiratory acidosis</td><td><b>Fully compensated</b></td></tr>
+        <tr><td><b>2</b></td><td class="mono">7.43 / 43 / 33</td><td>Metabolic alkalosis</td><td><b>Fully compensated</b> (pH normal; CO₂ only at the top of range)</td></tr>
+        <tr><td><b>3</b></td><td class="mono">7.26 / 62 / 27</td><td>Respiratory acidosis</td><td>Partially compensated (+ hypoxemia)</td></tr>
+        <tr><td><b>4</b></td><td class="mono">7.53 / 30 / 24</td><td>Respiratory alkalosis</td><td>Uncompensated</td></tr>
+        <tr><td><b>5</b></td><td class="mono">7.22 / 20 / 8</td><td>Metabolic acidosis</td><td>Partially compensated</td></tr>
+        <tr><td><b>6</b></td><td class="mono">7.47 / 48 / 34</td><td>Metabolic alkalosis</td><td>Partially compensated</td></tr>
+        <tr><td><b>7</b></td><td class="mono">7.42 / 30 / 19</td><td>Respiratory alkalosis</td><td><b>Fully compensated</b></td></tr>
+        <tr><td><b>8</b></td><td class="mono">7.37 / 32 / 18</td><td>Metabolic acidosis</td><td><b>Fully compensated</b></td></tr>
+        <tr><td><b>9</b></td><td class="mono">7.04 / 58 / 15</td><td><b>Mixed acidosis</b></td><td>None possible</td></tr>
+        <tr><td><b>10</b></td><td class="mono">7.55 / 33 / 28</td><td><b>Mixed alkalosis</b></td><td>None possible</td></tr>
+        <tr><td><b>11</b></td><td class="mono">7.39 / 41 / 24</td><td>Normal acid–base</td><td>n/a — but <b>PaO₂ 66 = hypoxemia</b></td></tr>
+      </table>
+      </div>
+    </div>
+
+    <div class="card deep span2">
+      <details open>
+        <summary>🎯 Cover &amp; check — 8 rapid-fire questions</summary>
+        <div class="qa">Q1: State ROME correctly and say what each half means. <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Respiratory Opposite, Metabolic Equal. In a respiratory disorder the pH and the PaCO₂ move in opposite directions. In a metabolic disorder the pH and the HCO₃⁻ move in the same direction.</div></div>
+        <div class="qa">Q2: The pH is 7.38, PaCO₂ is 50 and HCO₃⁻ is 30. What is it? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">pH is normal but below 7.40, so acid is winning. The acid value is the PaCO₂, so the primary problem is respiratory acidosis, and because the pH is back in range it is fully compensated.</div></div>
+        <div class="qa">Q3: What does a completely normal partner value tell you about how long the problem has existed? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">That it is probably acute. Uncompensated means the other system has not responded yet — the lungs respond in minutes, so an uncompensated metabolic problem is very new, and an uncompensated respiratory problem is newer than the hours to days the kidneys need.</div></div>
+        <div class="qa">Q4: Both PaCO₂ and HCO₃⁻ are low and the pH is 7.20. What is happening? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">The low bicarbonate matches the low pH, so it is a metabolic acidosis. The low PaCO₂ is respiratory compensation. Since the pH is still abnormal, it is partially compensated.</div></div>
+        <div class="qa">Q5: Both PaCO₂ and HCO₃⁻ are high and the pH is 7.10. What is happening? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">The high PaCO₂ is acid and matches the low pH; the high bicarbonate is base and is the compensation. This is a partially compensated respiratory acidosis — the pH is still far outside the range.</div></div>
+        <div class="qa">Q6: When is it correct to call a gas "mixed"? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">When the PaCO₂ and the HCO₃⁻ both push the pH in the same direction — both acid, or both base. There is no compensating system left, so no compensation label applies.</div></div>
+        <div class="qa">Q7: Why does a normal pH not mean a normal patient? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Because full compensation restores the pH while both underlying values remain abnormal. The disorder is still there — often chronic — and the oxygenation may be poor as well.</div></div>
+        <div class="qa">Q8: Which single number tells you which side of "normal" the pH is leaning, and why does it matter? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">7.40, the midpoint. Compensation pulls the pH back toward 7.40 but never past it, so the side the pH sits on identifies which value is the primary problem.</div></div>
+      </details>
+    </div>
+
+    <div class="card topaz span2">
+      <h3>🧠 Take these four lines into the exam</h3>
+      <ul class="tick">
+        <li><b>ROME</b> — Respiratory Opposite, Metabolic Equal.</li>
+        <li><b>"7.40 breaks the tie."</b> Normal pH? Look which side of 7.40 it sits on.</li>
+        <li><b>"Same direction = mixed."</b> Both values acid, or both base, means two problems.</li>
+        <li><b>"Minutes vs days."</b> Lungs compensate fast; kidneys compensate slowly — so full compensation means chronic.</li>
+      </ul>
+      <div class="mn">🧠 Then finish the set: <a href="../resp/NG-092_abg-answers.html">NG-092 (the method)</a> · <a href="../resp/NG-138_abg-compensation-questions.html">NG-138 (practice gases)</a> · <a href="../resp/NG-173_abg-compensation-answers.html">NG-173 (worked answers I)</a>.</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">METHOD</span>→
+    <span style="background:rgba(47,107,255,.7)">WORK IT</span>→
+    <span style="background:rgba(192,34,85,.7)">HARD ONES</span>→
+    <span style="background:rgba(18,184,134,.7)">ACT</span>
+  </div>
+  <div class="serieslinks">
+    ABG series:
+    <a href="../resp/NG-092_abg-answers.html">1 · NG-092</a>
+    <a href="../resp/NG-138_abg-compensation-questions.html">2 · NG-138</a>
+    <a href="../resp/NG-173_abg-compensation-answers.html">3 · NG-173</a>
+    <a class="here" href="NG-193_abg-compensation-answers-2.html">4 · NG-193</a>
+  </div>
+  <div>NG-193 · Educational study aid — verify clinical details, reference ranges and facility policy · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>

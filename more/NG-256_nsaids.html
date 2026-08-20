@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NSAIDs · NG-256 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+/* ---- appended for NG-256 (drug-page id set) ---- */
+#action .sec-h h2{color:#d9c2ff} #action .step{background:var(--amethyst)}
+#watch .sec-h h2{color:#ffb3c6} #watch .step{background:var(--garnet)}
+#teach .sec-h h2{color:#a5f3d4} #teach .step{background:var(--emerald);color:#03291c}
+.gauge{display:flex;height:26px;border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,.4);margin:8px 0 4px}
+.gauge div{display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:900;color:#fff}
+</style></head>
+<body>
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#action">🎯 What It Does</a>
+  <a class="c2" href="#watch">🚨 Watch For</a>
+  <a class="c3" href="#teach">✅ Teach</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Pharmacology · Pain &amp; Anti-Inflammatory Unit</div>
+  <h1>NSAIDs <span class="drop">🔥</span></h1>
+  <p class="sub">Non-Steroidal Anti-Inflammatory Drugs</p>
+  <div class="chips">
+    <span class="chip id">NG-256</span>
+    <span class="chip cat">PHARMACOLOGY</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede"><b>NSAIDs block the COX enzyme</b> to stop prostaglandins from being made — that kills <b>pain, fever, and inflammation</b>. The catch: <b>prostaglandins also protect the stomach, kidneys, and platelets</b>, so blocking them broadly causes the three big NSAID dangers — <b>GI bleed, renal injury, and cardiovascular risk</b>. See also <a href="#" style="color:#ffd9b8">NG-100 Anti-inflammatory Agents (overview)</a> and <a href="#" style="color:#ffd9b8">NG-232 Acetaminophen</a>, the drug NSAIDs get swapped for when these risks are too high.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">🚫 Block COX-1 &amp; COX-2</span>↓ prostaglandins = ↓ pain, fever, inflammation — but also ↓ stomach/kidney protection.</div>
+  <div class="rc rubybg"><span class="big">🩸 #1 risk = GI bleed</span>COX-1 protects the stomach lining. Nonselective NSAIDs strip that protection.</div>
+  <div class="rc tealbg"><span class="big">💧 #2 risk = kidneys</span>Renal blood flow depends on prostaglandins too — watch Cr &amp; urine output.</div>
+  <div class="rc topazbg"><span class="big">🚨 Triple whammy</span>NSAID + ACE inhibitor/ARB + diuretic = the classic nephrotoxic combo — <mark>the single highest-yield NSAID fact.</mark></div>
+</div>
+
+<!-- ============ WHAT IT DOES ============ -->
+<section id="action">
+  <div class="sec-h"><span class="icon">🎯</span><h2>WHAT IT DOES</h2><span class="step">STEP 1 · COX-1 vs COX-2</span></div>
+  <p class="sec-sub">One enzyme, two jobs — protecting the body and causing the pain. NSAIDs can't fully tell the difference.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>⚖️ COX-1 (the protector) vs COX-2 (the inflamer)</h3>
+      <p><span class="tip">MECHANISM</span> <mark>Nonselective NSAIDs block BOTH COX-1 and COX-2</mark> — that's why they work fast but also cause GI/renal side effects.</p>
+      <div class="duo">
+        <svg viewBox="0 0 440 300" role="img" aria-label="COX-1 panel: this enzyme is present in normal tissue and protects the stomach lining, supports kidney blood flow, and helps platelets clot; blocking it causes GI bleeding and renal injury">
+          <rect x="6" y="6" width="428" height="288" rx="18" fill="rgba(0,194,199,.16)" stroke="#00c2c7" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="24" y="42" font-size="21" font-weight="900" fill="#8ff5f2">🛡️ COX-1</text>
+          <text x="24" y="66" font-size="14" font-style="italic" fill="#d8fff0">"housekeeping" enzyme — always on</text>
+          <text x="24" y="104" font-size="15" font-weight="800" fill="#eafffb">🫙 Protects stomach lining</text>
+          <text x="24" y="132" font-size="15" font-weight="800" fill="#eafffb">💧 Maintains kidney blood flow</text>
+          <text x="24" y="160" font-size="15" font-weight="800" fill="#eafffb">🩹 Helps platelets clot</text>
+          <rect x="20" y="190" width="392" height="90" rx="12" fill="rgba(255,59,107,.5)"/>
+          <text x="34" y="216" font-size="14.5" font-weight="900" fill="#fff">Block COX-1 →</text>
+          <text x="34" y="238" font-size="14" font-weight="800" fill="#ffe3ea">GI ulcers/bleeding, ↓ renal blood</text>
+          <text x="34" y="258" font-size="14" font-weight="800" fill="#ffe3ea">flow, ↑ bleeding risk</text>
+        </svg>
+        <svg viewBox="0 0 440 300" role="img" aria-label="COX-2 panel: this enzyme is induced at the site of injury and drives pain, fever, and swelling; blocking it relieves inflammation; COX-2 selective drugs also raise cardiovascular risk">
+          <rect x="6" y="6" width="428" height="288" rx="18" fill="rgba(255,59,107,.16)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="24" y="42" font-size="21" font-weight="900" fill="#ff9db4">🔥 COX-2</text>
+          <text x="24" y="66" font-size="14" font-style="italic" fill="#ffd9e2">"inflammation" enzyme — induced by injury</text>
+          <text x="24" y="104" font-size="15" font-weight="800" fill="#ffecef">😖 Drives pain</text>
+          <text x="24" y="132" font-size="15" font-weight="800" fill="#ffecef">🌡️ Drives fever</text>
+          <text x="24" y="160" font-size="15" font-weight="800" fill="#ffecef">🎈 Drives swelling</text>
+          <rect x="20" y="190" width="392" height="90" rx="12" fill="rgba(18,184,134,.55)"/>
+          <text x="34" y="216" font-size="14.5" font-weight="900" fill="#03291c">Block COX-2 →</text>
+          <text x="34" y="238" font-size="14" font-weight="800" fill="#03291c">relief of pain/fever/swelling — but</text>
+          <text x="34" y="258" font-size="14" font-weight="800" fill="#03291c">COX-2 selective agents ↑ CV risk</text>
+        </svg>
+      </div>
+      <div class="mn">🧠 <b>"COX-1 keeps you safe, COX-2 makes you hurt."</b> Nonselective NSAIDs (ibuprofen, naproxen, ketorolac, aspirin) block both = pain relief AND stomach/kidney risk. COX-2 selective agents were built to spare COX-1 — but trade GI safety for cardiovascular risk.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>💊 Know the drug names</h3>
+      <table>
+        <tr><th style="width:55%">Drug</th><th class="lo">Notes</th></tr>
+        <tr><td><b>Ibuprofen</b></td><td>OTC, most common</td></tr>
+        <tr><td><b>Naproxen</b></td><td>Longer half-life</td></tr>
+        <tr><td><b>Indomethacin</b></td><td>Strong anti-inflammatory, gout</td></tr>
+        <tr><td><b>Ketorolac</b> <i>(Toradol)</i></td><td>Injectable, short-term only — high GI bleed risk</td></tr>
+        <tr><td><b>Aspirin</b> <i>(salicylic/acetylsalicylic acid)</i></td><td>Irreversibly inhibits platelets — antiplatelet effect</td></tr>
+      </table>
+      <div class="mn">🧠 <b>"-profen" and "-oxicam"</b> style names, plus Toradol and aspirin by name — these are the ones the NCLEX expects you to recognize on sight.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🎯 Indications</h3>
+      <ul class="tick">
+        <li>🔥 <b>Anti-inflammatory &amp; antipyretic</b> (fever reducer)</li>
+        <li>🦴 <b>Rheumatoid arthritis &amp; osteoarthritis</b> — relieves joint pain/swelling</li>
+        <li>🦶 <b>Gout</b> — effective; a client stating "I can use ibuprofen or naproxen for gout pain" shows correct understanding</li>
+        <li>🩹 Mild-to-moderate pain, dysmenorrhea, headache</li>
+      </ul>
+      <div class="mn">🧠 <b>"AIF"</b> — <b>A</b>nalgesic, <b>I</b>nflammation-fighter, <b>F</b>ever-reducer. Three jobs, one drug class.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WATCH FOR ============ -->
+<section id="watch">
+  <div class="sec-h"><span class="icon">🚨</span><h2>WATCH FOR</h2><span class="step">STEP 2 · THE 3 BIG DANGERS</span></div>
+  <p class="sec-sub">GI, renal, cardiovascular — and the interaction that combines two of them into one kidney emergency.</p>
+
+  <div class="grid">
+    <div class="card ruby span2">
+      <h3>🚨 The "Triple Whammy" — NSAID + ACE inhibitor/ARB + Diuretic</h3>
+      <p><mark>The single most-tested NSAID interaction.</mark> Each drug reduces kidney blood flow/pressure by a different route — stack all three and the kidney can lose perfusion fast.</p>
+      <svg viewBox="0 0 700 260" role="img" aria-label="Diagram of three drugs converging on a kidney: NSAID constricts the afferent arteriole reducing blood flow in, ACE inhibitor or ARB dilates the efferent arteriole reducing filtration pressure, diuretic reduces circulating volume, together these cause acute kidney injury">
+        <rect x="4" y="4" width="692" height="252" rx="18" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+        <rect x="24" y="30" width="180" height="54" rx="10" fill="rgba(255,59,107,.65)"/>
+        <text x="38" y="56" font-size="14.5" font-weight="900" fill="#fff">🔥 NSAID</text>
+        <text x="38" y="74" font-size="12" font-weight="700" fill="#ffe3ea">↓ blood flow IN to kidney</text>
+
+        <rect x="24" y="100" width="180" height="54" rx="10" fill="rgba(47,107,255,.65)"/>
+        <text x="38" y="126" font-size="14.5" font-weight="900" fill="#fff">💊 ACE-I / ARB</text>
+        <text x="38" y="144" font-size="12" font-weight="700" fill="#dbe7ff">↓ pressure OUT of kidney</text>
+
+        <rect x="24" y="170" width="180" height="54" rx="10" fill="rgba(0,194,199,.65)"/>
+        <text x="38" y="196" font-size="14.5" font-weight="900" fill="#00252b">💧 Diuretic</text>
+        <text x="38" y="214" font-size="12" font-weight="700" fill="#00343a">↓ circulating volume</text>
+
+        <path d="M210 57 L330 120" stroke="#ffd9b8" stroke-width="3" marker-end="url(#arT)"/>
+        <path d="M210 127 L330 130" stroke="#ffd9b8" stroke-width="3" marker-end="url(#arT)"/>
+        <path d="M210 197 L330 140" stroke="#ffd9b8" stroke-width="3" marker-end="url(#arT)"/>
+
+        <!-- kidney shape -->
+        <path d="M400 90 C 380 70 380 130 400 150 C 420 170 460 170 470 140 C 480 115 470 95 460 85 C 445 70 415 72 400 90 Z" fill="#c02255" stroke="#ffd9b8" stroke-width="2"/>
+        <text x="378" y="196" font-size="14" font-weight="900" fill="#ffb3c6">Kidney</text>
+
+        <path d="M488 118 L560 118" stroke="#ff3b6b" stroke-width="4" marker-end="url(#arT)"/>
+        <rect x="562" y="70" width="128" height="96" rx="12" fill="rgba(255,194,51,.7)"/>
+        <text x="574" y="96" font-size="14" font-weight="900" fill="#231a02">🚨 ACUTE</text>
+        <text x="574" y="116" font-size="14" font-weight="900" fill="#231a02">KIDNEY</text>
+        <text x="574" y="136" font-size="14" font-weight="900" fill="#231a02">INJURY</text>
+        <text x="574" y="154" font-size="11.5" font-weight="700" fill="#3d1a00">↓ perfusion x3</text>
+        <defs><marker id="arT" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffd9b8"/></marker></defs>
+      </svg>
+      <div class="mn">🧠 <b>"Triple Whammy" = NSAID + ACE-I/ARB + Diuretic.</b> Teach clients: <i>"I will call my HCP before taking ibuprofen"</i> if they're on a blood pressure pill and a water pill — that statement is a CORRECT understanding on an exam.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🩸 GI bleed risk</h3>
+      <p>Loss of COX-1's protective mucus/bicarbonate layer → erosion, ulceration, bleeding.</p>
+      <ul class="tick">
+        <li>✅ <b>Take NSAIDs with food</b> — do NOT take on an empty stomach</li>
+        <li>⚠️ Higher risk: elderly, prior PUD, combined with <b>aspirin, corticosteroids, or anticoagulants</b></li>
+        <li>👀 Watch for: coffee-ground emesis, melena (black tarry stool), ↓ Hgb/Hct</li>
+      </ul>
+      <div class="mn">🧠 A client on <b>ranitidine (an H2 blocker acid reducer) plus an NSAID</b> for their acid reflux is being managed <i>correctly</i> — the acid reducer protects the stomach while the NSAID is used.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>💧 Renal risk</h3>
+      <p>Prostaglandins keep the afferent arteriole dilated — block them and kidney perfusion drops, especially with long-term use or in an already-volume-depleted client.</p>
+      <ul class="tick">
+        <li>🧪 <b>Rising creatinine</b> above the normal range</li>
+        <li>🚽 <b>Oliguria</b> — urine output trending toward &lt; <span class="mono">30 mL/hr</span>, a classic oliguria threshold</li>
+        <li>📞 Client teaching gold standard: <mark>"I will call my HCP before taking ibuprofen"</mark> if they have kidney disease, heart failure, or are on ACE-I/ARB + diuretic</li>
+      </ul>
+      <svg viewBox="-10 -10 482 140" role="img" aria-label="Bar scale showing normal creatinine range compared to an elevated creatinine above 1.3 that signals NSAID-related renal injury">
+        <rect x="-6" y="-6" width="474" height="132" rx="14" fill="rgba(13,8,26,.5)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+        <text x="20" y="26" font-size="13" font-weight="900" fill="#ffd9b8">Serum creatinine</text>
+        <rect x="20" y="38" width="190" height="26" rx="8" fill="rgba(18,184,134,.6)"/>
+        <text x="30" y="56" font-size="12" font-weight="800" fill="#03291c">Normal ~0.6–1.3 mg/dL</text>
+        <rect x="216" y="38" width="140" height="26" rx="8" fill="rgba(255,59,107,.65)"/>
+        <text x="226" y="56" font-size="12" font-weight="900" fill="#fff">Rising = renal injury</text>
+        <text x="20" y="92" font-size="12.5" font-style="italic" fill="#d8fff0">Trend it with urine output — both fall together in NSAID nephrotoxicity</text>
+      </svg>
+      <div class="mn">🧠 <b>NSAIDs are "NOT good for the body"</b> in one line: kidneys, heart failure, asthma, GI, and clotting — five systems, one drug class.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>❤️ Cardiovascular risk — worse with COX-2 selective agents</h3>
+      <ul class="tick">
+        <li>📈 <b>Worsening HTN and CHF</b> — NSAIDs cause fluid retention and blunt the effect of antihypertensives</li>
+        <li>🫀 <b>COX-2 selective NSAIDs</b> (e.g. celecoxib) carry the highest cardiovascular risk — increased MI/stroke risk</li>
+        <li>🩸 <b>Thrombosis risk</b> — "sticky blood," increased clot risk with COX-2 selective agents specifically (unlike aspirin, which is antiplatelet)</li>
+        <li>⚠️ Use caution or avoid in clients with <b>known CHF or HTN</b></li>
+      </ul>
+      <div class="mn">🧠 <b>"Swelling heart, HTN worsening"</b> — remember NSAIDs both raise blood pressure AND make the heart work against more fluid. Doubly bad for a CHF client.</div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>⚠️ More NSAID-specific traps</h3>
+      <table>
+        <tr><th style="width:32%">Trap</th><th class="lo">What to know</th></tr>
+        <tr><td>🫁 <b>Asthma worsening</b></td><td>NSAID-exacerbated respiratory disease — some asthmatics react with bronchospasm</td></tr>
+        <tr><td>🧒 <span class="never">Avoid aspirin in children</span></td><td>Risk of <b>Reye's syndrome</b> if given during a viral illness (flu, chickenpox) — use acetaminophen instead</td></tr>
+        <tr><td>👂 <b>Early sign of salicylate (aspirin) toxicity</b></td><td><mark>Tinnitus</mark> — ringing in the ears; report to HCP</td></tr>
+        <tr><td>🩸 <b>Increased bleed risk</b></td><td>Aspirin's antiplatelet effect is irreversible for the life of the platelet (~7–10 days)</td></tr>
+      </table>
+      <div class="mn">🧠 <b>"A-A-A"</b> — <b>A</b>void kids' <b>A</b>spirin = <b>A</b>void Reye's. And if the ears start ringing, the aspirin dose is too high.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TEACH ============ -->
+<section id="teach">
+  <div class="sec-h"><span class="icon">✅</span><h2>TEACH</h2><span class="step">STEP 3 · SAFE USE</span></div>
+  <p class="sec-sub">Correct client statements the NCLEX rewards — and the ones that should trigger more teaching.</p>
+
+  <div class="grid">
+    <div class="card emerald span2">
+      <h3>✅ Client statements that show correct understanding</h3>
+      <div class="ladder">
+        <div class="rung"><div class="n">1</div><div class="t">🍽️ <b>"I don't take ibuprofen on an empty stomach."</b> — take with food</div></div>
+        <div class="rung"><div class="n">2</div><div class="t">📞 <b>"I will call my HCP before taking ibuprofen"</b> — if on ACE-I/ARB + diuretic, or has kidney/heart disease</div></div>
+        <div class="rung"><div class="n">3</div><div class="t">🦴 <b>"I can use ibuprofen or naproxen for gout pain."</b> — NSAIDs are appropriate for gout flares</div></div>
+        <div class="rung"><div class="n">4</div><div class="t">🩹 <b>"I take occasional ibuprofen for my knees."</b> — appropriate PRN use for mild joint pain</div></div>
+      </div>
+      <div class="mn">🧠 These four statements are the ones an NCLEX question rewards as "the teaching was effective" — memorize the pattern, not just the words.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>❌ Never / avoid</h3>
+      <div class="no-grid">
+        <div class="no-t hot"><span class="e">🚫</span>Empty stomach<i>always take with food</i></div>
+        <div class="no-t hot"><span class="e">🧒</span>Aspirin in kids<i>Reye's syndrome</i></div>
+        <div class="no-t hot"><span class="e">💊</span>NSAID + ACE-I + diuretic<i>triple whammy</i></div>
+        <div class="no-t"><span class="e">🩸</span>With anticoagulants<i>bleed risk stacks</i></div>
+      </div>
+      <div class="mn">🧠 Every item on this list either <b>strips the stomach's protection</b> or <b>stacks a bleed/kidney risk</b>.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🧪 Labs/values to track</h3>
+      <ul class="tick">
+        <li>🧪 <b>Creatinine</b> — rising above baseline = renal injury</li>
+        <li>🚽 <b>Urine output</b> — trending down toward oliguria</li>
+        <li>🩸 <b>Hgb/Hct</b> — dropping = possible GI bleed</li>
+        <li>👂 <b>Tinnitus</b> — early clinical sign of aspirin/salicylate toxicity, report immediately</li>
+      </ul>
+      <div class="mn">🧠 <b>"Cr up, urine down, Hgb down, ears ringing"</b> — four red flags, four different organ systems, one drug class.</div>
+    </div>
+
+    <div class="card deep span2">
+      <h3>🔀 When NSAIDs get swapped for acetaminophen</h3>
+      <p>Acetaminophen has minimal effect on platelets and no significant GI erosion risk, so it is preferred over NSAIDs in:</p>
+      <ul class="tick">
+        <li>🩸 Clients with <b>hemophilia</b> or other bleeding disorders</li>
+        <li>🫙 Clients with <b>peptic ulcer disease</b></li>
+        <li>🧒 <b>Children with viral illness (flu)</b> — avoids Reye's risk from aspirin</li>
+      </ul>
+      <p>Tylenol and NSAIDs can be used <b>interchangeably to reduce fever</b> — when one reaches its max daily dose, the other can be alternated in. See <a href="#" style="color:#a5f3d4">NG-232 Acetaminophen</a> for the liver-toxicity side of that trade-off.</p>
+      <div class="mn">🧠 <b>"Bleeder or ulcer? Reach for Tylenol, not the NSAID."</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">⚖️ COX-1 protects, COX-2 inflames</span>Nonselective NSAIDs block both</div>
+    <div class="rc rubybg"><span class="big">🩸 GI bleed</span>#1 risk — always take with food</div>
+    <div class="rc tealbg"><span class="big">💧 Renal risk</span>Watch Cr &amp; urine output, esp. long-term use</div>
+    <div class="rc topazbg"><span class="big">🚨 Triple whammy</span>NSAID + ACE-I/ARB + diuretic = AKI risk</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 4 rapid-fire questions</summary>
+      <div class="qa">Q1: Why do NSAIDs cause both pain relief and stomach/kidney damage? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Nonselective NSAIDs block both COX-1 (protective — stomach lining, renal blood flow, platelets) and COX-2 (inflammatory) — the same mechanism causes the benefit and the harm.</div></div>
+      <div class="qa">Q2: What three drug classes together create the "triple whammy" nephrotoxic combo? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">NSAID + ACE inhibitor (or ARB) + diuretic — each reduces renal perfusion by a different mechanism.</div></div>
+      <div class="qa">Q3: A child has the flu. Which OTC pain/fever reducer should be avoided, and why? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Aspirin — risk of Reye's syndrome in children with a viral illness. Use acetaminophen instead.</div></div>
+      <div class="qa">Q4: What early symptom signals aspirin/salicylate toxicity and should be reported to the HCP? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Tinnitus (ringing in the ears).</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">DOES</span>→
+    <span style="background:rgba(192,34,85,.7)">WATCH</span>→
+    <span style="background:rgba(18,184,134,.7)">TEACH</span>
+  </div>
+  <div>NG-256 · Pain &amp; Anti-Inflammatory unit · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>
