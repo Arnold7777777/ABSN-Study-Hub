@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Herbal Supplements · NG-230 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+/* ---- appended rules for this page (herb arc) ---- */
+#know .sec-h h2{color:#d9c2ff} #know .step{background:var(--amethyst)}
+#danger .sec-h h2{color:#ffb3c6} #danger .step{background:var(--ruby)}
+#ask .sec-h h2{color:#a5f3d4} #ask .step{background:var(--emerald);color:#03291c}
+</style></head>
+<body>
+<!-- absn-floating-nav -->
+<style>
+#absnNav{position:fixed;top:9px;right:9px;z-index:99990;display:flex;gap:6px;
+ font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif}
+#absnNav a{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:#fff;
+ font-weight:800;font-size:.84rem;line-height:1;padding:9px 13px;border-radius:999px;
+ border:1px solid rgba(255,255,255,.32);box-shadow:0 4px 14px rgba(0,0,0,.42);
+ backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);white-space:nowrap}
+#absnNav a.hub{background:linear-gradient(135deg,#0f7d6b,#12b886)}
+#absnNav a.ig{background:linear-gradient(135deg,#5a2d82,#9d5cff)}
+#absnNav a:hover{filter:brightness(1.15)}
+#absnNav a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
+@media (max-width:620px){#absnNav .lb{display:none}#absnNav a{padding:9px 11px}}
+@media print{#absnNav{display:none!important}}
+</style>
+<div id="absnNav">
+  <a class="hub" href="../index.html">&#127968;<span class="lb"> Study Hub</span></a>
+  <a class="ig" href="../infographics.html">&#128444;&#65039;<span class="lb"> Infographics</span></a>
+</div>
+<!-- /absn-floating-nav -->
+
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#know">🌿 Know them</a>
+  <a class="c2" href="#danger">⚠️ Interactions</a>
+  <a class="c3" href="#ask">🗣️ Always ask</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Pharmacology · Complementary &amp; Alternative Agents</div>
+  <h1>Herbal Supplements <span class="drop">🌿</span></h1>
+  <p class="sub">Not "just vitamins" — they interact like drugs because many act like drugs</p>
+  <div class="chips">
+    <span class="chip id">NG-230</span>
+    <span class="chip cat">PHARM</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede">Herbal &amp; dietary supplements are <mark>NOT regulated by the FDA the same way prescription drugs are</mark> — no proof of efficacy is required before sale. Patients often don't think of them as "medications" and <b>don't report them</b> unless specifically asked. Yet several of the most common ones cause serious, well-tested <b>bleeding</b> and <b>serotonin</b> interactions.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">🗣️ ALWAYS ask</span>"Not FDA-regulated like drugs" + patients don't volunteer this — ask every time.</div>
+  <div class="rc rubybg"><span class="big">🩸 Bleed-risk herbs</span>Ginkgo, garlic, ginger, vitamin E, omega-3, ginseng + anticoagulants → ↑ bleeding.</div>
+  <div class="rc tealbg"><span class="big">☀️ St. John's Wort</span>Induces CYP450 → REDUCES effect of OCPs, warfarin-type drugs, many others. Also serotonin syndrome risk.</div>
+  <div class="rc topazbg"><span class="big">🔪 Stop 2–3 weeks pre-op</span>Most supplements should be stopped before surgery.</div>
+</div>
+
+<!-- ============ KNOW THEM ============ -->
+<section id="know">
+  <div class="sec-h"><span class="icon">🌿</span><h2>KNOW THEM</h2><span class="step">STEP 1 · WHAT EACH ONE IS FOR</span></div>
+  <p class="sec-sub">A quick field guide — what it's used for, matched to what it's tested on.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🗺️ Herb-by-system field guide</h3>
+      <table>
+        <tr><th style="width:22%">Herb</th><th style="width:24%">Used for</th><th>Nursing watch-point</th></tr>
+        <tr><td><b>Saw Palmetto</b> (SP)</td><td>Swollen prostate — <b>BPH</b> (Benign Prostatic Hypertrophy)</td><td>Mild GI upset; may add to effect of other hormone/BPH therapies</td></tr>
+        <tr><td><b>Black Cohosh</b></td><td>Menopause — <b>hot flashes</b></td><td>Possible hepatotoxicity reports; avoid with liver disease</td></tr>
+        <tr><td><b>Hawthorn extract</b></td><td>Heart / mild HF support</td><td><mark>Drug-drug interaction PRIORITY</mark> — can potentiate cardiac glycosides &amp; antihypertensives</td></tr>
+        <tr><td><b>Glucosamine</b></td><td>Joint / arthritic pain</td><td>⚠️ Watch for <b>hypoglycemia</b> when combined with anti-diabetic medications</td></tr>
+        <tr><td><b>Evening Primrose Oil</b></td><td>Eczema / skin irritation</td><td>May add to bleeding risk in high doses</td></tr>
+        <tr><td><b>Valerian</b></td><td>Insomnia, anxiety</td><td>"Valium-like" sedative effect — additive CNS depression</td></tr>
+        <tr><td><b>St. John's Wort</b></td><td>Mild depression / insomnia</td><td><span class="never">Induces CYP450</span> + serotonin syndrome risk — see next section</td></tr>
+      </table>
+      <div class="mn">🧠 <b>"SP treats the Swollen Prostate."</b> Match the letters to the body part: SP → prostate, black co-<b>HOT</b> → hot flashes, hawthorn → heart.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🩸 The bleed-risk family</h3>
+      <p>These raise bleeding risk, especially combined with <b>anticoagulants/antiplatelets</b> (warfarin, DOACs, aspirin, clopidogrel):</p>
+      <div class="no-grid">
+        <div class="no-t"><span class="e">🌳</span>Ginkgo Biloba</div>
+        <div class="no-t"><span class="e">🧄</span>Garlic</div>
+        <div class="no-t"><span class="e">🫚</span>Ginger</div>
+        <div class="no-t"><span class="e">🧴</span>Vitamin E</div>
+        <div class="no-t"><span class="e">🐟</span>Omega-3</div>
+        <div class="no-t"><span class="e">🌱</span>Ginseng</div>
+      </div>
+      <div class="mn">🧠 <b>"The G's (mostly) bleed."</b> Ginkgo, Garlic, Ginger, ginseng — plus Vitamin E and omega-3 — round out the bleed-risk crew.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>⛽ Not FDA-regulated the same way</h3>
+      <p>Supplements are regulated as <b>food-category products</b>, not drugs — manufacturers don't have to prove safety or efficacy before selling them. Potency and purity can vary between brands and even between bottles.</p>
+      <div class="mn">🧠 <b>"Not tested like a drug ≠ not acting like a drug."</b> Just because it's sold OTC in the supplement aisle doesn't mean it's inert.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INTERACTIONS ============ -->
+<section id="danger">
+  <div class="sec-h"><span class="icon">⚠️</span><h2>INTERACTIONS</h2><span class="step">STEP 2 · THE HIGH-YIELD DANGERS</span></div>
+  <p class="sec-sub">St. John's Wort is the single most heavily tested herb — it both weakens drugs and can trigger serotonin syndrome.</p>
+
+  <div class="grid">
+    <div class="card garnet span2">
+      <h3>☀️ St. John's Wort — <span class="never">induces CYP450</span></h3>
+      <p><span class="tip">EXAM TIP</span> St. John's Wort <mark>speeds up the liver's CYP450 enzymes</mark>, which clears many drugs <i>faster</i> than normal — so blood levels drop and the drug becomes <b>less effective</b>.</p>
+      <svg viewBox="-10 -10 918 240" role="img" aria-label="Diagram showing St. John's Wort inducing liver CYP450 enzymes, which speeds up metabolism of oral contraceptives and warfarin-type anticoagulants, lowering their blood levels and reducing effectiveness, shown as failed contraception and a falling INR needle">
+        <rect x="-6" y="-6" width="910" height="232" rx="16" fill="rgba(192,34,85,.18)" stroke="#c02255" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="26" y="36" font-size="16" font-weight="900" fill="#ffd9b8">☀️ St. John's Wort</text>
+        <line x1="176" y1="30" x2="228" y2="30" stroke="#ffc233" stroke-width="4" marker-end="url(#arrH)"/>
+        <defs><marker id="arrH" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/></marker></defs>
+        <rect x="232" y="10" width="200" height="42" rx="10" fill="rgba(255,194,51,.3)" stroke="#ffc233" stroke-width="2"/>
+        <text x="332" y="36" text-anchor="middle" font-size="13" font-weight="900" fill="#ffc233">⚡ Induces CYP450</text>
+        <line x1="332" y1="52" x2="332" y2="80" stroke="#ffc233" stroke-width="4" marker-end="url(#arrH2)"/>
+        <defs><marker id="arrH2" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 11 L6 1 L11 11 z" fill="#ffc233"/></marker></defs>
+        <rect x="212" y="84" width="240" height="40" rx="10" fill="rgba(255,255,255,.15)"/>
+        <text x="332" y="109" text-anchor="middle" font-size="12.5" font-weight="900" fill="#fff">Faster drug metabolism</text>
+        <line x1="270" y1="124" x2="150" y2="160" stroke="#ff9db4" stroke-width="3" marker-end="url(#arrH3)"/>
+        <line x1="394" y1="124" x2="520" y2="160" stroke="#ff9db4" stroke-width="3" marker-end="url(#arrH3)"/>
+        <defs><marker id="arrH3" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ff9db4"/></marker></defs>
+        <rect x="30" y="164" width="200" height="46" rx="10" fill="rgba(255,59,107,.3)" stroke="#ff3b6b" stroke-width="2"/>
+        <text x="130" y="184" text-anchor="middle" font-size="12" font-weight="900" fill="#fff">💊 Oral contraceptives</text>
+        <text x="130" y="202" text-anchor="middle" font-size="11.5" fill="#ffd9e2">↓ levels → breakthrough bleeding, ↓ efficacy</text>
+        <rect x="440" y="164" width="230" height="46" rx="10" fill="rgba(255,59,107,.3)" stroke="#ff3b6b" stroke-width="2"/>
+        <text x="555" y="184" text-anchor="middle" font-size="12" font-weight="900" fill="#fff">🩸 Warfarin-type anticoagulants</text>
+        <text x="555" y="202" text-anchor="middle" font-size="11.5" fill="#ffd9e2">↓ drug level → ↓ INR → clot risk</text>
+        <text x="700" y="60" font-size="12" font-style="italic" fill="#ffd9e2">also reduces levels of many</text>
+        <text x="700" y="78" font-size="12" font-style="italic" fill="#ffd9e2">other CYP450-metabolized drugs</text>
+      </svg>
+      <div class="mn">🧠 <b>"St. John's Wort works against your other drugs."</b> It doesn't just fail to help — it actively <i>lowers</i> the level of many drugs it's combined with, including birth control and warfarin. <mark>Reduced INR</mark> on a client taking both = St. John's Wort is the classic culprit.</div>
+    </div>
+
+    <div class="card ruby span2">
+      <h3>🚨 St. John's Wort + antidepressants — <span class="never">serotonin syndrome</span></h3>
+      <p>St. John's Wort has serotonergic activity of its own. Combined with <b>SSRIs, MAOIs, or TCAs</b>, serotonin can build to dangerous levels.</p>
+      <div class="duo">
+        <svg viewBox="0 0 400 220" role="img" aria-label="Mild serotonin syndrome symptoms: shivering and diarrhea">
+          <rect x="4" y="4" width="392" height="212" rx="14" fill="rgba(255,194,51,.2)" stroke="#ffc233" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="24" y="38" font-size="16" font-weight="900" fill="#ffc233">🟡 MILD signs</text>
+          <text x="24" y="80" font-size="15" fill="#fff">🥶 Shivering</text>
+          <text x="24" y="114" font-size="15" fill="#fff">💧 Diarrhea</text>
+          <text x="24" y="148" font-size="13" font-style="italic" fill="#ffe9c2">Early warning — stop the</text>
+          <text x="24" y="166" font-size="13" font-style="italic" fill="#ffe9c2">combination and notify provider</text>
+        </svg>
+        <svg viewBox="0 0 400 220" role="img" aria-label="Severe serotonin syndrome symptoms: muscle rigidity, fever, seizures, and death if untreated">
+          <rect x="4" y="4" width="392" height="212" rx="14" fill="rgba(255,59,107,.22)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="24" y="38" font-size="16" font-weight="900" fill="#ff9db4">🔴 SEVERE signs</text>
+          <text x="24" y="76" font-size="14.5" fill="#fff">💪 Muscle rigidity</text>
+          <text x="24" y="102" font-size="14.5" fill="#fff">🌡️ Fever</text>
+          <text x="24" y="128" font-size="14.5" fill="#fff">⚡ Seizures</text>
+          <text x="24" y="154" font-size="14.5" font-weight="900" fill="#ff9db4">💀 Death if untreated</text>
+          <text x="24" y="186" font-size="12.5" font-style="italic" fill="#ffd9e2">Medical emergency</text>
+        </svg>
+      </div>
+      <p style="margin-top:10px"><b>Never mix</b> St. John's Wort with SSRIs, MAOIs, or TCAs — screen for it every time an antidepressant is on the med list.</p>
+      <div class="mn">🧠 <b>"Sunshine herb, serotonin storm."</b> St. John's Wort feels harmless because it's "natural" — but stacked serotonin from any source (herb + antidepressant) can kill.</div>
+    </div>
+
+    <div class="card citrinec span2">
+      <h3>🔪 Stop before surgery</h3>
+      <p>Because so many supplements affect bleeding, sedation, or drug metabolism, the general teaching point is: <mark>stop most herbal supplements 2–3 weeks before a scheduled surgery</mark>, and always disclose supplement use during pre-op screening. Hawthorn is specifically flagged as a priority drug-drug interaction to review before any procedure.</p>
+      <svg viewBox="0 0 700 130" role="img" aria-label="Timeline showing herbal supplements should be stopped two to three weeks before a scheduled surgery date">
+        <rect x="4" y="4" width="692" height="122" rx="14" fill="rgba(255,138,61,.2)" stroke="#ff8a3d" stroke-width="2" stroke-dasharray="7 6"/>
+        <line x1="60" y1="80" x2="640" y2="80" stroke="#ffe9c2" stroke-width="4"/>
+        <circle cx="120" cy="80" r="9" fill="#ffc233"/>
+        <text x="120" y="50" text-anchor="middle" font-size="13" font-weight="900" fill="#ffc233">STOP herbs</text>
+        <circle cx="600" cy="80" r="9" fill="#ff3b6b"/>
+        <text x="600" y="50" text-anchor="middle" font-size="13" font-weight="900" fill="#ff9db4">SURGERY day</text>
+        <text x="360" y="110" text-anchor="middle" font-size="14" font-weight="900" fill="#fff">2–3 weeks</text>
+      </svg>
+      <div class="mn">🧠 <b>"2 to 3, before they cut on me."</b> Two to three weeks is the standard teaching window for stopping most herbal supplements pre-op.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ALWAYS ASK ============ -->
+<section id="ask">
+  <div class="sec-h"><span class="icon">🗣️</span><h2>ALWAYS ASK</h2><span class="step">STEP 3 · THE NURSING PRIORITY</span></div>
+  <p class="sec-sub">If you don't ask, they usually won't tell you — this is the single highest-yield nursing action on this whole page.</p>
+
+  <div class="grid">
+    <div class="card emerald span2">
+      <h3>✅ Medication reconciliation must include herbs</h3>
+      <div class="ladder">
+        <div class="rung"><div class="n">1</div><div class="t">🗣️ <b>Ask specifically</b> — "any vitamins, herbs, or supplements?" Don't assume they'll volunteer it</div></div>
+        <div class="rung"><div class="n">2</div><div class="t">🩸 <b>Screen for bleed-risk herbs</b> if the patient is on any anticoagulant/antiplatelet</div></div>
+        <div class="rung"><div class="n">3</div><div class="t">☀️ <b>Screen for St. John's Wort</b> if the patient is on an antidepressant, OCP, or warfarin-type drug</div></div>
+        <div class="rung"><div class="n">4</div><div class="t">🔪 <b>Ask about supplements at every pre-op assessment</b> — plan to stop 2–3 weeks out</div></div>
+        <div class="rung"><div class="n">5</div><div class="t">🍬 <b>Watch glucose</b> if glucosamine + anti-diabetic medications are both on the list</div></div>
+      </div>
+      <div class="mn">🧠 <b>"Ask like it's a drug — because it acts like one."</b> This is the single testable nursing action across this entire topic.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>💊 One-glance interaction map</h3>
+      <table>
+        <tr><th style="width:46%">Client is on…</th><th>Ask about…</th></tr>
+        <tr><td>Warfarin / DOAC / aspirin</td><td>Ginkgo, garlic, ginger, vitamin E, omega-3, ginseng</td></tr>
+        <tr><td>SSRI / MAOI / TCA</td><td>St. John's Wort — serotonin syndrome risk</td></tr>
+        <tr><td>Oral contraceptives</td><td>St. John's Wort — reduced efficacy</td></tr>
+        <tr><td>Anti-diabetic medication</td><td>Glucosamine — hypoglycemia risk</td></tr>
+        <tr><td>Cardiac / antihypertensive meds</td><td>Hawthorn — priority drug-drug interaction</td></tr>
+      </table>
+    </div>
+
+    <div class="card tealc">
+      <h3>🧠 Big-picture mnemonic</h3>
+      <p><b>"BLEED &amp; BLOCK":</b></p>
+      <ul class="tick">
+        <li><b>BLEED</b> — ginkgo, garlic, ginger, vitamin E, omega-3, ginseng</li>
+        <li><b>BLOCK</b> — St. John's Wort <i>blocks</i> other drugs from working by speeding their clearance</li>
+      </ul>
+      <div class="mn">🧠 One family raises bleeding risk, the other lowers everything else's effectiveness — know which is which.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">🗣️ Not FDA-regulated</span>patients don't report it — always ask</div>
+    <div class="rc rubybg"><span class="big">🩸 Ginkgo/garlic/ginger/vit E</span>↑ bleeding with anticoagulants</div>
+    <div class="rc tealbg"><span class="big">☀️ St. John's Wort</span>induces CYP450 → ↓ OCP &amp; warfarin efficacy; + serotonin syndrome risk</div>
+    <div class="rc topazbg"><span class="big">🔪 Stop 2–3 weeks pre-op</span>disclose at every pre-op screen</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 4 rapid-fire questions</summary>
+      <div class="qa">Q1: A client on warfarin also takes ginkgo biloba and garlic supplements. What's the concern? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Increased bleeding risk — ginkgo, garlic, ginger, vitamin E, omega-3, and ginseng all add to anticoagulant/antiplatelet bleeding risk.</div></div>
+      <div class="qa">Q2: How does St. John's Wort reduce the effectiveness of oral contraceptives and warfarin? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">It induces liver CYP450 enzymes, which metabolizes those drugs faster — blood levels drop and efficacy is reduced (e.g., breakthrough bleeding on OCPs, falling INR on warfarin).</div></div>
+      <div class="qa">Q3: A client taking St. John's Wort and an SSRI develops shivering and diarrhea. What is this an early sign of? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Mild serotonin syndrome — stop the combination and notify the provider before it progresses to muscle rigidity, fever, seizures, or death.</div></div>
+      <div class="qa">Q4: Why must nurses specifically ask about herbal supplement use? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Supplements aren't FDA-regulated the same way as drugs, and patients often don't consider them "medications," so they frequently go unreported unless asked directly — especially important pre-op and when starting anticoagulants or antidepressants.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">KNOW</span>→
+    <span style="background:rgba(255,59,107,.7)">INTERACTIONS</span>→
+    <span style="background:rgba(18,184,134,.7)">ASK</span>
+  </div>
+  <div>NG-230 · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>

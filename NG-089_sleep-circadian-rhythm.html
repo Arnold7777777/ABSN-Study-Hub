@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sleep &amp; Circadian Rhythm · NG-089 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+/* ---- extra rules for this batch (append-only) ---- */
+.xref{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(47,107,255,.35);
+  border:1px solid rgba(255,255,255,.4);font-size:.92rem}
+.xref b{color:#bcd0ff}
+.dis-grid{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));margin-top:10px}
+.dis-t{border-radius:12px;padding:10px 12px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.dis-t h4{margin:0 0 6px;font-size:.98rem;font-weight:900}
+</style></head>
+<body>
+<!-- absn-floating-nav -->
+<style>
+#absnNav{position:fixed;top:9px;right:9px;z-index:99990;display:flex;gap:6px;
+ font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif}
+#absnNav a{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:#fff;
+ font-weight:800;font-size:.84rem;line-height:1;padding:9px 13px;border-radius:999px;
+ border:1px solid rgba(255,255,255,.32);box-shadow:0 4px 14px rgba(0,0,0,.42);
+ backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);white-space:nowrap}
+#absnNav a.hub{background:linear-gradient(135deg,#0f7d6b,#12b886)}
+#absnNav a.ig{background:linear-gradient(135deg,#5a2d82,#9d5cff)}
+#absnNav a:hover{filter:brightness(1.15)}
+#absnNav a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
+@media (max-width:620px){#absnNav .lb{display:none}#absnNav a{padding:9px 11px}}
+@media print{#absnNav{display:none!important}}
+</style>
+<div id="absnNav">
+  <a class="hub" href="../index.html">&#127968;<span class="lb"> Study Hub</span></a>
+  <a class="ig" href="../infographics.html">&#128444;&#65039;<span class="lb"> Infographics</span></a>
+</div>
+<!-- /absn-floating-nav -->
+
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#cause">🧨 Cause</a>
+  <a class="c2" href="#clues">🔎 Clues</a>
+  <a class="c3" href="#care">🩺 Care</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Mental Health · Fundamentals: Rest &amp; Sleep I</div>
+  <h1>Sleep &amp; Circadian Rhythm <span class="drop">🌙</span></h1>
+  <p class="sub">The Body Clock, Sleep Architecture &amp; Circadian Disorders</p>
+  <div class="chips">
+    <span class="chip id">NG-089</span>
+    <span class="chip cat">Mental Health</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede"><b>One master clock, the suprachiasmatic nucleus (SCN),</b> uses <i>light hitting the retina</i> to time everything — melatonin release, body temperature, cortisol, and when you feel sleepy. Chronic sleep loss raises risk for <b>HTN, obesity, depression, diabetes &amp; stroke</b>. This is the biology page — <b>see Sleep Hygiene (NG-135)</b> for the practical nursing-teaching companion.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">🧠 SCN = master clock</span>Hypothalamus nucleus, entrained by light through the eyes.</div>
+  <div class="rc rubybg"><span class="big">🌑 Melatonin ↑ in dark</span>Pineal gland releases it as light fades — signals "time to sleep."</div>
+  <div class="rc tealbg"><span class="big">🔁 REM every ~90 min</span>Cycles repeat all night; REM periods get longer toward morning.</div>
+  <div class="rc topazbg"><span class="big">✈️ 3 circadian disorders</span>Shift work · Jet lag · Delayed sleep phase — the clock and the schedule disagree.</div>
+</div>
+
+<!-- ============ CAUSE ============ -->
+<section id="cause">
+  <div class="sec-h"><span class="icon">🧨</span><h2>CAUSE</h2><span class="step">STEP 1 · THE BODY CLOCK</span></div>
+  <p class="sec-sub">Light in, melatonin out — one feedback loop drives the entire 24-hour rhythm.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>👁️ Light → SCN → pineal gland → melatonin</h3>
+      <p><span class="tip">PATHWAY</span> Light hits photoreceptors in the retina → signal travels the <b>retinohypothalamic tract</b> → reaches the <mark>suprachiasmatic nucleus (SCN)</mark> in the hypothalamus, the brain's <b>master circadian clock</b> → SCN tells the <b>pineal gland</b> to hold back or release <b>melatonin</b>.</p>
+      <svg viewBox="0 0 460 220" role="img" aria-label="Pathway diagram: light enters the eye, travels the retinohypothalamic tract to the suprachiasmatic nucleus in the hypothalamus, which signals the pineal gland to control melatonin release">
+        <defs>
+          <marker id="arrP" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#ffe49a"/>
+          </marker>
+        </defs>
+        <circle cx="60" cy="110" r="34" fill="#ffd0bd" stroke="#fff" stroke-width="2"/>
+        <circle cx="60" cy="110" r="14" fill="#2b1200"/>
+        <text x="22" y="60" font-size="13" font-weight="900" fill="#ffe49a">Light → Eye</text>
+        <line x1="94" y1="110" x2="150" y2="110" stroke="#ffe49a" stroke-width="4" marker-end="url(#arrP)"/>
+        <text x="98" y="100" font-size="10.5" fill="#ffd9b8">retinohypothalamic tract</text>
+        <rect x="154" y="86" width="110" height="48" rx="10" fill="rgba(157,92,255,.55)" stroke="#d9c2ff" stroke-width="2"/>
+        <text x="209" y="106" font-size="12.5" font-weight="900" fill="#eee2ff" text-anchor="middle">SCN</text>
+        <text x="209" y="122" font-size="10" fill="#eee2ff" text-anchor="middle">(hypothalamus)</text>
+        <line x1="264" y1="110" x2="320" y2="110" stroke="#ffe49a" stroke-width="4" marker-end="url(#arrP)"/>
+        <rect x="324" y="86" width="112" height="48" rx="10" fill="rgba(0,194,199,.55)" stroke="#9ff2ee" stroke-width="2"/>
+        <text x="380" y="106" font-size="12.5" font-weight="900" fill="#00252b" text-anchor="middle">Pineal gland</text>
+        <text x="380" y="122" font-size="10" fill="#00252b" text-anchor="middle">releases melatonin</text>
+        <text x="30" y="176" font-size="13" font-weight="800" fill="#7df0c6">☀️ Daylight → SCN suppresses melatonin → alert</text>
+        <text x="30" y="200" font-size="13" font-weight="800" fill="#ff9db4">🌙 Darkness → SCN allows melatonin release → sleepy</text>
+      </svg>
+      <div class="mn">🧠 <b>"No light, all right (to sleep)."</b> Any bright light late at night — including phone/screen light — tricks the SCN into thinking it's still day and delays melatonin release.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>📈 24-hour rhythm — melatonin &amp; core body temperature</h3>
+      <svg viewBox="0 0 400 200" role="img" aria-label="Line graph over 24 hours showing melatonin rising at night and peaking before waking, while core body temperature is lowest in early morning and highest in the evening">
+        <rect x="6" y="6" width="388" height="188" rx="14" fill="rgba(13,8,26,.4)" stroke="var(--line)"/>
+        <rect x="30" y="20" width="80" height="150" fill="rgba(20,11,36,.5)"/>
+        <rect x="320" y="20" width="50" height="150" fill="rgba(20,11,36,.5)"/>
+        <line x1="30" y1="170" x2="370" y2="170" stroke="#efe6ff" stroke-width="2"/>
+        <text x="24" y="188" font-size="10" fill="#efe6ff">6pm</text>
+        <text x="140" y="188" font-size="10" fill="#efe6ff">12am</text>
+        <text x="250" y="188" font-size="10" fill="#efe6ff">6am</text>
+        <text x="350" y="188" font-size="10" fill="#efe6ff">12pm</text>
+        <polyline points="30,150 90,90 150,45 210,42 270,70 330,140 370,155" fill="none" stroke="#ff3b6b" stroke-width="3.5" stroke-linecap="round"/>
+        <text x="150" y="35" font-size="11" font-weight="900" fill="#ff9db4">Melatonin</text>
+        <polyline points="30,60 90,90 150,130 190,145 250,95 320,55 370,45" fill="none" stroke="#ffc233" stroke-width="3.5" stroke-linecap="round"/>
+        <text x="185" y="160" font-size="11" font-weight="900" fill="#ffe49a">Core temp (lowest ~4-6am)</text>
+      </svg>
+      <p style="margin-top:8px">Core body temperature dips to its lowest point in the early morning hours, then climbs through the day and peaks in the evening — the two rhythms run in sync to time sleep onset and wake.</p>
+    </div>
+
+    <div class="card citrinec">
+      <h3>⭐ Why chronic sleep loss matters</h3>
+      <p><mark>Even a few days of poor sleep</mark> raises risk for:</p>
+      <ul class="tick">
+        <li>❤️ Hypertension</li>
+        <li>⚖️ Obesity</li>
+        <li>😔 Depression &amp; decreased cognitive function</li>
+        <li>🩸 Diabetes</li>
+        <li>🧠 Stroke</li>
+      </ul>
+      <div class="mn">🧠 <b>"HODDS."</b> HTN · Obesity · Depression · Diabetes · Stroke — the five-condition list chronic sleep debt drags up.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLUES ============ -->
+<section id="clues">
+  <div class="sec-h"><span class="icon">🔎</span><h2>CLUES</h2><span class="step">STEP 2 · ARCHITECTURE &amp; DISORDERS</span></div>
+  <p class="sec-sub">A normal night cycles through stages every 90 minutes — a misaligned clock or a broken cycle both look different from the outside.</p>
+
+  <div class="grid">
+    <div class="card sapphire span2">
+      <h3>🔁 Stages of sleep — repeats about every <span class="mono">90</span> minutes</h3>
+      <svg viewBox="-10 -10 792 240" role="img" aria-label="Hypnogram showing sleep stages across a night: stage 1, stage 2, stage 3 deep slow-wave sleep, and REM sleep, cycling roughly every 90 minutes with REM periods lengthening toward morning">
+        <rect x="-6" y="-6" width="784" height="232" rx="14" fill="rgba(13,8,26,.4)" stroke="var(--line)"/>
+        <text x="20" y="30" font-size="12" fill="#efe6ff">Awake</text>
+        <text x="20" y="60" font-size="12" fill="#efe6ff">REM</text>
+        <text x="20" y="90" font-size="12" fill="#efe6ff">Stage 1</text>
+        <text x="20" y="120" font-size="12" fill="#efe6ff">Stage 2</text>
+        <text x="20" y="160" font-size="12" fill="#efe6ff">Stage 3 (delta)</text>
+        <polyline points="90,25 100,25 110,85 140,85 150,58 180,58 190,150 260,150 270,58 300,58 310,115 370,115 380,55 430,55 440,150 480,150 490,45 560,45 570,120 620,120 630,55 680,55"
+          fill="none" stroke="#9ff2ee" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="560" y="190" font-size="11" font-style="italic" fill="#d8fff0">REM periods lengthen toward morning</text>
+      </svg>
+      <table style="margin-top:10px">
+        <tr><th style="width:20%">Stage</th><th>What's happening</th></tr>
+        <tr><td><b>Stage 1</b></td><td>Wakefulness → sleep, non-REM. Lasts a few minutes; loss of awareness but easily aroused.</td></tr>
+        <tr><td><b>Stage 2</b></td><td>Light sleep, non-REM. <span class="mono">10-20</span> minutes; vitals &amp; metabolism start to decrease.</td></tr>
+        <tr><td><b>Stage 3</b></td><td>Deep / slow-wave / delta sleep, non-REM. Vitals decrease further; difficult to awaken; <b>physical/cognitive restoration</b>.</td></tr>
+        <tr><td><b>REM</b></td><td>Rapid eye movement; vivid dreaming; begins ~<span class="mono">90</span> min after falling asleep and recurs every ~<span class="mono">90</span> min; <b>psychological rest</b>.</td></tr>
+      </table>
+      <div class="mn">🧠 <b>"1-2-3-REM, then repeat."</b> Deeper each stage, then REM breaks the pattern for dreaming — the whole loop takes about 90 minutes and repeats all night, with REM periods growing longer closer to morning.</div>
+    </div>
+
+    <div class="card garnet span2">
+      <h3>✈️ Circadian rhythm disorders — the clock and the schedule disagree</h3>
+      <svg viewBox="0 0 700 190" role="img" aria-label="Three clock faces comparing a normal aligned sleep window to shift work disorder, jet lag, and delayed sleep phase, each showing the internal body clock shifted away from the desired sleep time">
+        <rect x="6" y="6" width="688" height="178" rx="14" fill="rgba(13,8,26,.4)" stroke="var(--line)"/>
+        <g>
+          <circle cx="95" cy="90" r="55" fill="rgba(18,184,134,.25)" stroke="#7df0c6" stroke-width="3"/>
+          <line x1="95" y1="90" x2="95" y2="50" stroke="#7df0c6" stroke-width="4" stroke-linecap="round"/>
+          <line x1="95" y1="90" x2="120" y2="105" stroke="#7df0c6" stroke-width="4" stroke-linecap="round"/>
+          <text x="40" y="165" font-size="12" font-weight="900" fill="#7df0c6" text-anchor="middle">✅ Aligned</text>
+        </g>
+        <g>
+          <circle cx="270" cy="90" r="55" fill="rgba(255,59,107,.25)" stroke="#ff9db4" stroke-width="3"/>
+          <line x1="270" y1="90" x2="270" y2="50" stroke="#ffe0a6" stroke-width="2" stroke-dasharray="3 3"/>
+          <line x1="270" y1="90" x2="238" y2="60" stroke="#ff9db4" stroke-width="4" stroke-linecap="round"/>
+          <line x1="270" y1="90" x2="300" y2="115" stroke="#ff9db4" stroke-width="4" stroke-linecap="round"/>
+          <text x="270" y="165" font-size="12" font-weight="900" fill="#ff9db4" text-anchor="middle">🏭 Shift work</text>
+        </g>
+        <g>
+          <circle cx="445" cy="90" r="55" fill="rgba(255,194,51,.25)" stroke="#ffe49a" stroke-width="3"/>
+          <line x1="445" y1="90" x2="445" y2="50" stroke="#ffe0a6" stroke-width="2" stroke-dasharray="3 3"/>
+          <line x1="445" y1="90" x2="480" y2="70" stroke="#ffe49a" stroke-width="4" stroke-linecap="round"/>
+          <line x1="445" y1="90" x2="410" y2="120" stroke="#ffe49a" stroke-width="4" stroke-linecap="round"/>
+          <text x="445" y="165" font-size="12" font-weight="900" fill="#ffe49a" text-anchor="middle">🛫 Jet lag</text>
+        </g>
+        <g>
+          <circle cx="605" cy="90" r="55" fill="rgba(157,92,255,.28)" stroke="#d9c2ff" stroke-width="3"/>
+          <line x1="605" y1="90" x2="605" y2="50" stroke="#ffe0a6" stroke-width="2" stroke-dasharray="3 3"/>
+          <line x1="605" y1="90" x2="628" y2="122" stroke="#d9c2ff" stroke-width="4" stroke-linecap="round"/>
+          <line x1="605" y1="90" x2="575" y2="65" stroke="#d9c2ff" stroke-width="4" stroke-linecap="round"/>
+          <text x="605" y="165" font-size="11.5" font-weight="900" fill="#d9c2ff" text-anchor="middle">🌒 Delayed phase</text>
+        </g>
+        <text x="20" y="30" font-size="11" font-style="italic" fill="#efe6ff">dashed line = desired sleep time · solid hands = where the internal clock actually sits</text>
+      </svg>
+      <div class="dis-grid">
+        <div class="dis-t"><h4>🏭 Shift work disorder</h4>Rotating or night-shift work forces sleep against the SCN's light-set schedule → insomnia during intended sleep + excessive sleepiness on shift, with real accident/error risk.</div>
+        <div class="dis-t"><h4>🛫 Jet lag</h4>Crossing time zones faster than the SCN can re-entrain (roughly <span class="mono">1</span> day per time zone) → fatigue, GI upset, trouble sleeping/waking on the new local clock. Eastward travel is typically harder to adjust to than westward.</div>
+        <div class="dis-t"><h4>🌒 Delayed sleep phase</h4>The internal clock runs later than the desired schedule — can't fall asleep until very late (e.g., <span class="mono">2-6am</span>), then struggles to wake for school/work. Common in adolescents/young adults.</div>
+      </div>
+      <div class="mn">🧠 <b>Management lever = light &amp; melatonin timing.</b> Bright light exposure at the right time of day (and avoiding it at the wrong time), plus timed melatonin, helps re-entrain the SCN in all three — the specific timing differs by disorder and is individualized by a sleep specialist.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>😴 Insomnia</h3>
+      <p>Difficulty falling asleep, staying asleep, awakening too early, or not feeling rested on waking.</p>
+      <p><b>Chronic insomnia:</b> occurs <span class="mono">3</span>+ nights/week for more than <span class="mono">3</span> months.</p>
+    </div>
+
+    <div class="card ruby">
+      <h3>🫁 Sleep apnea — two types</h3>
+      <ul class="tick">
+        <li><b>Obstructive (OSA):</b> soft tissue in the mouth/throat relaxes and blocks the airway</li>
+        <li><b>Central:</b> the CNS fails to signal the body to breathe — no airway blockage, the drive to breathe itself pauses</li>
+      </ul>
+      <p>Both show cycles of breathing stops/starts, with pauses <mark>lasting more than <span class="mono">10</span> seconds</mark>.</p>
+    </div>
+
+    <div class="card ruby span2">
+      <h3>🚨 Narcolepsy — the safety-critical sleep disorder</h3>
+      <ul class="tick">
+        <li>😴 <b>Sudden "sleep attacks"</b> — falls asleep without warning</li>
+        <li>💪 <b>Cataplexy</b> — sudden muscle weakness triggered by strong emotion</li>
+        <li>👁️ <b>Hypnagogic hallucinations</b> — vivid hallucinations at sleep onset</li>
+        <li>🧠 Linked to a <b>lack of REM regulation</b> — REM-like features intrude into wakefulness</li>
+      </ul>
+      <div class="mn">🧠 <b>Huge safety risk</b> — driving, walking, standing. The highest-priority assessment question is about safety during high-risk activities: <i>"Do you have difficulty staying awake while driving?"</i></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CARE ============ -->
+<section id="care">
+  <div class="sec-h"><span class="icon">🩺</span><h2>CARE</h2><span class="step">STEP 3 · ASSESS &amp; SUPPORT</span></div>
+  <p class="sec-sub">Ask about safety first, then hand off to the practical teaching page for what to actually change.</p>
+
+  <div class="grid">
+    <div class="card emerald span2">
+      <h3>🩺 Priority assessment questions by disorder</h3>
+      <table>
+        <tr><th style="width:30%">Disorder</th><th>Priority nursing question / focus</th></tr>
+        <tr><td><b>Narcolepsy</b></td><td>Safety during driving/high-risk activity — "Do you have difficulty staying awake when you are driving?"</td></tr>
+        <tr><td><b>Insomnia</b></td><td>Sleep pattern history, safety, and contributing factors (stress, environment, meds, substances) before jumping to a sleep aid</td></tr>
+        <tr><td><b>Sleep apnea</b></td><td>Witnessed breathing pauses, snoring, daytime sleepiness — screen for OSA vs. central pattern</td></tr>
+        <tr><td><b>Circadian disorders</b></td><td>Work schedule, travel history, and usual bed/wake times — mismatch between the clock and the required schedule is the clue</td></tr>
+      </table>
+      <div class="mn">🧠 <b>"S.E.M."</b> — Ask about <b>S</b>ubstance use (caffeine, nicotine, alcohol) · <b>E</b>nvironment · <b>M</b>eds, for any client reporting a sleep problem, before assuming it's purely circadian.</div>
+    </div>
+
+    <div class="card topaz">
+      <h3>✅ Nursing diagnosis example</h3>
+      <p><b>Disturbed sleep pattern</b> related to <i>anxiety</i> or <i>alteration in client routine</i> — common framing when the SCN's schedule is disrupted by stress, travel, or shift changes.</p>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🔗 Where the "what to do about it" lives</h3>
+      <p>This page explains <b>why</b> the clock runs the way it does and what disrupts it. The <b>actionable teaching</b> — light exposure timing, caffeine/alcohol cutoffs, bedroom environment, hospital-unit strategies — is the companion page.</p>
+      <div class="xref">🔗 <b>See NG-135 — Sleep Hygiene</b> for the practical nurse-teaching checklist built directly on this page's biology.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">🧠 SCN</span>Master clock in the hypothalamus, set by light through the eyes</div>
+    <div class="rc rubybg"><span class="big">🌑 Melatonin</span>Pineal gland releases it in the dark → sleepy</div>
+    <div class="rc tealbg"><span class="big">🔁 90-min cycle</span>Stage 1 → 2 → 3 (delta) → REM, repeating all night</div>
+    <div class="rc topazbg"><span class="big">✈️ 3 disorders</span>Shift work · Jet lag · Delayed sleep phase — clock vs. schedule mismatch</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 4 rapid-fire questions</summary>
+      <div class="qa">Q1: What structure is the body's master circadian clock, and what sets it? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">The suprachiasmatic nucleus (SCN) in the hypothalamus — set primarily by light entering the eyes via the retinohypothalamic tract.</div></div>
+      <div class="qa">Q2: What gland releases melatonin, and when? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">The pineal gland — release increases as light fades in the evening and is suppressed by light exposure.</div></div>
+      <div class="qa">Q3: How often does the sleep-stage cycle repeat, and which stage brings vivid dreaming? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">About every 90 minutes; REM sleep brings vivid dreaming and lengthens as the night goes on.</div></div>
+      <div class="qa">Q4: Name the three circadian rhythm disorders covered here. <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Shift work disorder, jet lag, and delayed sleep phase — all cases where the SCN's internal timing doesn't match the required or desired schedule.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">CAUSE</span>→
+    <span style="background:rgba(47,107,255,.7)">CLUES</span>→
+    <span style="background:rgba(18,184,134,.7)">CARE</span>
+  </div>
+  <div>NG-089 · Mental Health batch · pairs with NG-135 Sleep Hygiene · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>

@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SNRI vs. TCA · NG-187 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#sidea .sec-h h2{color:#d9c2ff} #sidea .step{background:var(--amethyst)}
+#sideb .sec-h h2{color:#bcd0ff} #sideb .step{background:var(--sapphire)}
+#apart  .sec-h h2{color:#a5f3d4} #apart .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+/* ---------- extra: ladder note chip (appended, not overriding shell rules) ---------- */
+.ladderNote{display:inline-block;font-size:.78rem;font-weight:800;padding:3px 10px;border-radius:8px;
+  background:rgba(255,255,255,.18);border:1px solid var(--line);margin-top:8px}
+</style></head>
+<body>
+<!-- absn-floating-nav -->
+<style>
+#absnNav{position:fixed;top:9px;right:9px;z-index:99990;display:flex;gap:6px;
+ font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif}
+#absnNav a{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:#fff;
+ font-weight:800;font-size:.84rem;line-height:1;padding:9px 13px;border-radius:999px;
+ border:1px solid rgba(255,255,255,.32);box-shadow:0 4px 14px rgba(0,0,0,.42);
+ backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);white-space:nowrap}
+#absnNav a.hub{background:linear-gradient(135deg,#0f7d6b,#12b886)}
+#absnNav a.ig{background:linear-gradient(135deg,#5a2d82,#9d5cff)}
+#absnNav a:hover{filter:brightness(1.15)}
+#absnNav a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
+@media (max-width:620px){#absnNav .lb{display:none}#absnNav a{padding:9px 11px}}
+@media print{#absnNav{display:none!important}}
+</style>
+<div id="absnNav">
+  <a class="hub" href="../index.html">&#127968;<span class="lb"> Study Hub</span></a>
+  <a class="ig" href="../infographics.html">&#128444;&#65039;<span class="lb"> Infographics</span></a>
+</div>
+<!-- /absn-floating-nav -->
+
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#sidea">🟣 SNRI</a>
+  <a class="c2" href="#sideb">🔵 TCA</a>
+  <a class="c3" href="#apart">⚖️ Tell them apart</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Psych-Mental Health Pharmacology · Antidepressant Ladder — Rungs 2 &amp; 3 of 3</div>
+  <h1>SNRI <span class="drop">vs.</span> TCA</h1>
+  <p class="sub">Two older or dual-acting antidepressant classes — one modern &amp; broad, one older &amp; risky</p>
+  <div class="chips">
+    <span class="chip id">NG-187</span>
+    <span class="chip cat">PSYCH PHARM</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede"><b>SNRIs</b> block reuptake of <b>two</b> neurotransmitters — serotonin AND norepinephrine — and double as <b>neuropathic pain</b> drugs. <b>TCAs</b> are an older class that also boosts serotonin &amp; norepinephrine, but drags a heavy <b>anticholinergic</b> side-effect profile and a genuinely <b>dangerous overdose</b> behind it. Same neurotransmitter targets, very different safety margins — that's the whole point of this comparison.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">🎯 SNRI = dual + pain</span>Serotonin AND norepinephrine reuptake blocked — also treats neuropathic/fibromyalgia pain.</div>
+  <div class="rc rubybg"><span class="big">💀 TCA = narrow margin</span>Cardiotoxic in overdose — QT prolongation, arrhythmia. A small extra dose can kill.</div>
+  <div class="rc tealbg"><span class="big">🥴 TCA = anticholinergic</span>"Can't see, can't pee, can't spit, can't poop" — the classic tetrad.</div>
+  <div class="rc topazbg"><span class="big">🚨 Serotonin syndrome</span>Agitation, hyperthermia, clonus/hyperreflexia, diaphoresis, tremor — same 5 signs, same risk, both classes.</div>
+</div>
+
+<!-- ============ SIDE A: SNRI ============ -->
+<section id="sidea">
+  <div class="sec-h"><span class="icon">🟣</span><h2>SIDE A · SNRI</h2><span class="step">STEP 1 · DUAL &amp; MODERN</span></div>
+  <p class="sec-sub">Rung 2 of the ladder — same serotonin trick as an SSRI, plus norepinephrine, plus a second job treating chronic pain.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🔬 Blocks TWO reuptake pumps at once</h3>
+      <p><span class="tip">MOA</span> Like an SSRI, an SNRI blocks the <b>serotonin</b> reuptake pump — but it <mark>also blocks the norepinephrine reuptake pump</mark>, so both neurotransmitters build up in the synapse. That second target is what gives SNRIs their extra job: treating <b>neuropathic pain</b>, not just mood.</p>
+      <svg viewBox="-10 -10 488 280" role="img" aria-label="Synapse diagram showing an SNRI blocking both the serotonin reuptake pump and the norepinephrine reuptake pump, with both neurotransmitters accumulating in the synaptic cleft">
+        <rect x="-6" y="-6" width="480" height="272" rx="16" fill="rgba(157,92,255,.16)" stroke="#9d5cff" stroke-width="2" stroke-dasharray="7 6"/>
+        <rect x="30" y="30" width="380" height="46" rx="12" fill="#9d5cff" opacity=".55"/>
+        <text x="46" y="58" font-size="14" font-weight="800" fill="#fff">Presynaptic neuron</text>
+        <rect x="30" y="180" width="380" height="46" rx="12" fill="#2f6bff" opacity=".55"/>
+        <text x="46" y="208" font-size="14" font-weight="800" fill="#fff">Postsynaptic neuron</text>
+
+        <rect x="130" y="76" width="30" height="30" rx="7" fill="#666"/>
+        <line x1="130" y1="76" x2="160" y2="106" stroke="#ff3b6b" stroke-width="4"/>
+        <line x1="160" y1="76" x2="130" y2="106" stroke="#ff3b6b" stroke-width="4"/>
+        <text x="98" y="128" font-size="12.5" font-weight="900" fill="#ffc233">Serotonin pump</text>
+        <text x="98" y="144" font-size="12.5" font-weight="900" fill="#ff9db4">BLOCKED</text>
+
+        <rect x="270" y="76" width="30" height="30" rx="7" fill="#666"/>
+        <line x1="270" y1="76" x2="300" y2="106" stroke="#ff3b6b" stroke-width="4"/>
+        <line x1="300" y1="76" x2="270" y2="106" stroke="#ff3b6b" stroke-width="4"/>
+        <text x="238" y="128" font-size="12.5" font-weight="900" fill="#7df0c6">NE pump</text>
+        <text x="252" y="144" font-size="12.5" font-weight="900" fill="#ff9db4">BLOCKED</text>
+
+        <circle cx="150" cy="150" r="5" fill="#ffc233"/><circle cx="170" cy="160" r="5" fill="#ffc233"/><circle cx="140" cy="165" r="5" fill="#ffc233"/>
+        <circle cx="280" cy="150" r="5" fill="#7df0c6"/><circle cx="300" cy="160" r="5" fill="#7df0c6"/><circle cx="270" cy="165" r="5" fill="#7df0c6"/>
+        <text x="24" y="248" font-size="14" font-weight="900" fill="#e9dcff">Serotonin ↑ AND norepinephrine ↑ = mood + pain relief</text>
+      </svg>
+      <div class="mn">🧠 <b>“SNRI = double duty.”</b> One drug, two pumps blocked, two jobs done: mood <i>and</i> pain.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>💊 Know the name — Duloxetine</h3>
+      <p><b>Duloxetine</b> — think <b>"DUAL-oxetine"</b>: dual mechanism, dual purpose.</p>
+      <ul class="tick">
+        <li>😔 <b>Depression</b></li>
+        <li>🔥 <b>Neuropathic pain</b> — diabetic peripheral neuropathy</li>
+        <li>🦴 <b>Fibromyalgia</b> pain</li>
+      </ul>
+      <div class="mn">🧠 <b>"If a fibromyalgia patient on duloxetine says they're not depressed, they need education"</b> — it's still the right drug. It's treating their <i>pain</i>, not (only) their mood.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>⭐ Key point — pain AND sleep</h3>
+      <p>Duloxetine helps with <b>chronic pain</b> and <b>improves sleep quality</b> in fibromyalgia patients — a two-for-one benefit worth pointing out in patient teaching.</p>
+      <div class="mn">🧠 SNRIs are often reached for <b>second</b>, after an SSRI trial, or <b>first</b> when chronic pain is part of the picture.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SIDE B: TCA ============ -->
+<section id="sideb">
+  <div class="sec-h"><span class="icon">🔵</span><h2>SIDE B · TCA</h2><span class="step">STEP 2 · OLDER &amp; RISKIER</span></div>
+  <p class="sec-sub">Rung 3 of the ladder — an older class that hits more receptors than it needs to, and that's exactly the problem.</p>
+
+  <div class="grid">
+    <div class="card ruby span2">
+      <h3>🥴 The anticholinergic tetrad — "dry body"</h3>
+      <p>TCAs don't just block serotonin/norepinephrine reuptake — they also block <b>acetylcholine</b> receptors, causing a predictable dry-everything picture.</p>
+      <svg viewBox="-10 -10 484 260" role="img" aria-label="Body diagram illustrating the anticholinergic tetrad from tricyclic antidepressants: dry eyes, dry mouth, urinary retention, and constipation">
+        <rect x="-6" y="-6" width="476" height="252" rx="16" fill="rgba(47,107,255,.16)" stroke="#2f6bff" stroke-width="2" stroke-dasharray="7 6"/>
+        <circle cx="220" cy="60" r="28" fill="#ffd0bd"/>
+        <rect x="202" y="88" width="36" height="76" rx="16" fill="#ffd0bd"/>
+        <rect x="186" y="164" width="16" height="60" rx="7" fill="#ffd0bd"/>
+        <rect x="238" y="164" width="16" height="60" rx="7" fill="#ffd0bd"/>
+        <text x="24" y="34" font-size="14" font-weight="900" fill="#bcd0ff">👁️ Can't SEE</text>
+        <text x="24" y="52" font-size="12" font-style="italic" fill="#d8e6ff">blurred vision</text>
+        <line x1="24" y1="40" x2="204" y2="52" stroke="#bcd0ff" stroke-width="1.5"/>
+        <text x="300" y="34" font-size="14" font-weight="900" fill="#7df0c6">🫗 Can't SPIT</text>
+        <text x="300" y="52" font-size="12" font-style="italic" fill="#d8fff0">dry mouth</text>
+        <line x1="298" y1="40" x2="238" y2="52" stroke="#7df0c6" stroke-width="1.5"/>
+        <text x="24" y="150" font-size="14" font-weight="900" fill="#ffc233">🚻 Can't PEE</text>
+        <text x="24" y="168" font-size="12" font-style="italic" fill="#ffe49a">urinary retention</text>
+        <line x1="24" y1="156" x2="200" y2="150" stroke="#ffc233" stroke-width="1.5"/>
+        <text x="300" y="150" font-size="14" font-weight="900" fill="#ff9db4">💩 Can't POOP</text>
+        <text x="300" y="168" font-size="12" font-style="italic" fill="#ffd9e2">constipation</text>
+        <line x1="298" y1="156" x2="240" y2="150" stroke="#ff9db4" stroke-width="1.5"/>
+        <text x="24" y="212" font-size="14" font-weight="900" fill="#e9dcff">"Dry body" — can't see, can't pee, can't spit, can't poop</text>
+      </svg>
+      <div class="mn">🧠 <b>"Amy trips on things"</b> — <b>Amitriptyline</b> causes <b>orthostatic hypotension</b>: teach <mark>slow position changes</mark> to avoid a dizzy fall. <b>Imipramine — "Inhibit my PEEing"</b> = urinary retention is its stand-out anticholinergic effect.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>💊 Know the names</h3>
+      <ul class="tick">
+        <li><b>Amitriptyline</b> — orthostatic hypotension</li>
+        <li><b>Imipramine</b> — urinary retention</li>
+      </ul>
+      <p style="margin-top:6px"><b>Indications:</b> depression, anxiety, and neuropathic pain (diabetics &amp; fibromyalgia) — TCAs treat pain too, like SNRIs, just with a rougher side-effect trade-off.</p>
+      <div class="mn">🧠 Two drugs, two classic teaching points: <b>Ami</b>triptyline = <b>slow rise</b>. <b>Imi</b>pramine = <b>slow stream</b>.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>💀 Cardiotoxicity — the reason TCAs fell out of favor</h3>
+      <p><mark>Narrow safety margin</mark> — in overdose, TCAs cause <b>QT prolongation</b> and life-threatening <b>cardiac arrhythmias</b>. Unlike SSRIs/SNRIs, a TCA overdose is a genuine cardiac emergency.</p>
+      <svg viewBox="0 0 440 170" role="img" aria-label="ECG strip showing a normal QT interval compared to a prolonged QT interval seen in tricyclic antidepressant overdose" style="margin-top:6px">
+        <rect x="6" y="6" width="428" height="158" rx="14" fill="rgba(13,8,26,.4)" stroke="rgba(255,255,255,.25)"/>
+        <text x="20" y="28" font-size="13" font-weight="900" fill="#7df0c6">✅ Normal QT</text>
+        <polyline points="20,60 50,60 58,40 66,70 74,55 100,55 110,50 118,58 126,52 160,52" fill="none" stroke="#7df0c6" stroke-width="2.5"/>
+        <text x="20" y="98" font-size="13" font-weight="900" fill="#ff9db4">🚨 Prolonged QT — TCA overdose</text>
+        <polyline points="20,130 50,130 58,110 66,140 74,125 220,125 230,115 240,140 250,120 280,120" fill="none" stroke="#ff3b6b" stroke-width="2.5"/>
+        <line x1="66" y1="145" x2="66" y2="150" stroke="#ffc233" stroke-width="1"/>
+        <line x1="66" y1="140" x2="230" y2="140" stroke="#ffc233" stroke-width="1.5" stroke-dasharray="4 3"/>
+        <text x="120" y="155" font-size="11" fill="#ffe49a">QT interval — stretched out</text>
+      </svg>
+      <div class="mn">🧠 <b>"TCAs can stop a heart before they stop a headache."</b> A small dose miscalculation or an overdose attempt with a narrow-margin drug like this is a true cardiac emergency — assess for arrhythmia, monitor ECG.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TELL THEM APART ============ -->
+<section id="apart">
+  <div class="sec-h"><span class="icon">⚖️</span><h2>TELL THEM APART</h2><span class="step">STEP 3 · SIDE BY SIDE</span></div>
+  <p class="sec-sub">Same neurotransmitter targets, very different risk profile — this is the table the "vs." title is asking for.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>⚖️ SNRI vs. TCA — head to head</h3>
+      <table>
+        <tr><th class="up" style="width:50%">🟣 SNRI</th><th class="lo" style="width:50%">🔵 TCA</th></tr>
+        <tr><td><b>Mechanism:</b> blocks serotonin + norepinephrine reuptake, selectively</td>
+            <td><b>Mechanism:</b> blocks serotonin + norepinephrine reuptake, PLUS acetylcholine &amp; histamine receptors</td></tr>
+        <tr><td><b>Drug:</b> Duloxetine</td><td><b>Drugs:</b> Amitriptyline, Imipramine</td></tr>
+        <tr><td><b>Signature side effects:</b> nausea, dry mouth (mild), ↑BP at high doses</td>
+            <td><b>Signature side effects:</b> full anticholinergic tetrad — can't see, pee, spit, poop</td></tr>
+        <tr><td><b>Overdose risk:</b> relatively wide safety margin</td>
+            <td><b>Overdose risk:</b> <mark>narrow margin — cardiotoxic, QT prolongation, arrhythmia</mark></td></tr>
+        <tr><td><b>Shared use:</b> neuropathic pain, fibromyalgia</td>
+            <td><b>Shared use:</b> neuropathic pain, fibromyalgia</td></tr>
+        <tr><td><b>Ladder position:</b> often 2nd-line, sometimes 1st</td>
+            <td><b>Ladder position:</b> older, generally reserved when newer agents fail</td></tr>
+      </table>
+      <div class="mn">🧠 <b>"Same targets, different manners."</b> Both hit serotonin + norepinephrine — the TCA just also grabs receptors it didn't need to, and that's where all its side effects and its overdose danger come from.</div>
+    </div>
+
+    <div class="card ruby span2">
+      <h3>🚨 Both interact with MAOIs the same dangerous way</h3>
+      <p><span class="never">Never combine an SNRI or a TCA with an MAOI</span> — risk of <b>serotonin syndrome</b>. A <b>2-week washout period</b> is required when switching to or from an MAOI.</p>
+      <div class="mn">🧠 <b>"MAOI = Anti... depressant STOP."</b> Whichever antidepressant a patient is switching away from or onto an MAOI, count two weeks first. See <b>NG-154</b> for the full MAOI washout rule.</div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>🪜 Where these two sit on the antidepressant ladder</h3>
+      <svg viewBox="0 0 440 300" role="img" aria-label="Antidepressant treatment ladder from bottom to top: SSRI first line, then SNRI and TCA highlighted as rungs two and three, then MAOI last line, with increasing side effect burden going up">
+        <rect x="6" y="6" width="428" height="288" rx="16" fill="rgba(13,8,26,.35)" stroke="rgba(255,255,255,.25)" stroke-width="1.5"/>
+        <text x="330" y="26" font-size="12" font-weight="800" fill="#ffd9e2" text-anchor="middle">↑ more side effects</text>
+        <rect x="30" y="232" width="380" height="42" rx="10" fill="#12b886" opacity=".65"/>
+        <text x="46" y="258" font-size="15" font-weight="900" fill="#03291c">SSRI — 1st line (see NG-205)</text>
+        <rect x="30" y="180" width="380" height="42" rx="10" fill="#2f6bff" stroke="#eafff7" stroke-width="3"/>
+        <text x="46" y="206" font-size="16" font-weight="900" fill="#fff">SNRI — dual mechanism ⭐ YOU ARE HERE</text>
+        <rect x="30" y="128" width="380" height="42" rx="10" fill="#ff8a3d" stroke="#eafff7" stroke-width="3"/>
+        <text x="46" y="154" font-size="16" font-weight="900" fill="#2b1200">TCA — cardiotoxic in OD ⭐ YOU ARE HERE</text>
+        <rect x="30" y="78" width="380" height="42" rx="10" fill="#c02255" opacity=".78"/>
+        <text x="46" y="104" font-size="15" font-weight="900" fill="#fff">MAOI — last line (see NG-154)</text>
+        <path d="M20 268 L20 90" stroke="#a5f3d4" stroke-width="3" marker-end="url(#arrLad2)"/>
+        <defs><marker id="arrLad2" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#a5f3d4"/></marker></defs>
+      </svg>
+      <span class="ladderNote">🪜 This page = Rungs 2 &amp; 3 · see NG-205 (SSRI) and NG-154 (MAOI) for the rest of the ladder</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">🎯 SNRI</span>= dual reuptake block + treats pain (duloxetine)</div>
+    <div class="rc rubybg"><span class="big">💀 TCA</span>= anticholinergic tetrad + cardiotoxic overdose</div>
+    <div class="rc tealbg"><span class="big">🚫 Never with an MAOI</span>= 2-week washout, both classes</div>
+    <div class="rc topazbg"><span class="big">🚨 Serotonin syndrome</span>= agitation, hyperthermia, clonus/hyperreflexia, diaphoresis, tremor</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 4 rapid-fire questions</summary>
+      <div class="qa">Q1: A fibromyalgia patient on duloxetine says they aren't depressed and asks why they're on an antidepressant. What do you teach? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Duloxetine is an SNRI that also treats neuropathic and fibromyalgia pain — it's the right drug for their pain, not only for mood.</div></div>
+      <div class="qa">Q2: What four things can't a patient do on a TCA? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Can't see (blurred vision), can't pee (urinary retention), can't spit (dry mouth), can't poop (constipation) — the anticholinergic tetrad.</div></div>
+      <div class="qa">Q3: Why is a TCA overdose more dangerous than an SSRI or SNRI overdose? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">TCAs have a narrow safety margin and are cardiotoxic — overdose can cause QT prolongation and life-threatening arrhythmias.</div></div>
+      <div class="qa">Q4: A patient wants to switch from imipramine to an MAOI. What has to happen first? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">A 2-week washout period, to avoid serotonin syndrome from combining serotonergic antidepressant classes.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">SNRI</span>→
+    <span style="background:rgba(47,107,255,.7)">TCA</span>→
+    <span style="background:rgba(18,184,134,.7)">APART</span>
+  </div>
+  <div>NG-187 · Antidepressant ladder 2–3 of 3 (see NG-205, NG-154) · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>
