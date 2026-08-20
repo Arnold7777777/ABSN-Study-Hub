@@ -1,54 +1,61 @@
 =====================================================================
- 20 MATERNITY PAGES  -  one folder, one upload
+ RENDERING FIX  -  4 files, all top level
 =====================================================================
 
-All 20 files sit in a single folder called "more".
-Four of them you already uploaded last time - they are identical, so
-GitHub will simply ignore those. No harm in re-uploading them.
+THE PROBLEM YOU SAW
 
-  Previa vs Abruption          Prenatal Assessment & GTPAL
-  Preeclampsia & HELLP         Gestational Diabetes
-  Postpartum Haemorrhage       Postpartum Assessment
-  Cord Prolapse                Fetal Development & the Placenta
-  Fetal Monitoring (VEAL CHOP) Contraception
-  The Stages of Labour         The High-Risk Newborn
-  APGAR & Newborn Assessment   Induction, Oxytocin & Caesarean
-  Ectopic & Molar Pregnancy    Discomforts & Hyperemesis
-  Obstetric Emergencies        TORCH Infections
-  Preterm Labour               Breastfeeding
+  Coloured blocks with nothing inside them on nur258.
+
+WHAT WAS CAUSING IT
+
+  I had put a "frosted glass" blur effect on every card I added.
+  With all modules open your page was asking Chrome to blur 186
+  separate layers at once - 110 of those were mine.
+
+  On some graphics drivers Chrome gives up on that and paints the
+  coloured box but never paints the text inside it. That is exactly
+  what your screenshots showed: the first card fine, later ones empty.
+
+  It rendered perfectly on my machine, which is why it took me three
+  attempts to find. Sorry about that.
+
+THE FIX
+
+  Blur removed from every style block I added. The cards are now
+  slightly more solid instead (72% instead of 60%), so the text is
+  just as readable. The page looks essentially the same.
+
+  Your page is back to the 76 blurred layers your original design
+  used - none of them mine.
 
 =====================================================================
- HOW TO UPLOAD
+ UPLOAD  -  4 loose files, no folders
 =====================================================================
 
   1. Right-click the zip > "Extract All" > "Extract"
   2. Go to  https://github.com/arnold7777777/ABSN-Study-Hub
   3. "Add file"  >  "Upload files"
-  4. Drag in the ONE folder called:   more
-     (drag the folder itself, not what is inside it)
-  5. Check the list says 20 files, then "Commit changes"
+  4. Drag in these FOUR files:
 
-  You already have absn-ng.css from last time, so nothing else needed.
+         nur234.html
+         nur235.html
+         nur258.html
+         absn-ng.css
 
-=====================================================================
- CHECK
-=====================================================================
-
-  https://arnold7777777.github.io/ABSN-Study-Hub/more/NG-323_fetal-monitoring.html
-
-  Ctrl+Shift+R. You should see the VEAL CHOP table with red and green
-  cells, and the five-step intervention flow for late decelerations.
+     Do NOT drag READ_ME.txt.
+  5. Commit changes.
 
 =====================================================================
- WHERE THINGS STAND
+ THEN CHECK
 =====================================================================
 
-  Infographics   32 of 112 written   (NUR 258 done, NUR 234 nearly done)
-  Next           57 pages for NUR 235 (paediatrics)
-  Then           335 blank ATI template rows
-  Then           NGN quiz questions
+  https://arnold7777777.github.io/ABSN-Study-Hub/nur258.html
 
-  Still sitting in your repo: 74 duplicate files at the top level
-  (72 NG-*.html plus "index (1).html" and "index (2).html"). Every one
-  is an exact copy of a file that already exists in a folder. Safe to
-  delete whenever you feel like tidying - nothing links to them.
+  Ctrl+Shift+R, open Module 10 (Oncologic Disorders).
+
+  You should see: a purple "The one idea" card, a table with three
+  rows about fast-dividing tissue, then a red card with a big
+  "ANC < 500" in it.
+
+  If any block is STILL empty, it is not the blur and I need you to
+  try one private window (Ctrl+Shift+N) so we can rule out extensions.
