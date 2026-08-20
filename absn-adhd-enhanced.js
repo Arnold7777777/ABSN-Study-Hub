@@ -16,7 +16,7 @@
     if(/^nur(234|235|258)\.html$/.test(name)) return 'course';
     if(/-quiz\.html$/.test(name)||name==='super-mega-quiz.html'||name==='pharmacology-new.html') return 'quiz';
     if(name.indexOf('podcast')>-1) return 'podcast';
-    if(name==='pharmacology.html'||name==='physiology.html') return 'resource';
+    if(name==='pharmacology.html'||name==='physiology.html') return 'guide';
     return 'general';
   }
 
@@ -76,6 +76,12 @@
       lede:'Use the filters first, then open one week or folder. The focus tool can close neighboring sections so the library stays visually quiet.',
       path:[['Filter','choose type or topic'],['Open','one folder or week'],['Use','one resource'],['Mark','save the next step']]
     },
+    guide:{
+      image:'absn-pharm-robot-path.webp',alt:'Pharmacist nurse robot teaches medication movement, metabolism, excretion, effectiveness, and adverse-effect safety.',
+      kicker:'Written study guide',title:'One section at a time',
+      lede:'Everything is collapsed on purpose. Open one section, read the big idea, and stop there if that is all you have room for today. The tables underneath are for when you have more.',
+      path:[['Open','one section'],['Read','the big idea first'],['Check','the comparison table'],['Recall','say it from memory']]
+    },
     general:{
       image:'absn-hub-robot-team.webp',alt:'Friendly nurse robots organize a colorful nursing learning command center.',
       kicker:'Study navigator',title:'One focused step at a time',
@@ -90,6 +96,7 @@
     if(family==='course') return [[count('.exsec'),'exam groups'],[count('details.chunk,details.altchunk'),'study chunks'],[count('.mcard,figure'),'visual panels']];
     if(family==='quiz') return [['1','question bank'],[count('.fbtn'),'filter choices'],[count('button'),'controls']];
     if(family==='podcast') return [[count('.ep,.pod'),'episodes'],[count('.topic'),'topic groups'],[count('a'),'resource links']];
+    if(family==='guide') return [[count('details'),'sections'],[count('.card,.it'),'key points'],[count('table,.items'),'reference tables']];
     if(family==='resource') return [[count('details'),'folders'],[count('.f'),'files'],[count('a'),'resource links']];
     return [[count('section,details'),'sections'],[count('li'),'fact bullets'],[count('a'),'links']];
   }

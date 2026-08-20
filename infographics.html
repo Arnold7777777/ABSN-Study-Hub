@@ -87,6 +87,14 @@ summary .n{margin-left:auto;font-size:13.5px;font-weight:800;padding:3px 10px;
   border:1px dashed rgba(255,255,255,.34)}
 .card.dark .links .nope{background:rgba(0,0,0,.14);color:rgba(35,26,2,.80);
   border-color:rgba(35,26,2,.38)}
+
+.tools .chips{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0 6px}
+.tools .chip{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.30);
+ color:#fff;border-radius:16px;padding:8px 13px;font:800 .84rem 'Segoe UI',system-ui,sans-serif;
+ cursor:pointer;white-space:nowrap}
+.tools .chip:hover{background:rgba(255,255,255,.28)}
+.tools .chip.on{background:rgba(255,194,51,.92);color:#241a02;border-color:#fff}
+.tools .count{font-size:.9rem;font-weight:700;color:#f0e2bd;margin:4px 0 0}
 </style><style id="bgHouse">
 html{min-height:100%}
 body{background-image:url("bg-supermega.jpg");background-size:cover;background-position:center;background-attachment:fixed;background-color:#140b24}
@@ -120,6 +128,65 @@ body{background-image:url("bg-supermega.jpg");background-size:cover;background-p
     e.preventDefault();
     window.open(url, '_blank');
   }, false);
+})();
+</script>
+
+<script>
+/* Search, category chips and ?q= deep-linking for the infographic library.
+   The CATS array above was already here but nothing consumed it. */
+(function(){
+  var q=document.getElementById('q'), chips=document.getElementById('chips'),
+      countEl=document.getElementById('count');
+  if(!q||!chips) return;
+  var cards=[].slice.call(document.querySelectorAll('.card[data-cat]'));
+  var sections=[].slice.call(document.querySelectorAll('details'));
+  var cat='*';
+
+  function makeChip(label,key,color){
+    var b=document.createElement('button');
+    b.type='button'; b.className='chip'+(key==='*'?' on':'');
+    b.setAttribute('data-cat',key);
+    b.innerHTML=label;
+    if(color) b.style.borderColor='rgba('+color+',.85)';
+    chips.appendChild(b); return b;
+  }
+  makeChip('Everything','*');
+  CATS.forEach(function(c){ makeChip(c[1]+' '+c[3], c[0], c[2]); });
+
+  function apply(){
+    var t=(q.value||'').trim().toLowerCase();
+    var shown=0;
+    cards.forEach(function(card){
+      var okCat = (cat==='*') || card.getAttribute('data-cat')===cat;
+      var hay=((card.getAttribute('data-kw')||'')+' '+card.textContent).toLowerCase();
+      var okText = !t || hay.indexOf(t)>-1;
+      var vis=okCat&&okText;
+      card.style.display=vis?'':'none';
+      if(vis) shown++;
+    });
+    sections.forEach(function(sec){
+      var any=[].slice.call(sec.querySelectorAll('.card[data-cat]'))
+                .some(function(c){return c.style.display!=='none';});
+      sec.style.display=any?'':'none';
+      if(any && (t||cat!=='*')) sec.open=true;
+    });
+    countEl.textContent = shown + (shown===1?' graphic':' graphics') +
+      ((t||cat!=='*') ? ' matching' : '');
+  }
+
+  q.addEventListener('input',apply);
+  chips.addEventListener('click',function(e){
+    var b=e.target.closest('.chip'); if(!b) return;
+    [].forEach.call(chips.querySelectorAll('.chip'),function(x){x.classList.remove('on');});
+    b.classList.add('on'); cat=b.getAttribute('data-cat'); apply();
+  });
+
+  /* deep link: infographics.html?q=meningitis */
+  try{
+    var qs=new URLSearchParams(location.search).get('q');
+    if(qs){ q.value=qs; }
+  }catch(err){}
+  apply();
 })();
 </script>
 </body></html>
