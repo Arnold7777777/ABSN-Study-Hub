@@ -1,74 +1,54 @@
 =====================================================================
- 16 NEW STUDY PAGES  +  1 stylesheet  =  17 files
+ 20 MATERNITY PAGES  -  one folder, one upload
 =====================================================================
 
-These fill gaps in your infographic library. Your course pages pointed
-at all of these topics and NONE of them had a page behind it. Your resp
-folder, for example, had labs and drug classes but no pneumonia page.
+All 20 files sit in a single folder called "more".
+Four of them you already uploaded last time - they are identical, so
+GitHub will simply ignore those. No harm in re-uploading them.
 
-  resp    Pneumonia
-  neuro   Increased ICP, Autonomic Dysreflexia, Retinal Detachment,
-          Macular Degeneration, Encephalitis, CNS vs PNS,
-          Focused Neuro Assessment, Brain Abscess
-  musc    Scleroderma
-  skin    Mastectomy
-  core    Neutropenic Precautions & Palliative Care
-  more    Previa vs Abruption, Preeclampsia & HELLP,
-          Postpartum Haemorrhage, Cord Prolapse
-
-=====================================================================
- STEP 1 - EXTRACT
-=====================================================================
-
-  Right-click the zip > "Extract All" > "Extract"
-
-  Check the address bar of the window that opens:
-      RIGHT:  C:\Users\carol\Downloads\ABSN_NEWPAGES
-      WRONG:  C:\Users\carol\Downloads\ABSN_NEWPAGES.zip
+  Previa vs Abruption          Prenatal Assessment & GTPAL
+  Preeclampsia & HELLP         Gestational Diabetes
+  Postpartum Haemorrhage       Postpartum Assessment
+  Cord Prolapse                Fetal Development & the Placenta
+  Fetal Monitoring (VEAL CHOP) Contraception
+  The Stages of Labour         The High-Risk Newborn
+  APGAR & Newborn Assessment   Induction, Oxytocin & Caesarean
+  Ectopic & Molar Pregnancy    Discomforts & Hyperemesis
+  Obstetric Emergencies        TORCH Infections
+  Preterm Labour               Breastfeeding
 
 =====================================================================
- STEP 2 - UPLOAD  (one go, only 17 files)
+ HOW TO UPLOAD
 =====================================================================
 
-  1. Go to  https://github.com/arnold7777777/ABSN-Study-Hub
-  2. "Add file"  >  "Upload files"
-  3. Drag in these SEVEN items:
+  1. Right-click the zip > "Extract All" > "Extract"
+  2. Go to  https://github.com/arnold7777777/ABSN-Study-Hub
+  3. "Add file"  >  "Upload files"
+  4. Drag in the ONE folder called:   more
+     (drag the folder itself, not what is inside it)
+  5. Check the list says 20 files, then "Commit changes"
 
-         core      more      musc      neuro     resp     skin
-         absn-ng.css
-
-     Drag the FOLDERS themselves, not what is inside them.
-     Do NOT drag READ_ME.txt.
-
-  4. IMPORTANT: check the list says 17 files before you commit.
-     One of the earlier uploads silently dropped files and we had to
-     redo it. If it says fewer than 17, cancel and drag again.
-
-  5. Click "Commit changes".
+  You already have absn-ng.css from last time, so nothing else needed.
 
 =====================================================================
- STEP 3 - CHECK
+ CHECK
 =====================================================================
 
-  Open this and press Ctrl+Shift+R:
+  https://arnold7777777.github.io/ABSN-Study-Hub/more/NG-323_fetal-monitoring.html
 
-  https://arnold7777777.github.io/ABSN-Study-Hub/resp/NG-307_pneumonia.html
-
-  You should see a purple/blue page with coloured cards, a flow diagram
-  of how organisms reach the alveoli, and a CAP/HAP/VAP table.
-  Two buttons top right: Study Hub and Infographics.
-
-  absn-ng.css is the shared stylesheet ALL 16 pages use. If you skip it,
-  every page will load as plain unstyled text. Do not leave it out.
+  Ctrl+Shift+R. You should see the VEAL CHOP table with red and green
+  cells, and the five-step intervention flow for late decelerations.
 
 =====================================================================
- STILL TO COME
+ WHERE THINGS STAND
 =====================================================================
 
-  96 more pages  (NUR 234 has 35 left, NUR 235 has 57)
-  335 blank ATI Active Learning Template rows
-  NGN-format quiz questions
+  Infographics   32 of 112 written   (NUR 258 done, NUR 234 nearly done)
+  Next           57 pages for NUR 235 (paediatrics)
+  Then           335 blank ATI template rows
+  Then           NGN quiz questions
 
-  Also still sitting in your repo: 74 duplicate files at the top level
-  from an upload that dropped folder contents at the root. All are exact
-  copies of the folder versions - safe to delete, purely cosmetic.
+  Still sitting in your repo: 74 duplicate files at the top level
+  (72 NG-*.html plus "index (1).html" and "index (2).html"). Every one
+  is an exact copy of a file that already exists in a folder. Safe to
+  delete whenever you feel like tidying - nothing links to them.
