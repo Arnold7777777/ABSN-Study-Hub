@@ -174,7 +174,11 @@
     var guide=document.querySelector('.adhd-guide');if(guide)guide.insertAdjacentElement('afterend',roadmap);
   }
 
-  var guide=buildGuide();placeGuide(guide);buildIndexAtlas();buildQuizRoadmap();
+  /* A page that ships its own hero (the NUR 258 module pages set
+     #ple-course-start) does not want a second one generated above it. */
+  var guide=null;
+  if(!document.getElementById('ple-course-start')){guide=buildGuide();placeGuide(guide);}
+  buildIndexAtlas();buildQuizRoadmap();
 
   var targets=[];
   var cardCounter=0;
