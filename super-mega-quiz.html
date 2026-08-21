@@ -101,6 +101,19 @@ h1{font-size:clamp(1.7rem,5.6vw,2.6rem);margin:0 0 6px;line-height:1.14;font-wei
  font-size:1.02rem;line-height:1.62}
 .rat.show{display:block}
 .rat b{color:var(--accent)}
+
+/* the "show me the lesson" link, only ever inside a revealed rationale */
+/* its own line under the rationale - inline-flex left it sitting inside the
+   last paragraph, on top of the text */
+.lessonlink{display:flex;width:fit-content;max-width:100%;align-items:center;gap:8px;margin:15px 0 2px;
+ padding:11px 16px;border-radius:13px;text-decoration:none;
+ background:linear-gradient(135deg,#0f7d6b,#12b886);color:#fff;
+ border:1px solid rgba(255,255,255,.34);box-shadow:0 5px 16px rgba(0,0,0,.45);
+ font:800 1rem/1.3 inherit}
+.lessonlink:hover{filter:brightness(1.14)}
+.lessonlink:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.lessonlink b{color:#eafff8}
+@media print{.lessonlink{display:none}}
 .nav{display:flex;gap:10px;margin:14px 0 0}
 .nav button{flex:1;font:900 1.02rem inherit;padding:13px;border-radius:13px;
  border:1px solid var(--line);background:rgba(255,255,255,.14);color:#fff;cursor:pointer}
@@ -821,6 +834,8 @@ window.NGN = (function(){
         '</span><span>Right so far: <b>'+score+'</b> / '+answered+'</span>';
 
       var inst=NGN.render(card, o, st ? st.ngn : (prog[idx] || null));
+      card.dataset.topic = o.topic || '';   /* for the lesson link */
+      card.dataset.course = o.course || '';
       var tagrow=document.createElement('div');
       tagrow.className='qtags';
       tagrow.innerHTML='<span class="tag course">'+o.clabel+'</span>'+
@@ -835,7 +850,7 @@ window.NGN = (function(){
       foot.innerHTML='<button type="button" id="prev">&larr; Back</button>'+
                      '<button type="button" id="next">Next &rarr;</button>';
       card.appendChild(foot);
-      document.getElementById('prev').disabled = idx<=0;
+    document.getElementById('prev').disabled = idx<=0;
       document.getElementById('next').disabled = idx>=list.length-1;
       document.getElementById('prev').onclick=function(){ if(idx>0){idx--;draw();} };
       document.getElementById('next').onclick=function(){ if(idx<list.length-1){idx++;draw();} };
@@ -933,6 +948,8 @@ window.NGN = (function(){
       '<div class="rat" id="rat"></div>'+
       '<div class="nav"><button type="button" id="prev">&larr; Back</button>'+
       '<button type="button" id="next">Next &rarr;</button></div>';
+    card.dataset.topic = o.topic || '';   /* for the lesson link */
+    card.dataset.course = o.course || '';
 
     document.getElementById('prev').disabled = idx<=0;
     document.getElementById('next').disabled = idx>=list.length-1;
@@ -1177,4 +1194,5 @@ function hop(url, closeThis){
   });
 })();
 </script>
+<script src="absn-lesson-links.js" defer></script>
 </body></html>
