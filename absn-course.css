@@ -1,0 +1,699 @@
+/* absn-course.css - shared look for the NUR 234 / NUR 235 course hubs and
+   their per-module pages. Extracted from the old inline <style> so one edit
+   changes every page. No backdrop-filter anywhere: blurred layers stack up
+   and Chrome drops them, which is what made the coloured boxes come up empty.
+   Each page sets its own --jewel palette and background image inline. */
+:root{
+  --jewel:47,107,255; --jewel2:0,194,199; --accent:#ffd76a;
+  --ruby:255,59,107; --topaz:255,194,51; --amethyst:157,92,255; --emerald:18,184,134;
+  --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font:16px/1.6 'Segoe UI',system-ui,sans-serif;color:#fff;
+ background-color:#0d0a1c;
+ background-size:cover;background-position:center;background-attachment:fixed;
+ background-repeat:no-repeat}
+.wrap{max-width:1080px;margin:0 auto;padding:14px 15px 90px}
+
+header{margin:8px 0 16px;padding:20px 22px;border-radius:20px;
+ background:rgba(0,0,0,.62);border:1px solid var(--line);
+ box-shadow:0 10px 34px rgba(0,0,0,.55)}
+header h1{margin:0;font-size:1.9rem;line-height:1.2;text-shadow:0 2px 14px rgba(0,0,0,.90)}
+header .code{display:inline-block;font-weight:900;font-size:.95rem;letter-spacing:.08em;
+ text-transform:uppercase;color:var(--accent);margin:0 0 5px}
+header p{margin:9px 0 0;font-size:1.02rem;color:#eee6ff}
+
+.bar{position:sticky;top:0;z-index:70;margin:0 0 14px;padding:9px 12px;border-radius:0 0 16px 16px;
+ background:rgba(10,6,22,.92);
+ border-bottom:1px solid var(--line)}
+.barrow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;max-width:1080px;margin:0 auto}
+.bar input{flex:1 1 200px;min-width:150px;font:600 1rem inherit;padding:11px 14px;
+ border-radius:13px;border:1px solid var(--line);background:rgba(0,0,0,.60);color:#fff}
+.bar input::placeholder{color:#c9b8e8}
+.btn{background:rgba(255,255,255,.15);border:1px solid var(--line);color:#fff;
+ border-radius:13px;padding:10px 14px;font:800 .95rem inherit;cursor:pointer;white-space:nowrap}
+.btn:hover{background:rgba(255,255,255,.32)}
+.count{font-weight:800;font-size:.95rem;color:var(--accent)}
+
+.card{background:rgba(var(--jewel),.70);
+border:1px solid rgba(255,255,255,.30);
+ border-left:5px solid rgba(255,255,255,.65);border-radius:16px;
+ padding:16px 18px;margin:0 0 14px;box-shadow:0 8px 26px rgba(0,0,0,.48)}
+.card.alt{background:rgba(var(--jewel2),.70)}
+.card.note{background:rgba(var(--topaz),.60);color:#231a02;
+ border-left-color:rgba(0,0,0,.52)}
+.card.note a{color:#231a02}
+.card h2{margin:0 0 6px;font-size:1.18rem}
+.card p{margin:6px 0 0;font-size:.98rem}
+
+/* ---- exam bands: the spine she asked for, exam -> module (week) ---- */
+.exhead{display:flex;gap:11px;align-items:baseline;flex-wrap:wrap;
+ margin:26px 0 10px;padding:12px 16px;border-radius:14px;
+ background:rgba(0,0,0,.60);border:1px solid var(--line);
+}
+.exhead .en{font-weight:900;font-size:1.25rem;color:var(--accent)}
+.exhead .et{font-size:1rem;color:#efe6ff}
+.exhead .em{margin-left:auto;font-weight:800;font-size:.95rem;color:#fff;
+ background:rgba(255,255,255,.16);padding:4px 10px;border-radius:9px}
+
+details.mod{background:rgba(var(--jewel),.68);
+border:1px solid rgba(255,255,255,.28);
+ border-left:5px solid rgba(255,255,255,.60);border-radius:15px;
+ margin:0 0 12px;box-shadow:0 7px 22px rgba(0,0,0,.34);overflow:hidden}
+details.mod[open]{background:rgba(var(--jewel),.76)}
+details.mod > summary{cursor:pointer;list-style:none;padding:15px 17px;
+ display:flex;gap:11px;align-items:center;font-weight:800;font-size:1.08rem}
+details.mod > summary::-webkit-details-marker{display:none}
+.mnum{flex:0 0 auto;min-width:2.6em;text-align:center;font-weight:900;font-size:.92rem;
+ padding:5px 9px;border-radius:9px;background:rgba(0,0,0,.52);color:var(--accent)}
+.mttl{flex:1 1 auto;min-width:0}
+.mttl .todo{display:block;font-weight:600;font-size:.9rem;color:#eadcff;margin-top:2px}
+summary .chev{flex:0 0 auto;font-size:1.1rem;opacity:.85}
+details.mod[open] summary .chev{transform:rotate(90deg)}
+.body{padding:2px 17px 16px}
+
+/* ---- in-text emphasis, ported from NUR 198 -------------------------- */
+/* .never  an absolute rule. The wavy red underline is the 198 convention and reads
+   as a warning at a glance, which is the whole point at high zoom. */
+.never{text-decoration:underline wavy rgba(255,120,140,.95);text-underline-offset:4px;
+ text-decoration-thickness:2px;font-weight:800;color:#ffd9df}
+/* .k  a number that decides a question - dose, value, window. nowrap keeps a value
+   like "15 mL/hr" from splitting across two lines at 300% zoom. */
+.k{color:#ffd75e;font-weight:800;white-space:nowrap}
+.card.note .k{color:#6b4a00}
+/* .pri  priority and sequence cues, italic like the 198 trap lines. */
+.pri{color:#8ff0d0;font-style:italic;font-weight:700;font-style:italic}
+.legend{margin:0 0 14px;padding:0 15px;border-radius:13px;
+ background:rgba(0,0,0,.56);border:1px solid var(--line);font-size:.95rem;line-height:1.7}
+.legend>summary{cursor:pointer;list-style:none;padding:12px 0;font-weight:800;color:var(--accent)}
+.legend>summary::-webkit-details-marker{display:none}
+.legend>summary::before{content:"▸ ";display:inline-block;transition:.15s}
+.legend[open]>summary::before{transform:rotate(90deg)}
+.legend p{margin:0 0 8px;padding-bottom:0}
+.legend p:last-child{padding-bottom:13px}
+
+/* ---- quizzes ------------------------------------------------------- */
+.qz{border:1px solid rgba(255,255,255,.28);border-radius:13px;padding:13px 15px;
+ margin:0 0 12px;background:rgba(0,0,0,.34)}
+.qz .qnum{display:inline-block;font-weight:900;font-size:.84rem;letter-spacing:.05em;
+ text-transform:uppercase;color:var(--accent);margin:0 0 6px}
+.qz .qtype{display:inline-block;margin-left:8px;font-size:.88rem;font-weight:900;
+ padding:2px 8px;border-radius:8px;background:rgba(255,255,255,.18);color:#fff;
+ letter-spacing:.04em}
+.qz .qq{margin:0 0 10px;font-size:1rem;line-height:1.55;font-weight:700}
+.qz label{display:flex;gap:10px;align-items:flex-start;padding:9px 11px;margin:0 0 7px;
+ border:1px solid rgba(255,255,255,.22);border-radius:11px;cursor:pointer;
+ background:rgba(255,255,255,.05);font-size:.97rem;line-height:1.5}
+.qz label:hover{background:rgba(255,255,255,.13)}
+.qz label input{width:20px;height:20px;flex:0 0 auto;margin-top:2px;
+ accent-color:var(--accent);cursor:pointer}
+.qz label span{flex:1 1 auto;min-width:0;overflow-wrap:anywhere}
+.qz label.right{background:rgba(18,184,134,.34);border-color:rgba(90,235,180,.8)}
+.qz label.wrong{background:rgba(255,59,107,.30);border-color:rgba(255,140,160,.85)}
+.qz label.right span::after{content:" ✓";font-weight:900;color:#8ff0c8}
+.qz label.wrong span::after{content:" ✗";font-weight:900;color:#ffb3c0}
+.qz .qbtn{background:rgba(255,255,255,.18);border:1px solid var(--line);color:#fff;
+ border-radius:12px;padding:9px 15px;font:800 .95rem inherit;cursor:pointer}
+.qz .qbtn:hover{background:rgba(255,255,255,.34)}
+.qz .qwhy{margin:11px 0 0;padding:11px 13px;border-radius:11px;
+ background:rgba(255,194,51,.16);border-left:5px solid rgba(255,194,51,.9);
+ font-size:.96rem;line-height:1.55}
+.qz .qwhy b{color:#ffe9a8}
+.qz .qmark{font-weight:900;margin-left:10px;font-size:.95rem}
+.qz .qmark.ok{color:#8ff0c8}
+.qz .qmark.no{color:#ffb3c0}
+
+.qscore{font-weight:900;font-size:.95rem;color:var(--accent);margin:0 0 10px}
+
+/* ---- mega quiz ----------------------------------------------------- */
+#mega{margin:26px 0 0}
+#mega .mqbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 13px}
+#mega select,#mega button{font:800 .95rem inherit;padding:10px 13px;border-radius:12px;
+ border:1px solid var(--line);background:rgba(0,0,0,.60);color:#fff;cursor:pointer}
+#mega .mqcount{font-weight:900;color:var(--accent)}
+
+.bigbtn{display:inline-block;margin-top:10px;background:rgba(0,0,0,.56);color:#fff;
+ border:1px solid rgba(255,255,255,.55);border-radius:14px;padding:13px 18px;
+ font:900 1.05rem inherit;cursor:pointer}
+.bigbtn:hover{background:rgba(0,0,0,.78)}
+/* ---- floating navigation, matched to the NUR 198 cluster -------------
+   Small pills in a horizontal row at the TOP right, not a stack of full-width
+   buttons at the bottom. She asked for these to look like 198's, and the reason
+   198's work is that they shed their labels as soon as the viewport narrows - at
+   300%% zoom the CSS width reads narrow, so what she sees is a row of icons the
+   size of a fingertip rather than a wall of text sitting on the content. */
+#navBtns{position:fixed;top:10px;right:12px;z-index:2147483000;display:flex;gap:7px;
+ align-items:center;touch-action:none;cursor:grab}
+#navBtns.dragging{opacity:.92;cursor:grabbing}
+#navBtns:focus-visible{outline:3px solid var(--accent,#ffd76a);outline-offset:3px}
+#navBtns a,#navBtns button{display:inline-flex;align-items:center;gap:6px;
+ font:800 .95rem 'Segoe UI',system-ui,sans-serif;padding:9px 14px;border-radius:22px;
+ text-decoration:none;cursor:pointer;border:1px solid rgba(255,255,255,.24);
+ box-shadow:0 4px 14px rgba(0,0,0,.60);color:#fff;white-space:nowrap;line-height:1.3;
+ background:linear-gradient(135deg,#5a2d82,#8e2d6b)}
+#navBtns a:hover,#navBtns button:hover{filter:brightness(1.16)}
+#navBtns .nbQuiz{background:linear-gradient(135deg,#1d4ed8,#2f6bff)}
+#navBtns .nbCast{background:linear-gradient(135deg,#7c2aa8,#b5179e)}
+#navBtns .nbHub{background:linear-gradient(135deg,#0f7d6b,#12b886)}
+@media(max-width:1024px){
+  #navBtns{top:6px;right:6px;gap:5px}
+  #navBtns .nbLabel{display:none}
+  #navBtns a,#navBtns button{padding:9px 12px;font-size:1.15rem;line-height:1}
+}
+@media print{#navBtns{display:none}}
+
+/* ---- collapsible side menu ------------------------------------------ */
+#menuBtn{background:rgba(255,255,255,.15);border:1px solid var(--line);color:#fff;
+ border-radius:13px;padding:10px 14px;font:900 .95rem inherit;cursor:pointer;
+ white-space:nowrap;line-height:1}
+#menuBtn:hover{background:rgba(255,255,255,.32)}
+#navBg{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:99998;opacity:0;
+ pointer-events:none;transition:opacity .2s ease}
+body.nav-open #navBg{opacity:1;pointer-events:auto}
+body.nav-open #navBtns{display:none}
+body.nav-open #skimBtn{display:none}
+#side{position:fixed;top:0;left:0;width:min(88vw,320px);height:100dvh;max-height:100dvh;
+ overflow-y:auto;z-index:99999;transform:translateX(-102%);transition:transform .22s ease;
+ background:rgba(10,6,20,.97);
+ border-right:1px solid var(--line);box-shadow:6px 0 30px rgba(0,0,0,.75);
+ padding:16px 14px 34px}
+body.nav-open #side{transform:translateX(0)}
+#side .sbrand{font-weight:900;font-size:1.15rem;margin:2px 0 4px;display:block;
+ color:var(--accent)}
+#side .ssub{display:block;font-size:.92rem;color:#d8caf5;margin:0 0 14px}
+#side .shead{font-size:.86rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;
+ color:var(--accent);margin:18px 0 8px}
+#side a.nav,#side button.nav{display:block;width:100%;text-align:left;
+ background:rgba(255,255,255,.09);border:1px solid var(--line);
+ border-left:4px solid rgba(255,255,255,.55);border-radius:12px;padding:12px 14px;
+ margin:0 0 8px;color:#fff;text-decoration:none;font:800 1rem inherit;cursor:pointer}
+#side a.nav:hover,#side button.nav:hover{background:rgba(255,255,255,.22)}
+#side a.nav.on{background:rgba(255,255,255,.26);border-left-color:var(--accent)}
+#side .nsub{display:block;font-weight:600;font-size:.88rem;opacity:.9;margin-top:3px;
+ line-height:1.45}
+#side .sclose{display:block;width:100%;margin:4px 0 10px;background:rgba(255,255,255,.14);
+ border:1px solid var(--line);color:#fff;border-radius:12px;padding:11px;
+ font:900 1rem inherit;cursor:pointer}
+#side .sclose:hover{background:rgba(255,255,255,.3)}
+@media print{#side,#navBg,#menuBtn{display:none !important}}
+
+@media print{#side,#navBg,#menuBtn{display:none !important}}
+
+/* ---- chunking -------------------------------------------------------- */
+.chunks{display:block}
+details.chunk{border:1px solid rgba(255,255,255,.22);border-radius:12px;
+ background:rgba(0,0,0,.22);margin:0 0 9px;overflow:hidden}
+details.chunk[open]{background:rgba(0,0,0,.30)}
+details.chunk > summary{cursor:pointer;list-style:none;display:flex;gap:9px;
+ align-items:center;flex-wrap:wrap;padding:9px 12px;font-weight:800;font-size:.98rem}
+details.chunk > summary::-webkit-details-marker{display:none}
+details.chunk > summary::after{content:"▸";margin-left:auto;font-weight:900;
+ opacity:.8;transition:transform .15s ease}
+details.chunk[open] > summary::after{transform:rotate(90deg)}
+.chunk .cklab{font-weight:900;color:#fff}
+/* A fold's line says what tapping it does, and nothing else. It used to carry a
+   numbered badge and "1-5 of 13"; she sent a screenshot and said those were confusing,
+   and they were - they described the chunking rather than the content. Kept in step
+   with chunk.py, which is where the markup comes from. */
+.chunk .ckshut,.chunk .ckopen{font-weight:900;color:#fff;font-size:1rem}
+details.chunk[open] > summary .ckshut{display:none}
+details.chunk:not([open]) > summary .ckopen{display:none}
+.chunk > ul{margin:0;padding:2px 14px 12px 2.1em}
+.chunk .altrow:first-of-type{border-top:0}
+details.chunk.altchunk > summary{background:rgba(255,255,255,.10)}
+@media(max-width:640px){
+  details.chunk > summary{padding:9px 10px;gap:7px}
+  .chunk > ul{padding-left:1.7em}
+}
+
+/* ---- rows filled from an outside source ------------------------------
+   Deliberately distinct from her ATI content. If a lecturer contradicts one of these,
+   she needs to be able to see instantly which row came from outside her course. */
+.srcfill{border-left:4px solid rgba(126,232,255,.9);
+ background:rgba(126,232,255,.10);border-radius:0 11px 11px 0;padding:10px 13px;
+ margin:2px 0 0}
+.srcnote{margin:0 0 7px;font-size:.93rem;color:#dff4ff;line-height:1.5}
+.srctag{display:inline-block;font-weight:900;font-size:.84rem;letter-spacing:.03em;
+ text-transform:uppercase;background:rgba(126,232,255,.24);color:#c9f2ff;
+ padding:3px 9px;border-radius:8px;margin-right:4px}
+.srcfill ul{margin:0;padding-left:1.1em}
+.srcfill li{font-size:.95rem;line-height:1.55;margin:0 0 7px;overflow-wrap:anywhere}
+.srccite{margin:8px 0 0;font-size:.9rem;color:#bfe6f5;line-height:1.5}
+.srccite a{color:#9fe4ff;font-weight:800}
+.srccite i{opacity:.92}
+
+/* ---- the content cards inside a module ----------------------------- */
+.mcard{border-radius:13px;padding:13px 15px;margin:0 0 11px;
+ border:1px solid rgba(255,255,255,.30);border-left:5px solid rgba(255,255,255,.65);
+ box-shadow:0 6px 18px rgba(0,0,0,.30)}
+.mcard.hy{background:rgba(var(--jewel2),.70)}
+.mcard.trap{background:rgba(var(--ruby),.60)}
+.mcard.lsc{background:rgba(var(--amethyst),.62)}
+.mcard.ati{background:rgba(var(--emerald),.60)}
+.mcard .src{margin:0 0 8px;font-size:.9rem;color:#f0e6ff;font-style:italic}
+.mcard.err{background:rgba(var(--ruby),.62)}
+.mcard.div{background:rgba(var(--topaz),.66);color:#231a02}
+.mcard.div b{color:#231a02}
+.mcard.div code{background:rgba(0,0,0,.14)}
+.mcard dl{margin:0}
+.mcard dt{font-weight:900;font-size:.97rem;margin:11px 0 3px}
+.mcard dt:first-child{margin-top:0}
+.mcard dd{margin:0 0 4px;font-size:.95rem;line-height:1.55;overflow-wrap:anywhere}
+.mcard dd.says::before{content:"Your recording: ";font-weight:800;opacity:.9}
+.mcard dd.real::before{content:"Actually: ";font-weight:800;opacity:.9}
+details.caut{background:rgba(var(--ruby),.55);
+border:1px solid rgba(255,255,255,.30);
+ border-left:5px solid rgba(255,255,255,.65);border-radius:16px;
+ margin:0 0 14px;box-shadow:0 8px 26px rgba(0,0,0,.48);overflow:hidden}
+details.caut.rules{background:rgba(var(--amethyst),.55)}
+details.caut > summary{cursor:pointer;list-style:none;padding:15px 18px;
+ font-weight:900;font-size:1.12rem;display:flex;gap:10px;align-items:center}
+details.caut > summary::-webkit-details-marker{display:none}
+details.caut > summary .chev{font-size:1.05rem;opacity:.85}
+details.caut[open] > summary .chev{transform:rotate(90deg)}
+details.caut .cbody{padding:0 15px 15px}
+table.dec{width:100%;border-collapse:collapse;font-size:.93rem}
+table.dec th,table.dec td{text-align:left;padding:6px 8px;
+ border-bottom:1px solid rgba(255,255,255,.22);overflow-wrap:anywhere}
+table.dec th{font-size:.9rem;text-transform:uppercase;letter-spacing:.04em;color:#ffd76a}
+table.dec td:first-child{font-family:ui-monospace,Menlo,Consolas,monospace}
+.mcard h4{margin:0 0 7px;font-size:1.05rem;letter-spacing:.01em}
+.mcard ul{margin:0;padding:0 0 0 1.15em}
+.mcard li{margin:0 0 8px;font-size:.95rem;line-height:1.55;overflow-wrap:anywhere}
+.mcard li:last-child{margin-bottom:0}
+.mcard b{color:#fff}
+.mcard code{font-family:ui-monospace,'Cascadia Mono',Menlo,Consolas,monospace;
+ font-size:1em;background:rgba(0,0,0,.34);padding:1px 5px;border-radius:6px;
+ white-space:nowrap}
+.rdg{display:block;font-weight:700;font-size:.9rem;color:#fff;
+ background:rgba(0,0,0,.34);border:1px solid rgba(255,255,255,.24);
+ border-radius:10px;padding:8px 11px;margin:0 0 11px;overflow-wrap:anywhere}
+
+.badge{display:inline-block;font-size:.82rem;font-weight:800;padding:2px 8px;
+ border-radius:8px;margin-left:6px;vertical-align:middle}
+.badge.ok{background:rgba(18,184,134,.85);color:#04231a}
+.badge.warn{background:rgba(255,194,51,.9);color:#241a02}
+
+.slot{background:rgba(0,0,0,.34);border:1px dashed rgba(255,255,255,.48);
+ border-radius:13px;padding:12px 14px;margin:0 0 10px}
+.slot h4{margin:0 0 3px;font-size:1.02rem;display:flex;gap:8px;align-items:center}
+.slot p{margin:0;font-size:.92rem;color:#e6dcff}
+.slot .empty{display:inline-block;margin-top:8px;font-size:.86rem;font-weight:800;
+ padding:5px 10px;border-radius:9px;background:rgba(255,255,255,.14);
+ border:1px solid rgba(255,255,255,.26);color:#fff}
+
+/* ---- infographic sheets ------------------------------------------- */
+.slot.filled{border-style:solid;border-color:rgba(255,255,255,.30);
+ background:rgba(0,0,0,.50)}
+.slot .cnt{font-size:.85rem;font-weight:900;padding:2px 8px;border-radius:8px;
+ background:var(--accent);color:#1a1030}
+.shgrid{display:grid;gap:10px;margin-top:10px;
+ grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.sh{margin:0;background:rgba(0,0,0,.34);border:1px solid rgba(255,255,255,.24);
+ border-radius:11px;overflow:hidden;display:flex;flex-direction:column}
+.shbtn{display:block;width:100%;padding:0;border:0;background:#0d0a1c;cursor:zoom-in}
+.shbtn img{display:block;width:100%;height:auto;aspect-ratio:1273/1800;
+ object-fit:cover;object-position:top center}
+.sh figcaption{padding:7px 9px;font-size:.88rem;line-height:1.35;color:#fff;
+ display:flex;flex-direction:column;gap:4px;overflow-wrap:anywhere}
+.shsrc{color:var(--accent);font-weight:800;font-size:.85rem;text-decoration:none}
+.shsrc:hover{text-decoration:underline}
+/* one per row at her zoom - two columns made every sheet unreadable on the
+   Visual Reference and there is no reason to repeat that mistake here */
+@media(max-width:640px){ .shgrid{grid-template-columns:1fr} .shbtn img{aspect-ratio:auto} }
+
+#shLB{position:fixed;inset:0;z-index:9500;background:rgba(6,3,14,.96);
+ display:none;flex-direction:column;padding:10px;gap:8px}
+#shLB.on{display:flex}
+#shLBbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;flex:0 0 auto}
+#shLBttl{font-weight:800;font-size:1rem;flex:1 1 160px;min-width:0}
+#shLB button,#shLB a{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.32);
+ color:#fff;border-radius:11px;padding:9px 12px;font:800 .95rem inherit;cursor:pointer;
+ text-decoration:none;white-space:nowrap}
+#shLB button:hover,#shLB a:hover{background:rgba(255,255,255,.3)}
+#shLBwrap{flex:1 1 auto;overflow:auto;display:block;text-align:center}
+#shLBimg{max-width:100%;height:auto;margin:0 auto}
+#shLBimg.zoom{max-width:none;width:auto}
+
+
+
+
+/* ---- textbook mind map --------------------------------------------- */
+.mm2{margin:0 0 14px;padding:0}
+.mmhub2{display:block;text-align:center;font-weight:900;font-size:1.06rem;
+ background:var(--accent);color:#1a1030;border-radius:14px;padding:11px 14px;
+ margin:0 0 10px;box-shadow:0 6px 18px rgba(0,0,0,.45);overflow-wrap:anywhere}
+.mmcols{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+.mmcol{background:rgba(0,0,0,.50);border:1px solid rgba(255,255,255,.28);
+ border-top:4px solid var(--accent);border-radius:12px;padding:10px 12px}
+.mmcol h6{margin:0 0 6px;font-size:.92rem;font-weight:900;letter-spacing:.02em;
+ color:var(--accent)}
+.mmcol ul{margin:0;padding-left:1.05em}
+.mmcol li{font-size:.93rem;line-height:1.45;margin:0 0 6px;overflow-wrap:anywhere}
+.mmnote{margin:9px 0 0;font-size:.9rem;color:#e6dcff;font-style:italic}
+@media(max-width:640px){ .mmcols{grid-template-columns:1fr} }
+
+/* ---- textbook ALT --------------------------------------------------- */
+.altpl{margin:0 0 14px;border:1px solid rgba(255,255,255,.34);border-radius:13px;
+ overflow:hidden;background:rgba(0,0,0,.34)}
+.altpl .althd{background:rgba(255,255,255,.16);padding:10px 13px;font-weight:900;
+ font-size:1rem;display:flex;flex-wrap:wrap;gap:8px;align-items:baseline}
+.altpl .althd span{font-weight:700;font-size:.92rem;color:var(--accent)}
+.altpl .altsrc{margin:0;padding:8px 13px;font-size:.89rem;color:#e6dcff;
+ font-style:italic;border-bottom:1px solid rgba(255,255,255,.18)}
+.altpl .altrow{border-top:1px solid rgba(255,255,255,.20);padding:10px 13px}
+.altpl .altrow h5{margin:0 0 6px;font-size:.94rem;text-transform:uppercase;
+ letter-spacing:.04em;color:var(--accent)}
+.altpl .altrow ul{margin:0;padding-left:1.1em}
+.altpl .altrow li{font-size:.94rem;line-height:1.5;margin:0 0 6px;overflow-wrap:anywhere}
+.altpl .altblank{margin:0;font-size:.92rem;color:#d8caf5;font-style:italic}
+
+/* ---- notes --------------------------------------------------------- */
+.notesum ul{margin:8px 0 0;padding-left:1.1em}
+.notesum li{font-size:.95rem;line-height:1.55;margin:0 0 7px;overflow-wrap:anywhere}
+
+
+.foot{margin:26px 0 0;font-size:.95rem;color:#e6dcff;text-align:center}
+.hidden{display:none !important}
+
+/* she reads at 300% zoom - that is a 427px viewport. one column, nothing tiny. */
+@media(max-width:640px){
+  header h1{font-size:1.45rem}
+  .wrap{padding:12px 12px 80px}
+  details.mod > summary{font-size:1.02rem;padding:13px 13px;gap:9px}
+  .body{padding:2px 12px 14px}
+  .exhead{padding:11px 13px}
+  .exhead .en{font-size:1.12rem}
+  .exhead .em{margin-left:0;width:100%}
+  .mcard{padding:12px 13px}
+  .mcard ul{padding-left:1.05em}
+}
+/* ---- last word on the floating cluster ------------------------------
+   The course page has a sticky search bar across the top and the cluster was landing
+   on it, covering the Menu button and half the search field. This sits at the END of
+   the stylesheet on purpose: an earlier version put it mid-file and a later media
+   query silently won, which is how it ended up back on the bar. */
+html body #navBtns{top:72px}
+@media(max-width:1024px){ html body #navBtns{top:64px} }
+
+/* --- infographic cards that replaced the dead "original ->" boxes --- */
+.iggrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:10px;margin:10px 0 4px}
+a.igcard{display:flex;gap:10px;align-items:flex-start;text-decoration:none;color:#fff;
+ background:rgba(157,92,255,.60);
+ border:1px solid rgba(255,255,255,.30);border-left:4px solid rgba(255,214,106,.85);
+ border-radius:14px;padding:11px 13px;transition:transform .12s,background .12s}
+a.igcard:hover{background:rgba(157,92,255,.78);transform:translateY(-2px)}
+a.igcard .igico{font-size:1.15rem;line-height:1.2}
+a.igcard .ignm{font-weight:800;font-size:.94rem;line-height:1.35}
+a.igcard .igsub{display:block;font-weight:700;font-size:.78rem;color:#ffd76a;margin-top:4px}
+.igtopic{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.22);
+ border-left:4px solid rgba(255,255,255,.34);border-radius:14px;padding:11px 13px;
+ font-size:.93rem;line-height:1.4}
+.igtopic b{display:block;font-size:.96rem;margin-bottom:3px}
+.igtopic span{font-size:.79rem;color:#cdbfe8;font-weight:700}
+/* ===== visual brief toolkit - jewel tones, ADHD spacing, heavy visuals ===== */
+.vbrief{margin:0 0 16px}
+.vcard{--j:157,92,255;background:rgba(var(--j),.72);
+ border:1px solid rgba(255,255,255,.30);border-left:5px solid rgba(255,255,255,.65);
+ border-radius:16px;padding:14px 16px;margin:0 0 11px;color:#fff}
+.vcard h5{margin:0 0 7px;font-size:1.02rem;font-weight:900;display:flex;gap:8px;align-items:center;
+ letter-spacing:-.01em}
+.vcard p{margin:0 0 8px;font-size:.95rem;line-height:1.6}
+.vcard p:last-child{margin:0}
+.vcard ul{margin:2px 0 6px;padding-left:19px}
+.vcard li{margin:0 0 5px;font-size:.93rem;line-height:1.5}
+.vcard.ruby{--j:255,59,107}
+.vcard.emerald{--j:18,184,134}
+.vcard.sapphire{--j:47,107,255}
+.vcard.teal{--j:0,194,199}
+.vcard.citrine{--j:255,138,61}
+.vcard.garnet{--j:192,34,85}
+.vcard.topaz{--j:255,194,51;color:#231a02;border-left-color:rgba(0,0,0,.48)}
+.vcard.topaz b,.vcard.topaz h5{color:#1d1500}
+
+/* hero number */
+.vnum{display:block;font:900 clamp(1.5rem,5vw,2rem)/1.05 'Segoe UI',system-ui,sans-serif;
+ margin:2px 0 4px;font-variant-numeric:tabular-nums}
+
+/* comparison table */
+.vtw{overflow-x:auto;margin:0 0 12px;border-radius:14px;border:1px solid rgba(255,255,255,.28)}
+table.vt{border-collapse:collapse;width:100%;min-width:440px;font-size:.91rem;
+ background:rgba(0,0,0,.72)}
+table.vt th,table.vt td{padding:9px 11px;text-align:left;
+ border-bottom:1px solid rgba(255,255,255,.15);vertical-align:top;color:#fff}
+table.vt th{background:rgba(255,255,255,.14);font-weight:900;font-size:.82rem;
+ text-transform:uppercase;letter-spacing:.03em}
+table.vt tr:last-child td{border-bottom:none}
+table.vt td b{color:#ffe9a8}
+table.vt td.hot{background:rgba(255,59,107,.20)}
+table.vt td.cool{background:rgba(47,107,255,.20)}
+table.vt td.good{background:rgba(18,184,134,.20)}
+
+/* flow diagram */
+.vflow{display:flex;flex-wrap:wrap;gap:0;margin:0 0 12px}
+.vstep{flex:1 1 128px;min-width:118px;background:rgba(0,0,0,.72);
+ border:1px solid rgba(255,255,255,.28);border-radius:13px;padding:10px 11px;
+ font-size:.86rem;line-height:1.42;position:relative;margin:0 15px 9px 0;color:#fff}
+.vstep:last-child{margin-right:0}
+.vstep::after{content:"\2192";position:absolute;right:-14px;top:50%;
+ transform:translateY(-50%);font-size:1.1rem;font-weight:900;color:#ffd76a}
+.vstep:last-child::after{content:""}
+.vstep b{display:block;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;
+ color:#ffd76a;margin-bottom:3px}
+.vflow.danger .vstep b{color:#ff8fa3}
+
+/* value scale */
+.vscale{margin:0 0 12px}
+.vscale .vlbl{display:flex;justify-content:space-between;gap:10px;font-size:.85rem;
+ font-weight:800;margin-bottom:5px;color:#fff}
+.vtrack{display:flex;height:26px;border-radius:9px;overflow:hidden;
+ border:1px solid rgba(255,255,255,.28);font:800 .72rem 'Segoe UI',system-ui,sans-serif}
+.vtrack span{display:flex;align-items:center;justify-content:center;color:#fff;
+ padding:0 5px;text-align:center;text-shadow:0 1px 2px rgba(0,0,0,.75)}
+.vtrack .vlo{background:rgba(47,107,255,.85)}
+.vtrack .vok{background:rgba(18,184,134,.85)}
+.vtrack .vhi{background:rgba(255,59,107,.85)}
+.vtrack .vwarn{background:rgba(255,138,61,.85)}
+
+/* inline emphasis */
+.vmark{background:rgba(255,194,51,.92);color:#241a02;padding:1px 6px;border-radius:6px;
+ font-weight:800}
+.vnever{text-decoration:underline wavy rgba(255,59,107,.95);text-underline-offset:4px;
+ font-weight:800}
+.vnum2{font:800 .95em ui-monospace,'Cascadia Mono',Consolas,monospace;
+ background:rgba(0,0,0,.48);padding:2px 7px;border-radius:7px;white-space:nowrap}
+
+/* two-up grid on wide screens */
+.vgrid2{display:grid;grid-template-columns:1fr;gap:11px}
+@media(min-width:760px){.vgrid2{grid-template-columns:1fr 1fr}.vgrid2>*{margin-bottom:0}}
+
+/* keep card contents on the same paint layer as the card */
+.vbrief,.vcard,.vtw,.vflow,.vscale{will-change:auto;transform:none;filter:none}
+.vcard *{color:inherit}
+
+/* ============================================================
+   LEGIBILITY LAYER
+   Larger type, wider letterforms, more line spacing and stronger
+   contrast. Verdana is on every Windows and Mac machine and has a
+   tall x-height, which is why it stays readable at distance and
+   with reduced vision.
+   ============================================================ */
+.vbrief, .vbrief *{
+  font-family:Verdana,"Segoe UI",Tahoma,system-ui,sans-serif;
+  letter-spacing:.012em;
+}
+.vcard{padding:20px 22px;margin:0 0 16px;border-left-width:7px;border-radius:18px}
+.vcard h5{font-size:1.30rem;line-height:1.35;margin:0 0 12px;letter-spacing:.005em}
+.vcard p{font-size:1.12rem;line-height:1.78;margin:0 0 13px}
+.vcard li{font-size:1.10rem;line-height:1.72;margin:0 0 10px}
+.vcard ul{padding-left:24px;margin:6px 0 10px}
+.vbrief h3{font-size:1.24rem;line-height:1.4;margin:24px 0 12px}
+.vnum{font-size:clamp(2rem,6vw,2.6rem);line-height:1.1}
+
+/* tables: bigger text, taller rows, clearer header */
+table.vt{font-size:1.06rem;min-width:520px}
+table.vt th{font-size:.98rem;padding:13px 15px;letter-spacing:.05em}
+table.vt td{padding:13px 15px;line-height:1.62}
+
+/* flow steps and scales */
+.vstep{font-size:1.02rem;line-height:1.6;padding:14px 15px;min-width:150px}
+.vstep b{font-size:.88rem;margin-bottom:5px}
+.vtrack{height:34px;font-size:.86rem}
+.vscale .vlbl{font-size:1rem;margin-bottom:7px}
+
+/* inline emphasis - keep it obvious */
+.vbrief mark,.vbrief .vmark{padding:3px 8px;font-size:1.05em;line-height:1.9}
+.vbrief .vnum2,.vbrief code{font-size:1.02em;padding:3px 9px}
+.vbrief .vnever,.vbrief .never{text-underline-offset:6px;text-decoration-thickness:2px}
+.vbrief b,.vbrief strong{font-weight:800}
+
+/* stronger contrast: darken the card so white text pops */
+.vcard{background:rgba(var(--j),.80);color:#fff;
+  box-shadow:0 10px 30px rgba(0,0,0,.55)}
+.vcard.topaz{background:rgba(255,194,51,.92);color:#1a1200}
+table.vt{background:rgba(0,0,0,.82)}
+table.vt th{background:rgba(255,255,255,.20)}
+.vstep{background:rgba(0,0,0,.82)}
+
+/* infographic cards: bigger tap target and text */
+a.igcard{padding:16px 18px;font-size:1.06rem}
+a.igcard .ignm{font-size:1.08rem;line-height:1.45}
+a.igcard .igsub{font-size:.94rem;margin-top:6px}
+.igtopic{padding:16px 18px}
+.igtopic b{font-size:1.08rem}
+.igtopic span{font-size:.94rem}
+
+/* respect the reader's own zoom and the Roomy toggle */
+body.adhd-roomy .vcard p{font-size:1.2rem;line-height:1.85}
+body.adhd-roomy .vcard li{font-size:1.18rem;line-height:1.8}
+body.adhd-roomy table.vt{font-size:1.12rem}
+
+@media (max-width:620px){
+  table.vt{min-width:420px}
+  .vcard{padding:17px 18px}
+  .vcard h5{font-size:1.2rem}
+  .vcard p{font-size:1.08rem}
+}
+@media (prefers-reduced-motion:reduce){a.igcard{transition:none}}
+
+/* ============================================================
+   VISUAL VARIATION LAYER
+   Every kind of emphasis looks different, so meaning is carried by
+   shape and colour as well as by the words. Colour is never the only
+   signal - each one also changes weight, background or underline.
+   ============================================================ */
+
+/* --- bold = the term or rule that must survive --- */
+.vbrief b, .vbrief strong{color:#ffe27a;font-weight:800}
+.vcard.topaz b, .vcard.topaz strong{color:#4a3200}
+
+/* --- italics = the mechanism, the "because" --- */
+.vbrief i, .vbrief em{color:#a9f5dc;font-style:italic;font-weight:600}
+.vcard.topaz i, .vcard.topaz em{color:#3d2c00}
+
+/* --- underline = a true never-miss --- */
+.vbrief u{text-decoration:underline wavy #ff8fa3;text-underline-offset:5px;
+  text-decoration-thickness:2px;font-weight:800;color:#ffd3dc}
+
+/* --- highlight = the single highest-yield phrase --- */
+.vbrief mark, .vbrief .vmark{
+  background:linear-gradient(180deg,#ffe27a,#ffc233);
+  color:#241a02;padding:4px 10px;border-radius:8px;font-weight:800;
+  box-shadow:0 2px 0 rgba(0,0,0,.28)}
+
+/* --- the never rule: red wavy, unmissable --- */
+.vbrief .vnever, .vbrief .never{
+  display:block;color:#ffd3dc;font-weight:800;
+  background:rgba(255,59,107,.30);border-left:5px solid #ff3b6b;
+  border-radius:0 12px 12px 0;padding:11px 15px;margin:11px 0;
+  text-decoration:underline wavy rgba(255,143,163,.95);
+  text-underline-offset:6px;text-decoration-thickness:2px}
+.vbrief .vnever::before{content:"\26D4  ";font-size:1.15em}
+
+/* --- numbers and doses: monospace chip --- */
+.vbrief .vnum2, .vbrief code{
+  font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;
+  background:#0d1430;color:#8fe9ff;border:1px solid rgba(143,233,255,.45);
+  padding:3px 10px;border-radius:8px;font-weight:800;white-space:nowrap}
+
+/* --- semantic colour chips you can drop into any sentence --- */
+.hi-do   {color:#7ff0c4;font-weight:800}
+.hi-dont {color:#ff9aae;font-weight:800}
+.hi-num  {color:#ffe27a;font-weight:800}
+.hi-term {color:#8fe9ff;font-weight:800;border-bottom:2px dotted rgba(143,233,255,.6)}
+.hi-why  {color:#d7b8ff;font-style:italic;font-weight:600}
+
+/* --- CHUNKING: clear separation between ideas --- */
+.vbrief h3{
+  display:flex;align-items:center;gap:10px;
+  border-bottom:2px solid rgba(255,255,255,.22);
+  padding-bottom:9px;margin:30px 0 15px}
+.vbrief h3::before{content:"";flex:0 0 6px;height:26px;border-radius:3px;
+  background:linear-gradient(180deg,#ffd76a,#ff8a3d)}
+.vcard + .vcard{margin-top:15px}
+.vbrief > .vtw + .vcard, .vbrief > .vflow + .vcard{margin-top:18px}
+
+/* --- card heading gets its own icon plate --- */
+.vcard h5{
+  display:flex;align-items:center;gap:10px;
+  padding-bottom:10px;margin-bottom:13px;
+  border-bottom:2px solid rgba(255,255,255,.28)}
+
+/* --- a numbered idea counter so chunks feel finite --- */
+.vbrief{counter-reset:vchunk}
+.vbrief h3{counter-increment:vchunk}
+
+/* --- table rows easier to track across --- */
+table.vt tbody tr:nth-child(even) td,
+table.vt tr:nth-child(even) td{background:rgba(255,255,255,.055)}
+table.vt tr:hover td{background:rgba(255,214,106,.14)}
+table.vt td:first-child{font-weight:800;color:#ffe27a}
+table.vt td.hot{background:rgba(255,59,107,.28)!important;color:#ffe4ea}
+table.vt td.cool{background:rgba(47,107,255,.28)!important;color:#dfe8ff}
+table.vt td.good{background:rgba(18,184,134,.28)!important;color:#d8fff0}
+
+/* --- flow steps: numbered, coloured, obvious direction --- */
+.vstep{border-left:5px solid #ffd76a}
+.vflow.danger .vstep{border-left-color:#ff3b6b}
+.vstep::after{font-size:1.5rem;color:#ffd76a}
+
+/* --- key/legend box --- */
+.vkey{display:flex;flex-wrap:wrap;gap:9px;margin:0 0 16px;
+  background:rgba(0,0,0,.65);border:1px solid rgba(255,255,255,.25);
+  border-radius:14px;padding:13px 15px}
+.vkey span{font-size:.98rem;font-weight:700;display:inline-flex;align-items:center;gap:6px}
+
+/* --- figures: diagrams and charts --- */
+.vfig{margin:0 0 18px;background:rgba(0,0,0,.65);border:1px solid rgba(255,255,255,.28);
+  border-radius:16px;padding:16px 16px 13px;overflow-x:auto}
+.vfig svg{display:block;width:100%;height:auto;min-width:340px}
+.vfig figcaption{margin-top:12px;font-size:1.04rem;line-height:1.65;color:#f0e6ff;
+  border-top:1px solid rgba(255,255,255,.2);padding-top:11px}
+
+/* ============================================================
+   PAGE-WIDE LEGIBILITY
+   The layer above only covered the visual briefs. Everything else on
+   these pages - the intro cards, the chunked lists, the slots, the
+   module cards on the hub - was still sitting at 15.7px, which is the
+   size that was hard to read. Same treatment for all of it: Verdana's
+   tall x-height, 17-18px, and line spacing that leaves the eye a rail
+   to come back to.
+   ============================================================ */
+body{font-family:Verdana,"Segoe UI",Tahoma,system-ui,sans-serif;letter-spacing:.01em}
+
+.card p, .card li, .mcard p, .mcard li,
+.cbody p, .cbody li, .body > p, .body > ul li,
+.slot p, .chunk p, .chunk li, details.legend p{
+  font-size:1.10rem; line-height:1.74}
+
+.card h2, .card h3{font-size:1.34rem; line-height:1.32; margin:0 0 11px}
+.mcard h4, .slot h4{font-size:1.18rem; line-height:1.35}
+.chunk > summary, details.legend > summary, .caut > summary{
+  font-size:1.12rem; line-height:1.4; padding-top:13px; padding-bottom:13px}
+
+/* the module cards on the hub are the main navigation, so they get the
+   largest hit area and the biggest label on the page */
+.modcard .mttl{font-size:1.2rem; line-height:1.38}
+.modcard .todo{font-size:.98rem}
+.modcard{min-height:74px}
+
+/* the reading line and the exam band headings */
+.rdg{font-size:1.06rem; line-height:1.6; padding:11px 14px}
+.exhead .et{font-size:1.08rem}
+.exhead .en{font-size:1.14rem}
+
+/* questions: the stem and the options are what she reads longest */
+.qz .qq{font-size:1.14rem; line-height:1.68}
+.qz label{font-size:1.08rem; line-height:1.62; padding:12px 14px}
+.qz .qwhy{font-size:1.06rem; line-height:1.72}
+
+/* tables outside the briefs */
+table{font-size:1.04rem}
+table td, table th{padding:11px 13px; line-height:1.6}
+
+@media (max-width:620px){
+  .card p, .card li, .mcard p, .mcard li,
+  .cbody p, .cbody li, .slot p, .chunk p, .chunk li{font-size:1.06rem}
+  .modcard .mttl{font-size:1.1rem}
+}
