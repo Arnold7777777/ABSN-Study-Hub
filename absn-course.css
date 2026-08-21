@@ -777,3 +777,39 @@ body.focus-high .modbody > *:has(.mcard.hy){display:block}
    visible, but cooler in colour so the two do not get confused. */
 .srcfill.mine{background:rgba(0,194,199,.14);border-left-color:rgba(0,194,199,.75)}
 .srctag.mine{background:rgba(0,194,199,.34);border-color:rgba(0,194,199,.7);color:#c9fbfd}
+
+/* ============================================================
+   MEASURE AND THE LAST SMALL TEXT
+   Two things that hurt every reader, not only a low-vision one.
+
+   1. Line length. On a wide monitor these lines ran to 91-99
+      characters. Past about 85 the eye loses its place coming back
+      to the start of the next line, which costs a fast reader speed
+      and costs a struggling reader the line. Capping the measure at
+      ~72ch fixes it for both, and constrains only text - tables,
+      diagrams and cards keep their full width.
+
+   2. The ATI template rows and mind-map lists were never picked up
+      by the earlier legibility pass and were still rendering at
+      15px, which made the most detailed content on the page the
+      hardest to read.
+   ============================================================ */
+.card p, .card li,
+.mcard p, .mcard li,
+.cbody p, .cbody li,
+.chunk p, .chunk li,
+.altrow p, .altrow li,
+.srcfill p, .srcfill li,
+.mmcol li, .notesum li,
+.body > p, .slot p,
+.qz .qq, .qz .qwhy{max-width:72ch}
+
+/* Bring the last of the small text up to the same baseline. These need the
+   .altpl prefix to outrank the original .altpl .altrow li rule above - a
+   bare .altrow li loses on specificity and silently does nothing. */
+.altpl .altrow li, .altpl .srcfill li,
+.mmcol li, .notesum li{font-size:1.10rem;line-height:1.72}
+.altpl .altrow p, .altpl .srcfill p{font-size:1.06rem;line-height:1.7}
+.altpl .altrow h5{font-size:1.02rem}
+.altpl .altsrc{font-size:1rem;line-height:1.6}
+.altpl .srcfill .srcnote, .altpl .srcfill .srccite{font-size:1rem}
