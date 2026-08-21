@@ -697,3 +697,77 @@ table td, table th{padding:11px 13px; line-height:1.6}
   .cbody p, .cbody li, .slot p, .chunk p, .chunk li{font-size:1.06rem}
   .modcard .mttl{font-size:1.1rem}
 }
+
+/* ============================================================
+   FOCUS MODES - one bite, and exam spotlight
+   Two ways to make a module page smaller. Both work by hiding,
+   never by moving things, so the page you come back to is the
+   page you left.
+   ============================================================ */
+.focusbar{display:flex;flex-wrap:wrap;gap:9px;align-items:center;
+ margin:0 0 18px;padding:13px 15px;border-radius:16px;
+ background:rgba(0,0,0,.62);border:1px solid var(--line);
+ box-shadow:0 7px 22px rgba(0,0,0,.4)}
+.focusbar .fbttl{font-size:1.06rem;font-weight:800;margin-right:4px}
+.focusbar .fbstat{margin-left:auto;font-size:1rem;font-weight:800;color:var(--accent)}
+.fbtn{min-height:46px;padding:10px 15px;border-radius:13px;cursor:pointer;
+ border:1px solid rgba(255,255,255,.28);background:rgba(var(--jewel),.72);color:#fff;
+ font:800 1.02rem/1.2 Verdana,"Segoe UI",system-ui,sans-serif}
+.fbtn:hover{background:rgba(var(--jewel),.92)}
+.fbtn:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.fbtn[aria-pressed="true"]{background:linear-gradient(135deg,#ffe27a,#ffc233);color:#241a02;
+ border-color:rgba(0,0,0,.35)}
+.fbHigh{background:rgba(var(--amethyst),.60)}
+.fbHigh:hover{background:rgba(var(--amethyst),.85)}
+.fbAll{background:rgba(0,0,0,.55)}
+.fbAll:hover{background:rgba(0,0,0,.78)}
+
+/* ---- one bite: one chunk, in the one card that holds it ----
+   Everything else at the top level goes too, otherwise "one bite" still
+   leaves a screenful. The card the bite lives in stays so the bite keeps
+   its heading and its colour. */
+body.focus-bite .modbody > *{display:none}
+body.focus-bite .modbody > .bite-host{display:block}
+body.focus-bite .modbody details.chunk{display:none}
+body.focus-bite .modbody details.chunk.bite-now{display:block;
+ outline:4px solid var(--accent);outline-offset:4px;border-radius:14px}
+
+/* ---- spotlight: only the high-yield card is left standing ---- */
+body.focus-high .modbody > *{display:none}
+body.focus-high .modbody .mcard.hy{display:block;
+ outline:4px solid var(--accent);outline-offset:4px;border-radius:16px}
+/* keep whatever wrapper the card happens to sit inside visible */
+body.focus-high .modbody > *:has(.mcard.hy){display:block}
+
+@media (max-width:640px){
+  .focusbar{padding:11px;gap:7px}
+  .focusbar .fbttl{width:100%;font-size:1rem}
+  .focusbar .fbstat{width:100%;margin:2px 0 0;text-align:left}
+  .fbtn{flex:1 1 42%;font-size:.98rem;padding:10px 11px}
+}
+@media print{.focusbar{display:none}
+  body.focus-bite .modbody details.chunk,
+  body.focus-high .modbody > *{display:block !important}}
+.modrow.hidden{display:none}
+
+/* ---- the Spotlight shortcut beside each module card on the hub ----
+   Two ways into a week: the card opens the whole module, the star opens it
+   already narrowed to the high-yield facts. For the night before. */
+.modrow{display:flex;align-items:stretch;gap:8px;margin:10px 0}
+.modrow.hidden{display:none}
+.modrow .modcard{flex:1 1 auto;margin:0}
+.modspot{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;
+ justify-content:center;gap:3px;text-decoration:none;color:#241a02;
+ background:linear-gradient(135deg,#ffe27a,#ffc233);border:1px solid rgba(0,0,0,.34);
+ border-radius:16px;padding:12px 15px;min-width:112px;text-align:center;
+ font:800 .95rem/1.2 Verdana,"Segoe UI",system-ui,sans-serif;
+ box-shadow:0 7px 22px rgba(0,0,0,.4);transition:background .13s}
+.modspot:hover{background:linear-gradient(135deg,#fff0b4,#ffd45e)}
+.modspot:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.modspot .ss{font-size:1.45rem;line-height:1}
+.modspot .sl{font-size:.88rem;font-weight:800}
+@media(max-width:640px){
+  .modspot{min-width:70px;padding:10px 8px}
+  .modspot .sl{font-size:.74rem}
+}
+@media(prefers-reduced-motion:reduce){.modspot{transition:none}}
