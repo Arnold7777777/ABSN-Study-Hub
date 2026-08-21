@@ -32,14 +32,52 @@
     { name: 'RegisteredNurseRN',  icon: '🩺', cls: 'w4' }
   ];
 
-  /* Playlists Caroline supplied. These are fixed links, not searches, so
-     they are listed separately and labelled with who provided them - I have
-     no way to open YouTube from here to confirm what is in one, so the label
-     is hers to correct, not mine to assert. */
-  var PLAYLISTS = [
-    { label: 'Textbook podcasts',
-      url: 'https://www.youtube.com/playlist?list=PLI3TocC2xS27gxhDgf56_DuOpaL4zRjMh' }
-  ];
+  /* Playlists Caroline supplied, scoped to where they belong.
+
+     The first one is the med-surg textbook podcast set, and it was showing on
+     every page - including the maternal and paediatric cards, where it is
+     simply the wrong book. A playlist only appears on pages it covers.
+
+     I cannot open YouTube from here to check what is inside a playlist, so
+     these are hers to supply and hers to label. To add one for NUR 234 or
+     235, put its id and label in the matching entry below, or override on a
+     single page with:
+
+         <meta name="absn-playlist" content="PLxxxxxxxx|Maternal podcasts">
+  */
+  var PLAYLISTS = {
+    medsurg: [{ label: 'Textbook podcasts',
+                url: 'https://www.youtube.com/playlist?list=PLI3TocC2xS27gxhDgf56_DuOpaL4zRjMh' }],
+    maternal: [],          /* NUR 234 - waiting on a playlist id */
+    peds:     []           /* NUR 235 - waiting on a playlist id */
+  };
+
+  /* Which set of playlists belongs on this page. Maternal cards are
+     NG-319 to NG-338, paediatric cards NG-343 to NG-362; everything else on
+     this site is adult med-surg or fundamentals. */
+  function family() {
+    var f = (location.pathname.split('/').pop() || '');
+    if (/^nur234/i.test(f)) return 'maternal';
+    if (/^nur235/i.test(f)) return 'peds';
+    var ng = f.match(/^NG-(\d+)/i);
+    if (ng) {
+      var n = parseInt(ng[1], 10);
+      if (n >= 319 && n <= 338) return 'maternal';
+      if (n >= 343 && n <= 362) return 'peds';
+    }
+    return 'medsurg';
+  }
+
+  function playlists() {
+    var override = meta('absn-playlist');
+    if (override) {
+      var bits = override.split('|');
+      if (bits[0]) return [{ label: (bits[1] || 'Podcasts').trim(),
+        url: 'https://www.youtube.com/playlist?list=' + bits[0].trim() }];
+    }
+    return PLAYLISTS[family()] || [];
+  }
+
 
   function meta(name) {
     var m = document.querySelector('meta[name="' + name + '"]');
@@ -154,10 +192,11 @@
     });
     sec.appendChild(row);
 
-    if (PLAYLISTS.length) {
+    var pls = playlists();
+    if (pls.length) {
       var prow = document.createElement('div');
       prow.className = 'wrow wplay';
-      PLAYLISTS.forEach(function (pl) {
+      pls.forEach(function (pl) {
         var a = document.createElement('a');
         a.className = 'w5';
         a.href = pl.url;
