@@ -534,6 +534,14 @@
   }
 
   function linkFor(card){
+    /* A question may name its own card directly. That beats the topic map,
+       because the map only knows the week a question belongs to, and a week
+       is a whole module - Caroline asked for the actual card. */
+    var direct = (card.getAttribute('data-lesson') || '').trim();
+    if(direct){
+      return anchor(direct, (card.getAttribute('data-lesson-label') || '').trim() || direct);
+    }
+
     var t = (card.getAttribute('data-topic') || '').trim();
     var href = t ? LESSON[t] : null;
     var name = t;
@@ -546,6 +554,10 @@
       href = sys[0]; name = sys[1];
     }
 
+    return anchor(href, name);
+  }
+
+  function anchor(href, name){
     var a = document.createElement('a');
     a.className = 'lessonlink';
     a.href = href;
@@ -560,7 +572,8 @@
 
   function decorate(rat){
     if(!rat || rat.querySelector('.lessonlink')) return;
-    var card = rat.closest('[data-topic]') || document.querySelector('[data-topic]');
+    var card = rat.closest('[data-lesson],[data-topic]') ||
+               document.querySelector('[data-lesson],[data-topic]');
     if(!card) return;
     var a = linkFor(card);
     if(a) rat.appendChild(a);
