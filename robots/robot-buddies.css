@@ -1,0 +1,60 @@
+:root {
+  --robot-card-bg: #fffaf1;
+  --robot-card-ink: #201533;
+  --robot-focus: #6e38c5;
+}
+
+.robot-card {
+  position: relative;
+  overflow: visible;
+  border: 3px solid #3b2368;
+  border-radius: 1.4rem;
+  background: var(--robot-card-bg);
+  color: var(--robot-card-ink);
+  padding: 2rem;
+  isolation: isolate;
+}
+
+.robot-card-peeker {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  right: clamp(.5rem, 3vw, 2rem);
+  width: clamp(110px, 27vw, 210px);
+  max-height: 190px;
+  object-fit: contain;
+  object-position: bottom;
+  transform: translateY(-58%);
+  pointer-events: none;
+  filter: drop-shadow(0 8px 7px rgba(22, 10, 41, .28));
+}
+
+.robot-card-peeker--left { left: clamp(.5rem, 3vw, 2rem); right: auto; }
+.robot-buddy { transform-origin: 50% 80%; will-change: transform; }
+.robot-anim--peek { animation: robot-peek 3.4s ease-in-out infinite; }
+.robot-anim--bob { animation: robot-bob 3s ease-in-out infinite; }
+.robot-anim--wave { animation: robot-wave 2.7s ease-in-out infinite; }
+.robot-anim--celebrate { animation: robot-celebrate 1.8s ease-in-out infinite; }
+.robot-anim--alert { animation: robot-alert 1.7s ease-in-out infinite; }
+.robot-anim--power { animation: robot-power 2.2s ease-in-out infinite; }
+.robot-anim--tip { animation: robot-tip 3s ease-in-out infinite; }
+.robot-anim--guitar { animation: robot-guitar 2.5s ease-in-out infinite; }
+.robot-anim--scan { animation: robot-scan 3.2s ease-in-out infinite; }
+.robot-anim--curious { animation: robot-curious 3.4s ease-in-out infinite; }
+.robot-anim--ufo { animation: robot-ufo 3.1s ease-in-out infinite; }
+
+@keyframes robot-peek { 0%,100%{transform:translateY(-55%) rotate(-1deg)} 50%{transform:translateY(-61%) rotate(1deg)} }
+@keyframes robot-bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+@keyframes robot-wave { 0%,100%{transform:rotate(-1deg)} 35%{transform:rotate(3deg)} 65%{transform:rotate(-2deg)} }
+@keyframes robot-celebrate { 0%,100%{transform:translateY(0) rotate(-1deg)} 50%{transform:translateY(-13px) rotate(2deg)} }
+@keyframes robot-alert { 0%,100%{filter:drop-shadow(0 0 0 rgba(255,178,28,0))} 50%{filter:drop-shadow(0 0 14px rgba(255,178,28,.8))} }
+@keyframes robot-power { 0%,100%{filter:drop-shadow(0 0 3px rgba(87,237,221,.25));transform:scale(1)} 50%{filter:drop-shadow(0 0 18px rgba(87,237,221,.68));transform:scale(1.015)} }
+@keyframes robot-tip { 0%,100%{transform:rotate(0)} 45%{transform:rotate(-2deg)} 65%{transform:rotate(1deg)} }
+@keyframes robot-guitar { 0%,100%{transform:rotate(-.7deg)} 50%{transform:rotate(1.3deg) translateY(-5px)} }
+@keyframes robot-scan { 0%,100%{filter:drop-shadow(0 0 3px rgba(255,76,76,.25))} 50%{filter:drop-shadow(0 0 13px rgba(56,228,214,.72))} }
+@keyframes robot-curious { 0%,100%{transform:rotate(-1deg) translateY(0)} 50%{transform:rotate(2deg) translateY(-7px)} }
+@keyframes robot-ufo { 0%,100%{transform:translateY(3px) rotate(-.5deg)} 50%{transform:translateY(-12px) rotate(.5deg)} }
+
+@media (prefers-reduced-motion: reduce) {
+  .robot-buddy, .robot-card-peeker, [class*="robot-anim--"] { animation: none !important; transition: none !important; }
+}

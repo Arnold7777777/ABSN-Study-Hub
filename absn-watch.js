@@ -165,7 +165,7 @@
     sec.setAttribute('aria-label', 'Watch a video about ' + t);
 
     var h = document.createElement('h2');
-    h.appendChild(document.createTextNode('🤖🎥 Rather watch it?'));
+    h.appendChild(document.createTextNode('\uD83C\uDFA5 Rather watch it?'));
     sec.appendChild(h);
 
     var sub = document.createElement('p');
