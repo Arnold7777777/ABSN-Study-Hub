@@ -17,6 +17,13 @@
   'use strict';
 
   var LESSON = {
+ "Ambulation": "core/NG-167_ambulation-body-mechanics-mobility.html",
+ "Assistive Devices": "musc/NG-064_crutch-cane-training.html",
+ "Cane": "musc/NG-064_crutch-cane-training.html",
+ "Crutch Walking": "musc/NG-064_crutch-cane-training.html",
+ "Crutches": "musc/NG-064_crutch-cane-training.html",
+ "Walker": "musc/NG-064_crutch-cane-training.html",
+ "Walkers": "musc/NG-064_crutch-cane-training.html",
  "% solution": "core/NG-171_med-math-memory-tricks.html",
  "ABG Compensation": "resp/NG-138_abg-compensation-questions.html",
  "ABG Interpretation": "resp/NG-092_abg-answers.html",
