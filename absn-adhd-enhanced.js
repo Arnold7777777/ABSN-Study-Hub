@@ -13,6 +13,7 @@
     if(name==='index.html') return 'index';
     if(/^m\d+\.html$/.test(name)) return 'module';
     if(/^exam\d+\.html$/.test(name)||name==='final.html') return 'exam';
+    if(/^nur(234|235|258)-m\d+\.html$/.test(name)) return 'coursemod';
     if(/^nur(234|235|258)\.html$/.test(name)) return 'course';
     if(/-quiz\.html$/.test(name)||name==='super-mega-quiz.html'||name==='pharmacology-new.html') return 'quiz';
     if(name.indexOf('podcast')>-1) return 'podcast';
@@ -58,6 +59,12 @@
       lede:'These books already contain small learning chunks. The new focus and roomy-text tools help you stay inside one idea without losing the course structure.',
       path:[['Orient','choose the exam and module'],['Notice','assessment and trend'],['Prioritize','first nursing action'],['Recheck','response and teaching']]
     },
+    coursemod:{
+      image:'absn-clinical-robot-team.webp',alt:'Nurse robots connect maternal-newborn, pediatric, and adult-health clinical learning with a shared safety pathway.',
+      kicker:'One week, one page',title:'Everything for this module, and nothing from any other.',
+      lede:'This is a single week on its own page, so there is room for the whole story: the brief, the chunks, the diagrams, the templates and the questions. When you are done here, the arrow at the bottom takes you to the next week.',
+      path:[['Read the brief','the one idea first'],['Open one chunk','stay inside it'],['Study the visual','picture before words'],['Answer the questions','then check why']]
+    },
     quiz:{
       image:'absn-quiz-podcast-robots.webp',alt:'Two nurse robots use a calm podcast station and a colorful quiz station connected by a focus-and-break timer.',
       kicker:'Low-stress retrieval practice',title:'Set up a quiz you can actually finish',
@@ -90,10 +97,21 @@
     }
   };
 
+  /* The module quiz is rendered from a JSON block after this script runs, so
+     counting .qz here would always say zero. Count the bank instead. */
+  function bankCount(){
+    var el=document.getElementById('qbank'); if(!el) return '0';
+    try{ var b=JSON.parse(el.textContent);
+         return String(Array.isArray(b)?b.length
+                : Object.keys(b).reduce(function(n,k){return n+(b[k]||[]).length;},0)); }
+    catch(e){ return '0'; }
+  }
+
   function pageStats(){
     if(family==='index') return [[count('.tile'),'destinations'],['4','study modes'],['1','next step']];
     if(family==='module'||family==='exam') return [[count('.card[data-t]'),'focus cards'],[count('table'),'tables'],[count('li'),'fact bullets']];
-    if(family==='course') return [[count('.exsec'),'exam groups'],[count('details.chunk,details.altchunk'),'study chunks'],[count('.mcard,figure'),'visual panels']];
+    if(family==='course') return [[count('.exsec'),'exam groups'],[count('.modcard'),'module pages'],[count('.card,.mcard'),'orientation cards']];
+    if(family==='coursemod') return [[count('details.chunk,details.altchunk'),'study chunks'],[count('.vcard,.vtw,.vfig,.mcard,figure'),'visual panels'],[bankCount(),'questions']];
     if(family==='quiz') return [['1','question bank'],[count('.fbtn'),'filter choices'],[count('button'),'controls']];
     if(family==='podcast') return [[count('.ep,.pod'),'episodes'],[count('.topic'),'topic groups'],[count('a'),'resource links']];
     if(family==='guide') return [[count('details'),'sections'],[count('.card,.it'),'key points'],[count('table,.items'),'reference tables']];
@@ -207,7 +225,7 @@
   }
   if(family==='podcast')document.querySelectorAll('.topic').forEach(enhanceTopic);
 
-  if(family==='course')document.querySelectorAll('details.chunk,details.altchunk').forEach(function(item){item.classList.add('adhd-focus-target');targets.push(item);});
+  if(family==='course'||family==='coursemod')document.querySelectorAll('details.chunk,details.altchunk').forEach(function(item){item.classList.add('adhd-focus-target');targets.push(item);});
   if(family==='resource')document.querySelectorAll('details.fold,details.wk').forEach(function(item){item.classList.add('adhd-focus-target');targets.push(item);});
 
   function targetIsOpen(target){return target.tagName==='DETAILS'?target.open:target.classList.contains('adhd-open');}
