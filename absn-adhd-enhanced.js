@@ -244,9 +244,40 @@
   });
 
   var tools=element('div','');tools.id='adhdStudyTools';tools.setAttribute('data-adhd-ui','');tools.setAttribute('aria-label','ADHD-friendly study controls');
-  var roomy=element('button','','A＋ Roomy');roomy.type='button';roomy.title='Increase text size and spacing';roomy.setAttribute('aria-pressed','false');tools.appendChild(roomy);
-  roomy.addEventListener('click',function(){var on=document.body.classList.toggle('adhd-roomy');roomy.setAttribute('aria-pressed',on?'true':'false');roomy.textContent=on?'A− Standard':'A＋ Roomy';try{localStorage.setItem('absnAdhdRoomy',on?'1':'0');}catch(error){}});
-  try{if(localStorage.getItem('absnAdhdRoomy')==='1')roomy.click();}catch(error){}
+  /* Text size cycles through three states rather than toggling two. The pages
+     are set for reduced vision, which is right for the person they were built
+     for - but they are shared with classmates, and a fast reader with good
+     sight wants more on the screen and less scrolling. Compact is the way
+     down; it was the one thing the old toggle could not do. Standard stays
+     the default, so nobody has to touch it. */
+  var SIZES=[
+    {key:'compact',  cls:'adhd-compact', label:'A  Compact',  title:'Smaller text, more on screen'},
+    {key:'standard', cls:'',             label:'A  Standard', title:'The default size'},
+    {key:'roomy',    cls:'adhd-roomy',   label:'A＋ Roomy',   title:'Larger text and more spacing'}
+  ];
+  var sizeAt=1;
+  var roomy=element('button','','');roomy.type='button';tools.appendChild(roomy);
+  function applySize(){
+    var s=SIZES[sizeAt];
+    /* The class goes on <html> as well as <body>. Nearly every size on these
+       pages is in rem, and rem is measured from the root - so changing only
+       body's font-size moved almost nothing. */
+    document.body.classList.remove('adhd-compact','adhd-roomy');
+    document.documentElement.classList.remove('adhd-compact','adhd-roomy');
+    if(s.cls){ document.body.classList.add(s.cls); document.documentElement.classList.add(s.cls); }
+    roomy.textContent=s.label; roomy.title=s.title;
+    roomy.setAttribute('aria-pressed', s.key==='standard'?'false':'true');
+    roomy.setAttribute('aria-label','Text size: '+s.key+'. Press to change.');
+    try{ localStorage.setItem('absnAdhdText', s.key); }catch(error){}
+  }
+  roomy.addEventListener('click',function(){ sizeAt=(sizeAt+1)%SIZES.length; applySize(); });
+  try{
+    var saved=localStorage.getItem('absnAdhdText');
+    /* the old toggle stored absnAdhdRoomy as '1' - carry that choice over */
+    if(!saved && localStorage.getItem('absnAdhdRoomy')==='1') saved='roomy';
+    if(saved){ for(var si=0;si<SIZES.length;si++) if(SIZES[si].key===saved) sizeAt=si; }
+  }catch(error){}
+  applySize();
 
   var focus=null,openAll=null,chunkCount=null;
   if(targets.length){
