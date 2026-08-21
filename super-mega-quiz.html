@@ -92,10 +92,13 @@ h1{font-size:clamp(1.7rem,5.6vw,2.6rem);margin:0 0 6px;line-height:1.14;font-wei
 .opt.correct::after{content:" \2713";font-weight:900;color:#8ff0c8}
 .opt.wrong{background:rgba(255,59,107,.32);border-color:#ff8fa3}
 .opt.wrong::after{content:" \2717";font-weight:900;color:#ffc2cd}
-.check{font:900 1.02rem inherit;padding:12px 18px;border-radius:13px;cursor:pointer;
- border:1px solid var(--line);background:rgba(255,255,255,.18);color:#fff;margin:4px 0 0}
-.check:hover{background:rgba(255,255,255,.3)}
-.check:disabled{opacity:.45;cursor:default}
+.check{font:900 1.12rem inherit;padding:15px 26px;border-radius:14px;cursor:pointer;
+ border:1px solid rgba(255,255,255,.42);color:#231a02;margin:10px 0 2px;
+ background:linear-gradient(135deg,#ffc233,#ffd76a);
+ box-shadow:0 6px 18px rgba(0,0,0,.45)}
+.check:hover{filter:brightness(1.1)}
+.check:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.check:disabled{opacity:.5;cursor:default;filter:grayscale(.4)}
 .rat{display:none;margin:13px 0 0;padding:13px 15px;border-radius:13px;
  background:rgba(0,0,0,.46);border-left:5px solid var(--accent);
  font-size:1.02rem;line-height:1.62}
@@ -329,14 +332,14 @@ body.nav-open #side{transform:translateX(0)}
 <div class="wrap">
   <h1>&#10024; Super Mega Quiz</h1>
   <p class="sub">Every question on the study hub, in one place. Filter it down to whatever you are revising, choose how many you want, and go.</p>
-  <span class="total">3,876 questions</span>
+  <span class="total">4,033 questions</span>
 
   <div class="go" id="goTop" style="margin:6px 0 10px">
       <button type="button" id="startBtn">&#127922; Shuffle and start</button>
       <button type="button" class="plain" id="orderBtn">&#8635; In order</button>
   </div>
   <p class="poolnote" style="margin:0 0 12px">
-     Ready with <b id="poolcount">3,876</b> questions &mdash; press <b>Shuffle and start</b>.
+     Ready with <b id="poolcount">4,033</b> questions &mdash; press <b>Shuffle and start</b>.
      Scroll down first if you want to narrow it to certain courses or topics.</p>
   <button type="button" class="filt-toggle" id="filtToggle">&#9662; Show the filters</button>
   <div class="panel" id="filters">
@@ -348,7 +351,12 @@ body.nav-open #side{transform:translateX(0)}
     <div class="frow"><span class="flabel">How many questions</span><button type="button" class="fbtn active" data-k="count" data-v="all">All</button><button type="button" class="fbtn" data-k="count" data-v="10">10</button><button type="button" class="fbtn" data-k="count" data-v="20">20</button><button type="button" class="fbtn" data-k="count" data-v="30">30</button><button type="button" class="fbtn" data-k="count" data-v="50">50</button><button type="button" class="fbtn" data-k="count" data-v="100">100</button>
       <input class="cnt-input" id="customCount" type="number" min="1" placeholder="or type"
         aria-label="Choose your own number of questions">
-      <p class="poolnote">Matching your filters: <b id="poolcount2">3,876</b> questions.</p>
+      <p class="poolnote">Matching your filters: <b id="poolcount2">4,033</b> questions.</p>
+<div class="go" id="goBottom" style="margin:14px 0 2px">
+  <button type="button" id="startBtn2">&#127922; Shuffle and start</button>
+  <button type="button" class="plain" id="orderBtn2">&#8635; In order</button>
+</div>
+
     </div>
   </div>
 
@@ -1197,6 +1205,46 @@ function hop(url, closeThis){
     var r=nb.getBoundingClientRect();
     if(nb.style.left) place(r.left,r.top,false);
   });
+})();
+
+/* The start controls sit above a long filter panel. After scrolling the
+   whole way down to choose filters, having to scroll back up to start was
+   the annoyance; these copies fire the originals. */
+(function(){
+  function mirror(a,b){
+    var src=document.getElementById(a), dst=document.getElementById(b);
+    if(src&&dst) dst.addEventListener('click',function(){ src.click(); });
+  }
+  mirror('startBtn','startBtn2');
+  mirror('orderBtn','orderBtn2');
+})();
+
+/* The filter chips carried hand-typed counts, and every batch of new
+   questions made them wrong - NUR 234 still said 115 when the bank held 169.
+   Recount from the bank itself at load, so they can never go stale again. */
+(function absnRecount(){
+  var el=document.getElementById('qbank');
+  if(!el) return;
+  var bank; try{ bank=JSON.parse(el.textContent); }catch(e){ return; }
+  var tally={course:{},sys:{},type:{}};
+  bank.forEach(function(q){
+    ['course','sys','type'].forEach(function(k){
+      var v=q[k]; if(!v) return;
+      tally[k][v]=(tally[k][v]||0)+1;
+    });
+  });
+  var fmt=function(n){ return n.toLocaleString(); };
+  [].forEach.call(document.querySelectorAll('.fbtn[data-k][data-v]'), function(b){
+    var k=b.dataset.k, v=b.dataset.v, n=tally[k]&&tally[k][v];
+    if(n===undefined) return;
+    var tag=b.querySelector('b');
+    if(tag) tag.textContent=fmt(n);
+  });
+  var total=bank.length;
+  [].forEach.call(document.querySelectorAll('.total'), function(e){
+    e.textContent=fmt(total)+' questions'; });
+  ['poolcount','poolcount2'].forEach(function(id){
+    var e=document.getElementById(id); if(e) e.textContent=fmt(total); });
 })();
 </script>
 <script src="absn-lesson-links.js" defer></script>
