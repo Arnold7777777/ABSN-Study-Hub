@@ -24,6 +24,8 @@
    to whatever link the question already carried. */
 function setTeachingResource(q){
   var a=$('sourceLink'), map=window.ABSN_GAME_LESSONS||{}, hit=map[q.category];
+  /* no page for this exact category - its group still says which shelf */
+  if(!hit) hit=(window.ABSN_GAME_GROUPS||{})[q.group];
   if(hit){
     a.href=hit[0];
     a.textContent='\ud83d\udcd6 '+(/index\.html$/.test(hit[0])
