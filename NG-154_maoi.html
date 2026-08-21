@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MAOI · NG-154 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#does .sec-h h2{color:#d9c2ff} #does .step{background:var(--amethyst)}
+#watch .sec-h h2{color:#bcd0ff} #watch .step{background:var(--sapphire)}
+#teach  .sec-h h2{color:#a5f3d4} #teach .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+/* ---------- extra: ladder note chip (appended, not overriding shell rules) ---------- */
+.ladderNote{display:inline-block;font-size:.78rem;font-weight:800;padding:3px 10px;border-radius:8px;
+  background:rgba(255,255,255,.18);border:1px solid var(--line);margin-top:8px}
+</style></head>
+<body>
+<!-- absn-floating-nav -->
+<style>
+#absnNav{position:fixed;top:9px;right:9px;z-index:99990;display:flex;gap:6px;
+ font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif}
+#absnNav a{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:#fff;
+ font-weight:800;font-size:.84rem;line-height:1;padding:9px 13px;border-radius:999px;
+ border:1px solid rgba(255,255,255,.32);box-shadow:0 4px 14px rgba(0,0,0,.42);
+ backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);white-space:nowrap}
+#absnNav a.hub{background:linear-gradient(135deg,#0f7d6b,#12b886)}
+#absnNav a.ig{background:linear-gradient(135deg,#5a2d82,#9d5cff)}
+#absnNav a:hover{filter:brightness(1.15)}
+#absnNav a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
+@media (max-width:620px){#absnNav .lb{display:none}#absnNav a{padding:9px 11px}}
+@media print{#absnNav{display:none!important}}
+</style>
+<div id="absnNav">
+  <a class="hub" href="../index.html">&#127968;<span class="lb"> Study Hub</span></a>
+  <a class="ig" href="../infographics.html">&#128444;&#65039;<span class="lb"> Infographics</span></a>
+</div>
+<!-- /absn-floating-nav -->
+
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#does">🧠 What it does</a>
+  <a class="c2" href="#watch">🚨 Watch for</a>
+  <a class="c3" href="#teach">🩺 Teach</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Psych-Mental Health Pharmacology · Antidepressant Ladder — Rung 4 of 3 (last line)</div>
+  <h1>MAOI <span class="drop">☠️</span></h1>
+  <p class="sub">Monoamine Oxidase Inhibitor — the powerful, last-resort antidepressant</p>
+  <div class="chips">
+    <span class="chip id">NG-154</span>
+    <span class="chip cat">PSYCH PHARM</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede">Very powerful antidepressants used for <b>depression, panic disorder &amp; social phobia</b> — especially depression that is <b>resistant to other meds</b>. They sit at the <b>top of the antidepressant ladder</b>: last-line, because two things make them uniquely dangerous — <mark>tyramine food restrictions</mark> and a strict <mark>2-week washout</mark> around other serotonergic drugs.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">🥋 Last-line, most powerful</span>Reserved for treatment-resistant depression, panic disorder, social phobia.</div>
+  <div class="rc rubybg"><span class="big">🧀 Tyramine = HTN crisis</span>Aged cheese, cured meats, wine, beer, chocolate — MASSIVE hypertensive crisis risk.</div>
+  <div class="rc tealbg"><span class="big">⏱️ 2-week washout</span>Required before/after any other serotonergic antidepressant — no exceptions.</div>
+  <div class="rc topazbg"><span class="big">🚨 Serotonin syndrome</span>Agitation, hyperthermia, clonus/hyperreflexia, diaphoresis, tremor — the shared danger when the washout rule is broken.</div>
+</div>
+
+<!-- ============ WHAT IT DOES ============ -->
+<section id="does">
+  <div class="sec-h"><span class="icon">🧠</span><h2>WHAT IT DOES</h2><span class="step">STEP 1 · THE MECHANISM</span></div>
+  <p class="sec-sub">One enzyme, shut down completely — three neurotransmitters flood the brain instead of just one.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🔬 Block the enzyme that breaks neurotransmitters down</h3>
+      <p><span class="tip">MOA</span> Monoamine oxidase (MAO) is the enzyme that normally <b>breaks down</b> norepinephrine, serotonin, and dopamine once they've done their job. MAOIs <mark>irreversibly block that enzyme</mark> — instead of blocking reabsorption like an SSRI, they stop the neurotransmitters from being destroyed at all, so <b>all three</b> build up in the brain.</p>
+      <svg viewBox="-10 -10 530 280" role="img" aria-label="Diagram showing monoamine oxidase enzyme normally breaking down norepinephrine, serotonin, and dopamine, versus an MAOI irreversibly blocking that enzyme so all three neurotransmitters accumulate">
+        <rect x="-6" y="-6" width="522" height="272" rx="16" fill="rgba(192,34,85,.16)" stroke="#c02255" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="24" y="34" font-size="17" font-weight="900" fill="#ff9db4">🧪 MAO enzyme — normally breaks down:</text>
+        <rect x="30" y="50" width="110" height="34" rx="9" fill="#2f6bff" opacity=".7"/><text x="42" y="72" font-size="13" font-weight="800" fill="#fff">Norepinephrine</text>
+        <rect x="165" y="50" width="90" height="34" rx="9" fill="#ffc233" opacity=".85"/><text x="180" y="72" font-size="13" font-weight="800" fill="#231a02">Serotonin</text>
+        <rect x="280" y="50" width="90" height="34" rx="9" fill="#12b886" opacity=".8"/><text x="296" y="72" font-size="13" font-weight="800" fill="#03291c">Dopamine</text>
+        <path d="M75 92 L75 120" stroke="#ff9db4" stroke-width="3" marker-end="url(#arrM1)"/>
+        <path d="M210 92 L210 120" stroke="#ff9db4" stroke-width="3" marker-end="url(#arrM1)"/>
+        <path d="M325 92 L325 120" stroke="#ff9db4" stroke-width="3" marker-end="url(#arrM1)"/>
+        <defs><marker id="arrM1" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#ff9db4"/></marker></defs>
+        <rect x="120" y="122" width="200" height="34" rx="9" fill="#666"/>
+        <text x="140" y="144" font-size="13" font-weight="900" fill="#fff">MAOI = enzyme BLOCKED ✗</text>
+        <text x="24" y="196" font-size="15" font-weight="900" fill="#7df0c6">Result: NE ↑ Serotonin ↑ Dopamine ↑</text>
+        <text x="24" y="220" font-size="13.5" font-style="italic" fill="#e9dcff">all three flood the brain — powerful antidepressant effect, powerful risk</text>
+      </svg>
+      <div class="mn">🧠 <b>"MAOI blocks the trash collector."</b> No breakdown crew for NE, serotonin, or dopamine — everything piles up. That's why it's the most powerful class, and also why the interactions are the most dangerous.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>💊 Know the names</h3>
+      <ul class="tick">
+        <li><b>Phenelzine</b> — brand: Nardil</li>
+        <li><b>Selegiline</b></li>
+        <li><b>Isocarboxazid</b></li>
+        <li><b>Tranylcypromine</b></li>
+      </ul>
+      <div class="mn">🧠 <b>"MAOI's names don't rhyme like SSRIs do"</b> — learn these four as a standalone set, since none of them share the familiar -ine/-am suffixes.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🎯 Indications</h3>
+      <ul class="tick">
+        <li>😔 <b>Depression</b> — especially treatment-resistant</li>
+        <li>😱 <b>Panic disorder</b></li>
+        <li>😳 <b>Social phobia</b></li>
+      </ul>
+      <div class="mn">🧠 <b>Powerful, but last resort</b> — tried after SSRIs, SNRIs, and TCAs haven't worked.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WATCH FOR ============ -->
+<section id="watch">
+  <div class="sec-h"><span class="icon">🚨</span><h2>WATCH FOR</h2><span class="step">STEP 2 · THE TWO BIG DANGERS</span></div>
+  <p class="sec-sub">This whole drug class is tested on two rules — food, and timing. Miss either one and the outcome is a crisis.</p>
+
+  <div class="grid">
+    <div class="card ruby span2">
+      <h3>🧀 Danger #1 — Tyramine food restriction → hypertensive crisis</h3>
+      <p>MAO normally breaks down <b>tyramine</b> too. With the enzyme blocked, dietary tyramine builds up, displaces stored norepinephrine, and triggers a <b>massive release of norepinephrine</b> → <mark>hypertensive crisis</mark>.</p>
+      <svg viewBox="0 0 440 210" role="img" aria-label="Diagram showing tyramine from food displacing stored norepinephrine in the nerve terminal when MAO is blocked, causing a massive norepinephrine surge and hypertensive crisis" style="margin:8px 0">
+        <rect x="6" y="6" width="428" height="198" rx="16" fill="rgba(255,59,107,.14)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="7 6"/>
+        <rect x="30" y="26" width="150" height="40" rx="10" fill="#ff8a3d"/>
+        <text x="44" y="52" font-size="14" font-weight="900" fill="#2b1200">🧀🍷 Tyramine (food)</text>
+        <path d="M180 46 L250 46" stroke="#ffc233" stroke-width="4" marker-end="url(#arrTy)"/>
+        <defs><marker id="arrTy" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#ffc233"/></marker></defs>
+        <rect x="255" y="26" width="150" height="40" rx="10" fill="#2f6bff"/>
+        <text x="266" y="52" font-size="13" font-weight="900" fill="#fff">Displaces stored NE</text>
+        <path d="M330 68 L330 100" stroke="#ff3b6b" stroke-width="4" marker-end="url(#arrTy2)"/>
+        <defs><marker id="arrTy2" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#ff3b6b"/></marker></defs>
+        <rect x="205" y="102" width="200" height="40" rx="10" fill="#c02255"/>
+        <text x="216" y="128" font-size="13" font-weight="900" fill="#fff">MASSIVE NE release</text>
+        <path d="M305 144 L305 170" stroke="#ff3b6b" stroke-width="4" marker-end="url(#arrTy3)"/>
+        <defs><marker id="arrTy3" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#ff3b6b"/></marker></defs>
+        <text x="60" y="184" font-size="16" font-weight="900" fill="#ff9db4">🚨 HYPERTENSIVE CRISIS</text>
+      </svg>
+      <div class="no-grid">
+        <div class="no-t hot"><span class="e">🧀</span>Aged cheese<i>no wine tasting</i></div>
+        <div class="no-t hot"><span class="e">🍷</span>Wine</div>
+        <div class="no-t hot"><span class="e">🍺</span>Beer<i>no beer fest</i></div>
+        <div class="no-t hot"><span class="e">🥓</span>Cured meats<i>sausage, salami</i></div>
+        <div class="no-t"><span class="e">🍫</span>Chocolate</div>
+        <div class="no-t"><span class="e">🧂</span>OTC cold/diet meds<i>decongestants</i></div>
+      </div>
+      <div class="mn">🧠 <b>"No wine tasting, no beer fest."</b> Aged cheese &amp; wine, beer &amp; sausage/salami, chocolate — anything <b>aged, fermented, cured, or tap</b>. This is the single highest-yield MAOI fact on NCLEX.</div>
+    </div>
+
+    <div class="card garnet span2">
+      <h3>⏱️ Danger #2 — the 2-week washout period</h3>
+      <p><span class="never">Never combine an MAOI with another serotonergic antidepressant</span> — SSRIs, SNRIs, or TCAs — without a <b>2-week washout</b> before starting the MAOI and after stopping it (fluoxetine needs even longer due to its long half-life, per most references).</p>
+      <svg viewBox="-10 -10 663 170" role="img" aria-label="Timeline showing a two week washout period required before starting an MAOI after stopping another serotonergic antidepressant, and before starting another serotonergic antidepressant after stopping an MAOI">
+        <rect x="-6" y="-6" width="655" height="162" rx="14" fill="rgba(13,8,26,.4)" stroke="rgba(255,255,255,.25)"/>
+        <text x="20" y="30" font-size="14" font-weight="900" fill="#ffe49a">Stop SSRI / SNRI / TCA</text>
+        <line x1="24" y1="70" x2="416" y2="70" stroke="#ffc233" stroke-width="4"/>
+        <circle cx="24" cy="70" r="7" fill="#ff3b6b"/>
+        <circle cx="220" cy="70" r="7" fill="#7df0c6"/>
+        <rect x="24" y="52" width="196" height="10" rx="5" fill="#ffc233" opacity=".5"/>
+        <text x="60" y="98" font-size="15" font-weight="900" fill="#ffe49a">2-WEEK WASHOUT</text>
+        <text x="250" y="30" font-size="14" font-weight="900" fill="#a5f3d4">Start MAOI — safe</text>
+        <text x="24" y="126" font-size="13" font-style="italic" fill="#efe6ff">Same rule applies in reverse: stop the MAOI → wait 2 weeks → start the next serotonergic drug</text>
+      </svg>
+      <div class="mn">🧠 <b>"MAOI = Anti-depressant, STOP — count to 2 (weeks)."</b> This washout rule appears on the SSRI page and the SNRI/TCA page too — it's the single rule that connects all four antidepressant classes.</div>
+    </div>
+
+    <div class="card ruby span2">
+      <h3>🚨 Serotonin syndrome — same 5 signs as every other antidepressant class</h3>
+      <p>If the washout rule is broken, or an MAOI is combined with another serotonergic drug, serotonin syndrome can occur:</p>
+      <svg viewBox="-10 -10 486 170" role="img" aria-label="List diagram of the five signs of serotonin syndrome: agitation, hyperthermia, clonus or hyperreflexia, diaphoresis, and tremor">
+        <rect x="-6" y="-6" width="478" height="162" rx="14" fill="rgba(255,59,107,.12)" stroke="#ff3b6b" stroke-width="1.5" stroke-dasharray="6 5"/>
+        <text x="24" y="36" font-size="15" font-weight="900" fill="#ff9db4">😵 Agitation</text>
+        <text x="24" y="60" font-size="15" font-weight="900" fill="#ffc233">🌡️ Hyperthermia</text>
+        <text x="24" y="84" font-size="15" font-weight="900" fill="#bcd0ff">🦵 Clonus / hyperreflexia</text>
+        <text x="230" y="36" font-size="15" font-weight="900" fill="#7df0c6">💦 Diaphoresis</text>
+        <text x="230" y="60" font-size="15" font-weight="900" fill="#ffe49a">🤲 Tremor</text>
+        <text x="24" y="118" font-size="13" font-style="italic" fill="#ffd9e2">Same list every time — SSRI, SNRI/TCA, and MAOI pages all share it</text>
+      </svg>
+      <div class="mn">🧠 <b>"A HOT DAT"</b> — Agitation · HOT (hyperthermia) · Diaphoresis · Agitation-driven Tremor + clonus. Also watch for headache and increased agitation as early warning NCLEX key terms when starting or increasing an MAOI dose.</div>
+    </div>
+
+    <div class="card topaz">
+      <h3>📈 Suicide risk — assess first</h3>
+      <p>Like all antidepressants, if a patient states <i>"this med isn't working after 2 weeks,"</i> <mark>assess first</mark> for further expressions of hopelessness, despair, suicidal thoughts, or self-harm before addressing onset timing.</p>
+      <div class="mn">🧠 Increased suicide risk is a shared antidepressant-class concern, not unique to MAOIs — but it's still a top MAOI safety priority.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TEACH ============ -->
+<section id="teach">
+  <div class="sec-h"><span class="icon">🩺</span><h2>TEACH</h2><span class="step">STEP 3 · PATIENT EDUCATION</span></div>
+  <p class="sec-sub">Two rules to teach on day one — the diet list, and the drug-switching timeline.</p>
+
+  <div class="grid">
+    <div class="card emerald span2">
+      <h3>✅ The teaching ladder</h3>
+      <div class="ladder">
+        <div class="rung"><div class="n">1</div><div class="t">🧀 <b>Avoid tyramine-rich foods</b> — aged cheese, cured/fermented meats, wine, beer, chocolate</div></div>
+        <div class="rung"><div class="n">2</div><div class="t">💊 <b>Check every OTC drug</b> before taking it — including cold remedies &amp; diet aids</div></div>
+        <div class="rung"><div class="n">3</div><div class="t">⏱️ <span class="never">Never</span> start or stop another antidepressant without a <b>2-week washout</b></div></div>
+        <div class="rung"><div class="n">4</div><div class="t">💬 <b>Report</b> severe headache, palpitations, or stiff neck — possible early hypertensive crisis</div></div>
+      </div>
+      <div class="mn">🧠 <b>"Cheese, wine, and two weeks."</b> If a nursing exam question mentions MAOI, the answer usually involves one of those three things.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🪜 Where MAOIs sit on the antidepressant ladder</h3>
+      <svg viewBox="0 0 440 300" role="img" aria-label="Antidepressant treatment ladder from bottom to top: SSRI first line, then SNRI, then TCA, then MAOI highlighted as the last line, with increasing side effect burden going up">
+        <rect x="6" y="6" width="428" height="288" rx="16" fill="rgba(13,8,26,.35)" stroke="rgba(255,255,255,.25)" stroke-width="1.5"/>
+        <text x="330" y="26" font-size="12" font-weight="800" fill="#ffd9e2" text-anchor="middle">↑ more side effects</text>
+        <rect x="30" y="232" width="380" height="42" rx="10" fill="#12b886" opacity=".65"/>
+        <text x="46" y="258" font-size="15" font-weight="900" fill="#03291c">SSRI — 1st line (see NG-205)</text>
+        <rect x="30" y="180" width="380" height="42" rx="10" fill="#2f6bff" opacity=".7"/>
+        <text x="46" y="206" font-size="15" font-weight="900" fill="#fff">SNRI — dual mechanism (see NG-187)</text>
+        <rect x="30" y="128" width="380" height="42" rx="10" fill="#ff8a3d" opacity=".75"/>
+        <text x="46" y="154" font-size="15" font-weight="900" fill="#2b1200">TCA — cardiotoxic in OD (see NG-187)</text>
+        <rect x="30" y="78" width="380" height="42" rx="10" fill="#c02255" stroke="#eafff7" stroke-width="3"/>
+        <text x="46" y="104" font-size="16" font-weight="900" fill="#fff">MAOI — last line ⭐ YOU ARE HERE</text>
+        <path d="M20 268 L20 90" stroke="#a5f3d4" stroke-width="3" marker-end="url(#arrLad3)"/>
+        <defs><marker id="arrLad3" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#a5f3d4"/></marker></defs>
+      </svg>
+      <span class="ladderNote">🥋 This page = the top rung · see NG-205 (SSRI) and NG-187 (SNRI/TCA)</span>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🧪 NCLEX key terms to flag</h3>
+      <ul class="tick">
+        <li><b>Headache + increased agitation</b> when starting or increasing dose</li>
+        <li><b>Massive HTN crisis risk</b> = the word "tyramine" nearby</li>
+        <li><b>2-week washout</b> = the phrase "switching antidepressants"</li>
+      </ul>
+      <div class="mn">🧠 See <b>NG-205</b> (SSRI) and <b>NG-187</b> (SNRI vs. TCA) — all three antidepressant pages share the same serotonin syndrome symptom list and the same washout rule.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">🧪 Block MAO</span>= NE, serotonin, dopamine all build up</div>
+    <div class="rc rubybg"><span class="big">🧀 Tyramine</span>= aged cheese, cured meats, wine, beer → HTN crisis</div>
+    <div class="rc tealbg"><span class="big">⏱️ 2-week washout</span>= before AND after switching to/from any serotonergic antidepressant</div>
+    <div class="rc topazbg"><span class="big">🚨 Serotonin syndrome</span>= agitation, hyperthermia, clonus/hyperreflexia, diaphoresis, tremor</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 4 rapid-fire questions</summary>
+      <div class="qa">Q1: Why do MAOIs require a tyramine-restricted diet? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">MAO normally breaks down dietary tyramine too. With it blocked, tyramine displaces stored norepinephrine, causing a massive NE release and hypertensive crisis.</div></div>
+      <div class="qa">Q2: Name three tyramine-rich foods/drinks to avoid. <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Aged cheese, wine, beer, cured/fermented meats (sausage, salami), and chocolate.</div></div>
+      <div class="qa">Q3: A patient wants to switch from an SSRI to an MAOI. What must happen first? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">A 2-week washout period, to prevent serotonin syndrome.</div></div>
+      <div class="qa">Q4: Where do MAOIs sit on the antidepressant treatment ladder, and why? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Last line — they're very powerful (increase NE, serotonin, AND dopamine) but carry the highest risk from food and drug interactions.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">DOES</span>→
+    <span style="background:rgba(47,107,255,.7)">WATCH</span>→
+    <span style="background:rgba(18,184,134,.7)">TEACH</span>
+  </div>
+  <div>NG-154 · Antidepressant ladder — top rung (see NG-205, NG-187) · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>

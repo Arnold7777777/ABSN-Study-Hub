@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ADPIE I · NG-002 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+
+/* ===== appended for this page (append-only) ===== */
+.xref{margin-top:11px;padding:10px 13px;border-radius:12px;background:rgba(13,8,26,.55);
+  border:1px solid var(--line);border-left:4px solid var(--teal);font-size:.9rem;line-height:1.5}
+.xref b{color:var(--topaz)}
+.card.tealc .xref,.card.topaz .xref,.card.citrinec .xref{background:rgba(255,255,255,.5);color:#1a1030}
+.card.tealc .xref b,.card.topaz .xref b,.card.citrinec .xref b{color:#7a1fbf}
+.steps5{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));margin:10px 0 0}
+.st5{border-radius:13px;padding:11px 10px;text-align:center;background:rgba(13,8,26,.55);
+  border:1px solid var(--line);font-weight:800;font-size:.86rem;line-height:1.3}
+.st5 .l{display:block;font-size:2rem;font-weight:900;line-height:1.1;color:var(--topaz)}
+.st5 i{display:block;font-size:.76rem;font-weight:600;opacity:.88;font-style:normal}
+.tbl-wrap{overflow-x:auto}
+
+</style></head>
+<body>
+<!-- absn-floating-nav -->
+<style>
+#absnNav{position:fixed;top:9px;right:9px;z-index:99990;display:flex;gap:6px;
+ font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif}
+#absnNav a{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:#fff;
+ font-weight:800;font-size:.84rem;line-height:1;padding:9px 13px;border-radius:999px;
+ border:1px solid rgba(255,255,255,.32);box-shadow:0 4px 14px rgba(0,0,0,.42);
+ backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);white-space:nowrap}
+#absnNav a.hub{background:linear-gradient(135deg,#0f7d6b,#12b886)}
+#absnNav a.ig{background:linear-gradient(135deg,#5a2d82,#9d5cff)}
+#absnNav a:hover{filter:brightness(1.15)}
+#absnNav a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
+@media (max-width:620px){#absnNav .lb{display:none}#absnNav a{padding:9px 11px}}
+@media print{#absnNav{display:none!important}}
+</style>
+<div id="absnNav">
+  <a class="hub" href="../index.html">&#127968;<span class="lb"> Study Hub</span></a>
+  <a class="ig" href="../infographics.html">&#128444;&#65039;<span class="lb"> Infographics</span></a>
+</div>
+<!-- /absn-floating-nav -->
+
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#cause">🔁 The cycle</a>
+  <a class="c2" href="#clues">🩻 A + D</a>
+  <a class="c3" href="#care">🛠️ P + I + E</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Nursing Core · Fundamentals of Nursing</div>
+  <h1>ADPIE <span class="drop">🔁</span></h1>
+  <p class="sub">The Nursing Process I — Assessment · Diagnosis · Planning · Implementation · Evaluation</p>
+  <div class="chips">
+    <span class="chip id">NG-002</span>
+    <span class="chip cat">Nursing Core</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede">The nursing process is <b>the systematic approach used to guide client care</b>. It is the skeleton under <i>every</i> care plan, every clinical-judgment question and a huge share of NCLEX items. It is <b>a circle, not a list</b> — you never stop at Evaluation, you loop back and assess again.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">🔤 A · D · P · I · E</span>Assess → Diagnose → Plan → Implement → Evaluate. In that order. Every time.</div>
+  <div class="rc tealbg"><span class="big">1️⃣ ASSESS is always first</span>Unless the client is in immediate danger, you <b>gather data before you act</b>.</div>
+  <div class="rc rubybg"><span class="big">🫁 Physical before psychological</span>Maslow: <b>airway beats anxiety</b>. Ask “what kills fastest?”</div>
+  <div class="rc topazbg"><span class="big">🎯 SMART outcomes</span><span class="mono">S</span>pecific · <span class="mono">M</span>easurable · <span class="mono">A</span>ttainable · <span class="mono">R</span>ealistic · <span class="mono">T</span>imely</div>
+</div>
+
+<!-- ============ SECTION 1 — THE CYCLE ============ -->
+<section id="cause">
+  <div class="sec-h"><span class="icon">🔁</span><h2>THE CYCLE</h2><span class="step">STEP 1 · THE FRAME</span></div>
+  <p class="sec-sub">Five steps, one loop. Learn the wheel first and every care-plan question stops being scary.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🔁 The nursing process is a wheel — it never ends at step 5</h3>
+      <p><span class="tip">EXAM TIP</span> <mark>Evaluation feeds straight back into Assessment.</mark> If the outcome was not met, you do not invent a new intervention out of thin air — you <b>re-assess</b>, then re-diagnose, then re-plan.</p>
+
+      <svg viewBox="0 0 760 700" role="img" aria-label="Circular diagram of the five-step nursing process: Assessment, Diagnosis, Planning, Implementation and Evaluation arranged as a continuous clockwise wheel, with arrows showing that Evaluation loops back into Assessment">
+        <defs>
+          <radialGradient id="a2hub" cx="38%" cy="30%" r="78%">
+            <stop offset="0" stop-color="#3b1f68"/><stop offset="1" stop-color="#120a22"/>
+          </radialGradient>
+          <linearGradient id="a2s0" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#b98cff"/><stop offset="1" stop-color="#7a34e0"/></linearGradient>
+          <linearGradient id="a2s1" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#6e9bff"/><stop offset="1" stop-color="#1d4bcc"/></linearGradient>
+          <linearGradient id="a2s2" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#4fe0dd"/><stop offset="1" stop-color="#00868a"/></linearGradient>
+          <linearGradient id="a2s3" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#4ee3ac"/><stop offset="1" stop-color="#0a7d5b"/></linearGradient>
+          <linearGradient id="a2s4" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#ffd979"/><stop offset="1" stop-color="#e08a12"/></linearGradient>
+        </defs>
+        <g transform="translate(70,40)">
+
+        <!-- context ring + tick marks -->
+        <circle cx="310" cy="300" r="268" fill="none" stroke="rgba(255,255,255,.16)" stroke-width="1.5"/>
+        <circle cx="310" cy="300" r="252" fill="none" stroke="rgba(255,255,255,.10)" stroke-width="1"/>
+        <g stroke="rgba(255,255,255,.22)" stroke-width="2" stroke-linecap="round">
+          <line x1="310" y1="32" x2="310" y2="44"/><line x1="537" y1="169" x2="527" y2="176"/>
+          <line x1="578" y1="300" x2="566" y2="300"/><line x1="537" y1="431" x2="527" y2="424"/>
+          <line x1="310" y1="568" x2="310" y2="556"/><line x1="83" y1="431" x2="93" y2="424"/>
+          <line x1="42" y1="300" x2="54" y2="300"/><line x1="83" y1="169" x2="93" y2="176"/>
+        </g>
+
+        <!-- five annulus segments -->
+        <path d="M318.0 70.1 A230 230 0 0 1 526.1 221.3 L441.6 252.1 A140 140 0 0 0 314.9 160.1 Z" fill="url(#a2s0)" stroke="rgba(255,255,255,.55)" stroke-width="2"/>
+        <path d="M531.1 236.6 A230 230 0 0 1 451.6 481.2 L396.2 410.3 A140 140 0 0 0 444.6 261.4 Z" fill="url(#a2s1)" stroke="rgba(255,255,255,.55)" stroke-width="2"/>
+        <path d="M438.6 490.7 A230 230 0 0 1 181.4 490.7 L231.7 416.1 A140 140 0 0 0 388.3 416.1 Z" fill="url(#a2s2)" stroke="rgba(255,255,255,.55)" stroke-width="2"/>
+        <path d="M168.4 481.2 A230 230 0 0 1 88.9 236.6 L175.4 261.4 A140 140 0 0 0 223.8 410.3 Z" fill="url(#a2s3)" stroke="rgba(255,255,255,.55)" stroke-width="2"/>
+        <path d="M93.9 221.3 A230 230 0 0 1 302.0 70.1 L305.1 160.1 A140 140 0 0 0 178.4 252.1 Z" fill="url(#a2s4)" stroke="rgba(255,255,255,.55)" stroke-width="2"/>
+
+        <!-- inner highlight arcs (volume) -->
+        <path d="M321 88 A212 212 0 0 1 510 226" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="5" stroke-linecap="round"/>
+        <path d="M512 245 A212 212 0 0 1 439 466" fill="none" stroke="rgba(255,255,255,.32)" stroke-width="5" stroke-linecap="round"/>
+        <path d="M424 475 A212 212 0 0 1 196 475" fill="none" stroke="rgba(255,255,255,.30)" stroke-width="5" stroke-linecap="round"/>
+        <path d="M181 466 A212 212 0 0 1 108 245" fill="none" stroke="rgba(255,255,255,.30)" stroke-width="5" stroke-linecap="round"/>
+        <path d="M110 226 A212 212 0 0 1 299 88" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="5" stroke-linecap="round"/>
+
+        <!-- clockwise flow arrows -->
+        <g fill="#ffc233" stroke="#2a1f00" stroke-width="1.2">
+          <path d="M538.8 211.7 L558.8 222.7 L538.8 233.7 Z" transform="rotate(72 547.8 222.7)"/>
+          <path d="M447.9 491.3 L467.9 502.3 L447.9 513.3 Z" transform="rotate(144 456.9 502.3)"/>
+          <path d="M154.1 491.3 L174.1 502.3 L154.1 513.3 Z" transform="rotate(216 163.1 502.3)"/>
+          <path d="M63.2 211.7 L83.2 222.7 L63.2 233.7 Z" transform="rotate(288 72.2 222.7)"/>
+          <path d="M301 39 L321 50 L301 61 Z" transform="rotate(0 310 50)"/>
+        </g>
+
+        <!-- segment labels: icon + letter inside the ring, word outside it -->
+        <g text-anchor="middle" font-weight="900">
+          <text x="409.9" y="171.5" font-size="26">🩻</text>
+          <text x="427.6" y="153.2" font-size="42" fill="#1a0b33">A</text>
+          <text x="480.5" y="70.4" font-size="15" fill="#d9c2ff">ASSESSMENT</text>
+
+          <text x="471.7" y="361.5" font-size="26">🏷️</text>
+          <text x="500.2" y="376.8" font-size="42" fill="#02143f">D</text>
+          <text x="585.8" y="394.6" font-size="15" fill="#bcd0ff">DIAGNOSIS</text>
+
+          <text x="310" y="479" font-size="26">🎯</text>
+          <text x="310" y="515" font-size="42" fill="#00252b">P</text>
+          <text x="310" y="595" font-size="15" fill="#9ff2ee">PLANNING</text>
+
+          <text x="148.3" y="361.5" font-size="26">🛠️</text>
+          <text x="119.8" y="376.8" font-size="42" fill="#03291c">I</text>
+          <text x="72.8" y="394.6" font-size="13" fill="#a5f3d4">IMPLEMENTATION</text>
+
+          <text x="210.1" y="171.5" font-size="26">📊</text>
+          <text x="192.4" y="153.2" font-size="42" fill="#231a02">E</text>
+          <text x="139.5" y="70.4" font-size="15" fill="#ffe49a">EVALUATION</text>
+        </g>
+
+        <!-- hub -->
+        <circle cx="310" cy="300" r="125" fill="url(#a2hub)" stroke="rgba(255,255,255,.45)" stroke-width="2.5"/>
+        <circle cx="310" cy="300" r="112" fill="none" stroke="rgba(255,194,51,.5)" stroke-width="1.5" stroke-dasharray="5 7"/>
+        <text x="310" y="272" text-anchor="middle" font-size="40" font-weight="900" fill="#ffc233">ADPIE</text>
+        <text x="310" y="300" text-anchor="middle" font-size="15" font-style="italic" fill="#efe6ff">the nursing process</text>
+        <text x="310" y="330" text-anchor="middle" font-size="15.5" font-weight="900" fill="#a5f3d4">🔁 it is a LOOP</text>
+        <text x="310" y="354" text-anchor="middle" font-size="13.5" font-style="italic" fill="#d9c2ff">not met? assess again</text>
+        </g>
+      </svg>
+
+      <div class="mn">🧠 <b>“<u>A</u>ll <u>D</u>ogs <u>P</u>lay <u>I</u>n <u>E</u>vening.”</b> Say it while you trace the wheel with your finger — clockwise, starting at 12 o'clock. The dog that stops playing gets walked back to the start. 🐕</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>📖 Say the definition the way the source says it</h3>
+      <p><b>Nursing process</b> = <i>“the systematic approach used to guide client care.”</i></p>
+      <p>It shapes <b>clinical judgment</b> about a client's <b>physical &amp; psychological status</b>, and it also folds in the client's <b>social factors, family, and community experiences</b>.</p>
+      <div class="mn">🧠 <b>Systematic = same steps, same order, every client.</b> That is the whole point — it stops you from “just doing something.”</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>⭐ The five steps in one line each</h3>
+      <div class="steps5">
+        <div class="st5"><span class="l">A</span>Assessment<i>gather info &amp; review history</i></div>
+        <div class="st5"><span class="l">D</span>Diagnosis<i>identify the problem</i></div>
+        <div class="st5"><span class="l">P</span>Planning<i>goals, outcomes, action plan</i></div>
+        <div class="st5"><span class="l">I</span>Implementation<i>do the interventions</i></div>
+        <div class="st5"><span class="l">E</span>Evaluation<i>did it work?</i></div>
+      </div>
+      <div class="mn">🧠 Five steps = five fingers. Tap each finger as you say it; on the thumb (E) you fold the hand shut and open it again — <i>back to A</i>.</div>
+    </div>
+
+    <div class="card topaz span2">
+      <h3>🚨 The #1 NCLEX trap: “what does the nurse do FIRST?”</h3>
+      <p>Almost always <b>ASSESS</b> — <span class="mono">A</span> comes before <span class="mono">D-P-I-E</span> for a reason. You cannot diagnose or intervene on data you do not have.</p>
+      <p class="never">The only exception: when the client is in immediate danger — an unwitnessed collapse, an active seizure, an obstructed airway, a disconnected ventilator. Then you <b>act first</b> (position, protect, call for help) and assess as you go.</p>
+      <ul class="tick">
+        <li>❌ “Administer the PRN acetaminophen” — before you took a temperature? No.</li>
+        <li>❌ “Notify the provider” — before you have data to report? Usually no.</li>
+        <li>✅ “Auscultate lung sounds,” “Check the blood glucose,” “Ask the client to describe the pain” — <b>these are assessments.</b></li>
+      </ul>
+      <div class="mn">🧠 <b>“Data before drama.”</b> If two answer choices are both reasonable and one of them gathers information, that is usually the one.</div>
+    </div>
+
+    <div class="card emerald">
+      <h3>🔤 ADPIE vs ADOPIE — why you may see six steps</h3>
+      <p>Some texts (and the ANA <i>Standards of Practice</i>) split Planning in two and teach <b>six</b> steps:</p>
+      <ul class="tick">
+        <li><b>A</b>ssessment</li>
+        <li><b>D</b>iagnosis</li>
+        <li><b>O</b>utcome identification <i>← the extra one</i></li>
+        <li><b>P</b>lanning</li>
+        <li><b>I</b>mplementation</li>
+        <li><b>E</b>valuation</li>
+      </ul>
+      <p>Same process. <b>ADOPIE</b> just pulls “write the measurable outcome” out as its own step.</p>
+      <div class="mn">🧠 <b>ADPIE + O = ADOPIE.</b> The <b>O</b> is the <b>O</b>utcome — the sentence you will grade yourself against later.</div>
+    </div>
+
+    <div class="card deep">
+      <h3>🧭 Where this page sits in the batch</h3>
+      <p>ADPIE is the spine. Two other pages are its arms and legs:</p>
+      <div class="xref">📎 <b>NG-190 Head-to-Toe Assessment</b> — how to actually <i>do</i> the <b>A</b>: the systematic head-to-toe sequence, inspection → palpation → percussion → auscultation.<br>
+      📎 <b>NG-180 Delegation &amp; the 5 Rights</b> — how the <b>I</b> gets shared: what you may hand to an LPN/UAP and what you may never delegate.</div>
+      <div class="mn">🧠 <b>You may delegate TASKS, never the nursing PROCESS.</b> Assessment, nursing diagnosis, planning, teaching and evaluation stay with the RN.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 2 — ASSESS + DIAGNOSE ============ -->
+<section id="clues">
+  <div class="sec-h"><span class="icon">🩻</span><h2>A + D · GATHER, THEN NAME IT</h2><span class="step">STEP 2 · THE DATA</span></div>
+  <p class="sec-sub">Assessment collects it. Diagnosis names the human response you are going to treat.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🗣️ vs 👁️ Subjective = what they SAY · Objective = what you OBSERVE</h3>
+      <p><mark>Subjective data is what the client <i>reports</i>. Objective data is what can be <i>observed or measured</i>.</mark></p>
+      <div class="duo">
+
+        <!-- PANEL A — subjective -->
+        <svg viewBox="0 0 440 470" role="img" aria-label="Subjective data panel: a drawn side profile of a client's head with a speech bubble containing reported symptoms such as stomach ache, chest pain, headache and nausea">
+          <defs>
+            <linearGradient id="a2skin" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#ffe0cf"/><stop offset="0.55" stop-color="#ffc0a2"/><stop offset="1" stop-color="#e0906f"/>
+            </linearGradient>
+            <linearGradient id="a2hair" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#5b3a86"/><stop offset="1" stop-color="#2b1747"/>
+            </linearGradient>
+            <linearGradient id="a2bub" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="rgba(255,255,255,.95)"/><stop offset="1" stop-color="rgba(224,208,255,.85)"/>
+            </linearGradient>
+          </defs>
+          <rect x="6" y="6" width="428" height="458" rx="18" fill="rgba(157,92,255,.16)" stroke="#9d5cff" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="24" y="44" font-size="23" font-weight="900" fill="#d9c2ff">🗣️ SUBJECTIVE</text>
+          <text x="24" y="68" font-size="15" font-style="italic" fill="#efe6ff">what the client SAYS (reports)</text>
+
+          <!-- neck + shoulders -->
+          <path d="M118 372 C 128 344 146 336 152 318 L 214 318 C 218 342 232 352 250 366 C 276 386 292 404 296 434 L 92 434 C 96 404 106 388 118 372 Z" fill="#7a34e0" stroke="rgba(255,255,255,.5)" stroke-width="2"/>
+          <path d="M152 318 L214 318 C 216 336 222 346 232 356 C 214 372 186 372 168 356 C 150 340 150 330 152 318 Z" fill="url(#a2skin)" opacity=".9"/>
+          <!-- head profile (facing right) -->
+          <path d="M158 118 C 186 92 240 92 264 122 C 284 146 286 176 282 198 C 292 206 300 214 296 222 C 292 230 282 232 276 233 C 275 250 274 264 262 272 C 252 279 236 278 226 274 L 226 322 C 190 316 160 292 148 258 C 136 224 134 148 158 118 Z"
+                fill="url(#a2skin)" stroke="#c97a58" stroke-width="2.2" stroke-linejoin="round"/>
+          <!-- hair -->
+          <path d="M152 132 C 160 96 214 82 250 104 C 272 118 280 140 280 158 C 268 142 254 132 236 130 C 210 127 178 136 162 158 C 156 150 152 142 152 132 Z" fill="url(#a2hair)"/>
+          <path d="M148 150 C 140 178 142 206 150 228 C 140 214 132 186 136 160 Z" fill="url(#a2hair)" opacity=".85"/>
+          <!-- brow, eye, nostril, lips, ear -->
+          <path d="M238 176 C 250 170 262 172 268 178" fill="none" stroke="#7a4030" stroke-width="4" stroke-linecap="round"/>
+          <ellipse cx="252" cy="192" rx="10" ry="7" fill="#fff"/>
+          <circle cx="255" cy="192" r="4.6" fill="#2b1747"/>
+          <path d="M240 186 C 250 180 264 182 268 190" fill="none" stroke="#7a4030" stroke-width="2" stroke-linecap="round"/>
+          <path d="M281 224 C 274 226 270 224 268 220" fill="none" stroke="#c97a58" stroke-width="2.4" stroke-linecap="round"/>
+          <path d="M244 250 C 254 244 266 246 272 251 C 264 258 250 258 244 250 Z" fill="#d0645f"/>
+          <path d="M244 250 C 254 253 264 253 272 251" fill="none" stroke="#8e3b3b" stroke-width="1.6"/>
+          <path d="M186 196 C 176 194 172 206 176 216 C 180 226 190 228 194 222" fill="none" stroke="#c97a58" stroke-width="3" stroke-linecap="round"/>
+          <path d="M182 204 C 186 206 188 212 186 216" fill="none" stroke="#c97a58" stroke-width="2"/>
+          <!-- cheek shading -->
+          <ellipse cx="232" cy="222" rx="26" ry="18" fill="#e08a6c" opacity=".28"/>
+
+          <!-- speech bubble (client's own words) -->
+          <path d="M300 116 C 300 104 310 96 324 96 L 406 96 C 420 96 430 104 430 116 L 430 268 C 430 280 420 288 406 288 L 330 288 L 296 258 L 314 288 L 324 288 C 310 288 300 280 300 268 Z"
+                fill="url(#a2bub)" stroke="#9d5cff" stroke-width="2"/>
+          <g font-size="14" font-weight="800" fill="#2b1747">
+            <text font-size="14" x="303.0" y="130">“Stomach ache”</text>
+            <text x="312" y="158">“Chest pain”</text>
+            <text x="312" y="186">“Headache”</text>
+            <text x="312" y="214">“Nausea”</text>
+            <text x="312" y="242">“I feel dizzy”</text>
+            <text x="305.4" y="268" font-size="12" font-style="italic" font-weight="600">…and “I'm scared”</text>
+          </g>
+          <text x="284.2" y="330" font-size="15" font-weight="900" fill="#d9c2ff">🔑 Only the client</text>
+          <text x="288.2" y="350" font-size="15" font-weight="900" fill="#d9c2ff">can give you this</text>
+          <text x="285.4" y="376" font-size="12.5" font-style="italic" fill="#efe6ff">pain · nausea · itching ·</text>
+          <text x="282.7" y="394" font-size="12.5" font-style="italic" fill="#efe6ff">dizziness · fear · fatigue</text>
+          <text x="284.4" y="418" font-size="13" font-weight="900" fill="#ffc233">✍️ chart it in quotes</text>
+        </svg>
+
+        <!-- PANEL B — objective -->
+        <svg viewBox="0 0 440 470" role="img" aria-label="Objective data panel: a bedside monitor showing an ECG waveform with heart rate, blood pressure and oxygen saturation, plus a drawn stethoscope, thermometer and laboratory tube">
+          <defs>
+            <linearGradient id="a2mon" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#2a3b6b"/><stop offset="1" stop-color="#101a34"/>
+            </linearGradient>
+            <linearGradient id="a2scr" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#04202a"/><stop offset="1" stop-color="#021018"/>
+            </linearGradient>
+            <linearGradient id="a2steel" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#eaf6ff"/><stop offset="0.5" stop-color="#9fb6c9"/><stop offset="1" stop-color="#5a6f80"/>
+            </linearGradient>
+          </defs>
+          <rect x="6" y="6" width="428" height="458" rx="18" fill="rgba(47,107,255,.16)" stroke="#2f6bff" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="24" y="44" font-size="23" font-weight="900" fill="#bcd0ff">👁️ OBJECTIVE</text>
+          <text x="24" y="68" font-size="15" font-style="italic" fill="#e2ecff">observed · measured · verifiable</text>
+
+          <!-- monitor -->
+          <rect x="28" y="88" width="290" height="176" rx="14" fill="url(#a2mon)" stroke="rgba(255,255,255,.5)" stroke-width="2"/>
+          <rect x="40" y="100" width="266" height="130" rx="8" fill="url(#a2scr)" stroke="#0b3a48" stroke-width="1.5"/>
+          <g stroke="rgba(0,194,199,.18)" stroke-width="1">
+            <line x1="40" y1="130" x2="306" y2="130"/><line x1="40" y1="165" x2="306" y2="165"/><line x1="40" y1="200" x2="306" y2="200"/>
+            <line x1="90" y1="100" x2="90" y2="230"/><line x1="150" y1="100" x2="150" y2="230"/>
+            <line x1="210" y1="100" x2="210" y2="230"/><line x1="270" y1="100" x2="270" y2="230"/>
+          </g>
+          <path d="M46 168 L70 168 L76 158 L82 178 L88 122 L94 190 L100 168 L118 168 L124 160 L132 168 L160 168 L166 158 L172 178 L178 122 L184 190 L190 168 L212 168 L218 160 L226 168 L252 168 L258 158 L264 178 L270 122 L276 190 L282 168 L302 168"
+                fill="none" stroke="#12b886" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="48" y="120" font-size="13" font-weight="900" fill="#12b886">ECG II</text>
+          <g font-weight="900">
+            <text x="46" y="222" font-size="17" fill="#12b886">HR 96</text>
+            <text x="128" y="222" font-size="17" fill="#ffc233">BP 148/92</text>
+            <text x="246" y="222" font-size="17" fill="#00c2c7">SpO₂ 89%</text>
+          </g>
+          <rect x="40" y="240" width="34" height="14" rx="4" fill="#5a6f80"/>
+          <rect x="82" y="240" width="34" height="14" rx="4" fill="#5a6f80"/>
+          <circle cx="290" cy="247" r="7" fill="#ff3b6b"/>
+
+          <!-- stethoscope -->
+          <path d="M56 300 C 56 356 96 386 140 388" fill="none" stroke="url(#a2steel)" stroke-width="9" stroke-linecap="round"/>
+          <path d="M104 300 C 104 350 132 372 168 380" fill="none" stroke="url(#a2steel)" stroke-width="9" stroke-linecap="round"/>
+          <path d="M140 388 C 176 392 190 404 194 420" fill="none" stroke="#2f6bff" stroke-width="10" stroke-linecap="round"/>
+          <circle cx="56" cy="296" r="7" fill="#eaf6ff"/><circle cx="104" cy="296" r="7" fill="#eaf6ff"/>
+          <circle cx="200" cy="428" r="24" fill="url(#a2steel)" stroke="#3a4c5c" stroke-width="2"/>
+          <circle cx="200" cy="428" r="16" fill="#d5e6f2" stroke="#7d93a5" stroke-width="2"/>
+          <circle cx="194" cy="421" r="5" fill="#fff" opacity=".8"/>
+
+          <!-- thermometer -->
+          <rect x="244" y="292" width="22" height="118" rx="11" fill="#eaf6ff" stroke="#7d93a5" stroke-width="2"/>
+          <rect x="250" y="330" width="10" height="76" rx="5" fill="#ff3b6b"/>
+          <circle cx="255" cy="414" r="17" fill="#ff3b6b" stroke="#c02255" stroke-width="2"/>
+          <g stroke="#7d93a5" stroke-width="1.6">
+            <line x1="266" y1="310" x2="276" y2="310"/><line x1="266" y1="330" x2="276" y2="330"/>
+            <line x1="266" y1="350" x2="276" y2="350"/><line x1="266" y1="370" x2="276" y2="370"/>
+          </g>
+          <text x="286" y="316" font-size="14" font-weight="900" fill="#ffd9b8">101.4 °F</text>
+          <text x="286" y="336" font-size="12.5" font-style="italic" fill="#e2ecff">temp</text>
+
+          <!-- lab tube -->
+          <path d="M340 292 L372 292 L372 396 C 372 412 360 422 356 422 C 352 422 340 412 340 396 Z" fill="rgba(255,255,255,.18)" stroke="#eaf6ff" stroke-width="2"/>
+          <path d="M340 348 L372 348 L372 396 C 372 412 360 422 356 422 C 352 422 340 412 340 396 Z" fill="#c02255" opacity=".85"/>
+          <rect x="336" y="284" width="40" height="12" rx="5" fill="#9d5cff"/>
+          <text x="313.0" y="444" font-size="13.5" font-weight="900" fill="#bcd0ff">labs · WBC 14.2</text>
+          <text x="24" y="444" font-size="14" font-style="italic" fill="#e2ecff">vitals · physical exam · labs · I&amp;O</text>
+        </svg>
+      </div>
+      <div class="mn">🧠 <b>“Subjective = Spoken. Objective = Observed.”</b> Both start with the same letter as their cue. If you had to put quotation marks around it, it is <b>subjective</b>.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🔎 Where the data comes from</h3>
+      <ul class="tick">
+        <li><b>Primary source = the client.</b> Always. Their report outranks everyone else's.</li>
+        <li><b>Secondary sources</b> = family, caregivers, the chart, old records, the previous nurse, other disciplines, diagnostic results.</li>
+      </ul>
+      <p>Then <b>validate</b> (does the subjective match the objective?), <b>cluster</b> related findings, and <b>document</b> in the client's own words where possible.</p>
+      <div class="mn">🧠 <b>The client is the PRIMARY source</b> — even a confused client is still assessed; you just add corroboration.</div>
+    </div>
+
+    <div class="card tealc">
+      <h3>🗂️ Four kinds of assessment</h3>
+      <ul class="tick">
+        <li><b>Initial / comprehensive</b> — on admission, full database.</li>
+        <li><b>Focused / problem-focused</b> — one system or one complaint, done constantly through the shift.</li>
+        <li><b>Emergency</b> — ABCs during a crisis; rapid, life-threat only.</li>
+        <li><b>Time-lapsed / ongoing</b> — compare to baseline later (clinic follow-up, next shift).</li>
+      </ul>
+      <div class="mn">🧠 <b>Every re-check is an assessment.</b> Reassessing after an intervention is technically <i>Evaluation</i> — same skill, different step of the wheel.</div>
+    </div>
+
+    <div class="card garnet span2">
+      <h3>🏷️ Diagnosis = identify the problem — <i>the human response</i>, not the disease</h3>
+      <p>Using the assessment data you collected, the goal is to <mark>address both actual and potential health problems for the client</mark>.</p>
+      <div class="tbl-wrap">
+      <table>
+        <tr><th class="up" style="width:50%">🩺 MEDICAL diagnosis</th><th class="lo" style="width:50%">👩‍⚕️ NURSING diagnosis</th></tr>
+        <tr><td>Made by the provider</td><td>Made by the RN</td></tr>
+        <tr><td>Names the <b>disease</b> — pneumonia, CHF, stroke</td><td>Names the <b>human response</b> to it — impaired gas exchange, activity intolerance, impaired swallowing</td></tr>
+        <tr><td>Stays the same until the disease resolves</td><td><b>Changes as the client changes</b> — you rewrite it constantly</td></tr>
+        <tr><td>Treated with medicine &amp; surgery</td><td>Treated with <b>nursing interventions</b> the RN can order independently</td></tr>
+      </table>
+      </div>
+      <p class="never">A medical diagnosis is never a nursing diagnosis. “Pneumonia” is not something you can write on the care plan as the problem.</p>
+      <div class="mn">🧠 <b>The doctor names the disease; the nurse names the trouble it causes.</b> Pneumonia (medical) → <i>impaired gas exchange</i> (nursing).</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🧱 The three types of nursing diagnosis</h3>
+      <ul class="tick">
+        <li><b>Actual / problem-focused</b> — it is happening now, and you have signs &amp; symptoms to prove it.</li>
+        <li><b>Risk</b> — not happening yet, but risk factors are present. <i>“Risk for…”</i> has <b>no</b> signs &amp; symptoms — if it had them it would be actual.</li>
+        <li><b>Health-promotion</b> — the client is ready to improve something. <i>“Readiness for enhanced…”</i></li>
+      </ul>
+      <p><b>Format (PES):</b> <span class="mono">Problem</span> <b>related to</b> <span class="mono">Etiology</span> <b>as evidenced by</b> <span class="mono">Signs &amp; symptoms</span>.</p>
+      <p><i>e.g.</i> Impaired gas exchange <b>r/t</b> alveolar-capillary membrane changes <b>AEB</b> SpO₂ <span class="mono">89%</span>, crackles, restlessness.</p>
+      <div class="mn">🧠 <b>PES = Problem · Etiology · Signs.</b> Risk diagnoses drop the S — no evidence yet, only risk factors.</div>
+    </div>
+
+    <div class="card deep span2">
+      <h3>🪜 Prioritising the diagnosis: Maslow, then ABC</h3>
+      <p><span class="tip">CAUTION</span> <mark>Physical needs always come before psychological needs</mark>, as outlined by Maslow's hierarchy. <i>“We are always going to prioritise an airway issue before we treat an emotional one.”</i></p>
+      <p>Ask the question the source gives you: <b>“What is going to kill your client the fastest?”</b> That is what goes first on the care plan.</p>
+
+      <svg viewBox="0 0 640 470" role="img" aria-label="Three-dimensional Maslow hierarchy of needs pyramid with five shaded tiers from physiological needs at the base to self-actualisation at the apex, with airway breathing circulation flagged at the base as the nursing priority">
+        <defs>
+          <linearGradient id="a2p1" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#ff5d84"/><stop offset="1" stop-color="#c02255"/></linearGradient>
+          <linearGradient id="a2p2" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#ffa25c"/><stop offset="1" stop-color="#d96313"/></linearGradient>
+          <linearGradient id="a2p3" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#ffd979"/><stop offset="1" stop-color="#dd9a10"/></linearGradient>
+          <linearGradient id="a2p4" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#4fe3c0"/><stop offset="1" stop-color="#0d8f68"/></linearGradient>
+          <linearGradient id="a2p5" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#b98cff"/><stop offset="1" stop-color="#6a2ad0"/></linearGradient>
+          <radialGradient id="a2shad" cx="50%" cy="50%" r="50%">
+            <stop offset="0" stop-color="rgba(0,0,0,.55)"/><stop offset="1" stop-color="rgba(0,0,0,0)"/>
+          </radialGradient>
+        </defs>
+        <ellipse cx="300" cy="412" rx="270" ry="30" fill="url(#a2shad)"/>
+
+        <!-- right side faces (depth) -->
+        <g opacity=".55">
+          <path d="M540 400 L586 374 L346 4 L300 30 Z" fill="#1a0f33"/>
+          <path d="M492 326 L538 300 L346 4 L300 30 Z" fill="#2a1a4a" opacity=".7"/>
+        </g>
+        <g stroke="rgba(255,255,255,.28)" stroke-width="1.4" fill="none">
+          <line x1="492" y1="326" x2="538" y2="300"/><line x1="444" y1="252" x2="490" y2="226"/>
+          <line x1="396" y1="178" x2="442" y2="152"/><line x1="348" y1="104" x2="394" y2="78"/>
+        </g>
+
+        <!-- front faces -->
+        <path d="M108 326 L492 326 L540 400 L60 400 Z" fill="url(#a2p1)" stroke="rgba(255,255,255,.55)" stroke-width="2"/>
+        <path d="M156 252 L444 252 L492 326 L108 326 Z" fill="url(#a2p2)" stroke="rgba(255,255,255,.55)" stroke-width="2"/>
+        <path d="M204 178 L396 178 L444 252 L156 252 Z" fill="url(#a2p3)" stroke="rgba(255,255,255,.55)" stroke-width="2"/>
+        <path d="M252 104 L348 104 L396 178 L204 178 Z" fill="url(#a2p4)" stroke="rgba(255,255,255,.55)" stroke-width="2"/>
+        <path d="M300 30 L348 104 L252 104 Z" fill="url(#a2p5)" stroke="rgba(255,255,255,.55)" stroke-width="2"/>
+        <!-- specular sheen -->
+        <path d="M120 336 L300 336 L300 390 L72 390 Z" fill="rgba(255,255,255,.10)"/>
+        <path d="M166 262 L300 262 L300 316 L118 316 Z" fill="rgba(255,255,255,.10)"/>
+
+        <g text-anchor="middle" font-weight="900">
+          <text x="300" y="358" font-size="19" fill="#2a0210">🫁 PHYSIOLOGICAL</text>
+          <text x="300" y="382" font-size="14.5" font-weight="700" fill="#3a0715">air · water · food · elimination · sleep · pain</text>
+          <text x="300" y="288" font-size="18" fill="#3d1a00">🛡️ SAFETY &amp; SECURITY</text>
+          <text x="300" y="309" font-size="13.5" font-weight="700" fill="#4b2000">falls · infection · injury · trust</text>
+          <text x="300" y="216" font-size="17" fill="#3a2c04">💞 LOVE &amp; BELONGING</text>
+          <text x="300" y="236" font-size="13" font-weight="700" fill="#4a3806">family · support · isolation</text>
+          <text x="300" y="142" font-size="15.5" fill="#03291c">🌟 ESTEEM</text>
+          <text x="300" y="160" font-size="12.5" font-weight="700" fill="#04422c">body image · dignity</text>
+          <text x="300" y="88" font-size="13" fill="#efe6ff">SELF-ACTUAL.</text>
+        </g>
+
+        <!-- ABC flag -->
+        <rect x="404" y="416" width="228" height="46" rx="12" fill="rgba(255,59,107,.75)" stroke="#fff" stroke-width="2"/>
+        <text x="193.9" y="446" font-size="19" font-weight="900" fill="#fff">🅰️ Airway → 🅱️ Breathing → 🅲 Circulation</text>
+        <path d="M300 400 C 340 418 380 428 404 436" fill="none" stroke="#ff3b6b" stroke-width="3.5" stroke-dasharray="8 6"/>
+        <text x="14" y="426" font-size="15" font-weight="900" fill="#ff9db4">⬆️ START AT THE BOTTOM</text>
+        <text x="14" y="448" font-size="13.5" font-style="italic" fill="#ffd9e2">the base kills fastest</text>
+        <text x="14" y="40" font-size="20" font-weight="900" fill="#ffe49a">🪜 MASLOW = the priority ladder</text>
+        <text x="14" y="62" font-size="14" font-style="italic" fill="#efe6ff">physical before psychological, every single time</text>
+      </svg>
+      <div class="mn">🧠 <b>“Breath before feelings.”</b> A client who is anxious <i>and</i> hypoxic gets oxygen first — you cannot talk someone out of a saturation of <span class="mono">89%</span>.</div>
+    </div>
+
+    <div class="card topaz">
+      <h3>❓ Practice Q1 — the classic diagnosis question</h3>
+      <p><i>A client with pneumonia has an oxygen saturation of <span class="mono">89%</span>. Which nursing diagnosis is most appropriate?</i></p>
+      <p>✅ <b>Impaired gas exchange.</b> Pneumonia is the <i>medical</i> diagnosis; the human response you can treat is the failure to move oxygen across the alveolar–capillary membrane, and the SpO₂ is your <b>AEB</b> evidence.</p>
+      <div class="mn">🧠 <b>Low SpO₂ + lung problem = impaired gas exchange.</b> Airway secretions you can't clear = <i>ineffective airway clearance</i>. Poor effort/rate/depth = <i>ineffective breathing pattern</i>. Three different diagnoses — match the evidence.</div>
+    </div>
+
+    <div class="card topaz">
+      <h3>❓ Practice Q2 — a SATA diagnosis question</h3>
+      <p><i>A client with Crohn's disease feels overwhelmed and has had no outside support since a recent divorce. Which nursing diagnoses fit the plan of care? (Select all that apply.)</i></p>
+      <ul class="tick">
+        <li>✅ <b>Ineffective coping</b> — “overwhelmed,” lost her support system.</li>
+        <li>✅ <b>Imbalanced nutrition: less than body requirements</b> — malabsorption is expected in Crohn's.</li>
+        <li>✅ <b>Risk for deficient fluid volume</b> — diarrhea is the hallmark.</li>
+        <li>⚠️ <b>Hopelessness</b> — only if the client has <i>said</i> something that supports it. Don't diagnose a feeling she never reported.</li>
+      </ul>
+      <div class="mn">🧠 <b>Every diagnosis you pick must be able to finish the sentence “…as evidenced by ___.”</b> If you can't fill that blank from the stem, don't select it.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 3 — PLAN, IMPLEMENT, EVALUATE ============ -->
+<section id="care">
+  <div class="sec-h"><span class="icon">🛠️</span><h2>P + I + E · PLAN, DO, CHECK</h2><span class="step">STEP 3 · THE ACTION</span></div>
+  <p class="sec-sub">Write a goal you could grade. Carry it out. Then be honest about whether it worked.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🎯 Planning = goals, outcomes &amp; an action plan — and it must be <span class="mono">SMART</span></h3>
+      <p>Develop an action plan with <b>specific goals</b> and the <b>desired outcome</b> of the plan — then <mark>always discuss the plan with the client</mark> to check that their <i>perceived</i> needs are being met.</p>
+
+      <svg viewBox="0 0 640 430" role="img" aria-label="Dartboard target labelled with the five SMART criteria — specific, measurable, attainable, realistic and timely — with a dart in the bullseye, plus a comparison of a poorly written outcome and a SMART outcome">
+        <defs>
+          <radialGradient id="a2tg" cx="38%" cy="32%" r="72%">
+            <stop offset="0" stop-color="#4a2a80"/><stop offset="1" stop-color="#160b2c"/>
+          </radialGradient>
+          <linearGradient id="a2dart" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#eaf6ff"/><stop offset="1" stop-color="#7d93a5"/>
+          </linearGradient>
+        </defs>
+        <ellipse cx="176" cy="382" rx="130" ry="18" fill="rgba(0,0,0,.4)"/>
+        <circle cx="176" cy="196" r="150" fill="url(#a2tg)" stroke="rgba(255,255,255,.4)" stroke-width="2.5"/>
+        <circle cx="176" cy="196" r="122" fill="none" stroke="#9d5cff" stroke-width="16" opacity=".55"/>
+        <circle cx="176" cy="196" r="96" fill="none" stroke="#2f6bff" stroke-width="16" opacity=".6"/>
+        <circle cx="176" cy="196" r="70" fill="none" stroke="#00c2c7" stroke-width="16" opacity=".6"/>
+        <circle cx="176" cy="196" r="44" fill="none" stroke="#12b886" stroke-width="16" opacity=".65"/>
+        <circle cx="176" cy="196" r="20" fill="#ffc233" stroke="#fff" stroke-width="2.5"/>
+        <path d="M96 116 A114 114 0 0 1 250 108" fill="none" stroke="rgba(255,255,255,.30)" stroke-width="6" stroke-linecap="round"/>
+
+        <!-- dart -->
+        <g>
+          <path d="M176 196 L300 96" stroke="url(#a2dart)" stroke-width="9" stroke-linecap="round"/>
+          <path d="M176 196 L206 174 L198 164 Z" fill="#ff3b6b"/>
+          <path d="M300 96 L342 66 L336 96 L354 104 L312 122 Z" fill="#ff3b6b" stroke="#c02255" stroke-width="1.5"/>
+          <circle cx="176" cy="196" r="6" fill="#c02255"/>
+        </g>
+
+        <!-- SMART callouts -->
+        <g font-weight="900">
+          <text x="352" y="176" font-size="26" fill="#ffc233">S</text>
+          <text x="376" y="176" font-size="16" fill="#fff">pecific</text>
+          <text x="376" y="196" font-size="13" font-style="italic" font-weight="600" fill="#efe6ff">what exactly, and who does it</text>
+
+          <text x="352" y="228" font-size="26" fill="#a5f3d4">M</text>
+          <text x="380" y="228" font-size="16" fill="#fff">easurable</text>
+          <text x="380" y="248" font-size="13" font-style="italic" font-weight="600" fill="#efe6ff">a number you can chart</text>
+
+          <text x="352" y="280" font-size="26" fill="#9ff2ee">A</text>
+          <text x="376" y="280" font-size="16" fill="#fff">ttainable</text>
+          <text x="358.8" y="300" font-size="13" font-style="italic" font-weight="600" fill="#efe6ff">possible with the resources you have</text>
+
+          <text x="352" y="332" font-size="26" fill="#bcd0ff">R</text>
+          <text x="376" y="332" font-size="16" fill="#fff">ealistic</text>
+          <text x="376" y="352" font-size="13" font-style="italic" font-weight="600" fill="#efe6ff">for THIS client, and they agree</text>
+
+          <text x="352" y="384" font-size="26" fill="#d9c2ff">T</text>
+          <text x="376" y="384" font-size="16" fill="#fff">imely</text>
+          <text x="376" y="404" font-size="13" font-style="italic" font-weight="600" fill="#efe6ff">a deadline: “by day 3”</text>
+        </g>
+        <g stroke="rgba(255,255,255,.35)" stroke-width="1.5" stroke-dasharray="4 4">
+          <line x1="330" y1="170" x2="300" y2="150"/><line x1="330" y1="222" x2="292" y2="196"/>
+          <line x1="330" y1="274" x2="290" y2="236"/>
+        </g>
+        <text x="24" y="36" font-size="20" font-weight="900" fill="#ffe49a">🎯 A goal you cannot grade is not a goal</text>
+      </svg>
+
+      <div class="duo" style="margin-top:12px">
+        <div style="background:rgba(255,59,107,.35);border:1px solid rgba(255,255,255,.35);border-radius:13px;padding:12px 14px">
+          <b>❌ Poorly written outcome</b><br>
+          <i>“Client will walk without dizziness.”</i><br>
+          <span style="font-size:.88rem">No number, no distance, no deadline. Walk how far? By when? You cannot chart “met” or “not met.”</span>
+        </div>
+        <div style="background:rgba(18,184,134,.35);border:1px solid rgba(255,255,255,.35);border-radius:13px;padding:12px 14px">
+          <b>✅ SMART outcome</b><br>
+          <i>“Client will demonstrate improved activity tolerance as evidenced by walking <span class="mono">20 feet</span> without dizziness by <span class="mono">day 3</span> of hospitalisation.”</i><br>
+          <span style="font-size:.88rem">Specific behaviour, measurable distance, a deadline.</span>
+        </div>
+      </div>
+      <div class="mn">🧠 <b>Every outcome starts “The CLIENT will…”</b> — not “the nurse will.” Nurse actions are <i>interventions</i>; client behaviours are <i>outcomes</i>. That single swap fixes half of all care-plan mistakes.</div>
+    </div>
+
+    <div class="card tealc">
+      <h3>🗣️ ATI-style question — checking the plan fits</h3>
+      <p><i>What is the MOST appropriate way to assess whether the plan of care correlates with the client's perceived needs?</i></p>
+      <p>✅ <b>Discuss the plan of care with the client.</b></p>
+      <p>Don't forget the client's opinion here — but make sure what they want is <b>realistic</b>.</p>
+      <div class="mn">🧠 <b>“Perceived needs” = ask the person who is perceiving them.</b> Not the chart, not the family, not the last shift.</div>
+    </div>
+
+    <div class="card emerald">
+      <h3>🛠️ Implementation = carry it out (and reassess as you go)</h3>
+      <ul class="tick">
+        <li><b>Independent</b> — RN-initiated: repositioning, HOB elevation, teaching, skin care, encouraging fluids.</li>
+        <li><b>Dependent</b> — needs a provider order: medications, IV fluids, treatments, diets.</li>
+        <li><b>Collaborative / interdependent</b> — with PT, RT, dietitian, social work, pharmacy.</li>
+      </ul>
+      <p>⭐ <b>Reassess immediately before you act.</b> The blood pressure from two hours ago is not permission to give the antihypertensive now.</p>
+      <div class="xref">📎 <b>NG-180 Delegation &amp; the 5 Rights</b> — you may delegate a <i>task</i> to an LPN/UAP, but never assessment, never the nursing diagnosis, never teaching, never evaluation, and never an unstable client.</div>
+      <div class="mn">🧠 <b>“Do it, then document it.”</b> If it isn't charted, it didn't happen — and charting is part of implementation, not an afterthought.</div>
+    </div>
+
+    <div class="card deep span2">
+      <h3>📊 Evaluation = did the OUTCOME happen? Three answers, three next moves</h3>
+      <p>Evaluation is not “was the intervention done.” It is <mark>compare the client's actual response to the outcome criteria you wrote</mark>.</p>
+
+      <svg viewBox="0 0 640 420" role="img" aria-label="Evaluation flow diagram: compare the client's response with the written outcome, branching into goal met, partially met and not met, each with its next action, and a curved arrow returning to reassessment">
+        <defs>
+          <linearGradient id="a2clip" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#d9c8a8"/><stop offset="1" stop-color="#a88f66"/></linearGradient>
+          <marker id="a2ar" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/>
+          </marker>
+        </defs>
+
+        <!-- clipboard -->
+        <rect x="30" y="52" width="150" height="196" rx="12" fill="url(#a2clip)" stroke="#6d5a3c" stroke-width="2"/>
+        <rect x="42" y="70" width="126" height="166" rx="6" fill="#fff8ec" stroke="#b8a382" stroke-width="1.5"/>
+        <rect x="76" y="40" width="58" height="24" rx="7" fill="#7d93a5" stroke="#4f6270" stroke-width="2"/>
+        <g stroke="#c3b191" stroke-width="2">
+          <line x1="54" y1="96" x2="156" y2="96"/><line x1="54" y1="118" x2="156" y2="118"/>
+          <line x1="54" y1="140" x2="140" y2="140"/><line x1="54" y1="162" x2="156" y2="162"/>
+          <line x1="54" y1="184" x2="128" y2="184"/><line x1="54" y1="206" x2="156" y2="206"/>
+        </g>
+        <path d="M56 130 l10 12 l18 -26" fill="none" stroke="#12b886" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="105" y="272" text-anchor="middle" font-size="15" font-weight="900" fill="#ffe49a">the OUTCOME</text>
+        <text x="105" y="292" text-anchor="middle" font-size="13" font-style="italic" fill="#efe6ff">you wrote in Planning</text>
+
+        <!-- branches -->
+        <path d="M186 150 L246 84" fill="none" stroke="#ffc233" stroke-width="3" marker-end="url(#a2ar)"/>
+        <path d="M186 150 L246 150" fill="none" stroke="#ffc233" stroke-width="3" marker-end="url(#a2ar)"/>
+        <path d="M186 150 L246 216" fill="none" stroke="#ffc233" stroke-width="3" marker-end="url(#a2ar)"/>
+
+        <rect x="262" y="46" width="352" height="72" rx="14" fill="rgba(18,184,134,.55)" stroke="rgba(255,255,255,.5)" stroke-width="2"/>
+        <text x="278" y="76" font-size="19" font-weight="900" fill="#03291c">✅ GOAL MET</text>
+        <text x="278" y="100" font-size="14.5" fill="#04422c">Document it · discontinue or set the next goal</text>
+
+        <rect x="262" y="128" width="352" height="72" rx="14" fill="rgba(255,194,51,.6)" stroke="rgba(255,255,255,.5)" stroke-width="2"/>
+        <text x="278" y="158" font-size="19" font-weight="900" fill="#231a02">🟨 PARTIALLY MET</text>
+        <text x="278" y="182" font-size="14.5" fill="#3a2c04">Continue the plan · extend the time frame</text>
+
+        <rect x="262" y="210" width="352" height="86" rx="14" fill="rgba(255,59,107,.6)" stroke="rgba(255,255,255,.5)" stroke-width="2"/>
+        <text x="278" y="240" font-size="19" font-weight="900" fill="#fff">🟥 NOT MET</text>
+        <text x="278" y="264" font-size="14.5" fill="#ffe3ea">REASSESS first — was the data wrong? the</text>
+        <text x="278" y="284" font-size="14.5" fill="#ffe3ea">diagnosis wrong? the goal unrealistic?</text>
+
+        <!-- loop back -->
+        <path d="M596 300 C 620 356 460 396 300 388 C 190 382 96 358 78 316" fill="none" stroke="#00c2c7" stroke-width="4.5"
+              stroke-dasharray="12 8" stroke-linecap="round" marker-end="url(#a2ar)"/>
+        <text x="330" y="382" text-anchor="middle" font-size="16.5" font-weight="900" fill="#9ff2ee">🔁 back to ASSESSMENT — the wheel turns again</text>
+        <text x="8.0" y="28" font-size="18.66" font-weight="900" fill="#ffe49a">📊 EVALUATION · compare response to the written outcome</text>
+      </svg>
+      <div class="mn">🧠 <b>“Not met → go back to A.”</b> The most common wrong answer is “change the intervention.” The <i>right</i> first move is to re-assess — the intervention may have been fine and the diagnosis wrong.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🚨 Five ADPIE traps that cost points</h3>
+      <ul class="tick">
+        <li>❌ Writing a <b>medical diagnosis</b> on the nursing care plan.</li>
+        <li>❌ Writing an outcome that starts <b>“The nurse will…”</b></li>
+        <li>❌ Adding “<b>as evidenced by</b>” signs to a <b>risk</b> diagnosis.</li>
+        <li>❌ Choosing an intervention when an <b>assessment</b> option is available.</li>
+        <li>❌ Delegating <b>assessment, teaching, or evaluation</b> to a UAP.</li>
+      </ul>
+      <div class="mn">🧠 <b>“R.I.S.K. has no evidence.”</b> Risk = no signs yet. If you can see it, it isn't a risk any more — it's actual.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>✅ Putting one client through the whole wheel</h3>
+      <ul class="tick">
+        <li><b>A</b> — 72-y-o post-op day 1, reports <i>“I can't catch my breath,”</i> SpO₂ <span class="mono">89%</span>, RR <span class="mono">28</span>, crackles at the bases, splinting the incision.</li>
+        <li><b>D</b> — <i>Impaired gas exchange r/t retained secretions and shallow splinted breathing AEB SpO₂ 89%, RR 28, crackles.</i></li>
+        <li><b>P</b> — <i>Client will maintain SpO₂ ≥ <span class="mono">94%</span> on room air and use the incentive spirometer <span class="mono">10×</span> per hour while awake by end of shift.</i></li>
+        <li><b>I</b> — HOB up, splint pillow, coach incentive spirometry, pain control before deep breathing, ambulate, O₂ per order.</li>
+        <li><b>E</b> — SpO₂ now <span class="mono">95%</span>, spirometer used <span class="mono">8×</span>/hr → <b>partially met</b>: keep the plan, extend the time frame.</li>
+      </ul>
+      <div class="mn">🧠 <b>Treat the pain so they can breathe.</b> The intervention that unlocks the outcome is often one step upstream of it.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">🔁 A D P I E</span>Assess · Diagnose · Plan · Implement · Evaluate — and loop.</div>
+    <div class="rc tealbg"><span class="big">🗣️ vs 👁️</span>Subjective = <b>Spoken</b>. Objective = <b>Observed</b>.</div>
+    <div class="rc rubybg"><span class="big">🪜 Maslow then ABC</span>Physical before psychological. “What kills fastest?”</div>
+    <div class="rc topazbg"><span class="big">🎯 “The CLIENT will…”</span>SMART outcome, with a number and a deadline.</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 6 rapid-fire questions</summary>
+      <div class="qa">Q1: A client is anxious about surgery <i>and</i> has an SpO₂ of 88%. Which problem comes first? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">The oxygenation. Maslow — physiological needs before psychological. Airway/breathing beats anxiety every time.</div></div>
+      <div class="qa">Q2: “Client reports 8/10 stabbing pain in the right lower quadrant.” Subjective or objective? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Subjective — it is what the client says. A rigid abdomen you palpate and a temp of 101.4 °F are the objective data that go with it.</div></div>
+      <div class="qa">Q3: Rewrite “Client will eat better” as a SMART outcome. <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Something like: “Client will consume at least 75% of each meal for 3 consecutive days by discharge.” Specific behaviour, measurable amount, a time frame.</div></div>
+      <div class="qa">Q4: What is the difference between a medical diagnosis and a nursing diagnosis? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">The medical diagnosis names the disease (pneumonia) and is made by the provider. The nursing diagnosis names the human response the nurse can treat (impaired gas exchange) and changes as the client changes.</div></div>
+      <div class="qa">Q5: The outcome was not met. What is the nurse's FIRST action? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Reassess. Evaluation loops back to Assessment — the data or the diagnosis may have been wrong, not just the intervention.</div></div>
+      <div class="qa">Q6: A risk nursing diagnosis has which part missing? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">The “as evidenced by” signs &amp; symptoms. A risk diagnosis has risk factors only — if there were signs, it would be an actual problem.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">THE CYCLE</span>→
+    <span style="background:rgba(47,107,255,.7)">A + D</span>→
+    <span style="background:rgba(18,184,134,.7)">P + I + E</span>
+  </div>
+  <div>NG-002 · Nursing Core · ADHD-friendly visual edition · educational study aid — verify clinical details &amp; facility policy</div>
+</footer>
+
+</div>
+</body></html>

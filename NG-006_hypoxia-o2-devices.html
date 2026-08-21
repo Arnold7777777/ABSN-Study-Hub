@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hypoxia &amp; O₂ Devices · NG-006 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+
+/* ---- appended for the oxygen device page ---- */
+nav a.c5{background:rgba(0,194,199,.72);color:#00252b}
+nav a.c6{background:rgba(255,138,61,.75);color:#2b1200}
+#devices .sec-h h2{color:#9ff2ee} #devices .step{background:var(--teal);color:#00252b}
+#safety .sec-h h2{color:#ffd9b8} #safety .step{background:var(--citrine);color:#2b1200}
+.legendrow{display:flex;gap:9px;flex-wrap:wrap;margin:11px 0 0;font-size:.84rem;font-weight:800}
+.legendrow span{padding:5px 11px;border-radius:9px;background:rgba(13,8,26,.55);
+  border:1px solid var(--line);display:flex;align-items:center;gap:7px}
+.sw{display:inline-block;width:15px;height:15px;border-radius:4px;border:1px solid rgba(255,255,255,.6)}
+</style></head>
+<body>
+<!-- absn-floating-nav -->
+<style>
+#absnNav{position:fixed;top:9px;right:9px;z-index:99990;display:flex;gap:6px;
+ font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif}
+#absnNav a{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:#fff;
+ font-weight:800;font-size:.84rem;line-height:1;padding:9px 13px;border-radius:999px;
+ border:1px solid rgba(255,255,255,.32);box-shadow:0 4px 14px rgba(0,0,0,.42);
+ backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);white-space:nowrap}
+#absnNav a.hub{background:linear-gradient(135deg,#0f7d6b,#12b886)}
+#absnNav a.ig{background:linear-gradient(135deg,#5a2d82,#9d5cff)}
+#absnNav a:hover{filter:brightness(1.15)}
+#absnNav a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
+@media (max-width:620px){#absnNav .lb{display:none}#absnNav a{padding:9px 11px}}
+@media print{#absnNav{display:none!important}}
+</style>
+<div id="absnNav">
+  <a class="hub" href="../index.html">&#127968;<span class="lb"> Study Hub</span></a>
+  <a class="ig" href="../infographics.html">&#128444;&#65039;<span class="lb"> Infographics</span></a>
+</div>
+<!-- /absn-floating-nav -->
+
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#cause">🧨 Hypoxia</a>
+  <a class="c2" href="#clues">🔎 Signs</a>
+  <a class="c5" href="#devices">😷 Devices</a>
+  <a class="c6" href="#safety">🛡️ Safety</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Respiratory · Oxygenation &amp; Airway I · Fundamentals of Nursing</div>
+  <h1>Hypoxia &amp; O₂ Devices <span class="drop">🫁</span></h1>
+  <p class="sub">Low oxygen — how to spot it, and what to put on the face</p>
+  <div class="chips">
+    <span class="chip id">NG-006</span>
+    <span class="chip cat">RESPIRATORY</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede"><b>Hypox<u>emia</u></b> = low oxygen levels in the <b>blood</b>. <b>Hypox<u>ia</u></b> = low oxygen supply in the <b>body tissues</b>. <mark>Hypoxemia dominoes into hypoxia</mark> — low oxygen in the blood means low oxygen delivery to the tissues. Then you pick the device that fixes it.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc tealbg"><span class="big">🩸 emia = blood · ia = tissue</span>Hypox<b>emia</b> is the lab. Hypox<b>ia</b> is the patient.</div>
+  <div class="rc citrine"><span class="big">🧠 Restlessness is FIRST</span>Brain first: <b>restless → agitated → confused</b>. Cyanosis is LATE.</div>
+  <div class="rc topazbg"><span class="big">📈 Early vitals go UP</span>↑RR ↑HR ↑BP. <b>Bradycardia &amp; hypotension are LATE and BAD.</b></div>
+  <div class="rc rubybg"><span class="big">🎈 Deflated NRB bag?</span><b>INCREASE the oxygen flow.</b> <span class="never">Don't open the valves. Don't tighten the straps first.</span></div>
+</div>
+
+<!-- ============ CAUSE ============ -->
+<section id="cause">
+  <div class="sec-h"><span class="icon">🧨</span><h2>HYPOXEMIA → HYPOXIA</h2><span class="step">STEP 1 · TWO WORDS, ONE DOMINO</span></div>
+  <p class="sec-sub">Get the two words straight first — half the exam questions are just testing the vocabulary.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🩸 The domino — blood first, tissue second</h3>
+
+      <svg viewBox="0 0 660 380" role="img" aria-label="Diagram showing hypoxemia defined as low oxygen in the blood leading to hypoxia defined as low oxygen supply in the body tissues, with a labelled scale of arterial oxygen pressure showing the normal range of eighty to one hundred millimetres of mercury and hypoxemia below eighty, plus a cell starving without oxygen">
+        <defs>
+          <linearGradient id="h1sc" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#c02255"/><stop offset=".34" stop-color="#ff3b6b"/>
+            <stop offset=".46" stop-color="#ffc233"/><stop offset=".62" stop-color="#12b886"/><stop offset="1" stop-color="#12b886"/>
+          </linearGradient>
+          <linearGradient id="h1v" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff8fa6"/><stop offset="1" stop-color="#8e1636"/></linearGradient>
+          <radialGradient id="h1cell" cx=".4" cy=".3" r=".85"><stop offset="0" stop-color="#c9a8ff"/><stop offset="1" stop-color="#4a2380"/></radialGradient>
+          <marker id="h1a" viewBox="0 0 12 12" refX="7" refY="6" markerWidth="5" markerHeight="5" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffe49a"/></marker>
+        </defs>
+        <rect x="4" y="4" width="652" height="372" rx="18" fill="rgba(157,92,255,.12)" stroke="#9d5cff" stroke-width="2" stroke-dasharray="8 7"/>
+
+        <!-- blood vessel with few O2 -->
+        <rect x="26" y="60" width="250" height="112" rx="18" fill="rgba(192,34,85,.45)" stroke="#ffd9e2" stroke-width="2"/>
+        <text x="40" y="86" font-size="15" font-weight="900" fill="#fff">🩸 HYPOX<tspan fill="#ffe49a">EMIA</tspan></text>
+        <text x="40" y="106" font-size="12" font-style="italic" fill="#ffe3ea">low oxygen levels in the BLOOD</text>
+        <path d="M36 128 C 100 120 200 120 266 128 L 266 160 C 200 168 100 168 36 160 Z" fill="url(#h1v)" stroke="#ffd9e2" stroke-width="1.6"/>
+        <circle cx="66" cy="144" r="9" fill="#3f6fd6" stroke="#dbe8ff" stroke-width="1.4"/>
+        <circle cx="112" cy="146" r="9" fill="#3f6fd6" stroke="#dbe8ff" stroke-width="1.4"/>
+        <circle cx="158" cy="144" r="9" fill="#ff3b6b" stroke="#ffd9e2" stroke-width="1.4"/>
+        <circle cx="204" cy="146" r="9" fill="#3f6fd6" stroke="#dbe8ff" stroke-width="1.4"/>
+        <circle cx="246" cy="144" r="9" fill="#3f6fd6" stroke="#dbe8ff" stroke-width="1.4"/>
+        <text x="40" y="190" font-size="11" font-style="italic" fill="#ffd9e2">only a few carriers loaded with O₂</text>
+
+        <path d="M286 118 L 344 118" stroke="#ffe49a" stroke-width="7" stroke-linecap="round" marker-end="url(#h1a)"/>
+        <text x="315" y="104" font-size="12" font-weight="900" fill="#ffe49a" text-anchor="middle">dominoes</text>
+        <text x="315" y="146" font-size="12" font-weight="900" fill="#ffe49a" text-anchor="middle">into</text>
+
+        <!-- tissue -->
+        <rect x="360" y="60" width="274" height="112" rx="18" fill="rgba(157,92,255,.45)" stroke="#e9dcff" stroke-width="2"/>
+        <text x="374" y="86" font-size="15" font-weight="900" fill="#fff">🧬 HYPOX<tspan fill="#ffe49a">IA</tspan></text>
+        <text x="374" y="106" font-size="12" font-style="italic" fill="#efe6ff">low oxygen supply in body TISSUES</text>
+        <circle cx="420" cy="146" r="24" fill="url(#h1cell)" stroke="#efe6ff" stroke-width="1.8"/>
+        <circle cx="420" cy="146" r="9" fill="#2a1030"/>
+        <circle cx="490" cy="146" r="24" fill="url(#h1cell)" stroke="#efe6ff" stroke-width="1.8"/>
+        <circle cx="490" cy="146" r="9" fill="#2a1030"/>
+        <circle cx="560" cy="146" r="24" fill="url(#h1cell)" stroke="#efe6ff" stroke-width="1.8"/>
+        <circle cx="560" cy="146" r="9" fill="#2a1030"/>
+        <text x="420" y="184" font-size="16" text-anchor="middle">😩</text>
+        <text x="490" y="184" font-size="16" text-anchor="middle">😩</text>
+        <text x="560" y="184" font-size="16" text-anchor="middle">😩</text>
+        <text x="374" y="204" font-size="11" font-style="italic" fill="#efe6ff">cells can't make energy → organ dysfunction</text>
+
+        <!-- PaO2 scale -->
+        <text x="26" y="248" font-size="15" font-weight="900" fill="#9ff2ee">🧪 PaO₂ — arterial oxygen pressure (adult reference)</text>
+        <rect x="26" y="262" width="608" height="34" rx="12" fill="url(#h1sc)"/>
+        <line x1="330" y1="256" x2="330" y2="302" stroke="#fff" stroke-width="3"/>
+        <text x="330" y="322" font-size="14" font-weight="900" fill="#ffe49a" text-anchor="middle">80</text>
+        <line x1="500" y1="256" x2="500" y2="302" stroke="#fff" stroke-width="3"/>
+        <text x="500" y="322" font-size="14" font-weight="900" fill="#a5f3d4" text-anchor="middle">100</text>
+        <text x="170" y="284" font-size="14" font-weight="900" fill="#fff" text-anchor="middle">🚨 HYPOXEMIA</text>
+        <text x="415" y="284" font-size="13.5" font-weight="900" fill="#231a02" text-anchor="middle">✅ NORMAL 80–100 mmHg</text>
+        <text x="170" y="322" font-size="12.5" font-weight="900" fill="#ff9db4" text-anchor="middle">PaO₂ less than 80 mmHg</text>
+        <text x="26" y="352" font-size="12" font-style="italic" fill="#d8fff0">Pulse oximetry (SpO₂) is the bedside screen; an arterial blood gas gives the actual PaO₂.</text>
+        <rect x="452" y="332" width="182" height="28" rx="9" fill="rgba(255,194,51,.9)"/>
+        <text x="543" y="351" font-size="12.5" font-weight="900" fill="#231a02" text-anchor="middle">⭐ NCLEX TIP</text>
+      </svg>
+
+      <div class="mn">🧠 <b>“-EMIA is in the blood (an-<u>emia</u>, hyperglyc-<u>emia</u>). -IA is the whole person.”</b> The blood number falls first; the tissues suffer second.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🧯 Why the oxygen is low — 4 reasons</h3>
+      <ul class="tick">
+        <li><b>Not enough air in</b> — hypoventilation, opioid oversedation, airway obstruction</li>
+        <li><b>Membrane too thick</b> — pulmonary edema, pneumonia, fibrosis</li>
+        <li><b>Blood bypassing air</b> — shunt from atelectasis or consolidation</li>
+        <li><b>Air bypassing blood</b> — dead space, as in a pulmonary embolism</li>
+      </ul>
+      <p>Also: <b>low hemoglobin</b> (anemia) means fewer carriers, and <b>poor perfusion</b> (shock) means the loaded blood never arrives.</p>
+      <div class="mn">🧠 <b>“Can't get air in · can't cross over · wrong place · no truck.”</b> Four failure points on the same delivery route.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🚩 Who is at risk right now on your unit</h3>
+      <div class="no-grid">
+        <div class="no-t"><span class="e">🛌</span>Post-op<i>anesthesia + pain + flat</i></div>
+        <div class="no-t"><span class="e">💊</span>Opioids<i>sedation → ↓RR</i></div>
+        <div class="no-t"><span class="e">🫁</span>COPD/asthma<i>chronic disease</i></div>
+        <div class="no-t"><span class="e">💓</span>Heart failure<i>pulmonary edema</i></div>
+        <div class="no-t"><span class="e">🦠</span>Pneumonia<i>consolidation</i></div>
+        <div class="no-t"><span class="e">🧓</span>Immobility<i>atelectasis</i></div>
+      </div>
+      <div class="mn">🧠 The post-op client on opioids lying flat is the classic exam setup. <b>Sit them up and assess before anything else.</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLUES ============ -->
+<section id="clues">
+  <div class="sec-h"><span class="icon">🔎</span><h2>SIGNS</h2><span class="step">STEP 2 · EARLY vs LATE</span></div>
+  <p class="sec-sub">The brain complains first. If you wait for blue lips you waited too long.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🧠 Head-to-toe — early signs (act) vs late signs (emergency)</h3>
+
+      <svg viewBox="0 0 660 440" role="img" aria-label="Body figure with early signs of hypoxia labelled on the left including restlessness agitation and confusion, rising respiratory rate above twenty, heart rate above one hundred and systolic blood pressure above one hundred forty, accessory muscle use paradoxical breathing and tripod positioning, and late signs on the right including bradycardia hypotension cyanosis dysrhythmias and decreasing level of consciousness">
+        <defs>
+          <radialGradient id="c1sk" cx=".4" cy=".25" r=".9"><stop offset="0" stop-color="#ffd9c2"/><stop offset="1" stop-color="#c48f70"/></radialGradient>
+          <linearGradient id="c1br" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd0e2"/><stop offset="1" stop-color="#c96f9f"/></linearGradient>
+        </defs>
+        <rect x="4" y="4" width="652" height="432" rx="18" fill="rgba(47,107,255,.12)" stroke="#2f6bff" stroke-width="2" stroke-dasharray="8 7"/>
+        <text x="24" y="34" font-size="15" font-weight="900" fill="#a5f3d4">🟢 EARLY — assess &amp; act</text>
+        <text x="636" y="34" font-size="15" font-weight="900" fill="#ff9db4" text-anchor="end">🔴 LATE — emergency</text>
+
+        <!-- figure -->
+        <g>
+          <ellipse cx="330" cy="96" rx="46" ry="50" fill="url(#c1sk)" stroke="#ffe7dc" stroke-width="2.2"/>
+          <path d="M296 78 C 302 58 358 58 364 78 C 368 92 356 100 330 100 C 304 100 292 92 296 78 Z" fill="url(#c1br)" stroke="#ffe7dc" stroke-width="1.6"/>
+          <path d="M304 74 C 312 66 322 70 326 76 M334 76 C 340 68 352 68 358 76" fill="none" stroke="#a3567f" stroke-width="2"/>
+          <circle cx="314" cy="110" r="5" fill="#3b2a22"/><circle cx="346" cy="110" r="5" fill="#3b2a22"/>
+          <path d="M318 130 C 326 138 336 138 344 130" fill="none" stroke="#8e4a3a" stroke-width="2.6" stroke-linecap="round"/>
+          <path d="M310 146 L 350 146 L 358 176 L 302 176 Z" fill="url(#c1sk)" stroke="#ffe7dc" stroke-width="2"/>
+          <path d="M276 180 C 266 240 268 306 282 350 C 296 392 364 392 378 350 C 392 306 394 240 384 180 C 360 168 300 168 276 180 Z" fill="url(#c1sk)" stroke="#ffe7dc" stroke-width="2.2"/>
+          <!-- ribs / accessory muscles -->
+          <path d="M290 214 C 314 204 346 204 370 214" fill="none" stroke="#c08f72" stroke-width="2.6"/>
+          <path d="M286 240 C 312 230 348 230 374 240" fill="none" stroke="#c08f72" stroke-width="2.6"/>
+          <path d="M286 266 C 312 256 348 256 374 266" fill="none" stroke="#c08f72" stroke-width="2.6"/>
+          <path d="M290 292 C 314 282 346 282 370 292" fill="none" stroke="#c08f72" stroke-width="2.6"/>
+          <!-- neck accessory muscles highlighted -->
+          <path d="M312 148 C 308 160 306 170 308 178 M348 148 C 352 160 354 170 352 178" fill="none" stroke="#ff3b6b" stroke-width="4" stroke-linecap="round"/>
+          <!-- arms braced (tripod) -->
+          <path d="M274 190 C 244 214 226 258 224 300 C 222 318 240 322 246 306 C 254 268 268 232 288 212 Z" fill="url(#c1sk)" stroke="#ffe7dc" stroke-width="2"/>
+          <path d="M386 190 C 416 214 434 258 436 300 C 438 318 420 322 414 306 C 406 268 392 232 372 212 Z" fill="url(#c1sk)" stroke="#ffe7dc" stroke-width="2"/>
+          <ellipse cx="234" cy="318" rx="15" ry="12" fill="url(#c1sk)" stroke="#ffe7dc" stroke-width="1.8"/>
+          <ellipse cx="426" cy="318" rx="15" ry="12" fill="url(#c1sk)" stroke="#ffe7dc" stroke-width="1.8"/>
+          <rect x="206" y="330" width="248" height="12" rx="6" fill="#9d5cff" opacity=".85"/>
+          <text x="330" y="360" font-size="12" font-weight="900" fill="#d9c2ff" text-anchor="middle">🪑 TRIPODING — leaning forward,</text>
+          <text x="330" y="376" font-size="12" font-weight="900" fill="#d9c2ff" text-anchor="middle">arms braced to help breathe</text>
+          <!-- legs -->
+          <path d="M296 386 C 292 404 292 418 296 428 M364 386 C 368 404 368 418 364 428" fill="none" stroke="#ffe7dc" stroke-width="10" stroke-linecap="round" opacity=".85"/>
+        </g>
+
+        <!-- EARLY callouts -->
+        <g font-size="12" font-weight="800">
+          <rect x="20" y="48" width="212" height="56" rx="11" fill="rgba(18,184,134,.72)" stroke="#eafff7" stroke-width="1.4"/>
+          <text x="32" y="68" fill="#03291c">🧠 MENTAL STATUS CHANGE</text>
+          <text x="32" y="85" fill="#eafff7">Restlessness · agitation</text>
+          <text x="32" y="99" fill="#eafff7">(“irritability”) · confusion</text>
+          <line x1="232" y1="76" x2="292" y2="90" stroke="#eafff7" stroke-width="1.5"/>
+
+          <rect x="20" y="116" width="212" height="74" rx="11" fill="rgba(255,194,51,.85)" stroke="#fff0c9" stroke-width="1.4"/>
+          <text x="32" y="136" fill="#231a02">📈 VITAL SIGNS — HIGH</text>
+          <text x="32" y="153" fill="#231a02">RR tachypnea (over 20)</text>
+          <text x="32" y="169" fill="#231a02">HR tachycardia (over 100 bpm)</text>
+          <text x="32" y="185" fill="#231a02">BP hypertension (over 140 sys.)</text>
+          <line x1="232" y1="160" x2="278" y2="200" stroke="#fff0c9" stroke-width="1.5"/>
+
+          <rect x="20" y="202" width="212" height="72" rx="11" fill="rgba(0,194,199,.72)" stroke="#d8fff0" stroke-width="1.4"/>
+          <text x="32" y="222" fill="#00252b">🫁 WORK OF BREATHING</text>
+          <text x="32" y="239" fill="#00323a">Accessory muscle use</text>
+          <text x="32" y="255" fill="#00323a">Paradoxical breathing</text>
+          <text x="32" y="270" fill="#00323a">Tripoding · nasal flaring</text>
+          <line x1="232" y1="238" x2="284" y2="250" stroke="#d8fff0" stroke-width="1.5"/>
+        </g>
+
+        <!-- LATE callouts -->
+        <g font-size="12" font-weight="800">
+          <rect x="428" y="48" width="212" height="56" rx="11" fill="rgba(192,34,85,.82)" stroke="#ffd9e2" stroke-width="1.4"/>
+          <text x="440" y="68" fill="#fff">💙 CYANOSIS</text>
+          <text x="440" y="85" font-size="11" fill="#ffe3ea">Lips, tongue, mucous membranes</text>
+          <text x="440" y="99" fill="#ffe3ea">= central &amp; LATE</text>
+          <line x1="428" y1="76" x2="368" y2="106" stroke="#ffd9e2" stroke-width="1.5"/>
+
+          <rect x="428" y="116" width="212" height="74" rx="11" fill="rgba(255,59,107,.78)" stroke="#ffd9e2" stroke-width="1.4"/>
+          <text x="440" y="136" fill="#fff">📉 VITALS CRASH</text>
+          <text x="440" y="153" fill="#ffe3ea">BRADYcardia (HR falling)</text>
+          <text x="440" y="169" fill="#ffe3ea">HYPOtension</text>
+          <text x="440" y="185" fill="#ffe3ea">Dysrhythmias</text>
+          <line x1="428" y1="160" x2="386" y2="200" stroke="#ffd9e2" stroke-width="1.5"/>
+
+          <rect x="428" y="202" width="212" height="72" rx="11" fill="rgba(157,92,255,.78)" stroke="#e9dcff" stroke-width="1.4"/>
+          <text x="440" y="222" fill="#fff">😵 DECREASING LOC</text>
+          <text x="440" y="239" fill="#efe6ff">Lethargy → stupor → coma</text>
+          <text x="440" y="255" fill="#efe6ff">Cool, clammy, mottled skin</text>
+          <text x="440" y="270" fill="#efe6ff">→ respiratory arrest</text>
+          <line x1="428" y1="238" x2="382" y2="250" stroke="#e9dcff" stroke-width="1.5"/>
+        </g>
+
+        <rect x="130" y="396" width="400" height="34" rx="11" fill="rgba(255,194,51,.92)"/>
+        <text x="330" y="418" font-size="13.5" font-weight="900" fill="#231a02" text-anchor="middle">⭐ ATI/NCLEX: EARLY = restless · confused · ↑BP · ↑RR</text>
+      </svg>
+
+      <p style="margin-top:10px"><span class="tip">ATI QUESTION</span> <b>“Which of the following are early indications that the client is developing hypoxemia? Select all that apply.”</b> ✅ <b>Restlessness · Confusion · Hypertension · Tachypnea.</b> ❌ <b>Bradycardia</b> — that is a <b>LATE</b> finding.</p>
+      <div class="mn">🧠 <b>“Everything goes UP before it goes DOWN.”</b> Rate up, pressure up, agitation up. When the numbers finally fall, the client is crashing.</div>
+    </div>
+
+    <div class="card topaz">
+      <h3>⭐ Restless is the first word</h3>
+      <p><b>Answer first:</b> the <mark>earliest sign of hypoxia is a change in mental status</mark> — restlessness. The brain is the most oxygen-hungry organ in the body, so it complains first.</p>
+      <p class="never">❌ Never medicate new restlessness or agitation as “anxiety” before you have checked oxygenation.</p>
+      <div class="mn">🧠 <b>“A restless patient is a hypoxic patient until proven otherwise.”</b> Sedating them is the classic wrong answer.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🚨 Paradoxical breathing — what it looks like</h3>
+      <p>Normally the <b>abdomen rises</b> on inspiration. In <b>paradoxical breathing</b> the chest and abdomen move in <i>opposite</i> directions — the abdomen sinks in as the chest rises. It signals <b>diaphragmatic fatigue or flail chest</b> and is a sign of <b>impending respiratory failure</b>.</p>
+      <div class="mn">🧠 <b>“See-saw belly = call for help.”</b> This is not a “watch and see” finding.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DEVICES ============ -->
+<section id="devices">
+  <div class="sec-h"><span class="icon">😷</span><h2>THE DEVICES</h2><span class="step">STEP 3 · WHAT GOES ON THE FACE</span></div>
+  <p class="sec-sub">Low flow first, then the masks, then the precision device. Learn the picture and the numbers follow.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>👃 Low-flow &amp; simple: nasal cannula · simple face mask · Venturi</h3>
+
+      <svg viewBox="0 0 660 400" role="img" aria-label="Three oxygen delivery devices drawn on a side view of a head: a nasal cannula with two nasal prongs and tubing looped over the ears, a simple face mask covering the nose and mouth with side exhalation ports and an elastic head strap, and a Venturi mask with a colour coded entrainment adaptor drawing room air in through side windows on wide bore tubing">
+        <defs>
+          <radialGradient id="d1sk" cx=".55" cy=".28" r=".85"><stop offset="0" stop-color="#ffdcc6"/><stop offset="1" stop-color="#c08a68"/></radialGradient>
+          <linearGradient id="d1tb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d8fff0"/><stop offset="1" stop-color="#12b886"/></linearGradient>
+          <linearGradient id="d1mk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eaf4ff"/><stop offset="1" stop-color="#8fb2d8"/></linearGradient>
+          <g id="d1head">
+            <path d="M74 16 C 106 16 128 40 130 72 C 131 84 128 92 134 96 C 140 100 147 107 140 111 C 136 114 128 112 124 115 C 122 121 124 127 119 131 C 126 135 126 141 119 145 C 115 153 103 159 87 159 C 61 159 39 143 31 119 C 23 97 25 44 49 26 C 57 20 66 16 74 16 Z"
+                  fill="url(#d1sk)" stroke="#ffe7dc" stroke-width="2.2"/>
+            <ellipse cx="63" cy="96" rx="11" ry="15" fill="url(#d1sk)" stroke="#ffe7dc" stroke-width="1.8"/>
+            <path d="M60 92 C 66 90 70 96 66 102" fill="none" stroke="#b57b5c" stroke-width="1.6"/>
+            <circle cx="108" cy="76" r="4.5" fill="#3b2a22"/>
+            <path d="M98 64 C 106 58 116 60 120 66" fill="none" stroke="#8e5a3c" stroke-width="2.4" stroke-linecap="round"/>
+            <path d="M40 30 C 62 12 106 16 124 44" fill="none" stroke="#7a4a30" stroke-width="7" stroke-linecap="round" opacity=".75"/>
+          </g>
+        </defs>
+        <rect x="4" y="4" width="652" height="392" rx="18" fill="rgba(0,194,199,.11)" stroke="#00c2c7" stroke-width="2" stroke-dasharray="8 7"/>
+
+        <!-- ===== 1 NASAL CANNULA ===== -->
+        <text x="112" y="34" font-size="15" font-weight="900" fill="#a5f3d4" text-anchor="middle">NASAL CANNULA (NC)</text>
+        <use href="#d1head" transform="translate(30,52)"/>
+        <!-- prongs -->
+        <path d="M164 156 L 154 148 M 170 162 L 160 154" stroke="#0d7f61" stroke-width="7" stroke-linecap="round"/>
+        <circle cx="152" cy="146" r="3.4" fill="#0d7f61"/><circle cx="158" cy="152" r="3.4" fill="#0d7f61"/>
+        <!-- tubing across cheek, over ear, under chin -->
+        <path d="M166 162 C 150 176 120 182 96 176 C 78 172 74 158 84 148" fill="none" stroke="url(#d1tb)" stroke-width="7" stroke-linecap="round"/>
+        <path d="M166 162 C 156 186 136 200 112 202 C 94 204 84 194 88 182" fill="none" stroke="url(#d1tb)" stroke-width="7" stroke-linecap="round"/>
+        <path d="M96 176 C 96 214 106 246 128 268" fill="none" stroke="url(#d1tb)" stroke-width="7" stroke-linecap="round"/>
+        <path d="M112 202 C 118 230 130 254 148 270" fill="none" stroke="url(#d1tb)" stroke-width="7" stroke-linecap="round"/>
+        <ellipse cx="140" cy="272" rx="14" ry="9" fill="#12b886" stroke="#eafff7" stroke-width="1.6"/>
+        <path d="M140 281 C 138 306 132 326 118 340" fill="none" stroke="url(#d1tb)" stroke-width="9" stroke-linecap="round"/>
+        <text x="112" y="308" font-size="11.5" font-weight="900" fill="#a5f3d4">slide adjuster</text>
+        <rect x="14" y="320" width="200" height="70" rx="12" fill="rgba(18,184,134,.72)" stroke="#eafff7" stroke-width="1.6"/>
+        <text x="26" y="340" font-size="12.5" font-weight="900" fill="#03291c">1–6 L/min · 24–44% O₂</text>
+        <text x="26" y="357" font-size="9.8" fill="#eafff7">Short-term: post-op low oxygenation</text>
+        <text x="26" y="371" font-size="9.8" fill="#eafff7">Long-term: dries nasal membranes</text>
+        <text x="26" y="385" font-size="9.8" font-weight="900" fill="#03291c">→ add HUMIDIFICATION</text>
+
+        <!-- ===== 2 SIMPLE FACE MASK ===== -->
+        <text x="330" y="34" font-size="15" font-weight="900" fill="#bcd0ff" text-anchor="middle">SIMPLE FACE MASK</text>
+        <use href="#d1head" transform="translate(248,52)"/>
+        <!-- mask body -->
+        <path d="M356 116 C 384 106 400 118 402 140 C 404 164 396 194 376 206 C 358 216 344 210 340 194 C 334 168 336 128 356 116 Z"
+              fill="url(#d1mk)" opacity=".9" stroke="#eaf4ff" stroke-width="2"/>
+        <path d="M360 122 C 382 114 394 124 396 142" fill="none" stroke="#fff" stroke-width="2" opacity=".7"/>
+        <!-- metal nose clip -->
+        <path d="M362 122 C 374 116 386 120 392 128" fill="none" stroke="#cfd8e3" stroke-width="5" stroke-linecap="round"/>
+        <!-- exhalation ports -->
+        <circle cx="352" cy="150" r="5.5" fill="#2a3b52" stroke="#eaf4ff" stroke-width="1.4"/>
+        <circle cx="352" cy="176" r="5.5" fill="#2a3b52" stroke="#eaf4ff" stroke-width="1.4"/>
+        <path d="M340 146 L 328 138 M 340 180 L 328 188" stroke="#9ff2ee" stroke-width="2.4" stroke-linecap="round"/>
+        <!-- strap -->
+        <path d="M356 128 C 320 118 288 122 276 134" fill="none" stroke="#e9dcff" stroke-width="4" stroke-dasharray="7 5"/>
+        <path d="M348 196 C 316 196 292 186 284 172" fill="none" stroke="#e9dcff" stroke-width="4" stroke-dasharray="7 5"/>
+        <!-- tubing -->
+        <path d="M368 208 C 366 240 356 266 340 282" fill="none" stroke="url(#d1tb)" stroke-width="10" stroke-linecap="round"/>
+        <rect x="228" y="320" width="200" height="70" rx="12" fill="rgba(47,107,255,.72)" stroke="#dbe8ff" stroke-width="1.6"/>
+        <text x="240" y="340" font-size="12.5" font-weight="900" fill="#fff">6–10 L/min · 40–60% O₂</text>
+        <text x="240" y="357" font-size="9.8" fill="#dbe8ff">Between cannula and rebreathers</text>
+        <text x="240" y="371" font-size="9.8" fill="#dbe8ff">Side ports let exhaled air out</text>
+        <text x="240" y="385" font-size="9.8" font-weight="900" fill="#ffe49a">⚠️ Low flow traps CO₂ — keep it up</text>
+
+        <!-- ===== 3 VENTURI ===== -->
+        <text x="548" y="34" font-size="15" font-weight="900" fill="#ffe49a" text-anchor="middle">VENTURI MASK</text>
+        <use href="#d1head" transform="translate(466,52)"/>
+        <path d="M574 116 C 602 106 618 118 620 140 C 622 164 614 194 594 206 C 576 216 562 210 558 194 C 552 168 554 128 574 116 Z"
+              fill="url(#d1mk)" opacity=".9" stroke="#eaf4ff" stroke-width="2"/>
+        <path d="M580 122 C 600 114 612 124 614 142" fill="none" stroke="#fff" stroke-width="2" opacity=".7"/>
+        <circle cx="570" cy="150" r="5.5" fill="#2a3b52" stroke="#eaf4ff" stroke-width="1.4"/>
+        <circle cx="570" cy="176" r="5.5" fill="#2a3b52" stroke="#eaf4ff" stroke-width="1.4"/>
+        <path d="M574 128 C 538 118 506 122 494 134" fill="none" stroke="#e9dcff" stroke-width="4" stroke-dasharray="7 5"/>
+        <path d="M566 196 C 534 196 510 186 502 172" fill="none" stroke="#e9dcff" stroke-width="4" stroke-dasharray="7 5"/>
+        <!-- wide bore tubing -->
+        <path d="M586 208 C 584 232 578 248 566 260" fill="none" stroke="#b9c9d8" stroke-width="16" stroke-linecap="round"/>
+        <path d="M586 212 L 578 246" stroke="#8fa4b8" stroke-width="2" opacity=".6"/>
+        <!-- entrainment barrel -->
+        <rect x="512" y="252" width="72" height="40" rx="12" fill="#ffc233" stroke="#231a02" stroke-width="2"/>
+        <rect x="522" y="262" width="12" height="20" rx="3" fill="#231a02" opacity=".8"/>
+        <rect x="542" y="262" width="12" height="20" rx="3" fill="#231a02" opacity=".8"/>
+        <rect x="562" y="262" width="12" height="20" rx="3" fill="#231a02" opacity=".8"/>
+        <path d="M506 240 L 522 256 M 500 272 L 516 272 M 506 304 L 522 288" stroke="#9ff2ee" stroke-width="3" stroke-linecap="round"/>
+        <text x="466" y="232" font-size="11" font-weight="900" fill="#9ff2ee">room air ➜</text>
+        <path d="M512 272 C 486 272 470 300 466 320" fill="none" stroke="url(#d1tb)" stroke-width="9" stroke-linecap="round"/>
+        <text x="548" y="308" font-size="10.5" font-weight="900" fill="#ffe49a" text-anchor="middle">colour-coded adaptor</text>
+        <rect x="442" y="320" width="204" height="70" rx="12" fill="rgba(255,194,51,.88)" stroke="#fff0c9" stroke-width="1.6"/>
+        <text x="454" y="340" font-size="12.5" font-weight="900" fill="#231a02">4–10 L/min · precise FiO₂</text>
+        <text x="454" y="357" font-size="9.8" fill="#231a02">⭐ MOST PRECISE delivery device</text>
+        <text x="454" y="371" font-size="9.8" fill="#231a02">For unstable COPD who can't tolerate</text>
+        <text x="454" y="385" font-size="9.8" fill="#231a02">changes in O₂ concentration</text>
+      </svg>
+
+      <div class="mn">🧠 <b>V · V — Venturi Mask = Very Accurate O₂.</b> The colour-coded barrel mixes a fixed amount of room air with the oxygen, so the FiO₂ stays exactly where you set it.</div>
+    </div>
+
+    <div class="card deep span2">
+      <h3>🎈 Reservoir devices &amp; the special cases: partial rebreather · non-rebreather · face tent</h3>
+
+      <svg viewBox="0 0 660 400" role="img" aria-label="Three more oxygen devices drawn on a side view of a head: a partial rebreather mask with a reservoir bag and open side ports, a non-rebreather mask with a reservoir bag a one way valve between bag and mask and flutter valves on the sides, and a face tent which is an open shield held in front of the face fed by wide bore humidified tubing">
+        <defs>
+          <radialGradient id="d2sk" cx=".55" cy=".28" r=".85"><stop offset="0" stop-color="#ffdcc6"/><stop offset="1" stop-color="#c08a68"/></radialGradient>
+          <linearGradient id="d2tb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d8fff0"/><stop offset="1" stop-color="#12b886"/></linearGradient>
+          <linearGradient id="d2mk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eaf4ff"/><stop offset="1" stop-color="#8fb2d8"/></linearGradient>
+          <radialGradient id="d2bag" cx=".38" cy=".28" r=".85"><stop offset="0" stop-color="#fff6dc"/><stop offset=".6" stop-color="#ffe49a"/><stop offset="1" stop-color="#c99a17"/></radialGradient>
+          <g id="d2head">
+            <path d="M74 16 C 106 16 128 40 130 72 C 131 84 128 92 134 96 C 140 100 147 107 140 111 C 136 114 128 112 124 115 C 122 121 124 127 119 131 C 126 135 126 141 119 145 C 115 153 103 159 87 159 C 61 159 39 143 31 119 C 23 97 25 44 49 26 C 57 20 66 16 74 16 Z"
+                  fill="url(#d2sk)" stroke="#ffe7dc" stroke-width="2.2"/>
+            <ellipse cx="63" cy="96" rx="11" ry="15" fill="url(#d2sk)" stroke="#ffe7dc" stroke-width="1.8"/>
+            <circle cx="108" cy="76" r="4.5" fill="#3b2a22"/>
+            <path d="M98 64 C 106 58 116 60 120 66" fill="none" stroke="#8e5a3c" stroke-width="2.4" stroke-linecap="round"/>
+            <path d="M40 30 C 62 12 106 16 124 44" fill="none" stroke="#7a4a30" stroke-width="7" stroke-linecap="round" opacity=".75"/>
+          </g>
+        </defs>
+        <rect x="4" y="4" width="652" height="392" rx="18" fill="rgba(255,138,61,.11)" stroke="#ff8a3d" stroke-width="2" stroke-dasharray="8 7"/>
+
+        <!-- ===== PARTIAL REBREATHER ===== -->
+        <text x="112" y="34" font-size="14.5" font-weight="900" fill="#ffd9b8" text-anchor="middle">PARTIAL REBREATHER</text>
+        <use href="#d2head" transform="translate(30,48)"/>
+        <path d="M138 112 C 166 102 182 114 184 136 C 186 160 178 190 158 202 C 140 212 126 206 122 190 C 116 164 118 124 138 112 Z"
+              fill="url(#d2mk)" opacity=".9" stroke="#eaf4ff" stroke-width="2"/>
+        <path d="M144 118 C 164 110 176 120 178 138" fill="none" stroke="#fff" stroke-width="2" opacity=".7"/>
+        <!-- OPEN side ports (no flaps) -->
+        <circle cx="132" cy="146" r="6" fill="#2a3b52" stroke="#eaf4ff" stroke-width="1.4"/>
+        <circle cx="132" cy="174" r="6" fill="#2a3b52" stroke="#eaf4ff" stroke-width="1.4"/>
+        <path d="M120 142 L 106 134 M 120 178 L 106 186" stroke="#9ff2ee" stroke-width="2.4" stroke-linecap="round"/>
+        <path d="M138 124 C 102 114 70 118 58 130" fill="none" stroke="#e9dcff" stroke-width="4" stroke-dasharray="7 5"/>
+        <path d="M130 192 C 98 192 74 182 66 168" fill="none" stroke="#e9dcff" stroke-width="4" stroke-dasharray="7 5"/>
+        <!-- neck + reservoir bag, NO valve -->
+        <path d="M146 204 L 140 232" stroke="#b9c9d8" stroke-width="14" stroke-linecap="round"/>
+        <ellipse cx="128" cy="266" rx="36" ry="32" fill="url(#d2bag)" stroke="#fff8e6" stroke-width="2.2"/>
+        <path d="M104 250 C 116 242 138 242 150 252" fill="none" stroke="#fff8e6" stroke-width="2" opacity=".7"/>
+        <path d="M128 234 L 128 244" stroke="#12b886" stroke-width="4"/>
+        <text x="128" y="272" font-size="11.5" font-weight="900" fill="#5a4200" text-anchor="middle">reservoir</text>
+        <text x="128" y="286" font-size="11.5" font-weight="900" fill="#5a4200" text-anchor="middle">bag</text>
+        <path d="M128 298 C 122 312 112 322 100 328" fill="none" stroke="url(#d2tb)" stroke-width="9" stroke-linecap="round"/>
+        <rect x="176" y="230" width="34" height="24" rx="8" fill="rgba(18,184,134,.85)"/>
+        <text x="193" y="246" font-size="12" font-weight="900" fill="#03291c" text-anchor="middle">open</text>
+        <line x1="176" y1="242" x2="140" y2="174" stroke="#a5f3d4" stroke-width="1.5"/>
+        <rect x="14" y="334" width="200" height="56" rx="12" fill="rgba(255,138,61,.8)" stroke="#ffe0d6" stroke-width="1.6"/>
+        <text x="26" y="354" font-size="12.5" font-weight="900" fill="#2b1200">6–11 L/min · ~60–75% O₂</text>
+        <text x="26" y="370" font-size="9.8" fill="#2b1200">Looks very similar to the NRB.</text>
+        <text x="26" y="384" font-size="9.8" font-weight="900" fill="#2b1200">Key difference = the flutter valves.</text>
+
+        <!-- ===== NON-REBREATHER ===== -->
+        <text x="330" y="34" font-size="14.5" font-weight="900" fill="#ff9db4" text-anchor="middle">NON-REBREATHER (NRB)</text>
+        <use href="#d2head" transform="translate(248,48)"/>
+        <path d="M356 112 C 384 102 400 114 402 136 C 404 160 396 190 376 202 C 358 212 344 206 340 190 C 334 164 336 124 356 112 Z"
+              fill="url(#d2mk)" opacity=".9" stroke="#eaf4ff" stroke-width="2"/>
+        <path d="M362 118 C 382 110 394 120 396 138" fill="none" stroke="#fff" stroke-width="2" opacity=".7"/>
+        <!-- flutter valves (one-way flaps) on the ports -->
+        <circle cx="350" cy="146" r="6" fill="#2a3b52" stroke="#eaf4ff" stroke-width="1.4"/>
+        <path d="M344 140 L 332 132 L 336 146 Z" fill="#ff3b6b" stroke="#ffd9e2" stroke-width="1.2"/>
+        <circle cx="350" cy="174" r="6" fill="#2a3b52" stroke="#eaf4ff" stroke-width="1.4"/>
+        <path d="M344 180 L 332 188 L 336 174 Z" fill="#ff3b6b" stroke="#ffd9e2" stroke-width="1.2"/>
+        <path d="M356 124 C 320 114 288 118 276 130" fill="none" stroke="#e9dcff" stroke-width="4" stroke-dasharray="7 5"/>
+        <path d="M348 192 C 316 192 292 182 284 168" fill="none" stroke="#e9dcff" stroke-width="4" stroke-dasharray="7 5"/>
+        <!-- valve between bag and mask -->
+        <path d="M364 204 L 358 228" stroke="#b9c9d8" stroke-width="14" stroke-linecap="round"/>
+        <rect x="344" y="224" width="30" height="12" rx="4" fill="#ff3b6b" stroke="#ffd9e2" stroke-width="1.4"/>
+        <ellipse cx="346" cy="270" rx="38" ry="34" fill="url(#d2bag)" stroke="#fff8e6" stroke-width="2.4"/>
+        <path d="M320 252 C 334 244 358 244 370 254" fill="none" stroke="#fff8e6" stroke-width="2" opacity=".7"/>
+        <text x="346" y="276" font-size="11.5" font-weight="900" fill="#5a4200" text-anchor="middle">reservoir</text>
+        <text x="346" y="290" font-size="11.5" font-weight="900" fill="#5a4200" text-anchor="middle">bag</text>
+        <path d="M346 304 C 340 316 330 324 318 330" fill="none" stroke="url(#d2tb)" stroke-width="9" stroke-linecap="round"/>
+        <rect x="392" y="214" width="128" height="46" rx="10" fill="rgba(192,34,85,.88)" stroke="#ffd9e2" stroke-width="1.4"/>
+        <text x="400" y="232" font-size="10.5" font-weight="900" fill="#fff">ONE-WAY flutter valves</text>
+        <text x="400" y="246" font-size="9.5" fill="#ffe3ea">exhaled air OUT,</text>
+        <text x="400" y="257" font-size="9.5" fill="#ffe3ea">room air stays OUT</text>
+        <line x1="392" y1="230" x2="376" y2="230" stroke="#ffd9e2" stroke-width="1.5"/>
+        <line x1="392" y1="248" x2="358" y2="176" stroke="#ffd9e2" stroke-width="1.5"/>
+        <rect x="228" y="334" width="200" height="56" rx="12" fill="rgba(192,34,85,.88)" stroke="#ffd9e2" stroke-width="1.6"/>
+        <text x="240" y="354" font-size="12.5" font-weight="900" fill="#fff">10–15 L/min · 60–100% O₂</text>
+        <text x="240" y="370" font-size="9.8" fill="#ffe3ea">EMERGENCIES · carbon monoxide</text>
+        <text x="240" y="384" font-size="9.8" font-weight="900" fill="#ffe49a">Keep the bag INFLATED</text>
+
+        <!-- ===== FACE TENT ===== -->
+        <text x="548" y="34" font-size="14.5" font-weight="900" fill="#9ff2ee" text-anchor="middle">FACE TENT</text>
+        <use href="#d2head" transform="translate(466,48)"/>
+        <!-- open shield in front of the face -->
+        <path d="M568 96 C 604 88 626 106 630 138 C 634 172 622 206 596 218 C 578 226 566 218 566 204 C 578 196 588 176 590 152 C 592 128 584 108 568 96 Z"
+              fill="rgba(200,232,255,.55)" stroke="#eaf4ff" stroke-width="2.4"/>
+        <path d="M574 104 C 604 100 620 118 622 142" fill="none" stroke="#fff" stroke-width="2" opacity=".6"/>
+        <path d="M578 190 C 600 184 614 168 618 148" fill="none" stroke="#fff" stroke-width="1.6" opacity=".5"/>
+        <!-- mist -->
+        <circle cx="596" cy="130" r="4" fill="#9ff2ee" opacity=".8"/>
+        <circle cx="608" cy="152" r="3.4" fill="#9ff2ee" opacity=".8"/>
+        <circle cx="586" cy="166" r="3.8" fill="#9ff2ee" opacity=".8"/>
+        <circle cx="604" cy="180" r="3" fill="#9ff2ee" opacity=".8"/>
+        <circle cx="580" cy="140" r="3" fill="#9ff2ee" opacity=".8"/>
+        <!-- wide bore humidified tubing -->
+        <path d="M582 220 C 578 246 566 264 548 274" fill="none" stroke="#b9c9d8" stroke-width="18" stroke-linecap="round"/>
+        <path d="M580 226 L 570 252 M 572 250 L 560 268" stroke="#8fa4b8" stroke-width="2" opacity=".6"/>
+        <rect x="472" y="264" width="66" height="40" rx="10" fill="rgba(0,194,199,.8)" stroke="#d8fff0" stroke-width="1.8"/>
+        <text x="505" y="280" font-size="10.5" font-weight="900" fill="#00252b" text-anchor="middle">HUMIDI-</text>
+        <text x="505" y="294" font-size="10.5" font-weight="900" fill="#00252b" text-anchor="middle">FIER</text>
+        <path d="M498 306 C 490 318 480 326 470 330" fill="none" stroke="url(#d2tb)" stroke-width="9" stroke-linecap="round"/>
+        <rect x="442" y="334" width="204" height="56" rx="12" fill="rgba(0,194,199,.75)" stroke="#d8fff0" stroke-width="1.6"/>
+        <text x="454" y="354" font-size="12.5" font-weight="900" fill="#00252b">Facial trauma &amp; burns</text>
+        <text x="454" y="370" font-size="9.8" fill="#00323a">High humidification · no face pressure</text>
+        <text x="454" y="384" font-size="9.8" font-weight="900" fill="#00252b">🧠 F = Face Tent → Face Trauma</text>
+      </svg>
+
+      <div class="mn">🧠 <b>“Partial has holes. Non-rebreather has flaps.”</b> The <i>flutter valves</i> are the whole difference — they stop room air (and exhaled air) from diluting the oxygen, which is why the NRB gets the highest percentage.</div>
+    </div>
+
+    <div class="card ruby span2">
+      <h3>🚨 Don't let the EXAMS trick you — the non-rebreather rules</h3>
+      <p><b>Answer first:</b> if the reservoir bag is <b>fully deflated on inspiration</b> → <mark>INCREASE the oxygen flow rate.</mark> The bag must stay at least partly inflated so the client always has a full breath of oxygen waiting.</p>
+      <ul class="tick">
+        <li class="never">❌ Do <b>NOT</b> open the flutter valves</li>
+        <li class="never">❌ Do <b>NOT</b> tighten the face mask straps first</li>
+        <li>✅ Turn the flow <b>up</b> first, then reassess the bag with each breath</li>
+        <li>✅ Used for <b>medical emergencies</b> and for <b>carbon monoxide poisoning</b> — CO binds hemoglobin far more tightly than O₂, so you flood the system with the highest FiO₂ available</li>
+      </ul>
+      <p><span class="tip">TRAP</span> In carbon monoxide poisoning the <b>pulse oximeter can read falsely normal</b> — it cannot tell oxygen from carbon monoxide on the hemoglobin. Treat the client and the history, not the number.</p>
+      <div class="mn">🧠 <b>“Flat bag = more gas.”</b> Three words. It is the single most repeated NRB question on every exam.</div>
+    </div>
+
+    <div class="card tealc span2">
+      <h3>📏 FiO₂ comparison — line them all up</h3>
+      <svg viewBox="0 0 660 340" role="img" aria-label="Horizontal bar chart comparing oxygen delivery devices by the fraction of inspired oxygen each delivers, from room air at twenty one percent, nasal cannula twenty four to forty four percent, simple face mask forty to sixty percent, partial rebreather about sixty to seventy five percent, Venturi mask twenty four to fifty percent, non rebreather sixty to one hundred percent, and high flow nasal cannula up to one hundred percent">
+        <rect x="4" y="4" width="652" height="332" rx="16" fill="rgba(13,8,26,.6)" stroke="#00c2c7" stroke-width="2"/>
+        <text x="20" y="30" font-size="14" font-weight="900" fill="#9ff2ee">FiO₂ delivered — approximate ranges (they overlap; know the order)</text>
+        <line x1="176" y1="42" x2="176" y2="292" stroke="#fff" stroke-width="1.4" opacity=".45"/>
+        <line x1="296" y1="42" x2="296" y2="292" stroke="#fff" stroke-width="1.4" opacity=".45"/>
+        <line x1="416" y1="42" x2="416" y2="292" stroke="#fff" stroke-width="1.4" opacity=".45"/>
+        <line x1="536" y1="42" x2="536" y2="292" stroke="#fff" stroke-width="1.4" opacity=".45"/>
+        <line x1="640" y1="42" x2="640" y2="292" stroke="#fff" stroke-width="1.4" opacity=".45"/>
+        <text x="176" y="312" font-size="11.5" font-weight="900" fill="#d8fff0" text-anchor="middle">20%</text>
+        <text x="296" y="312" font-size="11.5" font-weight="900" fill="#d8fff0" text-anchor="middle">40%</text>
+        <text x="416" y="312" font-size="11.5" font-weight="900" fill="#d8fff0" text-anchor="middle">60%</text>
+        <text x="536" y="312" font-size="11.5" font-weight="900" fill="#d8fff0" text-anchor="middle">80%</text>
+        <text x="640" y="312" font-size="11.5" font-weight="900" fill="#d8fff0" text-anchor="middle">100%</text>
+
+        <g font-size="11.5" font-weight="900">
+          <text x="14" y="60" fill="#fff">Room air</text>
+          <rect x="176" y="48" width="6" height="16" rx="3" fill="#8899aa"/>
+          <text x="192" y="61" fill="#cfd8e3" font-size="10.5">21%</text>
+
+          <text x="14" y="92" fill="#a5f3d4">Nasal cannula</text>
+          <rect x="200" y="80" width="120" height="16" rx="8" fill="#12b886"/>
+          <text x="328" y="93" fill="#a5f3d4" font-size="10.5">24–44% · 1–6 L</text>
+
+          <text x="14" y="124" fill="#bcd0ff">Simple mask</text>
+          <rect x="296" y="112" width="120" height="16" rx="8" fill="#2f6bff"/>
+          <text x="424" y="125" fill="#bcd0ff" font-size="10.5">40–60% · 6–10 L</text>
+
+          <text x="14" y="156" fill="#ffd9b8">Partial rebreather</text>
+          <rect x="416" y="144" width="90" height="16" rx="8" fill="#ff8a3d"/>
+          <text x="514" y="157" fill="#ffd9b8" font-size="10.5">~60–75% · 6–11 L</text>
+
+          <text x="14" y="188" fill="#ffe49a">Venturi ⭐precise</text>
+          <rect x="200" y="176" width="180" height="16" rx="8" fill="#ffc233"/>
+          <text x="388" y="189" fill="#ffe49a" font-size="10.5">24–50% · 4–10 L · SET exactly</text>
+
+          <text x="14" y="220" fill="#ff9db4">Non-rebreather</text>
+          <rect x="416" y="208" width="224" height="16" rx="8" fill="#ff3b6b"/>
+          <text x="416" y="238" fill="#ff9db4" font-size="10.5">60–100% · 10–15 L · emergencies</text>
+
+          <text x="14" y="266" fill="#d9c2ff">High-flow nasal cannula</text>
+          <rect x="200" y="254" width="440" height="16" rx="8" fill="#9d5cff"/>
+          <text x="206" y="286" fill="#d9c2ff" font-size="10.5">Heated &amp; humidified, very high flow rates — titratable up to 100%</text>
+        </g>
+      </svg>
+      <p style="margin-top:10px">🌡️ <b>Face tent</b> is not on the scale because its delivered FiO₂ is <b>variable and imprecise</b> — it is chosen for <b>humidity and comfort</b> (facial trauma, burns), not for a specific percentage.</p>
+      <div class="mn">🧠 <b>Order of climbing:</b> cannula → simple mask → partial rebreather → non-rebreather. Venturi steps <i>out</i> of the ladder — it is for <b>precision</b>, not for maximum.</div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>📋 All of it in one table</h3>
+      <table>
+        <tr><th class="up" style="width:20%">Device</th><th class="lo" style="width:16%">Flow</th><th class="lo" style="width:16%">FiO₂</th><th class="lo" style="width:48%">Use it when / watch for</th></tr>
+        <tr><td><b>Nasal cannula</b></td><td class="mono">1–6 L/min</td><td class="mono">~24–44%</td><td>Short-term low oxygenation <i>after surgery</i>. Long-term use <b>dries the nasal mucous membranes</b> → humidify. Client can eat &amp; talk.</td></tr>
+        <tr><td><b>Simple face mask</b></td><td class="mono">6–10 L/min</td><td class="mono">40–60%</td><td>The step between cannula and the rebreathers. <b>Never run it below the minimum flow</b> — exhaled CO₂ gets rebreathed.</td></tr>
+        <tr><td><b>Partial rebreather</b></td><td class="mono">6–11 L/min</td><td class="mono">~60–75%</td><td>Looks very similar to the NRB. <b>Key difference = the flutter valves</b> (the partial rebreather's ports are open).</td></tr>
+        <tr><td><b>Non-rebreather</b></td><td class="mono">10–15 L/min</td><td class="mono">60–100%</td><td><b>Medical emergencies</b> &amp; <b>carbon monoxide poisoning</b>. Bag deflated on inspiration → <b>increase the flow</b>.</td></tr>
+        <tr><td><b>Venturi mask</b></td><td class="mono">4–10 L/min</td><td class="mono">precise, set</td><td>⭐ <b>Most precise</b> delivery. <b>Unstable COPD</b> who cannot tolerate changes in oxygen concentration.</td></tr>
+        <tr><td><b>Face tent</b></td><td class="mono">high, humidified</td><td class="mono">variable</td><td><b>Facial trauma &amp; burns.</b> High humidification, nothing pressing on injured skin.</td></tr>
+        <tr><td><b>High-flow nasal cannula</b></td><td class="mono">very high</td><td class="mono">up to 100%</td><td>Heated, humidified, high flow; provides some airway pressure and is better tolerated than a mask.</td></tr>
+      </table>
+      <p style="margin-top:10px"><i>⚠️ These flow rates and FiO₂ percentages are <b>typical, approximate</b> values — published ranges differ between textbooks, and the FiO₂ a client actually receives varies with mask fit, respiratory rate and depth. Learn the <b>order</b> and the <b>indication</b>; check specific numbers against your own course materials and always follow the prescribed order.</i></p>
+      <div class="mn">🧠 <b>Read the stem for the WORD, not the number:</b> “precise / COPD” → Venturi. “Emergency / carbon monoxide” → non-rebreather. “Facial burn” → face tent. “After surgery, mild” → nasal cannula.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SAFETY ============ -->
+<section id="safety">
+  <div class="sec-h"><span class="icon">🛡️</span><h2>SAFETY &amp; NURSING CARE</h2><span class="step">STEP 4 · OXYGEN IS A DRUG</span></div>
+  <p class="sec-sub">It needs an order, it has a dose, it has side effects, and it can start a fire.</p>
+
+  <div class="grid">
+    <div class="card ruby span2">
+      <h3>🔥 Fire safety — non-negotiable</h3>
+      <div class="no-grid">
+        <div class="no-t hot"><span class="e">🚭</span>NO smoking<i>post the sign, in the room &amp; on the door</i></div>
+        <div class="no-t hot"><span class="e">🕯️</span>No open flame<i>candles, lighters, matches</i></div>
+        <div class="no-t hot"><span class="e">🧴</span>No petroleum products<i>use water-soluble lubricant</i></div>
+        <div class="no-t hot"><span class="e">🔌</span>Check electricals<i>no frayed cords, no static-prone blankets</i></div>
+        <div class="no-t hot"><span class="e">🧯</span>Know the extinguisher<i>and the shut-off valve</i></div>
+        <div class="no-t hot"><span class="e">🛢️</span>Secure cylinders<i>upright, chained, away from heat</i></div>
+      </div>
+      <p style="margin-top:10px" class="never">❌ Oxygen does not burn — it makes <i>everything else</i> burn faster and hotter. That is why a single spark matters.</p>
+      <div class="mn">🧠 <b>“Oxygen is the accelerant, not the flame.”</b></div>
+    </div>
+
+    <div class="card emerald">
+      <h3>✅ Ongoing nursing care</h3>
+      <ul class="tick">
+        <li><b>Oxygen requires an order</b> — flow rate, device, and target saturation (unless it's an emergency, where you act and then obtain the order)</li>
+        <li><b>Titrate to the prescribed target SpO₂</b>, then reassess</li>
+        <li><b>Humidify</b> for higher flows and long-term use — dry gas cracks the mucosa and causes nosebleeds</li>
+        <li><b>Skin checks</b>: behind the ears, over the cheekbones, the bridge of the nose, and the nares — pad the pressure points</li>
+        <li><b>Oral &amp; nasal care</b> — masks dry everything out</li>
+        <li>Reassess after every change: <b>LOC, RR, work of breathing, SpO₂, colour</b></li>
+      </ul>
+      <div class="mn">🧠 <b>“Order · device · target · skin.”</b> Four checks every shift.</div>
+    </div>
+
+    <div class="card topaz">
+      <h3>⚠️ COPD — say this carefully</h3>
+      <p>Clients with chronic CO₂ retention are usually given <b>controlled, low-flow oxygen titrated to a lower target saturation</b> prescribed by the provider, and the <b>Venturi mask</b> is preferred because the FiO₂ does not drift.</p>
+      <p class="never">❌ Never withhold oxygen from a client who is acutely hypoxic. Treat the hypoxia, then titrate down and monitor for rising drowsiness or a falling respiratory rate.</p>
+      <div class="mn">🧠 <b>“Low and precise, not none.”</b> The wrong answer is refusing to oxygenate a blue patient.</div>
+    </div>
+
+    <div class="card citrinec span2">
+      <h3>🪜 Priority action when you find a hypoxic client</h3>
+      <div class="ladder">
+        <div class="rung"><div class="n">1</div><div class="t"><b>Stay with the client and position upright</b> — high Fowler's, or tripod if that is what they are already doing. Gravity is free oxygen.</div></div>
+        <div class="arrowdown">▼</div>
+        <div class="rung"><div class="n">2</div><div class="t"><b>Assess airway &amp; breathing</b> — patency, rate, effort, breath sounds, SpO₂, colour, level of consciousness.</div></div>
+        <div class="arrowdown">▼</div>
+        <div class="rung"><div class="n">3</div><div class="t"><b>Apply / increase oxygen</b> per the order or protocol; step up to a higher-delivery device if the target is not met.</div></div>
+        <div class="arrowdown">▼</div>
+        <div class="rung"><div class="n">4</div><div class="t"><b>Call for help</b> — rapid response or provider — and prepare for an ABG, chest X-ray and further treatment.</div></div>
+        <div class="arrowdown">▼</div>
+        <div class="rung"><div class="n">5</div><div class="t"><b>Treat the cause</b> — suction secretions, reverse oversedation as prescribed, coach deep breathing / incentive spirometry, ambulate when stable.</div></div>
+      </div>
+      <p style="margin-top:10px">👉 Lung anatomy and breath sounds are on <a href="NG-004_anatomy-of-the-lungs.html" style="color:#3d1a00"><b>NG-004 — Anatomy of the Lungs</b></a>.</p>
+      <div class="mn">🧠 <b>“Sit them up before you look anything up.”</b> Positioning is the fastest intervention you own.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc tealbg"><span class="big">🩸 Hypoxemia = blood</span>PaO₂ less than <span class="mono">80</span> mmHg (typical adult reference range — verify against your lab). Hypoxia = tissues.</div>
+    <div class="rc citrine"><span class="big">🧠 Restless first</span>Then agitated, then confused. Cyanosis is LATE.</div>
+    <div class="rc topazbg"><span class="big">V = Very Accurate</span><b>Venturi</b> = the most precise device · unstable COPD.</div>
+    <div class="rc rubybg"><span class="big">🎈 Deflated bag → ↑ flow</span>NRB <span class="mono">10–15</span> L/min · <span class="mono">60–100%</span> · emergencies &amp; CO poisoning.</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 7 rapid-fire questions</summary>
+      <div class="qa">Q1: Define hypoxemia and hypoxia, and state the link. <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Hypoxemia = low oxygen levels in the blood. Hypoxia = low oxygen supply in the body tissues. Hypoxemia dominoes into hypoxia, because low oxygen in the blood means low oxygen delivery to the tissues.</div></div>
+      <div class="qa">Q2: Which findings are EARLY indications of hypoxemia? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Restlessness, agitation/irritability, confusion, tachypnea (RR over 20), tachycardia (HR over 100), and hypertension (systolic over 140). Bradycardia, hypotension and cyanosis are LATE.</div></div>
+      <div class="qa">Q3: A client on a non-rebreather has a reservoir bag that fully deflates with each breath. What do you do? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Increase the oxygen flow rate. Do NOT open the flutter valves, and do NOT tighten the face mask straps first.</div></div>
+      <div class="qa">Q4: Which device is the most precise, and who is it for? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">The Venturi mask — V for Very Accurate O₂. Typically used for clients with unstable COPD who cannot tolerate changes in oxygen concentration from other devices.</div></div>
+      <div class="qa">Q5: A client has facial burns. Which device and why? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">A face tent — used for facial trauma and burns because it provides high humidification without anything strapped against the injured skin. F = Face Tent, F = Face Trauma.</div></div>
+      <div class="qa">Q6: How do you tell a partial rebreather from a non-rebreather at a glance? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">They look very similar. The key difference is the flutter valves — the non-rebreather has one-way flutter valves on the sides (and between the bag and the mask) so exhaled and room air can't dilute the oxygen. That's why the NRB reaches roughly 60–100% while the partial rebreather sits around 60–75%.</div></div>
+      <div class="qa">Q7: Give the flow and FiO₂ for a nasal cannula, and the one long-term teaching point. <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">1–6 L/min, about 24–44% oxygen. Short-term it is used for low oxygenation after surgery. Long-term it dries out the mucous membranes in the nose, so humidification is added.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">HYPOXIA</span>→
+    <span style="background:rgba(47,107,255,.7)">SIGNS</span>→
+    <span style="background:rgba(0,194,199,.7)">DEVICES</span>→
+    <span style="background:rgba(255,138,61,.7)">SAFETY</span>
+  </div>
+  <div>NG-006 · Source wording retained · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>

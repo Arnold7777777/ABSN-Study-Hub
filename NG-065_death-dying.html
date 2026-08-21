@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Death &amp; Dying · NG-065 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#cause .sec-h h2{color:#d9c2ff} #cause .step{background:var(--amethyst)}
+#clues .sec-h h2{color:#bcd0ff} #clues .step{background:var(--sapphire)}
+#care  .sec-h h2{color:#a5f3d4} #care .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+/* ---- appended for NG-065 ---- */
+.linkout{display:inline-block;margin-top:8px;font-size:.85rem;font-weight:800;color:#ffe49a;
+  text-decoration:none;border-bottom:1px dashed #ffe49a}
+</style></head>
+<body>
+<!-- absn-floating-nav -->
+<style>
+#absnNav{position:fixed;top:9px;right:9px;z-index:99990;display:flex;gap:6px;
+ font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif}
+#absnNav a{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:#fff;
+ font-weight:800;font-size:.84rem;line-height:1;padding:9px 13px;border-radius:999px;
+ border:1px solid rgba(255,255,255,.32);box-shadow:0 4px 14px rgba(0,0,0,.42);
+ backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);white-space:nowrap}
+#absnNav a.hub{background:linear-gradient(135deg,#0f7d6b,#12b886)}
+#absnNav a.ig{background:linear-gradient(135deg,#5a2d82,#9d5cff)}
+#absnNav a:hover{filter:brightness(1.15)}
+#absnNav a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
+@media (max-width:620px){#absnNav .lb{display:none}#absnNav a{padding:9px 11px}}
+@media print{#absnNav{display:none!important}}
+</style>
+<div id="absnNav">
+  <a class="hub" href="../index.html">&#127968;<span class="lb"> Study Hub</span></a>
+  <a class="ig" href="../infographics.html">&#128444;&#65039;<span class="lb"> Infographics</span></a>
+</div>
+<!-- /absn-floating-nav -->
+
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#cause">🛡️ Defenses</a>
+  <a class="c2" href="#clues">🌗 Grief stages</a>
+  <a class="c3" href="#care">🤍 Support</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Mental Health · Psychiatric Care Course</div>
+  <h1>Death &amp; Dying <span class="drop">🕊️</span></h1>
+  <p class="sub">Defense Mechanisms &amp; the Grieving Process</p>
+  <div class="chips">
+    <span class="chip id">NG-065</span>
+    <span class="chip cat">Mental Health</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede">Loss activates two things at once: <b>unconscious defense mechanisms</b> that protect the ego from the blow, and a <b>grief process</b> that moves (unevenly) toward acceptance. Know the mechanisms so you can name the behavior — know the stages so you know it's <i>normal</i>, not pathology. <i>Pairs with NG-222 (Loss types, complicated grief &amp; end-of-life decisions).</i></p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">🔤 DABDA</span><span class="mono">D</span>enial → <span class="mono">A</span>nger → <span class="mono">B</span>argaining → <span class="mono">D</span>epression → <span class="mono">A</span>cceptance (Kübler-Ross, not always in order).</div>
+  <div class="rc rubybg"><span class="big">🎯 Aim of the emotion matters</span>Sideways at a safer person = <b>displacement</b>. Pinned onto someone else = <b>projection</b>. Copied from someone powerful = <b>identification</b>.</div>
+  <div class="rc tealbg"><span class="big">🧸 Kids can't verbalize grief</span>Use <b>play</b>, art, honesty — not euphemisms.</div>
+  <div class="rc topazbg"><span class="big">🤱 NCLEX classic</span>Stillborn loss: <mark>"You may hold your baby as long as you want."</mark></div>
+</div>
+
+<!-- ============ CAUSE ============ -->
+<section id="cause">
+  <div class="sec-h"><span class="icon">🛡️</span><h2>DEFENSES</h2><span class="step">STEP 1 · WHY THEY ACT THAT WAY</span></div>
+  <p class="sec-sub">Before someone can grieve, the ego often protects itself first — these are unconscious, not manipulative.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🧠 What a defense mechanism actually is</h3>
+      <p>An <b>unconscious</b> mental strategy the ego uses to reduce anxiety when a person faces stress, conflict, or loss they can't process head-on yet. <mark>They are normal and adaptive in moderation</mark> — the problem is only when one gets used rigidly, alone, or in place of coping.</p>
+      <div class="duo">
+        <svg viewBox="0 0 440 280" role="img" aria-label="Displacement diagram: a boss blocks the client's anger with a red X, so the anger is redirected downward toward the spouse at home instead">
+          <rect x="6" y="6" width="428" height="268" rx="16" fill="rgba(255,59,107,.16)" stroke="#ff3b6b" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="22" y="38" font-size="19" font-weight="900" fill="#ff9db4">1️⃣ DISPLACEMENT</text>
+          <circle cx="120" cy="100" r="34" fill="#c02255"/>
+          <text x="120" y="107" font-size="26" text-anchor="middle">😠</text>
+          <text x="120" y="146" font-size="13" font-weight="800" fill="#ffd9e2" text-anchor="middle">real target</text>
+          <text x="120" y="162" font-size="13" font-weight="800" fill="#ffd9e2" text-anchor="middle">(boss / job loss)</text>
+          <line x1="154" y1="100" x2="210" y2="100" stroke="#ff3b6b" stroke-width="6" stroke-linecap="round"/>
+          <text x="182" y="90" font-size="22" text-anchor="middle" fill="#ff3b6b">🚫</text>
+          <path d="M182 118 q0 60 -30 84" fill="none" stroke="#ffc233" stroke-width="6" stroke-linecap="round" stroke-dasharray="10 8"/>
+          <path d="M144 198 l14 -8 l-2 16 z" fill="#ffc233"/>
+          <circle cx="120" cy="222" r="30" fill="#2f6bff"/>
+          <text x="120" y="229" font-size="24" text-anchor="middle">😟</text>
+          <text x="120" y="264" font-size="13" font-weight="800" fill="#bcd0ff" text-anchor="middle">safer target (spouse)</text>
+          <text x="270" y="90" font-size="14.5" fill="#ffd9e2" font-weight="700">Anger can't go</text>
+          <text x="270" y="108" font-size="14.5" fill="#ffd9e2" font-weight="700">to the boss —</text>
+          <text x="270" y="140" font-size="14.5" fill="#ffc233" font-weight="900">redirected</text>
+          <text x="270" y="158" font-size="14.5" fill="#ffc233" font-weight="900">onto the spouse</text>
+          <text x="270" y="196" font-size="13" fill="#ffe3ea" font-style="italic">Ex: loses job, comes</text>
+          <text x="270" y="212" font-size="13" fill="#ffe3ea" font-style="italic">home and yells at wife</text>
+        </svg>
+        <svg viewBox="0 0 440 280" role="img" aria-label="Projection versus identification diagram: projection pins an unwanted feeling onto another person, identification copies the behavior of a person seen as powerful">
+          <rect x="6" y="6" width="428" height="268" rx="16" fill="rgba(157,92,255,.18)" stroke="#9d5cff" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="22" y="34" font-size="18" font-weight="900" fill="#d9c2ff">2️⃣ PROJECTION</text>
+          <circle cx="90" cy="86" r="26" fill="#9d5cff"/><text x="90" y="93" font-size="20" text-anchor="middle">🙎</text>
+          <path d="M116 86 L192 86" stroke="#ffc233" stroke-width="5" stroke-linecap="round" marker-end="url(#arH)"/>
+          <circle cx="222" cy="86" r="26" fill="#c02255"/><text x="222" y="93" font-size="20" text-anchor="middle">🙍</text>
+          <text x="252" y="82" font-size="13" fill="#ffd9e2" font-weight="800">"YOU'RE the</text>
+          <text x="252" y="98" font-size="13" fill="#ffd9e2" font-weight="800">angry one!"</text>
+          <text x="22" y="126" font-size="12.5" fill="#efe6ff" font-style="italic">own unacceptable feeling → pinned on someone else</text>
+
+          <line x1="12" y1="150" x2="428" y2="150" stroke="rgba(255,255,255,.25)" stroke-width="1"/>
+
+          <text x="22" y="180" font-size="18" font-weight="900" fill="#a5f3d4">3️⃣ IDENTIFICATION</text>
+          <circle cx="90" cy="228" r="26" fill="#12b886"/><text x="90" y="235" font-size="20" text-anchor="middle">👩‍⚕️</text>
+          <path d="M116 220 L192 200" stroke="#a5f3d4" stroke-width="5" stroke-linecap="round" marker-end="url(#arH2)"/>
+          <circle cx="222" cy="188" r="24" fill="#00c2c7"/><text x="222" y="195" font-size="18" text-anchor="middle">🧍</text>
+          <text x="252" y="184" font-size="12.5" fill="#d8fff0" font-weight="800">copies mannerisms</text>
+          <text x="252" y="200" font-size="12.5" fill="#d8fff0" font-weight="800">of admired nurse</text>
+          <text x="22" y="266" font-size="12.5" fill="#efe6ff" font-style="italic">adopts traits of someone perceived as more powerful</text>
+          <defs>
+            <marker id="arH" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/></marker>
+            <marker id="arH2" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#a5f3d4"/></marker>
+          </defs>
+        </svg>
+      </div>
+      <div class="mn">🧠 <b>Where does the feeling END UP?</b> Displacement = lands on a <i>safer person</i>. Projection = lands on <i>someone else, disguised as their feeling</i>. Identification = the client <i>becomes</i> someone else's behavior.</div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>📋 The full defense-mechanism table — definition + NCLEX-style example</h3>
+      <table>
+        <tr><th style="width:20%">Mechanism</th><th style="width:38%">Definition</th><th>Example from practice questions</th></tr>
+        <tr><td><b>Displacement</b></td><td>Shifting anger/impulses from an outside situation onto a safer, less threatening person</td><td>Man loses his job, goes home and yells at his wife</td></tr>
+        <tr><td><b>Repression</b></td><td>Unconsciously blocking painful memories from awareness (not a conscious choice)</td><td>20-year-old sexually molested at age 10 can no longer remember the incident</td></tr>
+        <tr><td><b>Rationalization</b></td><td>Justifying illogical or irrational ideas/feelings with a logical-sounding excuse</td><td>Client with alcoholism: "I need a drink or two to relax after a busy day — I have an incredibly high-stress job"</td></tr>
+        <tr><td><b>Compensation</b></td><td>Overachieving in one area to offset a perceived failure/weakness in another</td><td>A client who cannot walk becomes an elite wheelchair athlete</td></tr>
+        <tr><td><b>Undoing</b></td><td>Symbolically "canceling out" a guilty thought/act by doing a good deed</td><td>A person who snapped at a friend brings them a gift the next day, without addressing the outburst</td></tr>
+        <tr><td><b>Sublimation</b></td><td>Channeling an unacceptable impulse into an activity that is appropriate &amp; safe</td><td>Bullied about a chemistry interest → now tutors students in science; adolescent with a violence history joins a competitive boxing team</td></tr>
+        <tr><td><b>Projection</b></td><td>Taking one's own unacceptable qualities/feelings and attributing them to someone else</td><td>A jealous spouse repeatedly accuses their partner of being jealous</td></tr>
+        <tr><td><b>Identification</b></td><td>Adopting the behavior of a person perceived as more powerful or admired</td><td>Client on a psych unit seeks out a particular nurse and imitates her mannerisms</td></tr>
+      </table>
+      <div class="mn">🧠 <b>“DR RUS PI”</b> won't say itself out loud — instead group them: <b>redirect</b> (displacement, sublimation) · <b>block</b> (repression) · <b>excuse</b> (rationalization) · <b>balance</b> (compensation, undoing) · <b>relocate blame/self</b> (projection, identification).</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>⚠️ Denial is BOTH a defense mechanism AND grief stage 1</h3>
+      <p>When a client says, after being told their feet will need amputation, <i>"I'm sure if I start taking my medication my feet will heal,"</i> that is <b>denial</b> — difficulty accepting a new body image. It shows up under <span class="mono">CAUSE</span> here as a mechanism and again under <span class="mono">CLUES</span> as stage 1 of Kübler-Ross.</p>
+      <div class="mn">🧠 Same word, two jobs: denial as a <i>defense mechanism</i> happens anytime, not just with death. Denial as a <i>grief stage</i> is specific to the loss timeline below.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLUES ============ -->
+<section id="clues">
+  <div class="sec-h"><span class="icon">🌗</span><h2>GRIEF STAGES</h2><span class="step">STEP 2 · WHERE ARE THEY ON THE TIMELINE</span></div>
+  <p class="sec-sub">Two models the NCLEX pulls from — Kübler-Ross's 5 stages and Bowlby's 4 phases. Neither is a strict staircase.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🪜 Kübler-Ross's 5 Stages of Grief — <mark>DABDA</mark></h3>
+      <svg viewBox="0 0 900 320" role="img" aria-label="Staircase diagram of the five Kubler-Ross stages of grief: denial, anger, bargaining, depression, and acceptance, shown ascending like stairs with a looping arrow indicating the stages are not always sequential">
+        <rect x="4" y="4" width="892" height="312" rx="16" fill="rgba(13,8,26,.4)" stroke="rgba(255,255,255,.25)" stroke-width="1.5"/>
+        <!-- steps ascending -->
+        <rect x="40"  y="240" width="140" height="60" rx="10" fill="#c02255"/>
+        <rect x="196" y="205" width="140" height="95" rx="10" fill="#ff3b6b"/>
+        <rect x="352" y="170" width="140" height="130" rx="10" fill="#ff8a3d"/>
+        <rect x="508" y="135" width="140" height="165" rx="10" fill="#2f6bff"/>
+        <rect x="664" y="98"  width="196" height="202" rx="10" fill="#12b886"/>
+
+        <text x="110" y="266" font-size="15" font-weight="900" fill="#fff" text-anchor="middle">1 DENIAL</text>
+        <text x="110" y="284" font-size="10.5" fill="#ffe3ea" text-anchor="middle">"not me / not real"</text>
+
+        <text x="266" y="230" font-size="15" font-weight="900" fill="#fff" text-anchor="middle">2 ANGER</text>
+        <text x="266" y="248" font-size="10.5" fill="#ffe3ea" text-anchor="middle">"why me?" — demanding,</text>
+        <text x="266" y="262" font-size="10.5" fill="#ffe3ea" text-anchor="middle">irritable, blaming</text>
+
+        <text x="422" y="196" font-size="15" font-weight="900" fill="#2b1200" text-anchor="middle">3 BARGAINING</text>
+        <text x="422" y="214" font-size="10.5" fill="#3d1a00" text-anchor="middle">"if I ___, then</text>
+        <text x="422" y="228" font-size="10.5" fill="#3d1a00" text-anchor="middle">this won't happen"</text>
+
+        <text x="578" y="160" font-size="15" font-weight="900" fill="#fff" text-anchor="middle">4 DEPRESSION</text>
+        <text x="578" y="178" font-size="10.5" fill="#bcd0ff" text-anchor="middle">sadness, withdrawal —</text>
+        <text x="578" y="192" font-size="10.5" fill="#bcd0ff" text-anchor="middle">true grieving begins</text>
+
+        <text x="762" y="126" font-size="15" font-weight="900" fill="#03291c" text-anchor="middle">5 ACCEPTANCE</text>
+        <text x="762" y="144" font-size="10.5" fill="#03291c" text-anchor="middle">peace with reality —</text>
+        <text x="762" y="158" font-size="10.5" fill="#03291c" text-anchor="middle">not necessarily "happy"</text>
+
+        <path d="M480 40 C 300 10, 150 20, 90 55" fill="none" stroke="#ffc233" stroke-width="3" stroke-dasharray="6 5" marker-end="url(#loopA)"/>
+        <text x="240" y="35" font-size="13" font-weight="800" fill="#ffc233">stages can repeat / skip / overlap — NOT always linear</text>
+        <defs><marker id="loopA" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/></marker></defs>
+      </svg>
+      <div class="mn">🧠 <b>“DABDA”</b> — say it like a heartbeat: <b>D</b>enial-<b>A</b>nger-<b>B</b>argaining-<b>D</b>epression-<b>A</b>cceptance. <mark>Any client can jump backward</mark> — a calm client at "acceptance" can flare back into anger on the anniversary of the loss. That's still normal grief, not regression to treat.</div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>🌊 Bowlby's 4 Stages of Grief — the attachment-theory version</h3>
+      <svg viewBox="0 0 900 210" role="img" aria-label="Flow diagram of Bowlby's four stages of grief: numbness and protest, disequilibrium with yearning and searching, disorganization and despair, and reorganization">
+        <rect x="10" y="20" width="195" height="150" rx="12" fill="rgba(192,34,85,.55)" stroke="#ffe3ea" stroke-width="1.5"/>
+        <text x="107" y="52" font-size="14" font-weight="900" fill="#fff" text-anchor="middle">1 · NUMBNESS</text>
+        <text x="107" y="70" font-size="14" font-weight="900" fill="#fff" text-anchor="middle">&amp; PROTEST</text>
+        <text x="107" y="100" font-size="11.5" fill="#ffd9e2" text-anchor="middle">shock, disbelief,</text>
+        <text x="107" y="116" font-size="11.5" fill="#ffd9e2" text-anchor="middle">refusal that it happened</text>
+
+        <path d="M210 95 L235 95" stroke="#ffc233" stroke-width="5" marker-end="url(#bwA)"/>
+
+        <rect x="240" y="20" width="195" height="150" rx="12" fill="rgba(157,92,255,.55)" stroke="#efe6ff" stroke-width="1.5"/>
+        <text x="337" y="52" font-size="14" font-weight="900" fill="#fff" text-anchor="middle">2 · DISEQUILIBRIUM</text>
+        <text x="337" y="90" font-size="11.5" fill="#e9dcff" text-anchor="middle">yearning &amp; searching</text>
+        <text x="337" y="106" font-size="11.5" fill="#e9dcff" text-anchor="middle">for the person; restless,</text>
+        <text x="337" y="122" font-size="11.5" fill="#e9dcff" text-anchor="middle">preoccupied</text>
+
+        <path d="M440 95 L465 95" stroke="#ffc233" stroke-width="5" marker-end="url(#bwA)"/>
+
+        <rect x="470" y="20" width="205" height="150" rx="12" fill="rgba(255,138,61,.55)" stroke="#2b1200" stroke-width="1.5"/>
+        <text x="572" y="52" font-size="14" font-weight="900" fill="#2b1200" text-anchor="middle">3 · DISORGANIZATION</text>
+        <text x="572" y="70" font-size="14" font-weight="900" fill="#2b1200" text-anchor="middle">&amp; DESPAIR</text>
+        <text x="572" y="100" font-size="11.5" fill="#3d1a00" text-anchor="middle">hopelessness, apathy,</text>
+        <text x="572" y="116" font-size="11.5" fill="#3d1a00" text-anchor="middle">difficulty functioning</text>
+
+        <path d="M680 95 L705 95" stroke="#ffc233" stroke-width="5" marker-end="url(#bwA)"/>
+
+        <rect x="710" y="20" width="180" height="150" rx="12" fill="rgba(18,184,134,.55)" stroke="#eafff7" stroke-width="1.5"/>
+        <text x="800" y="52" font-size="14" font-weight="900" fill="#03291c" text-anchor="middle">4 · REORGANIZATION</text>
+        <text x="800" y="90" font-size="11.5" fill="#03291c" text-anchor="middle">rebuilds identity &amp;</text>
+        <text x="800" y="106" font-size="11.5" fill="#03291c" text-anchor="middle">routines without</text>
+        <text x="800" y="122" font-size="11.5" fill="#03291c" text-anchor="middle">the lost person</text>
+        <defs><marker id="bwA" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/></marker></defs>
+      </svg>
+      <div class="mn">🧠 <b>Bowlby ≠ Kübler-Ross —</b> Bowlby describes the <i>bond breaking</i> (attachment theory); Kübler-Ross describes the <i>emotions felt</i>. If a question says "numbness," "yearning/searching," or "reorganization," it's testing Bowlby, not DABDA.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🎯 Tell the stage from the quote</h3>
+      <table>
+        <tr><th class="up">Client says</th><th class="lo">Stage</th></tr>
+        <tr><td>"I'm sure if I start taking my medication, my feet will heal" (after being told amputation is needed)</td><td><b>Denial</b></td></tr>
+        <tr><td>Appears angry &amp; demanding after a below-the-knee amputation</td><td><b>Anger</b></td></tr>
+        <tr><td>"I feel like I can barely get out of bed in the morning"</td><td><b>Depression</b></td></tr>
+      </table>
+      <div class="mn">🧠 A grieving client is <span class="never">not "being difficult" on purpose</span> — anger and demanding behavior are expected grief work, not a behavior problem to punish.</div>
+    </div>
+
+    <div class="card emerald">
+      <h3>✅ ATI SATA — feelings that show healthy grief insight</h3>
+      <ul class="tick">
+        <li>"I might experience feelings of resentment"</li>
+        <li>"I might have some guilt over how my partner died"</li>
+        <li>"I might have angry feelings that I should express"</li>
+      </ul>
+      <p><mark>All correct</mark> — naming and expecting a range of emotions (including anger, resentment, guilt) shows insight, not pathology.</p>
+      <div class="mn">🧠 The trap: students want to mark anger/resentment/guilt as "bad" answers. In acute grief, expecting to <i>feel and express</i> them is the healthy answer.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CARE ============ -->
+<section id="care">
+  <div class="sec-h"><span class="icon">🤍</span><h2>SUPPORT</h2><span class="step">STEP 3 · MEET THEM WHERE THEY ARE</span></div>
+  <p class="sec-sub">Adults need presence and honesty; children need developmentally-matched honesty plus a way to express what they can't say out loud.</p>
+
+  <div class="grid">
+    <div class="card sapphire span2">
+      <h3>🧒 Kids understand death differently by age — match your words to the stage</h3>
+      <svg viewBox="0 0 900 260" role="img" aria-label="Timeline of how children understand death by developmental age: infants and toddlers have no true concept, preschoolers use magical thinking and see death as reversible, school-age children begin to understand permanence, and adolescents reach adult-like abstract understanding">
+        <rect x="4" y="4" width="892" height="252" rx="16" fill="rgba(13,8,26,.4)" stroke="rgba(255,255,255,.25)" stroke-width="1.5"/>
+        <line x1="40" y1="130" x2="860" y2="130" stroke="rgba(255,255,255,.35)" stroke-width="3"/>
+        <circle cx="120" cy="130" r="9" fill="#ff3b6b"/>
+        <circle cx="340" cy="130" r="9" fill="#ffc233"/>
+        <circle cx="560" cy="130" r="9" fill="#2f6bff"/>
+        <circle cx="800" cy="130" r="9" fill="#12b886"/>
+
+        <text x="120" y="70" font-size="14.5" font-weight="900" fill="#ff9db4" text-anchor="middle">Infant / Toddler</text>
+        <text x="120" y="88" font-size="12" fill="#ffd9e2" text-anchor="middle">(0–2 yrs)</text>
+        <text x="120" y="170" font-size="11.5" fill="#ffe3ea" text-anchor="middle">No true concept of</text>
+        <text x="120" y="185" font-size="11.5" fill="#ffe3ea" text-anchor="middle">death — reacts to</text>
+        <text x="120" y="200" font-size="11.5" fill="#ffe3ea" text-anchor="middle">separation from caregiver</text>
+
+        <text x="340" y="70" font-size="14.5" font-weight="900" fill="#ffe49a" text-anchor="middle">Preschool</text>
+        <text x="340" y="88" font-size="12" fill="#fff3d0" text-anchor="middle">(3–5 yrs)</text>
+        <text x="340" y="170" font-size="11.5" fill="#fff3d0" text-anchor="middle">"Magical thinking" —</text>
+        <text x="340" y="185" font-size="11.5" fill="#fff3d0" text-anchor="middle">sees death as reversible</text>
+        <text x="340" y="200" font-size="11.5" fill="#fff3d0" text-anchor="middle">(like sleep); may feel it's</text>
+        <text x="340" y="215" font-size="11.5" fill="#fff3d0" text-anchor="middle">their fault ("I was bad")</text>
+
+        <text x="560" y="70" font-size="14.5" font-weight="900" fill="#bcd0ff" text-anchor="middle">School-age</text>
+        <text x="560" y="88" font-size="12" fill="#dce7ff" text-anchor="middle">(6–12 yrs)</text>
+        <text x="560" y="170" font-size="11.5" fill="#dce7ff" text-anchor="middle">Grasps permanence &amp;</text>
+        <text x="560" y="185" font-size="11.5" fill="#dce7ff" text-anchor="middle">irreversibility by ~9–10;</text>
+        <text x="560" y="200" font-size="11.5" fill="#dce7ff" text-anchor="middle">may personify death</text>
+
+        <text x="800" y="70" font-size="14.5" font-weight="900" fill="#a5f3d4" text-anchor="middle">Adolescent</text>
+        <text x="800" y="88" font-size="12" fill="#d8fff0" text-anchor="middle">(13+ yrs)</text>
+        <text x="800" y="170" font-size="11.5" fill="#d8fff0" text-anchor="middle">Adult-like abstract</text>
+        <text x="800" y="185" font-size="11.5" fill="#d8fff0" text-anchor="middle">understanding; existential</text>
+        <text x="800" y="200" font-size="11.5" fill="#d8fff0" text-anchor="middle">/ identity-focused grief</text>
+      </svg>
+      <div class="mn">🧠 Why the nurse says <b>"young children have difficulty verbalizing emotions"</b> when a parent asks about play therapy: at preschool/school age, <i>play IS their language</i> — coloring, dolls, and games surface feelings a 6-year-old cannot say out loud.</div>
+    </div>
+
+    <div class="card emerald">
+      <h3>🧸 Pediatric interventions</h3>
+      <ul class="tick">
+        <li>🎨 <b>Play therapy</b> — young children can't verbalize emotions</li>
+        <li>✅ <b>Honestly answer questions</b> — age-appropriate wording, no euphemisms like "went to sleep"</li>
+        <li>🤲 <b>Therapeutic touch</b> — hold and cuddle to reinforce closeness</li>
+        <li>🖍️ Encourage expressing feelings through <b>coloring/art</b></li>
+        <li>🎈 <b>Promote activities the child enjoys</b> — normal routine is grounding</li>
+      </ul>
+      <div class="mn">🧠 <b>"HAPPI"</b> — <b>H</b>onest answers · <b>A</b>ctivities they enjoy · <b>P</b>lay therapy · <b>P</b>hysical closeness (hold/cuddle) · <b>I</b>llustrate feelings (coloring).</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🧑 Adult interventions</h3>
+      <ul class="tick">
+        <li>🗣️ <b>Therapeutic communication</b> — open-ended, non-judgmental</li>
+        <li>🪑 <b>Sit with the client</b> — presence over words</li>
+        <li>🤝 <b>Support groups</b></li>
+        <li>📷 <b>Focus on good memories</b></li>
+      </ul>
+      <div class="mn">🧠 You don't have to fix the grief — <i>sitting with</i> the client is itself the intervention.</div>
+    </div>
+
+    <div class="card ruby span2">
+      <h3>🤱 NCLEX classic: perinatal / stillbirth loss</h3>
+      <p>A nurse is caring for a client who just delivered a stillborn fetus at 36 weeks. Best statement:</p>
+      <p style="font-size:1.05rem"><mark>"You may hold your baby as long as you want."</mark></p>
+      <div class="mn">🧠 <b>Never rush or remove the baby.</b> Bonding time supports the grieving process even after loss — this is one of the most frequently tested single lines in this topic.</div>
+    </div>
+
+    <div class="card deep span2">
+      <h3>👵 What effective adult coping looks like — HESI SATA pattern</h3>
+      <p>An older client whose spouse died 6 months ago. Behaviors that indicate <b>effective</b> coping:</p>
+      <ul class="tick">
+        <li>📷 Looking at old snapshots of the family</li>
+        <li>🧑‍🤝‍🧑 Participating in a senior citizens' program</li>
+        <li>🪦 Visiting the spouse's grave <i>occasionally</i> (e.g., once a month)</li>
+      </ul>
+      <p>These show <b>engagement with life alongside remembrance</b> — social participation plus healthy reminiscing, not avoidance and not fixation.</p>
+      <div class="mn">🧠 <b>Watch the frequency/intensity word.</b> Occasional remembrance = healthy. A shrine-like need to preserve everything untouched, refusal to re-engage with life, or grief that consumes daily functioning past ~6 months points toward <b>complicated grief</b> — covered fully on NG-222.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">🪜 DABDA</span>Denial → Anger → Bargaining → Depression → Acceptance</div>
+    <div class="rc rubybg"><span class="big">🌊 Bowlby</span>Numbness → Yearning/searching → Disorganization → Reorganization</div>
+    <div class="rc tealbg"><span class="big">🛡️ Displacement vs projection vs identification</span>Redirect vs. blame-shift vs. copy</div>
+    <div class="rc topazbg"><span class="big">🤱 Stillbirth</span>Let them hold the baby as long as they want</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 5 rapid-fire questions</summary>
+      <div class="qa">Q1: A client with alcoholism says, "I need a drink or two to relax after a busy day — I have an incredibly high-stress job." Which defense mechanism? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Rationalization — justifying the behavior with a logical-sounding excuse.</div></div>
+      <div class="qa">Q2: A man loses his job, goes home, and yells at his wife. Which defense mechanism? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Displacement — anger shifted from the real (unsafe) target to a safer one.</div></div>
+      <div class="qa">Q3: A client on the psych unit seeks out a particular nurse and imitates her mannerisms. Which defense mechanism? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Identification — adopting the behavior of someone perceived as more powerful.</div></div>
+      <div class="qa">Q4: What are Kübler-Ross's 5 stages of grief, in order? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Denial, Anger, Bargaining, Depression, Acceptance (DABDA) — though clients can move nonlinearly through them.</div></div>
+      <div class="qa">Q5: Why is play therapy used with grieving young children instead of talk therapy alone? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Young children have difficulty verbalizing emotions — play, art, and coloring give them a way to express feelings words can't.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">DEFENSES</span>→
+    <span style="background:rgba(47,107,255,.7)">GRIEF STAGES</span>→
+    <span style="background:rgba(18,184,134,.7)">SUPPORT</span>
+  </div>
+  <div>NG-065 · Pairs with NG-222 (Loss types, complicated grief, end-of-life) · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>

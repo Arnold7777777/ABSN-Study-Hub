@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NCLEX Drugs 8 · NG-224 · Nursing Field Notes</title>
+<style>
+:root{
+  --amethyst:#9d5cff; --sapphire:#2f6bff; --emerald:#12b886; --teal:#00c2c7;
+  --topaz:#ffc233; --ruby:#ff3b6b; --garnet:#c02255; --citrine:#ff8a3d;
+  --ink:#fff; --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  color:#fff; min-height:100vh; padding:0 14px 60px;
+  font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+  background-color:#140b24;
+  background-image:
+    radial-gradient(1100px 700px at 85% 6%, rgba(255,138,61,.38), transparent 62%),
+    radial-gradient(900px 650px at 6% 94%, rgba(192,34,85,.35), transparent 60%),
+    radial-gradient(700px 500px at 50% 45%, rgba(157,92,255,.18), transparent 65%),
+    linear-gradient(158deg, #241040 0%, #1c1c56 30%, #14356b 55%, #0d4a63 78%, #0f3b46 100%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%;height:auto}
+.card svg{width:100%;display:block}
+.wrap{max-width:1020px;margin:0 auto}
+
+/* ---------- sticky nav ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;gap:8px;flex-wrap:wrap;
+  padding:10px 4px;margin:0 -4px 6px;
+  background:rgba(13,8,26,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)}
+nav a{font-weight:900;font-size:.92rem;color:#fff;text-decoration:none;
+  padding:7px 13px;border-radius:999px;border:1px solid var(--line);line-height:1.2}
+nav a.c1{background:rgba(157,92,255,.65)}
+nav a.c2{background:rgba(47,107,255,.65)}
+nav a.c3{background:rgba(18,184,134,.65)}
+nav a.c4{background:rgba(255,194,51,.75);color:#231a02}
+
+/* ---------- hero ---------- */
+header{padding:26px 4px 8px}
+.kicker{font-size:.86rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:#e9dcff;text-shadow:0 2px 10px rgba(0,0,0,.9)}
+h1{font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;margin:6px 0 4px;font-weight:900;
+  text-shadow:0 4px 22px rgba(0,0,0,.85)}
+h1 .drop{color:var(--citrine);text-shadow:0 4px 22px rgba(0,0,0,.9)}
+.sub{font-size:1.02rem;font-weight:800;letter-spacing:.04em;color:#ffd9b8;margin:0 0 10px;
+  text-shadow:0 2px 10px rgba(0,0,0,.9)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.chip{font-size:.85rem;font-weight:900;padding:5px 12px;border-radius:999px;line-height:1.3}
+.chip.id{background:var(--topaz);color:#2a1f00}
+.chip.cat{background:rgba(192,34,85,.75);border:1px solid var(--line)}
+.chip.course{background:rgba(157,92,255,.6);border:1px solid var(--line)}
+.lede{max-width:640px;font-size:1.06rem;line-height:1.55;margin:0;
+  background:rgba(13,8,26,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid var(--line);border-left:5px solid var(--citrine);
+  border-radius:14px;padding:12px 16px}
+.lede b{color:var(--topaz)}
+
+/* ---------- recall strip ---------- */
+.recall{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin:16px 0 26px}
+.rc{border-radius:14px;padding:11px 13px;font-size:.95rem;line-height:1.4;font-weight:700;
+  border:1px solid var(--line);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.rc .big{display:block;font-size:1.25rem;font-weight:900;margin-bottom:2px}
+.rc.citrine{background:rgba(255,138,61,.62)}
+.rc.tealbg{background:rgba(0,194,199,.62);color:#00252b}
+.rc.rubybg{background:rgba(255,59,107,.62)}
+.rc.topazbg{background:rgba(255,194,51,.68);color:#231a02}
+
+/* ---------- sections ---------- */
+section{margin:0 0 34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin:0 0 4px}
+.sec-h .icon{font-size:1.7rem;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.sec-h h2{font-size:clamp(1.5rem,4.5vw,2rem);margin:0;font-weight:900;letter-spacing:.05em;
+  text-shadow:0 3px 16px rgba(0,0,0,.9)}
+.sec-h .step{font-size:.8rem;font-weight:900;letter-spacing:.12em;padding:4px 10px;border-radius:8px}
+.sec-sub{margin:0 0 14px;font-size:.98rem;color:#efe6ff;text-shadow:0 2px 10px rgba(0,0,0,.9);font-style:italic}
+#lineup .sec-h h2{color:#d9c2ff} #lineup .step{background:var(--amethyst)}
+#action .sec-h h2{color:#bcd0ff} #action .step{background:var(--sapphire)}
+#teach  .sec-h h2{color:#a5f3d4} #teach .step{background:var(--emerald);color:#03291c}
+
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))}
+.card{
+  background:rgba(157,92,255,.60);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  border:1px solid rgba(255,255,255,.30);
+  border-left:5px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:18px 20px;color:#fff;
+  box-shadow:0 8px 26px rgba(0,0,0,.38);
+  font-size:.95rem;line-height:1.55;
+}
+.card h3{margin:0 0 8px;font-size:1.08rem;font-weight:900;line-height:1.3}
+.card p{margin:0 0 8px}
+.card p:last-child{margin-bottom:0}
+.card.ruby{background:rgba(255,59,107,.60)}
+.card.garnet{background:rgba(192,34,85,.62)}
+.card.emerald{background:rgba(18,184,134,.60)}
+.card.tealc{background:rgba(0,194,199,.60);color:#00252b}
+.card.tealc h3{color:#003b42}
+.card.sapphire{background:rgba(47,107,255,.60)}
+.card.topaz{background:rgba(255,194,51,.62);color:#231a02}
+.card.citrinec{background:rgba(255,138,61,.62);color:#2b1200}
+.card.citrinec h3{color:#3d1a00}
+.card.deep{background:rgba(13,8,26,.68)}
+.span2{grid-column:1/-1}
+
+.tip{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.08em;
+  background:var(--topaz);color:#2a1f00;padding:2px 8px;border-radius:7px;vertical-align:2px}
+mark{background:var(--topaz);color:#231a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{font-weight:900;text-decoration:underline wavy var(--topaz);text-underline-offset:4px}
+.mono{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:800}
+.mn{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(13,8,26,.5);
+  border:1px dashed rgba(255,255,255,.45);font-size:.93rem;color:#fff}
+.mn b{color:var(--topaz)}
+.card.tealc .mn,.card.topaz .mn,.card.citrinec .mn{background:rgba(255,255,255,.55);border-color:rgba(0,0,0,.35);color:#1a1030}
+.card.tealc .mn b,.card.topaz .mn b,.card.citrinec .mn b{color:#8a2be2}
+ul.tick{margin:6px 0 0;padding:0;list-style:none}
+ul.tick li{margin:0 0 7px;padding-left:26px;position:relative}
+ul.tick li::before{content:"•";position:absolute;left:8px;font-weight:900}
+ul.tick li:last-child{margin-bottom:0}
+
+/* comparison table */
+table{width:100%;border-collapse:collapse;font-size:.93rem;line-height:1.45}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.25);vertical-align:top}
+th{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tr:last-child td{border-bottom:none}
+.up{color:#ffd9b8;font-weight:900}.lo{color:#9ff2ee;font-weight:900}
+
+/* priority ladder */
+.ladder{display:grid;gap:10px}
+.rung{display:flex;gap:14px;align-items:center;border-radius:14px;padding:12px 14px;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.rung .n{flex:0 0 46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;background:var(--emerald);color:#03291c;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.rung .t{font-size:.98rem;line-height:1.4}
+.rung .t b{font-size:1.05rem}
+.arrowdown{text-align:center;font-size:1.1rem;margin:-4px 0;color:#a5f3d4}
+
+/* flow cascade */
+.flow{display:flex;flex-direction:column;gap:6px;align-items:stretch}
+.fstep{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.95rem;text-align:center;
+  background:rgba(13,8,26,.55);border:1px solid var(--line)}
+.fstep.hot{background:rgba(255,59,107,.65)}
+.farrow{text-align:center;font-size:1.05rem;line-height:1;color:#ffb3c6}
+
+/* two-panel svg holder */
+.duo{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+
+/* avoid tiles */
+.no-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:9px;margin:10px 0 0}
+.no-t{background:rgba(13,8,26,.5);border:1px solid var(--line);border-radius:12px;
+  padding:12px 6px;text-align:center;font-weight:800;font-size:.88rem;line-height:1.3}
+.no-t .e{display:block;font-size:1.9rem;line-height:1.2}
+.no-t.hot{background:rgba(192,34,85,.65);border-color:rgba(255,255,255,.5)}
+.no-t i{display:block;font-size:.78rem;font-weight:600;opacity:.85}
+
+footer{margin-top:10px;padding:14px 4px 0;border-top:1px solid var(--line);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  font-size:.82rem;color:#e9dcff;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+.ccc{display:flex;gap:6px;align-items:center;font-weight:900}
+.ccc span{padding:3px 10px;border-radius:8px}
+details{margin-top:10px}
+details summary{cursor:pointer;font-weight:900;font-size:.98rem}
+details[open] summary{margin-bottom:8px}
+.qa{margin:0 0 8px;padding:10px 12px;border-radius:11px;background:rgba(13,8,26,.5);border:1px solid var(--line)}
+.qa .a{display:none;margin-top:6px;color:var(--topaz);font-weight:800}
+.qa.open .a{display:block}
+.qa button{font:900 .8rem inherit;margin-top:6px;padding:5px 11px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.15);color:#fff;cursor:pointer}
+@media(max-width:640px){
+  .card{padding:15px 15px}
+  .rung .n{flex-basis:40px;height:40px;font-size:1.2rem}
+}
+
+/* ===== NCLEX drug-review series additions (appended, not part of base shell) ===== */
+.chip.series{background:rgba(0,194,199,.75);color:#00252b}
+.covgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:9px;margin:14px 0 0}
+.cov-t{background:rgba(13,8,26,.55);border:1px solid var(--line);border-radius:12px;padding:10px 8px;text-align:center;font-weight:800;font-size:.86rem;line-height:1.3}
+.cov-t .e{display:block;font-size:1.6rem;line-height:1.2;margin-bottom:2px}
+.trap{margin-top:10px;padding:9px 12px;border-radius:11px;background:rgba(255,59,107,.20);border:1px dashed rgba(255,150,180,.65);font-size:.93rem;color:#fff}
+.trap b{color:#ffb3c6}
+.card.tealc .trap,.card.topaz .trap,.card.citrinec .trap{background:rgba(255,59,107,.22);border-color:rgba(192,34,85,.55);color:#3d0014}
+.card.tealc .trap b,.card.topaz .trap b,.card.citrinec .trap b{color:#c02255}
+.tag{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.05em;background:rgba(13,8,26,.55);border:1px solid var(--line);padding:2px 9px;border-radius:999px;vertical-align:2px;margin-left:6px}
+.serieslinks{display:flex;gap:6px;flex-wrap:wrap}
+.serieslinks a{font-size:.78rem;font-weight:800;color:#fff;text-decoration:none;padding:4px 9px;border-radius:8px;background:rgba(255,255,255,.14);border:1px solid var(--line)}
+.serieslinks a.here{background:var(--topaz);color:#231a02;border-color:transparent}
+</style></head>
+<body>
+<!-- absn-floating-nav -->
+<style>
+#absnNav{position:fixed;top:9px;right:9px;z-index:99990;display:flex;gap:6px;
+ font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif}
+#absnNav a{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:#fff;
+ font-weight:800;font-size:.84rem;line-height:1;padding:9px 13px;border-radius:999px;
+ border:1px solid rgba(255,255,255,.32);box-shadow:0 4px 14px rgba(0,0,0,.42);
+ backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);white-space:nowrap}
+#absnNav a.hub{background:linear-gradient(135deg,#0f7d6b,#12b886)}
+#absnNav a.ig{background:linear-gradient(135deg,#5a2d82,#9d5cff)}
+#absnNav a:hover{filter:brightness(1.15)}
+#absnNav a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
+@media (max-width:620px){#absnNav .lb{display:none}#absnNav a{padding:9px 11px}}
+@media print{#absnNav{display:none!important}}
+</style>
+<div id="absnNav">
+  <a class="hub" href="../index.html">&#127968;<span class="lb"> Study Hub</span></a>
+  <a class="ig" href="../infographics.html">&#128444;&#65039;<span class="lb"> Infographics</span></a>
+</div>
+<!-- /absn-floating-nav -->
+
+<div class="wrap">
+
+<nav>
+  <a class="c1" href="#lineup">🗺️ Lineup</a>
+  <a class="c2" href="#action">⚙️ Action</a>
+  <a class="c3" href="#teach">📋 Teach</a>
+  <a class="c4" href="#recall2">⚡ Quick recall</a>
+</nav>
+
+<header>
+  <div class="kicker">Nursing Field Notes / Pharmacology · NCLEX Drug Review Series</div>
+  <h1>NCLEX Drugs 8 <span class="drop">🩸</span></h1>
+  <p class="sub">Insulins: Rapid · Short · Intermediate · Long-Acting · Premixed &amp; Concentrated</p>
+  <div class="chips">
+    <span class="chip id">NG-224</span>
+    <span class="chip cat">PHARM</span>
+    <span class="chip series">Series: NCLEX Drug Review 5 of 5</span>
+    <span class="chip course">ADHD-friendly visual edition</span>
+  </div>
+  <p class="lede">One drug, six timing profiles. Every insulin does the <b>same job</b> — moves glucose into cells, converts it to glycogen, and shuts off the liver's own glucose release — the entire test is about <mark>WHEN each type kicks in, peaks, and wears off</mark>, and which one you can push into a vein.</p>
+</header>
+
+<!-- ===== 3-SECOND RECALL (top) ===== -->
+<div class="recall">
+  <div class="rc citrine"><span class="big">💉 IV = Regular ONLY</span>The only insulin that can be given IV.</div>
+  <div class="rc rubybg"><span class="big">📈 Glargine = NO peak</span>Once-daily basal — and never mix it with any other insulin.</div>
+  <div class="rc tealbg"><span class="big">🌫️ Clear before cloudy</span>Always draw Regular (clear) before NPH (cloudy) in the same syringe.</div>
+  <div class="rc topazbg"><span class="big">🍬 Hypoglycemia = most deadly</span>The #1 acute, life-threatening risk of insulin therapy.</div>
+</div>
+
+<!-- ============ LINEUP ============ -->
+<section id="lineup">
+  <div class="sec-h"><span class="icon">🗺️</span><h2>LINEUP</h2><span class="step">STEP 1 · WHAT'S IN THIS SET</span></div>
+  <p class="sec-sub">Robo's 3-part study map: <b>TYPE</b> → <b>TIMING</b> → <b>WATCH</b>. Timing values below are standard rounded teaching ranges — always verify against your current drug reference/facility policy, since exact figures vary slightly by source.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🧭 This installment covers 6 insulin categories</h3>
+      <div class="covgrid">
+        <div class="cov-t"><span class="e">⚡</span>Rapid-Acting</div>
+        <div class="cov-t"><span class="e">🩹</span>Short-Acting (Regular)</div>
+        <div class="cov-t"><span class="e">🌫️</span>Intermediate (NPH)</div>
+        <div class="cov-t"><span class="e">🕰️</span>Long-Acting</div>
+        <div class="cov-t"><span class="e">🧪</span>Premixed</div>
+        <div class="cov-t"><span class="e">🔬</span>Concentrated (U-500)</div>
+      </div>
+      <div class="mn">🧠 <b>"The faster it kicks in, the sooner it fades."</b> Rapid &amp; short-acting insulins act fast and leave fast; intermediate &amp; long-acting act slow and stay all day. Match the insulin's timing to when the patient actually eats.</div>
+    </div>
+
+    <div class="card sapphire span2">
+      <h3>🏷️ Brand → Generic — memorize the pairs</h3>
+      <table>
+        <tr><th style="width:26%">Category</th><th class="up" style="width:37%">Type / Generic</th><th class="lo">Brand Name(s)</th></tr>
+        <tr><td rowspan="3"><b>Rapid-Acting</b></td><td>Insulin Lispro</td><td>Humalog</td></tr>
+        <tr><td>Insulin Aspart</td><td>Novolog</td></tr>
+        <tr><td>Insulin Glulisine</td><td>Apidra</td></tr>
+        <tr><td rowspan="2"><b>Short-Acting</b></td><td>Regular Insulin</td><td>Humulin R, Novolin R</td></tr>
+        <tr><td>Concentrated Regular</td><td>Insulin U-500</td></tr>
+        <tr><td><b>Intermediate-Acting</b></td><td>NPH</td><td>Humulin N, Novolin N</td></tr>
+        <tr><td rowspan="2"><b>Long-Acting</b></td><td>Insulin Glargine</td><td>Lantus</td></tr>
+        <tr><td>Insulin Detemir</td><td>Levemir</td></tr>
+        <tr><td rowspan="3"><b>Premixed</b></td><td>NPH/Regular</td><td>Humulin 70/30, Humulin 50/50, Novolin 70/30</td></tr>
+        <tr><td>Protamine/Aspart</td><td>Novolog Mix 70/30</td></tr>
+        <tr><td>Protamine/Lispro</td><td>Humalog Mix 75/25</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ACTION ============ -->
+<section id="action">
+  <div class="sec-h"><span class="icon">⚙️</span><h2>ACTION</h2><span class="step">STEP 2 · TYPE → TIMING → TRAP</span></div>
+  <p class="sec-sub">The same mechanism, six different clocks — plus the one insulin that can go straight into the vein.</p>
+
+  <div class="grid">
+    <div class="card sapphire span2">
+      <h3>🔬 What every insulin does at the cell</h3>
+      <svg viewBox="0 0 520 170" role="img" aria-label="Diagram of insulin binding a cell receptor, opening a glucose transporter so glucose moves from the bloodstream into the cell, where it is converted to glycogen for storage, while the liver's own glucose release is suppressed">
+        <rect x="6" y="6" width="508" height="158" rx="16" fill="rgba(47,107,255,.16)" stroke="#2f6bff" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="20" y="26" font-size="12" font-weight="900" fill="#bcd0ff">Bloodstream — high glucose</text>
+        <circle cx="40" cy="50" r="6" fill="#ffc233"/><circle cx="60" cy="60" r="6" fill="#ffc233"/><circle cx="55" cy="40" r="6" fill="#ffc233"/>
+        <path d="M110 55 C 140 55 140 55 168 55" stroke="#a5f3d4" stroke-width="3" stroke-dasharray="4 4"/>
+        <text x="90" y="42" font-size="10.5" font-weight="900" fill="#a5f3d4">insulin</text>
+        <rect x="172" y="20" width="150" height="120" rx="16" fill="rgba(13,8,26,.55)" stroke="#eafff7" stroke-width="2.5"/>
+        <text x="200" y="16" font-size="11.5" font-weight="900" fill="#eafff7">CELL</text>
+        <rect x="200" y="60" width="30" height="30" rx="8" fill="#12b886"/>
+        <text x="215" y="80" font-size="9" font-weight="900" fill="#03291c" text-anchor="middle">gate</text>
+        <text x="182" y="115" font-size="10" fill="#d8fff0">glucose in →</text>
+        <text x="182" y="130" font-size="10" fill="#d8fff0">→ stored as glycogen</text>
+        <path d="M360 40 C 340 40 340 55 322 55" stroke="#ffc233" stroke-width="3" marker-end="url(#arrIns)"/>
+        <defs><marker id="arrIns" viewBox="0 0 12 12" refX="6" refY="6" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1 L11 6 L1 11 z" fill="#ffc233"/></marker></defs>
+        <text x="366" y="34" font-size="11" font-weight="900" fill="#ffe9b3">glucose enters cell</text>
+        <rect x="356" y="76" width="150" height="70" rx="12" fill="rgba(255,138,61,.4)"/>
+        <text x="366" y="96" font-size="11" font-weight="900" fill="#ffe9d6">Liver:</text>
+        <text x="366" y="112" font-size="10.5" fill="#ffe9d6">insulin also SUPPRESSES</text>
+        <text x="366" y="126" font-size="10.5" fill="#ffe9d6">the liver's own glucose</text>
+        <text x="366" y="140" font-size="10.5" fill="#ffe9d6">release (glycogenolysis)</text>
+      </svg>
+      <p style="margin-top:6px"><b>Bottom line:</b> insulin lowers blood glucose three ways — moves it into cells, converts it to storage (glycogen), and tells the liver to stop releasing more. Every category below just changes <i>when</i> this happens.</p>
+    </div>
+
+    <div class="card deep span2">
+      <h3>⏱️ Onset → Peak → Duration, side by side</h3>
+      <svg viewBox="-10 -10 648 260" role="img" aria-label="Timeline bar chart comparing onset, peak, and duration windows for rapid-acting, short-acting Regular, intermediate-acting NPH, and long-acting insulin, showing rapid insulins act fastest and fade soonest while long-acting insulins have a flat, peakless profile lasting about 24 hours">
+        <rect x="-6" y="-6" width="640" height="252" rx="16" fill="rgba(13,8,26,.5)" stroke="#9d5cff" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="24" y="26" font-size="11.5" font-weight="900" fill="#e9dcff">0h</text>
+        <text x="590" y="26" font-size="11.5" font-weight="900" fill="#e9dcff">24h →</text>
+
+        <text x="24" y="50" font-size="12" font-weight="900" fill="#ffc233">Rapid (Lispro/Aspart/Glulisine)</text>
+        <rect x="24" y="56" width="30" height="16" rx="6" fill="rgba(255,194,51,.4)"/>
+        <rect x="54" y="56" width="60" height="16" rx="6" fill="#ffc233"/>
+        <rect x="114" y="56" width="70" height="16" rx="6" fill="rgba(255,194,51,.35)"/>
+        <text x="330" y="68" font-size="10.5" fill="#ffe9b3">onset ~15m · peak ~1–2h · gone by ~3–5h</text>
+
+        <text x="24" y="94" font-size="12" font-weight="900" fill="#7df0c6">Short — Regular (only one for IV use)</text>
+        <rect x="24" y="100" width="55" height="16" rx="6" fill="rgba(18,184,134,.4)"/>
+        <rect x="79" y="100" width="80" height="16" rx="6" fill="#12b886"/>
+        <rect x="159" y="100" width="100" height="16" rx="6" fill="rgba(18,184,134,.35)"/>
+        <text x="330" y="112" font-size="10.5" fill="#d8fff0">onset ~30m · peak ~2–4h · duration ~6–10h</text>
+
+        <text x="24" y="138" font-size="12" font-weight="900" fill="#9ff2ee">Intermediate — NPH (cloudy, SQ only)</text>
+        <rect x="24" y="144" width="110" height="16" rx="6" fill="rgba(0,194,199,.4)"/>
+        <rect x="134" y="144" width="180" height="16" rx="6" fill="#00c2c7"/>
+        <rect x="314" y="144" width="220" height="16" rx="6" fill="rgba(0,194,199,.3)"/>
+        <text x="330" y="156" font-size="10.5" fill="#d8fffd">onset ~1–2h · peak ~4–12h · duration ~18–24h</text>
+
+        <text x="24" y="182" font-size="12" font-weight="900" fill="#bcd0ff">Long — Glargine/Detemir (flat, peakless)</text>
+        <rect x="24" y="188" width="560" height="16" rx="8" fill="rgba(47,107,255,.55)"/>
+        <text x="330" y="200" font-size="10.5" fill="#dbe6ff">no pronounced peak · steady ~24h basal coverage</text>
+
+        <text x="24" y="222" font-size="11" font-style="italic" fill="#c9c2e6">Bars show relative teaching ranges, not exact minute-by-minute values — verify current reference.</text>
+      </svg>
+      <div class="mn">🧠 <b>"Rapid with meals, long for baseline."</b> Rapid/short-acting insulin covers the food someone is about to eat; intermediate/long-acting insulin is the steady background dose, unrelated to a specific meal.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>⚡ Rapid-Acting <span class="tag">Lispro · Aspart · Glulisine</span></h3>
+      <p><b>Action:</b> moves glucose into cells, promotes glucose → glycogen conversion, and suppresses the liver's own glucose release — same as every insulin, just on a fast clock.</p>
+      <p><b>⭐ Key nursing point:</b> give within about 15 minutes of a meal — <mark>food must be available and eaten close to administration</mark> or hypoglycemia can follow quickly.</p>
+      <div class="trap">🚨 <b>NCLEX trap:</b> Never give a rapid-acting insulin and then have the patient skip or delay the meal — verify the tray is present before injecting.</div>
+    </div>
+
+    <div class="card citrinec">
+      <h3>🩹 Short-Acting — Regular <span class="tag">Humulin R · Novolin R · U-500</span></h3>
+      <p><b>Action:</b> same glucose-lowering mechanism; clear in appearance.</p>
+      <p><b>⭐ Key nursing point:</b> <mark>Regular insulin is the only insulin that can be given IV</mark> (commonly used in DKA/insulin drips). Insulin U-500 is a highly <b>concentrated</b> form — extra caution with dosing to avoid a 5x overdose error.</p>
+      <div class="trap">🚨 <b>NCLEX trap:</b> Confusing units and mLs with concentrated U-500 is a classic high-alert medication error — always double-check with another nurse per facility policy.</div>
+    </div>
+
+    <div class="card garnet">
+      <h3>🌫️ Intermediate-Acting — NPH <span class="tag">Humulin N · Novolin N</span></h3>
+      <p><b>Action:</b> same mechanism, delayed onset and a broad mid-day peak; appearance is <b>cloudy</b>.</p>
+      <p><b>⭐ Key nursing point:</b> gently roll (do not shake) the vial to resuspend before drawing up — must be given <b>SQ only, never IV or IV drip</b>. Time meals/snacks to cover the expected peak, when hypoglycemia risk is highest.</p>
+      <div class="trap">🚨 <b>NCLEX trap:</b> A cloudy insulin going into an IV line is a medication error — only a clear insulin (Regular) is IV-safe.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>🕰️ Long-Acting <span class="tag">Glargine (Lantus) · Detemir (Levemir)</span></h3>
+      <p><b>Action:</b> same mechanism, delivered as a steady, flat basal dose across the day.</p>
+      <p><b>⭐ Key nursing point:</b> <mark>glargine has no pronounced peak</mark> and is typically dosed once daily; detemir may be dosed once or twice daily depending on control needed.</p>
+      <div class="trap">🚨 <b>NCLEX trap:</b> <span class="never">Never mix glargine (or detemir) with any other insulin in the same syringe</span> — its acidic formulation can cause precipitation and unpredictable dosing.</div>
+    </div>
+
+    <div class="card ruby span2">
+      <h3>🧪 Premixed Insulins <span class="tag">70/30 · 75/25 · 50/50</span></h3>
+      <p><b>Action:</b> a fixed-ratio combination of an intermediate component (cloudy, for background coverage) and a rapid/short component (for meal coverage) in one syringe or pen.</p>
+      <p><b>⭐ Key nursing point:</b> convenient — fewer injections — but less flexible than dosing each component separately; timing must still match a meal for the fast-acting portion to work correctly. Given SQ only.</p>
+      <div class="trap">🚨 <b>NCLEX trap:</b> Because the ratio is fixed, a premixed insulin can't be fine-tuned the way separate rapid + long-acting doses can — not the right choice for a patient who needs frequent dose adjustments.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TEACH ============ -->
+<section id="teach">
+  <div class="sec-h"><span class="icon">📋</span><h2>TEACH</h2><span class="step">STEP 3 · SAFETY &amp; PATIENT TEACHING</span></div>
+  <p class="sec-sub">Mixing technique, and the emergency that matters more than any timing chart.</p>
+
+  <div class="grid">
+    <div class="card deep span2">
+      <h3>🌫️ Mixing Regular + NPH in one syringe — "clear before cloudy"</h3>
+      <svg viewBox="0 0 600 190" role="img" aria-label="Four step diagram for mixing insulin in one syringe: inject air into the NPH vial, inject air into the Regular vial, withdraw the clear Regular insulin first, then withdraw the cloudy NPH insulin second">
+        <rect x="6" y="6" width="588" height="178" rx="16" fill="rgba(13,8,26,.5)" stroke="#9d5cff" stroke-width="2" stroke-dasharray="7 6"/>
+        <text x="24" y="30" font-size="12.5" font-weight="900" fill="#d9c2ff">1. Air into NPH (cloudy) vial</text>
+        <text x="24" y="60" font-size="12.5" font-weight="900" fill="#d9c2ff">2. Air into Regular (clear) vial</text>
+        <text x="24" y="90" font-size="12.5" font-weight="900" fill="#7df0c6">3. Withdraw Regular (CLEAR) first</text>
+        <text x="24" y="120" font-size="12.5" font-weight="900" fill="#ff9db4">4. Withdraw NPH (CLOUDY) second</text>
+        <rect x="24" y="140" width="270" height="30" rx="10" fill="rgba(18,184,134,.6)"/>
+        <text x="35" y="160" font-size="12.5" font-weight="900" fill="#03291c">"Clear before cloudy" — every time</text>
+        <circle cx="440" cy="60" r="34" fill="#eafff7" stroke="#12b886" stroke-width="3"/>
+        <text x="440" y="65" font-size="11" font-weight="900" fill="#03291c" text-anchor="middle">clear</text>
+        <circle cx="520" cy="110" r="34" fill="rgba(200,200,220,.55)" stroke="#ff9db4" stroke-width="3"/>
+        <text x="520" y="115" font-size="11" font-weight="900" fill="#3d0014" text-anchor="middle">cloudy</text>
+        <path d="M440 94 L440 130" stroke="#7df0c6" stroke-width="2" stroke-dasharray="3 3"/>
+        <text x="410" y="150" font-size="10.5" fill="#d8fff0">draw 1st</text>
+        <text x="490" y="150" font-size="10.5" fill="#ffd9e2">draw 2nd</text>
+      </svg>
+      <div class="mn">🧠 <b>"Clear before cloudy, fast before slow."</b> Contaminating the Regular vial with NPH would slow down your fast-acting insulin — always draw clean/clear first.</div>
+    </div>
+
+    <div class="card ruby">
+      <h3>🍬 Hypoglycemia — the most deadly acute risk</h3>
+      <p><b>Standard adult reference:</b> hypoglycemia is generally defined as blood glucose <span class="mono">&lt;70 mg/dL</span>.</p>
+      <svg viewBox="-10 -10 448 140" role="img" aria-label="Bar scale showing blood glucose from low to high, with hypoglycemia below 70 milligrams per deciliter marked as the most urgent danger zone requiring immediate treatment">
+        <rect x="6" y="40" width="368" height="24" rx="12" fill="url(#glugrad)"/>
+        <defs><linearGradient id="glugrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff3b6b"/><stop offset=".22" stop-color="#ffc233"/><stop offset=".55" stop-color="#12b886"/><stop offset="1" stop-color="#ff8a3d"/></linearGradient></defs>
+        <text x="10" y="30" font-size="11" font-weight="900" fill="#ff9db4">🚨 &lt;70 hypoglycemia</text>
+        <text x="140" y="30" font-size="11" font-weight="900" fill="#7df0c6">70–180 target range*</text>
+        <text x="300" y="30" font-size="11" font-weight="900" fill="#ffb37a">&gt;180 hyperglycemia</text>
+        <text x="10" y="86" font-size="10" font-style="italic" fill="#e9dcff">*general adult target — individualized by provider</text>
+      </svg>
+      <ul class="tick">
+        <li>😓 Shaky, sweaty, confused, rapid heartbeat, hunger, irritability</li>
+        <li>🍬 <b>Rule of 15:</b> give <span class="mono">15g</span> fast-acting carbohydrate, recheck glucose in <span class="mono">15 min</span>, repeat if still low</li>
+        <li>🆘 If unconscious/unable to swallow: IM/IV glucagon or IV dextrose per protocol — do not give oral carbs</li>
+      </ul>
+      <div class="mn">🧠 <b>"Cold and clammy, need some candy; hot and dry, sugar's high."</b> Classic contrast rhyme for hypo vs. hyperglycemia symptoms.</div>
+    </div>
+
+    <div class="card sapphire">
+      <h3>📊 Hypoglycemia vs. Hyperglycemia — quick contrast</h3>
+      <table>
+        <tr><th class="up">Hypoglycemia (low)</th><th class="lo">Hyperglycemia (high)</th></tr>
+        <tr><td>Onset: fast, minutes</td><td>Onset: slower, hours to days</td></tr>
+        <tr><td>Skin: cool, clammy, sweaty</td><td>Skin: warm, dry</td></tr>
+        <tr><td>Shaky, confused, irritable, hungry</td><td>Thirsty, frequent urination, fruity breath (DKA)</td></tr>
+        <tr><td>Treat: Rule of 15 / glucagon</td><td>Treat: insulin per order, fluids, monitor for DKA/HHS</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== bottom recall + self-quiz ===== -->
+<section id="recall2">
+  <div class="sec-h"><span class="icon">⚡</span><h2 style="color:#ffe49a">QUICK RECALL</h2><span class="step" style="background:var(--topaz);color:#231a02">SAY IT OUT LOUD</span></div>
+  <div class="recall">
+    <div class="rc citrine"><span class="big">💉 IV insulin</span>Regular ONLY, never a cloudy insulin</div>
+    <div class="rc rubybg"><span class="big">📈 Glargine</span>No peak, once daily, never mix</div>
+    <div class="rc tealbg"><span class="big">🌫️ Mixing</span>Clear (Regular) before cloudy (NPH)</div>
+    <div class="rc topazbg"><span class="big">🍬 Rule of 15</span>15g carb → recheck in 15 min</div>
+  </div>
+
+  <div class="card deep">
+    <details>
+      <summary>🎯 Cover &amp; check — 4 rapid-fire questions</summary>
+      <div class="qa">Q1: Which insulin can be given intravenously? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Regular insulin — it is the only clear, short-acting insulin approved for IV use.</div></div>
+      <div class="qa">Q2: Which insulin has no pronounced peak, and what does that mean for dosing? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Insulin glargine (Lantus) — it gives steady, flat basal coverage, typically dosed once daily, and must never be mixed with another insulin in the same syringe.</div></div>
+      <div class="qa">Q3: When mixing Regular and NPH in one syringe, which do you draw up first? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Regular (clear) first, then NPH (cloudy) — "clear before cloudy."</div></div>
+      <div class="qa">Q4: A patient on insulin is shaky, sweaty, and confused. What's the first action? <button onclick="this.parentNode.classList.toggle('open')">Show answer</button><div class="a">Check blood glucose, then treat suspected hypoglycemia with the Rule of 15 (15g fast-acting carbohydrate, recheck in 15 minutes) if the patient can safely swallow.</div></div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="ccc">
+    <span style="background:rgba(157,92,255,.7)">LINEUP</span>→
+    <span style="background:rgba(47,107,255,.7)">ACTION</span>→
+    <span style="background:rgba(18,184,134,.7)">TEACH</span>
+  </div>
+  <div class="serieslinks">
+    NCLEX Drug Review series:
+    <a href="NG-043_nclex-drugs-1-updated.html">1 · NG-043</a>
+    <a href="NG-124_nclex-drugs-2.html">2 · NG-124</a>
+    <a href="NG-210_nclex-drugs-6-v2.html">3 · NG-210</a>
+    <a href="NG-215_nclex-drugs-7.html">4 · NG-215</a>
+    <a class="here" href="NG-224_nclex-drugs-8.html">5 · NG-224</a>
+  </div>
+  <div>NG-224 · Source wording retained · ADHD-friendly visual edition</div>
+</footer>
+
+</div>
+</body></html>
