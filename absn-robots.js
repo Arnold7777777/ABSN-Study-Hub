@@ -11,7 +11,8 @@
    Nothing here is load-bearing: if an image 404s or the CSS is missing, the
    page reads exactly as it did before.
 
-   All nineteen are in the cast. The one on a given page is picked from the
+   Twenty-nine PNGs now: the original nineteen and the rubber duckie series.
+   All of them are in the cast. The one on a given page is picked from the
    page's own path, so it is different from page to page but the SAME every
    time she opens that page - a buddy belongs to a topic, it does not shuffle
    under her while she reads. Random would have been easier and worse.
@@ -24,7 +25,9 @@
                        cent, and when a search finds nothing - Caroline's idea,
                        and a good one: getting it wrong should feel like the
                        robot is having a worse time than she is, not like the
-                       site is disappointed in her.
+                       site is disappointed in her. There are three of them and
+                       they take turns, because the same picture a hundred and
+                       sixty-five times stops reading as a joke.
      the confetti one  turns up on a RIGHT answer, so the pair is symmetrical.
                        A wrong answer being the only one that got a picture
                        would have been a strange thing to build.
@@ -69,7 +72,33 @@
     { f: '14-rustic-black-metal-buddy.png',           a: 'guitar',    pose: 'stand' },
     { f: '15-rustic-abbath-inspired-stage-buddy.png', a: 'guitar',    pose: 'stand' },
     { f: '16-terminator-esque-friendly-buddy.png',    a: 'scan',      pose: 'stand' },
-    { f: '17-number-five-ish-scrapyard-buddy.png',    a: 'curious',   pose: 'stand' }
+    { f: '17-number-five-ish-scrapyard-buddy.png',    a: 'curious',   pose: 'stand' },
+    /* the rubber duckie series - same rules, whole figures, so they stand */
+    { f: '20-classic-yellow-rubber-duckie-robot.png',        a: 'bob',    pose: 'stand' },
+    { f: '21-rustic-copper-rubber-duckie-robot.png',         a: 'bob',    pose: 'stand' },
+    { f: '22-nurse-rubber-duckie-robot.png',                 a: 'wave',   pose: 'stand' },
+    { f: '24-cowboy-rubber-duckie-robot.png',                a: 'tip',    pose: 'stand' },
+    { f: '25-melodic-death-metal-rubber-duckie-robot.png',   a: 'guitar', pose: 'stand' },
+    { f: '26-black-metal-stage-rubber-duckie-robot.png',     a: 'guitar', pose: 'stand' },
+    { f: '27-space-explorer-rubber-duckie-robot.png',        a: 'scan',   pose: 'stand' },
+    { f: '29-foldy-tech-rubber-duckie-robot.png',            a: 'curious', pose: 'stand' }
+  ];
+
+  /* Three coaches for the exam spotlight card, so it is not the same face on
+     every module. Which one a page gets follows the page, not the clock. */
+  var COACHES = [
+    { f: '03-glossy-study-coach.png',                  a: 'bob', pose: 'stand' },
+    { f: '07-rustic-study-coach.png',                  a: 'bob', pose: 'stand' },
+    { f: '23-study-coach-rubber-duckie-robot.png',     a: 'bob', pose: 'stand' }
+  ];
+
+  /* Three of them get abducted rather than one. A wrong answer showing the
+     identical picture a hundred and sixty-five times stops being a joke and
+     starts being a scold, so it changes from question to question. */
+  var ABDUCTEES = [
+    { f: '18-rustic-robot-alien-abduction.png',            a: 'ufo', pose: 'stand' },
+    { f: '19-cow-robot-alien-abduction.png',               a: 'ufo', pose: 'stand' },
+    { f: '28-alien-abduction-rubber-duckie-robot.png',     a: 'ufo', pose: 'stand' }
   ];
 
   /* The animated peekers. Head-and-hands by design: they are drawn to be
@@ -91,11 +120,10 @@
 
   var CONFETTI = 'svg/11-awesomeo-confetti-peeker.svg';
 
+  /* the abductees live in ABDUCTEES above, because there are three of them */
   var PINNED = {
     alert:     { f: '08-rustic-safety-alert-buddy.png',  a: 'alert',     pose: 'stand' },
-    celebrate: { f: '04-glossy-celebration-buddy.png',   a: 'celebrate', pose: 'stand' },
-    abducted:  { f: '18-rustic-robot-alien-abduction.png', a: 'ufo',     pose: 'stand' },
-    cow:       { f: '19-cow-robot-alien-abduction.png',  a: 'ufo',       pose: 'stand' }
+    celebrate: { f: '04-glossy-celebration-buddy.png',   a: 'celebrate', pose: 'stand' }
   };
 
   /* a small stable hash of the path, so the same page always gets the same
@@ -106,6 +134,11 @@
     return Math.abs(h);
   }
   function pick()     { return CAST[hash() % CAST.length]; }
+
+  /* Round-robin rather than random: over a run of questions she sees all
+     three rather than the same one four times by chance. */
+  var abductN = 0;
+  function abductee() { return ABDUCTEES[abductN++ % ABDUCTEES.length]; }
   /* offset so a page does not get the glossy PNG and the SVG of the same mood */
   function pickPeek() { return PEEK[(hash() + 5) % PEEK.length]; }
 
@@ -242,12 +275,11 @@
       did = true;
     }
 
-    /* 2. the exam spotlight card - a coach, matched to the page's finish */
+    /* 2. the exam spotlight card - a coach, one of three, chosen by the page */
     var hy = document.querySelector('.mcard.hy');
     if (hy && !hy.querySelector('.absn-robot')) {
       css();
-      var glossy = pick().f.indexOf('glossy') > -1;
-      place(hy, glossy ? CAST[4] : CAST[5], 'absn-robot-side', false);
+      place(hy, COACHES[hash() % COACHES.length], 'absn-robot-side', false);
       did = true;
     }
 
@@ -263,7 +295,7 @@
     var done = document.querySelector('.done');
     if (done && !done.querySelector('.absn-robot')) {
       css();
-      place(done, roughOne(done) ? PINNED.abducted : PINNED.celebrate,
+      place(done, roughOne(done) ? abductee() : PINNED.celebrate,
             'absn-robot-big', false);
       did = true;
     }
@@ -275,7 +307,7 @@
       var v = verdict(rat);
       if (v === 'no') {
         css();
-        rat.insertBefore(img(PINNED.cow, 'absn-robot-side'), rat.firstChild);
+        rat.insertBefore(img(abductee(), 'absn-robot-side'), rat.firstChild);
         did = true;
       } else if (v === 'ok') {
         css();
@@ -288,7 +320,7 @@
     var empty = document.querySelector('.empty');
     if (empty && empty.offsetParent !== null && !empty.querySelector('.absn-robot')) {
       css();
-      place(empty, PINNED.abducted, 'absn-robot-big', false);
+      place(empty, abductee(), 'absn-robot-big', false);
       did = true;
     }
 
