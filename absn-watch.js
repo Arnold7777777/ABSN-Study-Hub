@@ -32,25 +32,37 @@
     { name: 'RegisteredNurseRN',  icon: '🩺', cls: 'w4' }
   ];
 
-  /* Playlists Caroline supplied, scoped to where they belong.
+  /* The textbook button.
 
-     The first one is the med-surg textbook podcast set, and it was showing on
-     every page - including the maternal and paediatric cards, where it is
-     simply the wrong book. A playlist only appears on pages it covers.
+     This used to be a YouTube playlist Caroline supplied, labelled "Textbook
+     podcasts", and it went on all 477 pages. She then asked for it to point
+     at the actual textbook instead, so the playlist is gone.
 
-     I cannot open YouTube from here to check what is inside a playlist, so
-     these are hers to supply and hers to label. To add one for NUR 234 or
-     235, put its id and label in the matching entry below, or override on a
-     single page with:
+     What replaces it is a SEARCH for the book, for the same reason the
+     channel buttons are searches: a search cannot point at the wrong thing,
+     because it does not point at a thing at all. I could not verify a
+     publisher URL from here - shop.lww.com and wolterskluwer.com are both
+     unreachable from this machine - and an unverified link on 477 pages is
+     exactly the kind of thing that rots.
 
-         <meta name="absn-playlist" content="PLxxxxxxxx|Maternal podcasts">
+     The med-surg pages of this site cite Hinkle chapters throughout, so that
+     is the book named here. To replace this with a real link - her own
+     e-book, or the publisher page once she has confirmed it - put the URL in
+     BOOK.url and it will appear on every page that uses this block:
+
+         var BOOK = { label: 'Brunner & Suddarth (Hinkle)',
+                      url:   'https://...' };
   */
-  var PLAYLISTS = {
-    medsurg: [{ label: 'Textbook podcasts',
-                url: 'https://www.youtube.com/playlist?list=PLI3TocC2xS27gxhDgf56_DuOpaL4zRjMh' }],
-    maternal: [],          /* NUR 234 - waiting on a playlist id */
-    peds:     []           /* NUR 235 - waiting on a playlist id */
+  var BOOK = {
+    label: 'Brunner & Suddarth (Hinkle)',
+    title: "Brunner & Suddarth's Textbook of Medical-Surgical Nursing Hinkle",
+    url:   ''            /* empty = search for it rather than guess a link */
   };
+
+  /* Which pages the textbook button belongs on. Maternal and paediatric
+     modules read from different books, so it stays off those - putting the
+     med-surg text on a newborn page was the original mistake. */
+  var BOOK_FAMILIES = { medsurg: true, maternal: false, peds: false };
 
   /* Which set of playlists belongs on this page. Maternal cards are
      NG-319 to NG-338, paediatric cards NG-343 to NG-362; everything else on
@@ -69,13 +81,18 @@
   }
 
   function playlists() {
+    /* a page can still pin its own playlist */
     var override = meta('absn-playlist');
     if (override) {
       var bits = override.split('|');
       if (bits[0]) return [{ label: (bits[1] || 'Podcasts').trim(),
         url: 'https://www.youtube.com/playlist?list=' + bits[0].trim() }];
     }
-    return PLAYLISTS[family()] || [];
+    if (!BOOK_FAMILIES[family()]) return [];
+    return [{
+      label: BOOK.label,
+      url: BOOK.url || ('https://www.google.com/search?q=' + encodeURIComponent(BOOK.title))
+    }];
   }
 
 
@@ -202,7 +219,7 @@
         a.href = pl.url;
         a.target = '_blank';
         a.rel = 'noopener noreferrer';
-        a.textContent = '\uD83C\uDFA7 ' + pl.label;
+        a.textContent = '\uD83D\uDCD8 ' + pl.label;
         prow.appendChild(a);
       });
       sec.appendChild(prow);
