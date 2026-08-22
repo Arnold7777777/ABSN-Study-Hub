@@ -179,6 +179,15 @@
       ' margin:-2px -4px 4px 12px;' +
       ' filter:drop-shadow(0 7px 7px rgba(0,0,0,.42))}' +
       '@media (max-width:560px){.absn-robot-svg{width:clamp(76px,22vw,104px)}}' +
+      /* the small decorative ones: a badge in the corner of a block. Absolute,
+         so none of them can push a single line of text anywhere. */
+      '.absn-robot-badge{position:absolute;right:9px;top:8px;' +
+      ' width:clamp(38px,5.5vw,58px);z-index:3;pointer-events:none;' +
+      ' filter:drop-shadow(0 4px 5px rgba(0,0,0,.45))}' +
+      '.absn-robot-tiny{width:clamp(30px,4vw,42px);vertical-align:-.35em;' +
+      ' margin:0 0 0 8px;display:inline-block;' +
+      ' filter:drop-shadow(0 3px 4px rgba(0,0,0,.45))}' +
+      '@media (max-width:560px){.absn-robot-badge{width:34px;right:6px;top:6px}}' +
       /* the Watch block text must not run under a standing robot */
       '.absn-watch.has-robot h2,.absn-watch.has-robot .wsub{padding-right:104px}' +
       '@media (max-width:560px){.absn-watch.has-robot h2,' +
@@ -336,6 +345,83 @@
         did = true;
       }
     }
+
+    /* ------------------------------------------------------------------
+       And then, because Caroline asked for as many as possible: one on
+       every block that has room for one.
+
+       Rules that keep "as many as possible" from turning into a mess:
+       every one of these is absolutely positioned or inline, so none of
+       them moves a line of text; each block gets at most one; and the cast
+       is walked in order rather than picked at random, so a page shows
+       many DIFFERENT robots instead of the same one twenty times.
+       ------------------------------------------------------------------ */
+    /* A budget, because "as many as possible" has a ceiling that is not the
+       number of blocks on the page. nur258.html holds all fourteen modules
+       inline, and an uncapped sprinkle put 455 robots on it - every one a
+       separate image to fetch as she scrolls. Sixty is still a robot every
+       time she looks up, and it is a page that loads. */
+    var MAX = 60;
+    var placed = document.querySelectorAll('.absn-robot').length;
+    var n = 0;
+    function next() { return CAST[(hash() + (n++)) % CAST.length]; }
+    function room() { return placed < MAX; }
+
+    function sprinkle(sel, cls, frame) {
+      [].forEach.call(document.querySelectorAll(sel), function (el) {
+        if (!room()) return;
+        if (el.querySelector('.absn-robot')) return;
+        if (!el.getBoundingClientRect().height) return;   /* collapsed section */
+        placed++;
+        css();
+        if (frame && window.getComputedStyle(el).position === 'static') {
+          el.style.position = 'relative';
+        }
+        el.insertBefore(img(next(), cls), el.firstChild);
+        did = true;
+      });
+    }
+
+    /* 8. every mind map, every ATI template, every infographic grid */
+    sprinkle('.mm2', 'absn-robot-badge', true);
+    sprinkle('.altpl', 'absn-robot-badge', true);
+    sprinkle('.slot.filled[data-slot="info"]', 'absn-robot-badge', true);
+
+    /* 9. the module cards on a course hub - this is the page she opens most */
+    sprinkle('.modcard', 'absn-robot-badge', true);
+
+    /* 10. the exam band headings */
+    sprinkle('.exhead', 'absn-robot-badge', true);
+
+    /* 11. the tiles on the study hub itself */
+    sprinkle('.tile', 'absn-robot-badge', true);
+
+    /* 12. the study cards on a module page - the biggest surface on the site.
+           Only the wide ones: a badge on a narrow card would crowd the text
+           it is sitting next to. */
+    [].forEach.call(document.querySelectorAll('.vcard, .mcard, .card'), function (el) {
+      if (!room()) return;
+      if (el.querySelector('.absn-robot')) return;
+      var r = el.getBoundingClientRect();
+      if (r.width < 380 || r.height < 150) return;
+      placed++;
+      css();
+      if (window.getComputedStyle(el).position === 'static') el.style.position = 'relative';
+      el.insertBefore(img(next(), 'absn-robot-badge'), el.firstChild);
+      did = true;
+    });
+
+    /* 13. each collapsible chunk's own heading gets a tiny one inline */
+    [].forEach.call(document.querySelectorAll('details.mod > summary, details.chunk > summary'),
+      function (el) {
+        if (!room()) return;
+        if (el.querySelector('.absn-robot')) return;
+        if (!el.getBoundingClientRect().height) return;
+        placed++;
+        css();
+        el.appendChild(img(next(), 'absn-robot-tiny'));
+        did = true;
+      });
 
     return did;
   }
