@@ -189,6 +189,7 @@
       ' color:#e7d9ff;margin:2px 0 14px;padding:0 2px}' +
       /* the launcher, bottom left, away from the corner nav pills */
       '#absnDrawerBtn{position:fixed;left:10px;bottom:10px;z-index:99993;' +
+      ' transition:bottom .12s ease;' +
       ' font:900 .95rem/1 "Segoe UI",system-ui,sans-serif;padding:13px 17px;' +
       ' border-radius:999px;cursor:pointer;color:#fff;white-space:nowrap;' +
       ' border:1px solid rgba(255,255,255,.42);' +
@@ -220,6 +221,40 @@
     btn.addEventListener('click', function () { set(!open); });
     document.body.appendChild(btn);
     paint();
+    nudge();
+    setTimeout(nudge, 400);
+    setTimeout(nudge, 1200);
+    window.addEventListener('resize', function () { setTimeout(nudge, 80); });
+  }
+
+  /* Some pages already keep a button in the bottom-left corner - nur234,
+     nur235 and nur258 all carry a draggable "skim" button that parks itself
+     at left:12px bottom:12px, which is exactly where the launcher goes. The
+     two sat on top of each other.
+
+     Rather than hard-code an offset per page, look at what is actually fixed
+     down there and sit above the highest thing that is not ours. The skim
+     button can be dragged, so this is re-run on resize and after the page
+     has settled. */
+  function nudge() {
+    if (!btn) return;
+    btn.style.bottom = '10px';
+    var mine = btn.getBoundingClientRect();
+    var vh = window.innerHeight, floor = vh - 10, moved = false;
+    [].forEach.call(document.querySelectorAll('body *'), function (el) {
+      if (el === btn || ours(el)) return;
+      var st = window.getComputedStyle(el);
+      if (st.position !== 'fixed') return;
+      if (st.visibility === 'hidden' || st.display === 'none' || +st.opacity === 0) return;
+      var r = el.getBoundingClientRect();
+      if (r.width < 20 || r.height < 20 || r.width > 420) return;
+      if (r.left > window.innerWidth * 0.5) return;      /* left-hand side only */
+      if (r.bottom < vh * 0.55) return;                  /* lower part only */
+      /* does it share our column? */
+      if (Math.min(mine.right, r.right) - Math.max(mine.left, r.left) <= 0) return;
+      if (r.top < floor) { floor = r.top; moved = true; }
+    });
+    if (moved) btn.style.bottom = Math.round(vh - floor + 10) + 'px';
   }
 
   function paint() {
@@ -250,6 +285,7 @@
 
   function go() {
     build();
+    nudge();
     var n = collect();
     solidify();
     /* Nothing to put in it and nothing to show: an empty drawer with a

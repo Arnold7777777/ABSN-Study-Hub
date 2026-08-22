@@ -54,15 +54,25 @@
                       url:   'https://...' };
   */
   var BOOK = {
-    label: 'Brunner & Suddarth (Hinkle)',
-    title: "Brunner & Suddarth's Textbook of Medical-Surgical Nursing Hinkle",
-    url:   ''            /* empty = search for it rather than guess a link */
+    label: 'Textbook lectures',
+    /* Caroline: "last minute lectures on youtube has the textbooks". So the
+       textbook button searches that channel for THIS page's chapter material
+       rather than pointing at a publisher's shop.
+
+       Still a search, not a channel URL, for the reason every other button
+       here is a search: I cannot open YouTube from this machine, so any id I
+       wrote down would be a guess. A search built from the page's own topic
+       is correct by construction and cannot rot. */
+    channel: 'Last Minute Lectures',
+    url:     ''          /* set this to pin a real link */
   };
 
-  /* Which pages the textbook button belongs on. Maternal and paediatric
-     modules read from different books, so it stays off those - putting the
-     med-surg text on a newborn page was the original mistake. */
-  var BOOK_FAMILIES = { medsurg: true, maternal: false, peds: false };
+  /* This used to be restricted to med-surg pages, because the button named
+     the med-surg textbook and putting that on a newborn page was the original
+     mistake. Now that the search is the channel plus THIS page's own topic,
+     there is nothing med-surg about it - the maternal and paediatric pages
+     search for their own subjects - so it belongs everywhere. */
+  var BOOK_FAMILIES = { medsurg: true, maternal: true, peds: true };
 
   /* Which set of playlists belongs on this page. Maternal cards are
      NG-319 to NG-338, paediatric cards NG-343 to NG-362; everything else on
@@ -89,9 +99,15 @@
         url: 'https://www.youtube.com/playlist?list=' + bits[0].trim() }];
     }
     if (!BOOK_FAMILIES[family()]) return [];
+    /* Channel plus this page's topic, and deliberately NOT a book title.
+       Naming Brunner & Suddarth is right on a med-surg page and wrong on a
+       pathophysiology one, and I do not know which textbook her patho course
+       uses. The topic is true on every page; the book title is not. */
+    var q = BOOK.channel + ' ' + topic();
     return [{
       label: BOOK.label,
-      url: BOOK.url || ('https://www.google.com/search?q=' + encodeURIComponent(BOOK.title))
+      url: BOOK.url ||
+           ('https://www.youtube.com/results?search_query=' + encodeURIComponent(q))
     }];
   }
 
