@@ -95,10 +95,37 @@
   /* Three of them get abducted rather than one. A wrong answer showing the
      identical picture a hundred and sixty-five times stops being a joke and
      starts being a scold, so it changes from question to question. */
-  var ABDUCTEES = [
-    { f: '18-rustic-robot-alien-abduction.png',            a: 'ufo', pose: 'stand' },
-    { f: '19-cow-robot-alien-abduction.png',               a: 'ufo', pose: 'stand' },
-    { f: '28-alien-abduction-rubber-duckie-robot.png',     a: 'ufo', pose: 'stand' }
+  /* Caroline: "celebratory robots for correct answers and broly and alien
+     abduction ones for incorrect answers."
+
+     So a wrong answer gets Broly or an abduction, and a right one gets a
+     celebration. Both are pools rather than single images, because the same
+     picture a hundred and sixty-five times stops being a joke either way. */
+  var WRONG = [
+    { f: '11-rustic-broly-inspired-cosplay.png',           a: 'power', pose: 'stand' },
+    { f: '18-rustic-robot-alien-abduction.png',            a: 'ufo',   pose: 'stand' },
+    { f: '19-cow-robot-alien-abduction.png',               a: 'ufo',   pose: 'stand' },
+    { f: '28-alien-abduction-rubber-duckie-robot.png',     a: 'ufo',   pose: 'stand' }
+  ];
+
+  /* Caroline: "brolys for contraindications and warnings and also alien
+     abduction ones for those things as well."
+
+     Same pool as a wrong answer, plus the buddy holding the amber sign. The
+     logic is hers and it is good: the robot having a bad time is what marks
+     the thing that will go badly. */
+  var WARN = [
+    { f: '11-rustic-broly-inspired-cosplay.png',           a: 'power', pose: 'stand' },
+    { f: '08-rustic-safety-alert-buddy.png',               a: 'alert', pose: 'stand' },
+    { f: '18-rustic-robot-alien-abduction.png',            a: 'ufo',   pose: 'stand' },
+    { f: '28-alien-abduction-rubber-duckie-robot.png',     a: 'ufo',   pose: 'stand' }
+  ];
+
+  var RIGHT = [
+    { f: '04-glossy-celebration-buddy.png',                a: 'celebrate', pose: 'stand' },
+    { f: '02-glossy-nurse-buddy.png',                      a: 'wave',      pose: 'stand' },
+    { f: '20-classic-yellow-rubber-duckie-robot.png',      a: 'bob',       pose: 'stand' },
+    { f: '09-rustic-goku-inspired-cosplay.png',            a: 'power',     pose: 'stand' }
   ];
 
   /* The animated peekers. Head-and-hands by design: they are drawn to be
@@ -120,11 +147,7 @@
 
   var CONFETTI = 'svg/11-awesomeo-confetti-peeker.svg';
 
-  /* the abductees live in ABDUCTEES above, because there are three of them */
-  var PINNED = {
-    alert:     { f: '08-rustic-safety-alert-buddy.png',  a: 'alert',     pose: 'stand' },
-    celebrate: { f: '04-glossy-celebration-buddy.png',   a: 'celebrate', pose: 'stand' }
-  };
+  /* right, wrong and warning each have their own pool above */
 
   /* a small stable hash of the path, so the same page always gets the same
      buddy and neighbouring pages get different ones */
@@ -137,8 +160,10 @@
 
   /* Round-robin rather than random: over a run of questions she sees all
      three rather than the same one four times by chance. */
-  var abductN = 0;
-  function abductee() { return ABDUCTEES[abductN++ % ABDUCTEES.length]; }
+  var wrongN = 0, rightN = 0, warnN = 0;
+  function warnBot() { return WARN[warnN++ % WARN.length]; }
+  function wrongBot() { return WRONG[wrongN++ % WRONG.length]; }
+  function rightBot() { return RIGHT[rightN++ % RIGHT.length]; }
   /* offset so a page does not get the glossy PNG and the SVG of the same mood */
   function pickPeek() { return PEEK[(hash() + 5) % PEEK.length]; }
 
@@ -185,14 +210,17 @@
          load lazily, and without it getBoundingClientRect returns 0x0 until
          the image arrives - so the overlap check measured nothing, passed
          everything, and the robot appeared on a word a second later. */
-      '.absn-robot-badge{position:absolute;right:9px;top:8px;' +
-      ' width:clamp(38px,5.5vw,58px);aspect-ratio:1/1.08;z-index:3;' +
-      ' pointer-events:none;filter:drop-shadow(0 4px 5px rgba(0,0,0,.45))}' +
-      '.absn-robot-tiny{width:clamp(30px,4vw,42px);aspect-ratio:1/1.08;' +
+      /* Sized up: at 38-58px these were a smudge in the corner. The overlap
+         check runs after placement and removes any that no longer fit, so
+         making them bigger cannot put one back on top of a word. */
+      '.absn-robot-badge{position:absolute;right:10px;top:9px;' +
+      ' width:clamp(58px,8vw,92px);aspect-ratio:1/1.08;z-index:3;' +
+      ' pointer-events:none;filter:drop-shadow(0 5px 7px rgba(0,0,0,.5))}' +
+      '.absn-robot-tiny{width:clamp(42px,5vw,60px);aspect-ratio:1/1.08;' +
       ' flex:0 0 auto;vertical-align:-.35em;' +
       ' margin:0 0 0 10px;display:inline-block;' +
       ' filter:drop-shadow(0 3px 4px rgba(0,0,0,.45))}' +
-      '@media (max-width:560px){.absn-robot-badge{width:34px;right:6px;top:6px}}' +
+      '@media (max-width:560px){.absn-robot-badge{width:52px;right:6px;top:6px}}' +
       /* the Watch block text must not run under a standing robot */
       '.absn-watch.has-robot h2,.absn-watch.has-robot .wsub{padding-right:104px}' +
       '@media (max-width:560px){.absn-watch.has-robot h2,' +
@@ -366,19 +394,39 @@
       did = true;
     }
 
-    /* 3. warnings - the buddy holding the amber sign */
-    var warn = document.querySelector('.card.ruby, .card.garnet');
-    if (warn && /🚨/.test(warn.textContent) && !warn.querySelector('.absn-robot')) {
+    /* 3. contraindications and warnings.
+
+       Anything that carries a never-do rule, an emergency marker or a ruby /
+       garnet card counts. Two per page: enough that a warning is marked,
+       not so many that the marking stops meaning anything.
+
+       Placed with the same overlap check as everything else, so one that
+       lands on a word takes itself away again. */
+    var warnHosts = [];
+    [].forEach.call(document.querySelectorAll(
+        '.card.ruby, .card.garnet, .vcard.ruby, .vcard.garnet, .mcard.ruby'),
+      function (el) {
+        if (/🚨|⚠️/.test(el.textContent) || el.querySelector('.vnever, .never')) warnHosts.push(el);
+      });
+    /* and any card whose body holds an explicit never-do rule */
+    [].forEach.call(document.querySelectorAll('.vnever, .never'), function (n) {
+      var host = n.closest ? n.closest('.vcard, .card, .mcard') : null;
+      if (host && warnHosts.indexOf(host) < 0) warnHosts.push(host);
+    });
+
+    warnHosts.slice(0, 2).forEach(function (el) {
+      if (el.querySelector('.absn-robot')) return;
       css();
-      place(warn, PINNED.alert, 'absn-robot-side', false);
+      var rb = img(warnBot(), 'absn-robot-side');
+      el.insertBefore(rb, el.firstChild);
       did = true;
-    }
+    });
 
     /* 4. the end of a quiz - who greets her depends on how it went */
     var done = document.querySelector('.done');
     if (done && !done.querySelector('.absn-robot')) {
       css();
-      place(done, roughOne(done) ? abductee() : PINNED.celebrate,
+      place(done, roughOne(done) ? wrongBot() : rightBot(),
             'absn-robot-big', false);
       did = true;
     }
@@ -390,11 +438,14 @@
       var v = verdict(rat);
       if (v === 'no') {
         css();
-        rat.insertBefore(img(abductee(), 'absn-robot-side'), rat.firstChild);
+        rat.insertBefore(img(wrongBot(), 'absn-robot-side'), rat.firstChild);
         did = true;
       } else if (v === 'ok') {
         css();
-        rat.insertBefore(svgImg(CONFETTI, 'absn-robot-svg'), rat.firstChild);
+        /* every fourth one is the animated confetti peeker, the rest are the
+           celebration pool - so a right answer is not one fixed picture */
+        if (rightN % 4 === 3) { rightN++; rat.insertBefore(svgImg(CONFETTI, 'absn-robot-svg'), rat.firstChild); }
+        else { rat.insertBefore(img(rightBot(), 'absn-robot-side'), rat.firstChild); }
         did = true;
       }
     });
@@ -403,7 +454,7 @@
     var empty = document.querySelector('.empty');
     if (empty && empty.offsetParent !== null && !empty.querySelector('.absn-robot')) {
       css();
-      place(empty, abductee(), 'absn-robot-big', false);
+      place(empty, wrongBot(), 'absn-robot-big', false);
       did = true;
     }
 

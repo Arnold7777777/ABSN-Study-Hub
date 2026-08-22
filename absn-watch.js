@@ -53,6 +53,37 @@
          var BOOK = { label: 'Brunner & Suddarth (Hinkle)',
                       url:   'https://...' };
   */
+  /* One entry per course, because Caroline wants to listen to EACH class's
+     textbook and not only the med-surg one.
+
+     'book' is the textbook title, and it is filled in only where this site
+     already evidences it. Her med-surg pages cite Hinkle chapters twenty-six
+     times, so that one is known. NOTHING ELSE ON THE SITE NAMES A TEXTBOOK -
+     the maternal pages cite "ch. 9 · ATI ch. 3" with no author, the
+     paediatric and pathophysiology pages cite none at all - so the rest are
+     deliberately blank rather than guessed. Guessing which book a course uses
+     is exactly the way to send her to lectures for the wrong edition of the
+     wrong text.
+
+     A blank 'book' is not a broken button: the search falls back to the
+     course SUBJECT, which is always true, so every page still finds
+     class-appropriate lectures. Filling one in only sharpens it.
+
+     To add one, put the title in and it appears on that course's pages:
+
+         maternal: { subject: 'maternity newborn nursing', book: 'Lowdermilk' }
+  */
+  var COURSE = {
+    medsurg:      { subject: 'medical surgical nursing',   book: 'Brunner & Suddarth Hinkle' },
+    maternal:     { subject: 'maternity newborn nursing',  book: '' },
+    peds:         { subject: 'pediatric nursing',          book: '' },
+    patho:        { subject: 'pathophysiology',            book: '' },
+    mentalhealth: { subject: 'mental health nursing',      book: '' },
+    fundamentals: { subject: 'fundamentals of nursing',    book: '' },
+    pharm:        { subject: 'pharmacology nursing',       book: '' },
+    physiology:   { subject: 'anatomy and physiology',     book: '' }
+  };
+
   var BOOK = {
     label: 'Textbook lectures',
     /* Caroline: "last minute lectures on youtube has the textbooks". So the
@@ -72,21 +103,30 @@
      mistake. Now that the search is the channel plus THIS page's own topic,
      there is nothing med-surg about it - the maternal and paediatric pages
      search for their own subjects - so it belongs everywhere. */
-  var BOOK_FAMILIES = { medsurg: true, maternal: true, peds: true };
+  function bookShown() { return !!COURSE[family()]; }
 
   /* Which set of playlists belongs on this page. Maternal cards are
      NG-319 to NG-338, paediatric cards NG-343 to NG-362; everything else on
      this site is adult med-surg or fundamentals. */
   function family() {
     var f = (location.pathname.split('/').pop() || '');
-    if (/^nur234/i.test(f)) return 'maternal';
-    if (/^nur235/i.test(f)) return 'peds';
+    if (/^nur234/i.test(f))            return 'maternal';
+    if (/^nur235/i.test(f))            return 'peds';
+    if (/^patho/i.test(f))             return 'patho';
+    if (/^nur175|^mh-/i.test(f))       return 'mentalhealth';
+    if (/^nur125/i.test(f))            return 'fundamentals';
+    if (/^pharmacolog|^pharm-/i.test(f)) return 'pharm';
+    if (/^physiology/i.test(f))        return 'physiology';
     var ng = f.match(/^NG-(\d+)/i);
     if (ng) {
       var n = parseInt(ng[1], 10);
       if (n >= 319 && n <= 338) return 'maternal';
       if (n >= 343 && n <= 362) return 'peds';
     }
+    /* the deep-dive folders are subject libraries, not courses */
+    var dir = (location.pathname.split('/').slice(-2)[0] || '');
+    if (/^mh$/i.test(dir))    return 'mentalhealth';
+    if (/^pharm$/i.test(dir)) return 'pharm';
     return 'medsurg';
   }
 
@@ -98,12 +138,12 @@
       if (bits[0]) return [{ label: (bits[1] || 'Podcasts').trim(),
         url: 'https://www.youtube.com/playlist?list=' + bits[0].trim() }];
     }
-    if (!BOOK_FAMILIES[family()]) return [];
-    /* Channel plus this page's topic, and deliberately NOT a book title.
-       Naming Brunner & Suddarth is right on a med-surg page and wrong on a
-       pathophysiology one, and I do not know which textbook her patho course
-       uses. The topic is true on every page; the book title is not. */
-    var q = BOOK.channel + ' ' + topic();
+    if (!bookShown()) return [];
+    /* Channel + this course's book (when it is known) + this page's topic.
+       Where the book is unknown the course SUBJECT stands in, so a patho page
+       searches pathophysiology rather than borrowing the med-surg text. */
+    var c = COURSE[family()] || COURSE.medsurg;
+    var q = BOOK.channel + ' ' + (c.book || c.subject) + ' ' + topic();
     return [{
       label: BOOK.label,
       url: BOOK.url ||
@@ -147,8 +187,13 @@
 
     /* Some headings are just an abbreviation - "MI", "DVT", "CBT", "ABC".
        Searching YouTube for "MI" is useless, so fall back to the file name,
-       which spells the topic out: NG-071_mi-myocardial-infarction.html. */
-    if (t.length < 6) {
+       which spells the topic out: NG-071_mi-myocardial-infarction.html.
+
+       The test is "is this an abbreviation", not "is this short". A plain
+       length cutoff of six threw away real one-word topics: the burns module
+       searched for "nur258 module 04 burns" instead of "Burns", because Burns
+       is five letters. An acronym is short AND has no lower-case letters. */
+    if (t.length <= 3 || (t.length < 7 && t === t.toUpperCase() && /[A-Z]/.test(t))) {
       var slug = (location.pathname.split('/').pop() || '')
         .replace(/\.html?$/i, '')
         .replace(/^NG-\d+[_-]?/i, '')
