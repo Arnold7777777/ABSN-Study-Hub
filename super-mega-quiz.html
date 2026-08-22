@@ -654,7 +654,7 @@ window.NGN = (function(){
         return '<button type="button" class="opt" data-i="'+k+'">'+t+'</button>';
       }).join('');
       html += '<div><button type="button" class="check" id="csChk">'
-            + (multi?'Check my answers':'Check')+'</button></div>';
+            + (multi?'Check my answers':'Check my answer')+'</button></div>';
       html += '<div class="rat" id="csRat"></div>';
       card.innerHTML = html;
 
@@ -954,7 +954,7 @@ window.NGN = (function(){
 
     card.innerHTML=tags+'<p class="qtext">'+rich(o.q)+'</p>'+opts+
       '<div><button type="button" class="check" id="chk">'+
-      (multi?'Check my answers':'Check')+'</button></div>'+
+      (multi?'Check my answers':'Check my answer')+'</button></div>'+
       '<div class="rat" id="rat"></div>'+
       '<div class="nav"><button type="button" id="prev">&larr; Back</button>'+
       '<button type="button" id="next">Next &rarr;</button></div>';
@@ -983,7 +983,12 @@ window.NGN = (function(){
           if(at>-1){ picked.splice(at,1); b.classList.remove('sel'); }
           else { picked.push(i); b.classList.add('sel'); }
         } else {
-          picked=[i]; grade(o,card,picked);
+          /* Selecting is not answering. A one-answer item used to score the
+             instant she touched a row, so a mis-tap was permanent and the
+             Check button underneath it never did anything at all. Now the tap
+             picks, the pick can be changed, and Check is what submits it. */
+          btns.forEach(function(x){ x.classList.remove('sel'); });
+          picked=[i]; b.classList.add('sel');
         }
       });
     });
@@ -1169,10 +1174,20 @@ function hop(url, closeThis){
     place(e.clientX-down.dx, e.clientY-down.dy, false);
     e.preventDefault();
   });
+  /* Snap to whichever side wall is nearer when she lets go. Caroline kept
+     finding this cluster sitting on top of a question - a 6px slip while
+     tapping an answer is enough to drag it into the middle of the card. It
+     still goes wherever she wants vertically, and to either side; it just
+     cannot be parked over the text. */
+  function snap(x,y){
+    var r=nb.getBoundingClientRect(), m=6;
+    var right = window.innerWidth - r.width - m;
+    return [(x + r.width/2) < window.innerWidth/2 ? m : right, y];
+  }
   function end(){
     if(!down) return;
     var r=nb.getBoundingClientRect();
-    if(moved) place(r.left,r.top,true);
+    if(moved){ var p=snap(r.left,r.top); place(p[0],p[1],true); }
     down=null; nb.classList.remove('dragging');
     /* The click that a real drag generates arrives immediately after pointerup and is
        swallowed below. If none arrives - a touch drag, or the pointer left the button -

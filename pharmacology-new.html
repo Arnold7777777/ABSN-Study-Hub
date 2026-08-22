@@ -527,10 +527,20 @@ function hop(url, closeThis){
     place(e.clientX-down.dx, e.clientY-down.dy, false);
     e.preventDefault();
   });
+  /* Snap to whichever side wall is nearer when she lets go. Caroline kept
+     finding this cluster sitting on top of a question - a 6px slip while
+     tapping an answer is enough to drag it into the middle of the card. It
+     still goes wherever she wants vertically, and to either side; it just
+     cannot be parked over the text. */
+  function snap(x,y){
+    var r=nb.getBoundingClientRect(), m=6;
+    var right = window.innerWidth - r.width - m;
+    return [(x + r.width/2) < window.innerWidth/2 ? m : right, y];
+  }
   function end(){
     if(!down) return;
     var r=nb.getBoundingClientRect();
-    if(moved) place(r.left,r.top,true);
+    if(moved){ var p=snap(r.left,r.top); place(p[0],p[1],true); }
     down=null; nb.classList.remove('dragging');
     /* The click that a real drag generates arrives immediately after pointerup and is
        swallowed below. If none arrives - a touch drag, or the pointer left the button -
