@@ -32,7 +32,7 @@ body{
 /* ---- header ---------------------------------------------------------- */
 header{margin:10px 0 20px;padding:22px 24px;border-radius:20px;
  background:rgba(0,0,0,.66);border:1px solid var(--line);
- box-shadow:0 10px 34px rgba(0,0,0,.5)}
+ box-shadow:0 10px 34px rgba(0,0,0,.5);color:#fff}
 header .kick{display:inline-block;font-weight:900;font-size:.95rem;letter-spacing:.09em;
  text-transform:uppercase;color:#ffd76a;margin:0 0 6px}
 header h1{margin:0 0 8px;font-size:2.05rem;line-height:1.18}
@@ -40,15 +40,15 @@ header p{margin:0;font-size:1.06rem;max-width:64ch}
 .courses{display:flex;flex-wrap:wrap;gap:9px;margin:14px 0 0}
 .pill{display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:999px;
  font-weight:900;font-size:1rem;border:1px solid rgba(255,255,255,.4)}
-.p234{background:rgba(var(--c234),.72)} .p235{background:rgba(var(--c235),.72)}
-.p258{background:rgba(var(--c258),.72)}
+.p234{background:rgba(var(--c234),.92)} .p235{background:rgba(var(--c235),.92)}
+.p258{background:rgba(var(--c258),.92)}
 
 /* ---- sections & cards ------------------------------------------------- */
 section{margin:0 0 22px;border-radius:20px;overflow:hidden;border:1px solid var(--line);
  box-shadow:0 10px 30px rgba(0,0,0,.44)}
 section>h2{margin:0;padding:17px 21px;font-size:1.35rem;font-weight:900;line-height:1.3;
  background:linear-gradient(rgba(0,0,0,.42),rgba(0,0,0,.42)),rgba(var(--j,157,92,255),.80)}
-section>.inner{padding:19px 19px 22px;background:rgba(8,13,30,.80);color:#fff}
+section>.inner{padding:19px 19px 22px;background:rgba(8,13,30,.93);color:#fff}
 
 /* Cards are the section jewel at 65% so her photo still reads through.
    No backdrop-filter anywhere: blurred layers stack into compositing work
@@ -69,14 +69,12 @@ section>.inner{padding:19px 19px 22px;background:rgba(8,13,30,.80);color:#fff}
 .topaz{--j:var(--topaz);color:#241a02;border-left-color:rgba(0,0,0,.4)}
 /* warm jewels are bright panels, so their text goes dark */
 .card.topaz,.card.teal,.card.citrine,.card.emerald{color:#141018;border-left-color:rgba(0,0,0,.42)}
-:where(.card.topaz) b,:where(.card.teal) b,:where(.card.citrine) b,:where(.card.emerald) b{color:#000}
-:where(.card.topaz) i,:where(.card.teal) i,:where(.card.citrine) i,:where(.card.emerald) i{color:#0d2b22}
-:where(.card.topaz) a,:where(.card.teal) a,:where(.card.citrine) a,:where(.card.emerald) a{color:#2f0d5c}
 .topaz h3,.topaz b,.topaz strong{color:#1a1200}
 .topaz a{color:#3a2a00}
 
 /* ---- typography with meaning ----------------------------------------- */
 b,strong{color:#ffe27a;font-weight:800}
+
 .topaz b,.topaz strong{color:#1a1200}
 i,em{color:#a9f5dc;font-style:italic;font-weight:600}
 .topaz i,.topaz em{color:#3d2c00}
@@ -168,6 +166,23 @@ a:hover{color:#c9f4ff}
   .day{grid-template-columns:60px 1fr;gap:9px}
   table{min-width:460px;font-size:.98rem}
 }
+
+/* Warm jewels render as bright panels, so their text goes dark. These carry no
+   specificity, so they sit last: a nested panel with its own ink still wins,
+   and within this layer source order is what says which one is meant.
+   A bare .card inherits its section's jewel; one with its own class does not. */
+:where(.card.topaz) b,:where(.card.teal) b,:where(.card.citrine) b,:where(.card.emerald) b,:where(section[style*="--topaz"]) .card[class="card"] b,:where(section[style*="--teal"]) .card[class="card"] b,:where(section[style*="--citrine"]) .card[class="card"] b,:where(section[style*="--emerald"]) .card[class="card"] b{color:#000}
+:where(.card.topaz) strong,:where(.card.teal) strong,:where(.card.citrine) strong,:where(.card.emerald) strong,:where(section[style*="--topaz"]) .card[class="card"] strong,:where(section[style*="--teal"]) .card[class="card"] strong,:where(section[style*="--citrine"]) .card[class="card"] strong,:where(section[style*="--emerald"]) .card[class="card"] strong{color:#000}
+:where(.card.topaz) i,:where(.card.teal) i,:where(.card.citrine) i,:where(.card.emerald) i,:where(section[style*="--topaz"]) .card[class="card"] i,:where(section[style*="--teal"]) .card[class="card"] i,:where(section[style*="--citrine"]) .card[class="card"] i,:where(section[style*="--emerald"]) .card[class="card"] i{color:#0d2b22}
+:where(.card.topaz) em,:where(.card.teal) em,:where(.card.citrine) em,:where(.card.emerald) em,:where(section[style*="--topaz"]) .card[class="card"] em,:where(section[style*="--teal"]) .card[class="card"] em,:where(section[style*="--citrine"]) .card[class="card"] em,:where(section[style*="--emerald"]) .card[class="card"] em{color:#0d2b22}
+:where(.card.topaz) a,:where(.card.teal) a,:where(.card.citrine) a,:where(.card.emerald) a,:where(section[style*="--topaz"]) .card[class="card"] a,:where(section[style*="--teal"]) .card[class="card"] a,:where(section[style*="--citrine"]) .card[class="card"] a,:where(section[style*="--emerald"]) .card[class="card"] a{color:#2f0d5c}
+:where(section[style*="--topaz"]) .card[class="card"],:where(section[style*="--teal"]) .card[class="card"],:where(section[style*="--citrine"]) .card[class="card"],:where(section[style*="--emerald"]) .card[class="card"]{color:#141018}
+
+/* the never-do rule is pale pink for a dark card; on a bright one it needs the dark
+   form. This one keeps its specificity: .vnever is a leaf, not a container, so it
+   has to beat .vbrief .vnever rather than lose to a nested panel. */
+.card.topaz .never,.card.topaz .vnever,.vcard.topaz .never,.vcard.topaz .vnever,.vbrief .vcard.topaz .vnever,.vbrief .vcard.topaz .never,.card.teal .never,.card.teal .vnever,.vcard.teal .never,.vcard.teal .vnever,.vbrief .vcard.teal .vnever,.vbrief .vcard.teal .never,.card.citrine .never,.card.citrine .vnever,.vcard.citrine .never,.vcard.citrine .vnever,.vbrief .vcard.citrine .vnever,.vbrief .vcard.citrine .never,.card.emerald .never,.card.emerald .vnever,.vcard.emerald .never,.vcard.emerald .vnever,.vbrief .vcard.emerald .vnever,.vbrief .vcard.emerald .never{color:#4a0010;background:rgba(255,59,107,.16)}
+section[style*="--topaz"] .card .never,section[style*="--topaz"] .card .vnever,section[style*="--teal"] .card .never,section[style*="--teal"] .card .vnever,section[style*="--citrine"] .card .never,section[style*="--citrine"] .card .vnever,section[style*="--emerald"] .card .never,section[style*="--emerald"] .card .vnever{color:#4a0010;background:rgba(255,59,107,.16)}
 </style>
 <link rel="stylesheet" href="absn-adhd-enhanced.css">
 <script defer src="absn-adhd-enhanced.js"></script>
