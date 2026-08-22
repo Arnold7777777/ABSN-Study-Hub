@@ -183,10 +183,29 @@
       ' left:auto!important;right:auto!important;bottom:auto!important;' +
       ' width:auto!important;max-width:none!important;margin:0 0 12px!important;' +
       ' transform:none!important;z-index:auto!important;' +
-      ' border-radius:14px!important;display:block!important}' +
+      /* These bars were built full-width and carry the padding to match -
+         .ple-module-bar has 110px of it. In a 400px drawer that pushes every
+         link out of sight, which is how Caroline ended up on a module page
+         with no visible way back to the hub. */
+      ' padding-left:10px!important;padding-right:10px!important;' +
+      ' border-radius:14px!important;display:block!important;' +
+      ' overflow:visible!important}' +
+      '#absnDrawer > * a,#absnDrawer > * button{max-width:100%!important}' +
       '#absnDrawer h2,#absnDrawer h3{margin-top:0}' +
       '#absnDrawerTitle{font:900 1.02rem/1.3 "Segoe UI",system-ui,sans-serif;' +
-      ' color:#e7d9ff;margin:2px 0 14px;padding:0 2px}' +
+      ' color:#e7d9ff;margin:2px 0 10px;padding:0 2px}' +
+      /* Always-present way home. It does not depend on any page bar being
+         moved here or rendering correctly - it is the one link that must
+         never be missing. */
+      '#absnDrawerHome{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}' +
+      '#absnDrawerHome a{flex:1 1 auto;text-align:center;text-decoration:none;' +
+      ' font:900 .95rem/1.2 "Segoe UI",system-ui,sans-serif;color:#fff;' +
+      ' padding:12px 14px;border-radius:13px;' +
+      ' border:1px solid rgba(255,255,255,.34);' +
+      ' background:linear-gradient(135deg,#0f7d6b,#12b886)}' +
+      '#absnDrawerHome a.course{background:linear-gradient(135deg,#5a2d82,#9d5cff)}' +
+      '#absnDrawerHome a:hover{filter:brightness(1.14)}' +
+      '#absnDrawerHome a:focus-visible{outline:3px solid #ffd76a;outline-offset:3px}' +
       /* the launcher, bottom left, away from the corner nav pills */
       '#absnDrawerBtn{position:fixed;left:10px;bottom:10px;z-index:99993;' +
       ' transition:bottom .12s ease;' +
@@ -212,6 +231,37 @@
     t.id = 'absnDrawerTitle';
     t.textContent = 'Menu';
     drawer.appendChild(t);
+
+    /* the way back, always */
+    var home = document.createElement('nav');
+    home.id = 'absnDrawerHome';
+    home.setAttribute('aria-label', 'Go back');
+
+    /* how deep this page sits, taken from the path this script was loaded
+       with - the same trick the robot script uses to find its images */
+    var self = document.querySelector('script[src*="absn-hidebar.js"]');
+    var up = ((self && self.getAttribute('src')) || '').replace(/absn-hidebar\.js.*$/, '');
+
+    var hub = document.createElement('a');
+    hub.href = up + 'index.html';
+    hub.textContent = '\u2302 ABSN Study Hub';
+    home.appendChild(hub);
+
+    /* and this course's own hub, if the page names one */
+    var course = null;
+    [].forEach.call(document.querySelectorAll('a'), function (a) {
+      if (course) return;
+      var txt = (a.textContent || '').trim();
+      if (/course hub|back to all/i.test(txt) && a.getAttribute('href')) course = a;
+    });
+    if (course) {
+      var c = document.createElement('a');
+      c.className = 'course';
+      c.href = course.getAttribute('href');
+      c.textContent = '\u2302 Course hub';
+      home.appendChild(c);
+    }
+    drawer.appendChild(home);
     document.body.appendChild(drawer);
 
     btn = document.createElement('button');
