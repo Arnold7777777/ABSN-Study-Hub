@@ -17,9 +17,29 @@
    because absn-focus.js and absn-adhd-enhanced.js inject their bars after
    this script has run.
 
-   The button sits bottom-left, away from the corner nav pills, and is
-   deliberately small: it is the one control that must never be hidden by
-   the thing it hides.
+   There are two buttons, and the second one is the important one.
+
+   The first sits bottom-left, away from the corner nav pills, and is
+   deliberately small: it is the one control that must never be hidden by the
+   thing it hides, so it lives outside the bars and stays put.
+
+   That was the whole feature at first, and it was not enough. Someone who
+   wants the top menu gone looks at the top menu for the way to close it -
+   not at the far bottom corner of the screen. So the second button is a pill
+   INSIDE the top bar, reading '✕ Hide menu', in among that bar's own
+   controls. It disappears along with the bar it closes, which is correct:
+   at that point the bottom-left button is the way back, and it now says
+   '☰ Show menu' in the same place it always was.
+
+   It also stops the bars being see-through. They were built at alpha .96
+   and .98, which sounds opaque and is not: the page slides underneath and
+   leaves ghost text lying across the buttons. Two percent of white on a
+   near-black bar is faint on a small screen and perfectly legible on a large
+   one at large type, which is exactly how Caroline reads. Each bar is
+   repainted in the colour it ALREADY appears to be - its own colour
+   composited over the page background - so nothing changes except that you
+   can no longer see through it. Bars under about eighty per cent alpha are
+   left alone: at that point the translucency is deliberate, not a near miss.
 */
 (function () {
   'use strict';
@@ -29,16 +49,84 @@
 
   function stuck() {
     var out = [];
+    var vh = window.innerHeight || document.documentElement.clientHeight;
     [].forEach.call(document.querySelectorAll('body *'), function (el) {
       if (el.id === 'absnHideBtn') return;
       var s = window.getComputedStyle(el);
       if (s.position !== 'sticky' && s.position !== 'fixed') return;
-      if (el.getBoundingClientRect().height < MIN_HEIGHT) return;
+      if (s.visibility === 'hidden' || s.display === 'none' || +s.opacity === 0) return;
+      var r = el.getBoundingClientRect();
+      if (r.height < MIN_HEIGHT) return;
+      /* Skip-to-content links are fixed, full height, and parked off the top
+         of the screen until they are focused - .ple-module-skip sits at -108.
+         They are not toolbars, they are not in her way, and hiding one takes
+         away the keyboard shortcut into the page. Anything not actually on
+         screen is not a bar. */
+      if (r.bottom <= 0 || r.top >= vh || r.right <= 0 || r.left >= window.innerWidth) return;
       /* a stuck element inside another stuck element is already covered */
       for (var i = 0; i < out.length; i++) if (out[i].contains(el)) return;
       out.push(el);
     });
     return out;
+  }
+
+  /* 'rgba(4, 8, 24, 0.96)' -> [4,8,24,0.96]; anything else -> null */
+  function rgba(v) {
+    var m = /^rgba?\(([^)]+)\)$/.exec(v || '');
+    if (!m) return null;
+    var n = m[1].split(',').map(function (x) { return parseFloat(x); });
+    if (n.length < 3 || n.some(isNaN)) return null;
+    return [n[0], n[1], n[2], n.length > 3 ? n[3] : 1];
+  }
+
+  /* whatever is actually behind the bars */
+  function pageBg() {
+    var el = document.body, c;
+    while (el) {
+      c = rgba(window.getComputedStyle(el).backgroundColor);
+      if (c && c[3] > 0) return c;
+      el = el.parentElement;
+    }
+    return [0, 0, 0, 1];
+  }
+
+  /* Everything worth repainting. Deliberately NOT the same list as stuck():
+     the slide-out quiz drawer is parked off the left edge and so is not a bar
+     in anyone's way, but the moment it slides open the page shows straight
+     through it. Painting it now costs nothing and saves that. */
+  function paintable() {
+    var out = [];
+    [].forEach.call(document.querySelectorAll('body *'), function (el) {
+      if (el.id === 'absnHideBtn') return;
+      var s = window.getComputedStyle(el);
+      if (s.position !== 'sticky' && s.position !== 'fixed') return;
+      if (s.visibility === 'hidden' || s.display === 'none') return;
+      if (el.getBoundingClientRect().height < MIN_HEIGHT) return;
+      out.push(el);
+    });
+    return out;
+  }
+
+  /* Repaint a translucent bar as the flat colour it already looks like.
+     src over dst, which is what the browser was drawing anyway - so this is
+     the same pixel, minus the page showing through it. */
+  function solidify(bars) {
+    var bg = pageBg();
+    bars.forEach(function (el) {
+      if (el.getAttribute('data-absn-solid')) return;
+      var c = rgba(window.getComputedStyle(el).backgroundColor);
+      if (!c || c[3] >= 1 || c[3] <= 0) return;   /* already solid, or no fill */
+      /* Below about eighty per cent the see-through is the point - a scrim
+         behind the corner pills is meant to let the page show. Only the bars
+         that were TRYING to be opaque and missed get repainted. */
+      if (c[3] < 0.8) return;
+      var a = c[3];
+      var mix = [0, 1, 2].map(function (i) {
+        return Math.round(c[i] * a + bg[i] * (1 - a));
+      });
+      el.setAttribute('data-absn-solid', '1');
+      el.style.backgroundColor = 'rgb(' + mix.join(',') + ')';
+    });
   }
 
   function style() {
@@ -54,7 +142,16 @@
       ' background:linear-gradient(135deg,#5a2d82,#9d5cff)}' +
       '#absnHideBtn:hover{filter:brightness(1.15)}' +
       '#absnHideBtn:focus-visible{outline:3px solid #ffd76a;outline-offset:3px}' +
-      '@media print{#absnHideBtn{display:none}}';
+      /* the same pill again, but living inside the bar it closes */
+      '.absnHideInBar{font:900 .86rem/1 "Segoe UI",system-ui,sans-serif;' +
+      ' padding:9px 13px;border-radius:999px;cursor:pointer;color:#fff;' +
+      ' white-space:nowrap;align-self:center;position:relative;z-index:2;' +
+      ' margin:0 8px 0 0;' +
+      ' border:1px solid rgba(255,255,255,.42);' +
+      ' background:linear-gradient(135deg,#8a1d4e,#e0356f)}' +
+      '.absnHideInBar:hover{filter:brightness(1.15)}' +
+      '.absnHideInBar:focus-visible{outline:3px solid #ffd76a;outline-offset:3px}' +
+      '@media print{#absnHideBtn,.absnHideInBar{display:none}}';
     document.head.appendChild(s);
   }
 
@@ -89,9 +186,11 @@
   }
 
   function go() {
+    style();                                  /* the pill styles, always */
+    solidify(paintable());                    /* safe to run again; it marks its own */
+    var bars = stuck();
     if (document.getElementById('absnHideBtn')) return;
-    if (!stuck().length) return;              /* nothing to hide on this page */
-    style();
+    if (!bars.length) return;                 /* nothing to hide on this page */
 
     var btn = document.createElement('button');
     btn.type = 'button';
@@ -104,14 +203,34 @@
       btn.title = off ? 'Bring the toolbars back' : 'Fold the toolbars away';
     }
 
-    btn.addEventListener('click', function () {
+    function toggle() {
       off = !off;
       apply(off);
       write(off);
       paint();
-    });
+    }
 
+    btn.addEventListener('click', toggle);
     document.body.appendChild(btn);
+
+    /* and one in the top bar itself, which is where someone looks for it.
+       The topmost bar on the page, by where it actually sits, not by the
+       order the scripts happened to inject them in. */
+    var top = bars.slice().sort(function (a, b) {
+      return a.getBoundingClientRect().top - b.getBoundingClientRect().top;
+    })[0];
+    if (top && !top.querySelector('.absnHideInBar')) {
+      var inbar = document.createElement('button');
+      inbar.type = 'button';
+      inbar.className = 'absnHideInBar';
+      inbar.textContent = '\u2715 Hide menu';
+      inbar.title = 'Fold the toolbars away';
+      inbar.addEventListener('click', toggle);
+      /* First in the bar, not last. The corner nav pills are fixed to the top
+         RIGHT and float above everything, so a button at the right-hand end of
+         a bar sits underneath them and cannot be clicked at all. */
+      top.insertBefore(inbar, top.firstChild);
+    }
 
     if (read()) { off = true; apply(true); }
     paint();
@@ -124,5 +243,9 @@
   } else {
     boot();
   }
-  window.addEventListener('load', function () { setTimeout(go, 120); });
+  window.addEventListener('load', function () {
+    setTimeout(go, 120);
+    /* the deferred scripts add their own bars well after load */
+    setTimeout(function () { solidify(paintable()); }, 700);
+  });
 })();

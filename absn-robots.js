@@ -17,8 +17,30 @@
    under her while she reads. Random would have been easier and worse.
 
    Some robots are pinned to a meaning rather than left to the rotation:
-   the alert buddy guards warnings, the celebration buddy waits at the end of
-   a quiz, and the two abductees only turn up when a search found nothing.
+
+     alert buddy       guards a card carrying a warning
+     celebration buddy waits at the end of a quiz that went well
+     the abductees     turn up on a wrong answer, on a quiz under sixty per
+                       cent, and when a search finds nothing - Caroline's idea,
+                       and a good one: getting it wrong should feel like the
+                       robot is having a worse time than she is, not like the
+                       site is disappointed in her.
+     the confetti one  turns up on a RIGHT answer, so the pair is symmetrical.
+                       A wrong answer being the only one that got a picture
+                       would have been a strange thing to build.
+
+   The twelve animated SVG peekers are the second pack. They blink, bob and
+   wave on their own - each file carries its own animation CSS and its own
+   prefers-reduced-motion rule - and they cost about 4.5 KB each against the
+   PNGs' fifty. They take the top of the page, which had no robot at all.
+
+   They are loaded as <img src>, never inlined, and that is not a style
+   preference. All twelve declare the SAME element ids (#copper, #brass,
+   #screen, #shadow) and the same class names (.bot, .eye, .lamp). Two of
+   them inlined in one document and every gradient reference resolves to
+   whichever loaded last - and their <style> block would reach out and animate
+   any .card or .eye the page itself owns. An <img> is its own document, so
+   none of that can happen.
 */
 (function () {
   'use strict';
@@ -50,6 +72,25 @@
     { f: '17-number-five-ish-scrapyard-buddy.png',    a: 'curious',   pose: 'stand' }
   ];
 
+  /* The animated peekers. Head-and-hands by design: they are drawn to be
+     cropped by the top edge of a card, so that is where they go. */
+  var PEEK = [
+    'svg/01-awesomeo-happy-peeker.svg',
+    'svg/02-awesomeo-curious-peeker.svg',
+    'svg/03-awesomeo-sleepy-peeker.svg',
+    'svg/04-awesomeo-heart-peeker.svg',
+    'svg/05-awesomeo-alert-peeker.svg',
+    'svg/06-awesomeo-reader-peeker.svg',
+    'svg/07-awesomeo-cowboy-peeker.svg',
+    'svg/08-awesomeo-metal-peeker.svg',
+    'svg/09-awesomeo-ufo-peeker.svg',
+    'svg/10-awesomeo-nurse-peeker.svg',
+    'svg/11-awesomeo-confetti-peeker.svg',
+    'svg/12-awesomeo-night-sky-peeker.svg'
+  ];
+
+  var CONFETTI = 'svg/11-awesomeo-confetti-peeker.svg';
+
   var PINNED = {
     alert:     { f: '08-rustic-safety-alert-buddy.png',  a: 'alert',     pose: 'stand' },
     celebrate: { f: '04-glossy-celebration-buddy.png',   a: 'celebrate', pose: 'stand' },
@@ -59,11 +100,14 @@
 
   /* a small stable hash of the path, so the same page always gets the same
      buddy and neighbouring pages get different ones */
-  function pick() {
+  function hash() {
     var s = location.pathname, h = 0;
     for (var i = 0; i < s.length; i++) h = ((h << 5) - h + s.charCodeAt(i)) | 0;
-    return CAST[Math.abs(h) % CAST.length];
+    return Math.abs(h);
   }
+  function pick()     { return CAST[hash() % CAST.length]; }
+  /* offset so a page does not get the glossy PNG and the SVG of the same mood */
+  function pickPeek() { return PEEK[(hash() + 5) % PEEK.length]; }
 
   function css() {
     if (document.getElementById('absnRobotCss')) return;
@@ -91,6 +135,17 @@
       ' filter:drop-shadow(0 6px 6px rgba(0,0,0,.4))}' +
       '.absn-robot-big{width:clamp(90px,20vw,150px);margin:6px auto 2px;' +
       ' filter:drop-shadow(0 8px 8px rgba(0,0,0,.45))}' +
+      /* The animated peeker, in the top corner of a card.
+         It is drawn as head-and-hands to hang OVER a card's top edge, and that
+         was the first version - but every card on this site sits in a grid with
+         a fourteen pixel gap above it, so an overhang had nothing to hang into
+         and would have crossed the line above. It floats instead: the card's
+         own text wraps around it, which cannot overlap anything, on any of the
+         four hundred and seventy-seven pages. */
+      '.absn-robot-svg{float:right;width:clamp(84px,14vw,132px);' +
+      ' margin:-2px -4px 4px 12px;' +
+      ' filter:drop-shadow(0 7px 7px rgba(0,0,0,.42))}' +
+      '@media (max-width:560px){.absn-robot-svg{width:clamp(76px,22vw,104px)}}' +
       /* the Watch block text must not run under a standing robot */
       '.absn-watch.has-robot h2,.absn-watch.has-robot .wsub{padding-right:104px}' +
       '@media (max-width:560px){.absn-watch.has-robot h2,' +
@@ -112,6 +167,20 @@
     return a;
   }
 
+  /* The SVGs animate themselves, so they get no robot-anim-- class: adding
+     one would run the pack's bob on top of the file's own bob. */
+  function svgImg(file, cls) {
+    var a = document.createElement('img');
+    a.className = 'absn-robot ' + cls;
+    a.src = BASE + file;
+    a.alt = '';
+    a.setAttribute('aria-hidden', 'true');
+    a.loading = 'lazy';
+    a.decoding = 'async';
+    a.onerror = function () { if (a.parentNode) a.parentNode.removeChild(a); };
+    return a;
+  }
+
   function place(host, spec, cls, needsFrame) {
     if (!host || host.querySelector('.absn-robot')) return;
     if (needsFrame && window.getComputedStyle(host).position === 'static') {
@@ -120,8 +189,48 @@
     host.insertBefore(img(spec, cls), host.firstChild);
   }
 
+  /* The quizzes mark a wrong answer differently in each engine - a cross,
+     "Not this time", "Not quite" - so read all three rather than pick one. */
+  function verdict(rat) {
+    var v = rat.parentNode && rat.parentNode.querySelector('.verdict');
+    if (v && v.classList) {
+      if (v.classList.contains('no')) return 'no';
+      if (v.classList.contains('ok')) return 'ok';
+    }
+    /* the game lab paints words rather than a class */
+    var t = (rat.textContent || '') + ' ' + (v ? v.textContent : '');
+    if (/\u2717|not this|not quite/i.test(t)) return 'no';
+    if (/\u2713|nice|correct|exactly/i.test(t)) return 'ok';
+    return '';
+  }
+
+  /* "You answered 4 of 10 correctly" - under sixty per cent and the
+     celebration would feel like a wind-up, so the abductee turns up instead.
+     No score in the panel means no judgement: celebrate. */
+  function roughOne(done) {
+    var m = (done.textContent || '').match(/(\d+)\s*(?:of|\/)\s*(\d+)/);
+    if (!m) return false;
+    var got = parseInt(m[1], 10), all = parseInt(m[2], 10);
+    if (!all) return false;
+    return (got / all) < 0.6;
+  }
+
+  /* The first card worth leaning on: big enough that a robot on it reads as
+     decoration rather than as furniture. */
+  function firstCard() {
+    var all = document.querySelectorAll('.card, .mcard');
+    for (var i = 0; i < all.length; i++) {
+      var r = all[i].getBoundingClientRect();
+      if (r.width >= 250 && r.height >= 95 && !all[i].querySelector('.absn-robot')) {
+        return all[i];
+      }
+    }
+    return null;
+  }
+
   function go() {
     var did = false;
+
 
     /* 1. the Watch block - this page's own buddy, whoever that is */
     var watch = document.querySelector('.absn-watch');
@@ -150,21 +259,50 @@
       did = true;
     }
 
-    /* 4. the end of a quiz */
+    /* 4. the end of a quiz - who greets her depends on how it went */
     var done = document.querySelector('.done');
     if (done && !done.querySelector('.absn-robot')) {
       css();
-      place(done, PINNED.celebrate, 'absn-robot-big', false);
+      place(done, roughOne(done) ? PINNED.abducted : PINNED.celebrate,
+            'absn-robot-big', false);
       did = true;
     }
 
-    /* 5. a search that found nothing - the robot has been abducted */
+    /* 5. the answer - abducted for a wrong one, confetti for a right one.
+          Both, so that a picture is not by itself the bad news. */
+    [].forEach.call(document.querySelectorAll('.rat.show, #csRat.show'), function (rat) {
+      if (rat.querySelector('.absn-robot')) return;
+      var v = verdict(rat);
+      if (v === 'no') {
+        css();
+        rat.insertBefore(img(PINNED.cow, 'absn-robot-side'), rat.firstChild);
+        did = true;
+      } else if (v === 'ok') {
+        css();
+        rat.insertBefore(svgImg(CONFETTI, 'absn-robot-svg'), rat.firstChild);
+        did = true;
+      }
+    });
+
+    /* 6. a search that found nothing */
     var empty = document.querySelector('.empty');
     if (empty && empty.offsetParent !== null && !empty.querySelector('.absn-robot')) {
       css();
-      place(empty, /nothing matches/i.test(empty.textContent) ? PINNED.abducted : PINNED.cow,
-            'absn-robot-big', false);
+      place(empty, PINNED.abducted, 'absn-robot-big', false);
       did = true;
+    }
+
+    /* 7. an animated peeker leaning on a card, LAST so the pinned robots have
+          already taken theirs - firstCard() skips any card that has one, so a
+          module page keeps its study coach and a warning card keeps its
+          alert buddy instead of being quietly evicted. */
+    if (!document.querySelector('.absn-robot-svg')) {
+      var lean = firstCard();
+      if (lean) {
+        css();
+        lean.insertBefore(svgImg(pickPeek(), 'absn-robot-svg'), lean.firstChild);
+        did = true;
+      }
     }
 
     return did;
