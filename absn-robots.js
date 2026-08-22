@@ -233,7 +233,7 @@
       '#absnMotionBtn{font:900 .86rem/1 "Segoe UI",system-ui,sans-serif;' +
       ' padding:10px 13px;border-radius:999px;cursor:pointer;color:#fff;' +
       ' white-space:nowrap;border:1px solid rgba(255,255,255,.36);' +
-      ' background:linear-gradient(135deg,#0f7d6b,#12b886);' +
+      ' background:linear-gradient(135deg,#0b6656,#0f7d6b);' +
       ' box-shadow:0 4px 14px rgba(0,0,0,.5)}' +
       '#absnMotionBtn:hover{filter:brightness(1.14)}' +
       '#absnMotionBtn:focus-visible{outline:3px solid #ffd76a;outline-offset:3px}' +

@@ -202,8 +202,8 @@
       ' font:900 .95rem/1.2 "Segoe UI",system-ui,sans-serif;color:#fff;' +
       ' padding:12px 14px;border-radius:13px;' +
       ' border:1px solid rgba(255,255,255,.34);' +
-      ' background:linear-gradient(135deg,#0f7d6b,#12b886)}' +
-      '#absnDrawerHome a.course{background:linear-gradient(135deg,#5a2d82,#9d5cff)}' +
+      ' background:linear-gradient(135deg,#0b6656,#0f7d6b)}' +
+      '#absnDrawerHome a.course{background:linear-gradient(135deg,#52277d,#7c3aed)}' +
       '#absnDrawerHome a:hover{filter:brightness(1.14)}' +
       '#absnDrawerHome a:focus-visible{outline:3px solid #ffd76a;outline-offset:3px}' +
       /* the launcher, bottom left, away from the corner nav pills */
@@ -213,7 +213,7 @@
       ' border-radius:999px;cursor:pointer;color:#fff;white-space:nowrap;' +
       ' border:1px solid rgba(255,255,255,.42);' +
       ' box-shadow:0 5px 18px rgba(0,0,0,.6);' +
-      ' background:linear-gradient(135deg,#5a2d82,#9d5cff)}' +
+      ' background:linear-gradient(135deg,#52277d,#7c3aed)}' +
       '#absnDrawerBtn:hover{filter:brightness(1.15)}' +
       '#absnDrawerBtn:focus-visible{outline:3px solid #ffd76a;outline-offset:3px}' +
       '@media print{#absnDrawer,#absnDrawerBtn{display:none}}';
