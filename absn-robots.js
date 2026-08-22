@@ -181,18 +181,36 @@
       '@media (max-width:560px){.absn-robot-svg{width:clamp(76px,22vw,104px)}}' +
       /* the small decorative ones: a badge in the corner of a block. Absolute,
          so none of them can push a single line of text anywhere. */
+      /* aspect-ratio so the badge has a box the moment it is inserted. These
+         load lazily, and without it getBoundingClientRect returns 0x0 until
+         the image arrives - so the overlap check measured nothing, passed
+         everything, and the robot appeared on a word a second later. */
       '.absn-robot-badge{position:absolute;right:9px;top:8px;' +
-      ' width:clamp(38px,5.5vw,58px);z-index:3;pointer-events:none;' +
-      ' filter:drop-shadow(0 4px 5px rgba(0,0,0,.45))}' +
-      '.absn-robot-tiny{width:clamp(30px,4vw,42px);vertical-align:-.35em;' +
-      ' margin:0 0 0 8px;display:inline-block;' +
+      ' width:clamp(38px,5.5vw,58px);aspect-ratio:1/1.08;z-index:3;' +
+      ' pointer-events:none;filter:drop-shadow(0 4px 5px rgba(0,0,0,.45))}' +
+      '.absn-robot-tiny{width:clamp(30px,4vw,42px);aspect-ratio:1/1.08;' +
+      ' flex:0 0 auto;vertical-align:-.35em;' +
+      ' margin:0 0 0 10px;display:inline-block;' +
       ' filter:drop-shadow(0 3px 4px rgba(0,0,0,.45))}' +
       '@media (max-width:560px){.absn-robot-badge{width:34px;right:6px;top:6px}}' +
       /* the Watch block text must not run under a standing robot */
       '.absn-watch.has-robot h2,.absn-watch.has-robot .wsub{padding-right:104px}' +
       '@media (max-width:560px){.absn-watch.has-robot h2,' +
       ' .absn-watch.has-robot .wsub{padding-right:72px}}' +
-      '@media print{.absn-robot{display:none}}';
+      /* Three states, set on <html> so they reach the SVGs too. */
+      'html.absn-robots-still .absn-robot,' +
+      'html.absn-robots-still .robot-buddy{animation:none!important;' +
+      ' transition:none!important}' +
+      'html.absn-robots-off .absn-robot{display:none!important}' +
+      '#absnMotionBtn{font:900 .86rem/1 "Segoe UI",system-ui,sans-serif;' +
+      ' padding:10px 13px;border-radius:999px;cursor:pointer;color:#fff;' +
+      ' white-space:nowrap;border:1px solid rgba(255,255,255,.36);' +
+      ' background:linear-gradient(135deg,#0f7d6b,#12b886);' +
+      ' box-shadow:0 4px 14px rgba(0,0,0,.5)}' +
+      '#absnMotionBtn:hover{filter:brightness(1.14)}' +
+      '#absnMotionBtn:focus-visible{outline:3px solid #ffd76a;outline-offset:3px}' +
+      '#absnMotionWrap{position:fixed;left:10px;bottom:58px;z-index:99992}' +
+      '@media print{.absn-robot,#absnMotionWrap{display:none}}';
     document.head.appendChild(s);
   }
 
@@ -270,8 +288,64 @@
     return null;
   }
 
+  /* "How do you stop the animation?" - you could not, and that was an
+     oversight. Each SVG honours prefers-reduced-motion, but that is an
+     operating-system setting; someone who wants the robots to hold still on
+     this page today has no way to say so.
+
+     Three states, because "off" is a blunt answer to a question that is
+     usually about movement rather than about robots:
+
+        moving  - as drawn
+        still   - they stay, nothing animates
+        hidden  - gone entirely
+
+     The choice is remembered, and it is applied before anything is placed so
+     there is never a frame of movement first. */
+  var MOTION_KEY = 'absn-robot-motion';
+  var MOTION = ['moving', 'still', 'hidden'];
+
+  function motionRead() {
+    try { var v = localStorage.getItem(MOTION_KEY);
+          return MOTION.indexOf(v) > -1 ? v : 'moving'; } catch (e) { return 'moving'; }
+  }
+  function motionApply(v) {
+    var h = document.documentElement;
+    h.classList.toggle('absn-robots-still', v === 'still');
+    h.classList.toggle('absn-robots-off',   v === 'hidden');
+  }
+  function motionButton() {
+    if (document.getElementById('absnMotionBtn')) return;
+    if (!document.querySelector('.absn-robot')) return;   /* nothing to control */
+    css();
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.id = 'absnMotionBtn';
+    function paint() {
+      var v = motionRead();
+      b.textContent = v === 'moving' ? '\uD83E\uDD16 Robots: moving'
+                    : v === 'still'  ? '\uD83E\uDD16 Robots: still'
+                                     : '\uD83E\uDD16 Robots: hidden';
+      b.title = 'Switch between moving, still and hidden';
+    }
+    b.addEventListener('click', function () {
+      var v = MOTION[(MOTION.indexOf(motionRead()) + 1) % MOTION.length];
+      try { localStorage.setItem(MOTION_KEY, v); } catch (e) {}
+      motionApply(v); paint();
+    });
+    paint();
+    /* in the drawer if there is one, so it sits with the other page controls */
+    var drawer = document.getElementById('absnDrawer');
+    if (drawer) { drawer.appendChild(b); return; }
+    var wrap = document.createElement('div');
+    wrap.id = 'absnMotionWrap';
+    wrap.appendChild(b);
+    document.body.appendChild(wrap);
+  }
+
   function go() {
     var did = false;
+    motionApply(motionRead());
 
 
     /* 1. the Watch block - this page's own buddy, whoever that is */
@@ -356,29 +430,93 @@
        is walked in order rather than picked at random, so a page shows
        many DIFFERENT robots instead of the same one twenty times.
        ------------------------------------------------------------------ */
-    /* A budget, because "as many as possible" has a ceiling that is not the
-       number of blocks on the page. nur258.html holds all fourteen modules
-       inline, and an uncapped sprinkle put 455 robots on it - every one a
-       separate image to fetch as she scrolls. Sixty is still a robot every
-       time she looks up, and it is a page that loads. */
-    var MAX = 60;
-    var placed = document.querySelectorAll('.absn-robot').length;
+    /* Caroline asked for as many robots as possible, then said it was too
+       many at once, then said what she actually meant: "just use them for
+       emphasis and as a surprise sometimes."
+
+       That is not the same instruction as "fewer". One on every card is not a
+       surprise, it is wallpaper, and at that point it stops meaning anything.
+       So: THREE decorative robots per page, and not the first three - they
+       are spread by a stride taken from the path, so which blocks get one
+       changes from page to page and there is no predicting where the next
+       one turns up.
+
+       The robots that carry MEANING are placed above and are not counted
+       against the three: the Watch buddy, the study coach, the alert buddy on
+       a warning card, the celebration at the end of a good quiz, the abductee
+       at the end of a bad one. Those are the emphasis. These three are the
+       surprise. */
+    var MAX = 3;
     var n = 0;
     function next() { return CAST[(hash() + (n++)) % CAST.length]; }
-    function room() { return placed < MAX; }
+    /* Count the decorative robots actually in the document, every time.
+       A local counter looked right and was not: go() runs again on load and
+       on every click, each run started its own tally, and a page that should
+       have had three finished with seven. The DOM is the only counter that
+       survives the function being called twice. */
+    function room() {
+      return document.querySelectorAll('.absn-robot-badge, .absn-robot-tiny').length < MAX;
+    }
+
+    /* Does this badge sit on any painted text? Element boxes are useless for
+       this - a card's box spans the full width whether or not the text under
+       the corner reaches that far. Range rects give the boxes the browser
+       actually painted, so they answer the real question.
+
+       Anything that fails goes straight back out. Guessing which corners are
+       free was the whole mistake; this asks. */
+    function coversText(el) {
+      var q = el.getBoundingClientRect();
+      if (!q.width || !q.height) return false;
+      var walk = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+      var t, i, rects, r;
+      while ((t = walk.nextNode())) {
+        if (!t.nodeValue || !t.nodeValue.trim()) continue;
+        if (el === t.parentNode || el.contains(t.parentNode)) continue;
+        rects = document.createRange();
+        rects.selectNodeContents(t);
+        var list = rects.getClientRects();
+        for (i = 0; i < list.length; i++) {
+          r = list[i];
+          if (Math.min(q.right, r.right) - Math.max(q.left, r.left) > 4 &&
+              Math.min(q.bottom, r.bottom) - Math.max(q.top, r.top) > 4) return true;
+        }
+      }
+      return false;
+    }
+
+    /* place it, then check it, and take it away again if it landed on a word */
+    function keepIfClear(host, el) {
+      if (coversText(el)) { host.removeChild(el); return false; }
+      /* and again once it has actually painted, in case the box moved */
+      el.addEventListener('load', function () {
+        if (el.parentNode && coversText(el)) el.parentNode.removeChild(el);
+      });
+      return true;
+    }
+
+    /* Spread the few we place across everything eligible, rather than
+       filling up on the first blocks at the top of the page. */
+    function scatter(list) {
+      var out = [], i;
+      if (!list.length) return out;
+      var step = Math.max(1, Math.floor(list.length / MAX));
+      for (i = hash() % step; i < list.length; i += step) out.push(list[i]);
+      return out;
+    }
 
     function sprinkle(sel, cls, frame) {
-      [].forEach.call(document.querySelectorAll(sel), function (el) {
+      scatter([].slice.call(document.querySelectorAll(sel))).forEach(function (el) {
         if (!room()) return;
         if (el.querySelector('.absn-robot')) return;
         if (!el.getBoundingClientRect().height) return;   /* collapsed section */
-        placed++;
         css();
         if (frame && window.getComputedStyle(el).position === 'static') {
           el.style.position = 'relative';
         }
-        el.insertBefore(img(next(), cls), el.firstChild);
-        did = true;
+        var rb = img(next(), cls);
+        el.insertBefore(rb, el.firstChild);
+        if (keepIfClear(el, rb)) did = true;
       });
     }
 
@@ -387,42 +525,39 @@
     sprinkle('.altpl', 'absn-robot-badge', true);
     sprinkle('.slot.filled[data-slot="info"]', 'absn-robot-badge', true);
 
-    /* 9. the module cards on a course hub - this is the page she opens most */
-    sprinkle('.modcard', 'absn-robot-badge', true);
+    /* 9 and 10. the module cards and the exam band headings.
 
-    /* 10. the exam band headings */
-    sprinkle('.exhead', 'absn-robot-badge', true);
-
-    /* 11. the tiles on the study hub itself */
-    sprinkle('.tile', 'absn-robot-badge', true);
-
-    /* 12. the study cards on a module page - the biggest surface on the site.
-           Only the wide ones: a badge on a narrow card would crowd the text
-           it is sitting next to. */
-    [].forEach.call(document.querySelectorAll('.vcard, .mcard, .card'), function (el) {
-      if (!room()) return;
-      if (el.querySelector('.absn-robot')) return;
-      var r = el.getBoundingClientRect();
-      if (r.width < 380 || r.height < 150) return;
-      placed++;
-      css();
-      if (window.getComputedStyle(el).position === 'static') el.style.position = 'relative';
-      el.insertBefore(img(next(), 'absn-robot-badge'), el.firstChild);
-      did = true;
-    });
-
-    /* 13. each collapsible chunk's own heading gets a tiny one inline */
-    [].forEach.call(document.querySelectorAll('details.mod > summary, details.chunk > summary'),
-      function (el) {
+       These are flex ROWS and both already put something in the right-hand
+       corner - the week range on a band heading, the arrow on a module card.
+       The first version dropped an absolutely positioned badge there and it
+       landed straight on top of both: "Weeks 1-2" with a robot over the
+       numbers. Appended as a flex CHILD instead, so the row makes room for it
+       and nothing is covered. */
+    function tack(sel) {
+      scatter([].slice.call(document.querySelectorAll(sel))).forEach(function (el) {
         if (!room()) return;
         if (el.querySelector('.absn-robot')) return;
         if (!el.getBoundingClientRect().height) return;
-        placed++;
         css();
-        el.appendChild(img(next(), 'absn-robot-tiny'));
-        did = true;
+        var rb = img(next(), 'absn-robot-tiny');
+        el.appendChild(rb);
+        if (keepIfClear(el, rb)) did = true;
       });
+    }
+    tack('.modcard');
+    tack('.exhead');
 
+    /* Study cards, hub tiles and collapsible headings USED to get one each.
+       They are gone, and the reason is worth keeping: a card's top-right
+       corner is not empty space. It holds the end of a heading, a badge, a
+       count, an arrow. Measuring with element boxes said that was fine;
+       measuring the actual painted text with Range rects found 28 places
+       across the site where a robot sat on a word. The corner only looks free.
+
+       What is left are blocks that genuinely have an empty corner, plus the
+       flex rows where the robot is a child and pushes nothing. */
+
+    motionButton();
     return did;
   }
 
