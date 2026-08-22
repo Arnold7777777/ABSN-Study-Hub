@@ -95,8 +95,26 @@
        wrote down would be a guess. A search built from the page's own topic
        is correct by construction and cannot rot. */
     channel: 'Last Minute Lectures',
-    url:     ''          /* set this to pin a real link */
+    url:     ''          /* set this to pin ONE link for the whole site */
   };
+
+  /* Per-module textbook videos Caroline has given me by URL.
+
+     A pinned link beats the search, but only where she has actually supplied
+     one - I cannot open YouTube from this machine, so every entry here has to
+     come from her, never from me guessing an id. A page can also pin its own
+     with <meta name="absn-textbook" content="..."> and that wins over this map. */
+  var PINNED = {
+    'nur258-module-01-sensory-eye-ear.html':
+      'https://www.youtube.com/watch?v=kgm8cRZyoPE&list=PLI3TocC2xS27gxhDgf56_DuOpaL4zRjMh&index=58'
+  };
+
+  function pinnedBook() {
+    var m = document.querySelector('meta[name="absn-textbook"]');
+    if (m && m.content) return m.content;
+    var f = (location.pathname.split('/').pop() || '').toLowerCase();
+    return PINNED[f] || '';
+  }
 
   /* This used to be restricted to med-surg pages, because the button named
      the med-surg textbook and putting that on a newborn page was the original
@@ -146,7 +164,7 @@
     var q = BOOK.channel + ' ' + (c.book || c.subject) + ' ' + topic();
     return [{
       label: BOOK.label,
-      url: BOOK.url ||
+      url: pinnedBook() || BOOK.url ||
            ('https://www.youtube.com/results?search_query=' + encodeURIComponent(q))
     }];
   }
