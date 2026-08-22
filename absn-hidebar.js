@@ -213,23 +213,43 @@
     btn.addEventListener('click', toggle);
     document.body.appendChild(btn);
 
-    /* and one in the top bar itself, which is where someone looks for it.
-       The topmost bar on the page, by where it actually sits, not by the
-       order the scripts happened to inject them in. */
-    var top = bars.slice().sort(function (a, b) {
+    /* And one in the top bar itself, which is where someone looks for it.
+       Bars in the order they actually sit on the screen, not the order the
+       scripts happened to inject them in. */
+    var byTop = bars.slice().sort(function (a, b) {
       return a.getBoundingClientRect().top - b.getBoundingClientRect().top;
-    })[0];
-    if (top && !top.querySelector('.absnHideInBar')) {
+    });
+
+    if (!document.querySelector('.absnHideInBar')) {
       var inbar = document.createElement('button');
       inbar.type = 'button';
       inbar.className = 'absnHideInBar';
       inbar.textContent = '\u2715 Hide menu';
       inbar.title = 'Fold the toolbars away';
       inbar.addEventListener('click', toggle);
-      /* First in the bar, not last. The corner nav pills are fixed to the top
-         RIGHT and float above everything, so a button at the right-hand end of
-         a bar sits underneath them and cannot be clicked at all. */
-      top.insertBefore(inbar, top.firstChild);
+
+      /* Try each bar from the top down and keep the first one where the button
+         can actually be clicked.
+
+         A button that is present, visible and covered is worse than no button
+         at all - she presses it, nothing happens, and the feature looks broken.
+         That is not hypothetical: at the right-hand end of a bar it landed
+         under the corner nav pills, which are fixed and float above
+         everything, and on the section index pages a <header> covers the top
+         bar outright. Rather than keep a list of which layout does what, ask
+         the browser what is on top and move on if the answer is not us.
+
+         First in the bar rather than last, for the same reason. */
+      for (var i = 0; i < byTop.length; i++) {
+        byTop[i].insertBefore(inbar, byTop[i].firstChild);
+        var r = inbar.getBoundingClientRect();
+        var hit = r.width && r.height &&
+          document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+        if (hit && (hit === inbar || inbar.contains(hit))) break;
+        inbar.parentNode.removeChild(inbar);   /* covered - try the next bar */
+      }
+      /* Every bar covered: leave it out. The bottom-left button still works,
+         and it is never underneath anything. */
     }
 
     if (read()) { off = true; apply(true); }
