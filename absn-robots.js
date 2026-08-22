@@ -102,6 +102,7 @@
      celebration. Both are pools rather than single images, because the same
      picture a hundred and sixty-five times stops being a joke either way. */
   var WRONG = [
+    { f: '40-broly-inspired-base-try-again.png',           a: 'power', pose: 'stand' },
     { f: '11-rustic-broly-inspired-cosplay.png',           a: 'power', pose: 'stand' },
     { f: '18-rustic-robot-alien-abduction.png',            a: 'ufo',   pose: 'stand' },
     { f: '19-cow-robot-alien-abduction.png',               a: 'ufo',   pose: 'stand' },
@@ -115,17 +116,45 @@
      logic is hers and it is good: the robot having a bad time is what marks
      the thing that will go badly. */
   var WARN = [
-    { f: '11-rustic-broly-inspired-cosplay.png',           a: 'power', pose: 'stand' },
+    { f: '41-broly-inspired-wrathful-warning.png',         a: 'power', pose: 'stand' },
     { f: '08-rustic-safety-alert-buddy.png',               a: 'alert', pose: 'stand' },
+    { f: '11-rustic-broly-inspired-cosplay.png',           a: 'power', pose: 'stand' },
     { f: '18-rustic-robot-alien-abduction.png',            a: 'ufo',   pose: 'stand' },
     { f: '28-alien-abduction-rubber-duckie-robot.png',     a: 'ufo',   pose: 'stand' }
   ];
 
+  /* A contraindication is not the same as "be careful" - it is the thing that
+     must never happen - so it gets its own, angrier pool. Named by their own
+     filenames: she asked for brolys here and these were drawn for it. */
+  var NEVER = [
+    { f: '42-broly-inspired-golden-contraindication.png',  a: 'power', pose: 'stand' },
+    { f: '43-broly-inspired-emerald-critical-mode.png',    a: 'power', pose: 'stand' },
+    { f: '19-cow-robot-alien-abduction.png',               a: 'ufo',   pose: 'stand' }
+  ];
+
   var RIGHT = [
+    { f: '44-dancing-yeehaw-cowboy-win.png',               a: 'celebrate', pose: 'stand' },
+    { f: '45-pirate-parrot-pegleg-jig-win.png',            a: 'celebrate', pose: 'stand' },
     { f: '04-glossy-celebration-buddy.png',                a: 'celebrate', pose: 'stand' },
+    { f: '46-abbath-inspired-crabwalk-achievement.png',    a: 'bob',       pose: 'stand' },
     { f: '02-glossy-nurse-buddy.png',                      a: 'wave',      pose: 'stand' },
     { f: '20-classic-yellow-rubber-duckie-robot.png',      a: 'bob',       pose: 'stand' },
     { f: '09-rustic-goku-inspired-cosplay.png',            a: 'power',     pose: 'stand' }
+  ];
+
+  /* Eight power-up modes, drawn as a ladder: base, then golden, then blue, then
+     the last one. Used where the page itself is a milestone - a finished module,
+     a cleared exam band - so the robot marks how far in she is rather than
+     repeating the same cheer. Index in, and it climbs. */
+  var LADDER = [
+    { f: '32-goku-inspired-base-mode.png',                 a: 'power', pose: 'stand' },
+    { f: '36-vegeta-inspired-base-mode.png',               a: 'power', pose: 'stand' },
+    { f: '33-goku-inspired-golden-super-mode.png',         a: 'power', pose: 'stand' },
+    { f: '37-vegeta-inspired-golden-super-mode.png',       a: 'power', pose: 'stand' },
+    { f: '34-goku-inspired-blue-divine-mode.png',          a: 'power', pose: 'stand' },
+    { f: '38-vegeta-inspired-blue-evolved-mode.png',       a: 'power', pose: 'stand' },
+    { f: '35-goku-inspired-silver-instinct-mode.png',      a: 'power', pose: 'stand' },
+    { f: '39-vegeta-inspired-purple-ego-mode.png',         a: 'power', pose: 'stand' }
   ];
 
   /* The animated peekers. Head-and-hands by design: they are drawn to be
@@ -162,6 +191,10 @@
      three rather than the same one four times by chance. */
   var wrongN = 0, rightN = 0, warnN = 0;
   function warnBot() { return WARN[warnN++ % WARN.length]; }
+  function neverBot() { return NEVER[warnN++ % NEVER.length]; }
+  /* the ladder is indexed by which module or exam this page is, so the same
+     page always shows the same rung and moving through the course moves it up */
+  function ladderBot(n) { return LADDER[Math.abs(n) % LADDER.length]; }
   function wrongBot() { return WRONG[wrongN++ % WRONG.length]; }
   function rightBot() { return RIGHT[rightN++ % RIGHT.length]; }
   /* offset so a page does not get the glossy PNG and the SVG of the same mood */
@@ -417,10 +450,26 @@
     warnHosts.slice(0, 2).forEach(function (el) {
       if (el.querySelector('.absn-robot')) return;
       css();
-      var rb = img(warnBot(), 'absn-robot-side');
+      /* a never-do rule is not the same as "take care", so it gets the pool
+         drawn for it; everything else keeps the ordinary warning pool */
+      var never = !!(el.querySelector('.vnever, .never') || /\u26D4|never/i.test(el.textContent || ''));
+      var rb = img(never ? neverBot() : warnBot(), 'absn-robot-side');
       el.insertBefore(rb, el.firstChild);
       did = true;
     });
+
+    /* 3b. the module or exam header - the power-up ladder, so the picture says
+           how far into the course this page sits rather than repeating a cheer */
+    var head = document.querySelector('.exhead, .ple-module-hero, .modhead');
+    if (head && !head.querySelector('.absn-robot')) {
+      var m = (location.pathname.match(/m(\d+)\.html?$/i) ||
+               location.pathname.match(/exam(\d+)\.html?$/i));
+      if (m) {
+        css();
+        place(head, ladderBot(parseInt(m[1], 10) - 1), 'absn-robot-side', false);
+        did = true;
+      }
+    }
 
     /* 4. the end of a quiz - who greets her depends on how it went */
     var done = document.querySelector('.done');
