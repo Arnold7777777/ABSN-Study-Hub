@@ -13,8 +13,8 @@
     if(name==='index.html') return 'index';
     if(/^m\d+\.html$/.test(name)) return 'module';
     if(/^exam\d+\.html$/.test(name)||name==='final.html') return 'exam';
-    if(/^nur(234|235|258)-m\d+\.html$/.test(name)) return 'coursemod';
-    if(/^nur(234|235|258)\.html$/.test(name)) return 'course';
+    if(/^nur(234|235|258)-m\d+\.html$/.test(name)||/^patho-m\d+\.html$/.test(name)) return 'coursemod';
+    if(/^nur(234|235|258)\.html$/.test(name)||name==='pathophysiology.html') return 'course';
     if(/-quiz\.html$/.test(name)||name==='super-mega-quiz.html'||name==='pharmacology-new.html') return 'quiz';
     if(name.indexOf('podcast')>-1) return 'podcast';
     if(name==='pharmacology.html'||name==='physiology.html') return 'guide';
