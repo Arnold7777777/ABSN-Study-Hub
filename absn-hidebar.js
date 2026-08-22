@@ -1,85 +1,115 @@
-/* absn-hidebar.js - get the toolbars out of the way.
+/* absn-hidebar.js - put the toolbars in a drawer instead of on top of the page.
 
    Module pages stack sticky bars at the top: the module nav, the text-size
    controls, the One-bite / Spotlight bar, the section jump links. At
    Caroline's text size that stack fills more than half the screen, so the
    page she came to read starts below the fold.
 
-   This adds one small button that folds all of them away and unfolds them
-   again, and remembers the choice - someone who wants the bars gone wants
-   them gone on the next page too.
+   The first version of this just hid them, and that was not enough. Two
+   things went wrong with hiding:
+
+     A bar that arrived AFTER she pressed hide stayed visible, because the
+     module scripts inject theirs late. She would press hide, the page would
+     look right, and then a purple bar would appear on its own.
+
+     Worse, a sticky bar keeps the offset it was given for the bar above it.
+     Hide the top bar and the one below it does not move up - it stays
+     pinned at the old offset, floating in the middle of the page with the
+     content scrolling underneath. That is not a bar any more, it is a
+     sticker across the middle of the screen, and it is what Caroline
+     screenshotted sitting over the Rule of Nines card.
+
+   So they are not hidden now, they are MOVED. Every full-width bar is taken
+   out of the page and put into a panel pinned off the right-hand edge. The
+   page then has no sticky bars at all, so it starts at the top and nothing
+   can float over it. One button slides the panel in when she wants the
+   controls, and out again when she does not.
 
    The bars are found by asking the browser which elements are actually
    stuck to the viewport, not by a list of class names. Three page families
    here use three different sets of names (.ple-module-bar, #adhdStudyTools,
    #navBtns, .focusbar, a bare <nav>), and a name list would miss whichever
-   family it was not written for. They are also re-found on every click,
-   because absn-focus.js and absn-adhd-enhanced.js inject their bars after
-   this script has run.
+   family it was not written for.
 
-   There are two buttons, and the second one is the important one.
+   Only full-width bars move. The small corner pills are navigation, they
+   are two taps she uses constantly, and they are not in anyone's way - so
+   they stay where they are, and they get repainted opaque instead.
 
-   The first sits bottom-left, away from the corner nav pills, and is
-   deliberately small: it is the one control that must never be hidden by the
-   thing it hides, so it lives outside the bars and stays put.
+   Moving rather than copying matters: the module scripts hold references to
+   these elements and keep updating them ("Bite 4 of 17", "Everything is
+   visible"). A copy would go stale within one click. The same node in a new
+   parent keeps every listener and every reference it had.
 
-   That was the whole feature at first, and it was not enough. Someone who
-   wants the top menu gone looks at the top menu for the way to close it -
-   not at the far bottom corner of the screen. So the second button is a pill
-   INSIDE the top bar, reading '✕ Hide menu', in among that bar's own
-   controls. It disappears along with the bar it closes, which is correct:
-   at that point the bottom-left button is the way back, and it now says
-   '☰ Show menu' in the same place it always was.
-
-   It also stops the bars being see-through. They were built at alpha .96
-   and .98, which sounds opaque and is not: the page slides underneath and
-   leaves ghost text lying across the buttons. Two percent of white on a
-   near-black bar is faint on a small screen and perfectly legible on a large
-   one at large type, which is exactly how Caroline reads. Each bar is
-   repainted in the colour it ALREADY appears to be - its own colour
-   composited over the page background - so nothing changes except that you
-   can no longer see through it. Bars under about eighty per cent alpha are
-   left alone: at that point the translucency is deliberate, not a near miss.
+   Anything still stuck to the viewport is repainted opaque. Those bars were
+   built at alpha .96 and .98, which sounds opaque and is not: the page slid
+   underneath and left ghost text lying across the buttons. Two percent of
+   white on a near-black bar is faint on a small screen and perfectly
+   legible on a large one at large type, which is exactly how Caroline
+   reads. Each one is repainted in the colour it ALREADY appears to be - its
+   own colour composited over the page background - so nothing changes
+   except that you cannot see through it. Bars under about eighty per cent
+   alpha are left alone; down there the translucency is deliberate.
 */
 (function () {
   'use strict';
 
-  var KEY = 'absn-bars-hidden';
-  var MIN_HEIGHT = 26;      /* leave the small corner pills alone */
+  var MIN_HEIGHT = 26;        /* leave the small corner pills alone */
+  var WIDE = 0.55;            /* a "bar" spans most of the window */
+  var OPEN = 'absn-drawer-open';
 
+  var drawer = null, btn = null, open = false;
+
+  /* ---------- finding things ------------------------------------------ */
+
+  function isStuck(el) {
+    var s = window.getComputedStyle(el);
+    if (s.position !== 'sticky' && s.position !== 'fixed') return null;
+    if (s.visibility === 'hidden' || s.display === 'none' || +s.opacity === 0) return null;
+    var r = el.getBoundingClientRect();
+    if (r.height < MIN_HEIGHT) return null;
+    /* Skip-to-content links are fixed, full height, and parked off the top of
+       the screen until they are focused. They are not toolbars, and moving
+       one takes away the keyboard shortcut into the page. */
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+    if (r.bottom <= 0 || r.top >= vh) return null;
+    if (r.right <= 0 || r.left >= window.innerWidth) return null;
+    return r;
+  }
+
+  function ours(el) {
+    return el === drawer || el === btn || (drawer && drawer.contains(el));
+  }
+
+  /* every stuck element, outermost only */
   function stuck() {
     var out = [];
-    var vh = window.innerHeight || document.documentElement.clientHeight;
     [].forEach.call(document.querySelectorAll('body *'), function (el) {
-      if (el.id === 'absnHideBtn') return;
-      var s = window.getComputedStyle(el);
-      if (s.position !== 'sticky' && s.position !== 'fixed') return;
-      if (s.visibility === 'hidden' || s.display === 'none' || +s.opacity === 0) return;
-      var r = el.getBoundingClientRect();
-      if (r.height < MIN_HEIGHT) return;
-      /* Skip-to-content links are fixed, full height, and parked off the top
-         of the screen until they are focused - .ple-module-skip sits at -108.
-         They are not toolbars, they are not in her way, and hiding one takes
-         away the keyboard shortcut into the page. Anything not actually on
-         screen is not a bar. */
-      if (r.bottom <= 0 || r.top >= vh || r.right <= 0 || r.left >= window.innerWidth) return;
-      /* a stuck element inside another stuck element is already covered */
-      for (var i = 0; i < out.length; i++) if (out[i].contains(el)) return;
-      out.push(el);
+      if (ours(el)) return;
+      var r = isStuck(el);
+      if (!r) return;
+      for (var i = 0; i < out.length; i++) if (out[i].el.contains(el)) return;
+      out.push({ el: el, r: r });
     });
     return out;
   }
 
-  /* 'rgba(4, 8, 24, 0.96)' -> [4,8,24,0.96]; anything else -> null */
+  /* the wide ones are the toolbars; the rest are corner pills */
+  function bars() {
+    var w = window.innerWidth;
+    return stuck().filter(function (o) { return o.r.width >= w * WIDE; })
+                  .map(function (o) { return o.el; });
+  }
+
+  /* ---------- paint the leftovers opaque ------------------------------ */
+
   function rgba(v) {
     var m = /^rgba?\(([^)]+)\)$/.exec(v || '');
     if (!m) return null;
-    var n = m[1].split(',').map(function (x) { return parseFloat(x); });
+    var n = m[1].split(',').map(parseFloat);
     if (n.length < 3 || n.some(isNaN)) return null;
     return [n[0], n[1], n[2], n.length > 3 ? n[3] : 1];
   }
 
-  /* whatever is actually behind the bars */
   function pageBg() {
     var el = document.body, c;
     while (el) {
@@ -87,185 +117,157 @@
       if (c && c[3] > 0) return c;
       el = el.parentElement;
     }
-    return [0, 0, 0, 1];
+    return [16, 9, 31, 1];
   }
 
-  /* Everything worth repainting. Deliberately NOT the same list as stuck():
-     the slide-out quiz drawer is parked off the left edge and so is not a bar
-     in anyone's way, but the moment it slides open the page shows straight
-     through it. Painting it now costs nothing and saves that. */
-  function paintable() {
-    var out = [];
+  function solidify() {
+    var bg = pageBg();
     [].forEach.call(document.querySelectorAll('body *'), function (el) {
-      if (el.id === 'absnHideBtn') return;
+      if (ours(el) || el.getAttribute('data-absn-solid')) return;
       var s = window.getComputedStyle(el);
       if (s.position !== 'sticky' && s.position !== 'fixed') return;
-      if (s.visibility === 'hidden' || s.display === 'none') return;
       if (el.getBoundingClientRect().height < MIN_HEIGHT) return;
-      out.push(el);
-    });
-    return out;
-  }
-
-  /* Repaint a translucent bar as the flat colour it already looks like.
-     src over dst, which is what the browser was drawing anyway - so this is
-     the same pixel, minus the page showing through it. */
-  function solidify(bars) {
-    var bg = pageBg();
-    bars.forEach(function (el) {
-      if (el.getAttribute('data-absn-solid')) return;
-      var c = rgba(window.getComputedStyle(el).backgroundColor);
-      if (!c || c[3] >= 1 || c[3] <= 0) return;   /* already solid, or no fill */
-      /* Below about eighty per cent the see-through is the point - a scrim
-         behind the corner pills is meant to let the page show. Only the bars
-         that were TRYING to be opaque and missed get repainted. */
+      var c = rgba(s.backgroundColor);
+      if (!c || c[3] >= 1 || c[3] <= 0) return;
+      /* below about eighty per cent the see-through is the point */
       if (c[3] < 0.8) return;
       var a = c[3];
-      var mix = [0, 1, 2].map(function (i) {
-        return Math.round(c[i] * a + bg[i] * (1 - a));
-      });
       el.setAttribute('data-absn-solid', '1');
-      el.style.backgroundColor = 'rgb(' + mix.join(',') + ')';
+      el.style.backgroundColor = 'rgb(' + [0, 1, 2].map(function (i) {
+        return Math.round(c[i] * a + bg[i] * (1 - a));
+      }).join(',') + ')';
     });
   }
 
+  /* ---------- the drawer ---------------------------------------------- */
+
   function style() {
-    if (document.getElementById('absnHideCss')) return;
+    if (document.getElementById('absnDrawerCss')) return;
+    var bg = pageBg();
+    var solid = 'rgb(' + bg[0] + ',' + bg[1] + ',' + bg[2] + ')';
     var s = document.createElement('style');
-    s.id = 'absnHideCss';
-    /* No backdrop-filter: blurred layers render these blocks empty here. */
+    s.id = 'absnDrawerCss';
+    /* No backdrop-filter: a blurred layer renders these blocks empty here. */
     s.textContent =
-      '#absnHideBtn{position:fixed;left:10px;bottom:10px;z-index:99991;' +
-      ' font:900 .86rem/1 "Segoe UI",system-ui,sans-serif;padding:10px 13px;' +
+      '#absnDrawer{position:fixed;top:0;right:0;height:100%;z-index:99990;' +
+      ' width:min(430px,92vw);overflow-y:auto;overscroll-behavior:contain;' +
+      ' background:' + solid + ';border-left:3px solid #9d5cff;' +
+      ' box-shadow:-10px 0 34px rgba(0,0,0,.6);' +
+      ' padding:16px 14px 90px;' +
+      ' transform:translateX(102%);transition:transform .22s ease;' +
+      ' visibility:hidden}' +
+      '#absnDrawer.' + OPEN + '{transform:none;visibility:visible}' +
+      /* Inside the drawer nothing is stuck to anything: these were sticky
+         bars, and a sticky bar inside a scrolling panel pins itself to the
+         panel and covers the controls below it. */
+      '#absnDrawer > *{position:static!important;top:auto!important;' +
+      ' left:auto!important;right:auto!important;bottom:auto!important;' +
+      ' width:auto!important;max-width:none!important;margin:0 0 12px!important;' +
+      ' transform:none!important;z-index:auto!important;' +
+      ' border-radius:14px!important;display:block!important}' +
+      '#absnDrawer h2,#absnDrawer h3{margin-top:0}' +
+      '#absnDrawerTitle{font:900 1.02rem/1.3 "Segoe UI",system-ui,sans-serif;' +
+      ' color:#e7d9ff;margin:2px 0 14px;padding:0 2px}' +
+      /* the launcher, bottom left, away from the corner nav pills */
+      '#absnDrawerBtn{position:fixed;left:10px;bottom:10px;z-index:99993;' +
+      ' font:900 .95rem/1 "Segoe UI",system-ui,sans-serif;padding:13px 17px;' +
       ' border-radius:999px;cursor:pointer;color:#fff;white-space:nowrap;' +
-      ' border:1px solid rgba(255,255,255,.36);box-shadow:0 4px 16px rgba(0,0,0,.55);' +
-      ' background:linear-gradient(135deg,#5a2d82,#9d5cff)}' +
-      '#absnHideBtn:hover{filter:brightness(1.15)}' +
-      '#absnHideBtn:focus-visible{outline:3px solid #ffd76a;outline-offset:3px}' +
-      /* the same pill again, but living inside the bar it closes */
-      '.absnHideInBar{font:900 .86rem/1 "Segoe UI",system-ui,sans-serif;' +
-      ' padding:9px 13px;border-radius:999px;cursor:pointer;color:#fff;' +
-      ' white-space:nowrap;align-self:center;position:relative;z-index:2;' +
-      ' margin:0 8px 0 0;' +
       ' border:1px solid rgba(255,255,255,.42);' +
-      ' background:linear-gradient(135deg,#8a1d4e,#e0356f)}' +
-      '.absnHideInBar:hover{filter:brightness(1.15)}' +
-      '.absnHideInBar:focus-visible{outline:3px solid #ffd76a;outline-offset:3px}' +
-      '@media print{#absnHideBtn,.absnHideInBar{display:none}}';
+      ' box-shadow:0 5px 18px rgba(0,0,0,.6);' +
+      ' background:linear-gradient(135deg,#5a2d82,#9d5cff)}' +
+      '#absnDrawerBtn:hover{filter:brightness(1.15)}' +
+      '#absnDrawerBtn:focus-visible{outline:3px solid #ffd76a;outline-offset:3px}' +
+      '@media print{#absnDrawer,#absnDrawerBtn{display:none}}';
     document.head.appendChild(s);
   }
 
-  function read() {
-    try { return localStorage.getItem(KEY) === '1'; } catch (e) { return false; }
-  }
-  function write(v) {
-    try { localStorage.setItem(KEY, v ? '1' : '0'); } catch (e) {}
-  }
+  function build() {
+    if (drawer) return;
+    style();
+    drawer = document.createElement('aside');
+    drawer.id = 'absnDrawer';
+    drawer.setAttribute('aria-label', 'Page menu');
+    drawer.setAttribute('aria-hidden', 'true');
+    var t = document.createElement('div');
+    t.id = 'absnDrawerTitle';
+    t.textContent = 'Menu';
+    drawer.appendChild(t);
+    document.body.appendChild(drawer);
 
-  var hidden = [];
-
-  function apply(off) {
-    if (off) {
-      hidden = stuck();
-      hidden.forEach(function (el) {
-        el.setAttribute('data-absn-was', el.style.display || '');
-        el.style.display = 'none';
-      });
-    } else {
-      hidden.forEach(function (el) {
-        el.style.display = el.getAttribute('data-absn-was') || '';
-        el.removeAttribute('data-absn-was');
-      });
-      hidden = [];
-      /* anything injected while the bars were folded away */
-      [].forEach.call(document.querySelectorAll('[data-absn-was]'), function (el) {
-        el.style.display = el.getAttribute('data-absn-was') || '';
-        el.removeAttribute('data-absn-was');
-      });
-    }
-  }
-
-  function go() {
-    style();                                  /* the pill styles, always */
-    solidify(paintable());                    /* safe to run again; it marks its own */
-    var bars = stuck();
-    if (document.getElementById('absnHideBtn')) return;
-    if (!bars.length) return;                 /* nothing to hide on this page */
-
-    var btn = document.createElement('button');
+    btn = document.createElement('button');
     btn.type = 'button';
-    btn.id = 'absnHideBtn';
-    var off = false;
-
-    function paint() {
-      btn.textContent = off ? '☰ Show menu' : '✕ Hide menu';
-      btn.setAttribute('aria-pressed', String(off));
-      btn.title = off ? 'Bring the toolbars back' : 'Fold the toolbars away';
-    }
-
-    function toggle() {
-      off = !off;
-      apply(off);
-      write(off);
-      paint();
-    }
-
-    btn.addEventListener('click', toggle);
+    btn.id = 'absnDrawerBtn';
+    btn.setAttribute('aria-controls', 'absnDrawer');
+    btn.addEventListener('click', function () { set(!open); });
     document.body.appendChild(btn);
-
-    /* And one in the top bar itself, which is where someone looks for it.
-       Bars in the order they actually sit on the screen, not the order the
-       scripts happened to inject them in. */
-    var byTop = bars.slice().sort(function (a, b) {
-      return a.getBoundingClientRect().top - b.getBoundingClientRect().top;
-    });
-
-    if (!document.querySelector('.absnHideInBar')) {
-      var inbar = document.createElement('button');
-      inbar.type = 'button';
-      inbar.className = 'absnHideInBar';
-      inbar.textContent = '\u2715 Hide menu';
-      inbar.title = 'Fold the toolbars away';
-      inbar.addEventListener('click', toggle);
-
-      /* Try each bar from the top down and keep the first one where the button
-         can actually be clicked.
-
-         A button that is present, visible and covered is worse than no button
-         at all - she presses it, nothing happens, and the feature looks broken.
-         That is not hypothetical: at the right-hand end of a bar it landed
-         under the corner nav pills, which are fixed and float above
-         everything, and on the section index pages a <header> covers the top
-         bar outright. Rather than keep a list of which layout does what, ask
-         the browser what is on top and move on if the answer is not us.
-
-         First in the bar rather than last, for the same reason. */
-      for (var i = 0; i < byTop.length; i++) {
-        byTop[i].insertBefore(inbar, byTop[i].firstChild);
-        var r = inbar.getBoundingClientRect();
-        var hit = r.width && r.height &&
-          document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
-        if (hit && (hit === inbar || inbar.contains(hit))) break;
-        inbar.parentNode.removeChild(inbar);   /* covered - try the next bar */
-      }
-      /* Every bar covered: leave it out. The bottom-left button still works,
-         and it is never underneath anything. */
-    }
-
-    if (read()) { off = true; apply(true); }
     paint();
   }
 
-  /* the bars are injected by deferred scripts, so wait for them to land */
-  function boot() { setTimeout(go, 60); }
+  function paint() {
+    btn.textContent = open ? '✕ Close menu' : '☰ Menu';
+    btn.title = open ? 'Put the menu away' : 'Show the page controls';
+    btn.setAttribute('aria-expanded', String(open));
+    drawer.setAttribute('aria-hidden', String(!open));
+  }
+
+  function set(v) {
+    open = v;
+    drawer.classList.toggle(OPEN, open);
+    paint();
+  }
+
+  /* Move every wide bar into the drawer, remembering where it came from so
+     it can go home if this ever needs undoing. */
+  function collect() {
+    var moved = 0;
+    bars().forEach(function (el) {
+      if (drawer.contains(el)) return;
+      el.setAttribute('data-absn-home', '1');
+      drawer.appendChild(el);
+      moved++;
+    });
+    return moved;
+  }
+
+  function go() {
+    build();
+    var n = collect();
+    solidify();
+    /* Nothing to put in it and nothing to show: an empty drawer with a
+       button that opens onto blank space is worse than no button. */
+    var has = drawer.children.length > 1;
+    btn.style.display = has ? '' : 'none';
+    return n;
+  }
+
+  /* The module scripts inject their bars long after this runs, and some of
+     them re-inject on interaction. Watch for it rather than guessing at
+     timings. */
+  function watch() {
+    if (!window.MutationObserver) return;
+    var pending = null;
+    new MutationObserver(function (recs) {
+      for (var i = 0; i < recs.length; i++) {
+        var added = recs[i].addedNodes;
+        for (var j = 0; j < added.length; j++) {
+          if (added[j].nodeType !== 1 || ours(added[j])) continue;
+          clearTimeout(pending);
+          pending = setTimeout(go, 120);
+          return;
+        }
+      }
+    }).observe(document.body, { childList: true, subtree: true });
+  }
+
+  function boot() { go(); setTimeout(go, 300); watch(); }
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', boot);
   } else {
     boot();
   }
-  window.addEventListener('load', function () {
-    setTimeout(go, 120);
-    /* the deferred scripts add their own bars well after load */
-    setTimeout(function () { solidify(paintable()); }, 700);
+  window.addEventListener('load', function () { setTimeout(go, 200); });
+  /* Escape closes it, the way every other panel on the web does. */
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && open) set(false);
   });
 })();
