@@ -45,6 +45,9 @@
   if(mod&&!chunks.length){chunks=[].slice.call(mod.querySelectorAll(':scope > .body > .mcard, :scope > .body > .slot, :scope > .body > .vbrief, :scope > .body > .vtw'));biteFallback=true;chunks.forEach(function(chunk){chunk.classList.add('ple-bite-section');});}
   chunks.forEach(function(chunk){
     var summary=chunk.querySelector(':scope > summary');if(!summary||summary.querySelector('.ple-chunk-icon'))return;
+    /* If the label already carries its own emoji, a second guessed one only contradicts it. */
+    var label=summary.querySelector('.cklab');
+    if(label&&/^\p{Extended_Pictographic}/u.test((label.textContent||'').trim()))return;
     var cue=cueFor((summary.textContent||'')+' '+(chunk.textContent||'').slice(0,180));
     var icon=document.createElement('span');icon.className='ple-chunk-icon';icon.setAttribute('aria-hidden','true');icon.textContent=cue[0];
     summary.insertBefore(icon,summary.firstChild);chunk.classList.add('ple-chunk-'+cue[1]);
