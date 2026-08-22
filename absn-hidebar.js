@@ -54,7 +54,8 @@
   'use strict';
 
   var MIN_HEIGHT = 26;        /* leave the small corner pills alone */
-  var WIDE = 0.55;            /* a "bar" spans most of the window */
+  var WIDE = 0.7;             /* a "bar" spans most of its own container */
+  var MIN_WIDTH = 260;        /* below this it is a pill, not a toolbar */
   var OPEN = 'absn-drawer-open';
 
   var drawer = null, btn = null, open = false;
@@ -93,11 +94,29 @@
     return out;
   }
 
-  /* the wide ones are the toolbars; the rest are corner pills */
+  /* The wide ones are the toolbars; the rest are corner pills.
+
+     Measured against the element's own CONTAINER, not against the window.
+     The first version compared to window width and it had a hole in it: with
+     Roomy on and the text size up, the module content column narrows, so the
+     attention bar came out 986px on an 1850px screen - 53%, just under a 55%
+     threshold - and the drawer walked straight past it. Caroline got the
+     floating bar back, on exactly the setting she reads in.
+
+     A toolbar spans its container whatever the window is doing. A corner pill
+     is a fixed 50-130px however wide the screen gets. That ratio is stable
+     where the window ratio is not. */
   function bars() {
-    var w = window.innerWidth;
-    return stuck().filter(function (o) { return o.r.width >= w * WIDE; })
-                  .map(function (o) { return o.el; });
+    return stuck().filter(function (o) {
+      if (o.r.width < MIN_WIDTH) return false;
+      var host = o.el.parentElement;
+      var hw = host ? host.getBoundingClientRect().width : 0;
+      /* a fixed element parented to body: fall back to the viewport */
+      if (!hw || host === document.body || host === document.documentElement) {
+        hw = window.innerWidth;
+      }
+      return hw > 0 && o.r.width >= hw * WIDE;
+    }).map(function (o) { return o.el; });
   }
 
   /* ---------- paint the leftovers opaque ------------------------------ */

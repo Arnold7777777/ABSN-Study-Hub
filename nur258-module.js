@@ -111,7 +111,10 @@
   }
 
   function renderQuiz(){
-    if(!mod||!window.NUR258_QBANK)return;var qs=window.NUR258_QBANK[String(moduleNumber)]||[];var slot=mod.querySelector('.slot[data-slot="quiz"]');if(!slot||!qs.length)return;
+    /* ABSN_QBANK is the generic name; NUR258_QBANK is kept because that is what
+     the NUR 258 pages already load. Same shape, same reader. */
+    var bank=window.ABSN_QBANK||window.NUR258_QBANK;
+    if(!mod||!bank)return;var qs=bank[String(moduleNumber)]||[];var slot=mod.querySelector('.slot[data-slot="quiz"]');if(!slot||!qs.length)return;
     slot.classList.add('filled');var empty=slot.querySelector('.empty');if(empty)empty.remove();var intro=slot.querySelector('p');if(intro){intro.classList.add('ple-quiz-intro');intro.textContent='Choose an answer, then check it. The explanation teaches both the right answer and the distractor.';}
     var heading=slot.querySelector('h4');if(heading)heading.innerHTML='🎯 Six-question knowledge check <span class="cnt">'+qs.length+'</span>';
     var score=document.createElement('p');score.className='qscore';score.textContent=qs.length+' questions';slot.appendChild(score);
