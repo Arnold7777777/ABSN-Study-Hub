@@ -585,12 +585,72 @@
       return false;
     }
 
-    /* place it, then check it, and take it away again if it landed on a word */
+    /* A header BAR is not a word, so coversText let robots sit inside one:
+       a buddy parked in the middle of the "ATI Active Learning Template"
+       strip, or across a mind map's caption. Nothing was covered and it
+       still looked like a mistake. A bar is any block with its own painted
+       background sitting at the top of the host - ask for it by name. */
+    function barsIn(host) {
+      var out = [];
+      [].forEach.call(host.querySelectorAll(
+        '.althd, figcaption, summary, h1, h2, h3, h4, h5, h6, .mmhub2'
+      ), function (h) {
+        var bg = window.getComputedStyle(h).backgroundColor;
+        var v = (bg.match(/[\d.]+/g) || []).map(Number);
+        var painted = v.length === 3 || (v.length > 3 && v[3] > 0.02);
+        out.push({ el: h, rect: h.getBoundingClientRect(), painted: painted });
+      });
+      return out;
+    }
+
+    function onBar(el, bars) {
+      var q = el.getBoundingClientRect(), i, r;
+      for (i = 0; i < bars.length; i++) {
+        if (bars[i].el.contains(el)) continue;
+        r = bars[i].rect;
+        if (Math.min(q.right, r.right) - Math.max(q.left, r.left) > 3 &&
+            Math.min(q.bottom, r.bottom) - Math.max(q.top, r.top) > 3) return true;
+      }
+      return false;
+    }
+
+    /* Caroline: "put robots in a logical place or just randomly."
+
+       So both. There are four corners a badge can hold; the ones that are
+       clear of every word AND of every header bar are the logical places,
+       and which of those it gets is taken from the path hash, so it is not
+       always the same corner on every card. If no corner is clear the robot
+       leaves - a card with nowhere to put one does not get one. */
+    var CORNERS = [
+      { right: '10px', top: '9px',    bottom: '' },
+      { right: '10px', bottom: '9px', top: '' },
+      { left:  '10px', bottom: '9px', top: '' },
+      { left:  '10px', top: '9px',    bottom: '' }
+    ];
+
+    function seat(host, el) {
+      if (el.className.indexOf('absn-robot-badge') < 0) return !coversText(el);
+      var bars = barsIn(host);
+      var order = [], i;
+      for (i = 0; i < CORNERS.length; i++) order.push(CORNERS[(hash() + i) % CORNERS.length]);
+      for (i = 0; i < order.length; i++) {
+        var c = order[i];
+        el.style.left = c.left || 'auto';
+        el.style.right = c.right || 'auto';
+        el.style.top = c.top || 'auto';
+        el.style.bottom = c.bottom || 'auto';
+        if (!coversText(el) && !onBar(el, bars)) return true;
+      }
+      return false;
+    }
+
+    /* place it, then check it, and take it away again if it landed on a word
+       or on a header bar - re-seating it first, in case another corner works */
     function keepIfClear(host, el) {
-      if (coversText(el)) { host.removeChild(el); return false; }
+      if (!seat(host, el)) { host.removeChild(el); return false; }
       /* and again once it has actually painted, in case the box moved */
       el.addEventListener('load', function () {
-        if (el.parentNode && coversText(el)) el.parentNode.removeChild(el);
+        if (el.parentNode && !seat(el.parentNode, el)) el.parentNode.removeChild(el);
       });
       return true;
     }
