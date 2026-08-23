@@ -236,7 +236,16 @@ body, body.adhd-upgraded{
 })();
 
 function hop(url, closeThis){
-  if(!closeThis){ window.open(url,'_blank','noopener'); return; }
+  if(!closeThis){
+    /* No window-features string here. Passing one - even just 'noopener' -
+       makes the browser treat this as a POPUP rather than a tab, and popup
+       blockers silently swallow it. That is what broke the Hub button while
+       Quiz and Podcasts, which take the branch below, kept working.
+       Null the opener by hand instead; same security, and it opens. */
+    var t=window.open(url,'_blank');
+    if(t){ try{ t.opener=null; }catch(e){} } else { location.href=url; }
+    return;
+  }
   var w=window.open(url,'_blank');
   setTimeout(function(){
     try{ window.close(); }catch(e){}

@@ -69,7 +69,16 @@
    only works on a script-opened window, so if the browser refuses we navigate
    instead - she still gets where she asked to go. */
 function hop(url, closeThis){
-  if(!closeThis){ window.open(url,'_blank','noopener'); return; }
+  if(!closeThis){
+    /* No window-features string here. Passing one - even just 'noopener' -
+       makes the browser treat this as a POPUP rather than a tab, and popup
+       blockers silently swallow it. That is what broke the Hub button while
+       Quiz and Podcasts, which take the branch below, kept working.
+       Null the opener by hand instead; same security, and it opens. */
+    var t=window.open(url,'_blank');
+    if(t){ try{ t.opener=null; }catch(e){} } else { location.href=url; }
+    return;
+  }
   var w=window.open(url,'_blank');
   setTimeout(function(){
     try{ window.close(); }catch(e){}
@@ -102,12 +111,18 @@ function hop(url, closeThis){
   nb.addEventListener('pointerdown',function(e){
     if(e.target.closest('button') && e.pointerType==='mouse' && e.button!==0) return;
     var r=nb.getBoundingClientRect();
-    down={dx:e.clientX-r.left, dy:e.clientY-r.top, x0:e.clientX, y0:e.clientY};
-    moved=false; nb.setPointerCapture(e.pointerId);
+    down={dx:e.clientX-r.left, dy:e.clientY-r.top, x0:e.clientX, y0:e.clientY,
+          id:e.pointerId};
+    moved=false;
+    /* Do NOT capture the pointer here. A captured pointer sends the following
+       click to the CONTAINER instead of the button inside it, so the button's
+       onclick never runs - that is what stopped the Hub button working on every
+       module page. Capture only once a real drag has started. */
   });
   nb.addEventListener('pointermove',function(e){
     if(!down) return;
     if(Math.abs(e.clientX-down.x0)+Math.abs(e.clientY-down.y0) < 6) return;
+    if(!moved){ try{ nb.setPointerCapture(down.id); }catch(err){} }
     moved=true; nb.classList.add('dragging');
     place(e.clientX-down.dx, e.clientY-down.dy, false);
   });
@@ -116,6 +131,7 @@ function hop(url, closeThis){
     nb.classList.remove('dragging');
     if(moved){
       var r=nb.getBoundingClientRect(); place(r.left,r.top,true);
+      try{ nb.releasePointerCapture(down.id); }catch(err){}
       e.preventDefault(); e.stopPropagation();
     }
     down=null;
