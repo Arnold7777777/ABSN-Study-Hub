@@ -4,7 +4,6 @@
   var file=decodeURIComponent((location.pathname.split('/').pop()||'index.html')).toLowerCase();
   var excluded={
     'leadership-community-ethics.html':1,
-    'leadership-community-ethics.before-3d-illustrations.html':1,
     'game-pharmacology-review.html':1
   };
   if(excluded[file]) return;
