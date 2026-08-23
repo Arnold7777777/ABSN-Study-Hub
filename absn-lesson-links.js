@@ -559,6 +559,21 @@
    "resp": ["resp/index.html", "Respiratory & Labs"],
    "sensory": ["neuro/index.html", "Neuro"],
    "skin": ["skin/index.html", "Skin & Wound"],
+ "ARDS": "resp/NG-395_ards.html",
+ "Acute Respiratory Failure": "resp/NG-396_acute-respiratory-failure.html",
+ "Acute respiratory failure": "resp/NG-396_acute-respiratory-failure.html",
+ "BPH": "pharm/NG-160_prostate-bph.html",
+ "Colonoscopy": "gi/NG-398_colonoscopy.html",
+ "Compartment syndrome": "musc/NG-388_compartment-syndrome.html",
+ "Crohn's vs UC": "gi/NG-111_crohns-uc-treatments-complications.html",
+ "Enteral Nursing Care": "gi/NG-298_tpn-enteral-feeding.html",
+ "Grief": "mh/NG-222_death-dying-grief-loss.html",
+ "Neuro Assessment": "neuro/NG-315_focused-neuro-assessment.html",
+ "Peritonitis": "gi/NG-397_peritonitis.html",
+ "Postpartum Assessment": "more/NG-333_postpartum-assessment.html",
+ "Pulmonary Embolism": "resp/NG-394_pulmonary-embolism.html",
+ "Suicide": "mh/NG-399_suicide-risk.html",
+ "Suicide Risk": "mh/NG-399_suicide-risk.html"
   };
 
 
