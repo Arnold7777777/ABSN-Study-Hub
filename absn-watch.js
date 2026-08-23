@@ -106,7 +106,9 @@
      with <meta name="absn-textbook" content="..."> and that wins over this map. */
   var PINNED = {
     'nur258-module-01-sensory-eye-ear.html':
-      'https://www.youtube.com/watch?v=kgm8cRZyoPE&list=PLI3TocC2xS27gxhDgf56_DuOpaL4zRjMh&index=58'
+      'https://www.youtube.com/watch?v=kgm8cRZyoPE&list=PLI3TocC2xS27gxhDgf56_DuOpaL4zRjMh&index=58',
+    'nur234-m1.html':
+      'https://www.youtube.com/watch?v=LSkv-PqLfi8'
   };
 
   function pinnedBook() {
