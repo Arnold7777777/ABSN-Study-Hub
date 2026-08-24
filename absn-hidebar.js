@@ -106,8 +106,18 @@
      A toolbar spans its container whatever the window is doing. A corner pill
      is a fixed 50-130px however wide the screen gets. That ratio is stable
      where the window ratio is not. */
+  /* A bar she types into is page content, not chrome. Moving the infographic
+     board's search into the closed drawer left 398 graphics with no way to
+     search them, which is how a working feature became an invisible one. */
+  function isPageControl(el) {
+    if (el.hasAttribute('data-absn-keep')) return true;
+    if (el.closest('[data-absn-keep]')) return true;
+    return !!el.querySelector('input, select, textarea');
+  }
+
   function bars() {
     return stuck().filter(function (o) {
+      if (isPageControl(o.el)) return false;
       if (o.r.width < MIN_WIDTH) return false;
       var host = o.el.parentElement;
       var hw = host ? host.getBoundingClientRect().width : 0;
