@@ -376,3 +376,58 @@
     if (e.key === 'Escape' && open) set(false);
   });
 })();
+
+/* ---------------------------------------------------------------------------
+   Keep keyboard focus out of anything marked aria-hidden.
+
+   The site menu is a slide-out panel: when it is shut it sits off the left
+   edge with aria-hidden="true". A screen reader honours that and skips it,
+   but Tab did not - pressing Tab on any page walked focus through six
+   controls she could not see ("Close this menu" and the five Exam links),
+   with the focus ring drawn somewhere off the side of the screen. Focus
+   simply vanished. That is also an outright ARIA violation: you must never
+   be able to focus something you have told assistive tech is not there.
+
+   `inert` fixes both halves at once - it drops the subtree out of the tab
+   order and out of the accessibility tree. Applying it here rather than in
+   each panel's own code means every aria-hidden region on the site is
+   covered, including any added later.
+   --------------------------------------------------------------------------- */
+(function () {
+  if (!('inert' in HTMLElement.prototype)) return;   /* very old browser: leave as-is */
+
+  function sync(el) {
+    var hide = el.getAttribute('aria-hidden') === 'true';
+    if (el.inert !== hide) el.inert = hide;
+  }
+
+  function sweep(root) {
+    var list = (root || document).querySelectorAll('[aria-hidden]');
+    for (var i = 0; i < list.length; i++) {
+      /* Decorative icons carry aria-hidden too and hold nothing focusable;
+         marking those inert is harmless but pointless, so skip them. */
+      var el = list[i];
+      if (el.getAttribute('aria-hidden') === 'true' &&
+          !el.querySelector('a[href],button,summary,input,select,textarea,[tabindex]')) continue;
+      sync(el);
+    }
+  }
+
+  function start() {
+    sweep();
+    new MutationObserver(function (records) {
+      for (var i = 0; i < records.length; i++) {
+        var r = records[i];
+        if (r.type === 'attributes') sync(r.target);
+        else sweep();
+      }
+    }).observe(document.documentElement, {
+      subtree: true, childList: true,
+      attributes: true, attributeFilter: ['aria-hidden']
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', start);
+  } else { start(); }
+})();
