@@ -119,7 +119,7 @@
     var bank=window.ABSN_QBANK||window.NUR258_QBANK;
     if(!mod||!bank)return;var qs=bank[String(moduleNumber)]||[];var slot=mod.querySelector('.slot[data-slot="quiz"]');if(!slot||!qs.length)return;
     slot.classList.add('filled');var empty=slot.querySelector('.empty');if(empty)empty.remove();var intro=slot.querySelector('p');if(intro){intro.classList.add('ple-quiz-intro');intro.textContent='Choose an answer, then check it. The explanation teaches both the right answer and the distractor.';}
-    var heading=slot.querySelector('h4');if(heading)heading.innerHTML='🎯 Six-question knowledge check <span class="cnt">'+qs.length+'</span>';
+    var heading=slot.querySelector('h4');if(heading)heading.innerHTML='🎯 Knowledge check <span class="cnt">'+qs.length+'</span>';
     var score=document.createElement('p');score.className='qscore';score.textContent=qs.length+' questions';slot.appendChild(score);
     qs.forEach(function(q,qi){
       var multi=q.type==='sata',card=document.createElement('div');card.className='qz';card.dataset.ans=JSON.stringify(q.ans||[]);
