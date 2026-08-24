@@ -237,6 +237,8 @@ body.nav-open #side{transform:translateX(0)}
 .lessonlink:focus-visible{outline:3px solid #ffd76a;outline-offset:3px}
 .lessonlink b{color:#eafff8}
 @media print{.lessonlink{display:none}}
+
+#next.finish{background:linear-gradient(135deg,#ffd76a,#ffb02e);color:#231a02;border-color:rgba(255,255,255,.5);font-weight:900}
 </style>
 <link rel="stylesheet" href="absn-adhd-enhanced.css">
 <script defer src="absn-adhd-enhanced.js"></script>
@@ -669,6 +671,9 @@ window.NGN = (function(){
       }
       document.getElementById('prev').disabled = idx===0;
       document.getElementById('next').disabled = false;
+    (function(n){ var last = idx>=list.length-1;
+      n.innerHTML = last ? '&#10003; Finish and see my score' : 'Next &rarr;';
+      n.classList.toggle('finish', last); })(document.getElementById('next'));
       return;
     }
     var opts=(q.opts||[]).map(function(txt,i){
@@ -741,6 +746,9 @@ window.NGN = (function(){
     }
     document.getElementById('prev').disabled = idx===0;
     document.getElementById('next').disabled = false;
+    (function(n){ var last = idx>=list.length-1;
+      n.innerHTML = last ? '&#10003; Finish and see my score' : 'Next &rarr;';
+      n.classList.toggle('finish', last); })(document.getElementById('next'));
   }
 
   document.getElementById('prev').addEventListener('click',function(){
