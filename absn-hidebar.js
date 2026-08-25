@@ -216,9 +216,47 @@
       '#absnDrawerHome a.course{background:linear-gradient(135deg,#52277d,#7c3aed)}' +
       '#absnDrawerHome a:hover{filter:brightness(1.14)}' +
       '#absnDrawerHome a:focus-visible{outline:3px solid #ffd76a;outline-offset:3px}' +
+      /* The destinations. The drawer used to be one button in an empty panel on
+         any page that had no sticky bars to swallow - the hub itself, mostly. */
+      '#absnDrawerGo{margin:0 0 16px}' +
+      '#absnDrawerGo .gogrp{margin:0 0 12px}' +
+      '#absnDrawerGo .golab{display:block;margin:0 0 6px;' +
+      ' font:900 .69rem/1 ui-monospace,Consolas,monospace;letter-spacing:.14em;' +
+      ' text-transform:uppercase;color:rgba(255,255,255,.62)}' +
+      '#absnDrawerGo .gorow{display:flex;flex-wrap:wrap;gap:7px}' +
+      '#absnDrawerGo a{flex:1 1 auto;min-width:44%;text-align:left;' +
+      ' display:flex;align-items:center;gap:8px;min-height:46px;' +
+      ' text-decoration:none;padding:10px 13px;border-radius:12px;' +
+      ' font:800 .92rem/1.2 "Segoe UI",system-ui,sans-serif;color:#fff;' +
+      ' border:1px solid rgba(255,255,255,.26);' +
+      ' background:rgba(255,255,255,.10);overflow-wrap:break-word}' +
+      '#absnDrawerGo a:hover{background:rgba(255,255,255,.24)}' +
+      '#absnDrawerGo a:focus-visible{outline:3px solid #ffd76a;outline-offset:3px}' +
+      '#absnDrawerGo a[aria-current="page"]{' +
+      ' background:linear-gradient(135deg,#7c3aed,#9d5cff);' +
+      ' border-color:rgba(255,255,255,.6)}' +
+      '#absnDrawerGo a .goic{flex:0 0 auto;font-size:1.05rem;line-height:1}' +
+      '#absnDrawerGo a[aria-current="true"]{border-color:rgba(255,255,255,.55);' +
+      ' background:rgba(157,92,255,.34)}' +
+      '.godives>summary{list-style:none;cursor:pointer;display:flex;' +
+      ' align-items:center;gap:8px;min-height:46px;padding:11px 13px;' +
+      ' border-radius:12px;background:rgba(255,255,255,.10);' +
+      ' border:1px solid rgba(255,255,255,.26);color:#fff;' +
+      ' font:900 .92rem/1.2 "Segoe UI",system-ui,sans-serif}' +
+      '.godives>summary::-webkit-details-marker{display:none}' +
+      '.godives>summary::before{content:"\\25B8";color:#ffd76a;font-size:1rem}' +
+      '.godives[open]>summary::before{content:"\\25BE"}' +
+      '.godives>summary:hover{background:rgba(255,255,255,.24)}' +
+      '.godives>summary:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}' +
+      '.godives .ddn{margin-left:auto;font:800 .72rem/1 ui-monospace,monospace;' +
+      ' opacity:.66;letter-spacing:.06em}' +
+      '.godives>.gorow{margin-top:7px}' +
       /* the launcher, bottom left, away from the corner nav pills */
       '#absnDrawerBtn{position:fixed;left:10px;bottom:10px;z-index:99993;' +
       ' transition:bottom .12s ease;' +
+      /* .95rem/1 plus 13px padding landed this at 43.2px - one pixel under
+         the 44px tap target she needs, on all 514 pages that load this. */
+      ' display:inline-flex;align-items:center;min-height:46px;' +
       ' font:900 .95rem/1 "Segoe UI",system-ui,sans-serif;padding:13px 17px;' +
       ' border-radius:999px;cursor:pointer;color:#fff;white-space:nowrap;' +
       ' border:1px solid rgba(255,255,255,.42);' +
@@ -271,7 +309,127 @@
       c.textContent = '\u2302 Course hub';
       home.appendChild(c);
     }
+
     drawer.appendChild(home);
+
+    /* ---- pull in the read-aloud buttons ---------------------------------
+       absn-speak.js could be a <script> tag on every page instead, but that is
+       514 files she would have to upload by hand to change one line. This file
+       is already on all of them, and it has already worked out how far up the
+       tree the root is, so it is the cheapest place to load it from. */
+    if (!document.querySelector('script[src*="absn-speak.js"]')) {
+      var sp = document.createElement('script');
+      sp.src = up + 'absn-speak.js';
+      sp.defer = true;
+      document.head.appendChild(sp);
+    }
+
+    /* ---- where she might actually want to go -------------------------------
+       Built from `up` so the same list works from the root and from a
+       subfolder, and it marks the page she is already on. */
+    var GO = [
+      ['Start here', [
+        ['\u2728', 'Super Mega Quiz', 'super-mega-quiz.html'],
+        ['\uD83E\uDDE0', 'NCLEX prep', 'nclex-prep.html']
+      ]],
+      ['This semester', [
+        ['\uD83E\uDD30', 'NUR 234 \u00b7 Maternal-Newborn', 'nur234.html'],
+        ['\uD83E\uDDF8', 'NUR 235 \u00b7 Peds', 'nur235.html'],
+        ['\uD83E\uDE7A', 'NUR 258 \u00b7 Adult Health II', 'nur258.html']
+      ]],
+      ['Earlier courses', [
+        ['\uD83E\uDDF4', 'NUR 125 \u00b7 Fundamentals', '../NUR-125-Fundamentals/index.html'],
+        ['\uD83E\uDDE0', 'NUR 175 \u00b7 Mental Health', '../NUR-175-Study-Guide/index.html'],
+        ['\uD83E\uDE7A', 'NUR 198 \u00b7 Med-Surg', '../NUR-198-Study-Guide/index.html']
+      ]],
+      ['Everything else', [
+        ['\uD83D\uDC8E', 'Drug guide', '../drug-guide/index.html'],
+        ['\uD83C\uDFAE', 'Games', 'games.html'],
+        ['\uD83D\uDDBC\uFE0F', 'Infographics', 'infographics.html'],
+        ['\uD83E\uDDEA', 'Labs & diagnostics', '../Laboratory-and-Diagnostic-Tests-for-Nursing/index.html'],
+        ['\uD83D\uDC51', 'Leadership, community & ethics', 'leadership-community-ethics.html'],
+        ['\uD83E\uDD66', 'Nutrition', 'nutrition.html'],
+        ['\uD83E\uDDEC', 'Pathophysiology', 'pathophysiology.html'],
+        ['\uD83D\uDC8A', 'Pharmacology', 'pharmacology.html'],
+        ['\u2699\uFE0F', 'Physiology', 'physiology.html'],
+        ['\uD83C\uDFA7', 'Podcasts', 'podcasts.html'],
+        ['\uD83D\uDCC5', 'Study plan', 'study-plan.html']
+      ]]
+    ];
+    /* Twelve topic libraries. Listed flat they double the length of the menu she
+       scrolls past every time, so they go behind one tap instead. */
+    var DIVES = [
+      ['\uD83E\uDD30', 'Maternal & newborn', 'maternal-newborn.html'],
+      ['\uD83E\uDDF8', 'Pediatrics', 'pediatrics.html', 'peds'],
+      ['\u2764\uFE0F', 'Cardiovascular', 'cardio/index.html'],
+      ['\uD83E\uDD8B', 'Endocrine', 'endo/index.html'],
+      ['\u2728', 'Essentials & rhythms', 'essentials/index.html'],
+      ['\uD83C\uDF5C', 'GI & abdomen', 'gi/index.html'],
+      ['\uD83E\uDDE0', 'Mental health', 'mh/index.html'],
+      ['\uD83E\uDDB4', 'Musculoskeletal', 'musc/index.html'],
+      ['\u26A1', 'Neuro', 'neuro/index.html'],
+      ['\uD83E\uDE7A', 'Nursing core', 'core/index.html'],
+      ['\uD83D\uDC8A', 'Pharmacology', 'pharm/index.html'],
+      ['\uD83E\uDEE7', 'Renal & fluid', 'renal/index.html'],
+      ['\uD83E\uDEC1', 'Respiratory & labs', 'resp/index.html'],
+      ['\uD83E\uDE79', 'Skin & wound', 'skin/index.html']
+    ];
+
+    var here = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+    var herePath = location.pathname.toLowerCase();
+
+    function linkFor(item) {
+      var a = document.createElement('a');
+      a.href = up + item[2];
+      a.innerHTML = '<span class="goic" aria-hidden="true">' + item[0] + '</span>' +
+                    '<span>' + item[1] + '</span>';
+      var tail = item[2].toLowerCase();
+      /* a front door counts as "you are here" for the folder it gathers, so the
+         menu still tells her where she is when she is deep inside one */
+      var folder = item[3] || (tail.indexOf('/index.html') > -1 && tail.indexOf('..') !== 0
+                               ? tail.split('/')[0] : '');
+      if (tail === here) a.setAttribute('aria-current', 'page');
+      else if (folder && herePath.indexOf('/' + folder + '/') > -1) {
+        a.setAttribute('aria-current', 'true');
+      }
+      return a;
+    }
+    function rowOf(items) {
+      var row = document.createElement('div');
+      row.className = 'gorow';
+      items.forEach(function (it) { row.appendChild(linkFor(it)); });
+      return row;
+    }
+
+    var go = document.createElement('nav');
+    go.id = 'absnDrawerGo';
+    go.setAttribute('aria-label', 'Go to');
+    GO.forEach(function (grp) {
+      var box = document.createElement('div');
+      box.className = 'gogrp';
+      var lab = document.createElement('span');
+      lab.className = 'golab';
+      lab.textContent = grp[0];
+      box.appendChild(lab);
+      box.appendChild(rowOf(grp[1]));
+      go.appendChild(box);
+    });
+
+    var dd = document.createElement('details');
+    dd.className = 'gogrp godives';
+    var sum = document.createElement('summary');
+    sum.innerHTML = 'Deep dives <span class="ddn">' + DIVES.length + ' topic libraries</span>';
+    dd.appendChild(sum);
+    dd.appendChild(rowOf(DIVES));
+    /* if she is already inside one, it should be open when she gets here */
+    if (DIVES.some(function (d) {
+      var f = d[3] || d[2].split('/')[0];
+      return herePath.indexOf('/' + f + '/') > -1;
+    })) dd.open = true;
+    go.appendChild(dd);
+
+    drawer.appendChild(go);
+
     document.body.appendChild(drawer);
 
     btn = document.createElement('button');
