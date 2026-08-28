@@ -200,11 +200,20 @@ details.chunk{border:1px solid rgba(255,255,255,.22);border-radius:12px;
  background:rgba(0,0,0,.75);margin:0 0 9px;overflow:hidden;color:#fff}
 details.chunk[open]{background:rgba(0,0,0,.75);color:#fff}
 details.chunk > summary{cursor:pointer;list-style:none;display:flex;gap:9px;
- align-items:center;flex-wrap:wrap;padding:9px 12px;font-weight:800;font-size:.98rem}
+ align-items:center;flex-wrap:wrap;padding:9px 12px;font-weight:800;font-size:.98rem;
+ min-height:44px}
 details.chunk > summary::-webkit-details-marker{display:none}
-details.chunk > summary::after{content:"▸";margin-left:auto;font-weight:900;
- opacity:.8;transition:transform .15s ease}
-details.chunk[open] > summary::after{transform:rotate(90deg)}
+details.chunk > summary::before{content:"▸";flex:0 0 auto;font-weight:900;
+ opacity:.9;color:#ffd76a;font-size:1.05rem;line-height:1;
+ transition:transform .15s ease}
+details.chunk[open] > summary::before{transform:rotate(90deg)}
+/* A closed chunk used to read as an empty card: label, row names, then a blank
+   band with a stray arrow in the far corner. The arrow is now at the front next
+   to the label, and the ATI chunks say in words that there is something behind
+   them. */
+details.chunk.altchunk:not([open]) > summary::after{content:"tap to open";
+ margin-left:auto;align-self:center;font-weight:800;font-size:.78rem;
+ letter-spacing:.04em;text-transform:uppercase;opacity:.72;white-space:nowrap}
 .chunk .cklab{font-weight:900;color:#fff}
 /* A fold's line says what tapping it does, and nothing else. It used to carry a
    numbered badge and "1-5 of 13"; she sent a screenshot and said those were confusing,

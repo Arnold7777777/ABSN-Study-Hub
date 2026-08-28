@@ -1,0 +1,791 @@
+<title>Where the Pages Disagree</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Mono:wght@500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap">
+
+<style>
+:root{
+  /* violet-biased neutrals — chosen, not inherited grey */
+  --ink:#191325;
+  --ink-2:#3A3350;
+  --ink-3:#645C7E;
+  --paper:#F8F6FC;
+  --surface:#FFFFFF;
+  --surface-2:#F1EDF8;
+  --rule:#DED6EE;
+  --rule-soft:#EBE5F5;
+
+  --accent:#6D40D9;      /* amethyst — structure, links, focus */
+  --accent-soft:#EFE7FE;
+
+  /* semantic severity, deliberately separate from the accent */
+  --sev-hi:#C11A47;
+  --sev-hi-bg:#FDECF1;
+  --sev-mid:#A85A06;
+  --sev-mid-bg:#FDF1E1;
+  --sev-lo:#0A6E67;
+  --sev-lo-bg:#E2F4F2;
+
+  --done:#5C8A2E;
+
+  --shadow:0 1px 2px rgba(25,19,37,.06), 0 8px 24px -12px rgba(25,19,37,.18);
+
+  --step--1:.86rem;
+  --step-0:1.06rem;
+  --step-1:1.28rem;
+  --step-2:1.6rem;
+  --step-3:2.1rem;
+  --step-4:2.9rem;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ink:#EFEAF9;
+    --ink-2:#BCB2D4;
+    --ink-3:#8E84A8;
+    --paper:#120E1C;
+    --surface:#1B1529;
+    --surface-2:#241D36;
+    --rule:#39304F;
+    --rule-soft:#2B2340;
+
+    --accent:#B392FF;
+    --accent-soft:#2A2044;
+
+    --sev-hi:#FF8AA6;
+    --sev-hi-bg:#3A1524;
+    --sev-mid:#F0B35F;
+    --sev-mid-bg:#38260F;
+    --sev-lo:#5CD6C6;
+    --sev-lo-bg:#0F332F;
+
+    --done:#9BCB63;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -14px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#EFEAF9;
+  --ink-2:#BCB2D4;
+  --ink-3:#8E84A8;
+  --paper:#120E1C;
+  --surface:#1B1529;
+  --surface-2:#241D36;
+  --rule:#39304F;
+  --rule-soft:#2B2340;
+
+  --accent:#B392FF;
+  --accent-soft:#2A2044;
+
+  --sev-hi:#FF8AA6;
+  --sev-hi-bg:#3A1524;
+  --sev-mid:#F0B35F;
+  --sev-mid-bg:#38260F;
+  --sev-lo:#5CD6C6;
+  --sev-lo-bg:#0F332F;
+
+  --done:#9BCB63;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -14px rgba(0,0,0,.7);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Source Serif 4",Georgia,"Times New Roman",serif;
+  font-size:var(--step-0);
+  line-height:1.6;
+  -webkit-text-size-adjust:100%;
+  overflow-wrap:break-word;
+}
+h1,h2,h3,.disp{
+  font-family:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  font-weight:800;
+  text-wrap:balance;
+  line-height:1.12;
+  letter-spacing:-.015em;
+  margin:0;
+}
+.mono{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Consolas,monospace}
+
+a{color:var(--accent);text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:4px}
+
+.shell{max-width:60rem;margin:0 auto;padding:0 1.1rem 5rem}
+
+/* ── masthead ─────────────────────────────────────────── */
+header.top{
+  padding:3rem 0 1.6rem;
+  display:flex;flex-direction:column;gap:1.1rem;
+}
+.eyebrow{
+  font-family:"IBM Plex Mono",monospace;font-weight:600;
+  font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--accent);
+}
+header.top h1{font-size:var(--step-4);max-width:16ch}
+header.top .lede{
+  font-size:var(--step-1);color:var(--ink-2);max-width:60ch;margin:0;
+  line-height:1.45;
+}
+header.top .lede b{color:var(--ink);font-weight:700}
+
+/* ── the count strip ──────────────────────────────────── */
+.tally{
+  display:grid;gap:.6rem;
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,9.5rem),1fr));
+  margin:.4rem 0 0;
+}
+.tally .cell{
+  background:var(--surface);border:1px solid var(--rule);
+  border-radius:.9rem;padding:.85rem .95rem;box-shadow:var(--shadow);
+  display:flex;flex-direction:column;gap:.15rem;
+}
+.tally .n{
+  font-family:"Bricolage Grotesque",sans-serif;font-weight:800;
+  font-size:var(--step-3);line-height:1;font-variant-numeric:tabular-nums;
+}
+.tally .k{
+  font-family:"IBM Plex Mono",monospace;font-size:.7rem;font-weight:600;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);
+}
+.tally .cell.hi{border-left:5px solid var(--sev-hi)}
+.tally .cell.hi .n{color:var(--sev-hi)}
+.tally .cell.mid{border-left:5px solid var(--sev-mid)}
+.tally .cell.mid .n{color:var(--sev-mid)}
+.tally .cell.lo{border-left:5px solid var(--sev-lo)}
+.tally .cell.lo .n{color:var(--sev-lo)}
+.tally .cell.all{border-left:5px solid var(--accent)}
+.tally .cell.all .n{color:var(--accent)}
+
+/* ── how to read it ───────────────────────────────────── */
+.primer{
+  margin:1.6rem 0 0;padding:1.05rem 1.15rem;
+  background:var(--surface-2);border:1px solid var(--rule-soft);
+  border-radius:.9rem;font-size:var(--step--1);color:var(--ink-2);
+  line-height:1.55;
+}
+.primer b{color:var(--ink)}
+.primer .sevkey{
+  display:flex;flex-wrap:wrap;gap:.45rem;margin-top:.7rem;
+}
+.chip{
+  font-family:"IBM Plex Mono",monospace;font-size:.68rem;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;
+  padding:.32rem .55rem;border-radius:.4rem;white-space:nowrap;
+}
+.chip.hi{background:var(--sev-hi-bg);color:var(--sev-hi)}
+.chip.mid{background:var(--sev-mid-bg);color:var(--sev-mid)}
+.chip.lo{background:var(--sev-lo-bg);color:var(--sev-lo)}
+
+/* ── controls ─────────────────────────────────────────── */
+.controls{
+  position:sticky;top:0;z-index:20;
+  margin:1.8rem 0 0;padding:.7rem 0;
+  background:color-mix(in srgb, var(--paper) 92%, transparent);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--rule-soft);
+  display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;
+}
+.controls .grp{display:flex;gap:.4rem;flex-wrap:wrap}
+button.f{
+  font-family:"IBM Plex Mono",monospace;font-size:.74rem;font-weight:600;
+  letter-spacing:.08em;text-transform:uppercase;
+  min-height:44px;padding:.5rem .8rem;
+  background:var(--surface);color:var(--ink-2);
+  border:1px solid var(--rule);border-radius:.6rem;cursor:pointer;
+  transition:background .12s,color .12s,border-color .12s;
+}
+button.f:hover{background:var(--surface-2);color:var(--ink)}
+button.f[aria-pressed="true"]{
+  background:var(--accent);border-color:var(--accent);color:#fff;
+}
+:root[data-theme="dark"] button.f[aria-pressed="true"],
+:root:not([data-theme="light"]) button.f[aria-pressed="true"]{color:#150F24}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]) button.f[aria-pressed="true"]{color:#fff}
+}
+.controls .spacer{flex:1 1 2rem}
+.progress{
+  font-family:"IBM Plex Mono",monospace;font-size:.74rem;font-weight:600;
+  color:var(--ink-3);font-variant-numeric:tabular-nums;white-space:nowrap;
+  min-height:44px;display:flex;align-items:center;
+}
+
+/* ── course sections ──────────────────────────────────── */
+section.course{margin:2.6rem 0 0}
+section.course > h2{
+  font-size:var(--step-2);display:flex;align-items:baseline;gap:.6rem;
+  flex-wrap:wrap;padding-bottom:.5rem;border-bottom:2px solid var(--ink);
+}
+section.course > h2 .sub{
+  font-family:"Source Serif 4",serif;font-weight:400;font-size:var(--step--1);
+  color:var(--ink-3);letter-spacing:0;
+}
+.modhead{
+  font-family:"IBM Plex Mono",monospace;font-size:.72rem;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);
+  margin:1.6rem 0 .55rem;display:flex;align-items:center;gap:.55rem;
+}
+.modhead::after{content:"";flex:1;height:1px;background:var(--rule)}
+
+/* ── the finding card: two readings of one fact ───────── */
+.find{
+  background:var(--surface);border:1px solid var(--rule);
+  border-left:6px solid var(--rule);
+  border-radius:.85rem;box-shadow:var(--shadow);
+  margin:0 0 .75rem;overflow:hidden;
+}
+.find.hi{border-left-color:var(--sev-hi)}
+.find.mid{border-left-color:var(--sev-mid)}
+.find.lo{border-left-color:var(--sev-lo)}
+
+.find .bar{
+  display:flex;align-items:flex-start;gap:.7rem;
+  padding:.85rem 1rem .7rem;
+}
+.find .fact{
+  font-family:"Bricolage Grotesque",sans-serif;font-weight:800;
+  font-size:var(--step-1);line-height:1.22;flex:1;min-width:0;
+}
+.find .tick{
+  flex:0 0 auto;width:44px;height:44px;margin:-.25rem -.35rem 0 0;
+  display:grid;place-items:center;cursor:pointer;border-radius:.5rem;
+  border:0;background:transparent;color:var(--ink-3);
+}
+.find .tick:hover{background:var(--surface-2);color:var(--ink)}
+.find .tick svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round}
+.find .tick .mark{opacity:0}
+.find[data-done="1"] .tick{color:var(--done)}
+.find[data-done="1"] .tick .mark{opacity:1}
+.find[data-done="1"]{opacity:.5}
+.find[data-done="1"] .fact{text-decoration:line-through;text-decoration-thickness:2px}
+
+/* the split — two readings, side by side on wide, stacked on phone */
+.split{
+  display:grid;gap:1px;background:var(--rule-soft);
+  border-top:1px solid var(--rule-soft);
+}
+@media (min-width:46rem){.split{grid-template-columns:1fr 1fr}}
+.reading{
+  background:var(--surface);padding:.85rem 1rem 1rem;
+  display:flex;flex-direction:column;gap:.35rem;min-width:0;
+}
+.reading .where{
+  font-family:"IBM Plex Mono",monospace;font-size:.68rem;font-weight:600;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);
+}
+.reading .says{font-size:var(--step-0);line-height:1.5}
+.reading .says em{font-style:normal;background:var(--accent-soft);
+  padding:.05em .3em;border-radius:.25em;font-weight:600;
+  color:var(--ink)}
+
+.find .foot{
+  padding:.7rem 1rem .85rem;border-top:1px solid var(--rule-soft);
+  font-size:var(--step--1);color:var(--ink-2);line-height:1.5;
+  background:var(--surface-2);
+}
+.find .foot b{color:var(--ink)}
+.find .sevtag{float:right;margin:0 0 .3rem .6rem}
+
+.empty{
+  padding:2.5rem 1rem;text-align:center;color:var(--ink-3);
+  font-size:var(--step-0);
+}
+
+footer.end{
+  margin:3.5rem 0 0;padding-top:1.4rem;border-top:1px solid var(--rule);
+  font-size:var(--step--1);color:var(--ink-3);line-height:1.6;
+}
+footer.end b{color:var(--ink-2)}
+
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+}
+</style>
+
+<div class="shell">
+
+<header class="top">
+  <div class="eyebrow">ABSN Study Hub &middot; content audit</div>
+  <h1>Where the pages disagree</h1>
+  <p class="lede">Fifty-four places across your <b>42 module pages</b> where the same
+  fact is stated two different ways. Not opinions about nursing &mdash; these are
+  the page contradicting <b>itself</b>. Each one needs you to pick a winner.</p>
+
+  <div class="tally">
+    <div class="cell all"><span class="n" id="tAll">54</span><span class="k">findings</span></div>
+    <div class="cell hi"><span class="n" id="tHi">16</span><span class="k">changes an answer</span></div>
+    <div class="cell mid"><span class="n" id="tMid">24</span><span class="k">numbers differ</span></div>
+    <div class="cell lo"><span class="n" id="tLo">14</span><span class="k">wording only</span></div>
+  </div>
+
+  <div class="primer">
+    <b>How to use this.</b> Each card shows one fact and the two versions of it your
+    page carries. Read both, decide which one you want the site to say, and tick it
+    off. Tell me the verdicts and I&rsquo;ll make every page say the same thing.
+    Your ticks are saved in this browser, so you can stop and come back.
+    <div class="sevkey">
+      <span class="chip hi">Changes an answer</span>
+      <span class="chip mid">Numbers differ</span>
+      <span class="chip lo">Wording only</span>
+    </div>
+  </div>
+</header>
+
+<div class="controls">
+  <div class="grp" role="group" aria-label="Filter by severity">
+    <button class="f" type="button" data-sev="all" aria-pressed="true">All</button>
+    <button class="f" type="button" data-sev="hi" aria-pressed="false">Answer</button>
+    <button class="f" type="button" data-sev="mid" aria-pressed="false">Numbers</button>
+    <button class="f" type="button" data-sev="lo" aria-pressed="false">Wording</button>
+  </div>
+  <div class="grp">
+    <button class="f" type="button" id="hideDone" aria-pressed="false">Hide done</button>
+  </div>
+  <span class="spacer"></span>
+  <span class="progress" id="prog">0 of 54 decided</span>
+</div>
+
+<div id="list"></div>
+
+<footer class="end">
+  <b>How this was found.</b> Every module page&rsquo;s high-yield card, ATI card,
+  exam traps and notes were pulled out and read against each other, one page at a
+  time, looking only for a fact stated twice with different values. Things that
+  merely looked like conflicts &mdash; onset versus peak, two named grading systems,
+  a fixed value sitting inside a stated range &mdash; were checked and set aside.
+  Nothing on the site has been changed.
+  <br><br>
+  <b>Three were verified by hand</b> against the live page source, because they
+  decide what you would answer: the amniocentesis bladder rule, the preeclampsia
+  definition, and the first action for a boggy uterus deviated to the right.
+</footer>
+
+</div>
+
+<script>
+const DATA = [
+{c:"NUR 234", cs:"Maternal &amp; Newborn", m:4, mt:"Assessment of Fetal Well-Being", sev:"hi",
+ f:"Amniocentesis &mdash; bladder full or empty?",
+ a:{w:"High-yield card", t:"&ldquo;Amniocentesis: <em>empty the bladder</em>, monitor FHR before and after&rdquo;"},
+ b:{w:"ATI card &amp; notes", t:"&ldquo;Bladder rule <em>flips at 20 weeks</em>: full before 20 weeks to lift the uterus, empty after 20 weeks to avoid puncturing it&rdquo;"},
+ n:"The high-yield card states it flat, with no gestational age attached. Verified by hand &mdash; I told you earlier this one was a false alarm and I was wrong."},
+
+{c:"NUR 234", cs:"Maternal &amp; Newborn", m:4, mt:"Assessment of Fetal Well-Being", sev:"hi",
+ f:"Biophysical profile score of exactly 4",
+ a:{w:"ATI card", t:"&ldquo;<em>4&ndash;6 equivocal</em>, under 4 strongly abnormal&rdquo;"},
+ b:{w:"Brief", t:"&ldquo;<em>&le;4 deliver</em>&rdquo;"},
+ n:"A score of 4 is &ldquo;repeat the test&rdquo; under one rule and &ldquo;deliver the baby&rdquo; under the other."},
+
+{c:"NUR 234", cs:"Maternal &amp; Newborn", m:4, mt:"Assessment of Fetal Well-Being", sev:"mid",
+ f:"McDonald&rsquo;s rule &mdash; reliable window",
+ a:{w:"High-yield &amp; notes", t:"&ldquo;most reliable <em>18&ndash;30 weeks</em>&rdquo;"},
+ b:{w:"Brief (twice)", t:"&ldquo;from <em>20 to 36 weeks</em>: cm &asymp; weeks&rdquo;"}},
+
+{c:"NUR 234", cs:"Maternal &amp; Newborn", m:4, mt:"Assessment of Fetal Well-Being", sev:"mid",
+ f:"MSAFP screening window",
+ a:{w:"High-yield &amp; notes", t:"&ldquo;MSAFP <em>15&ndash;20 wk</em>&rdquo;"},
+ b:{w:"ATI card", t:"&ldquo;MSAFP <em>15&ndash;22 wk</em>&rdquo;"}},
+
+{c:"NUR 234", cs:"Maternal &amp; Newborn", m:9, mt:"Hypertensive Disorders", sev:"hi",
+ f:"Does preeclampsia require proteinuria?",
+ a:{w:"High-yield card (stated twice)", t:"&ldquo;Preeclampsia = BP &ge;140/90 <em>with proteinuria</em>, at or after 20 weeks&rdquo;"},
+ b:{w:"Notes", t:"&ldquo;Proteinuria is <em>NO LONGER REQUIRED</em> to diagnose preeclampsia&rdquo;"},
+ n:"A flat contradiction on the definition itself. Verified by hand. Current ACOG practice is the second one &mdash; severe features alone are enough &mdash; but the call is yours."},
+
+{c:"NUR 234", cs:"Maternal &amp; Newborn", m:9, mt:"Hypertensive Disorders", sev:"mid",
+ f:"Magnesium toxicity &mdash; order of signs",
+ a:{w:"High-yield card", t:"reflexes &rarr; <em>respirations &lt;12/min</em> &rarr; <em>urine &lt;30 mL/hr</em> &rarr; cardiac arrest"},
+ b:{w:"Notes", t:"reflexes &rarr; <em>urine &lt;30 mL/hr</em> &rarr; <em>respirations &lt;12/min</em> &rarr; &darr;LOC &rarr; dysrhythmias"},
+ n:"Both agree reflexes go first. They swap the middle two and end differently."},
+
+{c:"NUR 234", cs:"Maternal &amp; Newborn", m:11, mt:"Postpartum Adaptations", sev:"hi",
+ f:"Boggy uterus deviated right &mdash; what first?",
+ a:{w:"Fundus diagram &amp; the numbered sequence", t:"&ldquo;<em>Massage first</em>, then empty the bladder&rdquo; / &ldquo;1 &middot; FIRST massage the fundus, 2 have her empty the bladder&rdquo;"},
+ b:{w:"High-yield card", t:"&ldquo;bladder distension &rarr; <em>have her void first</em>&rdquo;"},
+ n:"This is exactly the &ldquo;what do you do FIRST&rdquo; shape the NCLEX loves, and the page answers it two ways."},
+
+{c:"NUR 234", cs:"Maternal &amp; Newborn", m:11, mt:"Postpartum Adaptations", sev:"hi",
+ f:"Postpartum hemorrhage &mdash; the threshold",
+ a:{w:"One card", t:"&ldquo;<em>&gt;500 mL vaginal</em> or <em>&gt;1,000 mL cesarean</em>&rdquo;"},
+ b:{w:"Another", t:"&ldquo;cumulative loss of <em>1,000 mL or more</em>, OR any loss with signs of hypovolemia, within 24 h of <em>any</em> birth type&rdquo;"},
+ n:"The second is the current ACOG definition; the first is the older split one. A 700 mL vaginal loss is a hemorrhage under one and not under the other."},
+
+{c:"NUR 234", cs:"Maternal &amp; Newborn", m:11, mt:"Postpartum Adaptations", sev:"lo",
+ f:"Lochia alba &mdash; when it starts",
+ a:{w:"One card", t:"&ldquo;alba yellow-white <em>day 10</em> to about 6 weeks&rdquo;"},
+ b:{w:"Table", t:"&ldquo;Alba <em>11&ndash;21+</em>&rdquo;"}},
+
+{c:"NUR 234", cs:"Maternal &amp; Newborn", m:13, mt:"Newborn Nutrition", sev:"hi",
+ f:"When mature milk comes in",
+ a:{w:"High-yield &amp; notes", t:"&ldquo;mature milk around <em>days 10&ndash;14</em>&rdquo;"},
+ b:{w:"ATI card", t:"&ldquo;mature milk transitions in <em>72&ndash;96 h</em>&rdquo;"},
+ n:"Three to four days versus a fortnight. Not a rounding difference."},
+
+{c:"NUR 234", cs:"Maternal &amp; Newborn", m:13, mt:"Newborn Nutrition", sev:"mid",
+ f:"Newborn calorie need &mdash; the worked example disagrees with the rule",
+ a:{w:"Worked calculation", t:"&ldquo;3.2 kg &times; <em>100 kcal/kg/day</em> = 320 kcal/day&rdquo;"},
+ b:{w:"ATI card", t:"&ldquo;Caloric need <em>110&ndash;135 kcal/kg/day</em>&rdquo;"},
+ n:"If you check the worked answer against the stated rule, the math is short."},
+
+{c:"NUR 234", cs:"Maternal &amp; Newborn", m:7, mt:"Fetal Monitoring &amp; Analgesia", sev:"hi",
+ f:"Late deceleration &mdash; where oxygen falls in the sequence",
+ a:{w:"High-yield &ldquo;her bundle&rdquo;", t:"left lateral &rarr; <em>oxygen</em> &rarr; stop the Pitocin &rarr; IV bolus &rarr; notify"},
+ b:{w:"Brief list, and again in the ATI card", t:"left side &rarr; stop oxytocin &rarr; <em>oxygen</em> &rarr; increase IV &rarr; notify &nbsp;/&nbsp; side-lying &rarr; stop oxytocin &rarr; open IV &rarr; notify &rarr; <em>oxygen only if she is hypoxic</em>"},
+ n:"Three lists, three positions for oxygen &mdash; second, third, and fifth-and-conditional. All three agree position change comes first."},
+
+{c:"NUR 234", cs:"Maternal &amp; Newborn", m:5, mt:"Nutrition in Pregnancy", sev:"mid",
+ f:"Extra calories in pregnancy",
+ a:{w:"One card", t:"&ldquo;add roughly <em>300 kcal/day</em> in pregnancy&rdquo;"},
+ b:{w:"Another", t:"&ldquo;<em>no increase</em> in the first trimester, <em>+340</em> in the second, <em>+450</em> in the third&rdquo;"}},
+
+{c:"NUR 234", cs:"Maternal &amp; Newborn", m:5, mt:"Nutrition in Pregnancy", sev:"mid",
+ f:"Extra calories while breastfeeding",
+ a:{w:"One card", t:"&ldquo;about <em>500 kcal/day</em> while lactating&rdquo;"},
+ b:{w:"Another", t:"&ldquo;lactation adds <em>340&ndash;400</em>&rdquo;"}},
+
+{c:"NUR 234", cs:"Maternal &amp; Newborn", m:5, mt:"Nutrition in Pregnancy", sev:"mid",
+ f:"Iron &mdash; with food or between meals?",
+ a:{w:"One card", t:"&ldquo;taken with orange juice &hellip; an <em>empty stomach worsens the nausea</em>&rdquo;"},
+ b:{w:"Another", t:"&ldquo;<em>between meals</em> with vitamin C&rdquo;"},
+ n:"One says take it with something, the other says take it on an empty stomach."},
+
+{c:"NUR 234", cs:"Maternal &amp; Newborn", m:3, mt:"Changes of Pregnancy", sev:"mid",
+ f:"When blood pressure dips in pregnancy",
+ a:{w:"High-yield card", t:"&ldquo;trends DOWN in the <em>first two trimesters</em> and returns to baseline at term&rdquo;"},
+ b:{w:"Brief", t:"&ldquo;dips in the <em>second trimester</em> then returns&rdquo;"}},
+
+{c:"NUR 234", cs:"Maternal &amp; Newborn", m:2, mt:"Conception &amp; Fetal Development", sev:"lo",
+ f:"The teratogen window",
+ a:{w:"Stated three times", t:"&ldquo;<em>weeks 3&ndash;8</em> = organogenesis = peak teratogen vulnerability&rdquo;"},
+ b:{w:"Brief", t:"&ldquo;most structural birth defects arise between about <em>2 and 8 weeks</em>&rdquo;"}},
+
+{c:"NUR 234", cs:"Maternal &amp; Newborn", m:8, mt:"Early Pregnancy Bleeding", sev:"lo",
+ f:"Post-molar hCG follow-up length",
+ a:{w:"ATI card &amp; notes", t:"&ldquo;monthly for <em>6&ndash;12 months</em>, with reliable contraception the entire time&rdquo;"},
+ b:{w:"Brief (twice)", t:"&ldquo;hCG follow-up <em>1 year</em>&rdquo; / &ldquo;she must avoid pregnancy for <em>a year</em>&rdquo;"}},
+
+{c:"NUR 234", cs:"Maternal &amp; Newborn", m:10, mt:"Labor Complications", sev:"mid",
+ f:"Uterine rupture &mdash; what the pain does",
+ a:{w:"One card", t:"&ldquo;<em>sudden sharp abdominal pain</em>&rdquo; (with contractions stopping)"},
+ b:{w:"Another", t:"&ldquo;a report that the pain <em>stopped</em> &hellip; pain that suddenly stops in strong labor is an emergency, not progress&rdquo;"}},
+
+{c:"NUR 235", cs:"Pediatrics", m:2, mt:"The Infant (0&ndash;1 year)", sev:"hi",
+ f:"How often to introduce a new food",
+ a:{w:"High-yield &amp; notes", t:"&ldquo;one new food every <em>3&ndash;5 days</em>&rdquo;"},
+ b:{w:"Brief", t:"&ldquo;one new food every <em>4&ndash;7 days</em> so allergies can be identified&rdquo;"},
+ n:"There is a quiz question on this same page whose correct answer is &ldquo;every 3 to 5 days&rdquo; &mdash; so the page marks you right and wrong at once."},
+
+{c:"NUR 235", cs:"Pediatrics", m:2, mt:"The Infant (0&ndash;1 year)", sev:"mid",
+ f:"When birth weight doubles",
+ a:{w:"Across four different cards", t:"&ldquo;<em>~6 months</em>&rdquo; &middot; &ldquo;<em>5&ndash;6 months</em>&rdquo; &middot; &ldquo;<em>4&ndash;6 months</em>&rdquo; &middot; &ldquo;<em>at 6 months</em>&rdquo;"},
+ b:{w:"All four agree on", t:"triples at <em>12 months</em>"},
+ n:"Four versions of one number on one page. The standard taught answer is 6 months."},
+
+{c:"NUR 235", cs:"Pediatrics", m:2, mt:"The Infant (0&ndash;1 year)", sev:"mid",
+ f:"Posterior fontanelle &mdash; when it closes",
+ a:{w:"High-yield &amp; notes", t:"&ldquo;posterior closes <em>6&ndash;8 weeks</em>&rdquo;"},
+ b:{w:"Brief", t:"&ldquo;posterior fontanelle closes by <em>2&ndash;3 months</em>&rdquo;"}},
+
+{c:"NUR 235", cs:"Pediatrics", m:2, mt:"The Infant (0&ndash;1 year)", sev:"mid",
+ f:"Anterior fontanelle &mdash; when it closes",
+ a:{w:"One card", t:"&ldquo;anterior fontanelle closes <em>12&ndash;18 months</em>&rdquo;"},
+ b:{w:"Another", t:"&ldquo;anterior fontanel closes <em>12&ndash;24 months</em>&rdquo;"}},
+
+{c:"NUR 235", cs:"Pediatrics", m:12, mt:"Gastrointestinal", sev:"hi",
+ f:"Dehydration staging by capillary refill",
+ a:{w:"High-yield &amp; notes", t:"mild <em>just over 2 s</em> &middot; moderate <em>2&ndash;4 s</em> &middot; severe <em>beyond 4 s</em>"},
+ b:{w:"Brief table", t:"mild <em>&lt;2 s</em> &middot; moderate <em>2&ndash;3 s</em> &middot; severe <em>&gt;3 s</em>"},
+ n:"Every tier disagrees. A child refilling in 3.5 seconds is moderate on one scale and severe on the other."},
+
+{c:"NUR 235", cs:"Pediatrics", m:12, mt:"Gastrointestinal", sev:"lo",
+ f:"Pyloric stenosis &mdash; age at onset",
+ a:{w:"High-yield &amp; notes", t:"&ldquo;projectile non-bilious vomiting at <em>4&ndash;6 weeks</em>&rdquo;"},
+ b:{w:"Brief table", t:"&ldquo;<em>3&ndash;6 weeks</em> old&rdquo;"}},
+
+{c:"NUR 235", cs:"Pediatrics", m:6, mt:"Immune, Infectious, Skin &amp; Burns", sev:"hi",
+ f:"Measles &mdash; which precautions",
+ a:{w:"Isolation grid", t:"&ldquo;<em>airborne + contact</em>: varicella, rubeola&rdquo;"},
+ b:{w:"Precautions table", t:"&ldquo;Measles (rubeola) &hellip; <em>airborne</em>&rdquo;"},
+ n:"Isolation type is a straight exam answer, and the page gives two."},
+
+{c:"NUR 235", cs:"Pediatrics", m:11, mt:"Endocrine &amp; Metabolic", sev:"mid",
+ f:"Diabetes sick-day monitoring",
+ a:{w:"High-yield &amp; notes", t:"&ldquo;check glucose <em>and ketones every 3 hours</em>&rdquo;"},
+ b:{w:"Brief", t:"&ldquo;check glucose <em>every 2&ndash;4 hours</em>, and check ketones <em>when above 250</em>&rdquo;"},
+ n:"They disagree on the interval and on what triggers a ketone check."},
+
+{c:"NUR 235", cs:"Pediatrics", m:9, mt:"Cardiac", sev:"mid",
+ f:"Earliest sign of heart failure in an infant",
+ a:{w:"High-yield &amp; notes", t:"&ldquo;<em>hepatomegaly</em> as the earliest sign&rdquo;"},
+ b:{w:"Brief", t:"&ldquo;<em>poor weight gain</em> &mdash; often the earliest sign&rdquo;"}},
+
+{c:"NUR 235", cs:"Pediatrics", m:9, mt:"Cardiac", sev:"lo",
+ f:"Kawasaki fever duration",
+ a:{w:"High-yield &amp; notes", t:"&ldquo;fever <em>&gt;5 days</em> unresponsive to antipyretics&rdquo;"},
+ b:{w:"Brief", t:"&ldquo;fever <em>&ge;5 days</em> plus red eyes, strawberry tongue&hellip;&rdquo;"}},
+
+{c:"NUR 235", cs:"Pediatrics", m:1, mt:"Intro to Pediatric Nursing", sev:"mid",
+ f:"Numeric pain scale &mdash; from what age",
+ a:{w:"High-yield &amp; notes", t:"&ldquo;numeric <em>5+</em> if cognitively able&rdquo;"},
+ b:{w:"Brief", t:"&ldquo;numeric 0&ndash;10 &mdash; about <em>8 and older</em>&rdquo;"}},
+
+{c:"NUR 235", cs:"Pediatrics", m:4, mt:"School-Age &amp; Adolescent", sev:"mid",
+ f:"Scoliosis screening &mdash; when",
+ a:{w:"High-yield &amp; notes", t:"&ldquo;scoliosis screening yearly <em>after age 8</em>&rdquo;"},
+ b:{w:"Brief", t:"&ldquo;screened in <em>early adolescence</em>, at the growth spurt&rdquo;"},
+ n:"Age 8 is school-age on this same page, not early adolescence."},
+
+{c:"NUR 235", cs:"Pediatrics", m:7, mt:"Neurologic &amp; Neuromuscular", sev:"mid",
+ f:"Cushing&rsquo;s triad &mdash; the third sign",
+ a:{w:"High-yield card", t:"rising BP, falling HR, <em>falling respiratory rate</em>"},
+ b:{w:"Brief", t:"rising BP with widening pulse pressure, falling HR, <em>irregular breathing</em>"}},
+
+{c:"NUR 235", cs:"Pediatrics", m:3, mt:"Toddler &amp; Preschooler", sev:"lo",
+ f:"Phrase length at 2 years",
+ a:{w:"High-yield &amp; notes", t:"&ldquo;<em>2&ndash;3 word</em> phrases at 2 years&rdquo;"},
+ b:{w:"Brief milestones", t:"&ldquo;2 years &mdash; runs, <em>2-word</em> phrases&rdquo;"}},
+
+{c:"NUR 235", cs:"Pediatrics", m:10, mt:"Musculoskeletal", sev:"lo",
+ f:"SCFE &mdash; which age group",
+ a:{w:"High-yield card", t:"&ldquo;occurs in obese <em>preadolescent</em> males&rdquo;"},
+ b:{w:"Brief table", t:"&ldquo;obese <em>adolescent</em> &mdash; hip/knee pain, out-toeing&rdquo;"}},
+
+{c:"NUR 258", cs:"Complex Adult Health", m:5, mt:"Endocrine Disorders", sev:"hi",
+ f:"Thyroid storm &mdash; what comes first",
+ a:{w:"High-yield &amp; notes", t:"&ldquo;<em>fluids + dextrose first</em>, then beta blockers&rdquo;"},
+ b:{w:"Bow-tie case on the same page", t:"priorities are &ldquo;<em>beta blocker + cooling</em>&rdquo;"}},
+
+{c:"NUR 258", cs:"Complex Adult Health", m:5, mt:"Endocrine Disorders", sev:"hi",
+ f:"Adrenal crisis &mdash; what comes first",
+ a:{w:"Keyed answer", t:"<em>IV hydrocortisone</em>"},
+ b:{w:"Both instructor notes", t:"<em>0.9% normal saline bolus</em>"}},
+
+{c:"NUR 258", cs:"Complex Adult Health", m:6, mt:"Diabetes", sev:"hi",
+ f:"NPH insulin &mdash; when it peaks",
+ a:{w:"Insulin table", t:"peak <em>4&ndash;12 hr</em>"},
+ b:{w:"Notes", t:"peak <em>6&ndash;8 h</em>, snack at 8 hours"},
+ n:"Peak timing is what &ldquo;when is she most likely to go low?&rdquo; questions turn on."},
+
+{c:"NUR 258", cs:"Complex Adult Health", m:6, mt:"Diabetes", sev:"mid",
+ f:"Lispro / aspart &mdash; when it peaks",
+ a:{w:"High-yield card", t:"peak <em>1&ndash;3 hr</em>"},
+ b:{w:"Table", t:"peak <em>1 h</em>"}},
+
+{c:"NUR 258", cs:"Complex Adult Health", m:6, mt:"Diabetes", sev:"mid",
+ f:"HHS &mdash; the glucose range",
+ a:{w:"Table", t:"&ldquo;<em>&gt;600</em>, often far higher&rdquo;"},
+ b:{w:"Notes", t:"&ldquo;<em>500&ndash;800</em>&rdquo;"}},
+
+{c:"NUR 258", cs:"Complex Adult Health", m:6, mt:"Diabetes", sev:"lo",
+ f:"15 g of fast carbohydrate as juice",
+ a:{w:"Brief", t:"<em>4 oz</em> juice"},
+ b:{w:"Notes", t:"<em>4&ndash;6 oz</em> juice"}},
+
+{c:"NUR 258", cs:"Complex Adult Health", m:2, mt:"Infectious Diseases &amp; HIV", sev:"hi",
+ f:"Neutropenia &mdash; the ANC cutoff",
+ a:{w:"One card", t:"neutropenic at <em>ANC &le;1,000</em>"},
+ b:{w:"Notes", t:"ANC 1,500&ndash;8,000 normal, with <em>500 = neutropenic</em>"},
+ n:"A patient at ANC 800 is neutropenic under one and not under the other."},
+
+{c:"NUR 258", cs:"Complex Adult Health", m:2, mt:"Infectious Diseases &amp; HIV", sev:"mid",
+ f:"Normal CD4 range",
+ a:{w:"CD4 ladder", t:"<em>500&ndash;1500</em>"},
+ b:{w:"Notes", t:"<em>500&ndash;1,200</em>"}},
+
+{c:"NUR 258", cs:"Complex Adult Health", m:3, mt:"Allergic &amp; Immunologic", sev:"hi",
+ f:"Latex allergy &mdash; which hypersensitivity type",
+ a:{w:"One section", t:"<em>Type I</em>"},
+ b:{w:"Another", t:"<em>Type IV</em>"},
+ n:"Latex can genuinely be both, but the page states one type flatly in each place without saying so."},
+
+{c:"NUR 258", cs:"Complex Adult Health", m:3, mt:"Allergic &amp; Immunologic", sev:"lo",
+ f:"Type IV reaction &mdash; how long it takes",
+ a:{w:"High-yield &amp; notes", t:"<em>24&ndash;72 hr</em>"},
+ b:{w:"Brief table", t:"<em>48&ndash;72 hours</em> (with PPD read at 72)"}},
+
+{c:"NUR 258", cs:"Complex Adult Health", m:4, mt:"Burns", sev:"mid",
+ f:"Adult urine output target",
+ a:{w:"Stated three ways", t:"&ldquo;<em>&ge;30 mL/hr</em>&rdquo; &middot; &ldquo;<em>30&ndash;50 mL/hr</em>&rdquo; &middot; &ldquo;30 is the floor, <em>50&ndash;60</em> is what they want&rdquo;"},
+ b:{w:"All three agree on", t:"<em>30</em> as the lower bound"},
+ n:"The floor is consistent; the ceiling is not."},
+
+{c:"NUR 258", cs:"Complex Adult Health", m:4, mt:"Burns", sev:"lo",
+ f:"Burn depth involving muscle and bone",
+ a:{w:"Notes", t:"called <em>fourth degree</em>"},
+ b:{w:"Brief table", t:"called <em>deep full thickness</em>"}},
+
+{c:"NUR 258", cs:"Complex Adult Health", m:13, mt:"Shock &amp; MODS", sev:"hi",
+ f:"BNP &mdash; the normal cutoff",
+ a:{w:"High-yield &amp; notes", t:"&ldquo;BNP normal <em>&lt;200</em>&rdquo;"},
+ b:{w:"Cardiogenic shock case", t:"&ldquo;BNP 157 (normal <em>&lt;100</em>)&rdquo;"},
+ n:"The case&rsquo;s own value, 157, is abnormal under one cutoff and normal under the other."},
+
+{c:"NUR 258", cs:"Complex Adult Health", m:13, mt:"Shock &amp; MODS", sev:"lo",
+ f:"MAP target",
+ a:{w:"One card", t:"<em>&gt;65</em>"},
+ b:{w:"Another", t:"<em>&ge;65</em>"}},
+
+{c:"NUR 258", cs:"Complex Adult Health", m:10, mt:"Oncology &amp; End-of-Life", sev:"mid",
+ f:"Neutropenic fever &mdash; the temperature",
+ a:{w:"Emergency card", t:"&ldquo;a single temperature of <em>100.4&thinsp;&deg;F / 38&thinsp;&deg;C</em> is a medical emergency&rdquo;"},
+ b:{w:"Teaching correction", t:"&ldquo;report temp <em>over 100&thinsp;&deg;F</em>&rdquo;"}},
+
+{c:"NUR 258", cs:"Complex Adult Health", m:9, mt:"Hematologic Disorders", sev:"lo",
+ f:"Normal platelet range",
+ a:{w:"One card", t:"<em>150,000&ndash;450,000</em>/mm&sup3;"},
+ b:{w:"Another", t:"<em>140,000&ndash;400,000</em>/mm&sup3;"},
+ n:"The page flags this as lab-to-lab variation, so it may be deliberate &mdash; but it reads as a conflict."},
+
+{c:"NUR 258", cs:"Complex Adult Health", m:9, mt:"Hematologic Disorders", sev:"lo",
+ f:"DIC &mdash; which fibrin marker",
+ a:{w:"One list", t:"<em>FDPs up</em>"},
+ b:{w:"Another", t:"<em>D-dimer up</em>"}},
+
+{c:"NUR 258", cs:"Complex Adult Health", m:11, mt:"Reproductive Disorders", sev:"mid",
+ f:"Breast self-exam &mdash; when in the cycle",
+ a:{w:"One card", t:"&ldquo;monthly, <em>5&ndash;7 days</em> after menses&rdquo;"},
+ b:{w:"Another", t:"&ldquo;monthly, best <em>7&ndash;10 days</em> after menses starts&rdquo;"}},
+
+{c:"NUR 258", cs:"Complex Adult Health", m:1, mt:"Sensory &mdash; Eye &amp; Ear", sev:"mid",
+ f:"Which drugs are ototoxic",
+ a:{w:"High-yield cards", t:"furosemide, aspirin/NSAIDs, aminoglycosides, <em>vancomycin, erythromycin</em>"},
+ b:{w:"Exam traps", t:"aminoglycosides, loop diuretics, high-dose aspirin, <em>cisplatin</em>"},
+ n:"Two lists, each missing names the other has."},
+
+{c:"NUR 258", cs:"Complex Adult Health", m:14, mt:"Final Exam Review", sev:"mid",
+ f:"The priority hierarchy itself",
+ a:{w:"High-yield &amp; notes", t:"ABCs &rarr; urgent over non-urgent &rarr; assess before intervene &rarr; <em>Maslow</em> &rarr; least restrictive"},
+ b:{w:"Brief", t:"ABC &rarr; <em>acute beats chronic</em> &rarr; <em>unstable beats stable</em> &rarr; <em>actual beats potential</em> &rarr; assess before intervene"},
+ n:"Two different tie-breaker ladders for the same &ldquo;what do I do first&rdquo; decision."}
+];
+
+const SEVLABEL = {hi:"Changes an answer", mid:"Numbers differ", lo:"Wording only"};
+const KEY = "absn-disagreements-v1";
+
+let done = {};
+try{ done = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; }
+catch(e){ done = {}; }
+
+function save(){
+  try{ localStorage.setItem(KEY, JSON.stringify(done)); }catch(e){}
+}
+
+function idOf(d, i){ return d.c.replace(/\D/g,"") + "-m" + d.m + "-" + i; }
+
+let filterSev = "all";
+let hideDone = false;
+
+function render(){
+  const list = document.getElementById("list");
+  list.innerHTML = "";
+  const courses = [];
+  DATA.forEach(function(d, i){
+    if(!courses.length || courses[courses.length-1].c !== d.c)
+      courses.push({c:d.c, cs:d.cs, items:[]});
+    courses[courses.length-1].items.push({d:d, i:i});
+  });
+
+  let shown = 0;
+  courses.forEach(function(co){
+    const visible = co.items.filter(function(x){
+      if(filterSev !== "all" && x.d.sev !== filterSev) return false;
+      if(hideDone && done[idOf(x.d, x.i)]) return false;
+      return true;
+    });
+    if(!visible.length) return;
+
+    const sec = document.createElement("section");
+    sec.className = "course";
+    const h2 = document.createElement("h2");
+    h2.innerHTML = co.c + ' <span class="sub">' + co.cs + " &middot; " +
+      visible.length + (visible.length === 1 ? " finding" : " findings") + "</span>";
+    sec.appendChild(h2);
+
+    let lastMod = null;
+    visible.forEach(function(x){
+      const d = x.d, id = idOf(d, x.i);
+      if(d.m !== lastMod){
+        lastMod = d.m;
+        const mh = document.createElement("div");
+        mh.className = "modhead";
+        mh.innerHTML = "<span>Module " + d.m + " &middot; " + d.mt + "</span>";
+        sec.appendChild(mh);
+      }
+      const card = document.createElement("article");
+      card.className = "find " + d.sev;
+      if(done[id]) card.setAttribute("data-done", "1");
+
+      card.innerHTML =
+        '<div class="bar">' +
+          '<h3 class="fact">' + d.f + "</h3>" +
+          '<button class="tick" type="button" aria-pressed="' + (done[id] ? "true" : "false") +
+            '" aria-label="Mark decided: ' + d.f.replace(/<[^>]+>/g, "").replace(/"/g, "") + '">' +
+            '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+              '<rect x="3.5" y="3.5" width="17" height="17" rx="4"></rect>' +
+              '<polyline class="mark" points="7.5 12.5 10.8 15.8 16.5 8.6"></polyline>' +
+            "</svg>" +
+          "</button>" +
+        "</div>" +
+        '<div class="split">' +
+          '<div class="reading"><span class="where">' + d.a.w + '</span><span class="says">' + d.a.t + "</span></div>" +
+          '<div class="reading"><span class="where">' + d.b.w + '</span><span class="says">' + d.b.t + "</span></div>" +
+        "</div>" +
+        '<div class="foot"><span class="chip ' + d.sev + ' sevtag">' + SEVLABEL[d.sev] + "</span>" +
+          (d.n ? d.n : "Pick the version you want the site to use.") + "</div>";
+
+      card.querySelector(".tick").addEventListener("click", function(){
+        done[id] = !done[id];
+        if(!done[id]) delete done[id];
+        save();
+        render();
+      });
+      sec.appendChild(card);
+      shown++;
+    });
+    list.appendChild(sec);
+  });
+
+  if(!shown){
+    const e = document.createElement("p");
+    e.className = "empty";
+    e.textContent = hideDone
+      ? "Nothing left in this filter — all decided."
+      : "No findings match this filter.";
+    list.appendChild(e);
+  }
+
+  const n = Object.keys(done).length;
+  document.getElementById("prog").textContent = n + " of " + DATA.length + " decided";
+}
+
+document.querySelectorAll("button.f[data-sev]").forEach(function(b){
+  b.addEventListener("click", function(){
+    filterSev = b.dataset.sev;
+    document.querySelectorAll("button.f[data-sev]").forEach(function(o){
+      o.setAttribute("aria-pressed", o === b ? "true" : "false");
+    });
+    render();
+  });
+});
+document.getElementById("hideDone").addEventListener("click", function(){
+  hideDone = !hideDone;
+  this.setAttribute("aria-pressed", hideDone ? "true" : "false");
+  render();
+});
+
+(function(){
+  const c = {hi:0, mid:0, lo:0};
+  DATA.forEach(function(d){ c[d.sev]++; });
+  document.getElementById("tAll").textContent = DATA.length;
+  document.getElementById("tHi").textContent = c.hi;
+  document.getElementById("tMid").textContent = c.mid;
+  document.getElementById("tLo").textContent = c.lo;
+  document.querySelector("header.top .lede").innerHTML =
+    "<b>" + DATA.length + " places</b> across your <b>42 module pages</b> where the same " +
+    "fact is stated two different ways. Not opinions about nursing &mdash; these are " +
+    "the page contradicting <b>itself</b>. Each one needs you to pick a winner.";
+})();
+
+render();
+</script>
