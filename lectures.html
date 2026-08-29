@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32"><link rel="apple-touch-icon" href="favicon-180.png">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Lectures &middot; every recording &middot; ABSN Study Hub</title>
+<style>
+:root{--ink:#f2ecff;--soft:#d6c9f2;--muted:#a99cc9;--line:rgba(255,255,255,.20);
+ --gold:#ffd75e;--accent:#ffc233;--card:rgba(14,10,30,.84)}
+*{box-sizing:border-box}
+body{margin:0;font:17px/1.6 'Segoe UI',system-ui,sans-serif;color:var(--ink);
+ background:linear-gradient(165deg,#0d0a1c 0%,#160f33 55%,#0b1424 100%);min-height:100vh}
+.topbar{position:sticky;top:0;z-index:60;padding:9px 14px;
+ background:rgba(10,6,22,.94);border-bottom:1px solid var(--line);
+ ;color:#fff}
+header{padding:20px 20px 18px;background:linear-gradient(135deg,rgba(192,34,85,.72),rgba(157,92,255,.62));
+ border-bottom:1px solid var(--line)}
+header .code{font-weight:900;font-size:.95rem;letter-spacing:.09em;text-transform:uppercase;
+ color:var(--accent)}
+header h1{margin:4px 0 5px;font-size:1.55rem;line-height:1.25}
+header p{margin:0;color:var(--soft);font-size:1rem}
+main{max-width:820px;margin:0 auto;padding:16px 15px 120px}
+
+.ep{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--accent);
+ border-radius:16px;padding:16px 17px;margin:0 0 16px;box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.ep h2{margin:0 0 3px;font-size:1.2rem;display:flex;flex-wrap:wrap;gap:10px;
+ align-items:baseline}
+.ep h2 .num{font-weight:900;color:var(--accent);white-space:nowrap}
+.ep .covers{margin:0 0 12px;font-size:1rem;color:var(--soft);line-height:1.55}
+.ep .badge{display:inline-block;font-size:.86rem;font-weight:900;padding:3px 10px;
+ border-radius:9px;background:rgba(255,215,94,.22);color:#ffe9a8;white-space:nowrap}
+.ep .badge.warn{background:rgba(255,120,140,.26);color:#ffd0d8}
+.ep iframe{width:100%;height:80px;border:0;border-radius:12px;background:rgba(0,0,0,.75);
+ display:block;margin:0 0 10px;color:#fff}
+.ep .links{display:flex;flex-wrap:wrap;gap:9px}
+.ep .links a{display:inline-flex;align-items:center;gap:7px;text-decoration:none;
+ background:rgba(255,255,255,.14);border:1px solid var(--line);color:#fff;
+ border-radius:12px;padding:10px 14px;font-weight:800;font-size:.97rem;font-family:inherit}
+.ep .links a:hover{background:rgba(255,255,255,.3)}
+
+.shead{font-size:1.05rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase;
+ color:var(--accent);margin:28px 0 12px}
+.note{background:rgba(255,215,94,.13);border-left:5px solid rgba(255,215,94,.9);
+ border-radius:12px;padding:13px 15px;margin:0 0 18px;font-size:1rem;line-height:1.6}
+.note b{color:#ffe9a8}
+.folder{display:inline-flex;align-items:center;gap:8px;text-decoration:none;
+ background:rgba(255,255,255,.12);border:1px solid var(--line);color:#fff;
+ border-radius:13px;padding:12px 16px;font-weight:800;font-size:1rem;font-family:inherit;margin:6px 0 0}
+.folder:hover{background:rgba(255,255,255,.28)}
+
+/* ---- collapsible side menu ------------------------------------------ */
+#menuBtn{background:rgba(255,255,255,.15);border:1px solid var(--line);color:#fff;
+ border-radius:13px;padding:10px 14px;font-weight:900;font-size:.95rem;font-family:inherit;cursor:pointer;
+ white-space:nowrap;line-height:1}
+#menuBtn:hover{background:rgba(255,255,255,.32)}
+#navBg{position:fixed;inset:0;background:rgba(0,0,0,.62);z-index:99998;opacity:0;
+ pointer-events:none;transition:opacity .2s ease;color:#fff}
+body.nav-open #navBg{opacity:1;pointer-events:auto}
+body.nav-open #navBtns{display:none}
+body.nav-open #skimBtn{display:none}
+#side{position:fixed;top:0;left:0;width:min(88vw,320px);height:100dvh;max-height:100dvh;
+ overflow-y:auto;z-index:99999;transform:translateX(-102%);transition:transform .22s ease;
+ background:rgba(10,6,20,.97);
+ border-right:1px solid var(--line);box-shadow:6px 0 30px rgba(0,0,0,.65);
+ padding:16px 14px 34px;color:#fff}
+body.nav-open #side{transform:translateX(0)}
+#side .sbrand{font-weight:900;font-size:1.15rem;margin:2px 0 4px;display:block;
+ color:var(--accent)}
+#side .ssub{display:block;font-size:.92rem;color:#d8caf5;margin:0 0 14px}
+#side .shead{font-size:.86rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;
+ color:var(--accent);margin:18px 0 8px}
+#side a.nav,#side button.nav{display:block;width:100%;text-align:left;
+ background:rgba(255,255,255,.09);border:1px solid var(--line);
+ border-left:4px solid rgba(255,255,255,.45);border-radius:12px;padding:12px 14px;
+ margin:0 0 8px;color:#fff;text-decoration:none;font-weight:800;font-size:1rem;font-family:inherit;cursor:pointer}
+#side a.nav:hover,#side button.nav:hover{background:rgba(255,255,255,.22)}
+#side a.nav.on{background:rgba(255,255,255,.26);border-left-color:var(--accent)}
+#side .nsub{display:block;font-weight:600;font-size:.88rem;opacity:.9;margin-top:3px;
+ line-height:1.45}
+#side .sclose{display:block;width:100%;margin:4px 0 10px;background:rgba(255,255,255,.14);
+ border:1px solid var(--line);color:#fff;border-radius:12px;padding:11px;
+ font-weight:900;font-size:1rem;font-family:inherit;cursor:pointer}
+#side .sclose:hover{background:rgba(255,255,255,.3)}
+@media print{#side,#navBg,#menuBtn{display:none !important}}
+
+/* ---- floating navigation, matched to the NUR 198 cluster -------------
+   Small pills in a horizontal row at the TOP right, not a stack of full-width
+   buttons at the bottom. She asked for these to look like 198's, and the reason
+   198's work is that they shed their labels as soon as the viewport narrows - at
+   300%% zoom the CSS width reads narrow, so what she sees is a row of icons the
+   size of a fingertip rather than a wall of text sitting on the content. */
+#navBtns{position:fixed;top:10px;right:12px;z-index:2147483000;display:flex;gap:7px;
+ align-items:center;touch-action:none;cursor:grab}
+#navBtns.dragging{opacity:.92;cursor:grabbing}
+#navBtns:focus-visible{outline:3px solid var(--accent,#ffd76a);outline-offset:3px}
+#navBtns a,#navBtns button{display:inline-flex;align-items:center;gap:6px;
+ font:800 .95rem 'Segoe UI',system-ui,sans-serif;padding:9px 14px;border-radius:22px;
+ text-decoration:none;cursor:pointer;border:1px solid rgba(255,255,255,.24);
+ box-shadow:0 4px 14px rgba(0,0,0,.5);color:#fff;white-space:nowrap;line-height:1.3;
+ background:linear-gradient(135deg,#5a2d82,#8e2d6b)}
+#navBtns a:hover,#navBtns button:hover{filter:brightness(1.16)}
+#navBtns .nbQuiz{background:linear-gradient(135deg,#1a4099,#1d4ed8)}
+#navBtns .nbCast{background:linear-gradient(135deg,#7c2aa8,#b5179e)}
+#navBtns .nbHub{background:linear-gradient(135deg,#0b6656,#0f7d6b)}
+@media(max-width:1024px){
+  #navBtns{top:6px;right:6px;gap:5px}
+  #navBtns .nbLabel{display:none}
+  #navBtns a,#navBtns button{padding:9px 12px;font-size:1.15rem;line-height:1}
+}
+@media print{#navBtns{display:none}}
+
+/* ---- jump-to index ---- */
+#jump{margin:0 0 20px;padding:15px 15px 6px;border-radius:18px;
+ background:rgba(10,6,22,.72);border:1px solid rgba(255,255,255,.20)}
+#jump h2{margin:0 0 4px;font-size:1.24rem;line-height:1.35}
+.jlead{margin:0 0 12px;font-size:1rem;line-height:1.5;color:#dfe4ff}
+.jgroup{margin:0 0 13px}
+.jgroup h3{margin:0 0 7px;font-size:1.04rem;line-height:1.35;display:flex;align-items:center;gap:8px}
+.jn{font-size:.86rem;font-weight:900;padding:2px 9px;border-radius:999px;
+ background:rgba(255,255,255,.18);color:#fff}
+.jrow{display:grid;gap:8px;grid-template-columns:repeat(auto-fill,minmax(min(100%,150px),1fr))}
+.jchip{display:flex;align-items:center;gap:9px;min-height:48px;padding:8px 11px;
+ border-radius:13px;text-decoration:none;color:#fff;line-height:1.3;
+ border:1px solid rgba(255,255,255,.26);background:rgba(255,255,255,.10)}
+.jchip:hover{background:rgba(255,255,255,.22)}
+.jchip:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
+.jchip b{flex:0 0 auto;min-width:1.5rem;text-align:center;font-size:1.15rem;font-weight:900}
+.jchip span{font-size:.82rem;font-weight:700;overflow-wrap:break-word;min-width:0}
+.jchip.ex{background:rgba(255,194,51,.20);border-color:rgba(255,194,51,.55)}
+.jchip.ex b{color:#ffd76a}
+.jchip.nw{background:rgba(18,184,134,.20);border-color:rgba(18,184,134,.55)}
+.jchip.nw b{color:#7ee7c0}
+.ep{scroll-margin-top:16px}
+</style>
+<style id="skimCSS">
+#skimBtn{position:fixed;left:12px;bottom:12px;z-index:9000;
+ display:flex;align-items:center;gap:8px;
+ background:rgba(157,92,255,.92);border:1px solid rgba(255,255,255,.45);color:#000000;
+ border-radius:14px;padding:11px 14px;cursor:pointer;
+ font:800 .95rem 'Segoe UI',system-ui,sans-serif;
+ box-shadow:0 6px 20px rgba(0,0,0,.45);
+ max-width:calc(100vw - 24px)}
+#skimBtn:hover{background:rgba(157,92,255,1)}
+#skimBtn .n{font-weight:900;font-size:.88rem;opacity:.92;white-space:nowrap}
+body.skimOn #skimBtn{background:rgba(255,194,51,.95);color:#231a02;
+ border-color:rgba(0,0,0,.35)}
+body.skimOn .skimHide{display:none !important}
+body.skimOn .skimKeep{outline:0}
+
+#skimBtn{touch-action:none;cursor:grab}
+#skimBtn.dragging{opacity:.92;cursor:grabbing}
+
+#skimBtn:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
+@media print{#skimBtn{display:none}}
+</style>
+<link rel="stylesheet" href="absn-adhd-enhanced.css">
+<script defer src="absn-adhd-enhanced.js"></script>
+
+<style>
+/* ---- lecture library ---- */
+.lecnav{display:flex;flex-wrap:wrap;gap:9px;margin:0 0 18px}
+.lecnav a{display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:10px 15px;
+ border-radius:13px;text-decoration:none;color:#fff;font-weight:800;font-size:1.02rem;
+ border:1px solid rgba(255,255,255,.30);background:rgba(255,255,255,.12)}
+.lecnav a:hover{background:rgba(255,255,255,.24)}
+.lecnav a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
+.lecnav a.amethyst{background:rgba(157,92,255,.42);border-color:rgba(157,92,255,.75)}
+.lecnav a.emerald{background:rgba(18,184,134,.42);border-color:rgba(18,184,134,.75)}
+.lecnav a.sapphire{background:rgba(47,107,255,.42);border-color:rgba(47,107,255,.75)}
+.course{margin:0 0 26px;scroll-margin-top:14px}
+.course>h2{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:0 0 4px;
+ font-size:1.42rem;line-height:1.3}
+.course>p.csub{margin:0 0 12px;font-size:1.02rem;line-height:1.5;color:#dfe4ff}
+.wk{border-radius:15px;padding:13px 15px;margin:0 0 10px;color:#fff;
+ border:1px solid rgba(255,255,255,.26);border-left:5px solid rgba(255,255,255,.5);
+ backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
+.wk.amethyst{background:rgba(157,92,255,.55)}
+.wk.emerald{background:rgba(18,184,134,.55)}
+.wk.sapphire{background:rgba(47,107,255,.55)}
+.wk h3{margin:0 0 9px;font-size:1.12rem;line-height:1.35;display:flex;align-items:center;gap:9px}
+.wk .wn{flex:0 0 auto;min-width:2.5rem;text-align:center;font-size:.92rem;font-weight:900;
+ padding:3px 9px;border-radius:999px;background:rgba(0,0,0,.42);
+ border:1px solid rgba(255,255,255,.34)}
+.recs{display:grid;gap:8px;grid-template-columns:repeat(auto-fill,minmax(min(100%,190px),1fr))}
+.rec{display:flex;align-items:center;gap:10px;min-height:48px;padding:9px 12px;
+ border-radius:12px;text-decoration:none;color:#fff;line-height:1.3;
+ border:1px solid rgba(255,255,255,.34);background:rgba(0,0,0,.38)}
+.rec:hover{background:rgba(0,0,0,.56)}
+.rec:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
+.rec .pl{flex:0 0 auto;font-size:1.1rem}
+.rec .rt{min-width:0;overflow-wrap:break-word;font-weight:800;font-size:.92rem}
+.rec .rl{display:block;font-weight:700;font-size:.82rem;color:#ffe9a8}
+.lecnote{border-radius:14px;padding:13px 16px;margin:0 0 18px;line-height:1.6;
+ font-size:1.02rem;color:#231a02;background:rgba(255,215,106,.90);
+ border:1px solid rgba(255,255,255,.5)}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <button type="button" id="menuBtn" aria-expanded="false" aria-controls="side">&#9776; Menu</button>
+</div>
+
+<header>
+  <div class="code">&#127916; All courses</div>
+  <h1>&#127909; Lectures</h1>
+  <p>Every lecture recording across the three courses, 103 of them, by module.</p>
+</header>
+
+<main>
+<nav class="lecnav" aria-label="Jump to a course"><a class="amethyst" href="#nur234">&#129328; NUR 234</a><a class="emerald" href="#nur235">&#129681; NUR 235</a><a class="sapphire" href="#nur258">&#129658; NUR 258</a></nav>
+<div class="lecnote">Every link opens the recording in your Google Drive. They are grouped by module, and where two lecturers ran in parallel &mdash; NUR 258 &mdash; both are here under the same module.</div><section class="course" id="nur234"><h2>&#129328; NUR 234</h2><p class="csub">Maternal &amp; newborn &middot; 29 recordings</p><div class="wk amethyst" id="nur234-m1"><h3><span class="wn">M1</span>3 recordings</h3><div class="recs"><a class="rec" href="https://drive.google.com/file/d/1cFM6BCb3NZQF3oZ4pDuu8clij33-8Z0U/view" target="_blank" rel="noopener" title="Nur 234 Wk 1 Day 1 Kaiser.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Kaiser</span></span></a><a class="rec" href="https://drive.google.com/file/d/180jBjDU6Nzp5IaLFm5jZAbhXPh6NOjV3/view" target="_blank" rel="noopener" title="NUR234M1D1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1 (alt)<span class="rl">Kaiser</span></span></a><a class="rec" href="https://drive.google.com/file/d/1BZlKg-lf2367FCwM5kMaH-zKj9hZ53ff/view" target="_blank" rel="noopener" title="NUR234 M1d2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Kaiser</span></span></a></div></div><div class="wk amethyst" id="nur234-m2"><h3><span class="wn">M2</span>2 recordings</h3><div class="recs"><a class="rec" href="https://drive.google.com/file/d/1aCpDDZvcw-_vKduldvfGzF82bcs3P9hY/view" target="_blank" rel="noopener" title="NUR234 M2d1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Kaiser</span></span></a><a class="rec" href="https://drive.google.com/file/d/1e1xVb3-N2gEFMoK2t1NaL7Qj8NDE9kFD/view" target="_blank" rel="noopener" title="NUR234 M2D2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Kaiser</span></span></a></div></div><div class="wk amethyst" id="nur234-m3"><h3><span class="wn">M3</span>2 recordings</h3><div class="recs"><a class="rec" href="https://drive.google.com/file/d/1FBsNUnshlh4l-W3rNWVdSjbMPK53UmFM/view" target="_blank" rel="noopener" title="NUR234 M3D1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Kaiser</span></span></a><a class="rec" href="https://drive.google.com/file/d/1NN-2j7a6nheCGcHCHqUyBlAbHbGw_m4s/view" target="_blank" rel="noopener" title="NUR234 M3D2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Kaiser</span></span></a></div></div><div class="wk amethyst" id="nur234-m4"><h3><span class="wn">M4</span>2 recordings</h3><div class="recs"><a class="rec" href="https://drive.google.com/file/d/1vy0wZ5ijKEG57K1ibHH4ThIhHDTw_rt5/view" target="_blank" rel="noopener" title="NUR234 M4D1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Kaiser</span></span></a><a class="rec" href="https://drive.google.com/file/d/1rizN6FZCmazr35zFpzmy-m0cywYQ8w_6/view" target="_blank" rel="noopener" title="NUR234 M4D2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Kaiser</span></span></a></div></div><div class="wk amethyst" id="nur234-m5"><h3><span class="wn">M5</span>2 recordings</h3><div class="recs"><a class="rec" href="https://drive.google.com/file/d/1ypHWfABT1zSPWs_I_QvKnRKTbF7a5Y7I/view" target="_blank" rel="noopener" title="NUR234 M5d1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Kaiser</span></span></a><a class="rec" href="https://drive.google.com/file/d/1qDF2FexZhZu5L5cqrEi6WVHwZ2-S1cBp/view" target="_blank" rel="noopener" title="NUR234 M5d2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Kaiser</span></span></a></div></div><div class="wk amethyst" id="nur234-m6"><h3><span class="wn">M6</span>2 recordings</h3><div class="recs"><a class="rec" href="https://drive.google.com/file/d/1eG4tIMbxzIUTYlgc_SHD8twJNPRZh8CF/view" target="_blank" rel="noopener" title="NUR234 M6d1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Kaiser</span></span></a><a class="rec" href="https://drive.google.com/file/d/1fYIx3Eng0YHVpJs7xrgFvRD5j4Kf225D/view" target="_blank" rel="noopener" title="NUR234 M6d2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Kaiser</span></span></a></div></div><div class="wk amethyst" id="nur234-m7"><h3><span class="wn">M7</span>2 recordings</h3><div class="recs"><a class="rec" href="https://drive.google.com/file/d/114LZzONCBRZUWeE3_g8tfpMOmWZTn_B3/view" target="_blank" rel="noopener" title="NUR234 M7d1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Kaiser</span></span></a><a class="rec" href="https://drive.google.com/file/d/1gq2xvEUDy8TmFcK6gQepoJCr9GG3G0Ne/view" target="_blank" rel="noopener" title="NUR234 M7d2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Kaiser</span></span></a></div></div><div class="wk amethyst" id="nur234-m8"><h3><span class="wn">M8</span>2 recordings</h3><div class="recs"><a class="rec" href="https://drive.google.com/file/d/1CyyT2iUwn9hK8FH8kx-7n1ZZsrlj5Jxx/view" target="_blank" rel="noopener" title="Nur 234 Kaiser Wk 8 D 1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Kaiser</span></span></a><a class="rec" href="https://drive.google.com/file/d/1_0Byh85lq_uPDj_Zh1L5Dwe4CaIS6HEY/view" target="_blank" rel="noopener" title="NUR234 M8 only day.mov"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Single session<span class="rl">Kaiser</span></span></a></div></div><div class="wk amethyst" id="nur234-m9"><h3><span class="wn">M9</span>2 recordings</h3><div class="recs"><a class="rec" href="https://drive.google.com/file/d/1PHu1Y0-LeptoeNuwhGqxFA10nvLuYDRn/view" target="_blank" rel="noopener" title="NUR234 M9d1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Kaiser</span></span></a><a class="rec" href="https://drive.google.com/file/d/1ztT_Xq_DZviGrXv_kqODzN0mdrAsvLGz/view" target="_blank" rel="noopener" title="NUR234 M9d2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Kaiser</span></span></a></div></div><div class="wk amethyst" id="nur234-m10"><h3><span class="wn">M10</span>2 recordings</h3><div class="recs"><a class="rec" href="https://drive.google.com/file/d/1aO52FeQSOyKWi1eae-uwq9kUR72kaCIh/view" target="_blank" rel="noopener" title="NUR234 M10d1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Kaiser</span></span></a><a class="rec" href="https://drive.google.com/file/d/1ZiJMzo4QipYed89-Vivr-c8vq60a2H6x/view" target="_blank" rel="noopener" title="NUR234 M10d2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Kaiser</span></span></a></div></div><div class="wk amethyst" id="nur234-m11"><h3><span class="wn">M11</span>2 recordings</h3><div class="recs"><a class="rec" href="https://drive.google.com/file/d/1uI7Bnu09YgneDcYKGm2t5FXwliTSsLAt/view" target="_blank" rel="noopener" title="NUR234 M11d1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Kaiser</span></span></a><a class="rec" href="https://drive.google.com/file/d/1J9BeWya6ezWD15zmUgnZUF3R2Qlm-hhm/view" target="_blank" rel="noopener" title="NUR234 M11d2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Kaiser</span></span></a></div></div><div class="wk amethyst" id="nur234-m12"><h3><span class="wn">M12</span>2 recordings</h3><div class="recs"><a class="rec" href="https://drive.google.com/file/d/1qcNw_OIsuyrFzVlLbAIgaGH_lb9RVNe0/view" target="_blank" rel="noopener" title="NUR234 M12d1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Kaiser</span></span></a><a class="rec" href="https://drive.google.com/file/d/1cu1ZuTYOyk2XjUeDljRL8sh--WKvu7J-/view" target="_blank" rel="noopener" title="NUR234 M12d2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Kaiser</span></span></a></div></div><div class="wk amethyst" id="nur234-m13"><h3><span class="wn">M13</span>2 recordings</h3><div class="recs"><a class="rec" href="https://drive.google.com/file/d/1HtFwGZg8qK_fQ8Tu9T7sHkXBWlLRVKaI/view" target="_blank" rel="noopener" title="NUR234 M13D1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Kaiser</span></span></a><a class="rec" href="https://drive.google.com/file/d/1SIAOBsm4zGlMHs4Z5BAy__E3gjkbf5yI/view" target="_blank" rel="noopener" title="NUR234 M13D2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Kaiser</span></span></a></div></div><div class="wk amethyst" id="nur234-m14"><h3><span class="wn">M14</span>2 recordings</h3><div class="recs"><a class="rec" href="https://drive.google.com/file/d/1osViOBDNkX1DvBYY87Q6e9YPmC2yXvWZ/view" target="_blank" rel="noopener" title="Kaiser final review.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Final review<span class="rl">Kaiser</span></span></a><a class="rec" href="https://drive.google.com/file/d/1o5rlqxPFoHyGm38nNnVlNWZFdmCAcwJg/view" target="_blank" rel="noopener" title="Kaiser final review 2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Final review, part 2<span class="rl">Kaiser</span></span></a></div></div></section><section class="course" id="nur235"><h2>&#129681; NUR 235</h2><p class="csub">Nursing care of the child &middot; 27 recordings</p><div class="wk emerald" id="nur235-m1"><h3><span class="wn">M1</span>2 recordings</h3><div class="recs"><a class="rec" href="https://drive.google.com/file/d/1pdrIxvRlTvmP6KratKznradt22HLDzo1/view" target="_blank" rel="noopener" title="NUR235 M1d1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Fadell</span></span></a><a class="rec" href="https://drive.google.com/file/d/16CuSniyXHzQ9ZFqCLcKE3p5Q4Q5oeyxS/view" target="_blank" rel="noopener" title="NUR235 M1d2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Fadell</span></span></a></div></div><div class="wk emerald" id="nur235-m2"><h3><span class="wn">M2</span>2 recordings</h3><div class="recs"><a class="rec" href="https://drive.google.com/file/d/1Q5517-Mrq2k7R3wP0PxYutd5G6FPN9cx/view" target="_blank" rel="noopener" title="NUR235 M2d1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Fadell</span></span></a><a class="rec" href="https://drive.google.com/file/d/1QGoHeK_bKBeYzZq4vorX8dX8ZWt03EUh/view" target="_blank" rel="noopener" title="NUR235 M2d2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Fadell</span></span></a></div></div><div class="wk emerald" id="nur235-m3"><h3><span class="wn">M3</span>2 recordings</h3><div class="recs"><a class="rec" href="https://drive.google.com/file/d/14JFpgO_aAbyd7-U8h2MQg0daKpNZ76Zo/view" target="_blank" rel="noopener" title="NUR235 M3d1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Fadell</span></span></a><a class="rec" href="https://drive.google.com/file/d/1k1EZ2L6NQIZhAcEQWpdLBFOIhAzVUMuV/view" target="_blank" rel="noopener" title="NUR235 M3d2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Fadell</span></span></a></div></div><div class="wk emerald" id="nur235-m4"><h3><span class="wn">M4</span>2 recordings</h3><div class="recs"><a class="rec" href="https://drive.google.com/file/d/1b5bege6Dfibd8Ep1josxjnccr0sqen9l/view" target="_blank" rel="noopener" title="NUR235 M4d1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Fadell</span></span></a><a class="rec" href="https://drive.google.com/file/d/1pbfj4UN1PY9frn9xIKc394A_wJkYLkgq/view" target="_blank" rel="noopener" title="NUR235 M4d2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Fadell</span></span></a></div></div><div class="wk emerald" id="nur235-m5"><h3><span class="wn">M5</span>2 recordings</h3><div class="recs"><a class="rec" href="https://drive.google.com/file/d/1kwB7srewINjZ8iX9yoFK8dBuH3_n41Qz/view" target="_blank" rel="noopener" title="NUR235 M5d1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Fadell</span></span></a><a class="rec" href="https://drive.google.com/file/d/1Gm7nRAm5aRuW3FfYXVDtq8acaYaeaadN/view" target="_blank" rel="noopener" title="NUR235 M5d2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Fadell</span></span></a></div></div><div class="wk emerald" id="nur235-m6"><h3><span class="wn">M6</span>2 recordings</h3><div class="recs"><a class="rec" href="https://drive.google.com/file/d/1oBOb2A9oL_AyWlu27fJovaWgvJ2uh8BP/view" target="_blank" rel="noopener" title="NUR235 M6d1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Fadell</span></span></a><a class="rec" href="https://drive.google.com/file/d/1-cj742kGJJpy4aS0qcDwSAPrgN9b-EBi/view" target="_blank" rel="noopener" title="NUR235 M6d2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Fadell</span></span></a></div></div><div class="wk emerald" id="nur235-m7"><h3><span class="wn">M7</span>2 recordings</h3><div class="recs"><a class="rec" href="https://drive.google.com/file/d/1qQMvemEiqmBOftgCnu0DbmTReiY9jQ6Z/view" target="_blank" rel="noopener" title="NUR235 M7d1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Fadell</span></span></a><a class="rec" href="https://drive.google.com/file/d/1MyPdbWpWRub7BfbX4l2laIuFgfTbkU1A/view" target="_blank" rel="noopener" title="NUR235 M7d2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Fadell</span></span></a></div></div><div class="wk emerald" id="nur235-m8"><h3><span class="wn">M8</span>2 recordings</h3><div class="recs"><a class="rec" href="https://drive.google.com/file/d/1r6A_uGiCKxkRitxZHuHmA6zLzKanD4ir/view" target="_blank" rel="noopener" title="NUR235 M8d1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Fadell</span></span></a><a class="rec" href="https://drive.google.com/file/d/1wg2iUowJw1j_3I6HhBUtsWiOp0nEpRfl/view" target="_blank" rel="noopener" title="NUR235 M8d2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Fadell</span></span></a></div></div><div class="wk emerald" id="nur235-m9"><h3><span class="wn">M9</span>2 recordings</h3><div class="recs"><a class="rec" href="https://drive.google.com/file/d/1tf4BrUHxHQhTZhu8Vf8l4IvIt1PjQvJw/view" target="_blank" rel="noopener" title="NUR235 M9d1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Fadell</span></span></a><a class="rec" href="https://drive.google.com/file/d/1_mWuyKEdd8H2uFXBB6wKuMxXVY_XWxKL/view" target="_blank" rel="noopener" title="NUR235 M9d2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Fadell</span></span></a></div></div><div class="wk emerald" id="nur235-m10"><h3><span class="wn">M10</span>2 recordings</h3><div class="recs"><a class="rec" href="https://drive.google.com/file/d/1qNKdQOx07nNIYi8b7Xa5Jq-WQHM1m9Dv/view" target="_blank" rel="noopener" title="NUR235 M10d1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Fadell</span></span></a><a class="rec" href="https://drive.google.com/file/d/1rp_QqODgVYxyyc0oRtgYWHDEw_WbZVXp/view" target="_blank" rel="noopener" title="NUR235 M10d2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Fadell</span></span></a></div></div><div class="wk emerald" id="nur235-m11"><h3><span class="wn">M11</span>2 recordings</h3><div class="recs"><a class="rec" href="https://drive.google.com/file/d/1nNvAV6DNOEi-TYkpk6W6YMbNMdhEThQG/view" target="_blank" rel="noopener" title="NUR235 M11d1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Fadell</span></span></a><a class="rec" href="https://drive.google.com/file/d/1EHnsY3ZF-i5_2B2iQwCfhMnBr9e57G4X/view" target="_blank" rel="noopener" title="NUR235 M11d2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Fadell</span></span></a></div></div><div class="wk emerald" id="nur235-m12"><h3><span class="wn">M12</span>2 recordings</h3><div class="recs"><a class="rec" href="https://drive.google.com/file/d/1AEBfWcK7bCeZpj11ndmTYUdt9P_0AiuP/view" target="_blank" rel="noopener" title="NUR235 M12d1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Fadell</span></span></a><a class="rec" href="https://drive.google.com/file/d/1gotI7xgoH5xvWNyZfCTLevKg4FZ29tDH/view" target="_blank" rel="noopener" title="NUR235 M12d2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Fadell</span></span></a></div></div><div class="wk emerald" id="nur235-m13"><h3><span class="wn">M13</span>2 recordings</h3><div class="recs"><a class="rec" href="https://drive.google.com/file/d/1rhpS77OIMEqr6sA63U0xa-HomMkKMa-V/view" target="_blank" rel="noopener" title="NUR235 M13d1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Fadell</span></span></a><a class="rec" href="https://drive.google.com/file/d/11NU0OBr1x-oT03jwejIFgD4mUQ7KhmtM/view" target="_blank" rel="noopener" title="NUR235 M13d2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Fadell</span></span></a></div></div><div class="wk emerald" id="nur235-m14"><h3><span class="wn">M14</span>1 recording</h3><div class="recs"><a class="rec" href="https://drive.google.com/file/d/1Xd7riWCGJ-FYd7Jt2c7Q50Hz92ww5hpw/view" target="_blank" rel="noopener" title="NUR235 final review.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Final review</span></a></div></div></section><section class="course" id="nur258"><h2>&#129658; NUR 258</h2><p class="csub">Adult health II &middot; 47 recordings</p><div class="wk sapphire" id="nur258-m1"><h3><span class="wn">M1</span>4 recordings</h3><div class="recs"><a class="rec" href="https://drive.google.com/file/d/1tPNIpDo5thT9xV08IoqnbNcp-83Oz_It/view" target="_blank" rel="noopener" title="Halecka W1D1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Halecka</span></span></a><a class="rec" href="https://drive.google.com/file/d/1kG0OZwXihOteY2lgZ56LaP7Po995puwx/view" target="_blank" rel="noopener" title="Halecka W1D2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Halecka</span></span></a><a class="rec" href="https://drive.google.com/file/d/16hwJnlASQ_miHbHjnSaKlAgUCBSTfKKD/view" target="_blank" rel="noopener" title="Wagner M1D2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Wagner</span></span></a><a class="rec" href="https://drive.google.com/file/d/1wtklIvJcD059j3j2ydf30LJdilUZbRO7/view" target="_blank" rel="noopener" title="Wagner M1d3.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 3<span class="rl">Wagner</span></span></a></div></div><div class="wk sapphire" id="nur258-m2"><h3><span class="wn">M2</span>4 recordings</h3><div class="recs"><a class="rec" href="https://drive.google.com/file/d/1eEW_OANxw5ZaN1RpmULhcfPWlx81jgVL/view" target="_blank" rel="noopener" title="Halecka W2D1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Halecka</span></span></a><a class="rec" href="https://drive.google.com/file/d/1wztDegrV8RIypFru-l-A9D5pgmosW6kx/view" target="_blank" rel="noopener" title="Halecka W2D2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Halecka</span></span></a><a class="rec" href="https://drive.google.com/file/d/1MCvGqSq0VeaMojSXq6_8QgmYM3VY54V3/view" target="_blank" rel="noopener" title="Wagner M2D1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Wagner</span></span></a><a class="rec" href="https://drive.google.com/file/d/1H5EHGXzFX278nFTWV7sUu6d8S8Al4V1Z/view" target="_blank" rel="noopener" title="Wagner M2D2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Wagner</span></span></a></div></div><div class="wk sapphire" id="nur258-m3"><h3><span class="wn">M3</span>3 recordings</h3><div class="recs"><a class="rec" href="https://drive.google.com/file/d/12s1QL5nnwj9QhbN3ouHe5GQk6rkxv07O/view" target="_blank" rel="noopener" title="Halecka W3 only day.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Single session<span class="rl">Halecka</span></span></a><a class="rec" href="https://drive.google.com/file/d/1GWwGtHSuUxtEafJ5RUlKTIMCD7prtOyV/view" target="_blank" rel="noopener" title="Wagner M3D1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Wagner</span></span></a><a class="rec" href="https://drive.google.com/file/d/14h7QaQPftFeWKqWmyPLMHRAlp4D1DViW/view" target="_blank" rel="noopener" title="Wagner M3D2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Wagner</span></span></a></div></div><div class="wk sapphire" id="nur258-m4"><h3><span class="wn">M4</span>4 recordings</h3><div class="recs"><a class="rec" href="https://drive.google.com/file/d/1MgsSYBfirqOZZQEARkWluIoUX2c7qI6s/view" target="_blank" rel="noopener" title="Halecka W4d1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Halecka</span></span></a><a class="rec" href="https://drive.google.com/file/d/1UhvvqJX98mKkGjfFcUd2v2gPkK7Zb3nX/view" target="_blank" rel="noopener" title="Halecka W4d2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Halecka</span></span></a><a class="rec" href="https://drive.google.com/file/d/1V93YTwkHnN_moZZB1ScOXleatBLk8tjp/view" target="_blank" rel="noopener" title="Wagner W4D1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Wagner</span></span></a><a class="rec" href="https://drive.google.com/file/d/1iuG4OPyP4ncermN7KOeAib0TJ1N0fUGB/view" target="_blank" rel="noopener" title="Wagner W4D2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Wagner</span></span></a></div></div><div class="wk sapphire" id="nur258-m5"><h3><span class="wn">M5</span>4 recordings</h3><div class="recs"><a class="rec" href="https://drive.google.com/file/d/1_VyUz4E-0B8mzqKzTJbzjFYLDpgENPJt/view" target="_blank" rel="noopener" title="Halecka W5d1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Halecka</span></span></a><a class="rec" href="https://drive.google.com/file/d/1biuSi5a914MbS38zloMU6m57WXSiTQcS/view" target="_blank" rel="noopener" title="Halecka W5d2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Halecka</span></span></a><a class="rec" href="https://drive.google.com/file/d/1hIdwcnajMloBB9_GuZnY1jrnU8WViAdZ/view" target="_blank" rel="noopener" title="Wagner W5D1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Wagner</span></span></a><a class="rec" href="https://drive.google.com/file/d/1gP4XUFWs4UEPG0S22U5Mjh3iLhe6m1uh/view" target="_blank" rel="noopener" title="Wagner W5D2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Wagner</span></span></a></div></div><div class="wk sapphire" id="nur258-m6"><h3><span class="wn">M6</span>2 recordings</h3><div class="recs"><a class="rec" href="https://drive.google.com/file/d/1N4A_VJbw2pfSuXHUDKJADPUa_i_Coj99/view" target="_blank" rel="noopener" title="Halecka W6d1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Halecka</span></span></a><a class="rec" href="https://drive.google.com/file/d/1Co9ZVEXkP7XvnDHDk591bY_2TBco5nkb/view" target="_blank" rel="noopener" title="Halecka W6d2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Halecka</span></span></a></div></div><div class="wk sapphire" id="nur258-m7"><h3><span class="wn">M7</span>2 recordings</h3><div class="recs"><a class="rec" href="https://drive.google.com/file/d/1L7ijGH3mp0GJ1IoHuV4JAdU99cq8Za8B/view" target="_blank" rel="noopener" title="Halecka W7D1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Halecka</span></span></a><a class="rec" href="https://drive.google.com/file/d/1jwtY9AuiAQY8Odir88Y7iHajay988jZo/view" target="_blank" rel="noopener" title="Halecka W7D2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Halecka</span></span></a></div></div><div class="wk sapphire" id="nur258-m8"><h3><span class="wn">M8</span>2 recordings</h3><div class="recs"><a class="rec" href="https://drive.google.com/file/d/1nJhuxvxXj5ORPnI8_aMnNFkD3BzQ368P/view" target="_blank" rel="noopener" title="Halecka W8D1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Halecka</span></span></a><a class="rec" href="https://drive.google.com/file/d/1Z_ioeEJjFmq0TXZaGrsYRga7hfqLwfW8/view" target="_blank" rel="noopener" title="Halecka W8D2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Halecka</span></span></a></div></div><div class="wk sapphire" id="nur258-m9"><h3><span class="wn">M9</span>2 recordings</h3><div class="recs"><a class="rec" href="https://drive.google.com/file/d/14DoxMb-Jl4KhSoqhubzcSXzzFDM1KiJe/view" target="_blank" rel="noopener" title="Halecka W9D1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Halecka</span></span></a><a class="rec" href="https://drive.google.com/file/d/1MYhzhQmtnV3UFHR6ccvhANTss8KH_WAg/view" target="_blank" rel="noopener" title="Halecka W9D2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Halecka</span></span></a></div></div><div class="wk sapphire" id="nur258-m10"><h3><span class="wn">M10</span>4 recordings</h3><div class="recs"><a class="rec" href="https://drive.google.com/file/d/1xxojEKWOl4VO6__6wBIZiEtCQtkFd8qv/view" target="_blank" rel="noopener" title="Halecka W10D1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Halecka</span></span></a><a class="rec" href="https://drive.google.com/file/d/1_Mt6lPo2rgA2UTAFUk1QAThHBe_Jux1U/view" target="_blank" rel="noopener" title="Halecka W10D2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Halecka</span></span></a><a class="rec" href="https://drive.google.com/file/d/1_sDBTyzdfdPa3wk1s_Xrh5Hf4mrrCF5u/view" target="_blank" rel="noopener" title="Wagner W10D1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Wagner</span></span></a><a class="rec" href="https://drive.google.com/file/d/1s6ZSywz0_vjOUACKMdcw_g4Wj3hEc94Q/view" target="_blank" rel="noopener" title="Wagner W10D2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Wagner</span></span></a></div></div><div class="wk sapphire" id="nur258-m11"><h3><span class="wn">M11</span>4 recordings</h3><div class="recs"><a class="rec" href="https://drive.google.com/file/d/1WfPT27PAQr_pC3rts6sSw6HaZO2Nh1mj/view" target="_blank" rel="noopener" title="Halecka W11D1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Halecka</span></span></a><a class="rec" href="https://drive.google.com/file/d/1oldJm9iNLhtPjuLYKgRp3JRSL3VLEThG/view" target="_blank" rel="noopener" title="Halecka W11D2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Halecka</span></span></a><a class="rec" href="https://drive.google.com/file/d/1fjug2mIicHY7nX9vuO4Y1sJL1_lRp0vU/view" target="_blank" rel="noopener" title="Wagner W11D1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Wagner</span></span></a><a class="rec" href="https://drive.google.com/file/d/1Dfopme6sdvh-T26mYeXd_D3Abt-nrRcf/view" target="_blank" rel="noopener" title="Wagner W11D2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Wagner</span></span></a></div></div><div class="wk sapphire" id="nur258-m12"><h3><span class="wn">M12</span>4 recordings</h3><div class="recs"><a class="rec" href="https://drive.google.com/file/d/19ZrcWgDP34L_aYDnmQTwVsqD3T8NxVNk/view" target="_blank" rel="noopener" title="Halecka W12D1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Halecka</span></span></a><a class="rec" href="https://drive.google.com/file/d/1xP-bxF04ILbD1qvSbe8WFVsH5nB0yWXr/view" target="_blank" rel="noopener" title="Halecka W12D2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Halecka</span></span></a><a class="rec" href="https://drive.google.com/file/d/1Na6pkJCCJvGzyCzAf03J8VeyVS63iLjw/view" target="_blank" rel="noopener" title="Wagner W12D1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Wagner</span></span></a><a class="rec" href="https://drive.google.com/file/d/1KBCU-z_KkCcozDXbb-XtF4WS_ZRze-jt/view" target="_blank" rel="noopener" title="Wagner W12D2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Wagner</span></span></a></div></div><div class="wk sapphire" id="nur258-m13"><h3><span class="wn">M13</span>4 recordings</h3><div class="recs"><a class="rec" href="https://drive.google.com/file/d/1dmJCDM5IPNYi_xRR4fIWAth_Vd0Nj4Mv/view" target="_blank" rel="noopener" title="Halecka W13D1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Halecka</span></span></a><a class="rec" href="https://drive.google.com/file/d/1Qokym4aSlBm2IqqVUcu-uQ5towdH6Ftb/view" target="_blank" rel="noopener" title="Halecka W13D2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Halecka</span></span></a><a class="rec" href="https://drive.google.com/file/d/14okttGuurXwz3vU_Fr1oJ4P3XIE7qR_x/view" target="_blank" rel="noopener" title="Wagner W13D1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Wagner</span></span></a><a class="rec" href="https://drive.google.com/file/d/17j2Fm5hSFing77SVbMQwGi4sYuuIxyZ6/view" target="_blank" rel="noopener" title="Wagner W13D2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Wagner</span></span></a></div></div><div class="wk sapphire" id="nur258-m14"><h3><span class="wn">M14</span>4 recordings</h3><div class="recs"><a class="rec" href="https://drive.google.com/file/d/1a1q2htiGkSbDtVr7xa10OLL1pV6dvzBx/view" target="_blank" rel="noopener" title="Halecka W14D1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Halecka</span></span></a><a class="rec" href="https://drive.google.com/file/d/1CSwQrZ9FscsqFYe5J0oishTCN8pV6W6I/view" target="_blank" rel="noopener" title="Halecka W14D2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Halecka</span></span></a><a class="rec" href="https://drive.google.com/file/d/1XXi5LxISHmt44ffQ_5sOb-2LqquKsDQJ/view" target="_blank" rel="noopener" title="Wagner W14D1.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 1<span class="rl">Wagner</span></span></a><a class="rec" href="https://drive.google.com/file/d/1W6BH-fS4Qj_O922nNOnHjm8NPBNi_rvR/view" target="_blank" rel="noopener" title="Wagner W14D2.mp4"><span class="pl" aria-hidden="true">&#9654;&#65039;</span><span class="rt">Day 2<span class="rl">Wagner</span></span></a></div></div></section></main>
+
+<div id="navBtns"><button type="button" class="nbBack" title="Back to NUR 235" onclick="hop('nur235.html',true)">&larr;<span class="nbLabel">Back to NUR 235</span></button><button type="button" class="nbHub" title="ABSN Study Hub" onclick="hop('index.html',true)">&#127968;<span class="nbLabel">ABSN Study Hub</span></button></div>
+<div id="navBg"></div>
+<nav id="side" aria-label="Site menu" aria-hidden="true">
+  <span class="sbrand">&#129681; NUR 235 Podcasts</span>
+  <span class="ssub">One per exam, about an hour each</span>
+  <button type="button" class="sclose">&#10005; Close this menu</button>
+  <div class="shead">On this page</div>
+  <div id="sideJumps"></div>
+  <div class="shead">Courses</div>
+  <a class="nav" href="nur234.html">&#129328; NUR 234<span class="nsub">Maternal &amp; newborn</span></a>
+  <a class="nav" href="nur235.html">&#129681; NUR 235<span class="nsub">Nursing care of the child</span></a>
+  <a class="nav" href="nur258.html">&#129658; NUR 258<span class="nsub">Adult health II</span></a>
+  <div class="shead">Quizzes</div>
+  <a class="nav" href="nur234-quiz.html">&#129504; NUR 234 Mega Quiz<span class="nsub">115 questions</span></a>
+  <a class="nav" href="nur235-quiz.html">&#129504; NUR 235 Mega Quiz<span class="nsub">117 questions</span></a>
+  <a class="nav" href="nur258-quiz.html">&#129504; NUR 258 Mega Quiz<span class="nsub">117 questions</span></a>
+  <a class="nav" href="pharmacology-new.html">&#128138; Pharmacology<span class="nsub">Every drug question from all three courses</span></a>
+  <div class="shead">Listen</div>
+  <a class="nav" href="lectures.html">&#127909; Lectures<span class="nsub">103 recordings, all courses</span></a><a class="nav" href="nur234-podcasts.html">&#127911; NUR 234 Podcasts<span class="nsub">13 recordings</span></a><a class="nav" href="nur234-slides.html">&#128444;&#65039; NUR 234 Slide decks<span class="nsub">8 decks</span></a>
+  <a class="nav on" href="nur235-podcasts.html">&#127911; NUR 235 Podcasts<span class="nsub">20 recordings</span></a><a class="nav" href="nur235-slides.html">&#128444;&#65039; NUR 235 Slide decks<span class="nsub">13 decks</span></a>
+  <a class="nav" href="nur258-podcasts.html">&#127911; NUR 258 Podcasts<span class="nsub">6 exam episodes + 15 lectures</span></a>
+  <div class="shead">Reference</div>
+  <a class="nav" href="../drug-guide/index.html" target="_blank" rel="noopener">&#128138; Drug Guide<span class="nsub">A card per drug &middot; 981 drugs</span></a>
+  <a class="nav" href="index.html">&#127968; ABSN Study Hub<span class="nsub">Everything, all courses</span></a>
+</nav>
+<script>
+/* Hop to another page and close this one behind us. window.close() is only
+   permitted on a script-opened window, so if the browser refuses we simply
+   navigate instead - she still gets where she asked to go, just in one tab. */
+function hop(url, closeThis){
+  if(!closeThis){
+    /* No window-features string here. Passing one - even just 'noopener' -
+       makes the browser treat this as a POPUP rather than a tab, and popup
+       blockers silently swallow it. That is what broke the Hub button while
+       Quiz and Podcasts, which take the branch below, kept working.
+       Null the opener by hand instead; same security, and it opens. */
+    var t=window.open(url,'_blank');
+    if(t){ try{ t.opener=null; }catch(e){} } else { location.href=url; }
+    return;
+  }
+  var w=window.open(url,'_blank');
+  setTimeout(function(){
+    try{ window.close(); }catch(e){}
+    if(!window.closed){ location.href=url; if(w){ try{ w.close(); }catch(e){} } }
+  }, 120);
+}
+
+/* ---- the floating cluster moves, like the one on the older guides ----
+   Same rules as the skim button, deliberately: travel under 6px is a click, 6px or
+   more is a drag and the click is swallowed. Position is clamped to the viewport and
+   remembered per site, so it survives a reload and cannot end up off-screen when she
+   rotates the phone or changes zoom. Arrow keys nudge it once it has focus, because
+   dragging is not the only way she should be able to move something. */
+(function(){
+  var nb=document.getElementById('navBtns'); if(!nb) return;
+  var KEY='navBtnsPos';
+  function clamp(x,y){
+    var r=nb.getBoundingClientRect(), m=6;
+    return [Math.max(m,Math.min(x,window.innerWidth-r.width-m)),
+            Math.max(m,Math.min(y,window.innerHeight-r.height-m))];
+  }
+  function place(x,y,save){
+    var p=clamp(x,y);
+    nb.style.left=p[0]+'px'; nb.style.top=p[1]+'px';
+    nb.style.right='auto'; nb.style.bottom='auto';
+    if(save){ try{ localStorage.setItem(KEY,JSON.stringify(p)); }catch(e){} }
+  }
+  try{
+    var saved=JSON.parse(localStorage.getItem(KEY)||'null');
+    if(saved && saved.length===2) place(saved[0],saved[1],false);
+  }catch(e){}
+
+  /* Movement is tracked on the WINDOW, not on the cluster. Two earlier versions got
+     this wrong in opposite directions: capturing the pointer on pointerdown made the
+     cluster swallow the click so no button ever fired, and listening on the cluster
+     alone meant the drag died the moment the cursor left it. Window listeners give a
+     drag that follows the finger anywhere while leaving an ordinary tap untouched. */
+  var down=null, moved=false;
+  nb.addEventListener('pointerdown',function(e){
+    if(e.button && e.button!==0) return;
+    var r=nb.getBoundingClientRect();
+    down={x:e.clientX,y:e.clientY,dx:e.clientX-r.left,dy:e.clientY-r.top};
+    moved=false;
+  });
+  window.addEventListener('pointermove',function(e){
+    if(!down) return;
+    if(!moved && Math.abs(e.clientX-down.x)+Math.abs(e.clientY-down.y) < 6) return;
+    moved=true; nb.classList.add('dragging');
+    place(e.clientX-down.dx, e.clientY-down.dy, false);
+    e.preventDefault();
+  });
+  /* Snap to whichever side wall is nearer when she lets go. Caroline kept
+     finding this cluster sitting on top of a question - a 6px slip while
+     tapping an answer is enough to drag it into the middle of the card. It
+     still goes wherever she wants vertically, and to either side; it just
+     cannot be parked over the text. */
+  function snap(x,y){
+    var r=nb.getBoundingClientRect(), m=6;
+    var right = window.innerWidth - r.width - m;
+    return [(x + r.width/2) < window.innerWidth/2 ? m : right, y];
+  }
+  function end(){
+    if(!down) return;
+    var r=nb.getBoundingClientRect();
+    if(moved){ var p=snap(r.left,r.top); place(p[0],p[1],true); }
+    down=null; nb.classList.remove('dragging');
+    /* The click that a real drag generates arrives immediately after pointerup and is
+       swallowed below. If none arrives - a touch drag, or the pointer left the button -
+       the flag has to clear itself, or the NEXT genuine tap gets eaten instead. */
+    setTimeout(function(){ moved=false; }, 60);
+  }
+  window.addEventListener('pointerup',end);
+  window.addEventListener('pointercancel',end);
+  /* a drag must not also fire the button it started on */
+  nb.addEventListener('click',function(e){
+    if(moved){ e.stopPropagation(); e.preventDefault(); moved=false; }
+  },true);
+
+  nb.tabIndex=0;
+  nb.title='Drag to move these buttons · double-click to reset';
+  nb.addEventListener('dblclick',function(e){
+    e.preventDefault();
+    nb.style.left=''; nb.style.top=''; nb.style.right=''; nb.style.bottom='';
+    try{ localStorage.removeItem(KEY); }catch(err){}
+  });
+  nb.addEventListener('keydown',function(e){
+    var step=e.shiftKey?48:12, r=nb.getBoundingClientRect(), l=r.left, t=r.top, hit=true;
+    if(e.key==='ArrowLeft') l-=step; else if(e.key==='ArrowRight') l+=step;
+    else if(e.key==='ArrowUp') t-=step; else if(e.key==='ArrowDown') t+=step;
+    else hit=false;
+    if(hit){ e.preventDefault(); place(l,t,true); }
+  });
+  /* a resize or a zoom change must not strand it off-screen */
+  window.addEventListener('resize',function(){
+    var r=nb.getBoundingClientRect();
+    if(nb.style.left) place(r.left,r.top,false);
+  });
+})();
+
+/* ---- side menu ------------------------------------------------------- */
+(function(){
+  var b=document.getElementById('menuBtn'), s=document.getElementById('side'),
+      bg=document.getElementById('navBg');
+  if(!b||!s||!bg) return;
+
+  /* The exam bands on THIS page become jump links, built at load so the menu can
+     never list a band the page does not have. */
+  var jumps=s.querySelector('#sideJumps');
+  if(jumps){
+    var bands=[].slice.call(document.querySelectorAll('.exsec'));
+    bands.forEach(function(sec,i){
+      var head=sec.querySelector('.exhead');
+      if(!head) return;
+      if(!sec.id) sec.id='exam-'+(i+1);
+      var name=(head.querySelector('.en')||{}).textContent||('Exam '+(i+1));
+      var sub=(head.querySelector('.et')||{}).textContent||'';
+      var mods=sec.querySelectorAll('details.mod').length;
+      var a=document.createElement('a');
+      a.className='nav'; a.href='#'+sec.id;
+      a.innerHTML=name+'<span class="nsub">'+sub+
+                  (mods?(' &middot; '+mods+' module'+(mods===1?'':'s')):'')+'</span>';
+      jumps.appendChild(a);
+    });
+    if(!bands.length) jumps.previousElementSibling.style.display='none';
+  }
+
+  function set(o){
+    document.body.classList.toggle('nav-open',o);
+    b.innerHTML = o ? '&#10005; Close' : '&#9776; Menu';
+    b.setAttribute('aria-expanded', o?'true':'false');
+    s.setAttribute('aria-hidden', o?'false':'true');
+    if(o){ var f=s.querySelector('.sclose'); if(f) f.focus(); }
+  }
+  b.addEventListener('click',function(e){
+    e.stopPropagation();
+    set(!document.body.classList.contains('nav-open'));
+  });
+  bg.addEventListener('click',function(){ set(false); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') set(false); });
+  s.addEventListener('click',function(e){
+    if(e.target.closest('.sclose')){ set(false); return; }
+    if(e.target.closest('a')) setTimeout(function(){ set(false); },140);
+  });
+  set(false);
+})();
+</script>
+<script id="skimJS">
+(function(){
+  /* What counts as a line of prose on these pages is NOT <p>. The 125 eBook units use
+     <p class="ebp">, but 175 is card-based divs and 198 mixes divs, p and li. So the
+     candidate set is "leaf text blocks": an element whose children are all inline.
+     Measured before choosing: on a 125 eBook unit that is 2,352 blocks of which ~456
+     are long unmarked prose; on the card pages it is a handful, which is the honest
+     answer - those pages are already skimmable. */
+  var INLINE = {B:1,I:1,EM:1,STRONG:1,SPAN:1,A:1,CODE:1,MARK:1,U:1,BR:1,SMALL:1,
+                SUB:1,SUP:1,ABBR:1,WBR:1,IMG:1};
+  var SIGNAL = 'b,strong,mark,u,code';
+  /* never touch: chrome, tables, quizzes, contents lists, captions, footers */
+  var SAFE = '#skimBtn,nav,header,#vwBar,.bar,.nb,.nbWrap,table,thead,tbody,tr,td,th,' +
+             '.stem,.q,.qa,.qt,.ans,.ansbox,.rationale,.fill,.blanks,.fp,.fpk,.nq,' +
+             '.toc,.foot,.cap,.chip,.chip-row,.sec-sub,.bn,.dvname,button,summary,' +
+             '[class*="nav"],[class*="btn"],[class*="quiz"]';
+  var MIN  = 110;      /* below this a line is a label or a rule, not padding */
+  var NUM  = /\d\s*(mg|mcg|g|kg|lb|ml|l|mmol|meq|mmhg|%|hr|hrs|min|sec|day|wk|yr|bpm|cm|mm|units?|°)/i;
+
+  var btn, marked=false, hid=0, total=0;
+
+  function leaf(el){
+    for(var i=0;i<el.children.length;i++)
+      if(!INLINE[el.children[i].tagName]) return false;
+    return true;
+  }
+
+  function mark(){
+    if(marked) return;
+    var all = document.querySelectorAll('p,li,div,dd');
+    for(var i=0;i<all.length;i++){
+      var el=all[i];
+      if(el.closest(SAFE)) continue;
+      if(!leaf(el)) continue;
+      var t=(el.textContent||'').trim();
+      if(!t) continue;
+      total++;
+      if(t.length < MIN) continue;
+      if(el.querySelector(SIGNAL)) continue;
+      if(NUM.test(t)) continue;
+      el.classList.add('skimHide'); hid++;
+    }
+    marked=true;
+  }
+
+  var wasShut=[];
+  function openAll(open){
+    if(open){
+      wasShut=[].slice.call(document.querySelectorAll('details:not([open])'));
+      wasShut.forEach(function(d){ d.open=true; });
+    } else {
+      wasShut.forEach(function(d){ d.open=false; });
+      wasShut=[];
+    }
+  }
+
+  function paint(on){
+    btn.querySelector('.lbl').textContent = on ? 'Skimming' : 'Skim mode';
+    btn.querySelector('.n').textContent =
+      on ? (hid ? ('hid ' + hid + ' of ' + total) : 'nothing to hide here') : '';
+  }
+
+  function toggle(){
+    var on=!document.body.classList.contains('skimOn');
+    if(on) mark();
+    document.body.classList.toggle('skimOn', on);
+    openAll(on); paint(on);
+    try{ localStorage.setItem('skimOn', on?'1':'0'); }catch(e){}
+  }
+
+  function build(){
+    /* an iframe shell has no prose of its own - the inner document carries its own
+       button, so a second dead one on the wrapper would just be a lie */
+    /* textContent, not innerText: innerText is render-aware, so on a page whose
+       content sits inside collapsed <details> it reads near-zero and this test would
+       suppress the button on a perfectly good page. That happened. */
+    if(document.querySelector('iframe') &&
+       (document.body.textContent||'').trim().length < 6000) return;
+
+    btn=document.createElement('button');
+    btn.type='button'; btn.id='skimBtn';
+    btn.setAttribute('aria-label','Toggle skim mode - hide the long prose, keep the rules');
+    btn.innerHTML='⚡ <span class="lbl">Skim mode</span> <span class="n"></span>';
+    btn.addEventListener('click', toggle);
+    document.body.appendChild(btn);
+    paint(false);
+
+  /* ---- draggable, because a button welded to a corner covers what she is reading
+     and at 300% zoom there is not much screen left to lose. Travel under 6px counts
+     as a click, 6px or more is a drag and the click is swallowed. */
+  var KEYPOS='skimBtnPos';
+  function clamp(x,y){
+    var r=btn.getBoundingClientRect(), m=4;
+    return [Math.max(m,Math.min(x,window.innerWidth-r.width-m)),
+            Math.max(m,Math.min(y,window.innerHeight-r.height-m))];
+  }
+  function place(x,y,save){
+    var p=clamp(x,y);
+    btn.style.left=p[0]+'px'; btn.style.top=p[1]+'px';
+    btn.style.right='auto'; btn.style.bottom='auto';
+    if(save){ try{ localStorage.setItem(KEYPOS,JSON.stringify(p)); }catch(e){} }
+  }
+  function restore(){
+    try{
+      var p=JSON.parse(localStorage.getItem(KEYPOS)||'null');
+      if(p && p.length===2) place(p[0],p[1],false);
+    }catch(e){}
+  }
+
+  var down=null, moved=false;
+  btn.addEventListener('pointerdown',function(e){
+    if(e.button && e.button!==0) return;
+    var r=btn.getBoundingClientRect();
+    down={x:e.clientX,y:e.clientY,dx:e.clientX-r.left,dy:e.clientY-r.top};
+    moved=false;
+    btn.setPointerCapture&&btn.setPointerCapture(e.pointerId);
+  });
+  btn.addEventListener('pointermove',function(e){
+    if(!down) return;
+    if(!moved && Math.abs(e.clientX-down.x)<6 && Math.abs(e.clientY-down.y)<6) return;
+    moved=true; btn.classList.add('dragging');
+    place(e.clientX-down.dx, e.clientY-down.dy, false);
+    e.preventDefault();
+  });
+  function end(e){
+    if(!down) return;
+    down=null;
+    if(moved){
+      btn.classList.remove('dragging');
+      var r=btn.getBoundingClientRect();
+      place(r.left,r.top,true);
+      /* swallow the click this drag would otherwise fire */
+      var kill=function(ev){ ev.stopPropagation(); ev.preventDefault();
+        btn.removeEventListener('click',kill,true); };
+      btn.addEventListener('click',kill,true);
+      setTimeout(function(){ btn.removeEventListener('click',kill,true); },0);
+    }
+  }
+  btn.addEventListener('pointerup',end);
+  btn.addEventListener('pointercancel',end);
+
+  /* arrows nudge it, so moving it never needs a precise drag */
+  btn.addEventListener('keydown',function(e){
+    var d={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]}[e.key];
+    if(!d) return;
+    e.preventDefault();
+    var step=e.shiftKey?48:12, r=btn.getBoundingClientRect();
+    place(r.left+d[0]*step, r.top+d[1]*step, true);
+  });
+
+  window.addEventListener('resize',function(){
+    var r=btn.getBoundingClientRect(); place(r.left,r.top,false);
+  });
+  restore();
+
+    /* ---- never sit under the nav cluster ---------------------------- */
+    function unstack(){
+      var nb=document.getElementById('navBtns');
+      if(!nb || !btn) return;
+      var a=btn.getBoundingClientRect(), b=nb.getBoundingClientRect();
+      var hit = !(a.right < b.left-4 || a.left > b.right+4 ||
+                  a.bottom < b.top-4 || a.top > b.bottom+4);
+      if(!hit) return;
+      var below = b.bottom + 10;
+      var top = (below + a.height + 6 <= window.innerHeight) ? below
+                                                             : Math.max(6, b.top - a.height - 10);
+      btn.style.top = top + 'px';
+      btn.style.left = Math.max(6, Math.min(a.left, window.innerWidth - a.width - 6)) + 'px';
+      btn.style.right = 'auto'; btn.style.bottom = 'auto';
+    }
+    setTimeout(unstack, 60);
+    window.addEventListener('resize', function(){ setTimeout(unstack, 60); });
+
+    var want=false;
+    try{ want=localStorage.getItem('skimOn')==='1'; }catch(e){}
+    if(want) toggle();
+  }
+
+  if(document.readyState==='loading')
+    document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+<script src="absn-hidebar.js" defer></script>
+<script defer src="absn-robots.js"></script>
+</body></html>
