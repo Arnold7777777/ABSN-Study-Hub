@@ -94,7 +94,7 @@
   var prevBite=document.getElementById('pleBitePrev'),nextBite=document.getElementById('pleBiteNext'),allButton=document.getElementById('pleShowAll');
   if(prevBite)prevBite.addEventListener('click',function(){if(!biteOn)setBite(true);else{biteIndex=(biteIndex-1+chunks.length)%chunks.length;markBite();}});
   if(nextBite)nextBite.addEventListener('click',function(){if(!biteOn)setBite(true);else{biteIndex=(biteIndex+1)%chunks.length;markBite();}});
-  if(allButton)allButton.addEventListener('click',function(){setBite(false);setHigh(false);if(mod){mod.open=true;[].slice.call(mod.querySelectorAll('details.chunk')).forEach(function(d){d.open=true;});}if(status)status.textContent='All sections are open';announce('All sections are open.');});
+  if(allButton)allButton.addEventListener('click',function(){setBite(false);setHigh(false);if(mod){mod.open=true;[].slice.call(mod.querySelectorAll('details.chunk, details.dx')).forEach(function(d){d.open=true;});}if(status)status.textContent='All sections are open';announce('All sections are open.');});
   [].slice.call(document.querySelectorAll('[data-ple-action]')).forEach(function(button){button.addEventListener('click',function(){var action=button.getAttribute('data-ple-action');if(action==='high')setHigh(true);else if(action==='bite')setBite(true);else if(allButton)allButton.click();});});
 
   var textUp=document.getElementById('pleTextUp'),textDown=document.getElementById('pleTextDown'),roomy=document.getElementById('pleRoomy');
