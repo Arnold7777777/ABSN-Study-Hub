@@ -264,6 +264,7 @@
       ' transition:none!important}' +
       'html.absn-robots-off .absn-robot{display:none!important}' +
       '#absnMotionBtn{font:900 .86rem/1 "Segoe UI",system-ui,sans-serif;' +
+      ' min-height:44px;display:inline-flex;align-items:center;' +
       ' padding:10px 13px;border-radius:999px;cursor:pointer;color:#fff;' +
       ' white-space:nowrap;border:1px solid rgba(255,255,255,.36);' +
       ' background:linear-gradient(135deg,#0b6656,#0f7d6b);' +

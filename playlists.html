@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32"><link rel="apple-touch-icon" href="favicon-180.png">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VLC Playlists &middot; ABSN Study Hub</title>
+<style>
+:root{
+  --amethyst:157,92,255; --sapphire:47,107,255; --emerald:18,184,134;
+  --teal:0,194,199;      --topaz:255,194,51;    --citrine:255,138,61;
+  --garnet:192,34,85;
+  --accent:#ffd76a; --soft:#e9dcff; --muted:#b9a9dd;
+  --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{background-color:#140b24;color:#fff;min-height:100vh;padding:24px 14px 60px;
+ font-family:"Segoe UI",Roboto,system-ui,-apple-system,sans-serif;
+ background-image:radial-gradient(1100px 600px at 10% -5%,rgba(157,92,255,.34),transparent 62%),
+  radial-gradient(950px 540px at 100% 10%,rgba(0,194,199,.24),transparent 60%),
+  radial-gradient(900px 700px at 50% 108%,rgba(255,138,61,.20),transparent 62%);
+ background-attachment:fixed}
+.wrap{max-width:1000px;margin:0 auto;padding-top:56px}
+h1{font-size:clamp(1.7rem,5.6vw,2.5rem);margin:0 0 6px;line-height:1.15;font-weight:900}
+.sub{font-size:1.06rem;line-height:1.62;color:var(--soft);margin:0 0 6px;max-width:64ch}
+.count{display:inline-block;font-size:1rem;font-weight:900;color:#2a1f00;
+ background:var(--accent);border-radius:999px;padding:6px 15px;margin:12px 8px 20px 0}
+.folder{display:inline-block;font-size:1rem;font-weight:800;color:#fff;text-decoration:none;
+ border:1px solid var(--line);border-radius:999px;padding:9px 15px;margin:0 0 20px;
+ background:rgba(255,255,255,.12)}
+.folder:hover{background:rgba(255,255,255,.24)}
+
+/* ---- filters ---- */
+.filters{background:rgba(10,6,22,.72);border:1px solid var(--line);border-radius:16px;
+ padding:14px;margin:0 0 20px;;color:#fff}
+.flabel{font-size:.94rem;font-weight:900;letter-spacing:.07em;text-transform:uppercase;
+ color:var(--accent);margin:0 0 8px;display:block}
+.frow{display:flex;flex-wrap:wrap;gap:8px}
+.fbtn{font-weight:800;font-size:.99rem;font-family:inherit;padding:9px 13px;border-radius:12px;cursor:pointer;
+ min-height:44px;display:inline-flex;align-items:center;justify-content:center;
+ border:1px solid var(--line);background:rgba(255,255,255,.10);color:#fff;line-height:1.3}
+.fbtn:hover{background:rgba(255,255,255,.22)}
+.fbtn.active{background:var(--accent);color:#2a1f00;border-color:#fff2c4}
+.hits{margin:10px 0 0;font-size:1rem;color:var(--soft)}
+.hits b{color:var(--accent)}
+
+/* ---- topic sections ---- */
+.topic{margin:0 0 26px}
+.topic > h2{display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+ font-size:clamp(1.2rem,4vw,1.55rem);margin:0 0 4px;font-weight:900}
+.topic .n{font-size:.95rem;font-weight:800;color:#2a1f00;background:var(--accent);
+ border-radius:999px;padding:3px 11px}
+.topic > p{margin:0 0 12px;font-size:1rem;color:var(--muted)}
+.list{display:grid;gap:11px;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr))}
+.pod{border:1px solid var(--line);border-left:7px solid rgb(var(--jewel));
+ border-radius:15px;padding:14px 15px;
+ background:linear-gradient(150deg,rgba(var(--jewel),.26),rgba(0,0,0,.44))}
+.pod h3{margin:0 0 5px;font-size:1.1rem;line-height:1.35;font-weight:900}
+.pod .meta{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px}
+.pod .tag{font-size:.9rem;font-weight:800;padding:3px 9px;border-radius:8px;
+ background:rgba(0,0,0,.42);border:1px solid var(--line);color:#fff}
+.pod .covers{margin:0 0 10px;font-size:1rem;line-height:1.55;color:#f0e6ff}
+.pod .acts{display:flex;flex-wrap:wrap;gap:8px}
+.pod a{font-size:1rem;font-weight:800;text-decoration:none;color:#fff;min-height:44px;display:inline-flex;align-items:center;
+ border:1px solid var(--line);border-radius:11px;padding:9px 13px;
+ background:rgba(255,255,255,.14)}
+.pod a:hover{background:rgba(255,255,255,.28)}
+.pod a.play{background:rgba(255,215,106,.28);border-color:var(--accent)}
+.pod .warn{margin:8px 0 0;font-size:.95rem;color:#ffc2cd}
+.pod .unsure{margin:8px 0 0;font-size:.95rem;line-height:1.5;color:#fff3d0;
+ background:rgba(255,194,51,.20);border:1px solid rgba(255,194,51,.5);
+ border-radius:10px;padding:8px 10px}
+.pod.hide{display:none}
+.topic.hide{display:none}
+.note{margin:24px 0 0;padding:15px 17px;border-radius:15px;border:1px dashed var(--line);
+ background:rgba(0,0,0,.30);font-size:1rem;line-height:1.62;color:var(--soft)}
+.note b{color:var(--accent)}
+@media(max-width:640px){ body{padding:18px 11px 46px} .pod{padding:12px 13px} }
+@media print{.filters,#navBtns{display:none}}
+</style>
+<style>
+/* ---- floating navigation, matched to the NUR 198 cluster -------------
+   Small pills in a horizontal row at the TOP right, not a stack of full-width
+   buttons at the bottom. She asked for these to look like 198's, and the reason
+   198's work is that they shed their labels as soon as the viewport narrows - at
+   300% zoom the CSS width reads narrow, so what she sees is a row of icons the
+   size of a fingertip rather than a wall of text sitting on the content. */
+#navBtns{position:fixed;top:10px;right:12px;z-index:2147483000;display:flex;gap:7px;
+ align-items:center;touch-action:none;cursor:grab}
+#navBtns.dragging{opacity:.92;cursor:grabbing}
+#navBtns:focus-visible{outline:3px solid var(--accent,#ffd76a);outline-offset:3px}
+#navBtns a,#navBtns button{display:inline-flex;align-items:center;gap:6px;
+ font:800 .95rem 'Segoe UI',system-ui,sans-serif;padding:9px 14px;border-radius:22px;
+ text-decoration:none;cursor:pointer;border:1px solid rgba(255,255,255,.24);
+ box-shadow:0 4px 14px rgba(0,0,0,.5);color:#fff;white-space:nowrap;line-height:1.3;
+ background:linear-gradient(135deg,#5a2d82,#8e2d6b)}
+#navBtns a:hover,#navBtns button:hover{filter:brightness(1.16)}
+#navBtns .nbQuiz{background:linear-gradient(135deg,#1a4099,#1d4ed8)}
+#navBtns .nbCast{background:linear-gradient(135deg,#7c2aa8,#b5179e)}
+#navBtns .nbHub{background:linear-gradient(135deg,#0b6656,#0f7d6b)}
+@media(max-width:1024px){
+  #navBtns{top:6px;right:6px;gap:5px}
+  #navBtns .nbLabel{display:none}
+  #navBtns a,#navBtns button{padding:9px 12px;font-size:1.15rem;line-height:1;min-height:44px}
+}
+@media print{#navBtns{display:none}}
+
+/* ---- collapsible side menu ------------------------------------------ */
+#menuBtn{background:rgba(255,255,255,.15);border:1px solid var(--line);color:#fff;
+ border-radius:13px;padding:10px 14px;font-weight:900;font-size:.95rem;font-family:inherit;cursor:pointer;
+ white-space:nowrap;line-height:1}
+#menuBtn:hover{background:rgba(255,255,255,.32)}
+#navBg{position:fixed;inset:0;background:rgba(0,0,0,.62);z-index:99998;opacity:0;
+ pointer-events:none;transition:opacity .2s ease;color:#fff}
+body.nav-open #navBg{opacity:1;pointer-events:auto}
+body.nav-open #navBtns{display:none}
+body.nav-open #skimBtn{display:none}
+#side{position:fixed;top:0;left:0;width:min(88vw,320px);height:100dvh;max-height:100dvh;
+ overflow-y:auto;z-index:99999;transform:translateX(-102%);transition:transform .22s ease;
+ background:rgba(10,6,20,.97);
+ border-right:1px solid var(--line);box-shadow:6px 0 30px rgba(0,0,0,.65);
+ padding:16px 14px 34px;color:#fff}
+body.nav-open #side{transform:translateX(0)}
+#side .sbrand{font-weight:900;font-size:1.15rem;margin:2px 0 4px;display:block;
+ color:var(--accent)}
+#side .ssub{display:block;font-size:.92rem;color:#d8caf5;margin:0 0 14px}
+#side .shead{font-size:.86rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;
+ color:var(--accent);margin:18px 0 8px}
+#side a.nav,#side button.nav{display:block;width:100%;text-align:left;
+ background:rgba(255,255,255,.09);border:1px solid var(--line);
+ border-left:4px solid rgba(255,255,255,.45);border-radius:12px;padding:12px 14px;
+ margin:0 0 8px;color:#fff;text-decoration:none;font-weight:800;font-size:1rem;font-family:inherit;cursor:pointer}
+#side a.nav:hover,#side button.nav:hover{background:rgba(255,255,255,.22)}
+#side a.nav.on{background:rgba(255,255,255,.26);border-left-color:var(--accent)}
+#side .nsub{display:block;font-weight:600;font-size:.88rem;opacity:.9;margin-top:3px;
+ line-height:1.45}
+#side .sclose{display:block;width:100%;min-height:44px;margin:4px 0 10px;background:rgba(255,255,255,.14);
+ border:1px solid var(--line);color:#fff;border-radius:12px;padding:11px;
+ font-weight:900;font-size:1rem;font-family:inherit;cursor:pointer}
+#side .sclose:hover{background:rgba(255,255,255,.3)}
+@media print{#side,#navBg,#menuBtn{display:none !important}}
+
+.here{font-weight:800;font-size:1rem;line-height:1.2;font-family:inherit;color:#fff;cursor:pointer;border:1px solid rgba(157,92,255,.85);border-radius:11px;padding:9px 13px;min-height:44px;display:inline-flex;align-items:center;background:rgba(66,26,128,.92)}
+.here:hover{background:rgba(96,44,176,.95)}
+.here:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
+.here[aria-expanded="true"]{background:rgba(255,215,106,.30);border-color:var(--accent);color:#231a02}
+.pod iframe{display:block;width:100%;height:78px;margin:10px 0 2px;border:0;border-radius:12px;background:rgba(0,0,0,.30)}
+
+.tag.mod{background:rgba(126,232,255,.30);color:#eaf9ff;font-weight:900;
+ letter-spacing:.02em;border:1px solid rgba(126,232,255,.55)}
+</style>
+<style>
+.wrap{max-width:900px;margin:0 auto;padding:16px 15px 90px}
+h1{margin:6px 0 4px;font-size:1.9rem;line-height:1.2}
+.lede{margin:0 0 16px;font-size:1.02rem;line-height:1.65;color:#eee6ff;max-width:62ch}
+.pl{background:rgba(var(--jewel),.60);border:1px solid var(--line);
+ border-left:6px solid rgba(255,255,255,.55);border-radius:15px;
+ padding:15px 16px;margin:0 0 13px;box-shadow:0 8px 24px rgba(0,0,0,.34)}
+.pl h3{margin:0 0 3px;font-size:1.18rem;line-height:1.3;overflow-wrap:break-word}
+.plsub{margin:0 0 9px;font-size:1rem;font-weight:800;line-height:1.4;overflow-wrap:break-word}
+.plwhat{margin:0 0 4px;font-size:.97rem;line-height:1.55}
+.plmeta{margin:0 0 11px;font-size:.92rem;opacity:.92}
+.acts{display:flex;flex-wrap:wrap;gap:9px}
+.acts a{display:inline-flex;align-items:center;min-height:44px;padding:10px 14px;
+ border-radius:12px;font-size:.98rem;font-weight:800;text-decoration:none;color:#fff;
+ border:1px solid var(--line);background:rgba(0,0,0,.34);overflow-wrap:break-word}
+.acts a.play{background:#ffd76a;color:#231a02;border-color:#231a02}
+.acts a:hover{background:rgba(0,0,0,.52)}
+.acts a.play:hover{background:#ffe49a}
+.acts a:focus-visible{outline:3px solid #ffd166;outline-offset:2px}
+.how{background:rgba(0,0,0,.56);border:1px solid var(--line);
+ border-left:6px solid rgba(126,232,255,.7);border-radius:15px;padding:15px 16px;margin:18px 0 0}
+.how h2{margin:0 0 8px;font-size:1.2rem}
+.how ol{margin:0 0 10px;padding-left:1.25em}
+.how li{margin:0 0 8px;font-size:.98rem;line-height:1.6;overflow-wrap:break-word}
+.how p{margin:0 0 8px;font-size:.97rem;line-height:1.6}
+.how b{color:#ffe9a8}
+.back{display:inline-flex;align-items:center;min-height:44px;padding:10px 15px;margin:0 0 14px;
+ border-radius:12px;font-weight:800;text-decoration:none;color:#08131c;background:#9fe4ff;
+ border:1px solid rgba(0,0,0,.4)}
+</style>
+</head>
+<body>
+<div id="navBtns"><button type="button" class="nbHub" title="ABSN Study Hub" onclick="hop('index.html',false)">&#127968;<span class="nbLabel">ABSN Study Hub</span></button></div>
+
+<div class="wrap">
+<a class="back" href="podcasts.html">&#8592; Podcasts &amp; lectures</a>
+<h1>&#127925; VLC playlists</h1>
+<p class="lede">One playlist per class for Module 1, in the order you would work
+through it: the class lectures first, then the module podcasts, then the exam
+podcast. VLC plays the video and the audio in the same queue, so you can start
+it in the car and it keeps going.</p>
+
+    <div class="pl" style="--jewel:var(--teal)">
+      <h3>&#129658; NUR 258 &middot; Module 1</h3>
+      <p class="plsub">Sensory Disorders &mdash; Eye &amp; Ear</p>
+      <p class="plwhat">4 class lectures &middot; 2 module podcasts &middot; the Exam 1 podcast</p>
+      <p class="plmeta">7 tracks &middot; about 6&frac12; hours</p>
+      <div class="acts">
+        <a class="play" href="playlists/nur258-module-01-drive.m3u8" download>&#9654;&#65039; Streaming playlist</a>
+        <a href="playlists/nur258-module-01-local.m3u8" download>&#128193; Downloaded-files playlist</a>
+      </div>
+    </div>
+    <div class="pl" style="--jewel:var(--amethyst)">
+      <h3>&#129328; NUR 234 &middot; Module 1</h3>
+      <p class="plsub">Reproductive Life Planning &amp; Contraception</p>
+      <p class="plwhat">3 class lectures &middot; 3 module podcasts &middot; the Exam 1 podcast</p>
+      <p class="plmeta">7 tracks &middot; about 7 hours</p>
+      <div class="acts">
+        <a class="play" href="playlists/nur234-module-01-drive.m3u8" download>&#9654;&#65039; Streaming playlist</a>
+        <a href="playlists/nur234-module-01-local.m3u8" download>&#128193; Downloaded-files playlist</a>
+      </div>
+    </div>
+    <div class="pl" style="--jewel:var(--citrine)">
+      <h3>&#129681; NUR 235 &middot; Module 1</h3>
+      <p class="plsub">Intro to Pediatric Nursing</p>
+      <p class="plwhat">2 class lectures &middot; 4 module podcasts &middot; the Exam 1 podcast</p>
+      <p class="plmeta">7 tracks &middot; about 5 hours</p>
+      <div class="acts">
+        <a class="play" href="playlists/nur235-module-01-drive.m3u8" download>&#9654;&#65039; Streaming playlist</a>
+        <a href="playlists/nur235-module-01-local.m3u8" download>&#128193; Downloaded-files playlist</a>
+      </div>
+    </div>
+
+<div class="how">
+<h2>&#129513; Which of the two to use</h2>
+<p><b>Downloaded-files playlist</b> is the reliable one. Download the seven files
+from the podcasts and lectures page into one folder, put this <code>.m3u8</code>
+in that same folder, and open it with VLC. It plays offline, which is what you
+want in the car anyway.</p>
+<p><b>Streaming playlist</b> opens the files straight from Google Drive without
+downloading. It saves you the step, but Drive puts a scan warning in front of
+large files, and most of these are large &mdash; so treat it as the convenient
+option that may skip a track, not the dependable one.</p>
+<h2>&#128241; Opening it</h2>
+<ol>
+<li><b>Windows / Mac:</b> double-click the <code>.m3u8</code>, or drag it onto VLC.</li>
+<li><b>Android / iPhone:</b> put the files and the playlist in the same folder,
+then open the playlist from inside VLC rather than from the Files app.</li>
+<li>VLC remembers where you stopped, so you can pick a long lecture back up on
+the next drive.</li>
+</ol>
+</div>
+</div>
+<script defer src="absn-watch.js"></script>
+<script defer src="absn-hidebar.js"></script>
+<script defer src="absn-robots.js"></script>
+</body></html>

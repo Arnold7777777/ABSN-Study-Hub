@@ -221,7 +221,7 @@
       '#absnDrawerGo{margin:0 0 16px}' +
       '#absnDrawerGo .gogrp{margin:0 0 12px}' +
       '#absnDrawerGo .golab{display:block;margin:0 0 6px;' +
-      ' font:900 .69rem/1 ui-monospace,Consolas,monospace;letter-spacing:.14em;' +
+      ' font:900 .78rem/1.2 ui-monospace,Consolas,monospace;letter-spacing:.14em;' +
       ' text-transform:uppercase;color:rgba(255,255,255,.62)}' +
       '#absnDrawerGo .gorow{display:flex;flex-wrap:wrap;gap:7px}' +
       '#absnDrawerGo a{flex:1 1 auto;min-width:44%;text-align:left;' +
@@ -248,8 +248,8 @@
       '.godives[open]>summary::before{content:"\\25BE"}' +
       '.godives>summary:hover{background:rgba(255,255,255,.24)}' +
       '.godives>summary:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}' +
-      '.godives .ddn{margin-left:auto;font:800 .72rem/1 ui-monospace,monospace;' +
-      ' opacity:.66;letter-spacing:.06em}' +
+      '.godives .ddn{margin-left:auto;font:800 .78rem/1.2 ui-monospace,monospace;' +
+      ' opacity:.8;letter-spacing:.06em}' +
       '.godives>.gorow{margin-top:7px}' +
       /* The launcher starts top-left and she can drag it anywhere from there.
          It used to sit bottom-left, which is the busiest corner on the site -
