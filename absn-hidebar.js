@@ -112,6 +112,12 @@
   function isPageControl(el) {
     if (el.hasAttribute('data-absn-keep')) return true;
     if (el.closest('[data-absn-keep]')) return true;
+    /* The bar holding the site-menu button is the way OUT of this page, and
+       the drawer was swallowing it on eleven pages: the button that opens
+       the menu ended up inside the menu it opens, so the menu could never be
+       opened again and every link in it - courses, quizzes, lectures - went
+       unreachable. A bar that opens the navigation is navigation. */
+    if (el.querySelector('#menuBtn, [aria-controls="side"]')) return true;
     return !!el.querySelector('input, select, textarea');
   }
 
