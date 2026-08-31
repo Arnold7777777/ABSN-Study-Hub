@@ -6,8 +6,8 @@
    label clears 12px. Nothing else on the page moves sideways. */
 (function () {
   var FLOOR = 12;      // px — her minimum readable size
-  var MAX_WIDEN = 4.0;   // ceiling, so a diagram never becomes an endless canvas
-  var HARD_MAX = 1600;   // px
+  var MAX_WIDEN = 4.6;   // ceiling, so a diagram never becomes an endless canvas
+  var HARD_MAX = 1800;   // px
 
   function css() {
     if (document.getElementById('absnDzCss')) return;
