@@ -59,6 +59,8 @@
   var OPEN = 'absn-drawer-open';
 
   var drawer = null, btn = null, open = false;
+  /* The launcher is part of the page now, not pinned over it. */
+  var PINNED = false;
 
   /* ---------- finding things ------------------------------------------ */
 
@@ -261,20 +263,24 @@
          It used to sit bottom-left, which is the busiest corner on the site -
          the Skim button and the ADHD toolbar both live down there and landed
          on top of it. */
-      '#absnDrawerBtn{position:fixed;left:10px;top:10px;z-index:99993;' +
-      ' touch-action:none;user-select:none;-webkit-user-select:none;' +
-      /* .95rem/1 plus 13px padding landed this at 43.2px - one pixel under
-         the 44px tap target she needs, on all 514 pages that load this. */
-      ' display:inline-flex;align-items:center;min-height:46px;' +
-      ' font:900 .95rem/1 "Segoe UI",system-ui,sans-serif;padding:13px 17px;' +
-      ' border-radius:999px;cursor:pointer;color:#fff;white-space:nowrap;' +
-      ' border:1px solid rgba(255,255,255,.42);' +
+      /* It used to be pinned to the top-left corner, floating over the page.
+         Caroline sent a screenshot of it parked on top of a card and said it
+         does not need to be pinned - so it is not. It sits in the page now,
+         first thing at the top, and scrolls away with everything else. A
+         button that scrolls out of the way cannot cover what she is reading,
+         and there is nothing left to drag out of the way either. */
+      '#absnDrawerBtn{display:inline-flex;align-items:center;margin:10px 0 4px 10px;' +
+      ' min-height:46px;font:900 .95rem/1 "Segoe UI",system-ui,sans-serif;' +
+      ' padding:13px 17px;border-radius:999px;cursor:pointer;color:#fff;' +
+      ' white-space:nowrap;border:1px solid rgba(255,255,255,.42);' +
       ' box-shadow:0 5px 18px rgba(0,0,0,.6);' +
       ' background:linear-gradient(135deg,#52277d,#7c3aed)}' +
       '#absnDrawerBtn:hover{filter:brightness(1.15)}' +
-      '#absnDrawerBtn.absn-dragging{opacity:.92;cursor:grabbing;' +
-      ' box-shadow:0 10px 30px rgba(0,0,0,.7)}' +
       '#absnDrawerBtn:focus-visible{outline:3px solid #ffd76a;outline-offset:3px}' +
+      /* while the drawer is open the button is the way to shut it, so then
+         - and only then - it does follow the screen */
+      '#absnDrawerBtn.absn-open{position:fixed;left:10px;top:10px;' +
+      ' z-index:99999;margin:0}' +
       '@media print{#absnDrawer,#absnDrawerBtn{display:none}}';
     document.head.appendChild(s);
   }
@@ -451,15 +457,46 @@
       if (btn.dataset.absnDragged === '1') { btn.dataset.absnDragged = ''; return; }
       set(!open);
     });
-    document.body.appendChild(btn);
+    /* first thing in the page, after any skip-to-content link */
+    var first = document.body.firstElementChild;
+    while (first && /^(script|style|template)$/i.test(first.tagName)) {
+      first = first.nextElementSibling;
+    }
+    if (first && first.className && /skip/i.test(String(first.className))) {
+      first = first.nextElementSibling;
+    }
+    if (first) document.body.insertBefore(btn, first);
+    else document.body.appendChild(btn);
     paint();
-    makeDraggable();
-    place();
-    /* sticky bars and the ADHD toolbars land after us; re-check the default
-       once the page has settled, but never once she has chosen a spot */
-    setTimeout(function () { if (!savedPos()) place(); }, 500);
-    setTimeout(function () { if (!savedPos()) place(); }, 1400);
-    window.addEventListener('resize', function () { setTimeout(place, 80); });
+    /* A position she dragged it to in the old pinned version would strand it
+       off in a corner now that it lives in the page. */
+    try { localStorage.removeItem(POSKEY); } catch (e) {}
+    window.addEventListener('resize', function () {
+      setTimeout(function () { fitToRoom(); paint(); if (!savedPos()) place(); else place(); }, 80);
+    });
+    /* She reads with the page magnified, and browser zoom fires no resize in
+       every browser - the visual viewport does. */
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', function () {
+        setTimeout(function () { fitToRoom(); paint(); place(); }, 80);
+      });
+    }
+    /* Step back while she reads, come forward the moment she reaches for it. */
+    (function () {
+      var t = null;
+      function wake() {
+        btn.classList.remove('absn-idle');
+        clearTimeout(t);
+        t = setTimeout(function () {
+          if (!open) btn.classList.add('absn-idle');
+        }, 2200);
+      }
+      ['scroll', 'pointermove', 'pointerdown', 'keydown'].forEach(function (ev) {
+        window.addEventListener(ev, wake, { passive: true });
+      });
+      btn.addEventListener('focus', wake);
+      wake();
+    })();
     window.addEventListener('orientationchange', function () { setTimeout(place, 200); });
   }
 
@@ -486,9 +523,40 @@
      sticky bar with their own Menu button in exactly that corner. Step below
      whatever is already parked there, but only until she picks a spot herself -
      after that her choice wins and this never runs again. */
+  /* How much empty room sits to the left of the page's own content column.
+     On a laptop at normal zoom that is 130px of nothing, which is exactly
+     where a launcher belongs: reachable, and on top of no words at all.
+     Magnified, the column fills the window and this returns 0. */
+  function leftGutter() {
+    var main = document.querySelector('main') || document.body;
+    var r = main.getBoundingClientRect();
+    var left = r.left;
+    /* a hero or bar that runs full-bleed must not count as content here */
+    return left > 0 && left < window.innerWidth * 0.4 ? left : 0;
+  }
+
+  /* Wide enough for the pill -> stay a pill and sit in the gutter.
+     Not wide enough -> shrink to a circle so it covers a 48px square
+     rather than a 220px bar across whatever she is reading. */
+  function fitToRoom() {
+    if (!PINNED) return;
+    if (!btn) return;
+    var g = leftGutter();
+    var compact = g < 122;              /* 110 pill + 6px each side */
+    btn.classList.toggle('absn-compact', compact);
+    return compact ? 0 : g;
+  }
+
   function defaultPos() {
+    if (!PINNED) return;
     var pos = { x: 10, y: 10 };
     if (!btn) return pos;
+    var g = fitToRoom();
+    paint();                 /* the words go the moment it becomes a circle */
+    if (g) {
+      var bw = btn.getBoundingClientRect().width || 110;
+      pos.x = Math.max(6, Math.round((g - bw) / 2));
+    }
     var mine = btn.getBoundingClientRect();
     var w = mine.width || 110;
     [].forEach.call(document.querySelectorAll('body *'), function (el) {
@@ -507,6 +575,7 @@
   }
 
   function place(x, y) {
+    if (!PINNED) return;
     if (!btn) return;
     var pos = (typeof x === 'number') ? { x: x, y: y } : savedPos();
     var r = btn.getBoundingClientRect();
@@ -526,6 +595,7 @@
      runs normally; above it the button follows her finger and the click that
      the browser fires on release is swallowed. */
   function makeDraggable() {
+    if (!PINNED) return;
     if (!btn) return;
     var startX = 0, startY = 0, baseX = 0, baseY = 0, dragging = false, live = false;
 
@@ -582,8 +652,13 @@
   }
 
   function paint() {
-    btn.textContent = open ? '✕ Close menu' : '☰ Menu';
-    btn.title = open ? 'Put the menu away' : 'Show the page controls';
+    var tight = btn.classList.contains('absn-compact');
+    btn.textContent = open ? (tight ? '✕' : '✕ Close menu') : (tight ? '☰' : '☰ Menu');
+    /* The words go when it is a circle, so the button still has to say what it
+       is to a screen reader - and the title tells her she can move it. */
+    btn.setAttribute('aria-label', open ? 'Put the menu away' : 'Show the page controls');
+    btn.title = (open ? 'Put the menu away' : 'Show the page controls') +
+                ' - drag it anywhere, or use the arrow keys';
     btn.setAttribute('aria-expanded', String(open));
     drawer.setAttribute('aria-hidden', String(!open));
   }
@@ -591,6 +666,11 @@
   function set(v) {
     open = v;
     drawer.classList.toggle(OPEN, open);
+    /* Unpinned, the button scrolls with the page - which means that once the
+       drawer slides over it there is nothing left to press to shut it again.
+       So while the drawer is open, and only then, the button follows the
+       screen and sits above it. */
+    if (btn) btn.classList.toggle('absn-open', open);
     paint();
   }
 
