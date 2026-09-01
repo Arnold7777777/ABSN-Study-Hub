@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Lab tests by condition &middot; ABSN Study Hub</title>
+<style>
+:root{--ink:#f2ecff;--soft:#d6c9f2;--muted:#b3a6d2;--line:rgba(255,255,255,.20);
+ --gold:#ffd75e;--accent:#ffc233;--card:rgba(14,10,30,.84)}
+*{box-sizing:border-box}
+body{margin:0;font:17px/1.6 'Segoe UI',system-ui,sans-serif;color:var(--ink);
+ background:linear-gradient(165deg,#0d0a1c 0%,#160f33 55%,#0b1424 100%);min-height:100vh;
+ overflow-wrap:break-word}
+a{color:var(--gold)}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+header{padding:20px 18px 18px;background:linear-gradient(135deg,rgba(192,34,85,.72),rgba(157,92,255,.62));
+ border-bottom:1px solid var(--line)}
+header .code{font-weight:900;font-size:.95rem;letter-spacing:.09em;text-transform:uppercase;color:var(--accent)}
+header h1{margin:4px 0 6px;font-size:1.5rem;line-height:1.25}
+header p{margin:0;color:#f0e7ff;max-width:62ch}
+.wrap{max-width:1000px;margin:0 auto;padding:16px 14px 70px}
+.tools{margin:0 0 18px;padding:14px;background:var(--card);border:1px solid var(--line);border-radius:16px}
+label.sl{display:block;font-weight:800;margin:0 0 7px;font-size:1rem}
+#q{width:100%;min-height:48px;padding:11px 13px;font:600 1.05rem 'Segoe UI',system-ui,sans-serif;
+ color:#fff;background:rgba(255,255,255,.10);border:2px solid var(--line);border-radius:12px}
+#q::placeholder{color:#b9abd8}
+#q:focus{outline:3px solid var(--gold);outline-offset:2px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0}
+.chip{min-height:44px;padding:8px 14px;border-radius:999px;cursor:pointer;
+ font:700 .95rem 'Segoe UI',system-ui,sans-serif;color:#fff;
+ background:rgba(255,255,255,.12);border:1px solid var(--line)}
+.chip:hover{background:rgba(255,255,255,.22)}
+.chip[aria-pressed="true"]{background:linear-gradient(135deg,#7c3aed,#c02255);border-color:var(--gold)}
+.chip:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+#count{margin:12px 0 0;font-weight:700;color:var(--soft)}
+.grp{margin:0 0 30px}
+.grp h2{display:flex;align-items:center;gap:10px;margin:26px 0 12px;font-size:1.22rem;
+ padding-bottom:8px;border-bottom:2px solid rgba(255,194,51,.45)}
+.gi{font-size:1.35rem}
+.gn{margin-left:auto;font-size:.85rem;font-weight:800;color:#1b1030;background:var(--accent);
+ padding:3px 10px;border-radius:999px}
+.cond{margin:0 0 14px;padding:14px;background:var(--card);border:1px solid var(--line);border-radius:16px}
+.cond h3{display:flex;align-items:center;gap:9px;margin:0 0 10px;font-size:1.1rem;line-height:1.3}
+.ci{font-size:1.2rem;flex:0 0 auto}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.ct{width:100%;border-collapse:collapse;min-width:420px}
+.ct thead th{text-align:left;font-size:.82rem;letter-spacing:.05em;text-transform:uppercase;
+ color:var(--accent);padding:0 10px 7px;border-bottom:1px solid var(--line)}
+.ct th[scope=row]{text-align:left;vertical-align:top;padding:10px;width:38%;font-weight:800;
+ border-bottom:1px solid rgba(255,255,255,.10)}
+.ct td{vertical-align:top;padding:10px;color:var(--soft);
+ border-bottom:1px solid rgba(255,255,255,.10)}
+.ct tr:last-child th,.ct tr:last-child td{border-bottom:0}
+.bg{display:block;margin:5px 0 0;width:max-content;font-size:.8rem;font-weight:900;
+ letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:999px}
+.cf{background:#ffd75e;color:#2b1a00}
+.sp{background:rgba(255,255,255,.20);color:#fff}
+.mo{background:#5fd0b0;color:#062019}
+.more{display:inline-block;margin:11px 0 0;min-height:44px;padding:10px 15px;border-radius:12px;
+ font-weight:800;text-decoration:none;color:#fff;background:linear-gradient(135deg,#52277d,#7c3aed);
+ border:1px solid var(--line)}
+.more:hover{filter:brightness(1.15)}
+.more:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.key{margin:0 0 18px;padding:13px 14px;background:rgba(255,215,94,.10);
+ border:1px solid rgba(255,215,94,.4);border-radius:14px;color:#f6eeff}
+.key b{color:var(--accent)}
+#none{display:none;padding:22px;text-align:center;color:var(--soft);
+ background:var(--card);border:1px solid var(--line);border-radius:16px}
+@media(max-width:520px){
+ .ct{min-width:340px}
+ .ct th[scope=row]{width:44%}
+ body{font-size:16px}
+}
+</style>
+</head><body>
+<div id="navBtns"><button type="button" class="nbHub" title="ABSN Study Hub" onclick="location.href='index.html'">&#127968;<span class="nbLabel">ABSN Study Hub</span></button><button type="button" class="nbQuiz" title="Super Mega Quiz" onclick="location.href='super-mega-quiz.html'">&#129504;<span class="nbLabel">Super Mega Quiz</span></button></div>
+<style>
+#navBtns{position:static;flex-wrap:wrap;margin:10px 12px 2px;z-index:120;display:flex;gap:7px}
+#navBtns button{min-height:44px;display:inline-flex;align-items:center;gap:6px;
+ font:800 .95rem "Segoe UI",system-ui,sans-serif;padding:9px 14px;border-radius:22px;
+ cursor:pointer;border:1px solid rgba(255,255,255,.24);color:#fff;
+ background:linear-gradient(135deg,#5a2d82,#8e2d6b)}
+#navBtns .nbQuiz{background:linear-gradient(135deg,#1a4099,#1d4ed8)}
+#navBtns .nbHub{background:linear-gradient(135deg,#0b6656,#0f7d6b)}
+#navBtns button:hover{filter:brightness(1.16)}
+#navBtns button:focus-visible{outline:3px solid #ffd75e;outline-offset:3px}
+@media print{#navBtns{display:none}}
+</style>
+<header>
+  <div class="code">ABSN Study Hub</div>
+  <h1>&#129514; Lab tests by condition</h1>
+  <p>Start from the disease, not the test. Every condition below lists the test that
+  <b>confirms</b> it, the ones that back it up, and the ones you keep watching &mdash; and
+  what an abnormal result actually means.</p>
+</header>
+
+<div class="wrap">
+
+<div class="key">
+  <b>CONFIRMS</b> is the test that makes the diagnosis &mdash; the one an exam question is
+  usually asking for. <b>SUPPORTS</b> points that way without settling it.
+  <b>MONITOR</b> is what you keep checking once treatment starts.
+</div>
+
+<div class="tools">
+  <label class="sl" for="q">Search a condition, a test, or a value</label>
+  <input id="q" type="search" placeholder="troponin, potassium, cirrhosis, ABG&hellip;"
+   autocomplete="off" enterkeyhint="search">
+  <div class="chips" role="group" aria-label="Filter by body system">
+    <button type="button" class="chip" data-f="all" aria-pressed="true">&#128213; All</button>
+    <button type="button" class="chip" data-f="cardiac">🫀 Heart &amp; vessels</button><button type="button" class="chip" data-f="resp">🫁 Lungs &amp; breathing</button><button type="button" class="chip" data-f="renal">🚰 Kidney &amp; urinary</button><button type="button" class="chip" data-f="endo">🧪 Endocrine</button><button type="button" class="chip" data-f="heme">🩸 Blood &amp; immune</button><button type="button" class="chip" data-f="gi">🍽 GI &amp; liver</button><button type="button" class="chip" data-f="neuro">🧠 Brain &amp; nerves</button><button type="button" class="chip" data-f="musc">🦴 Bones &amp; joints</button><button type="button" class="chip" data-f="ob">🤰 Maternity &amp; newborn</button><button type="button" class="chip" data-f="sensory">👁 Eyes &amp; ears</button><button type="button" class="chip" data-f="integ">🩹 Skin &amp; burns</button><button type="button" class="chip" data-f="infect">🦠 Infection &amp; sepsis</button>
+  </div>
+  <p id="count" role="status" aria-live="polite"></p>
+</div>
+
+<section class="grp" id="sys-cardiac" data-sys="cardiac">
+<h2><span class="gi">🫀</span>Heart &amp; vessels<span class="gn">9</span></h2>
+<article class="cond" data-sys="cardiac" data-find="myocardial infarction (mi) heart &amp; vessels troponin i or t the one that confirms it. rises 3–4 h after the injury, peaks 12–24 h, and stays up 10–14 days. most specific to cardiac muscle — a raised troponin with chest pain is an mi until proven otherwise. 12-lead ecg done within 10 minutes of the door. st elevation = stemi and the cath lab is activated; st depression or t inversion = nstemi. ck-mb rises 4–6 h, back to normal in 48–72 h. because it clears fast it is the one that catches a re-infarction while troponin is still high from the first. myoglobin the earliest to rise (1–3 h) but it is in skeletal muscle too, so it can only rule out, never rule in. bnp ordered if the heart is failing after the infarct.">
+  <h3><span class="ci">🫀</span>Myocardial infarction (MI)</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Myocardial infarction (MI)</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Troponin I or T<span class="bg cf">confirms</span></th><td>The one that confirms it. Rises 3–4 h after the injury, peaks 12–24 h, and stays up 10–14 days. Most specific to cardiac muscle — a raised troponin with chest pain is an MI until proven otherwise.</td></tr><tr><th scope="row">12-lead ECG<span class="bg cf">confirms</span></th><td>Done within 10 minutes of the door. ST elevation = STEMI and the cath lab is activated; ST depression or T inversion = NSTEMI.</td></tr><tr><th scope="row">CK-MB<span class="bg sp">supports</span></th><td>Rises 4–6 h, back to normal in 48–72 h. Because it clears fast it is the one that catches a <b>re</b>-infarction while troponin is still high from the first.</td></tr><tr><th scope="row">Myoglobin<span class="bg sp">supports</span></th><td>The earliest to rise (1–3 h) but it is in skeletal muscle too, so it can only rule out, never rule in.</td></tr><tr><th scope="row">BNP<span class="bg mo">monitor</span></th><td>Ordered if the heart is failing after the infarct.</td></tr></tbody></table></div>
+  <a class="more" href="cardio/NG-071_mi-myocardial-infarction.html">Read the full page on Myocardial infarction (MI) &rarr;</a>
+</article>
+<article class="cond" data-sys="cardiac" data-find="heart failure heart &amp; vessels bnp / nt-probnp the lab that separates cardiac from pulmonary shortness of breath. under 100 makes heart failure unlikely; over 400 makes it likely. released by stretched ventricles. echocardiogram confirms it and gives the ejection fraction — under 40% is reduced (systolic), preserved ef points to diastolic failure. chest x-ray big heart, pulmonary congestion, pleural effusions. bmp and creatinine watched constantly on diuretics — potassium falls on a loop diuretic, and the kidneys take the hit if you over-diurese. daily weight not a lab, but the most sensitive number you have. 2–3 lb in a day or 5 lb in a week is fluid, and it is reportable.">
+  <h3><span class="ci">🫀</span>Heart failure</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Heart failure</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">BNP / NT-proBNP<span class="bg cf">confirms</span></th><td>The lab that separates cardiac from pulmonary shortness of breath. Under 100 makes heart failure unlikely; over 400 makes it likely. Released by stretched ventricles.</td></tr><tr><th scope="row">Echocardiogram<span class="bg cf">confirms</span></th><td>Confirms it and gives the ejection fraction — under 40% is reduced (systolic), preserved EF points to diastolic failure.</td></tr><tr><th scope="row">Chest X-ray<span class="bg sp">supports</span></th><td>Big heart, pulmonary congestion, pleural effusions.</td></tr><tr><th scope="row">BMP and creatinine<span class="bg mo">monitor</span></th><td>Watched constantly on diuretics — potassium falls on a loop diuretic, and the kidneys take the hit if you over-diurese.</td></tr><tr><th scope="row">Daily weight<span class="bg mo">monitor</span></th><td>Not a lab, but the most sensitive number you have. 2–3 lb in a day or 5 lb in a week is fluid, and it is reportable.</td></tr></tbody></table></div>
+  <a class="more" href="more/NG-038_heart-failure-patho-signs-causes.html">Read the full page on Heart failure &rarr;</a>
+</article>
+<article class="cond" data-sys="cardiac" data-find="infective endocarditis heart &amp; vessels blood cultures three sets from three different sites, drawn before the first antibiotic. this is the confirming test and the order matters more than the speed. transesophageal echo shows the vegetations on the valve. esr and crp raised, and they track whether the treatment is working.">
+  <h3><span class="ci">🫀</span>Infective endocarditis</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Infective endocarditis</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Blood cultures<span class="bg cf">confirms</span></th><td>Three sets from three different sites, drawn <b>before</b> the first antibiotic. This is the confirming test and the order matters more than the speed.</td></tr><tr><th scope="row">Transesophageal echo<span class="bg cf">confirms</span></th><td>Shows the vegetations on the valve.</td></tr><tr><th scope="row">ESR and CRP<span class="bg mo">monitor</span></th><td>Raised, and they track whether the treatment is working.</td></tr></tbody></table></div>
+  <a class="more" href="cardio/NG-229_endocarditis.html">Read the full page on Infective endocarditis &rarr;</a>
+</article>
+<article class="cond" data-sys="cardiac" data-find="pericarditis heart &amp; vessels ecg diffuse st elevation in nearly every lead with pr depression — the pattern that separates it from an mi, where elevation is regional. echocardiogram looks for the effusion and for tamponade. esr, crp, wbc raised with the inflammation. troponin can be mildly up if the muscle underneath is irritated — not as high as an mi.">
+  <h3><span class="ci">🫀</span>Pericarditis</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Pericarditis</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">ECG<span class="bg cf">confirms</span></th><td>Diffuse ST elevation in nearly every lead with PR depression — the pattern that separates it from an MI, where elevation is regional.</td></tr><tr><th scope="row">Echocardiogram<span class="bg cf">confirms</span></th><td>Looks for the effusion and for tamponade.</td></tr><tr><th scope="row">ESR, CRP, WBC<span class="bg sp">supports</span></th><td>Raised with the inflammation.</td></tr><tr><th scope="row">Troponin<span class="bg sp">supports</span></th><td>Can be mildly up if the muscle underneath is irritated — not as high as an MI.</td></tr></tbody></table></div>
+  <a class="more" href="cardio/NG-066_pericarditis.html">Read the full page on Pericarditis &rarr;</a>
+</article>
+<article class="cond" data-sys="cardiac" data-find="deep vein thrombosis (dvt) heart &amp; vessels venous duplex ultrasound the confirming test — non-invasive, and it sees the clot. d-dimer very sensitive, not at all specific. a negative d-dimer is the useful result: it rules a clot out. a positive one only means go and look. pt/inr and aptt baseline before anticoagulation starts, then the number you titrate to. platelet count checked on heparin — a falling platelet count is heparin-induced thrombocytopenia.">
+  <h3><span class="ci">🫀</span>Deep vein thrombosis (DVT)</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Deep vein thrombosis (DVT)</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Venous duplex ultrasound<span class="bg cf">confirms</span></th><td>The confirming test — non-invasive, and it sees the clot.</td></tr><tr><th scope="row">D-dimer<span class="bg sp">supports</span></th><td>Very sensitive, not at all specific. A <b>negative</b> D-dimer is the useful result: it rules a clot out. A positive one only means go and look.</td></tr><tr><th scope="row">PT/INR and aPTT<span class="bg mo">monitor</span></th><td>Baseline before anticoagulation starts, then the number you titrate to.</td></tr><tr><th scope="row">Platelet count<span class="bg mo">monitor</span></th><td>Checked on heparin — a falling platelet count is heparin-induced thrombocytopenia.</td></tr></tbody></table></div>
+  <a class="more" href="cardio/NG-223_dvt-deep-vein-thrombosis.html">Read the full page on Deep vein thrombosis (DVT) &rarr;</a>
+</article>
+<article class="cond" data-sys="cardiac" data-find="pulmonary embolism heart &amp; vessels ct pulmonary angiogram the confirming test. check bun and creatinine first — it is an iodine contrast study. d-dimer same rule as dvt: a negative result is the one that helps. abg low pao₂ with a low paco₂ — respiratory alkalosis, because she is blowing off co₂ trying to breathe. v/q scan used instead of ct when contrast is contraindicated — pregnancy, kidney injury, iodine allergy.">
+  <h3><span class="ci">🫀</span>Pulmonary embolism</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Pulmonary embolism</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">CT pulmonary angiogram<span class="bg cf">confirms</span></th><td>The confirming test. Check BUN and creatinine first — it is an iodine contrast study.</td></tr><tr><th scope="row">D-dimer<span class="bg sp">supports</span></th><td>Same rule as DVT: a negative result is the one that helps.</td></tr><tr><th scope="row">ABG<span class="bg sp">supports</span></th><td>Low PaO₂ with a low PaCO₂ — respiratory alkalosis, because she is blowing off CO₂ trying to breathe.</td></tr><tr><th scope="row">V/Q scan<span class="bg sp">supports</span></th><td>Used instead of CT when contrast is contraindicated — pregnancy, kidney injury, iodine allergy.</td></tr></tbody></table></div>
+  <a class="more" href="resp/NG-394_pulmonary-embolism.html">Read the full page on Pulmonary embolism &rarr;</a>
+</article>
+<article class="cond" data-sys="cardiac" data-find="hypertension heart &amp; vessels no lab confirms it the diagnosis is made from repeated blood pressures, not bloodwork. the labs are looking for what it has damaged and whether something is causing it. bmp — potassium and creatinine a rising creatinine means the kidneys are being damaged; a low potassium can point to hyperaldosteronism as the cause. urinalysis protein in the urine is early kidney damage. lipid panel and tsh cardiovascular risk, and thyroid disease as a treatable cause.">
+  <h3><span class="ci">🫀</span>Hypertension</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Hypertension</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">No lab confirms it<span class="bg cf">confirms</span></th><td>The diagnosis is made from repeated blood pressures, not bloodwork. The labs are looking for what it has damaged and whether something is causing it.</td></tr><tr><th scope="row">BMP — potassium and creatinine<span class="bg sp">supports</span></th><td>A rising creatinine means the kidneys are being damaged; a low potassium can point to hyperaldosteronism as the cause.</td></tr><tr><th scope="row">Urinalysis<span class="bg sp">supports</span></th><td>Protein in the urine is early kidney damage.</td></tr><tr><th scope="row">Lipid panel and TSH<span class="bg sp">supports</span></th><td>Cardiovascular risk, and thyroid disease as a treatable cause.</td></tr></tbody></table></div>
+  <a class="more" href="cardio/NG-068_htn-hypertension.html">Read the full page on Hypertension &rarr;</a>
+</article>
+<article class="cond" data-sys="cardiac" data-find="atherosclerosis and hyperlipidemia heart &amp; vessels lipid panel fast 9–12 hours first. ldl is the one to drive down, hdl is the one you want high, and triglycerides are the one that moves most with diet.">
+  <h3><span class="ci">🫀</span>Atherosclerosis and hyperlipidemia</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Atherosclerosis and hyperlipidemia</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Lipid panel<span class="bg cf">confirms</span></th><td>Fast 9–12 hours first. LDL is the one to drive down, HDL is the one you want high, and triglycerides are the one that moves most with diet.</td></tr></tbody></table></div>
+  <a class="more" href="cardio/NG-145_atherosclerosis.html">Read the full page on Atherosclerosis and hyperlipidemia &rarr;</a>
+</article>
+<article class="cond" data-sys="cardiac" data-find="shock (any cause) heart &amp; vessels serum lactate the number that says the tissues are not getting oxygen. over 2 is abnormal, over 4 is severe. it is also how you tell whether resuscitation is working. abg metabolic acidosis with a low bicarbonate as the lactate builds. blood cultures two sets before antibiotics if it might be septic. cbc, bmp, coagulation source, kidney injury, and whether it has tipped into dic.">
+  <h3><span class="ci">🫀</span>Shock (any cause)</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Shock (any cause)</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Serum lactate<span class="bg cf">confirms</span></th><td>The number that says the tissues are not getting oxygen. Over 2 is abnormal, over 4 is severe. It is also how you tell whether resuscitation is working.</td></tr><tr><th scope="row">ABG<span class="bg sp">supports</span></th><td>Metabolic acidosis with a low bicarbonate as the lactate builds.</td></tr><tr><th scope="row">Blood cultures<span class="bg cf">confirms</span></th><td>Two sets before antibiotics if it might be septic.</td></tr><tr><th scope="row">CBC, BMP, coagulation<span class="bg mo">monitor</span></th><td>Source, kidney injury, and whether it has tipped into DIC.</td></tr></tbody></table></div>
+  <a class="more" href="cardio/NG-050_shock.html">Read the full page on Shock (any cause) &rarr;</a>
+</article>
+</section>
+
+<section class="grp" id="sys-resp" data-sys="resp">
+<h2><span class="gi">🫁</span>Lungs &amp; breathing<span class="gn">7</span></h2>
+<article class="cond" data-sys="resp" data-find="pneumonia lungs &amp; breathing chest x-ray the confirming test — infiltrate or consolidation in a lobe. sputum culture and sensitivity collected before the first antibiotic, first thing in the morning, a deep cough and not saliva. cbc white count up with a left shift. in an older adult it can be normal even with a real pneumonia — confusion may be the only sign. blood cultures if she is admitted or septic. pulse oximetry and abg how much it is costing her.">
+  <h3><span class="ci">🫁</span>Pneumonia</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Pneumonia</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Chest X-ray<span class="bg cf">confirms</span></th><td>The confirming test — infiltrate or consolidation in a lobe.</td></tr><tr><th scope="row">Sputum culture and sensitivity<span class="bg cf">confirms</span></th><td>Collected <b>before</b> the first antibiotic, first thing in the morning, a deep cough and not saliva.</td></tr><tr><th scope="row">CBC<span class="bg sp">supports</span></th><td>White count up with a left shift. In an older adult it can be normal even with a real pneumonia — confusion may be the only sign.</td></tr><tr><th scope="row">Blood cultures<span class="bg sp">supports</span></th><td>If she is admitted or septic.</td></tr><tr><th scope="row">Pulse oximetry and ABG<span class="bg mo">monitor</span></th><td>How much it is costing her.</td></tr></tbody></table></div>
+  <a class="more" href="resp/NG-307_pneumonia.html">Read the full page on Pneumonia &rarr;</a>
+</article>
+<article class="cond" data-sys="resp" data-find="asthma lungs &amp; breathing spirometry with reversibility the confirming test: fev₁ improves by 12% or more after a bronchodilator. peak expiratory flow her own personal best is the yardstick. green 80–100%, yellow 50–79%, red under 50% and that is an emergency. abg early attack shows respiratory alkalosis. a co₂ that is normalising in a struggling asthmatic is not reassuring — it means she is tiring, and it is the sign that comes before respiratory arrest.">
+  <h3><span class="ci">🫁</span>Asthma</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Asthma</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Spirometry with reversibility<span class="bg cf">confirms</span></th><td>The confirming test: FEV₁ improves by 12% or more after a bronchodilator.</td></tr><tr><th scope="row">Peak expiratory flow<span class="bg mo">monitor</span></th><td>Her own personal best is the yardstick. Green 80–100%, yellow 50–79%, red under 50% and that is an emergency.</td></tr><tr><th scope="row">ABG<span class="bg mo">monitor</span></th><td>Early attack shows respiratory alkalosis. A CO₂ that is <b>normalising</b> in a struggling asthmatic is not reassuring — it means she is tiring, and it is the sign that comes before respiratory arrest.</td></tr></tbody></table></div>
+  <a class="more" href="resp/NG-102_beta-2-agonists.html">Read the full page on Asthma &rarr;</a>
+</article>
+<article class="cond" data-sys="resp" data-find="copd lungs &amp; breathing spirometry fev₁/fvc under 0.70 after a bronchodilator confirms it — obstruction that does not fully reverse. abg chronic compensated respiratory acidosis: co₂ high, bicarbonate high to match, ph near normal. that is her baseline, not an emergency. cbc haematocrit high — the marrow making more red cells to carry the oxygen she cannot get.">
+  <h3><span class="ci">🫁</span>COPD</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for COPD</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Spirometry<span class="bg cf">confirms</span></th><td>FEV₁/FVC under 0.70 after a bronchodilator confirms it — obstruction that does not fully reverse.</td></tr><tr><th scope="row">ABG<span class="bg sp">supports</span></th><td>Chronic compensated respiratory acidosis: CO₂ high, bicarbonate high to match, pH near normal. That is her baseline, not an emergency.</td></tr><tr><th scope="row">CBC<span class="bg sp">supports</span></th><td>Haematocrit high — the marrow making more red cells to carry the oxygen she cannot get.</td></tr></tbody></table></div>
+  <a class="more" href="resp/NG-143_anticholinergics-methylxanthines.html">Read the full page on COPD &rarr;</a>
+</article>
+<article class="cond" data-sys="resp" data-find="tuberculosis lungs &amp; breathing sputum for acid-fast bacilli three early-morning specimens. this is what confirms active disease. mantoux (tst) a screen, not a diagnosis. read at 48–72 hours, and measure induration, not redness. a positive test says exposed — the chest x-ray and sputum say active. igra blood test a blood alternative to the skin test, and it is not confounded by a previous bcg vaccination. chest x-ray upper lobe infiltrates and cavitation.">
+  <h3><span class="ci">🫁</span>Tuberculosis</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Tuberculosis</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Sputum for acid-fast bacilli<span class="bg cf">confirms</span></th><td>Three early-morning specimens. This is what confirms active disease.</td></tr><tr><th scope="row">Mantoux (TST)<span class="bg sp">supports</span></th><td>A screen, not a diagnosis. Read at 48–72 hours, and measure induration, not redness. A positive test says exposed — the chest X-ray and sputum say active.</td></tr><tr><th scope="row">IGRA blood test<span class="bg sp">supports</span></th><td>A blood alternative to the skin test, and it is not confounded by a previous BCG vaccination.</td></tr><tr><th scope="row">Chest X-ray<span class="bg sp">supports</span></th><td>Upper lobe infiltrates and cavitation.</td></tr></tbody></table></div>
+  <a class="more" href="core/NG-073_ppe-infection-control.html">Read the full page on Tuberculosis &rarr;</a>
+</article>
+<article class="cond" data-sys="resp" data-find="ards lungs &amp; breathing abg hypoxaemia that will not correct however much oxygen you give — that refractoriness is the hallmark. pao₂/fio₂ ratio of 300 or less. chest x-ray bilateral white-out infiltrates. echocardiogram / bnp done to prove it is not cardiac pulmonary oedema.">
+  <h3><span class="ci">🫁</span>ARDS</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for ARDS</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">ABG<span class="bg cf">confirms</span></th><td>Hypoxaemia that will not correct however much oxygen you give — that refractoriness is the hallmark. PaO₂/FiO₂ ratio of 300 or less.</td></tr><tr><th scope="row">Chest X-ray<span class="bg cf">confirms</span></th><td>Bilateral white-out infiltrates.</td></tr><tr><th scope="row">Echocardiogram / BNP<span class="bg sp">supports</span></th><td>Done to prove it is <b>not</b> cardiac pulmonary oedema.</td></tr></tbody></table></div>
+  <a class="more" href="musc/NG-114_dmards.html">Read the full page on ARDS &rarr;</a>
+</article>
+<article class="cond" data-sys="resp" data-find="acute respiratory failure lungs &amp; breathing abg this is the diagnosis. pao₂ under 60 is hypoxaemic failure; paco₂ over 50 with a ph under 7.35 is hypercapnic failure.">
+  <h3><span class="ci">🫁</span>Acute respiratory failure</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Acute respiratory failure</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">ABG<span class="bg cf">confirms</span></th><td>This is the diagnosis. PaO₂ under 60 is hypoxaemic failure; PaCO₂ over 50 with a pH under 7.35 is hypercapnic failure.</td></tr></tbody></table></div>
+  <a class="more" href="resp/NG-396_acute-respiratory-failure.html">Read the full page on Acute respiratory failure &rarr;</a>
+</article>
+<article class="cond" data-sys="resp" data-find="cystic fibrosis lungs &amp; breathing sweat chloride test the confirming test — over 60 mmol/l on two occasions. newborn screen (irt) immunoreactive trypsinogen picks it up before symptoms. genetic testing cftr mutations.">
+  <h3><span class="ci">🫁</span>Cystic fibrosis</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Cystic fibrosis</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Sweat chloride test<span class="bg cf">confirms</span></th><td>The confirming test — over 60 mmol/L on two occasions.</td></tr><tr><th scope="row">Newborn screen (IRT)<span class="bg sp">supports</span></th><td>Immunoreactive trypsinogen picks it up before symptoms.</td></tr><tr><th scope="row">Genetic testing<span class="bg sp">supports</span></th><td>CFTR mutations.</td></tr></tbody></table></div>
+  <a class="more" href="resp/NG-347_pediatric-asthma-cf.html">Read the full page on Cystic fibrosis &rarr;</a>
+</article>
+</section>
+
+<section class="grp" id="sys-renal" data-sys="renal">
+<h2><span class="gi">🚰</span>Kidney &amp; urinary<span class="gn">7</span></h2>
+<article class="cond" data-sys="renal" data-find="acute kidney injury kidney &amp; urinary serum creatinine the confirming number: a rise of 0.3 mg/dl in 48 hours, or one and a half times baseline. bun:creatinine ratio over 20:1 says the problem is before the kidney — dehydration, blood loss, low output. around 10:1 with a high creatinine says the kidney itself. urine output under 0.5 ml/kg/hr for 6 hours. often the first thing to change. potassium the one that kills. it cannot be excreted, and it climbs. urinalysis muddy brown casts point to acute tubular necrosis.">
+  <h3><span class="ci">🚰</span>Acute kidney injury</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Acute kidney injury</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Serum creatinine<span class="bg cf">confirms</span></th><td>The confirming number: a rise of 0.3 mg/dL in 48 hours, or one and a half times baseline.</td></tr><tr><th scope="row">BUN:creatinine ratio<span class="bg sp">supports</span></th><td>Over 20:1 says the problem is <b>before</b> the kidney — dehydration, blood loss, low output. Around 10:1 with a high creatinine says the kidney itself.</td></tr><tr><th scope="row">Urine output<span class="bg cf">confirms</span></th><td>Under 0.5 mL/kg/hr for 6 hours. Often the first thing to change.</td></tr><tr><th scope="row">Potassium<span class="bg mo">monitor</span></th><td>The one that kills. It cannot be excreted, and it climbs.</td></tr><tr><th scope="row">Urinalysis<span class="bg sp">supports</span></th><td>Muddy brown casts point to acute tubular necrosis.</td></tr></tbody></table></div>
+  <a class="more" href="renal/NG-047_renal-failure-acute-chronic.html">Read the full page on Acute kidney injury &rarr;</a>
+</article>
+<article class="cond" data-sys="renal" data-find="chronic kidney disease kidney &amp; urinary gfr what stages it. under 15 is end-stage and dialysis territory. creatinine and bun both climb and stay up. phosphate high, calcium low the kidney stops activating vitamin d, so calcium falls, phosphate rises, and pth goes up trying to fix it. haemoglobin anaemia, because the kidney is no longer making erythropoietin. potassium and bicarbonate potassium high, bicarbonate low — metabolic acidosis.">
+  <h3><span class="ci">🚰</span>Chronic kidney disease</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Chronic kidney disease</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">GFR<span class="bg cf">confirms</span></th><td>What stages it. Under 15 is end-stage and dialysis territory.</td></tr><tr><th scope="row">Creatinine and BUN<span class="bg cf">confirms</span></th><td>Both climb and stay up.</td></tr><tr><th scope="row">Phosphate high, calcium low<span class="bg sp">supports</span></th><td>The kidney stops activating vitamin D, so calcium falls, phosphate rises, and PTH goes up trying to fix it.</td></tr><tr><th scope="row">Haemoglobin<span class="bg mo">monitor</span></th><td>Anaemia, because the kidney is no longer making erythropoietin.</td></tr><tr><th scope="row">Potassium and bicarbonate<span class="bg mo">monitor</span></th><td>Potassium high, bicarbonate low — metabolic acidosis.</td></tr></tbody></table></div>
+  <a class="more" href="renal/NG-047_renal-failure-acute-chronic.html">Read the full page on Chronic kidney disease &rarr;</a>
+</article>
+<article class="cond" data-sys="renal" data-find="uti and pyelonephritis kidney &amp; urinary urine culture and sensitivity the confirming test, and the one that picks the antibiotic. collect it before starting treatment. urinalysis nitrites and leukocyte esterase positive, wbcs and bacteria on microscopy. cbc white count up — more so with pyelonephritis, which also brings flank pain and fever. blood cultures if she is febrile and systemically unwell.">
+  <h3><span class="ci">🚰</span>UTI and pyelonephritis</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for UTI and pyelonephritis</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Urine culture and sensitivity<span class="bg cf">confirms</span></th><td>The confirming test, and the one that picks the antibiotic. Collect it before starting treatment.</td></tr><tr><th scope="row">Urinalysis<span class="bg sp">supports</span></th><td>Nitrites and leukocyte esterase positive, WBCs and bacteria on microscopy.</td></tr><tr><th scope="row">CBC<span class="bg sp">supports</span></th><td>White count up — more so with pyelonephritis, which also brings flank pain and fever.</td></tr><tr><th scope="row">Blood cultures<span class="bg sp">supports</span></th><td>If she is febrile and systemically unwell.</td></tr></tbody></table></div>
+  <a class="more" href="renal/NG-275_uti-pyelonephritis.html">Read the full page on UTI and pyelonephritis &rarr;</a>
+</article>
+<article class="cond" data-sys="renal" data-find="glomerulonephritis kidney &amp; urinary urinalysis red cell casts are the finding that names it — plus protein and tea- or cola-coloured urine. aso titre raised after a streptococcal throat or skin infection, which is the usual trigger in a child. complement c3 low while it is active, back up as it resolves. bun, creatinine, gfr how much function has been lost.">
+  <h3><span class="ci">🚰</span>Glomerulonephritis</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Glomerulonephritis</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Urinalysis<span class="bg cf">confirms</span></th><td><b>Red cell casts</b> are the finding that names it — plus protein and tea- or cola-coloured urine.</td></tr><tr><th scope="row">ASO titre<span class="bg sp">supports</span></th><td>Raised after a streptococcal throat or skin infection, which is the usual trigger in a child.</td></tr><tr><th scope="row">Complement C3<span class="bg sp">supports</span></th><td>Low while it is active, back up as it resolves.</td></tr><tr><th scope="row">BUN, creatinine, GFR<span class="bg mo">monitor</span></th><td>How much function has been lost.</td></tr></tbody></table></div>
+  <a class="more" href="renal/NG-246_glomerulonephritis-vs-nephrosis.html">Read the full page on Glomerulonephritis &rarr;</a>
+</article>
+<article class="cond" data-sys="renal" data-find="nephrotic syndrome kidney &amp; urinary 24-hour urine protein over 3.5 g in 24 hours is the confirming number. serum albumin low — it is all going out in the urine, and that is why she oedematous. serum cholesterol high. the liver makes more lipoprotein as the albumin drops. urinalysis frothy urine, heavy protein, and — unlike glomerulonephritis — not much blood.">
+  <h3><span class="ci">🚰</span>Nephrotic syndrome</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Nephrotic syndrome</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">24-hour urine protein<span class="bg cf">confirms</span></th><td>Over 3.5 g in 24 hours is the confirming number.</td></tr><tr><th scope="row">Serum albumin<span class="bg cf">confirms</span></th><td>Low — it is all going out in the urine, and that is why she oedematous.</td></tr><tr><th scope="row">Serum cholesterol<span class="bg sp">supports</span></th><td>High. The liver makes more lipoprotein as the albumin drops.</td></tr><tr><th scope="row">Urinalysis<span class="bg sp">supports</span></th><td>Frothy urine, heavy protein, and — unlike glomerulonephritis — not much blood.</td></tr></tbody></table></div>
+  <a class="more" href="renal/NG-352_nephrotic-vs-nephritic.html">Read the full page on Nephrotic syndrome &rarr;</a>
+</article>
+<article class="cond" data-sys="renal" data-find="kidney stones kidney &amp; urinary non-contrast ct of the abdomen the confirming test, and no contrast means no renal risk. urinalysis blood in the urine in almost every case. strain every urine and send the stone what the stone is made of decides the diet and the drug afterwards. serum calcium and uric acid looking for the reason she made it.">
+  <h3><span class="ci">🚰</span>Kidney stones</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Kidney stones</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Non-contrast CT of the abdomen<span class="bg cf">confirms</span></th><td>The confirming test, and no contrast means no renal risk.</td></tr><tr><th scope="row">Urinalysis<span class="bg sp">supports</span></th><td>Blood in the urine in almost every case.</td></tr><tr><th scope="row">Strain every urine and send the stone<span class="bg cf">confirms</span></th><td>What the stone is made of decides the diet and the drug afterwards.</td></tr><tr><th scope="row">Serum calcium and uric acid<span class="bg sp">supports</span></th><td>Looking for the reason she made it.</td></tr></tbody></table></div>
+  <a class="more" href="renal/NG-249_kidney-stones.html">Read the full page on Kidney stones &rarr;</a>
+</article>
+<article class="cond" data-sys="renal" data-find="bph kidney &amp; urinary psa raised in bph and in prostate cancer, so it is a prompt to look further, not an answer. post-void residual how much she cannot empty. urinalysis and creatinine infection from stasis, and back-pressure on the kidneys.">
+  <h3><span class="ci">🚰</span>BPH</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for BPH</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">PSA<span class="bg sp">supports</span></th><td>Raised in BPH and in prostate cancer, so it is a prompt to look further, not an answer.</td></tr><tr><th scope="row">Post-void residual<span class="bg cf">confirms</span></th><td>How much she cannot empty.</td></tr><tr><th scope="row">Urinalysis and creatinine<span class="bg mo">monitor</span></th><td>Infection from stasis, and back-pressure on the kidneys.</td></tr></tbody></table></div>
+  <a class="more" href="pharm/NG-160_prostate-bph.html">Read the full page on BPH &rarr;</a>
+</article>
+</section>
+
+<section class="grp" id="sys-endo" data-sys="endo">
+<h2><span class="gi">🧪</span>Endocrine<span class="gn">10</span></h2>
+<article class="cond" data-sys="endo" data-find="diabetes mellitus endocrine haemoglobin a1c 6.5% or more confirms it. it is the three-month average, so it cannot be fooled by one good morning. target under 7% for most people once treated. fasting plasma glucose 126 mg/dl or more on two separate occasions. fast 8 hours. oral glucose tolerance test 2-hour value of 200 or more. random glucose 200 or more with the classic symptoms — thirst, urinating constantly, losing weight.">
+  <h3><span class="ci">🧪</span>Diabetes mellitus</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Diabetes mellitus</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Haemoglobin A1C<span class="bg cf">confirms</span></th><td>6.5% or more confirms it. It is the three-month average, so it cannot be fooled by one good morning. Target under 7% for most people once treated.</td></tr><tr><th scope="row">Fasting plasma glucose<span class="bg cf">confirms</span></th><td>126 mg/dL or more on two separate occasions. Fast 8 hours.</td></tr><tr><th scope="row">Oral glucose tolerance test<span class="bg cf">confirms</span></th><td>2-hour value of 200 or more.</td></tr><tr><th scope="row">Random glucose<span class="bg cf">confirms</span></th><td>200 or more <b>with</b> the classic symptoms — thirst, urinating constantly, losing weight.</td></tr></tbody></table></div>
+  <a class="more" href="endo/NG-290_diabetes.html">Read the full page on Diabetes mellitus &rarr;</a>
+</article>
+<article class="cond" data-sys="endo" data-find="dka endocrine serum glucose over 250, but usually not enormous — it is the acid that is the emergency, not the sugar. abg ph under 7.30 with bicarbonate under 18 — metabolic acidosis. kussmaul breathing is her blowing off co₂ to compensate. ketones positive in serum and urine. this is the difference from hhs. anion gap over 12, and closing it is how you know the treatment is working. potassium serum potassium can look high while total body potassium is badly depleted. it falls fast once insulin starts — which is why you do not give insulin until potassium is at least 3.3.">
+  <h3><span class="ci">🧪</span>DKA</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for DKA</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Serum glucose<span class="bg cf">confirms</span></th><td>Over 250, but usually not enormous — it is the acid that is the emergency, not the sugar.</td></tr><tr><th scope="row">ABG<span class="bg cf">confirms</span></th><td>pH under 7.30 with bicarbonate under 18 — metabolic acidosis. Kussmaul breathing is her blowing off CO₂ to compensate.</td></tr><tr><th scope="row">Ketones<span class="bg cf">confirms</span></th><td>Positive in serum and urine. This is the difference from HHS.</td></tr><tr><th scope="row">Anion gap<span class="bg mo">monitor</span></th><td>Over 12, and closing it is how you know the treatment is working.</td></tr><tr><th scope="row">Potassium<span class="bg mo">monitor</span></th><td>Serum potassium can look high while total body potassium is badly depleted. It falls fast once insulin starts — which is why you do not give insulin until potassium is at least 3.3.</td></tr></tbody></table></div>
+  <a class="more" href="endo/NG-291_dka-vs-hhs.html">Read the full page on DKA &rarr;</a>
+</article>
+<article class="cond" data-sys="endo" data-find="hhs endocrine serum glucose over 600, often far higher than dka. serum osmolality over 320 — this is what causes the altered mental status. ketones and ph minimal ketones and a normal ph. that absence is what separates it from dka.">
+  <h3><span class="ci">🧪</span>HHS</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for HHS</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Serum glucose<span class="bg cf">confirms</span></th><td>Over 600, often far higher than DKA.</td></tr><tr><th scope="row">Serum osmolality<span class="bg cf">confirms</span></th><td>Over 320 — this is what causes the altered mental status.</td></tr><tr><th scope="row">Ketones and pH<span class="bg cf">confirms</span></th><td>Minimal ketones and a normal pH. That absence is what separates it from DKA.</td></tr></tbody></table></div>
+  <a class="more" href="endo/NG-291_dka-vs-hhs.html">Read the full page on HHS &rarr;</a>
+</article>
+<article class="cond" data-sys="endo" data-find="hypothyroidism endocrine tsh the screening test and the one that moves first. high tsh with a low free t4 is primary hypothyroidism — the gland has failed and the pituitary is shouting at it. free t4 low. lipid panel cholesterol runs high while she is undertreated.">
+  <h3><span class="ci">🧪</span>Hypothyroidism</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Hypothyroidism</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">TSH<span class="bg cf">confirms</span></th><td>The screening test and the one that moves first. <b>High</b> TSH with a low free T4 is primary hypothyroidism — the gland has failed and the pituitary is shouting at it.</td></tr><tr><th scope="row">Free T4<span class="bg cf">confirms</span></th><td>Low.</td></tr><tr><th scope="row">Lipid panel<span class="bg sp">supports</span></th><td>Cholesterol runs high while she is undertreated.</td></tr></tbody></table></div>
+  <a class="more" href="endo/NG-285_hypothyroidism.html">Read the full page on Hypothyroidism &rarr;</a>
+</article>
+<article class="cond" data-sys="endo" data-find="hyperthyroidism and graves endocrine tsh low — suppressed, because there is already too much hormone. free t4 and t3 high. thyroid-stimulating immunoglobulin positive in graves disease specifically. radioactive iodine uptake high and diffuse in graves.">
+  <h3><span class="ci">🧪</span>Hyperthyroidism and Graves</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Hyperthyroidism and Graves</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">TSH<span class="bg cf">confirms</span></th><td><b>Low</b> — suppressed, because there is already too much hormone.</td></tr><tr><th scope="row">Free T4 and T3<span class="bg cf">confirms</span></th><td>High.</td></tr><tr><th scope="row">Thyroid-stimulating immunoglobulin<span class="bg sp">supports</span></th><td>Positive in Graves disease specifically.</td></tr><tr><th scope="row">Radioactive iodine uptake<span class="bg sp">supports</span></th><td>High and diffuse in Graves.</td></tr></tbody></table></div>
+  <a class="more" href="endo/NG-284_hyperthyroidism.html">Read the full page on Hyperthyroidism and Graves &rarr;</a>
+</article>
+<article class="cond" data-sys="endo" data-find="cushing’s syndrome endocrine low-dose dexamethasone suppression test the confirming test — in cushing’s the cortisol does not suppress the way it should. 24-hour urine free cortisol high. late-night salivary cortisol high — the normal night-time dip is gone. glucose high, potassium low, sodium high what too much cortisol does to the chemistry.">
+  <h3><span class="ci">🧪</span>Cushing’s syndrome</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Cushing’s syndrome</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Low-dose dexamethasone suppression test<span class="bg cf">confirms</span></th><td>The confirming test — in Cushing’s the cortisol does not suppress the way it should.</td></tr><tr><th scope="row">24-hour urine free cortisol<span class="bg cf">confirms</span></th><td>High.</td></tr><tr><th scope="row">Late-night salivary cortisol<span class="bg cf">confirms</span></th><td>High — the normal night-time dip is gone.</td></tr><tr><th scope="row">Glucose high, potassium low, sodium high<span class="bg sp">supports</span></th><td>What too much cortisol does to the chemistry.</td></tr></tbody></table></div>
+  <a class="more" href="endo/NG-287_addisons-vs-cushings.html">Read the full page on Cushing’s syndrome &rarr;</a>
+</article>
+<article class="cond" data-sys="endo" data-find="addison’s disease endocrine acth stimulation test the confirming test — give acth, and the cortisol fails to rise. serum cortisol low, especially the morning sample. sodium low, potassium high, glucose low the mirror image of cushing’s, and the combination worth memorising.">
+  <h3><span class="ci">🧪</span>Addison’s disease</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Addison’s disease</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">ACTH stimulation test<span class="bg cf">confirms</span></th><td>The confirming test — give ACTH, and the cortisol fails to rise.</td></tr><tr><th scope="row">Serum cortisol<span class="bg cf">confirms</span></th><td>Low, especially the morning sample.</td></tr><tr><th scope="row">Sodium low, potassium high, glucose low<span class="bg sp">supports</span></th><td>The mirror image of Cushing’s, and the combination worth memorising.</td></tr></tbody></table></div>
+  <a class="more" href="endo/NG-287_addisons-vs-cushings.html">Read the full page on Addison’s disease &rarr;</a>
+</article>
+<article class="cond" data-sys="endo" data-find="siadh endocrine serum sodium low — dilutional. under 120 brings seizures. serum osmolality low, urine osmolality high dilute blood and concentrated urine. she is holding on to water she does not need. urine sodium high.">
+  <h3><span class="ci">🧪</span>SIADH</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for SIADH</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Serum sodium<span class="bg cf">confirms</span></th><td>Low — dilutional. Under 120 brings seizures.</td></tr><tr><th scope="row">Serum osmolality low, urine osmolality high<span class="bg cf">confirms</span></th><td>Dilute blood and concentrated urine. She is holding on to water she does not need.</td></tr><tr><th scope="row">Urine sodium<span class="bg sp">supports</span></th><td>High.</td></tr></tbody></table></div>
+  <a class="more" href="endo/NG-282_siadh-vs-di-1.html">Read the full page on SIADH &rarr;</a>
+</article>
+<article class="cond" data-sys="endo" data-find="diabetes insipidus endocrine serum sodium and osmolality both high — she is pouring water out and the blood is concentrating. urine specific gravity under 1.005. enormous volumes of urine that look like water. water deprivation test withhold fluid and the urine still will not concentrate.">
+  <h3><span class="ci">🧪</span>Diabetes insipidus</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Diabetes insipidus</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Serum sodium and osmolality<span class="bg cf">confirms</span></th><td>Both high — she is pouring water out and the blood is concentrating.</td></tr><tr><th scope="row">Urine specific gravity<span class="bg cf">confirms</span></th><td>Under 1.005. Enormous volumes of urine that look like water.</td></tr><tr><th scope="row">Water deprivation test<span class="bg cf">confirms</span></th><td>Withhold fluid and the urine still will not concentrate.</td></tr></tbody></table></div>
+  <a class="more" href="endo/NG-282_siadh-vs-di-1.html">Read the full page on Diabetes insipidus &rarr;</a>
+</article>
+<article class="cond" data-sys="endo" data-find="parathyroid disorders endocrine serum calcium and pth together hyper: calcium high, phosphate low, pth high. hypo: calcium low, phosphate high, pth low. chvostek and trousseau signs bedside tests for the low-calcium end — facial twitch, and carpal spasm under a blood-pressure cuff.">
+  <h3><span class="ci">🧪</span>Parathyroid disorders</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Parathyroid disorders</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Serum calcium and PTH together<span class="bg cf">confirms</span></th><td>Hyper: calcium high, phosphate low, PTH high. Hypo: calcium low, phosphate high, PTH low.</td></tr><tr><th scope="row">Chvostek and Trousseau signs<span class="bg sp">supports</span></th><td>Bedside tests for the low-calcium end — facial twitch, and carpal spasm under a blood-pressure cuff.</td></tr></tbody></table></div>
+  <a class="more" href="endo/NG-286_parathyroid-disorders.html">Read the full page on Parathyroid disorders &rarr;</a>
+</article>
+</section>
+
+<section class="grp" id="sys-heme" data-sys="heme">
+<h2><span class="gi">🩸</span>Blood &amp; immune<span class="gn">7</span></h2>
+<article class="cond" data-sys="heme" data-find="anaemia blood &amp; immune cbc with mcv the mcv sorts it: small cells point to iron deficiency, large cells to b12 or folate, normal size to blood loss or chronic disease. ferritin, iron, tibc ferritin low is the earliest sign of iron deficiency — it falls before the haemoglobin does. reticulocyte count whether the marrow is responding. low means it cannot; high means it is trying. b12 and folate for the large-cell picture.">
+  <h3><span class="ci">🩸</span>Anaemia</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Anaemia</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">CBC with MCV<span class="bg cf">confirms</span></th><td>The MCV sorts it: small cells point to iron deficiency, large cells to B12 or folate, normal size to blood loss or chronic disease.</td></tr><tr><th scope="row">Ferritin, iron, TIBC<span class="bg cf">confirms</span></th><td>Ferritin low is the earliest sign of iron deficiency — it falls before the haemoglobin does.</td></tr><tr><th scope="row">Reticulocyte count<span class="bg sp">supports</span></th><td>Whether the marrow is responding. Low means it cannot; high means it is trying.</td></tr><tr><th scope="row">B12 and folate<span class="bg sp">supports</span></th><td>For the large-cell picture.</td></tr></tbody></table></div>
+  <a class="more" href="resp/NG-121_labs-cbc.html">Read the full page on Anaemia &rarr;</a>
+</article>
+<article class="cond" data-sys="heme" data-find="sickle cell disease blood &amp; immune haemoglobin electrophoresis the confirming test — it shows haemoglobin s. newborn screening how it is usually found now, before any crisis. cbc and reticulocytes chronic anaemia with a high reticulocyte count from the constant turnover.">
+  <h3><span class="ci">🩸</span>Sickle cell disease</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Sickle cell disease</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Haemoglobin electrophoresis<span class="bg cf">confirms</span></th><td>The confirming test — it shows haemoglobin S.</td></tr><tr><th scope="row">Newborn screening<span class="bg cf">confirms</span></th><td>How it is usually found now, before any crisis.</td></tr><tr><th scope="row">CBC and reticulocytes<span class="bg mo">monitor</span></th><td>Chronic anaemia with a high reticulocyte count from the constant turnover.</td></tr></tbody></table></div>
+  <a class="more" href="cardio/NG-344_sickle-cell-hemophilia.html">Read the full page on Sickle cell disease &rarr;</a>
+</article>
+<article class="cond" data-sys="heme" data-find="haemophilia blood &amp; immune aptt prolonged. pt and platelet count are normal, and that combination is the clue. factor viii or ix assay names it: viii is haemophilia a, ix is b.">
+  <h3><span class="ci">🩸</span>Haemophilia</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Haemophilia</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">aPTT<span class="bg cf">confirms</span></th><td>Prolonged. PT and platelet count are <b>normal</b>, and that combination is the clue.</td></tr><tr><th scope="row">Factor VIII or IX assay<span class="bg cf">confirms</span></th><td>Names it: VIII is haemophilia A, IX is B.</td></tr></tbody></table></div>
+  <a class="more" href="cardio/NG-344_sickle-cell-hemophilia.html">Read the full page on Haemophilia &rarr;</a>
+</article>
+<article class="cond" data-sys="heme" data-find="dic blood &amp; immune platelets low, pt and aptt prolonged clotting factors are being consumed faster than they are made. d-dimer very high, fibrinogen low clotting and bleeding at the same time — that paradox is the diagnosis.">
+  <h3><span class="ci">🩸</span>DIC</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for DIC</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Platelets low, PT and aPTT prolonged<span class="bg cf">confirms</span></th><td>Clotting factors are being consumed faster than they are made.</td></tr><tr><th scope="row">D-dimer very high, fibrinogen low<span class="bg cf">confirms</span></th><td>Clotting and bleeding at the same time — that paradox is the diagnosis.</td></tr></tbody></table></div>
+  <a class="more" href="cardio/NG-050_shock.html">Read the full page on DIC &rarr;</a>
+</article>
+<article class="cond" data-sys="heme" data-find="leukaemia blood &amp; immune bone marrow biopsy the confirming test. cbc with differential and peripheral smear blast cells; white count may be very high or very low. absolute neutrophil count under 500 is severe neutropenia — a fever there is an emergency, and it may be the only sign of infection she can mount.">
+  <h3><span class="ci">🩸</span>Leukaemia</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Leukaemia</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Bone marrow biopsy<span class="bg cf">confirms</span></th><td>The confirming test.</td></tr><tr><th scope="row">CBC with differential and peripheral smear<span class="bg cf">confirms</span></th><td>Blast cells; white count may be very high or very low.</td></tr><tr><th scope="row">Absolute neutrophil count<span class="bg mo">monitor</span></th><td>Under 500 is severe neutropenia — a fever there is an emergency, and it may be the only sign of infection she can mount.</td></tr></tbody></table></div>
+  <a class="more" href="more/NG-354_childhood-cancers.html">Read the full page on Leukaemia &rarr;</a>
+</article>
+<article class="cond" data-sys="heme" data-find="hiv blood &amp; immune 4th-generation antigen/antibody immunoassay the screening test — it picks up p24 antigen early, before antibodies appear. antibody differentiation assay confirms a positive screen. cd4 count under 200 is aids by definition, and the point at which prophylaxis starts. viral load whether the treatment is working. undetectable is the goal.">
+  <h3><span class="ci">🩸</span>HIV</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for HIV</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">4th-generation antigen/antibody immunoassay<span class="bg cf">confirms</span></th><td>The screening test — it picks up p24 antigen early, before antibodies appear.</td></tr><tr><th scope="row">Antibody differentiation assay<span class="bg cf">confirms</span></th><td>Confirms a positive screen.</td></tr><tr><th scope="row">CD4 count<span class="bg mo">monitor</span></th><td>Under 200 is AIDS by definition, and the point at which prophylaxis starts.</td></tr><tr><th scope="row">Viral load<span class="bg mo">monitor</span></th><td>Whether the treatment is working. Undetectable is the goal.</td></tr></tbody></table></div>
+  <a class="more" href="core/NG-073_ppe-infection-control.html">Read the full page on HIV &rarr;</a>
+</article>
+<article class="cond" data-sys="heme" data-find="anticoagulant monitoring blood &amp; immune warfarin → pt/inr target 2–3 for most, 2.5–3.5 for a mechanical valve. over 4 is a bleeding alarm. antidote is vitamin k. heparin → aptt 1.5–2.5 times the control. antidote is protamine sulfate. platelet count on heparin a falling count is heparin-induced thrombocytopenia — stop the heparin.">
+  <h3><span class="ci">🩸</span>Anticoagulant monitoring</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Anticoagulant monitoring</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Warfarin → PT/INR<span class="bg mo">monitor</span></th><td>Target 2–3 for most, 2.5–3.5 for a mechanical valve. Over 4 is a bleeding alarm. Antidote is vitamin K.</td></tr><tr><th scope="row">Heparin → aPTT<span class="bg mo">monitor</span></th><td>1.5–2.5 times the control. Antidote is protamine sulfate.</td></tr><tr><th scope="row">Platelet count on heparin<span class="bg mo">monitor</span></th><td>A falling count is heparin-induced thrombocytopenia — stop the heparin.</td></tr></tbody></table></div>
+  <a class="more" href="resp/NG-121_labs-cbc.html">Read the full page on Anticoagulant monitoring &rarr;</a>
+</article>
+</section>
+
+<section class="grp" id="sys-gi" data-sys="gi">
+<h2><span class="gi">🍽</span>GI &amp; liver<span class="gn">9</span></h2>
+<article class="cond" data-sys="gi" data-find="pancreatitis gi &amp; liver serum lipase the confirming test — more specific to the pancreas than amylase and it stays raised longer, so it still catches a late presentation. serum amylase rises too, but it also rises in other abdominal problems. serum calcium falls — and a falling calcium is a bad sign, not an incidental one. glucose and wbc both up.">
+  <h3><span class="ci">🍽</span>Pancreatitis</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Pancreatitis</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Serum lipase<span class="bg cf">confirms</span></th><td>The confirming test — more specific to the pancreas than amylase and it stays raised longer, so it still catches a late presentation.</td></tr><tr><th scope="row">Serum amylase<span class="bg sp">supports</span></th><td>Rises too, but it also rises in other abdominal problems.</td></tr><tr><th scope="row">Serum calcium<span class="bg mo">monitor</span></th><td>Falls — and a falling calcium is a bad sign, not an incidental one.</td></tr><tr><th scope="row">Glucose and WBC<span class="bg sp">supports</span></th><td>Both up.</td></tr></tbody></table></div>
+  <a class="more" href="gi/NG-159_pancreatitis.html">Read the full page on Pancreatitis &rarr;</a>
+</article>
+<article class="cond" data-sys="gi" data-find="cholecystitis gi &amp; liver abdominal ultrasound the confirming test — stones, a thick wall, fluid around the gallbladder. bilirubin and alkaline phosphatase raised if a stone is obstructing the duct. wbc up with the inflammation.">
+  <h3><span class="ci">🍽</span>Cholecystitis</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Cholecystitis</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Abdominal ultrasound<span class="bg cf">confirms</span></th><td>The confirming test — stones, a thick wall, fluid around the gallbladder.</td></tr><tr><th scope="row">Bilirubin and alkaline phosphatase<span class="bg sp">supports</span></th><td>Raised if a stone is obstructing the duct.</td></tr><tr><th scope="row">WBC<span class="bg sp">supports</span></th><td>Up with the inflammation.</td></tr></tbody></table></div>
+  <a class="more" href="gi/NG-179_cholecystitis.html">Read the full page on Cholecystitis &rarr;</a>
+</article>
+<article class="cond" data-sys="gi" data-find="hepatitis gi &amp; liver hepatitis serology panel names which one: anti-hav igm for acute a, hbsag for b, anti-hcv for c. alt and ast markedly raised — hundreds to thousands. alt is the more liver-specific of the two. bilirubin up, and it is what makes her jaundiced and itchy. pt/inr prolonged only in severe disease — the liver has stopped making clotting factors, and that is the worrying one.">
+  <h3><span class="ci">🍽</span>Hepatitis</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Hepatitis</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Hepatitis serology panel<span class="bg cf">confirms</span></th><td>Names which one: anti-HAV IgM for acute A, HBsAg for B, anti-HCV for C.</td></tr><tr><th scope="row">ALT and AST<span class="bg cf">confirms</span></th><td>Markedly raised — hundreds to thousands. ALT is the more liver-specific of the two.</td></tr><tr><th scope="row">Bilirubin<span class="bg sp">supports</span></th><td>Up, and it is what makes her jaundiced and itchy.</td></tr><tr><th scope="row">PT/INR<span class="bg mo">monitor</span></th><td>Prolonged only in severe disease — the liver has stopped making clotting factors, and that is the worrying one.</td></tr></tbody></table></div>
+  <a class="more" href="more/NG-040_hepatitis.html">Read the full page on Hepatitis &rarr;</a>
+</article>
+<article class="cond" data-sys="gi" data-find="cirrhosis gi &amp; liver serum albumin low — the liver is not making it, and that is why she has ascites and oedema. pt/inr prolonged. clotting factors come from the liver too. serum ammonia high, and it tracks with the confusion of hepatic encephalopathy. bilirubin and platelets bilirubin up, platelets down from portal hypertension and a big spleen.">
+  <h3><span class="ci">🍽</span>Cirrhosis</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Cirrhosis</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Serum albumin<span class="bg cf">confirms</span></th><td>Low — the liver is not making it, and that is why she has ascites and oedema.</td></tr><tr><th scope="row">PT/INR<span class="bg cf">confirms</span></th><td>Prolonged. Clotting factors come from the liver too.</td></tr><tr><th scope="row">Serum ammonia<span class="bg mo">monitor</span></th><td>High, and it tracks with the confusion of hepatic encephalopathy.</td></tr><tr><th scope="row">Bilirubin and platelets<span class="bg sp">supports</span></th><td>Bilirubin up, platelets down from portal hypertension and a big spleen.</td></tr></tbody></table></div>
+  <a class="more" href="more/NG-029_cirrhosis-1.html">Read the full page on Cirrhosis &rarr;</a>
+</article>
+<article class="cond" data-sys="gi" data-find="gi bleed gi &amp; liver upper endoscopy or colonoscopy finds and treats the source — the confirming test. haemoglobin and haematocrit serially. the first draw can look normal because she has lost whole blood and not yet diluted. bun rises in an upper gi bleed — blood in the gut is protein, and it gets absorbed. type and crossmatch sent early, before it is needed.">
+  <h3><span class="ci">🍽</span>GI bleed</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for GI bleed</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Upper endoscopy or colonoscopy<span class="bg cf">confirms</span></th><td>Finds and treats the source — the confirming test.</td></tr><tr><th scope="row">Haemoglobin and haematocrit<span class="bg mo">monitor</span></th><td>Serially. The first draw can look normal because she has lost whole blood and not yet diluted.</td></tr><tr><th scope="row">BUN<span class="bg sp">supports</span></th><td>Rises in an <b>upper</b> GI bleed — blood in the gut is protein, and it gets absorbed.</td></tr><tr><th scope="row">Type and crossmatch<span class="bg cf">confirms</span></th><td>Sent early, before it is needed.</td></tr></tbody></table></div>
+  <a class="more" href="gi/NG-304_gi-bleed.html">Read the full page on GI bleed &rarr;</a>
+</article>
+<article class="cond" data-sys="gi" data-find="peptic ulcer and h. pylori gi &amp; liver urea breath test or stool antigen confirms h. pylori, and confirms cure afterwards. stop ppis beforehand or you will get a false negative. endoscopy with biopsy sees the ulcer and rules out cancer.">
+  <h3><span class="ci">🍽</span>Peptic ulcer and H. pylori</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Peptic ulcer and H. pylori</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Urea breath test or stool antigen<span class="bg cf">confirms</span></th><td>Confirms H. pylori, and confirms cure afterwards. Stop PPIs beforehand or you will get a false negative.</td></tr><tr><th scope="row">Endoscopy with biopsy<span class="bg cf">confirms</span></th><td>Sees the ulcer and rules out cancer.</td></tr></tbody></table></div>
+  <a class="more" href="gi/NG-295_peptic-ulcer-disease.html">Read the full page on Peptic ulcer and H. pylori &rarr;</a>
+</article>
+<article class="cond" data-sys="gi" data-find="coeliac disease gi &amp; liver tissue transglutaminase iga the screening test — and she must still be eating gluten when it is drawn, or it will be falsely negative. small bowel biopsy confirms it.">
+  <h3><span class="ci">🍽</span>Coeliac disease</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Coeliac disease</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Tissue transglutaminase IgA<span class="bg cf">confirms</span></th><td>The screening test — and she must still be <b>eating gluten</b> when it is drawn, or it will be falsely negative.</td></tr><tr><th scope="row">Small bowel biopsy<span class="bg cf">confirms</span></th><td>Confirms it.</td></tr></tbody></table></div>
+  <a class="more" href="gi/NG-300_celiac-disease.html">Read the full page on Coeliac disease &rarr;</a>
+</article>
+<article class="cond" data-sys="gi" data-find="appendicitis gi &amp; liver ct of the abdomen the confirming test. no blood test diagnoses appendicitis. wbc up with a left shift — supportive, never sufficient.">
+  <h3><span class="ci">🍽</span>Appendicitis</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Appendicitis</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">CT of the abdomen<span class="bg cf">confirms</span></th><td>The confirming test. No blood test diagnoses appendicitis.</td></tr><tr><th scope="row">WBC<span class="bg sp">supports</span></th><td>Up with a left shift — supportive, never sufficient.</td></tr></tbody></table></div>
+  <a class="more" href="gi/NG-302_appendicitis.html">Read the full page on Appendicitis &rarr;</a>
+</article>
+<article class="cond" data-sys="gi" data-find="crohn’s and ulcerative colitis gi &amp; liver colonoscopy with biopsy confirms it and tells the two apart — skip lesions through the whole wall in crohn’s, continuous shallow disease from the rectum up in uc. esr, crp, faecal calprotectin how active it is right now. cbc and albumin anaemia from blood loss, low albumin from malabsorption.">
+  <h3><span class="ci">🍽</span>Crohn’s and ulcerative colitis</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Crohn’s and ulcerative colitis</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Colonoscopy with biopsy<span class="bg cf">confirms</span></th><td>Confirms it and tells the two apart — skip lesions through the whole wall in Crohn’s, continuous shallow disease from the rectum up in UC.</td></tr><tr><th scope="row">ESR, CRP, faecal calprotectin<span class="bg mo">monitor</span></th><td>How active it is right now.</td></tr><tr><th scope="row">CBC and albumin<span class="bg mo">monitor</span></th><td>Anaemia from blood loss, low albumin from malabsorption.</td></tr></tbody></table></div>
+  <a class="more" href="gi/NG-111_crohns-uc-treatments-complications.html">Read the full page on Crohn’s and ulcerative colitis &rarr;</a>
+</article>
+</section>
+
+<section class="grp" id="sys-neuro" data-sys="neuro">
+<h2><span class="gi">🧠</span>Brain &amp; nerves<span class="gn">6</span></h2>
+<article class="cond" data-sys="neuro" data-find="meningitis brain &amp; nerves lumbar puncture the confirming test. bacterial: cloudy, high protein, low glucose, neutrophils. viral: clear, normal glucose, lymphocytes. that glucose is the fastest way to tell them apart. ct head before the lp done first if there are signs of raised pressure — herniation is the risk. blood cultures before antibiotics.">
+  <h3><span class="ci">🧠</span>Meningitis</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Meningitis</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Lumbar puncture<span class="bg cf">confirms</span></th><td>The confirming test. Bacterial: cloudy, high protein, <b>low glucose</b>, neutrophils. Viral: clear, normal glucose, lymphocytes. That glucose is the fastest way to tell them apart.</td></tr><tr><th scope="row">CT head before the LP<span class="bg cf">confirms</span></th><td>Done first if there are signs of raised pressure — herniation is the risk.</td></tr><tr><th scope="row">Blood cultures<span class="bg cf">confirms</span></th><td>Before antibiotics.</td></tr></tbody></table></div>
+  <a class="more" href="neuro/NG-252_meningitis.html">Read the full page on Meningitis &rarr;</a>
+</article>
+<article class="cond" data-sys="neuro" data-find="stroke brain &amp; nerves non-contrast ct head first, and fast. it is not there to show the stroke — it is there to rule out a bleed before anyone gives a thrombolytic. blood glucose checked immediately. hypoglycaemia imitates a stroke exactly, and it is fixable in a minute. pt/inr, aptt, platelets whether thrombolysis is safe.">
+  <h3><span class="ci">🧠</span>Stroke</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Stroke</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Non-contrast CT head<span class="bg cf">confirms</span></th><td>First, and fast. It is not there to show the stroke — it is there to rule out a <b>bleed</b> before anyone gives a thrombolytic.</td></tr><tr><th scope="row">Blood glucose<span class="bg cf">confirms</span></th><td>Checked immediately. Hypoglycaemia imitates a stroke exactly, and it is fixable in a minute.</td></tr><tr><th scope="row">PT/INR, aPTT, platelets<span class="bg cf">confirms</span></th><td>Whether thrombolysis is safe.</td></tr></tbody></table></div>
+  <a class="more" href="neuro/NG-247_head-injury.html">Read the full page on Stroke &rarr;</a>
+</article>
+<article class="cond" data-sys="neuro" data-find="seizures brain &amp; nerves eeg shows the abnormal electrical activity. glucose and sodium both are reversible causes, and both get checked first. anticonvulsant drug levels phenytoin 10–20 mcg/ml. most breakthrough seizures are a level that has drifted, not a new problem.">
+  <h3><span class="ci">🧠</span>Seizures</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Seizures</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">EEG<span class="bg cf">confirms</span></th><td>Shows the abnormal electrical activity.</td></tr><tr><th scope="row">Glucose and sodium<span class="bg cf">confirms</span></th><td>Both are reversible causes, and both get checked first.</td></tr><tr><th scope="row">Anticonvulsant drug levels<span class="bg mo">monitor</span></th><td>Phenytoin 10–20 mcg/mL. Most breakthrough seizures are a level that has drifted, not a new problem.</td></tr></tbody></table></div>
+  <a class="more" href="neuro/NG-226_seizures.html">Read the full page on Seizures &rarr;</a>
+</article>
+<article class="cond" data-sys="neuro" data-find="myasthenia gravis brain &amp; nerves acetylcholine receptor antibodies positive in most cases — the confirming blood test. tensilon (edrophonium) test strength improves briefly. it also tells a myasthenic crisis (improves) from a cholinergic crisis (gets worse). emg with repetitive stimulation the response fades with repetition — which is the disease in one picture.">
+  <h3><span class="ci">🧠</span>Myasthenia gravis</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Myasthenia gravis</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Acetylcholine receptor antibodies<span class="bg cf">confirms</span></th><td>Positive in most cases — the confirming blood test.</td></tr><tr><th scope="row">Tensilon (edrophonium) test<span class="bg cf">confirms</span></th><td>Strength improves briefly. It also tells a myasthenic crisis (improves) from a cholinergic crisis (gets worse).</td></tr><tr><th scope="row">EMG with repetitive stimulation<span class="bg sp">supports</span></th><td>The response fades with repetition — which is the disease in one picture.</td></tr></tbody></table></div>
+  <a class="more" href="neuro/NG-251_myasthenia-gravis.html">Read the full page on Myasthenia gravis &rarr;</a>
+</article>
+<article class="cond" data-sys="neuro" data-find="guillain-barré syndrome brain &amp; nerves lumbar puncture high protein with a normal cell count. that mismatch has a name — albuminocytologic dissociation — and it is the classic finding. vital capacity at the bedside the number that actually matters day to day. a falling vital capacity means the paralysis is climbing towards the diaphragm.">
+  <h3><span class="ci">🧠</span>Guillain-Barré syndrome</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Guillain-Barré syndrome</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Lumbar puncture<span class="bg cf">confirms</span></th><td>High protein with a <b>normal</b> cell count. That mismatch has a name — albuminocytologic dissociation — and it is the classic finding.</td></tr><tr><th scope="row">Vital capacity at the bedside<span class="bg mo">monitor</span></th><td>The number that actually matters day to day. A falling vital capacity means the paralysis is climbing towards the diaphragm.</td></tr></tbody></table></div>
+  <a class="more" href="neuro/NG-245_guillain-barre.html">Read the full page on Guillain-Barré syndrome &rarr;</a>
+</article>
+<article class="cond" data-sys="neuro" data-find="multiple sclerosis brain &amp; nerves mri with gadolinium plaques scattered in space and time — the confirming test. lumbar puncture oligoclonal bands in the csf.">
+  <h3><span class="ci">🧠</span>Multiple sclerosis</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Multiple sclerosis</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">MRI with gadolinium<span class="bg cf">confirms</span></th><td>Plaques scattered in space and time — the confirming test.</td></tr><tr><th scope="row">Lumbar puncture<span class="bg sp">supports</span></th><td>Oligoclonal bands in the CSF.</td></tr></tbody></table></div>
+  <a class="more" href="neuro/NG-253_multiple-sclerosis.html">Read the full page on Multiple sclerosis &rarr;</a>
+</article>
+</section>
+
+<section class="grp" id="sys-musc" data-sys="musc">
+<h2><span class="gi">🦴</span>Bones &amp; joints<span class="gn">6</span></h2>
+<article class="cond" data-sys="musc" data-find="osteoporosis bones &amp; joints dexa scan the confirming test. a t-score of −2.5 or lower is osteoporosis; −1 to −2.5 is osteopenia. calcium and vitamin d checked before starting treatment.">
+  <h3><span class="ci">🦴</span>Osteoporosis</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Osteoporosis</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">DEXA scan<span class="bg cf">confirms</span></th><td>The confirming test. A T-score of −2.5 or lower is osteoporosis; −1 to −2.5 is osteopenia.</td></tr><tr><th scope="row">Calcium and vitamin D<span class="bg sp">supports</span></th><td>Checked before starting treatment.</td></tr></tbody></table></div>
+  <a class="more" href="musc/NG-125_osteoporosis.html">Read the full page on Osteoporosis &rarr;</a>
+</article>
+<article class="cond" data-sys="musc" data-find="rheumatoid arthritis bones &amp; joints anti-ccp antibody more specific than rheumatoid factor, and it appears earlier. rheumatoid factor positive in most, but also positive in plenty of people without ra. esr and crp how active the disease is now.">
+  <h3><span class="ci">🦴</span>Rheumatoid arthritis</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Rheumatoid arthritis</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Anti-CCP antibody<span class="bg cf">confirms</span></th><td>More specific than rheumatoid factor, and it appears earlier.</td></tr><tr><th scope="row">Rheumatoid factor<span class="bg sp">supports</span></th><td>Positive in most, but also positive in plenty of people without RA.</td></tr><tr><th scope="row">ESR and CRP<span class="bg mo">monitor</span></th><td>How active the disease is now.</td></tr></tbody></table></div>
+  <a class="more" href="musc/NG-163_rheumatoid-arthritis.html">Read the full page on Rheumatoid arthritis &rarr;</a>
+</article>
+<article class="cond" data-sys="musc" data-find="gout bones &amp; joints joint aspiration needle-shaped urate crystals in the fluid — the confirming test. serum uric acid usually high, but it can be normal during an acute attack, so a normal level does not rule it out.">
+  <h3><span class="ci">🦴</span>Gout</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Gout</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Joint aspiration<span class="bg cf">confirms</span></th><td>Needle-shaped urate crystals in the fluid — the confirming test.</td></tr><tr><th scope="row">Serum uric acid<span class="bg sp">supports</span></th><td>Usually high, but it can be normal during an acute attack, so a normal level does not rule it out.</td></tr></tbody></table></div>
+  <a class="more" href="musc/NG-200_gout.html">Read the full page on Gout &rarr;</a>
+</article>
+<article class="cond" data-sys="musc" data-find="rhabdomyolysis bones &amp; joints creatine kinase enormously raised — this is the confirming test. urine myoglobin tea-coloured urine that tests positive for blood with no red cells on microscopy. potassium and creatinine potassium pours out of the broken muscle, and the myoglobin injures the kidney.">
+  <h3><span class="ci">🦴</span>Rhabdomyolysis</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Rhabdomyolysis</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Creatine kinase<span class="bg cf">confirms</span></th><td>Enormously raised — this is the confirming test.</td></tr><tr><th scope="row">Urine myoglobin<span class="bg cf">confirms</span></th><td>Tea-coloured urine that tests positive for blood with no red cells on microscopy.</td></tr><tr><th scope="row">Potassium and creatinine<span class="bg mo">monitor</span></th><td>Potassium pours out of the broken muscle, and the myoglobin injures the kidney.</td></tr></tbody></table></div>
+  <a class="more" href="musc/NG-392_rhabdomyolysis.html">Read the full page on Rhabdomyolysis &rarr;</a>
+</article>
+<article class="cond" data-sys="musc" data-find="osteomyelitis bones &amp; joints bone biopsy and culture the confirming test, and what chooses the antibiotic. mri earliest imaging to show it. esr, crp, blood cultures raised; cultures may name the organism.">
+  <h3><span class="ci">🦴</span>Osteomyelitis</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Osteomyelitis</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Bone biopsy and culture<span class="bg cf">confirms</span></th><td>The confirming test, and what chooses the antibiotic.</td></tr><tr><th scope="row">MRI<span class="bg cf">confirms</span></th><td>Earliest imaging to show it.</td></tr><tr><th scope="row">ESR, CRP, blood cultures<span class="bg sp">supports</span></th><td>Raised; cultures may name the organism.</td></tr></tbody></table></div>
+  <a class="more" href="musc/NG-061_fat-embolism-osteomyelitis.html">Read the full page on Osteomyelitis &rarr;</a>
+</article>
+<article class="cond" data-sys="musc" data-find="compartment syndrome bones &amp; joints compartment pressure measurement over 30 mmhg. this is a clinical emergency — pain out of proportion, and pain on passive stretch, come before any number. creatine kinase rising if muscle is already dying.">
+  <h3><span class="ci">🦴</span>Compartment syndrome</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Compartment syndrome</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Compartment pressure measurement<span class="bg cf">confirms</span></th><td>Over 30 mmHg. This is a clinical emergency — pain out of proportion, and pain on passive stretch, come before any number.</td></tr><tr><th scope="row">Creatine kinase<span class="bg mo">monitor</span></th><td>Rising if muscle is already dying.</td></tr></tbody></table></div>
+  <a class="more" href="musc/NG-388_compartment-syndrome.html">Read the full page on Compartment syndrome &rarr;</a>
+</article>
+</section>
+
+<section class="grp" id="sys-ob" data-sys="ob">
+<h2><span class="gi">🤰</span>Maternity &amp; newborn<span class="gn">5</span></h2>
+<article class="cond" data-sys="ob" data-find="preeclampsia and hellp maternity &amp; newborn blood pressure and urine protein 140/90 or higher after 20 weeks with proteinuria. that pair is the diagnosis. platelets, liver enzymes, haemolysis hellp: haemolysis, elevated liver enzymes, low platelets under 100,000. the name is the lab panel. creatinine and uric acid both rise as it worsens. magnesium level once magnesium sulfate is running: 4–7 meq/l is therapeutic. lost reflexes come first, then respiratory depression. the antidote is calcium gluconate.">
+  <h3><span class="ci">🤰</span>Preeclampsia and HELLP</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Preeclampsia and HELLP</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Blood pressure and urine protein<span class="bg cf">confirms</span></th><td>140/90 or higher after 20 weeks with proteinuria. That pair is the diagnosis.</td></tr><tr><th scope="row">Platelets, liver enzymes, haemolysis<span class="bg cf">confirms</span></th><td>HELLP: haemolysis, <b>e</b>levated <b>l</b>iver enzymes, <b>l</b>ow <b>p</b>latelets under 100,000. The name is the lab panel.</td></tr><tr><th scope="row">Creatinine and uric acid<span class="bg mo">monitor</span></th><td>Both rise as it worsens.</td></tr><tr><th scope="row">Magnesium level<span class="bg mo">monitor</span></th><td>Once magnesium sulfate is running: 4–7 mEq/L is therapeutic. Lost reflexes come first, then respiratory depression. The antidote is calcium gluconate.</td></tr></tbody></table></div>
+  <a class="more" href="more/NG-320_preeclampsia-hellp.html">Read the full page on Preeclampsia and HELLP &rarr;</a>
+</article>
+<article class="cond" data-sys="ob" data-find="gestational diabetes maternity &amp; newborn 1-hour 50 g glucose challenge the screen at 24–28 weeks. no fasting needed. 3-hour 100 g ogtt the confirming test — two abnormal values make the diagnosis.">
+  <h3><span class="ci">🤰</span>Gestational diabetes</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Gestational diabetes</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">1-hour 50 g glucose challenge<span class="bg sp">supports</span></th><td>The screen at 24–28 weeks. No fasting needed.</td></tr><tr><th scope="row">3-hour 100 g OGTT<span class="bg cf">confirms</span></th><td>The confirming test — two abnormal values make the diagnosis.</td></tr></tbody></table></div>
+  <a class="more" href="more/NG-332_gestational-diabetes.html">Read the full page on Gestational diabetes &rarr;</a>
+</article>
+<article class="cond" data-sys="ob" data-find="rh incompatibility maternity &amp; newborn blood type and rh on every pregnant patient at the first visit. indirect coombs on the mother whether she has already made antibodies. direct coombs on the newborn whether the baby’s cells are coated.">
+  <h3><span class="ci">🤰</span>Rh incompatibility</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Rh incompatibility</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Blood type and Rh<span class="bg cf">confirms</span></th><td>On every pregnant patient at the first visit.</td></tr><tr><th scope="row">Indirect Coombs on the mother<span class="bg cf">confirms</span></th><td>Whether she has already made antibodies.</td></tr><tr><th scope="row">Direct Coombs on the newborn<span class="bg cf">confirms</span></th><td>Whether the baby’s cells are coated.</td></tr></tbody></table></div>
+  <a class="more" href="more/NG-331_prenatal-assessment.html">Read the full page on Rh incompatibility &rarr;</a>
+</article>
+<article class="cond" data-sys="ob" data-find="preterm labour maternity &amp; newborn fetal fibronectin most useful when it is negative — that makes delivery in the next two weeks very unlikely. cervical length on ultrasound short cervix raises the risk. group b strep culture 35–37 weeks, or on admission in preterm labour.">
+  <h3><span class="ci">🤰</span>Preterm labour</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Preterm labour</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Fetal fibronectin<span class="bg sp">supports</span></th><td>Most useful when it is <b>negative</b> — that makes delivery in the next two weeks very unlikely.</td></tr><tr><th scope="row">Cervical length on ultrasound<span class="bg sp">supports</span></th><td>Short cervix raises the risk.</td></tr><tr><th scope="row">Group B strep culture<span class="bg cf">confirms</span></th><td>35–37 weeks, or on admission in preterm labour.</td></tr></tbody></table></div>
+  <a class="more" href="more/NG-328_preterm-labor.html">Read the full page on Preterm labour &rarr;</a>
+</article>
+<article class="cond" data-sys="ob" data-find="placenta previa and abruption maternity &amp; newborn transabdominal ultrasound confirms previa — and until it has, no vaginal examination. cbc and coagulation studies abruption can consume clotting factors and tip into dic. kleihauer-betke how much fetal blood has crossed into the mother.">
+  <h3><span class="ci">🤰</span>Placenta previa and abruption</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Placenta previa and abruption</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Transabdominal ultrasound<span class="bg cf">confirms</span></th><td>Confirms previa — and until it has, <b>no vaginal examination</b>.</td></tr><tr><th scope="row">CBC and coagulation studies<span class="bg mo">monitor</span></th><td>Abruption can consume clotting factors and tip into DIC.</td></tr><tr><th scope="row">Kleihauer-Betke<span class="bg sp">supports</span></th><td>How much fetal blood has crossed into the mother.</td></tr></tbody></table></div>
+  <a class="more" href="more/NG-319_previa-vs-abruption.html">Read the full page on Placenta previa and abruption &rarr;</a>
+</article>
+</section>
+
+<section class="grp" id="sys-sensory" data-sys="sensory">
+<h2><span class="gi">👁</span>Eyes &amp; ears<span class="gn">5</span></h2>
+<article class="cond" data-sys="sensory" data-find="glaucoma eyes &amp; ears tonometry the confirming test. dr. halecka gives normal as 12–20, with anything over 22 suspicious — use her numbers on the exam. the textbook says 10–21. visual field testing peripheral vision goes first in open-angle, and she will not notice until a lot is gone. ophthalmoscopy cupping of the optic disc. gonioscopy looks at the drainage angle — open or closed.">
+  <h3><span class="ci">👁</span>Glaucoma</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Glaucoma</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Tonometry<span class="bg cf">confirms</span></th><td>The confirming test. Dr. Halecka gives normal as 12–20, with anything over 22 suspicious — use her numbers on the exam. The textbook says 10–21.</td></tr><tr><th scope="row">Visual field testing<span class="bg cf">confirms</span></th><td>Peripheral vision goes first in open-angle, and she will not notice until a lot is gone.</td></tr><tr><th scope="row">Ophthalmoscopy<span class="bg sp">supports</span></th><td>Cupping of the optic disc.</td></tr><tr><th scope="row">Gonioscopy<span class="bg cf">confirms</span></th><td>Looks at the drainage angle — open or closed.</td></tr></tbody></table></div>
+  <a class="more" href="neuro/NG-310_retinal-detachment.html">Read the full page on Glaucoma &rarr;</a>
+</article>
+<article class="cond" data-sys="sensory" data-find="macular degeneration eyes &amp; ears amsler grid the one to match with macular degeneration. straight lines look wavy, and the centre goes missing. optical coherence tomography images the layers of the macula. fluorescein angiography shows the leaking vessels of the wet type.">
+  <h3><span class="ci">👁</span>Macular degeneration</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Macular degeneration</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Amsler grid<span class="bg cf">confirms</span></th><td>The one to match with macular degeneration. Straight lines look wavy, and the centre goes missing.</td></tr><tr><th scope="row">Optical coherence tomography<span class="bg cf">confirms</span></th><td>Images the layers of the macula.</td></tr><tr><th scope="row">Fluorescein angiography<span class="bg sp">supports</span></th><td>Shows the leaking vessels of the wet type.</td></tr></tbody></table></div>
+  <a class="more" href="neuro/NG-311_macular-degeneration.html">Read the full page on Macular degeneration &rarr;</a>
+</article>
+<article class="cond" data-sys="sensory" data-find="cataract eyes &amp; ears slit-lamp examination done by the ophthalmologist at around 40× magnification. no blood test and no drop diagnoses or treats a cataract — surgery is the only fix. visual acuity how much it is costing her. night driving and glare go first.">
+  <h3><span class="ci">👁</span>Cataract</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Cataract</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Slit-lamp examination<span class="bg cf">confirms</span></th><td>Done by the ophthalmologist at around 40× magnification. No blood test and no drop diagnoses or treats a cataract — surgery is the only fix.</td></tr><tr><th scope="row">Visual acuity<span class="bg sp">supports</span></th><td>How much it is costing her. Night driving and glare go first.</td></tr></tbody></table></div>
+  <a class="more" href="neuro/NG-310_retinal-detachment.html">Read the full page on Cataract &rarr;</a>
+</article>
+<article class="cond" data-sys="sensory" data-find="retinal detachment eyes &amp; ears ophthalmoscopy sees the detached retina — the confirming test. ocular ultrasound used when blood or a cataract blocks the view. an eye ultrasound generally means trauma or a tumour is being considered.">
+  <h3><span class="ci">👁</span>Retinal detachment</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Retinal detachment</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Ophthalmoscopy<span class="bg cf">confirms</span></th><td>Sees the detached retina — the confirming test.</td></tr><tr><th scope="row">Ocular ultrasound<span class="bg sp">supports</span></th><td>Used when blood or a cataract blocks the view. An eye ultrasound generally means trauma or a tumour is being considered.</td></tr></tbody></table></div>
+  <a class="more" href="neuro/NG-310_retinal-detachment.html">Read the full page on Retinal detachment &rarr;</a>
+</article>
+<article class="cond" data-sys="sensory" data-find="otitis media eyes &amp; ears otoscopy a red, bulging, immobile tympanic membrane — the confirming finding. tympanometry measures whether the drum moves; flat tracing means fluid behind it.">
+  <h3><span class="ci">👁</span>Otitis media</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Otitis media</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Otoscopy<span class="bg cf">confirms</span></th><td>A red, bulging, immobile tympanic membrane — the confirming finding.</td></tr><tr><th scope="row">Tympanometry<span class="bg sp">supports</span></th><td>Measures whether the drum moves; flat tracing means fluid behind it.</td></tr></tbody></table></div>
+  <a class="more" href="neuro/NG-355_otitis-media-vision.html">Read the full page on Otitis media &rarr;</a>
+</article>
+</section>
+
+<section class="grp" id="sys-integ" data-sys="integ">
+<h2><span class="gi">🩹</span>Skin &amp; burns<span class="gn">2</span></h2>
+<article class="cond" data-sys="integ" data-find="major burns skin &amp; burns urine output the number that steers fluid resuscitation — 30–50 ml/hr in an adult, and it matters more than the formula. haematocrit high early from haemoconcentration as plasma leaks out of the vessels. potassium high in the first 24–48 hours as cells rupture, then low once fluid shifts back. carboxyhaemoglobin and abg if there is any chance of smoke inhalation. pulse oximetry reads falsely normal in carbon monoxide poisoning. albumin and total protein low — protein is leaking out through the burn.">
+  <h3><span class="ci">🩹</span>Major burns</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Major burns</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Urine output<span class="bg mo">monitor</span></th><td>The number that steers fluid resuscitation — 30–50 mL/hr in an adult, and it matters more than the formula.</td></tr><tr><th scope="row">Haematocrit<span class="bg sp">supports</span></th><td>High early from haemoconcentration as plasma leaks out of the vessels.</td></tr><tr><th scope="row">Potassium<span class="bg mo">monitor</span></th><td>High in the first 24–48 hours as cells rupture, then low once fluid shifts back.</td></tr><tr><th scope="row">Carboxyhaemoglobin and ABG<span class="bg cf">confirms</span></th><td>If there is any chance of smoke inhalation. Pulse oximetry reads falsely normal in carbon monoxide poisoning.</td></tr><tr><th scope="row">Albumin and total protein<span class="bg mo">monitor</span></th><td>Low — protein is leaking out through the burn.</td></tr></tbody></table></div>
+  <a class="more" href="skin/NG-107_burns-2-major-patho-signs-treatments.html">Read the full page on Major burns &rarr;</a>
+</article>
+<article class="cond" data-sys="integ" data-find="cellulitis skin &amp; burns clinical diagnosis looked at, and the border marked with a pen so you can see whether it is spreading. cbc and blood cultures if she is febrile or systemically unwell.">
+  <h3><span class="ci">🩹</span>Cellulitis</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Cellulitis</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Clinical diagnosis<span class="bg cf">confirms</span></th><td>Looked at, and the border marked with a pen so you can see whether it is spreading.</td></tr><tr><th scope="row">CBC and blood cultures<span class="bg sp">supports</span></th><td>If she is febrile or systemically unwell.</td></tr></tbody></table></div>
+  <a class="more" href="skin/NG-147_cellulitis.html">Read the full page on Cellulitis &rarr;</a>
+</article>
+</section>
+
+<section class="grp" id="sys-infect" data-sys="infect">
+<h2><span class="gi">🦠</span>Infection &amp; sepsis<span class="gn">2</span></h2>
+<article class="cond" data-sys="infect" data-find="sepsis infection &amp; sepsis serum lactate drawn within the first hour, and repeated. over 2 is abnormal, over 4 is severe. blood cultures two sets from two sites, before the first antibiotic. after the antibiotic they may grow nothing. cbc white count high or low — a low count is the more ominous of the two. procalcitonin points towards a bacterial cause.">
+  <h3><span class="ci">🦠</span>Sepsis</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for Sepsis</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Serum lactate<span class="bg cf">confirms</span></th><td>Drawn within the first hour, and repeated. Over 2 is abnormal, over 4 is severe.</td></tr><tr><th scope="row">Blood cultures<span class="bg cf">confirms</span></th><td>Two sets from two sites, <b>before</b> the first antibiotic. After the antibiotic they may grow nothing.</td></tr><tr><th scope="row">CBC<span class="bg sp">supports</span></th><td>White count high or low — a <b>low</b> count is the more ominous of the two.</td></tr><tr><th scope="row">Procalcitonin<span class="bg sp">supports</span></th><td>Points towards a bacterial cause.</td></tr></tbody></table></div>
+  <a class="more" href="cardio/NG-129_septic-shock.html">Read the full page on Sepsis &rarr;</a>
+</article>
+<article class="cond" data-sys="infect" data-find="c. difficile infection &amp; sepsis stool pcr or toxin assay confirms it. only test a stool that is actually loose — testing formed stool finds carriers, not disease. wbc can be strikingly high.">
+  <h3><span class="ci">🦠</span>C. difficile</h3>
+  <div class="tw"><table class="ct"><caption class="vh">Tests for C. difficile</caption><thead><tr><th scope="col">Test</th><th scope="col">What the result tells you</th></tr></thead><tbody><tr><th scope="row">Stool PCR or toxin assay<span class="bg cf">confirms</span></th><td>Confirms it. Only test a stool that is actually loose — testing formed stool finds carriers, not disease.</td></tr><tr><th scope="row">WBC<span class="bg sp">supports</span></th><td>Can be strikingly high.</td></tr></tbody></table></div>
+  <a class="more" href="core/NG-073_ppe-infection-control.html">Read the full page on C. difficile &rarr;</a>
+</article>
+</section>
+
+<div id="none">Nothing matches that. Try a shorter word &mdash; <b>potassium</b> rather than
+<b>serum potassium level</b>.</div>
+
+</div>
+
+<script>
+(function(){
+  var q=document.getElementById('q'), chips=[].slice.call(document.querySelectorAll('.chip')),
+      conds=[].slice.call(document.querySelectorAll('.cond')),
+      grps=[].slice.call(document.querySelectorAll('.grp')),
+      none=document.getElementById('none'), count=document.getElementById('count'),
+      filter='all';
+
+  function run(){
+    var t=q.value.trim().toLowerCase(), shown=0;
+    conds.forEach(function(c){
+      var ok=(filter==='all'||c.getAttribute('data-sys')===filter) &&
+             (!t||c.getAttribute('data-find').indexOf(t)>-1);
+      c.hidden=!ok; if(ok) shown++;
+    });
+    grps.forEach(function(g){
+      var any=[].slice.call(g.querySelectorAll('.cond')).some(function(c){return !c.hidden;});
+      g.hidden=!any;
+    });
+    none.style.display=shown?'none':'block';
+    count.textContent=shown+(shown===1?' condition':' conditions')+
+      (t||filter!=='all'?' matching':' in all');
+  }
+  q.addEventListener('input',run);
+  chips.forEach(function(b){
+    b.addEventListener('click',function(){
+      filter=b.getAttribute('data-f');
+      chips.forEach(function(o){o.setAttribute('aria-pressed',String(o===b));});
+      run();
+    });
+  });
+  run();
+})();
+</script>
+<script src="absn-hidebar.js" defer></script>
+</body></html>
