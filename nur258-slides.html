@@ -89,7 +89,7 @@ body.nav-open #side{transform:translateX(0)}
    198's work is that they shed their labels as soon as the viewport narrows - at
    300%% zoom the CSS width reads narrow, so what she sees is a row of icons the
    size of a fingertip rather than a wall of text sitting on the content. */
-#navBtns{position:fixed;top:10px;right:12px;z-index:2147483000;display:flex;gap:7px;
+#navBtns{position:static;flex-wrap:wrap;margin:10px 12px 2px;z-index:2147483000;display:flex;gap:7px;
  align-items:center;touch-action:none;cursor:grab}
 #navBtns.dragging{opacity:.92;cursor:grabbing}
 #navBtns:focus-visible{outline:3px solid var(--accent,#ffd76a);outline-offset:3px}
@@ -194,6 +194,7 @@ body.skimOn .skimKeep{outline:0}
 </style>
 </head>
 <body>
+<div id="navBtns"><button type="button" class="nbBack" title="Back to NUR 258" onclick="hop('nur258.html',true)">&larr;<span class="nbLabel">Back to NUR 258</span></button><button type="button" class="nbHub" title="ABSN Study Hub" onclick="hop('index.html',true)">&#127968;<span class="nbLabel">ABSN Study Hub</span></button></div>
 
 <div class="topbar">
   <button type="button" id="menuBtn" aria-expanded="false" aria-controls="side">&#9776; Menu</button>
@@ -209,7 +210,7 @@ body.skimOn .skimKeep{outline:0}
 <div id="jump"><h2>&#128204; Jump to a deck</h2><p class="jlead">Three lecture decks, straight from the course. Each one downloads from this site &mdash; no Drive detour.</p><div class="jrow"><a class="jchip" href="#d1"><b>&#128065;&#65039;</b><span>Sensory Disorders</span></a><a class="jchip" href="#d2"><b>&#129440;</b><span>Immunologic (HIV) & Infectious Diseases</span></a><a class="jchip" href="#d3"><b>&#129504;</b><span>Allergic, Inflammatory & Immunologic</span></a></div></div><section class="deck teal" id="d1"><h2><span class="ico" aria-hidden="true">&#128065;&#65039;</span><span class="dt">Sensory Disorders</span></h2><p class="sub">Module 1 &middot; Sensory: eye &amp; ear <span class="kind ppt">PowerPoint &middot; 59 slides</span></p><p class="body">Eye anatomy and refractive errors, then the diagnostics &mdash; ophthalmoscopy, slit-lamp, tonometry, colour vision, the Amsler grid. Ocular medications, then glaucoma in full: risk factors, open-angle against angle-closure, iridotomy, post-op teaching and nursing management. Cataracts from risk factors through surgical management, with a client-teaching case study, and retinal detachment.</p><div class="links"><a href="slides/NUR258-M01-Sensory-Disorders.pptx" download>&#11015;&#65039; Download the deck <span class="sz">20 MB</span></a><a href="nur258-module-01-sensory-eye-ear.html">&#128214; The module page for this</a></div></section><section class="deck garnet" id="d2"><h2><span class="ico" aria-hidden="true">&#129440;</span><span class="dt">Immunologic (HIV) &amp; Infectious Diseases</span></h2><p class="sub">Module 2 &middot; Infectious diseases &amp; HIV <span class="kind ppt">PowerPoint &middot; 58 slides</span></p><p class="body">Opens on reading a white cell count &mdash; expected range, leukopenia, neutropenia &mdash; and neutropenic precautions. Then HIV end to end: transmission and what does not transmit it, older adults and HIV, occupational needle-stick exposure, the stages from primary infection through AIDS, ELISA testing and what a positive result means, and why ART compliance decides the outcome.</p><div class="links"><a href="slides/NUR258-M02-HIV-and-Infectious-Diseases.pptx" download>&#11015;&#65039; Download the deck <span class="sz">18 MB</span></a><a href="nur258-module-02-infectious-diseases-hiv.html">&#128214; The module page for this</a></div></section><section class="deck amethyst" id="d3"><h2><span class="ico" aria-hidden="true">&#129504;</span><span class="dt">Allergic, Inflammatory &amp; Immunologic</span></h2><p class="sub">Module 3 &middot; Allergic, inflammatory &amp; immunologic <span class="kind ppt">PowerPoint &middot; 41 slides</span></p><p class="body">The four hypersensitivity types, then anaphylaxis &mdash; causes, manifestations, treatment and self-administering epinephrine. Urticaria, food allergy and latex allergy with the at-risk groups. The rheumatic half covers rheumatoid arthritis from manifestations and nodules through diagnostics, DMARDs and nursing management, then systemic lupus erythematosus.</p><div class="links"><a href="slides/NUR258-M03-Allergic-Inflammatory-Immunologic.pptx" download>&#11015;&#65039; Download the deck <span class="sz">18 MB</span></a><a href="nur258-module-03-allergic-inflammatory-immunologic.html">&#128214; The module page for this</a></div></section>
 </main>
 
-<div id="navBtns"><button type="button" class="nbBack" title="Back to NUR 258" onclick="hop('nur258.html',true)">&larr;<span class="nbLabel">Back to NUR 258</span></button><button type="button" class="nbHub" title="ABSN Study Hub" onclick="hop('index.html',true)">&#127968;<span class="nbLabel">ABSN Study Hub</span></button></div>
+
 <div id="navBg"></div>
 <nav id="side" aria-label="Site menu" aria-hidden="true">
   <span class="sbrand">&#129658; NUR 258 Slide decks</span>
@@ -265,6 +266,13 @@ function hop(url, closeThis){
 (function(){
   var nb=document.getElementById('navBtns'); if(!nb) return;
   var KEY='navBtnsPos';
+  /* Unpinned: the cluster sits in the flow at the top of the page now,
+     so there is nothing to drag and no saved position to honour. A bar
+     floating over the words was the thing she asked to be rid of. */
+  if(getComputedStyle(nb).position==='static'){
+    try{ localStorage.removeItem(KEY); }catch(e){}
+    return;
+  }
   function clamp(x,y){
     var r=nb.getBoundingClientRect(), m=6;
     return [Math.max(m,Math.min(x,window.innerWidth-r.width-m)),

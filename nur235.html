@@ -69,6 +69,16 @@ body, body.adhd-upgraded{
   background-attachment:fixed!important;background-repeat:no-repeat!important}
 </style>
 </head><body>
+<div id="navBtns">
+  <button type="button" class="nbQuiz" title="Mega Quiz"
+    onclick="hop('nur235-quiz.html',true)">&#129504;<span class="nbLabel">Mega Quiz</span></button>
+  <button type="button" class="nbCast" title="Exam podcasts"
+    onclick="hop('nur235-podcasts.html',true)">&#127911;<span class="nbLabel">Podcasts</span></button>
+  <button type="button" class="nbCast" title="Slide decks"
+    onclick="hop('nur235-slides.html',true)">&#128444;&#65039;<span class="nbLabel">Slides</span></button>
+  <button type="button" class="nbHub" title="ABSN Study Hub"
+    onclick="hop('index.html',false)">&#127968;<span class="nbLabel">Hub</span></button>
+</div>
 
 <div class="bar"><div class="barrow">
   <button type="button" id="menuBtn" aria-expanded="false" aria-controls="side">&#9776; Menu</button>
@@ -200,16 +210,7 @@ body, body.adhd-upgraded{
   <a class="nav" href="../drug-guide/index.html" target="_blank" rel="noopener">&#128138; Drug Guide<span class="nsub">A card per drug &middot; 981 drugs</span></a>
   <a class="nav" href="index.html">&#127968; ABSN Study Hub<span class="nsub">Everything, all courses</span></a>
 </nav>
-<div id="navBtns">
-  <button type="button" class="nbQuiz" title="Mega Quiz"
-    onclick="hop('nur235-quiz.html',true)">&#129504;<span class="nbLabel">Mega Quiz</span></button>
-  <button type="button" class="nbCast" title="Exam podcasts"
-    onclick="hop('nur235-podcasts.html',true)">&#127911;<span class="nbLabel">Podcasts</span></button>
-  <button type="button" class="nbCast" title="Slide decks"
-    onclick="hop('nur235-slides.html',true)">&#128444;&#65039;<span class="nbLabel">Slides</span></button>
-  <button type="button" class="nbHub" title="ABSN Study Hub"
-    onclick="hop('index.html',false)">&#127968;<span class="nbLabel">Hub</span></button>
-</div>
+
 
 <script>
 (function(){
@@ -268,6 +269,13 @@ function hop(url, closeThis){
 (function(){
   var nb=document.getElementById('navBtns'); if(!nb) return;
   var KEY='navBtnsPos';
+  /* Unpinned: the cluster sits in the flow at the top of the page now,
+     so there is nothing to drag and no saved position to honour. A bar
+     floating over the words was the thing she asked to be rid of. */
+  if(getComputedStyle(nb).position==='static'){
+    try{ localStorage.removeItem(KEY); }catch(e){}
+    return;
+  }
   function clamp(x,y){
     var r=nb.getBoundingClientRect(), m=6;
     return [Math.max(m,Math.min(x,window.innerWidth-r.width-m)),

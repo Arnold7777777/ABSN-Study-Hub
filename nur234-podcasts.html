@@ -89,7 +89,7 @@ body.nav-open #side{transform:translateX(0)}
    198's work is that they shed their labels as soon as the viewport narrows - at
    300%% zoom the CSS width reads narrow, so what she sees is a row of icons the
    size of a fingertip rather than a wall of text sitting on the content. */
-#navBtns{position:fixed;top:10px;right:12px;z-index:2147483000;display:flex;gap:7px;
+#navBtns{position:static;flex-wrap:wrap;margin:10px 12px 2px;z-index:2147483000;display:flex;gap:7px;
  align-items:center;touch-action:none;cursor:grab}
 #navBtns.dragging{opacity:.92;cursor:grabbing}
 #navBtns:focus-visible{outline:3px solid var(--accent,#ffd76a);outline-offset:3px}
@@ -156,6 +156,7 @@ body.skimOn .skimKeep{outline:0}
 <link rel="stylesheet" href="absn-adhd-enhanced.css">
 <script defer src="absn-adhd-enhanced.js"></script>
 </head><body>
+<div id="navBtns"><button type="button" class="nbBack" title="Back to NUR 234" onclick="hop('nur234.html',true)">&larr;<span class="nbLabel">Back to NUR 234</span></button><button type="button" class="nbHub" title="ABSN Study Hub" onclick="hop('index.html',true)">&#127968;<span class="nbLabel">ABSN Study Hub</span></button></div>
 
 <div class="topbar">
   <button type="button" id="menuBtn" aria-expanded="false" aria-controls="side">&#9776; Menu</button>
@@ -240,7 +241,7 @@ body.skimOn .skimKeep{outline:0}
      target="_blank" rel="noopener">&#128193; Exam podcasts folder on Drive &rarr;</a>
 </main>
 
-<div id="navBtns"><button type="button" class="nbBack" title="Back to NUR 234" onclick="hop('nur234.html',true)">&larr;<span class="nbLabel">Back to NUR 234</span></button><button type="button" class="nbHub" title="ABSN Study Hub" onclick="hop('index.html',true)">&#127968;<span class="nbLabel">ABSN Study Hub</span></button></div>
+
 <div id="navBg"></div>
 <nav id="side" aria-label="Site menu" aria-hidden="true">
   <span class="sbrand">&#129328; NUR 234 Podcasts</span>
@@ -296,6 +297,13 @@ function hop(url, closeThis){
 (function(){
   var nb=document.getElementById('navBtns'); if(!nb) return;
   var KEY='navBtnsPos';
+  /* Unpinned: the cluster sits in the flow at the top of the page now,
+     so there is nothing to drag and no saved position to honour. A bar
+     floating over the words was the thing she asked to be rid of. */
+  if(getComputedStyle(nb).position==='static'){
+    try{ localStorage.removeItem(KEY); }catch(e){}
+    return;
+  }
   function clamp(x,y){
     var r=nb.getBoundingClientRect(), m=6;
     return [Math.max(m,Math.min(x,window.innerWidth-r.width-m)),
