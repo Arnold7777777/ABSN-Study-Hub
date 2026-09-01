@@ -547,6 +547,58 @@
     return compact ? 0 : g;
   }
 
+
+  /* ---- the floating tool panels ------------------------------------- *
+     #adhdStudyTools and .ple-tools are pinned bottom-right, up to 620px
+     wide and about 107px tall. They hold a search box, so isPageControl
+     keeps them out of the drawer - correct, but it left them sitting on
+     the page. Magnified they are big, and Caroline photographed one lying
+     across the text on 50 pages.
+
+     So they collapse. A 48px launcher sits in the corner instead, and the
+     panel appears only when she asks for it. Nothing is moved, nothing is
+     copied - the same nodes stay where the page scripts expect them, they
+     are just hidden until wanted. */
+  function tuckTools() {
+    var panels = [].slice.call(
+      document.querySelectorAll('#adhdStudyTools, .ple-tools')
+    ).filter(function (el) {
+      var cs = window.getComputedStyle(el);
+      return cs.position === 'fixed' || cs.position === 'sticky';
+    });
+    if (!panels.length || document.getElementById('absnTuckBtn')) return;
+
+    var st = document.createElement('style');
+    st.textContent =
+      '#adhdStudyTools.absn-tucked,.ple-tools.absn-tucked{display:none!important}' +
+      '#absnTuckBtn{position:fixed;right:12px;bottom:12px;z-index:2147482100;' +
+      ' min-width:48px;min-height:48px;display:inline-flex;align-items:center;' +
+      ' justify-content:center;gap:7px;padding:11px 14px;border-radius:999px;' +
+      ' font:900 1.05rem/1 "Segoe UI",system-ui,sans-serif;color:#fff;cursor:pointer;' +
+      ' border:1px solid rgba(255,255,255,.42);box-shadow:0 5px 18px rgba(0,0,0,.6);' +
+      ' background:linear-gradient(135deg,#0d675d,#12b886)}' +
+      '#absnTuckBtn:hover{filter:brightness(1.15)}' +
+      '#absnTuckBtn:focus-visible{outline:3px solid #ffd76a;outline-offset:3px}' +
+      '@media print{#absnTuckBtn{display:none}}';
+    document.head.appendChild(st);
+
+    var open = false;
+    var tb = document.createElement('button');
+    tb.type = 'button';
+    tb.id = 'absnTuckBtn';
+    tb.setAttribute('aria-expanded', 'false');
+    function paintTuck() {
+      panels.forEach(function (el) { el.classList.toggle('absn-tucked', !open); });
+      tb.innerHTML = open ? '&#10005;' : '&#129520;';
+      tb.setAttribute('aria-label', open ? 'Hide the study tools' : 'Show the study tools');
+      tb.title = tb.getAttribute('aria-label');
+      tb.setAttribute('aria-expanded', String(open));
+    }
+    tb.addEventListener('click', function () { open = !open; paintTuck(); });
+    document.body.appendChild(tb);
+    paintTuck();
+  }
+
   function defaultPos() {
     if (!PINNED) return;
     var pos = { x: 10, y: 10 };
@@ -690,6 +742,7 @@
   function go() {
     build();
     place();
+    tuckTools();
     var n = collect();
     solidify();
     /* Nothing to put in it and nothing to show: an empty drawer with a
