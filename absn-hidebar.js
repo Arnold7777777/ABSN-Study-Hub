@@ -746,9 +746,17 @@
     var n = collect();
     solidify();
     /* Nothing to put in it and nothing to show: an empty drawer with a
-       button that opens onto blank space is worse than no button. */
-    var has = drawer.children.length > 1;
-    btn.style.display = has ? '' : 'none';
+       button that opens onto blank space is worse than no button.
+
+       The drawer builds its own title/home/jump-list scaffolding, so raw
+       child count is always >1 and never answered this. What matters is
+       whether anything was actually collected -- and, failing that, whether
+       the page already has a menu of its own. On a page with its own
+       "Menu" button the launcher is a second identical button stacked above
+       the first; on a page with no menu at all it is the only way out. */
+    var collected = drawer.querySelector('[data-absn-home]');
+    var ownMenu = document.querySelector('#menuBtn, [aria-controls="side"]');
+    btn.style.display = (collected || !ownMenu) ? '' : 'none';
     return n;
   }
 
