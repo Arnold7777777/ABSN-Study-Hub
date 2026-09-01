@@ -1,4 +1,4 @@
-/* absn-module.js - the small amount of behaviour a single-module page needs:
+/* absn-module.js - the small amount of behavior a single-module page needs:
    fill the module quiz from the JSON block, and let the floating cluster be
    dragged the way it can be on the course hubs. Nothing else. */
 (function(){

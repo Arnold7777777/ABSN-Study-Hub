@@ -60,7 +60,7 @@
      already evidences it. Her med-surg pages cite Hinkle chapters twenty-six
      times, so that one is known. NOTHING ELSE ON THE SITE NAMES A TEXTBOOK -
      the maternal pages cite "ch. 9 · ATI ch. 3" with no author, the
-     paediatric and pathophysiology pages cite none at all - so the rest are
+     pediatric and pathophysiology pages cite none at all - so the rest are
      deliberately blank rather than guessed. Guessing which book a course uses
      is exactly the way to send her to lectures for the wrong edition of the
      wrong text.
@@ -121,12 +121,12 @@
   /* This used to be restricted to med-surg pages, because the button named
      the med-surg textbook and putting that on a newborn page was the original
      mistake. Now that the search is the channel plus THIS page's own topic,
-     there is nothing med-surg about it - the maternal and paediatric pages
+     there is nothing med-surg about it - the maternal and pediatric pages
      search for their own subjects - so it belongs everywhere. */
   function bookShown() { return !!COURSE[family()]; }
 
   /* Which set of playlists belongs on this page. Maternal cards are
-     NG-319 to NG-338, paediatric cards NG-343 to NG-362; everything else on
+     NG-319 to NG-338, pediatric cards NG-343 to NG-362; everything else on
      this site is adult med-surg or fundamentals. */
   function family() {
     var f = (location.pathname.split('/').pop() || '');
@@ -230,7 +230,7 @@
     var s = document.createElement('style');
     s.id = 'absnWatchCss';
     /* No backdrop-filter anywhere: a blurred compositing layer renders these
-       coloured blocks empty on Caroline's machine. */
+       colored blocks empty on Caroline's machine. */
     s.textContent =
       '.absn-watch{margin:30px 0 8px;padding:18px 18px 20px;border-radius:18px;' +
       ' background:rgba(13,8,26,.68);border:1px solid rgba(255,255,255,.30);' +

@@ -62,7 +62,7 @@
   }
 
   /* the top-level block the bite lives inside - it stays visible so the bite
-     keeps its heading, its colour and its context */
+     keeps its heading, its color and its context */
   function hostOf(el){
     while(el && el.parentNode !== body) el = el.parentNode;
     return el;

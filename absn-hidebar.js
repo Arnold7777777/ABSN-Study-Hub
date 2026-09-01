@@ -45,8 +45,8 @@
    underneath and left ghost text lying across the buttons. Two percent of
    white on a near-black bar is faint on a small screen and perfectly
    legible on a large one at large type, which is exactly how Caroline
-   reads. Each one is repainted in the colour it ALREADY appears to be - its
-   own colour composited over the page background - so nothing changes
+   reads. Each one is repainted in the color it ALREADY appears to be - its
+   own color composited over the page background - so nothing changes
    except that you cannot see through it. Bars under about eighty per cent
    alpha are left alone; down there the translucency is deliberate.
 */
