@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Bedside tests and signs &middot; ABSN Study Hub</title>
+<style>
+:root{--ink:#f2ecff;--soft:#d9cdf3;--muted:#b3a6d2;--line:rgba(255,255,255,.20);
+ --gold:#ffd75e;--accent:#ffc233;--card:rgba(14,10,30,.86)}
+*{box-sizing:border-box}
+body{margin:0;font:17px/1.62 'Segoe UI',system-ui,sans-serif;color:var(--ink);
+ background:linear-gradient(165deg,#0d0a1c 0%,#171034 55%,#0b1424 100%);min-height:100vh;
+ overflow-wrap:break-word}
+a{color:var(--gold)}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+header{padding:20px 18px 18px;background:linear-gradient(135deg,rgba(13,148,136,.72),rgba(124,58,237,.62));
+ border-bottom:1px solid var(--line)}
+header .code{font-weight:900;font-size:.95rem;letter-spacing:.09em;text-transform:uppercase;color:var(--accent)}
+header h1{margin:4px 0 6px;font-size:1.5rem;line-height:1.25}
+header p{margin:0;color:#f2ebff;max-width:64ch}
+.wrap{max-width:1020px;margin:0 auto;padding:16px 14px 70px}
+.tools{padding:14px;background:var(--card);border:1px solid var(--line);border-radius:16px;margin:0 0 18px}
+label.sl{display:block;font-weight:800;margin:0 0 7px}
+#q{width:100%;min-height:48px;padding:11px 13px;font:600 1.05rem 'Segoe UI',system-ui,sans-serif;
+ color:#fff;background:rgba(255,255,255,.10);border:2px solid var(--line);border-radius:12px}
+#q::placeholder{color:#bcaedb}
+#q:focus{outline:3px solid var(--gold);outline-offset:2px}
+.grp{margin:14px 0 0}
+.grp h2{margin:0 0 7px;font-size:.86rem;letter-spacing:.07em;text-transform:uppercase;color:var(--accent)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{min-height:44px;padding:8px 14px;border-radius:999px;cursor:pointer;
+ font:700 .95rem 'Segoe UI',system-ui,sans-serif;color:#fff;
+ background:rgba(255,255,255,.12);border:1px solid var(--line)}
+.chip:hover{background:rgba(255,255,255,.22)}
+.chip[aria-pressed="true"]{background:linear-gradient(135deg,#0d9488,#7c3aed);border-color:var(--gold)}
+.chip:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+#count{margin:13px 0 0;font-weight:700;color:var(--soft)}
+.sechead{display:flex;align-items:center;gap:10px;margin:26px 0 12px;font-size:1.2rem;
+ padding-bottom:8px;border-bottom:2px solid rgba(255,194,51,.45)}
+.sechead .n{margin-left:auto;font-size:.85rem;font-weight:800;color:#1b1030;
+ background:var(--accent);padding:3px 10px;border-radius:999px}
+.tst{margin:0 0 14px;padding:15px;background:var(--card);border:1px solid var(--line);border-radius:16px}
+.tst h3{display:flex;align-items:flex-start;gap:10px;margin:0 0 9px;font-size:1.14rem;line-height:1.3}
+.ti{font-size:1.2rem;flex:0 0 auto}
+.aka{display:block;font-size:.9rem;font-weight:600;color:var(--muted);font-style:italic}
+.tmeta{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 12px}
+.tb{font-size:.8rem;font-weight:800;padding:4px 10px;border-radius:999px;
+ background:rgba(255,255,255,.13);border:1px solid var(--line)}
+.tb.c{background:rgba(13,148,136,.4)}
+.tb.s{background:rgba(124,58,237,.4)}
+.tsec{margin:0 0 11px}
+.tsec:last-of-type{margin-bottom:0}
+.tsec h4{margin:0 0 5px;font-size:.86rem;letter-spacing:.05em;text-transform:uppercase;color:var(--accent)}
+.tsec p{margin:0;color:var(--soft)}
+.tsec ol{margin:0;padding:0 0 0 1.3em;color:var(--soft)}
+.tsec ol li{margin:0 0 5px}
+.tsec.pos{padding:10px 12px;border-left:5px solid #5fd0b0;border-radius:10px;
+ background:rgba(95,208,176,.12)}
+.tsec.pos p{color:#e6fff7}
+.tsec.pearl{padding:10px 12px;border-left:5px solid var(--gold);border-radius:10px;
+ background:rgba(255,215,94,.11)}
+.tsec.pearl p{color:#fff6da}
+.tmore{display:inline-block;margin:12px 0 0;min-height:44px;padding:10px 15px;border-radius:12px;
+ font-weight:800;text-decoration:none;color:#fff;
+ background:linear-gradient(135deg,#52277d,#7c3aed);border:1px solid var(--line)}
+.tmore:hover{filter:brightness(1.15)}
+.tmore:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+#none{display:none;padding:22px;text-align:center;color:var(--soft);
+ background:var(--card);border:1px solid var(--line);border-radius:16px}
+@media(max-width:520px){body{font-size:16px}}
+</style>
+</head><body>
+<div id="navBtns"><button type="button" class="nbHub" title="ABSN Study Hub" onclick="location.href='index.html'">&#127968;<span class="nbLabel">ABSN Study Hub</span></button><button type="button" class="nbCast" title="Lab tests by condition" onclick="location.href='labs-by-condition.html'">&#129514;<span class="nbLabel">Labs by condition</span></button></div>
+<style>
+#navBtns{position:static;flex-wrap:wrap;margin:10px 12px 2px;display:flex;gap:7px}
+#navBtns button{min-height:44px;display:inline-flex;align-items:center;gap:6px;
+ font:800 .95rem "Segoe UI",system-ui,sans-serif;padding:9px 14px;border-radius:22px;
+ cursor:pointer;border:1px solid rgba(255,255,255,.24);color:#fff;
+ background:linear-gradient(135deg,#5a2d82,#8e2d6b)}
+#navBtns .nbHub{background:linear-gradient(135deg,#0b6656,#0f7d6b)}
+#navBtns .nbCast{background:linear-gradient(135deg,#1a4099,#1d4ed8)}
+#navBtns button:hover{filter:brightness(1.16)}
+#navBtns button:focus-visible{outline:3px solid #ffd75e;outline-offset:3px}
+@media print{#navBtns{display:none}}
+</style>
+<header>
+  <div class="code">ABSN Study Hub</div>
+  <h1>&#129658; Bedside tests and signs</h1>
+  <p>The tests you perform with your hands, a tuning fork or a cuff &mdash; not the ones that come
+  back from the lab. For each one: <b>what you are testing for</b>, <b>how to do it</b>,
+  <b>what a positive looks like</b>, and the part that catches people out.</p>
+</header>
+
+<div class="wrap">
+
+<div class="tools">
+  <label class="sl" for="q">Search a test, a sign, or what it is for</label>
+  <input id="q" type="search" placeholder="chvostek, meningitis, tuning fork, carpal&hellip;"
+   autocomplete="off" enterkeyhint="search">
+
+  <div class="grp"><h2>Group them by</h2><div class="chips" role="group" aria-label="Group by">
+    <button type="button" class="chip" data-g="sys" aria-pressed="true">&#129517; Body system</button>
+    <button type="button" class="chip" data-g="course">&#127891; Class</button>
+    <button type="button" class="chip" data-g="mod">&#128218; Module</button>
+    <button type="button" class="chip" data-g="name">&#128290; Test name A&ndash;Z</button>
+  </div></div>
+
+  <div class="grp"><h2>Show only</h2><div class="chips" role="group" aria-label="Filter">
+    <button type="button" class="chip" data-k="all" data-v="all" aria-pressed="true">Everything</button>
+    <button type="button" class="chip" data-k="course" data-v="NUR 125">NUR 125</button><button type="button" class="chip" data-k="course" data-v="NUR 234">NUR 234</button><button type="button" class="chip" data-k="course" data-v="NUR 235">NUR 235</button><button type="button" class="chip" data-k="course" data-v="NUR 258">NUR 258</button>
+    <button type="button" class="chip" data-k="sys" data-v="neuro">🧠 Neuro</button><button type="button" class="chip" data-k="sys" data-v="sensory">👁 Eyes &amp; ears</button><button type="button" class="chip" data-k="sys" data-v="cardio">🫀 Heart &amp; vessels</button><button type="button" class="chip" data-k="sys" data-v="resp">🫁 Lungs</button><button type="button" class="chip" data-k="sys" data-v="gi">🍽 Abdomen &amp; GI</button><button type="button" class="chip" data-k="sys" data-v="musc">🦴 Bones, joints &amp; nerves</button><button type="button" class="chip" data-k="sys" data-v="endo">🧪 Endocrine &amp; metabolic</button><button type="button" class="chip" data-k="sys" data-v="renal">🚰 Kidney &amp; urinary</button><button type="button" class="chip" data-k="sys" data-v="ob">🤰 Maternity</button><button type="button" class="chip" data-k="sys" data-v="peds">🧸 Newborn &amp; child</button><button type="button" class="chip" data-k="sys" data-v="integ">🩹 Skin &amp; wounds</button><button type="button" class="chip" data-k="sys" data-v="mh">🗣 Mental health</button>
+  </div></div>
+
+  <p id="count" role="status" aria-live="polite"></p>
+</div>
+
+<div id="list">
+<article class="tst" data-course="NUR 258" data-mod="M5 Endocrine" data-sys="endo" data-name="chvostek&#x27;s sign" data-find="chvostek&#x27;s sign facial nerve tap nur 258 m5 endocrine endocrine &amp; metabolic low calcium (and low magnesium). it is one of the two bedside signs of neuromuscular irritability. twitching of the lip, nose or whole side of the face on the side you tapped. chvostek is the &lt;b&gt;cheek&lt;/b&gt;; trousseau is the &lt;b&gt;tourniquet&lt;/b&gt;. both mean calcium is &lt;b&gt;low&lt;/b&gt; - a positive sign after a thyroidectomy means the parathyroids were bruised or removed. have her sit with her face relaxed. tap lightly over the &lt;b&gt;facial nerve&lt;/b&gt;, just in front of the earlobe and below the zygomatic arch. watch the same side of her face.">
+  <h3><span class="ti">🧪</span><span>Chvostek&#x27;s sign <i class="aka">Facial nerve tap</i></span></h3>
+  <div class="tmeta"><span class="tb c">NUR 258</span><span class="tb">M5 Endocrine</span><span class="tb s">🧪 Endocrine &amp; metabolic</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Low calcium (and low magnesium). It is one of the two bedside signs of neuromuscular irritability.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>Have her sit with her face relaxed.</li><li>Tap lightly over the <b>facial nerve</b>, just in front of the earlobe and below the zygomatic arch.</li><li>Watch the same side of her face.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>Twitching of the lip, nose or whole side of the face on the side you tapped.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>Chvostek is the <b>cheek</b>; Trousseau is the <b>tourniquet</b>. Both mean calcium is <b>low</b> - a positive sign after a thyroidectomy means the parathyroids were bruised or removed.</p></div>
+  <a class="tmore" href="endo/NG-286_parathyroid-disorders.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 258" data-mod="M5 Endocrine" data-sys="endo" data-name="trousseau&#x27;s sign" data-find="trousseau&#x27;s sign carpal spasm / cuff sign nur 258 m5 endocrine endocrine &amp; metabolic low calcium. it is the more specific of the two calcium signs. carpal spasm - the wrist and fingers flex, the thumb draws across the palm, and the fingers come together in a cone. it is uncomfortable and she needs to know it is coming. have calcium gluconate available if the calcium is known to be low; laryngospasm is the emergency at the far end of this. put a blood-pressure cuff on her upper arm. inflate it about &lt;b&gt;20 mmhg above her systolic&lt;/b&gt; pressure. leave it up for &lt;b&gt;3 minutes&lt;/b&gt; and watch her hand.">
+  <h3><span class="ti">🧪</span><span>Trousseau&#x27;s sign <i class="aka">Carpal spasm / cuff sign</i></span></h3>
+  <div class="tmeta"><span class="tb c">NUR 258</span><span class="tb">M5 Endocrine</span><span class="tb s">🧪 Endocrine &amp; metabolic</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Low calcium. It is the more specific of the two calcium signs.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>Put a blood-pressure cuff on her upper arm.</li><li>Inflate it about <b>20 mmHg above her systolic</b> pressure.</li><li>Leave it up for <b>3 minutes</b> and watch her hand.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>Carpal spasm - the wrist and fingers flex, the thumb draws across the palm, and the fingers come together in a cone.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>It is uncomfortable and she needs to know it is coming. Have calcium gluconate available if the calcium is known to be low; laryngospasm is the emergency at the far end of this.</p></div>
+  <a class="tmore" href="endo/NG-286_parathyroid-disorders.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 258" data-mod="M6 Diabetes" data-sys="endo" data-name="monofilament test" data-find="monofilament test semmes-weinstein 10 g nur 258 m6 diabetes endocrine &amp; metabolic protective sensation in the diabetic foot - whether she would feel a stone in her shoe before it became an ulcer. any site she cannot feel means &lt;b&gt;loss of protective sensation&lt;/b&gt;. a foot that cannot feel is a foot that gets injured silently. this test is why the teaching is to &lt;b&gt;look at the feet daily and check the water with a hand or a thermometer, not a foot&lt;/b&gt;. show her the filament on her arm first so she knows the sensation. ask her to close her eyes. press the &lt;b&gt;10 g monofilament&lt;/b&gt; perpendicular to the sole until it &lt;b&gt;buckles&lt;/b&gt;, hold about 1 second. test several sites on each foot; avoid callus and ulcer.">
+  <h3><span class="ti">🧪</span><span>Monofilament test <i class="aka">Semmes-Weinstein 10 g</i></span></h3>
+  <div class="tmeta"><span class="tb c">NUR 258</span><span class="tb">M6 Diabetes</span><span class="tb s">🧪 Endocrine &amp; metabolic</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Protective sensation in the diabetic foot - whether she would feel a stone in her shoe before it became an ulcer.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>Show her the filament on her arm first so she knows the sensation.</li><li>Ask her to close her eyes.</li><li>Press the <b>10 g monofilament</b> perpendicular to the sole until it <b>buckles</b>, hold about 1 second.</li><li>Test several sites on each foot; avoid callus and ulcer.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>Any site she cannot feel means <b>loss of protective sensation</b>.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>A foot that cannot feel is a foot that gets injured silently. This test is why the teaching is to <b>look at the feet daily and check the water with a hand or a thermometer, not a foot</b>.</p></div>
+  <a class="tmore" href="endo/NG-290_diabetes.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 258" data-mod="M8 Neuro infection" data-sys="neuro" data-name="kernig&#x27;s sign" data-find="kernig&#x27;s sign  nur 258 m8 neuro infection neuro meningeal irritation - meningitis or subarachnoid blood. pain and resistance that stop you extending the knee. kernig is the &lt;b&gt;knee&lt;/b&gt;. both meningeal signs can be &lt;b&gt;absent&lt;/b&gt; in a very young, very old or immunosuppressed client - a negative sign does not rule meningitis out. lay her flat. flex one hip to &lt;b&gt;90 degrees&lt;/b&gt; with the knee bent. then try to &lt;b&gt;straighten the knee&lt;/b&gt;.">
+  <h3><span class="ti">🧠</span><span>Kernig&#x27;s sign</span></h3>
+  <div class="tmeta"><span class="tb c">NUR 258</span><span class="tb">M8 Neuro infection</span><span class="tb s">🧠 Neuro</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Meningeal irritation - meningitis or subarachnoid blood.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>Lay her flat.</li><li>Flex one hip to <b>90 degrees</b> with the knee bent.</li><li>Then try to <b>straighten the knee</b>.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>Pain and resistance that stop you extending the knee.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>Kernig is the <b>knee</b>. Both meningeal signs can be <b>absent</b> in a very young, very old or immunosuppressed client - a negative sign does not rule meningitis out.</p></div>
+  <a class="tmore" href="neuro/NG-252_meningitis.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 258" data-mod="M8 Neuro infection" data-sys="neuro" data-name="brudzinski&#x27;s sign" data-find="brudzinski&#x27;s sign  nur 258 m8 neuro infection neuro meningeal irritation - meningitis, the same thing kernig is looking for. her hips and knees flex up involuntarily - she pulls her legs up as you bend her neck. brudzinski is the &lt;b&gt;brain end&lt;/b&gt; - the neck. nuchal rigidity, photophobia and headache travel with it. lay her flat with no pillow. put a hand behind her head and &lt;b&gt;flex the neck&lt;/b&gt; towards her chest. watch her hips and knees.">
+  <h3><span class="ti">🧠</span><span>Brudzinski&#x27;s sign</span></h3>
+  <div class="tmeta"><span class="tb c">NUR 258</span><span class="tb">M8 Neuro infection</span><span class="tb s">🧠 Neuro</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Meningeal irritation - meningitis, the same thing Kernig is looking for.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>Lay her flat with no pillow.</li><li>Put a hand behind her head and <b>flex the neck</b> towards her chest.</li><li>Watch her hips and knees.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>Her hips and knees flex up involuntarily - she pulls her legs up as you bend her neck.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>Brudzinski is the <b>brain end</b> - the neck. Nuchal rigidity, photophobia and headache travel with it.</p></div>
+  <a class="tmore" href="neuro/NG-252_meningitis.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 125" data-mod="Neuro assessment" data-sys="neuro" data-name="babinski reflex" data-find="babinski reflex plantar reflex nur 125 neuro assessment neuro upper motor neuron integrity - the corticospinal tract. the great toe &lt;b&gt;dorsiflexes up&lt;/b&gt; and the other toes &lt;b&gt;fan out&lt;/b&gt;. the catch is age. that response is &lt;b&gt;normal until about age 2&lt;/b&gt;. after that it is an &lt;b&gt;abnormal&lt;/b&gt; finding and points to an upper motor neuron lesion. normal in an adult is all the toes curling down. use the handle of the reflex hammer, not a sharp point. stroke &lt;b&gt;up the lateral edge of the sole&lt;/b&gt; from heel to ball, then &lt;b&gt;across the ball&lt;/b&gt; towards the big toe.">
+  <h3><span class="ti">🧠</span><span>Babinski reflex <i class="aka">Plantar reflex</i></span></h3>
+  <div class="tmeta"><span class="tb c">NUR 125</span><span class="tb">Neuro assessment</span><span class="tb s">🧠 Neuro</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Upper motor neuron integrity - the corticospinal tract.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>Use the handle of the reflex hammer, not a sharp point.</li><li>Stroke <b>up the lateral edge of the sole</b> from heel to ball, then <b>across the ball</b> towards the big toe.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>The great toe <b>dorsiflexes up</b> and the other toes <b>fan out</b>.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>The catch is age. That response is <b>normal until about age 2</b>. After that it is an <b>abnormal</b> finding and points to an upper motor neuron lesion. Normal in an adult is all the toes curling down.</p></div>
+  <a class="tmore" href="neuro/NG-255_neuro-overview.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 125" data-mod="Neuro assessment" data-sys="neuro" data-name="romberg test" data-find="romberg test  nur 125 neuro assessment neuro proprioception and the vestibular system - can she stay upright without her eyes helping? marked swaying or loss of balance once the eyes close. it is a &lt;b&gt;fall risk test you perform&lt;/b&gt; - never leave her unguarded. swaying with the eyes &lt;b&gt;open&lt;/b&gt; too points to the cerebellum rather than proprioception. have her stand with feet together and arms at her sides, eyes &lt;b&gt;open&lt;/b&gt;, for 20 seconds. then ask her to &lt;b&gt;close her eyes&lt;/b&gt; and hold it for another 20. &lt;b&gt;stand beside her ready to catch her.&lt;/b&gt;">
+  <h3><span class="ti">🧠</span><span>Romberg test</span></h3>
+  <div class="tmeta"><span class="tb c">NUR 125</span><span class="tb">Neuro assessment</span><span class="tb s">🧠 Neuro</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Proprioception and the vestibular system - can she stay upright without her eyes helping?</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>Have her stand with feet together and arms at her sides, eyes <b>open</b>, for 20 seconds.</li><li>Then ask her to <b>close her eyes</b> and hold it for another 20.</li><li><b>Stand beside her ready to catch her.</b></li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>Marked swaying or loss of balance once the eyes close.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>It is a <b>fall risk test you perform</b> - never leave her unguarded. Swaying with the eyes <b>open</b> too points to the cerebellum rather than proprioception.</p></div>
+  <a class="tmore" href="neuro/NG-255_neuro-overview.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 258" data-mod="M7 Neuro" data-sys="neuro" data-name="glasgow coma scale" data-find="glasgow coma scale gcs nur 258 m7 neuro neuro level of consciousness, scored so that a change is measurable rather than a matter of opinion. a total of &lt;b&gt;8 or less means she cannot protect her airway&lt;/b&gt; and intubation is anticipated. a drop of 2 points is reportable. there is no zero - the lowest possible score is 3, not 0. and the trend matters more than any single number. score three things: &lt;b&gt;eye opening&lt;/b&gt; (1-4), &lt;b&gt;verbal response&lt;/b&gt; (1-5), &lt;b&gt;best motor response&lt;/b&gt; (1-6). use the &lt;b&gt;best&lt;/b&gt; response she gives. add them: the range is &lt;b&gt;3 to 15&lt;/b&gt;.">
+  <h3><span class="ti">🧠</span><span>Glasgow Coma Scale <i class="aka">GCS</i></span></h3>
+  <div class="tmeta"><span class="tb c">NUR 258</span><span class="tb">M7 Neuro</span><span class="tb s">🧠 Neuro</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Level of consciousness, scored so that a change is measurable rather than a matter of opinion.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>Score three things: <b>eye opening</b> (1-4), <b>verbal response</b> (1-5), <b>best motor response</b> (1-6).</li><li>Use the <b>best</b> response she gives.</li><li>Add them: the range is <b>3 to 15</b>.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>A total of <b>8 or less means she cannot protect her airway</b> and intubation is anticipated. A drop of 2 points is reportable.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>There is no zero - the lowest possible score is 3, not 0. And the trend matters more than any single number.</p></div>
+  <a class="tmore" href="neuro/NG-247_head-injury.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 125" data-mod="Neuro assessment" data-sys="neuro" data-name="pupil assessment" data-find="pupil assessment perrla nur 125 neuro assessment neuro cranial nerves ii and iii, and rising intracranial pressure. a &lt;b&gt;newly unequal, sluggish or fixed dilated&lt;/b&gt; pupil. a fixed dilated pupil on one side is &lt;b&gt;cranial nerve iii&lt;/b&gt; being compressed - in raised icp that is herniation and it is an emergency. some people have unequal pupils normally, so the word that matters is &lt;b&gt;new&lt;/b&gt;. dim the lights. bring the penlight in &lt;b&gt;from the side&lt;/b&gt;, not straight at her. check size, shape, equality, the &lt;b&gt;direct&lt;/b&gt; and &lt;b&gt;consensual&lt;/b&gt; response, and accommodation.">
+  <h3><span class="ti">🧠</span><span>Pupil assessment <i class="aka">PERRLA</i></span></h3>
+  <div class="tmeta"><span class="tb c">NUR 125</span><span class="tb">Neuro assessment</span><span class="tb s">🧠 Neuro</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Cranial nerves II and III, and rising intracranial pressure.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>Dim the lights.</li><li>Bring the penlight in <b>from the side</b>, not straight at her.</li><li>Check size, shape, equality, the <b>direct</b> and <b>consensual</b> response, and accommodation.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>A <b>newly unequal, sluggish or fixed dilated</b> pupil.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>A fixed dilated pupil on one side is <b>cranial nerve III</b> being compressed - in raised ICP that is herniation and it is an emergency. Some people have unequal pupils normally, so the word that matters is <b>new</b>.</p></div>
+  <a class="tmore" href="neuro/NG-308_increased-icp.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 258" data-mod="M1 Sensory" data-sys="sensory" data-name="weber test" data-find="weber test  nur 258 m1 sensory eyes &amp; ears which &lt;b&gt;side&lt;/b&gt; hears differently. it cannot tell you the type of loss. normal is &lt;b&gt;equally in both ears&lt;/b&gt;. lateralising &lt;b&gt;to&lt;/b&gt; an ear suggests conductive loss &lt;i&gt;in that ear&lt;/i&gt;; lateralising &lt;b&gt;away&lt;/b&gt; suggests sensorineural loss in the other. conductive goes &lt;b&gt;to&lt;/b&gt; the bad ear, sensorineural goes &lt;b&gt;away&lt;/b&gt; from it. an unequal weber is not a diagnosis - rinne is the next step. strike a tuning fork and place the base on the &lt;b&gt;midline of the forehead&lt;/b&gt; or the top of the head. ask: &lt;i&gt;where do you hear it?&lt;/i&gt;">
+  <h3><span class="ti">👁</span><span>Weber test</span></h3>
+  <div class="tmeta"><span class="tb c">NUR 258</span><span class="tb">M1 Sensory</span><span class="tb s">👁 Eyes &amp; ears</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Which <b>side</b> hears differently. It cannot tell you the type of loss.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>Strike a tuning fork and place the base on the <b>midline of the forehead</b> or the top of the head.</li><li>Ask: <i>where do you hear it?</i></li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>Normal is <b>equally in both ears</b>. Lateralising <b>to</b> an ear suggests conductive loss <i>in that ear</i>; lateralising <b>away</b> suggests sensorineural loss in the other.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>Conductive goes <b>to</b> the bad ear, sensorineural goes <b>away</b> from it. An unequal Weber is not a diagnosis - Rinne is the next step.</p></div>
+  <a class="tmore" href="nur258-module-01-sensory-eye-ear.html#dx-weber-rinne">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 258" data-mod="M1 Sensory" data-sys="sensory" data-name="rinne test" data-find="rinne test  nur 258 m1 sensory eyes &amp; ears which &lt;b&gt;type&lt;/b&gt; of hearing loss - it compares air conduction with bone conduction. normal is &lt;b&gt;ac &amp;gt; bc&lt;/b&gt;, about twice as long - a &lt;b&gt;positive&lt;/b&gt; rinne. &lt;b&gt;bc &amp;gt; ac&lt;/b&gt; is a &lt;b&gt;negative&lt;/b&gt; rinne and means conductive loss. sensorineural loss is &lt;b&gt;also&lt;/b&gt; a positive rinne, because both routes drop together and air is still the better one. so positive does not mean normal. strike a tuning fork and hold the base on the &lt;b&gt;mastoid bone&lt;/b&gt; behind the ear (bone conduction). when she says the sound has gone, move the tines &lt;b&gt;beside the ear canal&lt;/b&gt; (air conduction). ask whether she can hear it again, and for how long.">
+  <h3><span class="ti">👁</span><span>Rinne test</span></h3>
+  <div class="tmeta"><span class="tb c">NUR 258</span><span class="tb">M1 Sensory</span><span class="tb s">👁 Eyes &amp; ears</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Which <b>type</b> of hearing loss - it compares air conduction with bone conduction.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>Strike a tuning fork and hold the base on the <b>mastoid bone</b> behind the ear (bone conduction).</li><li>When she says the sound has gone, move the tines <b>beside the ear canal</b> (air conduction).</li><li>Ask whether she can hear it again, and for how long.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>Normal is <b>AC &gt; BC</b>, about twice as long - a <b>positive</b> Rinne. <b>BC &gt; AC</b> is a <b>negative</b> Rinne and means conductive loss.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>Sensorineural loss is <b>also</b> a positive Rinne, because both routes drop together and air is still the better one. So positive does not mean normal.</p></div>
+  <a class="tmore" href="nur258-module-01-sensory-eye-ear.html#dx-weber-rinne">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 125" data-mod="Head-to-toe" data-sys="sensory" data-name="whispered voice test" data-find="whispered voice test  nur 125 head-to-toe eyes &amp; ears gross hearing, one ear at a time, with no equipment. she repeats fewer than half correctly in that ear. standing behind her is the whole point - in front, she reads your lips and passes a test she should fail. stand about &lt;b&gt;2 feet behind&lt;/b&gt; her so she cannot lip-read. occlude the ear you are not testing. whisper a set of letters and numbers after a full exhalation and ask her to repeat them.">
+  <h3><span class="ti">👁</span><span>Whispered voice test</span></h3>
+  <div class="tmeta"><span class="tb c">NUR 125</span><span class="tb">Head-to-toe</span><span class="tb s">👁 Eyes &amp; ears</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Gross hearing, one ear at a time, with no equipment.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>Stand about <b>2 feet behind</b> her so she cannot lip-read.</li><li>Occlude the ear you are not testing.</li><li>Whisper a set of letters and numbers after a full exhalation and ask her to repeat them.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>She repeats fewer than half correctly in that ear.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>Standing behind her is the whole point - in front, she reads your lips and passes a test she should fail.</p></div>
+  <a class="tmore" href="core/NG-190_head-to-toe-assessment.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 125" data-mod="Head-to-toe" data-sys="sensory" data-name="snellen chart" data-find="snellen chart  nur 125 head-to-toe eyes &amp; ears distance visual acuity. &lt;b&gt;20/200&lt;/b&gt; means she must be at 20 feet to read what a person with normal sight reads at 200 feet - the bigger the bottom number, the worse the vision. corrected 20/200 or worse in the better eye is the usual threshold for &lt;b&gt;legal blindness&lt;/b&gt;. stand her &lt;b&gt;20 feet&lt;/b&gt; from the chart. test each eye separately, then both, &lt;b&gt;with&lt;/b&gt; her glasses on if she wears them. record the smallest line she reads more than half of.">
+  <h3><span class="ti">👁</span><span>Snellen chart</span></h3>
+  <div class="tmeta"><span class="tb c">NUR 125</span><span class="tb">Head-to-toe</span><span class="tb s">👁 Eyes &amp; ears</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Distance visual acuity.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>Stand her <b>20 feet</b> from the chart.</li><li>Test each eye separately, then both, <b>with</b> her glasses on if she wears them.</li><li>Record the smallest line she reads more than half of.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p><b>20/200</b> means she must be at 20 feet to read what a person with normal sight reads at 200 feet - the bigger the bottom number, the worse the vision.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>Corrected 20/200 or worse in the better eye is the usual threshold for <b>legal blindness</b>.</p></div>
+  <a class="tmore" href="neuro/NG-404_sensory-alteration.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 258" data-mod="M1 Sensory" data-sys="sensory" data-name="amsler grid" data-find="amsler grid  nur 258 m1 sensory eyes &amp; ears the macula - central vision. lines look &lt;b&gt;wavy, bent or broken&lt;/b&gt;, or there is a blank patch in the middle. this is the one clients do &lt;b&gt;at home&lt;/b&gt;, and it is how wet macular degeneration gets caught early enough for anti-vegf injections to matter. hold the grid at normal reading distance, wearing reading glasses. cover one eye and &lt;b&gt;stare at the central dot&lt;/b&gt;. ask what the surrounding lines look like. repeat for the other eye.">
+  <h3><span class="ti">👁</span><span>Amsler grid</span></h3>
+  <div class="tmeta"><span class="tb c">NUR 258</span><span class="tb">M1 Sensory</span><span class="tb s">👁 Eyes &amp; ears</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>The macula - central vision.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>Hold the grid at normal reading distance, wearing reading glasses.</li><li>Cover one eye and <b>stare at the central dot</b>.</li><li>Ask what the surrounding lines look like. Repeat for the other eye.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>Lines look <b>wavy, bent or broken</b>, or there is a blank patch in the middle.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>This is the one clients do <b>at home</b>, and it is how wet macular degeneration gets caught early enough for anti-VEGF injections to matter.</p></div>
+  <a class="tmore" href="neuro/NG-311_macular-degeneration.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 258" data-mod="M1 Sensory" data-sys="sensory" data-name="tonometry" data-find="tonometry  nur 258 m1 sensory eyes &amp; ears intraocular pressure - screening for glaucoma. dr. halecka gives normal as &lt;b&gt;12-20 mmhg&lt;/b&gt; with anything over &lt;b&gt;22&lt;/b&gt; suspicious. (the textbook says 10-21 - use hers on the exam.) &lt;b&gt;hold the timolol the morning of the test&lt;/b&gt;, or you measure a pressure that has already been treated. anaesthetic drop first for applanation; the puff-of-air version needs none. she sits still and looks straight ahead while the instrument touches or puffs the cornea.">
+  <h3><span class="ti">👁</span><span>Tonometry</span></h3>
+  <div class="tmeta"><span class="tb c">NUR 258</span><span class="tb">M1 Sensory</span><span class="tb s">👁 Eyes &amp; ears</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Intraocular pressure - screening for glaucoma.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>Anaesthetic drop first for applanation; the puff-of-air version needs none.</li><li>She sits still and looks straight ahead while the instrument touches or puffs the cornea.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>Dr. Halecka gives normal as <b>12-20 mmHg</b> with anything over <b>22</b> suspicious. (The textbook says 10-21 - use hers on the exam.)</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p><b>Hold the timolol the morning of the test</b>, or you measure a pressure that has already been treated.</p></div>
+  <a class="tmore" href="neuro/NG-310_retinal-detachment.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 125" data-mod="Head-to-toe" data-sys="sensory" data-name="confrontation visual fields" data-find="confrontation visual fields  nur 125 head-to-toe eyes &amp; ears peripheral vision - gross visual field loss. she sees the finger noticeably later than you do in one quadrant. peripheral loss is the pattern in &lt;b&gt;open-angle glaucoma&lt;/b&gt;, and she will not have noticed it herself - that is why it gets screened for. sit about 2 feet away, at eye level. she covers one eye; you cover your opposite one. bring a wiggling finger in from the periphery and ask her to say when she sees it, comparing her field with yours.">
+  <h3><span class="ti">👁</span><span>Confrontation visual fields</span></h3>
+  <div class="tmeta"><span class="tb c">NUR 125</span><span class="tb">Head-to-toe</span><span class="tb s">👁 Eyes &amp; ears</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Peripheral vision - gross visual field loss.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>Sit about 2 feet away, at eye level.</li><li>She covers one eye; you cover your opposite one.</li><li>Bring a wiggling finger in from the periphery and ask her to say when she sees it, comparing her field with yours.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>She sees the finger noticeably later than you do in one quadrant.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>Peripheral loss is the pattern in <b>open-angle glaucoma</b>, and she will not have noticed it herself - that is why it gets screened for.</p></div>
+  <a class="tmore" href="neuro/NG-404_sensory-alteration.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 125" data-mod="Procedures" data-sys="cardio" data-name="allen test" data-find="allen test modified allen test nur 125 procedures heart &amp; vessels whether the &lt;b&gt;ulnar&lt;/b&gt; artery alone can supply the hand - done &lt;b&gt;before&lt;/b&gt; a radial abg or arterial line. colour returns within about &lt;b&gt;5-7 seconds&lt;/b&gt; - that is a &lt;b&gt;positive (pass)&lt;/b&gt; and the radial stick is safe. colour that stays pale beyond ~7-15 seconds means do &lt;b&gt;not&lt;/b&gt; use that wrist. the wording trips people up: the result you want is the one that lets you proceed. if collateral flow fails, the hand is living on the radial artery alone and puncturing it risks the whole hand. ask her to make a fist. press on &lt;b&gt;both&lt;/b&gt; the radial and ulnar arteries until the hand blanches. have her open the hand - it should look pale. release the &lt;b&gt;ulnar&lt;/b&gt; side only and keep timing.">
+  <h3><span class="ti">🫀</span><span>Allen test <i class="aka">Modified Allen test</i></span></h3>
+  <div class="tmeta"><span class="tb c">NUR 125</span><span class="tb">Procedures</span><span class="tb s">🫀 Heart &amp; vessels</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Whether the <b>ulnar</b> artery alone can supply the hand - done <b>before</b> a radial ABG or arterial line.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>Ask her to make a fist.</li><li>Press on <b>both</b> the radial and ulnar arteries until the hand blanches.</li><li>Have her open the hand - it should look pale.</li><li>Release the <b>ulnar</b> side only and keep timing.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>Colour returns within about <b>5-7 seconds</b> - that is a <b>positive (pass)</b> and the radial stick is safe. Colour that stays pale beyond ~7-15 seconds means do <b>not</b> use that wrist.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>The wording trips people up: the result you want is the one that lets you proceed. If collateral flow fails, the hand is living on the radial artery alone and puncturing it risks the whole hand.</p></div>
+  
+</article>
+
+<article class="tst" data-course="NUR 258" data-mod="M13 Vascular" data-sys="cardio" data-name="homan&#x27;s sign" data-find="homan&#x27;s sign dorsiflexion sign nur 258 m13 vascular heart &amp; vessels historically used to suggest a dvt. calf pain on dorsiflexion. &lt;b&gt;it is unreliable and is no longer recommended.&lt;/b&gt; it misses about half of real clots and is positive in plenty of people without one - and the manoeuvre itself is a theoretical embolisation risk. know it because it appears as a &lt;b&gt;distractor&lt;/b&gt;; the answer is a &lt;b&gt;venous duplex ultrasound&lt;/b&gt;. straighten the leg and &lt;b&gt;dorsiflex the foot&lt;/b&gt;. ask about calf pain.">
+  <h3><span class="ti">🫀</span><span>Homan&#x27;s sign <i class="aka">Dorsiflexion sign</i></span></h3>
+  <div class="tmeta"><span class="tb c">NUR 258</span><span class="tb">M13 Vascular</span><span class="tb s">🫀 Heart &amp; vessels</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Historically used to suggest a DVT.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>Straighten the leg and <b>dorsiflex the foot</b>.</li><li>Ask about calf pain.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>Calf pain on dorsiflexion.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p><b>It is unreliable and is no longer recommended.</b> It misses about half of real clots and is positive in plenty of people without one - and the manoeuvre itself is a theoretical embolisation risk. Know it because it appears as a <b>distractor</b>; the answer is a <b>venous duplex ultrasound</b>.</p></div>
+  <a class="tmore" href="cardio/NG-223_dvt-deep-vein-thrombosis.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 125" data-mod="Vital signs" data-sys="cardio" data-name="capillary refill" data-find="capillary refill  nur 125 vital signs heart &amp; vessels peripheral perfusion. normal is &lt;b&gt;under 3 seconds&lt;/b&gt;. longer suggests poor perfusion, dehydration or shock. cold hands, dark nail polish and a cold room all slow it, so read it alongside the rest of the picture rather than on its own. hold the hand at about heart level. press the nail bed until it blanches, then release. count.">
+  <h3><span class="ti">🫀</span><span>Capillary refill</span></h3>
+  <div class="tmeta"><span class="tb c">NUR 125</span><span class="tb">Vital signs</span><span class="tb s">🫀 Heart &amp; vessels</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Peripheral perfusion.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>Hold the hand at about heart level.</li><li>Press the nail bed until it blanches, then release.</li><li>Count.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>Normal is <b>under 3 seconds</b>. Longer suggests poor perfusion, dehydration or shock.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>Cold hands, dark nail polish and a cold room all slow it, so read it alongside the rest of the picture rather than on its own.</p></div>
+  <a class="tmore" href="core/NG-079_vital-signs.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 125" data-mod="Vital signs" data-sys="cardio" data-name="orthostatic vital signs" data-find="orthostatic vital signs postural bp nur 125 vital signs heart &amp; vessels volume status and fall risk - whether her pressure holds when she stands. a fall of &lt;b&gt;20 mmhg systolic&lt;/b&gt; or &lt;b&gt;10 mmhg diastolic&lt;/b&gt;, or a rise in pulse of &lt;b&gt;20&lt;/b&gt;, with symptoms. the waiting is the test. taking the standing pressure immediately misses the drop, and the client who says &quot;i feel dizzy&quot; mid-test needs sitting down, not finishing. measure bp and pulse &lt;b&gt;lying&lt;/b&gt;, after she has been flat a few minutes. sit her up, wait &lt;b&gt;1-3 minutes&lt;/b&gt;, measure again. stand her, wait 1-3 minutes, measure again. &lt;b&gt;stay with her.&lt;/b&gt;">
+  <h3><span class="ti">🫀</span><span>Orthostatic vital signs <i class="aka">Postural BP</i></span></h3>
+  <div class="tmeta"><span class="tb c">NUR 125</span><span class="tb">Vital signs</span><span class="tb s">🫀 Heart &amp; vessels</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Volume status and fall risk - whether her pressure holds when she stands.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>Measure BP and pulse <b>lying</b>, after she has been flat a few minutes.</li><li>Sit her up, wait <b>1-3 minutes</b>, measure again.</li><li>Stand her, wait 1-3 minutes, measure again.</li><li><b>Stay with her.</b></li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>A fall of <b>20 mmHg systolic</b> or <b>10 mmHg diastolic</b>, or a rise in pulse of <b>20</b>, with symptoms.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>The waiting is the test. Taking the standing pressure immediately misses the drop, and the client who says "I feel dizzy" mid-test needs sitting down, not finishing.</p></div>
+  <a class="tmore" href="renal/NG-191_fluid-volume-deficit.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 258" data-mod="M13 Cardiac" data-sys="cardio" data-name="jugular venous distension" data-find="jugular venous distension jvd nur 258 m13 cardiac heart &amp; vessels right-sided filling pressure - fluid overload, right heart failure, tamponade. visible distension more than about &lt;b&gt;3-4 cm above the sternal angle&lt;/b&gt; at 45 degrees. the angle is the test. flat, everyone has distended neck veins; sitting fully upright, almost nobody does. &lt;b&gt;jvd + muffled heart sounds + hypotension is beck triad - cardiac tamponade.&lt;/b&gt; position the head of the bed at &lt;b&gt;30-45 degrees&lt;/b&gt;. turn her head slightly away. use tangential lighting and look at the &lt;b&gt;internal&lt;/b&gt; jugular pulsation in the neck.">
+  <h3><span class="ti">🫀</span><span>Jugular venous distension <i class="aka">JVD</i></span></h3>
+  <div class="tmeta"><span class="tb c">NUR 258</span><span class="tb">M13 Cardiac</span><span class="tb s">🫀 Heart &amp; vessels</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Right-sided filling pressure - fluid overload, right heart failure, tamponade.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>Position the head of the bed at <b>30-45 degrees</b>.</li><li>Turn her head slightly away.</li><li>Use tangential lighting and look at the <b>internal</b> jugular pulsation in the neck.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>Visible distension more than about <b>3-4 cm above the sternal angle</b> at 45 degrees.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>The angle is the test. Flat, everyone has distended neck veins; sitting fully upright, almost nobody does. <b>JVD + muffled heart sounds + hypotension is Beck triad - cardiac tamponade.</b></p></div>
+  <a class="tmore" href="cardio/NG-178_cardiac-tamponade.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 258" data-mod="M13 Cardiac" data-sys="cardio" data-name="pulsus paradoxus" data-find="pulsus paradoxus  nur 258 m13 cardiac heart &amp; vessels cardiac tamponade, and severe asthma or copd. a drop of &lt;b&gt;more than 10 mmhg&lt;/b&gt; in systolic pressure on inspiration. the name is misleading - it is an exaggeration of something normal, not a reversal. inflate the cuff above systolic and deflate slowly. note the pressure where korotkoff sounds are heard only on &lt;b&gt;expiration&lt;/b&gt;. keep deflating to where they are heard through the &lt;b&gt;whole&lt;/b&gt; cycle. subtract.">
+  <h3><span class="ti">🫀</span><span>Pulsus paradoxus</span></h3>
+  <div class="tmeta"><span class="tb c">NUR 258</span><span class="tb">M13 Cardiac</span><span class="tb s">🫀 Heart &amp; vessels</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Cardiac tamponade, and severe asthma or COPD.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>Inflate the cuff above systolic and deflate slowly.</li><li>Note the pressure where Korotkoff sounds are heard only on <b>expiration</b>.</li><li>Keep deflating to where they are heard through the <b>whole</b> cycle. Subtract.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>A drop of <b>more than 10 mmHg</b> in systolic pressure on inspiration.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>The name is misleading - it is an exaggeration of something normal, not a reversal.</p></div>
+  <a class="tmore" href="cardio/NG-178_cardiac-tamponade.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 258" data-mod="M13 Vascular" data-sys="cardio" data-name="ankle-brachial index" data-find="ankle-brachial index abi nur 258 m13 vascular heart &amp; vessels arterial supply to the leg - peripheral arterial disease. normal &lt;b&gt;1.0-1.4&lt;/b&gt;. under &lt;b&gt;0.9&lt;/b&gt; is arterial disease; under &lt;b&gt;0.4&lt;/b&gt; is severe and limb-threatening. a falsely &lt;b&gt;high&lt;/b&gt; value (over 1.4) happens with calcified, non-compressible vessels in long-standing diabetes - a high number there is not reassurance. take the highest &lt;b&gt;ankle&lt;/b&gt; systolic pressure with a doppler. take the highest &lt;b&gt;brachial&lt;/b&gt; systolic pressure. divide ankle by brachial.">
+  <h3><span class="ti">🫀</span><span>Ankle-brachial index <i class="aka">ABI</i></span></h3>
+  <div class="tmeta"><span class="tb c">NUR 258</span><span class="tb">M13 Vascular</span><span class="tb s">🫀 Heart &amp; vessels</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Arterial supply to the leg - peripheral arterial disease.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>Take the highest <b>ankle</b> systolic pressure with a Doppler.</li><li>Take the highest <b>brachial</b> systolic pressure.</li><li>Divide ankle by brachial.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>Normal <b>1.0-1.4</b>. Under <b>0.9</b> is arterial disease; under <b>0.4</b> is severe and limb-threatening.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>A falsely <b>high</b> value (over 1.4) happens with calcified, non-compressible vessels in long-standing diabetes - a high number there is not reassurance.</p></div>
+  <a class="tmore" href="cardio/NG-045_pvd-patho-signs.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 125" data-mod="Head-to-toe" data-sys="resp" data-name="tactile fremitus" data-find="tactile fremitus vocal fremitus nur 125 head-to-toe lungs whether the lung underneath is solid, normal, or full of air or fluid. &lt;b&gt;increased&lt;/b&gt; over consolidation such as pneumonia; &lt;b&gt;decreased&lt;/b&gt; over pleural effusion, pneumothorax or emphysema. always compare left with right at the same level. absolute vibration varies hugely between people; the &lt;b&gt;asymmetry&lt;/b&gt; is the finding. place the &lt;b&gt;ulnar edge or ball&lt;/b&gt; of your hands on her back. ask her to say &lt;b&gt;&quot;ninety-nine&quot;&lt;/b&gt; each time you move. compare side to side, top to bottom, in a ladder.">
+  <h3><span class="ti">🫁</span><span>Tactile fremitus <i class="aka">Vocal fremitus</i></span></h3>
+  <div class="tmeta"><span class="tb c">NUR 125</span><span class="tb">Head-to-toe</span><span class="tb s">🫁 Lungs</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Whether the lung underneath is solid, normal, or full of air or fluid.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>Place the <b>ulnar edge or ball</b> of your hands on her back.</li><li>Ask her to say <b>"ninety-nine"</b> each time you move.</li><li>Compare side to side, top to bottom, in a ladder.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p><b>Increased</b> over consolidation such as pneumonia; <b>decreased</b> over pleural effusion, pneumothorax or emphysema.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>Always compare left with right at the same level. Absolute vibration varies hugely between people; the <b>asymmetry</b> is the finding.</p></div>
+  <a class="tmore" href="resp/NG-132_anatomy-of-breathing.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 125" data-mod="Head-to-toe" data-sys="resp" data-name="egophony, bronchophony, whispered pectoriloquy" data-find="egophony, bronchophony, whispered pectoriloquy the voice sounds nur 125 head-to-toe lungs consolidation - solid lung transmits voice better than air-filled lung. egophony: the &quot;eeee&quot; sounds like &lt;b&gt;&quot;ayyy&quot;&lt;/b&gt;. the other two: the words become unusually &lt;b&gt;loud and clear&lt;/b&gt; instead of muffled. all three say the same thing - &lt;b&gt;consolidation&lt;/b&gt;. egophony is the memorable one: &lt;b&gt;e turns to a&lt;/b&gt;. &lt;b&gt;egophony:&lt;/b&gt; she says &quot;eeee&quot; while you listen. &lt;b&gt;bronchophony:&lt;/b&gt; she says &quot;ninety-nine&quot; while you listen. &lt;b&gt;whispered pectoriloquy:&lt;/b&gt; she whispers &quot;one-two-three&quot; while you listen.">
+  <h3><span class="ti">🫁</span><span>Egophony, bronchophony, whispered pectoriloquy <i class="aka">The voice sounds</i></span></h3>
+  <div class="tmeta"><span class="tb c">NUR 125</span><span class="tb">Head-to-toe</span><span class="tb s">🫁 Lungs</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Consolidation - solid lung transmits voice better than air-filled lung.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li><b>Egophony:</b> she says "eeee" while you listen.</li><li><b>Bronchophony:</b> she says "ninety-nine" while you listen.</li><li><b>Whispered pectoriloquy:</b> she whispers "one-two-three" while you listen.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>Egophony: the "eeee" sounds like <b>"ayyy"</b>. The other two: the words become unusually <b>loud and clear</b> instead of muffled.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>All three say the same thing - <b>consolidation</b>. Egophony is the memorable one: <b>E turns to A</b>.</p></div>
+  <a class="tmore" href="resp/NG-170_key-terms-lung-sound-locations.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 258" data-mod="Respiratory" data-sys="resp" data-name="peak expiratory flow" data-find="peak expiratory flow peak flow nur 258 respiratory lungs how obstructed her airways are right now - asthma monitoring at home. compared with &lt;b&gt;her own personal best&lt;/b&gt;: green 80-100%, yellow 50-79%, red under 50%. her personal best, not a chart, is the reference. red zone means rescue inhaler and get help - it is not a &quot;watch and see&quot;. stand or sit upright, pointer at zero. deep breath in, tight seal on the mouthpiece. &lt;b&gt;blow out as hard and fast as possible.&lt;/b&gt; do it &lt;b&gt;three times&lt;/b&gt; and record the &lt;b&gt;best&lt;/b&gt;, not the average.">
+  <h3><span class="ti">🫁</span><span>Peak expiratory flow <i class="aka">Peak flow</i></span></h3>
+  <div class="tmeta"><span class="tb c">NUR 258</span><span class="tb">Respiratory</span><span class="tb s">🫁 Lungs</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>How obstructed her airways are right now - asthma monitoring at home.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>Stand or sit upright, pointer at zero.</li><li>Deep breath in, tight seal on the mouthpiece.</li><li><b>Blow out as hard and fast as possible.</b></li><li>Do it <b>three times</b> and record the <b>best</b>, not the average.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>Compared with <b>her own personal best</b>: green 80-100%, yellow 50-79%, red under 50%.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>Her personal best, not a chart, is the reference. Red zone means rescue inhaler and get help - it is not a "watch and see".</p></div>
+  <a class="tmore" href="resp/NG-102_beta-2-agonists.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 258" data-mod="M-GI" data-sys="gi" data-name="rebound tenderness" data-find="rebound tenderness blumberg&#x27;s sign nur 258 m-gi abdomen &amp; gi peritoneal irritation - peritonitis, a ruptured appendix. pain is &lt;b&gt;worse on release&lt;/b&gt; than on pressure. do it &lt;b&gt;last&lt;/b&gt; in the abdominal exam - it hurts, and it guards the rest of the assessment. order for the abdomen is &lt;b&gt;inspect, auscultate, percuss, palpate&lt;/b&gt;: listening comes before touching, because touching changes the bowel sounds. press slowly and deeply over the area. &lt;b&gt;release quickly.&lt;/b&gt; ask when it hurt more.">
+  <h3><span class="ti">🍽</span><span>Rebound tenderness <i class="aka">Blumberg&#x27;s sign</i></span></h3>
+  <div class="tmeta"><span class="tb c">NUR 258</span><span class="tb">M-GI</span><span class="tb s">🍽 Abdomen &amp; GI</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Peritoneal irritation - peritonitis, a ruptured appendix.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>Press slowly and deeply over the area.</li><li><b>Release quickly.</b></li><li>Ask when it hurt more.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>Pain is <b>worse on release</b> than on pressure.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>Do it <b>last</b> in the abdominal exam - it hurts, and it guards the rest of the assessment. Order for the abdomen is <b>inspect, auscultate, percuss, palpate</b>: listening comes before touching, because touching changes the bowel sounds.</p></div>
+  <a class="tmore" href="gi/NG-397_peritonitis.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 258" data-mod="M-GI" data-sys="gi" data-name="mcburney&#x27;s point" data-find="mcburney&#x27;s point  nur 258 m-gi abdomen &amp; gi appendicitis. sharp localised tenderness at that point, often after pain that started around the umbilicus and &lt;b&gt;migrated&lt;/b&gt;. &lt;b&gt;sudden relief of the pain is not good news&lt;/b&gt; - it can mean the appendix has ruptured, and peritonitis follows. no heat, no enemas, no laxatives. find the point &lt;b&gt;one third of the way from the right anterior superior iliac spine to the umbilicus&lt;/b&gt;. palpate gently there.">
+  <h3><span class="ti">🍽</span><span>McBurney&#x27;s point</span></h3>
+  <div class="tmeta"><span class="tb c">NUR 258</span><span class="tb">M-GI</span><span class="tb s">🍽 Abdomen &amp; GI</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Appendicitis.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>Find the point <b>one third of the way from the right anterior superior iliac spine to the umbilicus</b>.</li><li>Palpate gently there.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>Sharp localised tenderness at that point, often after pain that started around the umbilicus and <b>migrated</b>.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p><b>Sudden relief of the pain is not good news</b> - it can mean the appendix has ruptured, and peritonitis follows. No heat, no enemas, no laxatives.</p></div>
+  <a class="tmore" href="gi/NG-302_appendicitis.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 258" data-mod="M-GI" data-sys="gi" data-name="rovsing&#x27;s, psoas and obturator signs" data-find="rovsing&#x27;s, psoas and obturator signs  nur 258 m-gi abdomen &amp; gi appendicitis, when the picture is not obvious. rovsing: pain felt in the &lt;b&gt;right&lt;/b&gt; lower quadrant. psoas and obturator: right lower quadrant pain on the movement. rovsing is the counter-intuitive one - you press on the opposite side and it hurts where the appendix is. &lt;b&gt;rovsing:&lt;/b&gt; press on the &lt;b&gt;left&lt;/b&gt; lower quadrant. &lt;b&gt;psoas:&lt;/b&gt; she lies on her left side; you extend her right hip. &lt;b&gt;obturator:&lt;/b&gt; flex her right hip and knee, then internally rotate the hip.">
+  <h3><span class="ti">🍽</span><span>Rovsing&#x27;s, psoas and obturator signs</span></h3>
+  <div class="tmeta"><span class="tb c">NUR 258</span><span class="tb">M-GI</span><span class="tb s">🍽 Abdomen &amp; GI</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Appendicitis, when the picture is not obvious.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li><b>Rovsing:</b> press on the <b>left</b> lower quadrant.</li><li><b>Psoas:</b> she lies on her left side; you extend her right hip.</li><li><b>Obturator:</b> flex her right hip and knee, then internally rotate the hip.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>Rovsing: pain felt in the <b>right</b> lower quadrant. Psoas and obturator: right lower quadrant pain on the movement.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>Rovsing is the counter-intuitive one - you press on the opposite side and it hurts where the appendix is.</p></div>
+  <a class="tmore" href="gi/NG-302_appendicitis.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 258" data-mod="M-GI" data-sys="gi" data-name="murphy&#x27;s sign" data-find="murphy&#x27;s sign  nur 258 m-gi abdomen &amp; gi acute cholecystitis. she &lt;b&gt;stops the breath&lt;/b&gt; partway because it hurts - an inspiratory arrest. do not confuse it with &lt;b&gt;murphy’s punch&lt;/b&gt; (cva tenderness), which is the kidney. same name, different organ, different place. press under the &lt;b&gt;right costal margin&lt;/b&gt; at the mid-clavicular line. ask her to &lt;b&gt;take a deep breath in&lt;/b&gt;.">
+  <h3><span class="ti">🍽</span><span>Murphy&#x27;s sign</span></h3>
+  <div class="tmeta"><span class="tb c">NUR 258</span><span class="tb">M-GI</span><span class="tb s">🍽 Abdomen &amp; GI</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Acute cholecystitis.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>Press under the <b>right costal margin</b> at the mid-clavicular line.</li><li>Ask her to <b>take a deep breath in</b>.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>She <b>stops the breath</b> partway because it hurts - an inspiratory arrest.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>Do not confuse it with <b>Murphy’s punch</b> (CVA tenderness), which is the kidney. Same name, different organ, different place.</p></div>
+  <a class="tmore" href="gi/NG-179_cholecystitis.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 258" data-mod="M-GI" data-sys="gi" data-name="cullen&#x27;s and grey turner&#x27;s signs" data-find="cullen&#x27;s and grey turner&#x27;s signs  nur 258 m-gi abdomen &amp; gi retroperitoneal bleeding - most often severe haemorrhagic pancreatitis. &lt;b&gt;cullen:&lt;/b&gt; bruising around the umbilicus. &lt;b&gt;grey turner:&lt;/b&gt; bruising along the flanks. these are &lt;b&gt;late and ominous&lt;/b&gt;. they are inspection findings - you get them by looking, which is why inspection comes first. inspect the abdomen with good light. look &lt;b&gt;around the umbilicus&lt;/b&gt; and at &lt;b&gt;both flanks&lt;/b&gt;.">
+  <h3><span class="ti">🍽</span><span>Cullen&#x27;s and Grey Turner&#x27;s signs</span></h3>
+  <div class="tmeta"><span class="tb c">NUR 258</span><span class="tb">M-GI</span><span class="tb s">🍽 Abdomen &amp; GI</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Retroperitoneal bleeding - most often severe haemorrhagic pancreatitis.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>Inspect the abdomen with good light.</li><li>Look <b>around the umbilicus</b> and at <b>both flanks</b>.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p><b>Cullen:</b> bruising around the umbilicus. <b>Grey Turner:</b> bruising along the flanks.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>These are <b>late and ominous</b>. They are inspection findings - you get them by looking, which is why inspection comes first.</p></div>
+  <a class="tmore" href="gi/NG-159_pancreatitis.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 258" data-mod="M-GI" data-sys="gi" data-name="fluid wave and shifting dullness" data-find="fluid wave and shifting dullness  nur 258 m-gi abdomen &amp; gi ascites - free fluid in the abdomen. fluid wave: a distinct impulse reaches your other hand. shifting dullness: the dull border &lt;b&gt;moves&lt;/b&gt; when she rolls. the midline hand stops the impulse travelling through fat rather than fluid - without it the test fools you. ascites belongs with &lt;b&gt;cirrhosis&lt;/b&gt;: low albumin, high portal pressure. &lt;b&gt;fluid wave:&lt;/b&gt; she (or a second person) presses the ulnar edge of a hand down the midline; you tap one flank and feel the other. &lt;b&gt;shifting dullness:&lt;/b&gt; percuss from resonant to dull with her supine, mark it, roll her to one side and percuss again.">
+  <h3><span class="ti">🍽</span><span>Fluid wave and shifting dullness</span></h3>
+  <div class="tmeta"><span class="tb c">NUR 258</span><span class="tb">M-GI</span><span class="tb s">🍽 Abdomen &amp; GI</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Ascites - free fluid in the abdomen.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li><b>Fluid wave:</b> she (or a second person) presses the ulnar edge of a hand down the midline; you tap one flank and feel the other.</li><li><b>Shifting dullness:</b> percuss from resonant to dull with her supine, mark it, roll her to one side and percuss again.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>Fluid wave: a distinct impulse reaches your other hand. Shifting dullness: the dull border <b>moves</b> when she rolls.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>The midline hand stops the impulse travelling through fat rather than fluid - without it the test fools you. Ascites belongs with <b>cirrhosis</b>: low albumin, high portal pressure.</p></div>
+  <a class="tmore" href="more/NG-029_cirrhosis-1.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 258" data-mod="Renal" data-sys="renal" data-name="cva tenderness" data-find="cva tenderness murphy&#x27;s punch / kidney punch nur 258 renal kidney &amp; urinary kidney inflammation - pyelonephritis or a stone. sharp pain over the kidney, rather than the thud she should feel. one firm tap, not repeated blows. &lt;b&gt;flank pain + fever + a positive urine culture is pyelonephritis&lt;/b&gt;, not a simple uti. she sits up. place one palm flat over the &lt;b&gt;costovertebral angle&lt;/b&gt; - where the twelfth rib meets the spine. strike the back of that hand once with the ulnar side of your fist.">
+  <h3><span class="ti">🚰</span><span>CVA tenderness <i class="aka">Murphy&#x27;s punch / kidney punch</i></span></h3>
+  <div class="tmeta"><span class="tb c">NUR 258</span><span class="tb">Renal</span><span class="tb s">🚰 Kidney &amp; urinary</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Kidney inflammation - pyelonephritis or a stone.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>She sits up.</li><li>Place one palm flat over the <b>costovertebral angle</b> - where the twelfth rib meets the spine.</li><li>Strike the back of that hand once with the ulnar side of your fist.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>Sharp pain over the kidney, rather than the thud she should feel.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>One firm tap, not repeated blows. <b>Flank pain + fever + a positive urine culture is pyelonephritis</b>, not a simple UTI.</p></div>
+  <a class="tmore" href="renal/NG-275_uti-pyelonephritis.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 125" data-mod="Procedures" data-sys="renal" data-name="post-void residual" data-find="post-void residual bladder scan nur 125 procedures kidney &amp; urinary whether she is emptying her bladder - retention, and bph. more than about &lt;b&gt;100 ml&lt;/b&gt; left behind suggests incomplete emptying; large volumes mean retention. do it &lt;b&gt;straight after&lt;/b&gt; she voids - wait too long and the kidneys have refilled the bladder, and you measure new urine as if it were residual. ask her to void normally, and measure it if you can. &lt;b&gt;within about 10 minutes&lt;/b&gt;, scan the bladder (or catheterise if ordered).">
+  <h3><span class="ti">🚰</span><span>Post-void residual <i class="aka">Bladder scan</i></span></h3>
+  <div class="tmeta"><span class="tb c">NUR 125</span><span class="tb">Procedures</span><span class="tb s">🚰 Kidney &amp; urinary</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Whether she is emptying her bladder - retention, and BPH.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>Ask her to void normally, and measure it if you can.</li><li><b>Within about 10 minutes</b>, scan the bladder (or catheterise if ordered).</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>More than about <b>100 mL</b> left behind suggests incomplete emptying; large volumes mean retention.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>Do it <b>straight after</b> she voids - wait too long and the kidneys have refilled the bladder, and you measure new urine as if it were residual.</p></div>
+  <a class="tmore" href="renal/NG-052_urinary-retention-bph.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 258" data-mod="Musculoskeletal" data-sys="musc" data-name="phalen&#x27;s test" data-find="phalen&#x27;s test wrist flexion test nur 258 musculoskeletal bones, joints &amp; nerves carpal tunnel syndrome - median nerve compression. numbness or tingling in the &lt;b&gt;thumb, index, middle and half the ring finger&lt;/b&gt; - the median nerve distribution. the little finger is &lt;b&gt;not&lt;/b&gt; median territory. numbness there points somewhere else, usually the ulnar nerve. have her press the &lt;b&gt;backs of both hands together&lt;/b&gt; with the wrists fully flexed, fingers pointing down. hold for &lt;b&gt;60 seconds&lt;/b&gt;.">
+  <h3><span class="ti">🦴</span><span>Phalen&#x27;s test <i class="aka">Wrist flexion test</i></span></h3>
+  <div class="tmeta"><span class="tb c">NUR 258</span><span class="tb">Musculoskeletal</span><span class="tb s">🦴 Bones, joints &amp; nerves</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Carpal tunnel syndrome - median nerve compression.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>Have her press the <b>backs of both hands together</b> with the wrists fully flexed, fingers pointing down.</li><li>Hold for <b>60 seconds</b>.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>Numbness or tingling in the <b>thumb, index, middle and half the ring finger</b> - the median nerve distribution.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>The little finger is <b>not</b> median territory. Numbness there points somewhere else, usually the ulnar nerve.</p></div>
+  <a class="tmore" href="musc/NG-219_rotator-cuff-injury.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 258" data-mod="Musculoskeletal" data-sys="musc" data-name="tinel&#x27;s sign" data-find="tinel&#x27;s sign  nur 258 musculoskeletal bones, joints &amp; nerves carpal tunnel syndrome - the same nerve, a different provocation. tingling or an electric shock shooting into the median-nerve fingers. phalen bends it, tinel taps it. both point at the same nerve, and neither is a diagnosis on its own - nerve conduction studies settle it. &lt;b&gt;tap lightly over the median nerve&lt;/b&gt; on the palmar side of the wrist, at the carpal tunnel.">
+  <h3><span class="ti">🦴</span><span>Tinel&#x27;s sign</span></h3>
+  <div class="tmeta"><span class="tb c">NUR 258</span><span class="tb">Musculoskeletal</span><span class="tb s">🦴 Bones, joints &amp; nerves</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Carpal tunnel syndrome - the same nerve, a different provocation.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li><b>Tap lightly over the median nerve</b> on the palmar side of the wrist, at the carpal tunnel.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>Tingling or an electric shock shooting into the median-nerve fingers.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>Phalen bends it, Tinel taps it. Both point at the same nerve, and neither is a diagnosis on its own - nerve conduction studies settle it.</p></div>
+  <a class="tmore" href="musc/NG-219_rotator-cuff-injury.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 258" data-mod="Musculoskeletal" data-sys="musc" data-name="straight leg raise" data-find="straight leg raise lasegue test nur 258 musculoskeletal bones, joints &amp; nerves sciatic nerve root irritation - a herniated lumbar disc. radiating pain &lt;b&gt;down the back of the leg below the knee&lt;/b&gt; between about &lt;b&gt;30 and 70 degrees&lt;/b&gt;. back pain alone is not a positive. it has to &lt;b&gt;radiate down the leg&lt;/b&gt;, which is what separates a nerve root from a muscle strain. she lies flat. keep the knee straight and &lt;b&gt;slowly raise the leg&lt;/b&gt; by the heel.">
+  <h3><span class="ti">🦴</span><span>Straight leg raise <i class="aka">Lasegue test</i></span></h3>
+  <div class="tmeta"><span class="tb c">NUR 258</span><span class="tb">Musculoskeletal</span><span class="tb s">🦴 Bones, joints &amp; nerves</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Sciatic nerve root irritation - a herniated lumbar disc.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>She lies flat.</li><li>Keep the knee straight and <b>slowly raise the leg</b> by the heel.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>Radiating pain <b>down the back of the leg below the knee</b> between about <b>30 and 70 degrees</b>.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>Back pain alone is not a positive. It has to <b>radiate down the leg</b>, which is what separates a nerve root from a muscle strain.</p></div>
+  <a class="tmore" href="musc/NG-056_fracture.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 258" data-mod="Musculoskeletal" data-sys="musc" data-name="the 6 p&#x27;s" data-find="the 6 p&#x27;s compartment syndrome check nur 258 musculoskeletal bones, joints &amp; nerves compartment syndrome in a limb - after a fracture, a cast, or a crush injury. pain out of proportion to the injury, and pain when you passively stretch the muscles, are the &lt;b&gt;earliest&lt;/b&gt; findings. &lt;b&gt;do not wait for a lost pulse.&lt;/b&gt; pulselessness is last and by then the muscle is dying. elevate no higher than the heart and never ice it - both reduce perfusion further. a cast gets bivalved. check the limb distal to the injury for each in turn: &lt;b&gt;pain&lt;/b&gt; out of proportion, and pain on &lt;b&gt;passive stretch&lt;/b&gt; &lt;b&gt;pressure&lt;/b&gt; - the compartment feels tight and full &lt;b&gt;paraesthesia&lt;/b&gt;, then &lt;b&gt;pallor&lt;/b&gt;, then &lt;b&gt;paralysis&lt;/b&gt;, and last &lt;b&gt;pulselessness&lt;/b&gt;">
+  <h3><span class="ti">🦴</span><span>The 6 P&#x27;s <i class="aka">Compartment syndrome check</i></span></h3>
+  <div class="tmeta"><span class="tb c">NUR 258</span><span class="tb">Musculoskeletal</span><span class="tb s">🦴 Bones, joints &amp; nerves</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Compartment syndrome in a limb - after a fracture, a cast, or a crush injury.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>Check the limb distal to the injury for each in turn:</li><li><b>Pain</b> out of proportion, and pain on <b>passive stretch</b></li><li><b>Pressure</b> - the compartment feels tight and full</li><li><b>Paraesthesia</b>, then <b>Pallor</b>, then <b>Paralysis</b>, and last <b>Pulselessness</b></li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>Pain out of proportion to the injury, and pain when you passively stretch the muscles, are the <b>earliest</b> findings.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p><b>Do not wait for a lost pulse.</b> Pulselessness is last and by then the muscle is dying. Elevate no higher than the heart and never ice it - both reduce perfusion further. A cast gets bivalved.</p></div>
+  <a class="tmore" href="musc/NG-388_compartment-syndrome.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 235" data-mod="Musculoskeletal" data-sys="musc" data-name="trendelenburg gait test" data-find="trendelenburg gait test  nur 235 musculoskeletal bones, joints &amp; nerves hip abductor weakness, and developmental dysplasia of the hip in an older child. the pelvis &lt;b&gt;drops on the side of the lifted leg&lt;/b&gt; - the standing hip cannot hold it level. watch the hip that is &lt;b&gt;off&lt;/b&gt; the ground, not the one bearing weight. it is the standing side that is weak. ask her to stand on one leg. watch the &lt;b&gt;opposite&lt;/b&gt; side of the pelvis.">
+  <h3><span class="ti">🦴</span><span>Trendelenburg gait test</span></h3>
+  <div class="tmeta"><span class="tb c">NUR 235</span><span class="tb">Musculoskeletal</span><span class="tb s">🦴 Bones, joints &amp; nerves</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Hip abductor weakness, and developmental dysplasia of the hip in an older child.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>Ask her to stand on one leg.</li><li>Watch the <b>opposite</b> side of the pelvis.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>The pelvis <b>drops on the side of the lifted leg</b> - the standing hip cannot hold it level.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>Watch the hip that is <b>off</b> the ground, not the one bearing weight. It is the standing side that is weak.</p></div>
+  <a class="tmore" href="musc/NG-348_pediatric-musculoskeletal.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 234" data-mod="Antepartum" data-sys="ob" data-name="leopold&#x27;s manoeuvres" data-find="leopold&#x27;s manoeuvres  nur 234 antepartum maternity fetal &lt;b&gt;lie, presentation, position and engagement&lt;/b&gt; by feel, before you place the monitor. you end up able to say where the fetal &lt;b&gt;back&lt;/b&gt; is - and that is where the fetal heart is best heard. bladder empty first, and do not leave her flat for long - supine hypotension. manoeuvre 4 is the only one where you face her &lt;b&gt;feet&lt;/b&gt;. have her empty her bladder and lie supine with knees slightly bent, a wedge under the right hip. &lt;b&gt;1. fundal grip&lt;/b&gt; - what is in the top? buttocks are soft and irregular; the head is hard and round. &lt;b&gt;2. umbilical grip&lt;/b&gt; - which side is the smooth firm back, which is the knobbly small parts? &lt;b&gt;3. pawlik grip&lt;/b&gt; - grasp just above the symphysis: what is presenting, and does it move? &lt;b&gt;4. pelvic grip&lt;/b&gt; - fingers down towards the pelvis: is it engaged?">
+  <h3><span class="ti">🤰</span><span>Leopold&#x27;s manoeuvres</span></h3>
+  <div class="tmeta"><span class="tb c">NUR 234</span><span class="tb">Antepartum</span><span class="tb s">🤰 Maternity</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Fetal <b>lie, presentation, position and engagement</b> by feel, before you place the monitor.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>Have her empty her bladder and lie supine with knees slightly bent, a wedge under the right hip.</li><li><b>1. Fundal grip</b> - what is in the top? Buttocks are soft and irregular; the head is hard and round.</li><li><b>2. Umbilical grip</b> - which side is the smooth firm back, which is the knobbly small parts?</li><li><b>3. Pawlik grip</b> - grasp just above the symphysis: what is presenting, and does it move?</li><li><b>4. Pelvic grip</b> - fingers down towards the pelvis: is it engaged?</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>You end up able to say where the fetal <b>back</b> is - and that is where the fetal heart is best heard.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>Bladder empty first, and do not leave her flat for long - supine hypotension. Manoeuvre 4 is the only one where you face her <b>feet</b>.</p></div>
+  <a class="tmore" href="more/NG-331_prenatal-assessment.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 234" data-mod="Intrapartum" data-sys="ob" data-name="nitrazine and fern tests" data-find="nitrazine and fern tests  nur 234 intrapartum maternity whether the membranes have actually ruptured. nitrazine turns &lt;b&gt;blue&lt;/b&gt; (ph 6.5-7.5) - amniotic fluid is alkaline, urine is acidic. fern shows a &lt;b&gt;fern-leaf crystal pattern&lt;/b&gt;. blood, semen and bacterial vaginosis all raise the ph and give a &lt;b&gt;false positive&lt;/b&gt; nitrazine. ferning is the more specific of the two. once membranes rupture, the first things to check are the &lt;b&gt;fetal heart rate&lt;/b&gt; and the &lt;b&gt;colour of the fluid&lt;/b&gt; - and the risk is cord prolapse. &lt;b&gt;nitrazine:&lt;/b&gt; touch the paper to the fluid in the vagina. &lt;b&gt;fern:&lt;/b&gt; smear fluid on a slide, let it air-dry, look under the microscope.">
+  <h3><span class="ti">🤰</span><span>Nitrazine and fern tests</span></h3>
+  <div class="tmeta"><span class="tb c">NUR 234</span><span class="tb">Intrapartum</span><span class="tb s">🤰 Maternity</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Whether the membranes have actually ruptured.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li><b>Nitrazine:</b> touch the paper to the fluid in the vagina.</li><li><b>Fern:</b> smear fluid on a slide, let it air-dry, look under the microscope.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>Nitrazine turns <b>blue</b> (pH 6.5-7.5) - amniotic fluid is alkaline, urine is acidic. Fern shows a <b>fern-leaf crystal pattern</b>.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>Blood, semen and bacterial vaginosis all raise the pH and give a <b>false positive</b> nitrazine. Ferning is the more specific of the two. Once membranes rupture, the first things to check are the <b>fetal heart rate</b> and the <b>colour of the fluid</b> - and the risk is cord prolapse.</p></div>
+  <a class="tmore" href="more/NG-376_rom-induction-operative-birth.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 234" data-mod="Antepartum" data-sys="ob" data-name="fundal height" data-find="fundal height mcdonald measurement nur 234 antepartum maternity fetal growth and dating between about 18 and 36 weeks. from about 18-36 weeks the measurement in centimetres roughly &lt;b&gt;equals the weeks of gestation&lt;/b&gt;, give or take 2. a fundal height well &lt;b&gt;ahead&lt;/b&gt; suggests multiples, polyhydramnios or a big baby; well &lt;b&gt;behind&lt;/b&gt; suggests growth restriction or oligohydramnios. postpartum the fundus should be firm, midline, and descend about a fingerbreadth a day - &lt;b&gt;boggy means massage&lt;/b&gt;. empty bladder, lie supine. measure in &lt;b&gt;centimetres from the top of the symphysis pubis over the curve of the abdomen to the top of the fundus&lt;/b&gt;.">
+  <h3><span class="ti">🤰</span><span>Fundal height <i class="aka">McDonald measurement</i></span></h3>
+  <div class="tmeta"><span class="tb c">NUR 234</span><span class="tb">Antepartum</span><span class="tb s">🤰 Maternity</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Fetal growth and dating between about 18 and 36 weeks.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>Empty bladder, lie supine.</li><li>Measure in <b>centimetres from the top of the symphysis pubis over the curve of the abdomen to the top of the fundus</b>.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>From about 18-36 weeks the measurement in centimetres roughly <b>equals the weeks of gestation</b>, give or take 2.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>A fundal height well <b>ahead</b> suggests multiples, polyhydramnios or a big baby; well <b>behind</b> suggests growth restriction or oligohydramnios. Postpartum the fundus should be firm, midline, and descend about a fingerbreadth a day - <b>boggy means massage</b>.</p></div>
+  <a class="tmore" href="more/NG-331_prenatal-assessment.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 234" data-mod="Antepartum" data-sys="ob" data-name="non-stress test" data-find="non-stress test nst nur 234 antepartum maternity fetal wellbeing - does the heart rate accelerate when the baby moves? &lt;b&gt;reactive&lt;/b&gt; (the result you want): &lt;b&gt;2 or more accelerations&lt;/b&gt; of 15 bpm above baseline lasting 15 seconds, in 20 minutes. &lt;b&gt;non-reactive&lt;/b&gt; means further testing. the vocabulary is backwards from most tests: &lt;b&gt;reactive is good, non-reactive is the worry&lt;/b&gt;. a sleeping fetus is the commonest reason for non-reactive, so the test gets extended or the baby stimulated. semi-fowler with a left tilt; external monitors on. record for &lt;b&gt;20-40 minutes&lt;/b&gt;.">
+  <h3><span class="ti">🤰</span><span>Non-stress test <i class="aka">NST</i></span></h3>
+  <div class="tmeta"><span class="tb c">NUR 234</span><span class="tb">Antepartum</span><span class="tb s">🤰 Maternity</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Fetal wellbeing - does the heart rate accelerate when the baby moves?</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>Semi-Fowler with a left tilt; external monitors on.</li><li>Record for <b>20-40 minutes</b>.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p><b>Reactive</b> (the result you want): <b>2 or more accelerations</b> of 15 bpm above baseline lasting 15 seconds, in 20 minutes. <b>Non-reactive</b> means further testing.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>The vocabulary is backwards from most tests: <b>reactive is good, non-reactive is the worry</b>. A sleeping fetus is the commonest reason for non-reactive, so the test gets extended or the baby stimulated.</p></div>
+  <a class="tmore" href="more/NG-323_fetal-monitoring.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 234" data-mod="Newborn" data-sys="peds" data-name="apgar score" data-find="apgar score  nur 234 newborn newborn &amp; child how the newborn is adapting, at &lt;b&gt;1 and 5 minutes&lt;/b&gt;. &lt;b&gt;7-10&lt;/b&gt; reassuring; &lt;b&gt;4-6&lt;/b&gt; moderate difficulty, needs support; &lt;b&gt;0-3&lt;/b&gt; needs resuscitation now. apgar &lt;b&gt;does not decide whether to resuscitate&lt;/b&gt; - you do not wait a minute to start. it scores the response. acrocyanosis (blue hands and feet) is normal and still costs a colour point. score 0, 1 or 2 for each of five: &lt;b&gt;appearance&lt;/b&gt; (colour), &lt;b&gt;pulse&lt;/b&gt;, &lt;b&gt;grimace&lt;/b&gt; (reflex irritability), &lt;b&gt;activity&lt;/b&gt; (tone), &lt;b&gt;respiration&lt;/b&gt;. add them - the range is &lt;b&gt;0 to 10&lt;/b&gt;.">
+  <h3><span class="ti">🧸</span><span>Apgar score</span></h3>
+  <div class="tmeta"><span class="tb c">NUR 234</span><span class="tb">Newborn</span><span class="tb s">🧸 Newborn &amp; child</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>How the newborn is adapting, at <b>1 and 5 minutes</b>.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>Score 0, 1 or 2 for each of five: <b>Appearance</b> (colour), <b>Pulse</b>, <b>Grimace</b> (reflex irritability), <b>Activity</b> (tone), <b>Respiration</b>.</li><li>Add them - the range is <b>0 to 10</b>.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p><b>7-10</b> reassuring; <b>4-6</b> moderate difficulty, needs support; <b>0-3</b> needs resuscitation now.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>Apgar <b>does not decide whether to resuscitate</b> - you do not wait a minute to start. It scores the response. Acrocyanosis (blue hands and feet) is normal and still costs a colour point.</p></div>
+  <a class="tmore" href="more/NG-325_apgar-newborn-assessment.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 235" data-mod="Newborn" data-sys="peds" data-name="ortolani and barlow manoeuvres" data-find="ortolani and barlow manoeuvres  nur 235 newborn newborn &amp; child developmental dysplasia of the hip in a newborn. a palpable &lt;b&gt;clunk&lt;/b&gt; in either direction. also look for &lt;b&gt;asymmetric thigh skin folds&lt;/b&gt; and unequal knee height (galeazzi). ortolani puts it &lt;b&gt;in&lt;/b&gt;, barlow pushes it &lt;b&gt;out&lt;/b&gt;. do it gently and only by someone trained - repeated forceful testing damages the joint. treatment is a &lt;b&gt;pavlik harness&lt;/b&gt;. baby relaxed and supine, hips and knees flexed. &lt;b&gt;ortolani:&lt;/b&gt; abduct the hips and lift the femur forward - you are trying to &lt;b&gt;relocate&lt;/b&gt; a dislocated hip. &lt;b&gt;barlow:&lt;/b&gt; adduct and press gently back - you are trying to &lt;b&gt;dislocate&lt;/b&gt; a loose one.">
+  <h3><span class="ti">🧸</span><span>Ortolani and Barlow manoeuvres</span></h3>
+  <div class="tmeta"><span class="tb c">NUR 235</span><span class="tb">Newborn</span><span class="tb s">🧸 Newborn &amp; child</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Developmental dysplasia of the hip in a newborn.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>Baby relaxed and supine, hips and knees flexed.</li><li><b>Ortolani:</b> abduct the hips and lift the femur forward - you are trying to <b>relocate</b> a dislocated hip.</li><li><b>Barlow:</b> adduct and press gently back - you are trying to <b>dislocate</b> a loose one.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>A palpable <b>clunk</b> in either direction. Also look for <b>asymmetric thigh skin folds</b> and unequal knee height (Galeazzi).</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>Ortolani puts it <b>in</b>, Barlow pushes it <b>out</b>. Do it gently and only by someone trained - repeated forceful testing damages the joint. Treatment is a <b>Pavlik harness</b>.</p></div>
+  <a class="tmore" href="musc/NG-348_pediatric-musculoskeletal.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 235" data-mod="Newborn" data-sys="peds" data-name="newborn reflexes" data-find="newborn reflexes moro, rooting, grasp, tonic neck, stepping,  babinski nur 235 newborn newborn &amp; child an intact newborn nervous system - and their disappearance on schedule is just as important. present when they should be, and &lt;b&gt;gone&lt;/b&gt; when they should be. a reflex that &lt;b&gt;persists past its age&lt;/b&gt; is as abnormal as one that never appeared - it suggests a neurological problem. an &lt;b&gt;asymmetric moro&lt;/b&gt; points to a fractured clavicle or brachial plexus injury. &lt;b&gt;moro:&lt;/b&gt; a sudden controlled drop of the head - arms abduct then embrace. gone by &lt;b&gt;4-6 months&lt;/b&gt;. &lt;b&gt;rooting:&lt;/b&gt; stroke the cheek - head turns towards it. gone by &lt;b&gt;3-4 months&lt;/b&gt;. &lt;b&gt;palmar grasp:&lt;/b&gt; press the palm - fingers curl. gone by &lt;b&gt;3-4 months&lt;/b&gt;. &lt;b&gt;tonic neck (fencing):&lt;/b&gt; turn the head - same-side arm extends. gone by &lt;b&gt;3-4 months&lt;/b&gt;. &lt;b&gt;stepping:&lt;/b&gt; hold upright with feet touching - stepping motion. gone by &lt;b&gt;4 weeks&lt;/b&gt;.">
+  <h3><span class="ti">🧸</span><span>Newborn reflexes <i class="aka">Moro, rooting, grasp, tonic neck, stepping,  Babinski</i></span></h3>
+  <div class="tmeta"><span class="tb c">NUR 235</span><span class="tb">Newborn</span><span class="tb s">🧸 Newborn &amp; child</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>An intact newborn nervous system - and their disappearance on schedule is just as important.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li><b>Moro:</b> a sudden controlled drop of the head - arms abduct then embrace. Gone by <b>4-6 months</b>.</li><li><b>Rooting:</b> stroke the cheek - head turns towards it. Gone by <b>3-4 months</b>.</li><li><b>Palmar grasp:</b> press the palm - fingers curl. Gone by <b>3-4 months</b>.</li><li><b>Tonic neck (fencing):</b> turn the head - same-side arm extends. Gone by <b>3-4 months</b>.</li><li><b>Stepping:</b> hold upright with feet touching - stepping motion. Gone by <b>4 weeks</b>.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>Present when they should be, and <b>gone</b> when they should be.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>A reflex that <b>persists past its age</b> is as abnormal as one that never appeared - it suggests a neurological problem. An <b>asymmetric Moro</b> points to a fractured clavicle or brachial plexus injury.</p></div>
+  <a class="tmore" href="core/NG-349_growth-development.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 234" data-mod="Newborn" data-sys="peds" data-name="ballard score" data-find="ballard score new ballard nur 234 newborn newborn &amp; child gestational age from physical and neuromuscular maturity, when dates are uncertain. a gestational age in weeks, which is then plotted against weight to classify the baby sga, aga or lga. do it within the &lt;b&gt;first 12 hours or so&lt;/b&gt; - the neuromuscular findings change as the baby recovers from birth. score six &lt;b&gt;neuromuscular&lt;/b&gt; items (posture, square window, arm recoil, popliteal angle, scarf sign, heel to ear). score six &lt;b&gt;physical&lt;/b&gt; items (skin, lanugo, plantar surface, breast, eye/ear, genitals). add and read the age off the maturity chart.">
+  <h3><span class="ti">🧸</span><span>Ballard score <i class="aka">New Ballard</i></span></h3>
+  <div class="tmeta"><span class="tb c">NUR 234</span><span class="tb">Newborn</span><span class="tb s">🧸 Newborn &amp; child</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Gestational age from physical and neuromuscular maturity, when dates are uncertain.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>Score six <b>neuromuscular</b> items (posture, square window, arm recoil, popliteal angle, scarf sign, heel to ear).</li><li>Score six <b>physical</b> items (skin, lanugo, plantar surface, breast, eye/ear, genitals).</li><li>Add and read the age off the maturity chart.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>A gestational age in weeks, which is then plotted against weight to classify the baby SGA, AGA or LGA.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>Do it within the <b>first 12 hours or so</b> - the neuromuscular findings change as the baby recovers from birth.</p></div>
+  <a class="tmore" href="more/NG-336_high-risk-newborn.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 235" data-mod="Assessment" data-sys="peds" data-name="paediatric vital sign assessment" data-find="paediatric vital sign assessment  nur 235 assessment newborn &amp; child age-appropriate baselines - the numbers move a long way between a newborn and a teenager. compared against the range &lt;b&gt;for that age&lt;/b&gt;, not the adult range. least invasive first, most invasive last, and keep the child on the parent’s lap where you can. a crying child’s respiratory rate and heart rate are not usable. count &lt;b&gt;respirations first&lt;/b&gt;, while the child is quiet, for a &lt;b&gt;full minute&lt;/b&gt;. then apical &lt;b&gt;pulse for a full minute&lt;/b&gt; in a child under 2. do the &lt;b&gt;blood pressure and temperature last&lt;/b&gt; - they are the most upsetting. use a cuff covering about &lt;b&gt;two thirds of the upper arm&lt;/b&gt;.">
+  <h3><span class="ti">🧸</span><span>Paediatric vital sign assessment</span></h3>
+  <div class="tmeta"><span class="tb c">NUR 235</span><span class="tb">Assessment</span><span class="tb s">🧸 Newborn &amp; child</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Age-appropriate baselines - the numbers move a long way between a newborn and a teenager.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>Count <b>respirations first</b>, while the child is quiet, for a <b>full minute</b>.</li><li>Then apical <b>pulse for a full minute</b> in a child under 2.</li><li>Do the <b>blood pressure and temperature last</b> - they are the most upsetting.</li><li>Use a cuff covering about <b>two thirds of the upper arm</b>.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>Compared against the range <b>for that age</b>, not the adult range.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>Least invasive first, most invasive last, and keep the child on the parent’s lap where you can. A crying child’s respiratory rate and heart rate are not usable.</p></div>
+  <a class="tmore" href="peds/NG-409_pediatric-vitals-and-assessment.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 125" data-mod="Head-to-toe" data-sys="integ" data-name="skin turgor" data-find="skin turgor  nur 125 head-to-toe skin &amp; wounds hydration - though it is a rough guide, not proof. skin that stays &lt;b&gt;tented&lt;/b&gt; instead of falling straight back. use the &lt;b&gt;sternum&lt;/b&gt;, not the back of the hand - the hand loses elasticity with age and gives a false positive in every older adult. read it with mucous membranes, urine output and weight. pinch a fold of skin over the &lt;b&gt;sternum or forehead&lt;/b&gt; in an adult, or the abdomen in a child. release and watch it.">
+  <h3><span class="ti">🩹</span><span>Skin turgor</span></h3>
+  <div class="tmeta"><span class="tb c">NUR 125</span><span class="tb">Head-to-toe</span><span class="tb s">🩹 Skin &amp; wounds</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Hydration - though it is a rough guide, not proof.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>Pinch a fold of skin over the <b>sternum or forehead</b> in an adult, or the abdomen in a child.</li><li>Release and watch it.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>Skin that stays <b>tented</b> instead of falling straight back.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>Use the <b>sternum</b>, not the back of the hand - the hand loses elasticity with age and gives a false positive in every older adult. Read it with mucous membranes, urine output and weight.</p></div>
+  <a class="tmore" href="renal/NG-191_fluid-volume-deficit.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 125" data-mod="Pressure injury" data-sys="integ" data-name="braden scale" data-find="braden scale  nur 125 pressure injury skin &amp; wounds risk of developing a pressure injury. total &lt;b&gt;6 to 23&lt;/b&gt;. &lt;b&gt;lower is worse&lt;/b&gt; - 18 or under is generally the point at which prevention starts. the scale that runs the opposite way to most: a low braden is the client at risk. it is a prompt to act - turning schedule, surface, moisture, nutrition - not just a number to chart. score six areas: &lt;b&gt;sensory perception, moisture, activity, mobility, nutrition, and friction/shear&lt;/b&gt;. five of them score 1-4; friction/shear scores 1-3.">
+  <h3><span class="ti">🩹</span><span>Braden scale</span></h3>
+  <div class="tmeta"><span class="tb c">NUR 125</span><span class="tb">Pressure injury</span><span class="tb s">🩹 Skin &amp; wounds</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Risk of developing a pressure injury.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>Score six areas: <b>sensory perception, moisture, activity, mobility, nutrition, and friction/shear</b>.</li><li>Five of them score 1-4; friction/shear scores 1-3.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>Total <b>6 to 23</b>. <b>Lower is worse</b> - 18 or under is generally the point at which prevention starts.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>The scale that runs the opposite way to most: a low Braden is the client at risk. It is a prompt to act - turning schedule, surface, moisture, nutrition - not just a number to chart.</p></div>
+  <a class="tmore" href="skin/NG-044_pressure-injuries.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 258" data-mod="M4 Burns" data-sys="integ" data-name="rule of nines" data-find="rule of nines lund-browder for children nur 258 m4 burns skin &amp; wounds how much body surface is burned - which drives the fluid resuscitation. a percentage that feeds the &lt;b&gt;parkland formula&lt;/b&gt;: 4 ml x kg x %tbsa, &lt;b&gt;half in the first 8 hours&lt;/b&gt; from the time of the &lt;b&gt;burn&lt;/b&gt;, the rest over 16. the clock starts at the &lt;b&gt;injury&lt;/b&gt;, not at arrival. a child’s head is proportionally much bigger, which is why children get the &lt;b&gt;lund-browder&lt;/b&gt; chart instead. count only &lt;b&gt;partial and full thickness&lt;/b&gt; burns, never superficial ones. adult: head 9, each arm 9, each leg 18, front torso 18, back torso 18, perineum 1. use the client’s &lt;b&gt;palm ≈ 1%&lt;/b&gt; for scattered patches.">
+  <h3><span class="ti">🩹</span><span>Rule of Nines <i class="aka">Lund-Browder for children</i></span></h3>
+  <div class="tmeta"><span class="tb c">NUR 258</span><span class="tb">M4 Burns</span><span class="tb s">🩹 Skin &amp; wounds</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>How much body surface is burned - which drives the fluid resuscitation.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li>Count only <b>partial and full thickness</b> burns, never superficial ones.</li><li>Adult: head 9, each arm 9, each leg 18, front torso 18, back torso 18, perineum 1.</li><li>Use the client’s <b>palm ≈ 1%</b> for scattered patches.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>A percentage that feeds the <b>Parkland formula</b>: 4 mL x kg x %TBSA, <b>half in the first 8 hours</b> from the time of the <b>burn</b>, the rest over 16.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>The clock starts at the <b>injury</b>, not at arrival. A child’s head is proportionally much bigger, which is why children get the <b>Lund-Browder</b> chart instead.</p></div>
+  <a class="tmore" href="skin/NG-146_burns-3-rule-of-9s-rehabilitation.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 125" data-mod="Mental status" data-sys="mh" data-name="mini-cog and mmse" data-find="mini-cog and mmse  nur 125 mental status mental health cognitive screening - a possible dementia, and a baseline to compare against later. mini-cog: failing recall with an abnormal clock suggests impairment. mmse: out of &lt;b&gt;30&lt;/b&gt;, with lower scores suggesting more impairment. these screen - they do not diagnose. and they are confounded by &lt;b&gt;delirium, depression, deafness, pain and language&lt;/b&gt;, all of which need excluding first. &lt;b&gt;delirium is acute and fluctuates; dementia is gradual and progressive.&lt;/b&gt; &lt;b&gt;mini-cog:&lt;/b&gt; name &lt;b&gt;3 words&lt;/b&gt;, draw a &lt;b&gt;clock&lt;/b&gt; showing a set time, then recall the 3 words. &lt;b&gt;mmse:&lt;/b&gt; 30 questions covering orientation, registration, attention, recall, language and copying.">
+  <h3><span class="ti">🗣</span><span>Mini-Cog and MMSE</span></h3>
+  <div class="tmeta"><span class="tb c">NUR 125</span><span class="tb">Mental status</span><span class="tb s">🗣 Mental health</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Cognitive screening - a possible dementia, and a baseline to compare against later.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li><b>Mini-Cog:</b> name <b>3 words</b>, draw a <b>clock</b> showing a set time, then recall the 3 words.</li><li><b>MMSE:</b> 30 questions covering orientation, registration, attention, recall, language and copying.</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p>Mini-Cog: failing recall with an abnormal clock suggests impairment. MMSE: out of <b>30</b>, with lower scores suggesting more impairment.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>These screen - they do not diagnose. And they are confounded by <b>delirium, depression, deafness, pain and language</b>, all of which need excluding first. <b>Delirium is acute and fluctuates; dementia is gradual and progressive.</b></p></div>
+  <a class="tmore" href="neuro/NG-244_dementia-vs-delirium.html">Read the full page &rarr;</a>
+</article>
+
+<article class="tst" data-course="NUR 125" data-mod="Mental status" data-sys="mh" data-name="cage questionnaire" data-find="cage questionnaire  nur 125 mental status mental health problem drinking, in four questions. &lt;b&gt;two or more&lt;/b&gt; yes answers is a positive screen. ask it matter-of-factly and without judgement, or you get a polite answer instead of a true one. a positive screen means asking &lt;b&gt;when the last drink was&lt;/b&gt; - withdrawal peaks at 24-48 hours and delirium tremens is a medical emergency. &lt;b&gt;c&lt;/b&gt; - have you felt you should &lt;b&gt;cut down&lt;/b&gt;? &lt;b&gt;a&lt;/b&gt; - have people &lt;b&gt;annoyed&lt;/b&gt; you by criticising your drinking? &lt;b&gt;g&lt;/b&gt; - have you felt &lt;b&gt;guilty&lt;/b&gt; about your drinking? &lt;b&gt;e&lt;/b&gt; - have you had a morning drink, an &lt;b&gt;eye-opener&lt;/b&gt;?">
+  <h3><span class="ti">🗣</span><span>CAGE questionnaire</span></h3>
+  <div class="tmeta"><span class="tb c">NUR 125</span><span class="tb">Mental status</span><span class="tb s">🗣 Mental health</span></div>
+  <div class="tsec"><h4>&#127919; What you are testing for</h4><p>Problem drinking, in four questions.</p></div>
+  <div class="tsec"><h4>&#129467; How to do it</h4><ol><li><b>C</b> - have you felt you should <b>cut down</b>?</li><li><b>A</b> - have people <b>annoyed</b> you by criticising your drinking?</li><li><b>G</b> - have you felt <b>guilty</b> about your drinking?</li><li><b>E</b> - have you had a morning drink, an <b>eye-opener</b>?</li></ol></div>
+  <div class="tsec pos"><h4>&#128064; What a positive looks like</h4><p><b>Two or more</b> yes answers is a positive screen.</p></div>
+  <div class="tsec pearl"><h4>&#9888;&#65039; The bit that catches people</h4><p>Ask it matter-of-factly and without judgement, or you get a polite answer instead of a true one. A positive screen means asking <b>when the last drink was</b> - withdrawal peaks at 24-48 hours and delirium tremens is a medical emergency.</p></div>
+  <a class="tmore" href="mh/NG-096_alcohol-abuse.html">Read the full page &rarr;</a>
+</article>
+</div>
+
+<div id="none">Nothing matches that. Try a shorter word &mdash; <b>calcium</b> rather than
+<b>low calcium sign</b>, or <b>hip</b> rather than <b>hip dysplasia test</b>.</div>
+
+</div>
+
+<script>
+(function(){
+  var q=document.getElementById('q'),
+      list=document.getElementById('list'),
+      none=document.getElementById('none'),
+      count=document.getElementById('count'),
+      cards=[].slice.call(document.querySelectorAll('.tst')),
+      gchips=[].slice.call(document.querySelectorAll('.chip[data-g]')),
+      fchips=[].slice.call(document.querySelectorAll('.chip[data-k]')),
+      groupBy='sys', fk='all', fv='all';
+
+  var LABEL={sys:'data-sys',course:'data-course',mod:'data-mod',name:'data-name'};
+  var SYSNAME={"neuro": "🧠 Neuro", "sensory": "👁 Eyes & ears", "cardio": "🫀 Heart & vessels", "resp": "🫁 Lungs", "gi": "🍽 Abdomen & GI", "musc": "🦴 Bones, joints & nerves", "endo": "🧪 Endocrine & metabolic", "renal": "🚰 Kidney & urinary", "ob": "🤰 Maternity", "peds": "🧸 Newborn & child", "integ": "🩹 Skin & wounds", "mh": "🗣 Mental health"};
+
+  function keyOf(c){
+    if(groupBy==='name'){ var n=c.getAttribute('data-name'); return n.charAt(0).toUpperCase(); }
+    return c.getAttribute(LABEL[groupBy]);
+  }
+  function headOf(k){
+    if(groupBy==='sys') return SYSNAME[k]||k;
+    return k;
+  }
+
+  function run(){
+    var t=q.value.trim().toLowerCase(), shown=0, visible=[];
+    cards.forEach(function(c){
+      var okF = (fk==='all') || (c.getAttribute('data-'+fk)===fv);
+      var okT = !t || c.getAttribute('data-find').indexOf(t)>-1;
+      var ok = okF && okT;
+      c.hidden=!ok;
+      if(ok){shown++; visible.push(c);}
+    });
+    // rebuild the grouping headings around whatever is visible
+    [].slice.call(list.querySelectorAll('.sechead')).forEach(function(h){h.remove();});
+    var order=[], buckets={};
+    visible.forEach(function(c){
+      var k=keyOf(c);
+      if(!buckets[k]){buckets[k]=[];order.push(k);}
+      buckets[k].push(c);
+    });
+    if(groupBy==='name'||groupBy==='mod') order.sort();
+    order.forEach(function(k){
+      var h=document.createElement('h2');
+      h.className='sechead';
+      h.innerHTML='<span>'+headOf(k)+'</span><span class="n">'+buckets[k].length+'</span>';
+      list.appendChild(h);
+      buckets[k].forEach(function(c){list.appendChild(c);});
+    });
+    // park the hidden ones at the end so they keep their place in the DOM
+    cards.forEach(function(c){ if(c.hidden) list.appendChild(c); });
+    none.style.display=shown?'none':'block';
+    count.textContent=shown+(shown===1?' test':' tests')+((t||fk!=='all')?' matching':' in all');
+  }
+
+  q.addEventListener('input',run);
+  gchips.forEach(function(b){b.addEventListener('click',function(){
+    groupBy=b.getAttribute('data-g');
+    gchips.forEach(function(o){o.setAttribute('aria-pressed',String(o===b));});
+    run();
+  });});
+  fchips.forEach(function(b){b.addEventListener('click',function(){
+    fk=b.getAttribute('data-k'); fv=b.getAttribute('data-v');
+    fchips.forEach(function(o){o.setAttribute('aria-pressed',String(o===b));});
+    run();
+  });});
+  run();
+})();
+</script>
+<script src="absn-hidebar.js" defer></script>
+</body></html>
