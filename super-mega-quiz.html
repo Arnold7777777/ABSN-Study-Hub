@@ -1483,6 +1483,40 @@ window.NGN = (function(){
     refresh();
   });
 
+  /* ---- arriving with filters already chosen ---------------------------
+     The NCLEX prep page links here for one topic at a time, and a link that
+     lands on 4,681 questions she then has to filter by hand is a link she
+     will not follow. A query string preselects the chips - the same chips,
+     clicked the same way, so nothing here knows it was not her finger.
+     ?sys=pharm  ?course=NUR234,NUR235  ?type=sata&diff=hard
+     No parameters and nothing happens at all.
+
+     This waits for load. Clicking a chip mid-initialization set it active but
+     the pool count stayed at the full bank, because the rest of the setup had
+     not finished behind it. After load the click is indistinguishable from
+     hers. */
+  window.addEventListener('load', function(){
+    var qs = window.location.search;
+    if(!qs || qs.length < 2) return;
+    var p;
+    try { p = new URLSearchParams(qs); } catch(e) { return; }
+    var picked = false;
+    ['course','sys','type','diff','step','week'].forEach(function(k){
+      (p.get(k)||'').split(',').forEach(function(v){
+        v = v.trim(); if(!v) return;
+        var b = document.querySelector('.fbtn[data-k="'+k+'"][data-v="'+v+'"]');
+        if(b && !b.disabled){ b.click(); picked = true; }
+      });
+    });
+    if(!picked) return;
+    /* open the drawer so she can see what was chosen for her and change it */
+    var d = document.getElementById('fdrawer');
+    if(d && !d.classList.contains('open')){
+      var fb = document.getElementById('fdrawerBtn');
+      if(fb) fb.click();
+    }
+  });
+
   var box=document.getElementById('customCount');
   if(box) box.addEventListener('input',function(){
     [].forEach.call(document.querySelectorAll('.fbtn[data-k=count]'),function(x){
