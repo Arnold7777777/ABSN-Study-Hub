@@ -847,3 +847,30 @@
     document.addEventListener('DOMContentLoaded', start);
   } else { start(); }
 })();
+
+/* ---- hop(): the floating Hub / Back buttons call this inline -------------
+   Those buttons are written as onclick="hop('index.html',false)" on ~47 pages,
+   but hop() itself was only defined in absn-module.js and in a handful of
+   pages' own inline scripts. Any page carrying the buttons WITHOUT one of
+   those - playlists and podcasts - threw "hop is not defined" and the button
+   did nothing at all.
+
+   Defined here as a fallback only: this file is deferred, so a page's own
+   inline hop() is already in place by the time this runs and is left alone. */
+if (typeof window.hop !== 'function') {
+  window.hop = function (url, closeThis) {
+    if (!closeThis) {
+      /* No window-features string: passing one, even 'noopener', makes the
+         browser treat this as a popup and blockers swallow it silently.
+         Null the opener by hand instead - same security, and it opens. */
+      var t = window.open(url, '_blank');
+      if (t) { try { t.opener = null; } catch (e) {} } else { location.href = url; }
+      return;
+    }
+    var w = window.open(url, '_blank');
+    setTimeout(function () {
+      try { window.close(); } catch (e) {}
+      if (!window.closed) { location.href = url; if (w) { try { w.close(); } catch (e) {} } }
+    }, 120);
+  };
+}
