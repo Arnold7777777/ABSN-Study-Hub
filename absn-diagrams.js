@@ -32,6 +32,8 @@
       '.tzbox>table{max-width:none}' +
       '.tzbox::-webkit-scrollbar{height:9px}' +
       '.tzbox::-webkit-scrollbar-thumb{background:rgba(255,255,255,.42);border-radius:9px}' +
+      '.tzhint{margin:-4px 0 11px;font:800 .78rem/1.35 "Trebuchet MS",Verdana,sans-serif;' +
+      'color:#ffd76a;opacity:.92}' +
       /* Citation and cross-reference links are inline text about 16-19px
          tall - well under the 44px she needs to hit one on a phone. Grow
          the hit area with an overlay instead of padding: padding would
@@ -103,9 +105,44 @@
     }
   }
 
+  /* A table that overflows its scroll box looks like a table that simply ends,
+     because the cut falls mid-word and the scrollbar is a hairline on a phone.
+     Diagrams have said "swipe me" for a while; tables never did, including the
+     ones already sitting in a page's own .tw wrapper. Hint whatever actually
+     overflows, and take the hint back down if a rotation makes it fit. */
+  var tHinted = false;
+  function hintWideTables() {
+    var boxes = document.querySelectorAll('.tzbox, .tw, .vtw, .cmpwrap');
+    for (var i = 0; i < boxes.length; i++) {
+      var box = boxes[i];
+      if (!box.querySelector('table')) continue;
+      var over = box.scrollWidth > box.clientWidth + 4;
+      var next = box.nextElementSibling;
+      var has = next && next.classList && next.classList.contains('tzhint');
+      if (over && !has) {
+        var hint = document.createElement('p');
+        hint.className = 'tzhint';
+        hint.textContent = tHinted
+          ? '\u2194 Swipe this table sideways.'
+          : '\u2194 Swipe this table sideways \u2014 there is more of it to the right.';
+        tHinted = true;
+        box.parentNode.insertBefore(hint, box.nextSibling);
+      } else if (!over && has) {
+        next.parentNode.removeChild(next);
+      }
+    }
+  }
+
+  var reflow = null;
+  window.addEventListener('resize', function () {
+    clearTimeout(reflow);
+    reflow = setTimeout(hintWideTables, 160);
+  });
+
   function run() {
     css();
     wrapWideTables();
+    hintWideTables();
     var svgs = document.querySelectorAll('svg[viewBox]');
     for (var i = 0; i < svgs.length; i++) {
       var svg = svgs[i];
