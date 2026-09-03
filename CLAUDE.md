@@ -32,6 +32,24 @@ with everything magnified. That is not a footnote — it decides most calls:
 - **Don't let the page jump while she reads.** Anything lazy-loaded needs its box
   reserved up front — `aspect-ratio` from the file's own dimensions.
 
+## The search box has its own index — rebuild it
+
+`index.html`'s "Search everything" box loads two files: this repo's
+`search-index.json` and the sibling `../NUR-198-Study-Guide/search-index.json`.
+Nothing is searched live; if a page is not in the index, it cannot be found.
+
+For a long time this repo had no index of its own, so the box searched the five
+sibling sites and none of the ~583 pages here. Caroline hit that twice looking
+for polycythemia.
+
+So: **after adding, renaming or substantially rewriting pages, run**
+
+```bash
+python3 tools/build-search-index.py
+```
+
+and commit the regenerated `search-index.json` with the change.
+
 ## Local testing
 
 ```bash

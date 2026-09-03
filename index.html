@@ -250,6 +250,7 @@ a.tile:focus-visible{border-color:#fff}
   border-radius:12px;padding:9px 12px;margin-bottom:7px;transition:background .12s;
 }
 #ssResults a.ssr:hover,#ssResults a.ssr:focus{background:rgba(255,255,255,.2);outline:none}
+#ssResults a.ssr.s-hub{border-left-color:rgba(255,194,51,.95)}
 #ssResults a.ssr.s-lab{border-left-color:rgba(0,194,199,.95)}
 #ssResults a.ssr.s-drug{border-left-color:rgba(255,138,61,.95)}
 #ssResults a.ssr.s-125{border-left-color:rgba(47,107,255,.95)}
@@ -259,6 +260,7 @@ a.tile:focus-visible{border-color:#fff}
 #ssResults .ssmeta{font-size:.82rem;font-weight:900;letter-spacing:.9px;text-transform:uppercase;opacity:.85;margin-bottom:3px}
 #ssResults .badge{display:inline-block;border-radius:999px;padding:1px 8px;margin-right:6px;font-size:.82rem;font-weight:900}
 #ssResults .b-198{background:rgba(157,92,255,.95);color:#fff}
+#ssResults .b-hub{background:rgba(255,194,51,.95);color:#2b2000}
 #ssResults .b-lab{background:rgba(0,194,199,.95);color:#04262a}
 #ssResults .b-drug{background:rgba(255,138,61,.95);color:#2b1400}
 #ssResults .b-125{background:rgba(47,107,255,.95);color:#fff}
@@ -270,7 +272,7 @@ a.tile:focus-visible{border-color:#fff}
 <div id="siteSearch">
   <div class="ssbox">
     <h2>&#128269; Search everything</h2>
-    <p class="sshint">Looks across <b>NUR 198</b>, <b>NUR 125</b>, <b>NUR 175</b>, <b>Labs &amp; Diagnostics</b>, and the <b>Drug Guide</b> &mdash; all at once. Try <i>blood transfusion</i>, <i>potassium</i>, <i>delirium</i>, <i>hand hygiene</i>. Press <b>/</b> to jump here.</p>
+    <p class="sshint">Looks across <b>every page of this hub</b> &mdash; NUR 234, 235 and 258, anatomy, physiology, pharmacology, the deep dives &mdash; plus <b>NUR 198</b>, <b>NUR 125</b>, <b>NUR 175</b>, <b>Labs &amp; Diagnostics</b> and the <b>Drug Guide</b>. Try <i>polycythemia</i>, <i>cranial nerve</i>, <i>blood transfusion</i>, <i>delirium</i>. Press <b>/</b> to jump here.</p>
     <div class="ssrow">
       <input id="ssInput" type="search" placeholder="Search labs, drugs, topics&hellip;" autocomplete="off" spellcheck="false">
       <button id="ssClear" title="Clear">&#10005;</button>
@@ -282,25 +284,52 @@ a.tile:focus-visible{border-color:#fff}
 
 <script>
 (function(){
-  var IDX_URL='../NUR-198-Study-Guide/search-index.json';
+  /* This hub's own pages first, then the sibling study-guide sites. */
+  var IDX_URLS=['search-index.json','../NUR-198-Study-Guide/search-index.json'];
   var input=document.getElementById('ssInput'),
       results=document.getElementById('ssResults'),
       status=document.getElementById('ssStatus'),
       clearBtn=document.getElementById('ssClear');
   var DATA=null, loading=false, pending=null;
-  var SITE_LABEL={'198':'NUR 198','125':'NUR 125','175':'NUR 175','lab':'Labs & Dx','drug':'Drug Guide'};
+  var SITE_LABEL={'hub':'Study Hub','198':'NUR 198','125':'NUR 125','175':'NUR 175','lab':'Labs & Dx','drug':'Drug Guide'};
 
   function esc(s){var d=document.createElement('div');d.textContent=s==null?'':String(s);return d.innerHTML;}
+
+  /* Each index numbers its own pages from 0, so entry.p has to be shifted by
+     however many pages the indexes before it contributed. */
+  function merge(parts){
+    var out={pages:[],entries:[]};
+    parts.forEach(function(j){
+      if(!j || !j.pages || !j.entries) return;
+      var off=out.pages.length;
+      out.pages=out.pages.concat(j.pages);
+      for(var i=0;i<j.entries.length;i++){
+        var e=j.entries[i];
+        out.entries.push({p:(+e.p)+off, h:e.h, a:e.a, t:e.t});
+      }
+    });
+    return out;
+  }
 
   function load(cb){
     if(DATA){cb();return;}
     if(loading){pending=cb;return;}
     loading=true; status.textContent='Loading the search index\u2026';
-    fetch(IDX_URL,{cache:'force-cache'})
-      .then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
-      .then(function(j){ DATA=j; loading=false; status.textContent=''; cb(); if(pending){var p=pending;pending=null;p();} })
-      .catch(function(e){ loading=false;
-        status.innerHTML='Could not load the search index ('+esc(String(e.message||e))+'). Try reloading the page.'; });
+    Promise.all(IDX_URLS.map(function(u){
+      return fetch(u,{cache:'force-cache'})
+        .then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
+        /* One index being unreachable must not take the whole search down. */
+        .catch(function(){ return null; });
+    })).then(function(parts){
+      loading=false;
+      if(!parts.some(Boolean)){
+        status.innerHTML='Could not load the search index. Try reloading the page.';
+        return;
+      }
+      DATA=merge(parts);
+      status.textContent=''; cb();
+      if(pending){var p=pending;pending=null;p();}
+    });
   }
 
   function terms(q){
@@ -351,13 +380,29 @@ a.tile:focus-visible{border-color:#fff}
       }
       hits.sort(function(a,b){return b[0]-a[0];});
       var total=hits.length;
-      hits=hits.slice(0,40);
       if(!total){
         results.classList.remove('on'); results.innerHTML='';
         status.textContent='No matches for \u201c'+q+'\u201d.';
         return;
       }
-      status.innerHTML='<b>'+total+'</b> match'+(total===1?'':'es')+(total>40?' \u00b7 showing the best 40':'');
+      /* The hub has far more pages than the sibling sites, so a plain top-40
+         buries every Drug Guide / Labs hit. Give each site that matched a few
+         guaranteed slots, then fill the rest by score. */
+      var LIMIT=40, PERSITE=4, seen={}, order=[], counts={}, picked=[], rest=[];
+      hits.forEach(function(row){
+        var k=row[2].s||'?';
+        if(!(k in counts)){ counts[k]=0; order.push(k); seen[k]=0; }
+        counts[k]++;
+        if(seen[k]<PERSITE){ seen[k]++; picked.push(row); } else { rest.push(row); }
+      });
+      hits=picked.concat(rest).slice(0,LIMIT);
+      hits.sort(function(a,b){return b[0]-a[0];});
+      var parts=order.map(function(k){
+        return '<b>'+counts[k]+'</b> '+esc(SITE_LABEL[k]||k);
+      });
+      status.innerHTML='<b>'+total+'</b> match'+(total===1?'':'es')+
+        (order.length>1?' \u00b7 '+parts.join(' \u00b7 '):'')+
+        (total>LIMIT?' \u00b7 showing the best '+LIMIT:'');
       var html='';
       hits.forEach(function(row){
         var e=row[1], pg=row[2];
