@@ -16,7 +16,7 @@
     if(/^nur(234|235|258)\.html$/.test(name)||name==='pathophysiology.html') return 'course';
     if(/-quiz\.html$/.test(name)||name==='super-mega-quiz.html'||name==='pharmacology-new.html') return 'quiz';
     if(name.indexOf('podcast')>-1) return 'podcast';
-    if(name==='pharmacology.html'||name==='physiology.html') return 'guide';
+    if(name==='pharmacology.html'||name==='physiology.html'||name==='anatomy.html') return 'guide';
     return 'general';
   }
 

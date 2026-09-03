@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32"><link rel="apple-touch-icon" href="favicon-180.png">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Anatomy &middot; BIO 252 &middot; ABSN Study Hub</title>
+<style>
+:root{
+ --amethyst:157,92,255; --sapphire:47,107,255; --emerald:18,184,134; --teal:0,194,199;
+ --topaz:255,194,51;    --ruby:255,59,107;     --garnet:192,34,85;    --citrine:255,138,61;
+ --line:rgba(255,255,255,.30);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font:16px/1.6 'Segoe UI',system-ui,sans-serif;color:#fff;
+ background-color:#0b1424;
+ background-image:url("pharm-bg.jpg");
+ background-size:cover;background-position:center top;background-attachment:fixed;
+ background-repeat:no-repeat}
+.wrap{max-width:1080px;margin:0 auto;padding:16px 15px 90px}
+
+/* ---------- sticky nav ---------- */
+.bar{position:static;z-index:60;margin:0 0 16px;padding:10px 14px;
+ background:rgba(8,14,30,.82);
+ border-bottom:1px solid var(--line);color:#fff}
+.barrow{display:flex;gap:7px;align-items:center;flex-wrap:wrap;max-width:1080px;margin:0 auto}
+#q{flex:1 1 210px;min-width:160px;min-height:44px;font-size:1rem;font-weight:600;padding:11px 15px;
+ border-radius:14px;border:1px solid var(--line);background:rgba(0,0,0,.5);color:#fff}
+#q::placeholder{color:#cbbfa0}
+.chip{background:rgba(255,255,255,.13);border:1px solid var(--line);color:#fff;
+ border-radius:16px;padding:8px 13px;font:800 .86rem 'Segoe UI',system-ui,sans-serif;
+ cursor:pointer;white-space:nowrap;min-height:44px;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box}
+.chip:hover{background:rgba(255,255,255,.3)}
+.chip.on{background:rgba(255,194,51,.92);color:#241a02;border-color:#fff}
+#cnt{font-size:.88rem;color:#f0e2bd;font-weight:700}
+
+h1{font-size:clamp(1.5rem,5vw,1.95rem);margin:8px 0 6px;line-height:1.2}
+.lede{font-size:1.02rem;color:#e9dcff;margin:0 0 18px;max-width:62ch}
+
+/* ---------- week sections ---------- */
+details.wk{margin:0 0 14px;border-radius:18px;overflow:hidden;
+ border:1px solid var(--line);box-shadow:0 8px 26px rgba(0,0,0,.38)}
+details.wk>summary{list-style:none;cursor:pointer;padding:15px 18px;
+ font-weight:900;font-size:1.08rem;display:flex;align-items:center;gap:11px;flex-wrap:wrap;
+ background:rgba(var(--j),.60);}
+details.wk>summary::-webkit-details-marker{display:none}
+details.wk>summary::after{content:"\25BE";margin-left:auto;font-size:.9rem;opacity:.8}
+details.wk[open]>summary::after{content:"\25B4"}
+/* Inline citation links get tapped on a phone but are only ~19px of text.
+   Grow the hit area with an overlay so the reading layout is untouched. */
+.srcp a{position:relative;display:inline-block}
+.srcp a::after{content:"";position:absolute;left:-4px;right:-4px;top:50%;
+ transform:translateY(-50%);height:44px}
+.wknum{font:900 .8rem 'Segoe UI',system-ui,sans-serif;letter-spacing:.06em;
+ background:rgba(0,0,0,.75);border:1px solid rgba(255,255,255,.4);
+ border-radius:999px;padding:4px 10px;text-transform:uppercase;color:#fff}
+.wksub{font-weight:600;font-size:.92rem;opacity:.95;width:100%;margin-top:-2px}
+.wkbody{padding:16px 15px 20px;background:rgba(8,14,30,.55);
+ ;color:#fff}
+
+/* ---------- cards ---------- */
+.card{background:rgba(var(--j),.60);
+ border:1px solid rgba(255,255,255,.30);border-left:5px solid rgba(255,255,255,.55);
+ border-radius:16px;padding:15px 17px;margin:0 0 12px;color:#fff}
+.card h3{margin:0 0 8px;font-size:1.04rem;display:flex;align-items:center;gap:8px}
+.card p{margin:0 0 9px;font-size:.95rem}
+.card p:last-child{margin-bottom:0}
+.card.ruby{--j:var(--ruby)}
+.card.emerald{--j:var(--emerald)}
+.card.sapphire{--j:var(--sapphire)}
+.card.amethyst{--j:var(--amethyst)}
+.card.teal{--j:var(--teal)}
+.card.citrine{--j:var(--citrine)}
+.card.garnet{--j:var(--garnet)}
+.card.topaz{--j:var(--topaz);color:#181201;border-left-color:rgba(0,0,0,.4)}
+.card.topaz a{color:#3a2a00}
+
+.big{font:900 clamp(1.5rem,5vw,2rem)/1.1 'Segoe UI',system-ui,sans-serif;
+ display:block;margin:2px 0 6px;font-variant-numeric:tabular-nums}
+mark{background:rgba(255,194,51,.92);color:#241a02;padding:1px 6px;border-radius:6px;
+ font-weight:800}
+.never{text-decoration:underline wavy rgba(255,59,107,.95);text-underline-offset:4px;
+ font-weight:800}
+code,.num{font:800 .95em ui-monospace,'Cascadia Mono',Consolas,monospace;
+ background:rgba(0,0,0,.75);padding:2px 7px;border-radius:7px;white-space:nowrap;color:#fff}
+
+/* ---------- tables ---------- */
+.tw{overflow-x:auto;margin:0 0 12px;border-radius:14px;border:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;min-width:460px;font-size:.92rem;
+ background:rgba(0,0,0,.42);color:#fff}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid rgba(255,255,255,.16);
+ vertical-align:top}
+th{background:rgba(255,255,255,.14);font-weight:900;font-size:.86rem;
+ text-transform:uppercase;letter-spacing:.03em}
+tr:last-child td{border-bottom:none}
+td b{color:#ffe9a8}
+
+/* ---------- flow diagram ---------- */
+.flow{display:flex;align-items:stretch;gap:0;flex-wrap:wrap;margin:0 0 12px}
+.step{flex:1 1 130px;min-width:120px;background:rgba(0,0,0,.42);
+ border:1px solid var(--line);border-radius:13px;padding:11px 12px;font-size:.88rem;
+ position:relative;margin:0 16px 10px 0;color:#fff}
+.step:last-child{margin-right:0}
+.step::after{content:"\2192";position:absolute;right:-15px;top:50%;transform:translateY(-50%);
+ font-size:1.15rem;font-weight:900;color:#ffd76a}
+.step:last-child::after{content:""}
+.step b{display:block;font-size:.79rem;text-transform:uppercase;letter-spacing:.05em;
+ color:#ffd76a;margin-bottom:3px}
+
+/* ---------- lab value scale ---------- */
+.scale{margin:0 0 13px}
+.scale .lbl{font-size:.86rem;font-weight:800;margin-bottom:5px;display:flex;
+ justify-content:space-between;gap:10px}
+.track{display:flex;height:30px;border-radius:9px;overflow:hidden;
+ border:1px solid var(--line);font:800 .8rem 'Segoe UI',system-ui,sans-serif}
+.track span{display:flex;align-items:center;justify-content:center;color:#fff;
+ text-shadow:0 1px 2px rgba(0,0,0,.6)}
+.lo{background:rgba(47,107,255,.85)}
+.ok{background:rgba(18,184,134,.85)}
+.hi{background:rgba(255,59,107,.99);color:#231a02}
+
+.note{border:1px dashed rgba(255,194,51,.65);background:rgba(255,194,51,.13);
+ color:#ffe9a8;border-radius:14px;padding:13px 15px;margin:0 0 14px;font-size:.94rem}
+ul{margin:0 0 10px;padding-left:20px}
+li{margin:0 0 6px;font-size:.94rem}
+a{color:#ffd76a}
+.foot{margin-top:26px;padding-top:16px;border-top:1px solid var(--line);
+ font-size:.86rem;color:#cdbfe8}
+.hidden{display:none !important}
+
+/* ---------- floating nav ---------- */
+#navBtns{position:static;flex-wrap:wrap;margin:10px 12px 2px;z-index:120;display:flex;gap:6px}
+#navBtns a{background:linear-gradient(135deg,#0b6656,#0f7d6b);color:#fff;
+ min-height:44px;display:inline-flex;align-items:center;
+ text-decoration:none;font-weight:800;font-size:.86rem;padding:9px 13px;
+ border-radius:999px;border:1px solid rgba(255,255,255,.3);
+ box-shadow:0 4px 14px rgba(0,0,0,.4)}
+@media (max-width:620px){#navBtns .lb{display:none}}
+@media print{#navBtns,.bar{display:none !important}}
+</style>
+<link rel="stylesheet" href="absn-adhd-enhanced.css">
+<script defer src="absn-adhd-enhanced.js"></script>
+<style>
+/* Keep her background photo visible - the ADHD sheet replaces it with a flat
+   gradient using !important, so this needs higher specificity to win. */
+html body.adhd-upgraded{
+  background-image:url("pharm-bg.jpg")!important;
+  background-size:cover!important;background-position:center top!important;
+  background-attachment:fixed!important;background-repeat:no-repeat!important;
+  background-color:#0b1424!important;
+}
+html body.adhd-upgraded::before{opacity:0!important}
+</style>
+<style>
+/* Na+ and H2O set sup/sub to about 10.5px, under the 12px floor this site holds to. */
+sup,sub{font-size:max(12px,.72em);line-height:0}
+</style>
+</head><body>
+<div id="navBtns">
+  <a href="index.html">&#127891;<span class="lb"> Study Hub</span></a>
+</div>
+
+<div class="bar"><div class="barrow">
+  <input id="q" type="search" placeholder="Search a topic&hellip; try &ldquo;cranial&rdquo;, &ldquo;nephron&rdquo;, &ldquo;osteoclast&rdquo;" autocomplete="off">
+  <button type="button" class="chip on" data-k="*">All modules</button>
+  <button type="button" class="chip" data-k="open">Expand all</button>
+  <button type="button" class="chip" data-k="shut">Collapse all</button>
+  <span id="cnt"></span>
+</div></div>
+
+<div class="wrap">
+<h1>&#129461; Anatomy &middot; BIO 252</h1>
+<p class="lede">Your BIO 252 course, all fourteen modules, written out as study material
+instead of a file list. Each one opens with the <b>one idea that makes the rest make sense</b>,
+then the structures, then a comparison table and the traps. Open only the module you are revising.</p>
+
+<div class="note"><b>&#11088; How to use this page.</b> Everything is collapsed on purpose.
+Open one module, read the <b>Big idea</b> card, and stop there if that is all you have in you today.
+The tables underneath are for when you have more room. The search box looks inside every module,
+even the closed ones.</div>
+
+<!-- ============================= MODULE 1 ============================= -->
+<details class="wk" style="--j:var(--garnet)" data-wk="1" data-kw="intro chemistry gross microscopic levels organization atom proton neutron electron ionic covalent hydrogen bond carbohydrate lipid protein nucleic acid">
+<summary><span class="wknum">Module 1</span> &#9879;&#65039; Intro to A&amp;P &amp; chemistry
+<span class="wksub">What anatomy is, and the chemistry the rest of the course sits on</span></summary>
+<div class="wkbody">
+
+  <div class="card garnet">
+    <h3>&#128161; The big idea</h3>
+    <p><b>Anatomy is structure. Physiology is function.</b> This course is the structure one &mdash;
+    what a thing <i>is</i> and where it sits, not what it does moment to moment.</p>
+    <p><mark>Everything in the body is built in levels, and each level is made of the one below it.</mark>
+    That single sentence is the spine of Module 1.</p>
+  </div>
+
+  <h3>&#128269; Two ways to look</h3>
+  <div class="tw"><table>
+  <tr><th>Kind</th><th>What it studies</th><th>Example</th></tr>
+  <tr><td><b>Gross (macroscopic)</b></td><td>Structures you can see with the naked eye</td><td>The chambers of the heart</td></tr>
+  <tr><td><b>Microscopic</b></td><td>Structures needing a microscope &mdash; cells (cytology) and tissues (histology)</td><td>Cardiac muscle cells on a slide</td></tr>
+  <tr><td><b>Developmental</b></td><td>How the body changes across a lifetime, including embryology</td><td>How the heart tube becomes four chambers</td></tr>
+  </table></div>
+
+  <h3>&#129521; Levels of organization, smallest first</h3>
+  <div class="flow">
+    <div class="step"><b>1 &middot; Chemical</b>Atoms and molecules &mdash; water, DNA, protein</div>
+    <div class="step"><b>2 &middot; Cellular</b>The basic unit of life &mdash; a muscle cell, a neuron</div>
+    <div class="step"><b>3 &middot; Tissue</b>Similar cells doing one job &mdash; epithelium</div>
+    <div class="step"><b>4 &middot; Organ</b>Two or more tissue types together &mdash; the stomach</div>
+    <div class="step"><b>5 &middot; Organ system</b>Organs cooperating &mdash; the digestive system</div>
+    <div class="step"><b>6 &middot; Organism</b>The whole living human</div>
+  </div>
+
+  <h3>&#9883;&#65039; Subatomic particles</h3>
+  <div class="tw"><table>
+  <tr><th>Particle</th><th>Charge</th><th>Where</th></tr>
+  <tr><td><b>Proton</b></td><td><span class="mono">+1</span></td><td>Nucleus</td></tr>
+  <tr><td><b>Neutron</b></td><td><span class="mono">0</span></td><td>Nucleus</td></tr>
+  <tr><td><b>Electron</b></td><td><span class="mono">&minus;1</span></td><td>Orbiting the nucleus</td></tr>
+  </table></div>
+  <p style="font-size:.92rem;color:#e9dcff">An <b>ion</b> is an atom whose electrons and protons no longer
+  match, so it carries a charge. <b>Cation</b> = positive (Na<sup>+</sup>). <b>Anion</b> = negative (Cl<sup>&minus;</sup>).</p>
+
+  <div class="card sapphire">
+    <h3>&#128279; Chemical bonds &mdash; transfer, share, or attract</h3>
+    <div class="tw"><table>
+    <tr><th>Bond</th><th>What happens to the electrons</th><th>Example</th></tr>
+    <tr><td><b>Ionic</b></td><td><b>Transferred</b> from one atom to another</td><td>NaCl</td></tr>
+    <tr><td><b>Polar covalent</b></td><td><b>Shared unequally</b></td><td>H<sub>2</sub>O</td></tr>
+    <tr><td><b>Non-polar covalent</b></td><td><b>Shared equally</b></td><td>O<sub>2</sub></td></tr>
+    <tr><td><b>Hydrogen</b></td><td>Weak attraction between polar molecules</td><td>Water to water; holding DNA together</td></tr>
+    </table></div>
+    <div class="mn">&#129504; <b>Ionic gives it away. Covalent shares it.</b> Then the only question left is
+    whether the sharing is fair &mdash; equal is non-polar, unequal is polar.</div>
+  </div>
+
+  <div class="card emerald">
+    <h3>&#129516; The four organic compounds</h3>
+    <ul>
+    <li><b>Carbohydrates</b> &mdash; glucose, fructose, starch</li>
+    <li><b>Lipids</b> &mdash; triglycerides, phospholipids, cholesterol</li>
+    <li><b>Proteins</b> &mdash; enzymes, hemoglobin, keratin</li>
+    <li><b>Nucleic acids</b> &mdash; DNA and RNA</li>
+    </ul>
+  </div>
+
+  <div class="card topaz">
+    <h3>&#9888;&#65039; Exam trap</h3>
+    <p>Hydrogen bonds are <b>weak</b> individually &mdash; but there are so many of them that they are what
+    holds the two strands of DNA together and what gives water its properties.
+    <mark>Weak bond does not mean unimportant.</mark></p>
+  </div>
+
+</div>
+</details>
+
+<!-- ============================= MODULE 2 ============================= -->
+<details class="wk" style="--j:var(--sapphire)" data-wk="2" data-kw="cell membrane phospholipid bilayer organelle nucleus mitochondria ribosome rough smooth endoplasmic reticulum golgi lysosome cytoskeleton chromatin chromosome nucleolus nucleotide dna rna">
+<summary><span class="wknum">Module 2</span> &#129474; The cellular level
+<span class="wksub">The membrane that decides, and the organelles that do the work</span></summary>
+<div class="wkbody">
+
+  <div class="card sapphire">
+    <h3>&#128161; The big idea</h3>
+    <p><b>A cell is a factory with a doorman.</b> The membrane decides what comes in and goes out;
+    everything inside is a production line with one job each.</p>
+    <p><mark>Selectively permeable</mark> is the phrase that matters &mdash; not &ldquo;a barrier&rdquo;,
+    but a barrier that <i>chooses</i>.</p>
+  </div>
+
+  <h3>&#129513; The plasma membrane</h3>
+  <div class="card deep">
+    <p><b>Structure:</b> a <b>phospholipid bilayer</b> with proteins embedded in it.</p>
+    <p><b>It does five things:</b></p>
+    <ul>
+    <li>Physical barrier between inside and outside</li>
+    <li>Controls what enters and exits &mdash; <b>selectively permeable</b></li>
+    <li>Senses the outside world through receptors</li>
+    <li>Anchors the cell to its neighbours</li>
+    <li>Gives the cell its shape</li>
+    </ul>
+  </div>
+
+  <h3>&#127981; The organelles, one job each</h3>
+  <div class="tw"><table>
+  <tr><th>Organelle</th><th>Job</th><th>Remember it as</th></tr>
+  <tr><td><b>Nucleus</b></td><td>Holds the DNA; runs the cell</td><td>The control centre</td></tr>
+  <tr class="hot"><td><b>Mitochondria</b></td><td>Makes <b>ATP</b></td><td>The powerhouse</td></tr>
+  <tr><td><b>Rough ER</b></td><td>Studded with ribosomes; builds <b>proteins</b></td><td>Rough = <b>R</b>ibosomes</td></tr>
+  <tr><td><b>Smooth ER</b></td><td>Builds <b>lipids</b>; detoxifies</td><td>Smooth has no ribosomes</td></tr>
+  <tr><td><b>Golgi apparatus</b></td><td>Modifies, packages and ships proteins</td><td>The post office</td></tr>
+  <tr><td><b>Lysosomes</b></td><td>Digestive enzymes; break down waste</td><td>The recycling bin</td></tr>
+  <tr><td><b>Ribosomes</b></td><td>Protein synthesis &mdash; on the rough ER or free-floating</td><td>The protein factory</td></tr>
+  <tr><td><b>Cytoskeleton</b></td><td>Structural framework; helps movement</td><td>The scaffolding</td></tr>
+  </table></div>
+
+  <div class="card amethyst">
+    <h3>&#9899; Inside the nucleus</h3>
+    <ul>
+    <li><b>Nuclear envelope</b> &mdash; a <b>double</b> membrane with pores</li>
+    <li><b>Nucleolus</b> &mdash; makes ribosomes</li>
+    <li><b>Chromatin</b> &mdash; DNA unwound, the working form</li>
+    <li><b>Chromosome</b> &mdash; the same DNA condensed, for cell division</li>
+    </ul>
+    <div class="mn">&#129504; <b>Chromatin and chromosome are the same DNA at different moments.</b>
+    Unwound and busy, or wound up and travelling.</div>
+  </div>
+
+  <div class="card citrine">
+    <h3>&#129516; Nucleotides &mdash; three parts, always</h3>
+    <p>A nucleotide is the building block of a nucleic acid, and it has exactly three pieces:</p>
+    <div class="flow">
+      <div class="step"><b>1</b>Nitrogenous base</div>
+      <div class="step"><b>2</b>Pentose sugar (5 carbons)</div>
+      <div class="step"><b>3</b>Phosphate group</div>
+    </div>
+    <div class="tw"><table>
+    <tr><th></th><th>DNA</th><th>RNA</th></tr>
+    <tr><td><b>Sugar</b></td><td>Deoxyribose</td><td>Ribose</td></tr>
+    <tr class="hot"><td><b>Bases</b></td><td>A, T, C, G</td><td>A, <b>U</b>, C, G</td></tr>
+    </table></div>
+    <div class="mn">&#129504; <b>U replaces T in RNA.</b> If you see uracil, it is RNA.</div>
+  </div>
+
+  <div class="card topaz">
+    <h3>&#9888;&#65039; Exam trap</h3>
+    <p>Rough ER and smooth ER are the same organelle with and without ribosomes &mdash; and that one
+    difference decides the product. <mark>Rough builds proteins, smooth builds lipids.</mark></p>
+  </div>
+
+</div>
+</details>
+
+<!-- ============================= MODULE 3 ============================= -->
+<details class="wk" style="--j:var(--emerald)" data-wk="3" data-kw="tissue epithelial squamous cuboidal columnar stratified pseudostratified connective areolar adipose reticular dense regular irregular cartilage bone blood membrane mucous serous cutaneous synovial visceral parietal skin epidermis dermis subcutaneous hair follicle shaft bulb">
+<summary><span class="wknum">Module 3</span> &#129525; Tissues, membranes &amp; skin
+<span class="wksub">Name the tissue by its layers and its shape</span></summary>
+<div class="wkbody">
+
+  <div class="card emerald">
+    <h3>&#128161; The big idea</h3>
+    <p><b>Every epithelial name is two words, and both words are instructions.</b>
+    The first says <i>how many layers</i>, the second says <i>what shape the top cells are</i>.</p>
+    <p><mark>Simple = one layer, made for passing things through. Stratified = many layers, made for taking a beating.</mark></p>
+  </div>
+
+  <h3>&#129692; Epithelial tissues</h3>
+  <div class="tw"><table>
+  <tr><th>Type</th><th>Looks like</th><th>Job</th><th>Where</th></tr>
+  <tr class="hot"><td><b>Simple squamous</b></td><td>One layer, thin and flat</td><td><b>Diffusion</b></td><td>Alveoli, capillaries</td></tr>
+  <tr><td><b>Simple cuboidal</b></td><td>One layer, cube-shaped</td><td>Secretion, absorption</td><td>Kidney tubules</td></tr>
+  <tr><td><b>Simple columnar</b></td><td>One layer, tall</td><td>Absorption</td><td>Intestines</td></tr>
+  <tr class="hot"><td><b>Stratified squamous</b></td><td>Many layers, flat on top</td><td><b>Protection</b></td><td>Skin, esophagus, vagina</td></tr>
+  <tr><td><b>Pseudostratified columnar</b></td><td><i>Looks</i> layered but is not</td><td>Secretion, cilia sweep</td><td>Trachea</td></tr>
+  </table></div>
+  <div class="card deep"><div class="mn">&#129504; Thin and flat where things must <b>cross</b>.
+  Thick and layered where things must be <b>kept out</b>. Every location follows from that.</div></div>
+
+  <h3>&#129528; Connective tissues</h3>
+  <div class="tw"><table>
+  <tr><th>Tissue</th><th>Where</th><th>Structure &amp; job</th></tr>
+  <tr><td><b>Areolar</b></td><td>Under the skin</td><td>Loose fibres; cushions organs</td></tr>
+  <tr><td><b>Adipose</b></td><td>Under skin, around organs</td><td>Fat cells; stores energy, insulates</td></tr>
+  <tr><td><b>Reticular</b></td><td>Lymph nodes, spleen</td><td>Fibre network; supports immune cells</td></tr>
+  <tr><td><b>Dense regular</b></td><td>Tendons, ligaments</td><td>Parallel collagen &mdash; strong in <b>one</b> direction</td></tr>
+  <tr><td><b>Dense irregular</b></td><td>Dermis</td><td>Criss-crossed collagen &mdash; strong in <b>many</b> directions</td></tr>
+  <tr><td><b>Cartilage</b></td><td>Joints, ear, nose</td><td>Firm but flexible</td></tr>
+  <tr><td><b>Bone</b></td><td>Skeleton</td><td>Rigid matrix; support and protection</td></tr>
+  <tr class="hot"><td><b>Blood</b></td><td>Vessels</td><td><b>A fluid matrix</b> &mdash; yes, blood is connective tissue</td></tr>
+  </table></div>
+
+  <div class="card amethyst">
+    <h3>&#129381; Body membranes</h3>
+    <div class="tw"><table>
+    <tr><th>Membrane</th><th>Lines</th><th>Secretes</th></tr>
+    <tr><td><b>Mucous</b></td><td>Cavities <b>open</b> to the outside &mdash; gut, airway</td><td>Mucus</td></tr>
+    <tr><td><b>Serous</b></td><td>Cavities <b>closed</b> to the outside</td><td>Thin serous fluid; reduces friction</td></tr>
+    <tr><td><b>Cutaneous</b></td><td>The skin itself</td><td>&mdash;</td></tr>
+    <tr><td><b>Synovial</b></td><td>Joints</td><td>Synovial fluid</td></tr>
+    </table></div>
+    <p><b>Visceral</b> covers the organ. <b>Parietal</b> lines the cavity wall.</p>
+    <div class="mn">&#129504; <b>Visceral touches the viscera.</b> Parietal is the wall &mdash; think of a
+    <i>parietal</i> wall in a building.</div>
+  </div>
+
+  <div class="card citrine">
+    <h3>&#129461; Skin &mdash; three layers, outside in</h3>
+    <div class="flow">
+      <div class="step"><b>1 &middot; Epidermis</b>Stratified squamous epithelium; protection</div>
+      <div class="step"><b>2 &middot; Dermis</b>Connective tissue; blood vessels, nerves, glands</div>
+      <div class="step"><b>3 &middot; Subcutaneous</b>Adipose and connective tissue; insulation</div>
+    </div>
+    <p><b>Hair:</b> the <b>shaft</b> is the visible part above the skin, the <b>root</b> is below it,
+    the <b>follicle</b> surrounds the root, and the <b>bulb</b> is the swollen base where growth happens.</p>
+  </div>
+
+  <div class="card topaz">
+    <h3>&#9888;&#65039; Exam trap</h3>
+    <p>Pseudostratified columnar <i>looks</i> like several layers because the nuclei sit at different
+    heights &mdash; but <mark>every cell touches the basement membrane, so it is a single layer</mark>.
+    That is the whole reason it has its own name.</p>
+  </div>
+
+</div>
+</details>
+
+<!-- ============================= MODULE 4 ============================= -->
+<details class="wk" style="--j:var(--topaz)" data-wk="4" data-kw="bone skeletal long short flat irregular sesamoid osteoblast osteoclast osteocyte osteogenic compact spongy diaphysis epiphysis periosteum muscle skeletal cardiac smooth striated voluntary">
+<summary><span class="wknum">Module 4</span> &#129460; Bone tissue &amp; the skeletal system
+<span class="wksub">A build crew, a demolition crew, and three kinds of muscle</span></summary>
+<div class="wkbody">
+
+  <div class="card topaz">
+    <h3>&#128161; The big idea</h3>
+    <p><b>Bone is living tissue that is constantly being torn down and rebuilt.</b> It is not scaffolding
+    that was poured once. Two cell types are in a permanent argument, and the winner decides whether
+    bone gets denser or thinner.</p>
+    <p><mark>Osteo<b>b</b>last <b>b</b>uilds. Osteo<b>c</b>last <b>c</b>hews.</mark></p>
+  </div>
+
+  <h3>&#129461; Bone cells</h3>
+  <div class="tw"><table>
+  <tr><th>Cell</th><th>Job</th><th>Where it lives</th></tr>
+  <tr class="hot"><td><b>Osteoblast</b></td><td><b>Builds</b> bone</td><td>Periosteum, endosteum</td></tr>
+  <tr class="hot"><td><b>Osteoclast</b></td><td><b>Breaks down</b> bone</td><td>Bone surfaces</td></tr>
+  <tr><td><b>Osteocyte</b></td><td>Maintains bone; a retired osteoblast</td><td>Trapped in lacunae</td></tr>
+  <tr><td><b>Osteogenic</b></td><td>Stem cell for the others</td><td>Periosteum, marrow</td></tr>
+  </table></div>
+
+  <h3>&#129703; Bone shapes</h3>
+  <div class="tw"><table>
+  <tr><th>Shape</th><th>Description</th><th>Example</th></tr>
+  <tr><td><b>Long</b></td><td>Longer than wide; movement</td><td>Femur, humerus</td></tr>
+  <tr><td><b>Short</b></td><td>Cube-shaped; stability</td><td>Carpals, tarsals</td></tr>
+  <tr><td><b>Flat</b></td><td>Thin and flat; protection</td><td>Skull, ribs, sternum</td></tr>
+  <tr><td><b>Irregular</b></td><td>Complex shapes</td><td>Vertebrae</td></tr>
+  <tr><td><b>Sesamoid</b></td><td>Embedded in a tendon; reduces friction</td><td>Patella</td></tr>
+  </table></div>
+
+  <div class="card sapphire">
+    <h3>&#129535; Compact against spongy</h3>
+    <div class="tw"><table>
+    <tr><th></th><th>Compact</th><th>Spongy</th></tr>
+    <tr><td><b>Texture</b></td><td>Dense, solid</td><td>Porous, open lattice</td></tr>
+    <tr><td><b>Where</b></td><td>Outer shell; the <b>diaphysis</b> (shaft)</td><td>Inner; the <b>epiphysis</b> (ends)</td></tr>
+    <tr><td><b>Doing what</b></td><td>Taking the load</td><td>Housing marrow, absorbing shock</td></tr>
+    </table></div>
+    <div class="mn">&#129504; <b>Diaphysis = the shaft down the middle. Epiphysis = the ends.</b>
+    Compact wraps the shaft; spongy fills the ends.</div>
+  </div>
+
+  <div class="card emerald">
+    <h3>&#128170; The three muscle types</h3>
+    <div class="tw"><table>
+    <tr><th>Type</th><th>Structure</th><th>Job</th><th>Voluntary?</th></tr>
+    <tr><td><b>Skeletal</b></td><td>Striated, <b>multinucleated</b></td><td>Moves the skeleton</td><td class="hot"><b>Yes</b></td></tr>
+    <tr><td><b>Cardiac</b></td><td>Striated, <b>branched</b>, one nucleus</td><td>Pumps blood</td><td>No</td></tr>
+    <tr><td><b>Smooth</b></td><td><b>Not</b> striated, spindle-shaped</td><td>Moves substances through hollow organs</td><td>No</td></tr>
+    </table></div>
+    <div class="mn">&#129504; Only <b>two</b> are striated, and only <b>one</b> is voluntary.
+    Cardiac is the odd one &mdash; striped like skeletal muscle but out of your control.</div>
+  </div>
+
+  <div class="card topaz">
+    <h3>&#9888;&#65039; Exam trap</h3>
+    <p>Cardiac muscle is striated, so &ldquo;striated&rdquo; is <b>not</b> a safe clue for voluntary.
+    <mark>If a stem says striated <i>and</i> branched, it is cardiac every time.</mark></p>
+  </div>
+
+</div>
+</details>
+
+<!-- ============================= MODULE 5 ============================= -->
+<details class="wk" style="--j:var(--citrine)" data-wk="5" data-kw="neuromuscular junction synapse acetylcholine depolarization calcium sarcoplasmic reticulum cross bridge actin myosin neuron dendrite axon soma myelin multipolar bipolar unipolar pseudounipolar anaxonic vesicle cleft">
+<summary><span class="wknum">Module 5</span> &#9889; Muscle &amp; nervous tissue
+<span class="wksub">How a nerve signal becomes a movement</span></summary>
+<div class="wkbody">
+
+  <div class="card citrine">
+    <h3>&#128161; The big idea</h3>
+    <p><b>A nerve never touches the muscle it moves.</b> There is always a gap, and the signal has to
+    cross it chemically. That gap is the neuromuscular junction, and almost every drug and disease in
+    this area works by interfering with it.</p>
+    <p><mark>Electrical &rarr; chemical &rarr; electrical again.</mark></p>
+  </div>
+
+  <h3>&#129525; Nerve to movement, in order</h3>
+  <div class="flow">
+    <div class="step"><b>1 &middot; Arrives</b>Impulse reaches the axon terminal</div>
+    <div class="step"><b>2 &middot; Crosses</b>Neurotransmitter released into the synaptic cleft</div>
+    <div class="step"><b>3 &middot; Depolarizes</b><b>Na<sup>+</sup></b> enters the muscle cell</div>
+    <div class="step"><b>4 &middot; Releases</b><b>Ca<sup>2+</sup></b> floods out of the sarcoplasmic reticulum</div>
+    <div class="step"><b>5 &middot; Contracts</b>Myosin binds actin &mdash; the cross-bridge cycle</div>
+  </div>
+  <p style="font-size:.92rem;color:#e9dcff"><b>Calcium is the trigger.</b> No calcium, no cross-bridge,
+  no contraction &mdash; which is why calcium turns up in every muscle question eventually.</p>
+
+  <div class="card sapphire">
+    <h3>&#129504; The parts of a neuron</h3>
+    <div class="tw"><table>
+    <tr><th>Part</th><th>Job</th></tr>
+    <tr class="hot"><td><b>Dendrites</b></td><td><b>Receive</b> signals</td></tr>
+    <tr><td><b>Soma</b> (cell body)</td><td>Holds the nucleus; the metabolic centre</td></tr>
+    <tr class="hot"><td><b>Axon</b></td><td><b>Sends</b> signals away</td></tr>
+    <tr><td><b>Myelin sheath</b></td><td>Insulates the axon and speeds the signal up</td></tr>
+    </table></div>
+    <div class="mn">&#129504; <b>Dendrites are the inbox. The axon is the outbox.</b> Every neuron
+    question begins with getting that direction right.</div>
+  </div>
+
+  <h3>&#127760; Neuron types by shape</h3>
+  <div class="tw"><table>
+  <tr><th>Type</th><th>Shape</th><th>Where</th></tr>
+  <tr><td><b>Multipolar</b></td><td>Many dendrites, one axon</td><td>Most of the CNS; motor neurons</td></tr>
+  <tr><td><b>Bipolar</b></td><td>One dendrite, one axon</td><td>Retina, olfactory epithelium</td></tr>
+  <tr><td><b>Unipolar</b></td><td>One process that splits</td><td>Sensory neurons</td></tr>
+  <tr><td><b>Pseudounipolar</b></td><td>One process, splitting later</td><td>Sensory neurons of the PNS</td></tr>
+  <tr><td><b>Anaxonic</b></td><td>No distinguishable axon</td><td>Brain; function not fully known</td></tr>
+  </table></div>
+
+  <div class="card amethyst">
+    <h3>&#128279; The synapse, part by part</h3>
+    <ul>
+    <li><b>Presynaptic neuron</b> &mdash; sends</li>
+    <li><b>Axon terminals</b> &mdash; where the message is released</li>
+    <li><b>Synaptic vesicles</b> &mdash; the sacs holding neurotransmitter</li>
+    <li><b>Synaptic cleft</b> &mdash; the gap itself</li>
+    <li><b>Postsynaptic neuron</b> &mdash; receives</li>
+    </ul>
+  </div>
+
+  <div class="card topaz">
+    <h3>&#9888;&#65039; Exam trap</h3>
+    <p>Sodium starts the <b>electrical</b> change; calcium starts the <b>mechanical</b> one.
+    <mark>Na<sup>+</sup> depolarizes, Ca<sup>2+</sup> contracts.</mark> Swapping them is the commonest
+    mistake in this module.</p>
+  </div>
+
+</div>
+</details>
+
+<!-- ============================= MODULE 6 ============================= -->
+<details class="wk" style="--j:var(--amethyst)" data-wk="6" data-kw="cns pns brain spinal cord cranial nerve ganglia meninges dura arachnoid pia ventral dorsal root motor sensory cerebellum olfactory optic oculomotor trochlear trigeminal abducens facial vestibulocochlear glossopharyngeal vagus accessory hypoglossal thermoreceptor nociceptor mechanoreceptor photoreceptor chemoreceptor">
+<summary><span class="wknum">Module 6</span> &#129504; Nerves &amp; the nervous system
+<span class="wksub">CNS, PNS, the meninges &mdash; and all twelve cranial nerves</span></summary>
+<div class="wkbody">
+
+  <div class="card amethyst">
+    <h3>&#128161; The big idea</h3>
+    <p><b>The CNS decides. The PNS carries.</b> Brain and spinal cord are the central nervous system;
+    everything else &mdash; cranial nerves, spinal nerves, ganglia &mdash; is peripheral.</p>
+    <p><mark>The cranial nerves are the part this course tests hardest, and the part nursing keeps
+    testing after it.</mark></p>
+  </div>
+
+  <h3>&#129535; Meninges, outside in</h3>
+  <div class="flow">
+    <div class="step"><b>1 &middot; Dura mater</b>Tough outer layer</div>
+    <div class="step"><b>2 &middot; Arachnoid mater</b>Web-like middle layer</div>
+    <div class="step"><b>3 &middot; Pia mater</b>Thin inner layer, stuck to the tissue</div>
+  </div>
+  <div class="card deep"><div class="mn">&#129504; <b>D-A-P, outside in.</b> Dura is <i>durable</i>,
+  arachnoid is a <i>spider web</i>, pia is <i>pious</i> &mdash; devoted, clinging to the brain itself.</div></div>
+
+  <div class="card sapphire">
+    <h3>&#8596;&#65039; Roots: which way does it go</h3>
+    <div class="tw"><table>
+    <tr><th>Root</th><th>Carries</th></tr>
+    <tr class="hot"><td><b>Dorsal root</b></td><td><b>Sensory</b> &mdash; coming in</td></tr>
+    <tr class="hot"><td><b>Ventral root</b></td><td><b>Motor</b> &mdash; going out</td></tr>
+    <tr><td><b>Spinal nerve</b></td><td><b>Mixed</b> &mdash; both, once they join</td></tr>
+    </table></div>
+    <div class="mn">&#129504; <b>SAME DAVE</b> &mdash; <b>S</b>ensory <b>A</b>fferent, <b>M</b>otor
+    <b>E</b>fferent; <b>D</b>orsal <b>A</b>fferent, <b>V</b>entral <b>E</b>fferent.</div>
+  </div>
+
+  <div class="card emerald">
+    <h3>&#127756; The cerebellum</h3>
+    <p>Coordinates <b>voluntary movement</b> and maintains <b>posture and balance</b>. It does not
+    start movement &mdash; it makes movement smooth. Damage shows up as clumsiness and unsteady gait,
+    not paralysis.</p>
+  </div>
+
+  <h3>&#127775; The twelve cranial nerves</h3>
+  <div class="tw"><table>
+  <tr><th>#</th><th>Name</th><th>What it does</th><th>S / M / B</th></tr>
+  <tr><td><b>I</b></td><td>Olfactory</td><td>Smell</td><td>S</td></tr>
+  <tr><td><b>II</b></td><td>Optic</td><td>Vision</td><td>S</td></tr>
+  <tr><td><b>III</b></td><td>Oculomotor</td><td>Most eye movement; <b>pupil constriction</b>; eyelid lift</td><td>M</td></tr>
+  <tr><td><b>IV</b></td><td>Trochlear</td><td>Eye down-and-in (superior oblique)</td><td>M</td></tr>
+  <tr><td><b>V</b></td><td>Trigeminal</td><td>Facial <b>sensation</b>; chewing; corneal reflex</td><td>B</td></tr>
+  <tr><td><b>VI</b></td><td>Abducens</td><td>Eye <b>ab</b>duction (lateral rectus)</td><td>M</td></tr>
+  <tr><td><b>VII</b></td><td>Facial</td><td>Facial <b>expression</b>; taste front &#8532;; tears and saliva</td><td>B</td></tr>
+  <tr><td><b>VIII</b></td><td>Vestibulocochlear</td><td>Hearing and balance</td><td>S</td></tr>
+  <tr class="hot"><td><b>IX</b></td><td>Glossopharyngeal</td><td>Taste back &#8531;; <b>gag reflex</b>; swallowing</td><td>B</td></tr>
+  <tr class="hot"><td><b>X</b></td><td>Vagus</td><td><b>Say &ldquo;aah&rdquo;</b> &mdash; palate and uvula rise; voice; heart, lungs, gut</td><td>B</td></tr>
+  <tr><td><b>XI</b></td><td>Accessory</td><td>Shrug shoulders; turn head</td><td>M</td></tr>
+  <tr><td><b>XII</b></td><td>Hypoglossal</td><td>Tongue movement</td><td>M</td></tr>
+  </table></div>
+
+  <div class="card garnet">
+    <h3>&#128680; The two that get confused, and how the exam separates them</h3>
+    <p>IX and X both run to the throat, so a question has to pick one by <b>the test you perform</b>:</p>
+    <ul>
+    <li><b>CN X (vagus)</b> &mdash; <mark>have the client open the mouth and say &ldquo;aah&rdquo;</mark>.
+    The palate and uvula should rise symmetrically. Also listen to the voice for hoarseness.</li>
+    <li><b>CN IX (glossopharyngeal)</b> &mdash; touch the back of the throat with a tongue blade to
+    <b>provoke the gag reflex</b>.</li>
+    </ul>
+    <p class="never">Saying &ldquo;aah&rdquo; is vagus. The gag reflex is glossopharyngeal.</p>
+  </div>
+
+  <div class="card citrine">
+    <h3>&#129504; The two mnemonics worth having</h3>
+    <p><b>Names, I &rarr; XII:</b><br>
+    <b>O</b>n <b>O</b>ld <b>O</b>lympus' <b>T</b>owering <b>T</b>ops <b>A</b> <b>F</b>inn <b>A</b>nd
+    <b>G</b>erman <b>V</b>iewed <b>A</b> <b>H</b>op.</p>
+    <p><b>Sensory, motor or both:</b><br>
+    <b>S</b>ome <b>S</b>ay <b>M</b>arry <b>M</b>oney <b>B</b>ut <b>M</b>y <b>B</b>rother <b>S</b>ays
+    <b>B</b>ig <b>B</b>rains <b>M</b>atter <b>M</b>ore.</p>
+    <p style="font-size:.92rem">Read the second one against the table above &mdash; letter by letter,
+    I through XII.</p>
+  </div>
+
+  <div class="card teal">
+    <h3>&#128064; Sensory receptors</h3>
+    <div class="tw"><table>
+    <tr><th>Receptor</th><th>Detects</th></tr>
+    <tr><td><b>Thermoreceptors</b></td><td>Temperature</td></tr>
+    <tr><td><b>Nociceptors</b></td><td><b>Pain</b></td></tr>
+    <tr><td><b>Mechanoreceptors</b></td><td>Touch, pressure, vibration</td></tr>
+    <tr><td><b>Photoreceptors</b></td><td>Light</td></tr>
+    <tr><td><b>Chemoreceptors</b></td><td>Chemicals &mdash; taste and smell</td></tr>
+    </table></div>
+    <div class="mn">&#129504; <b>Noci</b> sounds like <i>noxious</i>. That is the pain one.</div>
+  </div>
+
+  <div class="card topaz">
+    <h3>&#9888;&#65039; Exam trap</h3>
+    <p>Three different nerves move the eye &mdash; III, IV and VI &mdash; and the stem tells you which
+    by naming a <i>direction</i>. <mark>IV takes the eye down-and-in; VI ab-ducts it outward;
+    III does everything else, plus the pupil.</mark></p>
+  </div>
+
+</div>
+</details>
+
+<!-- ============================= MODULE 7 ============================= -->
+<details class="wk" style="--j:var(--teal)" data-wk="7" data-kw="special senses eye cornea retina iris lens vitreous sclera lacrimal ear cochlea saccule semicircular canals eustachian tympanic membrane ampulla ossicles malleus incus stapes sound pathway">
+<summary><span class="wknum">Module 7</span> &#128065;&#65039; Special senses
+<span class="wksub">The path light takes, and the path sound takes</span></summary>
+<div class="wkbody">
+
+  <div class="card tealc">
+    <h3>&#128161; The big idea</h3>
+    <p><b>Both special senses are relay races.</b> Nothing detects light or sound directly &mdash; each
+    structure hands off to the next, and a question is usually asking you to name one runner.</p>
+    <p><mark>Learn both pathways in order and most of the module answers itself.</mark></p>
+  </div>
+
+  <h3>&#128065;&#65039; The eye, front to back</h3>
+  <div class="tw"><table>
+  <tr><th>Structure</th><th>Where</th><th>Job</th></tr>
+  <tr><td><b>Cornea</b></td><td>Front of the eye</td><td>Focuses light as it enters</td></tr>
+  <tr><td><b>Iris</b></td><td>Around the pupil</td><td>Controls how much light gets in</td></tr>
+  <tr><td><b>Lens</b></td><td>Behind the iris</td><td>Fine-focuses light onto the retina</td></tr>
+  <tr><td><b>Vitreous body</b></td><td>Inside the eye</td><td>Holds the eye's shape</td></tr>
+  <tr class="hot"><td><b>Retina</b></td><td>Back of the eye</td><td><b>Holds the photoreceptors</b> &mdash; where light becomes signal</td></tr>
+  <tr><td><b>Sclera</b></td><td>Outer coat</td><td>Protection and structure &mdash; the white of the eye</td></tr>
+  </table></div>
+  <p style="font-size:.92rem;color:#e9dcff">The <b>lacrimal gland</b> makes tears, which lubricate and
+  protect the surface.</p>
+
+  <div class="card sapphire">
+    <h3>&#128066; Sound's path, in order</h3>
+    <div class="flow">
+      <div class="step"><b>1</b>Pinna gathers the sound</div>
+      <div class="step"><b>2</b>Auditory canal</div>
+      <div class="step"><b>3</b>Tympanic membrane vibrates</div>
+      <div class="step"><b>4</b>Ossicles &mdash; malleus, incus, stapes</div>
+      <div class="step"><b>5</b>Oval window</div>
+      <div class="step"><b>6</b>Cochlea</div>
+      <div class="step"><b>7</b>Auditory nerve &mdash; <b>CN VIII</b></div>
+    </div>
+  </div>
+
+  <h3>&#127756; Hearing and balance structures</h3>
+  <div class="tw"><table>
+  <tr><th>Structure</th><th>Where</th><th>Job</th></tr>
+  <tr><td><b>Tympanic membrane</b></td><td>End of the ear canal</td><td>Vibrates with sound</td></tr>
+  <tr><td><b>Ossicles</b></td><td>Middle ear</td><td>Transmit vibration &mdash; malleus, incus, stapes</td></tr>
+  <tr><td><b>Eustachian tube</b></td><td>Middle ear to throat</td><td><b>Equalises pressure</b></td></tr>
+  <tr class="hot"><td><b>Cochlea</b></td><td>Inner ear</td><td><b>Hearing</b></td></tr>
+  <tr class="hot"><td><b>Semicircular canals</b></td><td>Inner ear</td><td><b>Rotational</b> balance</td></tr>
+  <tr><td><b>Ampulla</b></td><td>In the semicircular canals</td><td>Detects head rotation</td></tr>
+  <tr><td><b>Saccule</b></td><td>Vestibule</td><td>Balance in the <b>vertical</b> plane</td></tr>
+  </table></div>
+
+  <div class="card citrinec">
+    <h3>&#129504; Two hooks that carry the module</h3>
+    <p><b>Ossicles in order: <i>MIS</i></b> &mdash; <b>M</b>alleus (hammer), <b>I</b>ncus (anvil),
+    <b>S</b>tapes (stirrup). Outer to inner, and the stapes is the smallest bone in the body.</p>
+    <p><b>Cochlea hears, canals balance.</b> Both sit in the inner ear and both report through CN VIII &mdash;
+    which is exactly why one nerve is called <i>vestibulo</i>-<i>cochlear</i>.</p>
+  </div>
+
+  <div class="card topaz">
+    <h3>&#9888;&#65039; Exam trap</h3>
+    <p>The eustachian tube is the reason a child with a cold gets an ear infection: it is
+    <mark>shorter, wider and more horizontal in children</mark>, so anything in the throat travels up
+    it easily. That single anatomical fact comes back in peds all year.</p>
+  </div>
+
+</div>
+</details>
+
+<!-- ============================= MODULE 8 ============================= -->
+<details class="wk" style="--j:var(--ruby)" data-wk="8" data-kw="endocrine hormone gland exocrine duct autocrine paracrine synaptic receptor ion channel g protein enzyme linked intracellular steroid posterior pituitary adh oxytocin hypothalamus">
+<summary><span class="wknum">Module 8</span> &#129509; The endocrine system
+<span class="wksub">Broadcasting instead of calling, and the receptor that decides who hears</span></summary>
+<div class="wkbody">
+
+  <div class="card ruby">
+    <h3>&#128161; The big idea</h3>
+    <p><b>A neurotransmitter is a phone call. A hormone is a radio broadcast.</b> One crosses a gap of
+    nanometres to a single target; the other goes into the blood and reaches everything.</p>
+    <p><mark>Only cells with the right receptor respond &mdash; that is what makes a broadcast specific.</mark></p>
+  </div>
+
+  <h3>&#128172; Five ways cells talk</h3>
+  <div class="tw"><table>
+  <tr><th>Type</th><th>How far</th></tr>
+  <tr><td><b>Direct</b></td><td>Cell to cell, physically touching</td></tr>
+  <tr><td><b>Synaptic</b></td><td>Across a synapse, neuron to target</td></tr>
+  <tr><td><b>Autocrine</b></td><td>The cell signals <b>itself</b></td></tr>
+  <tr><td><b>Paracrine</b></td><td>Nearby cells only</td></tr>
+  <tr class="hot"><td><b>Endocrine</b></td><td><b>Through the bloodstream</b> to anywhere</td></tr>
+  </table></div>
+  <div class="card deep"><div class="mn">&#129504; <b>Auto = self. Para = beside. Endo = inside the blood.</b>
+  The prefix is the whole answer.</div></div>
+
+  <div class="card emerald">
+    <h3>&#128167; Endocrine against exocrine</h3>
+    <div class="tw"><table>
+    <tr><th></th><th>Endocrine</th><th>Exocrine</th></tr>
+    <tr><td><b>Ducts</b></td><td><b>None</b></td><td>Yes</td></tr>
+    <tr><td><b>Releases into</b></td><td>Blood</td><td>A surface or cavity</td></tr>
+    <tr><td><b>Examples</b></td><td>Thyroid, adrenals, pituitary</td><td>Sweat, saliva, digestive enzymes</td></tr>
+    </table></div>
+    <div class="mn">&#129504; <b>Exo = exits</b> through a duct. Endo stays internal, straight into blood.
+    The pancreas does both, which is why it turns up in every version of this question.</div>
+  </div>
+
+  <h3>&#128225; Receptor types</h3>
+  <div class="tw"><table>
+  <tr><th>Receptor</th><th>Where</th><th>What it does</th></tr>
+  <tr><td><b>Ion channel-linked</b></td><td>Cell membrane</td><td>Opens a channel for ions</td></tr>
+  <tr><td><b>G protein-coupled</b></td><td>Cell membrane</td><td>Activates second messengers</td></tr>
+  <tr><td><b>Enzyme-linked</b></td><td>Cell membrane</td><td>Triggers enzyme activity</td></tr>
+  <tr class="hot"><td><b>Intracellular</b></td><td><b>Inside the cell</b></td><td>Binds <b>lipid-soluble</b> hormones &mdash; steroids</td></tr>
+  </table></div>
+  <p style="font-size:.92rem;color:#e9dcff">A steroid can cross the membrane because it is fat-soluble,
+  so its receptor is waiting <i>inside</i>. Water-soluble hormones cannot get in, so their receptors sit
+  on the surface.</p>
+
+  <div class="card amethyst">
+    <h3>&#129504; The posterior pituitary stores two hormones</h3>
+    <p><b>Oxytocin</b> and <b>ADH</b> (antidiuretic hormone).</p>
+    <p><mark>The posterior pituitary does not make them &mdash; the hypothalamus does, and the posterior
+    pituitary only stores and releases them.</mark> That distinction is a favourite question.</p>
+  </div>
+
+  <div class="card topaz">
+    <h3>&#9888;&#65039; Exam trap</h3>
+    <p>&ldquo;Hormones travel in the blood&rdquo; is true but not the discriminator. If a question asks
+    <i>why only some cells respond</i>, the answer is always <mark>the receptor, not the hormone</mark>.</p>
+  </div>
+
+</div>
+</details>
+
+<!-- ============================= MODULE 9 ============================= -->
+<details class="wk" style="--j:var(--garnet)" data-wk="9" data-kw="blood plasma formed elements erythrocyte leukocyte thrombocyte platelet artery vein capillary oxygenated deoxygenated pulse radial brachial femoral carotid">
+<summary><span class="wknum">Module 9</span> &#129656; Cardiovascular I &mdash; blood &amp; vessels
+<span class="wksub">What blood is made of, and which way each vessel runs</span></summary>
+<div class="wkbody">
+
+  <div class="card garnet">
+    <h3>&#128161; The big idea</h3>
+    <p><b>Arteries and veins are defined by direction, not by oxygen.</b> An artery carries blood
+    <i>away</i> from the heart whatever is in it.</p>
+    <p><mark>A = Artery = Away.</mark> Get that and the pulmonary exception stops being confusing.</p>
+  </div>
+
+  <h3>&#129474; What is actually in blood</h3>
+  <div class="tw"><table>
+  <tr><th>Fraction</th><th>Roughly</th><th>Contains</th></tr>
+  <tr><td><b>Plasma</b></td><td><span class="mono">~55%</span></td><td>Water, proteins, nutrients, hormones, wastes</td></tr>
+  <tr><td><b>Formed elements</b></td><td><span class="mono">~45%</span></td><td>Red cells, white cells, platelets</td></tr>
+  </table></div>
+  <div class="tw"><table>
+  <tr><th>Formed element</th><th>Job</th></tr>
+  <tr><td><b>Erythrocytes</b> (RBCs)</td><td>Carry oxygen</td></tr>
+  <tr><td><b>Leukocytes</b> (WBCs)</td><td>Immune defence</td></tr>
+  <tr><td><b>Thrombocytes</b> (platelets)</td><td>Clotting</td></tr>
+  </table></div>
+  <p style="font-size:.92rem;color:#e9dcff">By count, red cells make up nearly all of the 45%.
+  White cells and platelets together are well under 1%.</p>
+
+  <div class="card sapphire">
+    <h3>&#8596;&#65039; Arteries against veins</h3>
+    <div class="tw"><table>
+    <tr><th></th><th>Arteries</th><th>Veins</th></tr>
+    <tr class="hot"><td><b>Direction</b></td><td><b>Away</b> from the heart</td><td><b>Toward</b> the heart</td></tr>
+    <tr><td><b>Walls</b></td><td>Thick and muscular</td><td>Thinner</td></tr>
+    <tr><td><b>Pressure</b></td><td>High</td><td>Low</td></tr>
+    <tr><td><b>Valves</b></td><td>No</td><td><b>Yes</b> &mdash; to stop backflow against gravity</td></tr>
+    </table></div>
+    <div class="mn">&#129504; Veins need valves precisely <i>because</i> the pressure is low.
+    Arteries have the heart's push behind them and do not.</div>
+  </div>
+
+  <div class="card ruby">
+    <h3>&#128680; The pulmonary exception</h3>
+    <p>Usually arteries carry oxygenated blood and veins carry deoxygenated. <b>The pulmonary vessels
+    reverse it:</b></p>
+    <ul>
+    <li><b>Pulmonary arteries</b> carry <b>deoxygenated</b> blood to the lungs</li>
+    <li><b>Pulmonary veins</b> carry <b>oxygenated</b> blood back to the heart</li>
+    </ul>
+    <p class="never">Which is why the definition is direction, never oxygen content.</p>
+  </div>
+
+  <div class="card emerald">
+    <h3>&#128147; Where you feel a pulse</h3>
+    <div class="tw"><table>
+    <tr><th>Site</th><th>Where</th></tr>
+    <tr><td><b>Carotid</b></td><td>Neck</td></tr>
+    <tr><td><b>Brachial</b></td><td>Inner elbow</td></tr>
+    <tr><td><b>Radial</b></td><td>Wrist &mdash; thumb side</td></tr>
+    <tr><td><b>Femoral</b></td><td>Groin</td></tr>
+    </table></div>
+    <p>A pulse is the artery wall <b>expanding</b> as each heartbeat pushes blood through it.
+    You feel it over arteries, never veins.</p>
+  </div>
+
+  <div class="card topaz">
+    <h3>&#9888;&#65039; Exam trap</h3>
+    <p>Blood is a <b>connective tissue</b> &mdash; cells suspended in a fluid matrix. It appears in the
+    tissue module and again here, and students who learned it only as &ldquo;a fluid&rdquo; miss it both times.</p>
+  </div>
+
+</div>
+</details>
+
+<!-- ============================= MODULE 10 ============================= -->
+<details class="wk" style="--j:var(--ruby)" data-wk="10" data-kw="heart chamber atrium ventricle tricuspid pulmonary bicuspid mitral aortic valve aorta vena cava blood flow pathway sa node av node bundle of his purkinje conduction">
+<summary><span class="wknum">Module 10</span> &#10084;&#65039; Cardiovascular II &mdash; the heart
+<span class="wksub">Two pumps in one organ, and the wiring that fires them</span></summary>
+<div class="wkbody">
+
+  <div class="card ruby">
+    <h3>&#128161; The big idea</h3>
+    <p><b>The heart is two pumps side by side.</b> The right side sends blood to the lungs; the left
+    side sends it to the body. That is why the left ventricle has the thickest wall &mdash; it pushes
+    against the whole body instead of one organ.</p>
+    <p><mark>Right goes to the lungs. Left goes to the world.</mark></p>
+  </div>
+
+  <h3>&#129517; The four chambers</h3>
+  <div class="tw"><table>
+  <tr><th>Chamber</th><th>Receives from</th><th>Sends to</th></tr>
+  <tr><td><b>Right atrium</b></td><td>The body, via the vena cava</td><td>Right ventricle</td></tr>
+  <tr><td><b>Right ventricle</b></td><td>Right atrium</td><td>The lungs</td></tr>
+  <tr><td><b>Left atrium</b></td><td>The lungs</td><td>Left ventricle</td></tr>
+  <tr class="hot"><td><b>Left ventricle</b></td><td>Left atrium</td><td><b>The whole body, via the aorta</b></td></tr>
+  </table></div>
+
+  <h3>&#128682; The four valves</h3>
+  <div class="tw"><table>
+  <tr><th>Valve</th><th>Sits between</th></tr>
+  <tr><td><b>Tricuspid</b></td><td>Right atrium and right ventricle</td></tr>
+  <tr><td><b>Pulmonary</b></td><td>Right ventricle and pulmonary artery</td></tr>
+  <tr class="hot"><td><b>Bicuspid (mitral)</b></td><td><b>Left</b> atrium and left ventricle</td></tr>
+  <tr><td><b>Aortic</b></td><td>Left ventricle and aorta</td></tr>
+  </table></div>
+  <div class="card deep"><div class="mn">&#129504; <b>LM</b> &mdash; <b>L</b>eft is <b>M</b>itral.
+  Tri before bi, right before left, and the alphabet keeps them in order.</div></div>
+
+  <div class="card sapphire">
+    <h3>&#128260; The whole circuit, in order</h3>
+    <div class="flow">
+      <div class="step"><b>1</b>Body</div>
+      <div class="step"><b>2</b>Vena cava</div>
+      <div class="step"><b>3</b>Right atrium</div>
+      <div class="step"><b>4</b>Right ventricle</div>
+      <div class="step"><b>5</b>Pulmonary arteries</div>
+      <div class="step"><b>6</b>Lungs</div>
+      <div class="step"><b>7</b>Pulmonary veins</div>
+      <div class="step"><b>8</b>Left atrium</div>
+      <div class="step"><b>9</b>Left ventricle</div>
+      <div class="step"><b>10</b>Aorta &rarr; body</div>
+    </div>
+  </div>
+
+  <div class="card emerald">
+    <h3>&#9889; The conduction system</h3>
+    <div class="flow">
+      <div class="step"><b>1 &middot; SA node</b>The <b>pacemaker</b> &mdash; sets the rate</div>
+      <div class="step"><b>2 &middot; AV node</b><b>Delays</b> the signal so the atria can empty</div>
+      <div class="step"><b>3 &middot; Bundle of His</b>Carries it into the septum</div>
+      <div class="step"><b>4 &middot; Bundle branches</b>Right and left</div>
+      <div class="step"><b>5 &middot; Purkinje fibres</b>Spread it through the ventricles</div>
+    </div>
+    <p style="font-size:.92rem;color:#e9dcff">The AV delay is not a flaw &mdash; without it the
+    ventricles would contract while the atria were still filling them.</p>
+  </div>
+
+  <div class="card topaz">
+    <h3>&#9888;&#65039; Exam trap</h3>
+    <p>The great vessels are named for <b>where they are going</b>, not what they carry.
+    <mark>Pulmonary arteries leave the heart carrying deoxygenated blood.</mark>
+    Reading a pathway question with &ldquo;artery = oxygen&rdquo; in your head gets it wrong every time.</p>
+  </div>
+
+</div>
+</details>
+
+<!-- ============================= MODULE 11 ============================= -->
+<details class="wk" style="--j:var(--sapphire)" data-wk="11" data-kw="lymphatic immune lymphocyte b cell t cell nk natural killer bone marrow thymus lymph node capsule cortex medulla afferent efferent innate adaptive antibody memory phagocyte inflammation">
+<summary><span class="wknum">Module 11</span> &#128737;&#65039; Lymphatic &amp; immune systems
+<span class="wksub">Fast and generic, or slow and specific &mdash; and where each cell is trained</span></summary>
+<div class="wkbody">
+
+  <div class="card sapphire">
+    <h3>&#128161; The big idea</h3>
+    <p><b>You have two immune systems and they trade speed for precision.</b> Innate is there from
+    birth, responds in minutes, and treats every threat the same. Adaptive takes days the first time,
+    targets one specific thing &mdash; and <i>remembers</i> it.</p>
+    <p><mark>Memory is what makes vaccination possible, and only adaptive immunity has it.</mark></p>
+  </div>
+
+  <div class="card emerald">
+    <h3>&#127891; Where each lymphocyte is trained</h3>
+    <div class="tw"><table>
+    <tr><th>Cell</th><th>Matures in</th></tr>
+    <tr class="hot"><td><b>B cells</b></td><td><b>B</b>one marrow</td></tr>
+    <tr class="hot"><td><b>T cells</b></td><td><b>T</b>hymus</td></tr>
+    <tr><td><b>NK cells</b></td><td>Bone marrow</td></tr>
+    </table></div>
+    <div class="mn">&#129504; <b>B for Bone marrow, T for Thymus.</b> The letters do the work.
+    All three are born in marrow; only the T cell leaves to be educated.</div>
+  </div>
+
+  <h3>&#9878;&#65039; Innate against adaptive</h3>
+  <div class="tw"><table>
+  <tr><th></th><th>Innate</th><th>Adaptive</th></tr>
+  <tr><td><b>Speed</b></td><td>Immediate</td><td>Days, the first time</td></tr>
+  <tr><td><b>Target</b></td><td>Anything foreign</td><td>One specific antigen</td></tr>
+  <tr class="hot"><td><b>Memory</b></td><td><b>None</b></td><td><b>Yes</b></td></tr>
+  <tr><td><b>Players</b></td><td>Skin, mucous membranes, phagocytes, NK cells, inflammation</td><td>B cells, T cells, antibodies, memory cells</td></tr>
+  </table></div>
+  <p style="font-size:.92rem;color:#e9dcff">Skin and mucous membranes count as innate immunity &mdash;
+  they are the first barrier, and an intact one is the cheapest defence the body has.</p>
+
+  <div class="card amethyst">
+    <h3>&#129504; Inside a lymph node</h3>
+    <div class="tw"><table>
+    <tr><th>Part</th><th>What it is</th></tr>
+    <tr><td><b>Capsule</b></td><td>The outer wrapping</td></tr>
+    <tr><td><b>Cortex</b></td><td>Outer region; contains the follicles</td></tr>
+    <tr><td><b>Medulla</b></td><td>Inner region</td></tr>
+    <tr><td><b>Afferent vessels</b></td><td>Bring lymph <b>in</b></td></tr>
+    <tr><td><b>Efferent vessels</b></td><td>Carry lymph <b>out</b></td></tr>
+    </table></div>
+    <div class="mn">&#129504; <b>Afferent Approaches. Efferent Exits.</b> The same pair turns up again
+    in the kidney &mdash; learn it once here and it is free in Module 14.</div>
+  </div>
+
+  <div class="card topaz">
+    <h3>&#9888;&#65039; Exam trap</h3>
+    <p>A lymphocyte looks unremarkable under a microscope: <b>a large nucleus and very little
+    cytoplasm</b>. If a slide question describes a white cell that is nearly all nucleus,
+    <mark>that is a lymphocyte</mark>.</p>
+  </div>
+
+</div>
+</details>
+
+<!-- ============================= MODULE 12 ============================= -->
+<details class="wk" style="--j:var(--teal)" data-wk="12" data-kw="respiratory upper lower tract nose nasal cavity pharynx larynx trachea bronchi bronchiole alveoli alveolar type i type ii surfactant macrophage cartilage smooth muscle">
+<summary><span class="wknum">Module 12</span> &#129508; The respiratory system
+<span class="wksub">The tube that conducts, and the sacs that exchange</span></summary>
+<div class="wkbody">
+
+  <div class="card tealc">
+    <h3>&#128161; The big idea</h3>
+    <p><b>The airway does two different jobs, and only one of them is gas exchange.</b> Everything from
+    the nose down to the bronchioles is plumbing &mdash; warming, filtering, conducting.
+    Exchange happens only at the alveoli.</p>
+    <p><mark>Conducting zone moves air. Respiratory zone trades gas.</mark></p>
+  </div>
+
+  <h3>&#128316; Upper and lower tract</h3>
+  <div class="tw"><table>
+  <tr><th>Tract</th><th>Structures</th></tr>
+  <tr><td><b>Upper</b></td><td>Nose, nasal cavity, pharynx, larynx</td></tr>
+  <tr><td><b>Lower</b></td><td>Trachea, bronchi, bronchioles, <b>alveoli</b></td></tr>
+  </table></div>
+  <p style="font-size:.92rem;color:#e9dcff">The dividing line is the larynx &mdash; above it upper,
+  below it lower.</p>
+
+  <div class="card sapphire">
+    <h3>&#127795; Going down the bronchial tree, three things change</h3>
+    <div class="tw"><table>
+    <tr><th>As you go deeper</th><th>Direction</th><th>Why it matters</th></tr>
+    <tr class="hot"><td><b>Cartilage</b></td><td>Decreases &rarr; disappears</td><td>Nothing left to hold the tube open</td></tr>
+    <tr class="hot"><td><b>Smooth muscle</b></td><td>Increases</td><td>The tube can now clamp shut</td></tr>
+    <tr><td><b>Diameter</b></td><td>Decreases</td><td>Less room to lose</td></tr>
+    </table></div>
+    <div class="mn">&#129504; Those three lines are the anatomy of an <b>asthma attack</b>. A bronchiole
+    has muscle and no cartilage, so when the muscle contracts there is nothing to splint it open.
+    That is why asthma is a small-airway disease.</div>
+  </div>
+
+  <div class="card emerald">
+    <h3>&#129440; The three alveolar cells</h3>
+    <div class="tw"><table>
+    <tr><th>Cell</th><th>Job</th></tr>
+    <tr class="hot"><td><b>Type I</b></td><td><b>Gas exchange</b> &mdash; thin and flat, most of the surface</td></tr>
+    <tr class="hot"><td><b>Type II</b></td><td>Secretes <b>surfactant</b></td></tr>
+    <tr><td><b>Alveolar macrophages</b></td><td>Clear debris and pathogens</td></tr>
+    </table></div>
+    <p><b>Surfactant</b> lowers surface tension so the alveoli do not collapse on themselves at the end
+    of each breath. A premature baby short of it has to fight for every breath &mdash; that is
+    respiratory distress syndrome.</p>
+    <div class="mn">&#129504; <b>Type <i>one</i> for exchange, type <i>two</i> for surfactant.</b>
+    One number apart, and both come up constantly.</div>
+  </div>
+
+  <div class="card topaz">
+    <h3>&#9888;&#65039; Exam trap</h3>
+    <p>Type I cells cover most of the alveolar surface but Type II cells are more numerous.
+    <mark>&ldquo;Most of the surface&rdquo; and &ldquo;most of the cells&rdquo; are different questions</mark>
+    with different answers.</p>
+  </div>
+
+</div>
+</details>
+
+<!-- ============================= MODULE 13 ============================= -->
+<details class="wk" style="--j:var(--citrine)" data-wk="13" data-kw="digestive alimentary canal villi lacteal rugae esophagus stomach small intestine liver bile pancreas gallbladder peristalsis duodenum insulin glucagon">
+<summary><span class="wknum">Module 13</span> &#129386; The digestive system
+<span class="wksub">One tube from end to end, with helpers plumbed into it</span></summary>
+<div class="wkbody">
+
+  <div class="card citrinec">
+    <h3>&#128161; The big idea</h3>
+    <p><b>The digestive tract is a single tube, and its whole design problem is surface area.</b>
+    Folds inside folds inside folds &mdash; because absorption happens per square centimetre, and a
+    smooth tube would not have nearly enough.</p>
+    <p><mark>Rugae let the stomach stretch. Villi let the small intestine absorb.</mark></p>
+  </div>
+
+  <div class="card emerald">
+    <h3>&#129693; The two folds worth naming</h3>
+    <div class="tw"><table>
+    <tr><th></th><th>Villi</th><th>Rugae</th></tr>
+    <tr><td><b>Where</b></td><td>Small intestine lining</td><td>Stomach lining</td></tr>
+    <tr><td><b>Look like</b></td><td>Finger-like projections</td><td>Ridged folds</td></tr>
+    <tr class="hot"><td><b>For</b></td><td><b>Surface area to absorb</b></td><td><b>Room to expand</b></td></tr>
+    <tr><td><b>Inside each one</b></td><td>A capillary network <b>and a lacteal</b></td><td>&mdash;</td></tr>
+    </table></div>
+    <p>The <b>lacteal</b> is the lymphatic vessel inside each villus. Most nutrients go into the
+    blood; <b>fats go into the lacteal</b> and travel by lymph instead.</p>
+  </div>
+
+  <h3>&#127869;&#65039; The organs</h3>
+  <div class="tw"><table>
+  <tr><th>Organ</th><th>Where</th><th>Job</th></tr>
+  <tr><td><b>Esophagus</b></td><td>Behind the trachea, throat to stomach</td><td>Moves food by <b>peristalsis</b></td></tr>
+  <tr><td><b>Stomach</b></td><td>Left upper quadrant</td><td>Mechanical and chemical digestion; acid and enzymes</td></tr>
+  <tr><td><b>Small intestine</b></td><td>Central abdomen</td><td>Where most <b>absorption</b> happens</td></tr>
+  <tr class="hot"><td><b>Liver</b></td><td>Right upper quadrant, under the diaphragm</td><td><b>Produces bile</b>; detoxifies; stores glycogen and vitamins</td></tr>
+  <tr><td><b>Gallbladder</b></td><td>Tucked under the liver</td><td><b>Stores and concentrates</b> bile</td></tr>
+  <tr class="hot"><td><b>Pancreas</b></td><td>Behind the stomach, in the curve of the duodenum</td><td><b>Both</b>: digestive enzymes into the duodenum <i>and</i> insulin and glucagon into the blood</td></tr>
+  </table></div>
+
+  <div class="card amethyst">
+    <h3>&#129504; Two that get swapped</h3>
+    <p><b>The liver makes bile. The gallbladder only stores it.</b> Remove the gallbladder and bile
+    still gets made &mdash; it just drips continuously instead of arriving in a useful squirt, which is
+    why fatty meals get uncomfortable afterwards.</p>
+    <p><b>The pancreas is the endocrine-and-exocrine example.</b> Enzymes travel down a duct (exocrine);
+    insulin and glucagon go straight into blood (endocrine). Module 8 asks about this too.</p>
+  </div>
+
+  <div class="card topaz">
+    <h3>&#9888;&#65039; Exam trap</h3>
+    <p>The stomach does very little absorbing. <mark>Absorption is the small intestine's job</mark> &mdash;
+    the stomach is for breaking things down and holding them. Alcohol and a few drugs are the
+    exceptions that prove it.</p>
+  </div>
+
+</div>
+</details>
+
+<!-- ============================= MODULE 14 ============================= -->
+<details class="wk" style="--j:var(--amethyst)" data-wk="14" data-kw="urinary reproductive kidney retroperitoneal renal cortex medulla pyramid ureter bladder urethra nephron glomerulus bowman capsule proximal convoluted tubule loop of henle distal collecting duct afferent efferent arteriole filtration testes epididymis prostate ovary uterus fallopian implantation endometrium">
+<summary><span class="wknum">Module 14</span> &#129388; Urinary &amp; reproductive systems
+<span class="wksub">The nephron, start to finish &mdash; and the reproductive structures</span></summary>
+<div class="wkbody">
+
+  <div class="card amethyst">
+    <h3>&#128161; The big idea</h3>
+    <p><b>The kidney does not decide what to remove. It removes almost everything, then takes back
+    what it wants.</b> Filter first, reclaim second &mdash; which is why the tubule is so long.</p>
+    <p><mark>Filtration happens in one place: the glomerulus. Everything after it is negotiation.</mark></p>
+  </div>
+
+  <h3>&#129388; The urinary structures</h3>
+  <div class="tw"><table>
+  <tr><th>Structure</th><th>Where</th><th>Job</th></tr>
+  <tr class="hot"><td><b>Kidneys</b></td><td><b>Retroperitoneal</b> &mdash; behind the peritoneum</td><td>Filter blood, make urine</td></tr>
+  <tr><td><b>Renal cortex</b></td><td>Outer kidney</td><td>Contains the nephrons</td></tr>
+  <tr><td><b>Renal medulla</b></td><td>Inner kidney</td><td>Concentrates urine; holds the pyramids</td></tr>
+  <tr><td><b>Renal pyramids</b></td><td>In the medulla</td><td>Collect and channel urine</td></tr>
+  <tr><td><b>Ureters</b></td><td>Kidney to bladder</td><td>Muscular tubes; move urine down</td></tr>
+  <tr><td><b>Bladder</b></td><td>Pelvic cavity</td><td>Stores urine &mdash; has <b>rugae</b> so it can expand</td></tr>
+  <tr><td><b>Urethra</b></td><td>Bladder to outside</td><td>Expels urine</td></tr>
+  </table></div>
+
+  <div class="card sapphire">
+    <h3>&#128167; The nephron, in order</h3>
+    <div class="flow">
+      <div class="step"><b>1 &middot; Glomerulus</b>Filtration happens here</div>
+      <div class="step"><b>2 &middot; Bowman's capsule</b>Catches the filtrate</div>
+      <div class="step"><b>3 &middot; PCT</b>Proximal convoluted tubule</div>
+      <div class="step"><b>4 &middot; Loop of Henle</b>Concentrates</div>
+      <div class="step"><b>5 &middot; DCT</b>Distal convoluted tubule</div>
+      <div class="step"><b>6 &middot; Collecting duct</b>Final adjustment, then out</div>
+    </div>
+    <p><b>Afferent arteriole</b> brings blood <i>into</i> the glomerulus.
+    <b>Efferent arteriole</b> carries it <i>away</i>.</p>
+    <div class="mn">&#129504; <b>Afferent Approaches. Efferent Exits.</b> Same pair as the lymph node in
+    Module 11 &mdash; one mnemonic, two modules.</div>
+  </div>
+
+  <div class="card emerald">
+    <h3>&#9794;&#65039; Male reproductive structures</h3>
+    <div class="tw"><table>
+    <tr><th>Structure</th><th>Where</th><th>Job</th></tr>
+    <tr><td><b>Testes</b></td><td>Scrotum</td><td>Produce sperm and testosterone</td></tr>
+    <tr><td><b>Epididymis</b></td><td>On top of the testis</td><td>Coiled tube &mdash; <b>stores and matures</b> sperm</td></tr>
+    <tr><td><b>Ductus (vas) deferens</b></td><td>Up from the epididymis</td><td>Carries sperm toward the urethra</td></tr>
+    <tr><td><b>Prostate gland</b></td><td>Below the bladder</td><td>Adds alkaline fluid to semen</td></tr>
+    <tr><td><b>Corpus cavernosum</b></td><td>Penis</td><td>Erectile tissue</td></tr>
+    <tr><td><b>Urethra</b></td><td>Through the penis</td><td>Carries <b>both</b> urine and semen</td></tr>
+    </table></div>
+  </div>
+
+  <div class="card garnet">
+    <h3>&#9792;&#65039; Female reproductive structures</h3>
+    <div class="tw"><table>
+    <tr><th>Structure</th><th>Where</th><th>Job</th></tr>
+    <tr><td><b>Ovaries</b></td><td>Either side of the uterus</td><td>Produce eggs and hormones</td></tr>
+    <tr><td><b>Fallopian tubes</b></td><td>Uterus out toward the ovaries</td><td>Carry the egg; <b>fimbriae</b> sweep it in</td></tr>
+    <tr><td><b>Uterus</b></td><td>Between bladder and rectum</td><td>Receives, retains and nourishes the fertilised ovum</td></tr>
+    <tr><td><b>Cervix</b></td><td>Lower uterus</td><td>Connects uterus to vagina</td></tr>
+    <tr><td><b>Vagina</b></td><td>Cervix to vulva</td><td>Birth canal</td></tr>
+    <tr><td><b>Vulva</b></td><td>External</td><td>Labia majora and minora, clitoris</td></tr>
+    </table></div>
+    <p>The uterus has three layers &mdash; <b>perimetrium</b>, <b>myometrium</b> (muscle) and
+    <b>endometrium</b> (lining).</p>
+    <p><mark>Implantation happens in the endometrium.</mark></p>
+    <div class="mn">&#129504; <b>Endo</b> is the lining that sheds and implants. <b>Myo</b> is muscle,
+    everywhere in the body. There is a fuller version of this on the
+    <a href="more/NG-385_reproductive-anatomy-cycle.html">reproductive anatomy page</a>.</div>
+  </div>
+
+  <div class="card topaz">
+    <h3>&#9888;&#65039; Exam trap</h3>
+    <p>The kidneys are <b>retroperitoneal</b> &mdash; behind the peritoneum, not inside the peritoneal
+    cavity. <mark>That is why a kidney is approached from the back</mark>, and it is a favourite
+    single-word answer.</p>
+  </div>
+
+</div>
+</details>
+
+
+<div class="foot">
+<p>BIO 252 &middot; Human Anatomy &middot; fourteen modules, written from your own course study guides
+and exam review guides. Structure only &mdash; the function side lives on the
+<a href="physiology.html">physiology page</a>, and what goes wrong is on
+<a href="pathophysiology.html">pathophysiology</a>.</p>
+</div>
+<script>
+(function(){
+  var q=document.getElementById('q'), cnt=document.getElementById('cnt');
+  var wks=[].slice.call(document.querySelectorAll('details.wk'));
+
+  function count(){
+    var shown=wks.filter(function(w){return !w.classList.contains('hidden');}).length;
+    cnt.textContent=shown+' of '+wks.length+' modules';
+  }
+  function search(){
+    var t=(q.value||'').trim().toLowerCase();
+    wks.forEach(function(w){
+      if(!t){ w.classList.remove('hidden'); return; }
+      var hay=(w.getAttribute('data-kw')||'')+' '+w.innerText.toLowerCase();
+      var hit=hay.indexOf(t)>-1;
+      w.classList.toggle('hidden',!hit);
+      if(hit) w.open=true;
+    });
+    count();
+  }
+  q.addEventListener('input',search);
+
+  document.addEventListener('click',function(e){
+    var b=e.target.closest('.chip'); if(!b) return;
+    var k=b.getAttribute('data-k');
+    [].forEach.call(document.querySelectorAll('.chip'),function(x){x.classList.remove('on');});
+    if(k==='open'){ wks.forEach(function(w){w.open=true;}); }
+    else if(k==='shut'){ wks.forEach(function(w){w.open=false;}); }
+    else { b.classList.add('on'); q.value=''; search(); return; }
+    b.classList.add('on');
+  });
+
+  count();
+})();
+</script>
+<script src="absn-hidebar.js" defer></script>
+<script defer src="absn-diagrams.js"></script>
+<script defer src="absn-robots.js"></script>
+<style id="absnPhotoScrim">
+/* These sit straight on the page photo with nothing behind them, so how
+   readable they are depends on which part of the picture they land over.
+   A dark panel makes that deterministic without hiding the photograph.
+   Scoped to the parent each one actually has, so the same tag inside an
+   already-dark card does not pick up a second box. */
+div.wrap > h1,
+div.wrap > p.lede,
+div.wrap > div.note,
+div.foot > p{
+  background:rgba(10,8,22,.72);
+  border-radius:14px;
+  padding:10px 16px;
+  box-decoration-break:clone;
+  -webkit-box-decoration-break:clone}
+</style>
+</body></html>

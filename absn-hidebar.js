@@ -360,6 +360,7 @@
         ['\uD83E\uDE7A', 'NUR 198 \u00b7 Med-Surg', '../NUR-198-Study-Guide/index.html']
       ]],
       ['Everything else', [
+        ['\uD83E\uDDB4', 'Anatomy', 'anatomy.html'],
         ['\uD83D\uDC8E', 'Drug guide', '../drug-guide/index.html'],
         ['\uD83C\uDFAE', 'Games', 'games.html'],
         ['\uD83D\uDDBC\uFE0F', 'Infographics', 'infographics.html'],
