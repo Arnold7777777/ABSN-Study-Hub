@@ -182,6 +182,8 @@ h1{margin:6px 0 4px;font-size:1.9rem;line-height:1.2}
 .acts a.play{background:#ffd76a;color:#231a02;border-color:#231a02}
 .acts a:hover{background:rgba(255,255,255,.3)}
 .acts a.play:hover{background:#ffe49a}
+.acts a.vlc{background:#e8641c;color:#fff;border-color:#ffb98a;font-weight:900}
+.acts a.vlc:hover{background:#ff7a2f}
 .acts a:focus-visible{outline:3px solid #9fe4ff;outline-offset:2px}
 .how{background:rgba(0,0,0,.58);border:1px solid var(--line);
  border-left:6px solid rgba(126,232,255,.7);border-radius:15px;padding:15px 16px;margin:18px 0 0}
@@ -448,13 +450,54 @@ The links now go through the download host that answers with the file itself. If
 stalls, use <b>Downloaded files</b> for that module.</p>
 <h2>&#128241; Opening it</h2>
 <ol>
+<li><b>On your phone, use the orange <span class="mono">&#127916; Open in VLC</span> button.</b> It hands
+the playlist straight to VLC by name. Tapping the plain link instead downloads the file, and Android
+gives it to Chrome's media viewer, which cannot read a playlist &mdash; that is the broken-image icon
+and the <span class="mono">0:00</span>. The orange button only appears on a phone, and only on the
+Drive playlists, because those are the ones that work over a link.</li>
 <li><b>Windows / Mac:</b> double-click the <code>.m3u</code>, or drag it onto VLC.</li>
-<li><b>Android / iPhone:</b> put the files and the playlist in the same folder, then open
-the playlist from inside VLC rather than from the Files app.</li>
+<li><b>Downloaded files</b> playlists list bare filenames on purpose. Put that <code>.m3u</code> in
+the <i>same folder</i> as the recordings you downloaded, then open it from inside VLC. On its own,
+with no files beside it, it will play nothing.</li>
 <li>VLC remembers where you stopped, so you can pick a long lecture back up next drive.</li>
 </ol>
 </div>
 </div>
+<script>
+/* Tapping a .m3u on Android downloads it and Android hands it to whatever
+   claims the type - which turned out to be Chrome's own media viewer, showing
+   a broken-image icon and 0:00. These buttons name VLC explicitly instead:
+   an Android intent:// URL with VLC's package, or VLC for iOS's x-callback
+   stream URL. Desktop keeps the plain download, where double-clicking works. */
+(function(){
+  var ua = navigator.userAgent || '';
+  var android = /Android/i.test(ua);
+  var ios = /iPad|iPhone|iPod/.test(ua) ||
+            (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  if(!android && !ios) return;
+
+  [].forEach.call(document.querySelectorAll('.pl .acts'), function(acts){
+    /* only the Drive playlist makes sense over a URL - the "downloaded files"
+       one lists bare filenames and has to sit in the folder with the videos */
+    var drive = acts.querySelector('a[href*="-drive.m3u"]');
+    if(!drive) return;
+
+    var abs = new URL(drive.getAttribute('href'), location.href).href;
+    var a = document.createElement('a');
+    a.className = 'vlc';
+    a.rel = 'noopener';
+
+    if(android){
+      a.href = 'intent://' + abs.replace(/^https?:\/\//,'') +
+               '#Intent;scheme=https;package=org.videolan.vlc;end';
+    } else {
+      a.href = 'vlc-x-callback://x-callback-url/stream?url=' + encodeURIComponent(abs);
+    }
+    a.innerHTML = '\uD83C\uDFAC Open in VLC';
+    acts.insertBefore(a, acts.firstChild);
+  });
+})();
+</script>
 <script defer src="absn-watch.js"></script>
 <script defer src="absn-hidebar.js"></script>
 <script defer src="absn-diagrams.js"></script>
