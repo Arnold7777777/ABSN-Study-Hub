@@ -137,13 +137,17 @@
       svg.style.maxWidth = 'none';
       svg.style.height = 'auto';
 
-      if (!hinted) {
-        hinted = true;
-        var hint = document.createElement('p');
-        hint.className = 'dzhint';
-        hint.textContent = 'Swipe this diagram sideways \u2192 the wide ones are drawn bigger here so the labels stay readable.';
-        host.parentNode.insertBefore(hint, host.nextSibling);
-      }
+      /* Every widened diagram gets its own hint. This used to fire once per page,
+         so on a page with eight wide figures only the first one said it could be
+         swiped - the other seven just looked cut off with a dead band beside them.
+         The first keeps the full explanation; the rest get the short arrow. */
+      var hint = document.createElement('p');
+      hint.className = 'dzhint';
+      hint.textContent = hinted
+        ? '\u2194 Swipe this diagram sideways.'
+        : 'Swipe this diagram sideways \u2192 the wide ones are drawn bigger here so the labels stay readable.';
+      hinted = true;
+      host.parentNode.insertBefore(hint, host.nextSibling);
     }
   }
 
