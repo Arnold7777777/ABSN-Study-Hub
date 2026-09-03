@@ -28,6 +28,8 @@ for (const page of pages) {
   const broken = await p.evaluate(async () => {
     const out = [];
     for (const i of document.querySelectorAll('img')) {
+      // a lightbox <img> sits empty until a click fills it - not a broken image
+      if (!i.getAttribute('src')) continue;
       if (!i.complete) await new Promise(r => { i.onload = i.onerror = r; setTimeout(r, 1500); });
       // an SVG with only a viewBox reports naturalWidth 0 even when it paints,
       // so decode() is the honest test of whether the bytes are usable
