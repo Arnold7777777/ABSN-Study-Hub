@@ -24,7 +24,11 @@ COMMENT  = re.compile(r'<!--.*?-->', re.S)
 TITLE    = re.compile(r'<title[^>]*>(.*?)</title>', re.S | re.I)
 REDIRECT = re.compile(r'http-equiv\s*=\s*["\']?refresh', re.I)
 # A heading is h1-h4 or a <summary> - this site uses <details>/<summary> heavily.
-HEAD     = re.compile(r'<(h[1-4]|summary)\b([^>]*)>(.*?)</\1\s*>', re.S | re.I)
+# h1-h4 and <summary> carry the page structure. Mind maps carry theirs in a
+# <figcaption class="mmhub2"> hub plus <h6> column heads, and card decks use
+# <h5>; without these, a whole mind map folded into its parent section and
+# was cut off at MAXTEXT, so "pull the pinna" was unfindable.
+HEAD     = re.compile(r'<(h[1-6]|summary|figcaption)\b([^>]*)>(.*?)</\1\s*>', re.S | re.I)
 IDATTR   = re.compile(r'\bid\s*=\s*["\']([^"\']+)["\']', re.I)
 
 MAXTEXT = 520          # chars of body text kept per entry
@@ -104,6 +108,8 @@ def main():
             entries.append({'p': str(pi), 'h': title, 'a': '', 't': lede[:MAXTEXT]})
 
         for i, m in enumerate(marks):
+            if m.group(1).lower() == 'figcaption' and 'mmhub' not in m.group(2):
+                continue
             h = text_of(m.group(3))
             if not h or len(h) > 180:
                 continue
