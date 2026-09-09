@@ -3196,6 +3196,14 @@ body.nav-open #side{transform:translateX(0)}
         if(on){ any++; shown++; }
       });
       sec.classList.toggle('hide', any===0);
+      /* the ADHD script folds every group but the first; a filter has to unfold the groups it matched,
+         otherwise "NUR 235" finds 49 recordings and shows none of them */
+      var filtering = pick.topic.length||pick.course.length||pick.kind.length||pick.mod.length;
+      if(filtering && any>0){
+        var body=sec.querySelector(':scope > .adhd-card-body'), btn=sec.querySelector(':scope > .adhd-card-toggle');
+        if(body && body.hidden){ body.hidden=false; sec.classList.add('adhd-open');
+          if(btn){ btn.setAttribute('aria-expanded','true'); var ic=btn.querySelector('.adhd-card-icon'); if(ic) ic.textContent='\u2212'; } }
+      }
       var n=sec.querySelector('.n'); if(n) n.textContent=any;
       /* the jump cards at the top copy the heading text once, so refresh them too */
       var h2=sec.querySelector('h2'); if(h2){ var label=h2.textContent.replace(/\s+/g,' ').trim();
