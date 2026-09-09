@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32"><link rel="apple-touch-icon" href="favicon-180.png">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="absn-watch" content="off">
+<meta name="description" content="MAT 300 statistics calculator: mean median mode quartiles standard deviation outliers histogram box plot scatter correlation regression confidence interval t test proportion normal binomial">
+<title>Statistics calculator &middot; MAT 300 &middot; ABSN Study Hub</title>
+<style>
+:root{--amethyst:157,92,255;--sapphire:47,107,255;--emerald:18,184,134;--teal:0,194,199;--topaz:255,194,51;--ruby:255,59,107;--garnet:192,34,85;--citrine:255,138,61;--line:rgba(255,255,255,.30)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font:16px/1.6 'Segoe UI',system-ui,sans-serif;color:#fff;background-color:#0b1424;background-image:url("pharm-bg.jpg");background-size:cover;background-position:center top;background-attachment:fixed;background-repeat:no-repeat;overflow-wrap:break-word}
+.wrap{max-width:1040px;margin:0 auto;padding:14px 14px 90px}
+#navBtns{display:flex;flex-wrap:wrap;gap:6px;margin:10px 12px 2px}
+#navBtns a{background:linear-gradient(135deg,#0b6656,#0f7d6b);color:#fff;min-height:44px;display:inline-flex;align-items:center;text-decoration:none;font-weight:800;font-size:.9rem;padding:9px 13px;border-radius:999px;border:1px solid rgba(255,255,255,.3);box-shadow:0 4px 14px rgba(0,0,0,.4)}
+.modnav{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 16px}
+.modnav a{min-height:44px;display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:999px;text-decoration:none;color:#fff;font-weight:800;font-size:.86rem;border:1px solid var(--line);background:rgba(var(--j),.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.modnav a.on{outline:3px solid #ffd76a;outline-offset:1px}
+h1{font-size:clamp(1.5rem,5.5vw,2.2rem);line-height:1.15;margin:8px 0 6px}
+h2{font-size:clamp(1.2rem,4.4vw,1.55rem);margin:26px 0 10px;padding-bottom:6px;border-bottom:2px solid rgba(var(--j),.8)}
+h3{font-size:1.05rem;margin:14px 0 8px}
+.lede{font-size:1.05rem;color:#f3ecff;margin:0 0 12px}
+.card{background:rgba(var(--j),.60);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);border:1px solid var(--line);border-left:5px solid rgba(255,255,255,.55);border-radius:16px;padding:15px 17px;margin:0 0 12px;color:#fff;box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.card h3{margin:0 0 8px;display:flex;align-items:center;gap:8px}
+.card p{margin:0 0 9px;font-size:.95rem}.card p:last-child,.card ul:last-child{margin-bottom:0}
+.card.ruby{--j:var(--ruby)}.card.emerald{--j:var(--emerald)}.card.sapphire{--j:var(--sapphire)}.card.amethyst{--j:var(--amethyst)}.card.teal{--j:var(--teal)}.card.citrine{--j:var(--citrine)}.card.garnet{--j:var(--garnet)}
+.card.topaz{--j:var(--topaz);color:#181201;border-left-color:rgba(0,0,0,.4)}.card.topaz a,.card.topaz code{color:#3a2a00}.card.topaz code{background:rgba(255,255,255,.7)}
+.card.topaz mark{background:#181201;color:#ffe9a8}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));margin:0 0 12px}
+.grid .card{margin:0}
+.big{font:900 clamp(1.5rem,5vw,2rem)/1.1 'Segoe UI',system-ui,sans-serif;display:block;margin:2px 0 6px;font-variant-numeric:tabular-nums}
+mark{background:rgba(255,194,51,.92);color:#241a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{text-decoration:underline wavy rgba(255,59,107,.95);text-underline-offset:4px;font-weight:800}
+code,.num{font:800 .95em ui-monospace,'Cascadia Mono',Consolas,monospace;background:rgba(0,0,0,.72);padding:2px 7px;border-radius:7px;color:#fff;overflow-wrap:break-word}
+td code,.desmos code{white-space:nowrap}
+.grid>*,.card,.step{min-width:0}
+.card p a,.card li a,td a,.note a,.ans a,.lede a,.wrap>p a{display:inline-block;padding:14px 6px;margin:-14px -3px;border-radius:8px;line-height:1.2}
+.formula{display:block;font:800 1.05rem ui-monospace,'Cascadia Mono',Consolas,monospace;background:rgba(0,0,0,.72);padding:10px 14px;border-radius:12px;margin:6px 0 10px;overflow-x:auto;white-space:nowrap;color:#fff}
+.tw{overflow-x:auto;margin:0 0 12px;border-radius:14px;border:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;min-width:420px;font-size:.92rem;background:rgba(0,0,0,.5);color:#fff}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid rgba(255,255,255,.16);vertical-align:top}
+th{background:rgba(255,255,255,.14);font-weight:900;font-size:.84rem;text-transform:uppercase;letter-spacing:.03em}
+tr:last-child td{border-bottom:none}td b{color:#ffe9a8}
+.flow{display:flex;align-items:stretch;flex-wrap:wrap;margin:0 0 12px}
+.step{flex:1 1 140px;min-width:130px;background:rgba(0,0,0,.5);border:1px solid var(--line);border-radius:13px;padding:11px 12px;font-size:.9rem;position:relative;margin:0 16px 10px 0;color:#fff}
+.step:last-child{margin-right:0}.step::after{content:"\2192";position:absolute;right:-15px;top:50%;transform:translateY(-50%);font-size:1.15rem;font-weight:900;color:#ffd76a}.step:last-child::after{content:""}
+.step b{display:block;font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;color:#ffd76a;margin-bottom:3px}
+.fig{margin:0 0 14px;background:rgba(5,10,22,.72);border:1px solid var(--line);border-radius:16px;padding:10px 10px 6px}
+.fig .fbox{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:12px;scrollbar-width:thin}
+.fig svg{display:block;width:100%;max-width:100%;height:auto;margin:0 auto}
+.fig figcaption{font-size:.88rem;color:#ffe9a8;font-weight:700;padding:6px 4px 2px}
+.note{border:1px dashed rgba(255,194,51,.65);background:rgba(255,194,51,.13);color:#ffe9a8;border-radius:14px;padding:13px 15px;margin:0 0 14px;font-size:.94rem}
+ul{margin:0 0 10px;padding-left:20px}li{margin:0 0 6px;font-size:.94rem}
+a{color:#ffd76a}
+details.more{background:rgba(0,0,0,.42);border:1px solid var(--line);border-radius:14px;padding:6px 14px;margin:0 0 12px}
+details.more summary{cursor:pointer;font-weight:800;min-height:44px;display:flex;align-items:center;font-size:1rem}
+details.more[open] summary{margin-bottom:8px}
+.strip{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+.strip span{background:rgba(0,0,0,.55);border:1px solid var(--line);border-radius:999px;padding:7px 12px;font-size:.86rem;font-weight:800}
+.tile{display:block;text-decoration:none;color:#fff;background:rgba(var(--j),.60);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);border:1px solid var(--line);border-left:5px solid rgba(255,255,255,.55);border-radius:16px;padding:15px 17px;box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.tile .name{font-weight:900;font-size:1.1rem}.tile .sub{font-size:.85rem;color:#ffe9a8;font-weight:700}.tile p{margin:6px 0 0;font-size:.92rem}
+.tile .go{display:inline-block;margin-top:8px;font-weight:900;color:#ffd76a}
+.qa{background:rgba(0,0,0,.45);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin:0 0 10px}
+.qa summary{cursor:pointer;font-weight:800;min-height:44px;display:flex;align-items:center;gap:8px}
+.qa .ans{margin-top:8px;padding-top:8px;border-top:1px dashed rgba(255,255,255,.35);font-size:.94rem}
+.foot{margin-top:26px;padding-top:16px;border-top:1px solid var(--line);font-size:.86rem;color:#cdbfe8}
+.desmos{font:800 .92rem ui-monospace,'Cascadia Mono',Consolas,monospace;background:#0f1a2e;border:2px solid #2f6bff;border-radius:12px;padding:0;margin:8px 0 10px;overflow-x:auto}
+.desmos div{padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.12);white-space:nowrap;display:flex;gap:10px}
+.desmos div:last-child{border-bottom:none}.desmos i{color:#7fb2ff;font-style:normal;min-width:1.6em}.desmos b{color:#ffd76a;font-weight:800}
+.desmos em{color:#9dffcc;font-style:normal;margin-left:auto;padding-left:10px}
+@media(max-width:430px){table{min-width:0}th,td{padding:9px 8px}td code{white-space:normal}.wrap{padding-left:10px;padding-right:10px}.fig{padding:8px 7px 5px}}
+@media print{#navBtns,.modnav{display:none}}
+</style>
+</head><body style="--j:var(--emerald)">
+<div id="navBtns">
+  <a href="index.html">&#127891;<span class="lb"> Study Hub</span></a>
+  <a href="mat300.html">&#128202; MAT 300</a>
+  <a href="lectures.html#mat300">&#127909; Recordings</a>
+</div>
+<div class="wrap">
+<nav class="modnav" aria-label="MAT 300 pages"><a style="--j:var(--amethyst)" href="mat300.html" class="">&#128202; Hub</a><a style="--j:var(--sapphire)" href="mat300-1-data.html" class="">&#129489;&#8205;&#9877;&#65039; 1 Data &amp; studies</a><a style="--j:var(--emerald)" href="mat300-2-describe.html" class="">&#128200; 2 Describe</a><a style="--j:var(--teal)" href="mat300-3-correlation.html" class="">&#128201; 3 Correlation</a><a style="--j:var(--amethyst)" href="mat300-4-probability.html" class="">&#127922; 4 Probability</a><a style="--j:var(--citrine)" href="mat300-5-normal.html" class="">&#128302; 5 Normal &amp; CLT</a><a style="--j:var(--ruby)" href="mat300-6-inference.html" class="">&#9878;&#65039; 6 Inference</a><a style="--j:var(--topaz)" href="mat300-formulas.html" class="">&#128221; Formulas</a><a style="--j:var(--emerald)" href="mat300-stats.html" class="on">&#129518; Calculator</a><a style="--j:var(--topaz)" href="mat300-desmos.html" class="">&#129518; Desmos</a><a style="--j:var(--garnet)" href="mat300-practice.html" class="">&#9989; Practice</a></nav>
+<h1 style="--j:var(--emerald)">&#129518; Statistics calculator</h1>
+<p class="lede">Paste your numbers once. The summary, the graphs, the outliers, the line of best fit and the confidence interval all work themselves out.</p>
+
+<style>
+.tool{background:rgba(4,10,20,.88);border:2px solid rgba(157,92,255,.5);border-radius:16px;padding:14px;margin:0 0 14px}
+.tool h3{margin:0 0 4px;font-size:1.05rem;display:flex;align-items:center;gap:8px}
+.tool .hint{font-size:.88rem;color:#cfe0ff;margin:0 0 10px}
+.tool textarea{width:100%;min-height:88px;font:700 1rem ui-monospace,Consolas,monospace;color:#fff;
+  background:rgba(0,0,0,.62);border:1px solid rgba(255,255,255,.4);border-radius:11px;padding:10px;resize:vertical}
+.tool .row{display:flex;flex-wrap:wrap;gap:9px;margin:9px 0}
+.tool label{flex:1 1 92px;min-width:92px;font-size:.8rem;font-weight:800;color:#ffd76a;display:flex;flex-direction:column;gap:4px}
+.tool input,.tool select{min-height:44px;font:800 1rem ui-monospace,Consolas,monospace;color:#fff;
+  background:rgba(0,0,0,.62);border:1px solid rgba(255,255,255,.4);border-radius:10px;padding:6px 10px;width:100%}
+.tool select{font-family:'Segoe UI',system-ui,sans-serif;font-size:.95rem}
+.tool button{min-height:44px;padding:8px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.35);
+  background:rgba(157,92,255,.55);color:#fff;font:800 .9rem 'Segoe UI',system-ui,sans-serif;cursor:pointer}
+.tool button.ghost{background:rgba(0,0,0,.5);color:#ffe9a8;border-color:rgba(255,214,106,.5)}
+.tool .out{background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.3);border-radius:12px;padding:11px 13px;font-size:.95rem;margin-top:10px}
+.tool .out b{color:#9dffcc}
+.tool .big{font:900 1.45rem/1.2 ui-monospace,Consolas,monospace;color:#ffe9a8;display:block;margin:0 0 6px;font-variant-numeric:tabular-nums}
+.tool .warn{color:#ffb3c6;font-weight:800}
+.tool svg{display:block;width:100%;height:auto;max-width:360px;margin:10px auto 2px}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,132px),1fr));gap:8px;margin:2px 0 0}
+.sgrid div{background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.22);border-radius:11px;padding:8px 10px}
+.sgrid span{display:block;font-size:.8rem;font-weight:800;color:#ffd76a;text-transform:uppercase;letter-spacing:.04em}
+.sgrid b{display:block;font:900 1.15rem ui-monospace,Consolas,monospace;color:#fff;font-variant-numeric:tabular-nums;margin-top:2px}
+.figcap{font-size:.86rem;color:#ffe9a8;font-weight:700;text-align:center;margin:2px 0 8px}
+</style>
+<div class="note">A statistics calculator that runs in the page. <b>Type or paste your numbers once</b> and everything below updates: the summary, the histogram, the box plot, outliers, the line of best fit, and the confidence interval. Nothing is sent anywhere.</div><h2 id="data">&#128203; 1. Your data</h2><div class="tool"><h3>&#9999;&#65039; Paste the numbers</h3><p class="hint">Commas, spaces or new lines all work. Negative numbers and decimals are fine.</p><textarea id="d1" spellcheck="false" aria-label="Your data values">4 4 5 5 5 6 6 6 7 7 8 8 9 10 12 14</textarea><div class="row"><button class="ghost" data-sample="los">Length of stay</button><button class="ghost" data-sample="bp">Blood pressure</button><button class="ghost" data-sample="skew">A skewed set</button><button class="ghost" id="clear">Clear</button></div></div><h2 id="onevar">&#128202; 2. One-variable statistics</h2><div class="tool"><h3>&#128200; Everything about that list</h3><div class="row"><label style="flex:0 0 130px">histogram bins<input id="bins" type="number" inputmode="numeric" min="2" max="20" placeholder="auto"></label></div><div id="o1"></div></div><h2 id="twovar">&#128201; 3. Two lists: correlation and the line</h2><div class="tool"><h3>&#128279; Paired data</h3><p class="hint">The box above is your x values. Put the matching y values here, in the same order.</p><textarea id="d2" spellcheck="false" aria-label="Paired y values" placeholder="leave empty if you only have one list"></textarea><div class="row"><label style="flex:0 0 150px">predict y when x =<input id="px" type="number" inputmode="decimal" placeholder="optional"></label></div><div id="o2"></div></div><h2 id="infer">&#9878;&#65039; 4. Confidence interval and t test</h2><div class="tool"><h3>&#127919; From the data you pasted</h3><p class="hint">Uses your list above. The test is optional &mdash; leave μ₀ empty to skip it.</p><div class="row"><label>confidence<select id="clev"><option value="90">90%</option><option value="95" selected>95%</option><option value="99">99%</option></select></label><label>test H₀: μ =<input id="mu0" type="number" inputmode="decimal" placeholder="optional"></label></div><div id="oi"></div></div><div class="tool"><h3>&#128101; A proportion instead</h3><p class="hint">For counts, like 48 readmissions out of 200.</p><div class="row"><label>successes x<input id="px1" type="number" inputmode="numeric" value="48"></label><label>out of n<input id="pn" type="number" inputmode="numeric" value="200"></label></div><div class="row"><label>confidence<select id="plev"><option value="90">90%</option><option value="95" selected>95%</option><option value="99">99%</option></select></label><label>test H₀: p =<input id="pp0" type="number" inputmode="decimal" placeholder="optional"></label></div><div id="op"></div></div><h2 id="dist">&#128302; 5. Distribution tools</h2><div class="tool"><h3>&#128200; Normal curve</h3><p class="hint">Area under the curve, or work backwards from a percentile.</p><div class="row"><label>mean μ<input id="nm" type="number" inputmode="decimal" value="72"></label><label>SD σ<input id="ns" type="number" inputmode="decimal" value="8"></label></div><div class="row"><label>I want<select id="nmode"><option value="bt">the area between two values</option><option value="lt">the area below a value</option><option value="gt">the area above a value</option><option value="inv">the value at a percentile</option></select></label></div><div class="row"><label>low / percentile<input id="nlo" type="number" inputmode="decimal" value="56"></label><label>high<input id="nhi" type="number" inputmode="decimal" value="88"></label></div><div id="on"></div></div><div class="tool"><h3>&#127922; Binomial</h3><p class="hint">Fixed number of tries, each one a pass or a fail, same chance every time.</p><div class="row"><label>tries n<input id="bn" type="number" inputmode="numeric" value="10"></label><label>chance p<input id="bp" type="number" inputmode="decimal" value="0.8" step="0.01"></label><label>successes k<input id="bk" type="number" inputmode="numeric" value="8"></label></div><div id="ob"></div></div><div class="note"><b>Check anything that matters against your own notes.</b> This follows the conventions your course uses &mdash; quartiles by the median-of-halves method, t for means, z for proportions &mdash; but if your instructor does one differently, theirs is the one that gets marked.</div>
+<script>
+(function(){
+// ---------- number crunching ----------
+function parseList(s){var m=(s||'').match(/-?\d*\.?\d+(?:[eE][+-]?\d+)?/g)||[];
+  return m.map(Number).filter(function(v){return isFinite(v);});}
+function sum(a){return a.reduce(function(x,y){return x+y;},0);}
+function mean(a){return sum(a)/a.length;}
+function median(a){var n=a.length;if(!n)return NaN;var b=a.slice().sort(function(x,y){return x-y;});
+  return n%2?b[(n-1)/2]:(b[n/2-1]+b[n/2])/2;}
+function quartiles(a){var b=a.slice().sort(function(x,y){return x-y;}),n=b.length;
+  if(n<2)return{q1:b[0],q2:b[0],q3:b[0]};
+  var lo,hi;
+  if(n%2===0){lo=b.slice(0,n/2);hi=b.slice(n/2);}else{lo=b.slice(0,(n-1)/2);hi=b.slice((n+1)/2);}
+  return {q1:median(lo),q2:median(b),q3:median(hi)};}
+function sd(a,pop){var n=a.length;if(n<2&&!pop)return NaN;var m=mean(a);
+  var ss=a.reduce(function(t,x){return t+(x-m)*(x-m);},0);return Math.sqrt(ss/(pop?n:n-1));}
+function modes(a){var c={},best=0,out=[];a.forEach(function(v){c[v]=(c[v]||0)+1;if(c[v]>best)best=c[v];});
+  if(best<2)return{list:[],count:best};
+  for(var k in c)if(c[k]===best)out.push(Number(k));
+  return {list:out.sort(function(x,y){return x-y;}),count:best};}
+function fmt(x,d){if(!isFinite(x))return '—';d=d===undefined?3:d;
+  var v=Math.round(x*Math.pow(10,d))/Math.pow(10,d);
+  return (Math.abs(v)>=1e6||(v!==0&&Math.abs(v)<1e-4))?v.toExponential(3):String(v);}
+
+// ---------- distributions ----------
+function erf(x){var s=x<0?-1:1;x=Math.abs(x);
+ var a1=.254829592,a2=-.284496736,a3=1.421413741,a4=-1.453152027,a5=1.061405429,p=.3275911;
+ var t=1/(1+p*x);return s*(1-(((((a5*t+a4)*t)+a3)*t+a2)*t+a1)*t*Math.exp(-x*x));}
+function Phi(z){return .5*(1+erf(z/Math.SQRT2));}
+function invPhi(p){if(p<=0)return -Infinity;if(p>=1)return Infinity;
+ var a=[-3.969683028665376e+01,2.209460984245205e+02,-2.759285104469687e+02,1.383577518672690e+02,-3.066479806614716e+01,2.506628277459239e+00],
+     b=[-5.447609879822406e+01,1.615858368580409e+02,-1.556989798598866e+02,6.680131188771972e+01,-1.328068155288572e+01],
+     c=[-7.784894002430293e-03,-3.223964580411365e-01,-2.400758277161838e+00,-2.549732539343734e+00,4.374664141464968e+00,2.938163982698783e+00],
+     d=[7.784695709041462e-03,3.224671290700398e-01,2.445134137142996e+00,3.754408661907416e+00],pl=.02425,q,r;
+ if(p<pl){q=Math.sqrt(-2*Math.log(p));return (((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5])/((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1);}
+ if(p>1-pl){q=Math.sqrt(-2*Math.log(1-p));return -(((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5])/((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1);}
+ q=p-.5;r=q*q;return (((((a[0]*r+a[1])*r+a[2])*r+a[3])*r+a[4])*r+a[5])*q/(((((b[0]*r+b[1])*r+b[2])*r+b[3])*r+b[4])*r+1);}
+function gammaln(x){var c=[76.18009172947146,-86.50532032941677,24.01409824083091,-1.231739572450155,
+  0.1208650973866179e-2,-0.5395239384953e-5],y=x,tmp=x+5.5,ser=1.000000000190015;
+ tmp-=(x+0.5)*Math.log(tmp);
+ for(var j=0;j<6;j++)ser+=c[j]/++y;
+ return -tmp+Math.log(2.5066282746310005*ser/x);}
+function betacf(a,b,x){var MAXIT=250,EPS=3e-14,FPMIN=1e-300,qab=a+b,qap=a+1,qam=a-1,c=1,d=1-qab*x/qap;
+ if(Math.abs(d)<FPMIN)d=FPMIN;d=1/d;var h=d;
+ for(var m=1;m<=MAXIT;m++){var m2=2*m,aa=m*(b-m)*x/((qam+m2)*(a+m2));
+  d=1+aa*d;if(Math.abs(d)<FPMIN)d=FPMIN;c=1+aa/c;if(Math.abs(c)<FPMIN)c=FPMIN;d=1/d;h*=d*c;
+  aa=-(a+m)*(qab+m)*x/((a+m2)*(qap+m2));
+  d=1+aa*d;if(Math.abs(d)<FPMIN)d=FPMIN;c=1+aa/c;if(Math.abs(c)<FPMIN)c=FPMIN;d=1/d;
+  var del=d*c;h*=del;if(Math.abs(del-1)<EPS)break;}
+ return h;}
+function betai(a,b,x){if(x<=0)return 0;if(x>=1)return 1;
+ var bt=Math.exp(gammaln(a+b)-gammaln(a)-gammaln(b)+a*Math.log(x)+b*Math.log(1-x));
+ return (x<(a+1)/(a+b+2))?bt*betacf(a,b,x)/a:1-bt*betacf(b,a,1-x)/b;}
+function tP2(t,df){if(!isFinite(t))return 0;return betai(df/2,0.5,df/(df+t*t));}   // two-tailed
+var TT={1:[6.314,12.706,63.657],2:[2.920,4.303,9.925],3:[2.353,3.182,5.841],4:[2.132,2.776,4.604],
+5:[2.015,2.571,4.032],6:[1.943,2.447,3.707],7:[1.895,2.365,3.499],8:[1.860,2.306,3.355],9:[1.833,2.262,3.250],
+10:[1.812,2.228,3.169],11:[1.796,2.201,3.106],12:[1.782,2.179,3.055],13:[1.771,2.160,3.012],14:[1.761,2.145,2.977],
+15:[1.753,2.131,2.947],16:[1.746,2.120,2.921],17:[1.740,2.110,2.898],18:[1.734,2.101,2.878],19:[1.729,2.093,2.861],
+20:[1.725,2.086,2.845],21:[1.721,2.080,2.831],22:[1.717,2.074,2.819],23:[1.714,2.069,2.807],24:[1.711,2.064,2.797],
+25:[1.708,2.060,2.787],26:[1.706,2.056,2.779],27:[1.703,2.052,2.771],28:[1.701,2.048,2.763],29:[1.699,2.045,2.756],
+30:[1.697,2.042,2.750],40:[1.684,2.021,2.704],50:[1.676,2.009,2.678],60:[1.671,2.000,2.660],80:[1.664,1.990,2.639],
+100:[1.660,1.984,2.626],120:[1.658,1.980,2.617],100000:[1.645,1.960,2.576]};
+var TK=Object.keys(TT).map(Number).sort(function(a,b){return a-b;});
+function tcrit(df,ci){var i=[90,95,99].indexOf(ci);if(df<1)return NaN;if(TT[df])return TT[df][i];
+ var lo=TK[0],hi=TK[TK.length-1];
+ for(var k=0;k<TK.length-1;k++){if(TK[k]<=df&&df<=TK[k+1]){lo=TK[k];hi=TK[k+1];break;}}
+ var f=(1/df-1/lo)/(1/hi-1/lo);return TT[lo][i]+f*(TT[hi][i]-TT[lo][i]);}
+function comb(n,k){if(k<0||k>n)return 0;var r=1;for(var i=1;i<=k;i++)r=r*(n-k+i)/i;return r;}
+
+// ---------- drawing (300-unit canvas, 14px minimum label) ----------
+var NS='http://www.w3.org/2000/svg', FF='Segoe UI,system-ui,sans-serif';
+function svg(h){return '<svg xmlns="'+NS+'" viewBox="0 0 300 '+h+'" role="img">';}
+function tx(x,y,s,size,fill,anchor,weight){return '<text x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" font-size="'+(size||14)+
+ '" fill="'+(fill||'#fff')+'" text-anchor="'+(anchor||'middle')+'" font-weight="'+(weight||700)+
+ '" font-family="'+FF+'">'+s+'</text>';}
+function niceTick(v){var a=Math.abs(v);return a>=100?v.toFixed(0):a>=10?v.toFixed(1):v.toFixed(2).replace(/0$/,'');}
+
+function drawHist(data,bins){
+ var n=data.length;if(n<2)return '';
+ var mn=Math.min.apply(null,data),mx=Math.max.apply(null,data);
+ if(mx===mn){mx=mn+1;}
+ var w=(mx-mn)/bins,counts=new Array(bins).fill(0);
+ data.forEach(function(v){var i=Math.floor((v-mn)/w);if(i>=bins)i=bins-1;if(i<0)i=0;counts[i]++;});
+ var H=230,L=42,R=290,T=30,B=H-42,top=Math.max.apply(null,counts)||1;
+ var s=svg(H)+tx(150,20,'Histogram',16);
+ for(var g=0;g<=2;g++){var y=B-(B-T)*g/2;
+  s+='<line x1="'+L+'" y1="'+y.toFixed(1)+'" x2="'+R+'" y2="'+y.toFixed(1)+'" stroke="rgba(255,255,255,.2)"/>';
+  s+=tx(L-6,y+5,String(Math.round(top*g/2)),14,'#dfe6f5','end',600);}
+ var bw=(R-L)/bins;
+ for(var i=0;i<bins;i++){var hh=(B-T)*counts[i]/top;
+  s+='<rect x="'+(L+i*bw).toFixed(1)+'" y="'+(B-hh).toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+hh.toFixed(1)+
+     '" fill="#12b886" stroke="rgba(255,255,255,.75)"/>';}
+ s+='<line x1="'+L+'" y1="'+B+'" x2="'+R+'" y2="'+B+'" stroke="#fff" stroke-width="1.5"/>';
+ s+=tx(L,B+20,niceTick(mn),14,'#cfd9ee','start')+tx(R,B+20,niceTick(mx),14,'#cfd9ee','end');
+ s+=tx(150,B+38,bins+' bins, width '+fmt(w,2),14,'#ffd76a');
+ return s+'</svg>';}
+
+function drawBox(a){
+ var b=a.slice().sort(function(x,y){return x-y;}),q=quartiles(b),iqr=q.q3-q.q1;
+ var loF=q.q1-1.5*iqr,hiF=q.q3+1.5*iqr;
+ var inl=b.filter(function(v){return v>=loF&&v<=hiF;}),out=b.filter(function(v){return v<loF||v>hiF;});
+ var wLo=inl.length?inl[0]:b[0],wHi=inl.length?inl[inl.length-1]:b[b.length-1];
+ var mn=Math.min.apply(null,b),mx=Math.max.apply(null,b),pad=(mx-mn||1)*.1;
+ var lo=mn-pad,hi=mx+pad,L=20,R=280,y=96,H=190;
+ var X=function(v){return L+(R-L)*(v-lo)/(hi-lo);};
+ var s=svg(H)+tx(150,20,'Box plot',16);
+ s+='<line x1="'+X(wLo).toFixed(1)+'" y1="'+y+'" x2="'+X(q.q1).toFixed(1)+'" y2="'+y+'" stroke="#fff" stroke-width="2.5"/>';
+ s+='<line x1="'+X(q.q3).toFixed(1)+'" y1="'+y+'" x2="'+X(wHi).toFixed(1)+'" y2="'+y+'" stroke="#fff" stroke-width="2.5"/>';
+ [wLo,wHi].forEach(function(v){s+='<line x1="'+X(v).toFixed(1)+'" y1="'+(y-13)+'" x2="'+X(v).toFixed(1)+'" y2="'+(y+13)+'" stroke="#fff" stroke-width="2.5"/>';});
+ s+='<rect x="'+X(q.q1).toFixed(1)+'" y="'+(y-25)+'" width="'+Math.max(1,X(q.q3)-X(q.q1)).toFixed(1)+
+    '" height="50" rx="7" fill="#12b886" fill-opacity=".75" stroke="#fff" stroke-width="2"/>';
+ s+='<line x1="'+X(q.q2).toFixed(1)+'" y1="'+(y-25)+'" x2="'+X(q.q2).toFixed(1)+'" y2="'+(y+25)+'" stroke="#fff" stroke-width="3.5"/>';
+ out.forEach(function(v){s+='<circle cx="'+X(v).toFixed(1)+'" cy="'+y+'" r="6" fill="#ff3b6b" stroke="#fff" stroke-width="2"/>';});
+ var lab=[[wLo,'min'],[q.q1,'Q1'],[q.q2,'med'],[q.q3,'Q3'],[wHi,'max']];
+ lab.forEach(function(p,i){var dy=i%2?-42:-32;
+  s+=tx(X(p[0]),y+dy,p[1],14,'#ffd76a')+tx(X(p[0]),y+(i%2?58:44),niceTick(p[0]),14,'#fff');});
+ if(out.length)s+=tx(150,H-8,out.length+' outlier'+(out.length>1?'s':'')+' in red',14,'#ff9db4');
+ return s+'</svg>';}
+
+function drawScatter(xs,ys,reg){
+ var n=xs.length,L=38,R=288,T=30,B=200,H=240;
+ var x0=Math.min.apply(null,xs),x1=Math.max.apply(null,xs),y0=Math.min.apply(null,ys),y1=Math.max.apply(null,ys);
+ var px=(x1-x0)*.12||1,py=(y1-y0)*.15||1;x0-=px;x1+=px;y0-=py;y1+=py;
+ var X=function(v){return L+(R-L)*(v-x0)/(x1-x0);},Y=function(v){return B-(B-T)*(v-y0)/(y1-y0);};
+ var s=svg(H)+tx(150,20,'Scatter and the line',16);
+ s+='<line x1="'+L+'" y1="'+B+'" x2="'+R+'" y2="'+B+'" stroke="#fff" stroke-width="1.5"/>'+
+    '<line x1="'+L+'" y1="'+T+'" x2="'+L+'" y2="'+B+'" stroke="#fff" stroke-width="1.5"/>';
+ if(reg&&isFinite(reg.m))s+='<line x1="'+X(x0).toFixed(1)+'" y1="'+Y(reg.m*x0+reg.b).toFixed(1)+'" x2="'+
+   X(x1).toFixed(1)+'" y2="'+Y(reg.m*x1+reg.b).toFixed(1)+'" stroke="#ffc233" stroke-width="3"/>';
+ for(var i=0;i<n;i++)s+='<circle cx="'+X(xs[i]).toFixed(1)+'" cy="'+Y(ys[i]).toFixed(1)+'" r="5" fill="#00c2c7" stroke="#fff" stroke-width="1.4"/>';
+ s+=tx(L,B+20,niceTick(x0),14,'#cfd9ee','start')+tx(R,B+20,niceTick(x1),14,'#cfd9ee','end');
+ if(reg&&isFinite(reg.r))s+=tx(R-4,T+16,'r = '+fmt(reg.r,3),14,'#ffd76a','end');
+ return s+'</svg>';}
+
+function drawCurve(shades,ticks,marks){
+ var H=170,L=18,R=282,T=26,B=126;
+ var X=function(z){return L+(R-L)*(z+3.6)/7.2;},Y=function(z){return B-(B-T)*Math.exp(-.5*z*z);};
+ var s=svg(H);
+ (shades||[]).forEach(function(sh){var a=Math.max(sh[0],-3.6),b=Math.min(sh[1],3.6);if(b<=a)return;
+  var p='M'+X(a).toFixed(1)+','+B;
+  for(var i=0;i<=60;i++){var z=a+(b-a)*i/60;p+=' L'+X(z).toFixed(1)+','+Y(z).toFixed(1);}
+  s+='<path d="'+p+' L'+X(b).toFixed(1)+','+B+' Z" fill="'+sh[2]+'" fill-opacity=".62"/>';});
+ var d='M';for(var i=0;i<=120;i++){var z=-3.6+7.2*i/120;d+=(i?' L':'')+X(z).toFixed(1)+','+Y(z).toFixed(1);}
+ s+='<path d="'+d+'" fill="none" stroke="#fff" stroke-width="2.5"/>';
+ s+='<line x1="'+L+'" y1="'+B+'" x2="'+R+'" y2="'+B+'" stroke="#fff" stroke-width="1.5"/>';
+ (ticks||[]).forEach(function(t){s+=tx(X(t[0]),B+23,t[1],14,'#cfd9ee');});
+ (marks||[]).forEach(function(m,i){var x=X(Math.max(-3.5,Math.min(3.5,m[0])));
+  s+='<line x1="'+x.toFixed(1)+'" y1="'+T+'" x2="'+x.toFixed(1)+'" y2="'+B+'" stroke="'+m[2]+'" stroke-width="2.5" stroke-dasharray="5 4"/>';
+  s+=tx(x,T-8+(i%2?16:0),m[1],14,m[2]);});
+ return s+'</svg>';}
+
+function drawBinom(n,p,hi){
+ var H=230,L=42,R=290,T=30,B=H-42;
+ var probs=[];for(var k=0;k<=n;k++)probs.push(comb(n,k)*Math.pow(p,k)*Math.pow(1-p,n-k));
+ var top=Math.max.apply(null,probs)||1,bw=(R-L)/(n+1);
+ var s=svg(H)+tx(150,20,'P(X = k)',16);
+ for(var k=0;k<=n;k++){var hh=(B-T)*probs[k]/top;
+  s+='<rect x="'+(L+k*bw).toFixed(1)+'" y="'+(B-hh).toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+hh.toFixed(1)+
+     '" fill="'+((hi&&hi.indexOf(k)>=0)?'#9d5cff':'rgba(255,255,255,.35)')+'" stroke="rgba(255,255,255,.7)"/>';}
+ s+='<line x1="'+L+'" y1="'+B+'" x2="'+R+'" y2="'+B+'" stroke="#fff" stroke-width="1.5"/>';
+ s+=tx(L+bw/2,B+20,'0',14,'#cfd9ee')+tx(R-bw/2,B+20,String(n),14,'#cfd9ee');
+ return s+'</svg>';}
+
+// ---------- wiring ----------
+function $(id){return document.getElementById(id);}
+function cell(label,val){return '<div><span>'+label+'</span><b>'+val+'</b></div>';}
+
+function runOneVar(){
+ var a=parseList($('d1').value),o=$('o1');
+ if(a.length<1){o.innerHTML='<span class="hint">Paste or type some numbers above.</span>';return;}
+ var b=a.slice().sort(function(x,y){return x-y;}),n=a.length,m=mean(a),q=quartiles(a),iqr=q.q3-q.q1;
+ var s1=sd(a,false),s0=sd(a,true),md=modes(a);
+ var loF=q.q1-1.5*iqr,hiF=q.q3+1.5*iqr;
+ var outs=b.filter(function(v){return v<loF||v>hiF;});
+ var bins=parseInt($('bins').value,10);
+ if(!isFinite(bins)||bins<2){bins=Math.min(10,Math.max(3,Math.ceil(Math.sqrt(n))));$('bins').value=bins;}
+ var g='<div class="sgrid">'+
+  cell('n',n)+cell('mean x̄',fmt(m,3))+cell('median',fmt(q.q2,3))+
+  cell('mode',md.list.length?md.list.join(', ')+' ('+md.count+'×)':'none')+
+  cell('min',fmt(b[0],3))+cell('Q1',fmt(q.q1,3))+cell('Q3',fmt(q.q3,3))+cell('max',fmt(b[n-1],3))+
+  cell('range',fmt(b[n-1]-b[0],3))+cell('IQR',fmt(iqr,3))+
+  cell('sample s',fmt(s1,4))+cell('population σ',fmt(s0,4))+
+  cell('variance s²',fmt(s1*s1,4))+cell('Σx',fmt(sum(a),3))+
+  '</div>';
+ g+='<div class="out" style="margin-top:9px">Outlier fences: below <b>'+fmt(loF,3)+'</b> or above <b>'+fmt(hiF,3)+
+    '</b><br>'+(outs.length?'Outliers: <b class="warn">'+outs.map(function(v){return fmt(v,3);}).join(', ')+'</b>':'<b>No outliers.</b>')+
+    '<br><span class="hint" style="margin:6px 0 0">Quartiles use the median-of-halves method, the one your course and the TI-84 use.</span></div>';
+ g+=drawHist(a,bins)+'<p class="figcap">Bars touch, because the x-axis is numeric.</p>';
+ g+=drawBox(a)+'<p class="figcap">Whiskers stop at the last value inside the fences.</p>';
+ o.innerHTML=g;
+ runInfer();
+}
+
+function runTwoVar(){
+ var xs=parseList($('d1').value),ys=parseList($('d2').value),o=$('o2');
+ if(ys.length<2){o.innerHTML='<span class="hint">Put the paired y values in the box above. Leave it empty if you only have one list.</span>';return;}
+ var n=Math.min(xs.length,ys.length);
+ if(n<2){o.innerHTML='<span class="warn">Need at least two pairs.</span>';return;}
+ xs=xs.slice(0,n);ys=ys.slice(0,n);
+ var mx=mean(xs),my=mean(ys),sxx=0,sxy=0,syy=0;
+ for(var i=0;i<n;i++){sxx+=(xs[i]-mx)*(xs[i]-mx);sxy+=(xs[i]-mx)*(ys[i]-my);syy+=(ys[i]-my)*(ys[i]-my);}
+ var m=sxx?sxy/sxx:NaN,b=my-m*mx,r=(sxx&&syy)?sxy/Math.sqrt(sxx*syy):NaN;
+ var pred=parseFloat($('px').value),ph='';
+ if(isFinite(pred)&&isFinite(m))ph='<br>At x = <b>'+pred+'</b>, the line predicts ŷ = <b>'+fmt(m*pred+b,3)+'</b>';
+ var strength=Math.abs(r)>=.8?'strong':Math.abs(r)>=.5?'moderate':Math.abs(r)>=.3?'weak':'almost none';
+ o.innerHTML='<span class="big">ŷ = '+fmt(m,4)+'x '+(b>=0?'+ ':'− ')+fmt(Math.abs(b),4)+'</span>'+
+  '<div class="out">n = <b>'+n+'</b> pairs<br>'+
+  'r = <b>'+fmt(r,4)+'</b> ('+strength+(r>0?' positive':r<0?' negative':'')+')<br>'+
+  'r² = <b>'+fmt(r*r,4)+'</b> — about <b>'+fmt(r*r*100,1)+'%</b> of the variation in y is explained by x<br>'+
+  'slope = <b>'+fmt(m,4)+'</b>: each 1-unit rise in x moves y by that much'+ph+
+  '<br><span class="hint" style="margin:6px 0 0">A strong r still does not prove x causes y.</span></div>'+
+  drawScatter(xs,ys,{m:m,b:b,r:r});
+}
+
+function runNormal(){
+ var mu=parseFloat($('nm').value),s=parseFloat($('ns').value),lo=parseFloat($('nlo').value),
+     hi=parseFloat($('nhi').value),mode=$('nmode').value,o=$('on');
+ if(!isFinite(mu)||!isFinite(s)||s<=0){o.innerHTML='<span class="warn">Need a mean and an SD above 0.</span>';return;}
+ var zl=isFinite(lo)?(lo-mu)/s:-Infinity,zh=isFinite(hi)?(hi-mu)/s:Infinity,p,txt,sh,marks=[];
+ if(mode==='lt'){if(!isFinite(hi)){o.innerHTML='<span class="hint">Type the value to go below.</span>';return;}
+  p=Phi(zh);txt='P(X < '+hi+')';sh=[[-3.6,zh,'#12b886']];marks=[[zh,'z='+fmt(zh,2),'#ffd76a']];}
+ else if(mode==='gt'){if(!isFinite(lo)){o.innerHTML='<span class="hint">Type the value to go above.</span>';return;}
+  p=1-Phi(zl);txt='P(X > '+lo+')';sh=[[zl,3.6,'#ff8a3d']];marks=[[zl,'z='+fmt(zl,2),'#ffd76a']];}
+ else if(mode==='bt'){if(!isFinite(lo)||!isFinite(hi)){o.innerHTML='<span class="hint">Type both values.</span>';return;}
+  if(hi<lo){var t=lo;lo=hi;hi=t;zl=(lo-mu)/s;zh=(hi-mu)/s;}
+  p=Phi(zh)-Phi(zl);txt='P('+lo+' < X < '+hi+')';sh=[[zl,zh,'#9d5cff']];
+  marks=[[zl,fmt(zl,2),'#ffd76a'],[zh,fmt(zh,2),'#ffd76a']];}
+ else{ // inverse: given a percentile, find x
+  var pc=parseFloat($('nlo').value);
+  if(!isFinite(pc)||pc<=0||pc>=100){o.innerHTML='<span class="hint">Type a percentile between 0 and 100 in the "low" box.</span>';return;}
+  var z=invPhi(pc/100),x=mu+z*s;
+  o.innerHTML='<span class="big">x = '+fmt(x,3)+'</span><div class="out">The <b>'+pc+
+   'th percentile</b> sits at x = <b>'+fmt(x,3)+'</b>, which is z = <b>'+fmt(z,3)+'</b>.</div>'+
+   drawCurve([[-3.6,z,'#00c2c7']],[[-2,'−2'],[0,'μ'],[2,'+2']],[[z,'z='+fmt(z,2),'#ffd76a']]);
+  return;}
+ o.innerHTML='<span class="big">'+fmt(p*100,2)+'%</span><div class="out">'+txt+' = <b>'+fmt(p,5)+
+  '</b><br>In a group of 100 that is about <b>'+fmt(p*100,0)+' people</b>.</div>'+
+  drawCurve(sh,[[-2,'−2'],[0,'μ'],[2,'+2']],marks);
+}
+
+function runBinom(){
+ var n=parseInt($('bn').value,10),p=parseFloat($('bp').value),k=parseInt($('bk').value,10),o=$('ob');
+ if(!isFinite(n)||!isFinite(p)||n<1||p<0||p>1){o.innerHTML='<span class="warn">Need n ≥ 1 and p between 0 and 1.</span>';return;}
+ if(n>170){o.innerHTML='<span class="warn">Keep n at 170 or below.</span>';return;}
+ if(!isFinite(k)||k<0||k>n){o.innerHTML='<span class="hint">Type a k between 0 and '+n+'.</span>';return;}
+ var pk=comb(n,k)*Math.pow(p,k)*Math.pow(1-p,n-k),cum=0;
+ for(var i=0;i<=k;i++)cum+=comb(n,i)*Math.pow(p,i)*Math.pow(1-p,n-i);
+ o.innerHTML='<span class="big">P(X = '+k+') = '+fmt(pk,5)+'</span><div class="out">'+
+  'P(X ≤ '+k+') = <b>'+fmt(cum,5)+'</b><br>P(X ≥ '+k+') = <b>'+fmt(1-cum+pk,5)+'</b><br>'+
+  'mean = np = <b>'+fmt(n*p,3)+'</b> &nbsp;·&nbsp; SD = √[np(1−p)] = <b>'+fmt(Math.sqrt(n*p*(1-p)),3)+'</b></div>'+
+  (n<=40?drawBinom(n,p,[k]):'');
+}
+
+function runInfer(){
+ var a=parseList($('d1').value),o=$('oi'),lvl=parseFloat($('clev').value),mu0=parseFloat($('mu0').value);
+ if(a.length<2){o.innerHTML='<span class="hint">Needs at least two numbers in your data box.</span>';return;}
+ var n=a.length,m=mean(a),s=sd(a,false),se=s/Math.sqrt(n),df=n-1,tc=tcrit(df,lvl),E=tc*se;
+ var h='<span class="big">'+fmt(m-E,3)+'  to  '+fmt(m+E,3)+'</span><div class="out">'+
+  '<b>'+lvl+'% confidence interval for the mean</b><br>'+
+  'x̄ = <b>'+fmt(m,4)+'</b>, s = <b>'+fmt(s,4)+'</b>, n = <b>'+n+'</b><br>'+
+  'SE = s/√n = <b>'+fmt(se,4)+'</b>, t* = <b>'+fmt(tc,3)+'</b> (df = '+df+')<br>'+
+  'margin of error E = <b>'+fmt(E,4)+'</b>'+
+  (n<30?'<br><b class="warn">n is under 30</b>, so this needs the data to be roughly normal.':'')+'</div>';
+ if(isFinite(mu0)){
+  var t=(m-mu0)/se,p2=tP2(t,df),verdict=p2<=0.05;
+  h+='<div class="out" style="margin-top:9px"><b>Test of H₀: μ = '+mu0+'</b><br>'+
+   't = (x̄ − μ₀)/SE = <b>'+fmt(t,4)+'</b> with df = '+df+'<br>'+
+   'two-tailed p = <b>'+fmt(p2,5)+'</b> &nbsp;·&nbsp; one-tailed p = <b>'+fmt(p2/2,5)+'</b><br>'+
+   'At α = 0.05: <b>'+(verdict?'reject H₀':'fail to reject H₀')+'</b>. '+
+   (verdict?'The sample mean is far enough from '+mu0+' to be surprising if H₀ were true.'
+           :'This sample is not surprising if H₀ were true, which is not the same as proving it.')+'</div>';}
+ o.innerHTML=h;
+}
+
+function runProp(){
+ var x=parseFloat($('px1').value),n=parseFloat($('pn').value),p0=parseFloat($('pp0').value),
+     lvl=parseFloat($('plev').value),o=$('op');
+ if(!isFinite(x)||!isFinite(n)||n<1||x<0||x>n){o.innerHTML='<span class="warn">Need a count between 0 and n.</span>';return;}
+ var ph=x/n,zs=invPhi(1-(1-lvl/100)/2),se=Math.sqrt(ph*(1-ph)/n),E=zs*se;
+ var h='<span class="big">'+fmt(ph-E,4)+'  to  '+fmt(ph+E,4)+'</span><div class="out">'+
+  'p̂ = '+x+'/'+n+' = <b>'+fmt(ph,4)+'</b> ('+fmt(ph*100,1)+'%)<br>'+
+  'z* = <b>'+fmt(zs,3)+'</b>, SE = √[p̂(1−p̂)/n] = <b>'+fmt(se,4)+'</b>, E = <b>'+fmt(E,4)+'</b><br>'+
+  'So about <b>'+fmt((ph-E)*100,1)+'% to '+fmt((ph+E)*100,1)+'%</b>.'+
+  ((n*ph<10||n*(1-ph)<10)?'<br><b class="warn">Fewer than 10 successes or 10 failures</b>, so this interval is shaky.':'')+'</div>';
+ if(isFinite(p0)&&p0>0&&p0<1){
+  var se0=Math.sqrt(p0*(1-p0)/n),z=(ph-p0)/se0,p2=2*(1-Phi(Math.abs(z)));
+  h+='<div class="out" style="margin-top:9px"><b>Test of H₀: p = '+p0+'</b><br>'+
+   'z = (p̂ − p₀)/√[p₀(1−p₀)/n] = <b>'+fmt(z,4)+'</b><br>'+
+   'two-tailed p = <b>'+fmt(p2,5)+'</b><br>At α = 0.05: <b>'+(p2<=.05?'reject H₀':'fail to reject H₀')+'</b>.</div>';}
+ o.innerHTML=h;
+}
+
+var SAMPLES={
+ los:'4 4 5 5 5 6 6 6 7 7 8 8 9 10 12 14',
+ bp:'118 121 124 122 130 132 136 133 141 144',
+ skew:'2 2 3 3 3 4 4 5 6 8 11 19 40'
+};
+function setSample(k){$('d1').value=SAMPLES[k];
+ $('d2').value = (k==='bp') ? '19 21 23 24 26 28 30 31 33 35' : '';
+ $('bins').value='';runOneVar();runTwoVar();}
+
+['d1','bins'].forEach(function(id){var e=$(id);if(e){e.addEventListener('input',function(){runOneVar();runTwoVar();});}});
+['d2','px'].forEach(function(id){var e=$(id);if(e)e.addEventListener('input',runTwoVar);});
+['clev','mu0'].forEach(function(id){var e=$(id);if(e){e.addEventListener('input',runInfer);e.addEventListener('change',runInfer);}});
+['nm','ns','nlo','nhi','nmode'].forEach(function(id){var e=$(id);if(e){e.addEventListener('input',runNormal);e.addEventListener('change',runNormal);}});
+['bn','bp','bk'].forEach(function(id){var e=$(id);if(e)e.addEventListener('input',runBinom);});
+['px1','pn','pp0','plev'].forEach(function(id){var e=$(id);if(e){e.addEventListener('input',runProp);e.addEventListener('change',runProp);}});
+document.querySelectorAll('[data-sample]').forEach(function(btn){
+ btn.addEventListener('click',function(){setSample(btn.getAttribute('data-sample'));});});
+var clr=$('clear'); if(clr)clr.addEventListener('click',function(){$('d1').value='';$('d2').value='';runOneVar();runTwoVar();});
+
+[runOneVar,runTwoVar,runNormal,runBinom,runProp].forEach(function(f){try{f();}catch(e){}});
+window.MAT300 = {parseList:parseList,quartiles:quartiles,sd:sd,tP2:tP2,Phi:Phi,invPhi:invPhi,tcrit:tcrit,comb:comb};
+})();
+</script>
+
+<div class="foot">MAT 300 &middot; built from your own course files (the statistics study guide, the Desmos guide, the formula sheet and the final-exam study questions) with nursing examples. Not a substitute for the textbook &mdash; check any number against your own notes before an exam.</div>
+</div>
+<script src="absn-hidebar.js" defer></script>
+<script defer src="absn-diagrams.js"></script>
+<script defer src="absn-robots.js"></script>
+</body></html>
