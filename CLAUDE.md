@@ -66,6 +66,17 @@ Deleting a column on one of those tabs also deletes that tab's nav buttons, whic
 in the same columns. If she has done that, tell her rather than silently putting them
 back.
 
+**You almost certainly cannot write the change back.** Drive's `update_file` only
+touches metadata — there is no content update — so the only route is `create_file`
+with the whole workbook as base64, which means reproducing ~46,000 characters exactly
+in a tool argument. That failed twice on 9 Sep; the payload gets corrupted in transit.
+It also mints a new file id, so `index.html` and her bookmarks have to be repointed.
+
+So for a small change: build and verify it locally, then either hand her the .xlsx
+with `SendUserFile` or give her the click-by-click fix for Google Sheets. Nav buttons
+are easiest restored by copying `D2:E3` from a sibling tab and pasting — the links and
+formatting come with them.
+
 ## Local testing
 
 ```bash
