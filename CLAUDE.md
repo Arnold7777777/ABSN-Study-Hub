@@ -50,6 +50,22 @@ python3 tools/build-search-index.py
 
 and commit the regenerated `search-index.json` with the change.
 
+## The Lecture Library workbook: she edits it, so start from the live copy
+
+The "NUR Lecture Library" Google Sheet
+(`1baCPjAJu0ZQlZdnApl1AdxmHoKJaaS2qr8lRAyZmScA`, linked from `index.html`) is hers,
+and she edits it by hand between sessions — adding chapter numbers, deleting notes
+and columns she doesn't want.
+
+So **never rebuild it from a local xlsx**. Export the live sheet first
+(`download_file_content` with `exportMimeType` set to the xlsx type), diff it against
+what you last uploaded, and build the new version on top of *her* copy. On 9 Sep a
+diff caught three of her edits that a straight rebuild would have thrown away.
+
+Deleting a column on one of those tabs also deletes that tab's nav buttons, which sit
+in the same columns. If she has done that, tell her rather than silently putting them
+back.
+
 ## Local testing
 
 ```bash
