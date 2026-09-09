@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32"><link rel="apple-touch-icon" href="favicon-180.png">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="absn-watch" content="off">
+<meta name="description" content="Desmos statistics commands: mean median stdev quartile histogram boxplot corr regression normaldist cdf inversecdf tdist binomialdist ttest, MAT 300 Desmos recipes">
+<title>Desmos for statistics &middot; MAT 300 &middot; ABSN Study Hub</title>
+<style>
+:root{--amethyst:157,92,255;--sapphire:47,107,255;--emerald:18,184,134;--teal:0,194,199;--topaz:255,194,51;--ruby:255,59,107;--garnet:192,34,85;--citrine:255,138,61;--line:rgba(255,255,255,.30)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font:16px/1.6 'Segoe UI',system-ui,sans-serif;color:#fff;background-color:#0b1424;background-image:url("pharm-bg.jpg");background-size:cover;background-position:center top;background-attachment:fixed;background-repeat:no-repeat;overflow-wrap:break-word}
+.wrap{max-width:1040px;margin:0 auto;padding:14px 14px 90px}
+#navBtns{display:flex;flex-wrap:wrap;gap:6px;margin:10px 12px 2px}
+#navBtns a{background:linear-gradient(135deg,#0b6656,#0f7d6b);color:#fff;min-height:44px;display:inline-flex;align-items:center;text-decoration:none;font-weight:800;font-size:.9rem;padding:9px 13px;border-radius:999px;border:1px solid rgba(255,255,255,.3);box-shadow:0 4px 14px rgba(0,0,0,.4)}
+.modnav{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 16px}
+.modnav a{min-height:44px;display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:999px;text-decoration:none;color:#fff;font-weight:800;font-size:.86rem;border:1px solid var(--line);background:rgba(var(--j),.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.modnav a.on{outline:3px solid #ffd76a;outline-offset:1px}
+h1{font-size:clamp(1.5rem,5.5vw,2.2rem);line-height:1.15;margin:8px 0 6px}
+h2{font-size:clamp(1.2rem,4.4vw,1.55rem);margin:26px 0 10px;padding-bottom:6px;border-bottom:2px solid rgba(var(--j),.8)}
+h3{font-size:1.05rem;margin:14px 0 8px}
+.lede{font-size:1.05rem;color:#f3ecff;margin:0 0 12px}
+.card{background:rgba(var(--j),.60);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);border:1px solid var(--line);border-left:5px solid rgba(255,255,255,.55);border-radius:16px;padding:15px 17px;margin:0 0 12px;color:#fff;box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.card h3{margin:0 0 8px;display:flex;align-items:center;gap:8px}
+.card p{margin:0 0 9px;font-size:.95rem}.card p:last-child,.card ul:last-child{margin-bottom:0}
+.card.ruby{--j:var(--ruby)}.card.emerald{--j:var(--emerald)}.card.sapphire{--j:var(--sapphire)}.card.amethyst{--j:var(--amethyst)}.card.teal{--j:var(--teal)}.card.citrine{--j:var(--citrine)}.card.garnet{--j:var(--garnet)}
+.card.topaz{--j:var(--topaz);color:#181201;border-left-color:rgba(0,0,0,.4)}.card.topaz a,.card.topaz code{color:#3a2a00}.card.topaz code{background:rgba(255,255,255,.7)}
+.card.topaz mark{background:#181201;color:#ffe9a8}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));margin:0 0 12px}
+.grid .card{margin:0}
+.big{font:900 clamp(1.5rem,5vw,2rem)/1.1 'Segoe UI',system-ui,sans-serif;display:block;margin:2px 0 6px;font-variant-numeric:tabular-nums}
+mark{background:rgba(255,194,51,.92);color:#241a02;padding:1px 6px;border-radius:6px;font-weight:800}
+.never{text-decoration:underline wavy rgba(255,59,107,.95);text-underline-offset:4px;font-weight:800}
+code,.num{font:800 .95em ui-monospace,'Cascadia Mono',Consolas,monospace;background:rgba(0,0,0,.72);padding:2px 7px;border-radius:7px;color:#fff;overflow-wrap:break-word}
+td code,.desmos code{white-space:nowrap}
+.grid>*,.card,.step{min-width:0}
+.card p a,.card li a,td a,.note a,.ans a,.lede a,.wrap>p a{display:inline-block;padding:14px 6px;margin:-14px -3px;border-radius:8px;line-height:1.2}
+.formula{display:block;font:800 1.05rem ui-monospace,'Cascadia Mono',Consolas,monospace;background:rgba(0,0,0,.72);padding:10px 14px;border-radius:12px;margin:6px 0 10px;overflow-x:auto;white-space:nowrap;color:#fff}
+.tw{overflow-x:auto;margin:0 0 12px;border-radius:14px;border:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;min-width:420px;font-size:.92rem;background:rgba(0,0,0,.5);color:#fff}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid rgba(255,255,255,.16);vertical-align:top}
+th{background:rgba(255,255,255,.14);font-weight:900;font-size:.84rem;text-transform:uppercase;letter-spacing:.03em}
+tr:last-child td{border-bottom:none}td b{color:#ffe9a8}
+.flow{display:flex;align-items:stretch;flex-wrap:wrap;margin:0 0 12px}
+.step{flex:1 1 140px;min-width:130px;background:rgba(0,0,0,.5);border:1px solid var(--line);border-radius:13px;padding:11px 12px;font-size:.9rem;position:relative;margin:0 16px 10px 0;color:#fff}
+.step:last-child{margin-right:0}.step::after{content:"\2192";position:absolute;right:-15px;top:50%;transform:translateY(-50%);font-size:1.15rem;font-weight:900;color:#ffd76a}.step:last-child::after{content:""}
+.step b{display:block;font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;color:#ffd76a;margin-bottom:3px}
+.fig{margin:0 0 14px;background:rgba(5,10,22,.72);border:1px solid var(--line);border-radius:16px;padding:10px 10px 6px}
+.fig .fbox{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:12px;scrollbar-width:thin}
+.fig svg{display:block;width:100%;height:auto;min-width:320px}
+.fig figcaption{font-size:.88rem;color:#ffe9a8;font-weight:700;padding:6px 4px 2px}
+.note{border:1px dashed rgba(255,194,51,.65);background:rgba(255,194,51,.13);color:#ffe9a8;border-radius:14px;padding:13px 15px;margin:0 0 14px;font-size:.94rem}
+ul{margin:0 0 10px;padding-left:20px}li{margin:0 0 6px;font-size:.94rem}
+a{color:#ffd76a}
+details.more{background:rgba(0,0,0,.42);border:1px solid var(--line);border-radius:14px;padding:6px 14px;margin:0 0 12px}
+details.more summary{cursor:pointer;font-weight:800;min-height:44px;display:flex;align-items:center;font-size:1rem}
+details.more[open] summary{margin-bottom:8px}
+.strip{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+.strip span{background:rgba(0,0,0,.55);border:1px solid var(--line);border-radius:999px;padding:7px 12px;font-size:.86rem;font-weight:800}
+.tile{display:block;text-decoration:none;color:#fff;background:rgba(var(--j),.60);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);border:1px solid var(--line);border-left:5px solid rgba(255,255,255,.55);border-radius:16px;padding:15px 17px;box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.tile .name{font-weight:900;font-size:1.1rem}.tile .sub{font-size:.85rem;color:#ffe9a8;font-weight:700}.tile p{margin:6px 0 0;font-size:.92rem}
+.tile .go{display:inline-block;margin-top:8px;font-weight:900;color:#ffd76a}
+.qa{background:rgba(0,0,0,.45);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin:0 0 10px}
+.qa summary{cursor:pointer;font-weight:800;min-height:44px;display:flex;align-items:center;gap:8px}
+.qa .ans{margin-top:8px;padding-top:8px;border-top:1px dashed rgba(255,255,255,.35);font-size:.94rem}
+.foot{margin-top:26px;padding-top:16px;border-top:1px solid var(--line);font-size:.86rem;color:#cdbfe8}
+.desmos{font:800 .92rem ui-monospace,'Cascadia Mono',Consolas,monospace;background:#0f1a2e;border:2px solid #2f6bff;border-radius:12px;padding:0;margin:8px 0 10px;overflow-x:auto}
+.desmos div{padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.12);white-space:nowrap;display:flex;gap:10px}
+.desmos div:last-child{border-bottom:none}.desmos i{color:#7fb2ff;font-style:normal;min-width:1.6em}.desmos b{color:#ffd76a;font-weight:800}
+.desmos em{color:#9dffcc;font-style:normal;margin-left:auto;padding-left:10px}
+@media print{#navBtns,.modnav{display:none}}
+</style>
+</head><body style="--j:var(--topaz)">
+<div id="navBtns">
+  <a href="index.html">&#127891;<span class="lb"> Study Hub</span></a>
+  <a href="mat300.html">&#128202; MAT 300</a>
+  <a href="lectures.html#mat300">&#127909; Recordings</a>
+</div>
+<div class="wrap">
+<nav class="modnav" aria-label="MAT 300 pages"><a style="--j:var(--amethyst)" href="mat300.html" class="">&#128202; Hub</a><a style="--j:var(--sapphire)" href="mat300-1-data.html" class="">&#129489;&#8205;&#9877;&#65039; 1 Data &amp; studies</a><a style="--j:var(--emerald)" href="mat300-2-describe.html" class="">&#128200; 2 Describe</a><a style="--j:var(--teal)" href="mat300-3-correlation.html" class="">&#128201; 3 Correlation</a><a style="--j:var(--amethyst)" href="mat300-4-probability.html" class="">&#127922; 4 Probability</a><a style="--j:var(--citrine)" href="mat300-5-normal.html" class="">&#128302; 5 Normal &amp; CLT</a><a style="--j:var(--ruby)" href="mat300-6-inference.html" class="">&#9878;&#65039; 6 Inference</a><a style="--j:var(--topaz)" href="mat300-desmos.html" class="on">&#129518; Desmos</a><a style="--j:var(--garnet)" href="mat300-practice.html" class="">&#9989; Practice</a></nav>
+<h1 style="--j:var(--topaz)">&#129518; Desmos for statistics</h1>
+<p class="lede">Every calculation in MAT 300 is a list plus one function. Here are all of them, with copy-ready recipes.</p>
+
+<div class="card topaz"><h3>&#11088; The one idea</h3><p>Desmos does every calculation in MAT 300. You type a <b>list</b> (or a <b>table</b>), then call a <b>function</b> on it. Learn the 12 functions below and every exam question becomes typing, not arithmetic. Open it at <a href="https://www.desmos.com/calculator" target="_blank" rel="noopener">desmos.com/calculator</a>.</p></div>
+<h2>&#9000;&#65039; Typing tips that save you on the final</h2>
+<div class="grid">
+<div class="card topaz"><h3>&#128203; Lists</h3><p>Square brackets, commas: <code>L = [92, 98, 104]</code>. Name it a capital letter so you can reuse it. <code>[1,...,20]</code> makes 1 to 20.</p></div>
+<div class="card topaz"><h3>&#128202; Tables</h3><p><b>+ &rarr; Table</b>. Columns are automatically <code>x&#8321;</code> and <code>y&#8321;</code> &mdash; those names work in any function. Paste a column straight from a spreadsheet.</p></div>
+<div class="card topaz"><h3>&#10006;&#65039; Symbols</h3><p>Square root: type <code>sqrt</code>. Power: <code>^</code>. Infinity: <code>infty</code>. Plus-minus: <code>pm</code>. Subscript: <code>_</code> (x_1). Regression tilde: <code>~</code>.</p></div>
+<div class="card topaz"><h3>&#128290; Decimals</h3><p>Click the answer and drag, or use <b>Settings (wrench) &rarr; </b>&hellip; Desmos shows ~4 decimals; the exam usually wants 2&ndash;4. Do not round in the middle of a calculation &mdash; keep everything in Desmos until the end.</p></div>
+</div>
+<h2>&#128218; The functions</h2>
+<div class="tw"><table><tr><th>Type this</th><th>Gives you</th><th>Notes</th></tr>
+<tr><td><code>mean(L)</code></td><td>x&#772;</td><td>works on a table column too: <code>mean(y&#8321;)</code></td></tr>
+<tr><td><code>median(L)</code></td><td>median</td><td></td></tr>
+<tr><td><code>mode(L)</code></td><td>mode(s)</td><td>returns a list if there is a tie</td></tr>
+<tr><td><code>stdev(L)</code></td><td>sample SD (n &minus; 1)</td><td><b>use this one</b> for sample data</td></tr>
+<tr><td><code>stdevp(L)</code></td><td>population SD (N)</td><td>only when L is the whole population</td></tr>
+<tr><td><code>var(L)</code>, <code>varp(L)</code></td><td>variance</td><td>SD squared</td></tr>
+<tr><td><code>min(L)</code>, <code>max(L)</code></td><td>smallest / largest</td><td>range = max &minus; min</td></tr>
+<tr><td><code>quartile(L, k)</code></td><td>k = 0 min, 1 Q1, 2 median, 3 Q3, 4 max</td><td>IQR = quartile(L,3) &minus; quartile(L,1)</td></tr>
+<tr><td><code>quantile(L, 0.9)</code></td><td>90th percentile</td><td>any percentile as a decimal</td></tr>
+<tr><td><code>total(L)</code>, <code>length(L)</code></td><td>&Sigma;x and n</td><td></td></tr>
+<tr><td><code>histogram(L, 10)</code></td><td>draws a histogram, bin width 10</td><td>zoom the graph to see it</td></tr>
+<tr><td><code>boxplot(L)</code></td><td>draws a box plot</td><td>hover the box for the five numbers</td></tr>
+<tr><td><code>dotplot(L)</code></td><td>draws a dot plot</td><td></td></tr>
+<tr><td><code>corr(x&#8321;, y&#8321;)</code></td><td>r</td><td>needs a table</td></tr>
+<tr><td><code>y&#8321; ~ m x&#8321; + b</code></td><td>best-fit line, prints m, b, r, r&sup2;</td><td>tilde, not equals</td></tr>
+<tr><td><code>normaldist(&mu;, &sigma;)</code></td><td>a normal curve; <code>.cdf(a,b)</code> area, <code>.inversecdf(p)</code> value, <code>.pdf(x)</code> height</td><td>blank () = standard normal</td></tr>
+<tr><td><code>tdist(df)</code></td><td>t curve; same .cdf / .inversecdf</td><td>df = n &minus; 1</td></tr>
+<tr><td><code>binomialdist(n, p)</code></td><td>binomial; <code>.pdf(k)</code> exactly k, <code>.cdf(k)</code> at most k, <code>.cdf(a,b)</code> between</td><td><code>.mean</code>, <code>.stdev</code></td></tr>
+<tr><td><code>poissondist(&lambda;)</code></td><td>Poisson (counts per interval)</td><td>if your section covers it</td></tr>
+<tr><td><code>ttest(L, &mu;&#8320;)</code></td><td>one-sample t-test: statistic, p-value, CI</td><td>from raw data; <code>ttest(L, 30, alternative: "greater")</code> for one tail</td></tr>
+<tr><td><code>nCr(n, k)</code></td><td>combinations</td><td>also <code>nPr</code>, <code>n!</code></td></tr></table></div>
+<h2>&#129518; Recipes</h2>
+<h3>&#128200; 1. Describe a list</h3>
+<div class="desmos"><div><i>1</i><b>L = [92, 98, 104, 104, 106, 110, 115, 126]</b></div><div><i>2</i>mean(L), median(L), mode(L)<em>105.6, 105, 104</em></div><div><i>3</i>stdev(L)<em>10.64</em></div><div><i>4</i>max(L) &minus; min(L)<em>34 (range)</em></div><div><i>5</i>quartile(L,1), quartile(L,3)<em>Q1, Q3</em></div><div><i>6</i>quartile(L,3) &minus; quartile(L,1)<em>IQR</em></div><div><i>7</i>boxplot(L)<em>then hover it</em></div><div><i>8</i>histogram(L, 10)</div></div>
+<h3>&#128290; 2. z-score for one value</h3>
+<div class="desmos"><div><i>1</i>(2500 &minus; 3400) / 500<em>= &minus;1.8</em></div><div><i>2</i>normaldist(3400, 500).cdf(&minus;infty, 2500)<em>= 0.0359 area below</em></div></div>
+<h3>&#128302; 3. Normal probabilities</h3>
+<div class="desmos"><div><i>1</i><b>W = normaldist(3400, 500)</b></div><div><i>2</i>W.cdf(&minus;infty, 2500)<em>less than: 0.0359</em></div><div><i>3</i>W.cdf(2500, infty)<em>greater than: 0.9641</em></div><div><i>4</i>W.cdf(3000, 4000)<em>between: 0.6731</em></div><div><i>5</i>W.inversecdf(0.90)<em>value at 90th percentile: 4040.8</em></div><div><i>6</i>W.inversecdf(0.025), W.inversecdf(0.975)<em>middle 95% cut-offs</em></div></div>
+<h3>&#127922; 4. Sample means (CLT)</h3>
+<div class="desmos"><div><i>1</i><b>M = normaldist(3400, 500 / sqrt(25))</b><em>SD becomes &sigma;/&radic;n</em></div><div><i>2</i>M.cdf(&minus;infty, 3200)<em>= 0.0228</em></div><div><i>3</i>(3200 &minus; 3400) / (500 / sqrt(25))<em>z = &minus;2 by hand</em></div></div>
+<h3>&#127922; 5. Binomial</h3>
+<div class="desmos"><div><i>1</i><b>B = binomialdist(10, 0.3)</b></div><div><i>2</i>B.pdf(3)<em>exactly 3: 0.2668</em></div><div><i>3</i>B.cdf(3)<em>at most 3: 0.6496</em></div><div><i>4</i>1 &minus; B.cdf(3)<em>at least 4: 0.3504</em></div><div><i>5</i>B.cdf(2, 5)<em>2 to 5 inclusive</em></div><div><i>6</i>B.mean, B.stdev<em>3, 1.449</em></div></div>
+<h3>&#128201; 6. Scatter plot, r and the best-fit line</h3>
+<div class="desmos"><div><i>1</i><b>+ &rarr; Table</b>: x&#8321; = BMI, y&#8321; = BP</div><div><i>2</i>y&#8321; ~ m x&#8321; + b<em>Desmos prints r, r&sup2;, m, b</em></div><div><i>3</i>corr(x&#8321;, y&#8321;)<em>r alone</em></div><div><i>4</i>m &middot; 30 + b<em>predict y at x = 30</em></div></div>
+<h3>&#128207; 7. Confidence interval for a mean (t)</h3>
+<div class="desmos"><div><i>1</i><b>t = tdist(39).inversecdf(0.975)</b><em>t* = 2.0227 for 95%, n = 40</em></div><div><i>2</i>E = t &middot; 14 / sqrt(40)<em>margin of error 4.477</em></div><div><i>3</i>132 &minus; E, 132 + E<em>127.5, 136.5</em></div><div><i>4</i>132 pm E<em>same thing, shorter</em></div></div>
+<div class="note">&#128161; For 90% use <code>inversecdf(0.95)</code>; for 99% use <code>inversecdf(0.995)</code>. Always (1 + confidence)/2. Known &sigma;? Use <code>normaldist().inversecdf(&hellip;)</code> instead of tdist.</div>
+<h3>&#128207; 8. Confidence interval for a proportion</h3>
+<div class="desmos"><div><i>1</i><b>p = 120/200</b><em>p&#770; = 0.6</em></div><div><i>2</i>E = 1.96 &middot; sqrt(p(1 &minus; p)/200)<em>0.0679</em></div><div><i>3</i>p pm E<em>0.532, 0.668</em></div></div>
+<h3>&#9878;&#65039; 9. Hypothesis test for a mean (t)</h3>
+<div class="desmos"><div><i>1</i><b>t = (33.5 &minus; 30) / (9 / sqrt(36))</b><em>test statistic 2.333</em></div><div><i>2</i>tdist(35).cdf(t, infty)<em>right-tailed p = 0.0128</em></div><div><i>3</i>2 &middot; tdist(35).cdf(t, infty)<em>two-tailed p = 0.0255</em></div><div><i>4</i>tdist(35).cdf(&minus;infty, t)<em>left-tailed p (if H&#8336; is &lt;)</em></div><div><i>5</i>tdist(35).inversecdf(0.95)<em>critical t for right-tailed &alpha; = 0.05: 1.690</em></div></div>
+<h3>&#9878;&#65039; 10. Hypothesis test for a proportion (z)</h3>
+<div class="desmos"><div><i>1</i><b>z = (62/250 &minus; 0.20) / sqrt(0.20 &middot; 0.80 / 250)</b><em>1.897</em></div><div><i>2</i>2 &middot; normaldist().cdf(z, infty)<em>two-tailed p = 0.0578</em></div></div>
+<h3>&#128290; 11. Sample size</h3>
+<div class="desmos"><div><i>1</i>(1.96 &middot; 15 / 2)^2<em>216.09 &rarr; round UP to 217</em></div><div><i>2</i>0.25 &middot; (1.96 / 0.04)^2<em>600.25 &rarr; 601 (proportion, no estimate)</em></div></div>
+<h3>&#128203; 12. From raw data straight to a t-test</h3>
+<div class="desmos"><div><i>1</i><b>L = [33, 28, 41, 36, 30, 39, 35, 31]</b><em>eight wait times</em></div><div><i>2</i>ttest(L, 30)<em>t, p-value and CI in one line</em></div><div><i>3</i>ttest(L, 30, alternative: "greater")<em>one-tailed version</em></div></div>
+<h2>&#9888;&#65039; The five Desmos mistakes that cost points</h2>
+<div class="grid">
+<div class="card ruby"><h3>&#10060; stdevp instead of stdev</h3><p>Sample data &rarr; <code>stdev</code>. Population &rarr; <code>stdevp</code>. They differ more for small n.</p></div>
+<div class="card ruby"><h3>&#10060; Forgetting &radic;n</h3><p>Sample mean questions use <code>normaldist(&mu;, &sigma;/sqrt(n))</code>, never plain &sigma;.</p></div>
+<div class="card ruby"><h3>&#10060; Wrong side of the curve</h3><p>&ldquo;More than&rdquo; is <code>cdf(x, infty)</code>. &ldquo;Less than&rdquo; is <code>cdf(&minus;infty, x)</code>. Draw it first.</p></div>
+<div class="card ruby"><h3>&#10060; = instead of ~</h3><p>Regression needs the tilde. With = Desmos just draws a line through nothing.</p></div>
+<div class="card ruby"><h3>&#10060; Rounding early</h3><p>Name intermediate results (<code>E = &hellip;</code>) and reuse the name. Round only the final answer.</p></div>
+</div>
+
+<div class="foot">MAT 300 &middot; built from your own course files (the statistics study guide, the Desmos guide, the formula sheet and the final-exam study questions) with nursing examples. Not a substitute for the textbook &mdash; check any number against your own notes before an exam.</div>
+</div>
+<script src="absn-hidebar.js" defer></script>
+<script defer src="absn-diagrams.js"></script>
+<script defer src="absn-robots.js"></script>
+</body></html>
