@@ -1311,8 +1311,23 @@ window.NGN = (function(){
       '<span class="tag">'+(multi?'Select all that apply':'One answer')+'</span>'+
       '</div>';
 
-    var opts='';
-    o.o.forEach(function(t,i){ opts+='<button type="button" class="opt" data-i="'+i+'">'+rich(t)+'</button>'; });
+      /* Options are laid out in a shuffled order, but each button keeps its
+     ORIGINAL index in data-i, which is what grade() and reveal() read. Without
+     this every question in a practice test rendered with the correct answer
+     first, so the whole paper could be passed by always tapping the top row.
+     The order is cached on the item so going Back to an answered card shows
+     the same layout she saw. */
+  var ord = o._ord;
+  if(!ord){
+    ord = o.o.map(function(_,i){ return i; });
+    var fixed = o.o.some(function(t){
+      return /all of the above|none of the above|both of the above|all of these|none of these/i.test(t);
+    });
+    if(!fixed) ord = shuffle(ord);
+    o._ord = ord;
+  }
+  var opts='';
+  ord.forEach(function(i){ opts+='<button type="button" class="opt" data-i="'+i+'">'+rich(o.o[i])+'</button>'; });
 
     card.innerHTML=tags+'<p class="qtext">'+rich(o.q)+'</p>'+opts+
       '<div><button type="button" class="check" id="chk">'+
