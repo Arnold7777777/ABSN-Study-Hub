@@ -610,6 +610,13 @@ window.NGN = (function(){
 
   function esc(s){ return String(s); }
 
+  /* The NGN renderers live in their own module and cannot see the quiz's own
+     shuffle(), so they carry a local one. */
+  function shuffle(a){
+    a=a.slice();
+    for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)),t=a[i]; a[i]=a[j]; a[j]=t; }
+    return a;
+  }
   function stem(q){
     if(!q.stem) return '';
     return '<div class="qstem">' + (q.stemTitle?('<h4>'+q.stemTitle+'</h4>'):'') +
@@ -632,14 +639,28 @@ window.NGN = (function(){
           '<div class="btslot" data-g="param" data-i="0"></div>' +
           '<div class="btslot" data-g="param" data-i="1"></div></div>' +
       '</div>' +
-      '<div class="btbank">' +
-        '<span class="bl">Conditions</span>' +
-        q.cond.map(function(t,i){return '<button type="button" class="btopt" data-g="cond" data-v="'+i+'">'+esc(t)+'</button>';}).join('') +
-        '<span class="bl">Actions</span>' +
-        q.actions.map(function(t,i){return '<button type="button" class="btopt" data-g="action" data-v="'+i+'">'+esc(t)+'</button>';}).join('') +
-        '<span class="bl">Parameters</span>' +
-        q.params.map(function(t,i){return '<button type="button" class="btopt" data-g="param" data-v="'+i+'">'+esc(t)+'</button>';}).join('') +
-      '</div>' +
+          /* The option lists are laid out in a shuffled order while each button keeps
+       its ORIGINAL index in data-v, which is what the slots and grade() read.
+       Rendered in bank order the correct condition sat first in 40 of 41 items
+       and the correct two parameters were the first two in all 41, so a bow-tie
+       could be solved by taking the top of each column. The order is cached on
+       the item so returning to an answered card shows the same layout. */
+    (function(){
+      if(!q._btord){
+        q._btord = {cond: shuffle(q.cond.map(function(_,i){return i;})),
+                    action: shuffle(q.actions.map(function(_,i){return i;})),
+                    param: shuffle(q.params.map(function(_,i){return i;}))};
+      }
+      return '';
+    })() +
+    '<div class="btbank">' +
+      '<span class="bl">Conditions</span>' +
+      q._btord.cond.map(function(i){return '<button type="button" class="btopt" data-g="cond" data-v="'+i+'">'+esc(q.cond[i])+'</button>';}).join('') +
+      '<span class="bl">Actions</span>' +
+      q._btord.action.map(function(i){return '<button type="button" class="btopt" data-g="action" data-v="'+i+'">'+esc(q.actions[i])+'</button>';}).join('') +
+      '<span class="bl">Parameters</span>' +
+      q._btord.param.map(function(i){return '<button type="button" class="btopt" data-g="param" data-v="'+i+'">'+esc(q.params[i])+'</button>';}).join('') +
+    '</div>' +
       '<div><button type="button" class="check" id="chk">Check</button>' +
       '<span class="verdict" id="vd"></span></div>' +
       '<div class="rat" id="rat"><b>Why:</b> '+(q.why||'')+'</div>';
@@ -699,9 +720,12 @@ window.NGN = (function(){
   function dropdown(card, q, locked, finish){
     var html = q.text;
     q.gaps.forEach(function(g,i){
-      var sel='<select data-i="'+i+'"><option value="">&mdash; choose &mdash;</option>'+
-        g.options.map(function(o,j){return '<option value="'+j+'">'+esc(o)+'</option>';}).join('')+
-        '</select>';
+          /* Same fix as the bow-tie: shuffle the order the choices appear in, keep the
+       original index as the option value, which is what grade() compares. */
+    if(!g._ord) g._ord = shuffle(g.options.map(function(_,j){return j;}));
+    var sel='<select data-i="'+i+'"><option value="">&mdash; choose &mdash;</option>'+
+      g._ord.map(function(j){return '<option value="'+j+'">'+esc(g.options[j])+'</option>';}).join('')+
+      '</select>';
       html = html.replace('{'+(i+1)+'}', sel);
     });
     card.innerHTML = stem(q) + '<p class="cloze">'+html+'</p>' +
