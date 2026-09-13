@@ -943,6 +943,15 @@ window.NGN = (function(){
   function casestudy(card, q, locked){
     var st = locked || {at:0, marks:[]};
 
+    /* The engine puts the tag row and the Back / Next buttons INSIDE `card`, after
+       this renderer returns. A case study is the one item type that repaints itself
+       - once per step - so writing to card.innerHTML wiped both of them, and from
+       step two onward there was no Next button left. The item graded fine and still
+       could not be left: Caroline hit exactly that, six ticks and no way forward.
+       So paint into our own box and leave card's other children alone. */
+    var host = card.querySelector('.csbody');
+    if(!host){ host=document.createElement('div'); host.className='csbody'; card.appendChild(host); }
+
     function chart(upto){
       var out = '<div class="csrec">';
       /* The opening record is always visible - it is the patient. Later notes are the
@@ -992,7 +1001,7 @@ window.NGN = (function(){
         var sc=score();
         html += '<div class="csdone">This case: <b>'+sc.got+' of '+q.steps.length
               + '</b> steps right.</div>';
-        card.innerHTML = html;
+        host.innerHTML = html;
         /* every step's answer and reason, laid out to read back through */
         var rev=document.createElement('div');
         rev.className='csrec';
@@ -1003,7 +1012,7 @@ window.NGN = (function(){
                + (st.marks[j]?'you had it':'you missed this')+'</h4>'
                + '<b>' + right + '</b><br>' + (s.why||'') + '</div>';
         }).join('');
-        card.appendChild(rev);
+        host.appendChild(rev);
         return;
       }
 
@@ -1017,10 +1026,10 @@ window.NGN = (function(){
       html += '<div><button type="button" class="check" id="csChk">'
             + (multi?'Check my answers':'Check my answer')+'</button></div>';
       html += '<div class="rat" id="csRat"></div>';
-      card.innerHTML = html;
+      host.innerHTML = html;
 
       var picked=[];
-      var opts=[].slice.call(card.querySelectorAll('.opt'));
+      var opts=[].slice.call(host.querySelectorAll('.opt'));
       var done=false;
 
       function settle(){
@@ -1044,7 +1053,7 @@ window.NGN = (function(){
         rat.innerHTML='<b>'+(right?'✓ Correct.':'✗ Not this one.')+'</b> '+(s.why||'');
         rat.classList.add('show');
         /* redraw the step strip so the tick or cross lands immediately */
-        var bar=card.querySelector('.csbar');
+        var bar=host.querySelector('.csbar');
         if(bar){ var t=document.createElement('div'); t.innerHTML=dots();
                  bar.parentNode.replaceChild(t.firstChild, bar); }
         if(i < q.steps.length-1){
@@ -1052,13 +1061,13 @@ window.NGN = (function(){
           nb.type='button'; nb.className='csnext';
           nb.textContent='Continue the case →';
           nb.onclick=function(){ st.at=i+1; paint(); };
-          card.appendChild(nb);
+          host.appendChild(nb);
         } else {
           var fb=document.createElement('button');
           fb.type='button'; fb.className='csnext';
           fb.textContent='See the whole case →';
           fb.onclick=function(){ st.at=i; paint(); };
-          card.appendChild(fb);
+          host.appendChild(fb);
         }
       }
 
