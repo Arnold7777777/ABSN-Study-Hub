@@ -14,7 +14,7 @@ REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE = 'https://arnold7777777.github.io/ABSN-Study-Hub/'
 SITE = 'hub'
 
-SKIP_DIRS = {'.git', 'node_modules', '.github', 'aphasia'}
+SKIP_DIRS = {'.git', 'node_modules', '.github'}
 # Pages whose text is a data blob, not prose - indexed as a single page entry.
 BLOB = {'super-mega-quiz.html'}
 
