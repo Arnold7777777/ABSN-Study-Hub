@@ -1241,6 +1241,15 @@ window.NGN = (function(){
        same as for an ordinary question, so moving between a bow-tie and a one-answer
        question does not feel like changing pages. */
     if(window.NGN && NGN.handles(o.type)){
+      /* Wipe the card first. Every renderer except the case study replaces the
+         card's whole innerHTML, so this used to happen by accident; the case
+         study now paints into its own .csbody and leaves the rest alone, which
+         meant the previous question's tag row and its Back / Next pair were
+         still sitting there. They accumulated - eight buttons all carrying
+         id="next" after eight case studies - and wireNav binds by id, so
+         getElementById handed it the OLDEST one while the live button at the
+         bottom of the card had no handler at all. Tapping Next did nothing. */
+      card.innerHTML='';
       document.getElementById('bar').innerHTML=
         '<span>Question <b>'+(idx+1)+'</b> of <b>'+list.length+'</b>'+
         drawnFrom()+
@@ -1322,7 +1331,13 @@ window.NGN = (function(){
 
       if(inst.done){
         cardTap = function(){
+          /* Next lives inside the card, so tapping it fires this capture handler
+             too, and draw() removes the listener without cancelling this timer.
+             Forty milliseconds later it would save the finished case study's
+             state under the NEW question's index. Bail if she has moved on. */
+          var mine = cardTap;
           setTimeout(function(){
+            if(cardTap !== mine) return;
             /* remember where she has got to, whether or not the item is over */
             try{ if(inst.state) prog[idx]=inst.state(); }catch(e){}
             var fin=false;
