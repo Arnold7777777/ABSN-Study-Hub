@@ -178,4 +178,34 @@ div.card > p.srcnote{
   box-decoration-break:clone;
   -webkit-box-decoration-break:clone}
 </style>
+<script>
+(function(){
+  /* The search box and its counter were in the markup on this page but nothing
+     ever wired them up, so typing did nothing. Same behaviour as anatomy.html:
+     filter the module rows, and hide the ROW rather than the card inside it, or
+     an empty row is left behind. */
+  var q=document.getElementById('q'), cnt=document.getElementById('cnt');
+  if(!q) return;
+  var cards=[].slice.call(document.querySelectorAll('a.modcard'));
+  var rows=cards.map(function(c){ return c.closest('.modrow') || c; });
+
+  function count(n){
+    if(!cnt) return;
+    cnt.textContent = n===cards.length ? cards.length+' modules'
+                                       : n+' of '+cards.length+' modules';
+  }
+  function search(){
+    var t=(q.value||'').trim().toLowerCase(), shown=0;
+    cards.forEach(function(c,i){
+      var hit = !t || ((c.getAttribute('data-kw')||'')+' '+c.textContent).toLowerCase().indexOf(t)>-1;
+      rows[i].classList.toggle('hidden',!hit);
+      if(hit) shown++;
+    });
+    count(shown);
+  }
+  q.addEventListener('input',search);
+  q.addEventListener('search',search);   /* the X in a type="search" field */
+  count(cards.length);
+})();
+</script>
 </body></html>
