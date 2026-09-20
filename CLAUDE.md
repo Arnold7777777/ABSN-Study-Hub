@@ -90,6 +90,27 @@ This Chromium has **no proprietary codecs** — H.264/AAC video cannot play or e
 load metadata here. Don't diagnose an mp4 as broken on that basis; check the
 container directly instead.
 
+## Lecture videos cannot be transcribed from a remote session
+
+The Drive connector only returns files up to about 4 MB; anything bigger drops
+the connection ("session expired"). Every lecture is 30 MB to 600 MB, and
+drive.google.com and huggingface.co are refused by the egress policy, so there is
+no other way to fetch the bytes. (PyPI and GitHub release assets are reachable —
+sherpa-onnx plus the Parakeet model run here at about 9x real time — but nothing
+can feed them a lecture.)
+
+So transcription runs on Caroline's PC: `TRANSCRIBE_MISSING.bat` and
+`TRANSCRIBE_LIST.txt` sit in the Drive "Nursing School Videos" folder, use
+whisper.cpp small.en, and write each `.srt` next to its video. Those `.srt`
+files sync back and are small enough to read from here. The list holds the 30
+Fall 2026 recordings that had no transcript on 20 Sep 2026; add lines to it
+(folder name first, one file per line) to queue more.
+
+The only way to peek inside a video from here is Drive's speech index:
+`search_files` with `fullText contains 'term' and title contains '...'`. It
+answers match / no match only, never the words, so name guesses made that way
+should say so in the file name.
+
 ## Traps this codebase has already sprung
 
 - **`font: 900 .8rem inherit` is invalid CSS.** The shorthand needs a real family
