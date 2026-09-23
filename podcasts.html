@@ -207,10 +207,32 @@ body.nav-open #side{transform:translateX(0)}
   <p class="sub">Everything on your Drive, sorted by topic. Each one opens in Drive or
   downloads for the car &mdash; they are far too big to sit on this site, and Drive
   already streams them and remembers where you stopped.</p>
-  <span class="count">597 recordings</span>
+  <span class="count">604 recordings</span>
   <a class="folder" href="https://drive.google.com/drive/folders/12WCxHBuKgKOCL_0tEQV2lGFLv5zzw5_A" target="_blank" rel="noopener">&#128193; The Podcasts folder on Drive &rarr;</a>
 
+<style>
+/* Free-text search. 604 episodes behind 119 filter buttons was not findable -
+   the first card sat 4,235px down a 19-screen page and there was no way to
+   just type what you wanted. */
+.fsearch{display:block;margin:0 0 14px}
+.fsearch input{width:100%;min-height:48px;padding:12px 44px 12px 14px;font-size:16px;
+ border-radius:13px;border:1px solid rgba(255,255,255,.34);background:rgba(0,0,0,.55);
+ backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:#fff}
+.fsearch input::placeholder{color:#b9aee0}
+.fsearch input:focus{outline:2px solid #ffc233;outline-offset:1px;background:rgba(0,0,0,.72)}
+.fsearch{position:relative}
+#qclear{position:absolute;right:6px;bottom:6px;width:38px;height:38px;border-radius:10px;
+ border:1px solid rgba(255,255,255,.28);background:rgba(0,0,0,.5);color:#fff;font-size:15px;
+ cursor:pointer;display:none}
+.fsearch.has #qclear{display:block}
+/* While a term is typed the button rows come off the page. Without this the
+   first result sits 2,517px below the box, behind 119 buttons, and typing
+   looks like it did nothing - exactly the bug the course hubs had. */
+.filters.searching > .flabel,.filters.searching > .frow,
+.filters.searching > .tovlc{display:none}
+</style>
   <div class="filters">
+    <label class="fsearch" for="q"><span class="flabel">Search</span><input id="q" type="search" autocomplete="off" enterkeyhint="search" placeholder="Type a topic, lecturer or module…"><button type="button" id="qclear" aria-label="Clear the search">&#10005;</button></label>
     <span class="flabel">Kind</span>
     <div class="frow"><button type="button" class="fbtn active" data-k="kind" data-v="all">All</button><button type="button" class="fbtn" data-k="kind" data-v="podcast">&#127911; Podcasts</button><button type="button" class="fbtn" data-k="kind" data-v="lecture">&#127909; Class lectures</button></div>
     <span class="flabel">Module</span>
@@ -221,7 +243,7 @@ body.nav-open #side{transform:translateX(0)}
     <div class="frow"><button type="button" class="fbtn active" data-k="topic" data-v="all">All</button><button type="button" class="fbtn" data-k="topic" data-v="Maternal &amp; Newborn">&#129328; Maternal & Newborn (21)</button><button type="button" class="fbtn" data-k="topic" data-v="Pediatrics">&#129490; Pediatrics (15)</button><button type="button" class="fbtn" data-k="topic" data-v="Med-Surg">&#129658; Med-Surg (66)</button><button type="button" class="fbtn" data-k="topic" data-v="Mental Health">&#129504; Mental Health (18)</button><button type="button" class="fbtn" data-k="topic" data-v="Pharmacology">&#128138; Pharmacology (8)</button><button type="button" class="fbtn" data-k="topic" data-v="Fundamentals">&#129656; Fundamentals (11)</button><button type="button" class="fbtn" data-k="topic" data-v="Labs &amp; Diagnostics">&#129514; Labs & Diagnostics (3)</button><button type="button" class="fbtn" data-k="topic" data-v="Anatomy &amp; Physiology">&#129728; Anatomy & Physiology (3)</button><button type="button" class="fbtn" data-k="topic" data-v="Leadership &amp; Community">&#128081; Leadership & Community (1)</button><button type="button" class="fbtn" data-k="topic" data-v="Other">&#128193; Other (2)</button><button type="button" class="fbtn" data-k="topic" data-v="NUR 234 class lectures">&#129328; NUR 234 class lectures (45)</button><button type="button" class="fbtn" data-k="topic" data-v="NUR 235 class lectures">&#129490; NUR 235 class lectures (55)</button><button type="button" class="fbtn" data-k="topic" data-v="NUR 258 class lectures">&#129658; NUR 258 class lectures (64)</button><button type="button" class="fbtn" data-k="topic" data-v="Pharmacology lectures (BIO 290V)">&#128138; Pharmacology lectures (BIO 290V) (33)</button><button type="button" class="fbtn" data-k="topic" data-v="NUR 198 class lectures">&#129658; NUR 198 class lectures (75)</button><button type="button" class="fbtn" data-k="topic" data-v="NUR 175 class lectures">&#129504; NUR 175 class lectures (20)</button><button type="button" class="fbtn" data-k="topic" data-v="NUR 125 class recordings">&#129656; NUR 125 class recordings (1)</button><button type="button" class="fbtn" data-k="topic" data-v="NUR 103 class recordings">&#129656; NUR 103 class recordings (3)</button><button type="button" class="fbtn" data-k="topic" data-v="Anatomy lectures (Summer 2025)">&#129728; Anatomy lectures (Summer 2025) (27)</button><button type="button" class="fbtn" data-k="topic" data-v="Physiology lectures (Summer 2025)">&#129728; Physiology lectures (Summer 2025) (26)</button><button type="button" class="fbtn" data-k="topic" data-v="Pathophysiology recordings (BIO 280V)">&#129516; Pathophysiology recordings (BIO 280V) (50)</button><button type="button" class="fbtn" data-k="topic" data-v="MAT 300 Statistics recordings">&#128202; MAT 300 Statistics recordings (48)</button></div>
     <span class="flabel" style="margin-top:14px">Course</span>
     <div class="frow"><button type="button" class="fbtn active" data-k="course" data-v="all">All</button><button type="button" class="fbtn" data-k="course" data-v="NUR 103">NUR 103</button><button type="button" class="fbtn" data-k="course" data-v="NUR 125">NUR 125</button><button type="button" class="fbtn" data-k="course" data-v="NUR 175">NUR 175</button><button type="button" class="fbtn" data-k="course" data-v="NUR 198">NUR 198</button><button type="button" class="fbtn" data-k="course" data-v="NUR 234">NUR 234</button><button type="button" class="fbtn" data-k="course" data-v="NUR 235">NUR 235</button><button type="button" class="fbtn" data-k="course" data-v="NUR 258">NUR 258</button><button type="button" class="fbtn" data-k="course" data-v="BIO 290V">BIO 290V</button><button type="button" class="fbtn" data-k="course" data-v="BIO 280V">BIO 280V</button><button type="button" class="fbtn" data-k="course" data-v="A&amp;P">A&amp;P</button><button type="button" class="fbtn" data-k="course" data-v="MAT 300">MAT 300</button><button type="button" class="fbtn" data-k="course" data-v="NCLEX">NCLEX review</button><button type="button" class="fbtn" data-k="course" data-v="Dosage">Dosage</button></div>
-    <p class="hits">Showing <b id="hits">597</b> recordings.</p>
+    <p class="hits">Showing <b id="hits">604</b> recordings.</p>
     <p id="nohits" class="nohits" hidden role="status" aria-live="polite"><b>&#129300; Nothing matches all of those at once.</b> <span id="nohitswhat"></span> <button type="button" id="clearf" class="fbtn">&#8634; Show everything</button></p>
     <a class="tovlc" href="playlists.html"><span>&#127925; VLC playlists &mdash; <b>42 of them</b>, one per module for all three classes &rarr;</span></a>
   </div>
@@ -3466,7 +3488,16 @@ body.nav-open #side{transform:translateX(0)}
 /* Two rows of buttons, both multi-select, and a section hides itself when nothing in it
    survives the filter - an empty heading is just something else to scroll past. */
 (function(){
-  var pick={topic:[],course:[],kind:[],mod:[],exam:[]};
+  var pick={topic:[],course:[],kind:[],mod:[],exam:[]}, q='';
+  /* Cache each card's searchable text once. Rebuilding textContent for 604
+     cards on every keystroke is what makes a filter feel broken on a phone. */
+  var hay=new WeakMap();
+  function text(p){
+    var v=hay.get(p);
+    if(v===undefined){ v=(p.textContent+' '+(p.dataset.topic||'')+' '+(p.dataset.course||'')+' '
+      +(p.dataset.mod||'')+' '+(p.dataset.kind||'')).toLowerCase().replace(/\s+/g,' '); hay.set(p,v); }
+    return v;
+  }
   function apply(){
     var shown=0;
     [].forEach.call(document.querySelectorAll('.topic'),function(sec){
@@ -3480,14 +3511,15 @@ body.nav-open #side{transform:translateX(0)}
         var okM = !pick.mod.length || mods.some(function(x){return pick.mod.indexOf(x)>-1;});
         var exs = (p.dataset.exam||'').split('\u00b7').map(function(x){return x.trim();});
         var okE = !pick.exam.length || exs.some(function(x){return pick.exam.indexOf(x)>-1;});
-        var on = okT && okC && okK && okM && okE;
+        var okQ = !q || text(p).indexOf(q)>-1;
+        var on = okT && okC && okK && okM && okE && okQ;
         p.classList.toggle('hide', !on);
         if(on){ any++; shown++; }
       });
       sec.classList.toggle('hide', any===0);
       /* the ADHD script folds every group but the first; a filter has to unfold the groups it matched,
          otherwise "NUR 235" finds 49 recordings and shows none of them */
-      var filtering = pick.topic.length||pick.course.length||pick.kind.length||pick.mod.length||pick.exam.length;
+      var filtering = q||pick.topic.length||pick.course.length||pick.kind.length||pick.mod.length||pick.exam.length;
       if(filtering && any>0){
         var body=sec.querySelector(':scope > .adhd-card-body'), btn=sec.querySelector(':scope > .adhd-card-toggle');
         if(body && body.hidden){ body.hidden=false; sec.classList.add('adhd-open');
@@ -3507,12 +3539,33 @@ body.nav-open #side{transform:translateX(0)}
         if(!b.dataset.k || b.dataset.v==='all') return;
         on.push(b.textContent.replace(/\s+/g,' ').trim());
       });
+      if(q) on.unshift('\u201c'+q+'\u201d typed in the search box');
       nh.hidden = shown>0 || !on.length;
       var w=document.getElementById('nohitswhat');
       if(w) w.textContent = !on.length ? ''
         : on.length===1 ? ('\u201c'+on[0]+'\u201d is switched on, and nothing in the library matches it.')
         : ('You have '+on.slice(0,-1).map(function(x){return '\u201c'+x+'\u201d';}).join(', ')+' and \u201c'+on[on.length-1]+'\u201d switched on at the same time.');
     }
+  }
+  var qi=document.getElementById('q'), qw=qi&&qi.closest('.fsearch');
+  if(qi){
+    var box=qi.closest('.filters');
+    qi.addEventListener('input',function(){
+      var was=q;
+      q=qi.value.trim().toLowerCase();
+      if(qw) qw.classList.toggle('has', !!q);
+      if(box) box.classList.toggle('searching', !!q);
+      apply();
+      /* bring the box to the top on the first keystroke, so she can see the
+         box and its results at once instead of scrolling back up to check */
+      if(q && !was) requestAnimationFrame(function(){
+        var y=qi.getBoundingClientRect().top+window.pageYOffset-12;
+        window.scrollTo(0, Math.max(0, y));
+      });
+    });
+    var qc=document.getElementById('qclear');
+    if(qc) qc.addEventListener('click',function(){ qi.value=''; q=''; if(qw) qw.classList.remove('has');
+      if(qi.closest('.filters')) qi.closest('.filters').classList.remove('searching'); apply(); qi.focus(); });
   }
   document.addEventListener('click',function(e){
     var b=e.target.closest('.fbtn'); if(!b) return;
