@@ -63,6 +63,14 @@ def counts():
         out['lectures.html#' + m.group(1)] = plural(
             len(re.findall(r'<a class="rec"', body)), 'recording')
 
+    # the coverage page states how many LSC sessions are captured; read it back
+    # from the page itself so it cannot drift from what the page shows
+    cov = os.path.join(ROOT, 'lsc-coverage.html')
+    if os.path.exists(cov):
+        m = re.search(r'<div class="tot"><b>(\d+)</b>', read('lsc-coverage.html'))
+        if m:
+            out['lsc-coverage.html'] = '%s captured' % plural(int(m.group(1)), 'session')
+
     for path in sorted(glob.glob(os.path.join(ROOT, 'nur*-quiz.html'))):
         name = os.path.basename(path)
         bank = re.search(r'<script type="application/json" id="qbank">(.*?)</script>',
@@ -91,7 +99,7 @@ def main():
     want.update(module_counts())
     # a count only belongs to an entry that already states one - never invent a
     # subtitle for a link whose nsub is prose ("Maternal & newborn").
-    numeric = re.compile(r'^\d+ (recording|question|deck)s?\b')
+    numeric = re.compile(r'^\d+ (recording|question|deck|session)s?\b')
     changes, stale = [], 0
 
     for path in sorted(glob.glob(os.path.join(ROOT, '*.html'))):
