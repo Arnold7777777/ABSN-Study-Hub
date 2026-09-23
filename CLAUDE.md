@@ -85,6 +85,17 @@ eight infographics shipped with no thumbnails. That was wrong: **PyPI is
 reachable, so `python3 -m pip install Pillow` works and takes seconds.** Check
 by installing, not by looking for what is already there.
 
+**ffmpeg is one pip install away too.** `python3 -m pip install imageio-ffmpeg`
+gives ffmpeg 7.0.2 via `imageio_ffmpeg.get_ffmpeg_exe()`, which decodes H.264/AAC
+— unlike the bundled Chromium. That makes two things possible that earlier
+sessions wrote off as impossible here:
+
+- **Identify a recording by looking at it.** `-ss <sec> -i f.mp4 -frames:v 1 out.png`
+  pulls a frame; a title slide or a shared screen names the module outright.
+- **Test for missing audio objectively.** `-af volumedetect -f null -` prints
+  `mean_volume` and `max_volume`; **both at `-91.0 dB` means digital silence.**
+  Two of her Sep 17 clips measured exactly that.
+
 Board previews live in `img/previews/` and the full plate in
 `img/infographics/`. The convention is **max 760px wide, WEBP quality 82**:
 
@@ -126,10 +137,23 @@ files sync back and are small enough to read from here. The list holds the 30
 Fall 2026 recordings that had no transcript on 20 Sep 2026; add lines to it
 (folder name first, one file per line) to queue more.
 
-The only way to peek inside a video from here is Drive's speech index:
-`search_files` with `fullText contains 'term' and title contains '...'`. It
+The only way to peek inside a video from here is Drive's speech index. It
 answers match / no match only, never the words, so name guesses made that way
 should say so in the file name.
+
+**Use `fullText contains 'term'` on its own** (narrow it with
+`mimeType = 'video/mp4'`, never with a title clause). ANDing it with
+`title contains '...'` **silently discards the fullText half** and returns every
+file that matches the title — proved on 23 Sep with the nonsense term
+`zzqxwmplf`, which came back with the whole folder, including two clips that are
+digitally silent. A bare query does work: `'hypersensitivity'` returned the NUR
+258 Module 3 clip and `Wagner M3D1.mp4`. It pages out past 100 results though, so
+a *non*-match proves nothing — never name a file from an absence.
+
+And there is no way at all to fetch a video the connector will not serve:
+`drive.google.com` and `drive.usercontent.google.com` both come back **403 at the
+egress proxy**, so a file over about 5 MB cannot be downloaded, compressed, timed
+or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
 
 ## Traps this codebase has already sprung
 
