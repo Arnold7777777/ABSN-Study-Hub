@@ -194,3 +194,15 @@ html.adhd-compact{font-size:15.5px}   /* about what a normal website uses */
    hard tap on a phone. Vertical padding on an inline element does not change
    the line box, so this widens the hit area to 44px without moving any text. */
 :is(p,li,dd,td,figcaption,small,div.note,div.mn) > a:not([class]){padding-top:.8rem;padding-bottom:.8rem}
+
+/* Course-page search (NUR 234/235/258). The matching module sits roughly 3,400px
+   below the search box, under the header, the legend, the Mega Quiz card and two
+   long <details>. So typing filtered correctly and nothing visibly happened -
+   the counter said "1 of 14 modules match" while the screen did not change.
+   While a term is typed, everything that is not a result comes off the page. */
+.absn-searching{overflow-anchor:none}   /* NUR 258 re-opens its modules as they
+   match, and scroll anchoring then dragged the jump-to-top back down the page */
+.absn-searching > :not(.exsec){display:none !important}
+/* and the exam band's own notes block, which is 2,850px tall on NUR 235 - it
+   sat between the band heading and the matching module. */
+.absn-searching .exsec > .mcard{display:none !important}

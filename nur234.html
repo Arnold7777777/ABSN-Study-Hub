@@ -197,11 +197,11 @@ body, body.adhd-upgraded{
   <a class="nav" href="nur258.html">&#129658; NUR 258<span class="nsub">Adult health II</span></a>
   <div class="shead">Quizzes</div>
   <a class="nav" href="nur234-quiz.html">&#129504; NUR 234 Mega Quiz<span class="nsub">315 questions</span></a>
-  <a class="nav" href="nur235-quiz.html">&#129504; NUR 235 Mega Quiz<span class="nsub">312 questions</span></a>
+  <a class="nav" href="nur235-quiz.html">&#129504; NUR 235 Mega Quiz<span class="nsub">315 questions</span></a>
   <a class="nav" href="nur258-quiz.html">&#129504; NUR 258 Mega Quiz<span class="nsub">407 questions</span></a>
   <a class="nav" href="pharmacology-new.html">&#128138; Pharmacology<span class="nsub">Every drug question from all three courses</span></a>
   <div class="shead">Listen</div>
-  <a class="nav" href="lectures.html">&#127909; Lectures<span class="nsub">390 recordings, all courses</span></a><a class="nav" href="lectures.html#nur234">&#127909; NUR 234 Lectures<span class="nsub">33 recordings</span></a><a class="nav" href="lectures.html#nur235">&#127909; NUR 235 Lectures<span class="nsub">31 recordings</span></a><a class="nav" href="lectures.html#nur258">&#127909; NUR 258 Lectures<span class="nsub">54 recordings</span></a><a class="nav" href="nur234-podcasts.html">&#127911; NUR 234 Podcasts<span class="nsub">13 recordings</span></a><a class="nav" href="nur234-slides.html">&#128444;&#65039; NUR 234 Slide decks<span class="nsub">13 decks</span></a>
+  <a class="nav" href="lectures.html">&#127909; Lectures<span class="nsub">452 recordings, all courses</span></a><a class="nav" href="lectures.html#nur234">&#127909; NUR 234 Lectures<span class="nsub">47 recordings</span></a><a class="nav" href="lectures.html#nur235">&#127909; NUR 235 Lectures<span class="nsub">55 recordings</span></a><a class="nav" href="lectures.html#nur258">&#127909; NUR 258 Lectures<span class="nsub">64 recordings</span></a><a class="nav" href="nur234-podcasts.html">&#127911; NUR 234 Podcasts<span class="nsub">13 recordings</span></a><a class="nav" href="nur234-slides.html">&#128444;&#65039; NUR 234 Slide decks<span class="nsub">13 decks</span></a>
   <a class="nav" href="nur235-podcasts.html">&#127911; NUR 235 Podcasts<span class="nsub">21 recordings</span></a><a class="nav" href="nur235-slides.html">&#128444;&#65039; NUR 235 Slide decks<span class="nsub">15 decks</span></a>
   <a class="nav" href="nur258-podcasts.html">&#127911; NUR 258 Podcasts<span class="nsub">6 exam episodes + 15 lectures</span></a><a class="nav" href="nur258-slides.html">&#128444;&#65039; NUR 258 Slide decks<span class="nsub">4 decks</span></a>
   <div class="shead">Reference</div>
@@ -228,6 +228,33 @@ body, body.adhd-upgraded{
          whole row, or the button is left standing on its own */
       var row=c.closest('.modrow'); if(row) row.classList.toggle('hidden', off);
     });
+
+    /* The results live near the bottom of a long page, so filtering alone looks
+       like nothing happened. Take the intro blocks off the page while a term is
+       typed, and jump to the top the first time she types. */
+    var host = document.querySelector('.exsec');
+    host = host && host.parentNode;
+    if(host){
+      var was = host.classList.contains('absn-searching');
+      host.classList.toggle('absn-searching', !!t);
+      /* the modules re-open as they match, so the page grows under us. Wait a
+         frame before jumping, or scroll anchoring lands her mid-result. */
+      if(t && !was){
+        /* Compute the target after layout, not before: on NUR 258 the modules
+           re-open as they match and the page grows by a few hundred thousand
+           pixels under a plain scrollTo(0,0). Run it again on a short timer,
+           because that reflow can land after the first frame. */
+        var jump = function(){
+          var f = host.querySelector('.exsec:not(.hidden)'), bar = document.querySelector('.bar');
+          if(!f){ window.scrollTo(0,0); return; }
+          var y = f.getBoundingClientRect().top + window.pageYOffset
+                - (bar ? bar.getBoundingClientRect().height + 10 : 0);
+          window.scrollTo(0, Math.max(0, y));
+        };
+        requestAnimationFrame(jump);
+        setTimeout(jump, 140);
+      }
+    }
     var vis=cards.filter(function(c){ return !c.classList.contains('hidden'); }).length;
     if(cnt) cnt.textContent = t ? (vis+' of '+cards.length+' modules match')
                                 : (cards.length+' modules');
