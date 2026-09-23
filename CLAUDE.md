@@ -77,6 +77,26 @@ with `SendUserFile` or give her the click-by-click fix for Google Sheets. Nav bu
 are easiest restored by copying `D2:E3` from a sibling tab and pasting — the links and
 formatting come with them.
 
+## Image tooling: install it, don't assume it is missing
+
+Nothing image-related is preinstalled — no PIL, no ImageMagick, no `cwebp`, no
+`sharp`. On 20 Sep that was read as "this environment cannot resize images" and
+eight infographics shipped with no thumbnails. That was wrong: **PyPI is
+reachable, so `python3 -m pip install Pillow` works and takes seconds.** Check
+by installing, not by looking for what is already there.
+
+Board previews live in `img/previews/` and the full plate in
+`img/infographics/`. The convention is **max 760px wide, WEBP quality 82**:
+
+```python
+im = Image.open(src); w = min(760, im.size[0])
+im.convert('RGB').resize((w, round(im.size[1]*w/im.size[0])), Image.LANCZOS) \
+  .save(dst, 'WEBP', quality=82, method=6)
+```
+
+Study pages keep the **full-size** image — that is where she reads the detail.
+Only the gallery on `infographics.html` uses previews.
+
 ## Local testing
 
 ```bash
