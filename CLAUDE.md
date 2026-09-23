@@ -97,13 +97,21 @@ sessions wrote off as impossible here:
   Two of her Sep 17 clips measured exactly that.
 
 Board previews live in `img/previews/` and the full plate in
-`img/infographics/`. The convention is **max 760px wide, WEBP quality 82**:
+`img/infographics/`. The convention is **longest edge 760px, WEBP quality 82** —
+cap the *longest* edge, not the width. Most of these plates are portrait, and
+capping width instead makes a 760x1075 preview that is **40% heavier** than the
+rest of the folder (88 KB against a 29-56 KB median):
 
 ```python
-im = Image.open(src); w = min(760, im.size[0])
-im.convert('RGB').resize((w, round(im.size[1]*w/im.size[0])), Image.LANCZOS) \
+im = Image.open(src); W, H = im.size
+sc = min(1.0, 760 / max(W, H))
+im.convert('RGB').resize((round(W*sc), round(H*sc)), Image.LANCZOS) \
   .save(dst, 'WEBP', quality=82, method=6)
 ```
+
+**The gallery card's `<img>` must point at the preview and its `<a href>` at the
+full plate.** 105 Simple Nursing cards had both pointing at the full file, so
+`infographics.html` was serving 11.8 MB of full-size artwork as thumbnails.
 
 Study pages keep the **full-size** image — that is where she reads the detail.
 Only the gallery on `infographics.html` uses previews.
