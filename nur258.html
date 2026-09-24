@@ -2103,7 +2103,7 @@ function hop(url, closeThis){
   var SAFE = '#skimBtn,nav,header,#vwBar,.bar,.nb,.nbWrap,table,thead,tbody,tr,td,th,' +
              '.stem,.q,.qa,.qt,.ans,.ansbox,.rationale,.fill,.blanks,.fp,.fpk,.nq,' +
              '.toc,.foot,.cap,.chip,.chip-row,.sec-sub,.bn,.dvname,button,summary,' +
-             '[class*="nav"],[class*="btn"],[class*="quiz"]';
+             '[class*="nav"],[class*="btn"],[class*="quiz"],[data-adhd-ui]';
   var MIN  = 110;      /* below this a line is a label or a rule, not padding */
   var NUM  = /\d\s*(mg|mcg|g|kg|lb|ml|l|mmol|meq|mmhg|%|hr|hrs|min|sec|day|wk|yr|bpm|cm|mm|units?|°)/i;
 
@@ -2155,7 +2155,7 @@ function hop(url, closeThis){
     if(on) mark();
     document.body.classList.toggle('skimOn', on);
     openAll(on); paint(on);
-    try{ localStorage.setItem('skimOn', on?'1':'0'); }catch(e){}
+    try{ localStorage.setItem('skimOn2', on?'1':'0'); }catch(e){}
   }
 
   function build(){
@@ -2267,7 +2267,12 @@ function hop(url, closeThis){
     window.addEventListener('resize', function(){ setTimeout(unstack, 60); });
 
     var want=false;
-    try{ want=localStorage.getItem('skimOn')==='1'; }catch(e){}
+    /* The old 'skimOn' key is poisoned: the hub froze inside toggle(), and the
+       flag had already been saved, so every later load replayed the freeze and
+       the page would not open. Reading a new key retires every stuck value, and
+       the old one is removed so it cannot come back. */
+    try{ localStorage.removeItem('skimOn');
+         want=localStorage.getItem('skimOn2')==='1'; }catch(e){}
     if(want) toggle();
   }
 
@@ -2415,7 +2420,12 @@ function hop(url, closeThis){
   if(dashboard){
     var cleanSkim=function(){dashboard.classList.remove('skimHide');[].slice.call(dashboard.querySelectorAll('.skimHide')).forEach(function(el){el.classList.remove('skimHide');});};
     cleanSkim();
-    new MutationObserver(cleanSkim).observe(dashboard,{subtree:true,attributes:true,attributeFilter:['class']});
+    /* No MutationObserver here. It watched class changes and its callback removed
+       classes, so skim mode tagging the dashboard made it untag, which fired it
+       again - the page locked up for as long as you left it. The dashboard is
+       kept out of skim mode at the source instead: [data-adhd-ui] is in SAFE, so
+       nothing in here is ever tagged. The one call above is the belt to that
+       braces, clearing anything a previous visit left behind. */
   }
   updateProgress();
 })();
