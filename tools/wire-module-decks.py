@@ -83,6 +83,73 @@ def module_span(s, mod):
     return i, (j if j > 0 else len(s))
 
 
+BOARD = 'infographics.html'
+
+
+def board(decks):
+    """Make sure each deck also has a card on the infographic board.
+
+    The card goes in BEFORE an existing deck card of the same course, never
+    after. Appending after the last card looks equivalent and is not: when the
+    anchor happens to be the final card in the document the insertion point
+    runs past </body>, and three pediatric decks landed outside #pool that way.
+    They still rendered, so nothing looked wrong - but the board builds its
+    filter from the pool, so its own counter never saw them.
+    """
+    s = open(BOARD, encoding='utf-8').read()
+    end = s.find('</body>')
+    starts = [m.start() for m in re.finditer(r'<div class="card ', s)]
+    added = 0
+    for d in decks:
+        if d['href'] in s:
+            continue
+        cls = 'NUR ' + d['course'][3:]
+        at = None
+        for i, a in enumerate(starts):
+            seg = s[a:starts[i + 1] if i + 1 < len(starts) else len(s)]
+            if 'data-cls="%s"' % cls in seg and 'data-kind="powerpoint"' in seg:
+                at = a
+        if at is None or at >= end:
+            sys.exit('%s: nowhere inside the pool to put the %s %s card'
+                     % (BOARD, d['course'], d['module']))
+        added += 1
+        print('%-52s %s %s card' % (BOARD, d['course'], d['module']))
+        if CHECK:
+            continue
+        mod = d['module'].upper()
+        if d.get('preview') and os.path.exists(d['preview']):
+            with Image.open(d['preview']) as im:
+                w, h = im.size
+            inner = ('<img src="%s" alt="First slide of %s" loading="lazy" '
+                     'decoding="async" width="%d" height="%d">'
+                     % (d['preview'], re.sub(r'<[^>]+>', '', d['title']), w, h))
+        else:
+            inner = ('<span class="dpi" aria-hidden="true">&#128202;</span>'
+                     '<span class="dpt">Open the deck</span>')
+        fid = re.search(r'/d/([\w-]+)/', d['href'])
+        dl = ('<a class="deckdl" href="https://drive.usercontent.google.com/'
+              'download?id=%s&amp;export=download&amp;confirm=t">&#11015;&#65039; '
+              'Download</a>' % fid.group(1)) if fid else ''
+        card = ('<div class="card deck dark" data-kind="powerpoint" data-cat="%s" '
+                'data-cls="%s" data-mod="%s" data-exam="Exam 1" data-kw="%s" '
+                'style="background:%s"><h3>%s</h3><div class="cbs">'
+                '<span class="cb cls">%s</span><span class="cb">%s</span>'
+                '<span class="cb">&#128202; PowerPoint</span></div>'
+                '<a class="plink deckplate" href="%s" target="_blank" rel="noopener">'
+                '%s</a>%s<p class="pdfmod">Also linked inside %s</p></div>'
+                % (d['board_cat'], cls, mod, d.get('board_kw', ''), d['board_bg'],
+                   d['title'], cls, mod, d['href'], inner, dl, d['page']))
+        s = s[:at] + card + s[at:]
+        starts = [m.start() for m in re.finditer(r'<div class="card ', s)]
+        end = s.find('</body>')
+    if added and not CHECK:
+        open(BOARD, 'w', encoding='utf-8').write(s)
+    stray = s.split('</body></html>')[-1].strip()
+    if stray:
+        sys.exit('%s: %d characters ended up after </body></html>' % (BOARD, len(stray)))
+    return added
+
+
 def main():
     decks = json.load(open('tools/module-decks.json'))
     pending = 0
@@ -123,6 +190,7 @@ def main():
             if not CHECK:
                 open(hub, 'w', encoding='utf-8').write(h[:lo] + block + h[hi:])
 
+    pending += board(decks)
     print('%d deck%s %s' % (pending, '' if pending == 1 else 's',
                             'unwired' if CHECK else 'wired'))
     return 1 if (CHECK and pending) else 0
