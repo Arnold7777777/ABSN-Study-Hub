@@ -86,6 +86,18 @@ def module_span(s, mod):
 BOARD = 'infographics.html'
 
 
+def plate(d):
+    """The card's face: the deck's own first slide if we have one, else the glyph."""
+    if d.get('preview') and os.path.exists(d['preview']):
+        with Image.open(d['preview']) as im:
+            w, h = im.size
+        return ('<img src="%s" alt="First slide of %s" loading="lazy" '
+                'decoding="async" width="%d" height="%d">'
+                % (d['preview'], re.sub(r'<[^>]+>', '', d['title']), w, h))
+    return ('<span class="dpi" aria-hidden="true">&#128202;</span>'
+            '<span class="dpt">Open the deck</span>')
+
+
 def board(decks):
     """Make sure each deck also has a card on the infographic board.
 
@@ -102,6 +114,15 @@ def board(decks):
     added = 0
     for d in decks:
         if d['href'] in s:
+            m = re.search(r'(<a class="plink deckplate[^"]*" href="%s"[^>]*>)'
+                          r'(<span class="dpi".*?</span><span class="dpt">[^<]*</span>)'
+                          r'(</a>)' % re.escape(d['href']), s, re.S)
+            if m and d.get('preview') and os.path.exists(d['preview']):
+                added += 1
+                print('%-52s %s %s plate' % (BOARD, d['course'], d['module']))
+                if not CHECK:
+                    s = s[:m.start()] + m.group(1) + plate(d) + m.group(3) + s[m.end():]
+                    end = s.find('</body>')
             continue
         cls = 'NUR ' + d['course'][3:]
         at = None
@@ -117,15 +138,7 @@ def board(decks):
         if CHECK:
             continue
         mod = d['module'].upper()
-        if d.get('preview') and os.path.exists(d['preview']):
-            with Image.open(d['preview']) as im:
-                w, h = im.size
-            inner = ('<img src="%s" alt="First slide of %s" loading="lazy" '
-                     'decoding="async" width="%d" height="%d">'
-                     % (d['preview'], re.sub(r'<[^>]+>', '', d['title']), w, h))
-        else:
-            inner = ('<span class="dpi" aria-hidden="true">&#128202;</span>'
-                     '<span class="dpt">Open the deck</span>')
+        inner = plate(d)
         fid = re.search(r'/d/([\w-]+)/', d['href'])
         dl = ('<a class="deckdl" href="https://drive.usercontent.google.com/'
               'download?id=%s&amp;export=download&amp;confirm=t">&#11015;&#65039; '
