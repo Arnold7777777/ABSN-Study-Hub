@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Which finding needs follow-up? &middot; NUR 235</title>
+<style>
+:root{--ink:#f2ecff;--soft:#d9cdf3;--muted:#c3b6e2;--line:rgba(255,255,255,.20);
+ --gold:#ffd75e;--accent:#ffc233;--card:rgba(14,10,30,.86);
+ --amethyst:#9d5cff;--sapphire:#2f6bff;--emerald:#12b886;--teal:#00c2c7;
+ --topaz:#ffc233;--ruby:#ff3b6b;--citrine:#ff8a3d}
+*{box-sizing:border-box}
+body{margin:0;font:17px/1.62 'Segoe UI',system-ui,sans-serif;color:var(--ink);
+ background:linear-gradient(165deg,#0d0a1c 0%,#171034 55%,#0b1424 100%);min-height:100vh;
+ overflow-wrap:break-word}
+a{color:var(--gold)}
+header{padding:20px 18px 18px;background:linear-gradient(135deg,rgba(157,92,255,.66),rgba(47,107,255,.60));
+ border-bottom:1px solid var(--line)}
+header .code{font-weight:900;font-size:.95rem;letter-spacing:.09em;text-transform:uppercase;color:var(--accent)}
+header h1{margin:4px 0 6px;font-size:1.5rem;line-height:1.25}
+header p{margin:0;color:#f2ebff;max-width:64ch}
+.wrap{max-width:900px;margin:0 auto;padding:16px 14px 70px}
+.nav{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
+.nav a{display:inline-flex;align-items:center;min-height:44px;padding:8px 14px;border-radius:12px;
+ text-decoration:none;font-weight:800;font-size:.95rem;color:#fff;background:rgba(0,0,0,.42);
+ border:1px solid rgba(255,255,255,.34)}
+.nav a:hover{background:rgba(0,0,0,.62)}
+.how{padding:16px 18px;border-radius:16px;margin:0 0 22px;color:#fff;
+ background:rgba(47,107,255,.60);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+ border:1px solid rgba(255,255,255,.30);border-left:5px solid rgba(255,255,255,.55);
+ box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.how h2{margin:0 0 8px;font-size:1.12rem}
+.how ol{margin:0;padding-left:20px}
+.how li{margin:0 0 7px}
+.sc{padding:16px 18px;border-radius:16px;margin:0 0 20px;color:#fff;
+ background:rgba(157,92,255,.60);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+ border:1px solid rgba(255,255,255,.30);border-left:5px solid rgba(255,255,255,.55);
+ box-shadow:0 8px 26px rgba(0,0,0,.38)}
+.sc.teal{background:rgba(0,194,199,.60)}
+.sc.emerald{background:rgba(18,184,134,.60)}
+.sc.citrine{background:rgba(255,138,61,.60)}
+.sc.sapphire{background:rgba(47,107,255,.60)}
+.sc.garnet{background:rgba(192,34,85,.62)}
+.sc h2{margin:0 0 4px;font-size:1.1rem;line-height:1.3}
+.stem{margin:0 0 12px;font-size:.99rem;color:#f4eeff}
+.ask{font-weight:800;color:#fff2c4}
+.opts{display:grid;gap:9px;margin:0 0 6px}
+.opt{display:block;width:100%;text-align:left;min-height:44px;padding:11px 13px;border-radius:12px;
+ font:600 .97rem/1.45 'Segoe UI',system-ui,sans-serif;color:#fff;cursor:pointer;
+ background:rgba(0,0,0,.40);border:1px solid rgba(255,255,255,.30)}
+.opt:hover{background:rgba(0,0,0,.58)}
+.opt:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.opt .tag{display:none;font-weight:900;letter-spacing:.04em;margin-right:7px}
+.opt .why{display:none;margin-top:6px;font-weight:500;font-size:.9rem;color:#f2ecff}
+.opt.shown .tag,.opt.shown .why{display:block}
+.opt.shown .tag{display:inline}
+/* Revealed states go DARK with a coloured border, rather than tinting lighter.
+   A light tint over an already-light jewel card lifted the background enough to
+   drop the explanation text to 3.6:1 - under AA, and she reads this magnified.
+   Dark base keeps the text high-contrast; the colour coding lives in the border
+   and the tag. */
+.opt.shown[data-a="report"]{background:rgba(74,6,26,.80);border-color:rgba(255,59,107,.95);border-width:2px}
+.opt.shown[data-a="report"] .tag{color:#ffb3c6}
+.opt.shown[data-a="ok"]{background:rgba(4,40,30,.80);border-color:rgba(18,184,134,.95);border-width:2px}
+.opt.shown[data-a="ok"] .tag{color:#7cf0cb}
+details.pt{margin-top:10px;border-radius:12px;background:rgba(0,0,0,.34);
+ border:1px solid rgba(255,255,255,.24)}
+details.pt>summary{min-height:44px;display:flex;align-items:center;padding:10px 13px;
+ font-weight:800;cursor:pointer;border-radius:12px}
+details.pt>summary:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+details.pt .body{padding:0 13px 13px;font-size:.95rem}
+mark{background:var(--topaz);color:#231a02;padding:1px 5px;border-radius:5px;font-weight:800}
+.never{text-decoration:underline wavy;text-decoration-color:var(--ruby)}
+.foot{margin:26px 0 0;font-size:.9rem;color:var(--muted)}
+@media(max-width:640px){body{font-size:16px}.wrap{padding:14px 12px 60px}header h1{font-size:1.3rem}}
+</style>
+</head><body>
+<header>
+<div class="code">NUR 235 &middot; Pediatrics</div>
+<h1>&#128269; Which finding needs follow-up?</h1>
+<p>Six sets of findings. In each one, three are what you would expect &mdash; and one is the
+reason you pick up the phone. Tap every finding to see which is which.</p>
+</header>
+
+<div class="wrap">
+<div class="nav">
+  <a href="nur235.html">&#127968; NUR 235 hub</a>
+  <a href="nur235-m12.html">&#129730; M12 GI</a>
+  <a href="nur235-m5.html">&#129656; M5 Heme &amp; Onc</a>
+  <a href="nur235-m3.html">&#129490; M3 Toddler</a>
+  <a href="nur235-quiz.html">&#127919; NUR 235 quiz</a>
+</div>
+
+<div class="how">
+<h2>&#129504; The three questions that sort them</h2>
+<ol>
+<li><b>Is it expected for this condition, at this point?</b> Vomiting after a pyloromyotomy is
+expected. <i>Bilious</i> vomiting never is.</li>
+<li><b>Is it a trend going the wrong way?</b> One dry nappy is nothing. None in eight hours is
+a direction.</li>
+<li><b>Does it fit a complication I already know to fear?</b> Fever in neutropenia, rupture in
+appendicitis, obstruction after bowel surgery.</li>
+</ol>
+<p style="margin:10px 0 0"><mark>Answer first, then justify.</mark> Pick the finding, then say
+which complication it points at. If you cannot name the complication, it is probably not the
+answer.</p>
+</div>
+
+<section class="sc" id="s1">
+<h2>1 &middot; Six hours after pyloromyotomy</h2>
+<p class="stem">A 5-week-old is back on the unit after surgical repair of pyloric stenosis and
+has just taken a first small feed. <span class="ask">Which finding needs follow-up?</span></p>
+<div class="opts">
+<button class="opt" data-a="ok"><span class="tag">EXPECTED &mdash;</span>A small amount of emesis after the first feed<span class="why">Common in the first day or two after pyloromyotomy. Feeds are advanced <b>slowly</b> for exactly this reason.</span></button>
+<button class="opt" data-a="report"><span class="tag">REPORT &mdash;</span>Green, bile-stained vomit with a distended abdomen<span class="why">Bile means the obstruction is <b>below</b> the duodenal papilla. That is not a pyloromyotomy recovery &mdash; it points at obstruction, and it is never expected at any age.</span></button>
+<button class="opt" data-a="ok"><span class="tag">EXPECTED &mdash;</span>Incision clean, dry and intact<span class="why">What you want to find.</span></button>
+<button class="opt" data-a="ok"><span class="tag">EXPECTED &mdash;</span>Sleepy, but rouses and settles with handling<span class="why">Post-anaesthetic drowsiness that <i>rouses</i> is fine. Drowsiness you cannot rouse is not.</span></button>
+</div>
+<details class="pt"><summary>&#9733; The point</summary><div class="body">
+<b>Non-bilious</b> projectile vomiting at 3&ndash;6 weeks is what brought the baby in.
+<b>Bilious</b> vomiting afterwards is a different problem entirely. The colour is the cue.
+</div></details>
+</section>
+
+<section class="sc teal" id="s2">
+<h2>2 &middot; Infant with acute gastroenteritis</h2>
+<p class="stem">An 8-month-old has had diarrhoea for two days and is on oral rehydration
+solution. <span class="ask">Which finding needs follow-up?</span></p>
+<div class="opts">
+<button class="opt" data-a="ok"><span class="tag">EXPECTED &mdash;</span>Loose stools are still happening<span class="why">ORS replaces losses; it does not stop the diarrhoea. Continuing stools alone are not deterioration.</span></button>
+<button class="opt" data-a="ok"><span class="tag">EXPECTED &mdash;</span>Fussy, but consolable by a parent<span class="why">Irritable-but-consolable sits in the mild-to-moderate band. <b>Lethargy</b> is the word that changes the picture.</span></button>
+<button class="opt" data-a="report"><span class="tag">REPORT &mdash;</span>No wet nappy for eight hours<span class="why">Oliguria means the kidneys are holding on to water. Expected output in an infant is about <b>2 mL/kg/hr</b>; eight dry hours is a trend going the wrong way and needs escalation.</span></button>
+<button class="opt" data-a="ok"><span class="tag">EXPECTED &mdash;</span>Capillary refill of 2 seconds<span class="why">Still within normal. Refill creeping past 3&ndash;4 seconds, with no tears and a sunken fontanelle, is severe.</span></button>
+</div>
+<details class="pt"><summary>&#9733; The point</summary><div class="body">
+<mark>Daily weight is the most accurate measure of fluid loss in a child</mark> &mdash; but on the
+shift in front of you, <b>urine output and level of consciousness</b> are what move first.
+Plain water, juice and sports drinks all make it worse.
+</div></details>
+</section>
+
+<section class="sc garnet" id="s3">
+<h2>3 &middot; Appendicitis, waiting for theatre</h2>
+<p class="stem">A 10-year-old has right lower quadrant pain and is nil by mouth awaiting an
+appendicectomy. <span class="ask">Which finding needs follow-up?</span></p>
+<div class="opts">
+<button class="opt" data-a="ok"><span class="tag">EXPECTED &mdash;</span>Guarding over McBurney&rsquo;s point<span class="why">Localised tenderness with rebound is the presentation, not a complication.</span></button>
+<button class="opt" data-a="report"><span class="tag">REPORT &mdash;</span>The pain suddenly stops and the child says they feel better<span class="why"><b>Sudden relief is not improvement &mdash; it is rupture.</b> The distended appendix has perforated and released the pressure. Peritonitis follows.</span></button>
+<button class="opt" data-a="ok"><span class="tag">EXPECTED &mdash;</span>Low-grade fever<span class="why">Expected with inflammation. A <i>climbing</i> fever with rigidity is a different story.</span></button>
+<button class="opt" data-a="ok"><span class="tag">EXPECTED &mdash;</span>No appetite and feeling sick<span class="why">Anorexia and nausea are part of the classic picture.</span></button>
+</div>
+<details class="pt"><summary>&#9733; The point</summary><div class="body">
+This is the one the exam loves, because relief <i>sounds</i> like good news.
+<span class="never">Never apply heat and never give an enema</span> &mdash; both raise the risk
+of rupture.
+</div></details>
+</section>
+
+<section class="sc emerald" id="s4">
+<h2>4 &middot; Child on chemotherapy with mucositis</h2>
+<p class="stem">A 6-year-old having chemotherapy has mouth ulcers and is reluctant to eat.
+<span class="ask">Which finding needs follow-up?</span></p>
+<div class="opts">
+<button class="opt" data-a="ok"><span class="tag">EXPECTED &mdash;</span>Red, sore oral mucosa with small ulcers<span class="why">That is the mucositis itself &mdash; a known effect of treatment on fast-dividing cells.</span></button>
+<button class="opt" data-a="report"><span class="tag">REPORT &mdash;</span>Temperature of 38.3&deg;C (101&deg;F)<span class="why"><mark>Fever in a child who may be neutropenic is an emergency</mark>, not a symptom to monitor. Broken mucosa is an open door for bacteria straight into the blood.</span></button>
+<button class="opt" data-a="ok"><span class="tag">EXPECTED &mdash;</span>Choosing soft, bland foods and cool fluids<span class="why">Sensible self-management. Avoid anything acidic, salty, spicy, rough or hot.</span></button>
+<button class="opt" data-a="ok"><span class="tag">EXPECTED &mdash;</span>Cleaning teeth with a soft brush<span class="why">Correct mouth care &mdash; keep cleaning gently rather than stopping. Avoid alcohol-based mouthwashes and <b>never</b> lemon-glycerin swabs.</span></button>
+</div>
+<details class="pt"><summary>&#9733; The point</summary><div class="body">
+Mucositis is expected. <b>Fever on top of it is not.</b> The mouth is the entry point, and in
+neutropenia there may be no pus, no redness and no other localising sign &mdash; the fever is
+the whole warning.
+</div></details>
+</section>
+
+<section class="sc citrine" id="s5">
+<h2>5 &middot; Preschooler with sleep terrors</h2>
+<p class="stem">Parents describe their 4-year-old screaming and thrashing at night.
+<span class="ask">Which finding needs follow-up?</span></p>
+<div class="opts">
+<button class="opt" data-a="ok"><span class="tag">EXPECTED &mdash;</span>Episodes start about 90 minutes after falling asleep<span class="why">Sleep terrors come out of deep non-REM sleep in the <b>first third</b> of the night. Nightmares are REM and come later.</span></button>
+<button class="opt" data-a="ok"><span class="tag">EXPECTED &mdash;</span>No memory of it the next morning<span class="why">Little or no recall is typical. Remembering the dream points to a nightmare instead.</span></button>
+<button class="opt" data-a="ok"><span class="tag">EXPECTED &mdash;</span>Eyes open, inconsolable, sweating during the episode<span class="why">Looks awake, is not fully awake. Stay calm, keep them safe, <span class="never">do not force waking or restrain</span>.</span></button>
+<button class="opt" data-a="report"><span class="tag">REPORT &mdash;</span>Loud snoring with pauses in breathing<span class="why">That is a different problem underneath &mdash; possible obstructive sleep apnoea, which needs assessment rather than reassurance about parasomnias.</span></button>
+</div>
+<details class="pt"><summary>&#9733; The point</summary><div class="body">
+<b>Nightmare</b> = awake + recall + reassure. <b>Sleep terror</b> = partial arousal + little
+recall + protect. Escalate if episodes injure, happen very often, wreck daytime function,
+or come with snoring and breathing pauses.
+</div></details>
+</section>
+
+<section class="sc sapphire" id="s6">
+<h2>6 &middot; Four children, one nurse</h2>
+<p class="stem">You take handover on four children. <span class="ask">Which one do you see
+first?</span></p>
+<div class="opts">
+<button class="opt" data-a="ok"><span class="tag">LATER &mdash;</span>Post-appendicectomy day 1, wants more analgesia<span class="why">Real and worth doing &mdash; but pain relief on a stable post-op child is not the first stop.</span></button>
+<button class="opt" data-a="ok"><span class="tag">LATER &mdash;</span>Gastroenteritis, tolerating ORS, two wet nappies this shift<span class="why">Improving. Output is happening.</span></button>
+<button class="opt" data-a="report"><span class="tag">FIRST &mdash;</span>Leukaemia, mucositis, temperature 38.4&deg;C<span class="why">Possible neutropenic sepsis. <mark>Cultures and antibiotics are time-critical</mark> &mdash; this child cannot wait behind the others.</span></button>
+<button class="opt" data-a="ok"><span class="tag">LATER &mdash;</span>Sleep terrors, parents want to talk about bedtime routine<span class="why">Important teaching, no acute risk.</span></button>
+</div>
+<details class="pt"><summary>&#9733; The point</summary><div class="body">
+When several options all sound reasonable, ask which one has a complication that gets worse
+<i>while you deal with the others</i>. Infection in an immunosuppressed child is almost
+always that one.
+</div></details>
+</section>
+
+<p class="foot">Study material written for this site &mdash; scenarios are teaching examples,
+not a substitute for your course materials or clinical judgement.</p>
+</div>
+
+<script>
+(function(){
+  /* Tap a finding to reveal whether it is expected or the one to report. Toggling
+     rather than locking, because she works through these more than once. */
+  document.addEventListener('click', function(e){
+    var b = e.target.closest ? e.target.closest('.opt') : null;
+    if(!b) return;
+    b.classList.toggle('shown');
+  });
+})();
+</script>
+</body></html>
