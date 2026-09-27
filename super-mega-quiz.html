@@ -287,10 +287,12 @@ h1{font-size:clamp(1.7rem,5.6vw,2.6rem);margin:0 0 6px;line-height:1.14;font-wei
 .missbox .missgo button:hover{filter:brightness(1.08)}
 .missbox .missgo button:focus-visible{outline:3px solid #fff;outline-offset:2px}
 .missnext{margin:11px 0 0;font:600 .87rem/1.4 "Segoe UI",system-ui,sans-serif;opacity:.92}
-.missbox .missclear{margin-top:11px;min-height:46px;background:none;border:0;padding:8px 2px;min-height:44px;
-  cursor:pointer;color:rgba(255,255,255,.80);text-decoration:underline;
-  font:600 .82rem/1.2 "Segoe UI",system-ui,sans-serif}
-.missbox .missclear:hover{color:#fff}
+.missbox .missclear{display:block;width:100%;margin-top:12px;min-height:46px;
+  padding:11px 14px;border-radius:12px;cursor:pointer;
+  background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.42);
+  color:#fff;font:700 1rem/1.2 "Segoe UI",system-ui,sans-serif}
+.missbox .missclear:hover,.missbox .missclear:focus{
+  background:rgba(255,255,255,.28);outline:none}
 /* what the results screen says about the pile */
 .misstrip{margin:14px 0 4px;padding:14px 16px;border-radius:16px;
   background:rgba(157,92,255,.60);backdrop-filter:blur(7px);
@@ -494,6 +496,11 @@ body.fdrawer-open #fdrawerBtn{display:none}
   cursor:pointer;background:#ffc233;color:#2a1f00;
   font:900 1rem/1.15 'Segoe UI',system-ui,sans-serif}
 #fdrawerMiss button:hover,#fdrawerMiss button:focus{filter:brightness(1.08);outline:none}
+#fdrawerMiss button.mclear{margin-top:8px;min-height:46px;
+  background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.45);
+  color:#fff;font:700 .95rem/1.2 'Segoe UI',system-ui,sans-serif}
+#fdrawerMiss button.mclear:hover,#fdrawerMiss button.mclear:focus{
+  background:rgba(255,255,255,.30);filter:none}
 #fdrawerDone{
   flex:0 0 auto;margin-top:10px;padding:12px 0 2px;
   border-top:1px solid rgba(255,255,255,.2)}
@@ -1812,7 +1819,9 @@ window.NGN = (function(){
   window.__absnMiss = {
     entries: function(){ return MISS.entries(); },
     dayName: function(d,t){ return MISS.dayName(d,t); },
-    start: function(items){ startReview(items); }
+    start: function(items){ startReview(items); },
+    clear: function(){ MISS.clear(); reviewPanel(); },
+    count: function(){ return MISS.count(); }
   };
 
   /* ---- the panel she actually sees ---------------------------------------
@@ -2148,19 +2157,39 @@ function hop(url, closeThis){
   (function(){
     var M=window.__absnMiss; if(!M) return;
     var e; try{ e=M.entries(); }catch(err){ return; }
-    if(!e.due.length) return;
+    if(!e.all.length) return;
+    var run = e.due.length ? e.due : e.later;
     var box=document.createElement('div'); box.id='fdrawerMiss';
-    box.innerHTML='<p>\uD83D\uDD04 '+e.due.length+' question'+(e.due.length===1?'':'s')+
-      ' you got wrong'+'<em>Waiting for you. No filters needed.</em></p>';
+    box.innerHTML='<p>\uD83D\uDD04 '+
+      (e.due.length
+        ? e.due.length+' question'+(e.due.length===1?'':'s')+' you got wrong'+
+          '<em>Waiting for you. No filters needed.</em>'
+        : 'Nothing due right now'+
+          '<em>'+e.later.length+' still in the pile, next '+
+          M.dayName(e.soonest,e.today)+'.</em>')+'</p>';
     var go=document.createElement('button');
     go.type='button';
-    go.textContent='Review '+(e.due.length>25?'25 of them':'these '+e.due.length);
+    go.textContent = e.due.length
+      ? 'Review '+(e.due.length>25?'25 of them':'these '+e.due.length)
+      : 'Go through all '+e.later.length+' anyway';
     go.onclick=function(){
       document.body.classList.remove('fdrawer-open');
       drawer.classList.remove('open');
-      M.start(e.due.slice(0,25));
+      M.start(run.slice(0, e.due.length?25:run.length));
     };
     box.appendChild(go);
+
+    var wipe=document.createElement('button');
+    wipe.type='button'; wipe.className='mclear';
+    wipe.textContent='Empty the pile ('+e.all.length+')';
+    wipe.onclick=function(){
+      if(!confirm('Empty your review pile? All '+e.all.length+' question'+
+                  (e.all.length===1?'':'s')+' you have missed so far '+
+                  'are forgotten and start over.')) return;
+      M.clear();
+      box.parentNode && box.parentNode.removeChild(box);
+    };
+    box.appendChild(wipe);
     drawer.appendChild(box);
   })();
 
