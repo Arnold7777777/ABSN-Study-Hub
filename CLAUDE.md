@@ -50,6 +50,30 @@ python3 tools/build-search-index.py
 
 and commit the regenerated `search-index.json` with the change.
 
+## A new lecture: four things, every time
+
+Her rule, stated 28 Sep. Do all four or the lecture is only half filed.
+
+1. **Rename it to the convention.**
+   `COURSE_TermYear_Lecturer_Wk##_Day#_Description.mp4`, with `WkNA` / `DayNA`
+   where the field is genuinely unknown. The `Wk` number tracks the *module*
+   number - `NUR235_..._Wk13_DayNA_Renal and genitourinary.mp4` is module 13.
+   Rename in Drive with `update_file`: it changes the title and **not** the
+   file id, so every link on the site survives.
+2. **A copy in `Nursing School Videos`** (`1umhFpgrpZEorxGn40iN-UKB2JNSw5cTM`).
+   This is the folder that carries the link sharing, so this is the copy the
+   site must link.
+3. **A copy in the course folder's resources subfolder.** The tree is
+   `234/235/258 Resources -> NUR 234 -> 234 resources -> NUR234 lectures`
+   (`1_UD85m6A02JI2TsOE5YNdYit3lObmlKj`); 235 and 258 mirror it.
+4. **Update the lecture library** - `lectures.html`, the module page, both
+   module playlists, and the NUR Lecture Library workbook.
+
+Watch for the **same lecture existing twice**, once in a shared folder and
+once in `My PC / Downloads`. Link the shared copy. Downloads is not
+link-shared, so a link to that copy works for her and shows "You need access"
+to everyone else - which is exactly how 171 handouts sat broken unnoticed.
+
 ## The Lecture Library workbook: she edits it, so start from the live copy
 
 The "NUR Lecture Library" Google Sheet
