@@ -336,6 +336,26 @@ a.tile:focus-visible{border-color:#fff}
     return q.toLowerCase().split(/[^a-z0-9\u00c0-\u024f+]+/).filter(function(w){return w.length>1;});
   }
 
+  /* Filler words. Topic names from the question bank are full sentences often
+     enough ("Recognizing the Need for Suctioning and Airway Clearance") that the
+     difference between a hit and nothing is usually one of these. */
+  var STOP={};
+  ('the a an and or of to in for with on at is are was were be been by from as not no '+
+   'do does did has have had will can may after before during when what which how who why '+
+   'need needs needed recognizing recognize identifying identify').split(' ')
+    .forEach(function(w){ STOP[w]=1; });
+
+  function gather(ws){
+    var out=[];
+    for(var i=0;i<DATA.entries.length;i++){
+      var e=DATA.entries[i], pg=DATA.pages[e.p];
+      var s=score(e,ws,pg.t||'');
+      if(s>0) out.push([s,e,pg]);
+    }
+    out.sort(function(a,b){return b[0]-a[0];});
+    return out;
+  }
+
   function score(e,ws,pageTitle){
     var h=e.h.toLowerCase(), t=e.t.toLowerCase(), pt=pageTitle.toLowerCase(), s=0;
     for(var i=0;i<ws.length;i++){
@@ -372,13 +392,24 @@ a.tile:focus-visible{border-color:#fff}
     load(function(){
       var ws=terms(q);
       if(!ws.length){ results.classList.remove('on'); return; }
-      var hits=[];
-      for(var i=0;i<DATA.entries.length;i++){
-        var e=DATA.entries[i], pg=DATA.pages[e.p];
-        var s=score(e,ws,pg.t||'');
-        if(s>0) hits.push([s,e,pg]);
+      var got=gather(ws), narrowed=null;
+      /* score() needs every term to appear somewhere, which is right for two or
+         three words and useless for a phrase: "Recognizing the Need for
+         Suctioning" matched nothing at all, though the hub has plenty on
+         suctioning. Rather than fail, drop the filler words and then the
+         weakest ones, and say plainly what was searched instead. */
+      if(!got.length){
+        var tries=[], core=ws.filter(function(w){ return !STOP[w]; });
+        if(core.length && core.length<ws.length) tries.push(core);
+        var byLen=(core.length?core:ws).slice().sort(function(a,b){return b.length-a.length;});
+        if(byLen.length>2) tries.push(byLen.slice(0,2));
+        if(byLen.length>1) tries.push(byLen.slice(0,1));
+        for(var k=0;k<tries.length;k++){
+          var g=gather(tries[k]);
+          if(g.length){ got=g; narrowed=tries[k]; ws=tries[k]; break; }
+        }
       }
-      hits.sort(function(a,b){return b[0]-a[0];});
+      var hits=got;
       var total=hits.length;
       if(!total){
         results.classList.remove('on'); results.innerHTML='';
@@ -400,7 +431,10 @@ a.tile:focus-visible{border-color:#fff}
       var parts=order.map(function(k){
         return '<b>'+counts[k]+'</b> '+esc(SITE_LABEL[k]||k);
       });
-      status.innerHTML='<b>'+total+'</b> match'+(total===1?'':'es')+
+      status.innerHTML=
+        (narrowed?'No exact match for \u201c'+esc(q)+'\u201d \u00b7 showing <b>'+
+                  esc(narrowed.join(' '))+'</b> \u00b7 ':'')+
+        '<b>'+total+'</b> match'+(total===1?'':'es')+
         (order.length>1?' \u00b7 '+parts.join(' \u00b7 '):'')+
         (total>LIMIT?' \u00b7 showing the best '+LIMIT:'');
       var html='';
@@ -425,6 +459,25 @@ a.tile:focus-visible{border-color:#fff}
     if(ev.key==='Enter'){ var a=results.querySelector('a.ssr'); if(a) window.open(a.href,'_blank','noopener'); }
   });
   clearBtn.addEventListener('click',function(){ input.value=''; run(); input.focus(); });
+  /* ?q= drives the box from outside. The quiz's rationale links use it to send
+     her here for a topic that has no page of its own, and it makes a search
+     bookmarkable. Accepts #q= too, since a hash survives some link handlers
+     that strip the query. */
+  (function(){
+    var q='';
+    try{
+      q=(new URLSearchParams(window.location.search)).get('q')||'';
+      if(!q && window.location.hash.indexOf('q=')===1)
+        q=decodeURIComponent(window.location.hash.slice(3).replace(/\+/g,' '));
+    }catch(err){ return; }
+    q=(q||'').trim();
+    if(q.length<2) return;
+    input.value=q;
+    run();
+    /* land on the box rather than wherever the page happens to open */
+    try{ input.scrollIntoView({block:'center'}); }catch(err){}
+  })();
+
   document.addEventListener('keydown',function(ev){
     if(ev.key==='/' && document.activeElement!==input &&
        !/^(INPUT|TEXTAREA|SELECT)$/.test((document.activeElement||{}).tagName||'')){

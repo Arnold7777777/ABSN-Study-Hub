@@ -672,11 +672,17 @@
   /* the label tells her what she is about to open, so a module page, a
      one-topic page and a whole section do not look like the same thing */
   function label(href){
+    if(/^index\.html\?q=/.test(href)) return 'Search';
     if(/(^|\/)index\.html$/.test(href) || /^nur\d+\.html$/.test(href) ||
        /^leadership-community-ethics\.html$/.test(href)) return 'Browse';
     if(/^nur\d+-m/.test(href) || /^nur\d+-module-/.test(href)) return 'Open the full module';
     return 'Open the lesson';
   }
+
+  /* A topic whose value is the name of the paper it came from, not a subject.
+     Searching the hub for "NUR 234 ATI Content Mastery" helps nobody, so those
+     keep the body-system shelf below. */
+  var PAPER = /practice test|content mastery|\bATI\b|exam\s*\d|final review/i;
 
   function esc(s){
     /* escape, do not strip - stripping turned "Eye & Ear" into "Eye Ear" */
@@ -696,8 +702,17 @@
     var href = t ? LESSON[t] : null;
     var name = t;
 
-    /* no page for this exact topic - fall back to the shelf the question
-       itself says it belongs on, which cannot be wrong */
+    /* No page mapped for this exact topic. Rather than open a whole shelf,
+       send her to the hub's own search for the subject the question declares.
+       That is not a guess about which lesson is right - it is the question's
+       own word, handed to the index. 1,877 questions land here, against the
+       1,354 topics it would take to map them all by hand. */
+    if(!href && t && !PAPER.test(t)){
+      return anchor('index.html?q=' + encodeURIComponent(t), t);
+    }
+
+    /* no topic at all, or the topic names a paper - fall back to the shelf the
+       question itself says it belongs on, which cannot be wrong */
     if(!href){
       var sys = SYSTEM[(card.getAttribute('data-sys') || '').trim()];
       if(!sys) return null;
@@ -716,6 +731,8 @@
     var verb = label(href);
     a.innerHTML = verb === 'Browse'
       ? '\uD83D\uDCD6 Browse the <b>' + esc(name) + '</b> pages \u2192'
+      : verb === 'Search'
+      ? '\uD83D\uDD0D Search the hub for: <b>' + esc(name) + '</b> \u2192'
       : '\uD83D\uDCD6 ' + verb + ': <b>' + esc(name) + '</b> \u2192';
     return a;
   }
