@@ -17,6 +17,7 @@ So derive them instead. The counts come from the real markup:
   * lectures.html            - one `<a class="rec">` per recording
   * lectures.html#nur234     - the same, inside that course's `<section>`
   * nur234-quiz.html         - the length of the `#qbank` JSON
+  * a quiz page's own header - "N questions, one at a time", from its own bank
   * nur258-podcasts.html     - the week rows, from lectures.html's modules
 
 Run it after adding a recording or a question, and commit what it changes:
@@ -132,6 +133,32 @@ def main():
             if not check:
                 with open(path, 'w', encoding='utf-8') as fh:
                     fh.write(new)
+
+    # A quiz page states its own total in its header, and nothing above touches
+    # it because it is prose, not a nav link. It drifts the same way: on 29 Sep
+    # NUR 235 read 315 against 330 and NUR 258 read 407 against 415.
+    for name in sorted(os.path.basename(x) for x in glob.glob(os.path.join(ROOT, '*-quiz.html'))):
+        src = read(name)
+        m = re.search(r'<p>(\d+) questions, one at a time', src)
+        if not m:
+            continue
+        i = src.find('id="qbank">')
+        if i < 0:
+            continue
+        i += len('id="qbank">')
+        try:
+            bank = json.loads(src[i:src.index('</script>', i)])
+        except ValueError:
+            continue
+        real = sum(len(v) for v in bank.values()) if isinstance(bank, dict) else len(bank)
+        if int(m.group(1)) == real:
+            continue
+        changes.append((name, 'its own header', m.group(1), str(real)))
+        stale += 1
+        if not check:
+            with open(os.path.join(ROOT, name), 'w', encoding='utf-8') as fh:
+                fh.write(src[:m.start()] + '<p>%d questions, one at a time' % real
+                         + src[m.end():])
 
     for name, href, cur, target in changes:
         print('%-28s %-26s %r -> %r' % (name, href, cur, target))
