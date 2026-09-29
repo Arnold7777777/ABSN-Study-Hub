@@ -532,33 +532,11 @@
  "UTI Assessment": "renal/NG-275_uti-pyelonephritis.html",
  "Urinary Retention Priority": "renal/NG-274_urinary-retention.html",
  "Wound Complications": "skin/NG-080_wound-care.html",
-};
 
-  /* When the topic itself has no page, the question's own body system still
-     points at the right shelf. That is never a guess - the question declares
-     its own system - so it is a safe floor under the specific links above.
-     heme and immune have no section index yet, so those get no link. */
-  var SYSTEM = {
-   "cardiac": ["cardio/index.html", "Cardiovascular"],
-   "community": ["leadership-community-ethics.html", "Leadership, Community & Ethics"],
-   "endo": ["endo/index.html", "Endocrine"],
-   "ethics": ["leadership-community-ethics.html", "Leadership, Community & Ethics"],
-   "fluids": ["renal/index.html", "Renal & Fluid"],
-   "fundamentals": ["core/index.html", "Nursing Core"],
-   "gi": ["gi/index.html", "GI & Abdomen"],
-   "labs": ["resp/index.html", "Respiratory & Labs"],
-   "leadership": ["leadership-community-ethics.html", "Leadership, Community & Ethics"],
-   "maternal": ["nur234.html", "Maternal-Newborn"],
-   "mental": ["mh/index.html", "Mental Health"],
-   "msk": ["musc/index.html", "Musculoskeletal"],
-   "neuro": ["neuro/index.html", "Neuro"],
-   "peds": ["nur235.html", "Care of the Child"],
-   "periop": ["core/index.html", "Nursing Core"],
-   "pharm": ["pharm/index.html", "Pharmacology"],
-   "renal": ["renal/index.html", "Renal & Fluid"],
-   "resp": ["resp/index.html", "Respiratory & Labs"],
-   "sensory": ["neuro/index.html", "Neuro"],
-   "skin": ["skin/index.html", "Skin & Wound"],
+ /* Topics that were, for a while, appended to SYSTEM by mistake instead of
+    here. SYSTEM is only ever looked up by body-system code, so every one of
+    these was dead: the question fell through to "Browse the <shelf> pages"
+    when it had a real page all along. */
  "ARDS": "resp/NG-395_ards.html",
  "Acute Respiratory Failure": "resp/NG-396_acute-respiratory-failure.html",
  "Acute respiratory failure": "resp/NG-396_acute-respiratory-failure.html",
@@ -566,7 +544,11 @@
  "Colonoscopy": "gi/NG-398_colonoscopy.html",
  "Compartment syndrome": "musc/NG-388_compartment-syndrome.html",
  "Crohn's vs UC": "gi/NG-111_crohns-uc-treatments-complications.html",
+ "Endometriosis": "more/NG-415_endometriosis.html",
+ "Endometritis": "more/NG-383_postpartum-complications.html#endometritis",
  "Enteral Nursing Care": "gi/NG-298_tpn-enteral-feeding.html",
+ "Postpartum Complications": "more/NG-383_postpartum-complications.html",
+ "Postpartum Infection": "more/NG-383_postpartum-complications.html#endometritis",
  "Grief": "mh/NG-222_death-dying-grief-loss.html",
  "Neuro Assessment": "neuro/NG-315_focused-neuro-assessment.html",
  "Peritonitis": "gi/NG-397_peritonitis.html",
@@ -656,7 +638,34 @@
  "Unsafe Abbreviations": "core/NG-403_documentation-and-handoff.html",
  "Vision Deficit": "neuro/NG-404_sensory-alteration.html",
  "Vision Home Safety": "neuro/NG-404_sensory-alteration.html",
- "Vision Loss Findings": "neuro/NG-404_sensory-alteration.html"
+ "Vision Loss Findings": "neuro/NG-404_sensory-alteration.html",
+};
+
+  /* When the topic itself has no page, the question's own body system still
+     points at the right shelf. That is never a guess - the question declares
+     its own system - so it is a safe floor under the specific links above.
+     heme and immune have no section index yet, so those get no link. */
+  var SYSTEM = {
+   "cardiac": ["cardio/index.html", "Cardiovascular"],
+   "community": ["leadership-community-ethics.html", "Leadership, Community & Ethics"],
+   "endo": ["endo/index.html", "Endocrine"],
+   "ethics": ["leadership-community-ethics.html", "Leadership, Community & Ethics"],
+   "fluids": ["renal/index.html", "Renal & Fluid"],
+   "fundamentals": ["core/index.html", "Nursing Core"],
+   "gi": ["gi/index.html", "GI & Abdomen"],
+   "labs": ["resp/index.html", "Respiratory & Labs"],
+   "leadership": ["leadership-community-ethics.html", "Leadership, Community & Ethics"],
+   "maternal": ["nur234.html", "Maternal-Newborn"],
+   "mental": ["mh/index.html", "Mental Health"],
+   "msk": ["musc/index.html", "Musculoskeletal"],
+   "neuro": ["neuro/index.html", "Neuro"],
+   "peds": ["nur235.html", "Care of the Child"],
+   "periop": ["core/index.html", "Nursing Core"],
+   "pharm": ["pharm/index.html", "Pharmacology"],
+   "renal": ["renal/index.html", "Renal & Fluid"],
+   "resp": ["resp/index.html", "Respiratory & Labs"],
+   "sensory": ["neuro/index.html", "Neuro"],
+   "skin": ["skin/index.html", "Skin & Wound"],
   };
 
 
