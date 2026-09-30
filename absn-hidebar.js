@@ -366,12 +366,15 @@
         ['\uD83D\uDDBC\uFE0F', 'Infographics', 'infographics.html'],
         ['\uD83E\uDDEA', 'Labs & diagnostics', '../Laboratory-and-Diagnostic-Tests-for-Nursing/index.html'],
         ['\uD83D\uDC51', 'Leadership, community & ethics', 'leadership-community-ethics.html'],
+        ['\uD83D\uDCDA', 'Lecture library', 'lecture-library.html'],
+        ['\uD83C\uDFA5', 'Lectures', 'lectures.html'],
         ['\uD83E\uDD66', 'Nutrition', 'nutrition.html'],
         ['\uD83E\uDDEC', 'Pathophysiology', 'pathophysiology.html'],
         ['\uD83D\uDC8A', 'Pharmacology', 'pharmacology.html'],
         ['\u2699\uFE0F', 'Physiology', 'physiology.html'],
         ['\uD83C\uDFA7', 'Podcasts', 'podcasts.html'],
-        ['\uD83D\uDCC5', 'Study plan', 'study-plan.html']
+        ['\uD83D\uDCC5', 'Study plan', 'study-plan.html'],
+        ['\uD83C\uDFB5', 'VLC playlists', 'playlists.html']
       ]]
     ];
     /* Twelve topic libraries. Listed flat they double the length of the menu she

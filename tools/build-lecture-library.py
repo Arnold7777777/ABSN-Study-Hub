@@ -22,7 +22,7 @@ With no argument it re-reads files/NUR-Lecture-Library.xlsx, so re-running it is
 safe and idempotent. Give it a fresh export to take in her latest edits; the
 stripped copy is written back to files/ for the page's download button.
 """
-import html, io, json, os, re, shutil, sys
+import glob, html, io, json, os, re, shutil, sys
 import openpyxl
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -233,6 +233,37 @@ def title_for(row, topic):
     return made or 'Recording'
 
 
+def study_pages():
+    """Week -> the NUR 258 module page. Globbed, so a renamed page cannot rot."""
+    out = {}
+    for f in glob.glob(os.path.join(ROOT, 'nur258-module-*.html')):
+        m = re.search(r'module-(\d+)', os.path.basename(f))
+        if m:
+            out[int(m.group(1))] = os.path.basename(f)
+    return out
+
+
+def week_links(course, w, pages):
+    """The rest of the study hub for this course's week, as chips.
+
+    Only emit a chip whose target is really there - a guessed link is how 171
+    handouts sat broken. NUR 234 and NUR 235 have no module pages at all, so
+    they get two chips where NUR 258 gets three.
+    """
+    out = []
+    if course == 'NUR258' and w in pages:
+        out.append(('&#128214; Study page', pages[w]))
+    out.append(('&#128444;&#65039; Infographics',
+                'infographics.html?cls=NUR%%20%s&mod=M%d' % (course[3:], w)))
+    pl = 'playlists/nur%s-module-%02d-drive.m3u' % (course[3:], w)
+    if os.path.exists(os.path.join(ROOT, pl)):
+        out.append(('&#127925; Playlist',
+                    'playlists.html#pl-nur%s-module-%02d' % (course[3:], w)))
+    return [(label, href) for label, href in out
+            if href.startswith(('infographics.html?', 'playlists.html#'))
+            or os.path.exists(os.path.join(ROOT, href))]
+
+
 def week_of(tab, row):
     """The week (= module) this row belongs to, or None."""
     if tab not in TABCOURSE:
@@ -317,6 +348,7 @@ def render(rows, modmap):
     for k in tails:
         tails[k].sort(key=key)
 
+    pages = study_pages()
     out, chips = [], []
     first_open = True
     for w in range(1, 15):
@@ -331,9 +363,17 @@ def render(rows, modmap):
         out.append('<details class="wk" id="week-%d"%s><summary>'
                    '<span class="wn">Week %d</span><span class="wc">%d</span></summary>'
                    '<div class="wbody">' % (w, opened, w, n))
-        out.append('<p class="subj">%s</p>' % ''.join(
-            '<span class="sj"><b>%s</b> %s</span>' % (pretty, esc(modmap.get(code, {}).get(w, '')))
-            for pretty, code, _ in COURSES if modmap.get(code, {}).get(w)))
+        bits = []
+        for pretty, code, _ in COURSES:
+            subj = modmap.get(code, {}).get(w, '')
+            if not subj:
+                continue
+            links = ''.join('<a class="go" href="%s">%s</a>' % (esc(h), lab)
+                            for lab, h in week_links(code, w, pages))
+            bits.append('<span class="sj"><b>%s</b> %s%s</span>'
+                        % (pretty, esc(subj),
+                           ('<span class="gos">%s</span>' % links) if links else ''))
+        out.append('<p class="subj">%s</p>' % ''.join(bits))
         for tab, r in items:
             out.append(card_html(r, tab, esc,
                                  modmap.get(TABCOURSE.get(tab, ''), {}).get(w, '')))
