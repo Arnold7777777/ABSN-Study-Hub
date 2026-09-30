@@ -96,8 +96,14 @@ with the whole workbook as base64, which means reproducing ~46,000 characters ex
 in a tool argument. That failed twice on 9 Sep; the payload gets corrupted in transit.
 It also mints a new file id, so `index.html` and her bookmarks have to be repointed.
 
-**The site carries its own copy.** `lecture-library.html` renders the whole workbook
-as a page - she reads on a phone, where a .xlsx is useless. Rebuild it from a fresh
+**The site carries its own copy.** `lecture-library.html` is the complete record -
+485 recordings, by week - she reads on a phone, where a .xlsx is useless. It merges two
+sources: the workbook, and `lectures.html`, which knows 280 recordings the workbook does
+not (NUR 198, MAT 300, BIO 280V and the rest). The workbook row wins where both describe
+the same file, because it carries the lecturer, the module and her notes. **Dedupe on the
+Drive id, never the URL** - the workbook writes `/file/d/<id>/view`, `/open?id=<id>` and
+a `?usp=` tail for the same file, and keying on the URL leaves the same recording on the
+page twice. Rebuild it from a fresh
 export with `python3 tools/build-lecture-library.py <export.xlsx>`, then
 `build-search-index.py`. That tool strips every pointer to the NUR Zoom Backups
 workbook and any `zoom.us/rec/share` URL first: **a Zoom share URL is itself the
