@@ -206,6 +206,12 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
   "fix" a `../drug-guide/` link — that's a real sibling Pages repo of hers.
 - **Verify against the rendered page, not the source.** Several bugs here looked
   fine in the HTML and were wrong in the browser.
+- **A module page's slot counts are hand-written and drift.** `lectures`,
+  `mindmap` and `alt` stay right because scripts write them; `info` had no
+  writer, so three pages disagreed with their own cards — module 4 said 7 against
+  10. Run `python3 tools/refresh-module-info-counts.py` after adding a card.
+  Module 12's `info` count is deliberate: no cards, one inline triage table, so
+  the tool skips any slot with nothing to count.
 
 ## Her other repos
 
