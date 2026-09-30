@@ -96,6 +96,18 @@ with the whole workbook as base64, which means reproducing ~46,000 characters ex
 in a tool argument. That failed twice on 9 Sep; the payload gets corrupted in transit.
 It also mints a new file id, so `index.html` and her bookmarks have to be repointed.
 
+**The site carries its own copy.** `lecture-library.html` renders the whole workbook
+as a page - she reads on a phone, where a .xlsx is useless. Rebuild it from a fresh
+export with `python3 tools/build-lecture-library.py <export.xlsx>`, then
+`build-search-index.py`. That tool strips every pointer to the NUR Zoom Backups
+workbook and any `zoom.us/rec/share` URL first: **a Zoom share URL is itself the
+access credential**, so neither may ever reach the public site.
+
+She could not download a file from the chat, so a small helper Sheet
+(`14nh-GeV8ZM3pnlq8pizr-r98QKJie51eSQkaLX11wJI`) sits beside the workbook in Drive
+with the rows to paste. `create_file` with `textContent` and `text/csv` works fine
+and Drive converts it to a Sheet - that route is small enough not to corrupt.
+
 So for a small change: build and verify it locally, then either hand her the .xlsx
 with `SendUserFile` or give her the click-by-click fix for Google Sheets. Nav buttons
 are easiest restored by copying `D2:E3` from a sibling tab and pasting — the links and
