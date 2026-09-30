@@ -22,7 +22,7 @@ With no argument it re-reads files/NUR-Lecture-Library.xlsx, so re-running it is
 safe and idempotent. Give it a fresh export to take in her latest edits; the
 stripped copy is written back to files/ for the page's download button.
 """
-import collections, glob, html, io, json, os, re, shutil, sys
+import glob, html, io, json, os, re, shutil, sys
 import openpyxl
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -67,11 +67,6 @@ TAILS = [('Exam reviews &amp; handouts', 'exam-reviews', 'sapphire', '&#128221;'
           'Recordings whose class or lecturer is still a best guess.')]
 
 TABCOURSE = {t: c for c, tabs in COURSE_TABS.items() for t in tabs}
-# Rows read from lectures.html rather than the workbook carry this prefix, so
-# TABCOURSE still resolves their course without inventing a fake tab name.
-_SITE = 'site:'
-for _c in list(COURSE_TABS):
-    TABCOURSE[_SITE + _c] = _c
 
 
 def strip_zoom(wb):
@@ -238,70 +233,6 @@ def title_for(row, topic):
     return made or 'Recording'
 
 
-def drive_id(url):
-    """The Drive file id, however the URL is shaped.
-
-    Her workbook uses three forms for the same file - /file/d/<id>/view,
-    /open?id=<id>, and with a ?usp= tail - so keying anything on the raw URL
-    silently treats one recording as several.
-    """
-    m = re.search(r'/file/d/([A-Za-z0-9_-]{20,})', url or '') or \
-        re.search(r'[?&]id=([A-Za-z0-9_-]{20,})', url or '')
-    return m.group(1) if m else (url or '')
-
-
-def site_rows():
-    """Every recording lectures.html knows about, in the library's row shape.
-
-    The workbook covers this semester's three courses and a handful of exam
-    reviews; lectures.html is the site's complete record - 472 recordings across
-    thirteen courses. Anything the workbook does not already carry is read from
-    here, so the library is the whole picture rather than a view of one file.
-    """
-    s = io.open(os.path.join(ROOT, 'lectures.html'), encoding='utf-8').read()
-    secs = [(m.group(1), m.start()) for m in
-            re.finditer(r'<section class="course" id="([^"]+)"', s)]
-    out = []
-    for k, (cid, st) in enumerate(secs):
-        en = secs[k + 1][1] if k + 1 < len(secs) else len(s)
-        block = s[st:en]
-        h2 = re.search(r'<h2[^>]*>(.*?)</h2>', block, re.S)
-        sub = re.search(r'<p class="csub">(.*?)</p>', block, re.S)
-        name = re.sub(r'<[^>]+>', '', h2.group(1)).strip() if h2 else cid
-        blurb = re.sub(r'<[^>]+>', '', sub.group(1)).split('&middot;')[0].strip() if sub else ''
-        # The week divs do not agree on attribute order - the current courses
-        # write data-exam before class, the older ones do not - so find them by
-        # id alone and take each span up to the next one. Overshooting into the
-        # closing tags is harmless: only <a class="rec"> is read out of it.
-        starts = [(m.group(1), m.start()) for m in
-                  re.finditer(r'<div[^>]*\bid="%s-m([0-9x]+)"' % re.escape(cid), block)]
-        for wi, (wraw, wst) in enumerate(starts):
-            wen = starts[wi + 1][1] if wi + 1 < len(starts) else len(block)
-            wk = int(wraw) if wraw.isdigit() else None
-            for rm in re.finditer(r'<a class="rec" href="([^"]+)"[^>]*title="([^"]*)"[^>]*>'
-                                  r'.*?<span class="rt">(.*?)</span></a>',
-                                  block[wst:wen], re.S):
-                url, fname, rt = rm.group(1), rm.group(2), rm.group(3)
-                lab = re.sub(r'<span class="rl">.*', '', rt, flags=re.S)
-                sub2 = re.search(r'<span class="rl">(.*?)$', rt, re.S)
-                lab = html.unescape(re.sub(r'<[^>]+>', '', lab)).strip()
-                sub2 = html.unescape(re.sub(r'<[^>]+>', '', sub2.group(1))).strip() if sub2 else ''
-                chips = []
-                if wk:
-                    chips.append(['Week', 'Week %d' % wk])
-                if sub2:
-                    chips.append(['Lecturer', sub2])
-                out.append({'title': lab or html.unescape(fname),
-                            'url': url,
-                            'chips': chips,
-                            'note': html.unescape(fname),
-                            'course': cid,
-                            'cname': name,
-                            'cblurb': blurb,
-                            'week': wk})
-    return out
-
-
 def study_pages():
     """Week -> the NUR 258 module page. Globbed, so a renamed page cannot rot."""
     out = {}
@@ -390,7 +321,7 @@ def card_html(row, tab, esc, topic=''):
 def render(rows, modmap):
     esc = lambda s: html.escape(s, quote=True)
     by = {t['tab']: t['rows'] for t in rows}
-    total = 0          # counted after the site's recordings are merged in
+    total = sum(1 for t in rows for r in t['rows'] if r['url'])
 
     weeks = {w: [] for w in range(1, 15)}
     tails = {t[1]: [] for t in TAILS}
@@ -407,25 +338,6 @@ def render(rows, modmap):
             else:
                 tails['exam-reviews'].append((tab, r))
 
-    # Everything lectures.html has that the workbook does not. The workbook row
-    # wins where both describe the same recording - it carries the lecturer,
-    # the module and her own notes, which the site's markup does not.
-    have = {drive_id(r['url']) for rs in by.values() for r in rs if r['url']}
-    extra = collections.OrderedDict()
-    CUR = {'nur234': 'NUR234', 'nur235': 'NUR235', 'nur258': 'NUR258'}
-    for sr in site_rows():
-        if drive_id(sr['url']) in have:
-            continue
-        have.add(drive_id(sr['url']))
-        row = {'title': sr['title'], 'url': sr['url'], 'chips': sr['chips'], 'note': sr['note']}
-        tab = CUR.get(sr['course'], '')
-        if tab and sr['week']:
-            weeks[sr['week']].append((_SITE + tab, row))
-        else:
-            extra.setdefault(sr['course'], {'name': sr['cname'], 'blurb': sr['cblurb'],
-                                            'cur': bool(tab), 'rows': []})
-            extra[sr['course']]['rows'].append(row)
-
     def key(pair):
         tab, r = pair
         who = ([v for n, v in r['chips'] if n in ('Lecturer', 'Who')] or [''])[0]
@@ -435,68 +347,6 @@ def render(rows, modmap):
         weeks[w].sort(key=key)
     for k in tails:
         tails[k].sort(key=key)
-
-    # The workbook's own "other classes" rows belong in the same per-course
-    # groups as the ones read off the site, or the section opens with 42 loose
-    # cards sitting above twelve collapsed groups.
-    CLASS_ID = {'nur198': 'nur198', 'nur175': 'nur175', 'nur125': 'nur125',
-                'nur103': 'nur103', 'bio290v': 'bio290v', 'bio280v': 'bio280v',
-                'mat300': 'mat300', 'anatomy': 'anatomy',
-                'physiology': 'physiology', 'dosagecalculation': 'dosage'}
-    keep = []
-    for tab, r in tails['other-classes']:
-        cls = ([v for n, v in r['chips'] if n == 'Class'] or [''])[0]
-        cid = CLASS_ID.get(re.sub(r'[^a-z0-9]', '', cls.lower()))
-        if cid and cid in extra:
-            extra[cid]['rows'].append(r)
-        else:
-            keep.append((tab, r))
-    tails['other-classes'] = keep
-
-    # Her workbook lists some recordings on two tabs - a lecture on the
-    # lecturer's tab and again under an exam review, "Also on the Halecka tab as
-    # Week 14". Grouped by lecturer that read as two tabs mentioning the same
-    # file; grouped by week the two cards sit side by side and look like a bug.
-    # So one card per recording: the best-described one, and a filed week beats
-    # an unfiled pile.
-    def richness(r):
-        return (len(r['chips']), len(r['note'] or ''), len(r['title'] or ''))
-
-    best = {}
-    for w in sorted(weeks):
-        for i, (tab, r) in enumerate(weeks[w]):
-            if r['url']:
-                best.setdefault(drive_id(r['url']), []).append((0, w, -richness(r)[0], ('w', w, i)))
-    for prio, tid in ((1, 'exam-reviews'), (2, 'other-classes'), (3, 'still-to-file')):
-        for i, (tab, r) in enumerate(tails[tid]):
-            if r['url']:
-                best.setdefault(drive_id(r['url']), []).append((prio, 0, -richness(r)[0], ('t', tid, i)))
-    for cid, g in extra.items():
-        for i, r in enumerate(g['rows']):
-            if r['url']:
-                best.setdefault(drive_id(r['url']), []).append((2, 0, -richness(r)[0], ('x', cid, i)))
-
-    drop = {'w': {}, 't': {}, 'x': {}}
-    dupes = 0
-    for url, places in best.items():
-        if len(places) < 2:
-            continue
-        places.sort()
-        for _, _, _, (kind, key, i) in places[1:]:
-            drop[kind].setdefault(key, set()).add(i)
-            dupes += 1
-    for w, idx in drop['w'].items():
-        weeks[w] = [x for i, x in enumerate(weeks[w]) if i not in idx]
-    for tid, idx in drop['t'].items():
-        tails[tid] = [x for i, x in enumerate(tails[tid]) if i not in idx]
-    for cid, idx in drop['x'].items():
-        extra[cid]['rows'] = [x for i, x in enumerate(extra[cid]['rows']) if i not in idx]
-    if dupes:
-        print('%d duplicate placements collapsed' % dupes)
-
-    total = (sum(1 for v in weeks.values() for _, r in v if r['url'])
-             + sum(1 for v in tails.values() for _, r in v if r['url'])
-             + sum(len(g['rows']) for g in extra.values()))
 
     pages = study_pages()
     out, chips = [], []
@@ -531,8 +381,7 @@ def render(rows, modmap):
 
     for title, tid, jewel, icon, short, blurb in TAILS:
         items = tails[tid]
-        subs = list(extra.values()) if tid == 'other-classes' else []
-        n = sum(1 for _, r in items if r['url']) + sum(len(g['rows']) for g in subs)
+        n = sum(1 for _, r in items if r['url'])
         chips.append('<a class="jump" href="#%s">%s %s <b>%d</b></a>' % (tid, icon, short, n))
         out.append('<details class="wk tail" id="%s" style="--jewel:var(--%s)"><summary>'
                    '<span class="wn">%s %s</span><span class="wc">%d</span></summary>'
@@ -540,17 +389,6 @@ def render(rows, modmap):
                    % (tid, jewel, icon, title, n, blurb))
         for tab, r in items:
             out.append(card_html(r, tab, esc))
-        # One collapsed group per course, or 288 cards land in a single list.
-        for g in subs:
-            label = g['name'] + ((' \u00b7 ' + g['blurb']) if g['blurb'] else '')
-            if g['cur']:
-                label += ' \u00b7 not tied to a week'
-            out.append('<details class="sub"><summary><span class="st">%s</span>'
-                       '<span class="sc">%d</span></summary><div class="sbody">'
-                       % (label, len(g['rows'])))
-            for r in g['rows']:
-                out.append(card_html(r, '', esc))
-            out.append('</div></details>')
         out.append('</div></details>')
 
     page = io.open(TEMPLATE, encoding='utf-8').read()
