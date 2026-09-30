@@ -101,7 +101,16 @@ as a page - she reads on a phone, where a .xlsx is useless. Rebuild it from a fr
 export with `python3 tools/build-lecture-library.py <export.xlsx>`, then
 `build-search-index.py`. That tool strips every pointer to the NUR Zoom Backups
 workbook and any `zoom.us/rec/share` URL first: **a Zoom share URL is itself the
-access credential**, so neither may ever reach the public site.
+access credential**, so neither may ever reach the public site. It also repoints
+three handouts that were linked through `cdn.fbsbx.com` at her Drive copies - those
+Facebook URLs carry an expiring signature, so they rot - and it derives the count on
+index.html's card rather than leaving it hand-written.
+
+**A HYPERLINK cell is not always `=HYPERLINK("url","label")`.** When the URL itself
+contains a double quote, Sheets writes it concatenated: `=HYPERLINK("...Va"&"Nitz...",
+"label")`. A `("[^"]+")` pattern stops at that inner quote and matches nothing, which
+silently dropped three links from the page. Parse the arguments and join the string
+literals instead.
 
 She could not download a file from the chat, so a small helper Sheet
 (`14nh-GeV8ZM3pnlq8pizr-r98QKJie51eSQkaLX11wJI`) sits beside the workbook in Drive

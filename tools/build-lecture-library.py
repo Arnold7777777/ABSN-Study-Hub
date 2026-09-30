@@ -31,10 +31,24 @@ TEMPLATE = os.path.join(ROOT, 'tools', 'lecture-library.template.html')
 PAGE = os.path.join(ROOT, 'lecture-library.html')
 
 ZOOM_WB = '1rJXo8dn05hNyMbJZaQQz7iFtUB5SgRSc7XSluXC46IY'
-LINK = re.compile(r'=HYPERLINK\("([^"]+)"\s*,\s*"(.*?)"\)', re.S)
-NUM = re.compile(r'(?:module|week|wk|m)\s*0?(\d{1,2})\b', re.I)
+# The leading \b matters: without it "Exam 3" matches on the m of Exam and
+# every exam-review row gets the wrong module's subject.
+NUM = re.compile(r'\b(?:module|week|wk|m)\s*0?(\d{1,2})\b', re.I)
 GENERIC = re.compile(r'^\W*(watch|open|play|link|view|recording)\s*$', re.I)
 SKIP_TABS = {'START HERE', 'Sheet1'}
+
+# Three handouts were linked through cdn.fbsbx.com - Facebook CDN URLs carrying an
+# expiring signature, so they rot. Her Drive holds each one; these are the
+# link-shared copies in the 234/235/258 Resources tree, each confirmed by reading
+# its first page rather than trusting the file name. Keyed by the PDF's own name
+# inside the fbsbx URL, because a fresh export still carries the Facebook link
+# every time - the fix has to live here, not only in the committed workbook.
+DEAD_LINKS = {
+    'NUR234_Exam1_Maternal_Study_Guide-1-2.pdf': '1G-isAusr4xSiEajdswjxRKPg2ZXah-E9',
+    '234_Exam-1-Practice-Test.pdf':              '18sXhH2IZ8qhFlQThhjENr3rB-P8La9BX',
+    '235_Exam1-Practice-Test.pdf':               '1Yv94xKT8ZGHW1GnrXWKFS0_AD8U-WOqr',
+}
+DRIVE = 'https://drive.google.com/file/d/%s/view'
 
 GROUPS = [
  ('NUR 234', 'Maternal &amp; newborn', 'amethyst', '&#129334;',
@@ -63,8 +77,9 @@ def strip_zoom(wb):
                 if ZOOM_WB in s:
                     c.value = None; n += 1
                 elif 'zoom.us' in s:
-                    m = LINK.search(s)
-                    c.value = m.group(2) if m else None; n += 1
+                    # Keep the row's title, drop only the URL.
+                    c.value = (args_of(s)[1] or None) if s.strip().startswith('=HYPERLINK(') else None
+                    n += 1
                 elif 'Zoom Backup' in s:
                     c.value = ('\u2022  Every lecturer has their own sub-tab. '
                                'The Lecturer column repeats it row by row.'); n += 1
@@ -72,6 +87,27 @@ def strip_zoom(wb):
                     # A note that points at a link this pass has just removed.
                     c.value = re.sub(r'\s*Title link = Zoom cloud copy,\s*', ' ', s).strip(); n += 1
     return n
+
+
+def repoint(wb):
+    """Swap the dead Facebook CDN links for her Drive copies. (fixed, unmatched)"""
+    fixed = unmatched = 0
+    for ws in wb.worksheets:
+        for row in ws.iter_rows():
+            for c in row:
+                if c.value is None or 'cdn.fbsbx.com' not in str(c.value):
+                    continue
+                url, label = args_of(str(c.value))
+                name = url.split('?')[0].rsplit('/', 1)[-1] if url else ''
+                fid = DEAD_LINKS.get(name)
+                if not fid:
+                    # Leave it. A link that quietly vanishes is worse than a dead
+                    # one, and the count says it needs a Drive copy finding.
+                    unmatched += 1
+                    continue
+                c.value = '=HYPERLINK("%s","%s")' % (DRIVE % fid, label)
+                fixed += 1
+    return fixed, unmatched
 
 
 def module_topics():
@@ -86,12 +122,41 @@ def module_topics():
     return out
 
 
+def args_of(formula):
+    """The two arguments of =HYPERLINK(...), each with its string pieces joined.
+
+    A plain cell is =HYPERLINK("url","label"). But when the URL itself contains a
+    double quote - Facebook's signed CDN links do - Sheets writes it concatenated,
+    =HYPERLINK("...Va"&"Nitz...","label"), and a ("[^"]+") pattern stops at that
+    inner quote and matches nothing. Three links were being dropped silently that
+    way, so split on the top-level comma and join the literals instead.
+    """
+    body = formula.strip()[len('=HYPERLINK('):].rstrip()
+    if body.endswith(')'):
+        body = body[:-1]
+    parts, buf, inside = [], [], False
+    for ch in body:
+        if ch == '"':
+            inside = not inside
+        if ch == ',' and not inside:
+            parts.append(''.join(buf)); buf = []
+        else:
+            buf.append(ch)
+    parts.append(''.join(buf))
+    joined = [''.join(re.findall(r'"([^"]*)"', p)) for p in parts]
+    return (joined + ['', ''])[:2]
+
+
 def parse(v):
     """(url, label) for a HYPERLINK cell, else (None, plain text)."""
     if v is None:
         return None, ''
-    m = LINK.search(str(v))
-    return (m.group(1), m.group(2).strip()) if m else (None, str(v).strip())
+    s = str(v)
+    if s.strip().startswith('=HYPERLINK('):
+        url, label = args_of(s)
+        if url:
+            return url, label.strip()
+    return None, s.strip()
 
 
 def read_rows(wb):
@@ -109,7 +174,8 @@ def read_rows(wb):
             continue
         linkcol = None
         for name in ('Link', 'Recording'):
-            if name in hdr and any(LINK.search(str(ws.cell(r, hdr[name]).value or ''))
+            if name in hdr and any(str(ws.cell(r, hdr[name]).value or '').strip()
+                                   .startswith('=HYPERLINK(')
                                    for r in range(6, ws.max_row + 1)):
                 linkcol = hdr[name]
                 break
@@ -197,8 +263,15 @@ def render(rows, modmap):
                         ''.join('<span class="c">%s</span>' % esc(c) for c in r['chips']),
                         ('<span class="c topic">%s</span>' % esc(tp)) if tp else ''))
                 if r['url']:
+                    # A Type chip says so outright. The NUR235 Exam Reviews tab has
+                    # no Type column at all, so its one handout is caught by id -
+                    # all three repointed files were read and are PDFs.
+                    doc = (any(str(c).strip().upper() in ('PDF', 'PPTX', 'POWERPOINT')
+                               for c in r['chips'])
+                           or any(fid in r['url'] for fid in DEAD_LINKS.values()))
                     out.append('<a class="play" href="%s" target="_blank" rel="noopener">'
-                               '&#9654;&#65039; Play on Drive</a>' % esc(r['url']))
+                               '%s</a>' % (esc(r['url']),
+                               '&#128196; Open on Drive' if doc else '&#9654;&#65039; Play on Drive'))
                 else:
                     out.append('<span class="noplay">No recording linked</span>')
                 if r['note']:
@@ -220,13 +293,26 @@ def main():
         shutil.copy(src, PUBLISHED)
     wb = openpyxl.load_workbook(PUBLISHED)
     n = strip_zoom(wb)
-    if n:
+    fixed, unmatched = repoint(wb)
+    if n or fixed:
         wb.save(PUBLISHED)
         wb = openpyxl.load_workbook(PUBLISHED)
     page, total = render(read_rows(wb), module_topics())
     io.open(PAGE, 'w', encoding='utf-8').write(page)
-    print('%d Zoom cells stripped; %d recordings; lecture-library.html %d bytes'
-          % (n, total, len(page)))
+    # index.html's card states the count. Hand-written numbers on this site drift
+    # - the module pages' Infographics labels did - so derive it here too.
+    idx = os.path.join(ROOT, 'index.html')
+    src = io.open(idx, encoding='utf-8').read()
+    fixed_idx = re.sub(r'(On this site &middot; )\d+( recordings)',
+                       r'\g<1>%d\g<2>' % total, src, count=1)
+    if fixed_idx != src:
+        io.open(idx, 'w', encoding='utf-8').write(fixed_idx)
+        print('index.html card updated to %d' % total)
+    print('%d Zoom cells stripped; %d dead links repointed; %d recordings; '
+          'lecture-library.html %d bytes' % (n, fixed, total, len(page)))
+    if unmatched:
+        print('WARNING: %d cdn.fbsbx.com link(s) left - they need a Drive copy '
+              'finding and adding to DEAD_LINKS' % unmatched)
     print('Now run: python3 tools/build-search-index.py')
 
 
