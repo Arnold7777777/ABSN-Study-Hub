@@ -50,6 +50,24 @@ DEAD_LINKS = {
 }
 DRIVE = 'https://drive.google.com/file/d/%s/view'
 
+# Recordings she has taken out of service, old file id -> (new id, old name, new
+# name). One of the two NUR 235 Week 2 recordings had no sound and she could not
+# tell which, so both were replaced with her fresh Fuller uploads. Her workbook
+# still names the old files, and will until she imports the replacement, so do
+# the swap on the way through - the same job DEAD_LINKS does for the dead
+# Facebook links. Without this, a rebuild from her sheet silently re-links a
+# recording she has retired.
+REPLACED = {
+    '1yRquegiEz7A7eN-ms2smuTgrVaeivjoE': (
+        '1LlXr19xnRaDRvh2CaY0NTa5m33OeLVNw',
+        'Nur235_Fuller_Wk2.mp4',
+        'NUR235_Fall2026_Fuller_Wk02_DayNA_Week 2 Check-In.mp4'),
+    '1ZsiOFwQcKMaxmyj56WYyPr4Im3de1nZp': (
+        '1TSnKc08spggBEKh7_RN-rLtAM4sXgiUa',
+        'NUR235_Fall2026_Async_Wk02_DayNA_Nursing care of the infant.mp4',
+        'NUR235_Fall2026_Fuller_Wk02_DayNA_Nursing care of the infant.mp4'),
+}
+
 COURSES = [('NUR 234', 'NUR234', 'amethyst'),
            ('NUR 235', 'NUR235', 'citrine'),
            ('NUR 258', 'NUR258', 'teal')]
@@ -112,6 +130,38 @@ def repoint(wb):
                 c.value = '=HYPERLINK("%s","%s")' % (DRIVE % fid, label)
                 fixed += 1
     return fixed, unmatched
+
+
+def swap_replaced(wb):
+    """Repoint every cell naming a retired recording. Returns the cell count.
+
+    Both the link and the visible file name move, and the cell's hyperlink
+    object has to move with them: clearing or rewriting only .value leaves the
+    old target live behind the new label, which is worse than a stale link
+    because it reads as correct.
+    """
+    n = 0
+    for ws in wb.worksheets:
+        for row in ws.iter_rows():
+            for c in row:
+                if c.value is None:
+                    continue
+                before = str(c.value)
+                after = before
+                for old_id, (new_id, old_name, new_name) in REPLACED.items():
+                    after = after.replace(old_id, new_id).replace(old_name, new_name)
+                if after == before and not (
+                        c.hyperlink is not None and c.hyperlink.target
+                        and any(o in c.hyperlink.target for o in REPLACED)):
+                    continue
+                c.value = after
+                if c.hyperlink is not None and c.hyperlink.target:
+                    t = c.hyperlink.target
+                    for old_id, (new_id, _, _) in REPLACED.items():
+                        t = t.replace(old_id, new_id)
+                    c.hyperlink.target = t
+                n += 1
+    return n
 
 
 def module_topics():
@@ -406,7 +456,8 @@ def main():
     wb = openpyxl.load_workbook(PUBLISHED)
     n = strip_zoom(wb)
     fixed, unmatched = repoint(wb)
-    if n or fixed:
+    swapped = swap_replaced(wb)
+    if n or fixed or swapped:
         wb.save(PUBLISHED)
         wb = openpyxl.load_workbook(PUBLISHED)
     page, total = render(read_rows(wb), module_topics())
@@ -420,8 +471,9 @@ def main():
     if fixed_idx != src:
         io.open(idx, 'w', encoding='utf-8').write(fixed_idx)
         print('index.html card updated to %d' % total)
-    print('%d Zoom cells stripped; %d dead links repointed; %d recordings; '
-          'lecture-library.html %d bytes' % (n, fixed, total, len(page)))
+    print('%d Zoom cells stripped; %d dead links repointed; %d cells moved to a '
+          'replacement recording; %d recordings; lecture-library.html %d bytes'
+          % (n, fixed, swapped, total, len(page)))
     if unmatched:
         print('WARNING: %d cdn.fbsbx.com link(s) left - they need a Drive copy '
               'finding and adding to DEAD_LINKS' % unmatched)
