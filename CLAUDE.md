@@ -74,6 +74,20 @@ once in `My PC / Downloads`. Link the shared copy. Downloads is not
 link-shared, so a link to that copy works for her and shows "You need access"
 to everyone else - which is exactly how 171 handouts sat broken unnoticed.
 
+**Check `fileSize` before filing a "new" upload.** An identical byte count means
+the same recording re-uploaded under a new name and a new id, not a new lecture -
+twice now, at 138,184,233 and at 174,114,280 bytes. File it as a second copy, say
+so, and never add it as another recording. It matters most when she uploads a
+replacement for a video with no sound: **byte-identical means the sound did not
+change either**, so that upload cannot be the fix, whatever it is called.
+
+When she retires a recording, her workbook still names the old file until she
+imports a replacement, so put the swap in `build-lecture-library.py`'s `REPLACED`
+map (old id -> new id, old name, new name) rather than hand-editing
+`lecture-library.html`, which is regenerated. Move the cell's **hyperlink object**
+as well as its text: rewriting only `.value` leaves the old target live behind the
+new label, which reads as correct and is not.
+
 ## The Lecture Library workbook: she edits it, so start from the live copy
 
 The "NUR Lecture Library" Google Sheet
