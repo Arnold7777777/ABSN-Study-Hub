@@ -52,7 +52,9 @@ DRIVE = 'https://drive.google.com/file/d/%s/view'
 
 # Recordings she has taken out of service, old file id -> (new id, old name, new
 # name). One of the two NUR 235 Week 2 recordings had no sound and she could not
-# tell which, so both were replaced with her fresh Fuller uploads. Her workbook
+# tell which, so both were replaced with her fresh Fuller uploads (Fuller
+# teaches the Fall 2026 cohort; Fadell taught the Spring 2026 one - they are two
+# different people, so the two tabs stay separate). Her workbook
 # still names the old files, and will until she imports the replacement, so do
 # the swap on the way through - the same job DEAD_LINKS does for the dead
 # Facebook links. Without this, a rebuild from her sheet silently re-links a
@@ -73,7 +75,7 @@ COURSES = [('NUR 234', 'NUR234', 'amethyst'),
            ('NUR 258', 'NUR258', 'teal')]
 COURSE_TABS = {
  'NUR234': ['NUR234 Kaiser', 'NUR234 Buhler', 'NUR234 Glesner', 'NUR234 Exam Reviews'],
- 'NUR235': ['NUR235 Fuller', 'NUR235 LSC exam prep', 'NUR235 Exam Reviews'],
+ 'NUR235': ['NUR235 Fadell', 'NUR235 Fuller', 'NUR235 LSC exam prep', 'NUR235 Exam Reviews'],
  'NUR258': ['NUR258 Halecka', 'NUR258 Wagner', 'NUR258 Simmons', 'NUR258 Exam Reviews'],
 }
 # Rows that carry no week go here, in this order, rather than being dropped.
