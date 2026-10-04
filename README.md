@@ -31,7 +31,6 @@ Each folder has its own `index.html`. Source images live in `ig/`.
 ## Shared assets
 
 - `absn-adhd-enhanced.css` / `.js` — focus-friendly styling and behaviour applied across the site
-- `lib-lucide.js`, `lib-floating-ui.*.js` — vendored icon and tooltip libraries
 - `ADHD_REDESIGN_MANIFEST.json` — record of which pages the redesign touched
 
 ## Editing
