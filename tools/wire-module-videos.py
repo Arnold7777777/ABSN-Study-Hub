@@ -20,6 +20,7 @@ lecture cut by topic, not six more lectures.
 Counts are always derived by counting the cards actually present. Hand-typed
 counts on this site have been wrong more than once.
 """
+import glob
 import json, os, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -54,6 +55,21 @@ def span(s, g):
     m = re.search(r'(?:<p class="vgl">[^<]*</p>)?<div class="recs" '
                   r'data-vidgroup="%s">.*?</div>' % re.escape(g['group']), s, re.S)
     return m
+
+WK = re.compile(r'<div(?=[^>]*\bclass="wk)[^>]*>')
+
+
+def wk_start(s, k):
+    """Opening tag of the week block containing offset k.  The tag may carry
+    data-exam before class, so a literal '<div class="wk' misses it."""
+    # no endpos: the tag containing k runs past k and must still match
+    return max(m.start() for m in WK.finditer(s) if m.start() < k)
+
+
+def wk_end(s, k):
+    """Where that block ends: the next week block or the course's </section>."""
+    ends = [x for x in (WK.search(s, k), re.compile('</section>').search(s, k)) if x]
+    return min(x.start() for x in ends) if ends else len(s)
 
 
 def recount(s, start, end, pat, fmt):
@@ -98,9 +114,8 @@ def wire_library(g):
     k = s.find('id="%s"' % g['week'])
     if k < 0:
         sys.exit('%s: no week block id="%s"' % (LIB, g['week']))
-    i = s.rindex('<div class="wk', 0, k)
-    nxt = s.find('<div class="wk', k)
-    end = len(s) if nxt < 0 else nxt
+    i = wk_start(s, k)
+    end = wk_end(s, k)
     m = span(s[i:end], g)
     block = strip(g, lede=False)
     if m:
@@ -109,12 +124,43 @@ def wire_library(g):
         # after the existing .recs closes, before the week block's own </div>
         at = i + s[i:end].rindex('</div>')
         s = s[:at] + block + s[at:]
-    nxt = s.find('<div class="wk', k)
-    end = len(s) if nxt < 0 else nxt
+    end = wk_end(s, k)
     s, n = recount(s, i, end, r'(?<=</span>)(\d+) recordings', '%d recordings')
     if s != old and not CHECK:
         open(LIB, 'w').write(s)
     return n, (s != old)
+
+
+def recount_all():
+    """Recount every week block in lectures.html and every module page's
+    lectures slot from the cards present, not just the wired groups.  The
+    hand-added Simmons rows drifted both M4 and M5 by one on 4 Oct."""
+    fixed = 0
+    s = old = open(LIB).read()
+    for m in list(WK.finditer(s)):
+        i = m.start()
+        end = wk_end(s, m.end())
+        s, _ = recount(s, i, end, r'(?<=</span>)(\d+) recordings', '%d recordings')
+    if s != old:
+        fixed += 1
+        if not CHECK:
+            open(LIB, 'w').write(s)
+    for f in sorted(glob.glob('nur*-module-*.html')) + sorted(glob.glob('nur23[45]-m*.html')):
+        s = old = open(f).read()
+        i = s.find('<div class="slot filled" data-slot="lectures">')
+        if i < 0:
+            continue
+        k = s.find('class="lecall"', i)
+        if k < 0:
+            continue
+        end = s.index('</div>', k) + 6
+        s, _ = recount(s, i, end, r'<span class="cnt">(\d+)</span>',
+                       '<span class="cnt">%d</span>')
+        if s != old:
+            fixed += 1
+            if not CHECK:
+                open(f, 'w').write(s)
+    return fixed
 
 
 def main():
@@ -128,9 +174,12 @@ def main():
         print('%-46s %-11s page %2d / library %2d'
               % (f, 'unwired' if (CHECK and changed) else
                     ('wired' if changed else 'ok'), n, libn))
+    stale = recount_all()
     if CHECK:
-        print('%d group(s) unwired' % pending)
-        return 1 if pending else 0
+        print('%d group(s) unwired, %d file(s) with a stale count' % (pending, stale))
+        return 1 if (pending or stale) else 0
+    if stale:
+        print('%d file(s) recounted' % stale)
     print('%d group(s), %d clip(s)' % (len(groups), sum(len(g['clips']) for g in groups)))
     return 0
 
