@@ -51,16 +51,26 @@ def card(d):
             % (cls, d['href'], tgt, prev, d['title'], sub))
 
 
-def slot(d):
+def slot(ds):
+    """One module can hold more than one deck.
+
+    It held exactly one until 4 Oct 2026, when Fuller's own screenshot decks
+    arrived beside the chapter decks that NUR 235 modules 1-4 already had. The
+    count is written from the list rather than hard-coded, so it cannot drift.
+    """
     return ('<div class="slot filled" id="deck" data-slot="deck">'
-            '<h4>&#128202; Lecture slides <span class="cnt">1</span></h4>'
-            '<p>The deck this module is built on.</p>'
-            '<div class="shgrid iggrid">%s</div></div>' % card(d))
+            '<h4>&#128202; Lecture slides <span class="cnt">%d</span></h4>'
+            '<p>%s</p>'
+            '<div class="shgrid iggrid">%s</div></div>'
+            % (len(ds),
+               'The deck this module is built on.' if len(ds) == 1
+               else 'The decks this module is built on.',
+               ''.join(card(d) for d in ds)))
 
 
-def insert_slot(text, d, label):
+def insert_slot(text, ds, label):
     """Replace an existing deck slot, or put one before the module's own media."""
-    new = slot(d)
+    new = slot(ds)
     if SLOT.search(text):
         return SLOT.sub(lambda m: new, text, count=1), 'refreshed'
     for anchor in ('<div class="slot filled" data-slot="lectures">',
@@ -165,14 +175,18 @@ def board(decks):
 
 def main():
     decks = json.load(open('tools/module-decks.json'))
-    pending = 0
+    groups = {}
     for d in decks:
+        groups.setdefault((d['course'], d['module']), []).append(d)
+    pending = 0
+    for ds in groups.values():
+        d = ds[0]
         page, hub = d['page'], d['course'] + '.html'
         if not os.path.exists(page):
             sys.exit('%s: no such module page' % page)
 
         s = open(page, encoding='utf-8').read()
-        new, how = insert_slot(s, d, page)
+        new, how = insert_slot(s, ds, page)
         if new != s:
             pending += 1
             print('%-52s slot %s' % (page, how))
@@ -196,7 +210,7 @@ def main():
             block = block[:m.end()] + link + block[m.end():]
         else:
             # content hub: the same slot the standalone page gets
-            block, how = insert_slot(block, d, '%s %s' % (hub, d['module']))
+            block, how = insert_slot(block, ds, '%s %s' % (hub, d['module']))
         if block != h[lo:hi]:
             pending += 1
             print('%-52s %s wired' % (hub, d['module']))

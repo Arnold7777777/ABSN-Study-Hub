@@ -134,6 +134,33 @@ def main():
                 with open(path, 'w', encoding='utf-8') as fh:
                     fh.write(new)
 
+    # lectures.html states each course's total in its own <p class="csub">.
+    # counts() already knows the number - it writes the same one into every nav
+    # link - but a csub is prose with a count on the end ("Maternal & newborn
+    # \u00b7 55 recordings"), so the nav pass walked straight past it. All three
+    # big courses were stale on 4 Oct 2026: 234 said 55 against 57, 235 said 57
+    # against 61, 258 said 76 against 77.
+    lec = read('lectures.html')
+    out = lec
+    for m in re.finditer(r'<section class="course" id="(nur\d+)"', lec):
+        want_txt = want.get('lectures.html#' + m.group(1))
+        if not want_txt:
+            continue
+        end = lec.find('</section>', m.start())
+        sub = re.search(r'(<p class="csub">.*?)(\d+ recordings)(.*?</p>)',
+                        lec[m.start():end], re.S)
+        if not sub or sub.group(2) == want_txt:
+            continue
+        changes.append(('lectures.html', m.group(1) + ' csub',
+                        sub.group(2), want_txt))
+        stale += 1
+        old_block = sub.group(0)
+        out = out.replace(old_block,
+                          sub.group(1) + want_txt + sub.group(3), 1)
+    if out != lec and not check:
+        with open(os.path.join(ROOT, 'lectures.html'), 'w', encoding='utf-8') as fh:
+            fh.write(out)
+
     # A quiz page states its own total in its header, and nothing above touches
     # it because it is prose, not a nav link. It drifts the same way: on 29 Sep
     # NUR 235 read 315 against 330 and NUR 258 read 407 against 415.
