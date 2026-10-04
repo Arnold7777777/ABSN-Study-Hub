@@ -4,31 +4,34 @@
 </style>
 <style>.board-number{font-size:1rem;margin:9px 0 0}.action-group{display:flex;gap:8px;flex-wrap:wrap}.quiet{background:transparent}.below{display:flex;gap:16px;align-items:center;justify-content:space-between;margin-top:14px}.below p{max-width:650px}.feedback-source{font-size:.8rem;color:#244fc7;display:inline-block;margin-top:7px}.feedback.hint{background:#edf0ff}.note{margin:0 0 18px;max-width:1060px}.schedule-note{background:#fff6e6;padding:14px 17px;border-radius:10px;color:#554525}.review-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 28px;margin-top:20px}.review-item{padding:18px 0;border-top:1px solid #d6dfeb}.review-item p{margin:0 0 8px}.review-item strong{display:block;color:#244fc7}.review-item a{font-size:.85rem}.results h2{font-size:1.8rem;margin-bottom:4px}.result-number{font-size:3rem;letter-spacing:-.04em;font-weight:800}.results .review-item{font-size:1rem}.results #resultDescription{font-size:1.125rem}.results #resultNote{margin-top:12px}a{color:#244fc7}footer strong{display:block;margin-bottom:5px}footer div{line-height:2}dialog{border:0;border-radius:18px;max-width:960px;width:calc(100% - 28px);max-height:90vh;overflow:auto;padding:26px;color:#15243b;box-shadow:0 25px 120px #09172b50}dialog::backdrop{background:#09172bb8}.dialog-heading{display:flex;align-items:center;justify-content:space-between;gap:20px}.dialog-heading h2{margin:0;font-size:1.5rem}.dialog-heading button{flex-shrink:0}.dialog-heading+p{margin-top:16px}.noscript{padding:24px}.match-card:disabled{opacity:1}.topics button:hover{border-color:#244fc7}#boardInstruction{max-width:250px;text-align:right}#note{line-height:1.55}@media(max-width:650px){.below{align-items:flex-start;flex-direction:column;gap:4px}.review-grid{grid-template-columns:1fr}.actions{align-items:stretch}.actions>.primary{flex-grow:1}.dialog-heading{align-items:flex-start;flex-direction:column}.tag{font-size:.72rem}.board-top{gap:8px}#boardInstruction{max-width:150px}.heading h1{font-size:1.8rem}header .small{max-width:130px;font-size:.8rem}.match-card{overflow-wrap:anywhere}.result-number{font-size:2.5rem}}@media(max-width:360px){.columns{gap:8px}.match-card{padding:10px 8px;font-size:1rem}.board{padding:12px}.column-title{letter-spacing:.03em}.action-group .btn{padding:9px 10px}.topics button{font-size:.8rem}}
 .topic-context{padding:10px 14px;border-left:3px solid #128c79;background:#e5f4ef;border-radius:0 8px 8px 0;font-size:.875rem;color:#254f47}.reference-panel{margin-top:20px;background:#f4f7fc;border:1px solid #d6dfeb;border-radius:12px;padding:18px}.reference-panel h3{margin:0 0 12px;font-size:1.2rem}.table-scroll{max-width:100%;overflow:auto;margin:16px 0;border:1px solid #cbd8e8;border-radius:8px}.table-scroll:focus-visible{outline:3px solid #205eea;outline-offset:3px}table{border-collapse:collapse;width:100%;min-width:640px;background:white;font-size:.9rem}caption{text-align:left;padding:10px 14px;background:#e8eef8;color:#435570;font-size:.8rem}th,td{padding:12px 13px;text-align:left;vertical-align:top;border-bottom:1px solid #dbe3ed}thead th{background:#15243b;color:white;font-size:.8rem}tbody th{min-width:150px}tbody tr:last-child th,tbody tr:last-child td{border-bottom:0}th small{display:block;font-size:.78rem;font-weight:400;color:#536178;margin-top:3px}.course-source{font-size:.8rem;color:#536178}.reference-panel td{font-variant-numeric:tabular-nums}@media(max-width:650px){.reference-panel{padding:12px}.topic-context{font-size:.8rem}.table-scroll{margin:12px 0}}
-</style></head><body>
-<header><div class="row"><div><div class="eyebrow">NUR 235 · Study arcade</div><div class="brand">Match <span>Lab</span></div></div><div class="small">Seven games. One connection at a time.</div></div></header>
-<main class="shell">
-<nav class="topics" id="topics" aria-label="Choose a matching game"></nav>
-<div class="heading"><div><h1 id="title"></h1><p class="sub" id="lead"></p></div><button type="button" class="btn" id="guide">Answer guide</button></div>
-<p id="topicContext" class="topic-context" hidden></p>
-<div class="meta"><span><strong id="count"></strong> matched</span><span id="first"></span><span class="tag" id="pass"></span></div>
-<div class="track" id="progress" role="progressbar" aria-label="Cards matched" aria-valuemin="0" aria-valuenow="0" aria-valuemax="24"><div id="bar"></div></div>
-<section class="board" id="game" aria-label="Matching board">
-<div class="board-top"><div><span class="tag" id="badge"></span><h2 class="board-number" id="boardNumber"></h2></div><span class="small sub" id="boardInstruction">Select one card from each column.</span></div>
-<div class="columns"><div><h2 class="column-title" id="leftTitle"></h2><div class="cards" id="clues"></div></div><div><h2 class="column-title" id="rightTitle"></h2><div class="cards" id="answers"></div></div></div>
-<div class="feedback" id="feedback" role="status" aria-live="polite" aria-atomic="true"></div>
-<div class="actions"><div class="action-group"><button type="button" class="btn" id="hint">Show a hint</button><button type="button" class="btn quiet" id="clear">Clear selection</button></div><button type="button" class="btn primary" id="next" disabled>Next board</button></div>
-</section>
-<section class="board results" id="completed" hidden aria-label="Game results">
-<div class="tag">CONNECTIONS MADE</div><h2 id="completeTitle" tabindex="-1">Game complete</h2><div class="result-number" id="resultCount"></div><p id="resultDescription"></p><p class="sub" id="resultNote"></p>
-<div class="actions"><button type="button" class="btn primary" id="retry">Retry missed cards</button><button type="button" class="btn" id="playAgain">Shuffle and play again</button></div><div id="misses" class="review-grid"></div>
-</section>
-<div class="below"><p class="small sub">No countdown. Hints and viewed answers count as help, so your first-try score stays honest.</p><button type="button" class="btn quiet" id="restart">Restart this game</button></div>
-<p id="note" class="note"></p>
-<footer><strong>Study sources</strong><div id="sources"></div><p>Source review: October 3, 2026 · Original practice scenarios · Keyboard: Tab to a card, then Enter or Space to select.</p></footer>
-</main>
-<dialog id="study" aria-labelledby="studyTitle"><div class="dialog-heading"><h2 id="studyTitle"></h2><button type="button" class="btn" id="closeStudy">Close guide</button></div><p class="note" id="studyNote"></p><p class="small sub">Unfinished cards now count as helped in this pass. Restart the game whenever you want a fresh first-try score.</p><div id="studyReference"></div><div id="studyCards" class="review-grid"></div></dialog>
-<noscript><p class="noscript">Please enable JavaScript to play the matching games.</p></noscript>
 
+/* Mixed-tile matching rounds, shared by the two course collections. */
+@media(min-width:851px){header .row>div:first-child{display:flex;align-items:baseline;gap:18px}header .eyebrow{font-size:.875rem}.brand{font-size:1.3rem}.shell{padding-top:14px}.topics{margin-bottom:12px}.meta{margin-top:10px}.track{margin-bottom:14px}.heading{margin-bottom:6px}}
+header{padding-top:14px;padding-bottom:14px}.shell{padding-top:18px}.topics{margin-bottom:18px}.topics button{padding:9px 13px}.heading h1{font-size:clamp(1.5rem,3vw,2rem)}.heading .sub{font-size:1rem}.meta{margin:13px 0 8px}.board{padding:22px;background:#f7f9fe;border-color:#d5dcea}.board-top{margin-bottom:17px}.round-tools{display:flex;align-items:center;gap:12px}.timer{font-size:1.7rem;font-weight:700;font-variant-numeric:tabular-nums;min-width:92px;text-align:right;color:#244fc7}.timer small{display:block;font-size:.875rem;font-weight:400;color:#536178}.tile-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.match-card,.match-card.answer{height:auto;min-height:118px;justify-content:center;text-align:center;font-size:1.06rem;font-weight:500;line-height:1.4;padding:18px 14px;background:white;border:2px solid #d9dfeb;border-radius:16px;box-shadow:0 3px 8px #18274109;overflow-wrap:break-word;word-break:normal}.match-card:hover:enabled{transform:translateY(-2px);box-shadow:0 5px 16px #243f8220}.match-card.selected{border-color:#315fe0;background:#e9efff;box-shadow:0 0 0 2px #315fe032}.match-card.matched{visibility:hidden;pointer-events:none}.match-card .card-copy{width:100%}.match-card .number,.card-state{display:none}.feedback{min-height:0;padding:11px 15px;margin-top:15px}.feedback p:empty{display:none}.feedback h2{font-size:1rem}.feedback p{font-size:.95rem}.start-panel{padding:40px 20px;text-align:center;min-height:265px;display:grid;place-content:center}.start-panel h2{font-size:1.6rem;margin:0 0 12px}.start-panel .btn{margin:20px auto 0;min-width:150px}.round-done{font-size:1.1rem;font-weight:700;color:#126654;text-align:center;margin:18px 0}.below{margin-top:8px}.below p{font-size:.875rem}.topic-context{display:none!important}footer details{border-top:1px solid #d6dfeb;padding-top:16px}footer summary{cursor:pointer;font-weight:700;font-size:.95rem}#note{margin:14px 0 0}.study-explainer{font-size:.875rem;color:#536178}.round-best{font-size:.9rem;color:#536178}.card-feedback{color:#2c4f8d}.timer-button{min-height:40px;padding:7px 10px}.board-number{font-size:.95rem}.tag{font-size:.8rem}.actions{margin-top:15px}.tile-grid:focus{outline:0}@media(max-width:850px){.tile-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.match-card,.match-card.answer{min-height:138px;font-size:1rem}.board{padding:16px}}@media(max-width:560px){.tile-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.match-card,.match-card.answer{min-height:128px;font-size:1rem;padding:14px 11px}.shell{padding:14px 12px}.heading{gap:7px}.heading h1{font-size:1.6rem}.heading .sub{font-size:.95rem}.heading .btn{padding:9px 12px}.topics{gap:6px}.topics button{font-size:.875rem}.board-top{align-items:center}.round-tools{gap:8px}.timer{font-size:1.4rem;min-width:75px}.board{padding:12px}.brand{font-size:1.2rem}header .small{font-size:.8rem}.start-panel{min-height:230px;padding:26px 10px}#boardInstruction{max-width:100%;text-align:left}.actions .action-group{gap:6px}.meta{gap:12px}}@media(prefers-reduced-motion:reduce){.match-card:hover:enabled{transform:none}}
+
+/* Caroline reads this on a phone with everything magnified, so every control
+   has to clear 44px (CLAUDE.md). As delivered the seven topic switchers
+   measured 41px and Pause 40px - .timer-button's min-height:40px in a media
+   query was beating .btn's 44px. Tiles were already fine at 128-234px. */
+.topics button{min-height:44px}
+.btn.timer-button{min-height:44px}
+</style></head><body>
+<header><div class="row"><div><div class="eyebrow">NUR 235 · Study arcade</div><div class="brand">Match <span>Lab</span></div></div><div class="small">Clear the board. Beat your time.</div></div></header>
+<main class="shell"><nav class="topics" id="topics" aria-label="Choose a matching game"></nav>
+<div class="heading"><div><h1 id="title"></h1><p class="sub" id="lead"></p></div><button class="btn" id="guide" type="button">Answer guide</button></div>
+<div class="meta"><span><strong id="count"></strong> matched</span><span id="first"></span><span class="tag" id="pass"></span></div>
+<div class="track" id="progress" role="progressbar" aria-label="Pairs matched" aria-valuemin="0" aria-valuenow="0" aria-valuemax="1"><div id="bar"></div></div>
+<section class="board" id="game" aria-label="Matching board"><div class="board-top"><div><span class="tag" id="badge"></span><h2 class="board-number" id="boardNumber"></h2></div><div class="round-tools"><button class="btn timer-button" id="pause" type="button" hidden>Pause</button><div class="timer"><span id="timerValue" aria-label="Elapsed time">0.0s</span><small>round time</small></div></div></div>
+<div id="startPanel" class="start-panel"><h2 id="startHeading">Ready to match?</h2><p>Find each question’s answer among the mixed tiles.</p><p class="sub">Correct pairs disappear. A wrong match adds 1 second.</p><button class="btn primary" id="start" type="button">Start round</button></div>
+<div id="tiles" class="tile-grid" aria-label="Mixed question and answer tiles" hidden></div>
+<div id="feedback" class="feedback" role="status" aria-live="polite" aria-atomic="true" hidden></div>
+<p id="boardInstruction" class="small sub"></p>
+<div class="actions"><div class="action-group"><button class="btn" id="hint" type="button">Hint</button><button class="btn quiet" id="clear" type="button">Clear selection</button></div><button class="btn primary" id="next" type="button" disabled>Next round</button></div></section>
+<section class="board results" id="completed" aria-label="Game results" hidden><div class="tag">COLLECTION COMPLETE</div><h2 id="completeTitle" tabindex="-1"></h2><div class="result-number" id="resultCount"></div><p id="resultDescription"></p><p id="resultNote" class="sub"></p><div class="actions"><button class="btn primary" id="retry" type="button">Retry missed pairs</button><button class="btn" id="playAgain" type="button">Shuffle and play again</button></div><div id="misses" class="review-grid"></div></section>
+<div class="below"><p class="small sub">Tap two tiles to match. Up to six pairs per round; all cards appear as you continue.</p><button class="btn quiet" id="restart" type="button">Restart game</button></div>
+<footer><details><summary>Study notes &amp; sources</summary><p class="note" id="note"></p><div id="sources"></div><p>Checked October 3, 2026. Tab to a tile; Enter or Space selects it. Time pauses when you switch away or open the guide.</p></details></footer></main>
+<dialog id="study" aria-labelledby="studyTitle"><div class="dialog-heading"><h2 id="studyTitle"></h2><button class="btn" id="closeStudy" type="button">Close guide</button></div><p class="note" id="studyNote"></p><p class="study-explainer">The timer is paused. Remaining pairs in this round count as helped; future rounds keep their first-try scoring.</p><div id="studyReference"></div><div id="studyCards" class="review-grid"></div></dialog>
+<noscript><p class="noscript">Enable JavaScript to play.</p></noscript>
 <script>
 const CDC='https://www.cdc.gov/act-early/milestones/';
 const SCHEDULE='https://www.cdc.gov/vaccines/hcp/imz-schedules/child-adolescent-age.html';
@@ -223,140 +226,129 @@ pain('A child uses FPS-R. What should the instruction focus on?','How much it hu
 
 TOPICS.pain.guideHtml=`<section class="reference-panel"><h3>Choose the scale by ability, then check age</h3><p><strong>Can the child give a meaningful self-report?</strong> Use it when possible. Otherwise use a suitable observational tool and caregiver information.</p><div class="table-scroll" tabindex="0" role="region" aria-label="Pain-scale age and use guide"><table><caption>Lecture anchors and additional clinical tools</caption><thead><tr><th scope="col">Tool</th><th scope="col">Age / use clue</th><th scope="col">Who rates it?</th></tr></thead><tbody><tr><th scope="row">FLACC</th><td>Fuller: 2 months–7 years; unable to self-report reliably</td><td>Observer · total 0–10</td></tr><tr><th scope="row">Wong-Baker FACES</th><td>Fuller / Foundation: 3+ and understands the task</td><td>Child · chooses a face</td></tr><tr><th scope="row">Numeric rating</th><td>Fuller: over 5, based on cognition.<br><em>RCH clinical guide: over 7 (about 8+).</em></td><td>Child · 0–10</td></tr><tr><th scope="row">Non-communicating Children’s Pain Checklist</th><td>Fuller: 3+; slide describes a 10-minute observation.<br>Use the named version’s instructions.</td><td>Observer</td></tr><tr><th scope="row">NIPS</th><td>Clinical extension: neonatal/young infant; RCH lists under 3 months</td><td>Observer · total 0–7</td></tr><tr><th scope="row">Revised FLACC</th><td>Clinical extension: individualized behaviors, especially with cognitive impairment</td><td>Observer + caregiver input</td></tr><tr><th scope="row">FPS-R</th><td>Clinical extension: IASP describes ages 4–16; understanding required</td><td>Child · 0, 2, 4, 6, 8, 10</td></tr></tbody></table></div><p class="small sub">Course source: Fuller Child Care lecture, screenshot 22, “Pain Tool Assessments.” Clinical tool sources are linked below the game and on the relevant cards. Ages guide selection; they are not universal cutoffs.</p><p class="small"><strong>Remember:</strong> FACES and FPS-R are self-report tools. FLACC and NIPS use observed behaviors. Normal vital signs do not exclude pain. Document the tool and score, then reassess.</p></section>`;
 
-const $=id=>document.getElementById(id);
-const escapeText=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const courseSources={'course:fuller-vitals':'Fuller lecture · Vital-sign table, screenshot 3','course:fuller-pain':'Fuller lecture · Pain Tool Assessments, screenshot 22'};
-function sourceMarkup(url,label='Source'){
- if(Object.hasOwn(courseSources,url))return '<span class="course-source">'+escapeText(courseSources[url])+'</span>';
- return '<a target="_blank" rel="noopener" href="'+escapeText(url)+'">'+escapeText(label)+'</a>';
+// Additional age/range practice. Reference names remain in the answer guide.
+for(const p of TOPICS.vitals.pairs){
+ p.q=p.q.replace(/^Fuller chart · /,'').replace(/^Clinical review · /,'');
+ for(const [name,age,example] of vitalRows)p.q=p.q.replace(`${name} (${example})`,`${name} (${age})`);
 }
+TOPICS.vitals.lead='Match ages, heart rates, breathing rates and blood-pressure ranges.';
+TOPICS.vitals.context='Range questions use the study chart in the answer guide. Clinical ranges vary with the child and the measurement.';
+for(const [name,age,example,hr,rr,sbp,dbp] of vitalRows){
+ add('vitals',`${name}: age band in this range chart?`,age,`${name} is the ${age} row. Boundary labels are printed as in the chart; clinical age classifications may differ.`,`Find this population in the age column.`,COURSE_VITALS);
+ add('vitals',`${name}: systolic blood-pressure range?`,`${sbp} mm Hg systolic`,`${name}: systolic ${sbp} mm Hg in the study chart.`,`The upper blood-pressure number.`,COURSE_VITALS);
+ add('vitals',`${name}: diastolic blood-pressure range?`,`${dbp} mm Hg diastolic`,`${name}: diastolic ${dbp} mm Hg in the study chart.`,`The lower blood-pressure number.`,COURSE_VITALS);
+ add('vitals',`Heart rate ${hr} beats/min: which age group?`,name,`${name} (${age}) is the matching heart-rate row.`,`Compare both ends of the heart-rate range.`,COURSE_VITALS);
+ add('vitals',`HR ${hr}; RR ${rr}; BP ${sbp}/${dbp}: which age group?`,name,`${name} (${age}). Units: HR beats/min, RR breaths/min, BP mm Hg.`,`Use all three measurements together.`,COURSE_VITALS);
+}
+for(const p of TOPICS.pain.pairs){
+ p.q=p.q.replace(/^Fuller lecture · /,'').replace('Which tool named in Fuller’s lecture lets','Which named FACES tool lets');
+}
+TOPICS.pain.context='Choose by ability as well as age. The answer guide explains age conventions.';
+TOPICS.pain.lead='Connect pain tools with ages, communication abilities and score ranges.';
+pain('Younger than 3 months: which neonatal observational scale has six domains?','NIPS','This guide uses NIPS for neonates/young infants below 3 months.','Neonatal Infant Pain Scale.',PAIN_ACUTE);
+pain('2 months–7 years: which five-domain behavioral pain tool?','FLACC','The study age span is 2 months–7 years; self-report ability still matters.','Face, legs, activity, cry, consolability.',COURSE_PAIN);
+pain('Age 3 and older, understands faces: which tool uses the Wong-Baker faces?','Wong-Baker FACES','The child selects the face personally; a clinician does not judge pain by copying an expression.','The patient chooses a face.',FACES);
+pain('Which age range is described in the validation information for FPS-R?','4–16 years','The Faces Pain Scale–Revised has validation evidence across ages 4–16; assess understanding.','Preschool through adolescence.',FPSR);
+pain('A 10-year-old understands pain intensity and can use ordered numbers. Which 0–10 self-report tool?','Numeric rating scale','Use number ratings when the child can understand and apply them.','Ask for a number representing pain intensity.',PAIN_ASSESS);
+pain('Age 3+ and unable to communicate: which named behavioral checklist is in the study guide?','Non-communicating Children’s Pain Checklist','Check the named checklist version and its observation instructions.','Non-communicating children; behavioral checklist.',COURSE_PAIN);
+const eriksonAges=['Birth–1 year','1–3 years','3–6 years','7–11 years','12–18 years'];
+eriksonAges.forEach((age,i)=>add('erikson',`${E[i]}: approximate age band?`,age,`This set uses ${age} for ${E[i]}. Stage boundaries vary by textbook; use the developmental task as the main concept.`,`Think of ${lifeStages[i].toLowerCase()}.`,PSYCH));
+TOPICS.erikson.note+=' The added pediatric age cards use birth–1, 1–3, 3–6, 7–11 and 12–18 years; compare your course convention.';
+const piagetAges=['Birth–2 years','About 2–7 years','About 7–11 years','About 11–12 years onward'];
+piagetAges.forEach((age,i)=>add('piaget',`${P[i]}: approximate age band?`,age,`${P[i]} is associated with ${age.toLowerCase()}; ages are approximate.`,`Match the developmental stage to its broad age span.`,THEORY));
+for(const [type,age,question,hint] of playAgeRows)add('play',`${type}: usual age association?`,age,`${type} is commonly associated with ${age}. Types overlap; an older child may still play alone or watch others.`,hint,PLAYAGES);
+for(const [key,t] of Object.entries(TOPICS))t.badge=`${t.pairs.length} MATCHES`;
+
+const $=id=>document.getElementById(id);
+const escapeText=v=>String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const courseSources={'course:fuller-vitals':'Supplied lecture: vital-sign table, screenshot 3','course:fuller-pain':'Supplied lecture: pain assessment tools, screenshot 22'};
+function sourceMarkup(url,label='Source'){return Object.hasOwn(courseSources,url)?'<span class="course-source">'+escapeText(courseSources[url])+'</span>':'<a target="_blank" rel="noopener" href="'+escapeText(url)+'">'+escapeText(label)+'</a>';}
 function shuffle(items){const a=[...items];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 function makeBoards(items){
  const buckets=new Map();for(const p of shuffle(items)){if(!buckets.has(p.a))buckets.set(p.a,[]);buckets.get(p.a).push(p);}
  const boards=[];while([...buckets.values()].some(a=>a.length)){
-  const choices=shuffle([...buckets.values()].filter(a=>a.length)).sort((a,b)=>b.length-a.length).slice(0,4);
+  const choices=shuffle([...buckets.values()].filter(a=>a.length)).sort((a,b)=>b.length-a.length).slice(0,6);
   boards.push(shuffle(choices.map(a=>a.pop())));
  }return boards;
 }
-function newSession(items,review=false){return {boards:makeBoards(items),board:0,total:items.length,left:null,right:null,matched:new Set(),mistakes:new Set(),assisted:new Set(),results:[],complete:false,review,feedback:{kind:'',title:'Ready when you are.',body:'Choose a card on either side, then find its match.'}};}
-const sessions={};
-let topic=Object.hasOwn(TOPICS,location.hash.slice(1))?location.hash.slice(1):'milestones';
-const current=()=>sessions[topic];
-const currentPairs=()=>current().boards[current().board]||[];
-function prep(s){s.answerOrder=shuffle(s.boards[s.board]||[]).map(p=>p.id);}
+const sessions={};let topic=Object.hasOwn(TOPICS,location.hash.slice(1))?location.hash.slice(1):Object.keys(TOPICS)[0];
+const current=()=>sessions[topic];const currentPairs=()=>current().boards[current().board]||[];
+const clockNow=()=>performance.now();
+function newSession(items,review=false){return {boards:makeBoards(items),board:0,total:items.length,selected:null,matched:new Set(),mistakes:new Set(),assisted:new Set(),results:[],complete:false,review,rounds:[],feedback:{kind:'',title:'',body:''}};}
+function prep(s){s.tiles=shuffle(s.boards[s.board].flatMap(p=>[{id:p.id,side:'left'},{id:p.id,side:'right'}]));s.running=false;s.started=false;s.elapsed=0;s.penalty=0;s.selected=null;s.roundRecorded=false;s.feedback={kind:'',title:'',body:''};}
 function begin(key,items,review=false){sessions[key]=newSession(items||TOPICS[key].pairs,review);prep(sessions[key]);}
-function firstTry(s){return s.results.filter(r=>r.firstTry).length;}
-function feedback(kind,title,body,source){current().feedback={kind,title,body,source};}
+const firstTry=s=>s.results.filter(r=>r.firstTry).length;
+const boardDone=()=>currentPairs().every(p=>current().matched.has(p.id));
+function elapsed(s=current()){return s.elapsed+(s.running?clockNow()-s.tick:0)+s.penalty*1000;}
+function pauseClock(s=current()){if(s.running){s.elapsed+=clockNow()-s.tick;s.running=false;}}
+function feedback(kind,title,body=''){current().feedback={kind,title,body};}
+function startRound(){const s=current();if(s.complete||boardDone())return;s.started=true;s.running=true;s.tick=clockNow();render();$('tiles').querySelector('button:not(:disabled)')?.focus();}
+function pauseRound(){const s=current();if(!s.started||boardDone())return;if(s.running)pauseClock(s);else{s.running=true;s.tick=clockNow();}render();}
 function choose(side,id){
- const s=current();if(s.complete||s.matched.has(id))return;
- if(!currentPairs().some(p=>p.id===id))throw new Error('Card is not on this board.');
- s[side]=s[side]===id?null:id;
- if(s.left&&s.right)resolveMatch();
+ const s=current();if(s.complete||!s.running||s.matched.has(id))return;
+ if(!['left','right'].includes(side)||!currentPairs().some(p=>p.id===id))throw Error('Choose a visible tile.');
+ if(!s.selected){s.selected={side,id};render();return;}
+ if(s.selected.id===id&&s.selected.side===side){s.selected=null;render();return;}
+ const one=s.selected,two={side,id};s.selected=null;
+ if(one.id===two.id&&one.side!==two.side){
+  const p=currentPairs().find(p=>p.id===id);s.matched.add(id);s.results.push({id,firstTry:!s.mistakes.has(id)&&!s.assisted.has(id)});
+  feedback('good','Matched.');
+  if(boardDone()){
+   pauseClock(s);s.rounds.push({seconds:elapsed(s)/1000,pairs:currentPairs().length,penalties:s.penalty,helped:currentPairs().some(p=>s.assisted.has(p.id))});s.roundRecorded=true;
+   feedback('good','Round cleared in '+(elapsed(s)/1000).toFixed(1)+' seconds.',s.penalty?s.penalty+' second'+(s.penalty===1?'':'s')+' added for incorrect matches.':'No time penalties.');
+  }
+ }else{s.mistakes.add(one.id);s.mistakes.add(two.id);s.penalty++;feedback('wrong','Not a match. +1 second','Choose a matching question and answer.');}
  render();
 }
-function resolveMatch(){
- const s=current(),p=currentPairs().find(p=>p.id===s.left),a=currentPairs().find(p=>p.id===s.right);
- if(!p||!a)throw new Error('Choose two visible cards.');
- if(p.a===a.a){
-  s.matched.add(p.id);
-  s.results.push({id:p.id,firstTry:!s.mistakes.has(p.id)&&!s.assisted.has(p.id)});
-  feedback('good','Matched: '+p.a,p.why,p.source);s.left=null;s.right=null;
- }else{
-  s.mistakes.add(p.id);
-  feedback('wrong','Not this pair. Try '+p.a+'.',p.why,p.source);s.right=null;
- }
-}
-function nextBoard(){
- const s=current();if(s.complete||!currentPairs().every(p=>s.matched.has(p.id)))return;
- if(s.board===s.boards.length-1){s.complete=true;render();$('completeTitle').focus();return;}
- s.board++;s.left=s.right=null;prep(s);feedback('','New board. Same idea.','Choose one card from each column.');render();$('clues').querySelector('button')?.focus();
-}
-function hint(){
- const s=current();if(s.complete)return;const p=currentPairs().find(p=>p.id===s.left)||currentPairs().find(p=>!s.matched.has(p.id));
- if(!p)return;s.left=p.id;s.right=null;s.assisted.add(p.id);feedback('hint','Hint for the selected card',p.hint+' This card will appear in your retry round.');render();
-}
-function reviewMissed(){
- const s=current(),ids=s.results.filter(r=>!r.firstTry).map(r=>r.id);
- if(!ids.length)return;begin(topic,TOPICS[topic].pairs.filter(p=>ids.includes(p.id)),true);render();
-}
-function selectTopic(key,updateHash=true){
- if(!Object.hasOwn(TOPICS,key))throw new Error('Unknown game.');
- topic=key;if(!sessions[key])begin(key);if(updateHash&&location.hash!=='#'+key)history.replaceState(null,'','#'+key);render();
-}
-function card(p,side,index){
- const s=current(),done=s.matched.has(p.id),selected=s[side]===p.id,b=document.createElement('button');
- b.type='button';b.className='match-card '+(side==='right'?'answer ':'')+(done?'matched ':'')+(selected?'selected':'');
- b.dataset.card=side+'-'+p.id;b.dataset.id=p.id;b.dataset.side=side;
- b.disabled=done;b.setAttribute('aria-pressed',String(selected));
- b.setAttribute('aria-label',(side==='left'?'Clue: ':'Match: ')+(side==='left'?p.q:p.a)+(done?' — matched':''));
- b.innerHTML='<span class="number" aria-hidden="true">'+(done?'✓':side==='left'?index+1:String.fromCharCode(65+index))+'</span><span class="card-copy">'+escapeText(side==='left'?p.q:p.a)+(done?'<span class="card-state">Matched</span>':'')+'</span>';
- b.onclick=()=>choose(side,p.id);return b;
+function nextBoard(){const s=current();if(s.complete||!boardDone())return;if(s.board===s.boards.length-1){s.complete=true;render();$('completeTitle').focus();return;}s.board++;prep(s);render();$('start').focus();}
+function hint(){const s=current();if(!s.running||boardDone())return;const p=currentPairs().find(p=>p.id===s.selected?.id)||currentPairs().find(p=>!s.matched.has(p.id));if(!p)return;s.assisted.add(p.id);s.selected={side:'left',id:p.id};feedback('hint','Hint',p.hint);render();}
+function reviewMissed(){const ids=current().results.filter(r=>!r.firstTry).map(r=>r.id);if(ids.length){begin(topic,TOPICS[topic].pairs.filter(p=>ids.includes(p.id)),true);render();}}
+function selectTopic(key,updateHash=true){if(!Object.hasOwn(TOPICS,key))throw Error('Unknown game.');if(current())pauseClock();topic=key;if(!sessions[key])begin(key);if(updateHash&&location.hash!=='#'+key)history.replaceState(null,'','#'+key);render();}
+function card(tile){
+ const p=currentPairs().find(p=>p.id===tile.id),s=current(),done=s.matched.has(p.id),selected=s.selected?.id===p.id&&s.selected?.side===tile.side;
+ const b=document.createElement('button');b.type='button';b.className='match-card'+(done?' matched':'')+(selected?' selected':'');b.dataset.card=tile.side+'-'+p.id;b.dataset.id=p.id;b.dataset.side=tile.side;b.disabled=done||!s.running;
+ const copy=tile.side==='left'?p.q:p.a;b.setAttribute('aria-label',copy);b.setAttribute('aria-pressed',String(selected));if(done)b.setAttribute('aria-hidden','true');b.innerHTML='<span class="card-copy">'+escapeText(copy)+'</span>';b.onclick=()=>choose(tile.side,p.id);return b;
 }
 function render(){
- const oldFocus=document.activeElement?.dataset.card,oldTopic=document.activeElement?.dataset.topic;
- const t=TOPICS[topic],s=current(),pairs=currentPairs();
- $('topics').innerHTML='';for(const [key,value]of Object.entries(TOPICS)){const b=document.createElement('button');b.type='button';b.setAttribute('aria-pressed',String(topic===key));b.dataset.topic=key;b.textContent=value.short;b.onclick=()=>selectTopic(key);$('topics').append(b);}
- $('title').textContent=t.title;$('lead').textContent=t.lead;$('badge').textContent=t.badge;
- $('guide').textContent=topic==='vitals'?'Range & answer guide':['play','pain'].includes(topic)?'Age & answer guide':'Answer guide';
- $('topicContext').textContent=t.context||'';$('topicContext').hidden=!t.context;
- $('leftTitle').textContent=t.left;$('rightTitle').textContent=t.right;
- $('note').textContent=t.note;$('note').className='note '+(topic==='immunizations'?'schedule-note':'');
- $('count').textContent=s.results.length+' / '+s.total;
- $('first').textContent=firstTry(s)+' first try';$('pass').textContent=s.review?'RETRY ROUND':'PRACTICE';
+ const oldFocus=document.activeElement?.dataset.card,oldTopic=document.activeElement?.dataset.topic,t=TOPICS[topic],s=current(),done=boardDone();
+ $('topics').replaceChildren();for(const [key,v]of Object.entries(TOPICS)){const b=document.createElement('button');b.type='button';b.dataset.topic=key;b.setAttribute('aria-pressed',String(topic===key));b.textContent=v.short;b.onclick=()=>selectTopic(key);$('topics').append(b);}
+ $('title').textContent=t.title;$('lead').textContent=t.lead;$('badge').textContent=currentPairs().length+' PAIRS';
+ $('count').textContent=s.results.length+' / '+s.total;$('first').textContent=firstTry(s)+' first try';$('pass').textContent=s.review?'RETRY':'MATCH';
  $('bar').style.width=100*s.results.length/s.total+'%';$('progress').setAttribute('aria-valuenow',String(s.results.length));$('progress').setAttribute('aria-valuemax',String(s.total));
- $('boardNumber').textContent='Board '+(s.board+1)+' of '+s.boards.length;
- $('game').hidden=s.complete;$('completed').hidden=!s.complete;
- $('clues').replaceChildren(...pairs.map((p,i)=>card(p,'left',i)));
- $('answers').replaceChildren(...s.answerOrder.map((id,i)=>card(pairs.find(p=>p.id===id),'right',i)));
- const f=s.feedback;$('feedback').className='feedback '+f.kind;
- $('feedback').innerHTML='<h2>'+escapeText(f.title)+'</h2><p>'+escapeText(f.body)+'</p>'+(f.source?'<div class="feedback-source">'+sourceMarkup(f.source,'Check the source')+'</div>':'');
- const boardDone=pairs.every(p=>s.matched.has(p.id));
- $('next').disabled=!boardDone;$('next').textContent=s.board===s.boards.length-1?'See results':'Next board';
- $('hint').disabled=boardDone;$('clear').disabled=!s.left&&!s.right;
- $('boardInstruction').textContent=boardDone?'Board complete. Continue when ready.':s.left?'Now choose a match on the right.':s.right?'Now choose a clue on the left.':'Select one card from each column.';
- $('sources').innerHTML=t.sources.map(([label,url])=>sourceMarkup(url,label)).join(' · ');
+ $('boardNumber').textContent='Round '+(s.board+1)+' of '+s.boards.length;$('game').hidden=s.complete;$('completed').hidden=!s.complete;
+ $('tiles').hidden=!s.running||done;$('tiles').replaceChildren(...s.tiles.map(card));$('startPanel').hidden=s.running||done;$('startHeading').textContent=s.started?'Round paused':'Ready to match?';$('start').textContent=s.started?'Resume round':'Start round';
+ $('timerValue').textContent=(elapsed(s)/1000).toFixed(1)+'s';$('pause').hidden=!s.started||done;$('pause').textContent=s.running?'Pause':'Resume';
+ $('boardInstruction').textContent=done?'All pairs cleared.':s.selected?'Select its matching tile.':'Tap any two matching tiles.';
+ $('next').disabled=!done;$('next').textContent=s.board===s.boards.length-1?'See results':'Next round';$('hint').disabled=!s.running||done;$('clear').disabled=!s.selected;
+ const f=s.feedback;$('feedback').hidden=!f.title;$('feedback').className='feedback '+f.kind;$('feedback').innerHTML='<h2>'+escapeText(f.title)+'</h2><p>'+escapeText(f.body)+'</p>';
+ $('note').textContent=t.note;$('sources').innerHTML=t.sources.map(([label,url])=>sourceMarkup(url,label)).join(' · ');
  if(s.complete){
-  const misses=s.results.filter(r=>!r.firstTry);
-  $('completeTitle').textContent=s.review?'Retry round complete':'Game complete';
-  $('resultCount').textContent=firstTry(s)+' of '+s.total;
-  $('resultDescription').textContent='matched correctly on the first try, without a hint.';
-  $('retry').hidden=!misses.length;
-  $('retry').textContent='Retry '+misses.length+' missed or hinted '+(misses.length===1?'card':'cards');
-  $('resultNote').textContent=misses.length?'Practice these connections again. Every card is now matched.':'Every connection matched on the first try. Try another topic or shuffle this one.';
-  $('misses').innerHTML=misses.map(r=>{const p=t.pairs.find(p=>p.id===r.id);return '<div class="review-item"><p>'+escapeText(p.q)+'</p><strong>'+escapeText(p.a)+'</strong><p class="sub">'+escapeText(p.why)+'</p></div>';}).join('');
+  const missed=s.results.filter(r=>!r.firstTry);$('completeTitle').textContent=s.review?'Retry complete':'All rounds complete';$('resultCount').textContent=firstTry(s)+' / '+s.total;$('resultDescription').textContent='pairs matched on the first try without help.';
+  $('resultNote').textContent=s.rounds.reduce((a,r)=>a+r.seconds,0).toFixed(1)+' seconds across '+s.rounds.length+' rounds, including time penalties.';$('retry').hidden=!missed.length;$('retry').textContent='Retry '+missed.length+' missed or helped pairs';
+  $('misses').innerHTML=missed.map(r=>{const p=t.pairs.find(p=>p.id===r.id);return '<article class="review-item"><p>'+escapeText(p.q)+'</p><strong>'+escapeText(p.a)+'</strong><p class="sub">'+escapeText(p.why)+'</p></article>';}).join('');
  }
- if(oldFocus){const same=[...document.querySelectorAll('[data-card]')].find(e=>e.dataset.card===oldFocus&&!e.disabled);(same||$('clues').querySelector('button:not(:disabled)')||$('next')).focus({preventScroll:true});}
- else if(oldTopic){[...$('topics').children].find(e=>e.dataset.topic===oldTopic)?.focus({preventScroll:true});}
+ if(oldFocus){const b=[...$('tiles').children].find(b=>b.dataset.card===oldFocus&&!b.disabled);(b||$('tiles').querySelector('button:not(:disabled)')||(done?$('next'):$('start'))).focus({preventScroll:true});}
+ else if(oldTopic)[...$('topics').children].find(b=>b.dataset.topic===oldTopic)?.focus({preventScroll:true});
 }
 function openStudy(){
- const t=TOPICS[topic];$('studyTitle').textContent=t.title+' · answer guide';
- $('studyNote').textContent=t.note;
- $('studyReference').innerHTML=t.guideHtml||'';
- const studyPairs=topic==='play'?[...t.pairs].sort((a,b)=>Number(!!b.ageCard)-Number(!!a.ageCard)):t.pairs;
- $('studyCards').innerHTML=studyPairs.map(p=>'<article class="review-item"><p>'+escapeText(p.q)+'</p><strong>'+escapeText(p.a)+'</strong><p class="sub">'+escapeText(p.why)+'</p>'+sourceMarkup(p.source)+'</article>').join('');
- // Looking at the guide turns unresolved cards into hinted cards for first-try scoring.
- for(const p of current().boards.flat())if(!current().matched.has(p.id))current().assisted.add(p.id);
- $('study').showModal();
+ const t=TOPICS[topic];pauseClock();for(const p of currentPairs())if(!current().matched.has(p.id))current().assisted.add(p.id);render();$('studyTitle').textContent=t.title+' · answer guide';$('studyNote').textContent=t.note;$('studyReference').innerHTML=t.guideHtml||'';
+ $('studyCards').innerHTML=t.pairs.map(p=>'<article class="review-item"><p>'+escapeText(p.q)+'</p><strong>'+escapeText(p.a)+'</strong><p class="sub">'+escapeText(p.why)+'</p>'+sourceMarkup(p.source)+'</article>').join('');$('study').showModal();
 }
-function readState(){
- const s=current();return {game:topic,title:TOPICS[topic].title,completed:s.complete,review:s.review,board:s.board+1,boards:s.boards.length,matched:s.results.length,total:s.total,firstTry:firstTry(s),clues:currentPairs().map(p=>({id:p.id,text:p.q,matched:s.matched.has(p.id)})),matches:s.answerOrder.map(id=>{const p=currentPairs().find(p=>p.id===id);return{id,text:p.a,matched:s.matched.has(id)};}),feedback:s.feedback};
-}
-$('hint').onclick=hint;$('clear').onclick=()=>{current().left=current().right=null;render();};
-$('next').onclick=nextBoard;$('retry').onclick=reviewMissed;
-$('restart').onclick=()=>{begin(topic);render();};
-$('playAgain').onclick=()=>{begin(topic);render();};
-$('guide').onclick=openStudy;$('closeStudy').onclick=()=>$('study').close();
+function readState(){const s=current();return {game:topic,title:TOPICS[topic].title,completed:s.complete,review:s.review,running:s.running,board:s.board+1,boards:s.boards.length,matched:s.results.length,total:s.total,firstTry:firstTry(s),seconds:Number((elapsed(s)/1000).toFixed(1)),penalties:s.penalty,tiles:s.tiles.map(x=>({...x,text:currentPairs().find(p=>p.id===x.id)[x.side==='left'?'q':'a'],matched:s.matched.has(x.id)})),feedback:s.feedback};}
+// Wiring stays after this marker so the independent logic checks can load the engine.
+$('hint').onclick=hint;$('clear').onclick=()=>{current().selected=null;render();};$('start').onclick=startRound;$('pause').onclick=pauseRound;$('next').onclick=nextBoard;$('retry').onclick=reviewMissed;
+$('restart').onclick=()=>{pauseClock();begin(topic);render();};$('playAgain').onclick=()=>{begin(topic);render();};$('guide').onclick=openStudy;$('closeStudy').onclick=()=>$('study').close();
 window.addEventListener('hashchange',()=>{if(Object.hasOwn(TOPICS,location.hash.slice(1)))selectTopic(location.hash.slice(1),false);});
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&current()?.running){pauseClock();render();}});
+setInterval(()=>{if(current()?.running)$('timerValue').textContent=(elapsed()/1000).toFixed(1)+'s';},100);
 begin(topic);selectTopic(topic,false);
-const context=document.modelContext;
-if(context?.registerTool){
- const lifecycle=new AbortController();
- const register=tool=>{try{Promise.resolve(context.registerTool(tool,{signal:lifecycle.signal})).catch(()=>{});}catch{}};
- register({name:'get_matching_game_state',title:'Read matching game',description:'Read visible cards, feedback and current score.',inputSchema:{type:'object',properties:{},additionalProperties:false},annotations:{readOnlyHint:true,untrustedContentHint:false},execute:()=>readState()});
- register({name:'start_matching_game',title:'Open a matching game',description:'Switch to a topic and resume its current round, or explicitly reset that topic.',inputSchema:{type:'object',properties:{game:{type:'string',enum:Object.keys(TOPICS)},reset:{type:'boolean'}},required:['game'],additionalProperties:false},annotations:{readOnlyHint:false,untrustedContentHint:false},execute:input=>{if(!input||!Object.hasOwn(TOPICS,input.game)||('reset' in input&&typeof input.reset!=='boolean'))throw new Error('Choose a supported game and a boolean reset.');if(input.reset)begin(input.game);selectTopic(input.game);return readState();}});
- register({name:'match_cards',title:'Match two cards',description:'Attempt a match using one visible clue id and one visible answer id. This changes the game score.',inputSchema:{type:'object',properties:{clue_id:{type:'string'},answer_id:{type:'string'}},required:['clue_id','answer_id'],additionalProperties:false},annotations:{readOnlyHint:false,untrustedContentHint:false},execute:input=>{const s=current(),ids=currentPairs().map(p=>p.id);if(!input||s.complete||!ids.includes(input.clue_id)||!ids.includes(input.answer_id)||s.matched.has(input.clue_id)||s.matched.has(input.answer_id))throw new Error('Both cards must be visible and unmatched.');s.left=input.clue_id;s.right=input.answer_id;resolveMatch();render();return readState();}});
- register({name:'advance_matching_board',title:'Continue matching game',description:'Move to the next board or results after matching every card on the current board.',inputSchema:{type:'object',properties:{},additionalProperties:false},annotations:{readOnlyHint:false,untrustedContentHint:false},execute:()=>{if(current().complete||!currentPairs().every(p=>current().matched.has(p.id)))throw new Error('Finish the current board first.');nextBoard();return readState();}});
- window.addEventListener('pagehide',()=>lifecycle.abort(),{once:true});
+if(document.modelContext?.registerTool){
+ const life=new AbortController();const register=t=>{try{Promise.resolve(document.modelContext.registerTool(t,{signal:life.signal})).catch(()=>{});}catch{}};
+ register({name:'get_matching_game_state',title:'Read matching game',description:'Read the visible mixed tile board, timer, feedback and score.',inputSchema:{type:'object',properties:{},additionalProperties:false},annotations:{readOnlyHint:true,untrustedContentHint:false},execute:()=>readState()});
+ register({name:'start_matching_game',title:'Open a matching game',description:'Choose a topic and start or resume its current round; optionally reset.',inputSchema:{type:'object',properties:{game:{type:'string',enum:Object.keys(TOPICS)},reset:{type:'boolean'}},required:['game'],additionalProperties:false},annotations:{readOnlyHint:false,untrustedContentHint:false},execute:i=>{if(!i||!Object.hasOwn(TOPICS,i.game)||('reset'in i&&typeof i.reset!=='boolean'))throw Error('Choose a supported game.');if(i.reset)begin(i.game);selectTopic(i.game);startRound();return readState();}});
+ register({name:'match_cards',title:'Match two cards',description:'Attempt a match using one question id and one answer id; incorrect pairs add one second.',inputSchema:{type:'object',properties:{clue_id:{type:'string'},answer_id:{type:'string'}},required:['clue_id','answer_id'],additionalProperties:false},annotations:{readOnlyHint:false,untrustedContentHint:false},execute:i=>{const s=current(),ids=currentPairs().map(p=>p.id);if(!i||!s.running||!ids.includes(i.clue_id)||!ids.includes(i.answer_id)||s.matched.has(i.clue_id)||s.matched.has(i.answer_id))throw Error('Both tiles must be visible and unmatched.');s.selected=null;choose('left',i.clue_id);choose('right',i.answer_id);return readState();}});
+ register({name:'advance_matching_board',title:'Continue matching game',description:'Advance after clearing the current round.',inputSchema:{type:'object',properties:{},additionalProperties:false},annotations:{readOnlyHint:false,untrustedContentHint:false},execute:()=>{if(current().complete||!boardDone())throw Error('Clear this round first.');nextBoard();return readState();}});
+ window.addEventListener('pagehide',()=>life.abort(),{once:true});
 }
 
 </script></body></html>
