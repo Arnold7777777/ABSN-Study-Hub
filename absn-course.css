@@ -265,7 +265,15 @@ details.chunk.altchunk > summary{background:rgba(255,255,255,.10)}
 .srccite i{opacity:.92}
 
 /* ---- the content cards inside a module ----------------------------- */
+/* The base had a border and a shadow but no fill, so a card with no colour
+   modifier was white text sitting straight on the page's fractal background.
+   Every readable card on the site got its panel from .lsc / .ati / .trap / .div;
+   the plain ones - the games cards, the transcript decoder, "where the
+   recordings argue with themselves", .txbk - had nothing. The modifiers are
+   all higher specificity, so they keep their own colour and only the plain
+   cards change. */
 .mcard{border-radius:13px;padding:13px 15px;margin:0 0 11px;
+ background:rgba(31,18,58,.93);
  border:1px solid rgba(255,255,255,.30);border-left:5px solid rgba(255,255,255,.65);
  box-shadow:0 6px 18px rgba(0,0,0,.30)}
 /* The exam-spotlight card was bright teal at .70, which composites to a mid-tone
@@ -306,6 +314,27 @@ table.dec td:first-child{font-family:ui-monospace,Menlo,Consolas,monospace}
 .mcard ul{margin:0;padding:0 0 0 1.15em}
 .mcard li{margin:0 0 8px;font-size:.95rem;line-height:1.55;overflow-wrap:anywhere}
 .mcard li:last-child{margin-bottom:0}
+/* There was no rule for links inside a card at all, so they fell back to the
+   browser's #0000EE - about 2:1 on these panels. Accent gold measures ~11:1.
+   Scoped to unclassed links so .rec and .modlec keep their button look. */
+.mcard a:not([class]){color:var(--accent);font-weight:800;
+ text-decoration-thickness:2px;text-underline-offset:3px}
+/* A list whose every item is one whole link reads better, and taps better, as
+   rows than as bullets. 48px rows, so they clear the 44px minimum even when
+   the label wraps. */
+.mcard ul.taplist{list-style:none;padding:0;margin:0}
+.mcard ul.taplist li{margin:0 0 7px}
+.mcard ul.taplist li:last-child{margin-bottom:0}
+/* display:block, not flex: as a flex row the <b> became its own flex item and
+   got squeezed to its minimum, which broke "Milestones" across two lines as
+   "Mileston / es" at 390px. Block lets the label own a line of its own. */
+.mcard ul.taplist > li > a{display:block;
+ min-height:48px;padding:11px 13px;border-radius:11px;text-decoration:none;
+ background:rgba(0,0,0,.34);border:1px solid rgba(255,255,255,.26);
+ line-height:1.45;overflow-wrap:break-word}
+.mcard ul.taplist > li > a b{display:block;margin:0 0 2px}
+.mcard ul.taplist > li > a:hover{background:rgba(0,0,0,.55)}
+.mcard ul.taplist > li > a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 .mcard b{color:#fff}
 .mcard code{font-family:ui-monospace,'Cascadia Mono',Menlo,Consolas,monospace;
  font-size:1em;background:rgba(0,0,0,.75);padding:1px 5px;border-radius:6px;
