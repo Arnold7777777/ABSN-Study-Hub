@@ -14,7 +14,7 @@ REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE = 'https://arnold7777777.github.io/ABSN-Study-Hub/'
 SITE = 'hub'
 
-SKIP_DIRS = {'.git', 'node_modules', '.github'}
+SKIP_DIRS = {'.git', 'node_modules', '.github', 'tools', '.infographic-backups'}
 # Pages whose text is a data blob, not prose - indexed as a single page entry.
 BLOB = {'super-mega-quiz.html'}
 
@@ -54,6 +54,8 @@ def nearest_id(raw, attrs, before):
 
 
 def walk():
+    # tools/ holds the lecture-library template, which is not a page and
+    # was showing up in search as one; the backups folder is never public.
     for dirpath, dirnames, filenames in os.walk(REPO):
         dirnames[:] = [d for d in dirnames if d not in SKIP_DIRS]
         for f in sorted(filenames):
