@@ -88,6 +88,21 @@ map (old id -> new id, old name, new name) rather than hand-editing
 as well as its text: rewriting only `.value` leaves the old target live behind the
 new label, which reads as correct and is not.
 
+**An internal hyperlink written with openpyxl also needs `display` set**, or Google
+Sheets shows the raw target where the label should be. An xlsx hyperlink stores its
+target (`location`) and its text (`display`) separately, and openpyxl does not fill
+`display` in from the cell value. On 3 Oct the rebuilt NUR 235 nav read `#gid=359028495`
+instead of “→ Fadell” on START HERE and on all four NUR 235 tabs — 25 cells, every one
+of them newly written, while the 110 untouched nav cells were fine. So after writing one:
+
+```python
+cell.hyperlink = Hyperlink(ref=cell.coordinate, location="'NUR235 Fadell'!A1")
+cell.hyperlink.display = cell.value      # without this it renders as #gid=…
+```
+
+A `=HYPERLINK(url,"label")` formula carries its own label and never has this problem,
+which is why the Zoom Backup rows survived while the buttons beside them did not.
+
 ## The Lecture Library workbook: she edits it, so start from the live copy
 
 The "NUR Lecture Library" Google Sheet
