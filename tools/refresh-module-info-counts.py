@@ -65,7 +65,9 @@ def fix(path):
 
 def main():
     stale = 0
-    for path in sorted(glob.glob(os.path.join(ROOT, 'nur*-module-*.html'))):
+    # NUR 258 pages are nur258-module-NN-*.html; NUR 234 and 235 pages are nur23X-mN.html
+    for path in sorted(glob.glob(os.path.join(ROOT, 'nur*-module-*.html'))
+                       + glob.glob(os.path.join(ROOT, 'nur23[45]-m*.html'))):
         r = fix(path)
         if r:
             stale += 1
