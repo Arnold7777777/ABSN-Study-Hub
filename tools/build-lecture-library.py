@@ -68,6 +68,14 @@ REPLACED = {
         '1TSnKc08spggBEKh7_RN-rLtAM4sXgiUa',
         'NUR235_Fall2026_Async_Wk02_DayNA_Nursing care of the infant.mp4',
         'NUR235_Fall2026_Fuller_Wk02_DayNA_Nursing care of the infant.mp4'),
+    '1Hvmu7OUcu6SiYkAQl-7CSUP8aGpLRP_2': (
+        '1AF4APNVK1nUVKVsDeOE_Mepqj-en-ldM',
+        'DUPLICATE of NUR234_Summer2026_Kaiser_WkNA_DayNA_Final exam review - fetal heart rate monitoring and decelerations (6 Aug 2026) - was Final Review 1.mp4',
+        'NUR234_Summer2026_Kaiser_WkNA_DayNA_Final exam review - fetal heart rate monitoring and decelerations (6 Aug 2026, 1-26-40).mp4'),
+    '1I5SqOtY8opWDexyUBaWoTlfuy4oR_kSV': (
+        '10tLIx65hCfOM86q3mZgMt6S33lH0fiIs',
+        'DUPLICATE of NUR234_Summer2026_Kaiser_WkNA_DayNA_Final exam review day 2 - obstetric concepts (7 Aug 2026) - was Final Review 2.mp4',
+        'NUR234_Summer2026_Kaiser_WkNA_DayNA_Final exam review day 2 - obstetric concepts and exam logistics (7 Aug 2026, 1-29-39).mp4'),
 }
 
 COURSES = [('NUR 234', 'NUR234', 'amethyst'),
