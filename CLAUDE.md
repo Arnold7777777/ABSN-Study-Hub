@@ -260,6 +260,19 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
   "fix" a `../drug-guide/` link — that's a real sibling Pages repo of hers.
 - **Verify against the rendered page, not the source.** Several bugs here looked
   fine in the HTML and were wrong in the browser.
+- **Every module page carries a generated "Visual references" slot** (`data-slot="visual"`)
+  built from the cards in `infographics.html` by `python3 tools/wire-module-visuals.py`
+  (it also writes the `details.modvis` panels on `nur234.html`/`nur235.html` and the
+  slots inside `nur258.html`). Never hand-edit those blocks: add or re-tag the card in
+  the gallery and re-run the tool, then `refresh-module-info-counts.py`. The slot opener
+  must stay exactly `<div class="slot filled" data-slot="visual">` - the info counter
+  bounds its count at that opener.
+- **Module pages open folded.** `absn-fold.js` (last script on every module page) wraps
+  each direct child of `.modbody` / `details.mod > .body` in a native `<details class="fold">`
+  *inside* the child, so the direct children - which `absn-focus.js`, `nur258-module.js` and
+  the wire tools all key on - are unchanged. Spotlight, One bite, search hits, `#anchors`
+  and print re-open what they point at. Nothing is persisted: closed on every load is the
+  point, and the Open-all bar is the escape hatch.
 - **A module page's slot counts are hand-written and drift.** `lectures`,
   `mindmap` and `alt` stay right because scripts write them; `info` had no
   writer, so three pages disagreed with their own cards — module 4 said 7 against

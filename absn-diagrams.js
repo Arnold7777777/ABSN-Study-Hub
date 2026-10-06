@@ -192,4 +192,6 @@
     document.addEventListener('DOMContentLoaded', run);
   } else { run(); }
   window.addEventListener('load', run);
+  /* a folded section (absn-fold.js) measures 0 wide until it opens - run again then */
+  window.addEventListener('absn:reveal', run);
 })();
