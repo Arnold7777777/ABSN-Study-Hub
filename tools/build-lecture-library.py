@@ -83,7 +83,7 @@ COURSES = [('NUR 234', 'NUR234', 'amethyst'),
            ('NUR 258', 'NUR258', 'teal')]
 COURSE_TABS = {
  'NUR234': ['NUR234 Kaiser', 'NUR234 Buhler', 'NUR234 Glesner', 'NUR234 Exam Reviews'],
- 'NUR235': ['NUR235 Fadell', 'NUR235 Fuller', 'NUR235 LSC exam prep', 'NUR235 Exam Reviews'],
+ 'NUR235': ['NUR235 Fadell', 'NUR235 Fuller', 'NUR235 Exam Reviews'],
  'NUR258': ['NUR258 Halecka', 'NUR258 Wagner', 'NUR258 Simmons', 'NUR258 Exam Reviews'],
 }
 # Rows that carry no week go here, in this order, rather than being dropped.
