@@ -51,6 +51,14 @@ h1{font-size:clamp(1.7rem,5.6vw,2.6rem);margin:0 0 6px;line-height:1.14;font-wei
  display:inline-flex;align-items:center;min-height:46px;
  line-height:1.3;text-align:left}
 .fbtn:hover{background:rgba(255,255,255,.22)}
+#card:focus{outline:none}
+.missbox .misssave{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:10px 0 0;font-size:.85rem;opacity:.95}
+.missbox .misssave button.small{min-height:44px;padding:8px 12px;font-size:.9rem;font-weight:800;border-radius:10px;cursor:pointer;
+  font-family:inherit;color:#fff;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.4)}
+.missbox .misssave button.small:hover,.missbox .misssave button.small:focus{background:rgba(255,255,255,.22);outline:none}
+.missbox .misssave button.small:focus-visible{outline:3px solid #fff;outline-offset:2px}
+.missbox .misswarn{margin:0 0 10px;padding:10px 12px;border-radius:10px;background:rgba(200,0,49,.35);border:1px solid rgba(255,255,255,.4);color:#fff;font-size:.9rem}
+#card:focus-visible{outline:3px solid var(--gold);outline-offset:4px;border-radius:14px}
 .fbtn.active{background:var(--gold);color:#2a1f00;border-color:#fff2c4}
 .fbtn.dim{opacity:.34;cursor:not-allowed}
 .fbtn b{font-weight:900}
@@ -1506,10 +1514,12 @@ window.NGN = (function(){
     try{ c.focus({preventScroll:true}); }catch(e){ c.focus(); }
   }
 
-  function scrollTop(){
-    /* land on the question card, not the filter bar above it */
-    var c=document.getElementById('card')||document.getElementById('quiz');
-    if(!c) return;
+  /* The height of whatever sticks to the top is measured once and again on
+     resize - not by walking every element in the body on every Prev/Next,
+     which on a 5,700-question page was the slowest thing a tap did
+     (Codex audit F08). */
+  var stickyOff=null;
+  function measureSticky(){
     var off=0;
     [].forEach.call(document.querySelectorAll('body *'),function(el){
       var cs=window.getComputedStyle(el);
@@ -1519,6 +1529,14 @@ window.NGN = (function(){
       if(r.top<=2&&r.height>0&&r.height<200&&r.width>window.innerWidth*0.6)
         off=Math.max(off,r.bottom);
     });
+    stickyOff=off; return off;
+  }
+  window.addEventListener('resize',function(){ stickyOff=null; });
+  function scrollTop(){
+    /* land on the question card, not the filter bar above it */
+    var c=document.getElementById('card')||document.getElementById('quiz');
+    if(!c) return;
+    var off=stickyOff===null?measureSticky():stickyOff;
     var y=c.getBoundingClientRect().top+(window.pageYOffset||document.documentElement.scrollTop)-off-10;
     if(y<0) y=0;
     var rm=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1833,10 +1851,55 @@ window.NGN = (function(){
       try{ db=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ db={}; }
       if(typeof db!=='object'||!db) db={};
     }
+    /* A private window, a full quota or a blocked storage API all make
+       setItem throw, and the pile would silently vanish on reload. Remember
+       the failure so the panel can say so (Codex audit F09). */
+    var saveFailed=false;
     function save(){
-      try{ localStorage.setItem(KEY, JSON.stringify(db)); }catch(e){}
+      try{ localStorage.setItem(KEY, JSON.stringify(db)); saveFailed=false; return true; }
+      catch(e){ saveFailed=true; return false; }
     }
     load();
+
+    /* Export / import: the pile lives in one browser's localStorage, which a
+       cleared cache or a new phone loses. The file is the same object that is
+       stored, wrapped with a version and its key. */
+    function exportPile(){
+      var pad=function(n){ return (n<10?'0':'')+n; }, d=new Date();
+      var name='absn-review-pile-'+d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+'.json';
+      var blob=new Blob([JSON.stringify({v:1, key:KEY, exported:d.toISOString(), data:db}, null, 1)], {type:'application/json'});
+      var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=name;
+      document.body.appendChild(a); a.click();
+      setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+      return name;
+    }
+    function isEntry(e){
+      return e && typeof e==='object' &&
+        (e.b===undefined || (typeof e.b==='number' && e.b>=1 && e.b<=TOP+1)) &&
+        (e.d===undefined || typeof e.d==='number') &&
+        (e.m===undefined || typeof e.m==='number') &&
+        (e.t===undefined || typeof e.t==='number');
+    }
+    /* Merge by question id. When both sides know a question, the one answered
+       more recently (later t) wins; the miss count keeps the larger value so
+       a re-import never makes a question look easier than it was. */
+    function importPile(text){
+      var j; try{ j=JSON.parse(text); }catch(e){ return {error:'That file is not JSON.'}; }
+      var data=(j && j.data && typeof j.data==='object') ? j.data : (j && typeof j==='object' && !Array.isArray(j) ? j : null);
+      if(!data) return {error:'That file does not hold a review pile.'};
+      var added=0, updated=0, skipped=0;
+      Object.keys(data).forEach(function(id){
+        var e=data[id];
+        if(!/^[0-9a-f]{6,}$/i.test(id) || !isEntry(e)){ skipped++; return; }
+        var cur=db[id];
+        var has=function(k){ return typeof e[k]==='number'; };
+        if(!cur){ db[id]={b:has('b')?e.b:1, d:has('d')?e.d:today(), m:has('m')?e.m:0, t:has('t')?e.t:today()}; added++; return; }
+        if((e.t||0)>(cur.t||0)){ if(has('b')) cur.b=e.b; if(has('d')) cur.d=e.d; cur.t=e.t; updated++; }
+        cur.m=Math.max(cur.m||0, e.m||0);
+      });
+      var ok=save();
+      return {added:added, updated:updated, skipped:skipped, saved:ok, total:Object.keys(db).length};
+    }
 
     function record(o, right){
       var id=o&&o.qid; if(!id) return;
@@ -1880,7 +1943,8 @@ window.NGN = (function(){
     function count(){ return Object.keys(db).length; }
 
     return {record:record, entries:entries, dayName:dayName, clear:clear,
-            box:box, count:count, today:today};
+            box:box, count:count, today:today,
+            failed:function(){ return saveFailed; }, exportPile:exportPile, importPile:importPile};
   })();
 
   /* The filter drawer opens over the page on a phone, so the panel below is not
@@ -1903,11 +1967,41 @@ window.NGN = (function(){
     if(!host) return;
     var e=MISS.entries();
 
+    var warn=MISS.failed()
+      ? '<p class="misswarn" role="alert">&#9888;&#65039; <b>Could not save your review pile in this browser.</b> '+
+        'A private window, a full storage quota or blocked site data does that. Export it below to keep it.</p>'
+      : '';
+    var keep='<p class="misssave"><span>Saved in this browser only.</span>'+
+      '<button type="button" class="plain small" id="missExport">&#11015; Export</button>'+
+      '<button type="button" class="plain small" id="missImport">&#11014; Import</button>'+
+      '<input type="file" id="missFile" accept=".json,application/json" hidden></p>';
+    function wireKeep(){
+      var x=document.getElementById('missExport'), i=document.getElementById('missImport'), f=document.getElementById('missFile');
+      if(x) x.onclick=function(){ var n=MISS.exportPile(); x.textContent='\u2713 '+n; setTimeout(function(){ x.innerHTML='&#11015; Export'; }, 4000); };
+      if(i&&f){
+        i.onclick=function(){ f.value=''; f.click(); };
+        f.onchange=function(){
+          var file=f.files&&f.files[0]; if(!file) return;
+          var rd=new FileReader();
+          rd.onload=function(){
+            var r=MISS.importPile(String(rd.result||''));
+            reviewPanel();
+            var note=document.createElement('p'); note.className='missnext'; note.setAttribute('role','status');
+            note.textContent=r.error ? r.error
+              : ('Imported: '+r.added+' new, '+r.updated+' updated'+(r.skipped?', '+r.skipped+' skipped':'')+' \u00b7 '+r.total+' in the pile'+(r.saved?'':' \u00b7 could not save'));
+            host.appendChild(note);
+          };
+          rd.readAsText(file);
+        };
+      }
+    }
+
     if(!e.all.length){
       host.className='missbox quiet';
-      host.innerHTML='<p class="missnone">&#128173; <b>Nothing in your review pile yet.</b> '+
+      host.innerHTML=warn+'<p class="missnone">&#128173; <b>Nothing in your review pile yet.</b> '+
         'Anything you get wrong lands here on its own, and comes back tomorrow, '+
-        'then in three days, then in a week, until you have it.</p>';
+        'then in three days, then in a week, until you have it.</p>'+keep;
+      wireKeep();
       return;
     }
 
@@ -1934,7 +2028,8 @@ window.NGN = (function(){
          MISS.dayName(e.soonest,e.today)+'.</p>';
     }
     h+='<button type="button" class="missclear" id="missClear">Empty the pile</button>';
-    host.innerHTML=h;
+    host.innerHTML=warn+h+keep;
+    wireKeep();
 
     var a=document.getElementById('missStart');
     if(a) a.onclick=function(){ startReview(e.due.slice(0,25)); };
