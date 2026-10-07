@@ -731,6 +731,11 @@
     boot();
   }
   window.addEventListener('load', function () { setTimeout(go, 200); });
-  /* the quiz swaps panels in and out long after load */
-  document.addEventListener('click', function () { setTimeout(go, 250); }, true);
+  /* the quiz swaps panels in and out long after load - but only a control
+     that changes layout needs a rescan, not every tap on the page
+     (Codex audit F08) */
+  document.addEventListener('click', function (e) {
+    var t = e.target && e.target.closest && e.target.closest('summary,button,.fbtn,.fb,.fold-h,[role="tab"],[aria-expanded]');
+    if (t) setTimeout(go, 250);
+  }, true);
 })();

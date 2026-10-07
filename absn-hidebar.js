@@ -815,8 +815,15 @@
   function watch() {
     if (!window.MutationObserver) return;
     var pending = null;
+    /* A sticky bar is never born inside the quiz card, the gallery grid, the
+       search results or a module body - those churn constantly (every quiz
+       answer, every gallery filter) and rescanning the page for each was the
+       bulk of the main-thread time on a phone (Codex audit F08). */
+    var CONTENT = '#groups,#quiz,#card,#ssResults,.modbody,details.mod,.fold-body,#pool,#missBox';
     new MutationObserver(function (recs) {
       for (var i = 0; i < recs.length; i++) {
+        var tgt = recs[i].target;
+        if (tgt && tgt.closest && tgt.closest(CONTENT)) continue;
         var added = recs[i].addedNodes;
         for (var j = 0; j < added.length; j++) {
           if (added[j].nodeType !== 1 || ours(added[j])) continue;
@@ -879,11 +886,19 @@
 
   function start() {
     sweep();
+    /* one sweep per frame, however many nodes a quiz draw() or a gallery
+       render() inserts in the same tick (Codex audit F08) */
+    var queued = false;
+    function later() {
+      if (queued) return;
+      queued = true;
+      (window.requestAnimationFrame || setTimeout)(function () { queued = false; sweep(); });
+    }
     new MutationObserver(function (records) {
       for (var i = 0; i < records.length; i++) {
         var r = records[i];
         if (r.type === 'attributes') sync(r.target);
-        else sweep();
+        else later();
       }
     }).observe(document.documentElement, {
       subtree: true, childList: true,
