@@ -302,6 +302,12 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
   `python3 tools/scope-css.py '#site-extras' assets/module06/site-sections.css nur258-module-base.css absn-adhd-enhanced.css nur258-module-overrides.css`.
   Caroline asked for those sections to stay when Codex's replacement dropped them.
 
+- **Pages Codex builds arrive on a light "paper" theme; the site is dark and jewel-toned.**
+  Caroline wants them to match (7 Oct). Link `assets/jewel-dark.css` LAST on any such page -
+  it recolours only (Burns pages, Burn Clinic, NG-287, NG-289, Module 6 already do). When
+  committing while a helper agent edits files, stage paths explicitly: a blanket `git add -A`
+  on 7 Oct published half-finished clinical edits.
+
 ## Her other repos
 
 `drug-guide`, `NUR-125-Fundamentals`, `Laboratory-and-Diagnostic-Tests-for-Nursing`,
