@@ -34,6 +34,44 @@ IDATTR   = re.compile(r'\bid\s*=\s*["\']([^"\']+)["\']', re.I)
 MAXTEXT = 520          # chars of body text kept per entry
 MINTEXT = 2            # shorter than this and the entry is just a heading
 
+# Chrome that every page carries and no one searches for: the menu, the sticky
+# bars, the fold bar, the robot guide. Left in, "Open all sections" matched 28
+# pages and the same ATI section names came back 150 times with nothing under
+# them (Codex audit F03). Each is an element opener; strip_blocks() removes the
+# element to its matching close.
+CHROME = re.compile(
+    r'<(nav)\b[^>]*>'
+    r'|<(div|aside|section|header)\b[^>]*\bid\s*=\s*["\'](?:side|navBtns|absnNav)["\'][^>]*>'
+    r'|<(a)\b[^>]*\bclass\s*=\s*["\'][^"\']*\bple-module-skip\b[^"\']*["\'][^>]*>'
+    r'|<(div|aside|section|header)\b[^>]*\bclass\s*=\s*["\'][^"\']*\b'
+    r'(?:bar|modbar|ple-module-bar|ple-module-actions|focusbar|foldbar|adhd-guide|adhd-index-atlas|absn-robot)\b[^"\']*["\'][^>]*>',
+    re.I)
+BOILER_PAGES = 10      # a heading on more pages than this, with no text under it, is chrome
+
+
+def strip_blocks(body):
+    """Remove each CHROME element and everything inside it, matching the
+    element's own open/close tags so nested divs do not cut it short."""
+    out, pos = [], 0
+    while True:
+        m = CHROME.search(body, pos)
+        if not m:
+            out.append(body[pos:])
+            break
+        tag = next(g for g in m.groups() if g).lower()
+        out.append(body[pos:m.start()])
+        depth, i = 1, m.end()
+        pair = re.compile(r'<(/?)%s\b[^>]*>' % tag, re.I)
+        while depth:
+            n = pair.search(body, i)
+            if not n:
+                i = len(body)
+                break
+            depth += -1 if n.group(1) else 1
+            i = n.end()
+        pos = i
+    return ''.join(out)
+
 
 def text_of(chunk):
     chunk = DROP.sub(' ', chunk)
@@ -95,7 +133,7 @@ def main():
         b = re.search(r'<body\b[^>]*>', body, re.I)
         if b:
             body = body[b.end():]
-        body = DROP.sub(' ', COMMENT.sub(' ', body))
+        body = strip_blocks(DROP.sub(' ', COMMENT.sub(' ', body)))
 
         marks = list(HEAD.finditer(body))
         if not marks:
@@ -123,11 +161,35 @@ def main():
                             'a': nearest_id(m.group(0), m.group(2), body[:m.start()]),
                             't': t[:MAXTEXT]})
 
+    # Second pass: drop what would only be noise in the results.
+    #  - a heading with no text under it, when the same heading sits on more
+    #    than BOILER_PAGES pages (ATI section names, "QUICK RECALL")
+    #  - a second entry on the same page with the same text as one already kept
+    #  - "Show 5 more" summaries take their parent's heading, so the hidden
+    #    five items are found under the name of the list they belong to
+    on_pages = {}
+    for e in entries:
+        on_pages.setdefault(e['h'], set()).add(e['p'])
+    kept, seen, last_h = [], set(), {}
+    for e in entries:
+        if re.match(r'^(Show|Hide) \d+ (more|these)', e['h']) and e['p'] in last_h:
+            e['h'] = last_h[e['p']] + ' \u00b7 more'
+        if not e['t'] and len(on_pages.get(e['h'], ())) > BOILER_PAGES:
+            continue
+        key = (e['p'], e['t'][:200]) if e['t'] else (e['p'], 'h:' + e['h'])
+        if key in seen:
+            continue
+        seen.add(key)
+        kept.append(e)
+        last_h[e['p']] = e['h']
+    dropped = len(entries) - len(kept)
+    entries = kept
+
     out = {'sites': [{'k': SITE, 'n': 'Study Hub'}], 'pages': pages, 'entries': entries}
     dest = os.path.join(REPO, 'search-index.json')
     with open(dest, 'w', encoding='utf-8') as fh:
         json.dump(out, fh, ensure_ascii=False, separators=(',', ':'))
-    print('pages', len(pages), 'entries', len(entries),
+    print('pages', len(pages), 'entries', len(entries), 'noise dropped', dropped,
           'redirect stubs skipped', skipped_redirect,
           'size MB', round(os.path.getsize(dest) / 1e6, 2))
 

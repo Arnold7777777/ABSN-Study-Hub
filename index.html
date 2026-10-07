@@ -201,6 +201,16 @@ a.tile:focus-visible{border-color:#fff}
 #ssResults .b-125{background:rgba(47,107,255,.95);color:#fff}
 #ssResults .b-175{background:rgba(18,184,134,.95);color:#fff}
 #ssResults mark{background:rgba(255,194,51,.95);color:#231a02;padding:0 2px;border-radius:3px;font-weight:800}
+#ssResults a.ssr.sub{margin-left:14px;padding:7px 11px;border-left-width:3px;opacity:.95}
+#ssResults .sssub{display:none;margin:-3px 0 8px}
+#ssResults .sssub.on{display:block}
+#ssResults button.ssmore,#ssResults button.ssnext{
+  display:block;width:100%;min-height:44px;margin:-3px 0 9px;padding:8px 12px;text-align:left;
+  font:inherit;font-size:.86rem;font-weight:800;color:#fff;cursor:pointer;
+  background:rgba(255,255,255,.07);border:1px dashed rgba(255,255,255,.35);border-radius:10px}
+#ssResults button.ssnext{text-align:center;font-size:.95rem;border-style:solid;background:rgba(157,92,255,.45)}
+#ssResults button.ssmore:hover,#ssResults button.ssmore:focus,#ssResults button.ssnext:hover,#ssResults button.ssnext:focus{background:rgba(255,255,255,.2);outline:none}
+#ssResults button:focus-visible{outline:3px solid #fff;outline-offset:2px}
 @media(max-width:620px){#ssResults{max-height:70vh}}
 </style>
 
@@ -345,47 +355,91 @@ a.tile:focus-visible{border-color:#fff}
           if(g.length){ got=g; narrowed=tries[k]; ws=tries[k]; break; }
         }
       }
-      var hits=got;
-      var total=hits.length;
+      var total=got.length;
       if(!total){
         results.classList.remove('on'); results.innerHTML='';
         status.textContent='No matches for \u201c'+q+'\u201d.';
         return;
       }
+      /* One result per PAGE, not per section: "anemia" used to come back as
+         forty near-identical rows from three pages (Codex audit F03). Each
+         page shows its best section and offers the rest behind one tap. */
+      var byPage={}, groups=[];
+      got.forEach(function(row){
+        var k=row[1].p;
+        if(!(k in byPage)){ byPage[k]=groups.length; groups.push({pg:row[2], rows:[]}); }
+        groups[byPage[k]].rows.push(row);
+      });
       /* The hub has far more pages than the sibling sites, so a plain top-40
          buries every Drug Guide / Labs hit. Give each site that matched a few
          guaranteed slots, then fill the rest by score. */
-      var LIMIT=40, PERSITE=4, seen={}, order=[], counts={}, picked=[], rest=[];
-      hits.forEach(function(row){
-        var k=row[2].s||'?';
+      var PAGE=40, PERSITE=4, seen={}, order=[], counts={}, picked=[], rest=[];
+      groups.forEach(function(g){
+        var k=g.pg.s||'?';
         if(!(k in counts)){ counts[k]=0; order.push(k); seen[k]=0; }
         counts[k]++;
-        if(seen[k]<PERSITE){ seen[k]++; picked.push(row); } else { rest.push(row); }
+        if(seen[k]<PERSITE){ seen[k]++; picked.push(g); } else { rest.push(g); }
       });
-      hits=picked.concat(rest).slice(0,LIMIT);
-      hits.sort(function(a,b){return b[0]-a[0];});
+      var ordered=picked.concat(rest);
       var parts=order.map(function(k){
         return '<b>'+counts[k]+'</b> '+esc(SITE_LABEL[k]||k);
       });
       status.innerHTML=
         (narrowed?'No exact match for \u201c'+esc(q)+'\u201d \u00b7 showing <b>'+
                   esc(narrowed.join(' '))+'</b> \u00b7 ':'')+
-        '<b>'+total+'</b> match'+(total===1?'':'es')+
-        (order.length>1?' \u00b7 '+parts.join(' \u00b7 '):'')+
-        (total>LIMIT?' \u00b7 showing the best '+LIMIT:'');
-      var html='';
-      hits.forEach(function(row){
+        '<b>'+groups.length+'</b> page'+(groups.length===1?'':'s')+' \u00b7 <b>'+total+'</b> section'+(total===1?'':'s')+
+        (order.length>1?' \u00b7 '+parts.join(' \u00b7 '):'');
+      function card(row,sub){
         var e=row[1], pg=row[2];
-        html+='<a class="ssr s-'+esc(pg.s)+'" href="'+esc(linkFor(pg,e))+'" target="_blank" rel="noopener">'+
-              '<div class="ssmeta"><span class="badge b-'+esc(pg.s)+'">'+
-              esc(SITE_LABEL[pg.s]||pg.s)+'</span>'+esc(pg.t||'')+'</div>'+
+        return '<a class="ssr'+(sub?' sub':'')+' s-'+esc(pg.s)+'" href="'+esc(linkFor(pg,e))+'" target="_blank" rel="noopener">'+
+              (sub?'':'<div class="ssmeta"><span class="badge b-'+esc(pg.s)+'">'+
+              esc(SITE_LABEL[pg.s]||pg.s)+'</span>'+esc(pg.t||'')+'</div>')+
               '<div class="ssh">'+hi(e.h,ws)+'</div>'+
               (e.t?'<div class="sst">'+hi(e.t,ws)+'</div>':'')+'</a>';
-      });
-      results.innerHTML=html;
-      results.classList.add('on');
+      }
+      var MORE=12;
+      function render(upto){
+        var html='';
+        ordered.slice(0,upto).forEach(function(g,i){
+          html+=card(g.rows[0],false);
+          var extra=g.rows.slice(1,1+MORE);
+          if(extra.length){
+            var n=g.rows.length-1;
+            html+='<button type="button" class="ssmore" aria-expanded="false" aria-controls="sssub'+i+'">'+
+                  n+' more section'+(n===1?'':'s')+' on this page \u25B8</button>'+
+                  '<div class="sssub" id="sssub'+i+'">'+extra.map(function(r){return card(r,true);}).join('')+'</div>';
+          }
+        });
+        if(upto<ordered.length){
+          var left=ordered.length-upto;
+          html+='<button type="button" class="ssnext" data-upto="'+(upto+PAGE)+'">Show '+Math.min(PAGE,left)+' more page'+(left===1?'':'s')+' ('+left+' left)</button>';
+        }
+        results.innerHTML=html;
+        results.classList.add('on');
+      }
+      var budget=+results.getAttribute('data-upto')||PAGE;
+      if(results.getAttribute('data-q')!==q){ budget=PAGE; results.setAttribute('data-q',q); results.removeAttribute('data-upto'); }
+      render(budget);
     });
   }
+  /* the "more sections" and "show more pages" buttons */
+  results.addEventListener('click',function(ev){
+    var b=ev.target.closest&&ev.target.closest('button.ssmore,button.ssnext');
+    if(!b) return;
+    if(b.classList.contains('ssmore')){
+      var box=document.getElementById(b.getAttribute('aria-controls'));
+      var on=box&&box.classList.toggle('on');
+      b.setAttribute('aria-expanded', on?'true':'false');
+      b.textContent=b.textContent.replace(/[\u25B8\u25BE]$/, on?'\u25BE':'\u25B8');
+    } else {
+      var upto=+b.getAttribute('data-upto');
+      var first=results.querySelectorAll('a.ssr:not(.sub)').length;
+      /* re-run the render with a bigger budget by replaying the last query */
+      results.setAttribute('data-upto', upto); run();
+      var cards=results.querySelectorAll('a.ssr:not(.sub)');
+      if(cards[first]) cards[first].focus();
+    }
+  });
 
   var timer=null;
   input.addEventListener('input',function(){ clearTimeout(timer); timer=setTimeout(run,130); });
