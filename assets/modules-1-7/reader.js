@@ -20,7 +20,7 @@ function run(){
   const replacement=el('div','sr-replacement');replacement.dataset.srOriginalGraphic=original;
   const title=el('h3','',rep.title);replacement.append(title);
   if(rep.image){const a=el('a');a.href=rep.image;a.target='_blank';a.rel='noopener';const image=el('img');image.src=rep.image;image.alt=rep.alt||rep.title;image.loading='lazy';if(rep.w){image.width=rep.w;image.height=rep.h;}a.append(image);replacement.append(a);}
-  const a=el('a','sr-visual-link','🖼️ Open illustrated study card & course labels');a.href=rep.page;a.target='_blank';a.rel='noopener';replacement.append(a);
+  if(rep.note)replacement.append(el('p','sr-note',rep.note));const a=el('a','sr-visual-link','🖼️ Open illustrated study card & course labels');a.href=rep.page;a.target='_blank';a.rel='noopener';replacement.append(a);
   target.replaceWith(replacement);if(figure)figure.dataset.srReplaced='true';
  });
  // Inline clinical drawings are replaced using the stable original SVG order.
@@ -30,7 +30,7 @@ function run(){
   const panel=el('div','sr-replacement');panel.dataset.srOriginalInline=rep.label||'';
   panel.append(el('h3','',rep.title));
   if(rep.image){const a=el('a');a.href=rep.image;a.target='_blank';a.rel='noopener';const im=el('img');im.src=rep.image;im.alt=rep.alt||rep.title;im.loading='lazy';if(rep.w){im.width=rep.w;im.height=rep.h;}a.append(im);panel.append(a);}
-  const link=el('a','sr-visual-link','🖼️ Open readable diagram & course labels');link.href=rep.page;link.target='_blank';link.rel='noopener';panel.append(link);svg.replaceWith(panel);
+  if(rep.note)panel.append(el('p','sr-note',rep.note));const link=el('a','sr-visual-link','🖼️ Open readable diagram & course labels');link.href=rep.page;link.target='_blank';link.rel='noopener';panel.append(link);svg.replaceWith(panel);
  });
  // Reuse the user's preferred rustic coach for the dynamically inserted robots.
  $$('#moduleHeroRobot,.ple-high-robot').forEach(host=>{const im=el('img');im.src=config.robot;im.alt='Rustic copper robot study coach';im.loading='lazy';im.style.cssText='display:block;width:100%;max-width:110px;height:auto;object-fit:contain';host.replaceChildren(im);});
