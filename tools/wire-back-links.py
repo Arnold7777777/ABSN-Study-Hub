@@ -31,7 +31,7 @@ parent link for its drawer's "Course hub" button.
 Run it after adding, renaming or re-linking pages, alongside the other wire
 tools.
 """
-import glob, html, os, re, sys
+import glob, html, json, os, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(ROOT)
@@ -174,6 +174,18 @@ def main():
             t = os.path.normpath(os.path.join(here, h))
             if t in exists and t != f:
                 linked_from.setdefault(t, set()).add(f)
+        # Codex's reader layer (wire-module-reader.py) links its companion pages only at
+        # runtime: an inline swap, or a replacement whose old diagram this page shows
+        cfg = re.search(r'<script id="sr-config" type="application/json">(.*?)</script>', s, re.S)
+        if cfg:
+            c = json.loads(cfg.group(1))
+            body = s.replace(cfg.group(0), '')
+            used = [r for r in (c.get('replacements') or {}).values() if r.get('source') and r['source'] in body]
+            used += [r for r in c.get('inline') or []]
+            for r in used:
+                t = os.path.normpath(r.get('page') or '')
+                if t in exists and t != f:
+                    linked_from.setdefault(t, set()).add(f)
 
     # the Visual library's card tags say which course and module a page is for
     tagged = {}

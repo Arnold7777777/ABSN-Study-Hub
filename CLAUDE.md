@@ -279,6 +279,14 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
   `absn-vprev.css` from the Visual-references block of `absn-adhd-enhanced.css`, because the NG
   pages don't load that stylesheet. It opens Drive's `/preview` viewer, not `img/previews/sn-*.webp`:
   those are 537x760 thumbnails, too small to read. Re-run it after adding handout links.
+- **Modules 1–7 of NUR 234, 235 and 258 carry Codex's "reader" layer** (7 Oct, presentation only).
+  `assets/modules-1-7/reader.js` runs after our helpers and adds the "Choose one place to start"
+  panel, list runs, named Show-more labels, phone table cards, and swaps the old diagrams for new
+  illustrations plus companion pages in `assets/modules-1-7/visuals/`. The page source is untouched
+  underneath: `python3 tools/wire-module-reader.py` writes the additions (CSS link, `sr-module` body
+  class, `data-sr-inline` markers, `#sr-config`, script) from `tools/module-reader-data.json`;
+  `--check` verifies, `--remove` rolls the layer off. Never hand-edit those markers. Each replacement
+  carries its image's `w`/`h` so the box is reserved before it loads; keep that if you add one.
 - **Module pages open folded.** `absn-fold.js` (last script on every module page) wraps
   each direct child of `.modbody` / `details.mod > .body` in a native `<details class="fold">`
   *inside* the child, so the direct children - which `absn-focus.js`, `nur258-module.js` and
