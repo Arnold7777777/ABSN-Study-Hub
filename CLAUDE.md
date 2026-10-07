@@ -303,10 +303,13 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
   Caroline asked for those sections to stay when Codex's replacement dropped them.
 
 - **Pages Codex builds arrive on a light "paper" theme; the site is dark and jewel-toned.**
-  Caroline wants them to match (7 Oct). Link `assets/jewel-dark.css` LAST on any such page -
-  it recolours only (Burns pages, Burn Clinic, NG-287, NG-289, Module 6 already do). When
-  committing while a helper agent edits files, stage paths explicitly: a blanket `git add -A`
-  on 7 Oct published half-finished clinical edits.
+  Caroline wants them to match (7 Oct). Codex now ships its own dark theme: `assets/jewel/jewel.css`
+  linked LAST plus `<body class="absn-jewel">` (Burns pages, Burn Clinic, NG-287, NG-289, Module 6).
+  Its rustic robots and the medical mosaic live in `assets/jewel/` as WEBP; `assets/burn-learning.js`
+  builds `rustic-<id>.webp` paths from that folder. When a Codex page arrives, re-apply our fixes on
+  top of it: relative links instead of `https://arnold7777777.github.io/...`, WEBP image paths, and
+  Module 6's `#site-extras` section and resources list. When committing while a helper agent edits
+  files, stage paths explicitly: a blanket `git add -A` on 7 Oct published half-finished clinical edits.
 
 ## Her other repos
 

@@ -4,6 +4,12 @@
   const root = document.getElementById('learning-app');
   const byId = new Map(data.questions.map(q => [q.id, q]));
   const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const isGame=data.type==='game';
+  const artBase=new URL('jewel/',document.currentScript.src).href;
+  const icons={jordan:'🫁',alex:'💧',sam:'🩹',maya:'🦾'};
+  const picture=(id,cls,alt='')=>`<img class="${cls}" src="${artBase}rustic-${esc(id)}.webp" alt="${esc(alt)}" width="256" height="256" loading="lazy">`;
+  const stations=()=>`<ol class="clinic-stations" aria-label="Your three case decisions">${queue.map((id,i)=>`<li class="${i===cursor?'active':has(id)?'complete':''}" ${i===cursor?'aria-current="step"':''}>${has(id)?'✓ ':''}${i+1}. ${esc(byId.get(id).topic)}</li>`).join('')}</ol>`;
+  const badgeShelf=()=>`<section aria-label="Learning badge collection"><h3>🏅 Your clinic badges</h3><div class="clinic-badges">${data.groups.map(g=>`<div class="clinic-badge ${done(g.items)===g.items.length?'earned':''}"><b aria-hidden="true">${icons[g.id]}</b><strong>${esc(g.badge)}</strong><br>${done(g.items)===g.items.length?'Earned · case reviewed':`${done(g.items)} of ${g.items.length} decisions`}</div>`).join('')}</div></section>`;
   let answers = {}, group = null, queue = [], cursor = 0, sessionOnly = false;
   try {
     const saved = JSON.parse(localStorage.getItem(data.storageKey) || '{}');
@@ -26,7 +32,8 @@
   function home(focus=true) {
     group=null; queue=[];
     root.innerHTML=`<div class="app-heading"><div><p class="eyebrow">${data.type==='game'?'Clinic board':'Practice options'}</p><h2 tabindex="-1" data-focus>${data.type==='game'?'Choose a patient':'Choose your practice set'}</h2></div><span class="status-chip">${done(data.questions.map(q=>q.id))} / ${data.questions.length} completed</span></div>
-      <div class="case-grid">${data.groups.map((g,i)=>`<button class="case-card" data-group="${esc(g.id)}"><span class="case-number">${String(i+1).padStart(2,'0')}</span><strong>${esc(g.title)}</strong><span>${esc(g.subtitle)}</span><span class="case-progress">${done(g.items)} / ${g.items.length} ${data.type==='game'?'decisions':'questions'} reviewed</span>${done(g.items)===g.items.length?`<span class="badge">${g.badge?esc(g.badge)+' · ':''}Completed · ${score(g.items)}/${g.items.length} correct</span>`:''}</button>`).join('')}</div>
+      <div class="case-grid">${data.groups.map((g,i)=>`<button class="case-card" data-group="${esc(g.id)}">${isGame?picture(g.id,'case-portrait',`Rustic copper robot companion for ${g.title.split(' · ')[0]}`):''}<span class="case-number">${isGame?icons[g.id]+' Station ':''}${String(i+1).padStart(2,'0')}</span><strong>${esc(g.title)}</strong><span>${esc(g.subtitle)}</span><span class="case-progress">${done(g.items)} / ${g.items.length} ${data.type==='game'?'decisions':'questions'} reviewed</span>${done(g.items)===g.items.length?`<span class="badge">${g.badge?esc(g.badge)+' · ':''}Completed · ${score(g.items)}/${g.items.length} correct</span>`:''}</button>`).join('')}</div>
+      ${isGame?badgeShelf()+`<aside class="clinic-guide">${picture('nurse','guide-art','Rustic nurse robot')}<p><strong>Ready for your shift?</strong><br>Choose any patient. Read the chart, make a decision, and learn why. You can pause or retry any time.</p></aside>`:''}
       ${status()}<button class="quiet" data-reset>Reset saved progress</button>`;
     root.querySelectorAll('[data-group]').forEach(b=>b.addEventListener('click',()=>start(b.dataset.group)));
     root.querySelector('[data-reset]').addEventListener('click',()=>{if(confirm('Reset only the saved progress for this activity?')){answers={};save();home();}});
@@ -43,13 +50,14 @@
   }
   function feedback(q) {
     const right=correct(q.id);
-    return `<div class="feedback ${right?'is-correct':'is-review'}" tabindex="-1" id="feedback" role="status"><h3>${right?'Correct':'Review this decision'}</h3>${!right?`<p><strong>Best answer:</strong> ${esc(q.options[q.correct])}</p>`:''}<p>${esc(q.explanation)}</p></div>${sources(q)}`;
+    return `<div class="feedback ${right?'is-correct':'is-review'}" tabindex="-1" id="feedback" role="status"><h3>${right?'✓ Correct — good reasoning':'🔎 Review this decision'}</h3>${!right?`<p><strong>Best answer:</strong> ${esc(q.options[q.correct])}</p>`:''}<p>${esc(q.explanation)}</p></div>${sources(q)}`;
   }
   function render() {
     const q=byId.get(queue[cursor]), answered=has(q.id);
     root.innerHTML=`<div class="app-heading"><button class="quiet" data-home>${data.type==='game'?'← Clinic board':'← Practice sets'}</button><span class="status-chip">${cursor+1} / ${queue.length}</span></div>
       <div class="progress-track" role="progressbar" aria-label="${data.type==='game'?'Decisions':'Questions'} reviewed" aria-valuemin="0" aria-valuemax="${queue.length}" aria-valuenow="${done(queue)}"><span style="width:${done(queue)/queue.length*100}%"></span></div>
-      <p class="eyebrow">${esc(group.title)} · ${esc(q.topic)}</p>${q.context?`<aside class="patient-note"><strong>Patient chart</strong><p>${esc(q.context)}</p></aside>`:''}
+      ${isGame?stations():''}
+      <p class="eyebrow">${isGame?icons[group.id]+' ':''}${esc(group.title)} · ${esc(q.topic)}</p>${isGame?`<div class="clinic-scene">${picture(group.id,'patient-art',`Robot companion for ${group.title.split(' · ')[0]}`)}`:''}${q.context?`<aside class="patient-note"><strong>📋 Patient chart</strong><p>${esc(q.context)}</p></aside>`:''}${isGame?'</div>':''}
       <h2 class="question-title" tabindex="-1" data-focus>${esc(q.prompt)}</h2>
       <form id="answer-form"><fieldset ${answered?'disabled':''}><legend class="sr-only">Choose one answer</legend><div class="choices">${q.options.map((o,i)=>`<label class="choice ${answered&&i===q.correct?'choice-correct':''} ${answered&&i===answers[q.id]&&i!==q.correct?'choice-review':''}"><input type="radio" name="answer" value="${i}" ${answered&&answers[q.id]===i?'checked':''}><span><b class="choice-letter">${String.fromCharCode(65+i)}</b>${esc(o)}${answered&&i===q.correct?'<small>Best answer</small>':''}${answered&&answers[q.id]===i&&i!==q.correct?'<small>Your answer</small>':''}</span></label>`).join('')}</div></fieldset>
       ${answered?'':`<button class="primary" type="submit" id="check-answer" disabled>${data.type==='game'?'Make this decision':'Check answer'}</button>`}</form>
@@ -68,7 +76,7 @@
   function results() {
     const missed=queue.filter(id=>!correct(id));
     root.innerHTML=`<p class="eyebrow">${esc(group.title)} · Complete</p><h2 tabindex="-1" data-focus>${score(queue)} of ${queue.length} correct</h2><p>${data.type==='game'?'You completed this patient’s learning pathway.':'You reviewed this practice set.'} ${missed.length?'Use the review below, then retry the decisions you missed.':'Every answer in this round is correct.'}</p>
-      ${group.badge?`<div class="earned-badge">${esc(group.badge)}<span>Learning pathway completed</span></div>`:''}
+      ${group.badge?`<div class="earned-badge">${isGame?picture('coach','result-art','Rustic study-coach robot celebrating the completed case'):''}🏅 ${esc(group.badge)}<span>Case reviewed · learning badge earned</span></div>`:''}
       <div class="question-actions">${missed.length?'<button class="primary" data-retry>Retry missed</button>':''}<button class="quiet" data-replay>Start this set again</button><button class="quiet" data-home>${data.type==='game'?'Clinic board':'Practice sets'}</button></div>
       <h3>Review your decisions</h3><ol class="review-list">${queue.map(id=>{const q=byId.get(id);return `<li><details><summary>${correct(id)?'Correct':'Review'} · ${esc(q.topic)}</summary><p>${esc(q.prompt)}</p><p><strong>Your answer:</strong> ${esc(q.options[answers[id]]||'Not answered')}</p><p><strong>Best answer:</strong> ${esc(q.options[q.correct])}</p><p>${esc(q.explanation)}</p></details></li>`;}).join('')}</ol>${status()}`;
     root.querySelector('[data-home]').addEventListener('click',()=>home());
