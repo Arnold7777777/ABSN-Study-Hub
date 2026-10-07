@@ -1767,6 +1767,16 @@ window.NGN = (function(){
         if(b && !b.disabled){ b.click(); picked = true; }
       });
     });
+    /* ?n=10 picks a count chip (or types a custom number); &start=1 then
+       starts shuffled, which is what the homepage's "10 quick questions"
+       button does - one tap from the hub to question 1. */
+    var n=(p.get('n')||'').replace(/\D/g,'');
+    if(n){
+      var nb=document.querySelector('.fbtn[data-k="count"][data-v="'+n+'"]');
+      if(nb) nb.click();
+      else { var cb=document.getElementById('customCount'); if(cb){ cb.value=n; cb.dispatchEvent(new Event('input')); } }
+    }
+    if(p.get('start')==='1'){ start(true); return; }
     if(!picked) return;
     /* open the drawer so she can see what was chosen for her and change it */
     var d = document.getElementById('fdrawer');

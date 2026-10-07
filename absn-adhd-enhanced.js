@@ -139,6 +139,18 @@
 
   function placeGuide(guide){
     if(family==='index'){
+      /* The homepage opens on the study path - search, the three courses, ten
+         quick questions. The robot guide and the four-mode atlas are for a
+         first visit, so they fold away under one closed details after the
+         course row (Codex audit F01). Older markup without a course row still
+         gets the guide after the hero. */
+      var row=document.querySelector('.courserow');
+      if(row){
+        var orient=document.createElement('details');orient.className='adhd-orient';orient.setAttribute('data-adhd-ui','');
+        var sum=document.createElement('summary');sum.textContent='\uD83E\uDD16 New here? How this hub works';orient.appendChild(sum);
+        orient.appendChild(guide);row.insertAdjacentElement('afterend',orient);
+        return;
+      }
       var hero=document.querySelector('.hero');
       if(hero) hero.insertAdjacentElement('afterend',guide); else document.body.insertBefore(guide,document.body.firstChild);
       return;
