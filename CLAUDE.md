@@ -311,6 +311,13 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
   Module 6's `#site-extras` section and resources list. When committing while a helper agent edits
   files, stage paths explicitly: a blanket `git add -A` on 7 Oct published half-finished clinical edits.
 
+- **When sources disagree, go with her textbooks** (Caroline, 7 Oct: "Go with what my textbooks
+  say"). For NUR 234 that is Pillitteri, *Maternal and Child Health Nursing*, and the ATI Maternal
+  Newborn book. So: boggy uterus deviated to the right = **empty the bladder first**, then massage;
+  boggy and midline = massage first; PPH and cord prolapse include oxygen by mask. Where ATI itself
+  hedges (late decelerations: oxygen "if maternal hypoxia or per policy"), the site follows ATI's
+  decelerations section. A newer guideline can be mentioned as a side note, never as the answer key.
+
 ## Her other repos
 
 `drug-guide`, `NUR-125-Fundamentals`, `Laboratory-and-Diagnostic-Tests-for-Nursing`,
