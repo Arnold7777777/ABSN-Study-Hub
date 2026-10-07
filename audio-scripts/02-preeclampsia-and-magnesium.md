@@ -39,7 +39,7 @@ labetalol, hydralazine, nifedipine. Magnesium protects the brain. Antihypertensi
 protect the vessels. Different jobs.
 
 Magnesium is a central nervous system depressant, which is exactly why it
-works and exactly why it is dangerous. Toxicity arrives in a predictable order,
+works and exactly why it is dangerous. Toxicity usually arrives in this order,
 and knowing the order is what lets you catch it early.
 
 **Reflexes go first.** The deep tendon reflexes become sluggish, then absent.
@@ -48,6 +48,10 @@ That is your earliest warning, and it is why you check them every hour.
 **Then respirations.** Breathing slows. Below twelve is a problem.
 
 **Then the heart.** Cardiac arrest.
+
+Usually, not always. Act on whichever sign you find. If her breathing has
+slowed, you do not wait for the reflexes to disappear before you stop the
+infusion.
 
 There is a fourth thing to watch that is not a symptom at all: **urine output**.
 Magnesium is cleared entirely by the kidneys. If output drops below thirty

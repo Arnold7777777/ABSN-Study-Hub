@@ -36,25 +36,30 @@ in step. Late is lagging behind.
 
 Now the action, because this is what gets asked.
 
-Late decelerations, or repetitive variables, and you go through **intrauterine
-resuscitation** in this order:
+Late decelerations, or repetitive variables, and you start **intrauterine
+resuscitation**. Current guidance matches the steps to the cause rather than
+running them as a fixed list, but one of them is almost always the right first
+answer.
 
 **Reposition first.** Turn her onto her side. It is instant, it costs nothing,
 and it takes the weight of the uterus off the vena cava so more blood reaches
-the placenta. It is the first thing precisely because it is the fastest thing.
+the placenta. It is first precisely because it is the fastest thing.
 
 **Stop the oxytocin** if it is running. Contractions are the problem, so stop
 making them.
 
 **Give an IV fluid bolus.** More volume, more placental perfusion.
 
-**Give oxygen** by non-rebreather mask.
-
 **And notify the provider.**
 
-Reposition, stop the pitocin, fluids, oxygen, notify. That sequence is worth
-memorising in order, because the exam will offer you all five and ask which
-comes **first**.
+Notice what is not on that list. **Oxygen is not routine.** Older books and
+older test banks still say to put a non-rebreather on every mother with late
+decelerations. Current obstetric guidance says give oxygen when the mother
+herself is hypoxic, or when your unit's protocol calls for it, and not
+otherwise. If her saturation is normal, oxygen is not the answer.
+
+So: reposition, stop the oxytocin, fluids, notify. When a question asks what
+comes **first**, it is nearly always reposition.
 
 One last thing that matters more than any deceleration. **Moderate variability**
 — the normal jitter in the baseline, six to twenty-five beats — is the single
@@ -72,7 +77,7 @@ is placental, and it is the dangerous one.
 
 Early mirrors the contraction. Late lags behind it.
 
-For lates: reposition, stop the oxytocin, fluids, oxygen, notify. Reposition
-first.
+For lates: reposition, stop the oxytocin, fluids, notify. Reposition first.
+Oxygen only if the mother is hypoxic.
 
 And moderate variability beats everything. Flat is not calm — flat is bad.
