@@ -81,6 +81,13 @@ def counts():
         data = json.loads(bank.group(1))
         n = sum(len(v) for v in data.values()) if isinstance(data, dict) else len(data)
         out[name] = plural(n, 'question')
+
+    # The slide-deck pages: one <section class="deck"> per deck. These sat at
+    # 13 / 15 / 4 in every side menu while the pages grew to 26 / 36 / 27 on
+    # 7 Oct 2026, because nothing wrote them.
+    for path in sorted(glob.glob(os.path.join(ROOT, 'nur*-slides.html'))):
+        name = os.path.basename(path)
+        out[name] = plural(len(re.findall(r'<section class="deck', read(name))), 'deck')
     return out
 
 
