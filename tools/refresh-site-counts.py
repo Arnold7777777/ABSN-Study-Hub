@@ -42,8 +42,14 @@ NSN_LINKED = sum(1 for c in re.split(r'(?=<div class="card[^"]*" data-kind=")', 
 print(f'questions {NQ}  easy {DIFF["easy"]} moderate {DIFF["moderate"]} hard {DIFF["hard"]}')
 print('cards', NCARDS, dict(KIND), 'sn linked', NSN_LINKED)
 
+# the bedside tests page: one <article class="tst"> per test. The index tile
+# said 53 while the page held 57, then 90 (7 Oct 2026) - nothing wrote it.
+NBED = (ROOT / 'bedside-tests.html').open(encoding='utf-8').read().count('<article class="tst"')
+print('bedside tests', NBED)
+
 # ---- rewrites: (file, pattern, replacement, expected count) -------------------
 EDITS = [
+    ('index.html', r'<p class="desc">[\d,]+ tests &mdash;', f'<p class="desc">{fmt(NBED)} tests &mdash;', 1),
     ('index.html', r'<b>[\d,]+ questions</b>', f'<b>{fmt(NQ)} questions</b>', 1),
     ('index.html', r'<div class="sub">[\d,]+ (?:graphics|infographics)(?: &middot; [\d,]+ items)? &middot; searchable</div>',
      f'<div class="sub">{fmt(KIND["infographic"])} infographics &middot; {fmt(NCARDS)} items &middot; searchable</div>', 1),
