@@ -487,6 +487,10 @@ def main():
     if unmatched:
         print('WARNING: %d cdn.fbsbx.com link(s) left - they need a Drive copy '
               'finding and adding to DEAD_LINKS' % unmatched)
+    # The page is regenerated from scratch, so its back bars go with it.
+    import subprocess
+    subprocess.run([sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                                 'wire-back-links.py')], check=False)
     print('Now run: python3 tools/build-search-index.py')
 
 
