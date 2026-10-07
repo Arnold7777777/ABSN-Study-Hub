@@ -273,6 +273,12 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
   the wire tools all key on - are unchanged. Spotlight, One bite, search hits, `#anchors`
   and print re-open what they point at. Nothing is persisted: closed on every load is the
   point, and the Open-all bar is the escape hatch.
+- **The homepage, quiz page and gallery quote totals that nothing wrote.** "5,614
+  questions" and "306 graphics" on index.html sat a hundred and nine hundred off
+  the real figures until Codex's audit on 6 Oct. `python3 tools/refresh-site-counts.py`
+  now rewrites every static copy from the quiz bank and the gallery cards
+  (`--check` to verify); run it after adding questions or cards, alongside
+  `node tools/refresh-infographic-counts.mjs` for the per-chip numbers.
 - **A module page's slot counts are hand-written and drift.** `lectures`,
   `mindmap` and `alt` stay right because scripts write them; `info` had no
   writer, so three pages disagreed with their own cards — module 4 said 7 against
