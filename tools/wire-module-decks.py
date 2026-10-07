@@ -43,7 +43,7 @@ def card(d):
         prev, cls = '', 'igcard'
     where = 'opens in Drive' if d.get('external') else 'open the deck'
     sub = ('%d slides &mdash; %s &rarr;' % (d['slides'], where)) if d.get('slides') \
-        else ('%s &rarr;' % where[0].upper() + where[1:])
+        else ('%s &rarr;' % (where[0].upper() + where[1:]))
     tgt = ' target="_blank" rel="noopener"' if d.get('external') else ''
     return ('<a class="%s" href="%s"%s>%s'
             '<span class="igico" aria-hidden="true">&#128202;</span>'

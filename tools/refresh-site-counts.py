@@ -44,7 +44,7 @@ print('cards', NCARDS, dict(KIND), 'sn linked', NSN_LINKED)
 
 # ---- rewrites: (file, pattern, replacement, expected count) -------------------
 EDITS = [
-    ('index.html', r'<b>[\d,]+ questions</b>', f'<b>{fmt(NQ)} questions</b>', 2),
+    ('index.html', r'<b>[\d,]+ questions</b>', f'<b>{fmt(NQ)} questions</b>', 1),
     ('index.html', r'<div class="sub">[\d,]+ (?:graphics|infographics)(?: &middot; [\d,]+ items)? &middot; searchable</div>',
      f'<div class="sub">{fmt(KIND["infographic"])} infographics &middot; {fmt(NCARDS)} items &middot; searchable</div>', 1),
     ('index.html', r'<b>[\d,]+ of your own (?:robot-nurse )?infographics</b>[^<]*?searchable\. ',
