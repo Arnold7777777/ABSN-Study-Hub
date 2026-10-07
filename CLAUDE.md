@@ -273,6 +273,12 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
   already has its height. The visual library's search-and-filter block is a closed
   `details#igfold` for the same reason, so `refresh-infographic-counts.mjs` opens it
   after every reload before it can click a chip.
+- **Every Simple Nursing handout link has a closed "Preview here" beside it** (Caroline, 7 Oct):
+  the `snsrcl` button on ~261 NG pages and the `a.igcard.pdfh` handout grids on the module pages.
+  `python3 tools/wire-sn-previews.py` writes them (`--check` to verify) and generates
+  `absn-vprev.css` from the Visual-references block of `absn-adhd-enhanced.css`, because the NG
+  pages don't load that stylesheet. It opens Drive's `/preview` viewer, not `img/previews/sn-*.webp`:
+  those are 537x760 thumbnails, too small to read. Re-run it after adding handout links.
 - **Module pages open folded.** `absn-fold.js` (last script on every module page) wraps
   each direct child of `.modbody` / `details.mod > .body` in a native `<details class="fold">`
   *inside* the child, so the direct children - which `absn-focus.js`, `nur258-module.js` and
