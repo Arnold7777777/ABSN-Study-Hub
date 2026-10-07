@@ -267,6 +267,12 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
   the gallery and re-run the tool, then `refresh-module-info-counts.py`. The slot opener
   must stay exactly `<div class="slot filled" data-slot="visual">` - the info counter
   bounds its count at that opener.
+- **Every Visual references card carries a closed "Preview here" and a "New tab" link**
+  (Caroline, 7 Oct). `wire-module-visuals.py` writes them; `absn-vprev.js` builds the
+  Drive `/preview` iframe or the full plate only when she opens one, inside a box that
+  already has its height. The visual library's search-and-filter block is a closed
+  `details#igfold` for the same reason, so `refresh-infographic-counts.mjs` opens it
+  after every reload before it can click a chip.
 - **Module pages open folded.** `absn-fold.js` (last script on every module page) wraps
   each direct child of `.modbody` / `details.mod > .body` in a native `<details class="fold">`
   *inside* the child, so the direct children - which `absn-focus.js`, `nur258-module.js` and

@@ -49,6 +49,8 @@ BOARD = 'infographics.html'
 END = '<!-- /visual-refs -->'
 COURSES = ('NUR 234', 'NUR 235', 'NUR 258')
 FOLD_TAG = '<script defer src="absn-fold.js"></script>'
+VPREV_TAG = '<script defer src="absn-vprev.js"></script>'
+DRIVE_ID = re.compile(r'drive\.google\.com/(?:file/d/|open\?id=|uc\?[^"]*id=)([A-Za-z0-9_-]{20,})')
 
 # group order on the page, label, icon
 KINDS = OrderedDict([
@@ -189,6 +191,28 @@ def primary_link(c, page):
     return href, where, external
 
 
+def inline_preview(c, href):
+    """(type, src) for the card's 'Preview here' box, or None.
+
+    Caroline asked (7 Oct 2026) for every visual reference to be viewable
+    without leaving the module page: Drive files embed through Drive's own
+    /preview viewer, an infographic shows its full plate, a study page is
+    framed. The box stays closed until she opens it, and absn-vprev.js only
+    builds the iframe or image then, so a page with sixty cards loads nothing
+    extra."""
+    m = DRIVE_ID.search(html.unescape(href))
+    if m:
+        return 'drive', 'https://drive.google.com/file/d/%s/preview' % m.group(1)
+    for _cl, h, _b in c['plinks']:
+        if h.startswith('img/') and re.search(r'\.(webp|png|jpe?g|gif)$', h, re.I):
+            return 'img', h
+    if re.search(r'\.(webp|png|jpe?g|gif)$', href, re.I) and not href.startswith('http'):
+        return 'img', href
+    if (href.endswith('.html') or '.html#' in href) and not href.startswith('http'):
+        return 'page', href
+    return None
+
+
 def card_html(c, page):
     pl = primary_link(c, page)
     if not pl:
@@ -203,10 +227,28 @@ def card_html(c, page):
                 ' width="%s" height="%s"></span>' % (src, alt, w, h))
         cls = 'igcard hasprev'
     else:
-        prev, cls = '', 'igcard'
-    return ('<a class="%s" href="%s"%s>%s<span class="igico" aria-hidden="true">%s</span>'
+        # no thumbnail of our own: Drive renders one for any shared file
+        m = DRIVE_ID.search(html.unescape(href))
+        if m:
+            prev = ('<span class="igprev"><img src="https://drive.google.com/thumbnail?id=%s&amp;sz=w760" '
+                    'alt="" loading="lazy" decoding="async" width="760" height="428" referrerpolicy="no-referrer"></span>'
+                    % m.group(1))
+            cls = 'igcard hasprev'
+        else:
+            prev, cls = '', 'igcard'
+    card = ('<a class="%s" href="%s"%s>%s<span class="igico" aria-hidden="true">%s</span>'
             '<span class="ignm">%s<span class="igsub">%s</span></span></a>'
             % (cls, href, tgt, prev, icon, c['title'], sub))
+    # Under every card: a closed inline preview and an open-in-new-tab link,
+    # both 44px tall (Caroline, 7 Oct 2026: previews for all of them, collapsed
+    # by default, and the option to open in a new tab).
+    ip = inline_preview(c, href)
+    acts = ''
+    if ip:
+        acts += ('<details class="vprev"><summary><span aria-hidden="true">&#128065;&#65039;</span> Preview here</summary>'
+                 '<div class="vprevb" data-type="%s" data-src="%s" data-open="%s"></div></details>' % (ip[0], ip[1], href))
+    acts += '<a class="vnew" href="%s" target="_blank" rel="noopener">&#8599; New tab</a>' % href
+    return '<div class="vcell">%s<div class="vact">%s</div></div>' % (card, acts)
 
 
 def groups_html(cards, page):
@@ -286,7 +328,14 @@ def wire_module_page(page, cls, mod, cards):
     if 'absn-fold.js' not in t:
         k = t.rfind('</body>')
         t = t[:k] + FOLD_TAG + '\n' + t[k:]
-    return s, t
+    return s, with_vprev(t)
+
+
+def with_vprev(t):
+    if 'absn-vprev.js' in t:
+        return t
+    k = t.rfind('</body>')
+    return t[:k] + VPREV_TAG + '\n' + t[k:]
 
 
 def wire_258_hub(by_mod):
@@ -300,7 +349,7 @@ def wire_258_hub(by_mod):
         j = j if j > 0 else len(t)
         seg = insert_after_info(t[i:j], slot_html('NUR 258', mod, by_mod.get(mod, []), page))
         t = t[:i] + seg + t[j:]
-    return s, t
+    return s, with_vprev(t)
 
 
 def wire_link_hub(cls, by_mod):
@@ -320,7 +369,7 @@ def wire_link_hub(cls, by_mod):
         mttl = re.sub(r'<[^>]+>', '', mt.group(1)).strip() if mt else ''
         block = panel_html(cls, mod, mttl, by_mod.get(mod, []), page)
         t = t[:end] + '\n' + block + t[end:]
-    return s, t
+    return s, with_vprev(t)
 
 
 # --------------------------------------------------------------------------

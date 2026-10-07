@@ -25,6 +25,9 @@ const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromi
 const p = await browser.newPage({ viewport: { width: 1200, height: 900 } });
 await p.goto(url, { waitUntil: 'load' });
 await p.waitForTimeout(800);
+/* the search-and-filters block is a closed <details> since 7 Oct; chips inside it cannot be clicked shut */
+const unfold = () => p.evaluate(() => { const d = document.getElementById('igfold'); if (d) d.open = true; });
+await unfold();
 
 const chips = await p.$$eval('.fb[data-k]', els => els
   .filter(e => e.querySelector('.fn'))
@@ -34,6 +37,7 @@ const real = [];
 for (const c of chips) {
   await p.reload({ waitUntil: 'load' });
   await p.waitForTimeout(250);
+  await unfold();
   await p.click(`.fb[data-k="${c.k}"][data-v="${c.v.replace(/"/g, '\\"')}"]`);
   await p.waitForTimeout(150);
   const n = await p.evaluate(() => {
