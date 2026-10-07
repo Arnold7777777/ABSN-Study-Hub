@@ -155,6 +155,16 @@
       if(hero) hero.insertAdjacentElement('afterend',guide); else document.body.insertBefore(guide,document.body.firstChild);
       return;
     }
+    /* A page that leads with its modules (nur234.html, Caroline 7 Oct) folds the
+       guide into a closed note near the footer instead of a hero above them. */
+    if(document.body.getAttribute('data-guide')==='fold'){
+      var fold=document.createElement('details');fold.className='adhd-orient';fold.setAttribute('data-adhd-ui','');
+      var fs=document.createElement('summary');fs.textContent='\uD83E\uDD16 How this course page works';fold.appendChild(fs);
+      fold.appendChild(guide);
+      var foot=document.querySelector('.wrap > .foot, .foot');
+      if(foot&&foot.parentNode) foot.parentNode.insertBefore(fold,foot); else (document.querySelector('.wrap')||document.body).appendChild(fold);
+      return;
+    }
     var heading=document.querySelector('h1');
     var top=heading&&(heading.closest('header')||heading);
     if(top&&top.parentNode) top.insertAdjacentElement('afterend',guide);
