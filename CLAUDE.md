@@ -292,6 +292,16 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
   Module 12's `info` count is deliberate: no cards, one inline triage table, so
   the tool skips any slot with nothing to count.
 
+- **NUR 258 Module 6 is Codex's light study layout, not the dark module template** (7 Oct).
+  Its eight guides and quiz live in `assets/module06/`; the site's own sections (mind map,
+  decks, lectures, infographics, Visual references, ALT) sit inside `<section id="site-extras">`
+  so the wire tools still find their slots. Those sections are styled by
+  `assets/module06/site-sections.css`, a copy of the module stylesheets scoped to
+  `#site-extras` - regenerate it after changing `nur258-module-base.css`,
+  `absn-adhd-enhanced.css` or `nur258-module-overrides.css`:
+  `python3 tools/scope-css.py '#site-extras' assets/module06/site-sections.css nur258-module-base.css absn-adhd-enhanced.css nur258-module-overrides.css`.
+  Caroline asked for those sections to stay when Codex's replacement dropped them.
+
 ## Her other repos
 
 `drug-guide`, `NUR-125-Fundamentals`, `Laboratory-and-Diagnostic-Tests-for-Nursing`,
