@@ -312,9 +312,11 @@
     hub.textContent = '\u2302 ABSN Study Hub';
     home.appendChild(hub);
 
-    /* and this course's own hub, if the page names one */
-    var course = null;
-    [].forEach.call(document.querySelectorAll('a'), function (a) {
+    /* and this page's own study guide: tools/wire-back-links.py writes it
+       into nav.absn-back on every page; older pages name a course hub */
+    var course = document.querySelector('nav.absn-back a.par');
+    var courseLabel = course ? (course.textContent || '').replace(/^\s*\S+\s*/, '') : '';
+    [].forEach.call(course ? [] : document.querySelectorAll('a'), function (a) {
       if (course) return;
       var txt = (a.textContent || '').trim();
       if (/course hub|back to all/i.test(txt) && a.getAttribute('href')) course = a;
@@ -323,7 +325,7 @@
       var c = document.createElement('a');
       c.className = 'course';
       c.href = course.getAttribute('href');
-      c.textContent = '\u2302 Course hub';
+      c.textContent = courseLabel ? '\uD83D\uDCD8 ' + courseLabel : '\u2302 Course hub';
       home.appendChild(c);
     }
 
@@ -846,6 +848,12 @@
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && open) set(false);
   });
+  /* and so does a tap anywhere outside it */
+  document.addEventListener('click', function (e) {
+    if (!open || !drawer) return;
+    if (drawer.contains(e.target) || (btn && btn.contains(e.target))) return;
+    set(false);
+  }, true);
 })();
 
 /* ---------------------------------------------------------------------------

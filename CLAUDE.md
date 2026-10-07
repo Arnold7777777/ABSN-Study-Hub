@@ -311,6 +311,17 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
   Module 6's `#site-extras` section and resources list. When committing while a helper agent edits
   files, stage paths explicitly: a blanket `git add -A` on 7 Oct published half-finished clinical edits.
 
+- **Every page has a way back** (Caroline, 7 Oct: "you can get back to the study hub and the main
+  study guide page for whatever subpage you are on"). `python3 tools/wire-back-links.py` writes a
+  `nav.absn-back` bar at the top and bottom of all ~553 pages: Study Hub plus the parent study
+  guide, worked out from which module page links to it, then the gallery card's course/module tags
+  (NUR 125/175/198 cards point to those sibling sites), then the folder index. `--list` shows the
+  choice per page, `--check` verifies. Run it after adding or re-linking pages; never hand-edit
+  the bars. `absn-hidebar.js` reads the first parent link for its drawer's course button.
+- **Side menus fold.** Codex's `.study-rail` (the 9 jewel pages) gets a toggle from
+  `assets/jewel/rail.js`, closed on phones and open on a computer; link it on any new jewel page.
+  The site drawer closes on Escape or a tap outside it. The Mega Quiz filter drawer opens on
+  arrival on purpose; she asked for that.
 - **When sources disagree, go with her textbooks** (Caroline, 7 Oct: "Go with what my textbooks
   say"). For NUR 234 that is Pillitteri, *Maternal and Child Health Nursing*, and the ATI Maternal
   Newborn book. So: boggy uterus deviated to the right = **empty the bladder first**, then massage;
