@@ -287,6 +287,14 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
   class, `data-sr-inline` markers, `#sr-config`, script) from `tools/module-reader-data.json`;
   `--check` verifies, `--remove` rolls the layer off. Never hand-edit those markers. Each replacement
   carries its image's `w`/`h` so the box is reserved before it loads; keep that if you add one.
+- **The same new illustrations replace the old diagrams everywhere else** (8 Oct): later modules,
+  NG pages, hubs and gallery cards. `python3 tools/wire-diagram-swaps.py` swaps them in the source
+  from the reader's replacement map (`--check` to verify). To fix a picture, replace the file under
+  the same name; every page follows. Companion pages' label panels are tidied into bullets and
+  subheadings by `python3 tools/tidy-companion-labels.py`; run it on any new companion page.
+- **DI sodium is "HIGH — hypernatremia" in all her sources** (ATI Med-Surg ch. 77, Maternal-Child
+  ch. 48 p. 1366, NUR 258 EndocrinePrt1 slide 51, NUR 235 endocrine lecture). "May be normal"
+  stays a side note only.
 - **Module pages open folded.** `absn-fold.js` (last script on every module page) wraps
   each direct child of `.modbody` / `details.mod > .body` in a native `<details class="fold">`
   *inside* the child, so the direct children - which `absn-focus.js`, `nur258-module.js` and
