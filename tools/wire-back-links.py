@@ -85,6 +85,9 @@ HREF = re.compile(r'''(?:href=["']|hop\(\s*['"])([^"'#?]+)''')
 STUB = re.compile(r'<meta[^>]+http-equiv=["\']?refresh', re.I)
 
 
+# Codex's game arcades: every course's rooms on one page, so no single study guide is its parent
+ARCADES = {'games/module-arcade.html', 'games/later-module-arcade.html'}
+
 def pages():
     out = []
     for f in sorted(glob.glob('**/*.html', recursive=True)):
@@ -267,6 +270,8 @@ def main():
                 parents = ['pediatrics.html']
             if not parents and f.startswith('games/') and 'games.html' in exists:
                 parents = ['games.html']
+        if f in ARCADES:
+            parents = []                  # one page serves three courses' rooms: the Study Hub only
         if LIST:
             print('%-60s %s' % (f, ' | '.join('%s [%s]' % (p, label(p)) for p in parents) or '(hub only)'))
             continue

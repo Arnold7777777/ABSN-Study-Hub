@@ -340,6 +340,14 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
   (NUR 125/175/198 cards point to those sibling sites), then the folder index. `--list` shows the
   choice per page, `--check` verifies. Run it after adding or re-linking pages; never hand-edit
   the bars. `absn-hidebar.js` reads the first parent link for its drawer's course button.
+- **Codex's game arcades** (8 Oct): `games/module-arcade.html` (Modules 4–7, `assets/module-arcade/`)
+  and `games/later-module-arcade.html` (Modules 8–14, `assets/later-module-arcade/`), one room per
+  module in all three courses, progress in `localStorage` (`absn-arcade-v1:` / `absn-later-arcade-v1:`).
+  Each module page carries a "Play this module" card written by `python3 tools/wire-arcade-cards.py`
+  from `tools/arcade-card-map.json` (`--check`, `--remove`); never hand-edit the cards. Course pages load
+  only the scoped `module-card.css`, never `arcade.css`. The case questions are the course quiz keys
+  verbatim; the matching and visual items are Codex-written and were checked against the textbook rule.
+  Fix an item in `data.js`/`challenges.js` by its `id` and keep the id, or her saved progress detaches.
 - **Side menus fold.** Codex's `.study-rail` (the 9 jewel pages) gets a toggle from
   `assets/jewel/rail.js`, closed on phones and open on a computer; link it on any new jewel page.
   The site drawer closes on Escape or a tap outside it. The Mega Quiz filter drawer opens on
