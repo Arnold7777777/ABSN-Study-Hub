@@ -86,7 +86,7 @@ STUB = re.compile(r'<meta[^>]+http-equiv=["\']?refresh', re.I)
 
 
 # Codex's game arcades: every course's rooms on one page, so no single study guide is its parent
-ARCADES = {'games/module-arcade.html', 'games/later-module-arcade.html'}
+ARCADES = {'games/early-module-arcade.html', 'games/module-arcade.html', 'games/later-module-arcade.html'}
 
 def pages():
     out = []

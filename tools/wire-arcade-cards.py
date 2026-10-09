@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Put a "Play this module" card for Codex's game arcades on the module pages.
 
-Codex's two game packages (8 Oct) are standalone pages:
+Codex's three game packages (8-9 Oct) are standalone pages:
+  games/early-module-arcade.html  Modules 1-3   (assets/early-module-arcade/)
   games/module-arcade.html        Modules 4-7   (assets/module-arcade/)
   games/later-module-arcade.html  Modules 8-14  (assets/later-module-arcade/)
 Each module page gets one small card linking to its room, plus the card's own
@@ -26,7 +27,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(ROOT)
 MAP = 'tools/arcade-card-map.json'
 
-CARD = re.compile(r'\n?<section class="absn-(?:later-)?arcade-card" id="[^"]+".*?</section>\n?', re.S)
+CARD = re.compile(r'\n?<section class="absn-(?:later-|early-)?arcade-card" id="[^"]+".*?</section>\n?', re.S)
 LINK = re.compile(r'<link rel="stylesheet" data-arcade-card href="[^"]*">\n')
 
 
