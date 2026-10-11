@@ -349,6 +349,14 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
   only the scoped `module-card.css`, never `arcade.css`. The case questions are the course quiz keys
   verbatim; the matching and visual items are Codex-written and were checked against the textbook rule.
   Fix an item in `data.js`/`challenges.js` by its `id` and keep the id, or her saved progress detaches.
+- **`course-materials/` is Codex's NUR 235 Modules 7-13 collection** (11 Oct): completed concept maps
+  and case studies with answers, one page per original slide, own `study.css`/`study.js` (never load
+  those site-wide). The module pages reach it through 14 gallery cards in `infographics.html`
+  (`img/previews/cm-*.webp`), so `wire-module-visuals.py` writes them like any other card. The PPTX
+  `original-media/` folders were left out (nothing links them), so were the two byte-identical "(1)"
+  originals; the Neuro and Fracture PPTX were too big for the connector and link to copies in the
+  link-shared Drive folder "NUR 235 course materials - originals for the site". Its "Check with your
+  instructor" asides sit beside six questionable keys; keep them there, never copy those keys into a quiz.
 - **Side menus fold.** Codex's `.study-rail` (the 9 jewel pages) gets a toggle from
   `assets/jewel/rail.js`, closed on phones and open on a computer; link it on any new jewel page.
   The site drawer closes on Escape or a tap outside it. The Mega Quiz filter drawer opens on
