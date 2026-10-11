@@ -376,6 +376,10 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
   as `figure#vm-<slug>` beside its topic with `visual-mnemonics/vm-insert.css`, plus 18 gallery cards
   and a hub link. Its SIADH/DI picture says DI "can" raise sodium; the page caption and viewer box
   restate her rule (HIGH). Never insert a second copy of a figure: check the id first.
+- **`pediatric-visuals/` is Codex's 74 disease cards for NUR 235 Modules 7–13** (11 Oct): one viewer per
+  disease, WEBP plates, `div.pv-block#pediatric-visuals-mN` inside each module's Infographics slot plus
+  "Picture + mnemonic" rows beside her own topic boxes, scoped `pv-insert.css`, 74 gallery cards marked
+  `data-pv`. Intussusception and GERD viewers carry a "What your course page says" note; keep them.
 - **Side menus fold.** Codex's `.study-rail` (the 9 jewel pages) gets a toggle from
   `assets/jewel/rail.js`, closed on phones and open on a computer; link it on any new jewel page.
   The site drawer closes on Escape or a tap outside it. The Mega Quiz filter drawer opens on
