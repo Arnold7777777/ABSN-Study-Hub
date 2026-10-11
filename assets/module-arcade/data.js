@@ -3034,7 +3034,7 @@ window.MODULE_ARCADE_DATA = {
           "ans": [
             2
           ],
-          "why": "An itchy vesicular rash starting on the trunk is <b>varicella</b>, and contagion ends only when every lesion has crusted. The 4-day rule belongs to rubeola and the rash-means-no-longer-contagious rule belongs to fifth disease — and neither rubeola nor rubella itches.",
+          "why": "An itchy vesicular rash starting on the trunk is <b>varicella</b>, and contagion ends only when every lesion has crusted. The 4-day rule belongs to measles (rubeola) and the rash-means-no-longer-contagious rule belongs to fifth disease — and neither measles (rubeola) nor German measles (rubella) itches.",
           "sourceNumber": 5
         },
         {
@@ -3118,7 +3118,7 @@ window.MODULE_ARCADE_DATA = {
           "ans": [
             1
           ],
-          "why": "A paroxysmal cough with an inspiratory whoop is pertussis, which requires <b>droplet</b> precautions. Airborne — or airborne plus contact — is reserved for rubeola and varicella, and over-assigning pertussis to airborne is the classic error on this isolation grid.",
+          "why": "A paroxysmal cough with an inspiratory whoop is pertussis, which requires <b>droplet</b> precautions. Airborne is for rubeola (measles), and airborne plus contact for varicella, and over-assigning pertussis to airborne is the classic error on this isolation grid.",
           "sourceNumber": 13
         },
         {
