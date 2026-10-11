@@ -359,6 +359,9 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
   originals; the Neuro and Fracture PPTX were too big for the connector and link to copies in the
   link-shared Drive folder "NUR 235 course materials - originals for the site". Its "Check with your
   instructor" asides sit beside six questionable keys; keep them there, never copy those keys into a quiz.
+  Its other keyed questions (69, from Modules 7, 8, 10, 11, 12) are in the module quizzes, nur235-quiz.html and
+  super-mega-quiz.html, each with a `src` naming the deck and slide; grids, drop-downs and calculations were
+  rewritten as single or select-all. Endocrine slide 6 was left out too: its priority key is not textbook.
 - **Side menus fold.** Codex's `.study-rail` (the 9 jewel pages) gets a toggle from
   `assets/jewel/rail.js`, closed on phones and open on a computer; link it on any new jewel page.
   The site drawer closes on Escape or a tap outside it. The Mega Quiz filter drawer opens on
