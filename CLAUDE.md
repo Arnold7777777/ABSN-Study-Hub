@@ -270,7 +270,9 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
 - **Every Visual references card carries a closed "Preview here" and a "New tab" link**
   (Caroline, 7 Oct). `wire-module-visuals.py` writes them; `absn-vprev.js` builds the
   Drive `/preview` iframe or the full plate only when she opens one, inside a box that
-  already has its height. The visual library's search-and-filter block is a closed
+  already has its height. The "Lecture slides" deck cards (`tools/wire-module-decks.py`) carry the
+  same pair since 11 Oct, with Drive's thumbnail standing in when a deck has no preview of its own;
+  that slot ends at `<!-- /deck -->`. The visual library's search-and-filter block is a closed
   `details#igfold` for the same reason, so `refresh-infographic-counts.mjs` opens it
   after every reload before it can click a chip.
 - **Every Simple Nursing handout link has a closed "Preview here" beside it** (Caroline, 7 Oct):

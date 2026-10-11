@@ -27,17 +27,40 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(ROOT)
 CHECK = '--check' in sys.argv
 
-SLOT = re.compile(r'<div class="slot filled" id="deck[^"]*" data-slot="deck">.*?</div></div>', re.S)
+# A slot ends at its END marker. Slots written before the cards carried their
+# own preview boxes (11 Oct 2026) end at the first </div></div>, so match that too;
+# the first re-run rewrites them in the marked form.
+END = '<!-- /deck -->'
+SLOT = re.compile(r'<div class="slot filled" id="deck[^"]*" data-slot="deck">'
+                  r'(?:(?:(?!data-slot="deck").)*?' + re.escape(END) + r'|.*?</div></div>)', re.S)
+DRIVE_ID = re.compile(r'drive\.google\.com/(?:file/d/|open\?id=|uc\?[^"]*id=)([A-Za-z0-9_-]{20,})')
 
 
 def card(d):
-    """The deck's card: a preview when we have one, a glyph when we do not."""
+    """The deck's card, with a closed "Preview here" and a "New tab" link under it.
+
+    Caroline asked (7 Oct 2026) for previews on every card, collapsed until she
+    opens one, and (11 Oct) for the Lecture slides cards to match. The markup is
+    the Visual references one from wire-module-visuals.py, so absn-vprev.js and
+    the same CSS serve both: the Drive viewer is only built when she opens it.
+
+    The face is our own first-slide preview when we have one. When we do not -
+    most of these are PPTX files too big for the Drive connector - Drive's own
+    thumbnail stands in, and drops out cleanly if Drive has none to give."""
+    alt = re.sub(r'<[^>]+>', '', d['title'])
+    m = DRIVE_ID.search(d['href'])
     if d.get('preview') and os.path.exists(d['preview']):
         with Image.open(d['preview']) as im:
             w, h = im.size
         prev = ('<span class="igprev"><img src="%s" alt="First slide of %s" '
                 'loading="lazy" decoding="async" width="%d" height="%d"></span>'
-                % (d['preview'], re.sub(r'<[^>]+>', '', d['title']), w, h))
+                % (d['preview'], alt, w, h))
+        cls = 'igcard hasprev'
+    elif m:
+        prev = ('<span class="igprev"><img src="https://drive.google.com/thumbnail?id=%s&amp;sz=w760" '
+                'alt="First slide of %s" loading="lazy" decoding="async" width="760" height="428" '
+                'referrerpolicy="no-referrer" onerror="var c=this.closest(\'.igcard\'),p=this.parentNode;'
+                'if(c)c.classList.remove(\'hasprev\');if(p)p.remove()"></span>' % (m.group(1), alt))
         cls = 'igcard hasprev'
     else:
         prev, cls = '', 'igcard'
@@ -45,10 +68,22 @@ def card(d):
     sub = ('%d slides &mdash; %s &rarr;' % (d['slides'], where)) if d.get('slides') \
         else ('%s &rarr;' % (where[0].upper() + where[1:]))
     tgt = ' target="_blank" rel="noopener"' if d.get('external') else ''
-    return ('<a class="%s" href="%s"%s>%s'
+    face = ('<a class="%s" href="%s"%s>%s'
             '<span class="igico" aria-hidden="true">&#128202;</span>'
             '<span class="ignm">%s<span class="igsub">%s</span></span></a>'
             % (cls, d['href'], tgt, prev, d['title'], sub))
+    if m:
+        ip = ('drive', 'https://drive.google.com/file/d/%s/preview' % m.group(1))
+    elif d['href'].endswith('.html') or '.html#' in d['href']:
+        ip = ('page', d['href'])
+    else:
+        ip = None
+    acts = ''
+    if ip:
+        acts += ('<details class="vprev"><summary><span aria-hidden="true">&#128065;&#65039;</span> Preview here</summary>'
+                 '<div class="vprevb" data-type="%s" data-src="%s" data-open="%s"></div></details>' % (ip[0], ip[1], d['href']))
+    acts += '<a class="vnew" href="%s" target="_blank" rel="noopener">&#8599; New tab</a>' % d['href']
+    return '<div class="vcell">%s<div class="vact">%s</div></div>' % (face, acts)
 
 
 def slot(ds, sid='deck'):
@@ -61,7 +96,7 @@ def slot(ds, sid='deck'):
     return ('<div class="slot filled" id="%s" data-slot="deck">'
             '<h4>&#128202; Lecture slides <span class="cnt">%d</span></h4>'
             '<p>%s</p>'
-            '<div class="shgrid iggrid">%s</div></div>'
+            '<div class="shgrid iggrid">%s</div></div><!-- /deck -->'
             % (sid, len(ds),
                'The deck this module is built on.' if len(ds) == 1
                else 'The decks this module is built on.',
