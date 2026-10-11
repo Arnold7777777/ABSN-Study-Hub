@@ -122,6 +122,7 @@ def read_cards():
         dl = re.search(r'<a class="deckdl" href="([^"]+)"', block)
         cards.append(dict(idx=len(cards), kind=kind, cls=cls, mods=mods, title=title,
                           label=kind_label, plinks=plinks, img=img, gos=gos,
+                          vprev=html.unescape(attr(head, 'data-vprev')),
                           deckdl=dl.group(1) if dl else ''))
     return cards
 
@@ -200,6 +201,16 @@ def inline_preview(c, href):
     framed. The box stays closed until she opens it, and absn-vprev.js only
     builds the iframe or image then, so a page with sixty cards loads nothing
     extra."""
+    # A card can name its own preview with data-vprev (11 Oct 2026): the
+    # course-materials case studies open an answers page, and framing that page
+    # in a 234px box showed only its header bars, never a slide. Their preview
+    # is the PowerPoint in Drive, or the slide or map image itself.
+    v = c.get('vprev')
+    if v:
+        m = DRIVE_ID.search(v)
+        if m:
+            return 'drive', 'https://drive.google.com/file/d/%s/preview' % m.group(1)
+        return 'img', v
     m = DRIVE_ID.search(html.unescape(href))
     if m:
         return 'drive', 'https://drive.google.com/file/d/%s/preview' % m.group(1)

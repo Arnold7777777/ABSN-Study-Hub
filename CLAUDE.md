@@ -362,6 +362,9 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
   Its other keyed questions (69, from Modules 7, 8, 10, 11, 12) are in the module quizzes, nur235-quiz.html and
   super-mega-quiz.html, each with a `src` naming the deck and slide; grids, drop-downs and calculations were
   rewritten as single or select-all. Endocrine slide 6 was left out too: its priority key is not textbook.
+  A gallery card can name its own inline preview with `data-vprev` (a Drive URL or an image path); the
+  case-study cards use it to show Caroline's PowerPoints in Drive, because framing the answers page showed
+  only its header bars.
 - **Side menus fold.** Codex's `.study-rail` (the 9 jewel pages) gets a toggle from
   `assets/jewel/rail.js`, closed on phones and open on a computer; link it on any new jewel page.
   The site drawer closes on Escape or a tap outside it. The Mega Quiz filter drawer opens on
