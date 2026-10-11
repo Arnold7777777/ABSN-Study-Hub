@@ -1,0 +1,6 @@
+const large=document.querySelector('#large');large?.addEventListener('click',()=>{const on=document.body.classList.toggle('large');large.setAttribute('aria-pressed',String(on));});
+const hide=document.querySelector('#hide-picture');hide?.addEventListener('click',()=>{const fig=document.querySelector('#picture');fig.hidden=!fig.hidden;hide.textContent=fig.hidden?'Show picture':'Hide picture for recall';hide.setAttribute('aria-expanded',String(!fig.hidden));});
+document.querySelector('#print')?.addEventListener('click',()=>window.print());
+const search=document.querySelector('#search'),course=document.querySelector('#course');
+function filterCards(){if(!search)return;const q=search.value.trim().toLocaleLowerCase();let n=0;document.querySelectorAll('.card').forEach(c=>{const show=(!course.value||c.dataset.course===course.value)&&(!q||c.dataset.search.includes(q));c.hidden=!show;if(show)n++;});document.querySelector('#count').textContent=n+' memory '+(n===1?'aid':'aids');document.querySelector('#empty').hidden=n!==0;}
+if(search){const requested=new URLSearchParams(location.search).get('course');if(['NUR 234','NUR 235','NUR 258'].includes(requested))course.value=requested;search.addEventListener('input',filterCards);course.addEventListener('change',filterCards);filterCards();}

@@ -365,6 +365,17 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
   A gallery card can name its own inline preview with `data-vprev` (a Drive URL or an image path); the
   case-study cards use it to show Caroline's PowerPoints in Drive, because framing the answers page showed
   only its header bars.
+- **Every infographic card shows the picture itself** (Caroline, 11 Oct: no more "Open matching
+  infographics"). `python3 tools/add-igcard-previews.py` gives each hand-written `a.igcard` a preview,
+  matched to the gallery by Drive id, linked page or title; search-link cards are pointed straight at
+  their infographic. It skips the generated Visual-references blocks: `wire-module-visuals.py` borrows
+  the same finder for cards with no `img/previews/` thumbnail. Run it (then `--check`) after adding
+  hand cards. Cards now carry `hasprev`, so any tool matching `class="igcard pdfh"` must allow
+  `(?: hasprev)?` — `wire-sn-previews.py` once stripped 325 "Preview here" buttons over exactly that.
+- **`visual-mnemonics/` is Codex's 18-picture memory workshop** (11 Oct), six per course, each inserted
+  as `figure#vm-<slug>` beside its topic with `visual-mnemonics/vm-insert.css`, plus 18 gallery cards
+  and a hub link. Its SIADH/DI picture says DI "can" raise sodium; the page caption and viewer box
+  restate her rule (HIGH). Never insert a second copy of a figure: check the id first.
 - **Side menus fold.** Codex's `.study-rail` (the 9 jewel pages) gets a toggle from
   `assets/jewel/rail.js`, closed on phones and open on a computer; link it on any new jewel page.
   The site drawer closes on Escape or a tap outside it. The Mega Quiz filter drawer opens on

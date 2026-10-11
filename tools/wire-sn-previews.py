@@ -33,10 +33,10 @@ EYE = '<span aria-hidden="true">&#128065;&#65039;</span>'
 
 SNSRC = re.compile(r'(<p class="snsrc"><a class="snsrcl" href="https://drive\.google\.com/file/d/'
                    r'([\w-]+)/view"[^>]*>.*?</a></p>)', re.S)
-PDFH = re.compile(r'<a class="igcard pdfh" href="https://drive\.google\.com/file/d/([\w-]+)/view"[^>]*>.*?</a>', re.S)
+PDFH = re.compile(r'<a class="igcard pdfh(?: hasprev)?" href="https://drive\.google\.com/file/d/([\w-]+)/view"[^>]*>.*?</a>', re.S)
 
 OLD_SNSRC = re.compile(r'<div class="vact snprev">.*?</details></div>', re.S)
-OLD_PDFH = re.compile(r'<div class="vcell snh">(<a class="igcard pdfh".*?</a>)<div class="vact snprev">.*?</details></div></div>', re.S)
+OLD_PDFH = re.compile(r'<div class="vcell snh">(<a class="igcard pdfh(?: hasprev)?".*?</a>)<div class="vact snprev">.*?</details></div></div>', re.S)
 
 
 def panel(fid, label):

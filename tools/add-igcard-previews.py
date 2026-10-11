@@ -180,9 +180,18 @@ def subtitle_for(target):
     return 'Open the study page &rarr;'
 
 
+# blocks written by tools/wire-module-visuals.py (Visual references slots and the
+# hub's modvis panels); that tool draws its own previews, so these are left alone
+GENERATED = re.compile(r'(?:<div class="slot[^"]*" data-slot="visual">|<details class="modvis" data-vismod="m\d+">)'
+                       r'.*?<!-- /visual-refs -->', re.S)
+
+
 def fix(page, s, idx, report):
     out, pos, n = [], 0, 0
+    skip = [(g.start(), g.end()) for g in GENERATED.finditer(s)]
     for m in CARD.finditer(s):
+        if any(a <= m.start() < b for a, b in skip):
+            continue
         attrs, body = m.group('attrs'), m.group('body')
         href = attr(attrs, 'href')
         if 'hasprev' in m.group('cls'):

@@ -224,6 +224,37 @@ def inline_preview(c, href):
     return None
 
 
+def page_picture(page, href, title):
+    """A card with no img/previews thumbnail and no Drive file: borrow the
+    picture tools/add-igcard-previews.py would give it (the page's own
+    screenshot, or a 760px preview of its first illustration)."""
+    import importlib.util
+    global _IGP
+    if '_IGP' not in globals():
+        spec = importlib.util.spec_from_file_location('igp', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'add-igcard-previews.py'))
+        _IGP = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(_IGP)
+    h = html.unescape(href)
+    for key, f in _IGP.EXTRA.items():
+        if key in h:
+            pic = _IGP.picture(f)
+            return dict(pic, src=os.path.relpath(pic['src'], os.path.dirname(page) or '.')) if pic else None
+    if re.match(r'^[a-z]+:', h):
+        return None
+    if re.search(r'\.(webp|png|jpe?g)$', h, re.I):
+        return _IGP.picture(os.path.normpath(os.path.join(os.path.dirname(page), h)))
+    if h.startswith('#'):
+        pic = _IGP.hero(page, h[1:])
+    elif '.html' in h:
+        path = os.path.normpath(os.path.join(os.path.dirname(page), h.split('#')[0]))
+        pic = _IGP.own_shot(path) or _IGP.hero(path)
+    else:
+        return None
+    if pic:
+        pic = dict(pic, src=os.path.relpath(pic['src'], os.path.dirname(page) or '.'))
+    return pic
+
+
 def card_html(c, page):
     pl = primary_link(c, page)
     if not pl:
@@ -246,7 +277,13 @@ def card_html(c, page):
                     % m.group(1))
             cls = 'igcard hasprev'
         else:
-            prev, cls = '', 'igcard'
+            pic = page_picture(page, href, c['title'])
+            if pic:
+                prev = ('<span class="igprev"><img src="%s" alt="Preview of %s" loading="lazy" decoding="async"'
+                        ' width="%s" height="%s"></span>' % (pic['src'], c['title'], pic['w'], pic['h']))
+                cls = 'igcard hasprev'
+            else:
+                prev, cls = '', 'igcard'
     card = ('<a class="%s" href="%s"%s>%s<span class="igico" aria-hidden="true">%s</span>'
             '<span class="ignm">%s<span class="igsub">%s</span></span></a>'
             % (cls, href, tgt, prev, icon, c['title'], sub))
