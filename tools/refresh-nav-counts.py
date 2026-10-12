@@ -164,6 +164,19 @@ def main():
         old_block = sub.group(0)
         out = out.replace(old_block,
                           sub.group(1) + want_txt + sub.group(3), 1)
+    # ...and once more on the course jump chips at the top of the page
+    # (<b class="lcn">N</b>), which nothing wrote either: on 12 Oct all five
+    # were stale, 235 saying 56 against 70.
+    def chip(m):
+        n = re.match(r'\d+', want.get('lectures.html#' + m.group(2), ''))
+        if not n or n.group(0) == m.group(3):
+            return m.group(0)
+        changes.append(('lectures.html', m.group(2) + ' chip', m.group(3), n.group(0)))
+        return m.group(1) + n.group(0) + '<'
+    chipped = re.sub(r'(href="#(nur\d+)">[^<]*<b class="lcn">)(\d+)<', chip, out)
+    if chipped != out:
+        stale += 1
+        out = chipped
     if out != lec and not check:
         with open(os.path.join(ROOT, 'lectures.html'), 'w', encoding='utf-8') as fh:
             fh.write(out)
