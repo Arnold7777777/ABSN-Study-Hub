@@ -380,6 +380,9 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
   disease, WEBP plates, `div.pv-block#pediatric-visuals-mN` inside each module's Infographics slot plus
   "Picture + mnemonic" rows beside her own topic boxes, scoped `pv-insert.css`, 74 gallery cards marked
   `data-pv`. Intussusception and GERD viewers carry a "What your course page says" note; keep them.
+  The study pages carry them too (12 Oct): `python3 tools/wire-pv-study-links.py` writes a picture row
+  (`<!-- pv-study -->`, inline styles) beside each disease on 34 NG pages from `tools/pv-study-map.json`
+  (`--check`, `--remove`, `--list`); adult pages get "In children:". Edit the map, never the rows.
 - **Side menus fold.** Codex's `.study-rail` (the 9 jewel pages) gets a toggle from
   `assets/jewel/rail.js`, closed on phones and open on a computer; link it on any new jewel page.
   The site drawer closes on Escape or a tap outside it. The Mega Quiz filter drawer opens on
