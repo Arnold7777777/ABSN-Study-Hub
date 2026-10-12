@@ -95,6 +95,21 @@ TAILS = [('Exam reviews &amp; handouts', 'exam-reviews', 'sapphire', '&#128221;'
           'Recordings whose class or lecturer is still a best guess.')]
 
 TABCOURSE = {t: c for c, tabs in COURSE_TABS.items() for t in tabs}
+# A tab holding several courses names each row's course in its Course column
+# (the SimpleNursing tab, 12 Oct: one tab for all three classes' SN videos).
+ROW_COURSE_TABS = {'SimpleNursing'}
+
+
+def course_of(tab, row):
+    if tab in TABCOURSE:
+        return TABCOURSE[tab]
+    if tab in ROW_COURSE_TABS:
+        for n, v in row['chips']:
+            if n == 'Course':
+                m = re.search(r'NUR\s*(\d{3})', v, re.I)
+                if m:
+                    return 'NUR' + m.group(1)
+    return ''
 
 
 def strip_zoom(wb):
@@ -269,7 +284,7 @@ def read_rows(wb):
 
 
 def topic_for(tab, row, modmap):
-    course = TABCOURSE.get(tab)
+    course = course_of(tab, row)
     if not course:
         return ''
     for text in [v for _, v in row['chips']] + [row['title']]:
@@ -326,7 +341,7 @@ def week_links(course, w, pages):
 
 def week_of(tab, row):
     """The week (= module) this row belongs to, or None."""
-    if tab not in TABCOURSE:
+    if not course_of(tab, row):
         return None
     for text in [v for n, v in row['chips'] if n in ('Week', 'Module')] + \
                 [v for n, v in row['chips']] + [row['title']]:
@@ -398,7 +413,7 @@ def display_title(row, wk, tab):
             keep.pop(0)
         if any(len(re.sub(r'\W', '', w)) >= 3 and not re.search(r'\d', w) for w in keep):
             return ' '.join(keep).strip(' -'), raw
-    if tab in TABCOURSE and 'Exam Reviews' not in tab and wk:
+    if course_of(tab, row) and 'Exam Reviews' not in tab and wk:
         return 'Week %d lecture' % wk, raw
     if 'Exam Reviews' in tab:
         return (('Week %d exam review' % wk) if wk else 'Exam review recording'), raw
@@ -554,7 +569,7 @@ def render(rows, modmap):
                 cls = chip(row, 'Class') or 'Other'
                 code, label, sec = cls, cls.replace(' ?', ' (class unconfirmed)'), 'other-classes'
             else:
-                code = TABCOURSE.get(tab, 'Other')
+                code = course_of(tab, row) or 'Other'
                 label = code.replace('NUR', 'NUR ') if code.startswith('NUR') else chip(row, 'Course') or 'To file'
                 sec = ('week-%d' % wk) if wk else ('still-to-file' if tab == 'Sort me' else 'exam-reviews')
             if not row['url']:
