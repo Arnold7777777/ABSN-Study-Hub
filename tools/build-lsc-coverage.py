@@ -285,16 +285,26 @@ def render():
                    'when': datetime.date.today().isoformat()}
 
 
+# The page carries the site's back bars, which tools/wire-back-links.py writes.
+# Rewriting the page dropped them twice on 12 Oct, so the check ignores them and
+# a write puts them straight back.
+BACKBARS = re.compile(r'<style id="absnBackCss">.*?</style>\n?|\n?<nav class="absn-back (?:top|bottom)".*?</nav>', re.S)
+
+
 def main():
     page = render()
     path = os.path.join(ROOT, OUT)
     old = read(OUT) if os.path.exists(path) else None
     if '--check' in sys.argv:
-        print('up to date' if old == page else 'WOULD CHANGE')
-        return 0 if old == page else 1
+        same = old is not None and BACKBARS.sub('', old) == BACKBARS.sub('', page)
+        print('up to date' if same else 'WOULD CHANGE')
+        return 0 if same else 1
     with open(path, 'w', encoding='utf-8') as fh:
         fh.write(page)
-    print('wrote %s (%d bytes)' % (OUT, len(page)))
+    import subprocess
+    subprocess.run([sys.executable, os.path.join(ROOT, 'tools', 'wire-back-links.py')],
+                   check=False, stdout=subprocess.DEVNULL)
+    print('wrote %s (%d bytes), back bars re-wired' % (OUT, len(page)))
     return 0
 
 

@@ -31,6 +31,7 @@ TEMPLATE = os.path.join(ROOT, 'tools', 'lecture-library.template.html')
 PAGE = os.path.join(ROOT, 'lecture-library.html')
 
 ZOOM_WB = '1rJXo8dn05hNyMbJZaQQz7iFtUB5SgRSc7XSluXC46IY'
+ZOOM_CELL = "'START HERE'!$B$36"
 # The leading \b matters: without it "Exam 3" matches on the m of Exam and
 # every exam-review row gets the wrong module's subject.
 NUM = re.compile(r'\b(?:module|week|wk|m)\s*0?(\d{1,2})\b', re.I)
@@ -96,8 +97,8 @@ TAILS = [('Exam reviews &amp; handouts', 'exam-reviews', 'sapphire', '&#128221;'
 
 TABCOURSE = {t: c for c, tabs in COURSE_TABS.items() for t in tabs}
 # A tab holding several courses names each row's course in its Course column
-# (the SimpleNursing tab, 12 Oct: one tab for all three classes' SN videos).
-ROW_COURSE_TABS = {'SimpleNursing'}
+# (the Review videos tab, 12 Oct: SimpleNursing and LevelUpRN for all three classes).
+ROW_COURSE_TABS = {'Review videos'}
 
 
 def course_of(tab, row):
@@ -121,6 +122,10 @@ def strip_zoom(wb):
                 if c.value is None:
                     continue
                 s = str(c.value)
+                # A button that reads its Zoom link from START HERE!B36 carries no
+                # credential: B36 is blank in every published copy (12 Oct).
+                if ZOOM_CELL in s:
+                    continue
                 if ZOOM_WB in s:
                     c.value = None; n += 1
                 elif 'zoom.us' in s:
