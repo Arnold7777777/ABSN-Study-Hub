@@ -139,6 +139,13 @@ three handouts that were linked through `cdn.fbsbx.com` at her Drive copies - th
 Facebook URLs carry an expiring signature, so they rot - and it derives the count on
 index.html's card rather than leaving it hand-written.
 
+The page's markup, CSS and filter script live in `tools/lecture-library.template.html`;
+edit that and the generator, never `lecture-library.html`. Since 12 Oct (Codex's usability
+brief) each card shows a readable title parsed from the file name, a term badge from the
+Date column ("Term unknown" when blank - never guessed from an upload date), and "Needs
+verification" when her note, a merged duplicate row or a "(topic from the speech index)"
+says so. One card per Drive file per section; the header counts unique video ids.
+
 **A HYPERLINK cell is not always `=HYPERLINK("url","label")`.** When the URL itself
 contains a double quote, Sheets writes it concatenated: `=HYPERLINK("...Va"&"Nitz...",
 "label")`. A `("[^"]+")` pattern stops at that inner quote and matches nothing, which

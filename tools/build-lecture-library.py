@@ -337,123 +337,303 @@ def week_of(tab, row):
     return None
 
 
-def card_html(row, tab, esc, topic=''):
-    """One recording. The week heading names the subject, so the chips name who.
+# ---------------------------------------------------------------------------
+# The page. Codex's usability review (12 Oct 2026) asked for a lecture *finder*:
+# a readable title instead of a storage file name, the term and any doubt shown
+# on the card rather than buried in a note, one card per Drive file, counts that
+# mean one thing, and each course's study links next to that course's
+# recordings. Everything below is derived from the workbook row - nothing is
+# invented: an unknown term says "Term unknown", a row whose day disagrees with
+# another row for the same file says "Day unconfirmed".
+# ---------------------------------------------------------------------------
+CURRENT_TERM = 'Fall 2026'
+CONVENTION = re.compile(r'^(?P<course>[A-Za-z]{3}\s?\d{3}V?)_(?P<term>[A-Za-z]+\d{4}|PriorTerm)_'
+                        r'(?P<who>[^_]+)_Wk(?P<wk>[\w-]+?)_Day(?P<day>\w+?)_(?P<desc>.+?)'
+                        r'(?:\.(?:mp4|m4a|mov|webm|mp3|pdf|pptx|docx))?$')
+MEDIA_EXT = re.compile(r'\.(mp4|m4a|mov|webm|mp3)$', re.I)
+DOC_EXT = re.compile(r'\.(pdf|pptx?|docx?)$', re.I)
+# Words a storage name is made of that say nothing about the topic.
+NOISE = re.compile(r'^(?:nur\d{3}|nur|\d{3}|fall\d{4}|spring\d{4}|summer\d{4}|priorterm|wkna|dayna|'
+                   r'w\d+(?:d\d+)?|wk\d*|m\d+(?:d\d+)?|d\d+|day\d*|only|source|screen|recording|'
+                   r'messenger|chrome|na|lecture)$', re.I)
+UNSURE = re.compile(r'(needs? (?:checking|confirming)|to confirm|not confirmed|unconfirmed|not named|'
+                    r'best guess|not sure|unverified|probabl|check (?:the|which|whether|it)|'
+                    r'open it and tell|move the row if)', re.I)
+NOT_A_PERSON = {'', 'not named', '?', 'exam prep', 'exam prep (lsc)', 'course handout'}
+PROVENANCE = re.compile(r'\s*\(([^()]*\b(?:topic from|named from|speech index)\b[^()]*)\)', re.I)
+TERM_IN_NAME = {'fall2026': 'Fall 2026', 'spring2026': 'Spring 2026', 'summer2026': 'Summer 2026',
+                'priorterm': 'Prior term'}
 
-    The subject is not shown on the card - the heading above already says it - but
-    it does go into data-s, or searching "prenatal" or "endocrine" finds only the
-    handful of rows that happen to spell it in their file name.
-    """
-    course = TABCOURSE.get(tab, '')
-    pretty = course.replace('NUR', 'NUR ') if course else ''
-    who = [v for n, v in row['chips'] if n in ('Lecturer', 'Who')]
-    day = [v for n, v in row['chips'] if n == 'Day']
-    kind = [v for n, v in row['chips'] if n in ('Type', 'Exam', 'Class')]
-    chips = ([pretty] if pretty else []) + who + day + kind
 
-    wk = week_of(tab, row)
-    # Every spelling of the week, so "week 5", "module 5", "m5" and "wk5" all land.
-    wtok = ' week%d wk%d m%d module%d week %d module %d' % ((wk,) * 6) if wk else ''
-    search = (' '.join([row['title']] + [v for _, v in row['chips']] +
-                       [row['note'], tab, course, pretty, topic]) + wtok).lower()
+def drive_id(url):
+    m = re.search(r'(?:/d/|[?&]id=)([\w-]{20,})', url or '')
+    return m.group(1) if m else (url or '')
 
-    o = ['<article class="lr" data-s="%s">' % esc(search)]
-    o.append('<h3>%s</h3>' % esc(title_for(row, '')))
-    if chips:
-        o.append('<p class="chips">%s</p>' %
-                 ''.join('<span class="c%s">%s</span>'
-                         % (' cse' if c == pretty else '', esc(c)) for c in chips))
-    if row['url']:
-        doc = (any(v.strip().upper() in ('PDF', 'PPTX', 'POWERPOINT')
-                   for n, v in row['chips'] if n == 'Type')
-               or any(fid in row['url'] for fid in DEAD_LINKS.values()))
-        o.append('<a class="play" href="%s" target="_blank" rel="noopener">%s</a>'
-                 % (esc(row['url']),
-                    '&#128196; Open on Drive' if doc else '&#9654;&#65039; Play on Drive'))
+
+def chip(row, *names):
+    for n, v in row['chips']:
+        if n in names and v:
+            return v
+    return ''
+
+
+def display_title(row, wk, tab):
+    """A title a person would write, from the row's own words only."""
+    raw = (row['title'] or '').strip()
+    if raw and not GENERIC.match(raw):
+        m = CONVENTION.match(raw)
+        if m:
+            return m.group('desc').strip(), raw
+        who = {v.lower() for n, v in row['chips'] if n in ('Lecturer', 'Who')}
+        words3 = [w for w in re.findall(r'[A-Za-z]{3,}', MEDIA_EXT.sub('', raw))
+                  if not NOISE.match(w) and w.lower() not in who]
+        # a sentence with an .mp4 on the end is still a sentence
+        descriptive = ' ' in raw and len(words3) >= 3 and not re.match(r'^\S+\s\S+\.\w+$', raw)
+        if descriptive or not (MEDIA_EXT.search(raw) or '_' in raw):
+            return MEDIA_EXT.sub('', DOC_EXT.sub('', raw)).strip(), raw
+        who = {v.lower() for n, v in row['chips'] if n in ('Lecturer', 'Who')}
+        words = re.split(r'[\s_]+', MEDIA_EXT.sub('', raw).replace('(Source)', ''))
+        keep = [w for w in words if w and not NOISE.match(w) and w.lower() not in who]
+        while keep and re.match(r'^\d+$', keep[0]):
+            keep.pop(0)
+        if any(len(re.sub(r'\W', '', w)) >= 3 and not re.search(r'\d', w) for w in keep):
+            return ' '.join(keep).strip(' -'), raw
+    if tab in TABCOURSE and 'Exam Reviews' not in tab and wk:
+        return 'Week %d lecture' % wk, raw
+    if 'Exam Reviews' in tab:
+        return (('Week %d exam review' % wk) if wk else 'Exam review recording'), raw
+    return title_for(row, '') if row['title'] else 'Recording', raw
+
+
+def term_of(row):
+    d = chip(row, 'Date')
+    if not d:
+        m = CONVENTION.match(row['title'] or '')
+        if m:
+            d = TERM_IN_NAME.get(m.group('term').lower(), '')
+    return d
+
+
+def record(tab, row, sec, course_code, course_label, wk):
+    """Everything one card needs, as plain data."""
+    url = row['url']
+    fid = drive_id(url) if url else ''
+    typ = chip(row, 'Type').upper()
+    doc = (typ in ('PDF', 'PPTX', 'POWERPOINT', 'DOCX') or fid in DEAD_LINKS.values()
+           or bool(DOC_EXT.search(row['title'] or '')))
+    title, raw = display_title(row, wk, tab)
+    # "(topic from the speech index)" is a doubt, not part of the name: badge it
+    prov = PROVENANCE.search(title)
+    if prov:
+        title = (title[:prov.start()] + title[prov.end():]).strip()
+    cat = 'handout' if doc else ('examprep' if ('Exam Reviews' in tab or 'exam prep' in typ.lower())
+                                 else 'lecture')
+    who = chip(row, 'Lecturer', 'Who')
+    return {'tab': tab, 'row': row, 'sec': sec, 'id': fid, 'url': url, 'doc': doc, 'cat': cat,
+            'course': course_code, 'clabel': course_label, 'wk': wk, 'title': title, 'raw': raw,
+            'who': who, 'day': chip(row, 'Day'), 'exam': chip(row, 'Exam'),
+            'terms': [term_of(row)], 'days': [chip(row, 'Day')], 'notes': [row['note']] if row['note'] else [],
+            'raws': [raw] if raw else [], 'chips': list(row['chips']),
+            'prov': prov.group(1) if prov else ''}
+
+
+def merge(recs):
+    """One card per Drive file within a section; disagreements are shown, not resolved."""
+    out, seen = [], {}
+    for r in recs:
+        k = r['id']
+        if not k or k not in seen:
+            if k:
+                seen[k] = r
+            out.append(r)
+            continue
+        a = seen[k]
+        if re.match(r'^(Week \d+ (lecture|exam review)|Exam review recording|Recording)$', a['title']):
+            a['title'] = r['title']
+        a['terms'] += r['terms']; a['days'] += r['days']
+        a['notes'] += [n for n in r['notes'] if n not in a['notes']]
+        a['raws'] += [x for x in r['raws'] if x not in a['raws']]
+        a['chips'] += r['chips']
+        a['merged'] = a.get('merged', 1) + 1
+    return out
+
+
+def term_badge(r):
+    ts = sorted({t for t in r['terms'] if t})
+    if len(ts) > 1:
+        return 'unconfirmed', 'Term unconfirmed'
+    t = ts[0] if ts else ''
+    if not t:
+        return 'unknown', 'Term unknown'
+    if t == CURRENT_TERM:
+        return 'current', t
+    return 'prior', 'Prior term' + ('' if t == 'Prior term' else ' &middot; ' + html.escape(t))
+
+
+def card(r, esc, topic, seen_ids):
+    tkey, tlabel = term_badge(r)
+    days = sorted({d for d in r['days'] if d})
+    day = days[0] if len(days) == 1 else ('Day unconfirmed' if days else '')
+    unsure = (any(UNSURE.search(n) for n in r['notes']) or len(days) > 1 or tkey == 'unconfirmed'
+              or bool(r['prov']))
+    meta = [r['clabel']] if r['clabel'] else []
+    if r['wk'] and r['sec'].startswith('week-'):
+        meta.append('Week %d' % r['wk'])
+    if r['exam'] and r['cat'] != 'lecture':
+        meta.append(r['exam'].title() if r['exam'].isupper() and len(r['exam']) > 3 else r['exam'])
+    if r['who'] and r['who'].lower() not in NOT_A_PERSON:
+        meta.append(r['who'])
+    elif r['cat'] == 'lecture':
+        meta.append('Lecturer not named')
+    if day:
+        meta.append(day)
+
+    wk = r['wk']
+    wtok = (' week%d wk%d w%d m%d module%d week %d module %d wk %d' % ((wk,) * 8)) if wk else ''
+    code = r['course'].replace(' ', '').lower()
+    search = ' '.join([r['title']] + r['raws'] + [v for _, v in r['chips']] + r['notes'] +
+                      [r['tab'], r['clabel'], code, topic, tlabel, r['cat'],
+                       {'lecture': 'lecture class', 'examprep': 'exam prep review',
+                        'handout': 'handout document pdf'}[r['cat']]]).lower() + wtok
+
+    cid = 'lr-' + re.sub(r'[^\w-]', '', r['id'] or r['title'])[:48]
+    # the same file can sit in a week and in the exam reviews; ids must stay unique
+    seen_ids[cid] = seen_ids.get(cid, 0) + 1
+    if seen_ids[cid] > 1:
+        cid += '-%d' % seen_ids[cid]
+    who = r['who'].lower() if r['who'] and r['who'].lower() not in NOT_A_PERSON else ''
+    o = ['<article class="lr" id="%s" data-id="%s" data-course="%s" data-cat="%s" data-term="%s" '
+         'data-who="%s" data-s="%s">' % (esc(cid), esc(r['id']), esc(r['course']), r['cat'],
+                                         'unknown' if tkey == 'unconfirmed' else tkey, esc(who), esc(search))]
+    o.append('<h4>%s</h4>' % esc(r['title']))
+    o.append('<p class="meta">%s</p>' % ' &middot; '.join(esc(m) for m in meta))
+    badges = ['<span class="c term %s">%s</span>' % (tkey, tlabel)]
+    badges.append('<span class="c">%s</span>' % {'lecture': 'Lecture', 'examprep': 'Exam prep',
+                                                 'handout': 'Handout'}[r['cat']])
+    if unsure:
+        badges.append('<span class="c warn">Needs verification</span>')
+    o.append('<p class="chips">%s</p>' % ''.join(badges))
+    if r['doc']:
+        o.append('<a class="play doc" href="%s" target="_blank" rel="noopener">&#128196; Open document</a>'
+                 % esc(r['url']))
     else:
-        o.append('<span class="noplay">No recording linked</span>')
-    if row['note']:
-        o.append('<p class="note">%s</p>' % esc(row['note']))
+        o.append('<a class="play" href="%s" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a>'
+                 % esc(r['url']))
+    det = []
+    if r['raws'] and any(x != r['title'] for x in r['raws']):
+        det.append('<p><b>File name%s:</b> %s</p>' % ('s' if len(r['raws']) > 1 else '',
+                                                      ' &middot; '.join(esc(x) for x in r['raws'])))
+    if len(days) > 1:
+        det.append('<p><b>Day:</b> %d workbook rows link this one file, as %s.</p>'
+                   % (r.get('merged', 2), ' and '.join(esc(d) for d in days)))
+    if r['prov']:
+        det.append('<p><b>Topic:</b> %s.</p>' % esc(r['prov'][0].upper() + r['prov'][1:]))
+    ts = sorted({t for t in r['terms'] if t})
+    if len(ts) > 1:
+        det.append('<p><b>Term:</b> the workbook lists this file as %s.</p>' % ' and '.join(esc(t) for t in ts))
+    for n in r['notes']:
+        det.append('<p>%s</p>' % esc(n))
+    if det:
+        o.append('<details class="more"><summary>Details</summary>%s</details>' % ''.join(det))
     o.append('</article>')
     return '\n'.join(o)
 
 
 def render(rows, modmap):
     esc = lambda s: html.escape(s, quote=True)
-    by = {t['tab']: t['rows'] for t in rows}
-    total = sum(1 for t in rows for r in t['rows'] if r['url'])
-
-    weeks = {w: [] for w in range(1, 15)}
-    tails = {t[1]: [] for t in TAILS}
-    order = {c: i for i, (_, c, _) in enumerate(COURSES)}
-    for tab, rs in by.items():
-        for r in rs:
-            w = week_of(tab, r)
-            if w:
-                weeks[w].append((tab, r))
-            elif tab == 'Sort me':
-                tails['still-to-file'].append((tab, r))
-            elif tab == 'Exam Reviews (other classes)':
-                tails['other-classes'].append((tab, r))
-            else:
-                tails['exam-reviews'].append((tab, r))
-
-    def key(pair):
-        tab, r = pair
-        who = ([v for n, v in r['chips'] if n in ('Lecturer', 'Who')] or [''])[0]
-        day = ([v for n, v in r['chips'] if n == 'Day'] or [''])[0]
-        return (order.get(TABCOURSE.get(tab, ''), 9), who.lower(), day, r['title'].lower())
-    for w in weeks:
-        weeks[w].sort(key=key)
-    for k in tails:
-        tails[k].sort(key=key)
-
     pages = study_pages()
-    out, chips = [], []
-    first_open = True
-    for w in range(1, 15):
-        items = weeks[w]
-        n = sum(1 for _, r in items if r['url'])
-        chips.append('<a class="jump" href="#week-%d">Wk %d <b>%d</b></a>' % (w, w, n))
-        if not items:
-            out.append('<div class="wkempty"><b>Week %d</b> &mdash; nothing filed yet.</div>' % w)
-            continue
-        opened = ' open' if first_open else ''
-        first_open = False
-        out.append('<details class="wk" id="week-%d"%s><summary>'
-                   '<span class="wn">Week %d</span><span class="wc">%d</span></summary>'
-                   '<div class="wbody">' % (w, opened, w, n))
-        bits = []
-        for pretty, code, _ in COURSES:
-            subj = modmap.get(code, {}).get(w, '')
-            if not subj:
+    secs = {('week-%d' % w): [] for w in range(1, 15)}
+    for t in TAILS:
+        secs[t[1]] = []
+    missing = []
+    for t in rows:
+        tab = t['tab']
+        for row in t['rows']:
+            wk = week_of(tab, row)
+            if tab == 'Exam Reviews (other classes)':
+                cls = chip(row, 'Class') or 'Other'
+                code, label, sec = cls, cls.replace(' ?', ' (class unconfirmed)'), 'other-classes'
+            else:
+                code = TABCOURSE.get(tab, 'Other')
+                label = code.replace('NUR', 'NUR ') if code.startswith('NUR') else chip(row, 'Course') or 'To file'
+                sec = ('week-%d' % wk) if wk else ('still-to-file' if tab == 'Sort me' else 'exam-reviews')
+            if not row['url']:
+                missing.append((label, row))
                 continue
-            links = ''.join('<a class="go" href="%s">%s</a>' % (esc(h), lab)
-                            for lab, h in week_links(code, w, pages))
-            bits.append('<span class="sj"><b>%s</b> %s%s</span>'
-                        % (pretty, esc(subj),
-                           ('<span class="gos">%s</span>' % links) if links else ''))
-        out.append('<p class="subj">%s</p>' % ''.join(bits))
-        for tab, r in items:
-            out.append(card_html(r, tab, esc,
-                                 modmap.get(TABCOURSE.get(tab, ''), {}).get(w, '')))
+            secs[sec].append(record(tab, row, sec, code, label, wk))
+
+    corder = {c: i for i, (_, c, _) in enumerate(COURSES)}
+    def key(r):
+        return (corder.get(r['course'], 5), r['course'], (r['who'] or '').lower(), r['day'],
+                r['title'].lower())
+    for s in secs:
+        secs[s] = merge(sorted(secs[s], key=key))
+
+    vids = {r['id'] for s in secs.values() for r in s if not r['doc']}
+    docs = {r['id'] for s in secs.values() for r in s if r['doc']}
+    total, handouts = len(vids), len(docs)
+
+    seen_ids, out, weekopts = {}, [], []
+    first = True
+    order = ['week-%d' % w for w in range(1, 15)] + [t[1] for t in TAILS]
+    for sec in order:
+        recs = secs[sec]
+        if not recs:
+            if sec.startswith('week-'):
+                out.append('<div class="wkempty"><b>Week %s</b> &mdash; nothing filed yet.</div>' % sec[5:])
+            continue
+        n = len({r['id'] for r in recs})
+        if sec.startswith('week-'):
+            w = int(sec[5:])
+            name, jewel, blurb = 'Week %d' % w, '', ''
+        else:
+            t = [x for x in TAILS if x[1] == sec][0]
+            name, jewel, blurb = '%s %s' % (t[3], t[0]), ' style="--jewel:var(--%s)"' % t[2], t[5]
+        weekopts.append('<option value="%s">%s (%d)</option>' % (sec, re.sub(r'&#\d+;\s*', '', name), n))
+        out.append('<details class="wk%s" id="%s" data-sec="%s"%s%s><summary><span class="wn">%s</span>'
+                   '<span class="wc">%d</span></summary><div class="wbody">'
+                   % ('' if sec.startswith('week-') else ' tail', sec, sec, jewel,
+                      ' open' if first else '', name, n))
+        first = False
+        if blurb:
+            out.append('<p class="blurb">%s</p>' % blurb)
+        groups = []
+        for r in recs:
+            if not groups or groups[-1][0] != r['course']:
+                groups.append((r['course'], r['clabel'], []))
+            groups[-1][2].append(r)
+        for code, label, rs in groups:
+            subj = modmap.get(code, {}).get(int(sec[5:]), '') if sec.startswith('week-') else ''
+            links = ''
+            if sec.startswith('week-') and code in TABCOURSE.values():
+                links = ''.join('<a class="go" href="%s">%s</a>' % (esc(h), lab)
+                                for lab, h in week_links(code, int(sec[5:]), pages))
+            out.append('<section class="cg" data-course="%s"><h3 class="cgh"><b>%s</b>%s</h3>%s'
+                       % (esc(code), esc(label), (' &mdash; ' + esc(subj)) if subj else '',
+                          ('<p class="gos">%s</p>' % links) if links else ''))
+            for r in rs:
+                out.append(card(r, esc, subj, seen_ids))
+            out.append('</section>')
         out.append('</div></details>')
 
-    for title, tid, jewel, icon, short, blurb in TAILS:
-        items = tails[tid]
-        n = sum(1 for _, r in items if r['url'])
-        chips.append('<a class="jump" href="#%s">%s %s <b>%d</b></a>' % (tid, icon, short, n))
-        out.append('<details class="wk tail" id="%s" style="--jewel:var(--%s)"><summary>'
-                   '<span class="wn">%s %s</span><span class="wc">%d</span></summary>'
-                   '<div class="wbody"><p class="subj"><span class="sj">%s</span></p>'
-                   % (tid, jewel, icon, title, n, blurb))
-        for tab, r in items:
-            out.append(card_html(r, tab, esc))
-        out.append('</div></details>')
+    if missing:
+        out.append('<details class="wk tail" id="missing" style="--jewel:var(--garnet)"><summary>'
+                   '<span class="wn">&#10067; Missing recordings</span><span class="wc">%d</span></summary>'
+                   '<div class="wbody"><p class="blurb">Rows in the workbook with no file linked. '
+                   'They are not counted above.</p><ul class="miss">%s</ul></div></details>'
+                   % (len(missing), ''.join('<li><b>%s</b> &middot; %s%s</li>'
+                                            % (esc(l), esc(r['title'] or 'untitled'),
+                                               (' &mdash; ' + esc(r['note'])) if r['note'] else '')
+                                            for l, r in missing)))
 
+    whos = sorted({r['who'] for s in secs.values() for r in s
+                   if r['who'] and r['who'].lower() not in NOT_A_PERSON}, key=str.lower)
     page = io.open(TEMPLATE, encoding='utf-8').read()
     return (page.replace('{{TOTAL}}', str(total))
-                .replace('{{CHIPS}}', ''.join(chips))
+                .replace('{{HANDOUTS}}', str(handouts))
+                .replace('{{WEEKOPTS}}', ''.join(weekopts))
+                .replace('{{WHOOPTS}}', ''.join('<option value="%s">%s</option>' % (esc(w.lower()), esc(w))
+                                                for w in whos))
                 .replace('{{BODY}}', '\n'.join(out))), total
 
 
