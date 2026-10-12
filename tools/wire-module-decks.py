@@ -193,13 +193,13 @@ def board(decks):
               'download?id=%s&amp;export=download&amp;confirm=t">&#11015;&#65039; '
               'Download</a>' % fid.group(1)) if fid else ''
         card = ('<div class="card deck dark" data-kind="powerpoint" data-cat="%s" '
-                'data-cls="%s" data-mod="%s" data-exam="Exam 1" data-kw="%s" '
+                'data-cls="%s" data-mod="%s" data-exam="%s" data-kw="%s" '
                 'style="background:%s"><h3>%s</h3><div class="cbs">'
                 '<span class="cb cls">%s</span><span class="cb">%s</span>'
                 '<span class="cb">&#128202; PowerPoint</span></div>'
                 '<a class="plink deckplate" href="%s" target="_blank" rel="noopener">'
                 '%s</a>%s<p class="pdfmod">Also linked inside %s</p></div>'
-                % (d['board_cat'], cls, mod, d.get('board_kw', ''), d['board_bg'],
+                % (d['board_cat'], cls, mod, d.get('exam', 'Exam 1'), d.get('board_kw', ''), d['board_bg'],
                    d['title'], cls, mod, d['href'], inner, dl, d['page']))
         s = s[:at] + card + s[at:]
         starts = [m.start() for m in re.finditer(r'<div class="card ', s)]
