@@ -184,7 +184,6 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
 </style>
 </head><body>
 <nav class="absn-back top" data-absn-keep aria-label="Back to the Study Hub and this page's study guide"><a class="hub" href="index.html">&#127968; Study Hub</a></nav>
-<div id="navBtns"><button type="button" class="nbHub" title="ABSN Study Hub" onclick="hop('index.html',false)">&#127968;<span class="nbLabel">ABSN Study Hub</span></button></div>
 <div class="topbar" data-absn-keep><button type="button" id="menuBtn" aria-expanded="false" aria-controls="side">&#9776; Menu</button></div>
 
 
@@ -215,11 +214,9 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
 </nav>
 <div class="wrap">
   <h1>&#127911; Podcasts &amp; Lectures</h1>
-  <p class="sub">Everything on your Drive, sorted by topic. Each one opens in Drive or
-  downloads for the car &mdash; they are far too big to sit on this site, and Drive
-  already streams them and remembers where you stopped.</p>
-  <span class="count">604 recordings</span>
-  <a class="folder" href="https://drive.google.com/drive/folders/12WCxHBuKgKOCL_0tEQV2lGFLv5zzw5_A" target="_blank" rel="noopener">&#128193; The Podcasts folder on Drive &rarr;</a>
+  <p class="sub">Everything on your Drive, sorted by topic. <b>Play on Drive</b> streams it;
+  <b>Download</b> keeps it for the car. Class recordings by week: <a href="lecture-library.html">Lecture library</a>.</p>
+  <span class="count" id="totc">podcasts and class recordings</span>
 
 <style>
 /* Free-text search. 604 episodes behind 119 filter buttons was not findable -
@@ -239,27 +236,56 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
 /* While a term is typed the button rows come off the page. Without this the
    first result sits 2,517px below the box, behind 119 buttons, and typing
    looks like it did nothing - exactly the bug the course hubs had. */
-.filters.searching > .flabel,.filters.searching > .frow,
-.filters.searching > .tovlc{display:none}
+/* (12 Oct) The rows used to vanish while a word was typed, so a filter chosen
+   earlier became an invisible constraint. They stay now; the selected ones
+   also show as removable chips under the box. */
+
+/* (12 Oct) live counts, chosen-filter chips, folded secondary rows, durations */
+.fbtn .fc{display:inline-block;margin-left:6px;font-size:.85em;font-weight:900;opacity:.85}
+.fbtn .fc:empty{display:none}
+.fbtn.zero{opacity:.45}
+.moref{margin:4px 0 6px}
+.moref>summary{display:inline-flex;align-items:center;gap:8px;min-height:44px;cursor:pointer;font-weight:800;color:#ffe29a}
+.moref>summary b{color:#2a1f00;background:#ffd76a;border-radius:999px;padding:1px 8px;font-size:.88rem}
+.moref>summary b:empty{display:none}
+.actchips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 4px}
+.actchips[hidden],#topicwrap[hidden]{display:none}
+.ac{display:inline-flex;align-items:center;min-height:44px;padding:7px 13px;border-radius:999px;cursor:pointer;
+ background:rgba(255,215,106,.2);border:1px solid rgba(255,215,106,.6);color:#fff3c4;font:inherit;font-weight:800;font-size:.95rem}
+.ac.all{background:transparent;border-color:rgba(255,255,255,.35);color:#fff}
+.ac:focus-visible,.moref>summary:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
+.nhb{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.tag.dur{background:rgba(0,194,199,.28);border-color:rgba(120,240,240,.6)}
+.libnote{margin:18px 0}
+.sub a{color:#ffe9a8;font-weight:700}
+.filters .folder{margin-top:12px}
+.libnote>summary{display:inline-flex;align-items:center;min-height:44px;cursor:pointer;font-weight:800;color:#ffe29a}
+/* the open group's own heading repeats the title on its toggle; keep it for
+   screen readers and the site search, not on screen */
+.topic > .adhd-card-body > h2{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 </style>
   <div class="filters">
     <label class="fsearch" for="q"><span class="flabel">Search</span><input id="q" type="search" autocomplete="off" enterkeyhint="search" placeholder="Type a topic, lecturer or module…"><button type="button" id="qclear" aria-label="Clear the search">&#10005;</button></label>
-    <span class="flabel">Kind</span>
-    <div class="frow"><button type="button" class="fbtn active" data-k="kind" data-v="all">All</button><button type="button" class="fbtn" data-k="kind" data-v="podcast">&#127911; Podcasts</button><button type="button" class="fbtn" data-k="kind" data-v="lecture">&#127909; Class lectures</button></div>
-    <span class="flabel">Module</span>
-    <div class="frow"><button type="button" class="fbtn active" data-k="mod" data-v="all">All</button><button type="button" class="fbtn" data-k="mod" data-v="M1">M1</button><button type="button" class="fbtn" data-k="mod" data-v="M2">M2</button><button type="button" class="fbtn" data-k="mod" data-v="M3">M3</button><button type="button" class="fbtn" data-k="mod" data-v="M4">M4</button><button type="button" class="fbtn" data-k="mod" data-v="M5">M5</button><button type="button" class="fbtn" data-k="mod" data-v="M6">M6</button><button type="button" class="fbtn" data-k="mod" data-v="M7">M7</button><button type="button" class="fbtn" data-k="mod" data-v="M8">M8</button><button type="button" class="fbtn" data-k="mod" data-v="M9">M9</button><button type="button" class="fbtn" data-k="mod" data-v="M10">M10</button><button type="button" class="fbtn" data-k="mod" data-v="M11">M11</button><button type="button" class="fbtn" data-k="mod" data-v="M12">M12</button><button type="button" class="fbtn" data-k="mod" data-v="M13">M13</button><button type="button" class="fbtn" data-k="mod" data-v="M14">M14</button></div>
-    <span class="flabel">Exam prep</span>
-    <div class="frow"><button type="button" class="fbtn active" data-k="exam" data-v="all">All</button><button type="button" class="fbtn" data-k="exam" data-v="review">&#127919; Exam review</button><button type="button" class="fbtn" data-k="exam" data-v="NCLEX">&#129504; NCLEX reviews</button></div>
-    <span class="flabel">Topic</span>
-    <div class="frow"><button type="button" class="fbtn active" data-k="topic" data-v="all">All</button><button type="button" class="fbtn" data-k="topic" data-v="Maternal &amp; Newborn">&#129328; Maternal & Newborn (21)</button><button type="button" class="fbtn" data-k="topic" data-v="Pediatrics">&#129490; Pediatrics (15)</button><button type="button" class="fbtn" data-k="topic" data-v="Med-Surg">&#129658; Med-Surg (66)</button><button type="button" class="fbtn" data-k="topic" data-v="Mental Health">&#129504; Mental Health (18)</button><button type="button" class="fbtn" data-k="topic" data-v="Pharmacology">&#128138; Pharmacology (8)</button><button type="button" class="fbtn" data-k="topic" data-v="Fundamentals">&#129656; Fundamentals (11)</button><button type="button" class="fbtn" data-k="topic" data-v="Labs &amp; Diagnostics">&#129514; Labs & Diagnostics (3)</button><button type="button" class="fbtn" data-k="topic" data-v="Anatomy &amp; Physiology">&#129728; Anatomy & Physiology (3)</button><button type="button" class="fbtn" data-k="topic" data-v="Leadership &amp; Community">&#128081; Leadership & Community (1)</button><button type="button" class="fbtn" data-k="topic" data-v="Other">&#128193; Other (2)</button><button type="button" class="fbtn" data-k="topic" data-v="NUR 234 class lectures">&#129328; NUR 234 class lectures (45)</button><button type="button" class="fbtn" data-k="topic" data-v="NUR 235 class lectures">&#129490; NUR 235 class lectures (55)</button><button type="button" class="fbtn" data-k="topic" data-v="NUR 258 class lectures">&#129658; NUR 258 class lectures (64)</button><button type="button" class="fbtn" data-k="topic" data-v="Pharmacology lectures (BIO 290V)">&#128138; Pharmacology lectures (BIO 290V) (33)</button><button type="button" class="fbtn" data-k="topic" data-v="NUR 198 class lectures">&#129658; NUR 198 class lectures (75)</button><button type="button" class="fbtn" data-k="topic" data-v="NUR 175 class lectures">&#129504; NUR 175 class lectures (20)</button><button type="button" class="fbtn" data-k="topic" data-v="NUR 125 class recordings">&#129656; NUR 125 class recordings (1)</button><button type="button" class="fbtn" data-k="topic" data-v="NUR 103 class recordings">&#129656; NUR 103 class recordings (3)</button><button type="button" class="fbtn" data-k="topic" data-v="Anatomy lectures (Summer 2025)">&#129728; Anatomy lectures (Summer 2025) (27)</button><button type="button" class="fbtn" data-k="topic" data-v="Physiology lectures (Summer 2025)">&#129728; Physiology lectures (Summer 2025) (26)</button><button type="button" class="fbtn" data-k="topic" data-v="Pathophysiology recordings (BIO 280V)">&#129516; Pathophysiology recordings (BIO 280V) (50)</button><button type="button" class="fbtn" data-k="topic" data-v="MAT 300 Statistics recordings">&#128202; MAT 300 Statistics recordings (48)</button></div>
-    <span class="flabel" style="margin-top:14px">Course</span>
-    <div class="frow"><button type="button" class="fbtn active" data-k="course" data-v="all">All</button><button type="button" class="fbtn" data-k="course" data-v="NUR 103">NUR 103</button><button type="button" class="fbtn" data-k="course" data-v="NUR 125">NUR 125</button><button type="button" class="fbtn" data-k="course" data-v="NUR 175">NUR 175</button><button type="button" class="fbtn" data-k="course" data-v="NUR 198">NUR 198</button><button type="button" class="fbtn" data-k="course" data-v="NUR 234">NUR 234</button><button type="button" class="fbtn" data-k="course" data-v="NUR 235">NUR 235</button><button type="button" class="fbtn" data-k="course" data-v="NUR 258">NUR 258</button><button type="button" class="fbtn" data-k="course" data-v="BIO 290V">BIO 290V</button><button type="button" class="fbtn" data-k="course" data-v="BIO 280V">BIO 280V</button><button type="button" class="fbtn" data-k="course" data-v="A&amp;P">A&amp;P</button><button type="button" class="fbtn" data-k="course" data-v="MAT 300">MAT 300</button><button type="button" class="fbtn" data-k="course" data-v="NCLEX">NCLEX review</button><button type="button" class="fbtn" data-k="course" data-v="Dosage">Dosage</button></div>
-    <p class="hits">Showing <b id="hits">604</b> recordings.</p>
-    <p id="nohits" class="nohits" hidden role="status" aria-live="polite"><b>&#129300; Nothing matches all of those at once.</b> <span id="nohitswhat"></span> <button type="button" id="clearf" class="fbtn">&#8634; Show everything</button></p>
+    <span class="flabel" id="lkind">Show</span>
+    <div class="frow" role="group" aria-labelledby="lkind"><button type="button" class="fbtn active" data-k="kind" data-v="all">All resources</button><button type="button" class="fbtn" data-k="kind" data-v="podcast">&#127911; Podcasts</button><button type="button" class="fbtn" data-k="kind" data-v="lecture">&#127909; Class recordings</button></div>
+    <span class="flabel" id="lcourse">Course</span>
+    <div class="frow" role="group" aria-labelledby="lcourse"><button type="button" class="fbtn active" data-k="course" data-v="all">All</button><button type="button" class="fbtn" data-k="course" data-v="NUR 103">NUR 103</button><button type="button" class="fbtn" data-k="course" data-v="NUR 125">NUR 125</button><button type="button" class="fbtn" data-k="course" data-v="NUR 175">NUR 175</button><button type="button" class="fbtn" data-k="course" data-v="NUR 198">NUR 198</button><button type="button" class="fbtn" data-k="course" data-v="NUR 234">NUR 234</button><button type="button" class="fbtn" data-k="course" data-v="NUR 235">NUR 235</button><button type="button" class="fbtn" data-k="course" data-v="NUR 258">NUR 258</button><button type="button" class="fbtn" data-k="course" data-v="BIO 290V">BIO 290V</button><button type="button" class="fbtn" data-k="course" data-v="BIO 280V">BIO 280V</button><button type="button" class="fbtn" data-k="course" data-v="A&amp;P">A&amp;P</button><button type="button" class="fbtn" data-k="course" data-v="MAT 300">MAT 300</button></div>
+    <details class="moref" id="morefilters" open><summary>More filters: module, topic, exam prep <b id="nmf"></b></summary>
+    <span class="flabel" id="lmod">Module</span>
+    <div class="frow" role="group" aria-labelledby="lmod"><button type="button" class="fbtn active" data-k="mod" data-v="all">All</button><button type="button" class="fbtn" data-k="mod" data-v="M1">M1</button><button type="button" class="fbtn" data-k="mod" data-v="M2">M2</button><button type="button" class="fbtn" data-k="mod" data-v="M3">M3</button><button type="button" class="fbtn" data-k="mod" data-v="M4">M4</button><button type="button" class="fbtn" data-k="mod" data-v="M5">M5</button><button type="button" class="fbtn" data-k="mod" data-v="M6">M6</button><button type="button" class="fbtn" data-k="mod" data-v="M7">M7</button><button type="button" class="fbtn" data-k="mod" data-v="M8">M8</button><button type="button" class="fbtn" data-k="mod" data-v="M9">M9</button><button type="button" class="fbtn" data-k="mod" data-v="M10">M10</button><button type="button" class="fbtn" data-k="mod" data-v="M11">M11</button><button type="button" class="fbtn" data-k="mod" data-v="M12">M12</button><button type="button" class="fbtn" data-k="mod" data-v="M13">M13</button><button type="button" class="fbtn" data-k="mod" data-v="M14">M14</button></div>
+    <div id="topicwrap"><span class="flabel" id="ltopic">Topic</span>
+    <div class="frow" role="group" aria-labelledby="ltopic"><button type="button" class="fbtn active" data-k="topic" data-v="all">All</button><button type="button" class="fbtn" data-k="topic" data-v="Maternal &amp; Newborn">&#129328; Maternal & Newborn</button><button type="button" class="fbtn" data-k="topic" data-v="Pediatrics">&#129490; Pediatrics</button><button type="button" class="fbtn" data-k="topic" data-v="Med-Surg">&#129658; Med-Surg</button><button type="button" class="fbtn" data-k="topic" data-v="Mental Health">&#129504; Mental Health</button><button type="button" class="fbtn" data-k="topic" data-v="Pharmacology">&#128138; Pharmacology</button><button type="button" class="fbtn" data-k="topic" data-v="Fundamentals">&#129656; Fundamentals</button><button type="button" class="fbtn" data-k="topic" data-v="Labs &amp; Diagnostics">&#129514; Labs & Diagnostics</button><button type="button" class="fbtn" data-k="topic" data-v="Anatomy &amp; Physiology">&#129728; Anatomy & Physiology</button><button type="button" class="fbtn" data-k="topic" data-v="Leadership &amp; Community">&#128081; Leadership & Community</button><button type="button" class="fbtn" data-k="topic" data-v="Dosage calculation">&#128137; Dosage calculation</button><button type="button" class="fbtn" data-k="topic" data-v="Other">&#128193; Other</button></div></div>
+    <span class="flabel" id="lexam">Exam prep</span>
+    <div class="frow" role="group" aria-labelledby="lexam"><button type="button" class="fbtn active" data-k="exam" data-v="all">All</button><button type="button" class="fbtn" data-k="exam" data-v="review">&#127919; Exam review</button><button type="button" class="fbtn" data-k="exam" data-v="NCLEX">&#129504; NCLEX reviews</button></div>
+    </details>
+    <div class="actchips" id="actchips" hidden></div>
+    <p class="hits" aria-live="polite" id="hitsline">Showing <b id="hits">0</b> recordings.</p>
+    <p id="nohits" class="nohits" hidden><b>&#129300; Nothing matches all of those at once.</b> <span id="nohitswhat"></span><span class="nhb" id="nhb"></span></p>
     <a class="tovlc" href="playlists.html"><span>&#127925; VLC playlists &mdash; <b>42 of them</b>, one per module for all three classes &rarr;</span></a>
+   <a class="folder" href="https://drive.google.com/drive/folders/12WCxHBuKgKOCL_0tEQV2lGFLv5zzw5_A" target="_blank" rel="noopener">&#128193; The Podcasts folder on Drive &rarr;</a>
   </div>
 
-  <section class="topic">
+  <section class="topic" data-absn-speak="skip">
     <h2>&#129328; Maternal &amp; Newborn <span class="n">24</span></h2>
     <div class="list">
       <div class="pod" style="--jewel:var(--amethyst)" data-topic="Maternal &amp; Newborn" data-course="NUR 234" data-kind="podcast" data-mod="M1">
@@ -269,18 +295,18 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
         <div class="acts"><a class="play" href="https://drive.google.com/file/d/1IyQNS2w4E2YjbA6EDPyi0cs2f465hDvr/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=1IyQNS2w4E2YjbA6EDPyi0cs2f465hDvr&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div>
       </div>
         <div class="pod" data-exam="review" style="--jewel:var(--amethyst)" data-topic="Maternal &amp; Newborn" data-course="NUR 234" data-kind="lecture" data-mod="M14">
-        <h3>M14 &middot; Final exam review &middot; Fetal heart rate monitoring &amp; decelerations &middot; 1:26:40</h3>
-        <div class="meta"><span class="tag">&#127919; Exam review</span><span class="tag mod">M14</span><span class="tag">NUR 234</span><span class="tag">Kaiser</span><span class="tag">Summer 2026</span><span class="tag">181 MB</span><span class="tag">&#127909; class recording</span></div>
+        <h3>M14 &middot; Final exam review &middot; Fetal heart rate monitoring &amp; decelerations</h3>
+        <div class="meta"><span class="tag dur">&#9201; 1:26:40</span><span class="tag">&#127919; Exam review</span><span class="tag mod">M14</span><span class="tag">NUR 234</span><span class="tag">Kaiser</span><span class="tag">Summer 2026</span><span class="tag">181 MB</span><span class="tag">&#127909; class recording</span></div>
         <div class="acts"><a class="play" href="https://drive.google.com/file/d/1AF4APNVK1nUVKVsDeOE_Mepqj-en-ldM/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=1AF4APNVK1nUVKVsDeOE_Mepqj-en-ldM&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div>
       </div>
         <div class="pod" data-exam="review" style="--jewel:var(--amethyst)" data-topic="Maternal &amp; Newborn" data-course="NUR 234" data-kind="lecture" data-mod="M14">
-        <h3>M14 &middot; Review session &middot; DVT prophylaxis, UTI in pregnancy, exam process &middot; 1:34:25</h3>
-        <div class="meta"><span class="tag">&#127919; Exam review</span><span class="tag mod">M14</span><span class="tag">NUR 234</span><span class="tag">Kaiser</span><span class="tag">Summer 2026</span><span class="tag">339 MB</span><span class="tag">&#127909; class recording</span></div>
+        <h3>M14 &middot; Review session &middot; DVT prophylaxis, UTI in pregnancy, exam process</h3>
+        <div class="meta"><span class="tag dur">&#9201; 1:34:25</span><span class="tag">&#127919; Exam review</span><span class="tag mod">M14</span><span class="tag">NUR 234</span><span class="tag">Kaiser</span><span class="tag">Summer 2026</span><span class="tag">339 MB</span><span class="tag">&#127909; class recording</span></div>
         <div class="acts"><a class="play" href="https://drive.google.com/file/d/1D7WTW5lCkxHAsielQ-yF8hgY31iRW4ui/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=1D7WTW5lCkxHAsielQ-yF8hgY31iRW4ui&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div>
       </div>
         <div class="pod" data-exam="review" style="--jewel:var(--amethyst)" data-topic="Maternal &amp; Newborn" data-course="NUR 234" data-kind="lecture" data-mod="M14">
-        <h3>M14 &middot; Final exam review &middot; Day 2 &mdash; obstetric concepts &amp; exam logistics &middot; 1:29:39</h3>
-        <div class="meta"><span class="tag">&#127919; Exam review</span><span class="tag mod">M14</span><span class="tag">NUR 234</span><span class="tag">Kaiser</span><span class="tag">Summer 2026</span><span class="tag">226 MB</span><span class="tag">&#127909; class recording</span></div>
+        <h3>M14 &middot; Final exam review &middot; Day 2 &mdash; obstetric concepts &amp; exam logistics</h3>
+        <div class="meta"><span class="tag dur">&#9201; 1:29:39</span><span class="tag">&#127919; Exam review</span><span class="tag mod">M14</span><span class="tag">NUR 234</span><span class="tag">Kaiser</span><span class="tag">Summer 2026</span><span class="tag">226 MB</span><span class="tag">&#127909; class recording</span></div>
         <div class="acts"><a class="play" href="https://drive.google.com/file/d/10tLIx65hCfOM86q3mZgMt6S33lH0fiIs/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=10tLIx65hCfOM86q3mZgMt6S33lH0fiIs&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div>
       </div>
       <div class="pod" style="--jewel:var(--amethyst)" data-topic="Maternal &amp; Newborn" data-course="NUR 234" data-kind="podcast" data-mod="M1">
@@ -406,7 +432,7 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
 
 </div>
   </section>
-  <section class="topic">
+  <section class="topic" data-absn-speak="skip">
     <h2>&#129490; Pediatrics <span class="n">15</span></h2>
     <div class="list">
       
@@ -503,7 +529,7 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
       </div>
       </div>
   </section>
-  <section class="topic">
+  <section class="topic" data-absn-speak="skip">
     <h2>&#129658; Med-Surg <span class="n">66</span></h2>
     <div class="list">
       <div class="pod" style="--jewel:var(--emerald)" data-topic="Med-Surg" data-course="NUR 198" data-kind="podcast" data-mod="M1">
@@ -897,7 +923,7 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
       </div>
       </div>
   </section>
-  <section class="topic">
+  <section class="topic" data-absn-speak="skip">
     <h2>&#129504; Mental Health <span class="n">18</span></h2>
     <div class="list">
       <div class="pod" style="--jewel:var(--teal)" data-topic="Mental Health" data-course="NUR 175" data-kind="podcast" data-mod="M1">
@@ -1012,7 +1038,7 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
       </div>
       </div>
   </section>
-  <section class="topic">
+  <section class="topic" data-absn-speak="skip">
     <h2>&#128138; Pharmacology <span class="n">8</span></h2>
     <div class="list">
       <div class="pod" style="--jewel:var(--citrine)" data-topic="Pharmacology" data-course="BIO 290V" data-kind="podcast" data-mod="M12">
@@ -1066,7 +1092,7 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
       </div>
       </div>
   </section>
-  <section class="topic">
+  <section class="topic" data-absn-speak="skip">
     <h2>&#129656; Fundamentals <span class="n">11</span></h2>
     <div class="list">
       <div class="pod" style="--jewel:var(--topaz)" data-topic="Fundamentals" data-course="NUR 103" data-kind="podcast" data-mod="M4">
@@ -1143,16 +1169,16 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
 
       </div>
   </section>
-  <section class="topic">
+  <section class="topic" data-absn-speak="skip">
     <h2>&#129514; Labs &amp; Diagnostics <span class="n">3</span></h2>
     <div class="list">
-      <div class="pod" data-exam="NCLEX" style="--jewel:var(--sapphire)" data-topic="Labs &amp; Diagnostics" data-course="NCLEX" data-kind="podcast">
+      <div class="pod" data-exam="NCLEX" style="--jewel:var(--sapphire)" data-topic="Labs &amp; Diagnostics" data-course="" data-kind="podcast">
         <h3>Klimek 008 — Lab Values</h3>
         <div class="meta"><span class="tag mod">&#129504; NCLEX review</span><span class="tag">NCLEX</span><span class="tag">74 MB</span></div>
         <p class="desc">Mark Klimek NCLEX lecture 8: lab values. Full-length.</p>
 <p class="covers">Mark Klimek NCLEX review, lecture 8 of 12. Two copies on your Drive: this one and a smaller version.</p>        <div class="acts"><a class="play" href="https://drive.google.com/file/d/1CslOGgflO-v7m7tl2RDu-qCwxXCH6B3j/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=1CslOGgflO-v7m7tl2RDu-qCwxXCH6B3j&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a><a href="https://drive.usercontent.google.com/download?id=14aYDXJyaCHk9-zBVblM9tI5fNSffEcL6&amp;export=download&amp;confirm=t" title="same lecture, smaller file">&#11015;&#65039; Smaller file (6 MB)</a></div><p class="warn">Drive would not copy this one &mdash; the buttons still play and download the original.</p>
       </div>
-      <div class="pod" data-exam="NCLEX" style="--jewel:var(--sapphire)" data-topic="Labs &amp; Diagnostics" data-course="NCLEX" data-kind="podcast">
+      <div class="pod" data-exam="NCLEX" style="--jewel:var(--sapphire)" data-topic="Labs &amp; Diagnostics" data-course="" data-kind="podcast">
         <h3>Klimek: Labs</h3>
         <div class="meta"><span class="tag mod">&#129504; NCLEX review</span><span class="tag">NCLEX</span><span class="tag">6 MB</span></div>
         <p class="desc">Short Mark Klimek clip on lab values (about 7 minutes).</p>
@@ -1167,7 +1193,7 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
       </div>
       </div>
   </section>
-  <section class="topic">
+  <section class="topic" data-absn-speak="skip">
     <h2>&#129728; Anatomy &amp; Physiology <span class="n">3</span></h2>
     <div class="list">
       <div class="pod" style="--jewel:var(--emerald)" data-topic="Anatomy &amp; Physiology" data-course="A&amp;P" data-kind="podcast" data-mod="M9">
@@ -1191,10 +1217,10 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
 
     </div>
   </section>
-  <section class="topic">
+  <section class="topic" data-absn-speak="skip">
     <h2>&#128081; Leadership &amp; Community <span class="n">1</span></h2>
     <div class="list">
-      <div class="pod" data-exam="NCLEX" style="--jewel:var(--garnet)" data-topic="Leadership &amp; Community" data-course="NCLEX" data-kind="podcast">
+      <div class="pod" data-exam="NCLEX" style="--jewel:var(--garnet)" data-topic="Leadership &amp; Community" data-course="" data-kind="podcast">
         <h3>Klimek 012 — Prioritization &amp; Delegation</h3>
         <div class="meta"><span class="tag mod">&#129504; NCLEX review</span><span class="tag">NCLEX</span><span class="tag">171 MB</span></div>
         <p class="desc">Mark Klimek NCLEX lecture 12: prioritization and delegation. Full-length.</p>
@@ -1202,23 +1228,23 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
       </div>
       </div>
   </section>
-  <section class="topic">
+  <section class="topic" data-absn-speak="skip">
     <h2>&#128137; Dosage calculation practice <span class="n">2</span></h2>
     <p>Practice sessions on safe dose range and infusion rates. Not tied to one course &mdash; dosage calculation is examined on its own.</p>
     <div class="list">
-      <div class="pod" data-exam="review" style="--jewel:var(--sapphire)" data-topic="Dosage calculation" data-course="Dosage" data-kind="lecture" data-mod="">
+      <div class="pod" data-exam="review" style="--jewel:var(--sapphire)" data-topic="Dosage calculation" data-course="" data-kind="lecture" data-mod="">
         <h3>Tue 16 Sep 11-35 PM &middot; Dosage calculation practice &mdash; safe dose range, infusion rates</h3>
         <div class="meta"><span class="tag">&#127919; Exam review</span><span class="tag">Dosage</span><span class="tag">Fall 2026</span><span class="tag">115 MB</span><span class="tag">&#127909; class recording</span></div>
         <div class="acts"><a class="play" href="https://drive.google.com/file/d/1YoS5wU1TM7PqXCtRK26j2FIOPpSmCEOh/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=1YoS5wU1TM7PqXCtRK26j2FIOPpSmCEOh&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div>
       </div>
-      <div class="pod" data-exam="review" style="--jewel:var(--sapphire)" data-topic="Dosage calculation" data-course="Dosage" data-kind="lecture" data-mod="">
+      <div class="pod" data-exam="review" style="--jewel:var(--sapphire)" data-topic="Dosage calculation" data-course="" data-kind="lecture" data-mod="">
         <h3>Tue 16 Sep 10-03 PM &middot; Dosage calculation practice &mdash; safe dose range, infusion rates</h3>
         <div class="meta"><span class="tag">&#127919; Exam review</span><span class="tag">Dosage</span><span class="tag">Fall 2026</span><span class="tag">69 MB</span><span class="tag">&#127909; class recording</span></div>
         <div class="acts"><a class="play" href="https://drive.google.com/file/d/1E3wF8ggZKcXkwBQhQ_R41KnmUM5k2dIH/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=1E3wF8ggZKcXkwBQhQ_R41KnmUM5k2dIH&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div>
       </div>
       </div>
   </section>
-  <section class="topic">
+  <section class="topic" data-absn-speak="skip">
     <h2>&#128193; Other <span class="n">2</span></h2>
     <p>Audio the sweep found on your Drive that is not nursing &mdash; left here rather than quietly thrown away.</p>
     <div class="list">
@@ -1236,7 +1262,7 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
       </div>
       </div>
   </section>
-<section class="topic">
+<section class="topic" data-absn-speak="skip">
     <h2>&#129328; NUR 234 class lectures <span class="n">46</span></h2>
     <div class="list">
 <div class="pod" style="--jewel:var(--amethyst)" data-topic="NUR 234 class lectures" data-course="NUR 234" data-kind="lecture" data-mod="M5">
@@ -1380,8 +1406,8 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
         <div class="acts"><a class="play" href="https://drive.google.com/file/d/1fYIx3Eng0YHVpJs7xrgFvRD5j4Kf225D/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=1fYIx3Eng0YHVpJs7xrgFvRD5j4Kf225D&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div>
       </div>
       <div class="pod" style="--jewel:var(--amethyst)" data-topic="NUR 234 class lectures" data-course="NUR 234" data-kind="lecture" data-mod="M6">
-<h3>M6 &middot; Care of a Family During Labor &amp; Birth &middot; 76:16</h3>
-<div class="meta"><span class="tag mod">M6</span><span class="tag">NUR 234</span><span class="tag">Exam prep</span><span class="tag">Fall 2026</span><span class="tag">545 MB</span><span class="tag">&#127909; class recording</span></div>
+<h3>M6 &middot; Care of a Family During Labor &amp; Birth</h3>
+<div class="meta"><span class="tag dur">&#9201; 76:16</span><span class="tag mod">M6</span><span class="tag">NUR 234</span><span class="tag">Exam prep</span><span class="tag">Fall 2026</span><span class="tag">545 MB</span><span class="tag">&#127909; class recording</span></div>
 <div class="acts"><a class="play" href="https://drive.google.com/file/d/1upYrXBwo5fWpYW8jlqTg8mS_DqrR1RrN/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=1upYrXBwo5fWpYW8jlqTg8mS_DqrR1RrN&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div>
 </div>
       <div class="pod" style="--jewel:var(--amethyst)" data-topic="NUR 234 class lectures" data-course="NUR 234" data-kind="lecture" data-mod="M6">
@@ -1473,13 +1499,13 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
         <div class="acts"><a class="play" href="https://drive.google.com/file/d/1o5rlqxPFoHyGm38nNnVlNWZFdmCAcwJg/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=1o5rlqxPFoHyGm38nNnVlNWZFdmCAcwJg&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div>
       </div>
       <div class="pod" data-exam="review" style="--jewel:var(--amethyst)" data-topic="NUR 234 class lectures" data-course="NUR 234" data-kind="lecture" data-mod="M2">
-        <h3>M2 &middot; Exam prep &middot; Normal Pregnancy and Care of the Growing Fetus &middot; 54:25</h3>
-        <div class="meta"><span class="tag">&#127919; Exam review</span><span class="tag mod">M2</span><span class="tag">NUR 234</span><span class="tag">Exam prep</span><span class="tag">Fall 2026</span><span class="tag">204 MB</span><span class="tag">&#127909; class recording</span></div>
+        <h3>M2 &middot; Exam prep &middot; Normal Pregnancy and Care of the Growing Fetus</h3>
+        <div class="meta"><span class="tag dur">&#9201; 54:25</span><span class="tag">&#127919; Exam review</span><span class="tag mod">M2</span><span class="tag">NUR 234</span><span class="tag">Exam prep</span><span class="tag">Fall 2026</span><span class="tag">204 MB</span><span class="tag">&#127909; class recording</span></div>
         <div class="acts"><a class="play" href="https://drive.google.com/file/d/1Bk0lxp-seYQORXcarpIuO88Viox4fuOZ/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=1Bk0lxp-seYQORXcarpIuO88Viox4fuOZ&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div>
       </div>
       <div class="pod" data-exam="review" style="--jewel:var(--amethyst)" data-topic="NUR 234 class lectures" data-course="NUR 234" data-kind="lecture" data-mod="M3">
-        <h3>M3 &middot; Exam prep &middot; Physiologic Changes of Pregnancy &middot; 27:23, recorded at 2x</h3>
-        <div class="meta"><span class="tag">&#127919; Exam review</span><span class="tag mod">M3</span><span class="tag">NUR 234</span><span class="tag">Exam prep</span><span class="tag">Fall 2026</span><span class="tag">55 MB</span><span class="tag">&#127909; class recording</span></div>
+        <h3>M3 &middot; Exam prep &middot; Physiologic Changes of Pregnancy</h3>
+        <div class="meta"><span class="tag dur">&#9201; 27:23, recorded at 2x</span><span class="tag">&#127919; Exam review</span><span class="tag mod">M3</span><span class="tag">NUR 234</span><span class="tag">Exam prep</span><span class="tag">Fall 2026</span><span class="tag">55 MB</span><span class="tag">&#127909; class recording</span></div>
         <div class="acts"><a class="play" href="https://drive.google.com/file/d/1B4wu9ddK2huKEVy10lawIK1_YhYzO6bS/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=1B4wu9ddK2huKEVy10lawIK1_YhYzO6bS&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div>
       </div>
       <div class="pod" style="--jewel:var(--amethyst)" data-topic="NUR 234 class lectures" data-course="NUR 234" data-kind="lecture" data-mod="">
@@ -1502,18 +1528,18 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
         <div class="acts"><a class="play" href="https://drive.google.com/file/d/16FWIK3CrP246cwoBniZFEmiuClSLLCUO/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=16FWIK3CrP246cwoBniZFEmiuClSLLCUO&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div>
       </div>
       <div class="pod" data-exam="review" style="--jewel:var(--amethyst)" data-topic="NUR 234 class lectures" data-course="NUR 234" data-kind="lecture" data-mod="M3">
-        <h3>M3 &middot; Exam prep &middot; Psychological Changes of Pregnancy &middot; 24:00</h3>
-        <div class="meta"><span class="tag">&#127919; Exam review</span><span class="tag mod">M3</span><span class="tag">NUR 234</span><span class="tag">Exam prep</span><span class="tag">Fall 2026</span><span class="tag">46 MB</span><span class="tag">&#127909; class recording</span></div>
+        <h3>M3 &middot; Exam prep &middot; Psychological Changes of Pregnancy</h3>
+        <div class="meta"><span class="tag dur">&#9201; 24:00</span><span class="tag">&#127919; Exam review</span><span class="tag mod">M3</span><span class="tag">NUR 234</span><span class="tag">Exam prep</span><span class="tag">Fall 2026</span><span class="tag">46 MB</span><span class="tag">&#127909; class recording</span></div>
         <div class="acts"><a class="play" href="https://drive.google.com/file/d/15AJVaRpwi7uCi97zYj2Cd01PrGjJ5xTs/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=15AJVaRpwi7uCi97zYj2Cd01PrGjJ5xTs&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div>
       </div>
       <div class="pod" data-exam="review" style="--jewel:var(--amethyst)" data-topic="NUR 234 class lectures" data-course="NUR 234" data-kind="lecture" data-mod="M1">
-        <h3>M1 &middot; Exam prep &middot; Reproductive Life Planning &middot; 20:41</h3>
-        <div class="meta"><span class="tag">&#127919; Exam review</span><span class="tag mod">M1</span><span class="tag">NUR 234</span><span class="tag">Exam prep</span><span class="tag">Fall 2026</span><span class="tag">36 MB</span><span class="tag">&#127909; class recording</span></div>
+        <h3>M1 &middot; Exam prep &middot; Reproductive Life Planning</h3>
+        <div class="meta"><span class="tag dur">&#9201; 20:41</span><span class="tag">&#127919; Exam review</span><span class="tag mod">M1</span><span class="tag">NUR 234</span><span class="tag">Exam prep</span><span class="tag">Fall 2026</span><span class="tag">36 MB</span><span class="tag">&#127909; class recording</span></div>
         <div class="acts"><a class="play" href="https://drive.google.com/file/d/1BzJX0H7asjyK1qzOoVAj85MSXLDimJYx/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=1BzJX0H7asjyK1qzOoVAj85MSXLDimJYx&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div>
       </div>
 </div>
   </section>
-  <section class="topic">
+  <section class="topic" data-absn-speak="skip">
     <h2>&#129490; NUR 235 class lectures <span class="n">56</span></h2>
     <div class="list">
 <div class="pod" style="--jewel:var(--citrine)" data-topic="NUR 235 class lectures" data-course="NUR 235" data-kind="lecture" data-mod="M5">
@@ -1646,8 +1672,8 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
         <div class="acts"><a class="play" href="https://drive.google.com/file/d/1-cj742kGJJpy4aS0qcDwSAPrgN9b-EBi/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=1-cj742kGJJpy4aS0qcDwSAPrgN9b-EBi&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div>
       </div><div class="pod" style="--jewel:var(--citrine)" data-topic="NUR 235 class lectures" data-course="NUR 235" data-kind="lecture" data-mod="M6"><h3>M6 &middot; Immune and infectious disorders</h3><div class="meta"><span class="tag mod">M6</span><span class="tag">NUR 235</span><span class="tag">Fuller</span><span class="tag">Fall 2026</span><span class="tag">156 MB</span><span class="tag">&#127909; class recording</span></div><div class="acts"><a class="play" href="https://drive.google.com/file/d/1D874qmiQiZH5lta1iGvjYgZuw89Ap8Hv/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=1D874qmiQiZH5lta1iGvjYgZuw89Ap8Hv&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div></div>
       <div class="pod" style="--jewel:var(--citrine)" data-topic="NUR 235 class lectures" data-course="NUR 235" data-kind="lecture" data-mod="M6">
-<h3>M6 &middot; Child with a Skin Disorder &middot; 45:15</h3>
-<div class="meta"><span class="tag mod">M6</span><span class="tag">NUR 235</span><span class="tag">Exam prep</span><span class="tag">Fall 2026</span><span class="tag">628 MB</span><span class="tag">&#127909; class recording</span></div>
+<h3>M6 &middot; Child with a Skin Disorder</h3>
+<div class="meta"><span class="tag dur">&#9201; 45:15</span><span class="tag mod">M6</span><span class="tag">NUR 235</span><span class="tag">Exam prep</span><span class="tag">Fall 2026</span><span class="tag">628 MB</span><span class="tag">&#127909; class recording</span></div>
 <div class="acts"><a class="play" href="https://drive.google.com/file/d/1v23KrzTLAwGtxZn5XUtCnt8sUoEl7dtH/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=1v23KrzTLAwGtxZn5XUtCnt8sUoEl7dtH&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div>
 </div>
       <div class="pod" style="--jewel:var(--citrine)" data-topic="NUR 235 class lectures" data-course="NUR 235" data-kind="lecture" data-mod="M6">
@@ -1656,8 +1682,8 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
 <div class="acts"><a class="play" href="https://drive.google.com/file/d/1GpvNv-0vqaP5qF1CkAFORKeLRYbibH4E/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=1GpvNv-0vqaP5qF1CkAFORKeLRYbibH4E&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div>
 </div>
       <div class="pod" style="--jewel:var(--citrine)" data-topic="NUR 235 class lectures" data-course="NUR 235" data-kind="lecture" data-mod="M6">
-<h3>M6 &middot; Child with an Infectious Disease &middot; 15:57</h3>
-<div class="meta"><span class="tag mod">M6</span><span class="tag">NUR 235</span><span class="tag">Exam prep</span><span class="tag">Fall 2026</span><span class="tag">288 MB</span><span class="tag">&#127909; class recording</span></div>
+<h3>M6 &middot; Child with an Infectious Disease</h3>
+<div class="meta"><span class="tag dur">&#9201; 15:57</span><span class="tag mod">M6</span><span class="tag">NUR 235</span><span class="tag">Exam prep</span><span class="tag">Fall 2026</span><span class="tag">288 MB</span><span class="tag">&#127909; class recording</span></div>
 <div class="acts"><a class="play" href="https://drive.google.com/file/d/1hYPinVqhDUC1nPBB_78UnpIsRPrmFLDs/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=1hYPinVqhDUC1nPBB_78UnpIsRPrmFLDs&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div>
 </div>
       <div class="pod" style="--jewel:var(--citrine)" data-topic="NUR 235 class lectures" data-course="NUR 235" data-kind="lecture" data-mod="M6">
@@ -1748,8 +1774,8 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
       </div>
       <div class="pod" data-exam="review" style="--jewel:var(--citrine)" data-topic="NUR 235 class lectures" data-course="NUR 235" data-kind="lecture" data-mod="M14"><h3>M14 &middot; Final exam prep</h3><div class="meta"><span class="tag">&#127919; Exam review</span><span class="tag mod">M14</span><span class="tag">NUR 235</span><span class="tag">Fuller</span><span class="tag">Fall 2026</span><span class="tag">160 MB</span><span class="tag">&#127909; class recording</span></div><div class="acts"><a class="play" href="https://drive.google.com/file/d/1pvRIoJTyknef4TVk57Ajdng5oGCH5EHt/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=1pvRIoJTyknef4TVk57Ajdng5oGCH5EHt&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div></div>
       <div class="pod" data-exam="review" style="--jewel:var(--citrine)" data-topic="NUR 235 class lectures" data-course="NUR 235" data-kind="lecture" data-mod="M2">
-        <h3>M2 &middot; Exam prep &middot; Nursing Care of the Infant &middot; 70:38</h3>
-        <div class="meta"><span class="tag">&#127919; Exam review</span><span class="tag mod">M2</span><span class="tag">NUR 235</span><span class="tag">Exam prep</span><span class="tag">Fall 2026</span><span class="tag">307 MB</span><span class="tag">&#127909; class recording</span></div>
+        <h3>M2 &middot; Exam prep &middot; Nursing Care of the Infant</h3>
+        <div class="meta"><span class="tag dur">&#9201; 70:38</span><span class="tag">&#127919; Exam review</span><span class="tag mod">M2</span><span class="tag">NUR 235</span><span class="tag">Exam prep</span><span class="tag">Fall 2026</span><span class="tag">307 MB</span><span class="tag">&#127909; class recording</span></div>
         <div class="acts"><a class="play" href="https://drive.google.com/file/d/1rnhbgdN-mt_4c7fwFVRgm2TXVjH6JVBY/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=1rnhbgdN-mt_4c7fwFVRgm2TXVjH6JVBY&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div>
       </div><div class="pod" style="--jewel:var(--citrine)" data-topic="NUR 235 class lectures" data-course="NUR 235" data-kind="lecture" data-mod="M2">
 <h3>M2 &middot; Immunizations &middot; Simple Nursing</h3>
@@ -1757,13 +1783,13 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
 <div class="acts"><a class="play" href="https://drive.google.com/file/d/14GTOBinaa-CP2ELuLbGaP80H8YP3xxJc/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=14GTOBinaa-CP2ELuLbGaP80H8YP3xxJc&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div>
 </div>
       <div class="pod" data-exam="review" style="--jewel:var(--citrine)" data-topic="NUR 235 class lectures" data-course="NUR 235" data-kind="lecture" data-mod="M4">
-        <h3>M4 &middot; Exam prep &middot; Nursing Care of the School-Age Child &middot; 35:04</h3>
-        <div class="meta"><span class="tag">&#127919; Exam review</span><span class="tag mod">M4</span><span class="tag">NUR 235</span><span class="tag">Exam prep</span><span class="tag">Fall 2026</span><span class="tag">102 MB</span><span class="tag">&#127909; class recording</span></div>
+        <h3>M4 &middot; Exam prep &middot; Nursing Care of the School-Age Child</h3>
+        <div class="meta"><span class="tag dur">&#9201; 35:04</span><span class="tag">&#127919; Exam review</span><span class="tag mod">M4</span><span class="tag">NUR 235</span><span class="tag">Exam prep</span><span class="tag">Fall 2026</span><span class="tag">102 MB</span><span class="tag">&#127909; class recording</span></div>
         <div class="acts"><a class="play" href="https://drive.google.com/file/d/1izfDnsJoLDnQhf55vmUe85stCusSDfP-/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=1izfDnsJoLDnQhf55vmUe85stCusSDfP-&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div>
       </div>
       <div class="pod" data-exam="review" style="--jewel:var(--citrine)" data-topic="NUR 235 class lectures" data-course="NUR 235" data-kind="lecture" data-mod="M4">
-        <h3>M4 &middot; Exam prep &middot; Nursing Care of the Adolescent &middot; 27:26</h3>
-        <div class="meta"><span class="tag">&#127919; Exam review</span><span class="tag mod">M4</span><span class="tag">NUR 235</span><span class="tag">Exam prep</span><span class="tag">Fall 2026</span><span class="tag">54 MB</span><span class="tag">&#127909; class recording</span></div>
+        <h3>M4 &middot; Exam prep &middot; Nursing Care of the Adolescent</h3>
+        <div class="meta"><span class="tag dur">&#9201; 27:26</span><span class="tag">&#127919; Exam review</span><span class="tag mod">M4</span><span class="tag">NUR 235</span><span class="tag">Exam prep</span><span class="tag">Fall 2026</span><span class="tag">54 MB</span><span class="tag">&#127909; class recording</span></div>
         <div class="acts"><a class="play" href="https://drive.google.com/file/d/1EFH6k3BJu1rk1apemXXIl7p8HGaTZgoL/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=1EFH6k3BJu1rk1apemXXIl7p8HGaTZgoL&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div>
       </div>
       <div class="pod" data-exam="review" style="--jewel:var(--citrine)" data-topic="NUR 235 class lectures" data-course="NUR 235" data-kind="lecture" data-mod="M3">
@@ -1772,13 +1798,13 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
         <div class="acts"><a class="play" href="https://drive.google.com/file/d/1rk1Ok5HDNRH6esJ__Z6BV1wZ5MEYUu1f/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=1rk1Ok5HDNRH6esJ__Z6BV1wZ5MEYUu1f&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div>
       </div>
       <div class="pod" data-exam="review" style="--jewel:var(--citrine)" data-topic="NUR 235 class lectures" data-course="NUR 235" data-kind="lecture" data-mod="M3">
-        <h3>M3 &middot; Exam prep &middot; Nursing Care of the Toddler &middot; 35:02</h3>
-        <div class="meta"><span class="tag">&#127919; Exam review</span><span class="tag mod">M3</span><span class="tag">NUR 235</span><span class="tag">Exam prep</span><span class="tag">Fall 2026</span><span class="tag">117 MB</span><span class="tag">&#127909; class recording</span></div>
+        <h3>M3 &middot; Exam prep &middot; Nursing Care of the Toddler</h3>
+        <div class="meta"><span class="tag dur">&#9201; 35:02</span><span class="tag">&#127919; Exam review</span><span class="tag mod">M3</span><span class="tag">NUR 235</span><span class="tag">Exam prep</span><span class="tag">Fall 2026</span><span class="tag">117 MB</span><span class="tag">&#127909; class recording</span></div>
         <div class="acts"><a class="play" href="https://drive.google.com/file/d/1gor8Pva0hBizoWHTNGP6BUK0gag7HrY2/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=1gor8Pva0hBizoWHTNGP6BUK0gag7HrY2&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div>
       </div>
 </div>
   </section>
-  <section class="topic">
+  <section class="topic" data-absn-speak="skip">
     <h2>&#129658; NUR 258 class lectures <span class="n">69</span></h2>
     <div class="list">
 <div class="pod" style="--jewel:var(--teal)" data-topic="NUR 258 class lectures" data-course="NUR 258" data-kind="lecture" data-mod="M5">
@@ -1965,8 +1991,8 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
 <div class="meta"><span class="tag mod">M6</span><span class="tag">NUR 258</span><span class="tag">Halecka</span><span class="tag">Fall 2026</span><span class="tag">184 MB</span><span class="tag">&#127909; class recording</span></div>
 <div class="acts"><a class="play" href="https://drive.google.com/file/d/1qHOSgJRqT6ZmPQP6KxFvg1PuedG4qNtP/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=1qHOSgJRqT6ZmPQP6KxFvg1PuedG4qNtP&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div>
 </div><div class="pod" style="--jewel:var(--teal)" data-topic="NUR 258 class lectures" data-course="NUR 258" data-kind="lecture" data-mod="M6">
-<h3>M6 &middot; Endocrine II &middot; Exam prep &middot; 65:02</h3>
-<div class="meta"><span class="tag mod">M6</span><span class="tag">NUR 258</span><span class="tag">Exam prep</span><span class="tag">Fall 2026</span><span class="tag">660 MB</span><span class="tag">&#127909; class recording</span></div>
+<h3>M6 &middot; Endocrine II &middot; Exam prep</h3>
+<div class="meta"><span class="tag dur">&#9201; 65:02</span><span class="tag mod">M6</span><span class="tag">NUR 258</span><span class="tag">Exam prep</span><span class="tag">Fall 2026</span><span class="tag">660 MB</span><span class="tag">&#127909; class recording</span></div>
 <div class="acts"><a class="play" href="https://drive.google.com/file/d/10hWqRgn1ai3FbbYdCkSnrix99pd6LGxY/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=10hWqRgn1ai3FbbYdCkSnrix99pd6LGxY&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div>
 </div><div class="pod" style="--jewel:var(--teal)" data-topic="NUR 258 class lectures" data-course="NUR 258" data-kind="lecture" data-mod="M6">
 <h3>M6 &middot; Endocrine II &middot; earlier capture, 28 Sep</h3>
@@ -2135,28 +2161,28 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
         <div class="acts"><a class="play" href="https://drive.google.com/file/d/1WZx7Rxzq6B3C-ZWqFQrx5YWyim_R72Qg/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=1WZx7Rxzq6B3C-ZWqFQrx5YWyim_R72Qg&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div>
       </div>
       <div class="pod" style="--jewel:var(--teal)" data-topic="NUR 258 class lectures" data-course="NUR 258" data-kind="lecture" data-mod="M1">
-        <h3>M1 &middot; Course orientation &middot; Welcome to Adult Health II &middot; 40:20</h3>
-        <div class="meta"><span class="tag mod">M1</span><span class="tag">NUR 258</span><span class="tag">Simmons</span><span class="tag">Fall 2026</span><span class="tag">410 MB</span><span class="tag">&#127909; class recording</span></div>
+        <h3>M1 &middot; Course orientation &middot; Welcome to Adult Health II</h3>
+        <div class="meta"><span class="tag dur">&#9201; 40:20</span><span class="tag mod">M1</span><span class="tag">NUR 258</span><span class="tag">Simmons</span><span class="tag">Fall 2026</span><span class="tag">410 MB</span><span class="tag">&#127909; class recording</span></div>
         <div class="acts"><a class="play" href="https://drive.google.com/file/d/17NVBLTI3WXTACVPEHuAn_R5rXGy-SHf7/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=17NVBLTI3WXTACVPEHuAn_R5rXGy-SHf7&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div>
       </div>
       <div class="pod" data-exam="review" style="--jewel:var(--teal)" data-topic="NUR 258 class lectures" data-course="NUR 258" data-kind="lecture" data-mod="M2">
-        <h3>M2 &middot; Exam prep &middot; Infectious Diseases &middot; 59:14</h3>
-        <div class="meta"><span class="tag">&#127919; Exam review</span><span class="tag mod">M2</span><span class="tag">NUR 258</span><span class="tag">Exam prep</span><span class="tag">Fall 2026</span><span class="tag">100 MB</span><span class="tag">&#127909; class recording</span></div>
+        <h3>M2 &middot; Exam prep &middot; Infectious Diseases</h3>
+        <div class="meta"><span class="tag dur">&#9201; 59:14</span><span class="tag">&#127919; Exam review</span><span class="tag mod">M2</span><span class="tag">NUR 258</span><span class="tag">Exam prep</span><span class="tag">Fall 2026</span><span class="tag">100 MB</span><span class="tag">&#127909; class recording</span></div>
         <div class="acts"><a class="play" href="https://drive.google.com/file/d/1n2XHRXYmR6U1Zw6QPjJDQ65461PQc1Yf/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=1n2XHRXYmR6U1Zw6QPjJDQ65461PQc1Yf&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div>
       </div>
       <div class="pod" data-exam="review" style="--jewel:var(--teal)" data-topic="NUR 258 class lectures" data-course="NUR 258" data-kind="lecture" data-mod="M3">
-        <h3>M3 &middot; Exam prep &middot; Inflammatory Disorders &middot; 34:49</h3>
-        <div class="meta"><span class="tag">&#127919; Exam review</span><span class="tag mod">M3</span><span class="tag">NUR 258</span><span class="tag">Exam prep</span><span class="tag">Fall 2026</span><span class="tag">95 MB</span><span class="tag">&#127909; class recording</span></div>
+        <h3>M3 &middot; Exam prep &middot; Inflammatory Disorders</h3>
+        <div class="meta"><span class="tag dur">&#9201; 34:49</span><span class="tag">&#127919; Exam review</span><span class="tag mod">M3</span><span class="tag">NUR 258</span><span class="tag">Exam prep</span><span class="tag">Fall 2026</span><span class="tag">95 MB</span><span class="tag">&#127909; class recording</span></div>
         <div class="acts"><a class="play" href="https://drive.google.com/file/d/18QxQvERtngH_lYv0-BF6NDMYxDj3G_wq/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=18QxQvERtngH_lYv0-BF6NDMYxDj3G_wq&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div>
       </div>
         <div class="pod" data-exam="review" style="--jewel:var(--teal)" data-topic="NUR 258 class lectures" data-course="NUR 258" data-kind="lecture" data-mod="M3">
-        <h3>M3 &middot; Exam prep &middot; Immunologic Disorders &mdash; RA, SLE, fibromyalgia &middot; 12:25</h3>
-        <div class="meta"><span class="tag">&#127919; Exam review</span><span class="tag mod">M3</span><span class="tag">NUR 258</span><span class="tag">Exam prep</span><span class="tag">Fall 2026</span><span class="tag">74 MB</span><span class="tag">&#127909; class recording</span></div>
+        <h3>M3 &middot; Exam prep &middot; Immunologic Disorders &mdash; RA, SLE, fibromyalgia</h3>
+        <div class="meta"><span class="tag dur">&#9201; 12:25</span><span class="tag">&#127919; Exam review</span><span class="tag mod">M3</span><span class="tag">NUR 258</span><span class="tag">Exam prep</span><span class="tag">Fall 2026</span><span class="tag">74 MB</span><span class="tag">&#127909; class recording</span></div>
         <div class="acts"><a class="play" href="https://drive.google.com/file/d/18EXHL_6NcAl0aqRLyU26K_urJSLIeQE9/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=18EXHL_6NcAl0aqRLyU26K_urJSLIeQE9&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div>
       </div>
 </div>
   </section>
-  <section class="topic">
+  <section class="topic" data-absn-speak="skip">
     <h2>&#128138; Pharmacology lectures (BIO 290V) <span class="n">33</span></h2>
     <div class="list">
       <div class="pod" style="--jewel:var(--citrine)" data-topic="Pharmacology lectures (BIO 290V)" data-course="BIO 290V" data-kind="lecture" data-mod="M1">
@@ -2327,7 +2353,7 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
       </div>
       </div>
   </section>
-  <section class="topic">
+  <section class="topic" data-absn-speak="skip">
     <h2>&#129658; NUR 198 class lectures <span class="n">80</span></h2>
     <div class="list">
 <div class="pod" style="--jewel:var(--emerald)" data-topic="NUR 198 class lectures" data-course="NUR 198" data-kind="lecture" data-mod="Wk 4">
@@ -2689,13 +2715,13 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
         <div class="acts"><a class="play" href="https://drive.google.com/file/d/17FEOKc4ndrct33Uz5cCzC3WgQ5ff-5Tl/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=17FEOKc4ndrct33Uz5cCzC3WgQ5ff-5Tl&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div>
       </div>
       <div class="pod" data-exam="review" style="--jewel:var(--emerald)" data-topic="NUR 198 class lectures" data-course="NUR 198" data-kind="lecture" data-mod="Exam prep">
-        <h3>Exam prep &middot; Care of the Older Adult Client &middot; 40:08</h3>
-        <div class="meta"><span class="tag">&#127919; Exam review</span><span class="tag mod">Exam prep</span><span class="tag">NUR 198</span><span class="tag">Exam prep</span><span class="tag">Summer 2026</span><span class="tag">136 MB</span><span class="tag">&#127909; class recording</span></div>
+        <h3>Exam prep &middot; Care of the Older Adult Client</h3>
+        <div class="meta"><span class="tag dur">&#9201; 40:08</span><span class="tag">&#127919; Exam review</span><span class="tag mod">Exam prep</span><span class="tag">NUR 198</span><span class="tag">Exam prep</span><span class="tag">Summer 2026</span><span class="tag">136 MB</span><span class="tag">&#127909; class recording</span></div>
         <div class="acts"><a class="play" href="https://drive.google.com/file/d/1LbZsv_W03rZ1IDy44H40plzNTK9E05B8/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=1LbZsv_W03rZ1IDy44H40plzNTK9E05B8&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div>
       </div>
         <div class="pod" data-exam="review" style="--jewel:var(--emerald)" data-topic="NUR 198 class lectures" data-course="NUR 198" data-kind="lecture" data-mod="Exam prep">
-        <h3>M4 &middot; Exam prep &middot; Gas Exchange &middot; 19:01</h3>
-        <div class="meta"><span class="tag">&#127919; Exam review</span><span class="tag mod">Exam prep</span><span class="tag">NUR 198</span><span class="tag">Exam prep</span><span class="tag">Summer 2026</span><span class="tag">37 MB</span><span class="tag">&#127909; class recording</span></div>
+        <h3>M4 &middot; Exam prep &middot; Gas Exchange</h3>
+        <div class="meta"><span class="tag dur">&#9201; 19:01</span><span class="tag">&#127919; Exam review</span><span class="tag mod">Exam prep</span><span class="tag">NUR 198</span><span class="tag">Exam prep</span><span class="tag">Summer 2026</span><span class="tag">37 MB</span><span class="tag">&#127909; class recording</span></div>
         <div class="acts"><a class="play" href="https://drive.google.com/file/d/1oa_08p75OYUqjItLw9sBlQz6icXEkkmv/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=1oa_08p75OYUqjItLw9sBlQz6icXEkkmv&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div>
       </div>
         <div class="pod" data-exam="review" style="--jewel:var(--emerald)" data-topic="NUR 198 class lectures" data-course="NUR 198" data-kind="lecture" data-mod="Exam prep">
@@ -2704,23 +2730,23 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
         <div class="acts"><a class="play" href="https://drive.google.com/file/d/1GNji87bZfT4J9D2GADKqry5HuZ-9Izp-/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=1GNji87bZfT4J9D2GADKqry5HuZ-9Izp-&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div>
       </div>
         <div class="pod" data-exam="review" style="--jewel:var(--emerald)" data-topic="NUR 198 class lectures" data-course="NUR 198" data-kind="lecture" data-mod="M3">
-        <h3>M3 &middot; Exam prep &middot; Pain Management &middot; 22:19</h3>
-        <div class="meta"><span class="tag">&#127919; Exam review</span><span class="tag mod">M3</span><span class="tag">NUR 198</span><span class="tag">Exam prep</span><span class="tag">Summer 2026</span><span class="tag">59 MB</span><span class="tag">&#127909; class recording</span></div>
+        <h3>M3 &middot; Exam prep &middot; Pain Management</h3>
+        <div class="meta"><span class="tag dur">&#9201; 22:19</span><span class="tag">&#127919; Exam review</span><span class="tag mod">M3</span><span class="tag">NUR 198</span><span class="tag">Exam prep</span><span class="tag">Summer 2026</span><span class="tag">59 MB</span><span class="tag">&#127909; class recording</span></div>
         <div class="acts"><a class="play" href="https://drive.google.com/file/d/1c2Sdjv_qEIHBo6HIxpz32nDpS980PwhM/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=1c2Sdjv_qEIHBo6HIxpz32nDpS980PwhM&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div>
       </div>
         <div class="pod" data-exam="review" style="--jewel:var(--emerald)" data-topic="NUR 198 class lectures" data-course="NUR 198" data-kind="lecture" data-mod="M3">
-        <h3>M3 &middot; Exam prep &middot; Integumentary &middot; 14:50</h3>
-        <div class="meta"><span class="tag">&#127919; Exam review</span><span class="tag mod">M3</span><span class="tag">NUR 198</span><span class="tag">Exam prep</span><span class="tag">Summer 2026</span><span class="tag">41 MB</span><span class="tag">&#127909; class recording</span></div>
+        <h3>M3 &middot; Exam prep &middot; Integumentary</h3>
+        <div class="meta"><span class="tag dur">&#9201; 14:50</span><span class="tag">&#127919; Exam review</span><span class="tag mod">M3</span><span class="tag">NUR 198</span><span class="tag">Exam prep</span><span class="tag">Summer 2026</span><span class="tag">41 MB</span><span class="tag">&#127909; class recording</span></div>
         <div class="acts"><a class="play" href="https://drive.google.com/file/d/16cQWDHxNBgIR1yct_tDXLiAeMZ4BjKRu/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=16cQWDHxNBgIR1yct_tDXLiAeMZ4BjKRu&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div>
       </div>
       <div class="pod" data-exam="review" style="--jewel:var(--emerald)" data-topic="NUR 198 class lectures" data-course="NUR 198" data-kind="lecture" data-mod="Exam prep">
-        <h3>Exam prep &middot; Chronic Illness and Disability &middot; 28:01</h3>
-        <div class="meta"><span class="tag">&#127919; Exam review</span><span class="tag mod">Exam prep</span><span class="tag">NUR 198</span><span class="tag">Exam prep</span><span class="tag">Summer 2026</span><span class="tag">222 MB</span><span class="tag">&#127909; class recording</span></div>
+        <h3>Exam prep &middot; Chronic Illness and Disability</h3>
+        <div class="meta"><span class="tag dur">&#9201; 28:01</span><span class="tag">&#127919; Exam review</span><span class="tag mod">Exam prep</span><span class="tag">NUR 198</span><span class="tag">Exam prep</span><span class="tag">Summer 2026</span><span class="tag">222 MB</span><span class="tag">&#127909; class recording</span></div>
         <div class="acts"><a class="play" href="https://drive.google.com/file/d/1lkxS1eSln_Wjmc0AhJfCiksLFXdKuhuw/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=1lkxS1eSln_Wjmc0AhJfCiksLFXdKuhuw&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div>
       </div>
       <div class="pod" data-exam="review" style="--jewel:var(--emerald)" data-topic="NUR 198 class lectures" data-course="NUR 198" data-kind="lecture" data-mod="Exam prep">
-        <h3>Acid-Base Balance &middot; Zoom session 7 May &middot; 21:09</h3>
-        <div class="meta"><span class="tag">&#127919; Exam review</span><span class="tag mod">Exam prep</span><span class="tag">NUR 198</span><span class="tag">Not named</span><span class="tag">Summer 2026</span><span class="tag">74 MB</span><span class="tag">&#127909; class recording</span></div>
+        <h3>Acid-Base Balance &middot; Zoom session 7 May</h3>
+        <div class="meta"><span class="tag dur">&#9201; 21:09</span><span class="tag">&#127919; Exam review</span><span class="tag mod">Exam prep</span><span class="tag">NUR 198</span><span class="tag">Not named</span><span class="tag">Summer 2026</span><span class="tag">74 MB</span><span class="tag">&#127909; class recording</span></div>
         <div class="acts"><a class="play" href="https://drive.google.com/file/d/1QAJuu8sY2avKZam-5QJexdwTniN9I83j/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=1QAJuu8sY2avKZam-5QJexdwTniN9I83j&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div>
       </div>
       <div class="pod" data-exam="review" style="--jewel:var(--emerald)" data-topic="NUR 198 class lectures" data-course="NUR 198" data-kind="lecture" data-mod="Wk 9">
@@ -2730,7 +2756,7 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
       </div>
 </div>
   </section>
-  <section class="topic">
+  <section class="topic" data-absn-speak="skip">
     <h2>&#129504; NUR 175 class lectures <span class="n">21</span></h2>
     <div class="list">
       <div class="pod" data-exam="review" style="--jewel:var(--teal)" data-topic="NUR 175 class lectures" data-course="NUR 175" data-kind="lecture" data-mod="">
@@ -2824,8 +2850,8 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
         <div class="acts"><a class="play" href="https://drive.google.com/file/d/16_2-rpSzjqYL86QvvA4jLel-pniYK-SR/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=16_2-rpSzjqYL86QvvA4jLel-pniYK-SR&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div>
       </div>
       <div class="pod" data-exam="review" style="--jewel:var(--teal)" data-topic="NUR 175 class lectures" data-course="NUR 175" data-kind="lecture" data-mod="M13">
-        <h3>M13 &middot; Exam prep &middot; Psychopharmacology &middot; 47:19</h3>
-        <div class="meta"><span class="tag">&#127919; Exam review</span><span class="tag mod">M13</span><span class="tag">NUR 175</span><span class="tag">Exam prep</span><span class="tag">Fall 2026</span><span class="tag">132 MB</span><span class="tag">&#127909; class recording</span></div>
+        <h3>M13 &middot; Exam prep &middot; Psychopharmacology</h3>
+        <div class="meta"><span class="tag dur">&#9201; 47:19</span><span class="tag">&#127919; Exam review</span><span class="tag mod">M13</span><span class="tag">NUR 175</span><span class="tag">Exam prep</span><span class="tag">Fall 2026</span><span class="tag">132 MB</span><span class="tag">&#127909; class recording</span></div>
         <div class="acts"><a class="play" href="https://drive.google.com/file/d/1inieICqA7U070hIaplwNlrAijcoh8hXJ/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=1inieICqA7U070hIaplwNlrAijcoh8hXJ&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div>
       </div>
         <div class="pod" data-exam="review" style="--jewel:var(--teal)" data-topic="NUR 175 class lectures" data-course="NUR 175" data-kind="lecture" data-mod="Exam prep">
@@ -2834,8 +2860,8 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
         <div class="acts"><a class="play" href="https://drive.google.com/file/d/1gWMxVcfP4zgTbbdk-3bPYd1lrgk50pkX/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=1gWMxVcfP4zgTbbdk-3bPYd1lrgk50pkX&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div>
       </div>
       <div class="pod" style="--jewel:var(--teal)" data-topic="NUR 175 class lectures" data-course="NUR 175" data-kind="lecture" data-mod="Pharm">
-        <h3>Pharmacology review &middot; Antipsychotics and mental health drug classes &middot; 33:29</h3>
-        <div class="meta"><span class="tag mod">Pharm</span><span class="tag">NUR 175</span><span class="tag">Wilkins</span><span class="tag">Summer 2026</span><span class="tag">218 MB</span><span class="tag">&#127909; class recording</span></div>
+        <h3>Pharmacology review &middot; Antipsychotics and mental health drug classes</h3>
+        <div class="meta"><span class="tag dur">&#9201; 33:29</span><span class="tag mod">Pharm</span><span class="tag">NUR 175</span><span class="tag">Wilkins</span><span class="tag">Summer 2026</span><span class="tag">218 MB</span><span class="tag">&#127909; class recording</span></div>
         <div class="acts"><a class="play" href="https://drive.google.com/file/d/1EKhhlXXsLO5s6joXtNIQrzqjPoWmUy_f/view" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a><a href="https://drive.usercontent.google.com/download?id=1EKhhlXXsLO5s6joXtNIQrzqjPoWmUy_f&amp;export=download&amp;confirm=t">&#11015;&#65039; Download</a></div>
       </div>
       <div class="pod" style="--jewel:var(--teal)" data-topic="NUR 175 class lectures" data-course="NUR 175" data-kind="lecture" data-mod="Wk 11">
@@ -2845,7 +2871,7 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
       </div>
 </div>
   </section>
-  <section class="topic">
+  <section class="topic" data-absn-speak="skip">
     <h2>&#129656; NUR 125 class recordings <span class="n">1</span></h2>
     <div class="list">
       <div class="pod" style="--jewel:var(--topaz)" data-topic="NUR 125 class recordings" data-course="NUR 125" data-kind="lecture" data-mod="">
@@ -2855,7 +2881,7 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
       </div>
     </div>
   </section>
-  <section class="topic">
+  <section class="topic" data-absn-speak="skip">
     <h2>&#129656; NUR 103 class recordings <span class="n">3</span></h2>
     <div class="list">
       <div class="pod" style="--jewel:var(--topaz)" data-topic="NUR 103 class recordings" data-course="NUR 103" data-kind="lecture" data-mod="M5">
@@ -2875,7 +2901,7 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
       </div>
     </div>
   </section>
-  <section class="topic">
+  <section class="topic" data-absn-speak="skip">
     <h2>&#129728; Anatomy lectures (Summer 2025) <span class="n">27</span></h2>
     <div class="list">
       <div class="pod" style="--jewel:var(--emerald)" data-topic="Anatomy lectures (Summer 2025)" data-course="A&amp;P" data-kind="lecture" data-mod="M5">
@@ -3016,7 +3042,7 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
       </div>
       </div>
   </section>
-  <section class="topic">
+  <section class="topic" data-absn-speak="skip">
     <h2>&#129728; Physiology lectures (Summer 2025) <span class="n">26</span></h2>
     <div class="list">
       <div class="pod" style="--jewel:var(--emerald)" data-topic="Physiology lectures (Summer 2025)" data-course="A&amp;P" data-kind="lecture" data-mod="M7">
@@ -3151,7 +3177,7 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
       </div>
       </div>
   </section>
-  <section class="topic">
+  <section class="topic" data-absn-speak="skip">
     <h2>&#129516; Pathophysiology recordings (BIO 280V) <span class="n">50</span></h2>
     <div class="list">
       <div class="pod" style="--jewel:var(--sapphire)" data-topic="Pathophysiology recordings (BIO 280V)" data-course="BIO 280V" data-kind="lecture" data-mod="M1">
@@ -3407,7 +3433,7 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
       </div>
     </div>
   </section>
-  <section class="topic">
+  <section class="topic" data-absn-speak="skip">
     <h2>&#128202; MAT 300 Statistics recordings <span class="n">48</span></h2>
     <div class="list">
       <div class="pod" style="--jewel:var(--garnet)" data-topic="MAT 300 Statistics recordings" data-course="MAT 300" data-kind="lecture" data-mod="M1">
@@ -3655,140 +3681,149 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
 
 
 
+  <details class="libnote"><summary>Library details</summary>
   <p class="note">All of these are copied into your <b>Podcasts</b> folder on Drive, so
   they are gathered in one place there too. <b>4</b> would not copy &mdash; Drive returns an error on those files every time it is asked. They are still listed here and still play from the original. <b>34</b> of them had no subject in the filename, so I worked it out from your own ATI contents, your exam guides and your module list and renamed them. <b>7</b> are still unidentified and say so on the card. The 12 Klimek lectures existed twice at different qualities; each is now one card with both files on it.</p>
+  </details>
 </div>
 <script>
-/* Two rows of buttons, both multi-select, and a section hides itself when nothing in it
-   survives the filter - an empty heading is just something else to scroll past. */
+/* Filters for the podcast library (rewritten 12 Oct from Codex's podcasts brief).
+   Rows combine (AND); buttons in a row combine (OR). Search combines with all of
+   them. Every number on the page - the total, each section, each button - is
+   counted from the cards under the current choices, so they cannot disagree.
+   The choices stay on screen as removable chips while a word is typed. */
 (function(){
-  var pick={topic:[],course:[],kind:[],mod:[],exam:[]}, q='';
-  /* Cache each card's searchable text once. Rebuilding textContent for 604
-     cards on every keystroke is what makes a filter feel broken on a phone. */
-  var hay=new WeakMap();
-  function text(p){
-    var v=hay.get(p);
-    if(v===undefined){ v=(p.textContent+' '+(p.dataset.topic||'')+' '+(p.dataset.course||'')+' '
-      +(p.dataset.mod||'')+' '+(p.dataset.kind||'')).toLowerCase().replace(/\s+/g,' '); hay.set(p,v); }
-    return v;
+  var KEYS=['kind','course','mod','topic','exam'];
+  var NAMES={kind:'Show',course:'Course',mod:'Module',topic:'Topic',exam:'Exam prep'};
+  var pick={kind:[],course:[],mod:[],topic:[],exam:[]}, q='';
+  var pods=[].slice.call(document.querySelectorAll('.pod'));
+  var secs=[].slice.call(document.querySelectorAll('.topic'));
+  var btns=[].slice.call(document.querySelectorAll('.fbtn[data-k]'));
+  var qi=document.getElementById('q'), qw=qi&&qi.closest('.fsearch');
+  function split(v){return String(v||'').split('·').map(function(x){return x.trim();}).filter(Boolean);}
+  /* Cache each card's facets and searchable text once - rebuilding textContent
+     for 639 cards on every keystroke is what makes a filter feel broken on a phone. */
+  var info=pods.map(function(p){
+    return {el:p, kind:split(p.dataset.kind), course:split(p.dataset.course), mod:split(p.dataset.mod),
+      topic:split(p.dataset.topic), exam:split(p.dataset.exam),
+      text:(p.textContent+' '+(p.dataset.topic||'')+' '+(p.dataset.course||'')+' '+(p.dataset.mod||'')+' '
+        +(p.dataset.kind||'')).toLowerCase().replace(/\s+/g,' ')};
+  });
+  function okQ(c){ if(!q) return true; return q.split(/\s+/).every(function(w){return c.text.indexOf(w)>-1;}); }
+  function okK(c,k,vals){ return !vals.length || c[k].some(function(x){return vals.indexOf(x)>-1;}); }
+  function passes(c,skip){
+    if(!okQ(c)) return false;
+    for(var i=0;i<KEYS.length;i++){ var k=KEYS[i]; if(k!==skip && !okK(c,k,pick[k])) return false; }
+    return true;
   }
+  function labelOf(b){ var t=b.cloneNode(true); var f=t.querySelector('.fc'); if(f) f.remove(); return t.textContent.replace(/\s+/g,' ').trim(); }
+  btns.forEach(function(b){ if(!b.querySelector('.fc')){ var f=document.createElement('span'); f.className='fc'; b.appendChild(f); } });
+
+  /* A chip no recording can ever satisfy is a trap ("Exam 1" once showed 0 and
+     looked like the library had lost the peds lectures). Drop those at load. */
+  (function(){
+    var have={};
+    info.forEach(function(c){ KEYS.forEach(function(k){ c[k].forEach(function(v){ (have[k]=have[k]||{})[v]=1; }); }); });
+    btns=btns.filter(function(b){ var k=b.dataset.k, v=b.dataset.v;
+      if(v!=='all' && (!have[k]||!have[k][v])){ b.remove(); return false; } return true; });
+  })();
+
   function apply(){
-    var shown=0;
-    [].forEach.call(document.querySelectorAll('.topic'),function(sec){
-      var any=0;
-      [].forEach.call(sec.querySelectorAll('.pod'),function(p){
-        var okT = !pick.topic.length || pick.topic.indexOf(p.dataset.topic)>-1;
-        var okC = !pick.course.length || pick.course.indexOf(p.dataset.course)>-1;
-        var okK = !pick.kind.length || pick.kind.indexOf(p.dataset.kind)>-1;
-        /* a recording can carry two modules, e.g. "M7 · M8" - match either */
-        var mods = (p.dataset.mod||'').split('\u00b7').map(function(x){return x.trim();});
-        var okM = !pick.mod.length || mods.some(function(x){return pick.mod.indexOf(x)>-1;});
-        var exs = (p.dataset.exam||'').split('\u00b7').map(function(x){return x.trim();});
-        var okE = !pick.exam.length || exs.some(function(x){return pick.exam.indexOf(x)>-1;});
-        var okQ = !q || text(p).indexOf(q)>-1;
-        var on = okT && okC && okK && okM && okE && okQ;
-        p.classList.toggle('hide', !on);
-        if(on){ any++; shown++; }
-      });
+    var shown=0, filtering=!!q||KEYS.some(function(k){return pick[k].length;});
+    info.forEach(function(c){ var on=passes(c); c.el.classList.toggle('hide',!on); c.on=on; if(on) shown++; });
+    secs.forEach(function(sec){
+      var any=sec.querySelectorAll('.pod:not(.hide)').length;
       sec.classList.toggle('hide', any===0);
-      /* the ADHD script folds every group but the first; a filter has to unfold the groups it matched,
-         otherwise "NUR 235" finds 49 recordings and shows none of them */
-      var filtering = q||pick.topic.length||pick.course.length||pick.kind.length||pick.mod.length||pick.exam.length;
       if(filtering && any>0){
         var body=sec.querySelector(':scope > .adhd-card-body'), btn=sec.querySelector(':scope > .adhd-card-toggle');
         if(body && body.hidden){ body.hidden=false; sec.classList.add('adhd-open');
-          if(btn){ btn.setAttribute('aria-expanded','true'); var ic=btn.querySelector('.adhd-card-icon'); if(ic) ic.textContent='\u2212'; } }
+          if(btn){ btn.setAttribute('aria-expanded','true'); var ic=btn.querySelector('.adhd-card-icon'); if(ic) ic.textContent='\u2212';
+            var cu=btn.querySelector('.adhd-card-cue[data-open]'); if(cu) cu.textContent=cu.getAttribute('data-open'); } }
       }
       var n=sec.querySelector('.n'); if(n) n.textContent=any;
-      /* the jump cards at the top copy the heading text once, so refresh them too */
       var h2=sec.querySelector('h2'); if(h2){ var label=h2.textContent.replace(/\s+/g,' ').trim();
         var t=sec.querySelector(':scope > .adhd-card-toggle .adhd-card-title'); if(t&&t.firstChild&&t.firstChild.nodeType===3) t.firstChild.nodeValue=label; }
     });
-    document.getElementById('hits').textContent=shown;
+    /* facet counts: what each button would show, given everything else chosen */
+    btns.forEach(function(b){
+      var k=b.dataset.k, v=b.dataset.v, n=0;
+      info.forEach(function(c){ if(passes(c,k) && (v==='all' || c[k].indexOf(v)>-1)) n++; });
+      b.querySelector('.fc').textContent=n;
+      var on=v==='all' ? !pick[k].length : pick[k].indexOf(v)>-1;
+      b.classList.toggle('active',on); b.setAttribute('aria-pressed',on?'true':'false');
+      b.classList.toggle('zero', n===0 && !on);
+    });
+    /* class-recording mode is grouped by course and module; the topic row is for podcasts */
+    var tw=document.getElementById('topicwrap');
+    if(tw){ var lect=pick.kind.length===1 && pick.kind[0]==='lecture'; tw.hidden=lect; if(lect && pick.topic.length){ pick.topic=[]; return apply(); } }
+    var pc=info.filter(function(c){return c.kind.indexOf('podcast')>-1;}).length;
+    var totc=document.getElementById('totc'); if(totc) totc.textContent=pc+' podcasts · '+(info.length-pc)+' class recordings';
+
+    var chosen=[];
+    KEYS.forEach(function(k){ pick[k].forEach(function(v){
+      var b=btns.filter(function(x){return x.dataset.k===k&&x.dataset.v===v;})[0];
+      chosen.push({k:k,v:v,label:NAMES[k]+': '+(b?labelOf(b):v)}); }); });
+    var scope=chosen.map(function(c){return c.label.replace(/^[^:]+: /,'');}).join(' · ');
+    var hl=document.getElementById('hitsline');
+    if(hl) hl.innerHTML= filtering
+      ? 'Showing <b id="hits">'+shown+'</b> of '+info.length+(scope?' &mdash; within '+esc(scope):'')+(q?' &mdash; search &ldquo;'+esc(q)+'&rdquo;':'')+'.'
+      : 'Showing all <b id="hits">'+shown+'</b>: '+pc+' podcasts and '+(info.length-pc)+' class recordings.';
+    var ac=document.getElementById('actchips');
+    if(ac){
+      var h=chosen.map(function(c){return '<button type="button" class="ac" data-k="'+c.k+'" data-v="'+esc(c.v)+'" aria-label="Remove '+esc(c.label)+'">'+esc(c.label)+' &#10005;</button>';});
+      if(q) h.unshift('<button type="button" class="ac" data-k="q" aria-label="Clear the search">Search: &ldquo;'+esc(q)+'&rdquo; &#10005;</button>');
+      if(h.length) h.push('<button type="button" class="ac all" data-k="all">Clear all</button>');
+      ac.innerHTML=h.join(''); ac.hidden=!h.length;
+    }
+    var nmf=document.getElementById('nmf');
+    if(nmf){ var m=pick.mod.length+pick.topic.length+pick.exam.length; nmf.textContent=m?String(m):''; }
     var nh=document.getElementById('nohits');
     if(nh){
-      /* name the chips the way they are labelled on screen, not by their data values */
-      var on=[];
-      [].forEach.call(document.querySelectorAll('.fbtn.active'),function(b){
-        if(!b.dataset.k || b.dataset.v==='all') return;
-        on.push(b.textContent.replace(/\s+/g,' ').trim());
-      });
-      if(q) on.unshift('\u201c'+q+'\u201d typed in the search box');
-      nh.hidden = shown>0 || !on.length;
+      nh.hidden = shown>0 || !filtering;
       var w=document.getElementById('nohitswhat');
-      if(w) w.textContent = !on.length ? ''
-        : on.length===1 ? ('\u201c'+on[0]+'\u201d is switched on, and nothing in the library matches it.')
-        : ('You have '+on.slice(0,-1).map(function(x){return '\u201c'+x+'\u201d';}).join(', ')+' and \u201c'+on[on.length-1]+'\u201d switched on at the same time.');
+      if(w) w.textContent = (scope?'You chose '+scope+'. ':'')+(q?'The search is “'+q+'”.':'');
+      var nb=document.getElementById('nhb');
+      if(nb) nb.innerHTML=(q?'<button type="button" class="fbtn" data-do="q">Clear search</button>':'')+
+        (chosen.length&&q?'<button type="button" class="fbtn" data-do="f">Clear filters, keep search</button>':'')+
+        '<button type="button" class="fbtn" data-do="all">&#8634; Show everything</button>';
     }
+    if(qw) qw.classList.toggle('has', !!q);
   }
-  var qi=document.getElementById('q'), qw=qi&&qi.closest('.fsearch');
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function clearQ(){ q=''; if(qi) qi.value=''; }
+  function clearF(){ KEYS.forEach(function(k){pick[k]=[];}); }
+
   if(qi){
-    var box=qi.closest('.filters');
     qi.addEventListener('input',function(){
-      var was=q;
-      q=qi.value.trim().toLowerCase();
-      if(qw) qw.classList.toggle('has', !!q);
-      if(box) box.classList.toggle('searching', !!q);
-      apply();
-      /* bring the box to the top on the first keystroke, so she can see the
-         box and its results at once instead of scrolling back up to check */
+      var was=q; q=qi.value.trim().toLowerCase(); apply();
+      /* bring the box to the top on the first keystroke, so the box and its results show together */
       if(q && !was) requestAnimationFrame(function(){
-        var y=qi.getBoundingClientRect().top+window.pageYOffset-12;
-        window.scrollTo(0, Math.max(0, y));
-      });
+        var y=qi.getBoundingClientRect().top+window.pageYOffset-12; window.scrollTo(0, Math.max(0, y)); });
     });
     var qc=document.getElementById('qclear');
-    if(qc) qc.addEventListener('click',function(){ qi.value=''; q=''; if(qw) qw.classList.remove('has');
-      if(qi.closest('.filters')) qi.closest('.filters').classList.remove('searching'); apply(); qi.focus(); });
+    if(qc) qc.addEventListener('click',function(){ clearQ(); apply(); qi.focus(); });
   }
   document.addEventListener('click',function(e){
-    var b=e.target.closest('.fbtn'); if(!b) return;
-    var k=b.dataset.k, v=b.dataset.v, row=b.parentElement;
-    if(v==='all'){
-      [].forEach.call(row.querySelectorAll('.fbtn'),function(x){x.classList.remove('active');});
-      b.classList.add('active'); pick[k]=[];
-    } else {
-      b.classList.toggle('active');
-      var sel=[].slice.call(row.querySelectorAll('.fbtn.active'))
-                .map(function(x){return x.dataset.v;}).filter(function(x){return x!=='all';});
-      pick[k]=sel;
-      var all=row.querySelector('.fbtn[data-v=all]');
-      if(all) all.classList.toggle('active', sel.length===0);
-    }
+    var d=e.target.closest('[data-do]');
+    if(d){ var a=d.getAttribute('data-do'); if(a!=='f') clearQ(); if(a!=='q') clearF(); apply(); return; }
+    var c=e.target.closest('.ac');
+    if(c){ var ck=c.getAttribute('data-k');
+      if(ck==='q') clearQ(); else if(ck==='all'){ clearQ(); clearF(); }
+      else pick[ck]=pick[ck].filter(function(x){return x!==c.getAttribute('data-v');});
+      apply(); return; }
+    var b=e.target.closest('.fbtn[data-k]'); if(!b) return;
+    var k=b.dataset.k, v=b.dataset.v;
+    if(v==='all') pick[k]=[];
+    else { var i=pick[k].indexOf(v); if(i>-1) pick[k].splice(i,1); else pick[k].push(v); }
     apply();
   });
-  /* A chip that matches nothing is a trap: tapping "Exam 1" showed
-     "Showing 0 recordings" and looked like the library had lost the peds
-     lectures. Six module chips - Exam 1 to Exam 5 and Final - were offered
-     with nothing tagged for them. Drop any chip no recording can satisfy,
-     rather than hand-deleting six and letting it happen again. */
-  (function(){
-    var have={};
-    [].forEach.call(document.querySelectorAll('.pod'),function(p){
-      ['topic','course','kind','mod','exam'].forEach(function(k){
-        String(p.dataset[k]||'').split('\u00b7').forEach(function(v){
-          v=v.trim(); if(v){ (have[k]=have[k]||{})[v]=1; }
-        });
-      });
-    });
-    [].forEach.call(document.querySelectorAll('.fbtn'),function(b){
-      var k=b.dataset.k, v=b.dataset.v;
-      if(!k || v==='all') return;
-      if(!have[k] || !have[k][v]) b.remove();
-    });
-  })();
-
-  var cf=document.getElementById('clearf');
-  if(cf) cf.addEventListener('click',function(){
-    Object.keys(pick).forEach(function(k){ pick[k]=[]; });
-    [].forEach.call(document.querySelectorAll('.fbtn'),function(b){
-      if(!b.dataset.k) return;
-      b.classList.toggle('active', b.dataset.v==='all');
-    });
-    apply();
-  });
+  /* on a phone the module, topic and exam rows start folded; selected chips stay outside */
+  var mf=document.getElementById('morefilters');
+  if(mf && window.matchMedia && window.matchMedia('(max-width:700px)').matches) mf.open=false;
 
   apply();
+  /* the ADHD helper wraps each group after this runs; count again once it has */
+  window.addEventListener('load',function(){ setTimeout(apply,0); });
 })();
 </script>
 <script src="absn-hidebar.js" defer></script>

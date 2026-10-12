@@ -112,7 +112,11 @@
     if(family==='course') return [[count('.exsec'),'exam groups'],[count('.modcard'),'module pages'],[count('.card,.mcard'),'orientation cards']];
     if(family==='coursemod') return [[count('details.chunk,details.altchunk'),'study chunks'],[count('.vcard,.vtw,.vfig,.mcard,figure'),'visual panels'],[bankCount(),'questions']];
     if(family==='quiz') return [['1','question bank'],[count('.fbtn'),'filter choices'],[count('button'),'controls']];
-    if(family==='podcast') return [[count('.ep,.pod'),'episodes'],[count('.topic'),'topic groups'],[count('a'),'resource links']];
+    /* playback and download links are actions, not episodes - counting every
+       <a> gave "1323 resource links" (Codex podcasts brief, 12 Oct) */
+    if(family==='podcast') return count('.pod')
+      ? [[count('.pod[data-kind="podcast"]'),'podcasts'],[count('.pod[data-kind="lecture"]'),'class recordings'],[count('.topic'),'topic groups']]
+      : [[count('.ep'),'episodes']];
     if(family==='guide') return [[count('details'),'sections'],[count('.card,.it'),'key points'],[count('table,.items'),'reference tables']];
     if(family==='resource') return [[count('details'),'folders'],[count('.f'),'files'],[count('a'),'resource links']];
     return [[count('section,details'),'sections'],[count('li'),'fact bullets'],[count('a'),'links']];
@@ -153,6 +157,14 @@
       }
       var hero=document.querySelector('.hero');
       if(hero) hero.insertAdjacentElement('afterend',guide); else document.body.insertBefore(guide,document.body.firstChild);
+      return;
+    }
+    /* The podcast library leads with its search and filters; the study tip sits
+       folded beneath them instead of filling the first screen (Codex, 12 Oct). */
+    if(family==='podcast'&&document.querySelector('.filters')){
+      var pf=document.createElement('details');pf.className='adhd-orient';pf.setAttribute('data-adhd-ui','');
+      var ps=document.createElement('summary');ps.textContent='\uD83C\uDFA7 Study tip: one episode, one takeaway';pf.appendChild(ps);
+      pf.appendChild(guide);document.querySelector('.filters').insertAdjacentElement('afterend',pf);
       return;
     }
     /* A page that leads with its modules (nur234.html, Caroline 7 Oct) folds the
@@ -217,6 +229,7 @@
     var body=card.querySelector(':scope > .adhd-card-body');var button=card.querySelector(':scope > .adhd-card-toggle');
     if(!body||!button)return;body.hidden=!on;card.classList.toggle('adhd-open',on);button.setAttribute('aria-expanded',on?'true':'false');
     var icon=button.querySelector('.adhd-card-icon');if(icon)icon.textContent=on?'−':'＋';
+    var cue=button.querySelector('.adhd-card-cue[data-shut]');if(cue)cue.textContent=on?cue.getAttribute('data-open'):cue.getAttribute('data-shut');
   }
   function enhanceCard(card,index){
     if(card.querySelector(':scope > .adhd-card-toggle'))return;
@@ -244,7 +257,7 @@
     var body=element('div','adhd-card-body');body.id='adhdTopicBody'+index;while(topic.firstChild)body.appendChild(topic.firstChild);
     var button=element('button','adhd-card-toggle');button.type='button';button.setAttribute('aria-controls',body.id);
     button.appendChild(element('span','adhd-card-num',String(index+1).padStart(2,'0')));
-    var titleBox=element('span','adhd-card-title',title);titleBox.appendChild(element('small','adhd-card-cue','open this listening group'));button.appendChild(titleBox);button.appendChild(element('span','adhd-card-icon','＋'));
+    var titleBox=element('span','adhd-card-title',title);var cue=element('small','adhd-card-cue','tap to open');cue.setAttribute('data-shut','tap to open');cue.setAttribute('data-open','tap to close');titleBox.appendChild(cue);button.appendChild(titleBox);button.appendChild(element('span','adhd-card-icon','＋'));
     topic.append(button,body);topic.classList.add('adhd-focus-target','card');setCardOpen(topic,index===0);
     button.addEventListener('click',function(){var willOpen=body.hidden;if(willOpen&&document.body.classList.contains('adhd-focus-on'))targets.forEach(function(other){if(other!==topic)setTargetOpen(other,false);});setCardOpen(topic,willOpen);updateTools();});targets.push(topic);
   }
