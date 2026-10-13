@@ -358,6 +358,11 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
   only the scoped `module-card.css`, never `arcade.css`. The case questions are the course quiz keys
   verbatim; the matching and visual items are Codex-written and were checked against the textbook rule.
   Fix an item in `data.js`/`challenges.js` by its `id` and keep the id, or her saved progress detaches.
+- **Codex's Nines Navigator** (13 Oct) is the single-file `games/rule-of-nines-game.html`, built from
+  `tools/rule-of-nines/src/`: edit there, then `node build.cjs` and `node tests.cjs` in that folder and copy
+  the rebuilt page to `games/` (the "Study Hub minimums" block at the end of `src/style.css` holds the 12px/44px
+  fixes). Its values match NG-146's adult chart. Cards on NG-146 and NUR 258 Module 4 are hand-written
+  `section.absn-arcade-card nines-card`, which `wire-arcade-cards.py` leaves alone; so is Insulin Clock's.
 - **`course-materials/` is Codex's NUR 235 Modules 7-13 collection** (11 Oct): completed concept maps
   and case studies with answers, one page per original slide, own `study.css`/`study.js` (never load
   those site-wide). The module pages reach it through 14 gallery cards in `infographics.html`
