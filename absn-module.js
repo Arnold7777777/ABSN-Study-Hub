@@ -7,6 +7,15 @@
   var slot=document.querySelector('.slot[data-slot="quiz"]');
   if(!slot || !QS.length) return;
 
+  function qimg(m){
+    /* A question can carry a picture (a fetal strip, say): {src,w,h,alt}. Its
+       width/height reserve the box, and a tap opens it full size. */
+    if(!m||!m.src) return '';
+    var a=String(m.alt||'').replace(/"/g,'&quot;');
+    return '<a class="qimg" href="'+m.src+'" target="_blank" rel="noopener" style="display:block;margin:4px 0 14px">'+
+      '<img src="'+m.src+'" width="'+m.w+'" height="'+m.h+'" alt="'+a+'" decoding="async" '+
+      'style="display:block;width:100%;max-width:'+m.w+'px;height:auto;border-radius:8px;background:#fff"></a>';
+  }
   function render(q,n,key){
     var multi=q.type==='sata';
     var d=document.createElement('div');
@@ -18,7 +27,7 @@
     }).join('');
     d.innerHTML='<div><span class="qnum">Q'+n+'</span>'+
       (multi?'<span class="qtype">Select all that apply</span>':'')+'</div>'+
-      '<p class="qq">'+q.q+'</p>'+opts+
+      '<p class="qq">'+q.q+'</p>'+qimg(q.img)+opts+
       '<div><button type="button" class="qbtn">Check</button><span class="qmark"></span></div>'+
       '<div class="qwhy" hidden><b>Why:</b> '+(q.why||'')+'</div>';
     d.querySelector('.qbtn').addEventListener('click',function(){
