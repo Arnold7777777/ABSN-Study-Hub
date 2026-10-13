@@ -83,9 +83,9 @@ COURSES = [('NUR 234', 'NUR234', 'amethyst'),
            ('NUR 235', 'NUR235', 'citrine'),
            ('NUR 258', 'NUR258', 'teal')]
 COURSE_TABS = {
- 'NUR234': ['NUR234 Kaiser', 'NUR234 Buhler', 'NUR234 Glesner', 'NUR234 Exam Reviews'],
- 'NUR235': ['NUR235 Fadell', 'NUR235 Fuller', 'NUR235 Exam Reviews'],
- 'NUR258': ['NUR258 Halecka', 'NUR258 Wagner', 'NUR258 Simmons', 'NUR258 Exam Reviews'],
+ 'NUR234': ['NUR234 Kaiser', 'NUR234 Buhler', 'NUR234 Glesner', 'NUR234 Exam Reviews', 'NUR234 Review videos'],
+ 'NUR235': ['NUR235 Fadell', 'NUR235 Fuller', 'NUR235 Exam Reviews', 'NUR235 Review videos'],
+ 'NUR258': ['NUR258 Halecka', 'NUR258 Wagner', 'NUR258 Simmons', 'NUR258 Exam Reviews', 'NUR258 Review videos'],
 }
 # Rows that carry no week go here, in this order, rather than being dropped.
 TAILS = [('Exam reviews &amp; handouts', 'exam-reviews', 'sapphire', '&#128221;', 'Exam reviews',
@@ -96,8 +96,9 @@ TAILS = [('Exam reviews &amp; handouts', 'exam-reviews', 'sapphire', '&#128221;'
           'Recordings whose class or lecturer is still a best guess.')]
 
 TABCOURSE = {t: c for c, tabs in COURSE_TABS.items() for t in tabs}
-# A tab holding several courses names each row's course in its Course column
-# (the Review videos tab, 12 Oct: SimpleNursing and LevelUpRN for all three classes).
+# A tab holding several courses names each row's course in its Course column.
+# The shared Review videos tab (12 Oct) was split into one per course on 13 Oct;
+# this stays as the fallback for any such tab.
 ROW_COURSE_TABS = {'Review videos'}
 
 
@@ -119,6 +120,13 @@ def strip_zoom(wb):
     for ws in wb.worksheets:
         for row in ws.iter_rows():
             for c in row:
+                # A cell's hyperlink object keeps its target after its value is
+                # cleared, so START HERE!B36 once published the Zoom link with no
+                # text showing (13 Oct). Check the target as well as the value.
+                h = c.hyperlink
+                if h is not None and any(z in (h.target or '') + (h.location or '')
+                                         for z in (ZOOM_WB, 'zoom.us')):
+                    c.hyperlink = None; n += 1
                 if c.value is None:
                     continue
                 s = str(c.value)
