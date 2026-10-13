@@ -336,11 +336,11 @@ def panel_html(cls, mod, mttl, cards, page):
     m = mod.lower()
     if not n:
         return ('<details class="modvis" data-vismod="%s"><summary><span class="vgi" aria-hidden="true">&#128444;&#65039;</span>'
-                '%s visual references <span class="cnt">0</span><span class="vgchev" aria-hidden="true">&#9656;</span></summary>'
+                '%s infographics &amp; diagrams <span class="cnt">0</span><span class="vgchev" aria-hidden="true">&#9656;</span></summary>'
                 '<div class="modvisb"><p>Nothing in the Visual library is tagged %s &middot; %s yet.</p></div></details>%s'
                 % (m, mod, cls, mod, END))
     return ('<details class="modvis" data-vismod="%s"><summary><span class="vgi" aria-hidden="true">&#128444;&#65039;</span>'
-            '%s visual references <span class="cnt">%d</span><span class="vgchev" aria-hidden="true">&#9656;</span></summary>'
+            '%s infographics &amp; diagrams <span class="cnt">%d</span><span class="vgchev" aria-hidden="true">&#9656;</span></summary>'
             '<div class="modvisb"><p>Every card in the Visual library tagged %s &middot; %s%s, grouped by type. '
             'Tap a group to open it.</p>%s<p class="vgall"><a class="vgalla" href="%s">&#128450;&#65039; See all %d in the Visual library &rarr;</a></p>'
             '</div></details>%s' % (m, mod, n, cls, mod, (' &middot; ' + mttl) if mttl else '', body,

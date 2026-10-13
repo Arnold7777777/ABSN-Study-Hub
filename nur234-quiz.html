@@ -1130,5 +1130,16 @@ function hop(url, closeThis){
 <script defer src="absn-robots.js"></script>
 <script src="absn-hidebar.js" defer></script>
 <script defer src="absn-diagrams.js"></script>
+<script>
+/* Came from the NUR 234 page (?from=exam-N)? Point the "NUR 234" back link at that exam. */
+document.addEventListener('DOMContentLoaded',function(){
+  var m=/[?&]from=(exam-[1-4])\b/.exec(location.search); if(!m) return;
+  var n=m[1].slice(5);
+  [].forEach.call(document.querySelectorAll('nav.absn-back a.par[href="nur234.html"]'),function(a){
+    a.setAttribute('href','nur234.html#'+m[1]);
+    a.innerHTML='&larr; Back to NUR 234 &middot; Exam '+n;
+  });
+});
+</script>
 <nav class="absn-back bottom" data-absn-keep aria-label="Back to the Study Hub and this page's study guide"><a class="hub" href="index.html">&#127968; Study Hub</a><a class="par" href="nur234.html">&#128216; NUR 234 · Maternal Newborn Nursing</a></nav>
 </body></html>
