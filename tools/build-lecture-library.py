@@ -61,6 +61,10 @@ DRIVE = 'https://drive.google.com/file/d/%s/view'
 # Facebook links. Without this, a rebuild from her sheet silently re-links a
 # recording she has retired.
 REPLACED = {
+    '1YDN4CgL8_FAt4iZlOI1XSOM0gWrLNzvB': (
+        '1nxH_cDpLrnzakw8o7bN36vnLd_ha75al',
+        'NUR258_Fall2026_SimpleNursing_Wk05_DayNA_Adrenal disorders - cortisol and steroids (topic from the speech index).mp4',
+        'NUR258_Fall2026_SimpleNursing_Wk05_DayNA_Hyperaldosteronism (Conn syndrome).mp4'),
     '1yRquegiEz7A7eN-ms2smuTgrVaeivjoE': (
         '1LlXr19xnRaDRvh2CaY0NTa5m33OeLVNw',
         'Nur235_Fuller_Wk2.mp4',
