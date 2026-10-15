@@ -310,6 +310,13 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
   the wire tools all key on - are unchanged. Spotlight, One bite, search hits, `#anchors`
   and print re-open what they point at. Nothing is persisted: closed on every load is the
   point, and the Open-all bar is the escape hatch.
+- **Course pages open folded too** (Caroline, 15 Oct: "collapse all sections and put the games near
+  the top"). `absn-cardfold.js` (loaded last on nur234/nur235/nur258) turns every `.mcard`, `.atlascard`
+  and Codex `.ple-*` panel that is not already inside a `<details>` into a closed `details.cfold` built
+  *inside* the card, so ids and classes stay put. A `#id` link, the page search and printing open
+  folds. Its summary is block flow on purpose: a robot floats right in the first card, and a flex
+  summary shrank beside it and split "Modules" mid-word. Game cards live in `section#practice-games`
+  just under the exam jump on nur234/nur235, never inside an exam band.
 - **The homepage, quiz page and gallery quote totals that nothing wrote.** "5,614
   questions" and "306 graphics" on index.html sat a hundred and nine hundred off
   the real figures until Codex's audit on 6 Oct. `python3 tools/refresh-site-counts.py`
