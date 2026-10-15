@@ -95,7 +95,7 @@ COURSE_TABS = {
 TAILS = [('Exam reviews &amp; handouts', 'exam-reviews', 'sapphire', '&#128221;', 'Exam reviews',
           'Study guides, practice tests and whole-course reviews - they name an exam, not a week.'),
          ('Other classes', 'other-classes', 'emerald', '&#128218;', 'Other classes',
-          'NUR 198, NUR 175, BIO 290V and MAT 300. A NUR week number means nothing for these.'),
+          'NUR 198, NUR 175 and NUR 125 by module, then BIO 290V, MAT 300 and the rest.'),
          ('Still to file', 'still-to-file', 'garnet', '&#128269;', 'To file',
           'Recordings whose class or lecturer is still a best guess.')]
 
@@ -104,6 +104,9 @@ TABCOURSE = {t: c for c, tabs in COURSE_TABS.items() for t in tabs}
 # The shared Review videos tab (12 Oct) was split into one per course on 13 Oct;
 # this stays as the fallback for any such tab.
 ROW_COURSE_TABS = {'Review videos'}
+# Earlier classes have a tab each, by module (Caroline, 15 Oct). They are filed under
+# "Other classes", never in a NUR 234/235/258 week.
+OTHER_CLASS_TABS = {'NUR198 Videos': 'NUR 198', 'NUR175 Videos': 'NUR 175', 'NUR125 Videos': 'NUR 125'}
 
 
 def course_of(tab, row):
@@ -511,6 +514,8 @@ def card(r, esc, topic, seen_ids):
     meta = [r['clabel']] if r['clabel'] else []
     if r['wk'] and r['sec'].startswith('week-'):
         meta.append('Week %d' % r['wk'])
+    elif r['wk'] and r['sec'] == 'other-classes':
+        meta.append('Module %d' % r['wk'])
     if r['exam'] and r['cat'] != 'lecture':
         meta.append(r['exam'].title() if r['exam'].isupper() and len(r['exam']) > 3 else r['exam'])
     if r['who'] and r['who'].lower() not in NOT_A_PERSON:
@@ -585,6 +590,11 @@ def render(rows, modmap):
             if tab == 'Exam Reviews (other classes)':
                 cls = chip(row, 'Class') or 'Other'
                 code, label, sec = cls, cls.replace(' ?', ' (class unconfirmed)'), 'other-classes'
+            elif tab in OTHER_CLASS_TABS:
+                code = label = OTHER_CLASS_TABS[tab]
+                sec = 'other-classes'
+                m = NUM.search(chip(row, 'Module') or '')
+                wk = int(m.group(1)) if m else None
             else:
                 code = course_of(tab, row) or 'Other'
                 label = code.replace('NUR', 'NUR ') if code.startswith('NUR') else chip(row, 'Course') or 'To file'
@@ -596,8 +606,9 @@ def render(rows, modmap):
 
     corder = {c: i for i, (_, c, _) in enumerate(COURSES)}
     def key(r):
-        return (corder.get(r['course'], 5), r['course'], (r['who'] or '').lower(), r['day'],
-                r['title'].lower())
+        return (corder.get(r['course'], 5), r['course'],
+                (r['wk'] or 99) if r['sec'] == 'other-classes' else 0,
+                (r['who'] or '').lower(), r['day'], r['title'].lower())
     for s in secs:
         secs[s] = merge(sorted(secs[s], key=key))
 
