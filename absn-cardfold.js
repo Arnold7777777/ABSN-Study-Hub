@@ -19,7 +19,13 @@
       'border:1px solid rgba(255,224,140,.6);border-radius:999px;padding:10px 14px;white-space:nowrap}' +
     'details.cfold[open]>summary::after{content:"\\25BE  Close"}' +
     'details.cfold>summary:focus-visible{outline:3px solid #ffe08c;outline-offset:4px;border-radius:10px}' +
-    'details.cfold>.cfold-b{margin-top:10px}';
+    'details.cfold>.cfold-b{margin-top:10px}' +
+    /* a card laid out as a grid (the exam atlases: cover | text) would put the whole fold in its
+       narrow first column and wrap the title a word per line (17 Oct): span it across, and lay
+       the card's own grid out again inside the fold */
+    'details.cfold-grid{grid-column:1/-1}' +
+    'details.cfold-grid>.cfold-b{display:grid;grid-template-columns:92px minmax(0,1fr);gap:14px;align-items:start}' +
+    '@media (max-width:420px){details.cfold-grid>.cfold-b{grid-template-columns:64px minmax(0,1fr);gap:10px}}';
   document.head.appendChild(css);
 
   function fold(card) {
@@ -28,7 +34,7 @@
     var h = card.querySelector('h2, h3, h4');
     if (!h) return;
     var d = document.createElement('details');
-    d.className = 'cfold';
+    d.className = /grid/.test(getComputedStyle(card).display) ? 'cfold cfold-grid' : 'cfold';
     var s = document.createElement('summary');
     s.appendChild(h);
     var b = document.createElement('div');
