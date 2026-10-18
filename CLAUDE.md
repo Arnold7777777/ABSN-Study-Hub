@@ -157,6 +157,14 @@ She could not download a file from the chat, so a small helper Sheet
 with the rows to paste. `create_file` with `textContent` and `text/csv` works fine
 and Drive converts it to a Sheet - that route is small enough not to corrupt.
 
+**Clear out the old copies once she has put the new one in** (Caroline, 18 Oct: "delete the old lecture
+library after I put a new one in"). Each version she downloads lands in Drive as another .xlsx
+("NUR Lecture Library - 16 Oct every video added.xlsx", "NUR-Lecture-Library (2).xlsx" …), and 18 had piled
+up by 18 Oct. When she says she has imported the new file, trash every older lecture-library .xlsx in her
+Drive (search `title contains 'Lecture Library' or title contains 'Lecture-Library'`). Trash, not delete:
+Drive keeps it 30 days. **Never touch the live Sheet** `1baCPjAJ…`: it is what she imports into, and
+`index.html` links it. Keep the copy she just imported until the next one replaces it.
+
 So for a small change: build and verify it locally, then either hand her the .xlsx
 with `SendUserFile` or give her the click-by-click fix for Google Sheets. Nav buttons
 are easiest restored by copying `D2:E3` from a sibling tab and pasting — the links and
