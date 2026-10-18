@@ -152,10 +152,10 @@ contains a double quote, Sheets writes it concatenated: `=HYPERLINK("...Va"&"Nit
 silently dropped three links from the page. Parse the arguments and join the string
 literals instead.
 
-She could not download a file from the chat, so a small helper Sheet
-(`14nh-GeV8ZM3pnlq8pizr-r98QKJie51eSQkaLX11wJI`) sits beside the workbook in Drive
-with the rows to paste. `create_file` with `textContent` and `text/csv` works fine
-and Drive converts it to a Sheet - that route is small enough not to corrupt.
+When she cannot download a file from the chat, make a small helper Sheet beside the
+workbook with the rows to paste: `create_file` with `textContent` and `text/csv` works
+fine and Drive converts it to a Sheet - that route is small enough not to corrupt. (The
+old helpers went to the trash with the old copies on 18 Oct.)
 
 **Clear out the old copies once she has put the new one in** (Caroline, 18 Oct: "delete the old lecture
 library after I put a new one in"). Each version she downloads lands in Drive as another .xlsx
