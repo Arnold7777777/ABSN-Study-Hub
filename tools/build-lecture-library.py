@@ -35,6 +35,7 @@ ZOOM_CELL = "'START HERE'!$B$36"
 # The leading \b matters: without it "Exam 3" matches on the m of Exam and
 # every exam-review row gets the wrong module's subject.
 NUM = re.compile(r'\b(?:module|week|wk|m)\s*0?(\d{1,2})\b', re.I)
+PLAYLIST = re.compile(r'\.(m3u8?|xspf)(\?|$)', re.I)
 GENERIC = re.compile(r'^\W*(watch|open|play|link|view|recording)\s*$', re.I)
 SKIP_TABS = {'START HERE', 'Sheet1'}
 
@@ -457,6 +458,10 @@ def record(tab, row, sec, course_code, course_label, wk):
     doc = (typ in ('PDF', 'PPTX', 'POWERPOINT', 'DOCX') or fid in DEAD_LINKS.values()
            or bool(DOC_EXT.search(row['title'] or '')))
     title, raw = display_title(row, wk, tab)
+    # a VLC playlist (20 Oct, NUR234 Review videos) is a link to many recordings, not one
+    pls = bool(PLAYLIST.search(url or ''))
+    if pls:
+        title = '%s for VLC' % (chip(row, 'Module', 'Week') or 'Playlist')
     # "(topic from the speech index)" is a doubt, not part of the name: badge it
     prov = PROVENANCE.search(title)
     if prov:
@@ -464,7 +469,7 @@ def record(tab, row, sec, course_code, course_label, wk):
     cat = 'handout' if doc else ('examprep' if ('Exam Reviews' in tab or 'exam prep' in typ.lower())
                                  else 'lecture')
     who = chip(row, 'Lecturer', 'Who')
-    return {'tab': tab, 'row': row, 'sec': sec, 'id': fid, 'url': url, 'doc': doc, 'cat': cat,
+    return {'tab': tab, 'row': row, 'sec': sec, 'id': fid, 'url': url, 'doc': doc, 'pls': pls, 'cat': cat,
             'course': course_code, 'clabel': course_label, 'wk': wk, 'title': title, 'raw': raw,
             'who': who, 'day': chip(row, 'Day'), 'exam': chip(row, 'Exam'),
             'terms': [term_of(row)], 'days': [chip(row, 'Day')], 'notes': [row['note']] if row['note'] else [],
@@ -553,6 +558,8 @@ def card(r, esc, topic, seen_ids):
     if r['doc']:
         o.append('<a class="play doc" href="%s" target="_blank" rel="noopener">&#128196; Open document</a>'
                  % esc(r['url']))
+    elif r.get('pls'):
+        o.append('<a class="play" href="%s">&#127911; Play in VLC</a>' % esc(r['url']))
     else:
         o.append('<a class="play" href="%s" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a>'
                  % esc(r['url']))
@@ -612,7 +619,7 @@ def render(rows, modmap):
     for s in secs:
         secs[s] = merge(sorted(secs[s], key=key))
 
-    vids = {r['id'] for s in secs.values() for r in s if not r['doc']}
+    vids = {r['id'] for s in secs.values() for r in s if not (r['doc'] or r.get('pls'))}
     docs = {r['id'] for s in secs.values() for r in s if r['doc']}
     total, handouts = len(vids), len(docs)
 
