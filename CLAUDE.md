@@ -378,6 +378,11 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
   the rebuilt page to `games/` (the "Study Hub minimums" block at the end of `src/style.css` holds the 12px/44px
   fixes). Its values match NG-146's adult chart. Cards on NG-146 and NUR 258 Module 4 are hand-written
   `section.absn-arcade-card nines-card`, which `wire-arcade-cards.py` leaves alone; so is Insulin Clock's.
+- **`nur234-flashcards.html` is generated** (20 Oct) from `tools/nur234-flashcards.json` by
+  `python3 tools/build-nur234-flashcards.py` (`--check` to verify): Caroline's Quizlet set for NUR 234
+  Exam 2, the written-answer cards only. That set's multiple-choice and true/false items are in the
+  quizzes (`src` "Caroline's Quizlet set, NUR 234 Exam 2 (20 Oct)"). A card changed to follow her
+  textbooks carries a `note` saying so; keep it. Edit the JSON, never the page, then rebuild the search index.
 - **`course-materials/` is Codex's NUR 235 Modules 7-13 collection** (11 Oct): completed concept maps
   and case studies with answers, one page per original slide, own `study.css`/`study.js` (never load
   those site-wide). The module pages reach it through 14 gallery cards in `infographics.html`
