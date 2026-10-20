@@ -35,7 +35,7 @@ ZOOM_CELL = "'START HERE'!$B$36"
 # The leading \b matters: without it "Exam 3" matches on the m of Exam and
 # every exam-review row gets the wrong module's subject.
 NUM = re.compile(r'\b(?:module|week|wk|m)\s*0?(\d{1,2})\b', re.I)
-PLAYLIST = re.compile(r'\.(m3u8?|xspf)(\?|$)', re.I)
+PLAYLIST = re.compile(r'\.(m3u8?|xspf)(\?|$)|playlists\.html#pl-', re.I)
 GENERIC = re.compile(r'^\W*(watch|open|play|link|view|recording)\s*$', re.I)
 SKIP_TABS = {'START HERE', 'Sheet1'}
 

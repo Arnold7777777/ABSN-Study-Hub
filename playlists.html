@@ -182,6 +182,8 @@ h1{margin:6px 0 4px;font-size:1.9rem;line-height:1.2}
 .acts a.play{background:#ffd76a;color:#231a02;border-color:#231a02}
 .acts a:hover{background:rgba(255,255,255,.3)}
 .acts a.play:hover{background:#ffe49a}
+.pl{scroll-margin-top:84px}
+.pl:target{outline:3px solid #ffd76a;outline-offset:3px}
 .acts a.vlc{background:#e8641c;color:#fff;border-color:#ffb98a;font-weight:900}
 .acts a.vlc:hover{background:#ff7a2f}
 .acts a:focus-visible{outline:3px solid #9fe4ff;outline-offset:2px}
@@ -548,9 +550,10 @@ with no files beside it, it will play nothing.</li>
   if(!android && !ios) return;
 
   [].forEach.call(document.querySelectorAll('.pl .acts'), function(acts){
-    /* only the Drive playlist makes sense over a URL - the "downloaded files"
-       one lists bare filenames and has to sit in the folder with the videos */
-    var drive = acts.querySelector('a[href*="-drive.m3u"]');
+    /* only the Drive playlists make sense over a URL - the "downloaded files"
+       one lists bare filenames and has to sit in the folder with the videos.
+       The Exam 2 review lists (-review.m3u) stream from Drive too. */
+    var drive = acts.querySelector('a[href*="-drive.m3u"], a[href*="-review.m3u"]');
     if(!drive) return;
 
     var abs = new URL(drive.getAttribute('href'), location.href).href;
