@@ -82,6 +82,64 @@ NORMALS = [
     ('has a platelet count of 75,000/mm3 and wants pain relief', 'platelets 150,000 to 400,000/mm³'),
 ]
 
+# Questions whose values sit in the answer choices (Caroline, 21 Oct: "Need to know the
+# normal range" on the general-anesthesia platelet question). Keyed on the whole question;
+# the line goes after the question, just above the choices.
+PP_TEMP = 'temperature 36.5 to 37.5°C (97.7 to 99.5°F); up to 38°C (100.4°F) in the first 24 hours after birth can be dehydration, and 38°C or higher after that is a fever'
+PP_LABS = 'WBC can reach 20,000 to 25,000/mm³ after birth; hemoglobin 11 g/dL or higher; platelets 150,000 to 400,000/mm³'
+PREG_LABS = 'hemoglobin 11 g/dL or higher, hematocrit 33% or higher; WBC 5,000 to 15,000/mm³ in pregnancy; platelets 150,000 to 400,000/mm³'
+HYPER = 'BUN 10 to 20 mg/dL; urine output 30 mL/hr or more; urine ketones negative; moist mucous membranes'
+NB_FULL = NB + '; brief pauses in breathing are normal, but apnea over 20 seconds is not; blood glucose above 40 to 45 mg/dL'
+CHOICES = [
+    ('A nurse reviews vital signs on four clients in the prenatal clinic.', BP_LOW + '; pulse rises 10 to 15/min in pregnancy; hemoglobin 11 g/dL or higher'),
+    ('A nurse reviews four fetal monitor strips.', FHR),
+    ('Which client is the best candidate for general anesthesia for a cesarean birth?', 'platelets 150,000 to 400,000/mm³'),
+    ('Which finding after an epidural is placed needs the most immediate intervention?', TEMP + '; ' + BP_LOW),
+    ('Which findings suggest a ruptured ectopic pregnancy requiring emergency care?', BP_LOW + '; ' + MAT_P),
+    ('A nurse reviews four clients with hypertensive disorders.', BP + '; urine protein negative to trace'),
+    ('A client is receiving IV magnesium sulfate. Which findings indicate toxicity?', MG + '; magnesium 4 to 7 mEq/L is therapeutic'),
+    ('A nurse on the antepartum unit is caring for four clients who have preeclampsia.', BP + '; urine protein under 300 mg in 24 hours; deep tendon reflexes 2+; urine output 30 mL/hr or more'),
+    ('A nurse monitors a client receiving oxytocin. Which findings require the nurse to stop the infusion?', 'no more than 5 contractions in 10 minutes, each lasting no more than 90 seconds; uterine resting tone 15 mm Hg or less; ' + FHR),
+    ('A nurse assesses a client 18 hours postpartum.', PP_TEMP + '; ' + PP_LABS + '; pulse can drop to 50 to 70 in the first days'),
+    ('Which findings in the postpartum period require immediate reporting?', PP_TEMP),
+    ('Which finding in the first 24 hours after birth requires the most immediate nursing action?', PP_TEMP),
+    ('A nurse assesses four newborns.', NB_FULL),
+    ('Which newborn findings should the nurse report rather than document as expected?', NB_FULL),
+    ('A client is receiving magnesium sulfate. Which assessment finding requires the nurse to stop the infusion', MG + '; ' + BP),
+    ('A client is 12 hours postpartum. Which finding should the nurse report?', PP_TEMP),
+    ('Which postpartum findings suggest endometritis?', PP_TEMP),
+    ('Which newborn findings require the nurse to notify the provider?', NB_FULL),
+    ('A client is receiving magnesium sulfate. Which finding requires the nurse to stop the infusion?', MG + '; ' + BP),
+    ('Which finding at a 26-week antenatal visit should the nurse report to the provider?', 'fundal height in cm about equals the weeks of gestation (plus or minus 2 cm) from 20 weeks; ' + FHR + '; ' + BP + '; weight gain about 1 lb a week in the 2nd and 3rd trimesters'),
+    ('Which finding should the nurse expect at a routine 18-week assessment?', FHR + '; the fundus reaches the umbilicus at about 20 weeks'),
+    ('Which finding in a newborn 12 hr after birth should the nurse report?', 'newborn blood glucose above 40 to 45 mg/dL; jaundice in the first 24 hours is never normal'),
+    ('Which manifestation should the nurse expect in a client who is 1 day postpartum with a vaginal hematoma?', PP_TEMP),
+    ('Which finding at a 38-week visit should the nurse report?', 'weight gain about 1 lb (0.5 kg) a week in the 3rd trimester; ' + FHR),
+    ('Which finding in a client with hyperemesis gravidarum on IV fluids should the nurse report?', HYPER),
+    ('Which prenatal laboratory result at 12 weeks should the nurse report?', 'hemoglobin 11 g/dL or higher in the first trimester'),
+    ('Which newborn should the nurse report to the provider?', NB + '; blood glucose above 40 to 45 mg/dL'),
+    ('A client at 30 weeks is receiving magnesium sulfate for preterm labor. Which finding should the nurse report?', MG),
+    ('A client is receiving IV magnesium sulfate for preeclampsia. Which finding indicates toxicity and should be reported?', MG),
+    ('A client gave birth 18 hr ago. Which finding indicates a postpartum complication?', PP_TEMP),
+    ('A client gave birth vaginally 6 hr ago. Which finding should the nurse report?', PP_LABS),
+    ('A newborn is admitted with respiratory distress. Which findings should the nurse report?', NB),
+    ('A nurse is reviewing antepartum laboratory results. Which result should be reported to the provider?', PREG_LABS),
+    ('A client is 1 day postpartum. Which finding indicates infection?', PP_LABS + '; BUN 10 to 20 mg/dL; urine specific gravity 1.005 to 1.030'),
+    ('Which finding should the nurse expect while monitoring a client after an amniocentesis?', TEMP + '; ' + FHR),
+    ('A client is in the active phase of the first stage of labor. Which finding should the nurse report to the charge nurse?', FHR + '; contractions last 45 to 80 seconds in the active phase'),
+    ('A client has endometritis 48 hr after a cesarean birth. Which finding should the nurse anticipate?', MAT_P + '; ' + MAT_RR + '; ' + PP_LABS),
+    ('A client is receiving magnesium sulfate. Which finding should the nurse report to the provider?', MG),
+    ('Which finding contraindicates starting an oxytocin infusion', FHR + '; contractions no more often than every 2 to 3 minutes'),
+    ('Which laboratory result in a client who has preeclampsia should the nurse report?', 'platelets 150,000 to 400,000/mm³; hemoglobin 11 g/dL or higher; WBC 5,000 to 15,000/mm³ in pregnancy'),
+    ('Which finding should the nurse report in a client who has hyperemesis gravidarum on IV fluids?', HYPER),
+    ('Which laboratory result in a client who is 24 hr postpartum indicates infection?', PP_LABS),
+    ('Which finding should the nurse expect in a client who has a vaginal hematoma 1 day postpartum?', PP_TEMP),
+    ('Which findings should the nurse expect on a routine newborn assessment?', NB),
+    ('Which finding in a newborn 15 min after birth requires intervention?', NB),
+    ('A nurse is collecting data from a newborn following birth. Which findings indicate acceptable adaptation', NB_FULL),
+    ('Which finding after an amniocentesis should the nurse report?', FHR),
+]
+
 # (file, the tag that opens its JSON bank, compact dump?)
 def banks():
     yield os.path.join(ROOT, 'nur234-quiz.html'), 'id="qbank">', False
@@ -90,9 +148,12 @@ def banks():
     yield os.path.join(ROOT, 'super-mega-quiz.html'), 'id="qbank">', True
 
 
-def place(q, line):
+def place(q, line, end=False):
     """Put the line at the end of the stem, else before the last sentence of the question."""
     span = SPAN % line
+    if end:
+        q['q'] = q['q'] + ' ' + span
+        return
     if q.get('stem'):
         q['stem'] = q['stem'] + span
         return
@@ -106,6 +167,9 @@ def place(q, line):
         q['q'] = t[:k] + ' ' + span + t[m[-1].end():]
     else:
         q['q'] = t + ' ' + span
+
+
+ENTRIES = [(k, l, False) for k, l in NORMALS] + [(k, l, True) for k, l in CHOICES]
 
 
 def run(check):
@@ -124,7 +188,7 @@ def run(check):
         n = 0
         for q in items:
             text = (q.get('q') or '') + ' ' + (q.get('stem') or '')
-            for key, line in NORMALS:
+            for key, line, end in ENTRIES:
                 if key in text:
                     used.add(key)
                     if 'class="normals"' in text:
@@ -139,14 +203,14 @@ def run(check):
                         break
                     missing += 1
                     if not check:
-                        place(q, line); n += 1
+                        place(q, line, end); n += 1
                     break
         if n:
             out = json.dumps(bank, ensure_ascii=False, separators=(',', ':')) if compact else json.dumps(bank, ensure_ascii=False)
             io.open(path, 'w', encoding='utf-8').write(s[:i] + out + s[j:])
             written += n
             print('%-28s %d added' % (os.path.basename(path), n))
-    unused = [k for k, _ in NORMALS if k not in used]
+    unused = [k for k, _, _ in ENTRIES if k not in used]
     for k in unused:
         print('no question matches:', k)
     if check:

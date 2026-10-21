@@ -388,6 +388,8 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
   writes a yellow `span.normals` line into every copy (NUR 234 quiz, module page, Mega Quiz) from its list,
   and rewrites lines it wrote before if the list changes (`--check` to verify). Add an entry when a new
   question gives a vital sign or lab; key it on words before the value, not across the sentence it splits.
+  A value in the answer choices counts too: those entries live in its `CHOICES` list and the line goes
+  after the question, above the choices. Questions that ask what the normal range *is* are left out.
 - **`course-materials/` is Codex's NUR 235 Modules 7-13 collection** (11 Oct): completed concept maps
   and case studies with answers, one page per original slide, own `study.css`/`study.js` (never load
   those site-wide). The module pages reach it through 14 gallery cards in `infographics.html`
