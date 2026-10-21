@@ -21,6 +21,10 @@ import glob, io, json, os, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SPAN = '<span class="normals" style="display:block;margin:8px 0;color:#ffe9a8;font-size:.92em">Normal: %s</span>'
+# The Mega Quiz runs question text through rich(), which lets a <span> through only as a bare
+# <span class="x">; a style attribute leaves the whole tag escaped and printed as text (21 Oct).
+# Its own stylesheet styles .normals instead.
+SPAN_BARE = '<span class="normals">Normal: %s</span>'
 
 BP = 'blood pressure below 140/90 (160/110 or higher is severe)'
 BP_LOW = 'blood pressure 90/60 up to 140/90'
@@ -32,53 +36,53 @@ TEMP = 'temperature 36.5 to 37.5°C (97.7 to 99.5°F)'
 MG = 'respirations 12 or more, deep tendon reflexes 2+, urine output 30 mL/hr or more'
 
 NORMALS = [
-    ('reporting a temperature of 102.4 F', TEMP + '; 38°C (100.4°F) or higher is a fever'),
-    ('lying flat for an examination. Her BP is 86/52', BP_LOW),
-    ('BP drops from 118/72 to 88/54', BP_LOW + ', ' + MAT_P + ', ' + FHR),
+    ('reporting a temperature of 102.4 F', None),  # a vital sign: Caroline wants lab values only
+    ('lying flat for an examination. Her BP is 86/52', None),  # a vital sign: Caroline wants lab values only
+    ('BP drops from 118/72 to 88/54', None),  # a vital sign: Caroline wants lab values only
     ('CBC results: <b>Hgb 10.8 g/dL, Hct 32%</b>', 'hemoglobin 11 g/dL or higher and hematocrit 33% or higher in the first and third trimesters (10.5 g/dL and 32% in the second)'),
-    ('two accelerations of 15 beats per minute lasting 15 seconds within 20 minutes', 'a reactive nonstress test is 2 accelerations of at least 15 bpm lasting at least 15 seconds in 20 minutes; ' + FHR),
-    ('The fetal heart rate is 155/min, and she asks whether that is all right', FHR),
-    ('the fetal heart rate is 155/min. She asks', FHR),
-    ('Cervical exam is unchanged at <b>1 cm/50% effaced</b>', FHR),
-    ('BP is 88/50 and the fetal heart rate falls to 100 bpm', BP_LOW + '; ' + FHR),
-    ('<b>BP is now 82/48 mm Hg</b> (baseline 122/76)', BP_LOW + '; ' + FHR),
-    ('her blood pressure is now 84/48 mm Hg', BP_LOW + '; a drop of 20% or more from her baseline after an epidural is hypotension'),
-    ('2 accelerations in 20 minutes, each increasing the heart rate by 15 beats', 'a reactive nonstress test is 2 accelerations of at least 15 bpm lasting at least 15 seconds in 20 minutes; ' + FHR),
-    ('the baseline is about 140 bpm with moderate variability, and with each contraction', FHR),
-    ('has absent patellar reflexes. Respirations are 14/min', MG + '; magnesium 4 to 7 mEq/L is therapeutic'),
-    ('has a BP of 162/112 and reports right upper quadrant pain', BP + '; platelets 150,000 to 400,000/mm³; liver enzymes AST and ALT within normal limits'),
-    ('has been receiving magnesium sulfate for 4 hours', MG + '; magnesium 4 to 7 mEq/L is therapeutic'),
-    ('The client reports a persistent headache and right upper quadrant pain. <b>Deep tendon reflexes are', BP + '; deep tendon reflexes 2+; urine protein negative to trace'),
-    ('has a blood pressure of 158/104 mm Hg, 3+ proteinuria, a severe headache and visual changes', BP + '; urine protein negative to trace'),
-    ('has a blood pressure of 146/92 mm Hg on two occasions', BP + '; urine protein negative to trace'),
-    ('Before giving the dose, the nurse finds the maternal heart rate is 128/min', MAT_P + '; hold terbutaline for a heart rate above 120'),
-    ('"the worst headache of my life." BP is 162/104', BP),
-    ('reports a severe headache and seeing spots. BP is 164/100', BP),
-    ('has a BP of 168/112. She asks', BP),
-    ('serum magnesium of 6.2 mEq/L', 'magnesium 4 to 7 mEq/L is therapeutic; ' + MG),
-    ('Her contractions stop, and the fetal heart rate drops to 90 bpm', FHR),
-    ('7 contractions in 10 minutes with a uterine resting tone of 20 mmHg', 'no more than 5 contractions in 10 minutes; uterine resting tone 15 mm Hg or less; ' + FHR),
-    ('reports a dull backache and pelvic heaviness since morning', TEMP + '; ' + FHR),
-    ('On reassessment the nurse finds a maternal heart rate of 128/min', MAT_P + '; hold terbutaline for a heart rate above 120; ' + BP_LOW),
-    ("The client's temperature is <b>38.9°C (102°F)</b>", TEMP + '; after the first 24 hours postpartum, 38°C (100.4°F) or higher is a fever'),
-    ('The client\'s blood pressure is 168/98', BP + '; methylergonovine is held for hypertension'),
-    ("temperature is 100.8°F on postpartum day 3", TEMP + '; after the first 24 hours postpartum, 38°C (100.4°F) or higher is a fever'),
-    ('Twelve hours after a vaginal birth, a client\'s temperature is 37.9', TEMP + '; up to 38°C (100.4°F) in the first 24 hours can be dehydration'),
-    ('A newborn 1 hour old has an axillary temperature of 36.1 C', NB + '; blood glucose above 40 to 45 mg/dL'),
-    ('Axillary temperature is <b>36.2°C (97.2°F)</b>, blood glucose is 52 mg/dL', NB + '; blood glucose above 40 to 45 mg/dL'),
-    ('nurse performs CCHD pulse oximetry screening. The right hand reads 97%', 'a pass is 95% or higher in the right hand or a foot, with less than a 3% difference between them'),
-    ('A newborn at 2 hours of age has a respiratory rate of 78/min', NB),
-    ('Respiratory rate is <b>68/min</b> with grunting', NB + '; blood glucose above 40 to 45 mg/dL'),
+    ('two accelerations of 15 beats per minute lasting 15 seconds within 20 minutes', None),  # a vital sign: Caroline wants lab values only
+    ('The fetal heart rate is 155/min, and she asks whether that is all right', None),  # a vital sign: Caroline wants lab values only
+    ('the fetal heart rate is 155/min. She asks', None),  # a vital sign: Caroline wants lab values only
+    ('Cervical exam is unchanged at <b>1 cm/50% effaced</b>', None),  # a vital sign: Caroline wants lab values only
+    ('BP is 88/50 and the fetal heart rate falls to 100 bpm', None),  # a vital sign: Caroline wants lab values only
+    ('<b>BP is now 82/48 mm Hg</b> (baseline 122/76)', None),  # a vital sign: Caroline wants lab values only
+    ('her blood pressure is now 84/48 mm Hg', None),  # a vital sign: Caroline wants lab values only
+    ('2 accelerations in 20 minutes, each increasing the heart rate by 15 beats', None),  # a vital sign: Caroline wants lab values only
+    ('the baseline is about 140 bpm with moderate variability, and with each contraction', None),  # a vital sign: Caroline wants lab values only
+    ('has absent patellar reflexes. Respirations are 14/min', None),  # a vital sign: Caroline wants lab values only
+    ('has a BP of 162/112 and reports right upper quadrant pain', 'platelets 150,000 to 400,000/mm³; liver enzymes AST and ALT within normal limits'),
+    ('has been receiving magnesium sulfate for 4 hours', None),  # a vital sign: Caroline wants lab values only
+    ('The client reports a persistent headache and right upper quadrant pain. <b>Deep tendon reflexes are', 'urine protein negative to trace'),
+    ('has a blood pressure of 158/104 mm Hg, 3+ proteinuria, a severe headache and visual changes', 'urine protein negative to trace'),
+    ('has a blood pressure of 146/92 mm Hg on two occasions', None),  # a vital sign: Caroline wants lab values only
+    ('Before giving the dose, the nurse finds the maternal heart rate is 128/min', None),  # a vital sign: Caroline wants lab values only
+    ('"the worst headache of my life." BP is 162/104', None),  # a vital sign: Caroline wants lab values only
+    ('reports a severe headache and seeing spots. BP is 164/100', None),  # a vital sign: Caroline wants lab values only
+    ('has a BP of 168/112. She asks', None),  # a vital sign: Caroline wants lab values only
+    ('serum magnesium of 6.2 mEq/L', 'magnesium 4 to 7 mEq/L is therapeutic'),
+    ('Her contractions stop, and the fetal heart rate drops to 90 bpm', None),  # a vital sign: Caroline wants lab values only
+    ('7 contractions in 10 minutes with a uterine resting tone of 20 mmHg', None),  # a vital sign: Caroline wants lab values only
+    ('reports a dull backache and pelvic heaviness since morning', None),  # a vital sign: Caroline wants lab values only
+    ('On reassessment the nurse finds a maternal heart rate of 128/min', None),  # a vital sign: Caroline wants lab values only
+    ("The client's temperature is <b>38.9°C (102°F)</b>", None),  # a vital sign: Caroline wants lab values only
+    ("The client's blood pressure is 168/98", None),  # a vital sign: Caroline wants lab values only
+    ('temperature is 100.8°F on postpartum day 3', None),  # a vital sign: Caroline wants lab values only
+    ("Twelve hours after a vaginal birth, a client's temperature is 37.9", None),  # a vital sign: Caroline wants lab values only
+    ('A newborn 1 hour old has an axillary temperature of 36.1 C', None),  # a vital sign: Caroline wants lab values only
+    ('Axillary temperature is <b>36.2°C (97.2°F)</b>, blood glucose is 52 mg/dL', 'newborn blood glucose above 40 to 45 mg/dL'),
+    ('nurse performs CCHD pulse oximetry screening. The right hand reads 97%', None),  # a vital sign: Caroline wants lab values only
+    ('A newborn at 2 hours of age has a respiratory rate of 78/min', None),  # a vital sign: Caroline wants lab values only
+    ('Respiratory rate is <b>68/min</b> with grunting', 'newborn blood glucose above 40 to 45 mg/dL'),
     ('total serum bilirubin of 14 mg/dL', 'no visible jaundice in the first 24 hours; physiologic jaundice appears after 24 hours'),
-    ('Blood pressure 172/112', BP + '; deep tendon reflexes 2+ with no clonus; urine protein negative to trace; platelets 150,000 to 400,000/mm³'),
-    ('respirations are 10/min and urine output has been 20 mL over the past hour', MG),
-    ('Ten minutes later her blood pressure is 84/50 mmHg', BP_LOW + '; a drop of 20% or more from her baseline after an epidural is hypotension'),
-    ('Her blood pressure is 88/52 mmHg and her pulse is 122', BP_LOW + '; ' + MAT_P),
-    ('has a blood pressure of 158/104 mmHg, 3+ proteinuria, a headache that will not go away', BP + '; urine protein negative to trace'),
-    ("A newborn's axillary temperature is 36.1°C (97.0°F)", NB),
-    ('full, firm, painful breasts and a temperature of 37.8°C', TEMP + '; 38°C (100.4°F) or higher is a fever'),
-    ("A client's blood pressure falls to 86/50 mm Hg 10 minutes after an epidural", BP_LOW + '; a drop of 20% or more from her baseline after an epidural is hypotension'),
-    ('receiving IV morphine and has a respiratory rate of 8/min', MAT_RR + '; below 12 is respiratory depression'),
+    ('Blood pressure 172/112', 'urine protein negative to trace; platelets 150,000 to 400,000/mm³'),
+    ('respirations are 10/min and urine output has been 20 mL over the past hour', None),  # a vital sign: Caroline wants lab values only
+    ('Ten minutes later her blood pressure is 84/50 mmHg', None),  # a vital sign: Caroline wants lab values only
+    ('Her blood pressure is 88/52 mmHg and her pulse is 122', None),  # a vital sign: Caroline wants lab values only
+    ('has a blood pressure of 158/104 mmHg, 3+ proteinuria, a headache that will not go away', 'urine protein negative to trace'),
+    ("A newborn's axillary temperature is 36.1°C (97.0°F)", None),  # a vital sign: Caroline wants lab values only
+    ('full, firm, painful breasts and a temperature of 37.8°C', None),  # a vital sign: Caroline wants lab values only
+    ("A client's blood pressure falls to 86/50 mm Hg 10 minutes after an epidural", None),  # a vital sign: Caroline wants lab values only
+    ('receiving IV morphine and has a respiratory rate of 8/min', None),  # a vital sign: Caroline wants lab values only
     ('has a platelet count of 75,000/mm3 and wants pain relief', 'platelets 150,000 to 400,000/mm³'),
 ]
 
@@ -91,53 +95,53 @@ PREG_LABS = 'hemoglobin 11 g/dL or higher, hematocrit 33% or higher; WBC 5,000 t
 HYPER = 'BUN 10 to 20 mg/dL; urine output 30 mL/hr or more; urine ketones negative; moist mucous membranes'
 NB_FULL = NB + '; brief pauses in breathing are normal, but apnea over 20 seconds is not; blood glucose above 40 to 45 mg/dL'
 CHOICES = [
-    ('A nurse reviews vital signs on four clients in the prenatal clinic.', BP_LOW + '; pulse rises 10 to 15/min in pregnancy; hemoglobin 11 g/dL or higher'),
-    ('A nurse reviews four fetal monitor strips.', FHR),
+    ('A nurse reviews vital signs on four clients in the prenatal clinic.', 'hemoglobin 11 g/dL or higher'),
+    ('A nurse reviews four fetal monitor strips.', None),  # a vital sign: Caroline wants lab values only
     ('Which client is the best candidate for general anesthesia for a cesarean birth?', 'platelets 150,000 to 400,000/mm³'),
-    ('Which finding after an epidural is placed needs the most immediate intervention?', TEMP + '; ' + BP_LOW),
-    ('Which findings suggest a ruptured ectopic pregnancy requiring emergency care?', BP_LOW + '; ' + MAT_P),
-    ('A nurse reviews four clients with hypertensive disorders.', BP + '; urine protein negative to trace'),
-    ('A client is receiving IV magnesium sulfate. Which findings indicate toxicity?', MG + '; magnesium 4 to 7 mEq/L is therapeutic'),
-    ('A nurse on the antepartum unit is caring for four clients who have preeclampsia.', BP + '; urine protein under 300 mg in 24 hours; deep tendon reflexes 2+; urine output 30 mL/hr or more'),
-    ('A nurse monitors a client receiving oxytocin. Which findings require the nurse to stop the infusion?', 'no more than 5 contractions in 10 minutes, each lasting no more than 90 seconds; uterine resting tone 15 mm Hg or less; ' + FHR),
-    ('A nurse assesses a client 18 hours postpartum.', PP_TEMP + '; ' + PP_LABS + '; pulse can drop to 50 to 70 in the first days'),
-    ('Which findings in the postpartum period require immediate reporting?', PP_TEMP),
-    ('Which finding in the first 24 hours after birth requires the most immediate nursing action?', PP_TEMP),
-    ('A nurse assesses four newborns.', NB_FULL),
-    ('Which newborn findings should the nurse report rather than document as expected?', NB_FULL),
-    ('A client is receiving magnesium sulfate. Which assessment finding requires the nurse to stop the infusion', MG + '; ' + BP),
-    ('A client is 12 hours postpartum. Which finding should the nurse report?', PP_TEMP),
-    ('Which postpartum findings suggest endometritis?', PP_TEMP),
-    ('Which newborn findings require the nurse to notify the provider?', NB_FULL),
-    ('A client is receiving magnesium sulfate. Which finding requires the nurse to stop the infusion?', MG + '; ' + BP),
-    ('Which finding at a 26-week antenatal visit should the nurse report to the provider?', 'fundal height in cm about equals the weeks of gestation (plus or minus 2 cm) from 20 weeks; ' + FHR + '; ' + BP + '; weight gain about 1 lb a week in the 2nd and 3rd trimesters'),
-    ('Which finding should the nurse expect at a routine 18-week assessment?', FHR + '; the fundus reaches the umbilicus at about 20 weeks'),
-    ('Which finding in a newborn 12 hr after birth should the nurse report?', 'newborn blood glucose above 40 to 45 mg/dL; jaundice in the first 24 hours is never normal'),
-    ('Which manifestation should the nurse expect in a client who is 1 day postpartum with a vaginal hematoma?', PP_TEMP),
-    ('Which finding at a 38-week visit should the nurse report?', 'weight gain about 1 lb (0.5 kg) a week in the 3rd trimester; ' + FHR),
-    ('Which finding in a client with hyperemesis gravidarum on IV fluids should the nurse report?', HYPER),
+    ('Which finding after an epidural is placed needs the most immediate intervention?', None),  # a vital sign: Caroline wants lab values only
+    ('Which findings suggest a ruptured ectopic pregnancy requiring emergency care?', None),  # a vital sign: Caroline wants lab values only
+    ('A nurse reviews four clients with hypertensive disorders.', None),  # a vital sign: Caroline wants lab values only
+    ('A client is receiving IV magnesium sulfate. Which findings indicate toxicity?', 'magnesium 4 to 7 mEq/L (about 4.8 to 8.4 mg/dL) is therapeutic'),
+    ('A nurse on the antepartum unit is caring for four clients who have preeclampsia.', 'urine protein under 300 mg in 24 hours'),
+    ('A nurse monitors a client receiving oxytocin. Which findings require the nurse to stop the infusion?', None),  # a vital sign: Caroline wants lab values only
+    ('A nurse assesses a client 18 hours postpartum.', 'WBC can reach 20,000 to 25,000/mm³ after birth'),
+    ('Which findings in the postpartum period require immediate reporting?', None),  # a vital sign: Caroline wants lab values only
+    ('Which finding in the first 24 hours after birth requires the most immediate nursing action?', None),  # a vital sign: Caroline wants lab values only
+    ('A nurse assesses four newborns.', None),  # a vital sign: Caroline wants lab values only
+    ('Which newborn findings should the nurse report rather than document as expected?', None),  # a vital sign: Caroline wants lab values only
+    ('A client is receiving magnesium sulfate. Which assessment finding requires the nurse to stop the infusion', None),  # a vital sign: Caroline wants lab values only
+    ('A client is 12 hours postpartum. Which finding should the nurse report?', None),  # a vital sign: Caroline wants lab values only
+    ('Which postpartum findings suggest endometritis?', None),  # a vital sign: Caroline wants lab values only
+    ('Which newborn findings require the nurse to notify the provider?', None),  # a vital sign: Caroline wants lab values only
+    ('A client is receiving magnesium sulfate. Which finding requires the nurse to stop the infusion?', None),  # a vital sign: Caroline wants lab values only
+    ('Which finding at a 26-week antenatal visit should the nurse report to the provider?', None),  # a vital sign: Caroline wants lab values only
+    ('Which finding should the nurse expect at a routine 18-week assessment?', None),  # a vital sign: Caroline wants lab values only
+    ('Which finding in a newborn 12 hr after birth should the nurse report?', 'newborn blood glucose above 40 to 45 mg/dL'),
+    ('Which manifestation should the nurse expect in a client who is 1 day postpartum with a vaginal hematoma?', None),  # a vital sign: Caroline wants lab values only
+    ('Which finding at a 38-week visit should the nurse report?', None),  # a vital sign: Caroline wants lab values only
+    ('Which finding in a client with hyperemesis gravidarum on IV fluids should the nurse report?', 'BUN 10 to 20 mg/dL'),
     ('Which prenatal laboratory result at 12 weeks should the nurse report?', 'hemoglobin 11 g/dL or higher in the first trimester'),
-    ('Which newborn should the nurse report to the provider?', NB + '; blood glucose above 40 to 45 mg/dL'),
-    ('A client at 30 weeks is receiving magnesium sulfate for preterm labor. Which finding should the nurse report?', MG),
-    ('A client is receiving IV magnesium sulfate for preeclampsia. Which finding indicates toxicity and should be reported?', MG),
-    ('A client gave birth 18 hr ago. Which finding indicates a postpartum complication?', PP_TEMP),
-    ('A client gave birth vaginally 6 hr ago. Which finding should the nurse report?', PP_LABS),
-    ('A newborn is admitted with respiratory distress. Which findings should the nurse report?', NB),
-    ('A nurse is reviewing antepartum laboratory results. Which result should be reported to the provider?', PREG_LABS),
-    ('A client is 1 day postpartum. Which finding indicates infection?', PP_LABS + '; BUN 10 to 20 mg/dL; urine specific gravity 1.005 to 1.030'),
-    ('Which finding should the nurse expect while monitoring a client after an amniocentesis?', TEMP + '; ' + FHR),
-    ('A client is in the active phase of the first stage of labor. Which finding should the nurse report to the charge nurse?', FHR + '; contractions last 45 to 80 seconds in the active phase'),
-    ('A client has endometritis 48 hr after a cesarean birth. Which finding should the nurse anticipate?', MAT_P + '; ' + MAT_RR + '; ' + PP_LABS),
-    ('A client is receiving magnesium sulfate. Which finding should the nurse report to the provider?', MG),
-    ('Which finding contraindicates starting an oxytocin infusion', FHR + '; contractions no more often than every 2 to 3 minutes'),
+    ('Which newborn should the nurse report to the provider?', 'newborn blood glucose above 40 to 45 mg/dL'),
+    ('A client at 30 weeks is receiving magnesium sulfate for preterm labor. Which finding should the nurse report?', None),  # a vital sign: Caroline wants lab values only
+    ('A client is receiving IV magnesium sulfate for preeclampsia. Which finding indicates toxicity and should be reported?', None),  # a vital sign: Caroline wants lab values only
+    ('A client gave birth 18 hr ago. Which finding indicates a postpartum complication?', None),  # a vital sign: Caroline wants lab values only
+    ('A client gave birth vaginally 6 hr ago. Which finding should the nurse report?', 'WBC can reach 20,000 to 25,000/mm³ after birth'),
+    ('A newborn is admitted with respiratory distress. Which findings should the nurse report?', None),  # a vital sign: Caroline wants lab values only
+    ('A nurse is reviewing antepartum laboratory results. Which result should be reported to the provider?', 'hemoglobin 11 g/dL or higher, hematocrit 33% or higher; WBC 5,000 to 15,000/mm³ in pregnancy; platelets 150,000 to 400,000/mm³'),
+    ('A client is 1 day postpartum. Which finding indicates infection?', 'WBC can reach 20,000 to 25,000/mm³ after birth; hemoglobin 11 g/dL or higher; BUN 10 to 20 mg/dL; urine specific gravity 1.005 to 1.030'),
+    ('Which finding should the nurse expect while monitoring a client after an amniocentesis?', None),  # a vital sign: Caroline wants lab values only
+    ('A client is in the active phase of the first stage of labor. Which finding should the nurse report to the charge nurse?', None),  # a vital sign: Caroline wants lab values only
+    ('A client has endometritis 48 hr after a cesarean birth. Which finding should the nurse anticipate?', 'WBC can reach 20,000 to 25,000/mm³ after birth'),
+    ('A client is receiving magnesium sulfate. Which finding should the nurse report to the provider?', None),  # a vital sign: Caroline wants lab values only
+    ('Which finding contraindicates starting an oxytocin infusion', None),  # a vital sign: Caroline wants lab values only
     ('Which laboratory result in a client who has preeclampsia should the nurse report?', 'platelets 150,000 to 400,000/mm³; hemoglobin 11 g/dL or higher; WBC 5,000 to 15,000/mm³ in pregnancy'),
-    ('Which finding should the nurse report in a client who has hyperemesis gravidarum on IV fluids?', HYPER),
-    ('Which laboratory result in a client who is 24 hr postpartum indicates infection?', PP_LABS),
-    ('Which finding should the nurse expect in a client who has a vaginal hematoma 1 day postpartum?', PP_TEMP),
-    ('Which findings should the nurse expect on a routine newborn assessment?', NB),
-    ('Which finding in a newborn 15 min after birth requires intervention?', NB),
-    ('A nurse is collecting data from a newborn following birth. Which findings indicate acceptable adaptation', NB_FULL),
-    ('Which finding after an amniocentesis should the nurse report?', FHR),
+    ('Which finding should the nurse report in a client who has hyperemesis gravidarum on IV fluids?', 'BUN 10 to 20 mg/dL; urine ketones negative'),
+    ('Which laboratory result in a client who is 24 hr postpartum indicates infection?', 'WBC can reach 20,000 to 25,000/mm³ after birth; hemoglobin 11 g/dL or higher; platelets 150,000 to 400,000/mm³'),
+    ('Which finding should the nurse expect in a client who has a vaginal hematoma 1 day postpartum?', None),  # a vital sign: Caroline wants lab values only
+    ('Which findings should the nurse expect on a routine newborn assessment?', None),  # a vital sign: Caroline wants lab values only
+    ('Which finding in a newborn 15 min after birth requires intervention?', None),  # a vital sign: Caroline wants lab values only
+    ('A nurse is collecting data from a newborn following birth. Which findings indicate acceptable adaptation', None),  # a vital sign: Caroline wants lab values only
+    ('Which finding after an amniocentesis should the nurse report?', None),  # a vital sign: Caroline wants lab values only
 ]
 
 # (file, the tag that opens its JSON bank, compact dump?)
@@ -148,9 +152,9 @@ def banks():
     yield os.path.join(ROOT, 'super-mega-quiz.html'), 'id="qbank">', True
 
 
-def place(q, line, end=False):
+def place(q, line, end=False, bare=False):
     """Put the line at the end of the stem, else before the last sentence of the question."""
-    span = SPAN % line
+    span = (SPAN_BARE if bare else SPAN) % line
     if end:
         q['q'] = q['q'] + ' ' + span
         return
@@ -186,13 +190,31 @@ def run(check):
         if 'super-mega' in path:
             items = [q for q in items if q.get('course') == 'NUR234']
         n = 0
+        if compact:
+            for q in items:
+                for f in ('q', 'stem'):
+                    v = q.get(f) or ''
+                    if re.search(r'<span class="normals" style="[^"]*">', v):
+                        stale += 1
+                        if not check:
+                            q[f] = re.sub(r'<span class="normals" style="[^"]*">', '<span class="normals">', v); n += 1
         for q in items:
             text = (q.get('q') or '') + ' ' + (q.get('stem') or '')
             for key, line, end in ENTRIES:
                 if key in text:
                     used.add(key)
+                    if line is None:
+                        for f in ('q', 'stem'):
+                            v = q.get(f) or ''
+                            mm = re.search(r'<span class="normals"[^>]*>Normal: .*?</span>', v)
+                            if mm:
+                                stale += 1
+                                if not check:
+                                    q[f] = (v[:mm.start()].rstrip() + ' ' + v[mm.end():].lstrip()).strip() if f == 'q' else v[:mm.start()] + v[mm.end():]
+                                    n += 1
+                        break
                     if 'class="normals"' in text:
-                        want = SPAN % line
+                        want = (SPAN_BARE if compact else SPAN) % line
                         for f in ('q', 'stem'):
                             v = q.get(f) or ''
                             mm = re.search(r'<span class="normals"[^>]*>Normal: .*?</span>', v)
@@ -203,7 +225,7 @@ def run(check):
                         break
                     missing += 1
                     if not check:
-                        place(q, line, end); n += 1
+                        place(q, line, end, compact); n += 1
                     break
         if n:
             out = json.dumps(bank, ensure_ascii=False, separators=(',', ':')) if compact else json.dumps(bank, ensure_ascii=False)

@@ -383,13 +383,18 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
   Exam 2, the written-answer cards only. That set's multiple-choice and true/false items are in the
   quizzes (`src` "Caroline's Quizlet set, NUR 234 Exam 2 (20 Oct)"). A card changed to follow her
   textbooks carries a `note` saying so; keep it. Edit the JSON, never the page, then rebuild the search index.
-- **A question that gives a measured value shows its normal range** (Caroline, 21 Oct: "I would like the
-  normal values in"), even where spotting the abnormal value is the point. `python3 tools/add-normal-values.py`
+- **A question that gives a lab value shows its normal range** (Caroline, 21 Oct: "I would like the
+  normal values in", then the same day: "I don't need or want the normal vital sign values, just the normal lab
+  values"), even where spotting the abnormal value is the point. Blood pressure, pulse, respirations,
+  temperature, fetal heart rate, contractions, reflexes and urine output get no line; their entries stay in
+  the list with `None` so the tool keeps them out. `python3 tools/add-normal-values.py`
   writes a yellow `span.normals` line into every copy (NUR 234 quiz, module page, Mega Quiz) from its list,
   and rewrites lines it wrote before if the list changes (`--check` to verify). Add an entry when a new
-  question gives a vital sign or lab; key it on words before the value, not across the sentence it splits.
+  question gives a lab value; key it on words before the value, not across the sentence it splits.
   A value in the answer choices counts too: those entries live in its `CHOICES` list and the line goes
   after the question, above the choices. Questions that ask what the normal range *is* are left out.
+  The Mega Quiz's `rich()` lets a span through only as a bare `<span class="x">` (a `style` attribute printed
+  the whole tag as text on 21 Oct), so the tool writes bare spans there and `super-mega-quiz.html` styles `.normals`.
 - **`course-materials/` is Codex's NUR 235 Modules 7-13 collection** (11 Oct): completed concept maps
   and case studies with answers, one page per original slide, own `study.css`/`study.js` (never load
   those site-wide). The module pages reach it through 14 gallery cards in `infographics.html`
