@@ -383,6 +383,11 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
   Exam 2, the written-answer cards only. That set's multiple-choice and true/false items are in the
   quizzes (`src` "Caroline's Quizlet set, NUR 234 Exam 2 (20 Oct)"). A card changed to follow her
   textbooks carries a `note` saying so; keep it. Edit the JSON, never the page, then rebuild the search index.
+- **A question that gives a measured value shows its normal range** (Caroline, 21 Oct: "I would like the
+  normal values in"), even where spotting the abnormal value is the point. `python3 tools/add-normal-values.py`
+  writes a yellow `span.normals` line into every copy (NUR 234 quiz, module page, Mega Quiz) from its list,
+  and rewrites lines it wrote before if the list changes (`--check` to verify). Add an entry when a new
+  question gives a vital sign or lab; key it on words before the value, not across the sentence it splits.
 - **`course-materials/` is Codex's NUR 235 Modules 7-13 collection** (11 Oct): completed concept maps
   and case studies with answers, one page per original slide, own `study.css`/`study.js` (never load
   those site-wide). The module pages reach it through 14 gallery cards in `infographics.html`
