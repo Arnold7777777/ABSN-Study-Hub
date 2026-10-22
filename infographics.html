@@ -144,6 +144,7 @@ button.igmore:focus-visible{outline:3px solid #fff;outline-offset:2px}
 .fb:hover{background:rgba(255,255,255,.26)}
 .fb.active{background:#ffd76a;color:#231a02;border-color:#231a02}
 .fb:focus-visible{outline:3px solid #9fe4ff;outline-offset:2px}
+.fb.fb-off{opacity:.38;cursor:not-allowed;border-style:dashed;backdrop-filter:none;-webkit-backdrop-filter:none}
 .fn{font-size:.85rem;opacity:.82;font-weight:800}
 .igreset{display:inline-flex;align-items:center;gap:6px;min-height:48px;margin:12px 0 0;padding:10px 16px;border-radius:13px;font-family:inherit;font-weight:900;font-size:1rem;line-height:1.2;color:#231a02;background:#ffd76a;border:1px solid #231a02;cursor:pointer}
 .igactive{display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;margin:0 0 14px;padding:4px 12px 12px;border-radius:14px;background:rgba(20,11,36,.86);border:1px solid rgba(255,215,106,.55);color:#fff;font-weight:800;overflow-wrap:anywhere}
@@ -332,17 +333,36 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
     if(key==='mod') return 'M'+String(100+parseInt(val.slice(1),10));
     return val;
   }
+  /* one chip's test: does card c carry value v in row k? Rows OR within, AND across */
+  function carries(c,k,v){
+    var d=c.dataset;
+    if(k==='cls') return (d.cls||'Other topics')===v;
+    if(k==='mod'||k==='exam') return vals(d,k).indexOf(v)>-1;
+    return d[k]===v;
+  }
+  function passes(c,skip,term){
+    var ks=['kind','cls','mod','exam','cat'];
+    for(var i=0;i<ks.length;i++){ var k=ks[i];
+      if(k===skip||!pick[k].length) continue;
+      if(!pick[k].some(function(v){ return carries(c,k,v); })) return false; }
+    return !term||c._text.indexOf(term)>-1;
+  }
+  /* Grey out a chip when nothing that fits the other rows (and the search) carries it */
+  function greyChips(term){
+    [].forEach.call(document.querySelectorAll('.fb[data-k]'),function(b){
+      var k=b.dataset.k, v=b.dataset.v;
+      if(v==='all'||b.hidden) return;
+      var off=!b.classList.contains('active')&&!cards.some(function(c){ return carries(c,k,v)&&passes(c,k,term); });
+      b.classList.toggle('fb-off',off); b.disabled=off;
+      b.title=off?'Nothing matches this with what you have picked':'';
+    });
+  }
   function render(){
     var term=q.value.trim().toLowerCase(), buckets={}, shown=0;
     cards.forEach(function(c){c._used=0;});
     cards.forEach(function(c){
       var d=c.dataset;
-      if(pick.kind.length&&pick.kind.indexOf(d.kind)<0) return;
-      if(pick.cls.length &&pick.cls.indexOf(d.cls||'Other topics')<0) return;
-      if(pick.mod.length &&!hit(vals(d,'mod'),pick.mod)) return;
-      if(pick.exam.length&&!hit(vals(d,'exam'),pick.exam)) return;
-      if(pick.cat.length &&pick.cat.indexOf(d.cat)<0) return;
-      if(term&&c._text.indexOf(term)<0) return;
+      if(!passes(c,'',term)) return;
       shown++;
       /* With Exam 2 picked, a card tagged Exam 1 · Exam 2 must not open an "Exam 1" section */
       vals(d,groupBy).forEach(function(v){
@@ -382,6 +402,7 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
       });
       groups.appendChild(more);
     }
+    greyChips(term);
     none.style.display=shown?'none':'block';
     count.innerHTML='<b>'+shown+'</b> of '+cards.length+' showing'+(left>0?' &middot; '+placed+' on screen':'');
     var st=document.getElementById('igfoldState');
@@ -458,7 +479,7 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
   /* a chip no card carries (Exam 7, "No module tag") can only ever show nothing, so hide it */
   [].forEach.call(document.querySelectorAll('.fb[data-k]'),function(b){
     var k=b.dataset.k, v=b.dataset.v; if(v==='all') return;
-    if(!cards.some(function(c){ return k==='kind'||k==='cat' ? c.dataset[k]===v : (k==='cls' ? (c.dataset.cls||'Other topics')===v : vals(c.dataset,k).indexOf(v)>-1); })) b.hidden=true;
+    if(!cards.some(function(c){ return carries(c,k,v); })) b.hidden=true;
   });
   render();
 })();
