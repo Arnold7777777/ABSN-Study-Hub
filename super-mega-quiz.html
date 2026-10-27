@@ -75,6 +75,12 @@ h1{font-size:clamp(1.7rem,5.6vw,2.6rem);margin:0 0 6px;line-height:1.14;font-wei
  border:1px solid var(--line);background:rgba(0,0,0,.5);color:#fff}
 .poolnote{flex:0 0 100%;margin:6px 0 0;font-size:1rem;color:var(--soft)}
 .poolnote b{color:var(--accent);font-size:1.1rem}
+.lastnote{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin:0 0 12px;padding:10px 14px;
+  border-radius:12px;background:#2b2150;border:1px solid #6d5bb0;color:var(--soft);font-size:1rem}
+.lastnote[hidden]{display:none}
+.lastnote button{min-height:44px;padding:8px 16px;border-radius:12px;border:1px solid var(--gold);
+  background:transparent;color:var(--gold);font-weight:800;font-size:1rem;font-family:inherit;cursor:pointer}
+.lastnote button:hover,.lastnote button:focus-visible{background:var(--gold);color:#2a1f00}
 .go{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 0}
 .go button{flex:1 1 12rem;font-weight:900;font-size:1.06rem;font-family:inherit;padding:14px;border-radius:14px;
  border:1px solid var(--line);color:#fff;cursor:pointer;
@@ -628,6 +634,8 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
   <p class="poolnote" style="margin:0 0 12px">
      Ready with <b id="poolcount">6,272</b> questions &mdash; press <b>Shuffle and start</b>.
      Scroll down first if you want to narrow it to certain courses or topics.</p>
+  <p class="lastnote" id="lastNote" hidden aria-live="polite"><span>&#128204; Same filters as your last quiz.</span>
+     <button type="button" id="lastClear">Clear the filters</button></p>
   <div class="missbox quiet" id="missBox" aria-live="polite"></div>
   <button type="button" class="filt-toggle" id="filtToggle">&#9662; Show the filters</button>
   <div class="panel" id="filters">
@@ -1239,8 +1247,66 @@ window.NGN = (function(){
     if(st) st.disabled = pool===0;
   }
 
+  /* ---- the last quiz's filters come back --------------------------------
+     Caroline, 27 Oct: "when you press shuffle and start, will you please keep it
+     with the same filters as the previous quiz had?" Within one visit they always
+     stayed; a reload or a new visit put her back on all 6,272. So the chips she
+     started with are saved here and pressed again on the next arrival - unless
+     a link arrives with its own ?course=... choice, which wins. */
+  var LASTKEY='smq-last-filters-v1', skipSave=false;
+  function saveLast(){
+    var box=document.getElementById('customCount');
+    try{ localStorage.setItem(LASTKEY, JSON.stringify({pick:pick, count:count,
+      typed: box && box.value.trim() ? box.value.trim() : ''})); }catch(e){}
+  }
+  function anyOn(){
+    var box=document.getElementById('customCount');
+    if(box && box.value.trim()) return true;
+    if(count!=='all') return true;
+    for(var k in pick) if(pick[k].length) return true;
+    return false;
+  }
+  function restoreLast(){
+    var saved=null;
+    try{ saved=JSON.parse(localStorage.getItem(LASTKEY)||'null'); }catch(e){}
+    if(!saved || !saved.pick) return false;
+    Object.keys(pick).forEach(function(k){
+      var want=saved.pick[k]; if(!want || !want.length) return;
+      [].forEach.call(document.querySelectorAll('.fbtn[data-k="'+k+'"]'),function(b){
+        if(want.indexOf(b.dataset.v)>-1 && !b.disabled && !b.classList.contains('active')) b.click();
+      });
+    });
+    var box=document.getElementById('customCount');
+    if(saved.typed && box){ box.value=saved.typed; box.dispatchEvent(new Event('input')); }
+    else if(saved.count && saved.count!=='all'){
+      [].forEach.call(document.querySelectorAll('.fbtn[data-k="count"]'),function(b){
+        if(b.dataset.v===String(saved.count)) b.click();
+      });
+    }
+    return anyOn();
+  }
+  function lastNote(show){
+    var n=document.getElementById('lastNote'); if(n) n.hidden=!show;
+  }
+  /* she changes a chip herself: the note only stays while something is still on */
+  document.addEventListener('click',function(e){
+    if(e.target.closest('.fbtn')) setTimeout(function(){ if(!anyOn()) lastNote(false); },0);
+  });
+  var lc=document.getElementById('lastClear');
+  if(lc) lc.addEventListener('click',function(){
+    var r=document.getElementById('fdrawerReset');
+    if(r) r.click();
+    else [].forEach.call(document.querySelectorAll('.fbtn[data-v="all"]'),function(b){
+      if(!b.classList.contains('active')) b.click(); });
+    var box=document.getElementById('customCount'); if(box) box.value='';
+    lastNote(false);
+    try{ localStorage.removeItem(LASTKEY); }catch(err){}
+  });
+
   function start(shuf){
     reviewMode=false;
+    if(!skipSave) saveLast();
+    skipSave=false;
     var l=poolList();
     if(shuf!==false) l=shuffle(l);
     list=l.slice(0, wanted(l.length));
@@ -1799,7 +1865,7 @@ window.NGN = (function(){
      hers. */
   window.addEventListener('load', function(){
     var qs = window.location.search;
-    if(!qs || qs.length < 2) return;
+    if(!qs || qs.length < 2){ lastNote(restoreLast()); return; }
     var p;
     try { p = new URLSearchParams(qs); } catch(e) { return; }
     var picked = false;
@@ -1819,7 +1885,8 @@ window.NGN = (function(){
       if(nb) nb.click();
       else { var cb=document.getElementById('customCount'); if(cb){ cb.value=n; cb.dispatchEvent(new Event('input')); } }
     }
-    if(p.get('start')==='1'){ start(true); return; }
+    /* the homepage's "10 quick questions" is a one-off, not her filters */
+    if(p.get('start')==='1'){ skipSave=true; start(true); return; }
     if(!picked) return;
     /* open the drawer so she can see what was chosen for her and change it */
     var d = document.getElementById('fdrawer');
