@@ -364,7 +364,7 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
   renaming NG pages; never hand-edit the links or `#ngx-css`. Every number on the site has a page except
   NG-268, which NG-048 covers itself.
 - **No "APE To Man"** (Caroline, 29 Oct: "exactly zero references", unless it is printed on a Simple Nursing
-  handout). The heart-point mnemonic on this site is "All Pigs Eat Too Much".
+  handout). The heart-point mnemonic on this site is "All People Enjoy Time Magazine".
 - **Every page has a way back** (Caroline, 7 Oct: "you can get back to the study hub and the main
   study guide page for whatever subpage you are on"). `python3 tools/wire-back-links.py` writes a
   `nav.absn-back` bar at the top and bottom of all ~553 pages: Study Hub plus the parent study
