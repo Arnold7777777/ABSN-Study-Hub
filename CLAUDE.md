@@ -357,6 +357,14 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
   Module 6's `#site-extras` section and resources list. When committing while a helper agent edits
   files, stage paths explicitly: a blanket `git add -A` on 7 Oct published half-finished clinical edits.
 
+- **Every "NG-###" a page mentions is a link** (Caroline, 29 Oct: she tapped NG-190's "This page in
+  the batch" rows and nothing happened). `python3 tools/wire-ng-xrefs.py` wraps each mention in `a.ngx` (and
+  turns a batch row into one 44px `a.ngx-row`) pointing at the real page - topic folder first, a root
+  `NG-*.html` only when it is not a redirect stub. `--check`, `--remove`, `--list`. Run it after adding or
+  renaming NG pages; never hand-edit the links or `#ngx-css`. Every number on the site has a page except
+  NG-268, which NG-048 covers itself.
+- **No "APE To Man"** (Caroline, 29 Oct: "exactly zero references", unless it is printed on a Simple Nursing
+  handout). The heart-point mnemonic on this site is "All Pigs Eat Too Much".
 - **Every page has a way back** (Caroline, 7 Oct: "you can get back to the study hub and the main
   study guide page for whatever subpage you are on"). `python3 tools/wire-back-links.py` writes a
   `nav.absn-back` bar at the top and bottom of all ~553 pages: Study Hub plus the parent study
