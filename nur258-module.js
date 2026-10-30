@@ -109,7 +109,7 @@ function escapeHtml(value){return String(value).replace(/[&<>"']/g,function(ch){
     var bodyChildren=[].slice.call(mod.querySelector('.body').children);
     search.addEventListener('input',function(){
       var term=search.value.trim().toLowerCase();if(term&&(biteOn||highOn)){setBite(false);setHigh(false);}
-      var matches=0;bodyChildren.forEach(function(node){var hit=!term||(node.textContent||'').toLowerCase().indexOf(term)>-1;node.hidden=!hit;if(hit&&term){matches++;[].slice.call(node.querySelectorAll('details')).forEach(function(d){d.open=true;});}});
+      var matches=0;bodyChildren.forEach(function(node){var hit=!term||(node.textContent||'').toLowerCase().indexOf(term)>-1;node.hidden=!hit;if(hit&&term){matches++;if(node.tagName==='DETAILS')node.open=true;[].slice.call(node.querySelectorAll('details')).forEach(function(d){d.open=true;});}});
       if(status)status.textContent=term?(matches+' matching sections'):'Everything is visible';
     });
   }
