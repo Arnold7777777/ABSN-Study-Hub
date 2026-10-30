@@ -29,11 +29,25 @@
     ['vidfig','\u{1F3AC} Video'], ['ownfig','\u{1F5BC}️ Figure']
   ];
 
+  /* A caption is a title, a takeaway and links. Its whole textContent glued all three
+     together with no spaces ("…pressure againstRising ICP…Open the picture…↗ Full-size
+     picture", Caroline, 30 Oct), so a picture is named by its caption's title, or by
+     the first ~90 characters when it has none. */
+  function capLabel(cap){
+    var t = cap.querySelector('strong,b');
+    var c = cap.cloneNode(true);
+    [].forEach.call(c.querySelectorAll('a,button,.vm-links'), function(x){ x.remove(); });   /* "Open full resolution" is a link, not a name */
+    var s = (t && t.textContent.trim()) ? t.textContent : c.textContent;
+    s = s.replace(/\s+/g, ' ').replace(/^New study diagram:\s*/i, '').replace(/[\s.]+$/, '').trim() || cap.textContent.replace(/\s+/g, ' ').trim();
+    if(s.length > 90){ s = s.slice(0, 90); s = s.slice(0, s.lastIndexOf(' ') > 50 ? s.lastIndexOf(' ') : 90).replace(/[\s,;:.—-]+$/, '') + '…'; }
+    return /^\p{Extended_Pictographic}/u.test(s) ? s : '\u{1F5BC}️ ' + s;
+  }
+
   function labelFor(el, i){
     var h = el.querySelector(':scope>h2,:scope>h3,:scope>h4,:scope>h5,:scope>h6');
     if(h) return {node:h};
     var cap = el.querySelector(':scope>figcaption,figcaption');
-    if(cap && cap.textContent.trim()) return {text:cap.textContent.trim()};
+    if(cap && cap.textContent.trim()) return {text:capLabel(cap)};
     for(var k = 0; k < LABEL.length; k++) if(el.classList.contains(LABEL[k][0])) return {text:LABEL[k][1]};
     var img = el.querySelector('img[alt]');
     if(img && img.alt) return {text:'\u{1F5BC}️ ' + img.alt};
