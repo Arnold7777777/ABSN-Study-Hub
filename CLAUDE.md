@@ -365,6 +365,13 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
   NG-268, which NG-048 covers itself.
 - **No "APE To Man"** (Caroline, 29 Oct: "exactly zero references", unless it is printed on a Simple Nursing
   handout). The heart-point mnemonic on this site is "All People Enjoy Time Magazine".
+- **Codex's 30 Oct layouts are hand-built; the old generators must leave them alone.** Module pages now
+  carry `<div class="slot filled vr-index" data-slot="visual">` (Visual references sorted by topic, no
+  generator): `wire-module-visuals.py` skips any page or NUR 258 hub module that has it. Without that
+  check it wrote a second Visual references slot onto 42 pages. Simple Nursing links now show a first-page
+  picture (`figure.sn-inline`, `assets/simple-nursing/previews/<id>.webp`, `absn-sn-inline.js`) with
+  "Read the full PDF here" under it, or point at a card lower down (`a.vnew`); `wire-sn-previews.py`
+  keeps both. A new handout gallery card still goes in `infographics.html` with a 760px `img/previews/` preview.
 - **Every page has a way back** (Caroline, 7 Oct: "you can get back to the study hub and the main
   study guide page for whatever subpage you are on"). `python3 tools/wire-back-links.py` writes a
   `nav.absn-back` bar at the top and bottom of all ~553 pages: Study Hub plus the parent study

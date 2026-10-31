@@ -369,10 +369,17 @@ def strip_old(s):
     return s
 
 
+# Codex (30 Oct) replaced this slot with a hand-built "Visual references by topic"
+# (<div class="slot filled vr-index" data-slot="visual">). Where it is there, leave the
+# page alone: writing ours as well gave every module page two Visual references slots.
+CODEX_SLOT = 'vr-index" data-slot="visual"'
+
+
 def wire_module_page(page, cls, mod, cards):
     s = open(page, encoding='utf-8').read()
     t = strip_old(s)
-    t = insert_after_info(t, slot_html(cls, mod, cards, page))
+    if CODEX_SLOT not in t:
+        t = insert_after_info(t, slot_html(cls, mod, cards, page))
     if 'absn-fold.js' not in t:
         k = t.rfind('</body>')
         t = t[:k] + FOLD_TAG + '\n' + t[k:]
@@ -395,6 +402,8 @@ def wire_258_hub(by_mod):
         i = t.find('data-m="m%d"' % n)
         j = t.find('data-m="m%d"' % (n + 1), i)
         j = j if j > 0 else len(t)
+        if CODEX_SLOT in t[i:j]:
+            continue
         seg = insert_after_info(t[i:j], slot_html('NUR 258', mod, by_mod.get(mod, []), page))
         t = t[:i] + seg + t[j:]
     return s, with_vprev(t)
