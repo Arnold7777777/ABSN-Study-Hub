@@ -285,8 +285,10 @@ def main():
         bot = '\n<nav class="absn-back bottom" data-absn-keep aria-label="Back to the Study Hub and this page\'s study guide">%s</nav>' % inner
 
         s = old = text[f]
-        s = CSSRE.sub('', s)
+        kept = CSSRE.search(s)            # kept where it is on later runs, so other tools' links after it stay after it
+        s = CSSRE.sub('', s, 1) if kept else s
         s = TOP.sub('', s)
+        s = BOT.sub('\x00', s, 1)            # a bottom bar already there stays where it is
         s = BOT.sub('', s)
         head_end = s.find('</head>')
         if head_end < 0:                  # a few pages never close <head>
@@ -294,6 +296,8 @@ def main():
         if head_end < 0:
             print('%-55s no <head>/<body>, skipped' % f)
             continue
+        if kept:
+            head_end = kept.start()
         s = s[:head_end] + CSS + s[head_end:]
         b = re.compile(r'<body\b[^>]*>', re.I).search(s, head_end + len(CSS))
         if not b:
@@ -304,10 +308,13 @@ def main():
         if nav:
             at = nav.end()
         s = s[:at] + top + s[at:]
-        end = s.rfind('</body>')
-        if end < 0:
-            end = len(s)
-        s = s[:end].rstrip('\n') + bot + '\n' + s[end:]
+        if '\x00' in s:
+            s = s.replace('\x00', bot, 1)
+        else:
+            end = s.rfind('</body>')
+            if end < 0:
+                end = len(s)
+            s = s[:end].rstrip('\n') + bot + '\n' + s[end:]
         if s != old:
             stale += 1
             if not CHECK:
