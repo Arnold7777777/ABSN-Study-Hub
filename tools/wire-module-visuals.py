@@ -416,10 +416,14 @@ def wire_link_hub(cls, by_mod):
     t = strip_old(s)
     for n in range(1, 15):
         mod = 'M%d' % n
-        key = '<div class="modrow"><a class="modcard" href="%s-m%d.html"' % (stem, n)
-        i = t.find(key)
-        if i < 0:
-            raise ValueError('%s: no module row for %s' % (page, mod))
+        # href may come after other attributes (Codex's 31 Oct re-save sorted them), and
+        # NUR 234 Modules 8-14 and NUR 235 Modules 8-9 are now Codex review sections with
+        # their own "Related lectures, original handouts and visual references" panel and no
+        # module row: leave those modules alone rather than fail or add a second panel.
+        m = re.search(r'<div class="modrow"><a class="modcard"[^>]*\bhref="%s-m%d\.html"' % (re.escape(stem), n), t)
+        if not m:
+            continue
+        i = m.start()
         end = balanced_end(t, i)
         row = t[i:end]
         mt = re.search(r'<span class="mttl">(.*?)(?:<span class="todo">.*?</span>)?</span>', row, re.S)

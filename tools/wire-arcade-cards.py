@@ -27,8 +27,11 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(ROOT)
 MAP = 'tools/arcade-card-map.json'
 
-CARD = re.compile(r'\n?<section class="absn-(?:later-|early-)?arcade-card" id="[^"]+".*?</section>\n?', re.S)
-LINK = re.compile(r'<link rel="stylesheet" data-arcade-card href="[^"]*">\n')
+# any attribute order or form: Codex's 31 Oct re-save reordered them (aria-labelledby, class, id)
+# and wrote data-arcade-card="" with />. The class value stays exact, so the hand-written
+# "absn-arcade-card nines-card" sections never match.
+CARD = re.compile(r'\n?<section\b[^>]*\bclass="absn-(?:later-|early-)?arcade-card"[^>]*>.*?</section>\n?', re.S)
+LINK = re.compile(r'<link\b[^>]*\bdata-arcade-card\b[^>]*>\n?')
 
 
 def strip(s):

@@ -36,12 +36,38 @@ DATA = 'tools/module-reader-data.json'
 CSS_TAG = '<link rel="stylesheet" data-sr-added href="assets/modules-1-7/reader.css">\n'
 JS_TAG = '<script defer data-sr-added src="assets/modules-1-7/reader.js"></script>\n'
 
-STRIP = [
-    (re.compile(r'<link rel="stylesheet" data-sr-added href="[^"]*">\n?'), ''),
-    (re.compile(r'<script id="sr-config" type="application/json">.*?</script>\n?', re.S), ''),
-    (re.compile(r'<script defer data-sr-added src="[^"]*"></script>\n?'), ''),
+STRIP = [   # any attribute order or form: Codex's 31 Oct re-save wrote data-sr-added="" and />
+    (re.compile(r'<link\b[^>]*\bdata-sr-added\b[^>]*>\n?'), ''),
+    (re.compile(r'<script\b[^>]*\bid="sr-config"[^>]*>.*?</script>\n?', re.S), ''),
+    (re.compile(r'<script\b[^>]*\bdata-sr-added\b[^>]*>\s*</script>\n?'), ''),
     (re.compile(r' data-sr-inline="[^"]*"'), ''),
 ]
+
+
+ATTR = re.compile(r'([^\s=/>]+)(?:\s*=\s*"([^"]*)")?')
+
+
+def attrs(tag):
+    """A tag's attributes as {lower-cased name: value}, so attribute order and case don't matter."""
+    body = re.match(r'<\w+\s*(.*?)/?>$', tag, re.S).group(1)
+    return {m.group(1).lower(): m.group(2) or '' for m in ATTR.finditer(body)}
+
+
+def find_tag(s, opener, pos):
+    """Where the tag `opener` is, from pos on, and its text as it stands in the page.
+
+    Codex's 31 Oct edit re-saved the pages with every tag's attributes reordered
+    and lower-cased (<svg aria-label=.. role=.. viewbox=..>), so an exact-text search
+    stopped finding the graphic it had marked. Compare attribute sets instead.
+    """
+    i = s.find(opener, pos)
+    if i >= 0:
+        return i, opener
+    want = attrs(opener)
+    for m in re.finditer(r'<svg\b[^>]*>', s[pos:]):
+        if attrs(m.group(0)) == want:
+            return pos + m.start(), m.group(0)
+    return -1, ''
 
 
 def strip(s):
@@ -70,11 +96,11 @@ def add(s, entry):
     # inline markers, in source order
     pos = 0
     for opener, marker in entry['inline']:
-        i = s.find(opener, pos)
+        i, found = find_tag(s, opener, pos)
         if i < 0:
             raise ValueError('%s: inline graphic not found: %s' % (entry['path'], opener[:80]))
-        marked = opener.replace('<svg', '<svg data-sr-inline="%s"' % marker, 1)
-        s = s[:i] + marked + s[i + len(opener):]
+        marked = found.replace('<svg', '<svg data-sr-inline="%s"' % marker, 1)
+        s = s[:i] + marked + s[i + len(found):]
         pos = i + len(marked)
     # config + script after every other script, so reader.js runs after absn-fold.js;
     # before the bottom back bar, which wire-back-links.py keeps last

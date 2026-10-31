@@ -380,6 +380,13 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
   adds a "<class> Spotify" tab per class to a copy of her workbook. `build-lecture-library.py` skips any tab
   ending " Spotify", so they never reach `lecture-library.html`; never card them on `lectures.html` either.
   Move an episode by editing the JSON, never the pages.
+- **`AGENTS.md` is the rules note for Codex** (Caroline, 31 Oct: "leave codex a note with your rules"). Codex reads
+  it automatically. Keep it in step when a rule here changes. Codex's 31 Oct edit re-saved pages through an
+  HTML serializer (attributes reordered and lower-cased, `data-x=""`, `/>`), so the wire tools now match their
+  own blocks in any attribute order: `wire-module-reader.py` by SVG attribute set,
+  `wire-arcade-cards.py` / `wire-sn-previews.py` with order-free patterns, and
+  `wire-module-visuals.py` finding a module row by `href` anywhere in the tag. It skips modules with no
+  row, which are Codex's review sections for NUR 234 M8–14. Keep new patterns attribute-order-free.
 - **Every page has a way back** (Caroline, 7 Oct: "you can get back to the study hub and the main
   study guide page for whatever subpage you are on"). `python3 tools/wire-back-links.py` writes a
   `nav.absn-back` bar at the top and bottom of all ~553 pages: Study Hub plus the parent study

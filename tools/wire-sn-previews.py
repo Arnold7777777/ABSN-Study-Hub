@@ -36,7 +36,7 @@ SNSRC = re.compile(r'(<p class="snsrc"><a class="snsrcl" href="https://drive\.go
 PDFH = re.compile(r'<a class="igcard pdfh(?: hasprev)?" href="https://drive\.google\.com/file/d/([\w-]+)/view"[^>]*>.*?</a>', re.S)
 
 OLD_SNSRC = re.compile(r'<div class="vact snprev"><details class="vprev">.*?</details></div>', re.S)
-OLD_PDFH = re.compile(r'<div( id="[^"]*")? class="vcell snh">(<a class="igcard pdfh(?: hasprev)?".*?</a>)<div class="vact snprev"><details class="vprev">.*?</details></div></div>', re.S)
+OLD_PDFH = re.compile(r'<div(?: id="(?P<ia>[^"]*)")? class="vcell snh"(?: id="(?P<ib>[^"]*)")?>(<a class="igcard pdfh(?: hasprev)?".*?</a>)<div class="vact snprev"><details class="vprev">.*?</details></div></div>', re.S)
 PDFH_ID = re.compile(r'((?:\x00[^\x00]*\x00)?)(' + PDFH.pattern + ')', re.S)
 # Codex (30 Oct) points some sheets at their card further down the page instead: leave those as they are
 VNEW = '<div class="vact snprev"><a class="vnew" href="#'
@@ -88,7 +88,8 @@ def ensure_assets(page, t):
 
 
 def wire(page, s):
-    t = OLD_PDFH.sub(lambda m: ('\x00%s\x00' % m.group(1) if m.group(1) else '') + m.group(2), s)   # first: it contains the snsrc panel's shape; a cell id (Codex, 30 Oct) rides along
+    # the id may sit before or after the class: Codex's 31 Oct re-save moved it after
+    t = OLD_PDFH.sub(lambda m: ('\x00 id="%s"\x00' % (m.group('ia') or m.group('ib')) if (m.group('ia') or m.group('ib')) else '') + m.group(3), s)   # first: it contains the snsrc panel's shape; a cell id (Codex, 30 Oct) rides along
     t = OLD_SNSRC.sub('', t)
     n = 0
     def a(m):
