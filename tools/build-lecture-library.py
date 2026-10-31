@@ -263,7 +263,9 @@ def read_rows(wb):
     """One entry per workbook tab: its rows, each {title, url, chips, note}."""
     out = []
     for ws in wb.worksheets:
-        if ws.title in SKIP_TABS:
+        # The "<class> Spotify" tabs are links to someone else's podcast; she wants
+        # them on pages of their own, never mixed in with her recordings (31 Oct).
+        if ws.title in SKIP_TABS or ws.title.endswith(' Spotify'):
             continue
         hdr = {}
         for c in range(1, ws.max_column + 1):

@@ -372,6 +372,14 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
   picture (`figure.sn-inline`, `assets/simple-nursing/previews/<id>.webp`, `absn-sn-inline.js`) with
   "Read the full PDF here" under it, or point at a card lower down (`a.vnew`); `wire-sn-previews.py`
   keeps both. A new handout gallery card still goes in `infographics.html` with a 760px `img/previews/` preview.
+- **The Learn Nursing 101 podcast lives on its own pages** (Caroline, 31 Oct: "on their own page per
+  class and organized by class, exam, module. I don't want them on the same page as ones that I have the
+  full copy of"). `spotify-nur125/198/234/235/258/pharmacology.html` are written by
+  `python3 tools/build-spotify-library.py` from `tools/spotify-episodes.json` (260 episodes from the show's
+  public RSS feed and Spotify for Creators profile, each given a class and module by topic); `--xlsx IN OUT`
+  adds a "<class> Spotify" tab per class to a copy of her workbook. `build-lecture-library.py` skips any tab
+  ending " Spotify", so they never reach `lecture-library.html`; never card them on `lectures.html` either.
+  Move an episode by editing the JSON, never the pages.
 - **Every page has a way back** (Caroline, 7 Oct: "you can get back to the study hub and the main
   study guide page for whatever subpage you are on"). `python3 tools/wire-back-links.py` writes a
   `nav.absn-back` bar at the top and bottom of all ~553 pages: Study Hub plus the parent study
