@@ -23,6 +23,7 @@ has a preview for nearly everything:
 Re-run it after adding hand-written cards. Generated slots (Visual references,
 decks) are written with their previews already and are not touched.
 """
+import posixpath
 import glob
 import html
 import os
@@ -129,7 +130,7 @@ def hero(path, frag=''):
             return None
         s = s[i:i + 6000]
     for t in IMG.findall(s):
-        src = os.path.normpath(os.path.join(os.path.dirname(path), attr(t, 'src')))
+        src = posixpath.normpath(posixpath.join(posixpath.dirname(path), attr(t, 'src')))
         if not os.path.exists(src):
             continue
         if src.endswith('.svg'):
@@ -168,7 +169,7 @@ def resolve(page, href, name, idx):
         return hero(page, h[1:]), None
     if re.match(r'^[a-z]+:', h) or '.html' not in h:
         return by_title.get(norm(name)), None
-    path = os.path.normpath(os.path.join(os.path.dirname(page), h.split('#')[0]))
+    path = posixpath.normpath(posixpath.join(posixpath.dirname(page), h.split('#')[0]))
     return (by_href.get(path) or own_shot(path) or by_title.get(norm(name)) or hero(path)), None
 
 
@@ -209,13 +210,13 @@ def fix(page, s, idx, report):
             report.append((page, href, html.unescape(re.sub(r'<[^>]+>', '', name)).strip()))
             continue
         alt = 'Preview of %s' % (re.sub(r'<[^>]+>', '', name).strip() or 'the infographic')
-        rel = os.path.relpath(pic['src'], os.path.dirname(page) or '.')
+        rel = posixpath.relpath(pic['src'], posixpath.dirname(page) or '.')
         prev = ('<span class="igprev"><img src="%s" alt="%s" loading="lazy" decoding="async" '
                 'width="%s" height="%s"></span>') % (rel, alt.replace('"', '&quot;'), pic['w'], pic['h'])
         new_attrs = attrs
         new_body = prev + body
         if retarget:
-            t = os.path.relpath(retarget, os.path.dirname(page) or '.') if not re.match(r'^[a-z]+:', retarget) else retarget
+            t = posixpath.relpath(retarget, posixpath.dirname(page) or '.') if not re.match(r'^[a-z]+:', retarget) else retarget
             new_attrs = attrs.replace('href="%s"' % href, 'href="%s"' % html.escape(t, quote=True))
             new_body = re.sub(r'<span class="igsub">Open matching infographics[^<]*</span>',
                               '<span class="igsub">%s</span>' % subtitle_for(retarget), new_body)

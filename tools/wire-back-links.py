@@ -31,7 +31,7 @@ parent link for its drawer's "Course hub" button.
 Run it after adding, renaming or re-linking pages, alongside the other wire
 tools.
 """
-import glob, html, json, os, re, sys
+import glob, html, json, os, posixpath, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(ROOT)
@@ -91,6 +91,7 @@ ARCADES = {'games/early-module-arcade.html', 'games/module-arcade.html', 'games/
 def pages():
     out = []
     for f in sorted(glob.glob('**/*.html', recursive=True)):
+        f = f.replace(os.sep, '/')  # Repository URLs use forward slashes on every host.
         if f.startswith(SKIP_DIRS) or '/.' in f:
             continue
         out.append(f)
@@ -170,11 +171,11 @@ def main():
     linked_from = {}
     for f in real:
         s = BOT.sub('', TOP.sub('', text[f]))
-        here = os.path.dirname(f)
+        here = posixpath.dirname(f)
         for h in set(HREF.findall(s)):
             if re.match(r'^[a-z]+:', h) or not h.endswith('.html'):
                 continue
-            t = os.path.normpath(os.path.join(here, h))
+            t = posixpath.normpath(posixpath.join(here, h))
             if t in exists and t != f:
                 linked_from.setdefault(t, set()).add(f)
         # Codex's reader layer (wire-module-reader.py) links its companion pages only at
@@ -186,7 +187,7 @@ def main():
             used = [r for r in (c.get('replacements') or {}).values() if r.get('source') and r['source'] in body]
             used += [r for r in c.get('inline') or []]
             for r in used:
-                t = os.path.normpath(r.get('page') or '')
+                t = posixpath.normpath(r.get('page') or '')
                 if t in exists and t != f:
                     linked_from.setdefault(t, set()).add(f)
 
@@ -199,7 +200,7 @@ def main():
         if not cls:
             continue
         for h in HREF.findall(card):
-            t = os.path.normpath(h)
+            t = posixpath.normpath(h)
             if t.endswith('.html') and t in exists and t not in tagged:
                 tagged[t] = (cls.group(1), mod.group(1) if mod else '')
 
@@ -241,8 +242,8 @@ def main():
                 parents = mods[:2]
                 if not parents:
                     parents = from_tags(f)
-                    idx = os.path.join(os.path.dirname(f), 'index.html')
-                    if parents and os.path.dirname(f) and idx in exists and idx != f:
+                    idx = posixpath.join(posixpath.dirname(f), 'index.html')
+                    if parents and posixpath.dirname(f) and idx in exists and idx != f:
                         parents.append(idx)
             elif len(per) == 1 and len(mods) <= 2:
                 parents = mods            # a page that belongs to one or two modules
@@ -255,13 +256,13 @@ def main():
                 parents = cs if len(cs) <= 2 else []
             if not parents:
                 # the page's own links up to a module ("Back to NUR 235 M2")
-                outs = sorted({os.path.normpath(os.path.join(os.path.dirname(f), h))
+                outs = sorted({posixpath.normpath(posixpath.join(posixpath.dirname(f), h))
                                for h in HREF.findall(BOT.sub('', TOP.sub('', text[f])))
                                if h.endswith('.html') and not re.match(r'^[a-z]+:', h)})
                 parents = [o for o in outs if o in exists and (course_of(o) or o in COURSES)][:2]
             if not parents:
-                idx = os.path.join(os.path.dirname(f), 'index.html')
-                if os.path.dirname(f) and idx in exists and idx != f:
+                idx = posixpath.join(posixpath.dirname(f), 'index.html')
+                if posixpath.dirname(f) and idx in exists and idx != f:
                     parents = [idx]
             if not parents:
                 # a folder index elsewhere that lists it (more/ has none of its own)
@@ -275,8 +276,8 @@ def main():
         if LIST:
             print('%-60s %s' % (f, ' | '.join('%s [%s]' % (p, label(p)) for p in parents) or '(hub only)'))
             continue
-        here = os.path.dirname(f) or '.'
-        rel = lambda p: os.path.relpath(p, here).replace(os.sep, '/')  # '../X' stays outside the repo
+        here = posixpath.dirname(f) or '.'
+        rel = lambda p: posixpath.relpath(p, here).replace(os.sep, '/')  # '../X' stays outside the repo
         links = ['<a class="hub" href="%s">&#127968; Study Hub</a>' % rel('index.html')]
         for p in parents:
             links.append('<a class="par" href="%s">&#128216; %s</a>' % (rel(p), html.escape(label(p), quote=False)))

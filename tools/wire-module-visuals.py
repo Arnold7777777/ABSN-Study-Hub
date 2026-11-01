@@ -35,6 +35,7 @@ Markup rules the other tools depend on (do not "tidy" them away):
   * the block ends with `<!-- /visual-refs -->`, which is how it is found and
     replaced next time.
 """
+import posixpath
 import glob
 import html
 import os
@@ -238,20 +239,20 @@ def page_picture(page, href, title):
     for key, f in _IGP.EXTRA.items():
         if key in h:
             pic = _IGP.picture(f)
-            return dict(pic, src=os.path.relpath(pic['src'], os.path.dirname(page) or '.')) if pic else None
+            return dict(pic, src=posixpath.relpath(pic['src'], posixpath.dirname(page) or '.')) if pic else None
     if re.match(r'^[a-z]+:', h):
         return None
     if re.search(r'\.(webp|png|jpe?g)$', h, re.I):
-        return _IGP.picture(os.path.normpath(os.path.join(os.path.dirname(page), h)))
+        return _IGP.picture(posixpath.normpath(posixpath.join(posixpath.dirname(page), h)))
     if h.startswith('#'):
         pic = _IGP.hero(page, h[1:])
     elif '.html' in h:
-        path = os.path.normpath(os.path.join(os.path.dirname(page), h.split('#')[0]))
+        path = posixpath.normpath(posixpath.join(posixpath.dirname(page), h.split('#')[0]))
         pic = _IGP.own_shot(path) or _IGP.hero(path)
     else:
         return None
     if pic:
-        pic = dict(pic, src=os.path.relpath(pic['src'], os.path.dirname(page) or '.'))
+        pic = dict(pic, src=posixpath.relpath(pic['src'], posixpath.dirname(page) or '.'))
     return pic
 
 
