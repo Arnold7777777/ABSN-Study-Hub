@@ -461,7 +461,9 @@ def record(tab, row, sec, course_code, course_label, wk):
            or bool(DOC_EXT.search(row['title'] or '')))
     title, raw = display_title(row, wk, tab)
     # a VLC playlist (20 Oct, NUR234 Review videos) is a link to many recordings, not one
-    pls = bool(PLAYLIST.search(url or ''))
+    # ... and so is a row she labels "... playlist" that links the .m3u8 through Drive's viewer
+    # (Codex's NUR 235 Exam 3 part-lists, 1 Nov), whose URL carries no .m3u8
+    pls = bool(PLAYLIST.search(url or '')) or 'playlist' in (chip(row, 'Module', 'Week') or '').lower()
     if pls:
         title = '%s for VLC' % (chip(row, 'Module', 'Week') or 'Playlist')
     # "(topic from the speech index)" is a doubt, not part of the name: badge it
