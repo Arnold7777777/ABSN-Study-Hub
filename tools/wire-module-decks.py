@@ -20,7 +20,7 @@ The two course hubs are not the same shape, so neither is the way in:
     python3 tools/wire-module-decks.py          # wire everything in the list
     python3 tools/wire-module-decks.py --check  # exit 1 if anything is missing
 """
-import glob, json, os, re, sys
+import glob, html, json, os, re, sys
 from PIL import Image
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -31,7 +31,10 @@ CHECK = '--check' in sys.argv
 # own preview boxes (11 Oct 2026) end at the first </div></div>, so match that too;
 # the first re-run rewrites them in the marked form.
 END = '<!-- /deck -->'
-SLOT = re.compile(r'<div class="slot filled" id="deck[^"]*" data-slot="deck">'
+# The opener in any attribute order: Codex's 31 Oct re-save wrote it as
+# <div class="slot filled" data-slot="deck" id="deck">, and the old id-first pattern
+# then missed every slot and would have added a second one beside it.
+SLOT = re.compile(r'<div class="slot filled" (?:id="deck[^"]*" data-slot="deck"|data-slot="deck" id="deck[^"]*")>'
                   r'(?:(?:(?!data-slot="deck").)*?' + re.escape(END) + r'|.*?</div></div>)', re.S)
 DRIVE_ID = re.compile(r'drive\.google\.com/(?:file/d/|open\?id=|uc\?[^"]*id=)([A-Za-z0-9_-]{20,})')
 
@@ -235,13 +238,21 @@ def main():
         h = open(hub, encoding='utf-8').read()
         lo, hi = module_span(h, d['module'])
         if lo is None:
-            sys.exit('%s: no %s block' % (hub, d['module']))
+            # NUR 234 Modules 8-14 became Codex review sections on 31 Oct, with no
+            # data-m block of their own; their "Detailed ... guide" links lead to the
+            # module page, which carries the slot. Nothing to wire on the hub.
+            continue
         block = h[lo:hi]
-        if '<a class="modcard"' in h[max(0, lo - 200):lo + 40]:
+        # the tag holding data-m, read whole: after the 31 Oct re-save a long data-kw
+        # sits between <a class="modcard" and data-m, far past the old 200-character window
+        tag = h[h.rfind('<', 0, lo):h.find('>', lo) + 1]
+        if tag.startswith('<a class="modcard"'):
             # index-of-cards hub: a link beside the lecture-recordings link
             link = ('<a class="modlec" href="%s#deck">&#128202; %s</a>'
                     % (page, d['short']))
-            if link in block:
+            # compare decoded text: the 31 Oct re-save turned &#128202; into a literal 📊,
+            # and an exact match then added every course-page link a second time
+            if html.unescape(link) in html.unescape(block):
                 continue
             m = re.search(r'<a class="modlec"[^>]*>.*?</a>', block, re.S)
             if not m:

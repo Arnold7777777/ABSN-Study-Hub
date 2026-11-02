@@ -387,6 +387,9 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
   `wire-arcade-cards.py` / `wire-sn-previews.py` with order-free patterns, and
   `wire-module-visuals.py` finding a module row by `href` anywhere in the tag. It skips modules with no
   row, which are Codex's review sections for NUR 234 M8–14. Keep new patterns attribute-order-free.
+  `wire-module-decks.py` got the same fix on 2 Nov: its slot opener in either order, the hub's `data-m` tag read
+  whole, Codex review modules skipped on the hub, and course-page links compared after `html.unescape` -
+  the re-save had turned `&#128202;` into a literal 📊, and an exact match would have doubled 20 links.
 - **Every page has a way back** (Caroline, 7 Oct: "you can get back to the study hub and the main
   study guide page for whatever subpage you are on"). `python3 tools/wire-back-links.py` writes a
   `nav.absn-back` bar at the top and bottom of all ~553 pages: Study Hub plus the parent study
