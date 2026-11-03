@@ -142,6 +142,14 @@
   }
 
   function placeGuide(guide){
+    /* The introductory picture is optional; keep module content within reach. */
+    if(family==='coursemod'){
+      var about=document.createElement('details');about.className='adhd-orient';about.setAttribute('data-adhd-ui','');
+      var label=document.createElement('summary');label.textContent='About this module';about.appendChild(label);about.appendChild(guide);
+      var moduleHeading=document.querySelector('h1'),moduleTop=moduleHeading&&(moduleHeading.closest('header')||moduleHeading);
+      if(moduleTop)moduleTop.insertAdjacentElement('afterend',about);else (document.querySelector('.wrap')||document.body).prepend(about);
+      return;
+    }
     if(family==='index'){
       /* The homepage opens on the study path - search, the three courses, ten
          quick questions. The robot guide and the four-mode atlas are for a
@@ -177,6 +185,8 @@
       if(foot&&foot.parentNode) foot.parentNode.insertBefore(fold,foot); else (document.querySelector('.wrap')||document.body).appendChild(fold);
       return;
     }
+    var optional=document.createElement('details');optional.className='adhd-orient';optional.setAttribute('data-adhd-ui','');
+    var optionalLabel=document.createElement('summary');optionalLabel.textContent='About this page';optional.appendChild(optionalLabel);optional.appendChild(guide);guide=optional;
     var heading=document.querySelector('h1');
     var top=heading&&(heading.closest('header')||heading);
     if(top&&top.parentNode) top.insertAdjacentElement('afterend',guide);

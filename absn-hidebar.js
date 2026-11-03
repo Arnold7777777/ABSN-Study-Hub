@@ -1,3 +1,11 @@
+/* Shared search uses this script's URL so nested study pages resolve the hub correctly. */
+(function(){
+  var current=document.currentScript;
+  if(!current||document.querySelector('script[data-absn-page-search]'))return;
+  var search=document.createElement('script');search.src=new URL('absn-page-search.js',current.src).href;
+  search.setAttribute('data-absn-page-search','');search.async=true;document.head.appendChild(search);
+})();
+
 /* absn-hidebar.js - put the toolbars in a drawer instead of on top of the page.
 
    Module pages stack sticky bars at the top: the module nav, the text-size
