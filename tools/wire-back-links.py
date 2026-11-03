@@ -61,9 +61,12 @@ SIBLING = {'NUR 125': ('NUR-125-Fundamentals/index.html', 'NUR 125 · Fundamenta
 CODE = {'nur234.html': 'NUR 234', 'nur235.html': 'NUR 235', 'nur258.html': 'NUR 258',
         'pathophysiology.html': 'BIO 280', 'pharmacology.html': 'BIO 290V'}
 
-TOP = re.compile(r'\n?<nav class="absn-back top".*?</nav>', re.S)
-BOT = re.compile(r'\n?<nav class="absn-back bottom".*?</nav>', re.S)
-CSSRE = re.compile(r'<style id="absnBackCss">.*?</style>\n?', re.S)
+# Any attribute order: Codex's 31 Oct re-save rewrote the bars as
+# <nav aria-label="..." class="absn-back top" data-absn-keep="">, the old class-first
+# patterns missed them, and every re-run added a second bar beside each one (33 pages).
+TOP = re.compile(r'\n?<nav\b[^>]*\bclass="absn-back top"[^>]*>.*?</nav>', re.S)
+BOT = re.compile(r'\n?<nav\b[^>]*\bclass="absn-back bottom"[^>]*>.*?</nav>', re.S)
+CSSRE = re.compile(r'<style\b[^>]*\bid="absnBackCss"[^>]*>.*?</style>\n?', re.S)
 CSS = ('<style id="absnBackCss">\n'
        'nav.absn-back{display:flex;flex-wrap:wrap;gap:8px;margin:10px auto;padding:0 12px;max-width:1180px;'
        'box-sizing:border-box;position:relative;top:auto;z-index:5;background:none;border:0;border-radius:0;'

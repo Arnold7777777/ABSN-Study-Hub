@@ -390,6 +390,9 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
   `wire-module-decks.py` got the same fix on 2 Nov: its slot opener in either order, the hub's `data-m` tag read
   whole, Codex review modules skipped on the hub, and course-page links compared after `html.unescape` -
   the re-save had turned `&#128202;` into a literal 📊, and an exact match would have doubled 20 links.
+  `wire-back-links.py` too (3 Nov): its class-first patterns missed the re-saved bars and added a second bar on
+  33 pages (two "Study Hub" buttons stacked, which Caroline caught). Its `TOP`/`BOT`/`CSSRE` are order-free now.
+  After any such fix, sweep every page for doubled generated blocks before publishing.
 - **Every page has a way back** (Caroline, 7 Oct: "you can get back to the study hub and the main
   study guide page for whatever subpage you are on"). `python3 tools/wire-back-links.py` writes a
   `nav.absn-back` bar at the top and bottom of all ~553 pages: Study Hub plus the parent study
