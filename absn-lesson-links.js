@@ -729,6 +729,55 @@
   };
 
 
+  /* The module a question is filed under (course:week). A week IS a module on
+     these courses, so its page is where the review material for that question
+     lives - never a guess. It is the floor for questions that carry no card and
+     no topic: 268 course-quiz questions had nothing to click (Caroline, 4 Nov). */
+  var MODULE = {
+   "NUR234:1": ["nur234-m1.html", "NUR 234 · M1 Reproductive Life Planning & Contraception"],
+   "NUR234:2": ["nur234-m2.html", "NUR 234 · M2 Conception, Fetal Development & Placental Function"],
+   "NUR234:3": ["nur234-m3.html", "NUR 234 · M3 Physiologic & Psychological Changes of Pregnancy"],
+   "NUR234:4": ["nur234-m4.html", "NUR 234 · M4 Prenatal Assessment & Antepartum Fetal Surveillance"],
+   "NUR234:5": ["nur234-m5.html", "NUR 234 · M5 Nutrition & Health Promotion in Pregnancy"],
+   "NUR234:6": ["nur234-m6.html", "NUR 234 · M6 Labor & Birth"],
+   "NUR234:7": ["nur234-m7.html", "NUR 234 · M7 Fetal Monitoring, Comfort & Analgesia in Labor"],
+   "NUR234:8": ["nur234-m8.html", "NUR 234 · M8 Early Pregnancy Bleeding & Ectopic Pregnancy"],
+   "NUR234:9": ["nur234-m9.html", "NUR 234 · M9 Hypertensive Disorders & Magnesium Sulfate"],
+   "NUR234:10": ["nur234-m10.html", "NUR 234 · M10 Dysfunctional Labor, Uterine Rupture & Obstetric Drug Math"],
+   "NUR234:11": ["nur234-m11.html", "NUR 234 · M11 Postpartum Assessment & Hemorrhage"],
+   "NUR234:12": ["nur234-m12.html", "NUR 234 · M12 The Normal Newborn & Thermoregulation"],
+   "NUR234:13": ["nur234-m13.html", "NUR 234 · M13 Newborn Feeding"],
+   "NUR234:14": ["nur234-m14.html", "NUR 234 · M14 The High-Risk Newborn & Course Review"],
+   "NUR235:1": ["nur235-m1.html", "NUR 235 · M1 Intro to Pediatric Nursing"],
+   "NUR235:2": ["nur235-m2.html", "NUR 235 · M2 The Infant (0–1 year)"],
+   "NUR235:3": ["nur235-m3.html", "NUR 235 · M3 Toddler & Preschooler"],
+   "NUR235:4": ["nur235-m4.html", "NUR 235 · M4 School-Age & Adolescent"],
+   "NUR235:5": ["nur235-m5.html", "NUR 235 · M5 Hematology & Childhood Neoplasms"],
+   "NUR235:6": ["nur235-m6.html", "NUR 235 · M6 Immune, Infectious Disease, Skin & Burns"],
+   "NUR235:7": ["nur235-m7.html", "NUR 235 · M7 Neurologic & Neuromuscular"],
+   "NUR235:8": ["nur235-m8.html", "NUR 235 · M8 Respiratory"],
+   "NUR235:9": ["nur235-m9.html", "NUR 235 · M9 Cardiac"],
+   "NUR235:10": ["nur235-m10.html", "NUR 235 · M10 Musculoskeletal"],
+   "NUR235:11": ["nur235-m11.html", "NUR 235 · M11 Endocrine & Metabolic"],
+   "NUR235:12": ["nur235-m12.html", "NUR 235 · M12 Gastrointestinal"],
+   "NUR235:13": ["nur235-m13.html", "NUR 235 · M13 Renal & Genitourinary"],
+   "NUR235:14": ["nur235-m14.html", "NUR 235 · M14 Comprehensive Final Review"],
+   "NUR258:1": ["nur258-module-01-sensory-eye-ear.html", "NUR 258 · M1 Sensory Disorders — Eye & Ear"],
+   "NUR258:2": ["nur258-module-02-infectious-diseases-hiv.html", "NUR 258 · M2 Infectious Diseases & HIV"],
+   "NUR258:3": ["nur258-module-03-allergic-inflammatory-immunologic.html", "NUR 258 · M3 Allergic, Inflammatory & Immunologic Disorders"],
+   "NUR258:4": ["nur258-module-04-burns.html", "NUR 258 · M4 Burns"],
+   "NUR258:5": ["nur258-module-05-endocrine-disorders.html", "NUR 258 · M5 Endocrine Disorders"],
+   "NUR258:6": ["nur258-module-06-diabetes.html", "NUR 258 · M6 Diabetes"],
+   "NUR258:7": ["nur258-module-07-neurologic-cerebrovascular.html", "NUR 258 · M7 Neurologic Dysfunction & Cerebrovascular Disorders"],
+   "NUR258:8": ["nur258-module-08-neuro-trauma-infection-oncology-degenerative.html", "NUR 258 · M8 Traumatic, Infectious, Oncologic & Degenerative Neuro"],
+   "NUR258:9": ["nur258-module-09-hematologic-disorders.html", "NUR 258 · M9 Hematologic Disorders"],
+   "NUR258:10": ["nur258-module-10-oncology-end-of-life.html", "NUR 258 · M10 Oncologic Disorders & End-of-Life Care"],
+   "NUR258:11": ["nur258-module-11-reproductive-disorders.html", "NUR 258 · M11 Reproductive Disorders"],
+   "NUR258:12": ["nur258-module-12-disaster-emergency-nursing.html", "NUR 258 · M12 Disaster, Mass Casualty & Emergency Nursing"],
+   "NUR258:13": ["nur258-module-13-shock-mods.html", "NUR 258 · M13 Shock & MODS"],
+   "NUR258:14": ["nur258-module-14-final-review.html", "NUR 258 · M14 Final Exam Review"],
+  };
+
   /* the label tells her what she is about to open, so a module page, a
      one-topic page and a whole section do not look like the same thing */
   function label(href){
@@ -769,6 +818,12 @@
        1,354 topics it would take to map them all by hand. */
     if(!href && t && !PAPER.test(t)){
       return anchor('index.html?q=' + encodeURIComponent(t), t);
+    }
+
+    /* no usable topic - the module the question is filed under */
+    if(!href){
+      var mod = MODULE[(card.getAttribute('data-mod') || '').trim()];
+      if(mod) return anchor(mod[0], mod[1]);
     }
 
     /* no topic at all, or the topic names a paper - fall back to the shelf the

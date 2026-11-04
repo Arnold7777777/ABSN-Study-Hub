@@ -395,6 +395,12 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
   `build-lsc-coverage.py` too (4 Nov): the module blocks on `lectures.html` now open with `data-exam` before `class`,
   and its class-first pattern had been reporting 0 sessions for NUR 234, 235 and 258 (67 are filed).
   After any such fix, sweep every page for doubled generated blocks before publishing.
+- **Every quiz question links to its review material** (Caroline, 4 Nov: "This doesn't have a thing to click
+  to find the review material"). `absn-lesson-links.js` adds the link under "Why" in this order: the question's
+  own `card`, the `LESSON` topic map, a hub search for the topic, then the **module it is filed under**
+  (`MODULE['NUR235:8']`, from the card's `data-mod`, which the three course quizzes and the Mega Quiz set), and
+  last the body-system shelf. 256 course-quiz questions had no topic and no card and showed nothing until the
+  module floor went in. Add a module page and its `MODULE` entry together.
 - **Every page has a way back** (Caroline, 7 Oct: "you can get back to the study hub and the main
   study guide page for whatever subpage you are on"). `python3 tools/wire-back-links.py` writes a
   `nav.absn-back` bar at the top and bottom of all ~553 pages: Study Hub plus the parent study
