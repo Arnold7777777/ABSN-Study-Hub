@@ -147,10 +147,12 @@ def module_of(course_hint, div_id, fid, title):
 def captured():
     """{course: {module_no: [ {id,label,runtime} ]}} from lectures.html."""
     s = read('lectures.html')
-    mods = [(m.group(1), m.start()) for m in
-            re.finditer(r'<div class="wk [^"]*" id="([a-z0-9]+)-m(\d+)"', s)]
-    owners = [(m.group(0), m.start()) for m in
-              re.finditer(r'<div class="wk [^"]*" id="([a-z0-9]+)-m?(\w*)"', s)]
+    # Attribute order is not fixed: the module blocks now open with data-exam
+    # (<div data-exam="e3" class="wk amethyst" id="nur234-m9">), and a pattern
+    # that wanted class first counted 0 sessions for NUR 234, 235 and 258.
+    WK = r'<div\b(?=[^>]*\bclass="wk [^"]*")[^>]*\bid="([a-z0-9]+)-m%s"[^>]*>'
+    mods = [(m.group(1), m.start()) for m in re.finditer(WK % r'(\d+)', s)]
+    owners = [(m.group(0), m.start()) for m in re.finditer(WK % r'?(\w*)', s)]
     out, seen, unplaced = {}, 0, []
     for a, b in spans(s, '<a class="rec"'):
         seg = s[a:b]

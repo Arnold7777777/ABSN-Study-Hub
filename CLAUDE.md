@@ -392,6 +392,8 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
   the re-save had turned `&#128202;` into a literal 📊, and an exact match would have doubled 20 links.
   `wire-back-links.py` too (3 Nov): its class-first patterns missed the re-saved bars and added a second bar on
   33 pages (two "Study Hub" buttons stacked, which Caroline caught). Its `TOP`/`BOT`/`CSSRE` are order-free now.
+  `build-lsc-coverage.py` too (4 Nov): the module blocks on `lectures.html` now open with `data-exam` before `class`,
+  and its class-first pattern had been reporting 0 sessions for NUR 234, 235 and 258 (67 are filed).
   After any such fix, sweep every page for doubled generated blocks before publishing.
 - **Every page has a way back** (Caroline, 7 Oct: "you can get back to the study hub and the main
   study guide page for whatever subpage you are on"). `python3 tools/wire-back-links.py` writes a
