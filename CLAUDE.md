@@ -50,6 +50,11 @@ python3 tools/build-search-index.py
 
 and commit the regenerated `search-index.json` with the change.
 
+The box forgives spelling (Caroline, 5 Nov: "broncopulmonary" found nothing though BPD is
+indexed). When a search has no hits, `spellFix()` in `index.html` swaps each word that appears
+nowhere for the closest word in the index (one letter off for 5–7 letters, two for 8+, ties to the
+most common word) and says "showing results for …". That runs before the filler-word narrowing.
+
 ## A new lecture: four things, every time
 
 Her rule, stated 28 Sep. Do all four or the lecture is only half filed.

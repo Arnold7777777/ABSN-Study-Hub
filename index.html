@@ -292,6 +292,55 @@ a.tile:focus-visible{border-color:#fff}
    'need needs needed recognizing recognize identifying identify').split(' ')
     .forEach(function(w){ STOP[w]=1; });
 
+  /* Every word in the index with how often it appears, built once, on the
+     first search that needs a spelling fix. */
+  var VOCAB=null;
+  function vocab(){
+    if(VOCAB) return VOCAB;
+    VOCAB={};
+    for(var i=0;i<DATA.entries.length;i++){
+      var e=DATA.entries[i], ws=(e.h+' '+e.t).toLowerCase().split(/[^a-zÀ-ɏ]+/);
+      for(var j=0;j<ws.length;j++){ var w=ws[j]; if(w.length>3) VOCAB[w]=(VOCAB[w]||0)+1; }
+    }
+    return VOCAB;
+  }
+  /* Edit distance, counting a swap of two neighbouring letters as one edit,
+     and giving up once it passes max. */
+  function dist(a,b,max){
+    if(Math.abs(a.length-b.length)>max) return max+1;
+    var p2=null, p=[], c, i, j;
+    for(j=0;j<=b.length;j++) p[j]=j;
+    for(i=1;i<=a.length;i++){
+      c=[i]; var lo=i;
+      for(j=1;j<=b.length;j++){
+        var v=Math.min(p[j]+1, c[j-1]+1, p[j-1]+(a[i-1]===b[j-1]?0:1));
+        if(p2 && i>1 && j>1 && a[i-1]===b[j-2] && a[i-2]===b[j-1]) v=Math.min(v, p2[j-2]+1);
+        c[j]=v; if(v<lo) lo=v;
+      }
+      if(lo>max) return max+1;
+      p2=p; p=c;
+    }
+    return p[b.length];
+  }
+  /* Replace each word that appears nowhere with the closest real word: one
+     letter off for words of 5-7 letters, two for longer ones. Ties go to the
+     word the site uses most. Returns null when nothing could be fixed. */
+  function spellFix(ws){
+    if(!ws.length) return null;
+    var V=vocab(), out=[], changed=false;
+    for(var i=0;i<ws.length;i++){
+      var w=ws[i];
+      if(w.length<5 || /\d/.test(w) || gather([w]).length){ out.push(w); continue; }
+      var max=w.length>=8?2:1, best=null, bd=max+1, bf=0;
+      for(var k in V){
+        var d=dist(w,k,max);
+        if(d<bd || (d===bd && d<=max && V[k]>bf)){ best=k; bd=d; bf=V[k]; }
+      }
+      if(best && bd<=max){ out.push(best); changed=true; } else out.push(w);
+    }
+    return changed?{ws:out}:null;
+  }
+
   function gather(ws){
     var out=[];
     for(var i=0;i<DATA.entries.length;i++){
@@ -340,6 +389,18 @@ a.tile:focus-visible{border-color:#fff}
       var ws=terms(q);
       if(!ws.length){ results.classList.remove('on'); return; }
       var got=gather(ws), narrowed=null;
+      /* Nothing: a misspelled word ("broncopulmonary", Caroline, 5 Nov)
+         matches nothing, because every term has to appear exactly. Swap each
+         word that appears nowhere for the closest real word in the index and
+         say so plainly, the way the narrowing above does. */
+      var spelled=null;
+      if(!got.length){
+        var fixed=spellFix(terms(q).filter(function(w){ return !STOP[w]; }));
+        if(fixed){
+          var gf=gather(fixed.ws);
+          if(gf.length){ got=gf; ws=fixed.ws; spelled=fixed; }
+        }
+      }
       /* score() needs every term to appear somewhere, which is right for two or
          three words and useless for a phrase: "Recognizing the Need for
          Suctioning" matched nothing at all, though the hub has plenty on
@@ -386,6 +447,8 @@ a.tile:focus-visible{border-color:#fff}
         return '<b>'+counts[k]+'</b> '+esc(SITE_LABEL[k]||k);
       });
       status.innerHTML=
+        (spelled?'No match for \u201c'+esc(q)+'\u201d \u00b7 showing results for <b>'+
+                  esc(spelled.ws.join(' '))+'</b> \u00b7 ':'')+
         (narrowed?'No exact match for \u201c'+esc(q)+'\u201d \u00b7 showing <b>'+
                   esc(narrowed.join(' '))+'</b> \u00b7 ':'')+
         '<b>'+groups.length+'</b> page'+(groups.length===1?'':'s')+' \u00b7 <b>'+total+'</b> section'+(total===1?'':'s')+
@@ -555,7 +618,7 @@ a.tile:focus-visible{border-color:#fff}
     <span class="qjtx">
       <span class="qjk">Start here if you want to practice</span>
       <span class="qjn">Super Mega Quiz</span>
-      <span class="qjs"><b>6,289 questions</b> from all six courses &mdash; filter by course, system or module, and anything you miss comes back.</span>
+      <span class="qjs"><b>6,290 questions</b> from all six courses &mdash; filter by course, system or module, and anything you miss comes back.</span>
     </span>
     <span class="qjgo">&rarr;</span>
   </a>
