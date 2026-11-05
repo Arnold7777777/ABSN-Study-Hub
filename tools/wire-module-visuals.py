@@ -193,7 +193,7 @@ def primary_link(c, page):
     return href, where, external
 
 
-def inline_preview(c, href):
+def inline_preview(c, href, page):
     """(type, src) for the card's 'Preview here' box, or None.
 
     Caroline asked (7 Oct 2026) for every visual reference to be viewable
@@ -214,6 +214,12 @@ def inline_preview(c, href):
         return 'img', v
     m = DRIVE_ID.search(html.unescape(href))
     if m:
+        if page == 'nur235.html':
+            # The NUR 235 reader already hosts complete copies of these handouts.
+            # Keep the original Drive link for the PDF, and preview its local image.
+            handout = 'course-materials/assets/nur235-content-mastery-sn/%s.webp' % m.group(1)
+            if os.path.isfile(handout):
+                return 'img', handout
         return 'drive', 'https://drive.google.com/file/d/%s/preview' % m.group(1)
     for _cl, h, _b in c['plinks']:
         if h.startswith('img/') and re.search(r'\.(webp|png|jpe?g|gif)$', h, re.I):
@@ -291,11 +297,23 @@ def card_html(c, page):
     # Under every card: a closed inline preview and an open-in-new-tab link,
     # both 44px tall (Caroline, 7 Oct 2026: previews for all of them, collapsed
     # by default, and the option to open in a new tab).
-    ip = inline_preview(c, href)
+    ip = inline_preview(c, href, page)
     acts = ''
     if ip:
+        if page == 'nur235.html' and ip[0] == 'img' and os.path.isfile(html.unescape(ip[1]).split('?')[0]):
+            # A local image needs neither Drive nor JavaScript to preview or enlarge.
+            from PIL import Image
+            with Image.open(html.unescape(ip[1]).split('?')[0]) as plate:
+                width, height = plate.size
+            label = html.escape(html.unescape(c['title']), quote=True)
+            preview = ('<div class="vprevb course-image-preview" data-built="1">'
+                       '<a href="%s" target="_blank" rel="noopener"><img src="%s" width="%d" height="%d" '
+                       'loading="lazy" decoding="async" alt="%s"><span>Open full-size image</span></a></div>'
+                       % (ip[1], ip[1], width, height, label))
+        else:
+            preview = '<div class="vprevb" data-type="%s" data-src="%s" data-open="%s"></div>' % (ip[0], ip[1], href)
         acts += ('<details class="vprev"><summary><span aria-hidden="true">&#128065;&#65039;</span> Preview here</summary>'
-                 '<div class="vprevb" data-type="%s" data-src="%s" data-open="%s"></div></details>' % (ip[0], ip[1], href))
+                 + preview + '</details>')
     acts += '<a class="vnew" href="%s" target="_blank" rel="noopener">&#8599; New tab</a>' % href
     return '<div class="vcell">%s<div class="vact">%s</div></div>' % (card, acts)
 

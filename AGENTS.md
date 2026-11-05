@@ -87,6 +87,7 @@ Many blocks on these pages are written by scripts in `tools/`. They are matched 
 
 ## Images
 
+- For nursing topic reviews, embed the matching original Simple Nursing handout inline beside the relevant explanation. Include an original picmonic-style memory visual inline with the topic. Label each source, retain existing visuals, show the whole image at its natural proportions, and provide a working full-size link. Use a matching handout when available and identify any missing match accurately.
 - Gallery previews: `img/previews/`, **longest edge 760px, WEBP quality 82**. The card's `<img>` points
   at the preview and its link at the full image.
 - Study pages keep the full-size image.
