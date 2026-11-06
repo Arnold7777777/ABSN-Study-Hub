@@ -263,7 +263,7 @@ a.tile:focus-visible{border-color:#fff}
     if(loading){pending=cb;return;}
     loading=true; status.textContent='Loading the search index\u2026';
     Promise.all(IDX_URLS.map(function(u){
-      return fetch(u,{cache:'force-cache'})
+      return fetch(u,{cache:u===IDX_URLS[0]?'no-cache':'force-cache'})
         .then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
         /* One index being unreachable must not take the whole search down. */
         .catch(function(){ return null; });
