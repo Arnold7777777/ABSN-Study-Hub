@@ -151,15 +151,32 @@ def main():
             if m.group(1).lower() == 'figcaption' and 'mmhub' not in m.group(2):
                 continue
             h = text_of(m.group(3))
-            if not h or len(h) > 180:
+            full_document = rel.replace(os.sep, '/').startswith('study-reviews/')
+            if not h or (len(h) > 180 and not full_document):
                 continue
             end = marks[i + 1].start() if i + 1 < len(marks) else len(body)
             t = text_of(body[m.end():end])
+            if len(h) > 180:
+                t = h + ' ' + t
+                h = h[:177] + '...'
             if len(t) < MINTEXT and len(h) < 4:
                 continue
-            entries.append({'p': str(pi), 'h': h,
-                            'a': nearest_id(m.group(0), m.group(2), body[:m.start()]),
-                            't': t[:MAXTEXT]})
+            anchor = nearest_id(m.group(0), m.group(2), body[:m.start()])
+            # Converted exam documents contain long explanations and comparison
+            # cards. Index every passage, rather than losing all text after the
+            # first 520 characters of a heading. Other pages retain their shape.
+            chunks = [t[:MAXTEXT]]
+            if full_document:
+                chunks, current = [], ''
+                for word in t.split():
+                    if current and len(current) + len(word) + 1 > MAXTEXT:
+                        chunks.append(current)
+                        current = ''
+                    current = (current + ' ' + word).strip()
+                if current or not chunks:
+                    chunks.append(current)
+            for chunk in chunks:
+                entries.append({'p': str(pi), 'h': h, 'a': anchor, 't': chunk})
 
     # Second pass: drop what would only be noise in the results.
     #  - a heading with no text under it, when the same heading sits on more

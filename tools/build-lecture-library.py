@@ -298,10 +298,19 @@ def read_rows(wb):
             title = title or lab
             chips = [[n, str(ws.cell(r, c).value).strip()]
                      for n, c in chipcols if ws.cell(r, c).value]
-            note = str(ws.cell(r, notecol).value).strip() if notecol and ws.cell(r, notecol).value else ''
+            note_url, note = parse(ws.cell(r, notecol).value) if notecol else (None, '')
+            if notecol and not note_url and ws.cell(r, notecol).hyperlink:
+                note_url = ws.cell(r, notecol).hyperlink.target
+            # Keep useful Notes hyperlinks from the live workbook, without
+            # printing their formula as prose or exposing private Zoom links.
+            if note_url and (not note_url.startswith(('https://', 'http://'))
+                             or 'zoom.us/' in note_url.lower()):
+                note_url = None
+            if note_url:
+                note_url = re.sub(r'^https?://arnold7777777\.github\.io/ABSN-Study-Hub/', '', note_url, flags=re.I)
             if not (url or title):
                 continue          # an empty row, set up for the rest of the semester
-            rows.append({'title': title, 'url': url, 'chips': chips, 'note': note})
+            rows.append({'title': title, 'url': url, 'chips': chips, 'note': note, 'note_url': note_url})
         out.append({'tab': ws.title, 'rows': rows})
     return out
 
@@ -445,7 +454,7 @@ def display_title(row, wk, tab):
 
 def term_of(row):
     d = chip(row, 'Date')
-    if not d:
+    if not d or re.match(r'^\d{4}-\d{2}-\d{2}$', d):
         m = CONVENTION.match(row['title'] or '')
         if m:
             d = TERM_IN_NAME.get(m.group('term').lower(), '')
@@ -479,6 +488,7 @@ def record(tab, row, sec, course_code, course_label, wk):
             'course': course_code, 'clabel': course_label, 'wk': wk, 'title': title, 'raw': raw,
             'who': who, 'day': chip(row, 'Day'), 'exam': chip(row, 'Exam'),
             'terms': [term_of(row)], 'days': [chip(row, 'Day')], 'notes': [row['note']] if row['note'] else [],
+            'note_links': [(row['note_url'], row['note'])] if row.get('note_url') else [],
             'raws': [raw] if raw else [], 'chips': list(row['chips']),
             'prov': prov.group(1) if prov else ''}
 
@@ -498,6 +508,7 @@ def merge(recs):
             a['title'] = r['title']
         a['terms'] += r['terms']; a['days'] += r['days']
         a['notes'] += [n for n in r['notes'] if n not in a['notes']]
+        a['note_links'] += [n for n in r['note_links'] if n not in a['note_links']]
         a['raws'] += [x for x in r['raws'] if x not in a['raws']]
         a['chips'] += r['chips']
         a['merged'] = a.get('merged', 1) + 1
@@ -535,6 +546,9 @@ def card(r, esc, topic, seen_ids):
         meta.append('Lecturer not named')
     if day:
         meta.append(day)
+    date = chip(r['row'], 'Date')
+    if re.match(r'^\d{4}-\d{2}-\d{2}$', date):
+        meta.append(date)
 
     wk = r['wk']
     wtok = (' week%d wk%d w%d m%d module%d week %d module %d wk %d' % ((wk,) * 8)) if wk else ''
@@ -569,6 +583,8 @@ def card(r, esc, topic, seen_ids):
     else:
         o.append('<a class="play" href="%s" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a>'
                  % esc(r['url']))
+    for href, label in r.get('note_links', []):
+        o.append('<a class="play" href="%s">%s</a>' % (esc(href), esc(label)))
     det = []
     if r['raws'] and any(x != r['title'] for x in r['raws']):
         det.append('<p><b>File name%s:</b> %s</p>' % ('s' if len(r['raws']) > 1 else '',
