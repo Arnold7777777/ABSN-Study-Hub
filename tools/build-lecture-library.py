@@ -148,7 +148,7 @@ def strip_zoom(wb):
                     # Keep the row's title, drop only the URL.
                     c.value = (args_of(s)[1] or None) if s.strip().startswith('=HYPERLINK(') else None
                     n += 1
-                elif 'Zoom Backup' in s:
+                elif 'zoom backup' in s.lower():
                     c.value = ('\u2022  Every lecturer has their own sub-tab. '
                                'The Lecturer column repeats it row by row.'); n += 1
                 elif 'Zoom cloud copy' in s:
@@ -455,6 +455,8 @@ def term_of(row):
 def record(tab, row, sec, course_code, course_label, wk):
     """Everything one card needs, as plain data."""
     url = row['url']
+    # Workbook hyperlinks need absolute URLs; links within the site stay relative.
+    url = re.sub(r'^https?://arnold7777777\.github\.io/ABSN-Study-Hub/', '', url or '', flags=re.I)
     fid = drive_id(url) if url else ''
     typ = chip(row, 'Type').upper()
     doc = (typ in ('PDF', 'PPTX', 'POWERPOINT', 'DOCX') or fid in DEAD_LINKS.values()
@@ -701,9 +703,10 @@ def main():
     n = strip_zoom(wb)
     fixed, unmatched = repoint(wb)
     swapped = swap_replaced(wb)
-    if n or fixed or swapped:
-        wb.save(PUBLISHED)
-        wb = openpyxl.load_workbook(PUBLISHED)
+    # Always rewrite the public copy: Sheets exports can retain unused shared
+    # strings from deleted cells, even when no active cell needs sanitizing.
+    wb.save(PUBLISHED)
+    wb = openpyxl.load_workbook(PUBLISHED)
     page, total = render(read_rows(wb), module_topics())
     io.open(PAGE, 'w', encoding='utf-8').write(page)
     # index.html's card states the count. Hand-written numbers on this site drift
