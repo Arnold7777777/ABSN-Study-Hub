@@ -86,6 +86,8 @@ def card(d):
         acts += ('<details class="vprev"><summary><span aria-hidden="true">&#128065;&#65039;</span> Preview here</summary>'
                  '<div class="vprevb" data-type="%s" data-src="%s" data-open="%s"></div></details>' % (ip[0], ip[1], d['href']))
     acts += '<a class="vnew" href="%s" target="_blank" rel="noopener">&#8599; New tab</a>' % d['href']
+    if d.get('answered_href'):
+        acts += '<a class="vnew" href="%s" target="_blank" rel="noopener">Slides with study answers &#8599;</a>' % d['answered_href']
     return '<div class="vcell">%s<div class="vact">%s</div></div>' % (face, acts)
 
 
@@ -166,6 +168,15 @@ def board(decks):
     added = 0
     for d in decks:
         if d['href'] in s:
+            if d.get('answered_href') and d['answered_href'] not in s:
+                pat=r'(<a class="plink deckplate[^"]*" href="%s"[^>]*>.*?</a>)' % re.escape(d['href'])
+                ref=re.search(pat,s,re.S)
+                if ref:
+                    added += 1
+                    if not CHECK:
+                        s=s[:ref.end()]+'<a class="deckdl" href="%s" target="_blank" rel="noopener">Open slides with study answers</a>' % d['answered_href']+s[ref.end():]
+                        starts=[m.start() for m in re.finditer(r'<div class="card ',s)]
+                        end=s.find('</body>')
             m = re.search(r'(<a class="plink deckplate[^"]*" href="%s"[^>]*>)'
                           r'(<span class="dpi".*?</span><span class="dpt">[^<]*</span>)'
                           r'(</a>)' % re.escape(d['href']), s, re.S)
@@ -195,6 +206,8 @@ def board(decks):
         dl = ('<a class="deckdl" href="https://drive.usercontent.google.com/'
               'download?id=%s&amp;export=download&amp;confirm=t">&#11015;&#65039; '
               'Download</a>' % fid.group(1)) if fid else ''
+        if d.get('answered_href'):
+            dl='<a class="deckdl" href="%s" target="_blank" rel="noopener">Open slides with study answers</a>' % d['answered_href']+dl
         card = ('<div class="card deck dark" data-kind="powerpoint" data-cat="%s" '
                 'data-cls="%s" data-mod="%s" data-exam="%s" data-kw="%s" '
                 'style="background:%s"><h3>%s</h3><div class="cbs">'

@@ -9,6 +9,7 @@ from urllib.parse import urlsplit
 from xml.etree import ElementTree as ET
 import json
 import re
+from course_powerpoints import FEATURED, panel as powerpoint_panel, shortcut
 
 from bs4 import BeautifulSoup
 from PIL import Image
@@ -169,7 +170,7 @@ def render(ex):
     title=f'NUR {course} {display} · The simple version'
     hub=f'../nur{course}.html'
     group=hub+('#review-judgment' if course=='234' and final else '#exam-'+('final' if final else exam))
-    buttons=link('index.html','All study guides')+link(group,f'NUR {course} · {display} course outline')
+    buttons=shortcut(course,exam)+link('index.html','All study guides')+link(group,f'NUR {course} · {display} course outline')
     if course=='234' and exam=='3':
         buttons+=link('nur234-exam3-high-yield.html','High-yield review')+link('nur234-exam3-complete.html','Complete 39-page guide')
     parts=[f'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{title} | ABSN Study Hub</title><meta name="description" content="{escape(ex["intro"],quote=True)}"><link rel="stylesheet" href="../assets/study-reviews/study.css"><link rel="stylesheet" href="{ART}atlas.css"></head><body class="jewel-reading"><main id="top">',
@@ -211,6 +212,8 @@ def render(ex):
     ext=EXTERNAL.get(key,EXTERNAL.get(course))
     if ext:parts.append('<p>'+link(ext[1],ext[0])+'</p>')
     parts+=['<nav class="actions" aria-label="More exams for this class">'+''.join(others)+'</nav><a href="#top" class="top-link">Back to top ↑</a></main><script defer src="../absn-top.js"></script></body></html>']
+    parts[0]=parts[0].replace('</head>', '<link rel="stylesheet" href="../assets/study-reviews/powerpoints.css"></head>')
+    if course in FEATURED and FEATURED[course][0]==exam:parts.insert(2,powerpoint_panel(course,'../'))
     return '\n'.join(parts)+'\n'
 
 def exams_for(course):
