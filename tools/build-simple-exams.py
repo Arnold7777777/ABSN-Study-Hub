@@ -6,6 +6,7 @@ NUR 258 Exam 4 guide is the original document conversion and is kept separately.
 from pathlib import Path
 from html import escape
 from urllib.parse import urlsplit
+from xml.etree import ElementTree as ET
 import json
 import re
 
@@ -79,7 +80,7 @@ def figure(image, width, height, alt, target, caption, extra=''):
             f'width="{width}" height="{height}" loading="lazy" decoding="async" alt="{escape(alt,quote=True)}"></a>'
             f'<figcaption>{escape(caption)} {link(target,"Open full size","full-size")} {extra}</figcaption></figure>')
 
-def handout(course, name):
+def handout(course, name, note=''):
     for card in GALLERY:
         if card.get('data-cls')!='NUR '+course or not card.h3 or card.h3.get_text(' ',strip=True)!=name:
             continue
@@ -88,11 +89,28 @@ def handout(course, name):
         original=card.select_one('a.sn-inline-source, a.deckplate.snprev[href*="drive.google.com"]')
         if image and original:
             return figure('../'+image['src'],image['width'],image['height'],'Simple Nursing handout: '+name,
-                          original['href'],'Simple Nursing original · '+name)
+                          original['href'],'Simple Nursing original · '+name+('. '+note if note else ''))
     raise ValueError(f'No verified handout for {course}: {name}')
 
 def memory(key):
-    if not key: return ''
+    if not key: raise ValueError('Missing memory picture')
+    if key.startswith('cue:'):
+        image='assets/study-reviews/atlas/cues/'+key.split(':',1)[1]+'.svg'
+        drawing=ET.parse(ROOT/image).getroot()
+        title=drawing.findtext('{*}title')
+        meaning=drawing.findtext('{*}desc')
+        return figure('../'+image,640,380,title+'. '+meaning,'../'+image,'Study Hub memory picture · '+title+'. '+meaning)
+    if key=='comfort':
+        image=ART+'oncology-comfort.webp'
+        return figure(image,1536,1024,'Gold thread joins microscopic cells to hands cradling a light',image,'Study Hub memory picture · The cells represent disease-directed care; the hands represent comfort. The unbroken thread reminds you that both can be offered together. Ask which symptom the patient most wants relieved.')
+    if key.startswith('peds:'):
+        topic=key.split(':',1)[1]
+        page='pediatric-visuals/'+topic+'.html'
+        doc=soup(page); im=doc.select_one('img.hero-img')
+        image='../pediatric-visuals/'+im['src']
+        heading=doc.find(string=lambda s:s and 'Visual mnemonic key' in s)
+        meaning=heading.parent.parent.get_text(' ',strip=True).split('Visual mnemonic key',1)[1].split('The cartoon objects',1)[0].strip()
+        return figure(image,im['width'],im['height'],im['alt'],image,'Study Hub memory picture · '+meaning,link('../'+page,'Read the picture key','full-size'))
     if key in ('bowel','triage'):
         image='assets/study-reviews/atlas/'+key+'.webp'
         title={'bowel':'Intussusception: the telescoping bowel','triage':'START: four triage tags'}[key]
@@ -166,8 +184,7 @@ def render(ex):
     parts.append(section(*TOP[3]))
     for m,t in records:
         num=m['module']; view=t['memory']
-        if (course,num)==('235',9):view='tetralogy'
-        pics=handout(course,t['sn'])+memory(view)
+        pics=handout(course,t['sn'],t.get('sn_note',''))+memory(view)
         body=pair_list(m)+f'<div class="visual-pair">{pics}</div><p>{link("../"+m["path"],"Open the full topic and course visuals")}</p>'
         if (course,num)==('234',11):
             body+='<h4>Postpartum changes that need urgent review</h4><dl><dt>Fever, uterine tenderness and foul-smelling lochia</dt><dd>Think endometritis. Assess vital signs and notify the obstetric team for evaluation and prescribed treatment.</dd><dt>Unilateral leg swelling and pain</dt><dd>Suspect a clot. Avoid massaging the leg and obtain urgent assessment. New chest pain or breathlessness requires an emergency response.</dd><dt>Hallucinations, delusions or thoughts of harming the baby</dt><dd>Keep the parent and baby safe with supervision and obtain emergency psychiatric and medical help.</dd></dl>'
