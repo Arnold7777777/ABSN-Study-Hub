@@ -39,14 +39,16 @@ def main():
         title=f'{f["title"]} — Halecka lecture transcript'
         downloads='../files/transcripts/'+f['slug']
         filename=html.escape(f['file'][:-4],quote=True)
+        art_path='../assets/study-reviews/atlas'
+        art,art_alt=('blood','Ruby red blood cells surrounding a lavender white blood cell') if f['module']==9 else ('mosaic','Gold branching vessels and jewel-toned cells in a medical mosaic')
         doc=f'''<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{html.escape(title)} | NUR 258</title><meta name="description" content="Timestamped NUR 258 lecture transcript: {html.escape(f['title'],quote=True)}, Dr. Dana Halecka, {f['date']}."><style>{STYLE}</style></head><body>
-<main><header><p class="eyebrow">NUR 258 · Module {f['module']} · Fall 2026</p><h1>{html.escape(f['title'])}</h1><p class="meta">Dr. Dana Halecka · {f['date']} · Recording length {f['duration']}</p></header>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{html.escape(title)} | NUR 258</title><meta name="description" content="Timestamped NUR 258 lecture transcript: {html.escape(f['title'],quote=True)}, Dr. Dana Halecka, {f['date']}."><style>{STYLE}</style><link rel="stylesheet" href="{art_path}/atlas.css"></head><body class="jewel-reading">
+<main><header class="art-hero"><div class="art-copy"><p class="eyebrow"><svg class="study-icon" aria-hidden="true" focusable="false" width="24" height="24"><use href="{art_path}/icons.svg#headphones"></use></svg>NUR 258 · Module {f['module']} · Fall 2026</p><h1>{html.escape(f['title'])}</h1><p class="meta">Dr. Dana Halecka · {f['date']} · Recording length {f['duration']}</p></div><a class="art-plate" href="{art_path}/{art}.webp" aria-label="Open original artwork full size: {art_alt}"><img src="{art_path}/{art}-small.webp" width="660" height="440" alt="{art_alt}" decoding="async"></a></header>
 <div class="actions"><a class="button" href="https://drive.google.com/file/d/{f['id']}/view" target="_blank" rel="noopener">▶ Watch recording</a><a class="button" href="../{f['module_page']}">Module {f['module']} study guide</a><a class="button" href="{downloads}.txt" download="{filename}.txt">Download transcript</a><a class="button" href="{downloads}.srt" download="{filename}.srt">Download VLC subtitles</a></div>
 <aside class="note"><strong>Automatic transcript.</strong> Medical terms were spot-checked; some words may still be misheard. Confirm unclear wording with the recording and your course materials. Long silent sections were removed. Timestamps and subtitles match the edited recording.</aside>
 <div class="finder"><label for="find">Find words in this transcript</label><input id="find" type="search" placeholder="For example: {html.escape(f.get('example','nursing care'),quote=True)}" autocomplete="off"><p id="matches" role="status">{len(chunks)} timestamped passages</p></div>
 <h2>Lecture transcript</h2>{body}
-<p class="source">Source: Caroline’s uploaded lecture recording. Automatically transcribed, with limited terminology corrections. This is a transcript of the class discussion, including its questions and examples.</p></main><script>{SCRIPT}</script></body></html>'''
+<p class="source">Source: Caroline’s uploaded lecture recording. Automatically transcribed, with limited terminology corrections. This is a transcript of the class discussion, including its questions and examples.</p><p class="art-credit">Original mosaic illustrations created with AI for the ABSN Study Hub.</p></main><script>{SCRIPT}</script></body></html>'''
         (out/f'{f["slug"]}.html').write_text(doc,encoding='utf-8')
         print(f'{f["slug"]}: {len(chunks)} searchable passages')
 if __name__=='__main__':main()
