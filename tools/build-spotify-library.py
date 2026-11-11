@@ -149,7 +149,7 @@ def page(doc, cls):
             '<div class="bar"><button type="button" class="fb" id="oa">&#9660; Open all modules</button>'
             '<button type="button" class="fb" id="ca">&#9650; Close all</button></div>\n'
             '%s\n<p class="foot">Episode list from the show&rsquo;s public feed, %s. Built by tools/build-spotify-library.py.</p>\n'
-            '</div>\n<script>%s</script>\n</body></html>\n') % (
+            '</div>\n<script>%s</script>\n<script defer src="absn-top.js"></script>\n</body></html>\n') % (
         e(cls), e(cls), e(meta['name']), CSS, e(cls), n, e(doc['show']['spotify']), e(cls), e(meta['name']),
         nav, jump, '\n'.join(body), '31 Oct 2026', JS)
 

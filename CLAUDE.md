@@ -385,6 +385,12 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
   adds a "<class> Spotify" tab per class to a copy of her workbook. `build-lecture-library.py` skips any tab
   ending " Spotify", so they never reach `lecture-library.html`; never card them on `lectures.html` either.
   Move an episode by editing the JSON, never the pages.
+- **Every page has the up arrow** (Caroline, 11 Nov: "make all the stuff have up arrows"). The purple
+  back-to-top button comes from `absn-hidebar.js`, or `absn-top.js` where hidebar is not loaded; ~230 Codex
+  pages (study-reviews, transcripts, pediatric-visuals, visual-mnemonics, course-materials, modules-1-7
+  companions, more/, new neuro/, arcades) had neither. `python3 tools/wire-top-arrow.py` adds the tag
+  (`--check`, `--list`); the four page generators carry it in their templates. `build-simple-exams.py` and
+  `build-lecture-transcripts.py` drop the back-link bars when they rebuild, so run `wire-back-links.py` after them.
 - **`AGENTS.md` is the rules note for Codex** (Caroline, 31 Oct: "leave codex a note with your rules"). Codex reads
   it automatically. Keep it in step when a rule here changes. Codex's 31 Oct edit re-saved pages through an
   HTML serializer (attributes reordered and lower-cased, `data-x=""`, `/>`), so the wire tools now match their

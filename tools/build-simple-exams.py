@@ -210,7 +210,7 @@ def render(ex):
         parts.append('</ul></details>')
     ext=EXTERNAL.get(key,EXTERNAL.get(course))
     if ext:parts.append('<p>'+link(ext[1],ext[0])+'</p>')
-    parts+=['<nav class="actions" aria-label="More exams for this class">'+''.join(others)+'</nav><a href="#top" class="top-link">Back to top ↑</a></main></body></html>']
+    parts+=['<nav class="actions" aria-label="More exams for this class">'+''.join(others)+'</nav><a href="#top" class="top-link">Back to top ↑</a></main><script defer src="../absn-top.js"></script></body></html>']
     return '\n'.join(parts)+'\n'
 
 def exams_for(course):

@@ -170,6 +170,7 @@ main{max-width:860px;margin:0 auto;padding:16px 16px 120px}
   window.addEventListener('hashchange',arrive); arrive();
 })();
 </script>
+<script defer src="absn-top.js"></script>
 </body></html>
 '''
 

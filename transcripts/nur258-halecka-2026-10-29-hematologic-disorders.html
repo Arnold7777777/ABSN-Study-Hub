@@ -141,6 +141,6 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
 const query=document.getElementById('find'),status=document.getElementById('matches'),blocks=[...document.querySelectorAll('.passage')];
 const original=blocks.map(b=>b.querySelector('p').textContent);
 query.addEventListener('input',()=>{const q=query.value.trim().toLocaleLowerCase();let n=0;blocks.forEach((b,i)=>{const p=b.querySelector('p'),text=original[i],low=text.toLocaleLowerCase();b.hidden=!!q&&!low.includes(q);if(b.hidden)return;n++;p.replaceChildren();if(!q){p.textContent=text;return;}let start=0,at;while((at=low.indexOf(q,start))!==-1){p.append(document.createTextNode(text.slice(start,at)));const m=document.createElement('mark');m.textContent=text.slice(at,at+q.length);p.append(m);start=at+q.length;}p.append(document.createTextNode(text.slice(start)));});status.textContent=q?`${n} matching passages`:`${blocks.length} timestamped passages`;});
-</script>
+</script><script defer src="../absn-top.js"></script>
 <nav class="absn-back bottom" data-absn-keep aria-label="Back to the Study Hub and this page's study guide"><a class="hub" href="../index.html">&#127968; Study Hub</a><a class="par" href="../nur258-module-09-hematologic-disorders.html">&#128216; NUR 258 · M9 Hematologic Disorders</a></nav>
 </body></html>

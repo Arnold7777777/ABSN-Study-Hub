@@ -64,12 +64,29 @@ Many blocks on these pages are written by scripts in `tools/`. They are matched 
   | `lecture-library.html` | `tools/build-lecture-library.py` |
   | `nur234-flashcards.html` | `tools/build-nur234-flashcards.py` |
   | Counts on the homepage, nav and module slots | `refresh-site-counts.py`, `refresh-nav-counts.py`, `refresh-module-info-counts.py` |
+  | The back-to-top arrow (`absn-top.js` tag) on pages that don't load `absn-hidebar.js` | `tools/wire-top-arrow.py` |
+  | `study-reviews/*-simple.html` exam guides | `tools/build-simple-exams.py` |
+  | `transcripts/*.html` lecture transcripts | `tools/build-lecture-transcripts.py` |
+
+- **Every page gets the up arrow** (Caroline, 11 Nov: "make all the stuff have up arrows"). The purple
+  back-to-top button at the lower right comes from `absn-hidebar.js`, or from `absn-top.js` on a page that
+  doesn't load hidebar. About 230 pages from your recent folders had neither: `study-reviews/`,
+  `transcripts/`, `pediatric-visuals/`, `visual-mnemonics/`, `course-materials/`, the
+  `assets/modules-1-7/visuals/` companion pages, `more/`, the new `neuro/` pages, `thalassemia/`, the arcades.
+  An in-page "Back to top" link at the bottom is not a substitute. When you add a page, either load
+  `absn-top.js` yourself (path relative to the page, e.g. `<script defer src="../absn-top.js"></script>`
+  before `</body>`) or run `python3 tools/wire-top-arrow.py`. If a generator writes the page, put the tag in
+  the generator's template, as `build-simple-exams.py`, `build-lecture-transcripts.py`,
+  `build-nur234-flashcards.py` and `build-spotify-library.py` now do, or the next rebuild strips it.
+- **Re-run `wire-back-links.py` after `build-simple-exams.py` or `build-lecture-transcripts.py`.** Those two
+  rewrite their pages from scratch and drop the Study Hub / parent-guide bars (18 pages lost them on 11 Nov
+  until it was re-run).
 
 - **After you edit pages, run the checks and fix anything they report:**
   ```bash
   for t in wire-back-links wire-module-reader wire-arcade-cards wire-sn-previews wire-module-visuals \
            wire-ng-xrefs add-normal-values refresh-site-counts refresh-nav-counts refresh-module-info-counts \
-           build-spotify-library; do python3 tools/$t.py --check; done
+           build-spotify-library wire-top-arrow; do python3 tools/$t.py --check; done
   python3 tools/check-duplicate-ids.py
   python3 tools/build-search-index.py      # nothing is searchable until it is in search-index.json
   ```

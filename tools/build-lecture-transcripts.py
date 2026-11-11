@@ -48,7 +48,7 @@ def main():
 <aside class="note"><strong>Automatic transcript.</strong> Medical terms were spot-checked; some words may still be misheard. Confirm unclear wording with the recording and your course materials. Long silent sections were removed. Timestamps and subtitles match the edited recording.</aside>
 <div class="finder"><label for="find">Find words in this transcript</label><input id="find" type="search" placeholder="For example: {html.escape(f.get('example','nursing care'),quote=True)}" autocomplete="off"><p id="matches" role="status">{len(chunks)} timestamped passages</p></div>
 <h2>Lecture transcript</h2>{body}
-<p class="source">Source: Caroline’s uploaded lecture recording. Automatically transcribed, with limited terminology corrections. This is a transcript of the class discussion, including its questions and examples.</p><p class="art-credit">Original mosaic illustrations created with AI for the ABSN Study Hub.</p></main><script>{SCRIPT}</script></body></html>'''
+<p class="source">Source: Caroline’s uploaded lecture recording. Automatically transcribed, with limited terminology corrections. This is a transcript of the class discussion, including its questions and examples.</p><p class="art-credit">Original mosaic illustrations created with AI for the ABSN Study Hub.</p></main><script>{SCRIPT}</script><script defer src="../absn-top.js"></script></body></html>'''
         (out/f'{f["slug"]}.html').write_text(doc,encoding='utf-8')
         print(f'{f["slug"]}: {len(chunks)} searchable passages')
 if __name__=='__main__':main()
