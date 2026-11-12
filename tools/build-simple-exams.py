@@ -10,6 +10,7 @@ from xml.etree import ElementTree as ET
 import json
 import re
 from course_powerpoints import FEATURED, panel as powerpoint_panel, shortcut
+from study_outline import study_list, answer_list
 
 from bs4 import BeautifulSoup
 from PIL import Image
@@ -154,7 +155,7 @@ def case_card(course, module, number):
     reference=''
     if (course,module,number)==('258',5,1):
         reference='<p class="lab-note">Typical adult references: serum sodium 135–145 mEq/L; urine specific gravity about 1.005–1.030.</p>'
-    return (f'<article class="card"><h3>{escape(clean(q["q"]))}</h3>{reference}<ol type="A">{opts}</ol>'
+    return (f'<article class="card"><h3>{escape(clean(q["q"]))}</h3>{reference}<ol type="A" class="guide-choices">{opts}</ol>'
             f'<details><summary>Check the answer and why</summary><p><strong>{ans}</strong></p><p>{escape(clean(q["why"]))}</p></details></article>')
 
 TOP = [('rules','Rules to remember','check'),('clues','See this → think this','scope'),
@@ -176,12 +177,14 @@ def render(ex):
     parts=[f'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{title} | ABSN Study Hub</title><meta name="description" content="{escape(ex["intro"],quote=True)}"><link rel="stylesheet" href="../assets/study-reviews/study.css"><link rel="stylesheet" href="{ART}atlas.css"></head><body class="jewel-reading"><main id="top">',
            f'<header class="art-hero"><div class="art-copy"><p class="eyebrow">{icon("bookmark")}{title}</p><h1>{escape(ex["title"])}</h1><p class="lead">{escape(ex["intro"])}</p></div><a class="art-plate" href="{ART}{art}.webp" aria-label="Open the Study Hub mosaic full size"><img src="{ART}{art}-small.webp" width="660" height="440" alt="Original Study Hub jewel-tone nursing mosaic"></a><div class="actions">{buttons}</div></header>',
            section('jump','Jump to what you need','compass'),'<nav class="jump">'+''.join(f'<a href="#{k}">{icon(i)}{v}</a>' for k,v,i in TOP)+'</nav>',
-           section(*TOP[0]),'<ul>'+''.join('<li>'+escape(t['rule'])+'</li>' for m,t in records)+'</ul>',section(*TOP[1])]
+           section(*TOP[0]),study_list(escape(t['rule']) for m,t in records),section(*TOP[1])]
     for m,t in records:
         parts.append(f'<article class="card"><h3>{escape(t["cue"])}</h3><dl><dt>Think…</dt><dd>{escape(t["think"])}</dd></dl></article>')
     parts.append(section(*TOP[2]))
     for m,t in records:
-        parts.append(f'<article class="card"><h3>{escape(m["topic"])}</h3><dl><dt>First action</dt><dd>{escape(t["action"])}</dd><dt>Look for a response</dt><dd>{escape(t["outcome"])}</dd></dl></article>')
+        parts.append(f'<article class="card"><h3>{escape(m["topic"])}</h3>'+
+                     study_list(['<strong>First action</strong>'+answer_list(escape(t['action'])),
+                                 '<strong>Look for a response</strong>'+answer_list(escape(t['outcome']))], 'steps')+'</article>')
     parts.append(section(*TOP[3]))
     for m,t in records:
         num=m['module']; view=t['memory']
@@ -196,14 +199,14 @@ def render(ex):
         if final:
             parts.append(f'<details id="topic-{num}"'+(' open' if num==13 and course in ('235','258') else '')+f'><summary>{escape(m["topic"])}</summary>{body}</details>')
         else: parts.append(f'<article class="card" id="topic-{num}"><h3>{escape(m["topic"])}</h3>{body}</article>')
-    parts.extend([section(*TOP[4]),f'<article class="card"><h3>What to remember</h3><p>{escape(ex["number"])}</p><p>{escape(ex["contrast"])}</p></article>',section(*TOP[5]),f'<p class="source-line">{escape(ex["recall"])}</p>'])
+    parts.extend([section(*TOP[4]),'<article class="card"><h3>What to remember</h3>'+study_list([escape(ex['number']), escape(ex['contrast'])])+'</article>',section(*TOP[5]),f'<p class="source-line">{escape(ex["recall"])}</p>'])
     for mod,number in CASES[key]:parts.append(case_card(course,mod,number))
     others=[link(filename(course,n),f'NUR {course} · {label(n)}') for n in exams_for(course) if n!=exam]
     parts+=['<h2 id="sources">Course sources and related guides</h2>',f'<p>Exam coverage follows the {link(group,f"NUR {course} course outline","full-size")}. Recall prompts and practice cases come from the Study Hub’s linked course modules. Each Simple Nursing preview links to the original handout.</p>']
     if course=='234':
         official={'1':range(1,5),'2':range(5,8),'3':range(8,11),'4':range(11,14),'F':range(1,14)}[exam]
         outline=soup('nur234.html')
-        parts.append('<details><summary>Official module topics for this exam</summary><ul>')
+        parts.append('<details><summary>Official module topics for this exam</summary><ul class="guide-details">')
         for n in official:
             panel=outline.find(id='review-m'+str(n))
             heading=panel.find(['h3','h2','h4'])
@@ -212,9 +215,10 @@ def render(ex):
     ext=EXTERNAL.get(key,EXTERNAL.get(course))
     if ext:parts.append('<p>'+link(ext[1],ext[0])+'</p>')
     parts+=['<nav class="actions" aria-label="More exams for this class">'+''.join(others)+'</nav><a href="#top" class="top-link">Back to top ↑</a></main><script defer src="../absn-top.js"></script></body></html>']
-    parts[0]=parts[0].replace('</head>', '<link rel="stylesheet" href="../assets/study-reviews/powerpoints.css"></head>')
+    parts[0]=parts[0].replace('</head>', '<link rel="stylesheet" href="../assets/study-reviews/powerpoints.css"><link rel="stylesheet" href="../assets/study-reviews/guide-outline.css"></head>')
     if course in FEATURED and FEATURED[course][0]==exam:parts.insert(2,powerpoint_panel(course,'../'))
-    return '\n'.join(parts)+'\n'
+    html = '\n'.join(parts)+'\n'
+    return re.sub(r'<dd>([^<>]+)</dd>', lambda m: '<dd>'+answer_list(m[1])+'</dd>', html)
 
 def exams_for(course):
     return [str(n) for n in range(1,6 if course=='258' else 5)]+['F']

@@ -14,6 +14,9 @@ Caroline is 50, has ADHD and a vision impairment, and reads on a phone with ever
   Let long words and slash-joined phrases wrap (`overflow-wrap:anywhere`).
 - Tap targets **at least 44px**, text **at least 12px** (most body text is 16px).
 - Contrast meets **WCAG AA**. Composite any translucent background before you measure it.
+- Exam reviews use indented bullets for facts under a heading, numbered lists for actual sequences,
+  and lettered lists for answer choices. Preserve the source's nesting and choice labels.
+  Use `assets/study-reviews/guide-outline.css` and the list helpers in `tools/study_outline.py`.
 - Reserve every image's box before it loads (`width`/`height` or `aspect-ratio`), so the page doesn't jump.
 - The site is **dark and jewel-toned**. A light "paper" page needs `assets/jewel/jewel.css` linked last
   and `<body class="absn-jewel">`.
