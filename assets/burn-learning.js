@@ -50,7 +50,7 @@
   }
   function feedback(q) {
     const right=correct(q.id);
-    return `<div class="feedback ${right?'is-correct':'is-review'}" tabindex="-1" id="feedback" role="status"><h3>${right?'✓ Correct — good reasoning':'🔎 Review this decision'}</h3>${!right?`<p><strong>Best answer:</strong> ${esc(q.options[q.correct])}</p>`:''}<p>${esc(q.explanation)}</p></div>${sources(q)}`;
+    return `<div class="feedback ${right?'is-correct':'is-review'}" tabindex="-1" id="feedback" role="status"><h3>${right?'✓ Correct — good reasoning':'🔎 Review this decision'}</h3>${!right?`<p><strong>Best answer:</strong> ${esc(q.options[q.correct])}</p>`:''}<p>${esc(q.explanation)}</p><h4>Incorrect answers</h4><ol type="A">${q.options.map((o,i)=>i===q.correct?"":"<li value="+(i+1)+"><b>"+esc(o)+"</b><p>"+esc(q.optionReasons[i])+"</p></li>").join("")}</ol></div>${sources(q)}`;
   }
   function render() {
     const q=byId.get(queue[cursor]), answered=has(q.id);

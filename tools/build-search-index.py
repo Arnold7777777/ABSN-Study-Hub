@@ -135,6 +135,15 @@ def main():
             body = body[b.end():]
         body = strip_blocks(DROP.sub(' ', COMMENT.sub(' ', body)))
 
+        # All text and captions in a quiz review belong to the question's stable fragment.
+        if rel.replace(os.sep, '/').startswith('study-reviews/quiz-topics/review-'):
+            for match in re.finditer(r'<article id="(q-[a-f0-9]+)">\s*<h2>(.*?)</h2>(.*?)</article>', body, re.S):
+                anchor, heading, content = match.groups()
+                title_text = text_of(heading)
+                full = text_of(content)
+                entries.append({'p':str(pi), 'h':title_text, 'a':anchor, 't':full})
+            continue
+
         marks = list(HEAD.finditer(body))
         if not marks:
             t = text_of(body)
@@ -178,6 +187,26 @@ def main():
             for chunk in chunks:
                 entries.append({'p': str(pi), 'h': h, 'a': anchor, 't': chunk})
 
+    # A learner can also search the wording of questions that share a clinical figure.
+    review_file = os.path.join(REPO, 'assets/quiz-study/question-links.json')
+    if os.path.isfile(review_file):
+        lookup = {page['u']: i for i, page in enumerate(pages)}
+        with open(review_file, encoding='utf-8') as file:
+            catalogue = json.load(file)['items']
+        for bucket in '0123456789abcdef':
+            filename = os.path.join(REPO, 'assets/quiz-study/feedback-'+bucket+'.json')
+            if not os.path.isfile(filename):
+                continue
+            with open(filename, encoding='utf-8') as file:
+                for ident, explanation in json.load(file).items():
+                    target = catalogue[ident][0]
+                    if '/review-' in target: continue
+                    path, anchor = target.split('#', 1)
+                    page_url = BASE + '/'.join(_q(part) for part in path.split('/'))
+                    if page_url not in lookup: continue
+                    entries.append({'p':str(lookup[page_url]), 'a':anchor, 'h':explanation.get('prompt') or catalogue[ident][1],
+                                    't':' '.join([explanation['why'], *explanation['choices'], *filter(None, explanation['options'])])})
+
     # Second pass: drop what would only be noise in the results.
     #  - a heading with no text under it, when the same heading sits on more
     #    than BOILER_PAGES pages (ATI section names, "QUICK RECALL")
@@ -193,7 +222,7 @@ def main():
             e['h'] = last_h[e['p']] + ' \u00b7 more'
         if not e['t'] and len(on_pages.get(e['h'], ())) > BOILER_PAGES:
             continue
-        key = (e['p'], e['t'][:200]) if e['t'] else (e['p'], 'h:' + e['h'])
+        key = (e['p'], e['a'], e['h'], e['t'])
         if key in seen:
             continue
         seen.add(key)

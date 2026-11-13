@@ -46,7 +46,81 @@
     }
     return [];
   }
-  function build(area,strings,before){
+  const feedbackFiles=new Map();
+  function sourceChoices(container){
+    return Array.from(container.querySelectorAll('.opt,.option[data-option],label:has(input[type="radio"]),label:has(input[type="checkbox"])')).map(el=>{
+      const copy=(el.querySelector('.otxt')||el).cloneNode(true);
+      copy.querySelectorAll('.letter,.result-tag,.box,input,.choice-letter').forEach(x=>x.remove());
+      return {el,text:copy.textContent.trim().replace(/^[A-H][.)]\s+/i,'')};
+    });
+  }
+  function choiceFeedback(id,area,rationale){
+    if(!rationale||!rationale.textContent.trim()||rationale.closest('[hidden]')||!rationale.getClientRects().length)return;
+    if(rationale.querySelector('.quiz-choice-review')?.dataset.id===id)return;
+    const q=active.get(area);
+    if(q && ['bowtie','matching','dropdown','highlight'].includes(q.type)){
+      const rows=[];
+      if(q.type==='bowtie' && q.answer)for(const [key,list,label] of [['cond',q.cond,'Condition'],['action',q.actions,'Nursing actions'],['param',q.params,'Parameters to monitor']]){
+        if(list&&q.answer[key])rows.push([label,list.filter((_,i)=>q.answer[key].includes(i)),list.filter((_,i)=>!q.answer[key].includes(i))]);
+      }
+      if(q.type==='matching' && q.right)for(const pair of q.pairs||[])rows.push([pair.left,[q.right[pair.answer]],[]]);
+      if(q.type==='dropdown')for(const [i,gap] of (q.gaps||[]).entries())rows.push(['Blank '+(i+1),[gap.options[gap.answer]],gap.options.filter((_,n)=>n!==gap.answer)]);
+      if(q.type==='highlight'){const cues=(q.tokens||[]).filter(t=>t.text&&t.text.trim().length>6);rows.push(['Cues to highlight',cues.filter(t=>t.pick).map(t=>t.text),cues.filter(t=>!t.pick).map(t=>t.text)]);}
+      if(rows.length){const panel=document.createElement('section');panel.className='quiz-choice-review';panel.dataset.id=id;
+        for(const [label,right,remaining] of rows){const h=document.createElement('strong');h.className='choice-heading';h.textContent=label;panel.append(h);
+          const a=document.createElement('p');a.textContent='Correct: '+right.join(' · ');panel.append(a);if(remaining.length){const b=document.createElement('p');b.textContent='Not selected here: '+remaining.join(' · ');panel.append(b);}}
+        rationale.append(panel);return;}
+    }
+    const key=id[0];
+    if(!feedbackFiles.has(key)){
+      feedbackFiles.set(key,null);
+      fetch(new URL('assets/quiz-study/feedback-'+key+'.json',base)).then(r=>r.ok?r.json():Promise.reject(r.status))
+        .then(rows=>{feedbackFiles.set(key,rows);schedule();}).catch(()=>{feedbackFiles.delete(key);});
+      return;
+    }
+    const row=feedbackFiles.get(key)?.[id];
+    if(!row)return;
+    const shown=sourceChoices(area);
+    const order=shown.map(v=>row.choices.findIndex(item=>normal(item)===normal(v.text)));
+    if(order.length!==row.choices.length||order.includes(-1)||new Set(order).size!==order.length)return;
+    const panel=document.createElement('section');panel.className='quiz-choice-review';panel.dataset.id=id;
+    const heading=(parent,text)=>{const el=document.createElement('strong');el.className='choice-heading';el.textContent=text;parent.append(el);};
+    const line=(parent,text)=>{const el=document.createElement('p');el.textContent=text;parent.append(el);};
+    const correct=new Set(row.answers.map(normal)),wrong=[];
+    const letters=order.map((_,i)=>String.fromCharCode(65+i));
+    order.forEach((index,i)=>{
+      const el=shown[i].el;
+      if(el.matches('button')&&!el.querySelector('.letter,.choice-letter')){
+        const prefix=document.createElement('span');prefix.className='choice-letter';prefix.textContent=letters[i]+'. ';el.prepend(prefix);
+      }
+      if(!correct.has(normal(row.choices[index])))wrong.push(i);
+    });
+    heading(panel,'Correct '+(correct.size===1?'answer':'answers'));
+    order.forEach((index,i)=>{if(correct.has(normal(row.choices[index])))line(panel,letters[i]+'. '+row.choices[index]);});
+    line(panel,row.why);
+    if(wrong.length){
+      heading(panel,'Incorrect '+(wrong.length===1?'answer':'answers'));
+      const list=document.createElement('ol');list.type='A';
+      const shared=[];
+      wrong.forEach(i=>{
+        const index=order[i],item=document.createElement('li');item.value=i+1;
+        const title=document.createElement('b');title.textContent=row.choices[index];item.append(title);
+        if(row.options[index])line(item,row.options[index]);else shared.push(letters[i]);
+        list.append(item);
+      });
+      panel.append(list);
+      if(shared.length){
+        const note=document.createElement('div');note.className='choice-shared';
+        heading(note,'Reasoning for '+shared.join(', '));line(note,'The course explains these choices together in the clinical rationale above.');panel.append(note);
+      }
+    }
+    const verdict=rationale.querySelector(':scope > b,:scope > strong');
+    const mark=verdict&&/^[✓✗✕✘]|^correct[.!]|^not quite/i.test(verdict.textContent.trim())?verdict.cloneNode(true):null;
+    const controls=[...rationale.children].filter(el=>el.matches('a,button,img,picture')||el.querySelector('a,button,img,picture'));rationale.replaceChildren();if(mark)rationale.append(mark);for(const el of controls)if(el!==verdict)rationale.append(el);
+    rationale.append(panel);
+  }
+
+  function build(area,strings,before,rationale=null){
     let candidates=null;
     for(const s of strings){
       const hits=choicesFor(s);if(!hits.length)continue;
@@ -62,6 +136,7 @@
     }
     if(!candidates||candidates.length!==1)return;
     const id=candidates[0],row=catalog.items[id];if(!row)return;
+    choiceFeedback(id,area,rationale);
     let bar=before?before.nextElementSibling:area.querySelector(':scope > .quiz-study-links');
     if(!bar||!bar.classList.contains('quiz-study-links')){
       bar=document.createElement('div');bar.className='quiz-study-links';
@@ -70,8 +145,8 @@
     if(bar.dataset.question===id)return;
     bar.dataset.question=id;bar.replaceChildren();
     const make=(href,label)=>{const a=document.createElement('a');a.target='_blank';a.rel='noopener';a.href=href;a.textContent=label;bar.appendChild(a);};
-    make(new URL(row[0],base),'Study infographic');
-    bar.firstChild.setAttribute('aria-label','Study infographic · '+row[1]);
+    make(new URL(row[0],base),'Open illustrated review');
+    bar.firstChild.setAttribute('aria-label','Open illustrated review · '+row[1]);
     if(row[2])make(row[2][0],'Watch · '+row[2][1]);
   }
   function scan(){
@@ -86,7 +161,7 @@
       if(!promptsOnCard.length&&!rationale&&!c.querySelector('.opt,.dcunit,.ngn,.btgrid,.gaps,select'))continue;
       const point=rationale||step||promptsOnCard.at(-1);
       if(rationale)c.querySelectorAll('.quiz-study-links').forEach(bar=>{if(bar.previousElementSibling!==rationale)bar.remove();});
-      build(c,str,point||null);
+      build(c,str,point||null,rationale);
     }
     for(const el of document.querySelectorAll(prompts)){
       const c=el.closest('#card,#qbox,#quiz-card');
@@ -94,7 +169,7 @@
       if(el.closest('.quiz-study-links'))continue;
       const parent=el.closest('.q,.qcard,.quizcard,.quiz-card,article,fieldset')||el.parentElement;
       const rat=parent.querySelector('.rationale,.rat,.feedback,#rationaleText');
-      build(parent,[el.textContent,...(rat?[rat.textContent]:[])],el);
+      build(parent,[el.textContent,...(rat?[rat.textContent]:[])],el,rat);
     }
   }
   function schedule(){if(!scheduled){scheduled=true;requestAnimationFrame(scan);}}
