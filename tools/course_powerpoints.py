@@ -2,6 +2,7 @@
 from html import escape
 from pathlib import Path
 import json
+from module_guide_links import deck_group
 
 BASE = Path(__file__).resolve().parents[1]
 DECKS = {d['href'].split('/d/')[-1].split('/')[0]: d for d in
@@ -16,13 +17,19 @@ FEATURED = {
         ('1Es3nSuXmrhdj9WpcQaEk3km1iHZsTv09','M10 · Ch. 23','Complications of labor and birth'),
         ('17999QThpFgt-gQoFQDdE23ZF0enpyjPv','M10 · Ch. 24','Surgical interventions for birth')]),
 }
-DECK_EXAMS = {'234': {'1','2','3'}, '235': {'1','2','3','4','F'}, '258': {'1','2','4','F'}}
+DECK_EXAMS = {'234': {'1','2','3','4'}, '235': {'1','2','3','4','F'}, '258': {'1','2','4','F'}}
 
 def shortcut(course, exam, prefix='../'):
     anchor=('#'+('final' if exam=='F' else 'exam-'+exam)) if exam in DECK_EXAMS[course] else ''
     label=('Final' if exam=='F' else 'Exam '+exam)+' PowerPoints' if anchor else 'Course PowerPoint library'
     if course in FEATURED and FEATURED[course][0]==exam:anchor='#course-powerpoints'
-    return f'<a class="button ppt-action" href="{prefix}nur{course}-slides.html{anchor}"><span aria-hidden="true">▣</span> {label}</a>'
+    button = f'<a class="button ppt-action" href="{prefix}nur{course}-slides.html{anchor}"><span aria-hidden="true">▣</span> {label}</a>'
+    group_label = 'All PowerPoints for cumulative review' if exam == 'F' else 'Browse all Exam '+exam+' decks'
+    button += f'<a class="button" href="{deck_group(int(course),exam,prefix)}">{group_label}</a>'
+    if course == '234':
+        for week in {'3': [10], '4': [11], 'F': [10, 11]}.get(exam, []):
+            button += f'<a class="button" href="{prefix}nur234-m{week}.html#buhler-week-{week}">Buhler · Week {week} review</a>'
+    return button
 
 def panel(course, prefix='', module=None, library=False):
     exam, rows=FEATURED[course]

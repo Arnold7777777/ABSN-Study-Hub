@@ -206,6 +206,17 @@ def main():
     dest = os.path.join(REPO, 'search-index.json')
     with open(dest, 'w', encoding='utf-8') as fh:
         json.dump(out, fh, ensure_ascii=False, separators=(',', ':'))
+    # The two earlier classes also use a shared search box on the NUR 198 site.
+    # Give it just their Hub guides and slide libraries to keep its mobile payload small.
+    subset, positions = [], {}
+    for pos, page in enumerate(pages):
+        match = re.search(r'/nur(175|198)-(?:slides|(?:exam\d+|final)-simple)\.html$', page['u'])
+        if match:
+            positions[pos] = len(subset)
+            subset.append(dict(page, s=match[1]))
+    related = [dict(entry, p=positions[int(entry['p'])]) for entry in entries if int(entry['p']) in positions]
+    with open(os.path.join(REPO, 'assets/study-reviews/prior-course-search.json'), 'w', encoding='utf-8') as fh:
+        json.dump({'pages': subset, 'entries': related}, fh, ensure_ascii=False, separators=(',', ':'))
     print('pages', len(pages), 'entries', len(entries), 'noise dropped', dropped,
           'redirect stubs skipped', skipped_redirect,
           'size MB', round(os.path.getsize(dest) / 1e6, 2))

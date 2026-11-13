@@ -228,6 +228,9 @@ def main():
         srcs = linked_from.get(f, set())
         if course_of(f):
             parents = [course_of(f)]
+        elif re.fullmatch(r'(?:study-reviews/)?nur(175|198)-(?:slides|(?:exam\d+|final)-simple)\.html', f):
+            code = re.search(r'nur(175|198)', f).group(1)
+            parents = ['../' + SIBLING['NUR ' + code][0]]
         elif f in COURSES or f in SITEWIDE or (f.endswith('/index.html') and f.count('/') == 1):
             parents = []
         elif '/' not in f and any(f.startswith(a) for a, _ in PREFIX):
