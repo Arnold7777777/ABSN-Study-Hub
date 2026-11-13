@@ -103,6 +103,8 @@ def collect_decks(course, course_source):
         for deck in json.loads((ROOT/'tools/pediatric-original-slides.json').read_bytes()):
             module = deck['module']
             group = 'Final' if module >= 13 else owner(module, course)
+            slide_range = ' · slides 3–41' if module == 6 else ''
+            add(group, f'Week {module} · {deck["title"]} · Fuller lecture PowerPoint{slide_range}', deck['fullerUrl'])
             add(group, f'Week {module} · {deck["title"]} · Instructor {deck["format"]}', deck['url'])
         for deck in sorted((ROOT/'course-materials/originals').glob('*.pptx')):
             group = 'Exam 3' if 'respiratory' in deck.stem.lower() else 'Exam 4'
@@ -128,10 +130,11 @@ def make_panel(course, groups, prefix='', fundamentals_slides=None):
         name = 'deck' if len(groups[group])==1 else 'decks'
         lists.append(f'<details id="decks-{slug(group).replace("/","-")}"><summary>{escape(group)} · {len(groups[group])} {name}</summary><ul>{items}</ul></details>')
     guide_heading = 'Exam study guides' if course==125 else 'Simple exam guides'
+    fuller = link(library+'#original-course-powerpoints','Fuller lectures and matching PowerPoints') if course == 235 else ''
     return (f'<section class="course-resources" id="course-study-resources" aria-label="NUR {course} exam guides and PowerPoints">'
             f'<div class="resource-heads"><div><h2>{guide_heading}</h2><div class="resource-buttons">{guides}</div></div>'
             f'<div><h2 id="quick-powerpoints">Course PowerPoints</h2><div class="resource-buttons ppt-access">'
-            f'{link(library, "Open slide library")}'
+            f'{fuller}{link(library, "Open slide library")}'
             '<a href="#course-deck-list" data-open-decks>Browse deck titles ↓</a></div></div></div>'
             '<details class="course-deck-groups" id="course-deck-list"><summary>PowerPoints by exam or topic</summary>'
             + ''.join(lists) + '</details></section>')

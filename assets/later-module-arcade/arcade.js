@@ -20,7 +20,7 @@ function save(){try{localStorage.setItem('absn-later-arcade-v1:'+mod.id,JSON.str
 function showStorageNote(){const e=$('#storage-note');if(e&&!storageOK)e.hidden=false;}
 function entry(kind,id){const raw=progress[kind][id];if(!raw||typeof raw!=='object'||!Number.isFinite(raw.seen)||!Number.isFinite(raw.correct))progress[kind][id]={seen:0,correct:0,needsReview:false};return progress[kind][id];}
 function practiced(kind,items){return items.filter(p=>entry(kind,p.id).correct>0).length;}
-function source(){return `<p class="source-link">📖 <a href="../${esc(mod.path)}">Review this course module</a></p>`;}
+function source(){return `<p class="source-link">📖 <a target="_blank" rel="noopener" href="../${esc(mod.path)}">Review this course module</a></p>`;}
 function feedback(text,good){const e=$('#feedback');e.className='feedback '+(good===true?'good':good===false?'retry':'');e.innerHTML=text;}
 function focusHeading(selector){const e=$(selector);if(e){e.setAttribute('tabindex','-1');e.focus({preventScroll:true});}}
 function stopWatch(){timerOn=false;elapsed=0;}
@@ -64,7 +64,7 @@ function pickPair(b){
  if(left===right){
   const p=round.find(p=>p.id===left),s=entry('pairs',left);s.seen++;s.correct++;if(!roundMiss.has(left))s.needsReview=false;matched.add(left);
   $$(`.match-card[data-id="${left}"]`).forEach(x=>{x.classList.add('matched');x.disabled=true;x.setAttribute('aria-pressed','false');});
-  feedback(`<strong>✓ Connected.</strong> ${esc(p.answer)}${p.sourceModule?`<p class="review-origin">Review connection from ${esc(p.sourceModule.toUpperCase())} · <a href="../${esc(p.sourcePath)}">Original module</a></p>`:""}${roundMiss.has(left)?'<p class="small">Saved for another practice round.</p>':''}`,true);
+  feedback(`<strong>✓ Connected.</strong> ${esc(p.answer)}${p.sourceModule?`<p class="review-origin">Review connection from ${esc(p.sourceModule.toUpperCase())} · <a target="_blank" rel="noopener" href="../${esc(p.sourcePath)}">Original module</a></p>`:""}${roundMiss.has(left)?'<p class="small">Saved for another practice round.</p>':''}`,true);
   $('#round-stat').textContent=`${matched.size} / ${round.length} pairs this round`;
   const n=practiced('pairs',mod.pairs);$('#bank-stat').textContent=`${n} / 24 matched`;$('#bank-progress').style.width=n/24*100+'%';
   if(matched.size===round.length){$('#next-round').disabled=false;feedback(`<strong>✓ Round complete.</strong> ${roundMiss.size?'Your missed connections are saved in “Needs practice.”':'Every connection matched on the first try.'}${timerOn?` <span class="small">Stopwatch: ${formatTime(elapsed)}.</span>`:''}`,true);$('#next-round').focus({preventScroll:true});}
@@ -75,7 +75,7 @@ function pickPair(b){
  }
  left=right=null;$$('.match-card').forEach(x=>x.setAttribute('aria-pressed','false'));save();
 }
-function startCases(){caseRound=chooseItems('cases',mod.cases,caseFilter,5);caseIndex=0;caseCorrect=0;renderCase();}
+function startCases(){caseRound=chooseItems('cases',window.quizStudy.unique(mod.cases),caseFilter,5);caseIndex=0;caseCorrect=0;renderCase();}
 function renderCase(){
  casePicked=[];caseChecked=false;
  if(!caseRound.length){$('#game').innerHTML=`<h2 id="game-title">Your case review list is clear.</h2><p>Try another round from the full bank.</p><button id="all-cases" class="primary">All case questions</button>`;$('#all-cases').onclick=()=>{caseFilter='all';startCases();};return;}
@@ -84,7 +84,7 @@ function renderCase(){
   $('#more-cases').onclick=()=>{caseFilter='all';startCases();focusHeading('#game-title');};$('#missed-cases').onclick=()=>{caseFilter='missed';startCases();focusHeading('#game-title');};return;
  }
  const q=caseRound[caseIndex],multi=q.type==='sata'||q.ans.length>1;
- $('#game').innerHTML=`<div class="game-intro"><div><h2 id="game-title">Case rounds</h2><p>A new patient or situation each question.</p></div><span class="stat">${practiced('cases',mod.cases)} / ${mod.cases.length} answered correctly</span></div><div class="toolbar"><label>Practice pool<select id="case-filter"><option value="all">All ${mod.cases.length} cases</option><option value="missed">Needs practice</option></select></label></div><div class="score-line"><span>Question ${caseIndex+1} of ${caseRound.length}</span><strong>${multi?'Select all that apply':'Select one answer'}</strong></div><h3 class="case-stem" id="case-question">${esc(q.q)}</h3><div class="options" role="group" aria-labelledby="case-question">${q.opts.map((o,i)=>`<button class="option" data-option="${i}" aria-pressed="false"><span class="letter" aria-hidden="true">${String.fromCharCode(65+i)}</span><span>${esc(o)}<span class="result-tag"></span></span></button>`).join('')}</div><button id="check-case" class="primary" disabled>Check answer</button><div id="feedback" class="feedback" role="status" aria-live="polite" aria-atomic="true"></div><button id="next-case" class="primary" hidden>${caseIndex===caseRound.length-1?'See round results':'Next question →'}</button><p class="source-link">Course source question ${q.sourceNumber} · <a href="../${esc(mod.path)}">Review module</a></p>`;
+ $('#game').innerHTML=`<div class="game-intro"><div><h2 id="game-title">Case rounds</h2><p>A new patient or situation each question.</p></div><span class="stat">${practiced('cases',mod.cases)} / ${mod.cases.length} answered correctly</span></div><div class="toolbar"><label>Practice pool<select id="case-filter"><option value="all">All ${mod.cases.length} cases</option><option value="missed">Needs practice</option></select></label></div><div class="score-line"><span>Question ${caseIndex+1} of ${caseRound.length}</span><strong>${multi?'Select all that apply':'Select one answer'}</strong></div><h3 class="case-stem" id="case-question">${esc(q.q)}</h3><div class="options" role="group" aria-labelledby="case-question">${q.opts.map((o,i)=>`<button class="option" data-option="${i}" aria-pressed="false"><span class="letter" aria-hidden="true">${String.fromCharCode(65+i)}</span><span>${esc(o)}<span class="result-tag"></span></span></button>`).join('')}</div><button id="check-case" class="primary" disabled>Check answer</button><div id="feedback" class="feedback" role="status" aria-live="polite" aria-atomic="true"></div><button id="next-case" class="primary" hidden>${caseIndex===caseRound.length-1?'See round results':'Next question →'}</button><p class="source-link">Course source question ${q.sourceNumber} · <a target="_blank" rel="noopener" href="../${esc(mod.path)}">Review module</a></p>`;
  $('#case-filter').value=caseFilter;$('#case-filter').onchange=e=>{caseFilter=e.target.value;startCases();};
  $$('.option').forEach(b=>b.onclick=()=>{if(caseChecked)return;const i=Number(b.dataset.option);if(multi)casePicked=casePicked.includes(i)?casePicked.filter(n=>n!==i):[...casePicked,i];else casePicked=[i];$$('.option').forEach(x=>x.setAttribute('aria-pressed',String(casePicked.includes(Number(x.dataset.option)))));$('#check-case').disabled=!casePicked.length;});
  $('#check-case').onclick=()=>{

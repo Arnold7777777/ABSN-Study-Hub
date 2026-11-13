@@ -59,6 +59,7 @@
       ${isGame?stations():''}
       <p class="eyebrow">${isGame?icons[group.id]+' ':''}${esc(group.title)} · ${esc(q.topic)}</p>${isGame?`<div class="clinic-scene">${picture(group.id,'patient-art',`Robot companion for ${group.title.split(' · ')[0]}`)}`:''}${q.context?`<aside class="patient-note"><strong>📋 Patient chart</strong><p>${esc(q.context)}</p></aside>`:''}${isGame?'</div>':''}
       <h2 class="question-title" tabindex="-1" data-focus>${esc(q.prompt)}</h2>
+      <p><a href="${esc(q.studyUrl)}" target="_blank" rel="noopener">Study the illustrated guide · ${esc(q.topic)}</a></p>
       <form id="answer-form"><fieldset ${answered?'disabled':''}><legend class="sr-only">Choose one answer</legend><div class="choices">${q.options.map((o,i)=>`<label class="choice ${answered&&i===q.correct?'choice-correct':''} ${answered&&i===answers[q.id]&&i!==q.correct?'choice-review':''}"><input type="radio" name="answer" value="${i}" ${answered&&answers[q.id]===i?'checked':''}><span><b class="choice-letter">${String.fromCharCode(65+i)}</b>${esc(o)}${answered&&i===q.correct?'<small>Best answer</small>':''}${answered&&answers[q.id]===i&&i!==q.correct?'<small>Your answer</small>':''}</span></label>`).join('')}</div></fieldset>
       ${answered?'':`<button class="primary" type="submit" id="check-answer" disabled>${data.type==='game'?'Make this decision':'Check answer'}</button>`}</form>
       ${answered?feedback(q):'<p class="instruction">Select one answer. The explanation appears after you check it.</p>'}

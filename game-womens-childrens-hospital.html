@@ -32,7 +32,7 @@ nav.absn-back a:hover{filter:brightness(1.2)}
 nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
 @media print{nav.absn-back{display:none}}
 </style>
-</head>
+<script src="assets/quiz-study/duplicates.js"></script><script src="assets/quiz-study/links.js"></script></head>
 <body>
 <!-- absn-floating-nav -->
 <style>
@@ -50,18 +50,18 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
 @media print{#absnNav{display:none!important}}
 </style>
 <div id="absnNav">
-  <a class="hub" href="index.html">&#127968;<span class="lb"> Study Hub</span></a>
-  <a class="ig" href="infographics.html">&#128444;&#65039;<span class="lb"> Visual library</span></a>
+  <a class="hub" href="index.html" target="_blank" rel="noopener">&#127968;<span class="lb"> Study Hub</span></a>
+  <a class="ig" href="infographics.html" target="_blank" rel="noopener">&#128444;&#65039;<span class="lb"> Visual library</span></a>
 </div>
-<nav class="absn-back top" data-absn-keep aria-label="Back to the Study Hub and this page's study guide"><a class="hub" href="index.html">&#127968; Study Hub</a><a class="par" href="games.html">&#128216; Learning Games</a></nav>
+<nav class="absn-back top" data-absn-keep aria-label="Back to the Study Hub and this page's study guide"><a class="hub" href="index.html" target="_blank" rel="noopener">&#127968; Study Hub</a><a class="par" href="games.html" target="_blank" rel="noopener">&#128216; Learning Games</a></nav>
 <!-- /absn-floating-nav -->
 
 <div class="app">
   <header class="topbar">
     <div class="brand"><div class="brand-bot" aria-hidden="true"></div><div><strong>Awesom-o’s Women’s & Children’s Hospital</strong><small>NUR 234 maternal–newborn · NUR 235 pediatrics</small></div></div>
     <div class="top-actions">
-      <a class="ghost" href="games.html">🎮 Games shelf</a>
-      <a class="ghost" href="https://arnold7777777.github.io/ABSN-Study-Hub/">🏠 Study Hub</a>
+      <a class="ghost" href="games.html" target="_blank" rel="noopener">🎮 Games shelf</a>
+      <a class="ghost" href="https://arnold7777777.github.io/ABSN-Study-Hub/" target="_blank" rel="noopener">🏠 Study Hub</a>
       <button type="button" class="ghost" id="soundBtn" aria-pressed="true">♫ Sound: on</button>
       <button type="button" class="ghost" id="motionBtn" aria-pressed="true">✨ Motion: on</button>
       <button type="button" class="ghost" id="homeBtn" hidden>⌂ Hospital map</button>
@@ -144,7 +144,7 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
   function modeCount(key){return key==='childproof'?hazards.length:QUESTIONS.filter(q=>q.mode===key).length}
   function renderModes(){const maternal=$('maternalModes'),peds=$('pediatricModes');Object.entries(MODES).forEach(([key,m])=>{const b=document.createElement('button');b.type='button';b.className='mode-card';b.dataset.mode=key;const col=m.scene%4,row=Math.floor(m.scene/4);b.innerHTML=`<span class="mode-scene" style="--col:${col};--row:${row}"></span><span class="mode-copy"><span class="mode-icon">${m.icon}</span><strong>${esc(m.title)}</strong><small>${esc(m.description)}</small><em>Play now · ${modeCount(key)} ${key==='childproof'?'hazards':'questions'} →</em></span>`;b.addEventListener('click',()=>key==='childproof'?startChildproof():startMode(key));(m.wing==='maternal'?maternal:peds).appendChild(b)})}
   function prepared(q){const opts=shuffle(q.options.map((text,index)=>({text,correct:q.correct.includes(index)})));return{...q,options:opts.map(x=>x.text),correct:opts.map((x,i)=>x.correct?i:-1).filter(i=>i>=0)}}
-  function startMode(mode){const all=shuffle(QUESTIONS.filter(q=>q.mode===mode));let wanted=$('roundSize').value==='all'?all.length:Number($('roundSize').value);wanted=Math.min(wanted,all.length);session={mode,questions:all.slice(0,wanted).map(prepared),index:0,score:0,correct:0,attempts:0,streak:0,milestone:false};const m=MODES[mode];$('gameWing').textContent=`${m.wing==='maternal'?'NUR 234 · Maternal–Newborn':'NUR 235 · Pediatrics'}`;$('gameTitle').textContent=m.title;$('gameSubtitle').textContent=`Randomized mission · ${wanted} case${wanted===1?'':'s'} · teaching after every answer`;setSprite($('gameScene'),m.scene);setSprite($('coachRobot'),m.robot);showScreen('gameScreen');renderQuestion()}
+  function startMode(mode){const all=shuffle(QUESTIONS.filter(q=>q.mode===mode));let wanted=$('roundSize').value==='all'?all.length:Number($('roundSize').value);const distinct=window.quizStudy.unique(all);wanted=Math.min(wanted,distinct.length);session={mode,questions:distinct.slice(0,wanted).map(prepared),index:0,score:0,correct:0,attempts:0,streak:0,milestone:false};const m=MODES[mode];$('gameWing').textContent=`${m.wing==='maternal'?'NUR 234 · Maternal–Newborn':'NUR 235 · Pediatrics'}`;$('gameTitle').textContent=m.title;$('gameSubtitle').textContent=`Randomized mission · ${wanted} case${wanted===1?'':'s'} · teaching after every answer`;setSprite($('gameScene'),m.scene);setSprite($('coachRobot'),m.robot);showScreen('gameScreen');renderQuestion()}
   function renderQuestion(){const q=session.questions[session.index];active={q,selected:new Set(),answered:false};$('scoreText').textContent=session.score;$('streakText').textContent=session.streak;$('progressText').textContent=`${session.index+1} / ${session.questions.length}`;$('progressBar').style.width=`${session.index/session.questions.length*100}%`;$('questionGroup').textContent=q.group;$('questionDifficulty').textContent=q.difficulty.toUpperCase();$('questionPrompt').textContent=q.prompt;$('answerInstruction').textContent=q.correct.length>1?`Select ${q.correct.length} answers, then lock them in.`:'Choose the best answer.';$('teachingBox').hidden=true;$('nextBtn').hidden=true;$('submitBtn').hidden=true;$('hintBtn').disabled=false;$('coachTitle').textContent='Awesom-o is reading the clinical cues';$('coachText').textContent='Notice what changed, decide what threatens safety, and choose the nursing response that addresses it first.';renderSpecial(q);const list=$('answerList');list.replaceChildren();q.options.forEach((text,index)=>{const b=document.createElement('button');b.type='button';b.className='answer';b.dataset.index=index;if(TEST_MODE)b.dataset.correct=String(q.correct.includes(index));b.innerHTML=`<span class="letter">${String.fromCharCode(65+index)}</span><span>${esc(text)}</span>`;b.addEventListener('click',()=>selectAnswer(index,b));list.appendChild(b)})}
   function selectAnswer(index,button){if(active.answered)return;if(active.q.correct.length===1){active.selected=new Set([index]);submitAnswer();return}active.selected.has(index)?active.selected.delete(index):active.selected.add(index);button.classList.toggle('selected');$('submitBtn').hidden=active.selected.size===0}
   function submitAnswer(){if(active.answered||!active.selected.size)return;const correct=new Set(active.q.correct),ok=correct.size===active.selected.size&&[...correct].every(i=>active.selected.has(i));active.answered=true;session.attempts++;if(ok){session.correct++;session.streak++;session.score+=100;cue('good')}else{session.streak=0;session.score=Math.max(0,session.score-20);cue('bad')}if(session.streak===3&&!session.milestone){session.milestone=true;showMilestone()}$('scoreText').textContent=session.score;$('streakText').textContent=session.streak;[...$('answerList').children].forEach((b,i)=>{b.disabled=true;if(active.q.correct.includes(i))b.classList.add('correct');else if(active.selected.has(i))b.classList.add('wrong')});$('teachingBox').hidden=false;$('teachingBox').classList.toggle('incorrect',!ok);$('teachingTitle').textContent=ok?'Correct—here is why':'Awesom-o teaching moment';$('correctLine').innerHTML=`<strong>Correct response:</strong> ${esc(active.q.correct.map(i=>active.q.options[i]).join('; '))}`;$('rationaleText').textContent=active.q.rationale;$('sourceLink').href=active.q.sourceUrl;$('sourceLink').textContent=`Open ${active.q.sourceLabel}`;$('submitBtn').hidden=true;$('hintBtn').disabled=true;$('nextBtn').hidden=false;$('nextBtn').textContent=session.index===session.questions.length-1?'Finish mission →':'Next case →';$('coachTitle').textContent=ok?'Strong clinical connection!':'This miss is useful practice';$('coachText').textContent=ok?'You linked the assessment cue to the safest action. Keep that reasoning pattern.':'Read the rationale, compare it with your choice, and carry the safety rule into the next case.'}
@@ -169,6 +169,6 @@ nav.absn-back a:focus-visible{outline:3px solid #ffd76a;outline-offset:2px}
 <script src="absn-hidebar.js" defer></script>
 <script defer src="absn-diagrams.js"></script>
 <script defer src="absn-robots.js"></script>
-<nav class="absn-back bottom" data-absn-keep aria-label="Back to the Study Hub and this page's study guide"><a class="hub" href="index.html">&#127968; Study Hub</a><a class="par" href="games.html">&#128216; Learning Games</a></nav>
+<nav class="absn-back bottom" data-absn-keep aria-label="Back to the Study Hub and this page's study guide"><a class="hub" href="index.html" target="_blank" rel="noopener">&#127968; Study Hub</a><a class="par" href="games.html" target="_blank" rel="noopener">&#128216; Learning Games</a></nav>
 </body>
 </html>

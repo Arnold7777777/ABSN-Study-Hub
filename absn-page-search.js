@@ -7,7 +7,7 @@
     if(document.getElementById('absnPageSearch')||document.getElementById('siteSearch'))return;
     var css=document.createElement('link');css.rel='stylesheet';css.href=new URL('absn-page-search.css',base).href;document.head.appendChild(css);
     var box=document.createElement('section');box.id='absnPageSearch';box.setAttribute('data-absn-keep','');box.setAttribute('data-adhd-ui','');box.setAttribute('aria-label','Search this page or the Study Hub');
-    box.innerHTML='<form role="search" aria-label="Find text on this page"><label for="apsQuery">Search this page or the Study Hub</label><input id="apsQuery" type="search" placeholder="Enter a topic or phrase" autocomplete="off" maxlength="160" aria-describedby="apsHint"><div class="aps-actions"><button class="aps-submit" type="submit">Find on this page</button><button class="aps-hub" type="button">Search the Study Hub</button></div></form><p id="apsHint" class="aps-hint">Page search includes collapsed sections. Hub search finds related pages. Words inside pictures and PDFs are not searched here.</p><p class="aps-status" role="status" aria-live="polite"></p><div class="aps-actions aps-nav" hidden><button type="button" class="aps-prev">Previous</button><button type="button" class="aps-next">Next</button><button type="button" class="aps-clear">Clear</button></div><ol class="aps-results" aria-label="Matching passages"></ol><button type="button" class="aps-more" hidden>Show more matches</button>';
+    box.innerHTML='<form role="search" aria-label="Find text on this page"><label for="apsQuery">Search this page or the Study Hub</label><input id="apsQuery" type="search" placeholder="Enter a topic or phrase" autocomplete="off" maxlength="160" aria-describedby="apsHint"><div class="aps-actions"><button class="aps-submit" type="submit">Find on this page</button><a class="aps-hub" target="_blank" rel="noopener">Search the Study Hub</a></div></form><p id="apsHint" class="aps-hint">Page search includes collapsed sections. Hub search finds related pages. Words inside pictures and PDFs are not searched here.</p><p class="aps-status" role="status" aria-live="polite"></p><div class="aps-actions aps-nav" hidden><button type="button" class="aps-prev">Previous</button><button type="button" class="aps-next">Next</button><button type="button" class="aps-clear">Clear</button></div><ol class="aps-results" aria-label="Matching passages"></ol><button type="button" class="aps-more" hidden>Show more matches</button>';
     var heading=document.querySelector('h1');
     var top=heading&&(heading.closest('header')||heading);
     if(top&&top.parentNode&&!top.closest('details'))top.insertAdjacentElement('afterend',box);
@@ -46,9 +46,16 @@
     function paint(){
       list.replaceChildren();
       hits.slice(0,shown).forEach(function(hit,i){
-        var li=document.createElement('li'),button=document.createElement('button'),title=document.createElement('strong'),snippet=document.createElement('span');button.type='button';
+        var li=document.createElement('li'),link=document.createElement('a'),title=document.createElement('strong'),snippet=document.createElement('span');
+        var card=hit.el.closest('#card,#qbox,#quiz-card'),study=card&&card.querySelector('.quiz-study-links a[href]');
+        var dest=new URL(location.href);
+        dest.hash='absn-find='+encodeURIComponent(lastQuery)+'&match='+(i+1);
+        link.href=study?study.href:dest.href;
         title.textContent=(i+1)+'. '+labelFor(hit.el);snippet.textContent=hit.snippet;
-        button.append(title,snippet);button.addEventListener('click',function(){visit(i);});li.appendChild(button);list.appendChild(li);
+        link.append(title,snippet);link.addEventListener('click',function(e){
+          if(e.ctrlKey||e.metaKey||e.altKey||e.shiftKey||e.button!==0)return;
+          e.preventDefault();visit(i);
+        });li.appendChild(link);list.appendChild(li);
       });more.hidden=shown>=hits.length;
     }
     function visit(i){
@@ -87,16 +94,31 @@
       paint();
     }
     box.querySelector('form').addEventListener('submit',function(e){e.preventDefault();search();});
-    box.querySelector('.aps-hub').addEventListener('click',function(){
-      var q=input.value.trim();if(q.length<2){status.textContent='Enter at least 2 characters to search the Study Hub.';input.focus();return;}
-      var destination=new URL('index.html',base);destination.searchParams.set('q',q);destination.hash='siteSearch';location.href=destination.href;
-    });
-    box.querySelector('.aps-clear').addEventListener('click',function(){input.value='';lastQuery='';reset();input.focus();});
+    var hubLink=box.querySelector('.aps-hub');
+    function syncHubLink(){
+      var destination=new URL('index.html',base),q=input.value.trim();
+      if(q)destination.searchParams.set('q',q);
+      destination.hash='siteSearch';hubLink.href=destination.href;
+    }
+    syncHubLink();
+    input.addEventListener('input',syncHubLink);
+    hubLink.addEventListener('focus',syncHubLink);
+    hubLink.addEventListener('pointerdown',syncHubLink);
+    box.querySelector('.aps-clear').addEventListener('click',function(){input.value='';lastQuery='';reset();syncHubLink();input.focus();});
     box.querySelector('.aps-next').addEventListener('click',function(){visit(at+1);});
     box.querySelector('.aps-prev').addEventListener('click',function(){visit(at<0?hits.length-1:at-1);});
     more.addEventListener('click',function(){shown+=6;paint();});
     input.addEventListener('input',function(){if(input.value.trim()!==lastQuery){reset();status.textContent=input.value.trim()?'Choose where to search.':'';}});
-    input.addEventListener('keydown',function(e){if(e.key==='Escape'){input.value='';reset();}});
+    input.addEventListener('keydown',function(e){if(e.key==='Escape'){input.value='';reset();syncHubLink();}});
+    function openPassage(){
+      if(!location.hash.startsWith('#absn-find='))return;
+      var params=new URLSearchParams(location.hash.slice(1)),q=params.get('absn-find');
+      if(!q||q.length<2)return;
+      input.value=q;syncHubLink();search();
+      if(hits.length)visit(Math.min(hits.length-1,Math.max(0,(Number(params.get('match'))||1)-1)));
+    }
+    window.addEventListener('hashchange',openPassage);
+    if(document.readyState==='complete')openPassage();else window.addEventListener('load',openPassage,{once:true});
     document.addEventListener('keydown',function(e){if(e.key==='/'&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&!e.target.closest('input,textarea,select,[contenteditable="true"]')){e.preventDefault();input.focus({preventScroll:true});box.scrollIntoView({block:'center'});}});
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
