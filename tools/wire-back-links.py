@@ -54,7 +54,8 @@ PREFIX = [('nur234-', 'nur234.html'), ('nur235-', 'nur235.html'), ('nur258-', 'n
           ('patho-', 'pathophysiology.html'), ('mat300-', 'mat300.html'), ('game-', 'games.html')]
 # pages for the whole site, not subpages of any one course
 SITEWIDE = {'super-mega-quiz.html', 'infographics.html', 'lectures.html', 'lecture-library.html',
-            'podcasts.html', 'playlists.html', 'games.html', 'study-plan.html', 'nclex-prep.html'}
+            'podcasts.html', 'playlists.html', 'games.html', 'study-plan.html', 'nclex-prep.html',
+            'study-reviews/ati-last-minute-helpers.html'}
 # her other course sites, siblings of this one on GitHub Pages
 SIBLING = {'NUR 125': ('NUR-125-Fundamentals/index.html', 'NUR 125 · Fundamentals study guide'),
            'NUR 175': ('NUR-175-Study-Guide/index.html', 'NUR 175 study guide'),
