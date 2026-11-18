@@ -34,6 +34,7 @@ tools.
 import glob, html, json, os, posixpath, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+NEW_TAB_PAGES = set(json.load(open(os.path.join(ROOT, 'tools', 'new-tab-backlinks.json'), encoding='utf-8')))
 os.chdir(ROOT)
 CHECK = '--check' in sys.argv
 LIST = '--list' in sys.argv
@@ -288,6 +289,8 @@ def main():
         for p in parents:
             links.append('<a class="par" href="%s">&#128216; %s</a>' % (rel(p), html.escape(label(p), quote=False)))
         inner = ''.join(links)
+        if f in NEW_TAB_PAGES:
+            inner = re.sub(r'(<a\b[^>]*href="[^"]+")', r'\1 target="_blank" rel="noopener"', inner)
         top = '\n<nav class="absn-back top" data-absn-keep aria-label="Back to the Study Hub and this page\'s study guide">%s</nav>' % inner
         bot = '\n<nav class="absn-back bottom" data-absn-keep aria-label="Back to the Study Hub and this page\'s study guide">%s</nav>' % inner
 
