@@ -26,7 +26,7 @@ function run(){
  // Inline clinical drawings are replaced using the stable original SVG order.
  const originalSvgs=$$('svg[data-sr-inline]',scope);
  originalSvgs.forEach((svg,i)=>{const rep=(config.inline||[]).find(r=>r.inline_id===svg.getAttribute('data-sr-inline'));if(!rep)return;
-  if(rep.mini){const cue=el('span','sr-molecule-cue',rep.abbr||'🧬');cue.setAttribute('role','img');cue.setAttribute('aria-label',rep.label||'Molecular study cue');svg.replaceWith(cue);return;}
+  if(rep.mini){const cue=el('a','sr-molecule-cue',rep.title+' · See the illustration ↗');cue.href=rep.page+'#illustration';cue.target='_blank';cue.rel='noopener';svg.replaceWith(cue);return;}
   const panel=el('div','sr-replacement');panel.dataset.srOriginalInline=rep.label||'';
   panel.append(el('h3','',rep.title));
   if(rep.image){const a=el('a');a.href=rep.image;a.target='_blank';a.rel='noopener';const im=el('img');im.src=rep.image;im.alt=rep.alt||rep.title;im.loading='lazy';if(rep.w){im.width=rep.w;im.height=rep.h;}a.append(im);panel.append(a);}
