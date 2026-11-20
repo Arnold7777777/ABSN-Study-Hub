@@ -246,6 +246,8 @@ def main():
     related = [dict(entry, p=positions[int(entry['p'])]) for entry in entries if int(entry['p']) in positions]
     with open(os.path.join(REPO, 'assets/study-reviews/prior-course-search.json'), 'w', encoding='utf-8') as fh:
         json.dump({'pages': subset, 'entries': related}, fh, ensure_ascii=False, separators=(',', ':'))
+    from resource_search import build_resources
+    build_resources(REPO, BASE)
     print('pages', len(pages), 'entries', len(entries), 'noise dropped', dropped,
           'redirect stubs skipped', skipped_redirect,
           'size MB', round(os.path.getsize(dest) / 1e6, 2))

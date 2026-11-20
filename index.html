@@ -230,10 +230,11 @@ a.tile:focus-visible{border-color:#fff}
   </div>
 </div>
 
+<script src="absn-search-priority.js"></script>
 <script>
 (function(){
-  /* This hub's own pages first, then the sibling study-guide sites. */
-  var IDX_URLS=['search-index.json','../NUR-198-Study-Guide/search-index.json'];
+  /* Combine direct resources with the hub and sibling study-guide indexes. */
+  var IDX_URLS=['resource-search.json','search-index.json','../NUR-198-Study-Guide/search-index.json'];
   var input=document.getElementById('ssInput'),
       results=document.getElementById('ssResults'),
       status=document.getElementById('ssStatus'),
@@ -253,7 +254,7 @@ a.tile:focus-visible{border-color:#fff}
       out.pages=out.pages.concat(j.pages);
       for(var i=0;i<j.entries.length;i++){
         var e=j.entries[i];
-        out.entries.push({p:(+e.p)+off, h:e.h, a:e.a, t:e.t});
+        out.entries.push({p:(+e.p)+off, h:e.h, a:e.a, t:e.t, k:e.k});
       }
     });
     return out;
@@ -349,7 +350,7 @@ a.tile:focus-visible{border-color:#fff}
       var s=score(e,ws,pg.t||'');
       if(s>0) out.push([s,e,pg]);
     }
-    out.sort(function(a,b){return b[0]-a[0];});
+    out.sort(AbsnSearchPriority.compare);
     return out;
   }
 
@@ -377,6 +378,7 @@ a.tile:focus-visible{border-color:#fff}
   }
 
   function linkFor(page,e){
+    if(e.k&&!e.a)return page.u;
     if(e.a) return page.u+'#'+encodeURIComponent(e.a);
     /* no id to anchor to - use a text fragment so the browser scrolls to it */
     var frag=e.h.split(/\s+/).slice(0,8).join(' ').replace(/[^\w\s'\-,.()\/]/g,'').trim();
@@ -429,21 +431,18 @@ a.tile:focus-visible{border-color:#fff}
          page shows its best section and offers the rest behind one tap. */
       var byPage={}, groups=[];
       got.forEach(function(row){
-        var k=row[1].p;
+        var k=row[2].u;
         if(!(k in byPage)){ byPage[k]=groups.length; groups.push({pg:row[2], rows:[]}); }
         groups[byPage[k]].rows.push(row);
       });
-      /* The hub has far more pages than the sibling sites, so a plain top-40
-         buries every Drug Guide / Labs hit. Give each site that matched a few
-         guaranteed slots, then fill the rest by score. */
-      var PAGE=40, PERSITE=4, seen={}, order=[], counts={}, picked=[], rest=[];
+      /* Resource type comes first; relevance orders matches within each type. */
+      var PAGE=40, order=[], counts={};
       groups.forEach(function(g){
         var k=g.pg.s||'?';
-        if(!(k in counts)){ counts[k]=0; order.push(k); seen[k]=0; }
+        if(!(k in counts)){ counts[k]=0; order.push(k); }
         counts[k]++;
-        if(seen[k]<PERSITE){ seen[k]++; picked.push(g); } else { rest.push(g); }
       });
-      var ordered=picked.concat(rest);
+      var ordered=groups.sort(function(a,b){return AbsnSearchPriority.compare(a.rows[0],b.rows[0]);});
       var parts=order.map(function(k){
         return '<b>'+counts[k]+'</b> '+esc(SITE_LABEL[k]||k);
       });
@@ -452,13 +451,13 @@ a.tile:focus-visible{border-color:#fff}
                   esc(spelled.ws.join(' '))+'</b> \u00b7 ':'')+
         (narrowed?'No exact match for \u201c'+esc(q)+'\u201d \u00b7 showing <b>'+
                   esc(narrowed.join(' '))+'</b> \u00b7 ':'')+
-        '<b>'+groups.length+'</b> page'+(groups.length===1?'':'s')+' \u00b7 <b>'+total+'</b> section'+(total===1?'':'s')+
-        (order.length>1?' \u00b7 '+parts.join(' \u00b7 '):'');
+        '<b>'+groups.length+'</b> result'+(groups.length===1?'':'s')+' \u00b7 <b>'+total+'</b> match'+(total===1?'':'es')+
+        (order.length>1?' \u00b7 '+parts.join(' \u00b7 '):'')+' · Infographics first, then videos/podcasts';
       function card(row,sub){
         var e=row[1], pg=row[2];
-        return '<a class="ssr'+(sub?' sub':'')+' s-'+esc(pg.s)+'" href="'+esc(linkFor(pg,e))+'" target="_blank" rel="noopener">'+
+        return '<a data-resource-kind="'+esc(AbsnSearchPriority.kind(e,pg))+'" class="ssr'+(sub?' sub':'')+' s-'+esc(pg.s)+'" href="'+esc(linkFor(pg,e))+'" target="_blank" rel="noopener">'+
               (sub?'':'<div class="ssmeta"><span class="badge b-'+esc(pg.s)+'">'+
-              esc(SITE_LABEL[pg.s]||pg.s)+'</span>'+esc(pg.t||'')+'</div>')+
+              esc(SITE_LABEL[pg.s]||pg.s)+'</span><span class="badge">'+esc(AbsnSearchPriority.label(e,pg))+'</span>'+esc(pg.t||'')+'</div>')+
               '<div class="ssh">'+hi(e.h,ws)+'</div>'+
               (e.t?'<div class="sst">'+hi(e.t,ws)+'</div>':'')+'</a>';
       }
@@ -477,7 +476,7 @@ a.tile:focus-visible{border-color:#fff}
         });
         if(upto<ordered.length){
           var left=ordered.length-upto;
-          html+='<button type="button" class="ssnext" data-upto="'+(upto+PAGE)+'">Show '+Math.min(PAGE,left)+' more page'+(left===1?'':'s')+' ('+left+' left)</button>';
+          html+='<button type="button" class="ssnext" data-upto="'+(upto+PAGE)+'">Show '+Math.min(PAGE,left)+' more result'+(left===1?'':'s')+' ('+left+' left)</button>';
         }
         results.innerHTML=html;
         results.classList.add('on');

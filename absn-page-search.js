@@ -74,22 +74,32 @@
       status.textContent='Match '+(at+1)+' of '+hits.length+(hits.length===limit?'+':'')+' for “'+lastQuery+'”.';
       requestAnimationFrame(function(){hit.el.scrollIntoView({block:'center',behavior:'auto'});});
     }
+    function resultRank(hit){
+      var el=hit.el,card=el.closest('figure,.vcell,.igcard,.sn-inline,[data-kind],.rs-review');
+      if(card&&((card.dataset.kind||'').match(/infographic|visual|sn/)||card.querySelector('img')||card.tagName==='FIGURE'))return 0;
+      var links=Array.from(el.querySelectorAll('a[href]'));if(el.matches('a[href]'))links.push(el);
+      if(links.some(function(a){return a.matches('.rec,.ep,.play')||/youtu\.be|youtube\.com\/watch|open\.spotify\.com\/episode|\.(mp4|mp3|webm)(?:[?#]|$)/i.test(a.href);}))return 1;
+      return 2;
+    }
     function search(){
       var q=input.value.trim();reset();lastQuery=q;
       if(q.length<2){status.textContent='Enter at least 2 characters.';input.focus();return;}
       var escaped=q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&').replace(/\s+/g,'\\s+');
       var re=new RegExp(escaped,'gi'),ranges=[];
-      groups().some(function(group){
+      groups().sort(function(a,b){return resultRank(a)-resultRank(b);}).some(function(group){
         re.lastIndex=0;var m;
         while((m=re.exec(group.text))){
           var range=makeRange(group,m.index,m.index+m[0].length);
           var before=Math.max(0,m.index-65),after=Math.min(group.text.length,m.index+m[0].length+100);
           hits.push({el:group.el,range:range,snippet:(before?'…':'')+group.text.slice(before,after).replace(/\s+/g,' ')+(after<group.text.length?'…':'')});ranges.push(range);
           if(hits.length>=limit)return true;
-        }return false;
+
+        }
       });
+      hits.sort(function(a,b){return resultRank(a)-resultRank(b);});
+      hits=hits.slice(0,limit);
       nav.hidden=false;box.querySelector('.aps-prev').disabled=!hits.length;box.querySelector('.aps-next').disabled=!hits.length;
-      status.textContent=hits.length?hits.length+(hits.length===limit?'+':'')+' matches for “'+q+'”. Choose a passage below.':'No matches on this page for “'+q+'”. Try fewer words or search the Study Hub.';
+      status.textContent=hits.length?hits.length+(hits.length===limit?'+':'')+' matches for “'+q+'”. Pictures first, then playable media. Choose a passage below.':'No matches on this page for “'+q+'”. Try fewer words or search the Study Hub.';
       if(canHighlight&&ranges.length)CSS.highlights.set('absn-page-match',new Highlight(...ranges));
       paint();
     }
