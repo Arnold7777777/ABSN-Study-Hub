@@ -167,9 +167,24 @@ def main():
     groups = json.load(open(REG))
     pending = 0
     for g in groups:
+        relocated = False
+        for f in [g.get('previous_page'), LIB if g.get('previous_week') else None]:
+            if not f:
+                continue
+            s = old = open(f).read()
+            i, end = 0, len(s)
+            if f == LIB:
+                k = s.index('id="%s"' % g['previous_week'])
+                i, end = wk_start(s, k), wk_end(s, k)
+            m = span(s[i:end], g)
+            if m:
+                s = s[:i + m.start()] + s[i + m.end():]
+                relocated = True
+                if not CHECK:
+                    open(f, 'w').write(s)
         f, n, page_changed = wire_page(g)
         libn, lib_changed = wire_library(g)
-        changed = page_changed or lib_changed
+        changed = page_changed or lib_changed or relocated
         pending += 1 if changed else 0
         print('%-46s %-11s page %2d / library %2d'
               % (f, 'unwired' if (CHECK and changed) else
