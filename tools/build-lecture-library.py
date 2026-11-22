@@ -723,7 +723,13 @@ def main():
     # strings from deleted cells, even when no active cell needs sanitizing.
     wb.save(PUBLISHED)
     wb = openpyxl.load_workbook(PUBLISHED)
-    page, total = render(read_rows(wb), module_topics())
+    rows = read_rows(wb)
+    # Explicit user-requested additions are retained across workbook refreshes.
+    # Do not merge the complete lectures catalog or write to the live Sheet.
+    additions = os.path.join(ROOT, 'tools', 'lecture-library-additions.json')
+    if os.path.exists(additions):
+        rows.extend(json.load(io.open(additions, encoding='utf-8')))
+    page, total = render(rows, module_topics())
     io.open(PAGE, 'w', encoding='utf-8').write(page)
     # index.html's card states the count. Hand-written numbers on this site drift
     # - the module pages' Infographics labels did - so derive it here too.
