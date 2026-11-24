@@ -255,6 +255,14 @@ files sync back and are small enough to read from here. The list holds the 30
 Fall 2026 recordings that had no transcript on 20 Sep 2026; add lines to it
 (folder name first, one file per line) to queue more.
 
+**Give her the Command Prompt line as text in the chat, every time** (Caroline, 24 Nov: "I need the text to copy it
+... as a rule ... less steps for me"). Paste the whole one-liner in a code block in the reply; never only link the
+`TRANSCRIBE - copy this line into Command Prompt.txt` file. On 24 Nov the list was rebuilt from a full inventory of the
+folder: 546 untranscribed videos, current-term NUR first, prerequisite classes last; byte-identical copies, playlist
+`Media` copies and anything with an .srt/.vtt/.txt of the same name anywhere in the tree left off. Old lists and
+scripts live in `_Old transcribe lists and scripts`. Files synced up from her PC cannot be moved by the connector
+("caller does not have permission to move") - rename them, don't plan on moving them.
+
 The only way to peek inside a video from here is Drive's speech index. It
 answers match / no match only, never the words, so name guesses made that way
 should say so in the file name.

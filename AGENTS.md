@@ -168,6 +168,7 @@ Many blocks on these pages are written by scripts in `tools/`. They are matched 
 - When you hand her a new spreadsheet, give its direct Drive link (`https://drive.google.com/file/d/<id>/view`),
   never just its name. She asked for this as a rule on 24 Nov.
 - Simmons recorded no NUR 258 Week 11 or 12 lecture; her students were sent Halecka's. Don't look for them.
+- When she has to run something in Command Prompt, paste the full line as text in your reply. Don't make her open a file to copy it.
 - The workbook's "<class> Online" tabs (YouTube and Spotify playlists, textbook chapters first) come from
   `tools/online-playlists.json` via `tools/build-online-tabs.py`; they never reach `lecture-library.html`.
 
