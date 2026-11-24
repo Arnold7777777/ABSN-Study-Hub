@@ -91,7 +91,7 @@ def is_lsc(title):
     """
     if NOT_LSC.search(title):
         return False
-    return bool(re.search(r'_LSC_|exam prep|exam review session', title, re.I))
+    return bool(re.search(r'_LSC_|exam[ _]prep|exam[ _]review[ _]session', title, re.I))
 
 
 def spans(text, opener):
