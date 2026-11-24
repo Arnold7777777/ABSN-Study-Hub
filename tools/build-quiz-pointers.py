@@ -31,7 +31,7 @@ assets/quiz-study/ or study-reviews/quiz-topics/ is ever a target.
   python3 tools/build-quiz-pointers.py --check
         exit 1 if a pointer's file or #anchor is missing, or the file is stale
 """
-import collections, glob, html, json, math, os, re, sys, unicodedata
+import collections, glob, hashlib, html, json, math, os, re, sys, unicodedata
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 QS = os.path.join(ROOT, 'assets', 'quiz-study')
@@ -66,9 +66,13 @@ def plain(t):
 
 
 # ---- questions ---------------------------------------------------------------
+ADDED = {}       # questions in the banks that Codex's catalog does not know yet: id -> (stem hash, label)
+
+
 def load_questions():
     cat = json.loads(read('assets/quiz-study/question-links.json'))
     items, keys = cat['items'], cat['keys']
+    ADDED.clear()
     fb = {}
     for f in sorted(glob.glob(os.path.join(QS, 'feedback-*.json'))):
         with open(f, encoding='utf-8') as fh:
@@ -102,6 +106,18 @@ def load_questions():
         rows = [(wk, q) for wk, v in d.items() for q in v] if isinstance(d, dict) else [(None, q) for q in d]
         for wk, q in rows:
             hit = ids_for(q.get('q'))
+            if not hit and q.get('q') and isinstance(q.get('opts') or q.get('o'), list):
+                # a question added after the catalog was made: give it an id so links.js can find it
+                h = fnv(normal(q['q']))
+                qid = hashlib.md5(normal(q['q']).encode()).hexdigest()[:14]
+                if qid not in qs:
+                    opts = q.get('opts') or q.get('o')
+                    ans = q.get('ans') if q.get('ans') is not None else q.get('correct')
+                    ans = ans if isinstance(ans, list) else [ans]
+                    qs[qid] = {'id': qid, 'stem': plain(q['q']), 'answers': [plain(opts[i]) for i in ans if isinstance(i, int) and i < len(opts)],
+                               'why': plain(q.get('why') or q.get('r')), 'label': plain(q.get('topic') or ''), 'course': '', 'mod': '', 'card': None}
+                    ADDED[qid] = (h, plain(q.get('topic') or ''))
+                hit = [qid]
             if len(hit) != 1 or hit[0] not in qs:
                 continue
             e = qs[hit[0]]
@@ -395,6 +411,18 @@ def main():
     if a[:1] == ['--compile']:
         for qid, _, _ in bad:
             out.pop(qid, None)
+        if ADDED:      # tell links.js about questions newer than Codex's catalog
+            cat = json.loads(read('assets/quiz-study/question-links.json'))
+            n = 0
+            for qid, (h, label) in ADDED.items():
+                if qid in out and qid not in cat['items'] and h not in cat['keys']:
+                    cat['items'][qid] = ['', label or 'Question review', None]
+                    cat['keys'][h] = qid
+                    n += 1
+            if n:
+                with open(os.path.join(QS, 'question-links.json'), 'w', encoding='utf-8') as f:
+                    json.dump(cat, f, ensure_ascii=False, separators=(',', ':'))
+                print('added %d new question(s) to question-links.json' % n)
         text = json.dumps(out, ensure_ascii=False, separators=(',', ':'), sort_keys=True)
         with open(OUT, 'w', encoding='utf-8') as f:
             f.write(text)
