@@ -21,7 +21,10 @@ const here = dirname(fileURLToPath(import.meta.url));
 const page = join(here, '..', 'infographics.html');
 const url = process.argv[2] || 'http://127.0.0.1:8898/ABSN-Study-Hub/infographics.html';
 
-const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
+// The pinned build is not on every machine (24 Nov: this path was gone); fall back to Playwright's own.
+const PINNED = '/opt/pw-browsers/chromium-1194/chrome-linux/chrome';
+const { existsSync } = await import('node:fs');
+const browser = await chromium.launch(existsSync(PINNED) ? { executablePath: PINNED } : {});
 const p = await browser.newPage({ viewport: { width: 1200, height: 900 } });
 await p.goto(url, { waitUntil: 'load' });
 await p.waitForTimeout(800);
