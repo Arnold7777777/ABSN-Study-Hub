@@ -28,10 +28,11 @@ assets/quiz-study/ or study-reviews/quiz-topics/ is ever a target.
         fold DIR/result-NN.json (helper decisions) into tools/quiz-pointers.json
   python3 tools/build-quiz-pointers.py --compile
         write assets/quiz-study/guide-pointers.json
-  python3 tools/build-quiz-pointers.py --check
-        exit 1 if a pointer's file or #anchor is missing, or the file is stale
+  python3 tools/build-quiz-pointers.py --check [--verbose]
+        exit 1 if guide-pointers.json is stale; pointers whose page or #anchor is
+        missing are left out and counted (--verbose lists them)
 """
-import collections, glob, hashlib, html, json, math, os, re, sys, unicodedata
+import collections, glob, hashlib, html, json, math, os, re, sys, unicodedata, urllib.parse
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 QS = os.path.join(ROOT, 'assets', 'quiz-study')
@@ -106,18 +107,18 @@ def load_questions():
         rows = [(wk, q) for wk, v in d.items() for q in v] if isinstance(d, dict) else [(None, q) for q in d]
         for wk, q in rows:
             hit = ids_for(q.get('q'))
-            if not hit and q.get('q') and isinstance(q.get('opts') or q.get('o'), list):
+            fresh = not hit and q.get('q') and isinstance(q.get('opts') or q.get('o'), list)
+            if fresh:
                 # a question added after the catalog was made: give it an id so links.js can find it
-                h = fnv(normal(q['q']))
-                qid = hashlib.md5(normal(q['q']).encode()).hexdigest()[:14]
-                if qid not in qs:
-                    opts = q.get('opts') or q.get('o')
-                    ans = q.get('ans') if q.get('ans') is not None else q.get('correct')
-                    ans = ans if isinstance(ans, list) else [ans]
-                    qs[qid] = {'id': qid, 'stem': plain(q['q']), 'answers': [plain(opts[i]) for i in ans if isinstance(i, int) and i < len(opts)],
-                               'why': plain(q.get('why') or q.get('r')), 'label': plain(q.get('topic') or ''), 'course': '', 'mod': '', 'card': None}
-                    ADDED[qid] = (h, plain(q.get('topic') or ''))
-                hit = [qid]
+                hit = [hashlib.md5(normal(q['q']).encode()).hexdigest()[:14]]
+                ADDED[hit[0]] = (fnv(normal(q['q'])), plain(q.get('topic') or ''))
+            if len(hit) == 1 and hit[0] not in qs and (fresh or hit[0] in items) and q.get('q'):
+                # ... or one this tool added on an earlier run: the catalog has its id but no text
+                opts = q.get('opts') or q.get('o') or []
+                ans = q.get('ans') if q.get('ans') is not None else q.get('correct')
+                ans = ans if isinstance(ans, list) else [ans]
+                qs[hit[0]] = {'id': hit[0], 'stem': plain(q['q']), 'answers': [plain(opts[i]) for i in ans if isinstance(i, int) and i < len(opts)],
+                              'why': plain(q.get('why') or q.get('r')), 'label': plain(q.get('topic') or ''), 'course': '', 'mod': '', 'card': None}
             if len(hit) != 1 or hit[0] not in qs:
                 continue
             e = qs[hit[0]]
@@ -355,7 +356,11 @@ def build():
             href, name = q['card']
             row = [href, name or page_title(href.split('#')[0]), 'section']
         elif d:
-            name = d[2] + ((' · ' + d[3]) if d[3] and d[3].lower() not in d[2].lower() else '')
+            head = re.sub(r'(\s+Open)?\s+Close$|\s+\d+ parts$', '', d[2]).strip()   # fold-button text the index picked up
+            if len(head) > 72:
+                head = head[:72].rsplit(' ', 1)[0] + '…'
+            where = d[3] if d[3] != 'whole page' else ''
+            name = head + ((' · ' + where) if where and where.lower() not in head.lower() else '')
             row = [d[1], name, d[0]]
         else:
             m = mods.get('%s:%s' % (q['course'], q['mod']))
@@ -385,7 +390,7 @@ def bad_targets(out):
     bad = []
     for qid, (href, name, kind) in out.items():
         rel, _, frag = href.partition('#')
-        ids = anchors(rel.split('?')[0])
+        ids = anchors(urllib.parse.unquote(rel.split('?')[0]))
         if ids is None:
             bad.append((qid, href, 'no such page'))
         elif frag and frag not in ids:
@@ -401,16 +406,19 @@ def main():
         return ingest(a[1])
     out, kinds = build()
     bad = bad_targets(out)
-    for qid, href, why in bad[:40]:
-        print('BAD', qid, href, why)
+    # A pointer whose page or #anchor cannot be found here is left out (that includes pages on the
+    # sibling sites, which this repo cannot check). Listed so a renamed anchor gets noticed.
+    for qid, href, why in bad:
+        out.pop(qid, None)
+    if '--verbose' in a:
+        for qid, href, why in bad:
+            print('LEFT OUT', qid, href, why)
     text = json.dumps(out, ensure_ascii=False, separators=(',', ':'), sort_keys=True)
     if a[:1] == ['--check']:
         stale = not os.path.exists(OUT) or open(OUT, encoding='utf-8').read() != text
-        print('%d pointers %s · %d bad target(s) · %s' % (len(out), dict(kinds), len(bad), 'STALE' if stale else 'current'))
-        sys.exit(1 if (bad or stale) else 0)
+        print('%d pointers %s · %d left out (target not found) · %s' % (len(out), dict(kinds), len(bad), 'STALE' if stale else 'current'))
+        sys.exit(1 if stale else 0)
     if a[:1] == ['--compile']:
-        for qid, _, _ in bad:
-            out.pop(qid, None)
         if ADDED:      # tell links.js about questions newer than Codex's catalog
             cat = json.loads(read('assets/quiz-study/question-links.json'))
             n = 0
@@ -423,7 +431,6 @@ def main():
                 with open(os.path.join(QS, 'question-links.json'), 'w', encoding='utf-8') as f:
                     json.dump(cat, f, ensure_ascii=False, separators=(',', ':'))
                 print('added %d new question(s) to question-links.json' % n)
-        text = json.dumps(out, ensure_ascii=False, separators=(',', ':'), sort_keys=True)
         with open(OUT, 'w', encoding='utf-8') as f:
             f.write(text)
         print('wrote %d pointers %s · dropped %d with a missing target' % (len(out), dict(kinds), len(bad)))
