@@ -900,6 +900,16 @@ document.querySelectorAll('a.tile[data-open]').forEach(function(a){
     window.open(a.getAttribute('href'), '_blank');
   });
 });
+/* A sibling site's "ABSN Hub" button (drug guide, 24 Nov) asks on this channel
+   whether the hub is open before it closes its own tab. Answer, and come forward. */
+try{
+  var absnHubCh=new BroadcastChannel('absnhub');
+  absnHubCh.onmessage=function(e){
+    if(!e.data||e.data.t!=='ping') return;
+    absnHubCh.postMessage({t:'here'});
+    try{ window.focus(); }catch(x){}
+  };
+}catch(e){}
 </script>
 <script src="absn-hidebar.js" defer></script>
 <script defer src="absn-diagrams.js"></script>

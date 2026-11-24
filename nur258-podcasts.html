@@ -344,6 +344,8 @@ function hop(url, closeThis){
     return;
   }
   var w=window.open(url,'_blank');
+  /* blocked? then never close this tab - she would be left with nothing */
+  if(!w){ location.href=url; return; }
   setTimeout(function(){
     try{ window.close(); }catch(e){}
     if(!window.closed){ location.href=url; if(w){ try{ w.close(); }catch(e){} } }
