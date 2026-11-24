@@ -406,6 +406,20 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
   `build-lsc-coverage.py` too (4 Nov): the module blocks on `lectures.html` now open with `data-exam` before `class`,
   and its class-first pattern had been reporting 0 sessions for NUR 234, 235 and 258 (67 are filed).
   After any such fix, sweep every page for doubled generated blocks before publishing.
+- **The pointer under a quiz question goes to her guides, never to a page made for the quiz** (Caroline,
+  24 Nov: "Instead of this button, I would like there to be a pointer to a location in the guides that teaches
+  about the exact item on the questions, preferably an already-established infographic, not the ones created
+  for the quiz. The infographic needs to be very closely related"). Codex's `assets/quiz-study/links.js` used to
+  add "Open illustrated review" to ~8,600 questions, opening `study-reviews/quiz-topics/review-XX.html`. It now
+  reads `assets/quiz-study/guide-pointers.json`, written by `python3 tools/build-quiz-pointers.py --compile`
+  (`--check` verifies every page and `#anchor`). Order: the question's hand-set `card`, then the decision in
+  `tools/quiz-pointers.json` (helpers read every question on 24 Nov against the gallery cards of kind
+  infographic/sn/visual and the headed guide sections in `search-index.json`), then the module page it is filed
+  under; no close match and no module means no pointer. Before she answers the link reads "Where this is
+  taught"; the name shows only after, because it can give the answer away. Fix a wrong pointer in
+  `tools/quiz-pointers.json` (`[kind, href, name, where]` or `null`) and re-compile. `--candidates DIR
+  --only-missing` shortlists questions that have no decision yet. `absn-lesson-links.js` is no longer loaded by
+  any page; the tool only borrows its `MODULE` map. The quiz-topics pages are still there, just unlinked.
 - **Every quiz question links to its review material** (Caroline, 4 Nov: "This doesn't have a thing to click
   to find the review material"). `absn-lesson-links.js` adds the link under "Why" in this order: the question's
   own `card`, the `LESSON` topic map, a hub search for the topic, then the **module it is filed under**

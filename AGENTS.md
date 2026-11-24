@@ -71,6 +71,17 @@ Many blocks on these pages are written by scripts in `tools/`. They are matched 
   | `study-reviews/*-simple.html` exam guides | `tools/build-simple-exams.py` |
   | `transcripts/*.html` lecture transcripts | `tools/build-lecture-transcripts.py` |
 
+- **Quiz pointers go to her guides, not to quiz-made pages** (Caroline, 24 Nov: "a pointer to a location in
+  the guides that teaches about the exact item on the questions, preferably an already-established infographic,
+  not the ones created for the quiz. The infographic needs to be very closely related"). `assets/quiz-study/links.js`
+  no longer adds "Open illustrated review" or links `study-reviews/quiz-topics/`. It shows one link from
+  `assets/quiz-study/guide-pointers.json`: "Where this is taught" before she answers, and the named picture or
+  guide section after (the name can give the answer away). That file is written by
+  `python3 tools/build-quiz-pointers.py --compile` from `tools/quiz-pointers.json`; `--check` verifies it. Please
+  don't put the old button back, don't point a question at a page or graphic made for the quiz, and don't
+  regenerate `question-links.json` with new ids without re-running the tool (pointers are keyed by those ids).
+  To change one pointer, edit its entry in `tools/quiz-pointers.json` and re-compile. A loose match is worse
+  than none: when nothing established is truly about the item, leave it `null`.
 - **Every page gets the up arrow** (Caroline, 11 Nov: "make all the stuff have up arrows"). The purple
   back-to-top button at the lower right comes from `absn-hidebar.js`, or from `absn-top.js` on a page that
   doesn't load hidebar. About 230 pages from your recent folders had neither: `study-reviews/`,
@@ -89,7 +100,7 @@ Many blocks on these pages are written by scripts in `tools/`. They are matched 
   ```bash
   for t in wire-back-links wire-module-reader wire-arcade-cards wire-sn-previews wire-module-visuals \
            wire-ng-xrefs add-normal-values refresh-site-counts refresh-nav-counts refresh-module-info-counts \
-           build-spotify-library wire-top-arrow; do python3 tools/$t.py --check; done
+           build-spotify-library wire-top-arrow build-quiz-pointers; do python3 tools/$t.py --check; done
   python3 tools/check-duplicate-ids.py
   python3 tools/build-search-index.py      # nothing is searchable until it is in search-index.json
   ```

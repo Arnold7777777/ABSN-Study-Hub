@@ -33,7 +33,7 @@
       seen.add(key);return true;
     });
   }
-  let catalog,scheduled=false;
+  let catalog,pointers={},scheduled=false;
   const active=new WeakMap();
   function use(card,q){if(card){active.set(card,q);schedule();}}
   window.quizStudy={unique,use};
@@ -137,17 +137,28 @@
     if(!candidates||candidates.length!==1)return;
     const id=candidates[0],row=catalog.items[id];if(!row)return;
     choiceFeedback(id,area,rationale);
+    // Caroline, 24 Nov: no button to a page made for the quiz. One pointer to the place in
+    // her guides that teaches this exact item (assets/quiz-study/guide-pointers.json, written
+    // by tools/build-quiz-pointers.py). It names what it opens only once she has answered,
+    // because the name can give the answer away.
+    const pointer=pointers[id];
+    const answered=!!(rationale&&rationale.textContent.trim()&&!rationale.closest('[hidden]')&&rationale.getClientRects().length);
     let bar=before?before.nextElementSibling:area.querySelector(':scope > .quiz-study-links');
+    if(!pointer&&!row[2]){if(bar&&bar.classList.contains('quiz-study-links'))bar.remove();return;}
     if(!bar||!bar.classList.contains('quiz-study-links')){
       bar=document.createElement('div');bar.className='quiz-study-links';
       if(before)before.insertAdjacentElement('afterend',bar);else area.appendChild(bar);
     }
-    if(bar.dataset.question===id)return;
-    bar.dataset.question=id;bar.replaceChildren();
-    const make=(href,label)=>{const a=document.createElement('a');a.target='_blank';a.rel='noopener';a.href=href;a.textContent=label;bar.appendChild(a);};
-    make(new URL(row[0],base),'Open illustrated review');
-    bar.firstChild.setAttribute('aria-label','Open illustrated review · '+row[1]);
-    if(row[2])make(row[2][0],'Watch · '+row[2][1]);
+    const state=id+(answered?':answered':':asked');
+    if(bar.dataset.question===state)return;
+    bar.dataset.question=state;bar.replaceChildren();
+    const make=(href,label,cls)=>{const a=document.createElement('a');a.target='_blank';a.rel='noopener';a.href=href;a.textContent=label;if(cls)a.className=cls;bar.appendChild(a);return a;};
+    if(pointer){
+      const lead={picture:'\uD83D\uDDBC\uFE0F Picture: ',section:'\uD83D\uDCD6 Guide: ',module:'\uD83D\uDCDA Module guide: '}[pointer[2]]||'\uD83D\uDCD6 Guide: ';
+      const a=make(new URL(pointer[0],base),answered?lead+pointer[1]:'\uD83D\uDCCD Where this is taught','guide-pointer');
+      a.setAttribute('aria-label',answered?'Open your guide: '+pointer[1]:'Open the place in your guides that teaches this');
+    }
+    if(row[2])make(row[2][0],answered?'Watch \u00B7 '+row[2][1]:'\u25B6 Watch a recording on this','watch');
   }
   function scan(){
     scheduled=false;if(!catalog||!document.body)return;
@@ -178,7 +189,8 @@
     new MutationObserver(changes=>{
       if(changes.some(c=>!c.target.closest?.('.quiz-study-links')&&(!c.addedNodes.length||[...c.addedNodes].some(n=>!n.classList?.contains('quiz-study-links')))))schedule();
     }).observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['class']});
-    fetch(new URL('assets/quiz-study/question-links.json',base)).then(r=>{if(!r.ok)throw Error(r.status);return r.json();}).then(d=>{catalog=d;schedule();}).catch(()=>{});
+    const get=name=>fetch(new URL('assets/quiz-study/'+name,base)).then(r=>{if(!r.ok)throw Error(r.status);return r.json();});
+    Promise.all([get('question-links.json'),get('guide-pointers.json').catch(()=>({}))]).then(([d,p])=>{catalog=d;pointers=p||{};schedule();}).catch(()=>{});
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
 })();
