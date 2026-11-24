@@ -111,6 +111,10 @@ def load_questions():
                 # item whose "answers" are the rows marked in the first column
                 q = dict(q, q=plain(q.get('stem') or ''), opts=[r['text'] for r in q.get('rows', [])],
                          ans=[i for i, r in enumerate(q.get('rows', [])) if r.get('answer') == 0])
+            elif q.get('type') == 'dropdown' and not q.get('q') and q.get('src', '').startswith("Caroline's"):
+                # her own drop-down items (24 Nov on): the stem is the question, the right gap choices the answer
+                q = dict(q, q=plain(q.get('stem') or ''), opts=[g['options'][g['answer']] for g in q.get('gaps', [])],
+                         ans=list(range(len(q.get('gaps', [])))))
             hit = ids_for(q.get('q'))
             fresh = not hit and q.get('q') and isinstance(q.get('opts') or q.get('o'), list)
             if fresh:
