@@ -3,8 +3,9 @@
 
     python3 tools/build-spotify-library.py                  write the six spotify-*.html pages
     python3 tools/build-spotify-library.py --check          exit 1 if a page is out of date
-    python3 tools/build-spotify-library.py --xlsx IN OUT    also add a "<class> Spotify" tab per class
-                                                            to a copy of her workbook
+    python3 tools/build-spotify-library.py --xlsx IN OUT    also add a "<class> YouTube" tab per class (and a
+                                                            "<class> Spotify" tab where one is missing) to a copy
+                                                            of her workbook
 
 She asked for the show's episodes "on their own page per class and organized by class,
 exam, module", and "I don't want them on the same page as ones that I have the full copy
@@ -15,6 +16,13 @@ The data is tools/spotify-episodes.json: 260 episodes read from the show's publi
 and its Spotify for Creators profile (which carries each episode's open.spotify.com link),
 each given a class and module by topic. Edit the JSON to move an episode, then re-run this,
 wire-back-links.py and build-search-index.py.
+
+YouTube (Caroline, 24 Nov 2026: "would also like a sheet with youtube links since not everyone has
+spotify"). The show is not on YouTube, so each episode's "youtube" is a video on the same topic from a
+nursing-education channel, picked by topic and checked by hand; textbook-chapter episodes point at Last
+Minute Lecture's video for the same chapter. "audio" is the episode's own MP3 from the public feed, which
+plays in any browser with no Spotify app or account. Both show on the pages and in the "<class> YouTube"
+tabs. Her Spotify tabs carry a "Listen" column she has had since 31 Oct; --xlsx leaves them as they are.
 """
 import copy, html, json, os, sys
 
@@ -23,6 +31,8 @@ DATA = os.path.join(R, 'tools', 'spotify-episodes.json')
 ORDER = ['NUR 125', 'NUR 198', 'NUR 234', 'NUR 235', 'NUR 258', 'Pharmacology']
 TAB = {'NUR 125': 'NUR125 Spotify', 'NUR 198': 'NUR198 Spotify', 'NUR 234': 'NUR234 Spotify',
        'NUR 235': 'NUR235 Spotify', 'NUR 258': 'NUR258 Spotify', 'Pharmacology': 'Pharm Spotify'}
+YTAB = {k: v.replace(' Spotify', ' YouTube') for k, v in TAB.items()}
+yt = lambda x: 'https://www.youtube.com/watch?v=' + x['youtube']['id']
 MON = 'Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec'.split()
 e = lambda s: html.escape(str(s), quote=True)
 
@@ -71,6 +81,17 @@ details.mod ol{list-style:none;margin:0;padding:0 10px 10px}
 .ep .tx{flex:1 1 auto;min-width:0}
 .ep .tt{display:block;font-weight:700;overflow-wrap:break-word}
 .ep .mt2{display:block;font-size:.9rem;color:var(--muted)}
+.alt{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 0 48px}
+.alt a{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:6px 12px;border-radius:10px;font-size:.95rem;
+ font-weight:700;text-decoration:none;color:#fff;border:1px solid var(--line);background:rgba(255,255,255,.06);max-width:100%}
+.alt a{flex-wrap:wrap}
+.alt a b{white-space:nowrap}
+.alt a .ch{font-weight:400;color:var(--soft);overflow-wrap:anywhere}
+.alt a.yt{border-color:rgba(255,59,107,.75);background:rgba(255,59,107,.20)}
+.alt a.au{border-color:rgba(0,194,199,.7);background:rgba(0,194,199,.16)}
+.alt a:hover{background:rgba(255,255,255,.16)}
+.alt a:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+@media (max-width:420px){.alt{margin-left:0}}
 .foot{font-size:.9rem;color:var(--muted);margin-top:24px}
 @media print{details.mod{break-inside:avoid}.bar,.chips{display:none}}
 '''
@@ -129,19 +150,27 @@ def page(doc, cls):
             for x in items:
                 body.append('<li><a class="ep" href="%s" target="_blank" rel="noopener">'
                             '<span class="pl" aria-hidden="true">&#9654;</span><span class="tx"><span class="tt">%s</span>'
-                            '<span class="mt2">%d min &middot; %s &middot; opens Spotify</span></span></a></li>' % (
-                                e(x['spotify']), e(x['title']), x['minutes'], when(x['published'])))
+                            '<span class="mt2">%d min &middot; %s &middot; opens Spotify</span></span></a>'
+                            '<div class="alt"><a class="yt" href="%s" target="_blank" rel="noopener" title="%s">'
+                            '<b>&#9654; YouTube</b> <span class="ch">%s &middot; %d min</span></a>'
+                            '<a class="au" href="%s" target="_blank" rel="noopener">&#127911; Play without Spotify</a></div></li>' % (
+                                e(x['spotify']), e(x['title']), x['minutes'], when(x['published']),
+                                e(yt(x)), e(x['youtube']['title']), e(x['youtube']['channel']), x['youtube']['minutes'],
+                                e(x['audio'])))
             body.append('</ol></details>')
         body.append('</section>')
     return ('<!DOCTYPE html>\n<html lang="en"><head>\n<meta charset="UTF-8"><link rel="icon" href="favicon.ico" sizes="any">'
             '<link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32"><link rel="apple-touch-icon" href="favicon-180.png">\n'
             '<meta name="viewport" content="width=device-width,initial-scale=1">\n'
             '<title>%s Podcast Episodes &middot; Learn Nursing 101 &middot; ABSN Study Hub</title>\n'
-            '<meta name="description" content="Learn Nursing 101 podcast episodes for %s %s, sorted by exam and module, each a link to Spotify.">\n'
+            '<meta name="description" content="Learn Nursing 101 podcast episodes for %s %s, sorted by exam and module, each a link to Spotify, with a YouTube video on the same topic and a no-Spotify audio link.">\n'
             '<style>%s</style>\n</head>\n<body>\n<div class="wrap">\n'
             '<h1>&#127911; %s podcast episodes</h1>\n'
             '<p class="lede"><b>%d episodes</b> of <a href="%s" target="_blank" rel="noopener">Learn Nursing 101</a> (LN101) '
             'that match <b>%s &middot; %s</b>, sorted by exam and module. Each one is a link that opens Spotify.</p>\n'
+            '<p class="note"><b>No Spotify?</b> Under every episode, <b>&#127911; Play without Spotify</b> plays the same episode '
+            'in your browser, and <b>&#9654; YouTube</b> opens a video on the same topic from a nursing teaching channel '
+            '(the show itself is not on YouTube).</p>\n'
             '<p class="note">These are someone else&rsquo;s review podcast, not your class recordings. '
             'Your own recordings are on the <a href="lecture-library.html">Lecture library</a> and <a href="lectures.html">Lectures</a> pages.</p>\n'
             '<p class="lbl">Other classes</p><ul class="chips">%s</ul>\n'
@@ -190,37 +219,72 @@ def write_pages(doc, check):
 
 
 def add_tabs(doc, src, dst):
+    """Add a "<class> YouTube" tab beside each "<class> Spotify" tab. A Spotify tab that is already
+    there is hers and is left alone; one that is missing is written in the same layout."""
     import openpyxl
     from openpyxl.worksheet.hyperlink import Hyperlink
     wb = openpyxl.load_workbook(src)
-    model = wb['NUR234 Exam Reviews']
+    model = wb[TAB['NUR 125']] if TAB['NUR 125'] in wb.sheetnames else None
+    old = wb['NUR234 Exam Reviews']
+
+    def st(cell, kind):
+        if model is not None:
+            ref = {'title': 'A1', 'home': 'A2', 'note': 'C2', 'head': 'A4', 'row': 'C5', 'link': 'F5'}[kind]
+            cell._style = copy.copy(model[ref]._style)
+        else:
+            ref = {'title': 'A1', 'home': 'D2', 'note': 'A2', 'head': 'A5', 'row': 'C6', 'link': 'C6'}[kind]
+            cell._style = copy.copy(old[ref]._style)
+
+    def frame(ws, title, note, heads, widths):
+        ws['A1'] = title; st(ws['A1'], 'title'); ws.merge_cells('A1:%s1' % chr(64 + len(heads) - 1))
+        c = ws['A2']; c.value = '\U0001F3E0 START HERE'; st(c, 'home')
+        c.hyperlink = Hyperlink(ref='A2', location="'START HERE'!A1"); c.hyperlink.display = c.value
+        ws['C2'] = note; st(ws['C2'], 'note')
+        for col, h in enumerate(heads, 1):
+            ws.cell(4, col).value = h; st(ws.cell(4, col), 'head')
+        for col, w in zip('ABCDEFGH', widths):
+            ws.column_dimensions[col].width = w
+        ws.freeze_panes = 'A5'
+
+    def rows(cls):
+        meta = doc['classes'][cls]
+        for exam, grp in grouped(doc, cls):
+            for m, items in grp:
+                for x in items:
+                    yield exam, ('M%d - %s' % (m, meta['modules'][str(m)])) if m else 'Not tied to one module', x
+
+    q = lambda t: str(t).replace('"', "'")
     for cls in ORDER:
-        name = TAB[cls]
+        short = cls.replace(' ', '') if cls != 'Pharmacology' else 'Pharmacology'
+        if TAB[cls] not in wb.sheetnames:
+            ws = wb.create_sheet(TAB[cls])
+            frame(ws, '%s  \u00b7  Learn Nursing 101 podcast (Spotify links)' % short,
+                  "Not your own recordings - someone else's review podcast, kept apart from your lecture tabs.",
+                  ['Exam', 'Module', 'Episode', 'Minutes', 'Published', 'Listen'], (17, 49, 74, 14, 14, 20))
+            r = 5
+            for exam, mod, x in rows(cls):
+                for col, v in enumerate([exam, mod, x['title'], x['minutes'], when(x['published']),
+                                         '=HYPERLINK("%s","\u25b6 Listen")' % x['spotify']], 1):
+                    ws.cell(r, col).value = v; st(ws.cell(r, col), 'link' if col == 6 else 'row')
+                r += 1
+        name = YTAB[cls]
         if name in wb.sheetnames:
             del wb[name]
         ws = wb.create_sheet(name)
-        ws['A1'] = '%s  ·  Learn Nursing 101 podcast (Spotify links)' % cls.replace(' ', '')
-        ws['A1']._style = copy.copy(model['A1']._style)
-        ws.merge_cells('A1:E1')
-        c = ws['A2']; c.value = '🏠 START HERE'; c._style = copy.copy(model['D2']._style)
-        c.hyperlink = Hyperlink(ref='A2', location="'START HERE'!A1"); c.hyperlink.display = c.value
-        ws['C2'] = 'Not your own recordings - someone else\'s review podcast, kept apart from your lecture tabs.'
-        for col, h in enumerate(['Exam', 'Module', 'Episode', 'Minutes', 'Published'], 1):
-            ws.cell(4, col).value = h; ws.cell(4, col)._style = copy.copy(model.cell(5, min(col, 4))._style)
+        wb.move_sheet(ws, wb.sheetnames.index(TAB[cls]) + 1 - wb.sheetnames.index(name))
+        frame(ws, '%s  \u00b7  YouTube (same topics as the Learn Nursing 101 podcast)' % short,
+              'No Spotify needed. The podcast is not on YouTube, so each row is a video on the same topic from a '
+              'nursing teaching channel. "Play audio" plays the podcast episode itself in any browser.',
+              ['Exam', 'Module', 'Topic (podcast episode)', 'YouTube video', 'Channel', 'Minutes', 'Watch', 'No Spotify'],
+              (12, 40, 52, 56, 22, 10, 14, 16))
         r = 5
-        meta = doc['classes'][cls]
-        for exam, rows in grouped(doc, cls):
-            for m, items in rows:
-                for x in items:
-                    vals = [exam, ('M%d - %s' % (m, meta['modules'][str(m)])) if m else 'Not tied to one module',
-                            '=HYPERLINK("%s","%s")' % (x['spotify'], x['title'].replace('"', "'")), x['minutes'], when(x['published'])]
-                    for col, v in enumerate(vals, 1):
-                        ws.cell(r, col).value = v
-                        ws.cell(r, col)._style = copy.copy(model.cell(6, {1: 1, 2: 2, 3: 3, 4: 4, 5: 4}[col])._style)
-                    r += 1
-        for col, w in zip('ABCDE', (12, 34, 70, 10, 12)):
-            ws.column_dimensions[col].width = w
-        ws.freeze_panes = 'A5'
+        for exam, mod, x in rows(cls):
+            y = x['youtube']
+            vals = [exam, mod, x['title'], y['title'], y['channel'], y['minutes'],
+                    '=HYPERLINK("%s","\u25b6 Watch")' % yt(x), '=HYPERLINK("%s","\U0001F3A7 Play audio")' % q(x['audio'])]
+            for col, v in enumerate(vals, 1):
+                ws.cell(r, col).value = v; st(ws.cell(r, col), 'link' if col >= 7 else 'row')
+            r += 1
     wb.save(dst)
 
 
@@ -231,7 +295,7 @@ def main():
     if '--xlsx' in sys.argv:
         i = sys.argv.index('--xlsx')
         add_tabs(doc, sys.argv[i + 1], sys.argv[i + 2])
-        print('wrote %s with %d Spotify tabs' % (sys.argv[i + 2], len(ORDER)))
+        print('wrote %s with %d YouTube tabs' % (sys.argv[i + 2], len(ORDER)))
     if check:
         print('%d page(s) stale' % len(stale)); sys.exit(1 if stale else 0)
     print('%d episodes; %s' % (len(doc['episodes']), ('wrote ' + ', '.join(stale)) if stale else 'pages current'))

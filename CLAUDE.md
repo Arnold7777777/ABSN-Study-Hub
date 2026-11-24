@@ -414,6 +414,13 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
   adds a "<class> Spotify" tab per class to a copy of her workbook. `build-lecture-library.py` skips any tab
   ending " Spotify", so they never reach `lecture-library.html`; never card them on `lectures.html` either.
   Move an episode by editing the JSON, never the pages.
+  **No Spotify? YouTube** (Caroline, 24 Nov: "would also like a sheet with youtube links since not everyone has
+  spotify"). The show is not on YouTube. Each episode in the JSON carries `youtube` (a same-topic video from a nursing
+  teaching channel, checked by hand; textbook-chapter episodes use Last Minute Lecture's video for that chapter) and
+  `audio` (the episode's own MP3 from the public feed, plays in any browser). The pages show both under each episode;
+  `--xlsx` writes a "<class> YouTube" tab beside each Spotify tab and leaves her Spotify tabs (with their "Listen"
+  column) alone. `build-lecture-library.py` skips " YouTube" tabs too. START HERE lists each course's Spotify, YouTube
+  and Online tabs under the course, plus a Pharmacology block; the Zoom-backups cell is B54 now.
 - **The "<class> Online" workbook tabs** (Caroline, 24 Nov: "look for youtube and spotify playlists about the nursing
   courses ... a separate sheet ... for each course ... esp stuff about textbook chapters"). NUR175/198/234/235/258 Online
   are written by `python3 tools/build-online-tabs.py --xlsx IN OUT` from `tools/online-playlists.json`; `--verify` re-checks

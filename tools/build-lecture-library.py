@@ -266,7 +266,7 @@ def read_rows(wb):
         # The "<class> Spotify" tabs are links to someone else's podcast; she wants
         # them on pages of their own, never mixed in with her recordings (31 Oct).
         # The " Online" tabs (24 Nov) are other people's YouTube/Spotify playlists; same rule.
-        if ws.title in SKIP_TABS or ws.title.endswith((' Spotify', ' Online')):
+        if ws.title in SKIP_TABS or ws.title.endswith((' Spotify', ' Online', ' YouTube')):
             continue
         hdr = {}
         for c in range(1, ws.max_column + 1):

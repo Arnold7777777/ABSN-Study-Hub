@@ -163,6 +163,8 @@ Many blocks on these pages are written by scripts in `tools/`. They are matched 
 - **Never touch her live Google Sheet** (`1baCPjAJu0ZQlZdnApl1AdxmHoKJaaS2qr8lRAyZmScA`). She edits it by hand.
 - The **Learn Nursing 101** podcast episodes live only on `spotify-nur125/198/234/235/258/pharmacology.html`.
   She asked that they never share a page with her own recordings.
+  Each episode also carries a same-topic YouTube video and a no-Spotify MP3 link (`tools/spotify-episodes.json`);
+  the workbook gets them as "<class> YouTube" tabs. Edit the JSON and run `tools/build-spotify-library.py`.
 - A new lecture is named `COURSE_TermYear_Lecturer_Wk##_Day#_Description.mp4`, where the `Wk` number is the
   module number. Use `WkNA`/`DayNA` when a field is unknown, and never guess a lecturer.
 - When you hand her a new spreadsheet, give its direct Drive link (`https://drive.google.com/file/d/<id>/view`),
