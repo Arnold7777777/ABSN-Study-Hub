@@ -259,7 +259,10 @@ def render():
     for course, label, sub, jewel in COURSES:
         names = module_names(course)
         got = cap.get(course, {})
-        total += sum(len(v) for v in got.values())
+        # a session carded under two modules (an exam prep covering M11 and M12)
+        # is one session: count each Drive file once
+        uniq = {r['id'] for v in got.values() for r in v}
+        total += len(uniq)
         rows = []
         for num in sorted(names):
             sess = got.get(num, [])
@@ -278,8 +281,8 @@ def render():
             '<div class="score%s">%d of %d modules &middot; %d session%s</div>\n'
             '<ol class="mods">\n%s\n</ol>\n</section>'
             % (jewel, label, sub, ' done' if done else '', len(got), len(names),
-               sum(len(v) for v in got.values()),
-               '' if sum(len(v) for v in got.values()) == 1 else 's',
+               len(uniq),
+               '' if len(uniq) == 1 else 's',
                '\n'.join(rows)))
     import datetime
     return PAGE % {'total': total, 'ncourse': len(COURSES),

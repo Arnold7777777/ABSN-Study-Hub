@@ -39,6 +39,15 @@ def plural(n, word):
     return '%d %s%s' % (n, word, '' if n == 1 else 's')
 
 
+def nrec(s):
+    """Recordings in a block of lectures.html, each Drive file once.
+
+    A session that covers two modules is carded under both (the NUR 258 Exam 5
+    review, the NUR 198 Exam 4 and Exam 5 LSC preps), so counting cards would
+    overstate a course's total. Count distinct links instead."""
+    return len(set(re.findall(r'<a class="rec" href="([^"]+)"', s)))
+
+
 def _div_block(s, start):
     """The source of one <div> and everything nested inside it."""
     depth = 0
@@ -53,16 +62,14 @@ def counts():
     """{nav href: the text its <span class="nsub"> should carry}."""
     out = {}
     lec = read('lectures.html')
-    out['lectures.html'] = '%s, all courses' % plural(
-        len(re.findall(r'<a class="rec"', lec)), 'recording')
+    out['lectures.html'] = '%s, all courses' % plural(nrec(lec), 'recording')
 
     for m in re.finditer(r'<section class="course" id="(nur\d+)"', lec):
         body = lec[m.start():]
         nxt = re.search(r'<section class="course"', body[1:])
         if nxt:
             body = body[:nxt.start() + 1]
-        out['lectures.html#' + m.group(1)] = plural(
-            len(re.findall(r'<a class="rec"', body)), 'recording')
+        out['lectures.html#' + m.group(1)] = plural(nrec(body), 'recording')
 
     # the coverage page states how many LSC sessions are captured; read it back
     # from the page itself so it cannot drift from what the page shows
@@ -97,7 +104,7 @@ def module_counts():
     out = {}
     for m in re.finditer(r'<div class="wk [^"]*" id="(nur\d+-m\d+)"', lec):
         out['lectures.html#' + m.group(1)] = plural(
-            len(re.findall(r'<a class="rec"', _div_block(lec, m.start()))), 'recording')
+            nrec(_div_block(lec, m.start())), 'recording')
     return out
 
 
