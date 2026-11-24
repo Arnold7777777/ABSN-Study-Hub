@@ -179,6 +179,14 @@ with `SendUserFile` or give her the click-by-click fix for Google Sheets. Nav bu
 are easiest restored by copying `D2:E3` from a sibling tab and pasting — the links and
 formatting come with them.
 
+**Every new spreadsheet goes to her with its direct link** (Caroline, 24 Nov: "As a rule, I need the hyperlink
+for the new spreadsheet so I don't have to search"). After uploading an .xlsx to Drive, give her
+`https://drive.google.com/file/d/<new id>/view` in the same message as the import steps, plus the link to the live
+Sheet she imports into. Never just name the file.
+
+**Simmons recorded nothing for NUR 258 Weeks 11 and 12** (Caroline, 24 Nov: she sent her students Halecka's
+lectures). Don't search for them again. `lectures.html` and the Module 11 and 12 pages carry a `simmons-note` saying so.
+
 ## Image tooling: install it, don't assume it is missing
 
 Nothing image-related is preinstalled — no PIL, no ImageMagick, no `cwebp`, no
