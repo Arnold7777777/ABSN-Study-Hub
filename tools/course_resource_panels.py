@@ -131,7 +131,10 @@ def make_panel(course, groups, prefix='', fundamentals_slides=None):
         lists.append(f'<details id="decks-{slug(group).replace("/","-")}"><summary>{escape(group)} · {len(groups[group])} {name}</summary><ul>{items}</ul></details>')
     guide_heading = 'Exam study guides' if course==125 else 'Simple exam guides'
     fuller = link(library+'#original-course-powerpoints','Fuller lectures and matching PowerPoints') if course == 235 else ''
-    return (f'<section class="course-resources" id="course-study-resources" aria-label="NUR {course} exam guides and PowerPoints">'
+    # Current semester navigation is maintained by organize-semester-pages.py.
+    # Keep this full catalogue below the ordered exam/module sections.
+    panel_id = 'all-course-resources' if course in (234,235,258) else 'course-study-resources'
+    return (f'<section class="course-resources" id="{panel_id}" aria-label="NUR {course} exam guides and PowerPoints">'
             f'<div class="resource-heads"><div><h2>{guide_heading}</h2><div class="resource-buttons">{guides}</div></div>'
             f'<div><h2 id="quick-powerpoints">Course PowerPoints</h2><div class="resource-buttons ppt-access">'
             f'{fuller}{link(library, "Open slide library")}'

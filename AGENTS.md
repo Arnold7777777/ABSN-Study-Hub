@@ -95,6 +95,24 @@ Many blocks on these pages are written by scripts in `tools/`. They are matched 
   ```
 - Fix a game item by its `id` and keep the id, or her saved progress detaches.
 
+## Current semester navigation and public exam dates
+
+- NUR 234, 235 and 258 landing pages start with exam number, then numeric module order.
+  File topic features inside their module; brachytherapy belongs in NUR 258 Exam 4, Module 10.
+  Keep course-wide tools and the full slide catalogue after the exam sections.
+- `tools/organize-semester-pages.py` owns the `#course-study-resources.semester-overview` blocks.
+  It preserves the existing resource HTML and anchors. Re-run it after changing module labels or dates.
+- The public exam calendar uses the reviewed snapshot `assets/calendar/fall-2026.json`.
+  Caroline authorized publishing course exam dates only. Never store raw private calendar exports,
+  calendar IDs, personal events, credentials, or private feed URLs in this repository.
+- Refresh from connected Google Calendar and its Canvas calendar, reconcile newer dated entries
+  against old TBA placeholders, retain testing windows, and label due times as deadlines.
+  Keep stable public event IDs and update `checkedOn`. This is a manual snapshot, not live private-calendar sync.
+- After refreshing dates run `tools/build-exam-calendar.py`, `tools/organize-semester-pages.py`,
+  `tools/wire-back-links.py`, and `tools/build-search-index.py`. Verify public ICS date ranges use
+  an exclusive end date. Absolute site URLs are needed inside the downloadable calendar and Google
+  Calendar event descriptions; ordinary links between website pages remain relative.
+
 ## Lectures and podcasts
 
 - `lectures.html` is the complete list of her recordings. `lecture-library.html` mirrors her
