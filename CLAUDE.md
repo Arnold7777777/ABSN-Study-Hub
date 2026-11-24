@@ -55,6 +55,10 @@ indexed). When a search has no hits, `spellFix()` in `index.html` swaps each wor
 nowhere for the closest word in the index (one letter off for 5–7 letters, two for 8+, ties to the
 most common word) and says "showing results for …". That runs before the filler-word narrowing.
 
+Results show a picture (Caroline, 24 Nov): `tools/resource_search.py` gives each infographic entry its
+gallery preview (`i`, `iw`, `ih`) and each lecture its Drive thumbnail; `index.html`'s `thumb()` draws it in a
+fixed-height box (170px, 220px on a computer) so nothing jumps. Podcasts get none. Rebuild the index after adding cards.
+
 ## A new lecture: four things, every time
 
 Her rule, stated 28 Sep. Do all four or the lecture is only half filed.

@@ -104,6 +104,8 @@ Many blocks on these pages are written by scripts in `tools/`. They are matched 
   python3 tools/check-duplicate-ids.py
   python3 tools/build-search-index.py      # nothing is searchable until it is in search-index.json
   ```
+- Search results show a picture (Caroline, 24 Nov): `tools/resource_search.py` stores each infographic's gallery
+  preview and each lecture's Drive thumbnail in `resource-search.json`; `index.html` draws it in a fixed-height box.
 - Fix a game item by its `id` and keep the id, or her saved progress detaches.
 
 ## Current semester navigation and public exam dates
