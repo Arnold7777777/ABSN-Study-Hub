@@ -1,7 +1,7 @@
-"""Build the simple exam reviews from the course outlines and selected study cases.
+"""Build complete concise reviews, retaining original study cases and visuals.
 
 Run this script, then wire-back-links.py and build-search-index.py. The published
-NUR 258 Exam 4 guide is the original document conversion and is kept separately.
+NUR 258 Exam 4 conversion is preserved beneath its generated concise reader.
 """
 from pathlib import Path
 from html import escape
@@ -11,6 +11,7 @@ import json
 import re
 from course_powerpoints import FEATURED, panel as powerpoint_panel, shortcut
 from study_outline import study_list, answer_list
+from concise_guides import enhance
 
 from bs4 import BeautifulSoup
 from PIL import Image
@@ -88,10 +89,11 @@ def handout(course, name, note=''):
             continue
         if card.get('data-kind') not in ('pdf','sn'): continue
         image=card.select_one('a.sn-inline-image img, a.deckplate.snprev img')
-        original=card.select_one('a.sn-inline-source, a.deckplate.snprev[href*="drive.google.com"]')
+        original=card.select_one('a.sn-inline-source, a.deckplate.snprev')
         if image and original:
+            target=original['href'] if urlsplit(original['href']).scheme else '../'+original['href']
             return figure('../'+image['src'],image['width'],image['height'],'Simple Nursing handout: '+name,
-                          original['href'],'Simple Nursing original · '+name+('. '+note if note else ''))
+                          target,'Simple Nursing original · '+name+('. '+note if note else ''))
     raise ValueError(f'No verified handout for {course}: {name}')
 
 def memory(key):
@@ -218,7 +220,8 @@ def render(ex):
     parts[0]=parts[0].replace('</head>', '<link rel="stylesheet" href="../assets/study-reviews/powerpoints.css"><link rel="stylesheet" href="../assets/study-reviews/guide-outline.css"></head>')
     if course in FEATURED and FEATURED[course][0]==exam:parts.insert(2,powerpoint_panel(course,'../'))
     html = '\n'.join(parts)+'\n'
-    return re.sub(r'<dd>([^<>]+)</dd>', lambda m: '<dd>'+answer_list(m[1])+'</dd>', html)
+    html = re.sub(r'<dd>([^<>]+)</dd>', lambda m: '<dd>'+answer_list(m[1])+'</dd>', html)
+    return enhance(html, course, exam, handout, memory)
 
 def exams_for(course):
     return [str(n) for n in range(1,6 if course=='258' else 5)]+['F']
@@ -228,3 +231,7 @@ if __name__=='__main__':
         path=REVIEWS/filename(exam['course'],exam['exam'])
         path.write_text(render(exam),encoding='utf-8')
         print(path.name)
+    # Preserve the original document conversion, adding the same complete reader.
+    path = REVIEWS / 'nur258-exam4-simple.html'
+    path.write_text(enhance(path.read_text(encoding='utf-8'), '258', '4', handout, memory), encoding='utf-8')
+    print(path.name)

@@ -113,6 +113,30 @@ Many blocks on these pages are written by scripts in `tools/`. They are matched 
   an exclusive end date. Absolute site URLs are needed inside the downloadable calendar and Google
   Calendar event descriptions; ordinary links between website pages remain relative.
 
+## Concise exam guides (NUR 234, 235, 258)
+
+- Cover every Content Review / Key Concept Review item, not a sample of flashcards.
+  `tools/concise-topics-234.json`, `-235.json`, and `-258.json` hold the sourced
+  topic cards; grouped cards list every original item in `covers`.
+- Keep each card brief: **Recognize / Act / Remember**, usually 35–65 words total.
+  Keep safety qualifiers and key exam distinctions even when extra words are needed.
+- Use official module numbers. NUR 234 Module 11 includes postpartum family and
+  newborn nutrition; Module 12 is postpartum complications; Module 13 is normal
+  and high-risk newborn care. Legacy module page numbers differ.
+- `tools/concise_guides.py` and `assets/study-reviews/concise.css` / `concise.js`
+  provide search, the full checklist, optional single-topic viewing, and browser-only
+  progress. Keep stable topic IDs so exam and final checks stay connected.
+- Keep matching original handouts and original memory visuals with their topic,
+  behind an inline Pictures + handout disclosure. Clearly identify missing matches.
+  Preserve the existing guide and practice material below the concise cards.
+- Run `build-simple-exams.py`, `wire-back-links.py`, `check-concise-guides.py`,
+  and the standard checks after edits. NUR 258 Exam 4's original conversion must
+  remain intact; the builder updates only its marked concise block.
+- Module 11 reproductive illustrations are placed by `wire-module11-inline-visuals.py`
+  from `module11-inline-placements.json`. Keep its marked figures beside their
+  subject; do not shrink them into thumbnails or add another preview disclosure.
+  Preserve original galleries and source/attribution links. Run its `--check` too.
+
 ## Lectures and podcasts
 
 - `lectures.html` is the complete list of her recordings. `lecture-library.html` mirrors her
