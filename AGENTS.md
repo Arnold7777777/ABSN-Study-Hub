@@ -183,3 +183,13 @@ Many blocks on these pages are written by scripts in `tools/`. They are matched 
 
 - Stage explicit paths. Never `git add -A`, so half-finished edits don't get published.
 - Claude also commits to `main` on this repo. Pull before you push.
+
+- **A recording carded under two modules counts once** (24 Nov). An exam prep that covers M11 and M12 is carded
+  in both module blocks on `lectures.html`; `refresh-nav-counts.py` counts distinct `<a class="rec">` links for the
+  course and site totals, and `build-lsc-coverage.py` counts distinct Drive ids for its session totals. A module's own
+  "N recordings" heading still counts every card in it. Counting cards had put NUR 258 four over.
+- **Questions written from lecture transcripts** carry a `src` naming the recording ("NUR 258 Exam 5 review session
+  recording (24 Nov)", "NUR 258 Week 12 lecture (Halecka, 19 Nov): ..."). Read the `.srt` from Drive, key the textbook
+  where the speaker disagrees (Halecka called trichomoniasis fungal and heat-stroke sodium low; neither went in), and
+  add each question to all of its copies: the course quiz, the module bank (`nur258-qbank.js` or the NUR 235 module
+  page's `#qbank`) and the Mega Quiz, then `build-quiz-pointers.py --compile`.
