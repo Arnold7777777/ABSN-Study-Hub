@@ -34,12 +34,14 @@ def cards(g):
     """The clip cards, in registry order."""
     out = []
     for c in g['clips']:
+        kind = c.get('media_kind') or ('audio' if re.search(r'\.(m4a|mp3|wav|ogg)$', c['file'], re.I) else 'video')
+        label = 'Listen' if kind == 'audio' else 'Watch'
         out.append(
             '<a class="rec" href="https://drive.google.com/file/d/%s/view" '
             'target="_blank" rel="noopener" title="%s">'
             '<span class="pl" aria-hidden="true">&#9654;&#65039;</span>'
-            '<span class="rt">%s<span class="rl">%s</span></span></a>'
-            % (c['id'], c['file'], c['title'], c['len']))
+            '<span class="rt">%s &middot; %s<span class="rl">%s</span></span></a>'
+            % (c['id'], c['file'], label, c['title'], c['len']))
     return ''.join(out)
 
 
@@ -183,6 +185,9 @@ def main():
                 if not CHECK:
                     open(f, 'w').write(s)
         f, n, page_changed = wire_page(g)
+        for related in g.get('related_pages', []):
+            _, _, related_changed = wire_page(dict(g, page=related))
+            page_changed = page_changed or related_changed
         libn, lib_changed = wire_library(g)
         changed = page_changed or lib_changed or relocated
         pending += 1 if changed else 0

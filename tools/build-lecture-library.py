@@ -36,7 +36,7 @@ ZOOM_CELL = "'START HERE'!$B$36"
 # every exam-review row gets the wrong module's subject.
 NUM = re.compile(r'\b(?:module|week|wk|m)\s*0?(\d{1,2})\b', re.I)
 PLAYLIST = re.compile(r'\.(m3u8?|xspf)(\?|$)|playlists\.html#pl-', re.I)
-GENERIC = re.compile(r'^\W*(watch|open|play|link|view|recording)\s*$', re.I)
+GENERIC = re.compile(r'^\W*(watch|listen|open|play|link|view|recording)\s*$', re.I)
 SKIP_TABS = {'START HERE', 'Sheet1', 'Study by Exam'}  # navigation index; source tabs supply the recording cards
 
 # Three handouts were linked through cdn.fbsbx.com - Facebook CDN URLs carrying an
@@ -453,6 +453,8 @@ def display_title(row, wk, tab):
 
 
 def term_of(row):
+    if row.get('term'):
+        return row['term']
     d = chip(row, 'Date')
     if not d or re.match(r'^\d{4}-\d{2}-\d{2}$', d):
         m = CONVENTION.match(row['title'] or '')
@@ -471,6 +473,7 @@ def record(tab, row, sec, course_code, course_label, wk):
     doc = (typ in ('PDF', 'PPTX', 'POWERPOINT', 'DOCX') or fid in DEAD_LINKS.values()
            or bool(DOC_EXT.search(row['title'] or '')))
     title, raw = display_title(row, wk, tab)
+    title = row.get('display_title') or title
     # a VLC playlist (20 Oct, NUR234 Review videos) is a link to many recordings, not one
     # ... and so is a row she labels "... playlist" that links the .m3u8 through Drive's viewer
     # (Codex's NUR 235 Exam 3 part-lists, 1 Nov), whose URL carries no .m3u8
@@ -487,6 +490,8 @@ def record(tab, row, sec, course_code, course_label, wk):
     return {'tab': tab, 'row': row, 'sec': sec, 'id': fid, 'url': url, 'doc': doc, 'pls': pls, 'cat': cat,
             'course': course_code, 'clabel': course_label, 'wk': wk, 'title': title, 'raw': raw,
             'who': who, 'day': chip(row, 'Day'), 'exam': chip(row, 'Exam'),
+            'media_kind': row.get('media_kind') or ('audio' if re.search(r'\.(m4a|mp3|wav|ogg)$', raw, re.I) else 'video'),
+            'resources': list(row.get('resources', [])),
             'terms': [term_of(row)], 'days': [chip(row, 'Day')], 'notes': [row['note']] if row['note'] else [],
             'note_links': [(row['note_url'], row['note'])] if row.get('note_url') else [],
             'raws': [raw] if raw else [], 'chips': list(row['chips']),
@@ -509,6 +514,9 @@ def merge(recs):
         a['terms'] += r['terms']; a['days'] += r['days']
         a['notes'] += [n for n in r['notes'] if n not in a['notes']]
         a['note_links'] += [n for n in r['note_links'] if n not in a['note_links']]
+        a['resources'] += [n for n in r['resources'] if n not in a['resources']]
+        if r['media_kind'] == 'audio':
+            a['media_kind'] = 'audio'
         a['raws'] += [x for x in r['raws'] if x not in a['raws']]
         a['chips'] += r['chips']
         a['merged'] = a.get('merged', 1) + 1
@@ -575,16 +583,20 @@ def card(r, esc, topic, seen_ids):
     if unsure:
         badges.append('<span class="c warn">Needs verification</span>')
     o.append('<p class="chips">%s</p>' % ''.join(badges))
+    o.append('<div class="lr-actions">')
     if r['doc']:
         o.append('<a class="play doc" href="%s" target="_blank" rel="noopener">&#128196; Open document</a>'
                  % esc(r['url']))
     elif r.get('pls'):
         o.append('<a class="play" href="%s">&#127911; Play in VLC</a>' % esc(r['url']))
     else:
-        o.append('<a class="play" href="%s" target="_blank" rel="noopener">&#9654;&#65039; Play on Drive</a>'
-                 % esc(r['url']))
+        o.append('<a class="play" href="%s" target="_blank" rel="noopener">&#9654; %s</a>'
+                 % (esc(r['url']), 'Listen' if r['media_kind'] == 'audio' else 'Watch'))
     for href, label in r.get('note_links', []):
         o.append('<a class="play" href="%s">%s</a>' % (esc(href), esc(label)))
+    for resource in r.get('resources', []):
+        o.append('<a class="play doc" href="%s">%s</a>' % (esc(resource['href']), esc(resource['label'])))
+    o.append('</div>')
     det = []
     if r['raws'] and any(x != r['title'] for x in r['raws']):
         det.append('<p><b>File name%s:</b> %s</p>' % ('s' if len(r['raws']) > 1 else '',
