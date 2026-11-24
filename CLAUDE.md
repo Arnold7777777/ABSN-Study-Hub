@@ -397,6 +397,14 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
   adds a "<class> Spotify" tab per class to a copy of her workbook. `build-lecture-library.py` skips any tab
   ending " Spotify", so they never reach `lecture-library.html`; never card them on `lectures.html` either.
   Move an episode by editing the JSON, never the pages.
+- **The "<class> Online" workbook tabs** (Caroline, 24 Nov: "look for youtube and spotify playlists about the nursing
+  courses ... a separate sheet ... for each course ... esp stuff about textbook chapters"). NUR175/198/234/235/258 Online
+  are written by `python3 tools/build-online-tabs.py --xlsx IN OUT` from `tools/online-playlists.json`; `--verify` re-checks
+  every link live (YouTube playlist page, Spotify page) and refreshes title, channel and size. Her textbooks come first:
+  Last Minute Lecture's chapter-by-chapter series for Brunner & Suddarth 15th and Pillitteri 9th (its chapter 1 is
+  Pillitteri's "A Framework for Maternal & Child Health Nursing"); no Videbeck series exists, so NUR 175 gets Varcarolis
+  with a note saying so. `build-lecture-library.py` skips tabs ending " Online" like " Spotify". Edit the JSON, never the
+  tabs. YouTube refuses the odd request at random, so a link only counts as dead after three tries.
 - **Every page has the up arrow** (Caroline, 11 Nov: "make all the stuff have up arrows"). The purple
   back-to-top button comes from `absn-hidebar.js`, or `absn-top.js` where hidebar is not loaded; ~230 Codex
   pages (study-reviews, transcripts, pediatric-visuals, visual-mnemonics, course-materials, modules-1-7
