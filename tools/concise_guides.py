@@ -106,7 +106,7 @@ def card(topic, course, handout, memory):
     source = topic['source']
     covers = topic.get('covers', [])
     coverage = '<p class="sg-covers">Covers: ' + e(' · '.join(covers)) + '</p>' if len(covers) > 1 else ''
-    sn = handout(course, topic['sn'], topic.get('sn_note', '')) if topic.get('sn') else '<p class="sg-missing">No matching original Simple Nursing handout found in the current library.</p>'
+    sn = handout(course, topic['sn'], topic.get('sn_note', '')) if topic.get('sn') else '<p class="sg-missing">No picture for this topic yet in the guides.</p>'
     if topic.get('handout'):
         v = topic['handout']; src = href(v['src']); target = href(v.get('href', v['src']))
         caption = v.get('caption', 'Simple Nursing original · ' + v.get('title', topic['title']))

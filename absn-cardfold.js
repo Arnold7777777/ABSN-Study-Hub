@@ -6,7 +6,7 @@
    Nothing is remembered: closed on every load. A link to a card (#id), a search, or
    printing opens what it needs. */
 (function () {
-  var SEL = '.mcard, .atlascard, .ple-dashboard, .ple-visual-atlas';
+  var SEL = '.mcard, .atlascard, .ple-dashboard, .ple-visual-atlas, .semester-overview';   // semester-overview: 'Choose an exam, then a module' (Caroline, 25 Nov: "collapse this stuff by default")
   var css = document.createElement('style');
   css.textContent =
     /* plain block flow, not flex: a card's robot floats right, and a flex box would
