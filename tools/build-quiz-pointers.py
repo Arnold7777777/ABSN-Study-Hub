@@ -106,6 +106,11 @@ def load_questions():
             d = json.loads(s[s.index('=') + 1:].rstrip().rstrip(';'))
         rows = [(wk, q) for wk, v in d.items() for q in v] if isinstance(d, dict) else [(None, q) for q in d]
         for wk, q in rows:
+            if q.get('type') == 'matrix' and not q.get('q'):
+                # a click-a-column grid (24 Nov) keeps its question in "stem"; read it like a choice
+                # item whose "answers" are the rows marked in the first column
+                q = dict(q, q=plain(q.get('stem') or ''), opts=[r['text'] for r in q.get('rows', [])],
+                         ans=[i for i, r in enumerate(q.get('rows', [])) if r.get('answer') == 0])
             hit = ids_for(q.get('q'))
             fresh = not hit and q.get('q') and isinstance(q.get('opts') or q.get('o'), list)
             if fresh:

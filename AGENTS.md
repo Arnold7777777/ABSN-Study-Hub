@@ -106,6 +106,12 @@ Many blocks on these pages are written by scripts in `tools/`. They are matched 
   ```
 - Search results show a picture (Caroline, 24 Nov): `tools/resource_search.py` stores each infographic's gallery
   preview and each lecture's Drive thumbnail in `resource-search.json`; `index.html` draws it in a fixed-height box.
+- **Click-a-column grid questions** (Caroline, 24 Nov: "can you make it a click a column"). `nur258-quiz.html` and
+  `super-mega-quiz.html` carry a `matrix` NGN type beside matching/bowtie: `{"type":"matrix","stem":"<p>…</p>",
+  "cols":["Associated","Not associated"],"rows":[{"text":…,"answer":0}],"why":…}`, a real radio table, one 44px cell
+  per column, graded per row, with her pick and the right column marked after Check. A "Click a column" Style button
+  filters them. `nur258-qbank.js` (the module-page quizzes) has no NGN renderer, so it keeps a select-all copy.
+  `build-quiz-pointers.py` reads a matrix item's `stem` as its question text.
 - Fix a game item by its `id` and keep the id, or her saved progress detaches.
 
 ## Current semester navigation and public exam dates

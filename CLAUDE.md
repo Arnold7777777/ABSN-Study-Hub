@@ -456,6 +456,12 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
   Exam 2, the written-answer cards only. That set's multiple-choice and true/false items are in the
   quizzes (`src` "Caroline's Quizlet set, NUR 234 Exam 2 (20 Oct)"). A card changed to follow her
   textbooks carries a `note` saying so; keep it. Edit the JSON, never the page, then rebuild the search index.
+- **Click-a-column grid questions** (Caroline, 24 Nov: "can you make it a click a column"). `nur258-quiz.html` and
+  `super-mega-quiz.html` carry a `matrix` NGN type beside matching/bowtie: `{"type":"matrix","stem":"<p>…</p>",
+  "cols":["Associated","Not associated"],"rows":[{"text":…,"answer":0}],"why":…}`, a real radio table, one 44px cell
+  per column, graded per row, with her pick and the right column marked after Check. A "Click a column" Style button
+  filters them. `nur258-qbank.js` (the module-page quizzes) has no NGN renderer, so it keeps a select-all copy.
+  `build-quiz-pointers.py` reads a matrix item's `stem` as its question text.
 - **A question that gives a lab value shows its normal range** (Caroline, 21 Oct: "I would like the
   normal values in", then the same day: "I don't need or want the normal vital sign values, just the normal lab
   values"), even where spotting the abnormal value is the point. Blood pressure, pulse, respirations,
