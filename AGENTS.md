@@ -173,6 +173,8 @@ Many blocks on these pages are written by scripts in `tools/`. They are matched 
   give Caroline the names to paste in.
 - When you hand her a new spreadsheet, give its direct Drive link (`https://drive.google.com/file/d/<id>/view`),
   never just its name. She asked for this as a rule on 24 Nov.
+- Every lecture tab shows Exam and Module (Caroline, 25 Nov). Recording tabs start with Exam, then Module (the NUR 258
+  tabs read "Module N", not "Week N"); the Exam Reviews tabs have Module second. Fill both on any row you add.
 - Every workbook row needs a clear topic in Notes (Caroline, 25 Nov). A second row for the same recording copies the
   real file name and topic and says "(same recording as row N)".
 - Simmons recorded no NUR 258 Week 11 or 12 lecture; her students were sent Halecka's. Don't look for them.
