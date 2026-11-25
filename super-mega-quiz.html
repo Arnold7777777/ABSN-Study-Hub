@@ -60,7 +60,11 @@ h1{font-size:clamp(1.7rem,5.6vw,2.6rem);margin:0 0 6px;line-height:1.14;font-wei
 .missbox .misswarn{margin:0 0 10px;padding:10px 12px;border-radius:10px;background:rgba(200,0,49,.35);border:1px solid rgba(255,255,255,.4);color:#fff;font-size:.9rem}
 #card:focus-visible{outline:3px solid var(--gold);outline-offset:4px;border-radius:14px}
 .fbtn.active{background:var(--gold);color:#2a1f00;border-color:#fff2c4}
-.fbtn.dim{opacity:.34;cursor:not-allowed}
+.fbtn.dim{opacity:.6;border-style:dashed;cursor:pointer}
+#fdrawerOn{flex:1 0 100%;margin:4px 0 0;padding:9px 12px;border-radius:12px;background:rgba(255,194,51,.16);border:1px solid rgba(255,194,51,.55);color:#fff3cc;font:600 .95rem/1.45 'Segoe UI',system-ui,sans-serif}
+#fdrawerOn[hidden]{display:none}
+#fdrawerOn b{color:#ffd76a}
+#fdrawerOn .fcleared{display:block;margin-top:4px;color:#b9f5dc}
 .fbtn b{font-weight:900}
 /* The count used to butt straight against the label, so the exam row read
    "Exam 1659" - one number, not "Exam 1" and 659 questions. At the size she
@@ -1309,10 +1313,13 @@ window.NGN = (function(){
       if(!k||v==='all'||k==='count'){ b.classList.remove('dim'); b.disabled=false; return; }
       var n=BANK.filter(function(o){ return passes(o,k) && o[k]===v; }).length;
       b.classList.toggle('dim', n===0);
-      b.disabled = n===0;
+      /* Not disabled (Caroline, 25 Nov: "some stuff is not selectable"). A dimmed chip
+         still takes a tap; the click handler then clears whatever other rows ruled it out. */
+      b.disabled = false;
+
       var base=b.dataset.full||'';
       b.title=(base?base+' — ':'')+
-              (n===0?'nothing left with your other filters':n.toLocaleString()+' question'+(n===1?'':'s'));
+              (n===0?'nothing with your other filters - tap to clear them and use this':n.toLocaleString()+' question'+(n===1?'':'s'));
     });
     var st=document.getElementById('startBtn');
     if(st) st.disabled = pool===0;
@@ -1344,7 +1351,7 @@ window.NGN = (function(){
     Object.keys(pick).forEach(function(k){
       var want=saved.pick[k]; if(!want || !want.length) return;
       [].forEach.call(document.querySelectorAll('.fbtn[data-k="'+k+'"]'),function(b){
-        if(want.indexOf(b.dataset.v)>-1 && !b.disabled && !b.classList.contains('active')) b.click();
+        if(want.indexOf(b.dataset.v)>-1 && !b.disabled && !b.classList.contains('dim') && !b.classList.contains('active')) b.click();
       });
     });
     var box=document.getElementById('customCount');
@@ -1912,6 +1919,19 @@ window.NGN = (function(){
       return;
     }
     var row=b.parentElement, all=row.querySelector('.fbtn[data-v=all]');
+    if(v!=='all' && b.classList.contains('dim') && !b.classList.contains('active')){
+      var gone=[];
+      [].forEach.call(document.querySelectorAll('.fbtn[data-v=all]'),function(a){
+        var k2=a.dataset.k; if(k2===k||k2==='count'||!pick[k2]||!pick[k2].length) return;
+        [].forEach.call(a.parentElement.querySelectorAll('.fbtn.active'),function(x){
+          if(x.dataset.v!=='all') gone.push((x.dataset.full||x.firstChild.textContent||x.textContent).trim()); });
+        pick[k2]=[];
+        [].forEach.call(a.parentElement.querySelectorAll('.fbtn'),function(x){ x.classList.remove('active'); });
+        a.classList.add('active');
+      });
+      window.__smqCleared = gone.length ? 'Cleared '+gone.join(', ')+' so '+
+        (b.dataset.full||b.firstChild.textContent||b.textContent).trim()+' has questions.' : '';
+    } else window.__smqCleared='';
     if(v==='all'){
       [].forEach.call(row.querySelectorAll('.fbtn'),function(x){ x.classList.remove('active'); });
       b.classList.add('active'); pick[k]=[];
@@ -1940,7 +1960,7 @@ window.NGN = (function(){
      hers. */
   window.addEventListener('load', function(){
     var qs = window.location.search;
-    if(!qs || qs.length < 2){ lastNote(restoreLast()); return; }
+    if(!qs || qs.length < 2){ var back=restoreLast(); window.__smqRestored=back; lastNote(back); if(window.__smqTally) window.__smqTally(); return; }
     var p;
     try { p = new URLSearchParams(qs); } catch(e) { return; }
     var questionId=p.get('question');
@@ -1956,7 +1976,7 @@ window.NGN = (function(){
       (p.get(k)||'').split(',').forEach(function(v){
         v = v.trim(); if(!v) return;
         var b = Array.from(document.querySelectorAll('.fbtn')).find(function(el){return el.dataset.k===k && el.dataset.v===v;});
-        if(b && !b.disabled){ b.click(); picked = true; }
+        if(b && !b.disabled && !b.classList.contains('dim')){ b.click(); picked = true; }
       });
     });
     /* ?n=10 picks a count chip (or types a custom number); &start=1 then
@@ -2479,7 +2499,8 @@ function hop(url, closeThis){
     '<button type="button" id="fdrawerReset" hidden aria-label="Clear every filter and go back to all questions">'+
     '<span aria-hidden="true">\u21BA</span> Reset</button>'+
     '<button type="button" id="fdrawerHide" aria-label="Hide the filter panel">'+
-    '<span aria-hidden="true">\u25C0</span> Hide</button>';
+    '<span aria-hidden="true">\u25C0</span> Hide</button>'+
+    '<p id="fdrawerOn" hidden aria-live="polite"></p>';
 
   var done=document.createElement('div'); done.id='fdrawerDone';
   done.innerHTML='<button type="button">\u2713 Show my questions</button>'+
@@ -2628,13 +2649,32 @@ function hop(url, closeThis){
     if(c) c.textContent = n ? n+' on' : '';
     var r=document.getElementById('fdrawerReset');
     if(r) r.hidden = !n;          /* nothing on, nothing to reset */
+    /* Say what is on, at the top. The chips that are on can sit far down the list
+       (a course row scrolled out of view), and the greyed chips made no sense without
+       them (Caroline, 25 Nov: "how come the filters start off like this"). */
+    var on=document.getElementById('fdrawerOn');
+    if(on){
+      var names=[];
+      drawer.querySelectorAll('.fbtn.active:not([data-v="all"])').forEach(function(chip){
+        if(chip.dataset.k==='count') return;
+        names.push((chip.dataset.full||chip.firstChild.textContent||chip.textContent).trim()); });
+      var esc=function(t){ return t.replace(/[&<>]/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]; }); };
+      var html='';
+      if(names.length){
+        html='\uD83D\uDCCC <b>'+(window.__smqRestored?'Kept from your last quiz: ':'On now: ')+'</b>'+esc(names.join(' \u00B7 '))+'.'+
+             (drawer.querySelector('.fbtn.dim')?' Grey buttons have none with these. Tap one to switch to it.':'');
+      }
+      if(window.__smqCleared) html+='<span class="fcleared">\u2705 '+esc(window.__smqCleared)+'</span>';
+      on.innerHTML=html; on.hidden=!html;
+    }
   }
+  window.__smqTally=tally;
   btn.addEventListener('pointerdown',tally);
   btn.addEventListener('focus',tally);
   var resetBtn=document.getElementById('fdrawerReset');
   if(resetBtn) resetBtn.addEventListener('click', resetFilters);
   document.addEventListener('click',function(e){
-    if(e.target.closest('.fbtn')) setTimeout(tally,0); });
+    if(e.target.closest('.fbtn')){ if(e.isTrusted) window.__smqRestored=false; setTimeout(tally,0); } });
   tally();
 
   open();          /* she asked for it open on arrival */
