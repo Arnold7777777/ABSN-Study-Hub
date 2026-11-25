@@ -629,7 +629,7 @@ def render(rows, modmap):
         tab = t['tab']
         for row in t['rows']:
             wk = week_of(tab, row)
-            if tab == 'Exam Reviews (other classes)':
+            if tab in ('Exam Reviews (other classes)', 'Pharm Videos'):  # Pharm Videos: BIO 290V, split out 25 Nov
                 cls = chip(row, 'Class') or 'Other'
                 code, label, sec = cls, cls.replace(' ?', ' (class unconfirmed)'), 'other-classes'
             elif tab in OTHER_CLASS_TABS:
