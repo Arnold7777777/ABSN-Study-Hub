@@ -69,6 +69,13 @@ Her rule, stated 28 Sep. Do all four or the lecture is only half filed.
    number - `NUR235_..._Wk13_DayNA_Renal and genitourinary.mp4` is module 13.
    Rename in Drive with `update_file`: it changes the title and **not** the
    file id, so every link on the site survives.
+   **Since 25 Nov the connector refuses `update_file` on files it did not create**
+   ("OAuth scopes do not allow updating this file"). So make the course-folder copy
+   with `copy_file` under the convention name (that copy stays editable), link the
+   original in Nursing School Videos as it is, and give Caroline the exact names to
+   paste in. `NUR234_Chapter_<n>_(Source).mp4` uploads are Buhler's chapter series
+   (her workbook files Chapters 6, 9 and 11 under Buhler); label them "Buhler (likely)"
+   until a transcript names the speaker.
 2. **A copy in `Nursing School Videos`** (`1umhFpgrpZEorxGn40iN-UKB2JNSw5cTM`).
    This is the folder that carries the link sharing, so this is the copy the
    site must link.

@@ -167,6 +167,10 @@ Many blocks on these pages are written by scripts in `tools/`. They are matched 
   the workbook gets them as "<class> YouTube" tabs. Edit the JSON and run `tools/build-spotify-library.py`.
 - A new lecture is named `COURSE_TermYear_Lecturer_Wk##_Day#_Description.mp4`, where the `Wk` number is the
   module number. Use `WkNA`/`DayNA` when a field is unknown, and never guess a lecturer.
+  Uploads named `NUR234_Chapter_<n>_(Source).mp4` are Buhler's chapter series (her workbook files them under
+  Buhler); label them "Buhler (likely)" until a transcript names the speaker. Since 25 Nov the Drive connector
+  cannot rename files it did not create: copy into the course folder under the convention name instead, and
+  give Caroline the names to paste in.
 - When you hand her a new spreadsheet, give its direct Drive link (`https://drive.google.com/file/d/<id>/view`),
   never just its name. She asked for this as a rule on 24 Nov.
 - Simmons recorded no NUR 258 Week 11 or 12 lecture; her students were sent Halecka's. Don't look for them.
