@@ -197,6 +197,11 @@ exam-prep range gets its real file name and its twin row's topic plus "(same rec
 that files a video under the wrong module is deleted, with Study by Exam pointers shifted. Check for blank Notes
 before every upload.
 
+**Every lecture tab shows Exam and Module** (Caroline, 25 Nov: "need to have the exam number and the module number across all
+pages"). Recording tabs start with an Exam column, then Module (the NUR 258 tabs said "Week N"; week = module there, so they
+read "Module N" now); the Exam Reviews tabs have Module second. Exams come from Study by Exam's course/module pairs. Fill both
+on any row you add. The prerequisite tabs (Exam Reviews (other classes), Pharm Videos) have Class and Exam only.
+
 **Simmons recorded nothing for NUR 258 Weeks 11 and 12** (Caroline, 24 Nov: she sent her students Halecka's
 lectures). Don't search for them again. `lectures.html` and the Module 11 and 12 pages carry a `simmons-note` saying so.
 
