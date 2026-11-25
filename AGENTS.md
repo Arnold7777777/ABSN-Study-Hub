@@ -177,6 +177,7 @@ Many blocks on these pages are written by scripts in `tools/`. They are matched 
 - When she has to run something in Command Prompt, paste the full line as text in your reply. Don't make her open a file to copy it.
 - The workbook's "<class> Online" tabs (YouTube and Spotify playlists, textbook chapters first) come from
   `tools/online-playlists.json` via `tools/build-online-tabs.py`; they never reach `lecture-library.html`.
+  Their first two columns are Exam and Module, from each entry's `exam`/`module` in that JSON.
 
 ## Images
 

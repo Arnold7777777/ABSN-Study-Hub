@@ -436,6 +436,9 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
   Pillitteri's "A Framework for Maternal & Child Health Nursing"); no Videbeck series exists, so NUR 175 gets Varcarolis
   with a note saying so. `build-lecture-library.py` skips tabs ending " Online" like " Spotify". Edit the JSON, never the
   tabs. YouTube refuses the odd request at random, so a link only counts as dead after three tries.
+  Exam and Module are the first two columns (Caroline, 25 Nov: "please put the test and the module"), from each
+  entry's `exam`/`module` in the JSON; module names match her YouTube tabs, a whole-course link reads "All exams" /
+  "All modules".
 - **Every page has the up arrow** (Caroline, 11 Nov: "make all the stuff have up arrows"). The purple
   back-to-top button comes from `absn-hidebar.js`, or `absn-top.js` where hidebar is not loaded; ~230 Codex
   pages (study-reviews, transcripts, pediatric-visuals, visual-mnemonics, course-materials, modules-1-7

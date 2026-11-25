@@ -6,8 +6,12 @@ nur 234, 235, and 258 and make a separate sheet on this spreadsheet for each cou
 links instead of recordings. Find spotify podcasts and find youtube podcasts" - "esp stuff about
 textbook chapters".
 
-The list lives in tools/online-playlists.json ({course, section, url, note} plus the fields --verify
-fills in from the live page: kind, title, owner, size, checked). Edit the JSON, never the tabs.
+The list lives in tools/online-playlists.json ({course, section, url, note, exam, module} plus the fields
+--verify fills in from the live page: kind, title, owner, size, checked). Edit the JSON, never the tabs.
+
+Caroline, 25 Nov: "on the sheet, please put the test and the module". Exam and Module are the first
+two columns, as on her YouTube and Spotify tabs; a whole-course resource reads "All exams" /
+"All modules", the words her Study by Exam tab uses. Module names match her YouTube tabs.
 
     python3 tools/build-online-tabs.py --verify          re-check every link live, refresh title/owner/size
     python3 tools/build-online-tabs.py --xlsx IN OUT     write the five tabs into a copy of the workbook
@@ -138,6 +142,9 @@ def add_tabs(src, dst):
     rows = [r for r in json.load(open(DATA, encoding='utf-8')) if 'failed' not in r and r.get('title')]
     wb = openpyxl.load_workbook(src)
     model = wb['NUR234 Exam Reviews']
+    # Which model column each tab column borrows its look from: Exam, Module and Section
+    # look like the model's first column, the title like its link column, the rest like plain text.
+    STYLE_COL = (1, 1, 1, 2, 3, 4, 4, 4)
     for cls in ORDER:
         name = cls + ' Online'
         if name in wb.sheetnames:
@@ -145,7 +152,7 @@ def add_tabs(src, dst):
         ws = wb.create_sheet(name)
         ws['A1'] = '%s  ·  %s  ·  YouTube & Spotify (links)' % (cls, TITLE[cls])
         ws['A1']._style = copy.copy(model['A1']._style)
-        ws.merge_cells('A1:F1')
+        ws.merge_cells('A1:H1')
         c = ws['A2']; c.value = '🏠 START HERE'; c._style = copy.copy(model['D2']._style)
         c.hyperlink = Hyperlink(ref='A2', location="'START HERE'!A1"); c.hyperlink.display = c.value
         ws['C2'] = 'Your textbooks: %s.' % BOOKS[cls]
@@ -154,18 +161,19 @@ def add_tabs(src, dst):
                         max(r['checked'] for r in rows), cls) if cls != 'NUR175' else
                     "Not your own recordings - other people's free playlists and podcasts, each link checked %s." %
                     max(r['checked'] for r in rows))
-        for col, h in enumerate(['Section', 'Type', 'Title (tap to open)', 'Channel / show', 'Size', 'What it covers'], 1):
+        for col, h in enumerate(['Exam', 'Module', 'Section', 'Type', 'Title (tap to open)', 'Channel / show', 'Size',
+                                 'What it covers'], 1):
             ws.cell(5, col).value = h
-            ws.cell(5, col)._style = copy.copy(model.cell(5, min(col, 4))._style)
+            ws.cell(5, col)._style = copy.copy(model.cell(5, STYLE_COL[col - 1])._style)
         r = 6
         for x in [x for x in rows if x['course'] == cls]:
-            vals = [x['section'], x['kind'], '=HYPERLINK("%s","%s")' % (x['url'], x['title'].replace('"', "'")),
+            vals = [x.get('exam', 'All exams'), x.get('module', 'All modules'), x['section'], x['kind'], '=HYPERLINK("%s","%s")' % (x['url'], x['title'].replace('"', "'")),
                     x.get('owner', ''), x.get('size', ''), x['note']]
             for col, v in enumerate(vals, 1):
                 ws.cell(r, col).value = v
-                ws.cell(r, col)._style = copy.copy(model.cell(6, min(col, 4))._style)
+                ws.cell(r, col)._style = copy.copy(model.cell(6, STYLE_COL[col - 1])._style)
             r += 1
-        for col, w in zip('ABCDEF', (26, 17, 70, 24, 13, 70)):
+        for col, w in zip('ABCDEFGH', (11, 30, 22, 15, 60, 22, 12, 60)):
             ws.column_dimensions[col].width = w
         ws.freeze_panes = 'A6'
     wb.save(dst)
