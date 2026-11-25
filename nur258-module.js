@@ -14,6 +14,14 @@
   function smooth(){return matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth';}
   function lessonLink(q){if(!q.card)return '';var h=q.card,here=location.pathname.split('/').pop(),i=h.indexOf('#');if(i>0&&h.slice(0,i)===here)h=h.slice(i);return ' <a class="qlesson" href="'+h+'" style="display:inline-flex;align-items:center;min-height:44px;margin-top:8px;font-weight:800;color:#ffd76a">&#128214; Review: '+escapeHtml(q.cardLabel||'the lesson')+' &rarr;</a>';}
 function escapeHtml(value){return String(value).replace(/[&<>"']/g,function(ch){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];});}
+/* Question text: escaped, then a few safe tags let back in (the Mega Quiz's rule). The normal-lab-values line
+   arrives as <span class="normals" style="..."> and printed as raw text on the module pages until 25 Nov. */
+function questionHtml(value){return escapeHtml(value)
+  .replace(/&lt;\/p&gt;\s*&lt;p&gt;/g,'<br><br>').replace(/&lt;\/?p&gt;/g,'')
+  .replace(/&lt;(\/?)(b|i|em|strong|u|mark|sup|sub|small)&gt;/g,'<$1$2>')
+  .replace(/&lt;br\s*\/?&gt;/g,'<br>')
+  .replace(/&lt;span class=&quot;([a-z][a-z0-9 -]*)&quot;(?: style=&quot;[^&]*&quot;)?&gt;/g,'<span class="$1">')
+  .replace(/&lt;\/span&gt;/g,'</span>');}
 
   function robotSvg(index,small){
     var palettes=[
@@ -125,7 +133,7 @@ function escapeHtml(value){return String(value).replace(/[&<>"']/g,function(ch){
     qs.forEach(function(q,qi){
       var multi=q.type==='sata',card=document.createElement('div');card.className='qz';card.dataset.ans=JSON.stringify(q.ans||[]);
       var options=(q.opts||[]).map(function(option,oi){return '<label data-i="'+oi+'"><input type="'+(multi?'checkbox':'radio')+'" name="module'+moduleNumber+'q'+qi+'" value="'+oi+'"><span>'+escapeHtml(option)+'</span></label>';}).join('');
-      card.innerHTML='<div><span class="qnum">Q'+(qi+1)+'</span>'+(multi?'<span class="qtype">Select all that apply</span>':'')+'</div><p class="qq">'+escapeHtml(q.q)+'</p>'+options+'<div><button type="button" class="qbtn">Check my answer</button><span class="qmark"></span></div><div class="qwhy" hidden><b>Why:</b> '+(q.why||'')+lessonLink(q)+'</div>';
+      card.innerHTML='<div><span class="qnum">Q'+(qi+1)+'</span>'+(multi?'<span class="qtype">Select all that apply</span>':'')+'</div><p class="qq">'+questionHtml(q.q)+'</p>'+options+'<div><button type="button" class="qbtn">Check my answer</button><span class="qmark"></span></div><div class="qwhy" hidden><b>Why:</b> '+(q.why||'')+lessonLink(q)+'</div>';
       card.querySelector('.qbtn').addEventListener('click',function(){
         var answers=JSON.parse(card.dataset.ans),picked=[].slice.call(card.querySelectorAll('input:checked')).map(function(input){return Number(input.value);});if(!picked.length){announce('Choose at least one answer first.');return;}
         [].slice.call(card.querySelectorAll('label')).forEach(function(label){var oi=Number(label.dataset.i),correct=answers.indexOf(oi)>-1,chosen=picked.indexOf(oi)>-1;label.classList.remove('right','wrong');if(correct)label.classList.add('right');else if(chosen)label.classList.add('wrong');});

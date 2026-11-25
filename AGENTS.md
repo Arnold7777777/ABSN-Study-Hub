@@ -195,3 +195,4 @@ Many blocks on these pages are written by scripts in `tools/`. They are matched 
   where the speaker disagrees (Halecka called trichomoniasis fungal and heat-stroke sodium low; neither went in), and
   add each question to all of its copies: the course quiz, the module bank (`nur258-qbank.js` or the NUR 235 module
   page's `#qbank`) and the Mega Quiz, then `build-quiz-pointers.py --compile`.
+- Quiz question text is plain text plus b/i/br/`span class` - never wrap it in `<p>`. Run `python3 tools/check-quiz-markup.py --check` after adding questions.

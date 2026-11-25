@@ -502,6 +502,11 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
   per column, graded per row, with her pick and the right column marked after Check. A "Click a column" Style button
   filters them. `nur258-qbank.js` (the module-page quizzes) has no NGN renderer, so it keeps a select-all copy.
   `build-quiz-pointers.py` reads a matrix item's `stem` as its question text.
+- **Quiz text carries no `<p>`** (Caroline, 25 Nov: the Mega Quiz showed "<p>Which event is an internal disaster for a
+  hospital?</p>"). The 103 transcript questions of 24 Nov were wrapped in `<p>`; the Mega Quiz's `rich()` and
+  `nur258-module.js`'s `questionHtml()` escape every tag outside b/i/em/strong/u/mark/sup/sub/small/br/`span class`.
+  Both now drop a stray `<p>`, but keep question text plain anyway (course quizzes put it inside `<p class="qtext">`).
+  `python3 tools/check-quiz-markup.py --check` after adding questions.
 - **A question that gives a lab value shows its normal range** (Caroline, 21 Oct: "I would like the
   normal values in", then the same day: "I don't need or want the normal vital sign values, just the normal lab
   values"), even where spotting the abnormal value is the point. Blood pressure, pulse, respirations,
