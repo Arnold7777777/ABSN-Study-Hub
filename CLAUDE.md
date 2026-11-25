@@ -191,6 +191,12 @@ for the new spreadsheet so I don't have to search"). After uploading an .xlsx to
 `https://drive.google.com/file/d/<new id>/view` in the same message as the import steps, plus the link to the live
 Sheet she imports into. Never just name the file.
 
+**Every workbook row needs a clear topic** (Caroline, 25 Nov: "Need to have a clear topic", about NUR198 rows whose
+File read "Week 12, YouTube capture" and whose Notes were blank). A recording filed under a second module or an
+exam-prep range gets its real file name and its twin row's topic plus "(same recording as row N)"; a second row
+that files a video under the wrong module is deleted, with Study by Exam pointers shifted. Check for blank Notes
+before every upload.
+
 **Simmons recorded nothing for NUR 258 Weeks 11 and 12** (Caroline, 24 Nov: she sent her students Halecka's
 lectures). Don't search for them again. `lectures.html` and the Module 11 and 12 pages carry a `simmons-note` saying so.
 
