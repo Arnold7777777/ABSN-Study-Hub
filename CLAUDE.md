@@ -202,6 +202,11 @@ pages"). Recording tabs start with an Exam column, then Module (the NUR 258 tabs
 read "Module N" now); the Exam Reviews tabs have Module second. Exams come from Study by Exam's course/module pairs. Fill both
 on any row you add. The prerequisite tabs (Exam Reviews (other classes), Pharm Videos) have Class and Exam only.
 
+**Rows fit their text, so keep widths with their columns** (Caroline, 25 Nov: "make the rows fit the content better"). Inserting
+a column with openpyxl does not move `column_dimensions` widths; after the Exam column went in, Notes sat in a 13-wide column
+and rows stood 280pt tall. Widths are now set by header (Notes 60, File 42, Item 48, Topic 55, Exam 12, Module 17 ...) and every
+row's height is computed from its text (`lines x size x 1.3 + 6`, 21-400pt). Do both again after adding rows or columns.
+
 **Simmons recorded nothing for NUR 258 Weeks 11 and 12** (Caroline, 24 Nov: she sent her students Halecka's
 lectures). Don't search for them again. `lectures.html` and the Module 11 and 12 pages carry a `simmons-note` saying so.
 
@@ -280,6 +285,13 @@ folder: 546 untranscribed videos, current-term NUR first, prerequisite classes l
 `Media` copies and anything with an .srt/.vtt/.txt of the same name anywhere in the tree left off. Old lists and
 scripts live in `_Old transcribe lists and scripts`. Files synced up from her PC cannot be moved by the connector
 ("caller does not have permission to move") - rename them, don't plan on moving them.
+
+**A faster run that needs no list** (25 Nov): `TRANSCRIBE_ALL_FASTER.ps1` in Nursing School Videos scans every folder for
+videos with no `.srt/.vtt/.txt` of the same name, does byte-identical copies once, puts NUR 234/235/258 first, and runs
+whisper with up to 8 threads and greedy decoding (`-bs 1 -bo 1`, about twice as fast as the default 5-way beam search). Videos
+renamed after they were transcribed are listed in `ALREADY_TRANSCRIBED.txt` beside it; add names there when you rename one.
+Her line for it: `for %D in (G H I J K L M N O P Q R S T U V W X Y Z D E F) do @if exist "%D:\My Drive\Nursing School Videos\TRANSCRIBE_ALL_FASTER.ps1" powershell -NoProfile -ExecutionPolicy Bypass -File "%D:\My Drive\Nursing School Videos\TRANSCRIBE_ALL_FASTER.ps1"`.
+Run it instead of TRANSCRIBE_MISSING, never beside it (both would take the same video).
 
 The only way to peek inside a video from here is Drive's speech index. It
 answers match / no match only, never the words, so name guesses made that way
