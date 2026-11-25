@@ -37,7 +37,8 @@ ZOOM_CELL = "'START HERE'!$B$36"
 NUM = re.compile(r'\b(?:module|week|wk|m)\s*0?(\d{1,2})\b', re.I)
 PLAYLIST = re.compile(r'\.(m3u8?|xspf)(\?|$)|playlists\.html#pl-', re.I)
 GENERIC = re.compile(r'^\W*(watch|listen|open|play|link|view|recording)\s*$', re.I)
-SKIP_TABS = {'START HERE', 'Sheet1', 'Study by Exam'}  # navigation index; source tabs supply the recording cards
+SKIP_TABS = {'START HERE', 'Sheet1', 'Study by Exam',
+             'NUR198 Exam Reviews', 'NUR175 Exam Reviews'}  # navigation indexes (the last two regroup rows of the Videos tabs); source tabs supply the recording cards
 
 # Three handouts were linked through cdn.fbsbx.com - Facebook CDN URLs carrying an
 # expiring signature, so they rot. Her Drive holds each one; these are the
