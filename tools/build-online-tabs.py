@@ -15,6 +15,8 @@ two columns, as on her YouTube and Spotify tabs; a whole-course resource reads "
 
     python3 tools/build-online-tabs.py --verify          re-check every link live, refresh title/owner/size
     python3 tools/build-online-tabs.py --xlsx IN OUT     write the five tabs into a copy of the workbook
+                                                         (then tools/fold-review-tabs.py: since 26 Nov they live on
+                                                         each course's one "Review videos" tab)
 
 A link that fails --verify is reported and left out of the tabs. These tabs are someone else's
 material, so build-lecture-library.py skips every tab ending " Online", the same way it skips the

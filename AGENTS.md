@@ -180,6 +180,19 @@ Many blocks on these pages are written by scripts in `tools/`. They are matched 
 - Simmons recorded no NUR 258 Week 11 or 12 lecture; her students were sent Halecka's. Don't look for them.
 - An unnamed NUR 258 weekly lecture: count "okay so" and "so again" in its transcript. Halecka says each ~20-40 times per
   10,000 words, Simmons about once (26 Nov). File it under the matching lecturer's tab.
+- **Workbook tab order** (Caroline, 26 Nov: "in order by course, then by instructor, then exam reviews, then review videos").
+  START HERE, Study by Exam, Sort me; then NUR 234, 235, 258, 198, 175, 125 and Pharm, each as its instructor tabs, then
+  "<course> Exam Reviews", then ONE "<course> Review videos" tab; Exam Reviews (other classes) last. NUR 198/175 lectures with
+  no named instructor go on "<course> Lectures (not named)". Simple Nursing, Osmosis, Klimek, podcasts, Spotify episodes,
+  YouTube videos and playlists all share the Review videos tab ("You don't need to separate the review videos"); the
+  Lecturer column says the source, and Spotify/YouTube rows are tagged "(Spotify)", "(YouTube)", "(YouTube playlist)" ...
+  `build-spotify-library.py --xlsx` and `build-online-tabs.py --xlsx` still write separate tabs: run
+  `python3 tools/fold-review-tabs.py IN OUT` after them to fold those into Review videos (it adds an "Other link"
+  column for the no-Spotify MP3 and skips links already there). `build-lecture-library.py` leaves the tagged rows off
+  `lecture-library.html`. Row 3 of every course tab is a nav row listing that course's own tabs (internal links, display set).
+- **No Zoom backups in the workbook** (Caroline, 26 Nov: "get rid of the zoom backup rows and tabs"). The Zoom nav buttons,
+  START HERE's Zoom Backup lines and rows that only pointed at the Zoom-backups sheet are gone. Recordings that were merely
+  captured on Zoom stay.
 - Her short screen-recorded review videos are Osmosis: Lecturer "Osmosis from Elsevier", file names `..._Osmosis_...`.
 - One row per recording per course in the workbook (same Drive id or byte size = same recording); exam preps live on the Exam
   Reviews tab only; a two-module recording is one row "Modules N–M" and one card on lectures.html under the first module. The same

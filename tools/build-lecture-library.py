@@ -37,6 +37,7 @@ ZOOM_CELL = "'START HERE'!$B$36"
 NUM = re.compile(r'\b(?:module|week|wk|m)\s*0?(\d{1,2})\b', re.I)
 PLAYLIST = re.compile(r'\.(m3u8?|xspf)(\?|$)|playlists\.html#pl-', re.I)
 GENERIC = re.compile(r'^\W*(watch|listen|open|play|link|view|recording)\s*$', re.I)
+TAGGED = re.compile(r'\((Spotify|YouTube)[^)]*\)\s*$')   # tools/fold-review-tabs.py writes these tags
 SKIP_TABS = {'START HERE', 'Sheet1', 'Study by Exam',
              'NUR198 Exam Reviews', 'NUR175 Exam Reviews'}  # navigation indexes (the last two regroup rows of the Videos tabs); source tabs supply the recording cards
 
@@ -267,6 +268,8 @@ def read_rows(wb):
         # The "<class> Spotify" tabs are links to someone else's podcast; she wants
         # them on pages of their own, never mixed in with her recordings (31 Oct).
         # The " Online" tabs (24 Nov) are other people's YouTube/Spotify playlists; same rule.
+        # (Since 26 Nov those tabs are folded into "<class> Review videos"; the tagged-row skip below
+        # does the same job there. The tab-name skip stays for an older export.)
         if ws.title in SKIP_TABS or ws.title.endswith((' Spotify', ' Online', ' YouTube')):
             continue
         hdr = {}
@@ -312,6 +315,11 @@ def read_rows(wb):
                 note_url = re.sub(r'^https?://arnold7777777\.github\.io/ABSN-Study-Hub/', '', note_url, flags=re.I)
             if not (url or title):
                 continue          # an empty row, set up for the rest of the semester
+            # Since 26 Nov each course's Spotify, YouTube and Online rows sit on its one "Review videos" tab,
+            # tagged in the Lecturer column ("Learn Nursing 101 (Spotify)", "Level Up RN (YouTube)", ...).
+            # They are other people's podcasts and playlists, so they stay off this page as the tabs did.
+            if any(n in ('Lecturer', 'Who') and TAGGED.search(v) for n, v in chips):
+                continue
             rows.append({'title': title, 'url': url, 'chips': chips, 'note': note, 'note_url': note_url})
         out.append({'tab': ws.title, 'rows': rows})
     return out

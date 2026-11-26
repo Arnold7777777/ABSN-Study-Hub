@@ -23,6 +23,9 @@ nursing-education channel, picked by topic and checked by hand; textbook-chapter
 Minute Lecture's video for the same chapter. "audio" is the episode's own MP3 from the public feed, which
 plays in any browser with no Spotify app or account. Both show on the pages and in the "<class> YouTube"
 tabs. Her Spotify tabs carry a "Listen" column she has had since 31 Oct; --xlsx leaves them as they are.
+
+Since 26 Nov her workbook has ONE "<class> Review videos" tab per course: after --xlsx, run
+tools/fold-review-tabs.py to fold the Spotify and YouTube tabs into it.
 """
 import copy, html, json, os, sys
 

@@ -227,6 +227,21 @@ Original location (tabs Sheets has not given a gid we know, like the 25 Nov Exam
 (`wb/build21d.py` removed 37,000 of them). **Row colours cover every column**: each tab's banding rule (or Sheets table) must span
 column A to its last column. The Exam column, inserted at A on 25 Nov, sat outside the old B:… rules and never banded.
 
+**Workbook tab order** (Caroline, 26 Nov: "in order by course, then by instructor, then exam reviews, then review videos").
+  START HERE, Study by Exam, Sort me; then NUR 234, 235, 258, 198, 175, 125 and Pharm, each as its instructor tabs, then
+  "<course> Exam Reviews", then ONE "<course> Review videos" tab; Exam Reviews (other classes) last. NUR 198/175 lectures with
+  no named instructor go on "<course> Lectures (not named)". Simple Nursing, Osmosis, Klimek, podcasts, Spotify episodes,
+  YouTube videos and playlists all share the Review videos tab ("You don't need to separate the review videos"); the
+  Lecturer column says the source, and Spotify/YouTube rows are tagged "(Spotify)", "(YouTube)", "(YouTube playlist)" ...
+  `build-spotify-library.py --xlsx` and `build-online-tabs.py --xlsx` still write separate tabs: run
+  `python3 tools/fold-review-tabs.py IN OUT` after them to fold those into Review videos (it adds an "Other link"
+  column for the no-Spotify MP3 and skips links already there). `build-lecture-library.py` leaves the tagged rows off
+  `lecture-library.html`. Row 3 of every course tab is a nav row listing that course's own tabs (internal links, display set).
+
+**No Zoom backups in the workbook** (Caroline, 26 Nov: "get rid of the zoom backup rows and tabs"). The Zoom nav buttons,
+  START HERE's Zoom Backup lines and rows that only pointed at the Zoom-backups sheet are gone. Recordings that were merely
+  captured on Zoom stay.
+
 **Her short screen-recorded review videos are Osmosis** (Caroline, 26 Nov: "Those were from osmosis"). Lecturer
 "Osmosis from Elsevier"; file names `COURSE_Fall2026_Osmosis_Wk##_DayNA_<topic> - Osmosis video (m-ss).mp4` (or "Osmosis
 case study", "Osmosis clinical judgment case"); cards on the site read "Osmosis · m:ss".
@@ -488,8 +503,9 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
   teaching channel, checked by hand; textbook-chapter episodes use Last Minute Lecture's video for that chapter) and
   `audio` (the episode's own MP3 from the public feed, plays in any browser). The pages show both under each episode;
   `--xlsx` writes a "<class> YouTube" tab beside each Spotify tab and leaves her Spotify tabs (with their "Listen"
-  column) alone. `build-lecture-library.py` skips " YouTube" tabs too. START HERE lists each course's Spotify, YouTube
-  and Online tabs under the course, plus a Pharmacology block; the Zoom-backups cell is B54 now.
+  column) alone. `build-lecture-library.py` skips " YouTube" tabs too. Since 26 Nov those tabs are folded into each
+  course's one "Review videos" tab (`tools/fold-review-tabs.py`), START HERE lists each course's own tabs in order, and
+  the Zoom-backups cell is gone.
 - **The "<class> Online" workbook tabs** (Caroline, 24 Nov: "look for youtube and spotify playlists about the nursing
   courses ... a separate sheet ... for each course ... esp stuff about textbook chapters"). NUR175/198/234/235/258 Online
   are written by `python3 tools/build-online-tabs.py --xlsx IN OUT` from `tools/online-playlists.json`; `--verify` re-checks
