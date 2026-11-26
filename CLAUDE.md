@@ -220,7 +220,13 @@ case study", "Osmosis clinical judgment case"); cards on the site read "Osmosis 
 **NUR 258 weekly lectures often never name the speaker; tell Halecka from Simmons by speech habits** (Caroline, 26 Nov: "there
 are some haleka lectures in the simmons sheet"). Per 10,000 words of transcript, Halecka says "okay so" ~40 and "so again"
 ~20-30; Simmons says each about once. On that test the unnamed Week 7 Neuro part 1 and both Week 8 lectures are Halecka; the
-unnamed Week 5 endocrine and the Week 9 and 10 lectures are Simmons. Count the phrases before filing an unnamed one.
+unnamed Week 5 endocrine and the Week 9 and 10 lectures are Simmons, and the 12 Oct Module 7 file once filed as Simmons is Halecka
+(26 Nov). Count the phrases before filing an unnamed one. LSC presenters say "okay so" ~30 but "so again" ~1.
+
+**A name or topic taken from the speech index is a guess until the transcript is read** (26 Nov: of 25 such rows, 8 were wrong).
+Two LSC "second captures" were separate sessions (peds burns, immune disorders), an "LSC" hematology session was a live class,
+and a "Fuller toddler" video was a help session on maternity Chapters 9-10. When an .srt arrives for one, read it and rewrite
+the row (`wb/addtr.py` links transcripts and lists the rows still marked as guesses).
 
 **Simmons recorded nothing for NUR 258 Weeks 11 and 12** (Caroline, 24 Nov: she sent her students Halecka's
 lectures). Don't search for them again. `lectures.html` and the Module 11 and 12 pages carry a `simmons-note` saying so.
