@@ -238,6 +238,13 @@ column A to its last column. The Exam column, inserted at A on 25 Nov, sat outsi
   column for the no-Spotify MP3 and skips links already there). `build-lecture-library.py` leaves the tagged rows off
   `lecture-library.html`. Row 3 of every course tab is a nav row listing that course's own tabs (internal links, display set).
 
+**Each course keeps its colours** (Caroline, 26 Nov: "what happened to the color coding", after a rebuild copied NUR 234's navy
+  onto every START HERE block and nav button). START HERE: each course heading and its rows in that course's colours, rows
+  alternating (NUR 234 0B1B36 / 24406B / 1B3057, NUR 235 06302B / 16645A / 0F4C44, NUR 258 2E0F2B / 612A5A / 4A1F45, NUR 198
+  083028 / 155E54 / 0C5439, NUR 175 purple 24183F / 4A3A85 / 3B2A6E, NUR 125 123C47 / 276B7D, Pharm 3D0F1E / 7A2140). Row 3 of
+  each tab: the tab you are on is in the course colour, the others light grey (EDEDED). Sheet tabs carry the course colour.
+  When a script writes these cells, copy styles per course, never one cell's style for all (`wb/build22b.py`).
+
 **No Zoom backups in the workbook** (Caroline, 26 Nov: "get rid of the zoom backup rows and tabs"). The Zoom nav buttons,
   START HERE's Zoom Backup lines and rows that only pointed at the Zoom-backups sheet are gone. Recordings that were merely
   captured on Zoom stay.
