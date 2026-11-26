@@ -206,6 +206,21 @@ on any row you add. The prerequisite tabs (Exam Reviews (other classes), Pharm V
 a column with openpyxl does not move `column_dimensions` widths; after the Exam column went in, Notes sat in a 13-wide column
 and rows stood 280pt tall. Widths are now set by header (Notes 60, File 42, Item 48, Topic 55, Exam 12, Module 17 ...) and every
 row's height is computed from its text (`lines x size x 1.3 + 6`, 21-400pt). Do both again after adding rows or columns.
+Since 26 Nov (Caroline: "make the text fit better across all rows and columns") that is one tool, run last on every workbook
+build: `python3 tools/fit-workbook.py IN.xlsx OUT.xlsx [--report]`. It measures text in Arial's real widths (Liberation Sans),
+sizes each column to hold most cells on one line (capped at 60, link columns 34, Exam/Module 30, never narrower than the header
+word or a nav button above), left-aligns long-text columns, word-wraps every row the way Sheets does and sets its height. START
+HERE keeps its hand-set widths. **No half-empty rows:** a row with only a note, or only Exam and Module, is a leftover; on 26 Nov two
+stray NUR 235 notes sat on NUR258 Exam Reviews and four empty placeholders on NUR235 Exam Reviews. Delete them, then `fixptr.py`.
+
+**Her short screen-recorded review videos are Osmosis** (Caroline, 26 Nov: "Those were from osmosis"). Lecturer
+"Osmosis from Elsevier"; file names `COURSE_Fall2026_Osmosis_Wk##_DayNA_<topic> - Osmosis video (m-ss).mp4` (or "Osmosis
+case study", "Osmosis clinical judgment case"); cards on the site read "Osmosis · m:ss".
+
+**NUR 258 weekly lectures often never name the speaker; tell Halecka from Simmons by speech habits** (Caroline, 26 Nov: "there
+are some haleka lectures in the simmons sheet"). Per 10,000 words of transcript, Halecka says "okay so" ~40 and "so again"
+~20-30; Simmons says each about once. On that test the unnamed Week 7 Neuro part 1 and both Week 8 lectures are Halecka; the
+unnamed Week 5 endocrine and the Week 9 and 10 lectures are Simmons. Count the phrases before filing an unnamed one.
 
 **Simmons recorded nothing for NUR 258 Weeks 11 and 12** (Caroline, 24 Nov: she sent her students Halecka's
 lectures). Don't search for them again. `lectures.html` and the Module 11 and 12 pages carry a `simmons-note` saying so.
