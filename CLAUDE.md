@@ -291,7 +291,10 @@ videos with no `.srt/.vtt/.txt` of the same name, does byte-identical copies onc
 whisper with up to 8 threads and greedy decoding (`-bs 1 -bo 1`, about twice as fast as the default 5-way beam search). Videos
 renamed after they were transcribed are listed in `ALREADY_TRANSCRIBED.txt` beside it; add names there when you rename one.
 Her line for it: `for %D in (G H I J K L M N O P Q R S T U V W X Y Z D E F) do @if exist "%D:\My Drive\Nursing School Videos\TRANSCRIBE_ALL_FASTER.ps1" powershell -NoProfile -ExecutionPolicy Bypass -File "%D:\My Drive\Nursing School Videos\TRANSCRIBE_ALL_FASTER.ps1"`.
-Run it instead of TRANSCRIBE_MISSING, never beside it (both would take the same video).
+Run it instead of TRANSCRIBE_MISSING, never beside it (both would take the same video). Measured 26 Nov: 7.6x real time
+(old script 2.3-3.7x). v2 ignores 0-byte transcripts; v3 adds Silero voice detection (`--vad --vad-model`, model from
+huggingface into `%TEMP%\claude_whisper`) and falls back to a plain run if that produces nothing. Her laptop is an AMD Ryzen AI 7
+445 with Radeon 840M graphics: no NVIDIA, so no CUDA build.
 
 The only way to peek inside a video from here is Drive's speech index. It
 answers match / no match only, never the words, so name guesses made that way
