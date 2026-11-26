@@ -129,7 +129,8 @@ CHOICES = [
     ('A newborn is admitted with respiratory distress. Which findings should the nurse report?', None),  # a vital sign: Caroline wants lab values only
     ('A nurse is reviewing antepartum laboratory results. Which result should be reported to the provider?', 'hemoglobin 11 g/dL or higher, hematocrit 33% or higher; WBC 5,000 to 15,000/mm³ in pregnancy; platelets 150,000 to 400,000/mm³'),
     ('A client is 1 day postpartum. Which finding indicates infection?', 'WBC can reach 20,000 to 25,000/mm³ after birth; hemoglobin 11 g/dL or higher; BUN 10 to 20 mg/dL; urine specific gravity 1.005 to 1.030'),
-    ('Which finding should the nurse expect while monitoring a client after an amniocentesis?', None),  # a vital sign: Caroline wants lab values only
+    ('Which finding should the nurse expect while monitoring a client after an amniocentesis?', None),
+    ('Which findings are consistent with fluid volume excess? Select all that apply.', 'urine specific gravity 1.005 to 1.030'),  # NUR 198 (Caroline, 26 Nov: "need normal values")  # a vital sign: Caroline wants lab values only
     ('A client is in the active phase of the first stage of labor. Which finding should the nurse report to the charge nurse?', None),  # a vital sign: Caroline wants lab values only
     ('A client has endometritis 48 hr after a cesarean birth. Which finding should the nurse anticipate?', 'WBC can reach 20,000 to 25,000/mm³ after birth'),
     ('A client is receiving magnesium sulfate. Which finding should the nurse report to the provider?', None),  # a vital sign: Caroline wants lab values only
@@ -173,6 +174,7 @@ def place(q, line, end=False, bare=False):
         q['q'] = t + ' ' + span
 
 
+NUR198_KEYS = ('Which findings are consistent with fluid volume excess?',)
 ENTRIES = [(k, l, False) for k, l in NORMALS] + [(k, l, True) for k, l in CHOICES]
 
 
@@ -188,7 +190,7 @@ def run(check):
         bank = json.loads(s[i:j])
         items = [q for v in bank.values() for q in v] if isinstance(bank, dict) else bank
         if 'super-mega' in path:
-            items = [q for q in items if q.get('course') == 'NUR234']
+            items = [q for q in items if q.get('course') == 'NUR234' or q.get('q', '').startswith(NUR198_KEYS)]
         n = 0
         if compact:
             for q in items:

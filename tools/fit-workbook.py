@@ -55,7 +55,8 @@ def px(text, sz=12, bold=False):
     f = font(sz, bold)
     em = round(sz * 4 / 3)
     plain = ''.join(c for c in text if not is_wide(c) and c not in '️‍')
-    return f.getlength(plain) + sum(1.25 * em for c in text if is_wide(c))
+    # x1.1 and a wide emoji: measured 26 Nov against her screenshots, Sheets draws text wider than Liberation Sans
+    return f.getlength(plain) * 1.1 + sum(1.45 * em for c in text if is_wide(c))
 
 
 LABEL = re.compile(r',\s*"((?:[^"]|"")*)"\s*\)\s*$')
@@ -74,14 +75,14 @@ def text_of(v):
 
 
 def col_px(w):
-    return w * 7 + 5           # Excel/Sheets: characters -> pixels
+    return w * 7               # Sheets: 1 width unit = 7 px (measured 26 Nov from her screenshot; not Excel's 7w+5)
 
 
 def px_to_w(p):
-    return (p - 5) / 7
+    return p / 7
 
 
-PAD = 8                        # cell padding Sheets keeps on the left and right together
+PAD = 12                       # padding + gridline Sheets keeps inside a cell
 
 
 def wrap_lines(text, width_px, sz, bold):
@@ -146,7 +147,7 @@ def cell_font(cell):
 
 
 MAX_W, MIN_W = 60, 8
-LINK_W = 34                    # link columns (PowerPoint, Transcript) wrap rather than widen the tab
+LINK_W = 42                    # link columns fit their longest label on one line, up to this
 
 
 def fit_columns(ws, hr, last, report):
@@ -162,6 +163,8 @@ def fit_columns(ws, hr, last, report):
             t = text_of(cell.value)
             if t:
                 sz, b = cell_font(cell)
+                if str(cell.value).startswith('=HYPERLINK'):
+                    b = True                   # Sheets draws link labels bold and underlined
                 cells.append((cell, t, sz, b))
         head = ws.cell(hr, c)
         ht = text_of(head.value).strip()
@@ -183,6 +186,11 @@ def fit_columns(ws, hr, last, report):
         else:
             full = sorted(max(px(s, sz, b) for s in t.split('\n')) + PAD + 4 for _, t, sz, b in cells)
             target = full[min(len(full) - 1, int(len(full) * 0.85))]
+            short = [v for v in full if v <= 200 + PAD + 4]          # short labels (Module 12, Exam 4) never wrap
+            if short:
+                target = max(target, short[-1])
+            if all(str(cl.value).startswith('=HYPERLINK') for cl, _, _, _ in cells):
+                target = full[-1]                                     # a link column: every label on one line
         cap = 30 if ht in ('Module', 'Exam', 'Week / Module') else LINK_W if 'PowerPoint' in ht or ht in ('Original location', 'Transcript', 'Open', 'Link', 'Listen', 'Watch') else MAX_W
         w = max(MIN_W, min(cap, px_to_w(max(target, floor))))
         w = round(w * 2) / 2
@@ -217,6 +225,8 @@ def fit_rows(ws, first, last):
                 continue
             anyv = True
             sz, b = cell_font(cell)
+            if str(cell.value).startswith('=HYPERLINK'):
+                b = True
             if (r, c) in top:
                 c0, c1, nrows = top[(r, c)]
                 wpx = sum(col_px(width.get(k, dw)) for k in range(c0, c1 + 1))

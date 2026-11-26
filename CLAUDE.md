@@ -208,10 +208,24 @@ and rows stood 280pt tall. Widths are now set by header (Notes 60, File 42, Item
 row's height is computed from its text (`lines x size x 1.3 + 6`, 21-400pt). Do both again after adding rows or columns.
 Since 26 Nov (Caroline: "make the text fit better across all rows and columns") that is one tool, run last on every workbook
 build: `python3 tools/fit-workbook.py IN.xlsx OUT.xlsx [--report]`. It measures text in Arial's real widths (Liberation Sans),
-sizes each column to hold most cells on one line (capped at 60, link columns 34, Exam/Module 30, never narrower than the header
-word or a nav button above), left-aligns long-text columns, word-wraps every row the way Sheets does and sets its height. START
+sizes each column to hold most cells on one line (capped at 60, link columns 42, Exam/Module 30, never narrower than the header
+word or a nav button above), left-aligns long-text columns, word-wraps every row the way Sheets does and sets its height.
+**Calibrated to Sheets, not Excel** (her screenshots, 26 Nov: "Module 12" and "📄 Transcript" wrapped and were cut off): a width
+unit is 7 px (not 7w+5), padding 12 px, text x1.1, emoji 1.45 em, link labels measured bold. Short labels (≤200 px) and link
+columns never wrap. START
 HERE keeps its hand-set widths. **No half-empty rows:** a row with only a note, or only Exam and Module, is a leftover; on 26 Nov two
 stray NUR 235 notes sat on NUR258 Exam Reviews and four empty placeholders on NUR235 Exam Reviews. Delete them, then `fixptr.py`.
+
+**One row per recording per course** (Caroline, 26 Nov: "deduplicate the lecture library ... Keep the most complete version").
+Same Drive id or same byte size = same recording. Merge into one row (fill every column, join distinct notes, keep transcript and
+PowerPoint links, prefer the Nursing School Videos link). Exam preps and exam reviews live on the course's **Exam Reviews** tab, not
+also on Videos or lecturer tabs; a recording that covers two modules is ONE row "Modules 11–12" (on `lectures.html`: one card under
+the first module, its title ending "· Modules 11–12" or "· also Module 13"). The same video under two *courses* stays in both.
+Study by Exam keeps one row per recording per course. `wb/build21.py` does the merge; `wb/fixptr2.py BEFORE AFTER OUT` repoints
+Original location (tabs Sheets has not given a gid we know, like the 25 Nov Exam Reviews tabs, get an internal link instead).
+**No empty coloured rows** (Caroline, 26 Nov): no blank row inside a table and no formatted rows after the last entry
+(`wb/build21d.py` removed 37,000 of them). **Row colours cover every column**: each tab's banding rule (or Sheets table) must span
+column A to its last column. The Exam column, inserted at A on 25 Nov, sat outside the old B:… rules and never banded.
 
 **Her short screen-recorded review videos are Osmosis** (Caroline, 26 Nov: "Those were from osmosis"). Lecturer
 "Osmosis from Elsevier"; file names `COURSE_Fall2026_Osmosis_Wk##_DayNA_<topic> - Osmosis video (m-ss).mp4` (or "Osmosis
@@ -410,8 +424,9 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
   now rewrites every static copy from the quiz bank and the gallery cards
   (`--check` to verify); run it after adding questions or cards, alongside
   `node tools/refresh-infographic-counts.mjs` for the per-chip numbers.
-- **A recording carded under two modules counts once** (24 Nov). An exam prep that covers M11 and M12 is carded
-  in both module blocks on `lectures.html`; `refresh-nav-counts.py` counts distinct `<a class="rec">` links for the
+- **A recording carded under two modules counts once** (24 Nov). Since 26 Nov such a recording has ONE card, under the first
+  module, titled "· Modules 11–12"; the counting below stays as a guard. (Before that, an exam prep covering M11 and M12 was carded
+  in both module blocks on `lectures.html`); `refresh-nav-counts.py` counts distinct `<a class="rec">` links for the
   course and site totals, and `build-lsc-coverage.py` counts distinct Drive ids for its session totals. A module's own
   "N recordings" heading still counts every card in it. Counting cards had put NUR 258 four over.
 - **Questions written from lecture transcripts** carry a `src` naming the recording ("NUR 258 Exam 5 review session

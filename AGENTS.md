@@ -181,6 +181,9 @@ Many blocks on these pages are written by scripts in `tools/`. They are matched 
 - An unnamed NUR 258 weekly lecture: count "okay so" and "so again" in its transcript. Halecka says each ~20-40 times per
   10,000 words, Simmons about once (26 Nov). File it under the matching lecturer's tab.
 - Her short screen-recorded review videos are Osmosis: Lecturer "Osmosis from Elsevier", file names `..._Osmosis_...`.
+- One row per recording per course in the workbook (same Drive id or byte size = same recording); exam preps live on the Exam
+  Reviews tab only; a two-module recording is one row "Modules N–M" and one card on lectures.html under the first module. The same
+  video under two courses stays in both (Caroline, 26 Nov). No empty coloured rows; banding covers every column.
 - Run `python3 tools/fit-workbook.py IN OUT` last on every workbook build: it sizes columns and rows to their text
   (Caroline, 26 Nov). No half-empty rows: a row with only a note, or only Exam and Module, is a leftover to delete.
 - When she has to run something in Command Prompt, paste the full line as text in your reply. Don't make her open a file to copy it.
