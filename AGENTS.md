@@ -232,3 +232,12 @@ Many blocks on these pages are written by scripts in `tools/`. They are matched 
   add each question to all of its copies: the course quiz, the module bank (`nur258-qbank.js` or the NUR 235 module
   page's `#qbank`) and the Mega Quiz, then `build-quiz-pointers.py --compile`.
 - Quiz question text is plain text plus b/i/br/`span class` - never wrap it in `<p>`. Run `python3 tools/check-quiz-markup.py --check` after adding questions.
+- **Every wrong answer choice says why it is wrong** (Caroline, 27 Nov: "doesn't explain why the incorrect choices are
+  incorrect"). The "Incorrect answers" panel (`assets/quiz-study/links.js`) shows `options[i]` from
+  `assets/quiz-study/feedback-*.json` under each wrong choice; an empty slot now shows nothing (the old stock line, "The course
+  explains these choices together in the clinical rationale above", was often untrue and is gone). On 27 Nov helpers wrote all
+  4,212 missing NUR 234/235/258 explanations; `python3 tools/choice-explain-batches.py --report` counts what is still empty
+  (NUR 198, 175, 125 and unmatched questions, about 7,800 slots), `tools/choice-explain-batches.py OUTDIR --courses=...` batches
+  them and `tools/apply-choice-explanations.py OUT.json...` merges written texts (never overwrites one). A new question needs
+  one or two plain sentences per wrong choice. Two keys were wrong and fixed that day: the AKI plan-of-care select-all
+  (I&O and daily weights is correct) and "4 cm dilated" (latent phase: her slides start active at about 6 cm).

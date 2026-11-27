@@ -602,6 +602,15 @@ or sampled here. The only route for those is `TRANSCRIBE_LIST.txt` below.
   `nur258-module.js`'s `questionHtml()` escape every tag outside b/i/em/strong/u/mark/sup/sub/small/br/`span class`.
   Both now drop a stray `<p>`, but keep question text plain anyway (course quizzes put it inside `<p class="qtext">`).
   `python3 tools/check-quiz-markup.py --check` after adding questions.
+- **Every wrong answer choice says why it is wrong** (Caroline, 27 Nov: "doesn't explain why the incorrect choices are
+  incorrect"). The "Incorrect answers" panel (`assets/quiz-study/links.js`) shows `options[i]` from
+  `assets/quiz-study/feedback-*.json` under each wrong choice; an empty slot now shows nothing (the old stock line, "The course
+  explains these choices together in the clinical rationale above", was often untrue and is gone). On 27 Nov helpers wrote all
+  4,212 missing NUR 234/235/258 explanations; `python3 tools/choice-explain-batches.py --report` counts what is still empty
+  (NUR 198, 175, 125 and unmatched questions, about 7,800 slots), `tools/choice-explain-batches.py OUTDIR --courses=...` batches
+  them and `tools/apply-choice-explanations.py OUT.json...` merges written texts (never overwrites one). A new question needs
+  one or two plain sentences per wrong choice. Two keys were wrong and fixed that day: the AKI plan-of-care select-all
+  (I&O and daily weights is correct) and "4 cm dilated" (latent phase: her slides start active at about 6 cm).
 - **A question that gives a lab value shows its normal range** (Caroline, 21 Oct: "I would like the
   normal values in", then the same day: "I don't need or want the normal vital sign values, just the normal lab
   values"), even where spotting the abnormal value is the point. Blood pressure, pulse, respirations,
