@@ -109,10 +109,9 @@
         list.append(item);
       });
       panel.append(list);
-      if(shared.length){
-        const note=document.createElement('div');note.className='choice-shared';
-        heading(note,'Reasoning for '+shared.join(', '));line(note,'The course explains these choices together in the clinical rationale above.');panel.append(note);
-      }
+      // A wrong choice with no explanation of its own shows just its text (Caroline, 27 Nov: the old stock line,
+      // "The course explains these choices together in the clinical rationale above", was often untrue).
+      // tools/choice-explain-batches.py lists the slots still empty.
     }
     const verdict=rationale.querySelector(':scope > b,:scope > strong');
     const mark=verdict&&/^[✓✗✕✘]|^correct[.!]|^not quite/i.test(verdict.textContent.trim())?verdict.cloneNode(true):null;
